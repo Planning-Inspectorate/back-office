@@ -4,8 +4,6 @@ import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpecte
 import {
 	createApplication,
 	getApplicationDetails,
-	getApplicationRepresentation,
-	getApplicationRepresentations,
 	publishCase,
 	startCase,
 	updateApplication
@@ -14,10 +12,9 @@ import {
 	validateApplicantId,
 	validateApplicationId,
 	validateCreateUpdateApplication,
-	validateGetApplicationQuery,
-	validateGetRepresentationsQuery,
-	validateRepresentationId
+	validateGetApplicationQuery
 } from './application.validators.js';
+import { representaionsRouter } from './representations/representations.routes.js';
 
 const router = createRouter();
 
@@ -71,7 +68,7 @@ router.get(
         #swagger.description = 'Gets all of the application details'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -120,127 +117,6 @@ router.patch(
 	asyncHandler(updateApplication)
 );
 
-router.get(
-	'/:id/representations',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/representations'
-        #swagger.description = 'Gets list of representations on a case'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Application ID',
-			required: true,
-			type: 'integer'
-		}
-		#swagger.parameters['page'] = {
-            in: 'query',
-			description: 'Page to show',
-			required: false,
-			type: 'integer',
-			example: 1,
-			minimum: 1,
-		}
-		#swagger.parameters['pageSize'] = {
-            in: 'query',
-			description: 'Page size',
-			required: false,
-			type: 'integer',
-			example: 25,
-			minimum: 1,
-			maximun: 100
-		}
-		#swagger.parameters['searchTerm'] = {
-			in: 'query',
-			description: 'Search Term',
-			required: false,
-			type: 'string'
-		}
-		#swagger.parameters['status'] = {
-			in: 'query',
-			description: 'Filter by status',
-			required: false,
-			schema: [''],
-			style: 'form',
-			explode: true
-		}
-		#swagger.parameters['under18'] = {
-			in: 'query',
-			description: 'Filter by under18',
-			required: false,
-			type: 'boolean'
-		}
-		#swagger.parameters['sortBy'] = {
-			in: 'query',
-			description: 'Sory by field. +field for ASC, -field for DESC',
-			required: false,
-			type: 'string'
-		}
-        #swagger.responses[200] = {
-            description: 'Representations',
-            schema: {
-				page: 1,
-				pageSize: 25,
-				pageCount: 1,
-				itemCount: 100,
-				items:  [
-					{
-						id: 1,
-						reference: 'BC0110001-2',
-						status: 'VALID',
-						redacted: true,
-						received: '2023-03-14T14:28:25.704Z',
-						firstName: 'James',
-						lastName: 'Bond',
-						organisationName: 'MI6'
-					}
-				]
-			}
-		}
-    */
-	validateApplicationId,
-	validateGetRepresentationsQuery,
-	asyncHandler(getApplicationRepresentations)
-);
-
-router.get(
-	'/:id/representations/:repId',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/representations/{repId}'
-        #swagger.description = 'Gets a representation on a case'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Application ID',
-			required: true,
-			type: 'integer'
-		}
-		#swagger.parameters['repId'] = {
-            in: 'path',
-			description: 'Representation ID',
-			required: true,
-			type: 'integer'
-		}
-        #swagger.responses[200] = {
-            description: 'Representation',
-            schema: {
-				id: 1,
-				reference: 'BC0110001-2',
-				status: 'VALID',
-				redacted: true,
-				received: '2023-03-14T14:28:25.704Z',
-				originalRepresentation: '',
-				redactedRepresentation: '',
-				redactedBy: {},
-				contacts: [],
-				attachments: []
-			}
-		}
-    */
-	validateApplicationId,
-	validateRepresentationId,
-	asyncHandler(getApplicationRepresentation)
-);
-
 router.patch(
 	'/:id/publish',
 	/*
@@ -261,5 +137,7 @@ router.patch(
 	validateApplicationId,
 	asyncHandler(publishCase)
 );
+
+router.use('/:id/representations', representaionsRouter);
 
 export { router as applicationRoutes };

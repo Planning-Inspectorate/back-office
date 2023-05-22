@@ -108,17 +108,20 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
             </div>
         </div>
-        <table class=\\"govuk-table\\">
+        <table id=\\"rr-table\\" class=\\"govuk-table\\">
             <thead class=\\"govuk-table__head\\">
                 <tr class=\\"govuk-table__row\\">
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=reference\\" class=\\"sort-table__link \\"> Reference<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=reference#rr-table\\"
+                        class=\\"sort-table__link \\"> Reference<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
                     <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=received\\" class=\\"sort-table__link \\"> Date received<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=received#rr-table\\"
+                        class=\\"sort-table__link \\"> Date received<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=redacted\\" class=\\"sort-table__link \\"> Redacted<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=redacted#rr-table\\"
+                        class=\\"sort-table__link \\"> Redacted<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=status\\" class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?page=1&amp;sortBy=status#rr-table\\" class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
                 </tr>
@@ -259,20 +262,20 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </p>
             </div>
         </div>
-        <table class=\\"govuk-table\\">
+        <table id=\\"rr-table\\" class=\\"govuk-table\\">
             <thead class=\\"govuk-table__head\\">
                 <tr class=\\"govuk-table__row\\">
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference\\"
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference#rr-table\\"
                         class=\\"sort-table__link \\"> Reference<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
                     <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=received\\"
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=received#rr-table\\"
                         class=\\"sort-table__link \\"> Date received<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=redacted\\"
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=redacted#rr-table\\"
                         class=\\"sort-table__link \\"> Redacted<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
-                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=status\\"
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=status#rr-table\\"
                         class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
                     </th>
                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>

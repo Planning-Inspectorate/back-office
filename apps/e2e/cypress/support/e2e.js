@@ -17,8 +17,23 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import { users } from '../fixtures/users';
 import './commands';
+import { isCI } from './utils/isCI';
 
 after(() => {
 	cy.deleteUnwantedFixtures();
+});
+
+beforeEach(() => {
+	cy.on('window:before:load', (win) => {
+		win.sessionStorage.clear();
+		const cookies = win.document.cookie.split(';');
+		for (let i = 0; i < cookies.length; i++) {
+			let cookie = cookies[i];
+			const eqPos = cookie.indexOf('=');
+			const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+			win.document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+		}
+	});
 });

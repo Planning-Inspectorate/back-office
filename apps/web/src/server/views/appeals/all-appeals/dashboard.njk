@@ -1,17 +1,24 @@
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "../components/appeals-table.njk" import appealsTable -%}
 
 {%- set containerSize = 'xl' -%}
 {%- set pageTitle = 'Appeals' -%}
-{%- set allAppeals = appeals -%}
 
 {%- block pageContent -%}
 	<span class="govuk-caption-xl">{{userRole}}</span>
 	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">All cases</h2>
 	{{
 		appealsTable({
-			appeals: allAppeals
+			appeals: appeals
 		})
 	}}
+	{% if pagination.items|length %}
+		{{
+			govukPagination(
+				pagination
+			)
+		}}
+	{% endif %}
 {%- endblock -%}

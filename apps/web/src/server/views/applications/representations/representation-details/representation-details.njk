@@ -2,8 +2,10 @@
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
 {% from "./components/person-contact.njk" import personContact as personContactSection %}
+{% from "./components/family-contact.njk" import familyContact as familyContactSection %}
+{% from "./components/organisation-contact.njk" import organisationContact as organisationContactSection %}
 {% from "./components/agent-contact.njk" import agentContact as agentContactSection %}
 {% from "./components/representation.njk" import representation as representationSection %}
 {% from "./components/attachments.njk" import attachments as attachmentsSection %}
@@ -26,14 +28,48 @@
 {% block pageContent %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ representationDetails.personData.orgOrName }}</h1>
-			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ statusTag(caseReference.status.text ) }}</strong>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+				{% if  representationDetails.personData.orgOrName %}
+					{{ representationDetails.personData.orgOrName }}
+				{% elif representationDetails.familyData.orgOrName %}
+					{{ representationDetails.familyData.orgOrName }}
+				{% elif representationDetails.organisationData.orgOrName %}
+					{{ representationDetails.organisationData.orgOrName }}
+				{% else %}
+					{{ representationDetails.agentData.orgOrName }}
+				{% endif %}
+			</h1>
+			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(representationDetails.representationData.status) }}</strong>
 			<p class="govuk-!-margin-bottom-6"><strong>Project name:</strong> {{ caseReference.title }}</p>
-			{{ personContactSection(representationDetails.personData) }}
 		</div>
 	</div>
 
-{% if representationDetails.agentData|length  %}
+
+{% if representationDetails.personData | length  %}
+	<div class="govuk-grid-row govuk-!-margin-bottom-6">
+		<div class="govuk-grid-column-full">
+			{{ personContactSection(representationDetails.personData) }}
+		</div>
+	</div>
+{% endif %}
+
+{% if representationDetails.familyData | length  %}
+	<div class="govuk-grid-row govuk-!-margin-bottom-6">
+		<div class="govuk-grid-column-full">
+			{{ familyContactSection(representationDetails.familyData) }}
+		</div>
+	</div>
+{% endif %}
+
+{% if representationDetails.organisationData | length  %}
+	<div class="govuk-grid-row govuk-!-margin-bottom-6">
+		<div class="govuk-grid-column-full">
+			{{ organisationContactSection(representationDetails.organisationData) }}
+		</div>
+	</div>
+{% endif %}
+
+{% if representationDetails.agentData | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
 			{{ agentContactSection(representationDetails.agentData) }}
@@ -49,7 +85,7 @@
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ workflowSection(caseReference.status.text) }}
+			{{ workflowSection(representationDetails.representationData.status) }}
 		</div>
 	</div>
 

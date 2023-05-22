@@ -16,501 +16,6 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
-		"/appeals/validation/": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets all appeals that need to be validated. The AppealStatus will be either \\'new\\' or \\'incomplete\\'",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeals that require validation",
-						"schema": {
-							"$ref": "#/definitions/AppealsToValidate"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/validation/lpa-list": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets all LPAs from external API",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "All available LPAs",
-						"schema": {
-							"type": "array",
-							"example": ["County Durham LPA", "Darlington LPA"],
-							"items": {
-								"type": "string"
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/appeals/validation/{appealId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appeal to be validated by the Validation Officer",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"desciption": "Appeal that requires validation",
-						"schema": {
-							"$ref": "#/definitions/AppealToValidate"
-						},
-						"description": "OK"
-					}
-				}
-			},
-			"patch": {
-				"tags": ["Appeals"],
-				"description": "Updates appeal details",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "obj",
-						"in": "body",
-						"description": "New Details",
-						"schema": {
-							"$ref": "#/definitions/ChangeAppeal"
-						}
-					}
-				],
-				"responses": {}
-			},
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Sends validation decision",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "id",
-						"id": "path",
-						"description": "Appeal ID",
-						"required": true,
-						"type": "integer",
-						"in": "query"
-					},
-					{
-						"name": "obj",
-						"in": "body",
-						"description": "Validation Decision",
-						"schema": {
-							"$ref": "#/definitions/ValidationDecision"
-						}
-					}
-				],
-				"responses": {
-					"409": {
-						"description": "Conflict"
-					}
-				}
-			}
-		},
-		"/appeals/case-officer": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets all appeals for a Case Officer to review",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeals the require Case Officer to check",
-						"schema": {
-							"$ref": "#/definitions/AppealsForCaseOfficer"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/case-officer/{appealId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appeal details for Case Officer to review",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeal that requires a Case Officer to check over",
-						"schema": {
-							"$ref": "#/definitions/AppealForCaseOfficer"
-						}
-					}
-				}
-			},
-			"patch": {
-				"tags": ["Appeals"],
-				"description": "Updates appeal details",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Details to update",
-						"schema": {
-							"$ref": "#/definitions/UpdateAppealDetailsByCaseOfficer"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeal after new details were sent over",
-						"schema": {
-							"$ref": "#/definitions/AppealAfterUpdateForCaseOfficer"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/case-officer/{appealId}/confirm": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Updates appeal details",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Details to update",
-						"schema": {
-							"$ref": "#/definitions/SendLPAQuestionnaireConfirmation"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"409": {
-						"description": "Conflict"
-					}
-				}
-			}
-		},
-		"/appeals/case-officer/{appealId}/statements-comments": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appeal details when uploading statements and final comments",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeal details to show when uploading statements and final comments",
-						"schema": {
-							"$ref": "#/definitions/AppealDetailsWhenUploadingStatementsAndFinalComments"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/case-officer/{appealId}/statement": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Uploads statement",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "string",
-						"required": true
-					},
-					{
-						"name": "formData",
-						"in": "formData",
-						"description": "Statement upload payload",
-						"schema": {
-							"$ref": "#/definitions/UploadStatement"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"desciption": "Appeal details",
-						"schema": {
-							"$ref": "#/definition/AppealDetailsAfterStatementUpload"
-						},
-						"description": "OK"
-					}
-				}
-			}
-		},
-		"/appeals/case-officer/{appealId}/final-comment": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Uploads final comment",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "string",
-						"required": true
-					},
-					{
-						"name": "formData",
-						"in": "formData",
-						"description": "Final comment upload payload",
-						"schema": {
-							"$ref": "#/definitions/UploadFinalComment"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"desciption": "Appeal details",
-						"schema": {
-							"$ref": "#/definition/AppealDetailsAfterFinalCommentUpload"
-						},
-						"description": "OK"
-					}
-				}
-			}
-		},
-		"/appeals/inspector/more-appeals": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets more appeals assigned to inspector",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeals that are yet to be assigned to inspector",
-						"schema": {
-							"$ref": "#/definitions/MoreAppealsForInspector"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/inspector": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appeals assigned to inspector",
-				"parameters": [
-					{
-						"name": "userid",
-						"in": "header",
-						"type": "integer",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeals that are assigned to inspector",
-						"schema": {
-							"$ref": "#/definitions/AppealsForInspector"
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					}
-				}
-			}
-		},
-		"/appeals/inspector/{appealId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets details of appeal for inspector",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "integer",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeal Details",
-						"schema": {
-							"$ref": "#/definitions/AppealDetailsForInspector"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/inspector/assign": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Assigns appeals to inspector",
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "integer",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Appeals that were assigned to inspector and those that failed to be assigned",
-						"schema": {
-							"$ref": "#/definitions/AppealsAssignedToInspector"
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					}
-				}
-			}
-		},
-		"/appeals/inspector/{appealId}/book": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Book a site visit as an inspector.",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "string",
-						"required": true
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Book site visit payload.",
-						"schema": {
-							"$ref": "#/definitions/BookSiteVisit"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The updated appeal.",
-						"schema": {
-							"$ref": "#/definitions/AppealsForInspector"
-						}
-					}
-				}
-			}
-		},
-		"/appeals/inspector/{appealId}/issue-decision": {
-			"post": {
-				"tags": ["Appeals"],
-				"description": "Issues decision for appeal.",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"id": "path",
-						"description": "Appeal ID"
-					},
-					{
-						"name": "userId",
-						"in": "header",
-						"type": "string",
-						"required": true
-					},
-					{
-						"name": "formData",
-						"in": "formData",
-						"description": "Issue decision payload.",
-						"schema": {
-							"$ref": "#/definitions/IssueDecision"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The updated appeal.",
-						"schema": {
-							"$ref": "#/definitions/AppealsForInspector"
-						}
-					}
-				}
-			}
-		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -694,7 +199,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "query",
@@ -863,10 +368,42 @@
 				}
 			}
 		},
+		"/applications/{id}/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "publish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was published as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets list of representations on a case",
+				"description": "Gets list of representations on an application",
 				"parameters": [
 					{
 						"name": "id",
@@ -892,7 +429,7 @@
 						"type": "integer",
 						"example": 25,
 						"minimum": 1,
-						"maximun": 100
+						"maximum": 100
 					},
 					{
 						"name": "searchTerm",
@@ -926,7 +463,7 @@
 					{
 						"name": "sortBy",
 						"in": "query",
-						"description": "Sory by field. +field for ASC, -field for DESC",
+						"description": "Sort by field. +field for ASC, -field for DESC",
 						"required": false,
 						"type": "string"
 					}
@@ -1000,12 +537,138 @@
 						}
 					}
 				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Creates a representation for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": false
+								},
+								"received": {
+									"type": "string",
+									"example": "2023-03-14T14:28:25.704Z"
+								},
+								"originalRepresentation": {
+									"type": "string",
+									"example": "This is the representation text"
+								},
+								"represented": {
+									"type": "object",
+									"properties": {
+										"firstName": {
+											"type": "string",
+											"example": "Peter"
+										},
+										"lastName": {
+											"type": "string",
+											"example": "Biggins"
+										},
+										"organisationName": {
+											"type": "string",
+											"example": ""
+										},
+										"jobTitle": {
+											"type": "string",
+											"example": ""
+										},
+										"email": {
+											"type": "string",
+											"example": "peter.bigins@dummy.email"
+										},
+										"phoneNumber": {
+											"type": "string",
+											"example": "0123456789"
+										},
+										"address": {
+											"type": "object",
+											"properties": {
+												"addressLine1": {
+													"type": "string",
+													"example": ""
+												},
+												"addressLine2": {
+													"type": "string",
+													"example": ""
+												},
+												"town": {
+													"type": "string",
+													"example": ""
+												},
+												"county": {
+													"type": "string",
+													"example": ""
+												},
+												"postcode": {
+													"type": "string",
+													"example": ""
+												}
+											}
+										},
+										"type": {
+											"type": "string",
+											"example": "PERSON"
+										},
+										"under18": {
+											"type": "boolean",
+											"example": false
+										}
+									}
+								},
+								"representative": {
+									"type": "object",
+									"properties": {}
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/representations/{repId}": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets a representation on a case",
+				"description": "Gets a representation on an application",
 				"parameters": [
 					{
 						"name": "id",
@@ -1077,12 +740,10 @@
 						}
 					}
 				}
-			}
-		},
-		"/applications/{id}/publish": {
+			},
 			"patch": {
 				"tags": ["Applications"],
-				"description": "publish application",
+				"description": "Updates a representation for an application",
 				"parameters": [
 					{
 						"name": "id",
@@ -1090,17 +751,119 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
+								},
+								"redacted": {
+									"type": "boolean",
+									"example": false
+								},
+								"received": {
+									"type": "string",
+									"example": "2023-03-14T14:28:25.704Z"
+								},
+								"originalRepresentation": {
+									"type": "string",
+									"example": "This is the representation text"
+								},
+								"represented": {
+									"type": "object",
+									"properties": {
+										"firstName": {
+											"type": "string",
+											"example": "Peter"
+										},
+										"lastName": {
+											"type": "string",
+											"example": "Biggins"
+										},
+										"organisationName": {
+											"type": "string",
+											"example": ""
+										},
+										"jobTitle": {
+											"type": "string",
+											"example": ""
+										},
+										"email": {
+											"type": "string",
+											"example": "peter.bigins@dummy.email"
+										},
+										"phoneNumber": {
+											"type": "string",
+											"example": "0123456789"
+										},
+										"address": {
+											"type": "object",
+											"properties": {
+												"addressLine1": {
+													"type": "string",
+													"example": ""
+												},
+												"addressLine2": {
+													"type": "string",
+													"example": ""
+												},
+												"town": {
+													"type": "string",
+													"example": ""
+												},
+												"county": {
+													"type": "string",
+													"example": ""
+												},
+												"postcode": {
+													"type": "string",
+													"example": ""
+												}
+											}
+										},
+										"type": {
+											"type": "string",
+											"example": "PERSON"
+										},
+										"under18": {
+											"type": "boolean",
+											"example": false
+										}
+									}
+								},
+								"representative": {
+									"type": "object",
+									"properties": {}
+								}
+							}
+						}
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "response will have the date that the case was published as a timestamp",
+						"description": "Representation",
 						"schema": {
 							"type": "object",
 							"properties": {
-								"publishedDate": {
+								"id": {
 									"type": "number",
-									"example": 1673873105
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
 								}
 							},
 							"xml": {
@@ -1121,7 +884,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1159,7 +922,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1190,7 +953,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1234,7 +997,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1264,7 +1027,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1291,7 +1054,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "guid",
@@ -1347,8 +1110,8 @@
 						"name": "id",
 						"in": "path",
 						"required": true,
-						"type": "string",
-						"description": "id of the required document here"
+						"type": "integer",
+						"description": "Application ID"
 					},
 					{
 						"name": "body",
@@ -1370,6 +1133,37 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Publishes the documents selected from the Ready to Publish queue",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Array of document guids to publish",
+						"schema": {
+							"$ref": "#/definitions/documentsToPublishRequestBody"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been published",
+						"schema": {
+							"$ref": "#/definitions/documentsPublished"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/folders": {
 			"get": {
 				"tags": ["Applications"],
@@ -1380,7 +1174,7 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					}
 				],
 				"responses": {
@@ -1423,14 +1217,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					}
 				],
 				"responses": {
@@ -1470,14 +1264,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					}
 				],
 				"responses": {
@@ -1520,14 +1314,14 @@
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Application ID here"
+						"description": "Application ID"
 					},
 					{
 						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
-						"description": "Id of current folder here"
+						"description": "Id of current folder"
 					},
 					{
 						"name": "body",
@@ -1799,6 +1593,23 @@
 				}
 			}
 		},
+		"documentsToPublishRequestBody": {
+			"type": "object",
+			"properties": {
+				"items": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"guid": {
+								"type": "string",
+								"example": "0084b156-006b-48b1-a47f-e7176414db29"
+							}
+						}
+					}
+				}
+			}
+		},
 		"documentsAndBlobStorageURLs": {
 			"type": "object",
 			"properties": {
@@ -1824,6 +1635,22 @@
 								"example": "/some/path/document.pdf"
 							}
 						}
+					}
+				}
+			}
+		},
+		"documentsPublished": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"guid": {
+						"type": "string",
+						"example": "0084b156-006b-48b1-a47f-e7176414db29"
+					},
+					"status": {
+						"type": "string",
+						"example": "published"
 					}
 				}
 			}

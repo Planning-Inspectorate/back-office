@@ -1,4 +1,14 @@
+import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
+
+/**
+ * @typedef {{
+ *  representationDetails: { caseId: number, status: string, originalRepresentation?: string | null, redacted: boolean, received: Date },
+ *  represented?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
+ *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
+ *  representative?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
+ *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateRepresentationParams
+ */
 
 /**
  *
@@ -134,6 +144,164 @@ export const getById = async (id, caseId) => {
 };
 
 /**
+ * @param  {CreateRepresentationParams} representationCreateDetails
+ */
+export const createApplicationRepresentation = async ({
+	representationDetails,
+	represented,
+	representedAddress,
+	representative,
+	representativeAddress
+}) => {
+	const representation = {
+		...representationDetails
+	};
+
+	representation.contacts = {
+		create: [
+			{
+				...represented,
+				address: {
+					create: {
+						...representedAddress
+					}
+				}
+			}
+		]
+	};
+	if (!isEmpty(representative)) {
+		representation.contacts.create.push({
+			...representative,
+			address: {
+				create: {
+					...representativeAddress
+				}
+			}
+		});
+	}
+
+	const createResponse = await databaseConnector.representation.create({
+		data: {
+			...representation
+		}
+	});
+
+	// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
+	return databaseConnector.representation.update({
+		where: { id: createResponse.id },
+		data: {
+			reference: generateRepresentationReference(createResponse.id)
+		}
+	});
+};
+
+export const updateApplicationRepresentation = async (
+	{ representationDetails, represented, representedAddress, representative, representativeAddress },
+	caseId,
+	representationId
+) => {
+	//  Validate case rep id is on case id
+	const response = await databaseConnector.representation.findFirst({
+		where: { id: representationId, caseId }
+	});
+
+	if (!response) throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	const whereIsRepresented = {
+		representationId,
+		type: { in: ['PERSON', 'ORGANISATION'] }
+	};
+
+	const whereIsRepresentative = {
+		representationId,
+		type: { in: ['AGENT'] }
+	};
+	const findRepresentationContactRepresented = async () =>
+		databaseConnector.representationContact.findFirst({
+			where: whereIsRepresented
+		});
+	const findRepresentationContactRepresentative = async () =>
+		databaseConnector.representationContact.findFirst({
+			where: whereIsRepresentative
+		});
+
+	if (!isEmpty(representationDetails)) {
+		await databaseConnector.representation.update({
+			where: { id: representationId },
+			data: {
+				...representationDetails
+			}
+		});
+	}
+
+	if (!isEmpty(represented)) {
+		const data = await findRepresentationContactRepresented();
+
+		await databaseConnector.representationContact.update({
+			where: {
+				id: data.id
+			},
+			data: {
+				...represented
+			}
+		});
+	}
+
+	if (!isEmpty(representedAddress)) {
+		const data = await databaseConnector.representationContact.findFirst({
+			where: whereIsRepresented
+		});
+
+		await databaseConnector.representationContact.update({
+			where: {
+				id: data.id
+			},
+			data: {
+				address: {
+					update: {
+						...representedAddress
+					}
+				}
+			}
+		});
+	}
+
+	if (!isEmpty(representative)) {
+		const data = await findRepresentationContactRepresentative();
+
+		await databaseConnector.representationContact.update({
+			where: {
+				id: data.id
+			},
+			data: {
+				...representative
+			}
+		});
+	}
+
+	if (!isEmpty(representativeAddress)) {
+		const data = await databaseConnector.representationContact.findFirst({
+			where: whereIsRepresentative
+		});
+
+		await databaseConnector.representationContact.update({
+			where: {
+				id: data.id
+			},
+			data: {
+				address: {
+					update: {
+						...representativeAddress
+					}
+				}
+			}
+		});
+	}
+
+	return response;
+};
+
+/**
  *
  * @param {string} rawSearchTerm
  * @returns {any}
@@ -241,4 +409,13 @@ function buildOrderBy(sort) {
 			: [{ received: 'asc' }];
 
 	return [...primarySort, ...secondarySort, { id: 'asc' }];
+}
+
+/**
+ *
+ * @param {number} id
+ * @returns {string}
+ */
+function generateRepresentationReference(id) {
+	return `B${id.toString().padStart(7, '0')}`;
 }

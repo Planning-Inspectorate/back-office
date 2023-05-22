@@ -7,7 +7,8 @@
     "node": ">=16.14.0"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "schema": "src/database/schema.prisma",
+    "seed": "node src/database/seed/seed-development.js"
   },
   "type": "module",
   "scripts": {
@@ -17,8 +18,8 @@
     "dev": "npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
     "dev:queue:listen": "nodemon --experimental-json-modules -e js ./src/server/utils/service-bus-receiver.js",
     "start": "node ./src/server.js",
-    "lint:js": "eslint src prisma/seed.js",
-    "lint:js:fix": "eslint src prisma/seed.js --fix",
+    "lint:js": "eslint src",
+    "lint:js:fix": "eslint src --fix",
     "clean": "rimraf .turbo node_modules dist",
     "swagger-autogen": "node ./src/server/swagger.js",
     "db:migrate": "npx prisma migrate dev",
@@ -26,7 +27,7 @@
     "db:push": "npx prisma db push --accept-data-loss",
     "db:reset": "npx prisma migrate reset --force",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
-    "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node prisma/seed-production.js",
+    "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node src/database/seed/seed-production.js",
     "prisma:format": "npx prisma format",
     "prisma-generate": "npx prisma generate",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"

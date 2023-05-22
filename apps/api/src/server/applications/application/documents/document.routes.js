@@ -8,6 +8,7 @@ import {
 	getDocumentProperties,
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
+	publishDocuments,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
 	updateDocuments
@@ -28,7 +29,7 @@ router.post(
         #swagger.description = 'This endpoint enables the storage of metadata for a document linked to a particular case, whether it's newly created or updated.'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -59,7 +60,7 @@ router.post(
         #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
         }
@@ -88,7 +89,7 @@ router.patch(
         #swagger.description = 'Updates the status and/or redaction status on an array of documents'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
         }
@@ -118,7 +119,7 @@ router.get(
         #swagger.description = 'Gets the properties of a single file on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -144,7 +145,7 @@ router.post(
         #swagger.description = 'Reverts the published status of a document to the previous status'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -170,7 +171,7 @@ router.post(
         #swagger.description = 'Deletes a document associated with a specific application'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -204,9 +205,9 @@ router.post(
         #swagger.description = 'Gets all documents that are ready to publish'
 		#swagger.parameters['id'] = {
             in: 'path',
-			description: 'id of the required document here',
+			description: 'Application ID',
 			required: true,
-			type: 'string'
+			type: 'integer'
 		},
 		#swagger.parameters['body'] = {
             in: 'body',
@@ -220,6 +221,35 @@ router.post(
         }
     */
 	asyncHandler(getReadyToPublishDocuments)
+);
+
+router.patch(
+	'/:id/documents/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/publish'
+        #swagger.description = 'Publishes the documents selected from the Ready to Publish queue'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Array of document guids to publish',
+            schema: { $ref: '#/definitions/documentsToPublishRequestBody' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been published',
+            schema: { $ref: '#/definitions/documentsPublished' }
+        }
+	 */
+	validateApplicationId,
+	validateDocumentsToUpdateProvided,
+	validateDocumentIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(publishDocuments)
 );
 
 export { router as documentRoutes };

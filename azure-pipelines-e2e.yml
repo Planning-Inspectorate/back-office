@@ -1,0 +1,68 @@
+parameters:
+  - name: Environment
+    type: string
+    default: 'test'
+    values:
+      - 'dev'
+      - 'test'
+  - name: APP
+    type: string
+    default: 'applications'
+    values:
+      - 'applications'
+      - 'appeals'
+
+variables:
+  - name: APP
+    value: ${{ parameters.APP }}
+  - group: e2e-${{ parameters.Environment }}
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - apps/e2e
+trigger: none
+
+jobs:
+  - job: Run_Cypress_Tests
+    pool:
+      vmImage: "ubuntu-latest"
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/install-chromium.sh'
+        displayName: 'Install Chromium'
+        condition: eq(variables['agent.os'], 'Linux')
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/run-tests.sh'
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+        displayName: "Run Cypress Tests"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()

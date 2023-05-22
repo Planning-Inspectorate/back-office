@@ -33,6 +33,7 @@ describe('Create A Case', () => {
 
 	context('As a Case Team Admin User', () => {
 		it('Should successfully create a case as an admin', () => {
+			cy.clearAllCookies();
 			cy.login(users.caseAdmin);
 			cy.visit('/');
 			createCasePage.verifyCaseAdminIsSignedIn();
@@ -43,6 +44,7 @@ describe('Create A Case', () => {
 
 	context('As a Case Team User', () => {
 		it('Should successfully create a case when the logged in user is a case team user', () => {
+			cy.clearAllCookies();
 			cy.login(users.caseTeam);
 			cy.visit('/');
 			createCasePage.verifyCaseTeamIsSignedIn();

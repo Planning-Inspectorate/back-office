@@ -19,7 +19,7 @@ router.get(
         #swagger.description = 'Gets list of top level folders on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
@@ -40,13 +40,13 @@ router.get(
         #swagger.description = 'Gets list of sub (child) folders in a folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
 		#swagger.parameters['folderId'] = {
             in: 'path',
-			description: 'Id of current folder here',
+			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
 		}
@@ -68,13 +68,13 @@ router.get(
         #swagger.description = 'Gets details of a single folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
 		#swagger.parameters['folderId'] = {
             in: 'path',
-			description: 'Id of current folder here',
+			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
 		}
@@ -96,13 +96,13 @@ router.get(
         #swagger.description = 'Gets the parent folder path list for a folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
 		#swagger.parameters['folderId'] = {
             in: 'path',
-			description: 'Id of current folder here',
+			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
 		}
@@ -126,13 +126,13 @@ router.post(
         #swagger.description = 'Gets paginated array of documents in a folder on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID here',
+			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
 		#swagger.parameters['folderId'] = {
             in: 'path',
-			description: 'Id of current folder here',
+			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
 		}
