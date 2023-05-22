@@ -1,3 +1,4 @@
+import logger from '../../../lib/logger.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
@@ -173,4 +174,31 @@ export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => 
 			pageNumber
 		}
 	});
+};
+
+/**
+ * Publishes selected documents from the Ready to Publish queue
+ *
+ * @param {number} caseId
+ * @param {{guid: string}[]} items
+ * @returns {Promise<{items?: Array<{guid: string}>, errors?: {guid: string}[]}>}
+ */
+export const publishCaseDocumentationFiles = async (caseId, items) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/documents/publish`, {
+			json: {
+				items
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		// log out the actual publishing errors
+		logger.error(error);
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'Your documents could not be published, please try again' } });
+		});
+	}
+
+	return { items: response };
 };
