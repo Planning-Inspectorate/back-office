@@ -1,10 +1,13 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import dateIsValid from '../../lib/validation/date-is-valid.js';
+import { dateIsValid } from '../../lib/dates.js';
 
 export const validateStartDateFields = createValidator(
 	body('start-date-day')
 		.trim()
+		.notEmpty()
+		.withMessage('Day cannot be empty')
+		.bail()
 		.isInt()
 		.withMessage('Day must be a number')
 		.bail()
@@ -15,6 +18,9 @@ export const validateStartDateFields = createValidator(
 		.withMessage('Day must be between 1 and 31'),
 	body('start-date-month')
 		.trim()
+		.notEmpty()
+		.withMessage('Month cannot be empty')
+		.bail()
 		.isInt()
 		.withMessage('Month must be a number')
 		.bail()
@@ -25,6 +31,9 @@ export const validateStartDateFields = createValidator(
 		.withMessage('Month must be between 1 and 12'),
 	body('start-date-year')
 		.trim()
+		.notEmpty()
+		.withMessage('Year cannot be empty')
+		.bail()
 		.isInt()
 		.withMessage('Year must be a number')
 		.bail()
@@ -43,7 +52,11 @@ export const validateWholeStartDate = createValidator(
 				return false;
 			}
 
-			return dateIsValid(day, month, year);
+			const dayNumber = Number.parseInt(day, 10);
+			const monthNumber = Number.parseInt(month, 10);
+			const yearNumber = Number.parseInt(year, 10);
+
+			return dateIsValid(yearNumber, monthNumber, dayNumber);
 		})
 		.withMessage('Please enter a valid date')
 );

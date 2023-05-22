@@ -124,34 +124,25 @@ describe('Libraries', () => {
 
 	describe('dates', () => {
 		describe('dateIsValid', () => {
-			it('should determine if a date is valid', () => {
-				const year = 1989;
-				const month = 3;
-				const day = 25;
-
-				const validDate = dateIsValid(year, month, day);
-
-				expect(typeof validDate).toEqual('boolean');
+			it('should return a boolean', () => {
+				expect(typeof dateIsValid(2023, 2, 1)).toEqual('boolean');
 			});
-
-			it('should return true if a date is valid', () => {
-				const year = 1989;
-				const month = 3;
-				const day = 25;
-
-				const validDate = dateIsValid(year, month, day);
-
-				expect(validDate).toEqual(true);
+			it('should return true if day, month and year params form a date that is semantically valid and real', () => {
+				expect(dateIsValid(2024, 2, 29)).toBe(true);
 			});
-
-			it('should return false if a date is invalid', () => {
-				const year = 190;
-				const month = 33;
-				const day = 255;
-
-				const validDate = dateIsValid(year, month, day);
-
-				expect(validDate).toEqual(false);
+			it('should return false if day, month and year params form a date that is semantically valid but not real', () => {
+				expect(dateIsValid(2023, 2, 29)).toBe(false);
+			});
+			it('should return true if day, month and year params form a valid real date', () => {
+				expect(dateIsValid(2023, 2, 1)).toBe(true);
+			});
+			it('should return false if day parameter is outside the valid range', () => {
+				expect(dateIsValid(2023, 1, 0)).toBe(false);
+				expect(dateIsValid(2023, 1, 32)).toBe(false);
+			});
+			it('should return false if month parameter is outside the valid range', () => {
+				expect(dateIsValid(2023, 0, 1)).toBe(false);
+				expect(dateIsValid(2023, 13, 1)).toBe(false);
 			});
 		});
 

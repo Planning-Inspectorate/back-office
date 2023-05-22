@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { parseHtml } from '@pins/platform';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../testing/index.js';
@@ -69,13 +68,11 @@ describe('appeal-details', () => {
 		});
 		// TODO: BOAT-105 - update once service is wired up
 		// it('should call the service method to set the appeal start date if no errors are present', async () => {
-			// const response = await request
-			// 	.post(`${baseUrl}/1${pageUrl}`)
-			// 	.send(postDataWithoutErrors);
+		//
 		// });
 
 		it('should re-render the enter start date page with the expected error message if the entered day is not an integer', async () => {
-			const testData = {...postDataWithoutErrors};
+			const testData = { ...postDataWithoutErrors };
 
 			testData.body['start-date-day'] = 'a';
 
@@ -89,7 +86,7 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is shorter than 1 character', async () => {
-			const testData = {...postDataWithoutErrors};
+			const testData = { ...postDataWithoutErrors };
 
 			testData.body['start-date-day'] = '';
 
@@ -103,7 +100,7 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is longer than 2 characters', async () => {
-			const testData = {...postDataWithoutErrors};
+			const testData = { ...postDataWithoutErrors };
 
 			testData.body['start-date-day'] = '111';
 
@@ -117,7 +114,7 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is less than 1', async () => {
-			const testData = {...postDataWithoutErrors};
+			const testData = { ...postDataWithoutErrors };
 
 			testData.body['start-date-day'] = '0';
 
@@ -131,7 +128,7 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is greater than 31', async () => {
-			const testData = {...postDataWithoutErrors};
+			const testData = { ...postDataWithoutErrors };
 
 			testData.body['start-date-day'] = '32';
 
@@ -144,8 +141,117 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		// TODO: tests for month validation error messages
-		// TODO: tests for year validation error messages
+		it('should re-render the enter start date page with the expected error message if the entered month is not an integer', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-month'] = 'a';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered month is shorter than 1 character', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-month'] = '';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered month is longer than 2 characters', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-month'] = '111';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered month is less than 1', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-month'] = '0';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered month is greater than 12', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-month'] = '13';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered year is not an integer', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-year'] = 'a';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered year is shorter than 4 characters', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-year'] = '202';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered year is longer than 4 characters', async () => {
+			const testData = { ...postDataWithoutErrors };
+
+			testData.body['start-date-year'] = '20234';
+
+			const response = await request
+				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
+				.send(testData);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 
 		it('should redirect to the start-date-entered page if no errors are present and an appeal with a matching appealId exists and the service method to set the appeal start date was called successfully', async () => {
 			const response = await request
