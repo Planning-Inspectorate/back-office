@@ -30,9 +30,29 @@
 		<a href="/appeals-service/appeal-details/{{ appeal.linkedAppeal.appealId }}">{{ appeal.linkedAppeal.appealReference }}</a>
 {%- endset -%}
 
-{%- set caseTimetableInsetHtml -%}
-	<p>Case not started</p>
-	<a href="/appeals-service/appeal-details/{{ appeal.id }}/enter-start-date" class="govuk-link">Add start date</a>
+{%- set caseTimetable -%}
+	{%- if appeal.startedAt -%}
+		{{
+			govukSummaryList({
+				rows: [{
+					key: {
+						text: "Start date"
+					},
+					value: {
+						text: appeal.startedAt
+					},
+					actions: {}
+				}]
+			})
+		}}
+	{%- else -%}
+		{{
+			govukInsetText({
+				html: ['<p>Case not started</p><a href="/appeals-service/appeal-details/', appeal.id, '/enter-start-date" class="govuk-link">Add start date</a>'] | join,
+				classes: "govuk-!-margin-top-0"
+			})
+		}}
+	{%- endif -%}
 {%- endset -%}
 
 {%- macro teamMemberHtml(teamMember) -%}
@@ -231,10 +251,7 @@
 					text: "Case timetable"
 				},
 				content: {
-					html: govukInsetText({
-						html: caseTimetableInsetHtml,
-						classes: "govuk-!-margin-top-0"
-					})
+					html: caseTimetable
 				}
 			}, {
 				heading: {
