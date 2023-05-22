@@ -1548,9 +1548,9 @@
 				"description": "Gets all examination timetable items for case",
 				"parameters": [
 					{
-						"name": "caseId",
+						"name": "id",
 						"in": "path",
-						"description": "Application ID",
+						"description": "Examination timetable item ID",
 						"required": true,
 						"type": "integer"
 					}
@@ -1559,7 +1559,7 @@
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItems"
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
 						}
 					}
 				}
@@ -1582,7 +1582,7 @@
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
 						}
 					}
 				}
