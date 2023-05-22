@@ -24,4 +24,24 @@ router.get(
 	asyncHandler(getExaminationTimetableItems)
 );
 
+router.post(
+	'/',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items'
+        #swagger.description = 'Gets all examination timetable items for case'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'document pagination parameters',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemsRequestBody' },
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'List of examination timetable items',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemsRequestBody' }
+        }
+    */
+	asyncHandler(getExaminationTimetableItems)
+);
+
 export { router as examinationTimetableItemsRoutes };

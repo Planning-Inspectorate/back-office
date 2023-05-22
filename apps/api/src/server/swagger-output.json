@@ -1563,6 +1563,29 @@
 						}
 					}
 				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all examination timetable items for case",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "document pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable items",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+						}
+					}
+				}
 			}
 		}
 	},
@@ -2083,6 +2106,80 @@
 						"type": "string",
 						"example": "2023-02-27T12:00:00Z"
 					}
+				}
+			}
+		},
+		"ExaminationTimetableItemsRequestBody": {
+			"type": "object",
+			"properties": {
+				"examinationTypeId": {
+					"type": "number",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"example": "Exmaination Timetable Item"
+				},
+				"description": {
+					"type": "string",
+					"example": "Exmaination Timetable Item Description"
+				},
+				"displayNameEn": {
+					"type": "string",
+					"example": "Accompanied site inspection"
+				},
+				"date": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"endDate": {
+					"type": "string",
+					"example": "2023-02-27T12:00:00Z"
+				}
+			}
+		},
+		"ExaminationTimetableItemsResponseBody": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "number",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"example": "Exmaination Timetable Item"
+				},
+				"description": {
+					"type": "string",
+					"example": "Exmaination Timetable Item Description"
+				},
+				"displayNameEn": {
+					"type": "string",
+					"example": "Accompanied site inspection"
+				},
+				"date": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"endDate": {
+					"type": "string",
+					"example": "2023-02-27T12:00:00Z"
 				}
 			}
 		},
