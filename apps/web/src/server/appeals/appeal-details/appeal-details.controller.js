@@ -1,3 +1,4 @@
+import { dateFormatter } from '../../lib/date-formatter.js';
 import logger from '../../lib/logger.js';
 import * as appealDetailsService from './appeal-details.service.js';
 
@@ -18,6 +19,8 @@ export const viewAppealDetails = async (request, response) => {
 		const formattedSiteAddress = appealDetails?.appealSite
 			? Object.values(appealDetails?.appealSite)?.join(', ')
 			: 'Address not known';
+
+		const startedAt = appealDetails?.startedAt && dateFormatter(appealDetails.startedAt);
 
 		const formattedAppeal = {
 			id: appealDetails?.appealId,
@@ -42,6 +45,7 @@ export const viewAppealDetails = async (request, response) => {
 			developmentType: appealDetails?.developmentType ?? ' No development type for this appeal',
 			eventType: appealDetails?.eventType ?? ' No event type for this appeal',
 			decision: appealDetails?.decision ?? 'Not issued yet',
+			startedAt,
 			// TODO: BOAT-80: add documentation status data
 			documentationStatus: {
 				appellantCase: 'Complete',

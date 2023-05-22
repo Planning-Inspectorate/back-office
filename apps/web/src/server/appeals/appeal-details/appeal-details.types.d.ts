@@ -19,6 +19,7 @@ export interface Appeal {
 	otherAppeals: [AppealLink] | [];
 	planningApplicationReference: string;
 	documentationStatus?: object;
+	startedAt?: string | null;
 }
 
 export type Contact = {
