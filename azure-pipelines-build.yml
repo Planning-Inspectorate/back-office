@@ -50,9 +50,6 @@ extends:
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
-              script: npm run commitlint
-          - template: ../steps/node_script.yml
-            parameters:
               condition: succeededOrFailed()
               script: npm run tscheck
           - template: ../steps/node_script.yml
