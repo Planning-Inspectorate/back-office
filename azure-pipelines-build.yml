@@ -24,6 +24,8 @@ parameters:
     type: boolean
     default: true
 
+pr: none
+
 trigger:
   branches:
     include:

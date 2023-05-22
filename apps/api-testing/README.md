@@ -16,5 +16,3 @@ The shell script `test.sh` performs the following functions:
 1. It creates a `schemas` folder if it doesn't exist already.
 2. It generates Swagger documentation using the `swagger-autogen` npm package.
 3. It creates schema files for testing using the `init-test` npm script.
-
-Test CI
