@@ -1,11 +1,15 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getExaminationTimetableItems } from './examination-timetable-items.controller.js';
+import {
+	createExaminationTimetableItem,
+	getExaminationTimetableItem,
+	getExaminationTimetableItems
+} from './examination-timetable-items.controller.js';
 
 const router = createRouter();
 
 router.get(
-	'/:caseId',
+	'/case/:caseId',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/examination-timetable-items'
@@ -24,6 +28,26 @@ router.get(
 	asyncHandler(getExaminationTimetableItems)
 );
 
+router.get(
+	'/:id',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items'
+        #swagger.description = 'Gets all examination timetable items for case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Examination timetable item ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'List of examination timetable items',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
+        }
+    */
+	asyncHandler(getExaminationTimetableItem)
+);
+
 router.post(
 	'/',
 	/*
@@ -38,10 +62,10 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'List of examination timetable items',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemsRequestBody' }
+            schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
         }
     */
-	asyncHandler(getExaminationTimetableItems)
+	asyncHandler(createExaminationTimetableItem)
 );
 
 export { router as examinationTimetableItemsRoutes };
