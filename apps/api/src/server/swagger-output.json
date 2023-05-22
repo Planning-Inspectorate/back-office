@@ -19,7 +19,7 @@
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
-				"description": "Gets requested appeals, limited to the first 30 if no pagination params are given",
+				"description": "Gets requested appeals, limited to the first 30 appeals if no pagination params are given",
 				"parameters": [
 					{
 						"name": "pageNumber",
@@ -65,7 +65,7 @@
 					"200": {
 						"description": "Gets a single appeal by id",
 						"schema": {
-							"$ref": "#/definitions/SingleAppeal"
+							"$ref": "#/definitions/SingleAppealResponse"
 						}
 					},
 					"400": {
@@ -91,17 +91,23 @@
 						"in": "body",
 						"description": "Appeal details to update",
 						"schema": {
-							"$ref": "#/definitions/UpdateAppeal"
+							"$ref": "#/definitions/UpdateAppealRequest"
 						},
 						"required": true
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "OK"
+						"description": "Updates a single appeal by id",
+						"schema": {
+							"$ref": "#/definitions/UpdateAppealResponse"
+						}
 					},
 					"400": {
 						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
 					},
 					"500": {
 						"description": "Internal Server Error"
@@ -3250,7 +3256,7 @@
 				}
 			}
 		},
-		"SingleAppeal": {
+		"SingleAppealResponse": {
 			"type": "object",
 			"properties": {
 				"agentName": {},
@@ -3286,6 +3292,27 @@
 				"appealStatus": {
 					"type": "string",
 					"example": "awaiting_lpa_questionnaire"
+				},
+				"appealTimetable": {
+					"type": "object",
+					"properties": {
+						"finalEventsDueDate": {
+							"type": "string",
+							"example": "2023-04-16T00:00:00.000Z"
+						},
+						"interestedPartyRepsDueDate": {
+							"type": "string",
+							"example": "2023-05-17T00:00:00.000Z"
+						},
+						"questionnaireDueDate": {
+							"type": "string",
+							"example": "2023-06-18T00:00:00.000Z"
+						},
+						"statementDueDate": {
+							"type": "string",
+							"example": "2023-07-19T00:00:00.000Z"
+						}
+					}
 				},
 				"appealType": {
 					"type": "string",
@@ -3344,18 +3371,36 @@
 					"type": "string",
 					"example": "48269/APP/2021/1482"
 				},
+				"siteVisit": {
+					"type": "object",
+					"properties": {
+						"visitDate": {
+							"type": "string",
+							"example": "2022-03-31T12:00:00.000Z"
+						}
+					}
+				},
 				"startedAt": {
 					"type": "string",
 					"example": "2022-05-17T23:00:00.000Z"
 				}
 			}
 		},
-		"UpdateAppeal": {
+		"UpdateAppealRequest": {
 			"type": "object",
 			"properties": {
 				"startedAt": {
 					"type": "string",
 					"example": "2023-05-09"
+				}
+			}
+		},
+		"UpdateAppealResponse": {
+			"type": "object",
+			"properties": {
+				"startedAt": {
+					"type": "string",
+					"example": "2023-05-09T01:00:00.000Z"
 				}
 			}
 		},

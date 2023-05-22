@@ -2,6 +2,7 @@ import * as schema from '@prisma/client';
 import { ZoomLevel } from '@prisma/client';
 import { GridReference } from 'packages/applications';
 import { string_to_uuid } from 'rhea/typings/util';
+import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/appeals/constants';
 
 export {
 	Address,
@@ -57,6 +58,7 @@ export interface Appeal extends schema.Appeal {
 	address?: schema.Address;
 	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
 	appealStatus: AppealStatus[];
+	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
 	appellant?: schema.Appellant;
 	createdAt: Date;
@@ -90,7 +92,14 @@ export interface AppealType extends schema.AppealType {
 	type: string;
 }
 
-export type AppealTypeCode = 'HAS' | 'FPA';
+export interface AppealTimetable extends schema.AppealTimetable {
+	finalEventsDueDate: Date | null;
+	interestedPartyRepsDueDate: Date | null;
+	questionnaireDueDate: Date | null;
+	statementDueDate: Date | null;
+}
+
+export type AppealTypeCode = APPEAL_TYPE_SHORTCODE_FPA | APPEAL_TYPE_SHORTCODE_HAS;
 
 export type AppealStatusMachineType =
 	| 'lpaQuestionnaireAndInspectorPickup'

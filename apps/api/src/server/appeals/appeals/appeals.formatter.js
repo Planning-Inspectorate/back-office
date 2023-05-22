@@ -1,14 +1,15 @@
 import formatAddress from '../../utils/address-block-formtter.js';
+import { APPEAL_TYPE_SHORTCODE_FPA } from '../constants.js';
 
 const appealFormatter = {
 	/**
-	 * @param {import('@pins/api').Schema.Appeal} appeal
+	 * @param {import('@pins/api').Appeals.RepositoryGetAllResultItem} appeal
 	 * @returns {{
 	 * 	 appealId: number,
 	 * 	 appealReference: string,
-	 * 	 appealSite: { addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode?: string | null },
+	 * 	 appealSite: import('@pins/api').Appeals.AppealSite,
 	 * 	 appealStatus: string,
-	 * 	 appealType: string,
+	 * 	 appealType?: string,
 	 * 	 createdAt: Date,
 	 * 	 localPlanningDepartment: string,
 	 * }}}
@@ -18,27 +19,29 @@ const appealFormatter = {
 		appealReference: appeal.reference,
 		appealSite: formatAddress(appeal.address),
 		appealStatus: appeal.appealStatus[0].status,
-		appealType: appeal.appealType.type,
+		appealType: appeal.appealType?.type,
 		createdAt: appeal.createdAt,
 		localPlanningDepartment: appeal.localPlanningDepartment
 	}),
 	/**
-	 * @param {import('@pins/api').Schema.Appeal} appeal
+	 * @param {import('@pins/api').Appeals.RepositoryGetByIdResultItem} appeal
 	 * @returns {{
 	 *   agentName?: string | null,
 	 *   allocationDetails: string,
 	 *   appealId: number,
 	 *   appealReference: string,
-	 *   appealSite: { addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode?: string | null },
+	 *   appealSite: import('@pins/api').Appeals.AppealSite,
 	 *   appealStatus: string,
-	 *   appealType: string,
+	 * 	 appealTimetable: import('@pins/api').Appeals.AppealTimetable,
+	 *   appealType?: string,
 	 *   appellantName?: string,
 	 *   caseProcedure: string,
 	 *   decision?: string,
-	 *   linkedAppeal: { appealId: number | null, appealReference: string | null },
+	 *   linkedAppeal: import('@pins/api').Appeals.LinkedAppeal,
 	 *   localPlanningDepartment: string,
-	 *   otherAppeals: [{ appealId: number | null, appealReference: string | null }],
+	 *   otherAppeals: [import('@pins/api').Appeals.LinkedAppeal],
 	 *   planningApplicationReference: string,
+	 * 	 siteVisit: { visitDate?: Date | null }
 	 * 	 startedAt: Date | null,
 	 * }}}
 	 */
@@ -50,7 +53,17 @@ const appealFormatter = {
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
 			appealStatus: appeal.appealStatus[0].status,
-			appealType: appeal.appealType.type,
+			appealTimetable: {
+				finalEventsDueDate: appeal.appealTimetable?.finalEventsDueDate || null,
+				...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
+					interestedPartyRepsDueDate: appeal.appealTimetable?.interestedPartyRepsDueDate || null
+				}),
+				questionnaireDueDate: appeal.appealTimetable?.questionnaireDueDate || null,
+				...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
+					statementDueDate: appeal.appealTimetable?.statementDueDate || null
+				})
+			},
+			appealType: appeal.appealType?.type,
 			appellantName: appeal.appellant?.name,
 			caseProcedure: 'Written',
 			decision: appeal.inspectorDecision?.outcome,
@@ -66,6 +79,9 @@ const appealFormatter = {
 				}
 			],
 			planningApplicationReference: appeal.planningApplicationReference,
+			siteVisit: {
+				visitDate: appeal.siteVisit?.visitDate || null
+			},
 			startedAt: appeal.startedAt
 		};
 	}

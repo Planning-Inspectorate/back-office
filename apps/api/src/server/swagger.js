@@ -515,7 +515,7 @@ const document = {
 			pageCount: 27,
 			pageSize: 30
 		},
-		SingleAppeal: {
+		SingleAppealResponse: {
 			agentName: null,
 			allocationDetails: 'F / General Allocation',
 			appealId: 1,
@@ -526,6 +526,12 @@ const document = {
 				postCode: 'BS7 8LQ'
 			},
 			appealStatus: 'awaiting_lpa_questionnaire',
+			appealTimetable: {
+				finalEventsDueDate: '2023-04-16T00:00:00.000Z',
+				interestedPartyRepsDueDate: '2023-05-17T00:00:00.000Z',
+				questionnaireDueDate: '2023-06-18T00:00:00.000Z',
+				statementDueDate: '2023-07-19T00:00:00.000Z'
+			},
 			appealType: 'household',
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
@@ -543,10 +549,16 @@ const document = {
 				}
 			],
 			planningApplicationReference: '48269/APP/2021/1482',
+			siteVisit: {
+				visitDate: '2022-03-31T12:00:00.000Z'
+			},
 			startedAt: '2022-05-17T23:00:00.000Z'
 		},
-		UpdateAppeal: {
+		UpdateAppealRequest: {
 			startedAt: '2023-05-09'
+		},
+		UpdateAppealResponse: {
+			startedAt: '2023-05-09T01:00:00.000Z'
 		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
