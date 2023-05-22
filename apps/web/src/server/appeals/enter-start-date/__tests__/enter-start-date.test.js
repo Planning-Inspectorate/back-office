@@ -29,70 +29,29 @@ describe('appeal-details', () => {
 	});
 
 	describe('POST /enter-start-date', () => {
-		const postDataWithoutErrors = {
-			body: {
-				'start-date-day': '31',
-				'start-date-month': '01',
-				'start-date-year': '2023'
-			}
-		};
-		const postDataWithErrors = {
-			...postDataWithoutErrors,
-			errors: {
-				'start-date-day': {
-					value: '32',
-					msg: 'Please enter a valid day',
-					param: 'start-date-day',
-					location: 'body'
-				}
-			}
-		};
-
-		it('should render the 500 error page if errors are present and an appeal with a matching appealId does not exist', async () => {
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatDoesNotExist}${pageUrl}`)
-				.send(postDataWithErrors);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-		it('should re-render the enter start date page in an error state if errors are present and an appeal with a matching appealId exists', async () => {
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(postDataWithErrors);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
 		// TODO: BOAT-105 - update once service is wired up
 		// it('should call the service method to set the appeal start date if no errors are present', async () => {
 		//
 		// });
 
-		it('should re-render the enter start date page with the expected error message if the entered day is not an integer', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-day'] = 'a';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+		it('should re-render the enter start date page with the expected error message if the entered day is empty', async () => {
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the enter start date page with the expected error message if the entered day is shorter than 1 character', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-day'] = '';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+		it('should re-render the enter start date page with the expected error message if the entered day is not an integer', async () => {
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': 'a',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -100,13 +59,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is longer than 2 characters', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-day'] = '111';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '111',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -114,13 +71,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is less than 1', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-day'] = '0';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '0',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -128,13 +83,23 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered day is greater than 31', async () => {
-			const testData = { ...postDataWithoutErrors };
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '32',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
-			testData.body['start-date-day'] = '32';
+			const element = parseHtml(response.text);
 
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered month is empty', async () => {
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -142,27 +107,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered month is not an integer', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-month'] = 'a';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should re-render the enter start date page with the expected error message if the entered month is shorter than 1 character', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-month'] = '';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': 'a',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -170,13 +119,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered month is longer than 2 characters', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-month'] = '111';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '111',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -184,13 +131,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered month is less than 1', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-month'] = '0';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '0',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -198,13 +143,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered month is greater than 12', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-month'] = '13';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '13',
+				'start-date-year': '2023'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -212,13 +155,23 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered year is not an integer', async () => {
-			const testData = { ...postDataWithoutErrors };
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '1',
+				'start-date-year': 'aaaa'
+			});
 
-			testData.body['start-date-year'] = 'a';
+			const element = parseHtml(response.text);
 
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the enter start date page with the expected error message if the entered year is empty', async () => {
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '1',
+				'start-date-year': ''
+			});
 
 			const element = parseHtml(response.text);
 
@@ -226,13 +179,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered year is shorter than 4 characters', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-year'] = '202';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '1',
+				'start-date-year': '202'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -240,13 +191,11 @@ describe('appeal-details', () => {
 		});
 
 		it('should re-render the enter start date page with the expected error message if the entered year is longer than 4 characters', async () => {
-			const testData = { ...postDataWithoutErrors };
-
-			testData.body['start-date-year'] = '20234';
-
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(testData);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '1',
+				'start-date-year': '20233'
+			});
 
 			const element = parseHtml(response.text);
 
@@ -254,13 +203,16 @@ describe('appeal-details', () => {
 		});
 
 		it('should redirect to the start-date-entered page if no errors are present and an appeal with a matching appealId exists and the service method to set the appeal start date was called successfully', async () => {
-			const response = await request
-				.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`)
-				.send(postDataWithoutErrors);
+			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
+				'start-date-day': '1',
+				'start-date-month': '1',
+				'start-date-year': '2023'
+			});
 
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(response.statusCode).toBe(302);
+			expect(response.text).toEqual(
+				'Found. Redirecting to /appeals-service/appeal-details/1/start-date-entered'
+			);
 		});
 	});
 });
