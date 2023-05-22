@@ -1,0 +1,42 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - '*'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.2.0
+
+extends:
+  template: stages/wrapper_ci.yml@templates
+  parameters:
+    globalVariables:
+      - template: azure-pipelines-variables.yml@self
+    validationJobs:
+      - name: Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              script: npm ci
+          - template: ../steps/node_script.yml
+            parameters:
+              condition: ne(variables['Build.SourceBranchName'], 'main')
+              script: npm run commitlint
+          - template: ../steps/node_script.yml
+            parameters:
+              condition: succeededOrFailed()
+              script: npm run tscheck
+          - template: ../steps/node_script.yml
+            parameters:
+              condition: succeededOrFailed()
+              script: npm run lint:js
+          - template: ../steps/node_script.yml
+            parameters:
+              condition: succeededOrFailed()
+              script: npm run test
