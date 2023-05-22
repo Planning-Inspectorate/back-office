@@ -133,9 +133,10 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
 /**
  * Save new examination timetable
  *
+ * @param {{params: {caseId: string}, body: ApplicationsTimetableCreateBody}} request
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
-export async function postApplicationsCaseTimetableSave({ body }, response) {
+export async function postApplicationsCaseTimetableSave({ body, params }, response) {
 	const splitDescription = body.description.split('*');
 	const preText = splitDescription.shift();
 	const bulletPoints = splitDescription;
@@ -144,17 +145,22 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	// probably dates need to include times
 	// probably the field called just "date" should be named always "startDate"
 	// even when theres no "endDate"
+	// const startTime = new Date(
+	// 	`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}:${body['startTime.hours']}:${body['startTime.minutes']}`
+	// )
 	const payload = {
+		caseId: Number.parseInt(params.caseId, 10),
+		// @ts-ignore
+		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
 		name: body.name,
-		description: { preText, bulletPoints },
-		type: body['timetable-type'],
+		description: JSON.stringify({ preText, bulletPoints }),
 		date: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`),
 		startDate: new Date(
 			`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`
 		),
-		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`),
-		startTime: `${body['startTime.hours']}:${body['startTime.minutes']}`,
-		endTime: `${body['endTime.hours']}:${body['endTime.minutes']}`
+		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
+		// startTime,
+		// endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
 	};
 
 	const { errors } = await createCaseTimetableItem(payload);
@@ -189,7 +195,8 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
 		const formattedSelectedItemType = {
 			text: selectedItemType.displayNameEn,
 			value: selectedItemType.name,
-			templateType: selectedItemType.templateType
+			templateType: selectedItemType.templateType,
+			id: selectedItemType.id
 		};
 		const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
 
