@@ -64,7 +64,6 @@ AUTH_CLIENT_ID={obtain from local AD app}
 AUTH_TENANT_ID={obtain from local AD app}
 AUTH_CLIENT_SECRET={obtain from local AD app}
 AUTH_REDIRECT_URI=/auth/redirect
-AUTH_CLOUD_INSTANCE_ID=https://login.microsoftonline.com
 ```
 
 Speak with a member of the team to obtain the credentials for the local AD application (TODO: Let's move these to key vault and provide access to devs).
