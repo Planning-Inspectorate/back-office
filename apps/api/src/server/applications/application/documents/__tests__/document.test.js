@@ -71,7 +71,7 @@ describe('Provide document upload URLs', () => {
 			documentURI: '/some/path/test doc'
 		};
 
-		expect(databaseConnector.documentVersion.upsert).toBeCalledTimes(2);
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
 
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
 			create: {
@@ -96,7 +96,7 @@ describe('Provide document upload URLs', () => {
 			where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
 		});
 
-		expect(databaseConnector.documentVersion.upsert).lastCalledWith({
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
 			create: {
 				blobStorageContainer: 'blob-store-container',
 				documentURI: '/some/path/test doc',

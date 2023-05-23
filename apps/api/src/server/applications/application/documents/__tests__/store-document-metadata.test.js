@@ -101,7 +101,7 @@ describe('store Document metadata', () => {
 
 		expect(statusCode).toEqual(200);
 
-		expect(databaseConnector.documentVersion.upsert).toBeCalledWith({
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
 			create: {
 				...upsertCalledWIth,
 				Document: { connect: { guid: '1111-2222-3333' } }
@@ -150,7 +150,7 @@ describe('store Document metadata', () => {
 			errors: 'document not found: guid 1111-2222-3333 related to caseId 1'
 		});
 
-		expect(databaseConnector.documentVersion.upsert).not.toBeCalled();
+		expect(databaseConnector.documentVersion.upsert).not.toHaveBeenCalled();
 
 		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
 			include: { documentVersion: true },
@@ -183,8 +183,8 @@ describe('store Document metadata', () => {
 				'"origin" must be one of [pins, citizen, lpa, ogd]. "redactedStatus" must be one of [not_redacted, redacted]. "published" is not allowed. "badFieldThatDoesNotExistOnSchema" is not allowed'
 		});
 
-		expect(databaseConnector.documentVersion.upsert).not.toBeCalled();
+		expect(databaseConnector.documentVersion.upsert).not.toHaveBeenCalled();
 
-		expect(databaseConnector.document.findFirst).not.toBeCalled();
+		expect(databaseConnector.document.findFirst).not.toHaveBeenCalled();
 	});
 });

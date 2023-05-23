@@ -85,7 +85,7 @@ describe('Appeals', () => {
 
 				const response = await request.get('/appeals');
 
-				expect(databaseConnector.appeal.findMany).toBeCalledWith(
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
 						skip: 0,
 						take: 30
@@ -138,7 +138,7 @@ describe('Appeals', () => {
 
 				const response = await request.get('/appeals?pageNumber=2&pageSize=1');
 
-				expect(databaseConnector.appeal.findMany).toBeCalledWith(
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
 						skip: 1,
 						take: 1
@@ -369,7 +369,7 @@ describe('Appeals', () => {
 					startedAt: '2023-05-05'
 				});
 
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-05-05T01:00:00.000Z',
 						updatedAt: expect.any(Date)
@@ -392,7 +392,7 @@ describe('Appeals', () => {
 					startedAt: '2023-05-05'
 				});
 
-				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
 							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
@@ -400,7 +400,7 @@ describe('Appeals', () => {
 						}
 					})
 				);
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-05-05T01:00:00.000Z',
 						updatedAt: expect.any(Date)
@@ -423,7 +423,7 @@ describe('Appeals', () => {
 					startedAt: '2023-05-05'
 				});
 
-				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
 							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
@@ -433,7 +433,7 @@ describe('Appeals', () => {
 						}
 					})
 				);
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-05-05T01:00:00.000Z',
 						updatedAt: expect.any(Date)
@@ -456,7 +456,7 @@ describe('Appeals', () => {
 					startedAt: '2023-11-13'
 				});
 
-				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
 							questionnaireDueDate: new Date('2023-12-27T01:00:00.000Z'),
@@ -464,7 +464,7 @@ describe('Appeals', () => {
 						}
 					})
 				);
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-11-13T01:00:00.000Z',
 						updatedAt: expect.any(Date)
@@ -487,7 +487,7 @@ describe('Appeals', () => {
 					startedAt: '2023-04-19'
 				});
 
-				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
 							questionnaireDueDate: new Date('2023-06-05T01:00:00.000Z'),
@@ -495,7 +495,7 @@ describe('Appeals', () => {
 						}
 					})
 				);
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-04-19T01:00:00.000Z',
 						updatedAt: expect.any(Date)
@@ -518,7 +518,7 @@ describe('Appeals', () => {
 					startedAt: '2023-04-13'
 				});
 
-				expect(databaseConnector.appealTimetable.upsert).toBeCalledWith(
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
 							questionnaireDueDate: new Date('2023-05-30T01:00:00.000Z'),
@@ -526,7 +526,7 @@ describe('Appeals', () => {
 						}
 					})
 				);
-				expect(databaseConnector.appeal.update).toBeCalledWith({
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-04-13T01:00:00.000Z',
 						updatedAt: expect.any(Date)

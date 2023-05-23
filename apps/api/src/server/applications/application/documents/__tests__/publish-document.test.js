@@ -90,7 +90,7 @@ describe('Ready-to-publish-documents', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(databaseConnector.document.findMany).toBeCalledWith({
+		expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 			include: {
 				documentVersion: true,
 				folder: true

@@ -73,7 +73,7 @@ describe('Libraries', () => {
 				throw error;
 			};
 
-			await expect(asyncRoute(route)).rejects.toThrowError(error);
+			await expect(asyncRoute(route)).rejects.toThrow(error);
 		});
 
 		it('should throw error if route returns rejected promise', async () => {
@@ -83,7 +83,7 @@ describe('Libraries', () => {
 				await Promise.reject(error);
 			};
 
-			await expect(asyncRoute(route)).rejects.toThrowError(error);
+			await expect(asyncRoute(route)).rejects.toThrow(error);
 		});
 	});
 

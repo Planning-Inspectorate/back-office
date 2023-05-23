@@ -36,7 +36,7 @@ describe('Files list', () => {
 			pageSizeSelect.value = 50;
 			pageSizeSelect.dispatchEvent(new Event('change'));
 
-			expect(window.location.assign).toBeCalledWith('.?number=1&size=50');
+			expect(window.location.assign).toHaveBeenCalledWith('.?number=1&size=50');
 		});
 	});
 

@@ -38,12 +38,12 @@ describe('Representation repository', () => {
 
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
-			expect(databaseConnector.representation.count).toBeCalledWith({
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
 				where: {
 					caseId: 1
 				}
 			});
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -97,12 +97,12 @@ describe('Representation repository', () => {
 
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
-			expect(databaseConnector.representation.count).toBeCalledWith({
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
 				where: {
 					caseId: 1
 				}
 			});
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -211,10 +211,10 @@ describe('Representation repository', () => {
 				]
 			};
 
-			expect(databaseConnector.representation.count).toBeCalledWith({
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
 				where
 			});
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -293,10 +293,10 @@ describe('Representation repository', () => {
 				]
 			};
 
-			expect(databaseConnector.representation.count).toBeCalledWith({
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
 				where
 			});
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -355,10 +355,10 @@ describe('Representation repository', () => {
 				caseId: 1
 			};
 
-			expect(databaseConnector.representation.count).toBeCalledWith({
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
 				where
 			});
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -403,7 +403,7 @@ describe('Representation repository', () => {
 			const representation = await representationRepository.getById(1);
 
 			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -469,7 +469,7 @@ describe('Representation repository', () => {
 			const representation = await representationRepository.getById(1, 2);
 
 			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findMany).toBeCalledWith({
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
 				select: {
 					id: true,
 					reference: true,
@@ -589,7 +589,7 @@ describe('Representation repository', () => {
 				userId: null
 			});
 
-			expect(databaseConnector.representation.create).toBeCalledWith({
+			expect(databaseConnector.representation.create).toHaveBeenCalledWith({
 				data: {
 					status: 'DRAFT',
 					caseId: 1,
@@ -621,7 +621,7 @@ describe('Representation repository', () => {
 				}
 			});
 
-			expect(databaseConnector.representation.update).toBeCalledWith({
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
 				where: { id: 1 },
 				data: {
 					reference: 'B0000001'

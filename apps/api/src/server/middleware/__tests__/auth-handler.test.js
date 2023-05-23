@@ -41,8 +41,8 @@ describe('Authorize Client Middleware', () => {
 
 		await authorizeClientMiddleware(req, res, next);
 
-		expect(next).toBeCalledTimes(1);
-		expect(next).toBeCalledWith(new BackOfficeAppError(errorMessage, 401));
+		expect(next).toHaveBeenCalledTimes(1);
+		expect(next).toHaveBeenCalledWith(new BackOfficeAppError(errorMessage, 401));
 	});
 
 	it('should throw an error and return 401 when access token verification fails', async () => {
@@ -59,8 +59,8 @@ describe('Authorize Client Middleware', () => {
 
 		await authorizeClientMiddleware(req, res, next);
 
-		expect(next).toBeCalledTimes(1);
-		expect(next).toBeCalledWith(new BackOfficeAppError('invalid access token', 401));
+		expect(next).toHaveBeenCalledTimes(1);
+		expect(next).toHaveBeenCalledWith(new BackOfficeAppError('invalid access token', 401));
 	});
 
 	it('should return successful verification and call next when clientCredentialsGrantEnabled and access token verification succeeds', async () => {
@@ -110,7 +110,7 @@ describe('Authorize Client Middleware', () => {
 
 		await authorizeClientMiddleware(req, res, next);
 
-		expect(next).toBeCalledTimes(1);
+		expect(next).toHaveBeenCalledTimes(1);
 		expect(next).toHaveBeenCalledWith();
 		expect(jwt.decode).toHaveBeenCalledWith('accessToken', { complete: true });
 		expect(jwt.verify).toHaveBeenCalledWith('accessToken', 'string', jwtOptions);
@@ -123,9 +123,9 @@ describe('Authorize Client Middleware', () => {
 		// @ts-ignore
 		await authorizeClientMiddleware({}, res, next);
 
-		expect(next).toBeCalledTimes(1);
+		expect(next).toHaveBeenCalledTimes(1);
 		expect(next).toHaveBeenCalledWith();
-		expect(jwt.decode).not.toBeCalled();
-		expect(jwt.verify).not.toBeCalled();
+		expect(jwt.decode).not.toHaveBeenCalled();
+		expect(jwt.verify).not.toHaveBeenCalled();
 	});
 });
