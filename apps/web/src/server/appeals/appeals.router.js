@@ -3,6 +3,7 @@ import { Router as createRouter } from 'express';
 import { assertGroupAccess } from '../app/auth/auth.guards.js';
 import nationalListRouter from '../appeals/national-list/national-list.router.js';
 import appealDetailsRouter from './appeal-details/appeal-details.router.js';
+
 const router = createRouter();
 
 const groupIds = config.referenceData.appeals;
