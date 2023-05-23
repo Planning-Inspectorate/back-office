@@ -301,6 +301,44 @@ export const updateApplicationRepresentation = async (
 	return response;
 };
 
+export const updateApplicationRepresentationRedaction = async (
+	{ representation, representationAction },
+	caseId,
+	representationId
+) => {
+	//  Validate case rep id is on case id
+	const response = await databaseConnector.representation.findFirst({
+		where: { id: representationId, caseId }
+	});
+
+	if (!response) throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (!isEmpty(representation)) {
+		await databaseConnector.representation.update({
+			where: { id: representationId },
+			data: {
+				...representation
+			}
+		});
+	}
+
+	if (!isEmpty(representationAction)) {
+		await databaseConnector.representationAction.create({
+			data: {
+				...representationAction,
+				representationId,
+				actionDate: new Date(),
+				previousRedactStatus: response.redacted
+			}
+		});
+	}
+
+	//  returns updated redacted
+	return databaseConnector.representation.findFirst({
+		where: { id: representationId, caseId }
+	});
+};
+
 /**
  *
  * @param {string} rawSearchTerm
