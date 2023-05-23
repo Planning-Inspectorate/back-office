@@ -880,6 +880,78 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/redact": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates a redacted representation for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"actionBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								},
+								"redactedRepresentation": {
+									"type": "string",
+									"example": "This is the original Rep"
+								},
+								"notes": {
+									"type": "string",
+									"example": "Removed PII from original"
+								},
+								"type": {
+									"type": "string",
+									"example": "REDACTION"
+								},
+								"invalidReason": {
+									"type": "string",
+									"example": "an invalid reason"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "DRAFT"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
