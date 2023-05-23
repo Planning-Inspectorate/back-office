@@ -1,6 +1,6 @@
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 import { buildNsipProjectPayload } from '../application.js';
-import { validateNsipProject } from './schema-test-utils.js';
+import { validateNsipProject } from '../../../utils/schema-test-utils.js';
 
 describe('Application', () => {
 	test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload with minimum payload', () => {
