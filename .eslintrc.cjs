@@ -6,7 +6,9 @@ module.exports = {
 	],
 	ignorePatterns: [
 		'dist/**',
-		'node_modules/**'
+		'node_modules/**',
+		'**/*.min*.js',
+		'**/static/scripts/app.js'
 	],
 	parserOptions: {
 		ecmaVersion: 2022,
