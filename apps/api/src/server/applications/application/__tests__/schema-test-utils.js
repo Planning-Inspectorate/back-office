@@ -23,7 +23,3 @@ export const validateNsipProject = (/** @type {any} */ payload) => {
 export const removeUndefined = (/** @type {any} */ payload) => {
 	return JSON.parse(JSON.stringify(payload));
 };
-
-test('Make it run', () => {
-	expect(true).toEqual(true);
-});
