@@ -19,6 +19,9 @@ export interface Appeal {
 	otherAppeals: [AppealLink] | [];
 	planningApplicationReference: string;
 	documentationStatus?: object;
+	startedAt: string | null;
+	appealTimetable: AppealTimetable;
+	siteVisit: AppealSiteVisit;
 }
 
 export type Contact = {
@@ -30,4 +33,13 @@ export type Contact = {
 export type AppealLink = {
 	appealId: number;
 	appealReference: string;
+};
+
+export type AppealTimetable = {
+	finalEventsDueDate: string | null;
+	questionnaireDueDate: string | null;
+};
+
+export type AppealSiteVisit = {
+	visitDate: string;
 };
