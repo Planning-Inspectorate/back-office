@@ -48,7 +48,7 @@ const validateExistingRegions = async (value) => {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-const validateExistingApplication = async (value) => {
+export const validateExistingApplication = async (value) => {
 	const caseFromDatabase = await caseRepository.getById(value, {});
 
 	if (caseFromDatabase === null || typeof caseFromDatabase === 'undefined') {

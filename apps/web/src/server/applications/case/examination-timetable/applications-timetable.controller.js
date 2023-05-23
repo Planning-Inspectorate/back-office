@@ -140,6 +140,12 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 	const splitDescription = body.description.split('*');
 	const preText = splitDescription.shift();
 	const bulletPoints = splitDescription;
+	const startDate = body['startDate.year']
+		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
+		: null;
+	const endDate = body['endDate.year']
+		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
+		: null;
 
 	// TODO: change properties names for the API needs
 	// probably dates need to include times
@@ -152,10 +158,8 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
 		date: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`),
-		startDate: new Date(
-			`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`
-		),
-		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`),
+		startDate,
+		endDate,
 		startTime: body['startTime.hours']
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,

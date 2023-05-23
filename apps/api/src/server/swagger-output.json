@@ -2250,10 +2250,6 @@
 						"type": "string",
 						"example": "Exmaination Timetable Item Description"
 					},
-					"displayNameEn": {
-						"type": "string",
-						"example": "Accompanied site inspection"
-					},
 					"date": {
 						"type": "string",
 						"example": "2023-02-27T10:00:00Z"
@@ -2280,6 +2276,10 @@
 		"ExaminationTimetableItemsRequestBody": {
 			"type": "object",
 			"properties": {
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
 				"examinationTypeId": {
 					"type": "number",
 					"example": 1
@@ -2291,10 +2291,6 @@
 				"description": {
 					"type": "string",
 					"example": "Exmaination Timetable Item Description"
-				},
-				"displayNameEn": {
-					"type": "string",
-					"example": "Accompanied site inspection"
 				},
 				"date": {
 					"type": "string",
@@ -2340,10 +2336,6 @@
 				"description": {
 					"type": "string",
 					"example": "Exmaination Timetable Item Description"
-				},
-				"displayNameEn": {
-					"type": "string",
-					"example": "Accompanied site inspection"
 				},
 				"date": {
 					"type": "string",

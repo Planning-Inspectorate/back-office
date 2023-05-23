@@ -5,6 +5,7 @@ import {
 	getExaminationTimetableItem,
 	getExaminationTimetableItems
 } from './examination-timetable-items.controller.js';
+import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
 
 const router = createRouter();
 
@@ -65,6 +66,7 @@ router.post(
             schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
         }
     */
+	validateCreateExaminationTimetableItem,
 	asyncHandler(createExaminationTimetableItem)
 );
 
