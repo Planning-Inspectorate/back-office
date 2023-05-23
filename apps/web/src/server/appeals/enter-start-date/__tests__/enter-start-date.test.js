@@ -1,13 +1,17 @@
+import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../testing/index.js';
+import instance from '../../../lib/request.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
+
 const request = supertest(app);
 const baseUrl = '/appeals-service/appeal-details';
 const pageUrl = '/enter-start-date';
 const appealIdThatExists = 1;
 const appealIdThatDoesNotExist = 0;
+const mockPatch = jest.spyOn(instance, 'patch');
 
 describe('appeal-details', () => {
 	beforeEach(installMockApi);
@@ -29,11 +33,6 @@ describe('appeal-details', () => {
 	});
 
 	describe('POST /enter-start-date', () => {
-		// TODO: BOAT-105 - update once service is wired up
-		// it('should call the service method to set the appeal start date if no errors are present', async () => {
-		//
-		// });
-
 		it('should re-render the enter start date page with the expected error message if the entered day is empty', async () => {
 			const response = await request.post(`${baseUrl}/${appealIdThatExists}${pageUrl}`).send({
 				'start-date-day': '',
@@ -209,10 +208,10 @@ describe('appeal-details', () => {
 				'start-date-year': '2023'
 			});
 
-			expect(response.statusCode).toBe(302);
-			expect(response.text).toEqual(
-				'Found. Redirecting to /appeals-service/appeal-details/1/start-date-entered'
-			);
+			expect(mockPatch).toHaveBeenCalledWith(`appeals/${appealIdThatExists}`, {
+				json: { startedAt: '2023-01-01' }
+			});
+			expect(response.statusCode).toBe(200);
 		});
 	});
 });
