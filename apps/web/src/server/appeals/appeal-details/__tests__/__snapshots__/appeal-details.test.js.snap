@@ -106,10 +106,28 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div id=\\"accordion-default-1-content-2\\" class=\\"govuk-accordion__section-content\\"
                         aria-labelledby=\\"accordion-default-1-heading-2\\">
-                            <div class=\\"govuk-inset-text govuk-!-margin-top-0\\">
-                                <p>Case not started</p><a href=\\"/appeals-service/appeal-details/1/enter-start-date\\"
-                                class=\\"govuk-link\\">Add start date</a>
-                            </div>
+                            <dl class=\\"govuk-summary-list\\">
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">23 May 2023</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Start date</span></a>
+                                    </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA Questionnaire due</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA Questionnaire due</span></a>
+                                    </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final events due</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final events due</span></a>
+                                    </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site visit</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site visit</span></a>
+                                    </dd>
+                                </div>
+                            </dl>
                         </div>
                     </div>
                     <div class=\\"govuk-accordion__section \\">

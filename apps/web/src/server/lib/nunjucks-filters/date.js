@@ -4,7 +4,6 @@ import { isDateInstance } from '../dates.js';
 
 const timeZone = 'Europe/London';
 
-// TODO: remove this and always use the function below
 /**
  * @param {Date | number | string} date
  * @param {{ condensed?: boolean }} options
