@@ -10,6 +10,20 @@ import {
 	validateApplicationsDocumentsToPublish
 } from './applications-documentation.validators.js';
 
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {Function} next
+ * @returns {*}
+ */
+function relevantRepsMiddleware(req, res, next) {
+	if (req.params.folderName === 'relevant-representations') {
+		return res.redirect(`/applications-service/case/${req.params.caseId}/relevant-representations`);
+	}
+	next();
+}
+
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
 // TODO: make sure this is used only by the routes that require it
@@ -31,6 +45,7 @@ applicationsDocumentationRouter
 		asyncRoute(controller.updateApplicationsCaseDocumentationPublish)
 	);
 
+<<<<<<< HEAD
 /**
  *
  * @param {import('express').Request} req
@@ -45,6 +60,8 @@ function relevantRepsMiddleware(req, res, next) {
 	next();
 }
 
+=======
+>>>>>>> a4f051a8... refactor(web/applications): clean up extra express include (BOAS-736)
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(
