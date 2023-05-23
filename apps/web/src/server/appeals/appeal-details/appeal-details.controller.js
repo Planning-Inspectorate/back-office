@@ -14,7 +14,6 @@ export const viewAppealDetails = async (request, response) => {
 
 	if (appealDetails) {
 		const appealReferenceFragments = appealDetails?.appealReference.split('/');
-
 		const formattedSiteAddress = appealDetails?.appealSite
 			? Object.values(appealDetails?.appealSite)?.join(', ')
 			: 'Address not known';
@@ -65,7 +64,13 @@ export const viewAppealDetails = async (request, response) => {
 				email: 'robert.williams@planninginspectorate.gov.uk',
 				phone: '0300 027 1289'
 			},
-			inspector: null
+			inspector: null,
+			startedAt: appealDetails?.startedAt,
+			timetable: {
+				finalEventsDueDate: appealDetails?.appealTimetable.finalEventsDueDate,
+				questionnaireDueDate: appealDetails?.appealTimetable.questionnaireDueDate,
+				siteVisitDueDate: appealDetails?.siteVisit?.visitDate
+			}
 		};
 
 		response.render('appeals/appeal/appeal-details.njk', { appeal: { ...formattedAppeal } });

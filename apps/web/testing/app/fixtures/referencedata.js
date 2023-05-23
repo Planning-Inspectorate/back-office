@@ -74,7 +74,15 @@ export const appealData = {
 			appealReference: 'APP/Q9999/D/21/725284'
 		}
 	],
-	planningApplicationReference: '48269/APP/2021/1482'
+	planningApplicationReference: '48269/APP/2021/1482',
+	appealTimetable: {
+		finalEventsDueDate: null,
+		questionnaireDueDate: null
+	},
+	siteVisit: {
+		visitDate: null
+	},
+	startedAt: '2023-05-23T10:27:06.626Z'
 };
 
 export const getRandomLocalPlanningDepartment = () =>
