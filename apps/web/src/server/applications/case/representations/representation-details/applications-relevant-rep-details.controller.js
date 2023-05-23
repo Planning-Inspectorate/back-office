@@ -1,4 +1,3 @@
-import * as express from 'express';
 import { getCaseReferenceViewModel } from '../application-representations.view-model.js';
 import { getCase } from '../applications-relevant-reps.service.js';
 import { getRepresentationDetailsViewModel } from './application-representation-details.view-model.js';
@@ -7,8 +6,8 @@ import { getRepresentationDetails } from './applications-relevant-rep-details.se
 const view = 'applications/representations/representation-details/representation-details.njk';
 
 /**
- * @param {express.Request} req
- * @param {express.Response} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function relevantRepDetails(req, res) {
 	const { caseId, representationId } = req.params;

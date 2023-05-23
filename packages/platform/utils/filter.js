@@ -3,7 +3,7 @@ import { isUndefined } from 'lodash-es';
 /**
  * Remove any keys from an object where their value is undefined.
  *
- * @template {object} T
+ * @template {Object<string,any>} T
  * @param {T} source
  * @returns {T}
  */

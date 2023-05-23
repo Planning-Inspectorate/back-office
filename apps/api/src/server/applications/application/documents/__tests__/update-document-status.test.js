@@ -455,12 +455,8 @@ describe('Update document statuses and redacted statuses', () => {
 			}
 		];
 
-		// this is to stop an eslint error about unused refernces inside a loop
-		// see https://eslint.org/docs/latest/rules/no-loop-func
-		const localExpect = expect;
-
 		for (const { name, guid, document, documentVersion, want } of tests) {
-			test(name, async () => {
+			test('' + name, async () => {
 				// setup
 				databaseConnector.document.findUnique.mockReset();
 				databaseConnector.documentVersion.findUnique.mockReset();
@@ -479,10 +475,12 @@ describe('Update document statuses and redacted statuses', () => {
 				);
 
 				// checks
-				localExpect(response.status).toEqual(want.status);
-				localExpect(response.body).toEqual(want.body);
+				expect(response.status).toEqual(want.status);
+				expect(response.body).toEqual(want.body);
 				if (want.update) {
-					localExpect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 						where: { documentGuid_version: { documentGuid: guid, version: 1 } },
 						data: want.update
 					});

@@ -1,6 +1,5 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { ServiceBusClient } from '@azure/service-bus';
-import { EventType } from './event-type.js';
 
 /** @typedef {{body: any, contentType: string, applicationProperties: {version: string, type: string, traceId: number}}} MessageObjectToSend */
 
@@ -37,7 +36,7 @@ export class ServiceBusEventClient {
 	 *
 	 * @param {object[]} events
 	 * @param {number} traceId
-	 * @param {EventType} type
+	 * @param {import('./event-type.js').EventType} type
 	 * @returns {MessageObjectToSend[]}
 	 */
 	#transformMessagesToSend = (events, traceId, type) => {
@@ -56,7 +55,7 @@ export class ServiceBusEventClient {
 	 *
 	 * @param {string} topic
 	 * @param {any[]} events
-	 * @param {EventType} eventType
+	 * @param {import('./event-type.js').EventType} eventType
 	 */
 	sendEvents = async (topic, events, eventType) => {
 		const sender = this.#createSender(topic);

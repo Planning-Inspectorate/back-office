@@ -66,24 +66,24 @@ describe('Libraries', () => {
 	});
 
 	describe('async-route helper', () => {
-		it('should throw error if route throws error', () => {
+		it('should throw error if route throws error', async () => {
 			const error = new Error('some error');
 
 			const route = async () => {
 				throw error;
 			};
 
-			expect(asyncRoute(route)).rejects.toThrowError(error);
+			await expect(asyncRoute(route)).rejects.toThrowError(error);
 		});
 
-		it('should throw error if route returns rejected promise', () => {
+		it('should throw error if route returns rejected promise', async () => {
 			const error = new Error('some error');
 
 			const route = async () => {
 				await Promise.reject(error);
 			};
 
-			expect(asyncRoute(route)).rejects.toThrowError(error);
+			await expect(asyncRoute(route)).rejects.toThrowError(error);
 		});
 	});
 

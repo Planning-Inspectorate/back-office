@@ -1,4 +1,4 @@
-import { BlobServiceClient, BlockBlobClient, ContainerClient } from '@azure/storage-blob';
+import { BlobServiceClient } from '@azure/storage-blob';
 import md5 from 'crypto-js/md5.js';
 import getStream from 'into-stream';
 import config from '../../config/config.js';
@@ -17,7 +17,7 @@ function getBlobName(originalName) {
 }
 
 /**
- * @returns {ContainerClient}
+ * @returns {import('@azure/storage-blob').ContainerClient}
  */
 function getContainerClient() {
 	const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
@@ -28,7 +28,7 @@ function getContainerClient() {
 /**
  *
  * @param {string} blobName
- * @returns {BlockBlobClient}
+ * @returns {import('@azure/storage-blob').BlockBlobClient}
  */
 function getBlockBlobClient(blobName) {
 	return getContainerClient().getBlockBlobClient(blobName);

@@ -1,8 +1,11 @@
-import { Prisma } from '@prisma/client';
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+/**
+ * @typedef {import('@prisma/client').Prisma.PrismaPromise<T>} PrismaPromise
+ * @template T
+ */
 
 /**
  * @typedef {object} AppealInclusionOptions
@@ -53,7 +56,7 @@ const appealRepository = (function () {
 		},
 		/**
 		 * @param {number} id
-		 * @returns {Prisma.PrismaPromise<import('@pins/api').Appeals.RepositoryGetByIdResultItem | null>}
+		 * @returns {PrismaPromise<import('@pins/api').Appeals.RepositoryGetByIdResultItem | null>}
 		 */
 		getById(id) {
 			return databaseConnector.appeal.findUnique({
@@ -81,7 +84,7 @@ const appealRepository = (function () {
 		 * @param {{
 		 *	startedAt?: string;
 		 * }} data
-		 * @returns {Prisma.PrismaPromise<{
+		 * @returns {PrismaPromise<{
 		 * 	id: number,
 		 *	reference: string,
 		 *	createdAt: Date,
@@ -106,7 +109,7 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} id
 		 * @param {import('@pins/api').Appeals.TimetableDeadlineDate} data
-		 * @returns {Prisma.PrismaPromise<import('@pins/api').Schema.AppealTimetable>}
+		 * @returns {PrismaPromise<import('@pins/api').Schema.AppealTimetable>}
 		 */
 		upsertAppealTimetableById(id, data) {
 			return databaseConnector.appealTimetable.upsert({
@@ -125,6 +128,6 @@ const appealRepository = (function () {
 			});
 		}
 	};
-}());
+})();
 
 export default appealRepository;

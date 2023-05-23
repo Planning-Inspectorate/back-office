@@ -1,4 +1,3 @@
-import * as express from 'express';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import {
 	getCaseReferenceViewModel,
@@ -13,8 +12,8 @@ import { tableSortLinks } from './utils/table.js';
 const view = 'applications/representations/representations.njk';
 
 /**
- * @param {express.Request} req
- * @param {express.Response} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function relevantRepsApplications({ params, query }, res) {
 	const { caseId } = params;
