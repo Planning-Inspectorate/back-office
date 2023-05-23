@@ -186,7 +186,6 @@ const document = {
 				examinationTypeId: 1,
 				name: 'Exmaination Timetable Item',
 				description: 'Exmaination Timetable Item Description',
-				displayNameEn: 'Accompanied site inspection',
 				date: '2023-02-27T10:00:00Z',
 				startDate: '2023-02-27T10:00:00Z',
 				startTime: '10:20',
@@ -195,10 +194,10 @@ const document = {
 			}
 		],
 		ExaminationTimetableItemsRequestBody: {
+			caseId: 1,
 			examinationTypeId: 1,
 			name: 'Exmaination Timetable Item',
 			description: 'Exmaination Timetable Item Description',
-			displayNameEn: 'Accompanied site inspection',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
@@ -211,7 +210,6 @@ const document = {
 			examinationTypeId: 1,
 			name: 'Exmaination Timetable Item',
 			description: 'Exmaination Timetable Item Description',
-			displayNameEn: 'Accompanied site inspection',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
