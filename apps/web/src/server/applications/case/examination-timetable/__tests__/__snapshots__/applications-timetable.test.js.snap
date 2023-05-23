@@ -17,6 +17,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
@@ -123,6 +125,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
                     name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='deadline' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
@@ -279,6 +283,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='deadline-startdate-mandatory' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
@@ -442,6 +448,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='no-times' id=\\"templateType\\" name=\\"templateType\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
@@ -530,6 +538,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
@@ -653,6 +663,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='starttime-optional' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
@@ -769,6 +781,8 @@ exports[`Create examination timetable page should display errors if start date a
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
                     name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='deadline' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
@@ -912,6 +926,8 @@ exports[`Create examination timetable page should display errors if start time a
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
                     name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='deadline' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
@@ -1134,6 +1150,8 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
                 type=\\"hidden\\">
+                <input class=\\"govuk-input\\" value='' id=\\"timetable-id\\" name=\\"timetable-id\\"
+                type=\\"hidden\\">
                 <dl class=\\"govuk-summary-list pins-files-list\\"><dt class=\\"govuk-summary-list__key\\">Item details</dt>
                     <dd class=\\"govuk-summary-list__actions\\">
                         <button class=\\"pins-files-list__button-link govuk-link govuk-body-m\\">Change</button>
@@ -1190,6 +1208,8 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 <input class=\\"govuk-input\\" value='' id=\\"endTime.hours\\" name=\\"endTime.hours\\"
                 type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                type=\\"hidden\\">
+                <input class=\\"govuk-input\\" value='' id=\\"timetable-id\\" name=\\"timetable-id\\"
                 type=\\"hidden\\">
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Save item</button>
