@@ -145,9 +145,6 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 	// probably dates need to include times
 	// probably the field called just "date" should be named always "startDate"
 	// even when theres no "endDate"
-	// const startTime = new Date(
-	// 	`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}:${body['startTime.hours']}:${body['startTime.minutes']}`
-	// )
 	const payload = {
 		caseId: Number.parseInt(params.caseId, 10),
 		// @ts-ignore
@@ -158,9 +155,11 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 		startDate: new Date(
 			`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`
 		),
-		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
-		// startTime,
-		// endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
+		endDate: new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`),
+		startTime: body['startTime.hours']
+			? `${body['startTime.hours']}:${body['startTime.minutes']}`
+			: null,
+		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
 	};
 
 	const { errors } = await createCaseTimetableItem(payload);

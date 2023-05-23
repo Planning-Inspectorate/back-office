@@ -189,7 +189,9 @@ const document = {
 				displayNameEn: 'Accompanied site inspection',
 				date: '2023-02-27T10:00:00Z',
 				startDate: '2023-02-27T10:00:00Z',
-				endDate: '2023-02-27T12:00:00Z'
+				startTime: '10:20',
+				endDate: '2023-02-27T12:00:00Z',
+				endTime: '12:20'
 			}
 		],
 		ExaminationTimetableItemsRequestBody: {
@@ -199,7 +201,9 @@ const document = {
 			displayNameEn: 'Accompanied site inspection',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
-			endDate: '2023-02-27T12:00:00Z'
+			startTime: '10:20',
+			endDate: '2023-02-27T12:00:00Z',
+			endTime: '12:20'
 		},
 		ExaminationTimetableItemsResponseBody: {
 			id: 1,
@@ -210,7 +214,9 @@ const document = {
 			displayNameEn: 'Accompanied site inspection',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
-			endDate: '2023-02-27T12:00:00Z'
+			startTime: '10:20',
+			endDate: '2023-02-27T12:00:00Z',
+			endTime: '12:20'
 		},
 		documentsPropertiesRequestBody: {
 			version: 1,
