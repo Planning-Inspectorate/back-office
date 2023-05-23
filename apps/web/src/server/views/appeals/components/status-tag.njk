@@ -21,6 +21,10 @@
 			{%- set statusTagColor = 'pink' -%}
 		{%- case 'complete' -%}
 			{%- set statusTagColor = 'green' -%}
+		{%- case 'overdue' -%}
+			{%- set statusTagColor = 'red' -%}
+		{%- case 'incomplete' -%}
+			{%- set statusTagColor = 'yellow' -%}
 	{%- endswitch -%}
 	<strong class="govuk-tag govuk-tag--{{statusTagColor}} single-line">{{ statusLabel | replace("_", " ") }}</strong>
 {%- endmacro -%}

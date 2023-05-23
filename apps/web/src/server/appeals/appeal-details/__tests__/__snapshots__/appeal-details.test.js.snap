@@ -144,13 +144,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA questionnaire</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">Overdue</strong>
+                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red single-line\\">Overdue</strong>
                                     </dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> LPA questionnaire</span></a>
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement and Proofs</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">Incomplete</strong>
+                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--yellow single-line\\">Incomplete</strong>
                                     </dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Statement and Proofs</span></a>
                                     </dd>
@@ -162,7 +162,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comments</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">Overdue</strong>
+                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red single-line\\">Overdue</strong>
                                     </dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Final comments</span></a>
                                     </dd>
