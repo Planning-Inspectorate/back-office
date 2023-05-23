@@ -8,8 +8,8 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "lint:js": "npx eslint .",
-    "lint:js:fix": "npx eslint . --fix",
+    "lint-js": "npx eslint .",
+    "lint-js-fix": "npx eslint . --fix",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {

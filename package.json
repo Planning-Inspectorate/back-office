@@ -21,8 +21,8 @@
 		"e2e:open": "npm run cy:open --workspace=@pins/e2e",
 		"e2e:ci": "npm run cy:ci --workspace=@pins/e2e",
     "format": "prettier --write \"**/*.{js}\"",
-    "lint:js": "turbo run lint:js --parallel",
-    "lint:js:fix": "turbo run lint:js:fix",
+    "lint:js": "npx eslint .",
+    "lint:js:fix": "npx eslint . --fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
     "test": "turbo run test",
@@ -30,8 +30,8 @@
     "web": "npm run dev --workspace=@pins/web"
   },
   "dependencies": {
-    "joi": "^17.7.0",
     "got": "^12.5.2",
+    "joi": "^17.7.0",
     "node-cache": "^5.1.2"
   },
   "devDependencies": {
@@ -41,6 +41,8 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jest": "^27.2.1",
     "husky": "^8.0.0",
     "lint-staged": "^12.4.1",
     "lodash": "^4.17.21",

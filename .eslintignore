@@ -1,3 +1,5 @@
 /apps/e2e/**/*.js
 /apps/api-testing/**/*.js
 /apps/api-testing/**/*.test.js
+/apps/web/src/server/static/scripts/*
+/apps/web/src/server/static/styles/*

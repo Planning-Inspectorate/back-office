@@ -11,8 +11,8 @@
         "dev": "nodemon -e js ./src/server.js",
         "test": "NODE_ENV=test cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
         "coverage": "NODE_ENV=test cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
-        "lint:js": "eslint src",
-        "lint:js:fix": "eslint src --fix",
+        "lint:js": "eslint .",
+        "lint:js:fix": "eslint . --fix",
         "swagger-autogen": "node ./src/server/swagger.js"
     },
     "dependencies": {

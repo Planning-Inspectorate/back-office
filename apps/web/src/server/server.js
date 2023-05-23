@@ -15,7 +15,6 @@ app.set('trust proxy', true);
 app.set('etag', 'weak');
 
 // Express http/s ports
-
 if (config.serverProtocol === 'http') {
 	app.set('http-port', config.serverPort);
 
