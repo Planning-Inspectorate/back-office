@@ -170,24 +170,26 @@ export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => 
  *
  * @param {number} caseId
  * @param {{guid: string}[]} items
- * @returns {Promise<{items?: Array<{guid: string}>, errors?: {guid: string}[]}>}
+ * @returns {Promise<{items?: Array<{guid: string}>, errors?: ValidationErrors}>}
  */
 export const publishCaseDocumentationFiles = async (caseId, items) => {
 	let response;
 
 	try {
-		response = await patch(`applications/${caseId}/documents/publish`, {
+		const publishedItems = await patch(`applications/${caseId}/documents/publish`, {
 			json: {
 				items
 			}
 		});
+
+		response = { items: publishedItems };
 	} catch (/** @type {*} */ error) {
 		// log out the actual publishing errors
-		logger.error(error);
+		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'Your documents could not be published, please try again' } });
 		});
 	}
 
-	return { items: response };
+	return response;
 };

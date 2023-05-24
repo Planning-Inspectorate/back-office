@@ -415,6 +415,61 @@ describe('applications documentation', () => {
 					expect(element.innerHTML).toContain('File name: 126 ');
 				});
 			});
+
+			describe('POST /case/123/project-documentation/publishing-queue`', () => {
+				beforeEach(() => {
+					nock('http://test/')
+						.post('/applications/123/documents/ready-to-publish')
+						.reply(200, fixturePaginatedDocumentationFiles(1, 125));
+				});
+
+				it('should return frontend validation errors if no file is selected', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/publishing-queue`)
+						.send({
+							selectedFilesIds: []
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('You must select documents to publish');
+				});
+
+				it('should return backend errors if request is not ok', async () => {
+					nock('http://test/').patch('/applications/123/documents/publish').reply(500, {});
+
+					const response = await request
+						.post(`${baseUrl}/project-documentation/publishing-queue`)
+						.send({
+							selectedFilesIds: ['not a valid request']
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'Your documents could not be published, please try again'
+					);
+				});
+
+				it('should redirect to success page if there is no error', async () => {
+					nock('http://test/')
+						.patch('/applications/123/documents/publish')
+						.reply(200, [{ guid: 'abc' }, { guid: 'def' }]);
+
+					// needs this to set the session variable "backlink"
+					await request.get(`${baseUrl}/project-documentation/21/folder-name`);
+
+					const response = await request
+						.post(`${baseUrl}/project-documentation/publishing-queue`)
+						.send({
+							selectedFilesIds: ['guid-abc', 'guid-def']
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('2 documents published to the NI website');
+				});
+			});
 		});
 	});
 });
