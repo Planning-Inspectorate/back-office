@@ -3,6 +3,7 @@ import { validateApplicationId } from '../application.validators.js';
 import { validatePaginationParameters } from '../../../middleware/pagination-validation.js';
 import { asyncHandler } from '../../../middleware/async-handler.js';
 import { getProjectUpdates } from './project-updates.controller.js';
+import { validateSortBy } from '../../../middleware/validate-sort-by.js';
 
 const router = createRouter();
 
@@ -28,6 +29,12 @@ router.get(
 			description: 'The number of results per page, defaults to 25',
 			example: 25,
 		}
+		#swagger.parameters['sortBy'] = {
+			in: 'query',
+			description: 'Sort by field. +field for ASC, -field for DESC',
+			required: false,
+			type: 'string'
+		}
         #swagger.responses[200] = {
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
@@ -35,6 +42,7 @@ router.get(
     */
 	validateApplicationId,
 	validatePaginationParameters,
+	validateSortBy(['datePublished', 'emailSubscribers', 'status']),
 	asyncHandler(getProjectUpdates)
 );
 

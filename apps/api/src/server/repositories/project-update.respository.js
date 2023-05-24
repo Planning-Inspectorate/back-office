@@ -7,9 +7,10 @@ import { getSkipValue } from '../utils/database-pagination.js';
  * @param {number} caseId
  * @param {number} pageNumber
  * @param {number} pageSize
+ * @param {import('@prisma/client').Prisma.ProjectUpdateOrderByWithRelationInput} [orderBy]
  * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdate[]}>}
  */
-export async function listProjectUpdates(caseId, pageNumber, pageSize) {
+export async function listProjectUpdates(caseId, pageNumber, pageSize, orderBy) {
 	const where = {
 		caseId
 	};
@@ -21,7 +22,8 @@ export async function listProjectUpdates(caseId, pageNumber, pageSize) {
 		databaseConnector.projectUpdate.findMany({
 			where,
 			skip: getSkipValue(pageNumber, pageSize),
-			take: pageSize
+			take: pageSize,
+			orderBy
 		})
 	]);
 
