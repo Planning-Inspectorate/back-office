@@ -70,7 +70,7 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		};
 
-		return fetch(`/documents/${caseId}/upload/${documentId}/version`, {
+		return fetch(`/documents/${caseId}/upload/${documentId}/add-version`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
