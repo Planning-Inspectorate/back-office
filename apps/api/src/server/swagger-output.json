@@ -1021,7 +1021,7 @@
 				}
 			}
 		},
-		"/applications/{id}/document/{guid}/version": {
+		"/applications/{id}/document/{guid}/add-version": {
 			"post": {
 				"tags": ["Applications"],
 				"description": "Saves new documents to database and returns location in Blob Storage",
@@ -1115,6 +1115,29 @@
 						"type": "integer",
 						"description": "Application ID"
 					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/documents/{guid}/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of a single file on a case",
+				"parameters": [
 					{
 						"name": "guid",
 						"in": "path",

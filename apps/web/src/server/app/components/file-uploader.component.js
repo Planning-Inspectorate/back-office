@@ -22,7 +22,7 @@ export const createNewDocument = async (caseId, payload) => {
  * @returns {Promise<DocumentUploadInfo>}
  */
 export const createNewDocumentVersion = async (caseId, documentId, payload) => {
-	return post(`applications/${caseId}/document/${documentId}/version`, { json: payload });
+	return post(`applications/${caseId}/document/${documentId}/add-version`, { json: payload });
 };
 
 /**
