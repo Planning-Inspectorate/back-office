@@ -35,7 +35,7 @@ stages:
             - template: ../steps/check_branch_name.yml
             - template: ../steps/git_tagging.yml
         - job: install
-          displayName: Check branch name
+          displayName: Install Dependencies
           steps:
             - checkout: self
               clean: true
@@ -43,14 +43,25 @@ stages:
             - template: ../steps/node_script.yml
               parameters:
                 script: npm ci
-            - publish: $(System.DefaultWorkingDirectory)
+            - task: ArchiveFiles@2
+              displayName: "Archive Build"
+              inputs:
+                rootFolderOrFile: $(System.DefaultWorkingDirectory)
+                archiveType: zip
+                archiveFile: $(System.DefaultWorkingDirectory)/build.zip
+            - publish: $(System.DefaultWorkingDirectory)/build.zip
               artifact: build
         - job: commitlint
           dependsOn: install
-          displayName: Check branch name
+          displayName: Run Commitlint
           steps:
             - download: current
               artifact: build
+            - task: ExtractFiles@1
+              displayName: "Extract Build"
+              inputs:
+                archiveFilePatterns: $(System.DefaultWorkingDirectory)/build.zip
+                destinationFolder: $(System.DefaultWorkingDirectory)
             - template: ../steps/node_script.yml
               parameters:
                 script: run commitlint
