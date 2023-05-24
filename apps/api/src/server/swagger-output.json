@@ -1808,6 +1808,13 @@
 						"description": "The number of results per page, defaults to 25",
 						"example": 25,
 						"type": "string"
+					},
+					{
+						"name": "sortBy",
+						"in": "query",
+						"description": "Sort by field. +field for ASC, -field for DESC",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {

@@ -3,7 +3,11 @@ import { app } from '../../../../app-test.js';
 import { databaseConnector } from '../../../../utils/database-connector.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../constants.js';
 import { mapProjectUpdate } from '../project-updates.mapper.js';
-import { ERROR_MUST_BE_NUMBER } from '../../../../middleware/errors.js';
+import {
+	ERROR_INVALID_SORT_BY,
+	ERROR_INVALID_SORT_BY_OPTION,
+	ERROR_MUST_BE_NUMBER
+} from '../../../../middleware/errors.js';
 
 const request = supertest(app);
 
@@ -128,6 +132,52 @@ describe('project-updates', () => {
 						page: 2,
 						pageCount: 0,
 						pageSize: 23
+					}
+				}
+			},
+			{
+				name: 'validates sortBy params',
+				id: 1,
+				query: 'sortBy=invalid',
+				caseEntry: { id: 1 },
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							sortBy: ERROR_INVALID_SORT_BY
+						}
+					}
+				}
+			},
+			{
+				name: 'only allows valid sortBy field',
+				id: 1,
+				query: 'sortBy=%2Bid',
+				caseEntry: { id: 1 },
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							sortBy: ERROR_INVALID_SORT_BY_OPTION
+						}
+					}
+				}
+			},
+			{
+				name: 'allows valid sortBy field',
+				id: 1,
+				query: 'sortBy=%2Bstatus',
+				caseEntry: { id: 1 },
+				updates: [],
+				totalUpdates: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: 1,
+						pageCount: 0,
+						pageSize: 25
 					}
 				}
 			}

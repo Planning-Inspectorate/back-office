@@ -12,8 +12,17 @@ export async function getProjectUpdates(req, res) {
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 	const caseId = parseInt(req.params.id);
 	logger.debug({ caseId, pageNumber, pageSize }, 'getProjectUpdates');
+	let orderBy;
 
-	const result = await listProjectUpdates(caseId, pageNumber, pageSize);
+	if (req.query.sortBy) {
+		const direction = String(req.query.sortBy).startsWith('+') ? 'asc' : 'desc';
+		const field = String(req.query.sortBy).substring(1);
+		orderBy = {
+			[field]: direction
+		};
+	}
+
+	const result = await listProjectUpdates(caseId, pageNumber, pageSize, orderBy);
 	const formattedItems = result.items.map(mapProjectUpdate);
 
 	res.send({
