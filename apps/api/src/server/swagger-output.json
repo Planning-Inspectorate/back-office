@@ -883,7 +883,7 @@
 		"/applications/{id}/representations/{repId}/redact": {
 			"patch": {
 				"tags": ["Applications"],
-				"description": "Updates a redacted representation for an application",
+				"description": "Redact a representation for an application",
 				"parameters": [
 					{
 						"name": "id",
@@ -901,7 +901,7 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "Representation Details",
+						"description": "Representation redact details",
 						"schema": {
 							"type": "object",
 							"properties": {
