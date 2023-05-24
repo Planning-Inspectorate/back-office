@@ -19,15 +19,11 @@ extends:
     globalVariables:
       - template: azure-pipelines-variables.yml@self
     validationJobs:
-      - name: Install
+      - name: Run Linting & Tests
         steps:
           - template: ../steps/node_script.yml
             parameters:
               script: npm ci
-
-      - name: Run Linting & Tests
-        dependsOn: Install
-        steps:
           - template: ../steps/node_script.yml
             parameters:
               script: npm run commitlint
