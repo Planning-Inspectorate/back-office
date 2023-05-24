@@ -23,7 +23,7 @@ parameters:
     default: Validate
 
 stages:
-  - template: ./wrapper_stage.yml
+  - template: stages/wrapper_stage.yml
     parameters:
       jobs:
         - job: check_branch_name
@@ -46,6 +46,7 @@ stages:
             - publish: $(System.DefaultWorkingDirectory)
               artifact: build
         - job: commitlint
+          dependsOn: install
           displayName: Check branch name
           steps:
             - download: current
