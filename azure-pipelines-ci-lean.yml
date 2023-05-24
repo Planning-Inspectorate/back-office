@@ -1,0 +1,59 @@
+trigger: none
+
+pr: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.2.0
+
+parameters:
+  - name: environment
+    type: string
+    default: dev
+  - name: pool
+    type: object
+    default:
+      name: pins-odt-agent-pool
+  - name: validateName
+    type: string
+    default: Validate
+
+stages:
+  - template: ./wrapper_stage.yml
+    parameters:
+      jobs:
+        - job: check_branch_name
+          displayName: Check branch name
+          steps:
+            - checkout: self
+              clean: true
+              persistCredentials: true
+            - template: ../steps/check_branch_name.yml
+            - template: ../steps/git_tagging.yml
+        - job: install
+          displayName: Check branch name
+          steps:
+            - checkout: self
+              clean: true
+              persistCredentials: true
+            - template: ../steps/node_script.yml
+              parameters:
+                script: npm ci
+            - publish: $(System.DefaultWorkingDirectory)
+              artifact: build
+        - job: commitlint
+          displayName: Check branch name
+          steps:
+            - download: current
+              artifact: build
+            - template: ../steps/node_script.yml
+              parameters:
+                script: run commitlint
+      pool: ${{ parameters.pool }}
+      name: ${{ parameters.validateName }}
+      variables:
+        - template: ../variables/environments/${{ lower(parameters.environment) }}.yml
