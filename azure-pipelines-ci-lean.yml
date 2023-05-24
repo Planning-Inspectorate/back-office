@@ -23,7 +23,7 @@ parameters:
     default: Validate
 
 stages:
-  - template: stages/wrapper_stage.yml
+  - template: stages/wrapper_stage.yml@templates
     parameters:
       jobs:
         - job: check_branch_name
