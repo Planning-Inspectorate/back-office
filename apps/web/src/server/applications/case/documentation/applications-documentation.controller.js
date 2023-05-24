@@ -268,10 +268,8 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
 	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
 
-	// store the breadcrumb items in locals
-	response.locals.breadcrumbItems = backlinkFolderBreadcrumbItems;
-
 	response.render(`applications/case-documentation/documentation-success-banner`, {
+		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		selectedPageType: 'documentation-publish-success',
 		serviceName: 'Document/s successfully published',
 		successMessage: `${tryPublish.items?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
