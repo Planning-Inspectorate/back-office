@@ -439,6 +439,24 @@ const document = {
 				]
 			}
 		],
+		ApplicationProjectUpdates: {
+			page: 1,
+			pageCount: 27,
+			pageSize: 25,
+			itemCount: 57,
+			items: [
+				{
+					$id: 1,
+					$caseId: 2,
+					authorId: 3,
+					$dateCreated: '2022-12-21T12:42:40.885Z',
+					$emailSubscribers: true,
+					$status: 'draft',
+					datePublished: '2022-12-22T12:42:40.885Z',
+					$htmlContent: '<b>Important Update</b> Something happened.'
+				}
+			]
+		},
 		AppealToValidate: {
 			AppealId: 1,
 			AppealReference: 'APP/Q9999/D/21/1345264',

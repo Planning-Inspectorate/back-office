@@ -1,0 +1,4 @@
+export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
+export const ERROR_MUST_BE_NUMBER = 'Must be a number';
+export const ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED =
+	'Both pageNumber and pageSize are required for pagination';

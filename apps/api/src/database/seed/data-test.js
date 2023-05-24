@@ -22,6 +22,7 @@ import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	APPEAL_TYPE_SHORTCODE_HAS
 } from '../../server/appeals/constants.js';
+import { oneDatePerMonth, pseudoRandomInt } from './util.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -57,8 +58,9 @@ function generateApplicationReference(subSector, referenceNumber) {
 
 /**
  *
- * @param {object[] | string[]} list
- * @returns {object | string}
+ * @param {T[]} list
+ * @returns {T}
+ * @template T
  */
 function pickRandom(list) {
 	return list[Math.floor(Math.random() * list.length)];
@@ -366,6 +368,52 @@ function createRepresentation(caseReference, index) {
 
 /**
  *
+ * @param {number} caseId
+ * @returns {import('@prisma/client').Prisma.ProjectUpdateCreateManyInput}
+ */
+function generateProjectUpdate(caseId) {
+	const statuses = ['draft', 'to-publish', 'published', 'unpublished', 'archived'];
+	const content = [
+		'The application has been accepted for examination.',
+		'The application is expected to be re-submitted to the Planning Inspectorate.',
+		'The Registration and Relevant Representations form is available now.',
+		'The application has been withdrawn.'
+	];
+	const dates = oneDatePerMonth();
+	/**
+	 * @type {import('@prisma/client').Prisma.ProjectUpdateCreateManyInput}
+	 */
+	const projectUpdate = {
+		caseId,
+		htmlContent: pickRandom(content),
+		status: pickRandom(statuses),
+		emailSubscribers: true
+	};
+	if (projectUpdate.status === 'published') {
+		projectUpdate.datePublished = pickRandom(dates);
+	}
+
+	return projectUpdate;
+}
+
+/**
+ * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {number} caseId
+ * @returns {Promise<import('@prisma/client').Prisma.BatchPayload>}
+ */
+function createProjectUpdates(databaseConnector, caseId) {
+	const numUpdates = pseudoRandomInt(0, 28);
+	const updates = [];
+	for (let i = 0; i < numUpdates; i++) {
+		updates.push(generateProjectUpdate(caseId));
+	}
+	return databaseConnector.projectUpdate.createMany({
+		data: updates
+	});
+}
+
+/**
+ *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
  * @param {{name: string, displayNameEn: string}} subSector
  * @param {number} index
@@ -443,6 +491,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 	if (caseStatus !== 'draft') {
 		Promise.all(createFolders(newCase.id));
 	}
+	await createProjectUpdates(databaseConnector, newCase.id);
 
 	return newCase;
 };
