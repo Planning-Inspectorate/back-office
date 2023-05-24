@@ -39,7 +39,7 @@ describe('Document service test', () => {
 		);
 	});
 
-	test('obtainURLForDocumentVersion throws error when document not exist', async () => {
+	test('obtainURLForDocumentVersion uploads new version of document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(document);
 		got.post.mockReturnValue({
