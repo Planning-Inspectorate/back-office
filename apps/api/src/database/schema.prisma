@@ -47,13 +47,13 @@ model AppealType {
 
 /// AppealTimetable model
 model AppealTimetable {
-  id                          Int      @id @default(autoincrement())
-  appealId                    Int      @unique
-  finalEventsDueDate          DateTime
-  interestedPartyRepsDueDate  DateTime?
-  questionnaireDueDate        DateTime
-  statementDueDate            DateTime?
-  appeal                      Appeal   @relation(fields: [appealId], references: [id])
+  id                         Int       @id @default(autoincrement())
+  appealId                   Int       @unique
+  finalEventsDueDate         DateTime
+  interestedPartyRepsDueDate DateTime?
+  questionnaireDueDate       DateTime
+  statementDueDate           DateTime?
+  appeal                     Appeal    @relation(fields: [appealId], references: [id])
 }
 
 /// AppealStatus model
@@ -453,64 +453,64 @@ model DocumentVersion {
 
 /// Representation model
 model Representation {
-	id                     Int                     @id @default(autoincrement())
-	reference              String
-	caseId                 Int
-	status                 String
-	originalRepresentation String                  @db.NText
-	redactedRepresentation String?                 @db.NText
-	redacted               Boolean                 @default(false)
-	userId                 Int?
-	received               DateTime                @default(now())
-	case                   Case                    @relation(fields: [caseId], references: [id])
-	user                   User?                   @relation(fields: [userId], references: [id])
-	type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
-	contacts               RepresentationContact[]
-	attachments            Document[]
-	RepresentationAction  RepresentationAction[]
+  id                     Int                     @id @default(autoincrement())
+  reference              String
+  caseId                 Int
+  status                 String
+  originalRepresentation String                  @db.NText
+  redactedRepresentation String?                 @db.NText
+  redacted               Boolean                 @default(false)
+  userId                 Int?
+  received               DateTime                @default(now())
+  case                   Case                    @relation(fields: [caseId], references: [id])
+  user                   User?                   @relation(fields: [userId], references: [id])
+  type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
+  contacts               RepresentationContact[]
+  attachments            Document[]
+  RepresentationAction   RepresentationAction[]
 
-	@@index([reference], name: "reference")
+  @@index([reference], name: "reference")
 }
 
 /// RepresentationContact model
 model RepresentationContact {
-	id               Int            @id @default(autoincrement())
-	representationId Int
-	firstName        String?
-	lastName         String?
-	jobTitle         String?
-	under18          Boolean
-	type             String // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
-	organisationName String?
-	email            String?
-	phoneNumber      String?
-	contactMethod    String? // Email | Phone Number
-	addressId        Int?
-	address          Address?       @relation(fields: [addressId], references: [id])
-	Representation   Representation @relation(fields: [representationId], references: [id])
+  id               Int            @id @default(autoincrement())
+  representationId Int
+  firstName        String?
+  lastName         String?
+  jobTitle         String?
+  under18          Boolean
+  type             String // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
+  organisationName String?
+  email            String?
+  phoneNumber      String?
+  contactMethod    String? // Email | Phone Number
+  addressId        Int?
+  address          Address?       @relation(fields: [addressId], references: [id])
+  Representation   Representation @relation(fields: [representationId], references: [id])
 }
 
 // RepresentationAction model
 model RepresentationAction {
-	id                   Int            @id @default(autoincrement())
-	representationId     Int
-	type                 String? // STATUS | REDACTION | REDACT_STATUS
-	status               String?
-	previousStatus       String?
-	redactStatus         Boolean?
-	previousRedactStatus Boolean?
-	invalidReason        String?
-	referredTo           String?
-	actionBy             String
-	actionDate           DateTime
-	notes                String?
-	Representation       Representation @relation(fields: [representationId], references: [id])
+  id                   Int            @id @default(autoincrement())
+  representationId     Int
+  type                 String? // STATUS | REDACTION | REDACT_STATUS
+  status               String?
+  previousStatus       String?
+  redactStatus         Boolean?
+  previousRedactStatus Boolean?
+  invalidReason        String?
+  referredTo           String?
+  actionBy             String
+  actionDate           DateTime
+  notes                String?
+  Representation       Representation @relation(fields: [representationId], references: [id])
 }
 
 model ExaminationTimetableType {
-  id            Int    	@id @default(autoincrement())
-  name          String 	@unique 		// Note this the value sent to the front office. Note the Title Case format
-	templateType	String?
+  id            Int     @id @default(autoincrement())
+  name          String  @unique // Note this the value sent to the front office. Note the Title Case format
+  templateType  String?
   displayNameEn String
   displayNameCy String
 }
