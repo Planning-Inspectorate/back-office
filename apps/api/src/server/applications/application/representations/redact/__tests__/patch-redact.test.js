@@ -32,7 +32,8 @@ describe('Patch Application Representation Redact', () => {
 			.patch('/applications/1/representations/1/redact')
 			.send({
 				actionBy: 'a person',
-				redactedRepresentation: 'i have been redacted'
+				redactedRepresentation: 'i have been redacted',
+				notes: 'the rep has been redacted'
 			})
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
@@ -47,6 +48,7 @@ describe('Patch Application Representation Redact', () => {
 				actionBy: 'a person',
 				actionDate: mockDate,
 				previousRedactStatus: true,
+				notes: 'the rep has been redacted',
 				redactStatus: true,
 				representationId: 1,
 				type: 'REDACTION'
