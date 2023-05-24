@@ -36,6 +36,7 @@ export async function deleteAllRecords(databaseConnector) {
 		databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany();
 	const deleteAppellantCaseInvalidReasonOnAppellantCase =
 		databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany();
+	const deleteProjectUpdates = databaseConnector.projectUpdate.deleteMany();
 
 	// and reference data tables
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -74,6 +75,9 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteLowestFolders(databaseConnector);
 	await deleteLowestFolders(databaseConnector);
 	await deleteLowestFolders(databaseConnector);
+
+	// delete before cases
+	await deleteProjectUpdates;
 
 	await databaseConnector.$transaction([
 		deleteGridReference,

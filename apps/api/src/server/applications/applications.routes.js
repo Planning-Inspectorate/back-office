@@ -4,6 +4,7 @@ import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-r
 import { applicationRoutes } from './application/application.routes.js';
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
+import { projectUpdateRoutes } from './application/project-updates/project-updates.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseTeamRoutes } from './case-team/case-team.routes.js';
 import { updateDocumentStatus } from './documents/documents.controller.js';
@@ -39,6 +40,8 @@ router.use('/subscriptions', subscriptionRoutes);
 router.use('/', documentRoutes);
 
 router.use('/', fileFoldersRoutes);
+
+router.use('/', projectUpdateRoutes);
 
 router.use('/', applicationRoutes);
 
