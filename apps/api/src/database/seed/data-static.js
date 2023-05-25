@@ -488,6 +488,15 @@ export const examinationTimetableTypes = [
 ];
 
 /**
+ * Appeal tyles
+ *
+ */
+export const appealTypes = [
+	{ shorthand: 'FPA', type: 'Full planning' },
+	{ shorthand: 'HAS', type: 'Householder' }
+];
+
+/**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
@@ -526,6 +535,13 @@ export async function seedStaticData(databaseConnector) {
 			create: examinationTimetableType,
 			where: { name: examinationTimetableType.name },
 			update: {}
+		});
+	}
+	for (const appealType of appealTypes) {
+		await databaseConnector.appealType.upsert({
+			create: appealType,
+			where: { shorthand: appealType.shorthand },
+			update: { type: appealType.type }
 		});
 	}
 }
