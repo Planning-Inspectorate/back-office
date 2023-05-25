@@ -187,15 +187,25 @@ const clientActions = (uploadForm) => {
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
 
-		const { getUploadInfoFromInternalDB, uploadFiles } = serverActions(uploadForm);
+		const { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB } =
+			serverActions(uploadForm);
 
 		try {
 			const fileList = await onSubmitValidation();
 
 			buildProgressMessage({ show: true }, uploadForm);
 
-			const uploadInfo = await getUploadInfoFromInternalDB(fileList);
-			const errors = await uploadFiles(fileList, uploadInfo);
+			let errors = null;
+
+			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
+				const uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
+
+				errors = await uploadFiles(fileList, uploadInfo);
+			} else {
+				const uploadInfo = await getUploadInfoFromInternalDB(fileList);
+
+				errors = await uploadFiles(fileList, uploadInfo);
+			}
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {

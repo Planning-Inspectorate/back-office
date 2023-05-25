@@ -2,12 +2,14 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../../middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
-import { validateFolderIds } from '../../documents/documents.validators.js';
+import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
 	deleteDocumentSoftly,
 	getDocumentProperties,
+	getDocumentVersions,
 	getReadyToPublishDocuments,
 	provideDocumentUploadURLs,
+	provideDocumentVersionUploadURL,
 	publishDocuments,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
@@ -16,7 +18,8 @@ import {
 import {
 	validateDocumentIds,
 	validateDocumentsToUpdateProvided,
-	validateDocumentsToUploadProvided
+	validateDocumentsToUploadProvided,
+	validateDocumentToUploadProvided
 } from './document.validators.js';
 
 const router = createRouter();
@@ -81,6 +84,40 @@ router.post(
 	asyncHandler(provideDocumentUploadURLs)
 );
 
+router.post(
+	'/:id/document/:guid/add-version',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/document/{guid}/add-version'
+        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID here',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/documentToSave' }
+        }
+        #swagger.responses[200] = {
+            description: 'Document that have been saved',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+	 */
+	validateApplicationId,
+	validateDocumentToUploadProvided,
+	validateFolderId,
+	asyncHandler(provideDocumentVersionUploadURL)
+);
+
 router.patch(
 	'/:id/documents/update',
 	/*
@@ -135,6 +172,26 @@ router.get(
         }
     */
 	asyncHandler(getDocumentProperties)
+);
+
+router.get(
+	'/document/:guid/versions',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/documents/{guid}/properties'
+        #swagger.description = 'Gets the properties of a single file on a case'
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+        }
+    */
+	asyncHandler(getDocumentVersions)
 );
 
 router.post(

@@ -115,3 +115,10 @@ export interface DocumentationFile {
 	documentType: string;
 	folderId?: number;
 }
+
+export interface DocumentVersion {
+	version: number;
+	fileName: string;
+	dateCreated: number;
+	redacted: boolean;
+}

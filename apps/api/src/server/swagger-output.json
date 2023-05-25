@@ -1021,6 +1021,44 @@
 				}
 			}
 		},
+		"/applications/{id}/document/{guid}/add-version": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/update": {
 			"patch": {
 				"tags": ["Applications"],
@@ -1077,6 +1115,29 @@
 						"type": "integer",
 						"description": "Application ID"
 					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/documents/{guid}/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of a single file on a case",
+				"parameters": [
 					{
 						"name": "guid",
 						"in": "path",
@@ -1643,6 +1704,27 @@
 						"type": "number",
 						"example": 1024
 					}
+				}
+			}
+		},
+		"documentToSave": {
+			"type": "object",
+			"properties": {
+				"documentName": {
+					"type": "string",
+					"example": "document.pdf"
+				},
+				"folderId": {
+					"type": "number",
+					"example": 123
+				},
+				"documentType": {
+					"type": "string",
+					"example": "application/pdf"
+				},
+				"documentSize": {
+					"type": "number",
+					"example": 1024
 				}
 			}
 		},

@@ -5,6 +5,7 @@
 
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
 		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
+		 {% if params.documentId %} data-document-id="{{ params.documentId }}"{% endif %}
 		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
 		<div class="top-errors-hook"></div>
 
@@ -14,7 +15,11 @@
 		<form class="govuk-grid-column-two-thirds">
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
-					<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+					{% if params.multiple %}
+						<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+					{% else %}
+						<label for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
+					{% endif %}
 					<span>
 					Your file must be {% for extension in params.allowedTypes %}
 
@@ -30,7 +35,7 @@
 						   accept="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}"
 						   type="file" name="files" value="Choose file"
 						   aria-controls="file-list-{{ params.formId }}"
-						   multiple>
+						   {% if params.multiple %}multiple{% endif %}>
 					<button type='button' class="pins-file-upload--button govuk-button">
 						Choose file
 					</button>
@@ -53,7 +58,7 @@
 			{% endif %}
 
 			<div class="display--flex">
-				{{ govukButton({ text: 'Save and continue', classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
+				{{ govukButton({ text: params.text, classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
 				<div class="progress-hook"></div>
 			</div>
 		</form>

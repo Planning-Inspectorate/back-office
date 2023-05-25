@@ -174,6 +174,14 @@ export const validateDocumentsToUploadProvided = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateDocumentToUploadProvided = composeMiddleware(
+	body('.documentName').exists().withMessage('Must provide a document names'),
+	body('.documentType').exists().withMessage('Must provide a document type'),
+	body('.documentSize').exists().withMessage('Must provide a document size'),
+	body('.folderId').exists().withMessage('Must provide a folder id'),
+	validationErrorHandler
+);
+
 export const validateDocumentsToUpdateProvided = composeMiddleware(
 	body('[]').notEmpty().withMessage('Must provide documents to update'),
 	validationErrorHandler

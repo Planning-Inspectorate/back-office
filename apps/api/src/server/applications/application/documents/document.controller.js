@@ -11,6 +11,7 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	formatDocumentUpdateResponseBody,
+	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
@@ -38,6 +39,33 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
 		documentsToUpload,
 		params.id
+	);
+
+	// Map the obtained URLs with documentName
+	const documentsWithUrls = documents.map((document) => {
+		return pick(document, ['documentName', 'blobStoreUrl']);
+	});
+
+	// Send response with blob storage host, container, and documents with URLs
+	response.send({
+		blobStorageHost,
+		blobStorageContainer,
+		documents: documentsWithUrls
+	});
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ */
+export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
+	const documentToUpload = body;
+
+	// Obtain URL of document from blob storage
+	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLForDocumentVersion(
+		documentToUpload,
+		params.id,
+		params.guid
 	);
 
 	// Map the obtained URLs with documentName
@@ -153,6 +181,23 @@ export const getDocumentProperties = async ({ params: { id: caseId, guid } }, re
 
 	// Step 5: Return the document metadata in the response.
 	response.status(200).send(documentDetails);
+};
+
+/**
+ * Gets the properties/metadata for a single document
+ *
+ * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const getDocumentVersions = async ({ params: { guid } }, response) => {
+	const documentVersions = await documentVersionRepository.getAllByDocumentGuid(guid);
+
+	if (!documentVersions || documentVersions.length === 0) {
+		throw new BackOfficeAppError(`No document versions found for guid ${guid}`, 404);
+	}
+
+	response.status(200).send(documentVersions);
 };
 
 /**

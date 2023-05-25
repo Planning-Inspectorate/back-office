@@ -4,7 +4,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 
-{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
+{% set serviceName = ["Upload new version of ", documentationFile.fileName] | join  %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
@@ -23,15 +23,15 @@
 
 {% block pageContent %}
 	{{ fileUploader({
-		text: 'Save and continue',
+        text: 'Upload',
 		formId: 1,
 		caseId: caseId,
+        documentId: documentationFile.documentGuid,
 		folderId: currentFolder.id,
 		formTitle: serviceName,
 		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
-		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
-		multiple: true
+		disclaimerText: "Uploading a new version changes the document status to ‘Not checked’"
 	}) }}
 
 {% endblock %}

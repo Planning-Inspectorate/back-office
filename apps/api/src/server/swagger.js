@@ -40,6 +40,12 @@ const document = {
 				documentSize: 1024
 			}
 		],
+		documentToSave: {
+			documentName: 'document.pdf',
+			folderId: 123,
+			documentType: 'application/pdf',
+			documentSize: 1024
+		},
 		documentsToUpdateRequestBody: {
 			status: 'not_user_checked',
 			redacted: true,

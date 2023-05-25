@@ -5,6 +5,7 @@ import { get, patch, post } from '../../../lib/request.js';
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
  * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
+ * @typedef {import('../../applications.types').DocumentVersion} DocumentVersion
  * @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
@@ -98,6 +99,16 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
+};
+
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {string} fileGuid
+ * @returns {Promise<DocumentVersion[]>}
+ */
+export const getCaseDocumentationFileVersions = async (fileGuid) => {
+	return get(`applications/document/${fileGuid}/versions`);
 };
 
 /**
