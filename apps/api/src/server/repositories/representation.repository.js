@@ -205,7 +205,8 @@ export const updateApplicationRepresentation = async (
 		where: { id: representationId, caseId }
 	});
 
-	if (!response) throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+	if (!response)
+		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
 	const whereIsRepresented = {
 		representationId,
@@ -298,7 +299,9 @@ export const updateApplicationRepresentation = async (
 		});
 	}
 
-	return response;
+	return databaseConnector.representation.findFirst({
+		where: { id: representationId, caseId }
+	});
 };
 
 export const updateApplicationRepresentationRedaction = async (
@@ -311,7 +314,8 @@ export const updateApplicationRepresentationRedaction = async (
 		where: { id: representationId, caseId }
 	});
 
-	if (!response) throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+	if (!response)
+		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({

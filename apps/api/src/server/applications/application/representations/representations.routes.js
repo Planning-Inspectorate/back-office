@@ -13,6 +13,7 @@ import {
 	getRepresentations,
 	patchRepresentation
 } from './representations.controller.js';
+import { representationPatchValidator } from './representation.validators.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -239,6 +240,7 @@ router.patch(
 		}
     */
 	validateApplicationId,
+	representationPatchValidator,
 	asyncHandler(patchRepresentation)
 );
 
