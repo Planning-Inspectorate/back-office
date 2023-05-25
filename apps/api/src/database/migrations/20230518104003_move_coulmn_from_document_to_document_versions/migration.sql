@@ -14,6 +14,9 @@ BEGIN TRY
 
 BEGIN TRAN;
 
+-- Default existing latestVersionId columns to 1 so we can apply the NOT NULL constraint
+UPDATE [dbo].[Document] SET latestVersionId = 1 WHERE latestVersionId IS NULL;
+
 -- AlterTable
 ALTER TABLE [dbo].[Document] DROP CONSTRAINT [Document_fileSize_df]
 ALTER TABLE [dbo].[Document] DROP CONSTRAINT [Document_latestVersionId_df];
