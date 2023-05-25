@@ -13,7 +13,7 @@ import { representationsUrl } from '../config.js';
  * @param {number} representations.pageSize
  * @param {number} representations.pageCount
  * @param {number} representations.itemCount
- * @returns {{resultsPerPage: {size: number, link: string, active: boolean}[], paginationLinks: {next: ({href: string}|string), previous: ({href: string}|string), items: *[]}, showing: {of: number, from: number, to: (*|number)}}}
+ * @returns {import('../../../../views/applications/components/pagination/pagination.js').Pagination.Info}
  */
 export const getPagination = (query, { page, pageSize, pageCount, itemCount }) => ({
 	showing: showingPage(page, pageSize, pageCount, itemCount),

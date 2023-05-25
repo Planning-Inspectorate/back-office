@@ -6,9 +6,8 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "applications/representations/components/table/representations-table.component.njk" import representationsTableComponent %}
 {% from "applications/components/status-tag.component.njk" import statusTag %}
-{% from "applications/representations/components/pagination/results-per-page.component.njk" import uiPageSizeInformation %}
+{% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
-{% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
 {% block pageHeading %}
 {% endblock %}
@@ -89,9 +88,7 @@
 			{% if representations.length > 0 %}
 				{{ uiPageSizeInformation(pagination) }}
 				{{ representationsTableComponent(representations, table, caseId) }}
-				{% if pagination.paginationLinks.items.length > 1 %}
-					{{ govukPagination(pagination.paginationLinks) }}
-				{% endif %}
+				{{ uiPaginationLinks(pagination) }}
 			{% else %}
 				<p>No matching representations to show.</p>
 			{% endif %}

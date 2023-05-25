@@ -1,3 +1,7 @@
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{# pagination type defined in pagination.d.ts as Pagination.Info #}
+
 {% macro uiPageSizeInformation(pagination) %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-one-half">
@@ -7,6 +11,12 @@
 			{{ uiResultsPerPage(pagination) }}
 		</div>
 	</div>
+{% endmacro %}
+
+{% macro uiPaginationLinks(pagination) %}
+	{% if pagination.paginationLinks.items.length > 1 %}
+		{{ govukPagination(pagination.paginationLinks) }}
+	{% endif %}
 {% endmacro %}
 
 {% macro uiShowingToFrompagination(pagination) %}
