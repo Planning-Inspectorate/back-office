@@ -49,6 +49,7 @@
 					<p class='govuk-body'>{{ selectedItemType.text }}</p>
 					<input class="govuk-input" value='{{ selectedItemType.value }}' id="itemTypeName" name="itemTypeName" type="hidden" >
 					<input class="govuk-input" value='{{ selectedItemType.templateType }}' id="templateType" name="templateType" type="hidden" >
+					<input class="govuk-input" value='{{ selectedItemType.id }}' id="templateId" name="templateId" type="hidden" >
 				</div>
 
 				{% if not isUndefined(templateFields.name) %}

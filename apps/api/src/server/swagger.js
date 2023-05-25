@@ -179,6 +179,43 @@ const document = {
 				displayNameCy: 'Accompanied site inspection Cy'
 			}
 		],
+		ExaminationTimetableItems: [
+			{
+				id: 1,
+				caseId: 1,
+				examinationTypeId: 1,
+				name: 'Exmaination Timetable Item',
+				description: 'Exmaination Timetable Item Description',
+				date: '2023-02-27T10:00:00Z',
+				startDate: '2023-02-27T10:00:00Z',
+				startTime: '10:20',
+				endDate: '2023-02-27T12:00:00Z',
+				endTime: '12:20'
+			}
+		],
+		ExaminationTimetableItemsRequestBody: {
+			caseId: 1,
+			examinationTypeId: 1,
+			name: 'Exmaination Timetable Item',
+			description: 'Exmaination Timetable Item Description',
+			date: '2023-02-27T10:00:00Z',
+			startDate: '2023-02-27T10:00:00Z',
+			startTime: '10:20',
+			endDate: '2023-02-27T12:00:00Z',
+			endTime: '12:20'
+		},
+		ExaminationTimetableItemsResponseBody: {
+			id: 1,
+			caseId: 1,
+			examinationTypeId: 1,
+			name: 'Exmaination Timetable Item',
+			description: 'Exmaination Timetable Item Description',
+			date: '2023-02-27T10:00:00Z',
+			startDate: '2023-02-27T10:00:00Z',
+			startTime: '10:20',
+			endDate: '2023-02-27T12:00:00Z',
+			endTime: '12:20'
+		},
 		documentsPropertiesRequestBody: {
 			version: 1,
 			createdAt: '2023-02-27T10:00:00Z',

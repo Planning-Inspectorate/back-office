@@ -9,11 +9,13 @@ const { app } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
-	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+	nock('http://test/').get('/applications/case-team').times(2).reply(200, {});
+	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/examination-timetable-type')
+		.times(2)
 		.reply(200, fixtureTimetableTypes);
+	nock('http://test/').post('/applications/examination-timetable-items').reply(200, {});
 };
 
 describe('Examination timetable page', () => {
@@ -190,7 +192,30 @@ describe('Create examination timetable page', () => {
 		});
 	});
 
-	it('should display errors if start date/time are after end date/time', async () => {
+	it('should display errors if start date are after end date', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+			.send({
+				templateType: 'deadline',
+				itemTypeName: 'deadline',
+				'startDate.day': '01',
+				'startDate.month': '02',
+				'startDate.year': '2001',
+				'startTime.hours': '01',
+				'startTime.minutes': '02',
+				'endDate.day': '01',
+				'endDate.month': '02',
+				'endDate.year': '2000',
+				'endTime.hours': '01',
+				'endTime.minutes': '02'
+			});
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+		expect(element.innerHTML).toContain('The item end date must be after the item start date');
+	});
+
+	it('should display errors if start time are after end time', async () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
 			.send({
@@ -203,7 +228,7 @@ describe('Create examination timetable page', () => {
 				'startTime.minutes': '02',
 				'endDate.day': '01',
 				'endDate.month': '02',
-				'endDate.year': '2000',
+				'endDate.year': '2001',
 				'endTime.hours': '01',
 				'endTime.minutes': '02'
 			});
@@ -211,7 +236,6 @@ describe('Create examination timetable page', () => {
 
 		expect(element.innerHTML).toMatchSnapshot();
 		expect(element.innerHTML).toContain('The item end time must be after the item start time');
-		expect(element.innerHTML).toContain('The item end date must be after the item start date');
 	});
 
 	it('should go to check-your-answers page if nothing is missing', async () => {
@@ -228,6 +252,56 @@ describe('Create examination timetable page', () => {
 				'startTime.minutes': '02'
 			});
 
-		expect(response?.headers?.location).toEqual('../check-your-answers');
+		expect(response?.headers?.location).toEqual('./check-your-answers');
+	});
+});
+
+describe('POST /case/123/examination-timetable/new-item/check-your-answers', () => {
+	beforeEach(async () => {
+		await request.get('/applications-service/case-team');
+		nocks();
+	});
+
+	it('should show page with the right fields correctly formatted', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/new-item/check-your-answers`)
+			.send({
+				templateType: 'starttime-mandatory',
+				itemTypeName: 'starttime-mandatory',
+				name: 'Lorem',
+				'date.day': '01',
+				'date.month': '02',
+				'date.year': '2000',
+				'startTime.hours': '01',
+				'startTime.minutes': '02',
+				description: 'Some text with \n * one point \n* another point '
+			});
+
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+		expect(element.innerHTML).toContain('Check your answers before creating a new item');
+	});
+});
+
+describe('POST /case/123/examination-timetable/new-item/save', () => {
+	beforeEach(async () => {
+		await request.get('/applications-service/case-team');
+		nocks();
+	});
+
+	it('should go to success page', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/new-item/save`)
+			.send({
+				templateType: 'starttime-mandatory',
+				itemTypeName: 'starttime-mandatory',
+				examinationTypeId: 1,
+				name: 'Lorem',
+				date: new Date('2000-01-01'),
+				description: 'Some text with \n * one point \n* another point '
+			});
+
+		expect(response?.headers?.location).toEqual('./success');
 	});
 });

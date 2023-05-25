@@ -12,3 +12,12 @@ export const getAll = () => {
 export const getByName = (name) => {
 	return databaseConnector.examinationTimetableType.findUnique({ where: { name } });
 };
+
+/**
+ *
+ * @param {number} id
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableType | null>}
+ */
+export const getById = (id) => {
+	return databaseConnector.examinationTimetableType.findUnique({ where: { id } });
+};

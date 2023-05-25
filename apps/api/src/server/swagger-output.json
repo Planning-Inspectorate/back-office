@@ -1680,6 +1680,52 @@
 					}
 				}
 			}
+		},
+		"/applications/examination-timetable-items": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all examination timetable items for case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Examination timetable item ID",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable items",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all examination timetable items for case",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "document pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable items",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -2176,6 +2222,140 @@
 						"type": "string",
 						"example": "Accompanied site inspection Cy"
 					}
+				}
+			}
+		},
+		"ExaminationTimetableItems": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"caseId": {
+						"type": "number",
+						"example": 1
+					},
+					"examinationTypeId": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Exmaination Timetable Item"
+					},
+					"description": {
+						"type": "string",
+						"example": "Exmaination Timetable Item Description"
+					},
+					"date": {
+						"type": "string",
+						"example": "2023-02-27T10:00:00Z"
+					},
+					"startDate": {
+						"type": "string",
+						"example": "2023-02-27T10:00:00Z"
+					},
+					"startTime": {
+						"type": "string",
+						"example": "10:20"
+					},
+					"endDate": {
+						"type": "string",
+						"example": "2023-02-27T12:00:00Z"
+					},
+					"endTime": {
+						"type": "string",
+						"example": "12:20"
+					}
+				}
+			}
+		},
+		"ExaminationTimetableItemsRequestBody": {
+			"type": "object",
+			"properties": {
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "number",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"example": "Exmaination Timetable Item"
+				},
+				"description": {
+					"type": "string",
+					"example": "Exmaination Timetable Item Description"
+				},
+				"date": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startTime": {
+					"type": "string",
+					"example": "10:20"
+				},
+				"endDate": {
+					"type": "string",
+					"example": "2023-02-27T12:00:00Z"
+				},
+				"endTime": {
+					"type": "string",
+					"example": "12:20"
+				}
+			}
+		},
+		"ExaminationTimetableItemsResponseBody": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "number",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"example": "Exmaination Timetable Item"
+				},
+				"description": {
+					"type": "string",
+					"example": "Exmaination Timetable Item Description"
+				},
+				"date": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"startTime": {
+					"type": "string",
+					"example": "10:20"
+				},
+				"endDate": {
+					"type": "string",
+					"example": "2023-02-27T12:00:00Z"
+				},
+				"endTime": {
+					"type": "string",
+					"example": "12:20"
 				}
 			}
 		},
