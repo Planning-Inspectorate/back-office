@@ -59,11 +59,6 @@ function pickRandom(list) {
 	return list[Math.floor(Math.random() * list.length)];
 }
 
-const appealTypes = {
-	HAS: 'household',
-	FPA: 'full planning'
-};
-
 /**
  *
  * @param {string} lpaQuestionnaireAndInspectorPickupState
@@ -451,12 +446,6 @@ const createApplication = async (databaseConnector, subSector, index) => {
  * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
 export async function seedTestData(databaseConnector) {
-	await databaseConnector.appealType.createMany({
-		data: [
-			{ shorthand: 'FPA', type: appealTypes.FPA },
-			{ shorthand: 'HAS', type: appealTypes.HAS }
-		]
-	});
 	for (const appealData of appealsData) {
 		await databaseConnector.appeal.create({ data: appealData });
 	}
