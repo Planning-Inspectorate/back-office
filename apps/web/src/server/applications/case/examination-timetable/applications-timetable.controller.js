@@ -5,6 +5,7 @@ import {
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 
 /** @type {Record<string, Record<string, boolean>>} */
 export const timetableTemplatesSchema = {
@@ -133,10 +134,9 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
 /**
  * Save new examination timetable
  *
- * @param {{params: {caseId: string}, body: ApplicationsTimetableCreateBody}} request
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
-export async function postApplicationsCaseTimetableSave({ body, params }, response) {
+export async function postApplicationsCaseTimetableSave({ body }, response) {
 	const splitDescription = body.description.split('*');
 	const preText = splitDescription.shift();
 	const bulletPoints = splitDescription;
@@ -147,13 +147,9 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
 		: null;
 
-	// TODO: change properties names for the API needs
-	// probably dates need to include times
-	// probably the field called just "date" should be named always "startDate"
-	// even when theres no "endDate"
+	/** @type {ApplicationsTimetable} */
 	const payload = {
-		caseId: Number.parseInt(params.caseId, 10),
-		// @ts-ignore
+		caseId: response.locals.caseId,
 		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
@@ -171,15 +167,23 @@ export async function postApplicationsCaseTimetableSave({ body, params }, respon
 	if (errors) {
 		const rows = getCheckYourAnswersRows(body);
 
-		response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 			rows,
 			values: body,
 			errors
 		});
 	}
 
-	// TODO: redirect to success page
-	response.redirect('/');
+	response.redirect(`./success`);
+}
+
+/**
+ * Success banner when successfully creating a new examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
+ */
+export async function showApplicationsCaseTimetableSuccessBanner(request, response) {
+	response.render('applications/case-timetable/timetable-new-item-success.njk');
 }
 
 /**
