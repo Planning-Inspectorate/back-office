@@ -15,4 +15,18 @@ export interface ApplicationsTimetableCreateBody extends Record<string, string |
 	'starTime.minutes'?: string;
 	'endTime.hours'?: string;
 	'endTime.minutes'?: string;
+	'timetable-id': string;
+}
+
+export interface ApplicationsTimetable {
+	id?: number;
+	caseId: number;
+	examinationTypeId: number;
+	name: string;
+	description: string;
+	date: Date;
+	startDate: Date | null;
+	endDate: Date | null;
+	startTime: string | null;
+	endTime: string | null;
 }
