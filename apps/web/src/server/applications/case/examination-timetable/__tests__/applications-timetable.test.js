@@ -15,6 +15,7 @@ const nocks = () => {
 		.get('/applications/examination-timetable-type')
 		.times(2)
 		.reply(200, fixtureTimetableTypes);
+	nock('http://test/').post('/applications/examination-timetable-items').reply(200, {});
 };
 
 describe('Examination timetable page', () => {
@@ -280,5 +281,27 @@ describe('POST /case/123/examination-timetable/new-item/check-your-answers', () 
 
 		expect(element.innerHTML).toMatchSnapshot();
 		expect(element.innerHTML).toContain('Check your answers before creating a new item');
+	});
+});
+
+describe('POST /case/123/examination-timetable/new-item/save', () => {
+	beforeEach(async () => {
+		await request.get('/applications-service/case-team');
+		nocks();
+	});
+
+	it('should go to success page', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/new-item/save`)
+			.send({
+				templateType: 'starttime-mandatory',
+				itemTypeName: 'starttime-mandatory',
+				examinationTypeId: 1,
+				name: 'Lorem',
+				date: new Date('2000-01-01'),
+				description: 'Some text with \n * one point \n* another point '
+			});
+
+		expect(response?.headers?.location).toEqual('./success');
 	});
 });

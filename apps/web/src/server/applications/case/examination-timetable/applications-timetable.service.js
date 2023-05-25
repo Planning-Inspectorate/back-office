@@ -1,5 +1,7 @@
 import { get, post } from '../../../lib/request.js';
 
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+
 /**
  * Get the timetable item types
  *
@@ -12,9 +14,21 @@ export const getCaseTimetableItemTypes = async () => {
 /**
  * Save new timetable item
  *
- * @param {*} payload
- * @returns {Promise<{errors?: import('@pins/express').ValidationErrors}>}
+ * @param {ApplicationsTimetable} payload
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
  */
 export const createCaseTimetableItem = async (payload) => {
-	return post('applications/examination-timetable-items', { json: payload });
+	let response;
+
+	try {
+		const updatedTimetable = await post('applications/examination-timetable-items', {
+			json: payload
+		});
+		response = { updatedTimetable };
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+	return response;
 };
