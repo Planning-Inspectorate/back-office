@@ -19,6 +19,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppealDetailsFromAppellant =
 		databaseConnector.appealDetailsFromAppellant.deleteMany();
 	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
+	const deleteAppealTimetable = databaseConnector.appealTimetable.deleteMany();
 	const deleteAppellant = databaseConnector.appellant.deleteMany();
 	const deleteInspectorDecision = databaseConnector.inspectorDecision.deleteMany();
 	const deleteLPAQuestionnaire = databaseConnector.lPAQuestionnaire.deleteMany();
@@ -73,6 +74,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteSiteVisit,
 		deleteUsers,
 		deleteAppealTypes,
+		deleteAppealTimetable,
 		deleteAddresses,
 		deleteInspectorDecision,
 		deleteAppeals,
