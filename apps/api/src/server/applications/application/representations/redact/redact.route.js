@@ -1,6 +1,7 @@
 import { Router as createRouter } from 'express';
 import { patchRepresentationRedact } from './redact.controller.js';
 import { validateRedactedRepresentation } from './redact.validators.js';
+import { validateApplicationId } from '../../application.validators.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -35,6 +36,7 @@ router.patch(
 			}
 		}
     */
+	validateApplicationId,
 	validateRedactedRepresentation,
 	patchRepresentationRedact
 );

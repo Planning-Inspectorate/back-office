@@ -68,7 +68,7 @@ describe('Patch Application Representation Redact', () => {
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
 
-		expect(response.status).toEqual(404);
+		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
 				actionBy: 'is a mandatory field',
