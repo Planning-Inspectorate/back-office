@@ -23,7 +23,7 @@
 
 	<div>
         <h3 class="govuk-heading-m">Pre-Examination</h3>
-		{% if var|length %}
+		{% if timetableItems|length %}
 			{% set accordionItems = [] %}
 			{% for timetableItem in timetableItems %}
 				{% set tableRows = [{
@@ -55,7 +55,7 @@
 
 	<div>
         <h3 class="govuk-heading-m">Examination</h3>
-		{% if var|length %}
+		{% if timetableItems|length %}
 			{{ govukAccordion({
 				id: "accordion-default",
 				items: accordionItems
