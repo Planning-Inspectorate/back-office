@@ -27,17 +27,26 @@
 			{% set accordionItems = [] %}
 			{% for timetableItem in timetableItems %}
 				{% set tableRows = [{
-						key: { text: "Date" },
-						value: { text: timetableItem.date }
+						key: { text: "Item Type" },
+						value: { text: timetableItem.ExaminationTimetableType.name }
 					}, {
-						key: { text: "Name" },
+						key: { text: "Iteam Name" },
 						value: { text: timetableItem.name }
 					}, {
-						key: { text: "Description" },
-						value: { text: timetableItem.description }
+						key: { text: "Start Date" },
+						value: { text: timetableItem.startDate }
 					}, {
 						key: { text: "Start Time" },
 						value: { text: timetableItem.startTime }
+					}, {
+						key: { text: "End Date" },
+						value: { text: timetableItem.endDate }
+					}, {
+						key: { text: "End Time" },
+						value: { text: timetableItem.endTime }
+					}, {
+						key: { text: "Description" },
+						value: { text: timetableItem.description }
 					}]
 				%}
 				{% set row = {

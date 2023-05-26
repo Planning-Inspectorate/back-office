@@ -1112,17 +1112,26 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                         <div id=\\"accordion-default-content-1\\" class=\\"govuk-accordion__section-content\\"
                         aria-labelledby=\\"accordion-default-heading-1\\">
                             <dl class=\\"govuk-summary-list\\">
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">2023-10-10T00:00:00.000Z</dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                                     <dd class=\\"govuk-summary-list__value\\">Test</dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -1139,17 +1148,26 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                         <div id=\\"accordion-default-content-1\\" class=\\"govuk-accordion__section-content\\"
                         aria-labelledby=\\"accordion-default-heading-1\\">
                             <dl class=\\"govuk-summary-list\\">
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">2023-10-10T00:00:00.000Z</dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                                     <dd class=\\"govuk-summary-list__value\\">Test</dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
                                 </div>
                             </dl>
                         </div>
