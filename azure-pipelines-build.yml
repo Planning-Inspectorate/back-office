@@ -50,22 +50,15 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               script: npm ci
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run tscheck
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run lint:js
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run test
-            condition: succeeded()
           - template: ../steps/check_changed_files.yml
             parameters:
               pathFilters:
@@ -84,7 +77,6 @@ extends:
                 - name: document-publish-function
                   path: apps/document-publish-function
               stepName: check_files
-            condition: succeeded()
       - name: Build API
         condition: >-
           and(

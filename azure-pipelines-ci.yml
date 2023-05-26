@@ -24,23 +24,15 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               script: npm ci
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
               script: npm run commitlint
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run tscheck
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run lint:js
-            condition: succeeded()
           - template: ../steps/node_script.yml
             parameters:
-              condition: succeededOrFailed()
               script: npm run test
-            condition: succeeded()
