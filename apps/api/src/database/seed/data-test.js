@@ -449,6 +449,36 @@ export async function seedTestData(databaseConnector) {
 	for (const appealData of appealsData) {
 		await databaseConnector.appeal.create({ data: appealData });
 	}
+
+	const lpaQuestionnaires = await databaseConnector.lPAQuestionnaire.findMany();
+	const designatedSites = await databaseConnector.designatedSite.findMany();
+	const lpaNotificationMethods = await databaseConnector.lPANotificationMethods.findMany();
+
+	for (const lpaQuestionnaire of lpaQuestionnaires) {
+		await databaseConnector.designatedSitesOnLPAQuestionnaires.createMany({
+			data: [1, 2].map((item) => ({
+				designatedSiteId: designatedSites[item].id,
+				lpaQuestionnaireId: lpaQuestionnaire.id
+			}))
+		});
+
+		await databaseConnector.listedBuildingDetails.createMany({
+			data: ['Grade I', 'Grade II', 'Grade III', 'Grade IV'].map((grade, index) => ({
+				lpaQuestionnaireId: lpaQuestionnaire.id,
+				grade,
+				description: `http://localhost:8080/document-${index}.pdf`,
+				affectsListedBuilding: index > 1
+			}))
+		});
+
+		await databaseConnector.lPANotificationMethodsOnLPAQuestionnaires.createMany({
+			data: [1, 2].map((item) => ({
+				lpaQuestionnaireId: lpaQuestionnaire.id,
+				notificationMethodId: lpaNotificationMethods[item].id
+			}))
+		});
+	}
+
 	// now create some sample applications
 	for (const { subSector } of subSectors) {
 		for (let index = 1; index < 4; index += 1) {

@@ -8,6 +8,10 @@
  * @typedef {import('apps/web/src/server/applications/applications.types').Region} Region
  * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
  * @typedef {import('apps/web/src/server/applications/applications.types').ExaminationTimetableType} ExaminationTimetableType
+ * @typedef {import('apps/api/src/database/schema.js').ProcedureType} ProcedureType
+ * @typedef {import('apps/api/src/database/schema.js').DesignatedSiteDetails} DesignatedSiteDetails
+ * @typedef {import('apps/api/src/database/schema.js').LPANotificationMethodDetails} LPANotificationMethodDetails
+ * @typedef {import('apps/api/src/database/schema.js').ScheduleType} ScheduleType
  */
 
 /**
@@ -408,7 +412,7 @@ export const zoomLevels = [
 ];
 
 /**
- * An array of zoom levels.
+ * An array of examination timetable types.
  *
  * @type {ExaminationTimetableType[]}
  */
@@ -498,6 +502,87 @@ export const appealTypes = [
 
 /**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
+ * An array of procedure types.
+ *
+ * @type {ProcedureType[]}
+ */
+export const procedureTypes = [
+	{
+		name: 'Hearing'
+	},
+	{
+		name: 'Inquiry'
+	},
+	{
+		name: 'Written'
+	}
+];
+
+/**
+ * An array of designated sites.
+ *
+ * @type {DesignatedSiteDetails[]}
+ */
+export const designatedSites = [
+	{
+		name: 'cSAC',
+		description: 'candidate special area of conservation'
+	},
+	{
+		name: 'pSPA',
+		description: 'potential special protection area'
+	},
+	{
+		name: 'SAC',
+		description: 'special area of conservation'
+	},
+	{
+		name: 'SPA Ramsar',
+		description: 'ramsar special protection area'
+	},
+	{
+		name: 'SSSI',
+		description: 'site of special scientific interest'
+	},
+	{
+		name: 'Other',
+		description: ''
+	}
+];
+
+/**
+ * An array of LPA notification methods.
+ *
+ * @type {LPANotificationMethodDetails[]}
+ */
+export const lpaNotificationMethods = [
+	{
+		name: 'A site notice'
+	},
+	{
+		name: 'Letter/email to interested parties'
+	},
+	{
+		name: 'A press advert'
+	}
+];
+
+/**
+ * An array of schedule types.
+ *
+ * @type {ScheduleType[]}
+ */
+export const scheduleTypes = [
+	{
+		name: 'Schedule 1'
+	},
+	{
+		name: 'Schedule 2'
+	}
+];
+
+/**
+ * eed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
@@ -542,6 +627,34 @@ export async function seedStaticData(databaseConnector) {
 			create: appealType,
 			where: { shorthand: appealType.shorthand },
 			update: { type: appealType.type }
+		});
+	}
+	for (const procedureType of procedureTypes) {
+		await databaseConnector.procedureType.upsert({
+			create: procedureType,
+			where: { name: procedureType.name },
+			update: {}
+		});
+	}
+	for (const designatedSite of designatedSites) {
+		await databaseConnector.designatedSite.upsert({
+			create: designatedSite,
+			where: { name: designatedSite.name },
+			update: {}
+		});
+	}
+	for (const lpaNotificationMethod of lpaNotificationMethods) {
+		await databaseConnector.lPANotificationMethods.upsert({
+			create: lpaNotificationMethod,
+			where: { name: lpaNotificationMethod.name },
+			update: {}
+		});
+	}
+	for (const scheduleType of scheduleTypes) {
+		await databaseConnector.scheduleType.upsert({
+			create: scheduleType,
+			where: { name: scheduleType.name },
+			update: {}
 		});
 	}
 }

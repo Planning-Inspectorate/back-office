@@ -62,6 +62,78 @@ const householdAppeal = {
 		visitDate: '2022-03-31T12:00:00.000Z',
 		visitSlot: '1pm - 2pm',
 		visitType: 'unaccompanied'
+	},
+	lpaQuestionnaire: {
+		id: 1,
+		appealId: 1,
+		communityInfrastructureLevyAdoptionDate: null,
+		designatedSites: [
+			{
+				designatedSite: {
+					name: 'cSAC',
+					description: 'candidate special area of conservation'
+				}
+			}
+		],
+		developmentDescription: null,
+		doesAffectAListedBuilding: null,
+		doesAffectAScheduledMonument: null,
+		doesSiteHaveHealthAndSafetyIssues: null,
+		doesSiteRequireInspectorAccess: null,
+		extraConditions: null,
+		hasCommunityInfrastructureLevy: null,
+		hasCompletedAnEnvironmentalStatement: null,
+		hasEmergingPlan: null,
+		hasExtraConditions: null,
+		hasProtectedSpecies: null,
+		hasRepresentationsFromOtherParties: null,
+		hasResponsesOrStandingAdviceToUpload: null,
+		hasStatementOfCase: null,
+		hasStatutoryConsultees: null,
+		hasSupplementaryPlanningDocuments: null,
+		hasTreePreservationOrder: null,
+		inCAOrrelatesToCA: null,
+		includesScreeningOption: null,
+		isCommunityInfrastructureLevyFormallyAdopted: null,
+		isDevelopmentInOrNearDesignatedSites: null,
+		isEnvironmentalStatementRequired: null,
+		isGypsyOrTravellerSite: null,
+		isListedBuilding: null,
+		isPublicRightOfWay: null,
+		isSensitiveArea: null,
+		isSiteVisible: null,
+		isTheSiteWithinAnAONB: null,
+		listedBuildingDetails: [
+			{
+				grade: 'Grade I',
+				description: 'http://localhost:8080',
+				affectsListedBuilding: false
+			},
+			{
+				grade: 'Grade II',
+				description: 'http://localhost:8081',
+				affectsListedBuilding: true
+			}
+		],
+		lpaNotificationMethods: [
+			{
+				lpaNotificationMethod: {
+					name: 'A site notice'
+				}
+			}
+		],
+		meetsOrExceedsThresholdOrCriteriaInColumn2: null,
+		procedureType: {
+			name: 'Written'
+		},
+		procedureTypeId: 3,
+		receivedAt: null,
+		scheduleType: {
+			name: 'Schedule 1'
+		},
+		scheduleTypeId: 1,
+		sentAt: '2023-05-24T10:34:09.286Z',
+		siteWithinGreenBelt: null
 	}
 };
 const fullPlanningAppeal = {
@@ -271,6 +343,7 @@ describe('Appeals', () => {
 						appealReference: 'APP/Q9999/D/21/725284'
 					},
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
+					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					otherAppeals: [
 						{
 							appealId: 1,
@@ -320,6 +393,7 @@ describe('Appeals', () => {
 						appealReference: 'APP/Q9999/D/21/725284'
 					},
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
+					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					otherAppeals: [
 						{
 							appealId: 1,
@@ -349,7 +423,7 @@ describe('Appeals', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}`);
+				const response = await request.get('/appeals/3');
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -634,6 +708,169 @@ describe('Appeals', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
+			});
+		});
+	});
+
+	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
+		describe('GET', () => {
+			test('gets a single lpa questionnaire', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const { lpaQuestionnaire } = householdAppeal;
+				const response = await request.get(
+					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					affectsListedBuildingDetails: [
+						{
+							grade: lpaQuestionnaire.listedBuildingDetails[1].grade,
+							description: lpaQuestionnaire.listedBuildingDetails[1].description
+						}
+					],
+					appealId: householdAppeal.id,
+					appealReference: householdAppeal.reference,
+					appealSite: {
+						addressLine1: householdAppeal.address.addressLine1,
+						town: householdAppeal.address.town,
+						county: householdAppeal.address.county,
+						postCode: householdAppeal.address.postcode
+					},
+					communityInfrastructureLevyAdoptionDate:
+						lpaQuestionnaire.communityInfrastructureLevyAdoptionDate,
+					designatedSites: lpaQuestionnaire.designatedSites.map(
+						({ designatedSite: { name, description } }) => ({ name, description })
+					),
+					developmentDescription: lpaQuestionnaire.developmentDescription,
+					documents: {
+						communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
+						conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
+						consultationResponses: 'consultation-responses.pdf',
+						definitiveMapAndStatement: 'right-of-way.pdf',
+						emergingPlans: ['emerging-plan-1.pdf'],
+						environmentalStatementResponses: 'environment-statement-responses.pdf',
+						issuedScreeningOption: 'issued-screening-opinion.pdf',
+						lettersToNeighbours: 'letters-to-neighbours.pdf',
+						otherRelevantPolicies: ['policy-1.pdf'],
+						planningOfficersReport: 'planning-officers-report.pdf',
+						policiesFromStatutoryDevelopment: ['policy-a.pdf'],
+						pressAdvert: 'press-advert.pdf',
+						representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
+						responsesOrAdvice: ['responses-or-advice.pdf'],
+						screeningDirection: 'screening-direction.pdf',
+						siteNotice: 'site-notice.pdf',
+						supplementaryPlanningDocuments: ['supplementary-1.pdf'],
+						treePreservationOrder: 'tree-preservation-order.pdf'
+					},
+					doesAffectAListedBuilding: lpaQuestionnaire.doesAffectAListedBuilding,
+					doesAffectAScheduledMonument: lpaQuestionnaire.doesAffectAScheduledMonument,
+					doesSiteHaveHealthAndSafetyIssues: lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues,
+					doesSiteRequireInspectorAccess: lpaQuestionnaire.doesSiteRequireInspectorAccess,
+					extraConditions: lpaQuestionnaire.extraConditions,
+					hasCommunityInfrastructureLevy: lpaQuestionnaire.hasCommunityInfrastructureLevy,
+					hasCompletedAnEnvironmentalStatement:
+						lpaQuestionnaire.hasCompletedAnEnvironmentalStatement,
+					hasEmergingPlan: lpaQuestionnaire.hasEmergingPlan,
+					hasExtraConditions: lpaQuestionnaire.hasExtraConditions,
+					hasProtectedSpecies: lpaQuestionnaire.hasProtectedSpecies,
+					hasRepresentationsFromOtherParties: lpaQuestionnaire.hasRepresentationsFromOtherParties,
+					hasResponsesOrStandingAdviceToUpload:
+						lpaQuestionnaire.hasResponsesOrStandingAdviceToUpload,
+					hasStatementOfCase: lpaQuestionnaire.hasStatementOfCase,
+					hasStatutoryConsultees: lpaQuestionnaire.hasStatutoryConsultees,
+					hasSupplementaryPlanningDocuments: lpaQuestionnaire.hasSupplementaryPlanningDocuments,
+					hasTreePreservationOrder: lpaQuestionnaire.hasTreePreservationOrder,
+					inCAOrrelatesToCA: lpaQuestionnaire.inCAOrrelatesToCA,
+					includesScreeningOption: lpaQuestionnaire.includesScreeningOption,
+					isCommunityInfrastructureLevyFormallyAdopted:
+						lpaQuestionnaire.isCommunityInfrastructureLevyFormallyAdopted,
+					isEnvironmentalStatementRequired: lpaQuestionnaire.isEnvironmentalStatementRequired,
+					isGypsyOrTravellerSite: lpaQuestionnaire.isGypsyOrTravellerSite,
+					isListedBuilding: lpaQuestionnaire.isListedBuilding,
+					isPublicRightOfWay: lpaQuestionnaire.isPublicRightOfWay,
+					isSensitiveArea: lpaQuestionnaire.isSensitiveArea,
+					isSiteVisible: lpaQuestionnaire.isSiteVisible,
+					isTheSiteWithinAnAONB: lpaQuestionnaire.isTheSiteWithinAnAONB,
+					listedBuildingDetails: [
+						{
+							grade: lpaQuestionnaire.listedBuildingDetails[0].grade,
+							description: lpaQuestionnaire.listedBuildingDetails[0].description
+						}
+					],
+					localPlanningDepartment: householdAppeal.localPlanningDepartment,
+					lpaNotificationMethods: lpaQuestionnaire.lpaNotificationMethods.map(
+						({ lpaNotificationMethod: { name } }) => ({ name })
+					),
+					lpaQuestionnaireId: lpaQuestionnaire.id,
+					meetsOrExceedsThresholdOrCriteriaInColumn2:
+						lpaQuestionnaire.meetsOrExceedsThresholdOrCriteriaInColumn2,
+					otherAppeals: [
+						{
+							appealId: 1,
+							appealReference: 'APP/Q9999/D/21/725284'
+						}
+					],
+					procedureType: lpaQuestionnaire.procedureType.name,
+					scheduleType: lpaQuestionnaire.scheduleType.name,
+					siteWithinGreenBelt: lpaQuestionnaire.siteWithinGreenBelt
+				});
+			});
+
+			test('returns an error if appealId is not numeric', async () => {
+				const response = await request.get(
+					`/appeals/one/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+				);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_MUST_BE_NUMBER
+					}
+				});
+			});
+
+			test('returns an error if appealId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+				const response = await request.get(
+					`/appeals/3/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+				);
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_NOT_FOUND
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireId is not numeric', async () => {
+				const response = await request.get(`/appeals/${householdAppeal.id}/lpa-questionnaires/one`);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireId: ERROR_MUST_BE_NUMBER
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request.get(`/appeals/${householdAppeal.id}/lpa-questionnaires/3`);
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireId: ERROR_NOT_FOUND
+					}
+				});
 			});
 		});
 	});

@@ -49,9 +49,23 @@ const validatePaginationParameter = (parameterName) =>
 		)
 		.withMessage(ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED);
 
-const validateAppealId = param('appealId').isInt().withMessage(ERROR_MUST_BE_NUMBER);
+/**
+ * @param {string} parameterName
+ * @returns {import('express-validator').ValidationChain}
+ */
+const validateIdParameter = (parameterName) =>
+	param(parameterName).isInt().withMessage(ERROR_MUST_BE_NUMBER);
 
-const getAppealValidator = composeMiddleware(validateAppealId, validationErrorHandler);
+const getAppealValidator = composeMiddleware(
+	validateIdParameter('appealId'),
+	validationErrorHandler
+);
+
+const getLPAQuestionnaireValidator = composeMiddleware(
+	validateIdParameter('appealId'),
+	validateIdParameter('lpaQuestionnaireId'),
+	validationErrorHandler
+);
 
 const paginationParameterValidator = composeMiddleware(
 	validatePaginationParameter('pageNumber'),
@@ -60,7 +74,7 @@ const paginationParameterValidator = composeMiddleware(
 );
 
 const patchAppealValidator = composeMiddleware(
-	validateAppealId,
+	validateIdParameter('appealId'),
 	body('startedAt')
 		.optional()
 		.isDate()
@@ -69,4 +83,9 @@ const patchAppealValidator = composeMiddleware(
 	validationErrorHandler
 );
 
-export { getAppealValidator, paginationParameterValidator, patchAppealValidator };
+export {
+	getAppealValidator,
+	getLPAQuestionnaireValidator,
+	paginationParameterValidator,
+	patchAppealValidator
+};

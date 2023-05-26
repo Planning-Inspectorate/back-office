@@ -34,6 +34,13 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
+	const deleteDesignatedSite = databaseConnector.designatedSite.deleteMany();
+	const deleteListedBuildingDetails = databaseConnector.listedBuildingDetails.deleteMany();
+	const deleteDesignatedSitesOnLPAQuestionnaires =
+		databaseConnector.designatedSitesOnLPAQuestionnaires.deleteMany();
+	const deleteLPANotificationMethods = databaseConnector.lPANotificationMethods.deleteMany();
+	const deleteLPANotificationMethodsOnLPAQuestionnaires =
+		databaseConnector.lPANotificationMethodsOnLPAQuestionnaires.deleteMany();
 
 	// Truncate calls
 	const deleteRegionsOnApplicationDetails = truncateTable('RegionsOnApplicationDetails');
@@ -69,6 +76,8 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAppealDetailsFromAppellant,
 		deleteAppealStatus,
 		deleteValidationDecision,
+		deleteDesignatedSitesOnLPAQuestionnaires,
+		deleteLPANotificationMethodsOnLPAQuestionnaires,
 		deleteLPAQuestionnaire,
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,
@@ -79,7 +88,10 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteInspectorDecision,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders
+		deleteFolders,
+		deleteDesignatedSite,
+		deleteListedBuildingDetails,
+		deleteLPANotificationMethods
 	]);
 }
 
