@@ -1,5 +1,7 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% block sectionContent %}
     <div>
@@ -21,6 +23,33 @@
 
 	<div>
         <h3 class="govuk-heading-m">Pre-Examination</h3>
+		{% set accordionItems = [] %}
+		{% for timetableItem in timetableItems %}
+			{% set tableRows = [{
+					key: { text: "Date" },
+					value: { text: timetableItem.date }
+				}, {
+					key: { text: "Name" },
+					value: { text: timetableItem.name }
+				}, {
+					key: { text: "Description" },
+					value: { text: timetableItem.description }
+				}, {
+					key: { text: "Start Time" },
+					value: { text: timetableItem.startTime }
+				}]
+			%}
+			{# {% set tableHtml = {{ govukSummaryList({ rows: tableRows }) }} %} #}
+			{% set row = {
+				heading: { text: timetableItem.name },
+				content: { html: govukSummaryList({ rows: tableRows }) }
+			} %}
+			{% set accordionItems = accordionItems.concat([row]) %}
+		{% endfor %}
+		{{ govukAccordion({
+			id: "accordion-default",
+			items: accordionItems
+		}) }}
 	</div>
 
 	<div>
