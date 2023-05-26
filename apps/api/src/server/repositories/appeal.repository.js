@@ -64,18 +64,35 @@ const appealRepository = (function () {
 					id
 				},
 				include: {
-					appealDetailsFromAppellant: true,
-					siteVisit: true,
-					appellant: true,
 					address: true,
-					inspectorDecision: true,
+					appealDetailsFromAppellant: true,
+					appellant: true,
 					appealStatus: {
 						where: {
 							valid: true
 						}
 					},
+					appealTimetable: true,
 					appealType: true,
-					appealTimetable: true
+					inspectorDecision: true,
+					lpaQuestionnaire: {
+						include: {
+							designatedSites: {
+								include: {
+									designatedSite: true
+								}
+							},
+							listedBuildingDetails: true,
+							lpaNotificationMethods: {
+								include: {
+									lpaNotificationMethod: true
+								}
+							},
+							procedureType: true,
+							scheduleType: true
+						}
+					},
+					siteVisit: true
 				}
 			});
 		},

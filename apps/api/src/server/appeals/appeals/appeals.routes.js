@@ -1,9 +1,18 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getAppealById, getAppeals, updateAppealById } from './appeals.controller.js';
-import { checkAppealExistsAndAddToRequest } from './appeals.service.js';
+import {
+	getAppealById,
+	getAppeals,
+	getLpaQuestionnaireById,
+	updateAppealById
+} from './appeals.controller.js';
+import {
+	checkAppealExistsAndAddToRequest,
+	checkLPAQuestionnaireExists
+} from './appeals.service.js';
 import {
 	getAppealValidator,
+	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
 	patchAppealValidator
 } from './appeals.validators.js';
@@ -81,6 +90,25 @@ router.patch(
 	patchAppealValidator,
 	checkAppealExistsAndAddToRequest,
 	asyncHandler(updateAppealById)
+);
+
+router.get(
+	'/:appealId/lpa-questionnaires/:lpaQuestionnaireId',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}'
+		#swagger.description = Gets a single LPA questionnaire for an appeal by id
+		#swagger.responses[200] = {
+			description: 'Gets a single LPA questionnaire for an appeal by id',
+			schema: { $ref: '#/definitions/SingleLPAQuestionnaireResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getLPAQuestionnaireValidator,
+	checkAppealExistsAndAddToRequest,
+	checkLPAQuestionnaireExists,
+	asyncHandler(getLpaQuestionnaireById)
 );
 
 export { router as appealsRoutes };

@@ -103,19 +103,19 @@ model AppealDetailsFromAppellant {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                 Int                 @id @default(autoincrement())
-  reference          String?
-  modifiedAt         DateTime            @default(now())
-  createdAt          DateTime            @default(now())
-  description        String?
-  publishedAt        DateTime?
-  title              String?
-  ApplicationDetails ApplicationDetails?
-  CaseStatus         CaseStatus[]
-  folder             Folder[]
-  gridReference      GridReference?
-  serviceCustomer    ServiceCustomer[]
-  Representation     Representation[]
+  id                        Int                         @id @default(autoincrement())
+  reference                 String?
+  modifiedAt                DateTime                    @default(now())
+  createdAt                 DateTime                    @default(now())
+  description               String?
+  publishedAt               DateTime?
+  title                     String?
+  ApplicationDetails        ApplicationDetails?
+  CaseStatus                CaseStatus[]
+  folder                    Folder[]
+  gridReference             GridReference?
+  serviceCustomer           ServiceCustomer[]
+  Representation            Representation[]
   ExaminationTimetableItems ExaminationTimetableItems[]
 }
 
@@ -258,27 +258,55 @@ model ValidationDecision {
 /// Contains responses from Local Planning Authority (LPA)
 /// regarding a specific appeal
 model LPAQuestionnaire {
-  id                                                    Int       @id @default(autoincrement())
-  appealId                                              Int       @unique
-  affectsListedBuilding                                 Boolean?
-  listedBuildingDescription                             String?
-  extraConditions                                       Boolean?
-  inGreenBelt                                           Boolean?
-  inOrNearConservationArea                              Boolean?
-  siteVisibleFromPublicLand                             Boolean?
-  doesInspectorNeedToEnterSite                          Boolean?
-  doesInspectorNeedToAccessNeighboursLand               Boolean?
-  doesInspectorNeedToAccessNeighboursLandDescription    String?
-  healthAndSafetyIssues                                 Boolean?
-  appealsInImmediateAreaBeingConsidered                 String?
-  receivedAt                                            DateTime?
-  sentAt                                                DateTime  @default(now())
-  doesInspectorNeedToEnterSiteDescription               String?
-  emergingDevelopmentPlanOrNeighbourhoodPlan            Boolean?
-  emergingDevelopmentPlanOrNeighbourhoodPlanDescription String?
-  healthAndSafetyIssuesDescription                      String?
-  siteVisibleFromPublicLandDescription                  String?
-  appeal                                                Appeal    @relation(fields: [appealId], references: [id])
+  id                                           Int                                         @id @default(autoincrement())
+  appealId                                     Int                                         @unique
+  procedureTypeId                              Int
+  scheduleTypeId                               Int
+  communityInfrastructureLevyAdoptionDate      DateTime?
+  developmentDescription                       String?
+  doesAffectAListedBuilding                    Boolean?
+  doesAffectAScheduledMonument                 Boolean?
+  doesSiteHaveHealthAndSafetyIssues            Boolean?
+  doesSiteRequireInspectorAccess               Boolean?
+  extraConditions                              String?
+  hasCommunityInfrastructureLevy               Boolean?
+  hasCompletedAnEnvironmentalStatement         Boolean?
+  hasEmergingPlan                              Boolean?
+  hasExtraConditions                           Boolean?
+  hasOtherAppeals                              Boolean?
+  hasProtectedSpecies                          Boolean?
+  hasRepresentationsFromOtherParties           Boolean?
+  hasResponsesOrStandingAdviceToUpload         Boolean?
+  hasStatementOfCase                           Boolean?
+  hasStatutoryConsultees                       Boolean?
+  hasSupplementaryPlanningDocuments            Boolean?
+  hasTreePreservationOrder                     Boolean?
+  healthAndSafetyDetails                       String?
+  inCAOrrelatesToCA                            Boolean?
+  includesScreeningOption                      Boolean?
+  inquiryDays                                  Int?
+  inspectorAccessDetails                       String?
+  isCommunityInfrastructureLevyFormallyAdopted Boolean?
+  isDevelopmentInOrNearDesignatedSites         Boolean?
+  isGypsyOrTravellerSite                       Boolean?
+  isListedBuilding                             Boolean?
+  isPublicRightOfWay                           Boolean?
+  isSensitiveArea                              Boolean?
+  isSiteVisible                                Boolean?
+  isTheSiteWithinAnAONB                        Boolean?
+  meetsOrExceedsThresholdOrCriteriaInColumn2   Boolean?
+  receivedAt                                   DateTime?
+  isEnvironmentalStatementRequired             Boolean?
+  sensitiveAreaDetails                         String?
+  sentAt                                       DateTime                                    @default(now())
+  siteWithinGreenBelt                          Boolean?
+  statutoryConsulteesDetails                   String?
+  appeal                                       Appeal                                      @relation(fields: [appealId], references: [id])
+  procedureType                                ProcedureType                               @relation(fields: [procedureTypeId], references: [id])
+  scheduleType                                 ScheduleType                                @relation(fields: [scheduleTypeId], references: [id])
+  designatedSites                              DesignatedSitesOnLPAQuestionnaires[]
+  lpaNotificationMethods                       LPANotificationMethodsOnLPAQuestionnaires[]
+  listedBuildingDetails                        ListedBuildingDetails[]
 }
 
 /// Region model
@@ -388,16 +416,16 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                 String            @id @default(uuid())
-  name                 String
-  folderId             Int
-  createdAt            DateTime          @default(now())
-  isDeleted            Boolean           @default(false)
-  representationId     Int?
-  latestVersionId      Int
-  folder               Folder            @relation(fields: [folderId], references: [id])
-  documentVersion      DocumentVersion[]
-  Representation       Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  guid             String            @id @default(uuid())
+  name             String
+  folderId         Int
+  createdAt        DateTime          @default(now())
+  isDeleted        Boolean           @default(false)
+  representationId Int?
+  latestVersionId  Int
+  folder           Folder            @relation(fields: [folderId], references: [id])
+  documentVersion  DocumentVersion[]
+  Representation   Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
 }
@@ -505,8 +533,8 @@ model RepresentationAction {
 }
 
 model ExaminationTimetableType {
-  id            Int     @id @default(autoincrement())
-  name          String  @unique // Note this the value sent to the front office. Note the Title Case format
+  id            Int                         @id @default(autoincrement())
+  name          String                      @unique // Note this the value sent to the front office. Note the Title Case format
   templateType  String?
   displayNameEn String
   displayNameCy String
@@ -514,16 +542,68 @@ model ExaminationTimetableType {
 }
 
 model ExaminationTimetableItems {
-  id                Int         @id @default(autoincrement())
-  caseId            Int
-  examinationTypeId Int
-  name              String
-  description       String?     @db.NText
-  date              DateTime?
-  startDate         DateTime?
-  startTime         String?
-  endDate           DateTime?
-  endTime           String?
-  Case              Case        @relation(fields: [caseId], references: [id]) 
-  ExaminationTimetableType   ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+  id                       Int                      @id @default(autoincrement())
+  caseId                   Int
+  examinationTypeId        Int
+  name                     String
+  description              String?                  @db.NText
+  date                     DateTime?
+  startDate                DateTime?
+  startTime                String?
+  endDate                  DateTime?
+  endTime                  String?
+  Case                     Case                     @relation(fields: [caseId], references: [id])
+  ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+}
+
+model ProcedureType {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  LPAQuestionnaire LPAQuestionnaire[]
+}
+
+model ScheduleType {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  LPAQuestionnaire LPAQuestionnaire[]
+}
+
+model DesignatedSite {
+  id                Int                                  @id @default(autoincrement())
+  name              String                               @unique
+  description       String
+  lpaQuestionnaires DesignatedSitesOnLPAQuestionnaires[]
+}
+
+model DesignatedSitesOnLPAQuestionnaires {
+  designatedSite     DesignatedSite   @relation(fields: [designatedSiteId], references: [id])
+  designatedSiteId   Int
+  lpaQuestionnaire   LPAQuestionnaire @relation(fields: [lpaQuestionnaireId], references: [id])
+  lpaQuestionnaireId Int
+
+  @@id([designatedSiteId, lpaQuestionnaireId])
+}
+
+model LPANotificationMethods {
+  id                Int                                         @id @default(autoincrement())
+  name              String                                      @unique
+  lpaQuestionnaires LPANotificationMethodsOnLPAQuestionnaires[]
+}
+
+model LPANotificationMethodsOnLPAQuestionnaires {
+  lpaNotificationMethod LPANotificationMethods @relation(fields: [notificationMethodId], references: [id])
+  notificationMethodId  Int
+  lpaQuestionnaire      LPAQuestionnaire       @relation(fields: [lpaQuestionnaireId], references: [id])
+  lpaQuestionnaireId    Int
+
+  @@id([notificationMethodId, lpaQuestionnaireId])
+}
+
+model ListedBuildingDetails {
+  id                    Int               @id @default(autoincrement())
+  lpaQuestionnaireId    Int?
+  grade                 String
+  description           String
+  affectsListedBuilding Boolean           @default(false)
+  lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
 }

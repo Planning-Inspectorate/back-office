@@ -253,3 +253,78 @@ export interface DocumentVersionInput extends DocumentVersion {
 export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
+
+export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
+	communityInfrastructureLevyAdoptionDate: Date | null;
+	designatedSites: DesignatedSite[] | null;
+	developmentDescription: string | null;
+	doesAffectAListedBuilding: boolean | null;
+	doesAffectAScheduledMonument: boolean | null;
+	doesSiteHaveHealthAndSafetyIssues: boolean | null;
+	doesSiteRequireInspectorAccess: boolean | null;
+	extraConditions: string | null;
+	hasCommunityInfrastructureLevy: boolean | null;
+	hasCompletedAnEnvironmentalStatement: boolean | null;
+	hasEmergingPlan: boolean | null;
+	hasExtraConditions: boolean | null;
+	hasOtherAppeals: boolean | null;
+	hasProtectedSpecies: boolean | null;
+	hasRepresentationsFromOtherParties: boolean | null;
+	hasResponsesOrStandingAdviceToUpload: boolean | null;
+	hasStatementOfCase: boolean | null;
+	hasStatutoryConsultees: boolean | null;
+	hasSupplementaryPlanningDocuments: boolean | null;
+	hasTreePreservationOrder: boolean | null;
+	healthAndSafetyDetails: string | null;
+	inCAOrrelatesToCA: boolean | null;
+	includesScreeningOption: boolean | null;
+	inquiryDays: number | null;
+	inspectorAccessDetails: string | null;
+	isCommunityInfrastructureLevyFormallyAdopted: boolean | null;
+	isEnvironmentalStatementRequired: boolean | null;
+	isGypsyOrTravellerSite: boolean | null;
+	isListedBuilding: boolean | null;
+	isPublicRightOfWay: boolean | null;
+	isSensitiveArea: boolean | null;
+	isSiteVisible: boolean | null;
+	isTheSiteWithinAnAONB: boolean | null;
+	listedBuildingDetails: ListedBuildingDetails[] | null;
+	lpaNotificationMethods: LPANotificationMethod[] | null;
+	meetsOrExceedsThresholdOrCriteriaInColumn2: boolean | null;
+	procedureType: ProcedureType;
+	scheduleType: ScheduleType;
+	sensitiveAreaDetails: string | null;
+	siteWithinGreenBelt: boolean | null;
+	statutoryConsulteesDetails?: string | null;
+}
+
+export interface ProcedureType {
+	name: string;
+}
+
+export interface ScheduleType {
+	name: string;
+}
+
+export interface DesignatedSiteDetails {
+	name: string;
+	description: string;
+}
+
+export interface DesignatedSite {
+	designatedSite: DesignatedSiteDetails;
+}
+
+export interface LPANotificationMethodDetails {
+	name: string;
+}
+
+export interface LPANotificationMethod {
+	lpaNotificationMethod: LPANotificationMethodDetails;
+}
+
+export interface ListedBuildingDetails {
+	grade: string;
+	description: string;
+	affectsListedBuilding: boolean;
+}

@@ -585,6 +585,7 @@ const document = {
 				appealReference: 'APP/Q9999/D/21/725284'
 			},
 			localPlanningDepartment: 'Wiltshire Council',
+			lpaQuestionnaireId: 1,
 			otherAppeals: [
 				{
 					appealId: 1,
@@ -602,6 +603,103 @@ const document = {
 		},
 		UpdateAppealResponse: {
 			startedAt: '2023-05-09T01:00:00.000Z'
+		},
+		SingleLPAQuestionnaireResponse: {
+			affectsListedBuildingDetails: [
+				{
+					grade: 'Grade I',
+					description: 'http://localhost:8080/affects-listed-building.pdf'
+				}
+			],
+			appealId: 1,
+			appealReference: 'APP/Q9999/D/21/526184',
+			appealSite: {
+				addressLine1: '92 Huntsmoor Road',
+				county: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
+			designatedSites: [
+				{
+					name: 'cSAC',
+					description: 'candidate special area of conservation'
+				}
+			],
+			developmentDescription: '',
+			documents: {
+				definitiveMapAndStatement: 'right-of-way.pdf',
+				treePreservationOrder: 'tree-preservation-order.pdf',
+				communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
+				conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
+				consultationResponses: 'consultation-responses.pdf',
+				emergingPlans: ['emerging-plan-1.pdf'],
+				environmentalStatementResponses: 'environment-statement-responses.pdf',
+				issuedScreeningOption: 'issued-screening-opinion.pdf',
+				lettersToNeighbours: 'letters-to-neighbours.pdf',
+				otherRelevantPolicies: ['policy-1.pdf'],
+				planningOfficersReport: 'planning-officers-report.pdf',
+				policiesFromStatutoryDevelopment: ['policy-a.pdf'],
+				pressAdvert: 'press-advert.pdf',
+				representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
+				responsesOrAdvice: ['responses-or-advice.pdf'],
+				screeningDirection: 'screening-direction.pdf',
+				siteNotice: 'site-notice.pdf',
+				supplementaryPlanningDocuments: ['supplementary-1.pdf']
+			},
+			doesAffectAListedBuilding: true,
+			doesAffectAScheduledMonument: true,
+			doesSiteHaveHealthAndSafetyIssues: true,
+			doesSiteRequireInspectorAccess: true,
+			extraConditions: 'Some extra conditions',
+			hasCommunityInfrastructureLevy: true,
+			hasCompletedAnEnvironmentalStatement: true,
+			hasEmergingPlan: true,
+			hasExtraConditions: true,
+			hasProtectedSpecies: true,
+			hasRepresentationsFromOtherParties: true,
+			hasResponsesOrStandingAdviceToUpload: true,
+			hasStatementOfCase: true,
+			hasStatutoryConsultees: true,
+			hasSupplementaryPlanningDocuments: true,
+			hasTreePreservationOrder: true,
+			healthAndSafetyDetails: 'There is no mobile signal at the property',
+			inCAOrrelatesToCA: true,
+			includesScreeningOption: true,
+			inquiryDays: 2,
+			inspectorAccessDetails: 'The entrance is at the back of the property',
+			isCommunityInfrastructureLevyFormallyAdopted: true,
+			isEnvironmentalStatementRequired: true,
+			isGypsyOrTravellerSite: true,
+			isListedBuilding: true,
+			isPublicRightOfWay: true,
+			isSensitiveArea: true,
+			isSiteVisible: true,
+			isTheSiteWithinAnAONB: true,
+			listedBuildingDetails: [
+				{
+					grade: 'Grade I',
+					description: 'http://localhost:8080/listed-building.pdf'
+				}
+			],
+			localPlanningDepartment: 'Wiltshire Council',
+			lpaNotificationMethods: [
+				{
+					name: 'A site notice'
+				}
+			],
+			lpaQuestionnaireId: 1,
+			meetsOrExceedsThresholdOrCriteriaInColumn2: true,
+			otherAppeals: [
+				{
+					appealId: 1,
+					appealReference: 'APP/Q9999/D/21/725284'
+				}
+			],
+			procedureType: 'Written',
+			scheduleType: 'Schedule 1',
+			sensitiveAreaDetails: 'The area is prone to flooding',
+			siteWithinGreenBelt: true,
+			statutoryConsulteesDetails: 'Some other people need to be consulted'
 		},
 		AppealsForCaseOfficer: {
 			$AppealId: 1,

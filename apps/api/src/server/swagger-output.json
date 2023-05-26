@@ -115,6 +115,40 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets a single LPA questionnaire for an appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "lpaQuestionnaireId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single LPA questionnaire for an appeal by id",
+						"schema": {
+							"$ref": "#/definitions/SingleLPAQuestionnaireResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/applications": {
 			"post": {
 				"tags": ["Applications"],
@@ -3685,6 +3719,10 @@
 					"type": "string",
 					"example": "Wiltshire Council"
 				},
+				"lpaQuestionnaireId": {
+					"type": "number",
+					"example": 1
+				},
 				"otherAppeals": {
 					"type": "array",
 					"items": {
@@ -3735,6 +3773,363 @@
 				"startedAt": {
 					"type": "string",
 					"example": "2023-05-09T01:00:00.000Z"
+				}
+			}
+		},
+		"SingleLPAQuestionnaireResponse": {
+			"type": "object",
+			"properties": {
+				"affectsListedBuildingDetails": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"grade": {
+								"type": "string",
+								"example": "Grade I"
+							},
+							"description": {
+								"type": "string",
+								"example": "http://localhost:8080/affects-listed-building.pdf"
+							}
+						}
+					}
+				},
+				"appealId": {
+					"type": "number",
+					"example": 1
+				},
+				"appealReference": {
+					"type": "string",
+					"example": "APP/Q9999/D/21/526184"
+				},
+				"appealSite": {
+					"type": "object",
+					"properties": {
+						"addressLine1": {
+							"type": "string",
+							"example": "92 Huntsmoor Road"
+						},
+						"county": {
+							"type": "string",
+							"example": "Tadley"
+						},
+						"postCode": {
+							"type": "string",
+							"example": "RG26 4BX"
+						}
+					}
+				},
+				"communityInfrastructureLevyAdoptionDate": {
+					"type": "boolean",
+					"example": true
+				},
+				"designatedSites": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "cSAC"
+							},
+							"description": {
+								"type": "string",
+								"example": "candidate special area of conservation"
+							}
+						}
+					}
+				},
+				"developmentDescription": {
+					"type": "boolean",
+					"example": true
+				},
+				"documents": {
+					"type": "object",
+					"properties": {
+						"definitiveMapAndStatement": {
+							"type": "string",
+							"example": "right-of-way.pdf"
+						},
+						"treePreservationOrder": {
+							"type": "string",
+							"example": "tree-preservation-order.pdf"
+						},
+						"communityInfrastructureLevy": {
+							"type": "string",
+							"example": "community-infrastructure-levy.pdf"
+						},
+						"conservationAreaMapAndGuidance": {
+							"type": "string",
+							"example": "conservation-area-map-and-guidance.pdf"
+						},
+						"consultationResponses": {
+							"type": "string",
+							"example": "consultation-responses.pdf"
+						},
+						"emergingPlans": {
+							"type": "array",
+							"example": ["emerging-plan-1.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"environmentalStatementResponses": {
+							"type": "string",
+							"example": "environment-statement-responses.pdf"
+						},
+						"issuedScreeningOption": {
+							"type": "string",
+							"example": "issued-screening-opinion.pdf"
+						},
+						"lettersToNeighbours": {
+							"type": "string",
+							"example": "letters-to-neighbours.pdf"
+						},
+						"otherRelevantPolicies": {
+							"type": "array",
+							"example": ["policy-1.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"planningOfficersReport": {
+							"type": "string",
+							"example": "planning-officers-report.pdf"
+						},
+						"policiesFromStatutoryDevelopment": {
+							"type": "array",
+							"example": ["policy-a.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"pressAdvert": {
+							"type": "string",
+							"example": "press-advert.pdf"
+						},
+						"representationsFromOtherParties": {
+							"type": "array",
+							"example": ["representations-from-other-parties-1.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"responsesOrAdvice": {
+							"type": "array",
+							"example": ["responses-or-advice.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"screeningDirection": {
+							"type": "string",
+							"example": "screening-direction.pdf"
+						},
+						"siteNotice": {
+							"type": "string",
+							"example": "site-notice.pdf"
+						},
+						"supplementaryPlanningDocuments": {
+							"type": "array",
+							"example": ["supplementary-1.pdf"],
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"doesAffectAListedBuilding": {
+					"type": "boolean",
+					"example": true
+				},
+				"doesAffectAScheduledMonument": {
+					"type": "boolean",
+					"example": true
+				},
+				"doesSiteHaveHealthAndSafetyIssues": {
+					"type": "boolean",
+					"example": true
+				},
+				"doesSiteRequireInspectorAccess": {
+					"type": "boolean",
+					"example": true
+				},
+				"extraConditions": {
+					"type": "string",
+					"example": "Some extra conditions"
+				},
+				"hasCommunityInfrastructureLevy": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasCompletedAnEnvironmentalStatement": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasEmergingPlan": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasExtraConditions": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasProtectedSpecies": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasRepresentationsFromOtherParties": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasResponsesOrStandingAdviceToUpload": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasStatementOfCase": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasStatutoryConsultees": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasSupplementaryPlanningDocuments": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasTreePreservationOrder": {
+					"type": "boolean",
+					"example": true
+				},
+				"healthAndSafetyDetails": {
+					"type": "string",
+					"example": "There is no mobile signal at the property"
+				},
+				"inCAOrrelatesToCA": {
+					"type": "boolean",
+					"example": true
+				},
+				"includesScreeningOption": {
+					"type": "boolean",
+					"example": true
+				},
+				"inquiryDays": {
+					"type": "number",
+					"example": 2
+				},
+				"inspectorAccessDetails": {
+					"type": "string",
+					"example": "The entrance is at the back of the property"
+				},
+				"isCommunityInfrastructureLevyFormallyAdopted": {
+					"type": "boolean",
+					"example": true
+				},
+				"isEnvironmentalStatementRequired": {
+					"type": "boolean",
+					"example": true
+				},
+				"isGypsyOrTravellerSite": {
+					"type": "boolean",
+					"example": true
+				},
+				"isListedBuilding": {
+					"type": "boolean",
+					"example": true
+				},
+				"isPublicRightOfWay": {
+					"type": "boolean",
+					"example": true
+				},
+				"isSensitiveArea": {
+					"type": "boolean",
+					"example": true
+				},
+				"isSiteVisible": {
+					"type": "boolean",
+					"example": true
+				},
+				"isTheSiteWithinAnAONB": {
+					"type": "boolean",
+					"example": true
+				},
+				"listedBuildingDetails": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"grade": {
+								"type": "string",
+								"example": "Grade I"
+							},
+							"description": {
+								"type": "string",
+								"example": "http://localhost:8080/listed-building.pdf"
+							}
+						}
+					}
+				},
+				"localPlanningDepartment": {
+					"type": "string",
+					"example": "Wiltshire Council"
+				},
+				"lpaNotificationMethods": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "A site notice"
+							}
+						}
+					}
+				},
+				"lpaQuestionnaireId": {
+					"type": "number",
+					"example": 1
+				},
+				"meetsOrExceedsThresholdOrCriteriaInColumn2": {
+					"type": "boolean",
+					"example": true
+				},
+				"otherAppeals": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"appealId": {
+								"type": "number",
+								"example": 1
+							},
+							"appealReference": {
+								"type": "string",
+								"example": "APP/Q9999/D/21/725284"
+							}
+						}
+					}
+				},
+				"procedureType": {
+					"type": "string",
+					"example": "Written"
+				},
+				"scheduleType": {
+					"type": "string",
+					"example": "Schedule 1"
+				},
+				"sensitiveAreaDetails": {
+					"type": "string",
+					"example": "The area is prone to flooding"
+				},
+				"siteWithinGreenBelt": {
+					"type": "boolean",
+					"example": true
+				},
+				"statutoryConsulteesDetails": {
+					"type": "string",
+					"example": "Some other people need to be consulted"
 				}
 			}
 		},
