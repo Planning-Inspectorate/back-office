@@ -2,7 +2,10 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
-import { fixtureTimetableTypes } from '../../../../../../testing/applications/fixtures/timetable-types.js';
+import {
+	fixtureTimetableTypes,
+	fixtureTimetableItems
+} from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app } = createTestEnvironment();
@@ -15,6 +18,10 @@ const nocks = () => {
 		.get('/applications/examination-timetable-type')
 		.times(2)
 		.reply(200, fixtureTimetableTypes);
+	nock('http://test/')
+		.get('/applications/examination-timetable-items/case/123')
+		.times(2)
+		.reply(200, fixtureTimetableItems);
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, {});
 };
 
