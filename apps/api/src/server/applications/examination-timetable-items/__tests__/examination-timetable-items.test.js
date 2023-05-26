@@ -16,7 +16,14 @@ const examinationTimetableItem = {
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
 	endDate: '2023-02-27T12:00:00Z',
-	endTime: '12:20'
+	endTime: '12:20',
+	ExaminationTimetableType: {
+		id: 2,
+		name: 'Compulsory Acquisition Hearing',
+		templateType: 'starttime-mandatory',
+		displayNameEn: 'Compulsory acquisition hearing',
+		displayNameCy: 'Compulsory acquisition hearing'
+	}
 };
 
 describe('Test examination timetable items API', () => {
@@ -31,6 +38,7 @@ describe('Test examination timetable items API', () => {
 		const resp = await request.get('/applications/examination-timetable-items/case/1');
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.examinationTimetableItems.findMany).toHaveBeenCalledWith({
+			include: { ExaminationTimetableType: true },
 			where: { caseId: 1 }
 		});
 	});

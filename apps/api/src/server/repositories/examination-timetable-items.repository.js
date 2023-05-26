@@ -15,7 +15,10 @@ export const getById = (id) => {
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItems[] | null>}
  */
 export const getByCaseId = (caseId) => {
-	return databaseConnector.examinationTimetableItems.findMany({ where: { caseId } });
+	return databaseConnector.examinationTimetableItems.findMany({
+		include: { ExaminationTimetableType: true },
+		where: { caseId }
+	});
 };
 
 /**
