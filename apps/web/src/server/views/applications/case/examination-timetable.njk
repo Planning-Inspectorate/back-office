@@ -39,7 +39,6 @@
 					value: { text: timetableItem.startTime }
 				}]
 			%}
-			{# {% set tableHtml = {{ govukSummaryList({ rows: tableRows }) }} %} #}
 			{% set row = {
 				heading: { text: timetableItem.name },
 				content: { html: govukSummaryList({ rows: tableRows }) }
@@ -54,6 +53,10 @@
 
 	<div>
         <h3 class="govuk-heading-m">Examination</h3>
+		{{ govukAccordion({
+			id: "accordion-default",
+			items: accordionItems
+		}) }}
     </div>
 
 {% endblock %}
