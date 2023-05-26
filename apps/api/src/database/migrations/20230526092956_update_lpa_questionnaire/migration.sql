@@ -74,8 +74,8 @@ ALTER TABLE [dbo].[LPAQuestionnaire] ADD [communityInfrastructureLevyAdoptionDat
 [isSiteVisible] BIT,
 [isTheSiteWithinAnAONB] BIT,
 [meetsOrExceedsThresholdOrCriteriaInColumn2] BIT,
-[procedureTypeId] INT NOT NULL,
-[scheduleTypeId] INT NOT NULL,
+[procedureTypeId] INT NOT NULL DEFAULT(1),
+[scheduleTypeId] INT NOT NULL DEFAULT(1),
 [sensitiveAreaDetails] NVARCHAR(1000),
 [siteWithinGreenBelt] BIT,
 [statutoryConsulteesDetails] NVARCHAR(1000);
