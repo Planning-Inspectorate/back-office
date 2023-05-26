@@ -32,3 +32,11 @@ export const createCaseTimetableItem = async (payload) => {
 	}
 	return response;
 };
+
+/**
+ * Get case timetable items
+ * @param {number} caseId
+ */
+export const getCaseTimetableItems = async (caseId) => {
+	return get(`applications/examination-timetable-items/case/${caseId}`);
+};

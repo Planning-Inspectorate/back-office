@@ -1,7 +1,8 @@
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import {
 	createCaseTimetableItem,
-	getCaseTimetableItemTypes
+	getCaseTimetableItemTypes,
+	getCaseTimetableItems
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
@@ -49,11 +50,13 @@ export const timetableTemplatesSchema = {
 /**
  * View the examination timetable page for a single case
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
  */
 export async function viewApplicationsCaseExaminationTimeTable(request, response) {
+	const timetableItems = await getCaseTimetableItems(+request.params.caseId);
 	response.render(`applications/case/examination-timetable`, {
-		selectedPageType: 'examination-timetable'
+		selectedPageType: 'examination-timetable',
+		timetableItems
 	});
 }
 
