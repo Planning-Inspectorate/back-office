@@ -25,3 +25,18 @@ export const fixtureTimetableTypes = [
 		displayNameEn: 'starttime-optional'
 	}
 ];
+
+export const fixtureTimetableItems = [
+	{
+		id: 1,
+		caseId: 47,
+		examinationTypeId: 2,
+		name: 'Test',
+		description: '{"preText":"test","bulletPoints":[]}',
+		date: '2023-10-10T00:00:00.000Z',
+		startDate: null,
+		startTime: '10:10',
+		endDate: null,
+		endTime: '10:10'
+	}
+];

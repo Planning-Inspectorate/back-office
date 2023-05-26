@@ -23,40 +23,44 @@
 
 	<div>
         <h3 class="govuk-heading-m">Pre-Examination</h3>
-		{% set accordionItems = [] %}
-		{% for timetableItem in timetableItems %}
-			{% set tableRows = [{
-					key: { text: "Date" },
-					value: { text: timetableItem.date }
-				}, {
-					key: { text: "Name" },
-					value: { text: timetableItem.name }
-				}, {
-					key: { text: "Description" },
-					value: { text: timetableItem.description }
-				}, {
-					key: { text: "Start Time" },
-					value: { text: timetableItem.startTime }
-				}]
-			%}
-			{% set row = {
-				heading: { text: timetableItem.name },
-				content: { html: govukSummaryList({ rows: tableRows }) }
-			} %}
-			{% set accordionItems = accordionItems.concat([row]) %}
-		{% endfor %}
-		{{ govukAccordion({
-			id: "accordion-default",
-			items: accordionItems
-		}) }}
+		{% if var|length %}
+			{% set accordionItems = [] %}
+			{% for timetableItem in timetableItems %}
+				{% set tableRows = [{
+						key: { text: "Date" },
+						value: { text: timetableItem.date }
+					}, {
+						key: { text: "Name" },
+						value: { text: timetableItem.name }
+					}, {
+						key: { text: "Description" },
+						value: { text: timetableItem.description }
+					}, {
+						key: { text: "Start Time" },
+						value: { text: timetableItem.startTime }
+					}]
+				%}
+				{% set row = {
+					heading: { text: timetableItem.name },
+					content: { html: govukSummaryList({ rows: tableRows }) }
+				} %}
+				{% set accordionItems = accordionItems.concat([row]) %}
+			{% endfor %}
+			{{ govukAccordion({
+				id: "accordion-default",
+				items: accordionItems
+			}) }}
+		{% endif %}
 	</div>
 
 	<div>
         <h3 class="govuk-heading-m">Examination</h3>
-		{{ govukAccordion({
-			id: "accordion-default",
-			items: accordionItems
-		}) }}
+		{% if var|length %}
+			{{ govukAccordion({
+				id: "accordion-default",
+				items: accordionItems
+			}) }}
+		{% endif %}
     </div>
 
 {% endblock %}
