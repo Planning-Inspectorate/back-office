@@ -1131,7 +1131,9 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
+                                    <dd class=\\"govuk-summary-list__value\\">
+                                        <p class='govuk-body'>test</p>
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
@@ -1167,7 +1169,9 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">{&quot;preText&quot;:&quot;test&quot;,&quot;bulletPoints&quot;:[]}</dd>
+                                    <dd class=\\"govuk-summary-list__value\\">
+                                        <p class='govuk-body'>test</p>
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
