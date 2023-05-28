@@ -26,6 +26,7 @@
 		{% if timetableItems|length %}
 			{% set accordionItems = [] %}
 			{% for timetableItem in timetableItems %}
+				{% set preText = ["<p class='govuk-body'>", timetableItem.description.preText, "</p>"] | join %}
 				{% set tableRows = [{
 						key: { text: "Item Type" },
 						value: { text: timetableItem.ExaminationTimetableType.name }
@@ -46,7 +47,7 @@
 						value: { text: timetableItem.endTime }
 					}, {
 						key: { text: "Description" },
-						value: { text: timetableItem.description }
+						value: { html: preText }
 					}]
 				%}
 				{% set row = {
