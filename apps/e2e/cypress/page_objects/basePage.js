@@ -131,6 +131,10 @@ export class Page {
 		this.basePageElements.errorMessage().contains(errorMessage).should('exist');
 	}
 
+	validateErrorMessageCountOnPage(numberOfErrors) {
+		this.basePageElements.errorMessage().should('have.length', numberOfErrors);
+	}
+
 	validateNumberOfCheckboxes(checkboxCount) {
 		this.basePageElements.checkbox().should('have.length', checkboxCount);
 	}
