@@ -16,7 +16,7 @@
 		"@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
 		"@cypress/webpack-preprocessor": "^5.16.1",
 		"@faker-js/faker": "^7.6.0",
-		"cypress": "^12.3.0",
+		"cypress": "^10.11.0",
 		"dotenv": "^16.0.3",
 		"eslint-plugin-cypress": "^2.12.1",
 		"puppeteer": "^19.4.1"

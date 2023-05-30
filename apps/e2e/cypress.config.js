@@ -43,8 +43,7 @@ module.exports = defineConfig({
 		defaultCommandTimeout: 10000,
 		pageLoadTimeout: 30000,
 		experimentalModifyObstructiveThirdPartyCode: true,
-		chromeWebSecurity: false,
-		experimentalInteractiveRunEvents: true,
+		chromeWebSecurity: true,
 		video: false,
 		retries: 1
 	}
