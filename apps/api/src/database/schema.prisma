@@ -260,8 +260,8 @@ model ValidationDecision {
 model LPAQuestionnaire {
   id                                           Int                                         @id @default(autoincrement())
   appealId                                     Int                                         @unique
-  procedureTypeId                              Int
-  scheduleTypeId                               Int
+  procedureTypeId                              Int?
+  scheduleTypeId                               Int?
   communityInfrastructureLevyAdoptionDate      DateTime?
   developmentDescription                       String?
   doesAffectAListedBuilding                    Boolean?
@@ -302,8 +302,8 @@ model LPAQuestionnaire {
   siteWithinGreenBelt                          Boolean?
   statutoryConsulteesDetails                   String?
   appeal                                       Appeal                                      @relation(fields: [appealId], references: [id])
-  procedureType                                ProcedureType                               @relation(fields: [procedureTypeId], references: [id])
-  scheduleType                                 ScheduleType                                @relation(fields: [scheduleTypeId], references: [id])
+  procedureType                                ProcedureType?                              @relation(fields: [procedureTypeId], references: [id])
+  scheduleType                                 ScheduleType?                               @relation(fields: [scheduleTypeId], references: [id])
   designatedSites                              DesignatedSitesOnLPAQuestionnaires[]
   lpaNotificationMethods                       LPANotificationMethodsOnLPAQuestionnaires[]
   listedBuildingDetails                        ListedBuildingDetails[]
