@@ -46,7 +46,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	// Create sub folder for the examination timetable item.
-	const folderName = `${examinationTimetableItem.date} - ${body.examinationTimetableType.name}`;
+	const folderName = `${examinationTimetableItem.date} - ${examinationTimetableItem.name}`;
 	const folder = {
 		displayNameEn: folderName,
 		caseId: body.caseId,

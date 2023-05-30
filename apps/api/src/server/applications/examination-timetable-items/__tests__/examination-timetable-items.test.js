@@ -56,6 +56,20 @@ describe('Test examination timetable items API', () => {
 
 	test('creates examination timetable item', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.folder.findFirst.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.folder.create.mockResolvedValue({
+			id: 2,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: 1,
+			displayOrder: 100
+		});
 		databaseConnector.examinationTimetableItems.create.mockResolvedValue(examinationTimetableItem);
 		const resp = await request
 			.post('/applications/examination-timetable-items')
