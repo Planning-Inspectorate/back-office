@@ -18,7 +18,6 @@ describe('Search', () => {
 		projectInfo = projectInformation();
 		cy.login(users.caseAdmin);
 		createCasePage.createCase(projectInfo);
-		cy.clearAllCookies();
 	});
 
 	context('As Inspector', () => {

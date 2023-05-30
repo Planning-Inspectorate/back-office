@@ -101,51 +101,42 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickChangeLink('Project name');
 	casePage.fillInput(projectInformation.projectName);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Project description');
 	casePage.fillTextArea(projectInformation.projectDescription);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Project email address');
 	casePage.fillInput(projectInformation.projectEmail);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Project location');
 	casePage.fillTextArea(projectInformation.projectLocation);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Grid references');
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Region(s)');
 	casePage.clearAllCheckboxes();
 	createCasePage.sections.regions.chooseRegions(projectInformation.regions);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Map zoom level');
 	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	// A P P L I C A T I O N  I N F O R M A T I O N
 	casePage.clickChangeLink('Organisation name');
 	casePage.fillInput(projectInformation.orgName);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Contact name (Internal use only)');
 	casePage.fillInput(projectInformation.applicantFirstName);
 	casePage.fillInput(projectInformation.applicantLastName, 1);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Address (Internal use only)');
 	cy.get(casePage.selectors.link)
@@ -159,22 +150,18 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Find address');
 	casePage.chooseSelectItemByIndex(1);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Website');
 	casePage.fillInput(projectInformation.applicantWebsite);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink(/^Email address$/);
 	casePage.fillInput(projectInformation.applicantEmail);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 
 	casePage.clickChangeLink('Telephone number');
 	casePage.fillInput(projectInformation.applicantPhoneNumber);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickAccordionByText('Show all sections');
 };
 
 module.exports = {
