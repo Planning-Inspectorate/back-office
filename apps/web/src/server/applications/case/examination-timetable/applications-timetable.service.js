@@ -36,6 +36,7 @@ export const createCaseTimetableItem = async (payload) => {
 /**
  * Get case timetable items
  * @param {number} caseId
+ * @returns {Promise<ApplicationsTimetable[]>}
  */
 export const getCaseTimetableItems = async (caseId) => {
 	return get(`applications/examination-timetable-items/case/${caseId}`);
