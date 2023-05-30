@@ -3755,6 +3755,34 @@
 				"startedAt": {
 					"type": "string",
 					"example": "2022-05-17T23:00:00.000Z"
+				},
+				"documentationSummary": {
+					"type": "object",
+					"properties": {
+						"appellantCase": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "received"
+								},
+								"dueDate": {}
+							}
+						},
+						"lpaQuestionnaire": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "not_received"
+								},
+								"dueDate": {
+									"type": "string",
+									"example": "2023-06-18T00:00:00.000Z"
+								}
+							}
+						}
+					}
 				}
 			}
 		},
