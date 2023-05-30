@@ -71,6 +71,7 @@ interface RepositoryGetByIdResultItem {
 	reference: string;
 	siteVisit?: { visitDate: Date } | null;
 	startedAt: Date | null;
+	lpaQuestionnaire?: import('@pins/api').Schema.LPAQuestionnaire;
 }
 
 interface BankHolidayFeedEvent {
@@ -171,6 +172,7 @@ interface SingleAppealDetailsResponse {
 	planningApplicationReference: string;
 	siteVisit: { visitDate?: Date | null };
 	startedAt: Date | null;
+	documentationSummary: DocumentationSummary;
 }
 
 interface AppealListResponse {
@@ -189,6 +191,16 @@ type BankHolidayFeedDivisions =
 	| 'scotland'
 	| 'united-kingdom';
 
+interface DocumentationSummaryEntry {
+	status: string;
+	dueDate: Date | undefined | null;
+}
+
+interface DocumentationSummary {
+	appellantCase?: DocumentationSummaryEntry;
+	lpaQuestionnaire?: DocumentationSummaryEntry;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 export {
@@ -202,6 +214,7 @@ export {
 	ListedBuildingDetailsResponse,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
+	DocumentationSummary,
 	SingleAppealDetailsResponse,
 	SingleLPAQuestionnaireResponse,
 	TimetableConfig

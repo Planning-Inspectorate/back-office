@@ -338,6 +338,16 @@ describe('Appeals', () => {
 					appellantName: householdAppeal.appellant.name,
 					caseProcedure: 'Written',
 					decision: householdAppeal.inspectorDecision.outcome,
+					documentationSummary: {
+						appellantCase: {
+							status: 'received',
+							dueDate: null
+						},
+						lpaQuestionnaire: {
+							dueDate: '2023-06-18T00:00:00.000Z',
+							status: 'received'
+						}
+					},
 					linkedAppeal: {
 						appealId: 1,
 						appealReference: 'APP/Q9999/D/21/725284'
@@ -388,6 +398,16 @@ describe('Appeals', () => {
 					appellantName: fullPlanningAppeal.appellant.name,
 					caseProcedure: 'Written',
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
+					documentationSummary: {
+						appellantCase: {
+							status: 'received',
+							dueDate: null
+						},
+						lpaQuestionnaire: {
+							dueDate: '2023-06-18T00:00:00.000Z',
+							status: 'received'
+						}
+					},
 					linkedAppeal: {
 						appealId: 1,
 						appealReference: 'APP/Q9999/D/21/725284'
