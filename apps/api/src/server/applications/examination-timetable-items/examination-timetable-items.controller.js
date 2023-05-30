@@ -1,4 +1,5 @@
 import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -32,6 +33,28 @@ export const getExaminationTimetableItem = async (_request, response) => {
 export const createExaminationTimetableItem = async (_request, response) => {
 	const { body } = _request;
 	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
+
+	// find the examination folder id to create subfolder.
+	let examinationFolder = await folderRepository.getFolderByNameAndCaseId(
+		body.caseId,
+		'Examination'
+	);
+
+	if (!examinationFolder) {
+		await folderRepository.createFolders(body.caseId);
+		examinationFolder = await folderRepository.getFolderByNameAndCaseId(body.caseId, 'Examination');
+	}
+
+	// Create sub folder for the examination timetable item.
+	const folderName = `${examinationTimetableItem.date} - ${body.examinationTimetableType.name}`;
+	const folder = {
+		displayNameEn: folderName,
+		caseId: body.caseId,
+		parentFolderId: examinationFolder?.id || null,
+		displayOrder: 100
+	};
+
+	await folderRepository.createFolder(folder);
 
 	response.send(examinationTimetableItem);
 };

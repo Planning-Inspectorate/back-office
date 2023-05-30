@@ -71,6 +71,30 @@ export const getFolderPath = async (caseId, currentFolderId) => {
 };
 
 /**
+ *
+ * @param {number} caseId
+ * @param {string} folderName
+ * @returns {Promise<(Folder |null)>}
+ */
+export const getFolderByNameAndCaseId = (caseId, folderName) => {
+	return databaseConnector.folder.findFirst({
+		where: { caseId, displayNameEn: folderName }
+	});
+};
+
+/**
+ * @param {Object} folder
+ * @param {string} folder.displayNameEn
+ * @param {number} folder.caseId
+ * @param {number|null} folder.parentFolderId
+ * @param {number|null} folder.displayOrder
+ * @returns {Promise<(Folder |null)>}
+ */
+export const createFolder = (folder) => {
+	return databaseConnector.folder.create({ data: folder });
+};
+
+/**
  * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
  *
  * @param {number} caseId
