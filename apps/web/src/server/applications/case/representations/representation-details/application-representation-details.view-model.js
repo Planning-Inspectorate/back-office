@@ -9,7 +9,12 @@ import { format } from 'date-fns';
  * @property {boolean} redacted
  * @property {string} received
  * @property {string} originalRepresentation
- * @property {string|null} redactedRepresentation
+ * @property {string} representationExcerpt
+ * @property {string} redactedRepresentation
+ * @property {string} redactedRepresentationExcerpt
+ * @property {string} redactedNotes
+ * @property {string} redactedNotesExcerpt
+ * @property {string} redactedBy
  */
 
 /**
@@ -76,17 +81,17 @@ const getContactDetailsByContactType = ({ contacts }, type) => {
  */
 const formatDate = (date) => format(new Date(date), 'dd MMM yyyy');
 
+const maxRepTextLength = 200;
+
 /**
  *
  * @param {string} text
- * @param {number} maxLength
  * @returns {string}
  */
-const createExcerpt = (text, maxLength) => {
-	const lastSpaceIndex = text.lastIndexOf(' ', maxLength);
-
-	return `${text.slice(0, Math.max(0, lastSpaceIndex))}`;
-};
+const getExcerpt = (text) =>
+	text && text.length >= maxRepTextLength
+		? `${text.slice(0, Math.max(0, text.lastIndexOf(' ', maxRepTextLength)))}`
+		: '';
 
 /**
  *
@@ -94,14 +99,6 @@ const createExcerpt = (text, maxLength) => {
  * @returns {object}
  */
 const getRepresentationData = (representation) => {
-	const maxRepTextLength = 200;
-
-	let representationExcerpt = '';
-
-	if (representation.originalRepresentation.length >= maxRepTextLength) {
-		representationExcerpt = createExcerpt(representation.originalRepresentation, maxRepTextLength);
-	}
-
 	return {
 		id: representation.id,
 		reference: representation.reference,
@@ -110,7 +107,11 @@ const getRepresentationData = (representation) => {
 		received: formatDate(representation.received),
 		originalRepresentation: representation.originalRepresentation,
 		redactedRepresentation: representation.redacted ? representation.redactedRepresentation : '',
-		representationExcerpt
+		representationExcerpt: getExcerpt(representation.originalRepresentation),
+		redactedRepresentationExcerpt: getExcerpt(representation.redactedRepresentation),
+		redactedNotes: representation.redactedNotes,
+		redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
+		redactedBy: representation.redactedBy
 	};
 };
 

@@ -2,11 +2,17 @@ export const representationDetailsFixture = {
 	id: 1,
 	reference: 'BC0110001-1',
 	status: 'AWAITING_REVIEW',
-	redacted: false,
+	redacted: true,
+	redactedBy: 'mock redacted by',
+	redactedNotes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+	redactedNotesExcerpt: '',
+	redactedRepresentationExcerpt: '',
+	representationExcerpt: '',
 	received: '2023-04-27T11:23:45.755Z',
 	originalRepresentation:
 		'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
-	redactedRepresentation: null,
+	redactedRepresentation:
+		'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 	user: null,
 	contacts: [
 		{
@@ -44,6 +50,5 @@ export const representationDetailsFixture = {
 			}
 		}
 	],
-	attachments: [],
-	redactedBy: null
+	attachments: []
 };

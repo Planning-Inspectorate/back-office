@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import * as representationRepository from '../representation.repository.js';
@@ -455,6 +456,13 @@ describe('Representation repository', () => {
 						where: {
 							isDeleted: false
 						}
+					},
+					representationActions: {
+						select: {
+							actionBy: true,
+							notes: true,
+							status: true
+						}
 					}
 				},
 				where: {
@@ -520,6 +528,13 @@ describe('Representation repository', () => {
 						},
 						where: {
 							isDeleted: false
+						}
+					},
+					representationActions: {
+						select: {
+							actionBy: true,
+							notes: true,
+							status: true
 						}
 					}
 				},
