@@ -35,7 +35,6 @@ describe('Update Project Information', () => {
 			searchResultsPage.clickTopSearchResult();
 			validateSummaryPageInfo(projectInfo, 'complete');
 			searchResultsPage.clickLinkByText('Project information');
-			searchResultsPage.clickAccordionByText('Show all sections');
 			validateProjectInformation('Project information', projectInfo, 'complete');
 			casePage.validateUserIsUnableToEdit();
 		});
@@ -58,8 +57,8 @@ describe('Update Project Information', () => {
 			searchResultsPage.clickTopSearchResult();
 			validateSummaryPageInfo(projectInfo, 'mandatory');
 			searchResultsPage.clickLinkByText('Update project information');
-			searchResultsPage.clickAccordionByText('Show all sections');
 			validateProjectInformation('Project information', projectInfo, 'mandatory');
+			searchResultsPage.showAllSections();
 			updateProjectInformation(projectInfoNew);
 			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
 			searchResultsPage.clickLinkByText('Preview and publish project');
@@ -86,8 +85,8 @@ describe('Update Project Information', () => {
 			searchResultsPage.clickTopSearchResult();
 			validateSummaryPageInfo(projectInfo, 'mandatory');
 			searchResultsPage.clickLinkByText('Update project information');
-			searchResultsPage.clickAccordionByText('Show all sections');
 			validateProjectInformation('Project information', projectInfo, 'mandatory');
+			searchResultsPage.showAllSections();
 			updateProjectInformation(projectInfoNew);
 			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
 			searchResultsPage.clickLinkByText('Preview and publish project');

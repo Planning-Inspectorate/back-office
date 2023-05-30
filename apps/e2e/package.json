@@ -4,8 +4,8 @@
 	"description": "E2E Tests for the Back Office Application",
 	"main": "index.js",
 	"scripts": {
-		"cy:open": "npx cypress open",
-		"cy:run": "npx cypress run",
+		"cy:open": "npx cypress open --browser chrome",
+		"cy:run": "npx cypress run --browser chrome",
 		"cy:ci": "npx cypress run --env isCI=true --browser chrome"
 	},
 	"author": "",

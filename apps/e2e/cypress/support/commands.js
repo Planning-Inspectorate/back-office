@@ -23,7 +23,7 @@ Cypress.Commands.add('validateDownloadedFile', (fileName) => {
 			expect(success).to.be.true;
 		} else {
 			throw new Error(
-				`${fileName} was not found. The file either not downloaded or the file name is not correct.`
+				`${fileName} was not found. The file was either not downloaded or the file name is not correct.`
 			);
 		}
 	});
@@ -50,6 +50,7 @@ Cypress.Commands.add('loginWithPuppeteer', (user) => {
 	};
 
 	cy.task('AzureSignIn', config).then((cookies) => {
+		cy.clearCookies();
 		cookies.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
@@ -72,6 +73,7 @@ export function setLocalCookies(userId) {
 	cy.readFile(
 		`${BrowserAuthData.BrowserAuthDataFolder}/${userId}-${BrowserAuthData.CookiesFile}`
 	).then((data) => {
+		cy.clearCookies();
 		data.forEach((cookie) => {
 			cy.setCookie(cookie.name, cookie.value, {
 				domain: cookie.domain,
@@ -90,6 +92,7 @@ export function setLocalCookies(userId) {
 
 Cypress.Commands.add('setCurrentCookies', (cookies) => {
 	cookies.forEach((cookie) => {
+		cy.clearCookies();
 		cy.setCookie(cookie.name, cookie.value, {
 			domain: cookie.domain,
 			expiry: cookie.expiry,

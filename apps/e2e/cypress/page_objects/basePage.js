@@ -69,6 +69,7 @@ export class Page {
 			}),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
+		tableCell: () => cy.get(this.selectors.tableCell),
 		textArea: () => cy.get(this.selectors.textArea),
 		genericText: () => cy.get(this.selectors.body)
 	};
@@ -156,11 +157,22 @@ export class Page {
 	}
 
 	verifyFolderDocuments(fileCount) {
-		this.basePageElements
-			.genericText()
-			.contains(`This folder contains ${fileCount} document(s).`)
-			.should('exist');
+		cy.get('.pins-files-list > .govuk-table .govuk-table__row').should(
+			'have.length',
+			2 + fileCount
+		);
+	}
 
-		cy.get('.pins-files-list > .govuk-table').should('exist');
+	verifyDocumentUploaded(fileName) {
+		this.basePageElements.tableCell().contains(fileName).should('exist');
+	}
+
+	showAllSections() {
+		cy.get('body').then(($body) => {
+			const exists = $body.find('span:contains(Show all sections)').length > 0;
+			if (exists) {
+				this.clickAccordionByText('Show all sections');
+			}
+		});
 	}
 }

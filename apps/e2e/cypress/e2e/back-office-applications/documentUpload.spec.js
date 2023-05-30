@@ -24,7 +24,6 @@ describe('Document Upload', () => {
 	});
 
 	it('Case Team Admin user should be able to upload a document to a case', () => {
-		cy.clearAllCookies();
 		cy.login(users.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -38,11 +37,11 @@ describe('Document Upload', () => {
 		fileUploadPage.uploadFile();
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
+		fileUploadPage.verifyDocumentUploaded('sample-doc');
 		fileUploadPage.verifyUploadIsComplete();
 	});
 
 	it('Inspector user should not be able to upload a document to a case', () => {
-		cy.clearAllCookies();
 		cy.login(users.inspector);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
