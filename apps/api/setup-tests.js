@@ -31,6 +31,7 @@ const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
 const mockDocumentFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentUpdate = jest.fn().mockResolvedValue({});
 const mockFolderFindUnique = jest.fn().mockResolvedValue({});
+const mockFolderFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentUpsert = jest.fn().mockResolvedValue({});
 const mockFolderFindMany = jest.fn().mockResolvedValue({});
 const mockDocumentFindMany = jest.fn().mockResolvedValue({});
@@ -156,7 +157,8 @@ class MockPrismaClient {
 			findUnique: mockFolderFindUnique,
 			findMany: mockFolderFindMany,
 			create: mockFolderCreate,
-			updateMany: mockFolderUpdateMany
+			updateMany: mockFolderUpdateMany,
+			findFirst: mockFolderFindFirst
 		};
 	}
 
