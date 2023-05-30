@@ -492,7 +492,7 @@ model Representation {
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
   contacts               RepresentationContact[]
   attachments            Document[]
-  RepresentationAction   RepresentationAction[]
+  representationActions  RepresentationAction[]
 
   @@index([reference], name: "reference")
 }
@@ -528,7 +528,7 @@ model RepresentationAction {
   referredTo           String?
   actionBy             String
   actionDate           DateTime
-  notes                String?
+  notes                String?        @db.NText
   Representation       Representation @relation(fields: [representationId], references: [id])
 }
 

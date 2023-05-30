@@ -94,3 +94,12 @@ function checkContactMandatoryFields(contactDetails, type, under18) {
 
 	return contactDetails;
 }
+
+/**
+ *
+ * @param {object} representations
+ * @param {*} representations.representationActions
+ * @return { actionBy: string, notes: string }
+ */
+export const getLatestRedaction = ({ representationActions }) =>
+	representationActions ? representationActions[representationActions.length - 1] : {};
