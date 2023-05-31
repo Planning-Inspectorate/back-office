@@ -49,6 +49,16 @@
 			<div class="govuk-grid-column-one-half">
 				{{ preSearch(filters) }}
 			</div>
+			<div class="govuk-grid-column-one-half">
+			
+
+				{{ govukButton({
+					text: "Add a representation",
+					href: "/applications-service/case/" + caseId + "/relevant-representations/contact-details?repType=represented",
+					classes: "govuk-button--secondary"
+				}) }}
+
+			</div>
 		</div>
 
 		<h3 class="govuk-heading-m">Search representations</h3>

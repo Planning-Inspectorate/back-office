@@ -504,8 +504,8 @@ model RepresentationContact {
   firstName        String?
   lastName         String?
   jobTitle         String?
-  under18          Boolean
-  type             String // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
+  under18          Boolean?
+  type             String? // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
   organisationName String?
   email            String?
   phoneNumber      String?

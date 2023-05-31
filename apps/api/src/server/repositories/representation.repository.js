@@ -275,16 +275,25 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(representative)) {
-		const data = await findRepresentationContactRepresentative();
+		try {
+			const data = await findRepresentationContactRepresentative();
 
-		await databaseConnector.representationContact.update({
-			where: {
-				id: data.id
-			},
-			data: {
-				...representative
-			}
-		});
+			await databaseConnector.representationContact.update({
+				where: {
+					id: data.id
+				},
+				data: {
+					...representative
+				}
+			});
+		} catch (e) {
+			await databaseConnector.representationContact.create({
+				data: {
+					...representative,
+					representationId
+				}
+			});
+		}
 	}
 
 	if (!isEmpty(representativeAddress)) {

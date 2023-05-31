@@ -75,6 +75,10 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <button class=\\"govuk-button\\" id=\\"toggleButton\\" data-module=\\"govuk-button\\">Apply filters</button>
                 </div>
             </div>
+            <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
+                role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                data-module=\\"govuk-button\\"> Add a representation</a>
+            </div>
         </div>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>
         <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
@@ -227,6 +231,10 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     </div>
                     <button class=\\"govuk-button\\" id=\\"toggleButton\\" data-module=\\"govuk-button\\">Apply filters</button>
                 </div>
+            </div>
+            <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
+                role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                data-module=\\"govuk-button\\"> Add a representation</a>
             </div>
         </div>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>

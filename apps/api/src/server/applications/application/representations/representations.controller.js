@@ -114,6 +114,8 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 
 	const mappedRepresentation = mapCreateOrUpdateRepRequestToRepository(caseId, body, method);
 
+	console.log('Mapped', mappedRepresentation);
+
 	const representation = await updateCaseRepresentation(
 		mappedRepresentation,
 		Number(caseId),
