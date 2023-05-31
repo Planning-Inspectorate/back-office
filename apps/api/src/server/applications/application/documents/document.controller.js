@@ -360,9 +360,6 @@ export const publishDocuments = async ({ body }, response) => {
 				documentVersionUpdates
 			);
 
-			// there is also a status field in Document - update this too
-			await documentRepository.update(document.guid, { status: 'published' });
-
 			const formattedResponse = {
 				guid: updateResponseInTable.documentGuid,
 				status: updateResponseInTable.publishedStatus
