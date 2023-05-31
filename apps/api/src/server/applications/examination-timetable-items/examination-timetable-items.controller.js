@@ -41,8 +41,12 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	);
 
 	if (!examinationFolder) {
-		await folderRepository.createFolders(body.caseId);
-		examinationFolder = await folderRepository.getFolderByNameAndCaseId(body.caseId, 'Examination');
+		examinationFolder = await folderRepository.createFolder({
+			displayNameEn: 'Examination',
+			caseId: body.caseId,
+			parentFolderId: null,
+			displayOrder: 100
+		});
 	}
 
 	// Create sub folder for the examination timetable item.
