@@ -54,6 +54,9 @@ describe('applications representations', () => {
 			expect(element.innerHTML).toContain(mockCaseReference.status);
 			expect(element.innerHTML).toContain(mockCaseReference.reference);
 
+			// Assert - Add a representation button is present
+			expect(element.innerHTML).toContain('Add a representation');
+
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
 				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`

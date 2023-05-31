@@ -36,6 +36,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			'firstName',
 			'middleName',
 			'lastName',
+			'jobTitle',
 			'email',
 			'website',
 			'under18',
@@ -73,7 +74,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			representative:
 				method === 'POST'
 					? checkContactMandatoryFields(formattedRepresentative, 'AGENT', false)
-					: formattedRepresentative
+					: { ...formattedRepresentative, type: 'AGENT' }
 		}),
 		...(!isEmpty(formattedRepresentativeAddress) && {
 			representativeAddress: formattedRepresentativeAddress

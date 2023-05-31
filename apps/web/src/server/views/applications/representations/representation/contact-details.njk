@@ -1,0 +1,132 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% set representationType = representation[pageKey] %}
+
+{% block pageContent %}
+
+	<p class="govuk-body"><strong>Project name:</strong> {{ case.projectName}}</p>
+
+	<span class="govuk-caption-l">Add a representation</span>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<form method="post" novalidate>
+
+			{% call govukFieldset({
+				legend: {
+					text: pageHeading,
+					classes: "govuk-fieldset__legend--l",
+					isPageHeading: true
+				}
+			}) %}
+
+			{{ govukInput({
+				label: {
+					text: "Organisation name (optional)",
+					classes: "govuk-!-font-weight-bold"
+				},
+				id: "organisationName",
+				name: "organisationName",
+				value: representationType.organisationName,
+				autocomplete: "organisationName",
+				errorMessage: errors["organisationName"] and {
+					text: errors["organisationName"].msg
+				}
+			}) }}
+
+			{{ govukInput({
+				label: {
+					text: "First name",
+					classes: "govuk-!-font-weight-bold"
+				},
+				id: "firstName",
+				name: "firstName",
+				value: representationType.firstName,
+				autocomplete: "firstName",
+				errorMessage: errors["firstName"] and {
+					text: errors["firstName"].msg
+				}
+			}) }}
+
+			{{ govukInput({
+				label: {
+					text: "Last name",
+					classes: "govuk-!-font-weight-bold"
+				},
+				id: "lastName",
+				name: "lastName",
+				value: representationType.lastName,
+				autocomplete: "lastName",
+				errorMessage: errors["lastName"] and {
+					text: errors["lastName"].msg
+				}
+			}) }}
+			{% if isRepresented %}
+				{{ govukInput({
+					label: {
+						text: "Job title (optional)",
+						classes: "govuk-!-font-weight-bold"
+					},
+					id: "jobTitle",
+					name: "jobTitle",
+					value: representationType.jobTitle,
+					autocomplete: "jobTitle",
+					errorMessage: errors["jobTitle"] and {
+						text: errors["jobTitle"].msg
+					}
+				}) }}
+			{% endif %}
+
+			{{ govukInput({
+				label: {
+					text: "Email address (optional)",
+					classes: "govuk-!-font-weight-bold"
+				},
+				id: "email",
+				name: "email",
+				value: representationType.email,
+				type: "email",
+				autocomplete: "email",
+				spellcheck: false,
+				errorMessage: errors["email"] and {
+					text: errors["email"].msg
+				}
+			}) }}
+
+			{{ govukInput({
+				label: {
+					text: "Telephone number (optional)",
+					classes: "govuk-!-font-weight-bold"
+				},
+				id: "phoneNumber",
+				name: "phoneNumber",
+				value: representationType.phoneNumber,
+				type: "tel",
+				autocomplete: "tel",
+				inputmode: "numeric",
+				errorMessage: errors["phoneNumber"] and {
+					text: errors["phoneNumber"].msg
+				}
+			}) }}
+
+			{{ govukButton({
+				text: "Save and continue",
+				type: "submit",
+				classes: "govuk-!-margin-top-3"
+			}) }}
+
+			{% endcall %}
+			</form>
+
+		</div>
+	</div>
+
+{% endblock %}
