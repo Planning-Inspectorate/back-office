@@ -53,7 +53,7 @@ const representedValidations = () => {
 				.optional()
 				.isIn(contactTypes)
 				.withMessage(`Must be a valid type: ${contactTypes}`),
-			body(`${el}.under18`).optional().custom(isStrictTypeBoolean)
+			body(`${el}.under18`).optional().optional().custom(isStrictTypeBoolean)
 		];
 	});
 	return [...arrs];
