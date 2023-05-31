@@ -8,6 +8,7 @@ import slugify from 'slugify';
  * @property {DomainType=} domainType
  * @property {number=} caseId
  * @property {number=} folderId
+ * @property {number=} representationId
  * @property {string=} documentGuid
  * @property {string=} step
  * @property {string=} query
@@ -57,6 +58,7 @@ export const url = (key, filterArguments = {}) => {
 	const documentGuid = getArgument('documentGuid', filterArguments);
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
+	const representationId = getArgument('representationId', filterArguments);
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
 	switch (key) {
@@ -84,6 +86,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'timetable':
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
+		case 'representation-details':
+			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
+		case 'redact-representation':
+			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/redact-representation`;
 		default:
 			return 'app/404';
 	}

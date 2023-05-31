@@ -136,50 +136,32 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div id=\\"accordion-default-1-content-3\\" class=\\"govuk-accordion__section-content\\"
                         aria-labelledby=\\"accordion-default-1-heading-3\\">
-                            <dl class=\\"govuk-summary-list\\">
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appellant case</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green single-line\\">Complete</strong>
-                                    </dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Appellant case</span></a>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> LPA questionnaire</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red single-line\\">Overdue</strong>
-                                    </dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> LPA questionnaire</span></a>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement and Proofs</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--yellow single-line\\">Incomplete</strong>
-                                    </dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Statement and Proofs</span></a>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Interested parties</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green single-line\\">Complete</strong>
-                                    </dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Interested parties</span></a>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comments</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--red single-line\\">Overdue</strong>
-                                    </dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Review<span class=\\"govuk-visually-hidden\\"> Final comments</span></a>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Costs</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">Not started</strong>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Planning obligation</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">None</strong>
-                                    </dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement of common ground</dt>
-                                    <dd                                     class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">None</strong>
-                                        </dd>
-                                </div>
-                            </dl>
+                            <table class=\\"govuk-table\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Documentation</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Due date</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Appellant case</th>
+                                        <td class=\\"govuk-table__cell\\">Received</td>
+                                        <td class=\\"govuk-table__cell\\">23 May 2024</td>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        </td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">LPA Questionnaire</th>
+                                        <td class=\\"govuk-table__cell\\">Not received</td>
+                                        <td class=\\"govuk-table__cell\\">23 May 2024</td>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class=\\"govuk-accordion__section \\">

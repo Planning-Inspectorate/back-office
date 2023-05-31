@@ -209,6 +209,8 @@ router.patch(
             schema: {
 				status: 'DRAFT',
 				redacted: false,
+				redactedBy: 'A users name who has performed a redaction',
+				redactedNotes: 'A string if redacted text',
 				received: '2023-03-14T14:28:25.704Z',
 				originalRepresentation: 'This is the representation text',
 				represented: {

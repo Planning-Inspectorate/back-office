@@ -4,7 +4,10 @@ import {
 	getCaseRepresentations,
 	updateCaseRepresentation
 } from './representaions.service.js';
-import { mapCreateOrUpdateRepRequestToRepository } from './representation.mapper.js';
+import {
+	getLatestRedaction,
+	mapCreateOrUpdateRepRequestToRepository
+} from './representation.mapper.js';
 
 /**
  *
@@ -19,9 +22,12 @@ export const getRepresentation = async ({ params }, response) => {
 			.json({ errors: { repId: `Representation with id: ${params.repId} not found` } });
 	}
 
+	const latestRedaction = getLatestRedaction(representation);
+
 	return response.send({
 		...representation,
-		redactedBy: representation.user
+		redactedBy: latestRedaction?.actionBy,
+		redactedNotes: latestRedaction?.notes
 	});
 };
 

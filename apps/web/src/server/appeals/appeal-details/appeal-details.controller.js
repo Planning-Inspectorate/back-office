@@ -42,16 +42,7 @@ export const viewAppealDetails = async (request, response) => {
 			eventType: appealDetails?.eventType ?? ' No event type for this appeal',
 			decision: appealDetails?.decision ?? 'Not issued yet',
 			// TODO: BOAT-80: add documentation status data
-			documentationStatus: {
-				appellantCase: 'Complete',
-				lpaQuestionnaire: 'Overdue',
-				statementAndProofs: 'Incomplete',
-				interestedParties: 'Complete',
-				finalComments: 'Overdue',
-				costs: 'Not started',
-				planningObligation: 'None',
-				statementOfCommonGround: 'None'
-			},
+			documentationSummary: appealDetails?.documentationSummary,
 			appellant: {
 				name: appealDetails?.appellantName ?? 'No appellant for this appeal'
 			},

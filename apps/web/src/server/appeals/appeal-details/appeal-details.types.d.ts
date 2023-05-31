@@ -18,7 +18,7 @@ export interface Appeal {
 	localPlanningDepartment: string;
 	otherAppeals: [AppealLink] | [];
 	planningApplicationReference: string;
-	documentationStatus?: object;
+	documentationSummary?: object;
 	startedAt: string | null;
 	appealTimetable: AppealTimetable;
 	siteVisit: AppealSiteVisit;

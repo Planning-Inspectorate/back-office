@@ -132,6 +132,13 @@ export const getById = async (id, caseId) => {
 				where: {
 					isDeleted: false
 				}
+			},
+			representationActions: {
+				select: {
+					notes: true,
+					status: true,
+					actionBy: true
+				}
 			}
 		},
 		where: {

@@ -541,7 +541,7 @@ export const represenations = [
 				}
 			]
 		},
-		RepresentationAction: {
+		representationActions: {
 			create: [
 				{
 					type: 'STATUS',

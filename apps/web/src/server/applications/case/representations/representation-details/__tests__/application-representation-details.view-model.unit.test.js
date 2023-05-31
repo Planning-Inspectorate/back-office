@@ -46,11 +46,17 @@ describe('application representation details view-models', () => {
 				id: 1,
 				reference: 'BC0110001-1',
 				status: 'AWAITING_REVIEW',
-				redacted: false,
+				redacted: true,
+				redactedBy: 'mock redacted by',
+				redactedNotes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+				redactedNotesExcerpt: '',
 				received: '27 Apr 2023',
 				originalRepresentation:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
-				redactedRepresentation: '',
+				redactedRepresentation:
+					'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
+				redactedRepresentationExcerpt:
+					'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,',
 				representationExcerpt:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec'
 			});
