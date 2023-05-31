@@ -48,6 +48,9 @@ describe('Representation details page', () => {
 	});
 
 	describe('POST /applications-service/case/1/relevant-representations/contact-details', () => {
+		beforeEach(async () => {
+			nocks();
+		});
 		describe('Field validation:', () => {
 			it('should show validation error if First name or Last name is not empty', async () => {
 				const response = await request.post(baseUrl).send({
@@ -84,18 +87,6 @@ describe('Representation details page', () => {
 					'Enter an email address in the correct format, like name@example.com'
 				);
 			});
-			// TODO: check the redirect completed and repId is present
-			// it('should redirect to address-lookup page if there is no error', async () => {
-			// 	const response = await request.post(baseUrl).send({
-			//         firstName: 'John',
-			// 		lastName: 'Doe'
-			// 	});
-
-			// 	expect(global.window.location.href).toContain('repId=')
-
-			// 	expect(response?.headers?.location).toContain('repId=');
-			// 	expect(response?.headers?.location).toContain('repType=');
-			// });
 		});
 	});
 });

@@ -37,7 +37,6 @@ export const addRepresentationToLocals = async (req, res, next) => {
 		const { repId, repType } = query;
 
 		res.locals.case = getCaseViewModel(await getCase(caseId));
-
 		res.locals.isRepresented = repType !== 'representative';
 		res.locals.prefixBackLink = `/applications-service/case/${caseId}/relevant-representations`;
 
@@ -50,9 +49,8 @@ export const addRepresentationToLocals = async (req, res, next) => {
 				representative
 			};
 		}
-
 		return next();
-	} catch {
-		return next();
+	} catch (e) {
+		return next(e);
 	}
 };
