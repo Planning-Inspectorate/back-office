@@ -596,7 +596,17 @@ const document = {
 			siteVisit: {
 				visitDate: '2022-03-31T12:00:00.000Z'
 			},
-			startedAt: '2022-05-17T23:00:00.000Z'
+			startedAt: '2022-05-17T23:00:00.000Z',
+			documentationSummary: {
+				appellantCase: {
+					status: 'received',
+					dueDate: null
+				},
+				lpaQuestionnaire: {
+					status: 'not_received',
+					dueDate: '2023-06-18T00:00:00.000Z'
+				}
+			}
 		},
 		UpdateAppealRequest: {
 			startedAt: '2023-05-09'

@@ -1,5 +1,9 @@
 import formatAddress from '../../utils/address-block-formtter.js';
-import { APPEAL_TYPE_SHORTCODE_FPA } from '../constants.js';
+import {
+	APPEAL_TYPE_SHORTCODE_FPA,
+	DOCUMENT_STATUS_NOT_RECEIVED,
+	DOCUMENT_STATUS_RECEIVED
+} from '../constants.js';
 
 /** @typedef {import('@pins/api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -76,7 +80,19 @@ const appealFormatter = {
 			siteVisit: {
 				visitDate: appeal.siteVisit?.visitDate || null
 			},
-			startedAt: appeal.startedAt
+			startedAt: appeal.startedAt,
+			documentationSummary: {
+				appellantCase: {
+					status: appeal.appealDetailsFromAppellant
+						? DOCUMENT_STATUS_RECEIVED
+						: DOCUMENT_STATUS_NOT_RECEIVED,
+					dueDate: null
+				},
+				lpaQuestionnaire: {
+					status: appeal.lpaQuestionnaire ? DOCUMENT_STATUS_RECEIVED : DOCUMENT_STATUS_NOT_RECEIVED,
+					dueDate: appeal.appealTimetable?.questionnaireDueDate || null
+				}
+			}
 		};
 	},
 	/**

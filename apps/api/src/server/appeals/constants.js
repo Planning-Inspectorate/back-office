@@ -15,3 +15,6 @@ export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_NOT_FOUND = 'Not found';
 export const ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED =
 	'Both pageNumber and pageSize are required for pagination';
+
+export const DOCUMENT_STATUS_NOT_RECEIVED = 'not_received';
+export const DOCUMENT_STATUS_RECEIVED = 'received';
