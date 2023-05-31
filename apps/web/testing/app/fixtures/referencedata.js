@@ -82,7 +82,17 @@ export const appealData = {
 	siteVisit: {
 		visitDate: null
 	},
-	startedAt: '2023-05-23T10:27:06.626Z'
+	startedAt: '2023-05-23T10:27:06.626Z',
+	documentationSummary: {
+		appellantCase: {
+			status: 'received',
+			dueDate: '2024-05-23T10:27:06.626Z'
+		},
+		lpaQuestionnaire: {
+			status: 'not_received',
+			dueDate: '2024-05-23T10:27:06.626Z'
+		}
+	}
 };
 
 export const getRandomLocalPlanningDepartment = () =>

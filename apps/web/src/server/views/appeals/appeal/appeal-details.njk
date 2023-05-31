@@ -2,6 +2,7 @@
 
 {%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
 {%- from "govuk/components/accordion/macro.njk" import govukAccordion -%}
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "../components/status-tag.njk" import statusTag -%}
@@ -306,72 +307,52 @@
 					text: "Case documentation"
 				},
 				content: {
-					html: govukSummaryList({
-						rows: [{
-							key: {
-								text: "Appellant case"
+					html: govukTable({
+						firstCellIsHeader: true,
+						head: [
+							{
+								text: "Documentation"
 							},
-							value: {
-								html: statusTag(appeal.documentationStatus.appellantCase)
+							{
+								text: "Status"
 							},
-							actions: appeal.documentationStatus.appellantCase | actionsParameterForDocumentStatus("#", "Review", "Appellant case")
-						}, {
-							key: {
-								text: "LPA questionnaire"
+							{
+								text: "Due date"
 							},
-							value: {
-								html: statusTag(appeal.documentationStatus.lpaQuestionnaire)
-							},
-							actions: appeal.documentationStatus.lpaQuestionnaire | actionsParameterForDocumentStatus("#", "Review", "LPA questionnaire")
-						}, {
-							key: {
-								text: "Statement and Proofs"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.statementAndProofs)
-							},
-							actions: appeal.documentationStatus.statementAndProofs | actionsParameterForDocumentStatus("#", "Review", "Statement and Proofs")
-						}, {
-							key: {
-								text: "Interested parties"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.interestedParties)
-							},
-							actions: appeal.documentationStatus.interestedParties | actionsParameterForDocumentStatus("#", "Review", "Interested parties")
-						}, {
-							key: {
-								text: "Final comments"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.finalComments)
-							},
-							actions: appeal.documentationStatus.finalComments | actionsParameterForDocumentStatus("#", "Review", "Final comments")
-						}, {
-							key: {
-								text: "Costs"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.costs)
-							},
-							actions: appeal.documentationStatus.costs | actionsParameterForDocumentStatus("#", "Review", "Costs")
-						}, {
-							key: {
-								text: "Planning obligation"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.planningObligation)
-							},
-							actions: appeal.documentationStatus.planningObligation | actionsParameterForDocumentStatus("#", "Review", "Planning obligation")
-						}, {
-							key: {
-								text: "Statement of common ground"
-							},
-							value: {
-								html: statusTag(appeal.documentationStatus.statementOfCommonGround)
-							},
-							actions: appeal.documentationStatus.statementOfCommonGround | actionsParameterForDocumentStatus("#", "Review", "Statement of common ground")
-						}]
+							{
+								text: "Action"
+							}
+						],
+						rows: [
+							[
+								{
+									text: "Appellant case"
+								},
+								{
+									text: appeal.documentationSummary.appellantCase.status | replace("_", " ") | capitalize
+								},
+								{
+									text: appeal.documentationSummary.appellantCase.dueDate | displayDate({ condensed: true }) if appeal.documentationSummary.appellantCase.dueDate else ''
+								},
+								{
+									html: "<a href=\"#\" class=\"govuk-link\">Review</a>"
+								}
+							],
+							[
+								{
+									text: "LPA Questionnaire"
+								},
+								{
+									text: appeal.documentationSummary.lpaQuestionnaire.status | replace("_", " ") | capitalize
+								},
+								{
+									text: appeal.documentationSummary.lpaQuestionnaire.dueDate | displayDate({ condensed: true }) if appeal.documentationSummary.lpaQuestionnaire.dueDate else ''
+								},
+								{
+									html: "<a href=\"#\" class=\"govuk-link\">Review</a>"
+								}
+							]
+						]
 					})
 				}
 			}, {
