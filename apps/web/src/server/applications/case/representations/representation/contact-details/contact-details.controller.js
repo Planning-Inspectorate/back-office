@@ -13,8 +13,9 @@ const view = 'applications/representations/representation/contact-details.njk';
  * @param {import("express").Response} res
  */
 export const getContactDetails = async (req, res) => {
+	const { query } = req;
 	return res.render(view, {
-		...getContactDetailsViewModel(String(req.query.repType), res.locals)
+		...getContactDetailsViewModel(query, res.locals)
 	});
 };
 
@@ -25,17 +26,15 @@ export const getContactDetails = async (req, res) => {
 export const postContactDetails = async (req, res) => {
 	const { body, errors, params, query } = req;
 	const { locals } = res;
-	const { representaion } = locals;
+	const { representation } = locals;
 	const { caseId } = params;
 	const { repId, repType } = query;
-
-	console.log('Biody - ', body);
 
 	if (errors) {
 		return res.render(view, {
 			pageKey: repType,
-			...getContactDetailsViewModel(String(repType), locals),
-			...replaceRepresentaionValuesAsBodyValues(representaion, body, String(repType)),
+			...getContactDetailsViewModel(query, locals),
+			...replaceRepresentaionValuesAsBodyValues(representation, body, String(repType)),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
 		});
