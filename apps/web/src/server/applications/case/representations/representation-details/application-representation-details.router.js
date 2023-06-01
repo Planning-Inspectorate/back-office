@@ -6,13 +6,13 @@ import {
 	postRedactRepresentationController
 } from './redact-representation/redact-representation.controller.js';
 
-const representionDetailsRouter = createRouter({ mergeParams: true });
+const representationDetailsRouter = createRouter({ mergeParams: true });
 
-representionDetailsRouter.route('/').get(asyncRoute(repsDetailsController.relevantRepDetails));
+representationDetailsRouter.route('/').get(asyncRoute(repsDetailsController.relevantRepDetails));
 
-representionDetailsRouter
+representationDetailsRouter
 	.route('/redact-representation')
 	.get(asyncRoute(getRedactRepresentationController))
 	.post(asyncRoute(postRedactRepresentationController));
 
-export default representionDetailsRouter;
+export default representationDetailsRouter;

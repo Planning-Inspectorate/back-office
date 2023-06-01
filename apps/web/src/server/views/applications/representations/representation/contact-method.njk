@@ -1,7 +1,46 @@
 {% extends "applications/layouts/applications.layout.njk" %}
 
+{# {% from "govuk/components/fieldset/macro.njk" import govukFieldset %} #}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
 {% block pageHeading %}
 {% endblock %}
-{% block pageTitle %}
-	Preferred contact method
+
+{% set representationType = representation[pageKey] %}
+
+{% block pageContent %}
+
+	<p class="govuk-body"><strong>Project name:</strong> {{ case.projectName}}</p>
+
+	<span class="govuk-caption-l">Add a representation</span>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<form method="post" novalidate>
+				{{ govukRadios({
+					name: "contactMethod",
+					fieldset: {
+						legend: {
+							text: pageHeading,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					items: contactMethodOptions,
+					errorMessage: errors["contactMethod"] and {
+						text: errors["contactMethod"].msg
+				}
+				}) }}
+
+				{{ govukButton({
+					text: "Save and continue",
+					type: "submit",
+					classes: "govuk-!-margin-top-3"
+				}) }}
+
+			</form>
+		</div>
+	</div>
+
 {% endblock %}
