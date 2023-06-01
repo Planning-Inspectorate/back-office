@@ -134,7 +134,9 @@ const householdAppeal = {
 		scheduleTypeId: 1,
 		sentAt: '2023-05-24T10:34:09.286Z',
 		siteWithinGreenBelt: null
-	}
+	},
+	linkedAppealId: 1,
+	otherAppealId: 3
 };
 const fullPlanningAppeal = {
 	...householdAppeal,
@@ -143,8 +145,33 @@ const fullPlanningAppeal = {
 		id: 1,
 		type: 'full planning',
 		shorthand: 'FPA'
-	}
+	},
+	otherAppealId: null
 };
+const householdAppealTwo = {
+	...householdAppeal,
+	id: 3
+};
+const linkedAppeals = [
+	{
+		id: householdAppeal.id,
+		reference: householdAppeal.reference
+	},
+	{
+		id: fullPlanningAppeal.id,
+		reference: fullPlanningAppeal.reference
+	}
+];
+const otherAppeals = [
+	{
+		id: householdAppeal.id,
+		reference: householdAppeal.reference
+	},
+	{
+		id: householdAppealTwo.id,
+		reference: householdAppealTwo.reference
+	}
+];
 
 describe('Appeals', () => {
 	describe('/appeals', () => {
@@ -314,6 +341,10 @@ describe('Appeals', () => {
 			test('gets a single household appeal', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appeal.findMany
+					.mockResolvedValueOnce(linkedAppeals)
+					.mockResolvedValueOnce(otherAppeals);
 
 				const response = await request.get(`/appeals/${householdAppeal.id}`);
 
@@ -336,8 +367,14 @@ describe('Appeals', () => {
 					},
 					appealType: householdAppeal.appealType.type,
 					appellantName: householdAppeal.appellant.name,
-					caseProcedure: 'Written',
 					decision: householdAppeal.inspectorDecision.outcome,
+					isParentAppeal: true,
+					linkedAppeals: [
+						{
+							appealId: fullPlanningAppeal.id,
+							appealReference: fullPlanningAppeal.reference
+						}
+					],
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
@@ -348,19 +385,16 @@ describe('Appeals', () => {
 							status: 'received'
 						}
 					},
-					linkedAppeal: {
-						appealId: 1,
-						appealReference: 'APP/Q9999/D/21/725284'
-					},
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					otherAppeals: [
 						{
-							appealId: 1,
-							appealReference: 'APP/Q9999/D/21/725284'
+							appealId: householdAppealTwo.id,
+							appealReference: householdAppealTwo.reference
 						}
 					],
 					planningApplicationReference: householdAppeal.planningApplicationReference,
+					procedureType: householdAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
 						visitDate: householdAppeal.siteVisit.visitDate
 					},
@@ -371,6 +405,10 @@ describe('Appeals', () => {
 			test('gets a single full planning appeal', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+				// @ts-ignore
+				databaseConnector.appeal.findMany
+					.mockResolvedValueOnce(linkedAppeals)
+					.mockResolvedValueOnce([]);
 
 				const response = await request.get(`/appeals/${fullPlanningAppeal.id}`);
 
@@ -396,8 +434,14 @@ describe('Appeals', () => {
 					},
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantName: fullPlanningAppeal.appellant.name,
-					caseProcedure: 'Written',
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
+					isParentAppeal: false,
+					linkedAppeals: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference
+						}
+					],
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
@@ -408,19 +452,11 @@ describe('Appeals', () => {
 							status: 'received'
 						}
 					},
-					linkedAppeal: {
-						appealId: 1,
-						appealReference: 'APP/Q9999/D/21/725284'
-					},
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
-					otherAppeals: [
-						{
-							appealId: 1,
-							appealReference: 'APP/Q9999/D/21/725284'
-						}
-					],
+					otherAppeals: [],
 					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
+					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
 						visitDate: fullPlanningAppeal.siteVisit.visitDate
 					},

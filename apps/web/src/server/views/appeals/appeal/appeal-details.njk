@@ -21,15 +21,19 @@
 	</p>
 {%- endset -%}
 
-{%- set otherAppealsHtml -%}
-	{%- for otherAppeal in appeal.otherAppeals -%}
-		<a href="/appeals-service/appeal-details/{{ otherAppeal.appealId }}">{{ otherAppeal.appealReference }}</a>
-	{%- endfor -%}
-{%- endset -%}
-
-{%- set linkedAppealHtml -%}
-		<a href="/appeals-service/appeal-details/{{ appeal.linkedAppeal.appealId }}">{{ appeal.linkedAppeal.appealReference }}</a>
-{%- endset -%}
+{% macro linkedAppealsList(linkedAppeals) %}
+  {% if linkedAppeals | length > 1 %}
+    <ul class="govuk-list">
+      {% for linkedAppeal in linkedAppeals %}
+        <li><a href="/appeals-service/appeal-details/{{ linkedAppeal.appealId }}" class="govuk-link">{{ linkedAppeal.appealReference }}</a></li>
+      {% endfor %}
+    </ul>
+  {% elseif linkedAppeals | length === 1 %}
+    	<a href="/appeals-service/appeal-details/{{ linkedAppeals[0].appealId }}" class="govuk-link">{{ linkedAppeals[0].appealReference }}</a>
+  {% else %}
+		No linked appeals
+  {% endif %}
+{% endmacro %}
 
 {%- set caseTimetableHtml -%}
 	{%- if appeal.startedAt -%}
@@ -224,16 +228,16 @@
 							}
 						}, {
 							key: {
-								text: "Linked appeal"
+								text: "Linked appeals"
 							},
 							value: {
-								html: linkedAppealHtml
+								html: linkedAppealsList(appeal.linkedAppeals)
 							},
 							actions: {
 								items: [{
 									href: "#",
 									text: "Change",
-									visuallyHiddenText: "Linked appeal"
+									visuallyHiddenText: "Linked appeals"
 								}]
 							}
 						}, {
@@ -241,7 +245,7 @@
 								text: "Other appeals"
 							},
 							value: {
-								html: otherAppealsHtml
+								html: linkedAppealsList(appeal.otherAppeals)
 							},
 							actions: {
 								items: [{

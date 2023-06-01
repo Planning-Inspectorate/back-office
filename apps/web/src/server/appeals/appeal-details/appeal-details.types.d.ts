@@ -8,13 +8,13 @@ export interface Appeal {
 	appealStatus: string;
 	appealType: string;
 	appellantName: string;
-	caseProcedure: string;
+	procedureType: string;
 	caseOfficer?: Contact;
 	inspector?: Contact;
 	developmentType: string;
 	decision?: string;
 	eventType: string;
-	linkedAppeal: AppealLink | null;
+	linkedAppeals: AppealLink[] | [];
 	localPlanningDepartment: string;
 	otherAppeals: [AppealLink] | [];
 	planningApplicationReference: string;

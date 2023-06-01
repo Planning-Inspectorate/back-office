@@ -65,8 +65,11 @@ interface RepositoryGetByIdResultItem {
 	createdAt: Date;
 	id: number;
 	inspectorDecision?: { outcome: string } | null;
+	linkedAppealId: number | null;
+	linkedAppeals: Appeal[];
 	localPlanningDepartment: string;
 	lpaQuestionnaire: import('@pins/api').Schema.LPAQuestionnaire | null;
+	otherAppeals: Appeal[];
 	planningApplicationReference: string;
 	reference: string;
 	siteVisit?: { visitDate: Date } | null;
@@ -148,9 +151,9 @@ interface SingleLPAQuestionnaireResponse {
 	otherAppeals: LinkedAppeal[];
 	procedureType?: string;
 	scheduleType?: string;
-	sensitiveAreaDetails?: string;
+	sensitiveAreaDetails?: string | null;
 	siteWithinGreenBelt?: boolean | null;
-	statutoryConsulteesDetails?: string;
+	statutoryConsulteesDetails?: string | null;
 }
 
 interface SingleAppealDetailsResponse {
@@ -163,13 +166,14 @@ interface SingleAppealDetailsResponse {
 	appealTimetable: AppealTimetable;
 	appealType?: string;
 	appellantName?: string;
-	caseProcedure: string;
 	decision?: string;
-	linkedAppeal: LinkedAppeal;
+	isParentAppeal: boolean | null;
+	linkedAppeals: LinkedAppeal[];
 	localPlanningDepartment: string;
 	lpaQuestionnaireId: number | null;
 	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;
+	procedureType: string | null;
 	siteVisit: { visitDate?: Date | null };
 	startedAt: Date | null;
 	documentationSummary: DocumentationSummary;

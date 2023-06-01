@@ -13,10 +13,56 @@ describe('appeal-details', () => {
 	afterEach(teardown);
 
 	describe('GET /:appealId', () => {
-		it('should render the received appeal details for a valid appealId', async () => {
+		it('should render the received appeal details for a valid appealId with multiple linked/other appeals', async () => {
 			const appealId = appealData.appealId.toString();
 
 			nock('http://test/').get(`/appeals/${appealId}`).reply(200, appealData);
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the received appeal details for a valid appealId with single linked/other appeals', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealId,
+					linkedAppeals: [
+						{
+							appealId: 1,
+							appealReference: 'APP/Q9999/D/21/725284'
+						}
+					],
+					otherAppeals: [
+						{
+							appealId: 3,
+							appealReference: 'APP/Q9999/D/21/765413'
+						}
+					]
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the received appeal details for a valid appealId with no linked/other appeals', async () => {
+			const appealId = '3';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealId,
+					linkedAppeals: [],
+					otherAppeals: []
+				});
 
 			const response = await request.get(`${baseUrl}/${appealId}`);
 			const element = parseHtml(response.text);

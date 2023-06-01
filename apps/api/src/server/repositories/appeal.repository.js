@@ -2,6 +2,9 @@ import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
 
 /** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
+/** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
 /**
  * @typedef {import('@prisma/client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -23,7 +26,7 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} pageNumber
 		 * @param {number} pageSize
-		 * @returns {Promise<[number, import('@pins/api').Appeals.RepositoryGetAllResultItem[]]>}
+		 * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
 		 */
 		getAll(pageNumber, pageSize) {
 			const where = {
@@ -42,12 +45,12 @@ const appealRepository = (function () {
 					where,
 					include: {
 						address: true,
-						appealType: true,
 						appealStatus: {
 							where: {
 								valid: true
 							}
-						}
+						},
+						appealType: true
 					},
 					skip: getSkipValue(pageNumber, pageSize),
 					take: pageSize
@@ -56,10 +59,10 @@ const appealRepository = (function () {
 		},
 		/**
 		 * @param {number} id
-		 * @returns {PrismaPromise<import('@pins/api').Appeals.RepositoryGetByIdResultItem | null>}
+		 * @returns {Promise<RepositoryGetByIdResultItem | void>}
 		 */
-		getById(id) {
-			return databaseConnector.appeal.findUnique({
+		async getById(id) {
+			let appeal = await databaseConnector.appeal.findUnique({
 				where: {
 					id
 				},
@@ -95,6 +98,34 @@ const appealRepository = (function () {
 					siteVisit: true
 				}
 			});
+
+			if (appeal) {
+				const linkedAppeals = appeal.linkedAppealId
+					? await databaseConnector.appeal.findMany({
+							where: {
+								linkedAppealId: {
+									equals: appeal.linkedAppealId
+								}
+							}
+					  })
+					: [];
+
+				const otherAppeals = appeal.otherAppealId
+					? await databaseConnector.appeal.findMany({
+							where: {
+								otherAppealId: {
+									equals: appeal.otherAppealId
+								}
+							}
+					  })
+					: [];
+
+				return {
+					...appeal,
+					linkedAppeals,
+					otherAppeals
+				};
+			}
 		},
 		/**
 		 * @param {number} id

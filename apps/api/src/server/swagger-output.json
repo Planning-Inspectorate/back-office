@@ -3694,24 +3694,27 @@
 					"type": "boolean",
 					"example": true
 				},
-				"caseProcedure": {
-					"type": "string",
-					"example": "Written"
-				},
 				"decision": {
 					"type": "string",
 					"example": "Not issued yet"
 				},
-				"linkedAppeal": {
-					"type": "object",
-					"properties": {
-						"appealId": {
-							"type": "number",
-							"example": 1
-						},
-						"appealReference": {
-							"type": "string",
-							"example": "APP/Q9999/D/21/725284"
+				"isParentAppeal": {
+					"type": "boolean",
+					"example": true
+				},
+				"linkedAppeals": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"appealId": {
+								"type": "number",
+								"example": 1
+							},
+							"appealReference": {
+								"type": "string",
+								"example": "APP/Q9999/D/21/725284"
+							}
 						}
 					}
 				},
@@ -3742,6 +3745,10 @@
 				"planningApplicationReference": {
 					"type": "string",
 					"example": "48269/APP/2021/1482"
+				},
+				"procedureType": {
+					"type": "string",
+					"example": "Written"
 				},
 				"siteVisit": {
 					"type": "object",
@@ -3849,8 +3856,8 @@
 					}
 				},
 				"communityInfrastructureLevyAdoptionDate": {
-					"type": "boolean",
-					"example": true
+					"type": "string",
+					"example": "2023-05-09T01:00:00.000Z"
 				},
 				"designatedSites": {
 					"type": "array",
@@ -3869,8 +3876,8 @@
 					}
 				},
 				"developmentDescription": {
-					"type": "boolean",
-					"example": true
+					"type": "string",
+					"example": ""
 				},
 				"documents": {
 					"type": "object",
