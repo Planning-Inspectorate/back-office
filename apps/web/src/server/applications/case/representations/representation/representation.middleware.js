@@ -44,7 +44,9 @@ export const addRepresentationToLocals = async (req, res, next) => {
 			const representationData = await getRepresentation(caseId, String(repId));
 			const { represented, representative } = getContactDetailsByContactType(representationData);
 
+			delete representationData.contacts;
 			res.locals.representation = {
+				...representationData,
 				represented,
 				representative
 			};

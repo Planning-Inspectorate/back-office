@@ -413,6 +413,7 @@ describe('Representation repository', () => {
 					received: true,
 					originalRepresentation: true,
 					redactedRepresentation: true,
+					type: true,
 					user: {
 						select: {
 							azureReference: true
@@ -486,6 +487,7 @@ describe('Representation repository', () => {
 					received: true,
 					originalRepresentation: true,
 					redactedRepresentation: true,
+					type: true,
 					user: {
 						select: {
 							azureReference: true

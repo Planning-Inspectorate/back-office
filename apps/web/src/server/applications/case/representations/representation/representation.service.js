@@ -39,3 +39,15 @@ export const patchRepresentation = async (caseId, repId, repType, body) =>
 		`applications/${caseId}/representations/${repId}`,
 		getRepresentationContactPayload(repType, body)
 	);
+
+/**
+ * @param {string} caseId
+ * @param {string} repId
+ * @param {string} repType
+ * @param {object} body
+ * @returns {Promise<any>}
+ */
+export const patchRepresentationNoMap = async (caseId, repId, repType, body) =>
+	patch(`applications/${caseId}/representations/${repId}`, {
+		json: body
+	});

@@ -89,6 +89,7 @@ export const getById = async (id, caseId) => {
 			received: true,
 			originalRepresentation: true,
 			redactedRepresentation: true,
+			type: true,
 			user: {
 				select: {
 					azureReference: true

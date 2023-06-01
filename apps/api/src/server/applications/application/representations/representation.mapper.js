@@ -16,7 +16,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 		'status',
 		'reference',
 		'redacted',
-		'received'
+		'received',
+		'type'
 	]);
 
 	if (method === 'POST') {
