@@ -22,8 +22,7 @@ export const getRepresentationTypeViewModel = (
 ) => ({
 	backLinkUrl: `${prefixBackLink}/contact-method?repType=${repType}&repId=${repId}`,
 	pageTitle: 'Representation type',
-	pageHeading: 'Representation type',
-	representationTypes: getListOfTypes(representation)
+	representationTypes: representationTypeOptions(representation)
 });
 
 /**
@@ -43,7 +42,7 @@ export const getRepresentationTypeViewModel = (
  * @param {string} rep.type
  * @return repTypes
  */
-const getListOfTypes = ({ type }) => {
+const representationTypeOptions = ({ type }) => {
 	const listOfTypes = [
 		{
 			value: 'Local authorities',
