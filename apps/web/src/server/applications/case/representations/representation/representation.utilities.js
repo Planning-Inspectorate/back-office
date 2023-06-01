@@ -18,6 +18,7 @@ import { omitBy } from 'lodash-es';
  * @property {boolean} [under18]
  * @property {string|null} [email]
  * @property {string|null} [phoneNumber]
+ * @property {string|null} [contactMethod]
  * @property {Address} [address]
  */
 
@@ -32,12 +33,11 @@ export const formatContactDetails = (contact = {}) => ({
 	fullName: `${contact.firstName} ${contact.lastName}`,
 	firstName: contact.firstName,
 	lastName: contact.lastName,
-
 	jobTitle: contact.jobTitle || '',
 	under18: contact.under18,
 	email: contact.email || '',
 	phoneNumber: contact.phoneNumber || '',
-	preferredContact: '',
+	contactMethod: contact.contactMethod || '',
 	addressLine1: contact.address?.addressLine1 || '',
 	addressLine2: contact.address?.addressLine2 || '',
 	town: contact.address?.town || '',

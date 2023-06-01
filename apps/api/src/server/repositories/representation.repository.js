@@ -103,6 +103,7 @@ export const getById = async (id, caseId) => {
 					organisationName: true,
 					jobTitle: true,
 					under18: true,
+					contactMethod: true,
 					email: true,
 					phoneNumber: true,
 					address: {

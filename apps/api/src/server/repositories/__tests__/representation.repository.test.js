@@ -428,6 +428,7 @@ describe('Representation repository', () => {
 							jobTitle: true,
 							under18: true,
 							email: true,
+							contactMethod: true,
 							phoneNumber: true,
 							address: {
 								select: {
@@ -502,6 +503,7 @@ describe('Representation repository', () => {
 							jobTitle: true,
 							under18: true,
 							email: true,
+							contactMethod: true,
 							phoneNumber: true,
 							address: {
 								select: {
