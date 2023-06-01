@@ -1,5 +1,5 @@
 import { patchRepresentationNoMap } from '../representation.service.js';
-import { getFormattedErrorSummary } from '../representation.utilities.js';
+import { getFormattedErrorSummary, getRepresentationPageUrl } from '../representation.utilities.js';
 import { getRepresentationTypeViewModel } from './representation-type.view-model.js';
 
 const view = 'applications/representations/representation/representation-type.njk';
@@ -36,5 +36,5 @@ export const postRepresentationType = async (req, res) => {
 
 	await patchRepresentationNoMap(caseId, String(repId), String(repType), body);
 
-	return res.redirect(`under-18?repId=${repId}`);
+	return res.redirect(getRepresentationPageUrl('under-18', String(repId), String(repType)));
 };
