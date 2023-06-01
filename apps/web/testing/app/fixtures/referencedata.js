@@ -60,18 +60,28 @@ export const appealData = {
 	appealStatus: 'received_appeal',
 	appealType: 'household',
 	appellantName: 'Eva Sharma',
-	caseProcedure: 'Written',
+	procedureType: 'Written',
 	developmentType: 'Minor Dwellings',
 	eventType: 'Site Visit',
-	linkedAppeal: {
-		appealId: 1,
-		appealReference: 'APP/Q9999/D/21/725284'
-	},
-	localPlanningDepartment: 'Wiltshire Council',
-	otherAppeals: [
+	linkedAppeals: [
 		{
 			appealId: 1,
 			appealReference: 'APP/Q9999/D/21/725284'
+		},
+		{
+			appealId: 2,
+			appealReference: 'APP/Q9999/D/21/123456'
+		}
+	],
+	localPlanningDepartment: 'Wiltshire Council',
+	otherAppeals: [
+		{
+			appealId: 3,
+			appealReference: 'APP/Q9999/D/21/765413'
+		},
+		{
+			appealId: 4,
+			appealReference: 'APP/Q9999/D/21/523467'
 		}
 	],
 	planningApplicationReference: '48269/APP/2021/1482',

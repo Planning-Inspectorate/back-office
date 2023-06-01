@@ -26,14 +26,9 @@ export const viewAppealDetails = async (request, response) => {
 			siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
 			localPlanningAuthority: appealDetails?.localPlanningDepartment,
 			type: appealDetails?.appealType,
-			caseProcedure: appealDetails?.caseProcedure,
-			linkedAppeal: {
-				appealId: appealDetails?.linkedAppeal?.appealId,
-				appealReference: appealDetails?.linkedAppeal?.appealReference
-			} ?? { appealId: 'None', appealReference: 'No linked appeal' },
-			otherAppeals: appealDetails?.otherAppeals ?? [
-				{ appealId: 'None', appealReference: 'No linked appeal' }
-			],
+			procedureType: appealDetails?.procedureType,
+			linkedAppeals: appealDetails?.linkedAppeals,
+			otherAppeals: appealDetails?.otherAppeals,
 			allocationDetails:
 				appealDetails?.allocationDetails ?? 'No allocation details for this appeal',
 			lpaReference:

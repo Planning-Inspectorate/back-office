@@ -11,10 +11,13 @@ import {
 /** @typedef {import('@pins/api').Appeals.SingleAppealDetailsResponse} SingleAppealDetailsResponse */
 /** @typedef {import('@pins/api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
+/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@prisma/client').Appeal} Appeal */
+/** @typedef {import('@prisma/client').ListedBuildingDetails} ListedBuildingDetails */
 
 /**
  * @param {boolean} affectsListedBuilding
- * @param {import('@prisma/client').ListedBuildingDetails[] | null | undefined} values
+ * @param {ListedBuildingDetails[] | null | undefined} values
  * @returns {ListedBuildingDetailsResponse | null}
  */
 const formatListedBuildingDetails = (affectsListedBuilding, values) =>
@@ -23,6 +26,16 @@ const formatListedBuildingDetails = (affectsListedBuilding, values) =>
 			.filter((value) => value.affectsListedBuilding === affectsListedBuilding)
 			.map(({ grade, description }) => ({ grade, description }))) ||
 	null;
+
+/**
+ * @param {Appeal[]} linkedAppeals
+ * @param {number} appealId
+ * @returns {LinkedAppeal[]}
+ */
+const formatLinkedAppeals = (linkedAppeals, appealId) =>
+	linkedAppeals
+		.filter((appeal) => appeal.id !== appealId)
+		.map(({ id, reference }) => ({ appealId: id, appealReference: reference }));
 
 const appealFormatter = {
 	/**
@@ -40,60 +53,57 @@ const appealFormatter = {
 	}),
 	/**
 	 * @param {RepositoryGetByIdResultItem} appeal
-	 * @returns {SingleAppealDetailsResponse}}
+	 * @returns {SingleAppealDetailsResponse | void}}
 	 */
 	formatAppeal(appeal) {
-		return {
-			agentName: appeal.appellant?.agentName,
-			allocationDetails: 'F / General Allocation',
-			appealId: appeal.id,
-			appealReference: appeal.reference,
-			appealSite: formatAddress(appeal.address),
-			appealStatus: appeal.appealStatus[0].status,
-			appealTimetable: {
-				finalEventsDueDate: appeal.appealTimetable?.finalEventsDueDate || null,
-				...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
-					interestedPartyRepsDueDate: appeal.appealTimetable?.interestedPartyRepsDueDate || null
-				}),
-				questionnaireDueDate: appeal.appealTimetable?.questionnaireDueDate || null,
-				...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
-					statementDueDate: appeal.appealTimetable?.statementDueDate || null
-				})
-			},
-			appealType: appeal.appealType?.type,
-			appellantName: appeal.appellant?.name,
-			caseProcedure: 'Written',
-			decision: appeal.inspectorDecision?.outcome,
-			linkedAppeal: {
-				appealId: 1,
-				appealReference: 'APP/Q9999/D/21/725284'
-			},
-			localPlanningDepartment: appeal.localPlanningDepartment,
-			lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
-			otherAppeals: [
-				{
-					appealId: 1,
-					appealReference: 'APP/Q9999/D/21/725284'
-				}
-			],
-			planningApplicationReference: appeal.planningApplicationReference,
-			siteVisit: {
-				visitDate: appeal.siteVisit?.visitDate || null
-			},
-			startedAt: appeal.startedAt,
-			documentationSummary: {
-				appellantCase: {
-					status: appeal.appealDetailsFromAppellant
-						? DOCUMENT_STATUS_RECEIVED
-						: DOCUMENT_STATUS_NOT_RECEIVED,
-					dueDate: null
+		if (appeal) {
+			return {
+				agentName: appeal.appellant?.agentName,
+				allocationDetails: 'F / General Allocation',
+				appealId: appeal.id,
+				appealReference: appeal.reference,
+				appealSite: formatAddress(appeal.address),
+				appealStatus: appeal.appealStatus[0].status,
+				appealTimetable: {
+					finalEventsDueDate: appeal.appealTimetable?.finalEventsDueDate || null,
+					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
+						interestedPartyRepsDueDate: appeal.appealTimetable?.interestedPartyRepsDueDate || null
+					}),
+					questionnaireDueDate: appeal.appealTimetable?.questionnaireDueDate || null,
+					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
+						statementDueDate: appeal.appealTimetable?.statementDueDate || null
+					})
 				},
-				lpaQuestionnaire: {
-					status: appeal.lpaQuestionnaire ? DOCUMENT_STATUS_RECEIVED : DOCUMENT_STATUS_NOT_RECEIVED,
-					dueDate: appeal.appealTimetable?.questionnaireDueDate || null
+				appealType: appeal.appealType?.type,
+				appellantName: appeal.appellant?.name,
+				decision: appeal.inspectorDecision?.outcome,
+				isParentAppeal: appeal.linkedAppealId ? appeal.id === appeal.linkedAppealId : null,
+				linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals, appeal.id),
+				localPlanningDepartment: appeal.localPlanningDepartment,
+				lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
+				otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
+				planningApplicationReference: appeal.planningApplicationReference,
+				procedureType: appeal.lpaQuestionnaire?.procedureType.name || null,
+				siteVisit: {
+					visitDate: appeal.siteVisit?.visitDate || null
+				},
+				startedAt: appeal.startedAt,
+				documentationSummary: {
+					appellantCase: {
+						status: appeal.appealDetailsFromAppellant
+							? DOCUMENT_STATUS_RECEIVED
+							: DOCUMENT_STATUS_NOT_RECEIVED,
+						dueDate: null
+					},
+					lpaQuestionnaire: {
+						status: appeal.lpaQuestionnaire
+							? DOCUMENT_STATUS_RECEIVED
+							: DOCUMENT_STATUS_NOT_RECEIVED,
+						dueDate: appeal.appealTimetable?.questionnaireDueDate || null
+					}
 				}
-			}
-		};
+			};
+		}
 	},
 	/**
 	 * @param {RepositoryGetByIdResultItem} appeal
@@ -101,8 +111,6 @@ const appealFormatter = {
 	 */
 	formatLpaQuestionnaire(appeal) {
 		const { address, id, localPlanningDepartment, lpaQuestionnaire, reference } = appeal;
-
-		console.log(lpaQuestionnaire);
 
 		return {
 			affectsListedBuildingDetails: formatListedBuildingDetails(

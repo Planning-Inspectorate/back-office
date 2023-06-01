@@ -578,12 +578,14 @@ const document = {
 			appealType: 'household',
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
-			caseProcedure: 'Written',
 			decision: 'Not issued yet',
-			linkedAppeal: {
-				appealId: 1,
-				appealReference: 'APP/Q9999/D/21/725284'
-			},
+			isParentAppeal: true,
+			linkedAppeals: [
+				{
+					appealId: 1,
+					appealReference: 'APP/Q9999/D/21/725284'
+				}
+			],
 			localPlanningDepartment: 'Wiltshire Council',
 			lpaQuestionnaireId: 1,
 			otherAppeals: [
@@ -593,6 +595,7 @@ const document = {
 				}
 			],
 			planningApplicationReference: '48269/APP/2021/1482',
+			procedureType: 'Written',
 			siteVisit: {
 				visitDate: '2022-03-31T12:00:00.000Z'
 			},

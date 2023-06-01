@@ -65,8 +65,10 @@ export interface Appeal extends schema.Appeal {
 	documents?: AppealDocument[];
 	id: number;
 	inspectorDecision?: InspectorDecision;
+	linkedAppealId?: number | null;
 	localPlanningDepartment: string;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
+	otherAppealId?: number | null;
 	planningApplicationReference: string;
 	reference: string;
 	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
@@ -291,8 +293,8 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	listedBuildingDetails: ListedBuildingDetails[] | null;
 	lpaNotificationMethods: LPANotificationMethod[] | null;
 	meetsOrExceedsThresholdOrCriteriaInColumn2: boolean | null;
-	procedureType: ProcedureType;
-	scheduleType: ScheduleType;
+	procedureType: ProcedureType | null;
+	scheduleType: ScheduleType | null;
 	sensitiveAreaDetails: string | null;
 	siteWithinGreenBelt: boolean | null;
 	statutoryConsulteesDetails?: string | null;
@@ -323,7 +325,7 @@ export interface LPANotificationMethod {
 	lpaNotificationMethod: LPANotificationMethodDetails;
 }
 
-export interface ListedBuildingDetails {
+export interface ListedBuildingDetails extends schema.ListedBuildingDetails {
 	grade: string;
 	description: string;
 	affectsListedBuilding: boolean;
