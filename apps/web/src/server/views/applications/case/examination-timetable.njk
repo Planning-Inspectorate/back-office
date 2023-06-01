@@ -51,7 +51,7 @@
 					}]
 				%}
 				{% set row = {
-					heading: { text: timetableItem.name },
+					heading: { text: timetableItem.heading },
 					content: { html: govukSummaryList({ rows: tableRows }) }
 				} %}
 				{% set accordionItems = accordionItems.concat([row]) %}
