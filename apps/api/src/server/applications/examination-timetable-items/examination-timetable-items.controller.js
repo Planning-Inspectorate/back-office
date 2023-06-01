@@ -50,10 +50,10 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		});
 	}
 
+	// in some case we don't have date, use mandatory field end date in that case.
+	const date = examinationTimetableItem.date || examinationTimetableItem.endDate;
 	// Create sub folder for the examination timetable item.
-	const folderName = `${format(new Date(examinationTimetableItem.date), 'dd MMM yyyy')} - ${
-		examinationTimetableItem.name
-	}`;
+	const folderName = `${format(new Date(date), 'dd MMM yyyy')} - ${examinationTimetableItem.name}`;
 
 	const folder = {
 		displayNameEn: folderName,
