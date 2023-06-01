@@ -5,6 +5,9 @@ import representationDetailsRouter from './representation-details/application-re
 import relevantRepContactDetailsRouter from './representation/contact-details/contact-details.router.js';
 import relevantRepresentationTypeRouter from './representation/representation-type/representation-type.router.js';
 import relevantRepContactMethodRouter from './representation/contact-method/contact-method.router.js';
+
+import relevantRepresentationUnder18Router from './representation/under-18/under-18.router.js';
+
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
 relevantRepsRouter.route('/').get(asyncRoute(controller.relevantRepsApplications));
@@ -13,5 +16,6 @@ relevantRepsRouter.use('/:representationId/representation-details', representati
 relevantRepsRouter.use('/', relevantRepContactDetailsRouter);
 relevantRepsRouter.use('/', relevantRepresentationTypeRouter);
 relevantRepsRouter.use('/', relevantRepContactMethodRouter);
+relevantRepsRouter.use('/', relevantRepresentationUnder18Router);
 
 export default relevantRepsRouter;
