@@ -1,5 +1,6 @@
 import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
+import { format } from 'date-fns';
 
 /**
  * @type {import('express').RequestHandler}
@@ -50,7 +51,10 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	// Create sub folder for the examination timetable item.
-	const folderName = `${examinationTimetableItem.date} - ${examinationTimetableItem.name}`;
+	const folderName = `${format(new Date(examinationTimetableItem.date), 'dd MMM yyyy')} - ${
+		examinationTimetableItem.name
+	}`;
+
 	const folder = {
 		displayNameEn: folderName,
 		caseId: body.caseId,
