@@ -63,39 +63,19 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			representationDetails: defaultRepresentationDetails
 		}),
 		...(!isEmpty(formattedRepresented) && {
-			represented:
-				method === 'POST'
-					? checkContactMandatoryFields(formattedRepresented, 'PERSON', false)
-					: formattedRepresented
+			represented: formattedRepresented
 		}),
 		...(!isEmpty(formattedRepresentedAddress) && {
 			representedAddress: formattedRepresentedAddress
 		}),
 		...(!isEmpty(formattedRepresentative) && {
-			representative:
-				method === 'POST'
-					? checkContactMandatoryFields(formattedRepresentative, 'AGENT', false)
-					: { ...formattedRepresentative, type: 'AGENT' }
+			representative: { ...formattedRepresentative, type: 'AGENT' }
 		}),
 		...(!isEmpty(formattedRepresentativeAddress) && {
 			representativeAddress: formattedRepresentativeAddress
 		})
 	};
 };
-
-/**
- *
- * @param {import("../../../repositories/representation.repository.js").Contact} contactDetails
- * @param {string} type
- * @param {boolean} under18
- * @returns {import("../../../repositories/representation.repository.js").Contact}
- */
-function checkContactMandatoryFields(contactDetails, type, under18) {
-	if (!contactDetails.under18) contactDetails.under18 = under18;
-	if (!contactDetails.type) contactDetails.type = type;
-
-	return contactDetails;
-}
 
 /**
  *

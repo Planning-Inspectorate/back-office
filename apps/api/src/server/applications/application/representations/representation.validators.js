@@ -3,7 +3,9 @@ import { body } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 
 const isStrictTypeBoolean = async (value) => {
-	if (typeof value !== 'boolean') throw new TypeError(`Must be a boolean`);
+	if (typeof value !== 'boolean') {
+		if (value !== null) throw new TypeError(`Must be a boolean or null`);
+	}
 };
 
 const statuses = [
