@@ -562,7 +562,6 @@ model ExaminationTimetableItems {
   date                     DateTime?
   startDate                DateTime?
   startTime                String?
-  endDate                  DateTime?
   endTime                  String?
   Case                     Case                     @relation(fields: [caseId], references: [id])
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])

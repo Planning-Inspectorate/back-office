@@ -1124,9 +1124,6 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                                </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
                                 </div>
@@ -1161,9 +1158,6 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>

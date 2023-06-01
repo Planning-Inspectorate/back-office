@@ -80,24 +80,17 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(1);
 	});
 
-	test('creates examination timetable item and examination folder with sub folder', async () => {
+	test('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.folder.findFirst.mockResolvedValue(null);
-		databaseConnector.folder.create.mockResolvedValue({
-			id: 2,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: 1,
-			displayOrder: 100
-		});
-		databaseConnector.examinationTimetableItems.create.mockResolvedValue(examinationTimetableItem);
 		const resp = await request
 			.post('/applications/examination-timetable-items')
 			.send(examinationTimetableItem);
-		expect(resp.status).toEqual(200);
-		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
-		expect(databaseConnector.examinationTimetableItems.create).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(2);
+		expect(resp.status).toEqual(500);
+		expect(databaseConnector.case.findUnique).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.findFirst).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetableItems.create).toHaveBeenCalledTimes(0);
+		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(0);
 	});
 
 	test('create examination timetable item returns 400 when invalid data is sent', async () => {
