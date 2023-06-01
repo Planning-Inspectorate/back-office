@@ -1,8 +1,8 @@
 import { body } from 'express-validator';
 import { createValidator } from '@pins/express';
 
-const validContactMethod = createValidator(
+const validateContactMethod = createValidator(
 	body('contactMethod').exists().withMessage('Select one option')
 );
 
-export const contactMethodValidation = [validContactMethod];
+export const contactMethodValidation = [validateContactMethod];
