@@ -56,11 +56,10 @@ export const timetableTemplatesSchema = {
 export async function viewApplicationsCaseExaminationTimeTable(request, response) {
 	let timetableItems = await getCaseTimetableItems(+request.params.caseId);
 	timetableItems = timetableItems.map((timetableItem) => {
-		const date = timetableItem.date || timetableItem.endDate;
 		return {
 			...timetableItem,
 			description: JSON.parse(timetableItem.description),
-			heading: `${format(new Date(date), 'dd MMM yyyy')} - ${timetableItem.name}`
+			heading: `${format(new Date(timetableItem.date), 'dd MMM yyyy')} - ${timetableItem.name}`
 		};
 	});
 	response.render(`applications/case/examination-timetable`, {
@@ -155,9 +154,10 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	const startDate = body['startDate.year']
 		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
 		: null;
-	const endDate = body['endDate.year']
-		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
-		: null;
+	const date =
+		body['endDate.year'] && !body['date.year']
+			? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
+			: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`);
 
 	/** @type {ApplicationsTimetable} */
 	const payload = {
@@ -165,9 +165,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
-		date: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`),
+		date,
 		startDate,
-		endDate,
 		startTime: body['startTime.hours']
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,

@@ -33,32 +33,27 @@ export const getExaminationTimetableItem = async (_request, response) => {
  */
 export const createExaminationTimetableItem = async (_request, response) => {
 	const { body } = _request;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
 
 	// find the examination folder id to create subfolder.
-	let examinationFolder = await folderRepository.getFolderByNameAndCaseId(
+	const examinationFolder = await folderRepository.getFolderByNameAndCaseId(
 		body.caseId,
 		'Examination'
 	);
 
 	if (!examinationFolder) {
-		examinationFolder = await folderRepository.createFolder({
-			displayNameEn: 'Examination',
-			caseId: body.caseId,
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		throw new Error(`Examination folder not found for the case ${body.caseId}`);
 	}
 
-	// in some case we don't have date, use mandatory field end date in that case.
-	const date = examinationTimetableItem.date || examinationTimetableItem.endDate;
+	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
 	// Create sub folder for the examination timetable item.
-	const folderName = `${format(new Date(date), 'dd MMM yyyy')} - ${examinationTimetableItem.name}`;
+	const folderName = `${format(new Date(examinationTimetableItem.date), 'dd MMM yyyy')} - ${
+		examinationTimetableItem.name
+	}`;
 
 	const folder = {
 		displayNameEn: folderName,
 		caseId: body.caseId,
-		parentFolderId: examinationFolder?.id || null,
+		parentFolderId: examinationFolder.id,
 		displayOrder: 100
 	};
 
