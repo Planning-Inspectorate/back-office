@@ -122,7 +122,7 @@ model Case {
   gridReference             GridReference?
   serviceCustomer           ServiceCustomer[]
   Representation            Representation[]
-  ExaminationTimetableItems ExaminationTimetableItems[]
+  ExaminationTimetableItem  ExaminationTimetableItem[]
   document                  Document[]
 }
 
@@ -545,15 +545,15 @@ model RepresentationAction {
 }
 
 model ExaminationTimetableType {
-  id            Int                         @id @default(autoincrement())
-  name          String                      @unique // Note this the value sent to the front office. Note the Title Case format
+  id            Int                        @id @default(autoincrement())
+  name          String                     @unique // Note this the value sent to the front office. Note the Title Case format
   templateType  String?
   displayNameEn String
   displayNameCy String
-  items         ExaminationTimetableItems[]
+  items         ExaminationTimetableItem[]
 }
 
-model ExaminationTimetableItems {
+model ExaminationTimetableItem {
   id                       Int                      @id @default(autoincrement())
   caseId                   Int
   examinationTypeId        Int

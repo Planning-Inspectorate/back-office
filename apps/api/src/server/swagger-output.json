@@ -1732,7 +1732,7 @@
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
 						}
 					}
 				}
@@ -1746,7 +1746,7 @@
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
 						},
 						"required": true
 					}
@@ -1755,7 +1755,7 @@
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
 						}
 					}
 				}
@@ -2259,7 +2259,7 @@
 				}
 			}
 		},
-		"ExaminationTimetableItems": {
+		"ExaminationTimetableItem": {
 			"type": "array",
 			"items": {
 				"type": "object",
@@ -2307,7 +2307,7 @@
 				}
 			}
 		},
-		"ExaminationTimetableItemsRequestBody": {
+		"ExaminationTimetableItemRequestBody": {
 			"type": "object",
 			"properties": {
 				"caseId": {
@@ -2348,7 +2348,7 @@
 				}
 			}
 		},
-		"ExaminationTimetableItemsResponseBody": {
+		"ExaminationTimetableItemResponseBody": {
 			"type": "object",
 			"properties": {
 				"id": {

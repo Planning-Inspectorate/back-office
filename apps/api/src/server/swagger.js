@@ -179,7 +179,7 @@ const document = {
 				displayNameCy: 'Accompanied site inspection Cy'
 			}
 		],
-		ExaminationTimetableItems: [
+		ExaminationTimetableItem: [
 			{
 				id: 1,
 				caseId: 1,
@@ -193,7 +193,7 @@ const document = {
 				endTime: '12:20'
 			}
 		],
-		ExaminationTimetableItemsRequestBody: {
+		ExaminationTimetableItemRequestBody: {
 			caseId: 1,
 			examinationTypeId: 1,
 			name: 'Exmaination Timetable Item',
@@ -204,7 +204,7 @@ const document = {
 			endDate: '2023-02-27T12:00:00Z',
 			endTime: '12:20'
 		},
-		ExaminationTimetableItemsResponseBody: {
+		ExaminationTimetableItemResponseBody: {
 			id: 1,
 			caseId: 1,
 			examinationTypeId: 1,
