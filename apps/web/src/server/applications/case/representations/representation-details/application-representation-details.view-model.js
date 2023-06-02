@@ -42,37 +42,27 @@ import { format } from 'date-fns';
 /**
  * @param {object} representation
  * @param {Contact[]} representation.contacts
- * @param {string} type
- * @returns {object}
+ * @returns {object[]}
  */
-const getContactDetailsByContactType = ({ contacts }, type) => {
-	let result = {};
-
-	for (const contact of contacts) {
-		const contactType = contact.type.toLowerCase();
-
-		if (contactType === type) {
-			result = {
-				orgName: contact.organisationName || '',
-				name: `${contact.firstName} ${contact.lastName}`,
-				orgOrName: contact.organisationName
-					? contact.organisationName
-					: `${contact.firstName} ${contact.lastName}`,
-				jobTitle: contact.jobTitle || '',
-				under18: contact.under18 ? 'Yes' : 'No',
-				email: contact.email || '',
-				phoneNumber: contact.phoneNumber || '',
-				preferredContact: '',
-				addressLine1: contact.address.addressLine1 || '',
-				addressLine2: contact.address.addressLine2 || '',
-				town: contact.address.town || '',
-				county: contact.address.county || '',
-				postcode: contact.address.postcode || ''
-			};
-		}
-	}
-
-	return result;
+const getContactDetailsByContactType = ({ contacts }) => {
+	return contacts.map((contact) => ({
+		type: contact.type,
+		orgName: contact.organisationName || '',
+		name: `${contact.firstName} ${contact.lastName}`,
+		orgOrName: contact.organisationName
+			? contact.organisationName
+			: `${contact.firstName} ${contact.lastName}`,
+		jobTitle: contact.jobTitle || '',
+		under18: contact.under18 ? 'Yes' : 'No',
+		email: contact.email || '',
+		phoneNumber: contact.phoneNumber || '',
+		preferredContact: '',
+		addressLine1: contact.address.addressLine1 || '',
+		addressLine2: contact.address.addressLine2 || '',
+		town: contact.address.town || '',
+		county: contact.address.county || '',
+		postcode: contact.address.postcode || ''
+	}));
 };
 
 /**
@@ -117,12 +107,14 @@ const getRepresentationData = (representation) => {
 
 /**
  * @param {Representation} representation
- * @returns {{agentData: object, personData: object, familyData: object, organisationData: object, representationData: object}}
+ * @returns {{agentData: object, represented: object, representationData: object}}
  */
-export const getRepresentationDetailsViewModel = (representation) => ({
-	agentData: getContactDetailsByContactType(representation, 'agent'),
-	personData: getContactDetailsByContactType(representation, 'person'),
-	familyData: getContactDetailsByContactType(representation, 'family_group'),
-	organisationData: getContactDetailsByContactType(representation, 'organisation'),
-	representationData: getRepresentationData(representation)
-});
+export const getRepresentationDetailsViewModel = (representation) => {
+	const [represented, agentData] = getContactDetailsByContactType(representation);
+
+	return {
+		agentData,
+		represented,
+		representationData: getRepresentationData(representation)
+	};
+};

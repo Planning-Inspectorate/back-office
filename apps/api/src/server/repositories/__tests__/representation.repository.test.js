@@ -58,9 +58,16 @@ describe('Representation repository', () => {
 							organisationName: true
 						},
 						where: {
-							NOT: {
-								type: 'AGENT'
-							}
+							OR: [
+								{
+									NOT: {
+										type: 'AGENT'
+									}
+								},
+								{
+									type: null
+								}
+							]
 						}
 					}
 				},
@@ -117,9 +124,16 @@ describe('Representation repository', () => {
 							organisationName: true
 						},
 						where: {
-							NOT: {
-								type: 'AGENT'
-							}
+							OR: [
+								{
+									NOT: {
+										type: 'AGENT'
+									}
+								},
+								{
+									type: null
+								}
+							]
 						}
 					}
 				},
@@ -229,9 +243,16 @@ describe('Representation repository', () => {
 							organisationName: true
 						},
 						where: {
-							NOT: {
-								type: 'AGENT'
-							}
+							OR: [
+								{
+									NOT: {
+										type: 'AGENT'
+									}
+								},
+								{
+									type: null
+								}
+							]
 						}
 					}
 				},
@@ -311,9 +332,16 @@ describe('Representation repository', () => {
 							organisationName: true
 						},
 						where: {
-							NOT: {
-								type: 'AGENT'
-							}
+							OR: [
+								{
+									NOT: {
+										type: 'AGENT'
+									}
+								},
+								{
+									type: null
+								}
+							]
 						}
 					}
 				},
@@ -373,9 +401,16 @@ describe('Representation repository', () => {
 							organisationName: true
 						},
 						where: {
-							NOT: {
-								type: 'AGENT'
-							}
+							OR: [
+								{
+									NOT: {
+										type: 'AGENT'
+									}
+								},
+								{
+									type: null
+								}
+							]
 						}
 					}
 				},

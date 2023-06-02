@@ -7,6 +7,7 @@ describe('application representation details view-models', () => {
 
 		it('should return representation details mapped to the agentData view model', () => {
 			expect(response.agentData).toEqual({
+				type: 'AGENT',
 				orgName: '',
 				name: 'James Bond',
 				orgOrName: 'James Bond',
@@ -23,8 +24,9 @@ describe('application representation details view-models', () => {
 			});
 		});
 
-		it('should return representation details mapped to the personData view model', () => {
-			expect(response.personData).toEqual({
+		it('should return representation details mapped to the represented view model', () => {
+			expect(response.represented).toEqual({
+				type: 'PERSON',
 				orgName: '',
 				name: 'Mrs Sue',
 				orgOrName: 'Mrs Sue',
