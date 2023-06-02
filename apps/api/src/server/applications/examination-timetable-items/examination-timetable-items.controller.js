@@ -9,9 +9,13 @@ import { format } from 'date-fns';
  */
 export const getExaminationTimetableItems = async (_request, response) => {
 	const { caseId } = _request.params;
-	const examinationTimetableItems = await exminationTimetableItemsRepository.getByCaseId(+caseId);
-
-	response.send(examinationTimetableItems);
+	try {
+		const examinationTimetableItems = await exminationTimetableItemsRepository.getByCaseId(+caseId);
+		response.send(examinationTimetableItems);
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };
 
 /**

@@ -24,7 +24,8 @@ export {
 	DocumentUpdateInput,
 	DocumentVersionUpdateInput,
 	Representation,
-	RepresentationContact
+	RepresentationContact,
+	ExaminationTimetableItem
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
