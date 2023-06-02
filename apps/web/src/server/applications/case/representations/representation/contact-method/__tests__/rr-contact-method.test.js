@@ -54,7 +54,7 @@ describe('Representation contact method page', () => {
 				const response = await request.post(baseUrl).send({});
 
 				const element = parseHtml(response.text);
-
+				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select one option');
 			});
 		});

@@ -51,6 +51,5 @@ export const getContactMethodViewModel = (
 	backLinkUrl: `${prefixBackLink}/address-details?repType=${repType}&repId=${repId}`,
 	pageKey: repType,
 	pageTitle: 'Preferred contact method',
-	pageHeading: 'Preferred contact method',
 	contactMethodOptions: getContactMethodOptions(representation[repType])
 });
