@@ -56,7 +56,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case procedure</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__value\\">Written</dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case procedure</span></a>
                                     </dd>
                                 </div>
@@ -250,7 +250,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case procedure</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__value\\">Written</dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case procedure</span></a>
                                     </dd>
                                 </div>
@@ -430,7 +430,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case procedure</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__value\\">Written</dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Case procedure</span></a>
                                     </dd>
                                 </div>

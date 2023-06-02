@@ -17,6 +17,7 @@ import {
 	represenations
 } from './data-samples.js';
 import { regions, subSectors, zoomLevels } from './data-static.js';
+import { calculateTimetable } from '../../server/appeals/appeals/appeals.service.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -446,8 +447,11 @@ const createApplication = async (databaseConnector, subSector, index) => {
  * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
 export async function seedTestData(databaseConnector) {
+	const appeals = [];
+
 	for (const appealData of appealsData) {
-		await databaseConnector.appeal.create({ data: appealData });
+		const appeal = await databaseConnector.appeal.create({ data: appealData });
+		appeals.push(appeal);
 	}
 
 	const lpaQuestionnaires = await databaseConnector.lPAQuestionnaire.findMany();
@@ -477,6 +481,47 @@ export async function seedTestData(databaseConnector) {
 				notificationMethodId: lpaNotificationMethods[item].id
 			}))
 		});
+	}
+
+	const linkedAppealGroups = [
+		[appeals[0].id, appeals[1].id, appeals[2].id],
+		[appeals[3].id, appeals[4].id, appeals[5].id],
+		[appeals[6].id, appeals[7].id, appeals[8].id],
+		[appeals[9].id, appeals[10].id, appeals[11].id],
+		[appeals[12].id, appeals[13].id],
+		[appeals[14].id, appeals[15].id],
+		[appeals[16].id, appeals[17].id],
+		[appeals[18].id, appeals[19].id],
+		[appeals[20].id, appeals[21].id]
+	];
+
+	await Promise.all(
+		linkedAppealGroups
+			.map((linkedAppealGroup) =>
+				linkedAppealGroup.map((linkedAppeal) =>
+					databaseConnector.appeal.update({
+						where: { id: linkedAppeal },
+						data: { linkedAppealId: linkedAppealGroup[0], otherAppealId: linkedAppealGroup[0] }
+					})
+				)
+			)
+			.flat()
+	);
+
+	const appealTypes = await databaseConnector.appealType.findMany();
+
+	for (const { appealTypeId, id, startedAt } of appeals) {
+		if (startedAt) {
+			const appealType = appealTypes.filter(({ id }) => id === appealTypeId)[0].shorthand;
+			const appealTimetable = await calculateTimetable(appealType, startedAt);
+
+			await databaseConnector.appealTimetable.create({
+				data: {
+					appealId: id,
+					...appealTimetable
+				}
+			});
+		}
 	}
 
 	// now create some sample applications
