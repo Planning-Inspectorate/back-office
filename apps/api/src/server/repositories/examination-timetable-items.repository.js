@@ -6,7 +6,7 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem | null>}
  */
 export const getById = (id) => {
-	return databaseConnector.ExaminationTimetableItem.findUnique({ where: { id } });
+	return databaseConnector.examinationTimetableItem.findUnique({ where: { id } });
 };
 
 /**
@@ -15,7 +15,7 @@ export const getById = (id) => {
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem[] | null>}
  */
 export const getByCaseId = (caseId) => {
-	return databaseConnector.ExaminationTimetableItem.findMany({
+	return databaseConnector.examinationTimetableItem.findMany({
 		include: { ExaminationTimetableType: true },
 		where: { caseId }
 	});
@@ -27,5 +27,5 @@ export const getByCaseId = (caseId) => {
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem>}
  */
 export const create = (examinationTimetableItem) => {
-	return databaseConnector.ExaminationTimetableItem.create({ data: examinationTimetableItem });
+	return databaseConnector.examinationTimetableItem.create({ data: examinationTimetableItem });
 };
