@@ -1,7 +1,7 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
- 
+
  * @param {any} metadata
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
@@ -33,7 +33,7 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 };
 
 /**
- 
+
  * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
@@ -61,7 +61,7 @@ export const deleteDocument = (documentGuid) => {
 };
 
 /**
- 
+
  * Get a document metadata by documentGuid
  *
  * @param {string} documentGuid
@@ -92,11 +92,11 @@ export const getById = (documentGuid, version = 1) => {
 };
 
 /**
- 
+
  * Get all document metadata
- 
+
  *
- 
+
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
  */
 
@@ -118,9 +118,9 @@ export const getAllByDocumentGuid = (guid) => {
 };
 
 /**
- 
+
  *
- 
+
  * @param {string} documentGuid
  * @param {import('@pins/api').Schema.DocumentVersionUpdateInput} documentDetails
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
@@ -132,4 +132,23 @@ export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 
 		data: documentDetails
 	});
+};
+
+// update DocumentVersion
+// join Document on document.latestVersionId =
+
+/**
+ * TODO: Might be worth having an identifier for DocumentVersion that isn't a composite of the documentId and versionNo.
+ * It would make it easier to work with these items in bulk using Prisma.
+ *
+ * @param {{documentGuid: string, version: number}[]} documentVersionIds
+ * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
+ * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ */
+export const updateAll = async (documentVersionIds, documentDetails) => {
+	for (const { documentGuid, version } of documentVersionIds)
+		await databaseConnector.documentVersion.update({
+			where: { documentGuid_version: { documentGuid, version } },
+			data: documentDetails
+		});
 };

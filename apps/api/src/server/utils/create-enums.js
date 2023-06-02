@@ -65,6 +65,7 @@ export const publishedStatusEnum = new Enum([
 	'checked',
 	'ready_to_publish',
 	'do_not_publish',
+	'publishing',
 	'published',
 	'archived'
 ]);

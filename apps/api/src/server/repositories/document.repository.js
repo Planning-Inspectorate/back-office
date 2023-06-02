@@ -4,7 +4,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  *
- * @param {{name: string, folderId: number, latestVersionId: number}} document
+ * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number}} document
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
  */
 export const upsert = (document) => {
@@ -50,15 +50,67 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 };
 
 /**
+ * From a given list of document ids, retrieve the ones which are publishable
  *
- * @param {string} documentGuid
- * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ * @param {string[]} documentIds
+ * @returns {Promise<{guid: string, latestVersionId: number}[]>}
  */
-export const update = (documentGuid, documentDetails) => {
+export const getPublishableDocuments = (documentIds) => {
+	// @ts-ignore - if there is a latestDocumentVersion, there will be a latestVerionid
+	return databaseConnector.document.findMany({
+		where: {
+			guid: {
+				in: documentIds
+			},
+			latestDocumentVersion: {
+				NOT: {
+					OR: [
+						// TODO: Move name from Document.name to DocumentVersion.fileName
+						{
+							fileName: ''
+						},
+						{
+							fileName: null
+						},
+						{
+							filter1: ''
+						},
+						{
+							filter1: null
+						},
+						{
+							author: ''
+						},
+						{
+							author: null
+						},
+						{
+							description: ''
+						},
+						{
+							description: null
+						}
+					]
+				}
+			}
+		},
+		select: {
+			guid: true,
+			latestVersionId: true
+		}
+	});
+};
+
+/**
+ *
+ * @param {string} documentId
+ * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
+ * @returns {Promise<import('@pins/api').Schema.Document>}
+ */
+export const update = (documentId, documentDetails) => {
 	return databaseConnector.document.update({
 		where: {
-			guid: documentGuid
+			guid: documentId
 		},
 		data: documentDetails
 	});
@@ -107,6 +159,7 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 		}
 	});
 };
+
 /**
  *
  * @param {string} documentGUID

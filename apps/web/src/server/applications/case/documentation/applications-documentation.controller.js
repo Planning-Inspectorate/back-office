@@ -74,7 +74,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 	const payload = {
 		status,
 		...redacted,
-		items: (selectedFilesIds || []).map((guid) => ({ guid }))
+		documents: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 
 	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);
@@ -272,7 +272,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		selectedPageType: 'documentation-publish-success',
 		serviceName: 'Document/s successfully published',
-		successMessage: `${tryPublish.items?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
+		successMessage: `${tryPublish.documents?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
 		showPublishedBanner: true
 	});
 }

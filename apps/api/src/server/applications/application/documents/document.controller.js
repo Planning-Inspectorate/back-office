@@ -13,6 +13,7 @@ import {
 	formatDocumentUpdateResponseBody,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
+	publishNsipDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
 import {
@@ -88,7 +89,7 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateDocuments = async ({ body }, response) => {
-	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
+	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
 	const formattedResponseList = [];
 
 	let redactedStatus;
@@ -101,11 +102,13 @@ export const updateDocuments = async ({ body }, response) => {
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
 	if (publishedStatus === 'ready_to_publish') {
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(items);
+		const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
+
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 	}
 
-	if (items) {
-		for (const document of items) {
+	if (documents) {
+		for (const document of documents) {
 			logger.info(
 				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
 			);
@@ -153,7 +156,7 @@ export const updateDocuments = async ({ body }, response) => {
 		}
 	}
 
-	logger.info(`Updated ${items.length} documents`);
+	logger.info(`Updated ${documents.length} documents`);
 	response.send(formattedResponseList);
 };
 
@@ -330,47 +333,21 @@ export const getReadyToPublishDocuments = async ({ body }, response) => {
  * @type {import('express').RequestHandler}
  */
 export const publishDocuments = async ({ body }, response) => {
-	const { items } = body;
-	const formattedResponseList = [];
+	const { documents } = body;
 
-	// same as for Ready To Publish, need to check that required metadata is set on all the files - else error
-	await verifyAllDocumentsHaveRequiredPropertiesForPublishing(items);
+	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
-	if (items) {
-		for (const document of items) {
-			logger.info(`publishing document with guid: ${document.guid}`);
+	const publishableDocumentVersionIds = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+		documentIds
+	);
 
-			/**
-			 * @typedef {object} PublishUpdates
-			 * @property {string} [publishedStatus]
-			 * @property {string} [publishedStatusPrev]
-			 * @property {Date} [datePublished]
-			 * @property {boolean} [published]
-			 */
+	const publishedDocuments = await publishNsipDocuments(publishableDocumentVersionIds);
 
-			/** @type {PublishUpdates} */
-			const documentVersionUpdates = {
-				publishedStatus: 'published',
-				publishedStatusPrev: 'ready_to_publish',
-				datePublished: new Date(),
-				published: true
-			};
-			const updateResponseInTable = await documentVersionRepository.update(
-				document.guid,
-				documentVersionUpdates
-			);
-
-			const formattedResponse = {
-				guid: updateResponseInTable.documentGuid,
-				status: updateResponseInTable.publishedStatus
-			};
-
-			// TODO: now xfer the file to the correct destination, and pass the message to the service bus
-			// TODO: call document-publish-function.  Also need to populate and send required doc properties
-			formattedResponseList.push(formattedResponse);
-		}
-	}
-
-	logger.info(`Published ${items.length} documents`);
-	response.send(formattedResponseList);
+	logger.info(`Published ${publishedDocuments.length} documents`);
+	response.send(
+		publishedDocuments.map(({ documentGuid, publishedStatus }) => ({
+			guid: documentGuid,
+			publishedStatus
+		}))
+	);
 };

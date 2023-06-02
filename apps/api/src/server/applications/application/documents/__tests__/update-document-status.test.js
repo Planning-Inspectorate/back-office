@@ -184,24 +184,28 @@ describe('Update document statuses and redacted statuses', () => {
 			redactedStatus: 'unredacted'
 		};
 
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: 'documenttoupdate_1a_guid',
-			name: 'davids doc xxxx',
-			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
-			documentVersion: [
+		databaseConnector.document.findMany.mockResolvedValue([
+			[
 				{
-					documentGuid: 'documenttoupdate_1a_guid',
-					version: 1,
-					description: 'davids doc',
-					author: 'David',
-					filter1: 'filter category',
-					publishedStatus: 'awaiting_upload',
-					redactedStatus: 'unredacted'
+					guid: 'documenttoupdate_1a_guid',
+					name: 'davids doc xxxx',
+					folderId: 2,
+					blobStorageContainer: 'Container',
+					blobStoragePath: 'Container',
+					documentVersion: [
+						{
+							documentGuid: 'documenttoupdate_1a_guid',
+							version: 1,
+							description: 'davids doc',
+							author: 'David',
+							filter1: 'filter category',
+							publishedStatus: 'awaiting_upload',
+							redactedStatus: 'unredacted'
+						}
+					]
 				}
 			]
-		});
+		]);
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(
 			documentVersionPreResponseReadyToPublish
 		);
@@ -365,10 +369,12 @@ describe('Update document statuses and redacted statuses', () => {
 			redactedStatus: 'unredacted'
 		};
 
-		databaseConnector.document.findUnique.mockResolvedValue({
-			...updatedDocument,
-			documentVersion
-		});
+		databaseConnector.document.findMany.mockResolvedValue([
+			{
+				...updatedDocument,
+				documentVersion
+			}
+		]);
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(documentVersion);
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
