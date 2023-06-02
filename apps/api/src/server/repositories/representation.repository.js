@@ -218,8 +218,18 @@ export const updateApplicationRepresentation = async (
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
 	const whereIsRepresented = {
-		representationId,
-		type: { in: ['PERSON', 'ORGANISATION'] }
+		OR: [
+			{
+				NOT: { type: 'AGENT' }
+			},
+			{
+				type: null
+			}
+		],
+		AND: {
+			representationId
+		}
+		// representationId,
 	};
 
 	const whereIsRepresentative = {
@@ -246,6 +256,8 @@ export const updateApplicationRepresentation = async (
 
 	if (!isEmpty(represented)) {
 		const data = await findRepresentationContactRepresented();
+
+		console.log('Data', data);
 
 		await databaseConnector.representationContact.update({
 			where: {
