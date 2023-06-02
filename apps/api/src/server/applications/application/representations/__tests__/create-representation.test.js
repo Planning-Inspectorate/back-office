@@ -52,8 +52,6 @@ describe('Create Representation', () => {
 						{
 							firstName: 'Joe',
 							lastName: 'Bloggs',
-							under18: false,
-							type: 'PERSON',
 							address: {
 								create: {}
 							}
@@ -120,7 +118,6 @@ describe('Create Representation', () => {
 							firstName: 'Joe',
 							lastName: 'Bloggs',
 							under18: true,
-							type: 'PERSON',
 							address: {
 								create: {
 									addressLine1: 'Test Address'
@@ -130,7 +127,6 @@ describe('Create Representation', () => {
 						{
 							firstName: 'John',
 							lastName: 'Smith',
-							under18: false,
 							type: 'AGENT',
 							address: {
 								create: {
