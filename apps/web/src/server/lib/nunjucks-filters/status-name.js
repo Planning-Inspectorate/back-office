@@ -26,6 +26,9 @@ export const statusName = (key) => {
 		case 'ready_to_publish':
 			documentStatusName = 'Ready to publish';
 			break;
+		case 'publishing':
+			documentStatusName = 'Publishing';
+			break;
 		case 'published':
 			documentStatusName = 'Published';
 			break;

@@ -28,13 +28,15 @@ export const documentName = (documentNameWithExtension) => {
 
 /**
  *
+ * @param {number} caseId
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documents
- * @returns {{name: string, folderId: number; documentType: string, documentSize: number}[]}
+ * @returns {{name: string, caseId: number, folderId: number; documentType: string, documentSize: number}[]}
  */
-const mapDocumentsToSendToDatabase = (documents) => {
+const mapDocumentsToSendToDatabase = (caseId, documents) => {
 	return documents?.map((document) => {
 		return {
 			name: document.documentName,
+			caseId,
 			folderId: document.folderId,
 			documentType: document.documentType,
 			documentSize: document.documentSize
@@ -58,10 +60,11 @@ const mapDocumentToSendToDatabase = (document) => {
 
 /**
  *
+ * @param {number} caseId
  * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
  * @returns {Promise<import('@pins/api').Schema.Document[]>}
  */
-const upsertDocumentsToDatabase = async (documents) => {
+const upsertDocumentsToDatabase = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	const { results } = await PromisePool.withConcurrency(5)
@@ -80,8 +83,8 @@ const upsertDocumentsToDatabase = async (documents) => {
 			// Call the documentRepository.upsert function to upsert the document to the database.
 			const document = await documentRepository.upsert({
 				name: fileName,
-				folderId: documentToDB.folderId,
-				latestVersionId: 1
+				caseId,
+				folderId: documentToDB.folderId
 			});
 
 			// Log that the document has been upserted and its GUID.
@@ -95,6 +98,10 @@ const upsertDocumentsToDatabase = async (documents) => {
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				version: 1
+			});
+
+			await documentRepository.update(document.guid, {
+				latestVersionId: 1
 			});
 
 			// Log that the metadata for the document has been upserted and its GUID.
@@ -192,14 +199,14 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
 
-	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(documentsToUpload);
+	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
 	// Step 4: Upsert the documents to the database
 	logger.info(`Upserting documents to database...`);
 
-	const documentsFromDatabase = await upsertDocumentsToDatabase(documentsToSendToDatabase);
+	const documentsFromDatabase = await upsertDocumentsToDatabase(caseId, documentsToSendToDatabase);
 
 	logger.info(`Documents upserted: ${JSON.stringify(documentsFromDatabase)}`);
 
@@ -353,4 +360,23 @@ export const upsertDocumentVersionAndReturnDetails = async (documentGuid, docume
  */
 export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) => {
 	return { guid, status, redactedStatus };
+};
+
+/**
+ *
+ * @param {{documentGuid: string, version: number}[]} documentVersionIds
+ * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
+ */
+export const publishNsipDocuments = async (documentVersionIds) => {
+	await documentVerisonRepository.updateAll(documentVersionIds, {
+		publishedStatus: 'publishing',
+		publishedStatusPrev: 'ready_to_publish'
+	});
+
+	// TODO: Enqueue to the publish document queue
+
+	return documentVersionIds.map(({ documentGuid }) => ({
+		documentGuid,
+		publishedStatus: 'publishing'
+	}));
 };

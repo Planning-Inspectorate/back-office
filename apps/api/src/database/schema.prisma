@@ -123,6 +123,7 @@ model Case {
   serviceCustomer           ServiceCustomer[]
   Representation            Representation[]
   ExaminationTimetableItems ExaminationTimetableItems[]
+  document                  Document[]
 }
 
 /// ServiceCustomer model
@@ -422,18 +423,22 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid             String            @id @default(uuid())
-  name             String
-  folderId         Int
-  createdAt        DateTime          @default(now())
-  isDeleted        Boolean           @default(false)
-  representationId Int?
-  latestVersionId  Int
-  folder           Folder            @relation(fields: [folderId], references: [id])
-  documentVersion  DocumentVersion[]
-  Representation   Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  guid                  String            @id @default(uuid())
+  name                  String
+  folderId              Int
+  createdAt             DateTime          @default(now())
+  isDeleted             Boolean           @default(false)
+  representationId      Int?
+  latestVersionId       Int?
+  caseId                Int
+  folder                Folder            @relation(fields: [folderId], references: [id])
+  documentVersion       DocumentVersion[] @relation("VersionHistory")
+  Representation        Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  latestDocumentVersion DocumentVersion?  @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                  Case              @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
+  @@unique([guid, latestVersionId])
 }
 
 /// DocumentVersion model
@@ -475,7 +480,8 @@ model DocumentVersion {
   redactedStatus         String?
   redacted               Boolean   @default(false)
   documentURI            String?
-  Document               Document? @relation(fields: [documentGuid], references: [guid])
+  Document               Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument  Document? @relation("LatestVersion")
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")

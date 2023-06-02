@@ -160,115 +160,49 @@ describe('Publish documents', () => {
 			author: 'David',
 			filter1: 'Filter Category 1',
 			redactedStatus: 'redacted',
-			publishedStatus: 'published'
-		};
-		const documentVersionPreResponseReadyToPublish = {
-			documentGuid: 'document_to_publish_guid',
-			version: 1,
-			description: 'doc with all required fields for publishing',
-			author: 'David',
-			filter1: 'Filter Category 1',
-			redactedStatus: 'redacted',
-			publishedStatus: 'ready_to_publish'
+			publishedStatus: 'publishing'
 		};
 
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: 'document_to_publish_guid',
-			name: 'davids doc xxxx',
-			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
-			documentVersion: [
-				{
-					documentGuid: 'document_to_publish_guid',
-					version: 1,
-					description: 'davids doc',
-					author: 'David',
-					filter1: 'filter category',
-					publishedStatus: 'published',
-					redactedStatus: 'redacted',
-					published: true,
-					datePublished: '2023-05-09T17:12:39.280Z'
-				}
-			]
-		});
+		databaseConnector.document.findMany.mockResolvedValue([
+			{
+				guid: 'document_to_publish_guid',
+				latestVersionId: 1
+			}
+		]);
 
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 
-		databaseConnector.documentVersion.findUnique.mockResolvedValue(
-			documentVersionPreResponseReadyToPublish
-		);
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponsePublished);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
-			items: [{ guid: 'document_to_publish_guid' }]
+			documents: [{ guid: 'document_to_publish_guid' }]
 		});
 
 		// THEN
-		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
 				guid: 'document_to_publish_guid',
-				status: 'published'
+				publishedStatus: 'publishing'
 			}
 		]);
+		expect(response.status).toEqual(200);
 	});
 
 	test('throws error if document missing properties required publishing', async () => {
 		// GIVEN
-		const documentResponsePublishedBad = {
-			caseId: 1,
-			documentGuid: 'bad_document_to_publish_guid',
-			name: 'bad doc to publish',
-			description: 'doc with not all required fields for publishing',
-			author: null,
-			filter1: 'Filter Category 1',
-			redactedStatus: 'redacted',
-			publishedStatus: 'published'
-		};
-		const documentVersionPreResponseReadyToPublishBad = {
-			documentGuid: 'bad_document_to_publish_guid',
-			version: 1,
-			description: 'doc with not all required fields for publishing',
-			author: null,
-			filter1: 'Filter Category 1',
-			redactedStatus: 'redacted',
-			publishedStatus: 'ready_to_publish'
-		};
 
-		databaseConnector.document.findUnique.mockResolvedValue({
-			guid: 'bad_document_to_publish_guid',
-			name: 'davids doc xxxx',
-			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
-			documentVersion: [
-				{
-					documentGuid: 'bad_document_to_publish_guid',
-					version: 1,
-					description: 'doc without all required properties for publishing',
-					author: 'David',
-					filter1: 'filter category',
-					publishedStatus: 'published',
-					redactedStatus: 'redacted',
-					published: true,
-					datePublished: '2023-05-09T17:12:39.280Z'
-				}
-			]
-		});
-
-		databaseConnector.case.findUnique.mockResolvedValue(application1);
-		databaseConnector.documentVersion.findUnique.mockResolvedValue(
-			documentVersionPreResponseReadyToPublishBad
-		);
-		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
-		databaseConnector.documentVersion.update.mockResolvedValue(documentResponsePublishedBad);
+		databaseConnector.document.findMany.mockResolvedValue([
+			{
+				guid: 'document_to_publish_guid',
+				latestVersionId: 1
+			}
+		]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
-			items: [{ guid: 'bad_document_to_publish_guid' }]
+			documents: [{ guid: 'document_to_publish_guid' }, { guid: 'bad_document_to_publish_guid' }]
 		});
 
 		// THEN

@@ -67,10 +67,10 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
  * Update the status and the redaction of one or many documents
  *
  * @param {number} caseId
- * @param {{status: string, redacted?: boolean, items: Array<{guid: string}>}} payload
- * @returns {Promise<{items?: Array<{guid: string}>, errors?: {guid: string}[]}>}
+ * @param {{status: string, redacted?: boolean, documents: Array<{guid: string}>}} payload
+ * @returns {Promise<{documents?: Array<{guid: string}>, errors?: {guid: string}[]}>}
  */
-export const updateCaseDocumentationFiles = async (caseId, { status, redacted, items }) => {
+export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
 	let response;
 
 	try {
@@ -78,7 +78,7 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, i
 			json: {
 				status,
 				redacted,
-				items
+				documents
 			}
 		});
 	} catch (/** @type {*} */ error) {
@@ -180,27 +180,21 @@ export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => 
  * Publishes selected documents from the Ready to Publish queue
  *
  * @param {number} caseId
- * @param {{guid: string}[]} items
- * @returns {Promise<{items?: Array<{guid: string}>, errors?: ValidationErrors}>}
+ * @param {{guid: string}[]} documents
+ * @returns {Promise<{documents?: Array<{guid: string}>, errors?: any}>}
  */
-export const publishCaseDocumentationFiles = async (caseId, items) => {
-	let response;
-
+export const publishCaseDocumentationFiles = async (caseId, documents) => {
 	try {
-		const publishedItems = await patch(`applications/${caseId}/documents/publish`, {
+		const publishedDocuments = await patch(`applications/${caseId}/documents/publish`, {
 			json: {
-				items
+				documents
 			}
 		});
 
-		response = { items: publishedItems };
+		return { documents: publishedDocuments };
 	} catch (/** @type {*} */ error) {
 		// log out the actual publishing errors
 		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'Your documents could not be published, please try again' } });
-		});
+		return { errors: { msg: 'Your documents could not be published, please try again' } };
 	}
-
-	return response;
 };
