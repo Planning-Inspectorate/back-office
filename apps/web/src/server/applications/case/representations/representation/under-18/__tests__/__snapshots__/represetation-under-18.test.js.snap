@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation representation under 18 GET /applications-service/case/1/relevant-representations/under-18 should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                        <h1 class=\\"govuk-fieldset__heading\\"> Under 18</h1>
+                    </legend>
+                    <div class=\\"govuk-form-group\\">
+                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"under18\\" name=\\"under18\\" type=\\"radio\\"
+                                value=\\"true\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"under18\\">Yes</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"under18-2\\" name=\\"under18\\" type=\\"radio\\"
+                                value=\\"false\\" checked>
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"under18-2\\">No</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"under18-3\\" name=\\"under18\\" type=\\"radio\\"
+                                value=\\"\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"under18-3\\">Unknown</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</main>"
+`;

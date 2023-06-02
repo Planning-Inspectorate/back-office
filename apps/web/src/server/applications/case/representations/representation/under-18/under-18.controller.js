@@ -1,5 +1,6 @@
 import { patchRepresentation } from '../representation.service.js';
 import { getRepresentationTypeViewModel } from './under-18.view-model.js';
+import { getRepresentationPageUrl } from '../representation.utilities.js';
 
 const view = 'applications/representations/representation/under-18.njk';
 
@@ -32,5 +33,7 @@ export const postRepresentationUnder18 = async (req, res) => {
 
 	await patchRepresentation(caseId, String(repId), String(repType), body);
 
-	return res.redirect(`representation-entity?repId=${repId}&repType=${repType}`);
+	return res.redirect(
+		getRepresentationPageUrl('representation-entity', String(repId), String(repType))
+	);
 };
