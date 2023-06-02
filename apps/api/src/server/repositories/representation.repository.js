@@ -44,9 +44,14 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 						organisationName: true
 					},
 					where: {
-						NOT: {
-							type: 'AGENT'
-						}
+						OR: [
+							{
+								NOT: { type: 'AGENT' }
+							},
+							{
+								type: null
+							}
+						]
 					}
 				}
 			},
