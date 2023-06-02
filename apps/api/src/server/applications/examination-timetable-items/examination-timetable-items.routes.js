@@ -13,8 +13,8 @@ router.get(
 	'/case/:caseId',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/examination-timetable-items'
-        #swagger.description = 'Gets all examination timetable items for case'
+        #swagger.path = '/applications/examination-timetable-items/case/{caseId}'
+        #swagger.description = 'Gets all examination timetable items for the case'
         #swagger.parameters['caseId'] = {
             in: 'path',
 			description: 'Application ID',
@@ -33,8 +33,8 @@ router.get(
 	'/:id',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/examination-timetable-items'
-        #swagger.description = 'Gets all examination timetable items for case'
+        #swagger.path = '/applications/examination-timetable-items/{id}'
+        #swagger.description = 'Gets examination timetable item by id'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Examination timetable item ID',
@@ -42,7 +42,7 @@ router.get(
 			type: 'integer'
         }
         #swagger.responses[200] = {
-            description: 'List of examination timetable items',
+            description: 'Examination timetable item',
             schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
         }
     */
@@ -62,7 +62,7 @@ router.post(
             required: true
         }
         #swagger.responses[200] = {
-            description: 'List of examination timetable items',
+            description: 'Examination timetable item',
             schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
         }
     */

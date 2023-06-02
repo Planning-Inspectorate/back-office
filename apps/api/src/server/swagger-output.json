@@ -813,6 +813,14 @@
 									"type": "boolean",
 									"example": false
 								},
+								"redactedBy": {
+									"type": "string",
+									"example": "A users name who has performed a redaction"
+								},
+								"redactedNotes": {
+									"type": "string",
+									"example": "A string if redacted text"
+								},
 								"received": {
 									"type": "string",
 									"example": "2023-03-14T14:28:25.704Z"
@@ -1715,28 +1723,53 @@
 				}
 			}
 		},
-		"/applications/examination-timetable-items": {
+		"/applications/examination-timetable-items/case/{caseId}": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets all examination timetable items for case",
+				"description": "Gets all examination timetable items for the case",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "caseId",
 						"in": "path",
-						"description": "Examination timetable item ID",
 						"required": true,
-						"type": "integer"
+						"type": "integer",
+						"description": "Application ID"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItems"
 						}
 					}
 				}
-			},
+			}
+		},
+		"/applications/examination-timetable-items/{id}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets examination timetable item by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/examination-timetable-items": {
 			"post": {
 				"tags": ["Applications"],
 				"description": "Gets all examination timetable items for case",
@@ -1746,16 +1779,16 @@
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
+							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
 						},
 						"required": true
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "List of examination timetable items",
+						"description": "Examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
 						}
 					}
 				}
