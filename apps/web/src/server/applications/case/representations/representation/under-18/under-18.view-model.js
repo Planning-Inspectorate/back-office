@@ -20,7 +20,7 @@ export const getRepresentationTypeViewModel = (
 	{ repType, repId },
 	{ prefixBackLink, representation }
 ) => ({
-	backLinkUrl: `${prefixBackLink}/representation-type'?repType=${repType}&repId=${repId}`,
+	backLinkUrl: `${prefixBackLink}/representation-type?repType=${repType}&repId=${repId}`,
 	pageTitle: 'Under 18',
 	pageHeading: 'Under 18',
 	name: 'under18',
