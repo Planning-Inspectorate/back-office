@@ -21,9 +21,9 @@ export const getExaminationTimetableItems = async (_request, response) => {
  */
 export const getExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
-	const examinationTimetableItems = await exminationTimetableItemsRepository.getById(+id);
+	const examinationTimetableItem = await exminationTimetableItemsRepository.getById(+id);
 
-	response.send(examinationTimetableItems);
+	response.send(examinationTimetableItem);
 };
 
 /**

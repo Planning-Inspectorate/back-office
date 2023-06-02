@@ -70,4 +70,4 @@ router.post(
 	asyncHandler(createExaminationTimetableItem)
 );
 
-export { router as examinationTimetableItemsRoutes };
+export { router as examinationTimetableItemRoutes };
