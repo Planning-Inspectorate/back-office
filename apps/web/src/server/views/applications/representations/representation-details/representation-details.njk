@@ -3,9 +3,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "./components/representation-status-tag.njk" import representationStatusTag %}
-{% from "./components/person-contact.njk" import personContact as personContactSection %}
-{% from "./components/family-contact.njk" import familyContact as familyContactSection %}
-{% from "./components/organisation-contact.njk" import organisationContact as organisationContactSection %}
+{% from "./components/represented-section.njk" import representedSection %}
 {% from "./components/agent-contact.njk" import agentContact as agentContactSection %}
 {% from "./components/representation.njk" import representation as representationSection %}
 {% from "./components/attachments.njk" import attachments as attachmentsSection %}
@@ -29,12 +27,8 @@
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">
-				{% if  representationDetails.personData.orgOrName %}
-					{{ representationDetails.personData.orgOrName }}
-				{% elif representationDetails.familyData.orgOrName %}
-					{{ representationDetails.familyData.orgOrName }}
-				{% elif representationDetails.organisationData.orgOrName %}
-					{{ representationDetails.organisationData.orgOrName }}
+				{% if  representationDetails.represented.orgOrName %}
+					{{ representationDetails.represented.orgOrName }}
 				{% else %}
 					{{ representationDetails.agentData.orgOrName }}
 				{% endif %}
@@ -44,27 +38,10 @@
 		</div>
 	</div>
 
-
-{% if representationDetails.personData | length  %}
+{% if representationDetails.represented | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ personContactSection(representationDetails.personData) }}
-		</div>
-	</div>
-{% endif %}
-
-{% if representationDetails.familyData | length  %}
-	<div class="govuk-grid-row govuk-!-margin-bottom-6">
-		<div class="govuk-grid-column-full">
-			{{ familyContactSection(representationDetails.familyData) }}
-		</div>
-	</div>
-{% endif %}
-
-{% if representationDetails.organisationData | length  %}
-	<div class="govuk-grid-row govuk-!-margin-bottom-6">
-		<div class="govuk-grid-column-full">
-			{{ organisationContactSection(representationDetails.organisationData) }}
+			{{ representedSection(representationDetails.represented) }}
 		</div>
 	</div>
 {% endif %}
