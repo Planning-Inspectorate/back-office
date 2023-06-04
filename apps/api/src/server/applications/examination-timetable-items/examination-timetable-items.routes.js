@@ -43,7 +43,7 @@ router.get(
         }
         #swagger.responses[200] = {
             description: 'Examination timetable item',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
+            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
         }
     */
 	asyncHandler(getExaminationTimetableItem)
@@ -54,16 +54,16 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/examination-timetable-items'
-        #swagger.description = 'Gets all examination timetable items for case'
+        #swagger.description = 'Create an examination timetable item for the case'
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'document pagination parameters',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemsRequestBody' },
+            schema: { $ref: '#/definitions/ExaminationTimetableItemRequestBody' },
             required: true
         }
         #swagger.responses[200] = {
-            description: 'Examination timetable item',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemsResponseBody' }
+            description: 'Created examination timetable item',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
         }
     */
 	validateCreateExaminationTimetableItem,

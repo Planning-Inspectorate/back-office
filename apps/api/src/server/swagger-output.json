@@ -1763,7 +1763,7 @@
 					"200": {
 						"description": "Examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
 						}
 					}
 				}
@@ -1772,23 +1772,23 @@
 		"/applications/examination-timetable-items": {
 			"post": {
 				"tags": ["Applications"],
-				"description": "Gets all examination timetable items for case",
+				"description": "Create an examination timetable item for the case",
 				"parameters": [
 					{
 						"name": "body",
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsRequestBody"
+							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
 						},
 						"required": true
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Examination timetable item",
+						"description": "Created examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemsResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
 						}
 					}
 				}
