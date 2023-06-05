@@ -274,7 +274,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                 for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
             <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -330,7 +330,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
@@ -451,7 +451,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
             </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
             <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -507,7 +507,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
@@ -616,7 +616,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </dl>
             <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -665,7 +665,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
@@ -770,7 +770,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
             <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -826,7 +826,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
@@ -937,7 +937,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/6/preview-and-publish\\"> Preview and publish project</a>
             <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -993,7 +993,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
@@ -1106,7 +1106,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                 for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
             <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
                     </div>
@@ -1162,7 +1162,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-                <div class=\\"govuk-accordion__section \\">
+                <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>

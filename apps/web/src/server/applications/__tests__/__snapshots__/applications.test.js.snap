@@ -68,7 +68,7 @@ exports[`applications GET /case-admin-officer should render the open application
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
@@ -106,7 +106,7 @@ exports[`applications GET /case-admin-officer should render the open application
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
@@ -158,7 +158,7 @@ exports[`applications GET /case-admin-officer should render the open application
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
@@ -188,7 +188,7 @@ exports[`applications GET /case-admin-officer should render the open application
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
@@ -291,7 +291,7 @@ exports[`applications GET /case-team should render the open applications belongi
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
@@ -329,7 +329,7 @@ exports[`applications GET /case-team should render the open applications belongi
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
@@ -381,7 +381,7 @@ exports[`applications GET /case-team should render the open applications belongi
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
@@ -411,7 +411,7 @@ exports[`applications GET /case-team should render the open applications belongi
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
@@ -502,7 +502,7 @@ exports[`applications GET /inspector should render the open applications belongi
     <div class=\\"pins-dashboard-list--drafts\\">
         <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
                 </div>
@@ -540,7 +540,7 @@ exports[`applications GET /inspector should render the open applications belongi
     <div class=\\"pins-dashboard-list--open\\">
         <h2 class=\\"govuk-heading-l\\">All cases</h2>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
                 </div>
@@ -592,7 +592,7 @@ exports[`applications GET /inspector should render the open applications belongi
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
                 </div>
@@ -622,7 +622,7 @@ exports[`applications GET /inspector should render the open applications belongi
                     </details>
                 </div>
             </div>
-            <div class=\\"govuk-accordion__section \\">
+            <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
                     <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
                 </div>
