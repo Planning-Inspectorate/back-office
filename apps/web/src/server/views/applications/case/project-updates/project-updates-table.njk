@@ -1,6 +1,11 @@
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
 
-{%- macro projectUpdatesTable(projectUpdatesRows) -%}
+{%- macro projectUpdatesTable(tableHeaders, projectUpdatesRows) -%}
+	{%- set headers = [] -%}
+	{%- for header in tableHeaders -%}
+		{%- set headers = headers | concat([{ html: headerLink(header) }]) -%}
+	{%- endfor -%}
+
 	{%- set rows = [] -%}
 	{%- for projectUpdate in projectUpdatesRows -%}
 		{%- set row = [
@@ -14,13 +19,7 @@
 	{%- endfor -%}
 	{{
 		govukTable({
-			head: [
-				{ text: "Date published" },
-				{ text: "Project update" },
-				{ text: "Email" },
-				{ text: "Status" },
-				{ text: "Action" }
-			],
+			head: headers,
 			rows: rows
 		})
 	}}
@@ -32,4 +31,16 @@
 
 {%- macro reviewLink(id) -%}
 	<a href="project-updates/{{id}}/review">Review</a>
+{%- endmacro -%}
+
+{%- macro headerLink(header) -%}
+	{% if header.value %}
+			<a href="{{ header.link }}"
+				class="sort-table__link {% if header.isDescending %} sort-table__link--descending  {% endif %}">
+				{{ header.text }}
+				<span class="sort-table__link-icon {% if header.active or header.isDescending %} sort-table__link-icon--big {% else %} sort-table__link-icon--small {% endif %}"></span>
+			</a>
+		{% else %}
+			{{ header.text }}
+		{% endif %}
 {%- endmacro -%}

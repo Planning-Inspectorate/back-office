@@ -22,7 +22,7 @@
 			<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
 
 			{{ uiPageSizeInformation(pagination) }}
-			{{ projectUpdatesTable(projectUpdatesRows) }}
+			{{ projectUpdatesTable(tableHeaders, projectUpdatesRows) }}
 			{{ uiPaginationLinks(pagination) }}
 		</form>
 	</div>
