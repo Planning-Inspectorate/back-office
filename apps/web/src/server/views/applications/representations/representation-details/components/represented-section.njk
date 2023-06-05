@@ -1,4 +1,4 @@
-{% macro representedSection(personData) %}
+{% macro representedSection(represented) %}
 	<h3 class="govuk-heading-m">Contact details</h3>
 	<dl class="govuk-summary-list">
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -6,7 +6,7 @@
 				Organisation name
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.orgName }}
+				{{ represented.orgName }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="#">
@@ -19,7 +19,7 @@
 				Name
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.name }}
+				{{ represented.name }}
 			</dd>
 		</div>
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
@@ -27,7 +27,7 @@
 				Job title
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.jobTitle }}
+				{{ represented.jobTitle }}
 			</dd>
 		</div>
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
@@ -35,7 +35,7 @@
 				Email address
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.email }}
+				{{ represented.email }}
 			</dd>
 
 		</div>
@@ -44,7 +44,7 @@
 				Telephone number
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.phoneNumber }}
+				{{ represented.phoneNumber }}
 			</dd>
 		</div>
 		<div class="govuk-summary-list__row">
@@ -52,21 +52,21 @@
 				Address
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.addressLine1 }} </br>
+				{{ represented.addressLine1 }} </br>
 
-				{% if personData.addressLine2 %}
-					{{ personData.addressLine2 }} </br>
+				{% if represented.addressLine2 %}
+					{{ represented.addressLine2 }} </br>
 				{% endif %}
 
-				{% if personData.town %}
-					{{ personData.town }} </br>
+				{% if represented.town %}
+					{{ represented.town }} </br>
 				{% endif %}
 
-				{% if personData.county %}
-					{{ personData.county }} </br>
+				{% if represented.county %}
+					{{ represented.county }} </br>
 				{% endif %}
 
-				{{ personData.postcode }}
+				{{ represented.postcode }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="#">
@@ -79,7 +79,7 @@
 				Preferred contact method
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.preferredContact if personData.preferredContact else 'Email' }}
+				{{ represented.preferredContact if represented.preferredContact else 'Email' }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="edit/preferred-contact">
@@ -118,7 +118,7 @@
 				Under 18
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ personData.under18 }}
+				{{ represented.under18 }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="edit/preferred-contact">

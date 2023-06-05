@@ -31,6 +31,7 @@ import { format } from 'date-fns';
  * @property {string|null} firstName
  * @property {string|null} lastName
  * @property {string|null} organisationName
+ * @property {string|null} contactMethod
  * @property {string} type
  * @property {string|null} jobTitle
  * @property {boolean} under18
@@ -56,7 +57,7 @@ const getContactDetailsByContactType = ({ contacts }) => {
 		under18: contact.under18 ? 'Yes' : 'No',
 		email: contact.email || '',
 		phoneNumber: contact.phoneNumber || '',
-		preferredContact: '',
+		preferredContact: contact.contactMethod || '',
 		addressLine1: contact.address.addressLine1 || '',
 		addressLine2: contact.address.addressLine2 || '',
 		town: contact.address.town || '',
@@ -88,22 +89,20 @@ const getExcerpt = (text) =>
  * @param {Representation} representation
  * @returns {object}
  */
-const getRepresentationData = (representation) => {
-	return {
-		id: representation.id,
-		reference: representation.reference,
-		status: representation.status,
-		redacted: representation.redacted,
-		received: formatDate(representation.received),
-		originalRepresentation: representation.originalRepresentation,
-		redactedRepresentation: representation.redacted ? representation.redactedRepresentation : '',
-		representationExcerpt: getExcerpt(representation.originalRepresentation),
-		redactedRepresentationExcerpt: getExcerpt(representation.redactedRepresentation),
-		redactedNotes: representation.redactedNotes,
-		redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
-		redactedBy: representation.redactedBy
-	};
-};
+const getRepresentationData = (representation) => ({
+	id: representation.id,
+	reference: representation.reference,
+	status: representation.status,
+	redacted: representation.redacted,
+	received: formatDate(representation.received),
+	originalRepresentation: representation.originalRepresentation,
+	redactedRepresentation: representation.redacted ? representation.redactedRepresentation : '',
+	representationExcerpt: getExcerpt(representation.originalRepresentation),
+	redactedRepresentationExcerpt: getExcerpt(representation.redactedRepresentation),
+	redactedNotes: representation.redactedNotes,
+	redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
+	redactedBy: representation.redactedBy
+});
 
 /**
  * @param {Representation} representation

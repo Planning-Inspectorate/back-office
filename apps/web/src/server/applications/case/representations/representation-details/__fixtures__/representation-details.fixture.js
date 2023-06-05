@@ -24,6 +24,7 @@ export const representationDetailsFixture = {
 			under18: false,
 			email: 'test@example.com',
 			phoneNumber: '01234 567890',
+			contactMethod: '',
 			address: {
 				addressLine1: '44 Rivervale',
 				addressLine2: null,
@@ -41,6 +42,7 @@ export const representationDetailsFixture = {
 			under18: false,
 			email: 'test-agent@example.com',
 			phoneNumber: '01234 567890',
+			contactMethod: '',
 			address: {
 				addressLine1: '8 The Chase',
 				addressLine2: null,
