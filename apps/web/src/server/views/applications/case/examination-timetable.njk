@@ -26,7 +26,7 @@
 		{% if timetableItems|length %}
 			{% set accordionItems = [] %}
 			{% for timetableItem in timetableItems %}
-				{% set publishedTagHtml %}
+				{% set descriptionHtml %}
 					<p class="govuk-body">{{timetableItem.description.preText}}</p>
 					{% if timetableItem.description.bulletPoints | length > 1%}
 						<ul class='govuk-list govuk-list--bullet'>
@@ -56,7 +56,7 @@
 						value: { text: timetableItem.endTime }
 					}, {
 						key: { text: "Description" },
-						value: { html: publishedTagHtml }
+						value: { html: descriptionHtml }
 					}]
 				%}
 				{% set row = {
