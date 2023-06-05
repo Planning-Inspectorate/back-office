@@ -45,6 +45,6 @@ export const validatePhoneNumber = createValidator([
 		.withMessage('Telephone number must be 255 characters or less')
 		.optional({ checkFalsy: true })
 		.trim()
-		.isNumeric()
+		.matches(/^[0-9+\s]*$/)
 		.withMessage('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192')
 ]);
