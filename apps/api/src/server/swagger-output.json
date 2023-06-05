@@ -2329,10 +2329,6 @@
 						"type": "string",
 						"example": "10:20"
 					},
-					"endDate": {
-						"type": "string",
-						"example": "2023-02-27T12:00:00Z"
-					},
 					"endTime": {
 						"type": "string",
 						"example": "12:20"
@@ -2370,10 +2366,6 @@
 				"startTime": {
 					"type": "string",
 					"example": "10:20"
-				},
-				"endDate": {
-					"type": "string",
-					"example": "2023-02-27T12:00:00Z"
 				},
 				"endTime": {
 					"type": "string",
@@ -2415,10 +2407,6 @@
 				"startTime": {
 					"type": "string",
 					"example": "10:20"
-				},
-				"endDate": {
-					"type": "string",
-					"example": "2023-02-27T12:00:00Z"
 				},
 				"endTime": {
 					"type": "string",
