@@ -1,6 +1,8 @@
 import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
+import logger from '../../utils/logger.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -61,7 +63,61 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		displayOrder: 100
 	};
 
-	await folderRepository.createFolder(folder);
+	const itemFolder = await folderRepository.createFolder(folder);
+
+	if (!itemFolder) {
+		throw Error('Failed to create sub folder for the examination item.');
+	}
+
+	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
 
 	response.send(examinationTimetableItem);
+};
+
+/**
+ *
+ * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
+ * @param {Number} parentFolderId
+ * @returns
+ */
+const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId) => {
+	if (!examinationTimetableItem?.description) return;
+	const description = JSON.parse(examinationTimetableItem?.description);
+	console.log(description);
+	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
+		logger.info('No bulletpoints, skip creating sub folders');
+		return;
+	}
+
+	const categoryType = await examinationTimetableTypesRepository.getById(
+		examinationTimetableItem.examinationTypeId
+	);
+
+	if (
+		!categoryType?.name ||
+		(categoryType?.name !== 'Deadline' &&
+			categoryType?.name !== 'Procedural Deadline (Pre-Examination)')
+	) {
+		logger.info('Category name does not match to Deadline, skip creating sub folders');
+		return;
+	}
+
+	/**
+	 * @type {Promise<(import('@pins/api').Schema.Folder |null)>[]}
+	 */
+	const createFolderPromise = [];
+	description.bulletPoints.forEach((/** @type {String} */ folderName) => {
+		const subFolder = {
+			displayNameEn: folderName,
+			caseId: examinationTimetableItem.caseId,
+			parentFolderId: parentFolderId,
+			displayOrder: 100
+		};
+		console.log(subFolder);
+		createFolderPromise.push(folderRepository.createFolder(subFolder));
+	});
+
+	logger.info('Create sub folders');
+	await Promise.all(createFolderPromise);
+	logger.info('Sub folders created successfully');
 };
