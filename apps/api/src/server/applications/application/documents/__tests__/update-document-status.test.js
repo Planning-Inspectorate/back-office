@@ -142,7 +142,7 @@ describe('Update document statuses and redacted statuses', () => {
 		const response = await request.patch('/applications/1/documents/update').send({
 			status: 'not_user_checked',
 			redacted: true,
-			items: [{ guid: 'documenttoupdate_1_guid' }]
+			documents: [{ guid: 'documenttoupdate_1_guid' }]
 		});
 
 		// THEN
@@ -215,7 +215,7 @@ describe('Update document statuses and redacted statuses', () => {
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
 			status: 'ready_to_publish',
-			items: [{ guid: 'documenttoupdate_1a_guid' }]
+			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});
 
 		// THEN
@@ -274,7 +274,7 @@ describe('Update document statuses and redacted statuses', () => {
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
 			status: 'not_user_checked',
-			items: [{ guid: 'documenttoupdate_2_guid' }]
+			documents: [{ guid: 'documenttoupdate_2_guid' }]
 		});
 
 		// THEN
@@ -327,7 +327,7 @@ describe('Update document statuses and redacted statuses', () => {
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
 			redacted: true,
-			items: [{ guid: 'documenttoupdate_3_guid' }]
+			documents: [{ guid: 'documenttoupdate_3_guid' }]
 		});
 
 		// THEN
@@ -382,7 +382,7 @@ describe('Update document statuses and redacted statuses', () => {
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
 			status: 'ready_to_publish',
-			items: [{ guid: 'documenttoupdate_1a_guid' }]
+			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});
 
 		// THEN
