@@ -59,6 +59,10 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 		return {
 			...timetableItem,
 			description: JSON.parse(timetableItem.description),
+			startDate: timetableItem.startDate
+				? format(new Date(timetableItem.startDate), 'dd MMM yyyy')
+				: null,
+			date: format(new Date(timetableItem.date), 'dd MMM yyyy'),
 			heading: `${format(new Date(timetableItem.date), 'dd MMM yyyy')} - ${timetableItem.name}`
 		};
 	});
