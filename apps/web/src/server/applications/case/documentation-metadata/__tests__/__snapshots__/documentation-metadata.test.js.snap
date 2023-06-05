@@ -24,14 +24,15 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#representative\\">The agent name be 150 characters or fewer</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#representative\\">The agent name be 150 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,14 +81,15 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#author\\">You must enter who the document is from</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#author\\">You must enter who the document is from</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,14 +118,15 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#author\\">The value must be 150 characters or fewer</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#author\\">The value must be 150 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,14 +175,15 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#description\\">You must enter a description of the document</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#description\\">You must enter a description of the document</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,14 +212,15 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#description\\">The description must be 800 characters or fewer</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#description\\">The description must be 800 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -309,14 +314,15 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#fileName\\">You must enter a file name</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#fileName\\">You must enter a file name</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -345,14 +351,15 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#fileName\\">The name must be 255 characters or fewer</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#fileName\\">The name must be 255 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,14 +426,15 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#datePublished\\">You must enter the published date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#datePublished\\">You must enter the published date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -479,14 +487,15 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#datePublished\\">The published date cannot be in the future</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#datePublished\\">The published date cannot be in the future</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -539,14 +548,15 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#datePublished\\">Enter a valid day for the published date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#datePublished\\">Enter a valid day for the published date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -599,14 +609,15 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#datePublished\\">Enter a valid month for the published date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#datePublished\\">Enter a valid month for the published date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -659,14 +670,15 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#datePublished\\">Enter a valid year for the published date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#datePublished\\">Enter a valid year for the published date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -757,14 +769,15 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#dateCreated\\">You must enter the receipt date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#dateCreated\\">You must enter the receipt date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -817,14 +830,15 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#dateCreated\\">The receipt date cannot be in the future</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#dateCreated\\">The receipt date cannot be in the future</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -877,14 +891,15 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#dateCreated\\">Enter a valid day for the receipt date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#dateCreated\\">Enter a valid day for the receipt date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -937,14 +952,15 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#dateCreated\\">Enter a valid month for the receipt date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#dateCreated\\">Enter a valid month for the receipt date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -997,14 +1013,15 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#dateCreated\\">Enter a valid year for the receipt date</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#dateCreated\\">Enter a valid year for the receipt date</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1084,14 +1101,15 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#redactedStatus\\">You must select a redaction status</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#redactedStatus\\">You must select a redaction status</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1147,14 +1165,15 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#filter1\\">You must enter a webfilter</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#filter1\\">You must enter a webfilter</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1182,14 +1201,15 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" aria-labelledby=\\"error-summary-title\\"
-            role=\\"alert\\" data-module=\\"govuk-error-summary\\">
-                <h2 class=\\"govuk-error-summary__title\\" id=\\"error-summary-title\\"> There is a problem</h2>
-                <div class=\\"govuk-error-summary__body\\">
-                    <ul class=\\"govuk-list govuk-error-summary__list\\">
-                        <li><a href=\\"#filter1\\">The webfilter must be 100 characters or fewer</a>
-                        </li>
-                    </ul>
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#filter1\\">The webfilter must be 100 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

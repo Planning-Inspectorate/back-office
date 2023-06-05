@@ -147,7 +147,7 @@ describe('applications create applicant', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('error-summary-title');
+					expect(element.innerHTML).toContain('govuk-error-summary');
 					expect(element.innerHTML).toContain('applicant.website-error');
 				});
 			});
@@ -197,7 +197,7 @@ describe('applications create applicant', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('error-summary-title');
+					expect(element.innerHTML).toContain('govuk-error-summary');
 					expect(element.innerHTML).toContain('applicant.email-error');
 				});
 			});
@@ -247,7 +247,7 @@ describe('applications create applicant', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('error-summary-title');
+					expect(element.innerHTML).toContain('govuk-error-summary');
 					expect(element.innerHTML).toContain('applicant.phoneNumber-error');
 				});
 			});
@@ -303,7 +303,7 @@ describe('applications create applicant', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('error-summary-title');
+					expect(element.innerHTML).toContain('govuk-error-summary');
 					expect(element.innerHTML).toContain('Enter a valid postcode');
 				});
 			});
