@@ -4,7 +4,7 @@ import { representationsUrl } from '../config.js';
 /**
  *
  * @param {object} query
- * @returns {{isDescending: boolean, link: string, active: boolean, text: string, value: string}[]}
+ * @returns {import('../../../common/components/table/table-sorting-header-links.js').TableHeaderLink[]}
  */
 export const tableSortLinks = (query) => [
 	tableSortingHeaderLinks(query, 'Reference', 'reference', representationsUrl),
