@@ -262,8 +262,6 @@ export const updateApplicationRepresentation = async (
 	if (!isEmpty(represented)) {
 		const data = await findRepresentationContactRepresented();
 
-		console.log('Data', data);
-
 		await databaseConnector.representationContact.update({
 			where: {
 				id: data.id
