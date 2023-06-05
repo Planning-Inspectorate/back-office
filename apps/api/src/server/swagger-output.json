@@ -1796,7 +1796,7 @@
 						"description": "Application ID"
 					},
 					{
-						"name": "pageNumber",
+						"name": "page",
 						"in": "query",
 						"description": "The page number to return, defaults to 1",
 						"example": 1,
