@@ -2292,7 +2292,7 @@
 				}
 			}
 		},
-		"ExaminationTimetableItem": {
+		"ExaminationTimetableItems": {
 			"type": "array",
 			"items": {
 				"type": "object",

@@ -179,7 +179,7 @@ const document = {
 				displayNameCy: 'Accompanied site inspection Cy'
 			}
 		],
-		ExaminationTimetableItem: [
+		ExaminationTimetableItems: [
 			{
 				id: 1,
 				caseId: 1,
