@@ -38,37 +38,34 @@ export const getRepresentationTypeViewModel = (
  * @typedef {Array.<repType>} repTypes
  */
 
+const listOfRadioOptions = [
+	{
+		value: true,
+		text: 'Yes',
+		checked: false
+	},
+	{
+		value: false,
+		text: 'No',
+		checked: false
+	},
+	{
+		value: null,
+		text: 'Unknown',
+		checked: false
+	}
+];
+
 /**
  *
  * @param {object} rep
  * @param {boolean?} rep.under18
  * @return repTypes
  */
-const getListOfOptions = ({ under18 = null }) => {
-	const listOfTypes = [
-		{
-			value: true,
-			text: 'Yes',
-			checked: false
-		},
-		{
-			value: false,
-			text: 'No',
-			checked: false
-		},
-		{
-			value: null,
-			text: 'Unknown',
-			checked: false
+const getListOfOptions = ({ under18 = null }) =>
+	listOfRadioOptions.map((option) => {
+		if (option.value === under18) {
+			option.checked = true;
 		}
-	];
-
-	console.log('Under 18 ', under18);
-
-	return listOfTypes.map((el) => {
-		if (el.value === under18) {
-			el.checked = true;
-		}
-		return el;
+		return option;
 	});
-};
