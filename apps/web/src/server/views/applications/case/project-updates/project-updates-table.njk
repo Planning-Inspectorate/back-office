@@ -1,0 +1,35 @@
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{%- macro projectUpdatesTable(projectUpdatesRows) -%}
+	{%- set rows = [] -%}
+	{%- for projectUpdate in projectUpdatesRows -%}
+		{%- set row = [
+			{ text: projectUpdate.datePublished },
+			{ html: projectUpdate.content },
+			{ text: projectUpdate.emailed },
+			{ html: statusTag(projectUpdate.status) },
+			{ html: reviewLink(projectUpdate.id) }
+		] -%}
+		{%- set rows = rows | concat([row]) -%}
+	{%- endfor -%}
+	{{
+		govukTable({
+			head: [
+				{ text: "Date published" },
+				{ text: "Project update" },
+				{ text: "Email" },
+				{ text: "Status" },
+				{ text: "Action" }
+			],
+			rows: rows
+		})
+	}}
+{%- endmacro -%}
+
+{%- macro statusTag(status) -%}
+	<strong class="govuk-tag govuk-tag--{{status.color}} single-line">{{ status.label }}</strong>
+{%- endmacro -%}
+
+{%- macro reviewLink(id) -%}
+	<a href="project-updates/{{id}}/review">Review</a>
+{%- endmacro -%}

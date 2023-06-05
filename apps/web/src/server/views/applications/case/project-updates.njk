@@ -1,0 +1,29 @@
+{% extends "./layouts/applications-case-layout.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "applications/case/project-updates/project-updates-table.njk" import projectUpdatesTable %}
+{% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to project overview",
+		href: 'case-view'|url({caseId: caseId})
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<h2 class="govuk-heading-m">Project updates</h2>
+
+		<form method="GET">
+			<input type="hidden" name="page" value="{{ queryData.page }}">
+			<input type="hidden" name="pageSize" value="{{ queryData.pageSize }}">
+			<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
+
+			{{ uiPageSizeInformation(pagination) }}
+			{{ projectUpdatesTable(projectUpdatesRows) }}
+			{{ uiPaginationLinks(pagination) }}
+		</form>
+	</div>
+{% endblock %}

@@ -8,11 +8,13 @@ import asyncRoute from '@pins/web/src/server/lib/async-route.js';
 import { Router as createRouter } from 'express';
 import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
 import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
+import projectUpdatesRouter from './project-updates/project-updates.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId/relevant-representations', relevantRepsRouter);
+applicationsCaseRouter.use('/:caseId/project-updates', projectUpdatesRouter);
 
 applicationsCaseRouter.use('/:caseId/edit', applicationsEditRouter);
 applicationsCaseRouter.use(

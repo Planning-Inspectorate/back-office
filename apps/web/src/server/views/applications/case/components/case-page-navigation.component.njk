@@ -20,6 +20,8 @@
 						caseId: case.id }) }}</li>
 				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project documentation', pageType: 'project-documentation', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
+				<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Project updates', pageType: 'project-updates', selectedPageType: selectedPageType,
+						caseId: case.id }) }}</li>
 				{% if not userIsInspector %}
 					<li class="govuk-heading-s">{{ writeMenuLink({ pageTitle: 'Examination timetable', pageType: 'examination-timetable', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
