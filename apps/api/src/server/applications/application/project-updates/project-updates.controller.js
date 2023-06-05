@@ -8,10 +8,10 @@ import logger from '../../../utils/logger.js';
  * @type {import('express').RequestHandler}
  */
 export async function getProjectUpdates(req, res) {
-	const pageNumber = Number(req.query.pageNumber) || DEFAULT_PAGE_NUMBER;
+	const page = Number(req.query.page) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 	const caseId = parseInt(req.params.id);
-	logger.debug({ caseId, pageNumber, pageSize }, 'getProjectUpdates');
+	logger.debug({ caseId, page, pageSize }, 'getProjectUpdates');
 	let orderBy;
 
 	if (req.query.sortBy) {
@@ -22,13 +22,13 @@ export async function getProjectUpdates(req, res) {
 		};
 	}
 
-	const result = await listProjectUpdates(caseId, pageNumber, pageSize, orderBy);
+	const result = await listProjectUpdates(caseId, page, pageSize, orderBy);
 	const formattedItems = result.items.map(mapProjectUpdate);
 
 	res.send({
 		itemCount: result.count,
 		items: formattedItems,
-		page: pageNumber,
+		page: page,
 		pageCount: getPageCount(result.count, pageSize),
 		pageSize
 	});

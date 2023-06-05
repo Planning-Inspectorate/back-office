@@ -1,11 +1,8 @@
 import { composeMiddleware } from '@pins/express';
 import { query } from 'express-validator';
 import { validationErrorHandler } from './error-handler.js';
-import {
-	ERROR_MUST_BE_GREATER_THAN_ZERO,
-	ERROR_MUST_BE_NUMBER,
-	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
-} from './errors.js';
+import { ERROR_MUST_BE_GREATER_THAN_ZERO, ERROR_MUST_BE_NUMBER } from './errors.js';
+import { hasAllProperties } from '../utils/object.js';
 
 /**
  * @param {string} value
@@ -20,30 +17,37 @@ const hasValue = (value) => Boolean(value);
 const isGreaterThanZero = (value) => Number(value) >= 1;
 
 /**
- * @param {string} pageNumber
- * @param {string} pageSize
- * @returns {boolean}
+ * @typedef {Object} PaginationOptions
+ * @property {string} [options.page] page parameter name, default 'page'
+ * @property {string} [options.pageSize] pageSie parameter name, default 'pageSize'
  */
-const hasPageNumberAndPageSize = (pageNumber, pageSize) => Boolean(pageNumber && pageSize);
 
 /**
  * @param {string} parameterName
+ * @param {PaginationOptions} [options]
  * @returns {import('express-validator').ValidationChain}
  */
-const validatePaginationParameter = (parameterName) =>
+const validatePaginationParameter = (
+	parameterName,
+	{ page = 'page', pageSize = 'pageSize' } = {}
+) =>
 	query(parameterName)
 		.if(hasValue)
 		.isInt()
 		.withMessage(ERROR_MUST_BE_NUMBER)
 		.custom(isGreaterThanZero)
 		.withMessage(ERROR_MUST_BE_GREATER_THAN_ZERO)
-		.custom((value, { req }) =>
-			hasPageNumberAndPageSize(req.query?.pageNumber, req.query?.pageSize)
-		)
-		.withMessage(ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED);
+		.custom((value, { req }) => hasAllProperties(req.query, page, pageSize))
+		.withMessage(`Both ${page} and ${pageSize} are required for pagination`);
 
-export const validatePaginationParameters = composeMiddleware(
-	validatePaginationParameter('pageNumber'),
-	validatePaginationParameter('pageSize'),
-	validationErrorHandler
-);
+/**
+ * @param {PaginationOptions} [options]
+ * @returns {import('express').RequestHandler|import('express').ErrorRequestHandler}
+ */
+export function validatePaginationParameters({ page = 'page', pageSize = 'pageSize' } = {}) {
+	return composeMiddleware(
+		validatePaginationParameter(page, { page, pageSize }),
+		validatePaginationParameter(pageSize, { page, pageSize }),
+		validationErrorHandler
+	);
+}

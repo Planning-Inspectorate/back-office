@@ -19,7 +19,7 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
-		#swagger.parameters['pageNumber'] = {
+		#swagger.parameters['page'] = {
 			in: 'query',
 			description: 'The page number to return, defaults to 1',
 			example: 1,
@@ -41,7 +41,7 @@ router.get(
         }
     */
 	validateApplicationId,
-	validatePaginationParameters,
+	validatePaginationParameters(),
 	validateSortBy(['datePublished', 'emailSubscribers', 'status']),
 	asyncHandler(getProjectUpdates)
 );
