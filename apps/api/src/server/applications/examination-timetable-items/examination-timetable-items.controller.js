@@ -1,8 +1,9 @@
-import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
+import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -12,7 +13,9 @@ import logger from '../../utils/logger.js';
 export const getExaminationTimetableItems = async (_request, response) => {
 	const { caseId } = _request.params;
 	try {
-		const examinationTimetableItems = await exminationTimetableItemsRepository.getByCaseId(+caseId);
+		const examinationTimetableItems = await examinationTimetableItemsRepository.getByCaseId(
+			+caseId
+		);
 		response.send(examinationTimetableItems);
 	} catch (error) {
 		logger.error(error);
@@ -27,7 +30,7 @@ export const getExaminationTimetableItems = async (_request, response) => {
  */
 export const getExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.getById(+id);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
 	response.send(examinationTimetableItem);
 };
@@ -50,7 +53,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		throw new Error(`Examination folder not found for the case ${body.caseId}`);
 	}
 
-	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 	// Create sub folder for the examination timetable item.
 	const folderName = `${format(new Date(examinationTimetableItem.date), 'dd MMM yyyy')} - ${
 		examinationTimetableItem.name
@@ -128,4 +131,22 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	logger.info('Create sub folders');
 	await Promise.all(createFolderPromise);
 	logger.info('Sub folders created successfully');
+};
+
+/**
+ * Updates the properties of a single Examination Timetable Item
+ *
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const updateExaminationTimetableItem = async ({ params, body }, response) => {
+	const { id } = params;
+	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.update(
+		+id,
+		mappedExamTimetableDetails
+	);
+
+	response.send(examinationTimetableItem);
 };

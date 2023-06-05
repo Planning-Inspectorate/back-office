@@ -3,9 +3,13 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import {
 	createExaminationTimetableItem,
 	getExaminationTimetableItem,
-	getExaminationTimetableItems
+	getExaminationTimetableItems,
+	updateExaminationTimetableItem
 } from './examination-timetable-items.controller.js';
-import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
+import {
+	validateCreateExaminationTimetableItem,
+	validateUpdateExaminationTimetableItem
+} from './examination-timetable-items.validators.js';
 
 const router = createRouter();
 
@@ -68,6 +72,33 @@ router.post(
     */
 	validateCreateExaminationTimetableItem,
 	asyncHandler(createExaminationTimetableItem)
+);
+
+router.patch(
+	'/:id/update',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items/{id}/update'
+        #swagger.description = 'Updates an examination timetable item'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Examination timetable item ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Examination timetable item update details',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Examination timetable item',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
+        }
+    */
+	validateUpdateExaminationTimetableItem,
+	asyncHandler(updateExaminationTimetableItem)
 );
 
 export { router as examinationTimetableItemRoutes };
