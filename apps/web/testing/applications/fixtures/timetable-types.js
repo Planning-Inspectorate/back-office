@@ -32,7 +32,7 @@ export const fixtureTimetableItems = [
 		caseId: 47,
 		examinationTypeId: 2,
 		name: 'Test',
-		description: '{"preText":"test","bulletPoints":[]}',
+		description: '{"preText":"test","bulletPoints":["ponintone", "pointtwo"]}',
 		date: '2023-10-10T00:00:00.000Z',
 		startDate: null,
 		startTime: '10:10',
