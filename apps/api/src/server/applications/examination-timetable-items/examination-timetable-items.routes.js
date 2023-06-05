@@ -6,9 +6,15 @@ import {
 	getExaminationTimetableItems,
 	publishExaminationTimetable,
 	deleteExaminationTimetableItem,
+	updateExaminationTimetableItem
+	deleteExaminationTimetableItem,
 	hasSubmissions
 } from './examination-timetable-items.controller.js';
-import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
+import {
+	validateCreateExaminationTimetableItem,
+	validateExistingExaminationTimetableItemId,
+	validateUpdateExaminationTimetableItem
+} from './examination-timetable-items.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 
 const router = createRouter();
@@ -113,6 +119,38 @@ router.delete(
         }
     */
 	asyncHandler(deleteExaminationTimetableItem)
+);
+
+router.patch(
+	'/:id/update',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items/{id}/update'
+        #swagger.description = 'Updates an examination timetable item'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Examination timetable item ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Examination timetable item update details',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Examination timetable item',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing examination timetable item" } }
+        }
+    */
+	validateExistingExaminationTimetableItemId,
+	validateUpdateExaminationTimetableItem,
+	asyncHandler(updateExaminationTimetableItem)
 );
 
 router.get(

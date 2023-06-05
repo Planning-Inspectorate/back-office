@@ -33,3 +33,24 @@ export const validateCreateExaminationTimetableItem = composeMiddleware(
 	body('endTime').optional({ nullable: true }),
 	validationErrorHandler
 );
+
+// validator for updating an Examination Timetable Item.  Can update single properties or multiple
+export const validateUpdateExaminationTimetableItem = composeMiddleware(
+	body('caseId')
+		.toInt()
+		.custom(validateExistingApplication)
+		.withMessage('Must be valid case id')
+		.optional({ nullable: true }),
+	body('examinationTypeId')
+		.toInt()
+		.custom(validateExistingExaminationTimetable)
+		.withMessage('Must be valid examination type')
+		.optional({ nullable: true }),
+	body('name').optional({ nullable: true }),
+	body('description').optional({ nullable: true }),
+	body('date').toDate().optional({ nullable: true }),
+	body('startDate').toDate().optional({ nullable: true }),
+	body('startTime').optional({ nullable: true }),
+	body('endTime').optional({ nullable: true }),
+	validationErrorHandler
+);
