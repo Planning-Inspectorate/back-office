@@ -54,8 +54,8 @@ export const timetableTemplatesSchema = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
  */
 export async function viewApplicationsCaseExaminationTimeTable(request, response) {
-	let timetableItems = await getCaseTimetableItems(+request.params.caseId);
-	timetableItems = timetableItems.map((timetableItem) => {
+	const timetableItems = await getCaseTimetableItems(+request.params.caseId);
+	const timetableItemsViewData = timetableItems.map((timetableItem) => {
 		return {
 			...timetableItem,
 			description: JSON.parse(timetableItem.description),
@@ -68,7 +68,7 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 	});
 	response.render(`applications/case/examination-timetable`, {
 		selectedPageType: 'examination-timetable',
-		timetableItems
+		timetableItems: timetableItemsViewData
 	});
 }
 
