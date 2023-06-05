@@ -1,12 +1,21 @@
 import { buildQueryString } from '../build-query-string.js';
 
 /**
+ * @typedef {Object} TableHeaderLink
+ * @property {boolean} isDescending
+ * @property {string} link
+ * @property {boolean} active
+ * @property {string} text
+ * @property {string} value
+ */
+
+/**
  *
  * @param {object} query
  * @param {string} text
  * @param {string} value
  * @param {string} url
- * @returns {{isDescending: boolean, link: string, active: boolean, text: string, value: string}}
+ * @returns {TableHeaderLink}
  */
 export const tableSortingHeaderLinks = (query, text, value, url) => {
 	const localQuery = JSON.parse(JSON.stringify(query));
