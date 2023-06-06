@@ -377,6 +377,7 @@ function generateProjectUpdate(caseId) {
 		'The application has been accepted for examination.',
 		'The application is expected to be re-submitted to the Planning Inspectorate.',
 		'The Registration and Relevant Representations form is available now.',
+		'The applicant has agreed that all application documents can be published as soon as practicable to help everyone become familiar with the detail of what is being proposed in this application. The Planning Inspectorate will therefore make the application documents available as soon as practicable. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.',
 		'The application has been withdrawn.'
 	];
 	const dates = oneDatePerMonth();

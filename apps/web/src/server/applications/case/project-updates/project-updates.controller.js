@@ -23,6 +23,7 @@ export async function projectUpdatesPage({ params, query }, res) {
 	if (sortBy) {
 		queryOptions.sortBy = sortBy;
 		if (!String(sortBy).startsWith('-')) {
+			// if ascending, append + for the API call
 			queryOptions.sortBy = '+' + sortBy;
 		}
 	}

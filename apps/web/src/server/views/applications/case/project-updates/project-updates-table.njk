@@ -1,4 +1,5 @@
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from "applications/components/excerpt.component.njk" import excerpt -%}
 
 {%- macro projectUpdatesTable(tableHeaders, projectUpdatesRows) -%}
 	{%- set headers = [] -%}
@@ -10,7 +11,7 @@
 	{%- for projectUpdate in projectUpdatesRows -%}
 		{%- set row = [
 			{ text: projectUpdate.datePublished },
-			{ html: projectUpdate.content },
+			{ html: excerpt(projectUpdate.content, linkText = 'full update') },
 			{ text: projectUpdate.emailed },
 			{ html: statusTag(projectUpdate.status) },
 			{ html: reviewLink(projectUpdate.id) }
