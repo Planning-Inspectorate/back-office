@@ -12,8 +12,8 @@ import {
 /** @typedef {import('@pins/api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
 /** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
-/** @typedef {import('@prisma/client').Appeal} Appeal */
-/** @typedef {import('@prisma/client').ListedBuildingDetails} ListedBuildingDetails */
+/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/api').Schema.ListedBuildingDetails} ListedBuildingDetails */
 
 /**
  * @param {boolean} affectsListedBuilding
@@ -65,13 +65,12 @@ const appealFormatter = {
 				appealSite: formatAddress(appeal.address),
 				appealStatus: appeal.appealStatus[0].status,
 				appealTimetable: {
-					finalEventsDueDate: appeal.appealTimetable?.finalEventsDueDate || null,
 					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
-						interestedPartyRepsDueDate: appeal.appealTimetable?.interestedPartyRepsDueDate || null
+						finalCommentReviewDate: appeal.appealTimetable?.finalCommentReviewDate || null
 					}),
-					questionnaireDueDate: appeal.appealTimetable?.questionnaireDueDate || null,
+					lpaQuestionnaireDueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null,
 					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
-						statementDueDate: appeal.appealTimetable?.statementDueDate || null
+						statementReviewDate: appeal.appealTimetable?.statementReviewDate || null
 					})
 				},
 				appealType: appeal.appealType?.type,
@@ -83,7 +82,7 @@ const appealFormatter = {
 				lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 				otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
 				planningApplicationReference: appeal.planningApplicationReference,
-				procedureType: appeal.lpaQuestionnaire?.procedureType.name || null,
+				procedureType: appeal.lpaQuestionnaire?.procedureType?.name || null,
 				siteVisit: {
 					visitDate: appeal.siteVisit?.visitDate || null
 				},
@@ -99,7 +98,7 @@ const appealFormatter = {
 						status: appeal.lpaQuestionnaire
 							? DOCUMENT_STATUS_RECEIVED
 							: DOCUMENT_STATUS_NOT_RECEIVED,
-						dueDate: appeal.appealTimetable?.questionnaireDueDate || null
+						dueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null
 					}
 				}
 			};
@@ -194,8 +193,8 @@ const appealFormatter = {
 					appealReference: 'APP/Q9999/D/21/725284'
 				}
 			],
-			procedureType: lpaQuestionnaire?.procedureType.name,
-			scheduleType: lpaQuestionnaire?.scheduleType.name,
+			procedureType: lpaQuestionnaire?.procedureType?.name,
+			scheduleType: lpaQuestionnaire?.scheduleType?.name,
 			sensitiveAreaDetails: lpaQuestionnaire?.sensitiveAreaDetails,
 			siteWithinGreenBelt: lpaQuestionnaire?.siteWithinGreenBelt,
 			statutoryConsulteesDetails: lpaQuestionnaire?.statutoryConsulteesDetails

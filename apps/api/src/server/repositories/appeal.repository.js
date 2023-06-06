@@ -164,11 +164,8 @@ const appealRepository = (function () {
 				where: { appealId: id },
 				update: data,
 				create: {
-					appealId: id,
-					finalEventsDueDate: data.finalEventsDueDate,
-					interestedPartyRepsDueDate: data.interestedPartyRepsDueDate,
-					questionnaireDueDate: data.questionnaireDueDate,
-					statementDueDate: data.statementDueDate
+					...data,
+					appealId: id
 				},
 				include: {
 					appeal: true

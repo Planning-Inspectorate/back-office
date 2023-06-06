@@ -53,8 +53,9 @@ export const viewAppealDetails = async (request, response) => {
 			inspector: null,
 			startedAt: appealDetails?.startedAt,
 			timetable: {
-				finalEventsDueDate: appealDetails?.appealTimetable.finalEventsDueDate,
-				questionnaireDueDate: appealDetails?.appealTimetable.questionnaireDueDate,
+				finalCommentReviewDate: appealDetails?.appealTimetable.finalCommentReviewDate,
+				lpaQuestionnaireDueDate: appealDetails?.appealTimetable.lpaQuestionnaireDueDate,
+				statementReviewDate: appealDetails?.appealTimetable.statementReviewDate,
 				siteVisitDueDate: appealDetails?.siteVisit?.visitDate
 			}
 		};

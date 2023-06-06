@@ -3685,21 +3685,17 @@
 				"appealTimetable": {
 					"type": "object",
 					"properties": {
-						"finalEventsDueDate": {
+						"finalCommentReviewDate": {
 							"type": "string",
-							"example": "2023-04-16T00:00:00.000Z"
+							"example": "2023-06-28T01:00:00.000Z"
 						},
-						"interestedPartyRepsDueDate": {
+						"lpaQuestionnaireDueDate": {
 							"type": "string",
-							"example": "2023-05-17T00:00:00.000Z"
+							"example": "2023-05-16T01:00:00.000Z"
 						},
-						"questionnaireDueDate": {
+						"statementReviewDate": {
 							"type": "string",
-							"example": "2023-06-18T00:00:00.000Z"
-						},
-						"statementDueDate": {
-							"type": "string",
-							"example": "2023-07-19T00:00:00.000Z"
+							"example": "2023-06-14T01:00:00.000Z"
 						}
 					}
 				},

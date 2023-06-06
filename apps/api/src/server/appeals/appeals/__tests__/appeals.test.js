@@ -38,10 +38,10 @@ const householdAppeal = {
 	appealTimetable: {
 		id: 1,
 		appealId: 1,
-		finalEventsDueDate: '2023-04-16T00:00:00.000Z',
-		interestedPartyRepsDueDate: '2023-05-17T00:00:00.000Z',
-		questionnaireDueDate: '2023-06-18T00:00:00.000Z',
-		statementDueDate: '2023-07-19T00:00:00.000Z'
+		finalCommentReviewDate: null,
+		issueDeterminationDate: null,
+		lpaQuestionnaireDueDate: '2023-05-16T01:00:00.000Z',
+		statementReviewDate: null
 	},
 	appealType: {
 		id: 2,
@@ -141,6 +141,14 @@ const householdAppeal = {
 const fullPlanningAppeal = {
 	...householdAppeal,
 	id: 2,
+	appealTimetable: {
+		id: 2,
+		appealId: 2,
+		finalCommentReviewDate: '2023-06-28T01:00:00.000Z',
+		issueDeterminationDate: null,
+		lpaQuestionnaireDueDate: '2023-05-16T01:00:00.000Z',
+		statementReviewDate: '2023-06-14T01:00:00.000Z'
+	},
 	appealType: {
 		id: 1,
 		type: 'full planning',
@@ -362,8 +370,7 @@ describe('Appeals', () => {
 					},
 					appealStatus: householdAppeal.appealStatus[0].status,
 					appealTimetable: {
-						finalEventsDueDate: householdAppeal.appealTimetable.finalEventsDueDate,
-						questionnaireDueDate: householdAppeal.appealTimetable.questionnaireDueDate
+						lpaQuestionnaireDueDate: householdAppeal.appealTimetable.lpaQuestionnaireDueDate
 					},
 					appealType: householdAppeal.appealType.type,
 					appellantName: householdAppeal.appellant.name,
@@ -381,7 +388,7 @@ describe('Appeals', () => {
 							dueDate: null
 						},
 						lpaQuestionnaire: {
-							dueDate: '2023-06-18T00:00:00.000Z',
+							dueDate: '2023-05-16T01:00:00.000Z',
 							status: 'received'
 						}
 					},
@@ -426,11 +433,9 @@ describe('Appeals', () => {
 					},
 					appealStatus: fullPlanningAppeal.appealStatus[0].status,
 					appealTimetable: {
-						finalEventsDueDate: fullPlanningAppeal.appealTimetable.finalEventsDueDate,
-						interestedPartyRepsDueDate:
-							fullPlanningAppeal.appealTimetable.interestedPartyRepsDueDate,
-						questionnaireDueDate: fullPlanningAppeal.appealTimetable.questionnaireDueDate,
-						statementDueDate: fullPlanningAppeal.appealTimetable.statementDueDate
+						finalCommentReviewDate: fullPlanningAppeal.appealTimetable.finalCommentReviewDate,
+						lpaQuestionnaireDueDate: fullPlanningAppeal.appealTimetable.lpaQuestionnaireDueDate,
+						statementReviewDate: fullPlanningAppeal.appealTimetable.statementReviewDate
 					},
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantName: fullPlanningAppeal.appellant.name,
@@ -448,7 +453,7 @@ describe('Appeals', () => {
 							dueDate: null
 						},
 						lpaQuestionnaire: {
-							dueDate: '2023-06-18T00:00:00.000Z',
+							dueDate: '2023-05-16T01:00:00.000Z',
 							status: 'received'
 						}
 					},
@@ -519,20 +524,19 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-05-05'
+					startedAt: '2023-05-09'
 				});
 
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
-							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
-							finalEventsDueDate: new Date('2023-08-01T01:00:00.000Z')
+							lpaQuestionnaireDueDate: new Date('2023-05-16T01:00:00.000Z')
 						}
 					})
 				);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
-						startedAt: '2023-05-05T01:00:00.000Z',
+						startedAt: '2023-05-09T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -541,7 +545,7 @@ describe('Appeals', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-05-05T01:00:00.000Z'
+					startedAt: '2023-05-09T01:00:00.000Z'
 				});
 			});
 
@@ -550,22 +554,21 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
 				const response = await request.patch(`/appeals/${fullPlanningAppeal.id}`).send({
-					startedAt: '2023-05-05'
+					startedAt: '2023-05-09'
 				});
 
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
-							questionnaireDueDate: new Date('2023-06-20T01:00:00.000Z'),
-							statementDueDate: new Date('2023-08-01T01:00:00.000Z'),
-							interestedPartyRepsDueDate: new Date('2023-09-13T01:00:00.000Z'),
-							finalEventsDueDate: new Date('2023-10-25T01:00:00.000Z')
+							finalCommentReviewDate: new Date('2023-06-28T01:00:00.000Z'),
+							lpaQuestionnaireDueDate: new Date('2023-05-16T01:00:00.000Z'),
+							statementReviewDate: new Date('2023-06-14T01:00:00.000Z')
 						}
 					})
 				);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
-						startedAt: '2023-05-05T01:00:00.000Z',
+						startedAt: '2023-05-09T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -574,7 +577,7 @@ describe('Appeals', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-05-05T01:00:00.000Z'
+					startedAt: '2023-05-09T01:00:00.000Z'
 				});
 			});
 
@@ -583,20 +586,19 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-11-13'
+					startedAt: '2023-12-18'
 				});
 
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
-							questionnaireDueDate: new Date('2023-12-27T01:00:00.000Z'),
-							finalEventsDueDate: new Date('2024-02-08T01:00:00.000Z')
+							lpaQuestionnaireDueDate: new Date('2023-12-27T01:00:00.000Z')
 						}
 					})
 				);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
-						startedAt: '2023-11-13T01:00:00.000Z',
+						startedAt: '2023-12-18T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -605,7 +607,7 @@ describe('Appeals', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-11-13T01:00:00.000Z'
+					startedAt: '2023-12-18T01:00:00.000Z'
 				});
 			});
 
@@ -614,20 +616,19 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-04-19'
+					startedAt: '2023-06-05'
 				});
 
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
-							questionnaireDueDate: new Date('2023-06-05T01:00:00.000Z'),
-							finalEventsDueDate: new Date('2023-07-17T01:00:00.000Z')
+							lpaQuestionnaireDueDate: new Date('2023-06-12T01:00:00.000Z')
 						}
 					})
 				);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
-						startedAt: '2023-04-19T01:00:00.000Z',
+						startedAt: '2023-06-05T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -636,7 +637,7 @@ describe('Appeals', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-04-19T01:00:00.000Z'
+					startedAt: '2023-06-05T01:00:00.000Z'
 				});
 			});
 
@@ -645,20 +646,19 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-04-13'
+					startedAt: '2023-05-22'
 				});
 
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
 						update: {
-							questionnaireDueDate: new Date('2023-05-30T01:00:00.000Z'),
-							finalEventsDueDate: new Date('2023-07-11T01:00:00.000Z')
+							lpaQuestionnaireDueDate: new Date('2023-05-30T01:00:00.000Z')
 						}
 					})
 				);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
-						startedAt: '2023-04-13T01:00:00.000Z',
+						startedAt: '2023-05-22T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -667,7 +667,7 @@ describe('Appeals', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-04-13T01:00:00.000Z'
+					startedAt: '2023-05-22T01:00:00.000Z'
 				});
 			});
 

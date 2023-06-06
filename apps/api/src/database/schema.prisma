@@ -53,13 +53,13 @@ model AppealType {
 
 /// AppealTimetable model
 model AppealTimetable {
-  id                         Int       @id @default(autoincrement())
-  appealId                   Int       @unique
-  finalEventsDueDate         DateTime
-  interestedPartyRepsDueDate DateTime?
-  questionnaireDueDate       DateTime
-  statementDueDate           DateTime?
-  appeal                     Appeal    @relation(fields: [appealId], references: [id])
+  id                      Int       @id @default(autoincrement())
+  appealId                Int       @unique
+  finalCommentReviewDate  DateTime?
+  issueDeterminationDate  DateTime?
+  lpaQuestionnaireDueDate DateTime?
+  statementReviewDate     DateTime?
+  appeal                  Appeal    @relation(fields: [appealId], references: [id])
 }
 
 /// AppealStatus model
@@ -109,21 +109,21 @@ model AppealDetailsFromAppellant {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                        Int                         @id @default(autoincrement())
-  reference                 String?
-  modifiedAt                DateTime                    @default(now())
-  createdAt                 DateTime                    @default(now())
-  description               String?
-  publishedAt               DateTime?
-  title                     String?
-  ApplicationDetails        ApplicationDetails?
-  CaseStatus                CaseStatus[]
-  folder                    Folder[]
-  gridReference             GridReference?
-  serviceCustomer           ServiceCustomer[]
-  Representation            Representation[]
-  ExaminationTimetableItem  ExaminationTimetableItem[]
-  document                  Document[]
+  id                       Int                        @id @default(autoincrement())
+  reference                String?
+  modifiedAt               DateTime                   @default(now())
+  createdAt                DateTime                   @default(now())
+  description              String?
+  publishedAt              DateTime?
+  title                    String?
+  ApplicationDetails       ApplicationDetails?
+  CaseStatus               CaseStatus[]
+  folder                   Folder[]
+  gridReference            GridReference?
+  serviceCustomer          ServiceCustomer[]
+  Representation           Representation[]
+  ExaminationTimetableItem ExaminationTimetableItem[]
+  document                 Document[]
 }
 
 /// ServiceCustomer model

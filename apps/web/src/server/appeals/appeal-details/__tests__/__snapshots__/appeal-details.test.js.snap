@@ -129,10 +129,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA Questionnaire due</span></a>
                                     </dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final events due</dt>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement review due</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final events due</span></a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Statement review due</span></a>
                                     </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comment review due</dt>
+                                    <dd                                     class=\\"govuk-summary-list__value\\"></dd>
+                                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final comment review due</span></a>
+                                        </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site visit</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
@@ -309,10 +314,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA Questionnaire due</span></a>
                                     </dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final events due</dt>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement review due</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final events due</span></a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Statement review due</span></a>
                                     </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comment review due</dt>
+                                    <dd                                     class=\\"govuk-summary-list__value\\"></dd>
+                                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final comment review due</span></a>
+                                        </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site visit</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
@@ -491,10 +501,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> LPA Questionnaire due</span></a>
                                     </dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final events due</dt>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Statement review due</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final events due</span></a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Statement review due</span></a>
                                     </dd>
+                                </div>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Final comment review due</dt>
+                                    <dd                                     class=\\"govuk-summary-list__value\\"></dd>
+                                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Final comment review due</span></a>
+                                        </dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site visit</dt>
                                     <dd class=\\"govuk-summary-list__value\\"></dd>
