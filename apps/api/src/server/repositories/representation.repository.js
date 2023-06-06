@@ -234,7 +234,6 @@ export const updateApplicationRepresentation = async (
 		AND: {
 			representationId
 		}
-		// representationId,
 	};
 
 	const whereIsRepresentative = {
