@@ -567,10 +567,9 @@ const document = {
 			},
 			appealStatus: 'awaiting_lpa_questionnaire',
 			appealTimetable: {
-				finalEventsDueDate: '2023-04-16T00:00:00.000Z',
-				interestedPartyRepsDueDate: '2023-05-17T00:00:00.000Z',
-				questionnaireDueDate: '2023-06-18T00:00:00.000Z',
-				statementDueDate: '2023-07-19T00:00:00.000Z'
+				finalCommentReviewDate: '2023-06-28T01:00:00.000Z',
+				lpaQuestionnaireDueDate: '2023-05-16T01:00:00.000Z',
+				statementReviewDate: '2023-06-14T01:00:00.000Z'
 			},
 			appealType: 'household',
 			appellantName: 'Fiona Burgess',

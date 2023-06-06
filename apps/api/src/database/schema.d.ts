@@ -96,10 +96,10 @@ export interface AppealType extends schema.AppealType {
 }
 
 export interface AppealTimetable extends schema.AppealTimetable {
-	finalEventsDueDate: Date | null;
-	interestedPartyRepsDueDate: Date | null;
-	questionnaireDueDate: Date | null;
-	statementDueDate: Date | null;
+	finalCommentReviewDate: Date | null;
+	issueDeterminationDate: Date | null;
+	lpaQuestionnaireDueDate: Date | null;
+	statementReviewDate: Date | null;
 }
 
 export type AppealTypeCode = APPEAL_TYPE_SHORTCODE_FPA | APPEAL_TYPE_SHORTCODE_HAS;
@@ -279,6 +279,7 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	hasSupplementaryPlanningDocuments: boolean | null;
 	hasTreePreservationOrder: boolean | null;
 	healthAndSafetyDetails: string | null;
+	id: number;
 	inCAOrrelatesToCA: boolean | null;
 	includesScreeningOption: boolean | null;
 	inquiryDays: number | null;

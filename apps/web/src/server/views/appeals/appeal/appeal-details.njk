@@ -57,7 +57,7 @@
 					text: "LPA Questionnaire due"
 				},
 				value: {
-					text: appeal.timetable.questionnaireDueDate | displayDate({ condensed: true }) if appeal.timetable.questionnaireDueDate else ''
+					text: appeal.timetable.lpaQuestionnaireDueDate | displayDate({ condensed: true }) if appeal.timetable.lpaQuestionnaireDueDate else ''
 				},
 				actions: {
 					items: [{
@@ -68,16 +68,30 @@
 				}
 			}, {
 				key: {
-					text: "Final events due"
+					text: "Statement review due"
 				},
 				value: {
-					text: appeal.timetable.finalEventsDueDate | displayDate({ condensed: true }) if appeal.timetable.finalEventsDueDate else ''
+					text: appeal.timetable.statementReviewDate | displayDate({ condensed: true }) if appeal.timetable.statementReviewDate else ''
 				},
 				actions: {
 					items: [{
 						href: "#",
 						text: "Change",
-						visuallyHiddenText: "Final events due"
+						visuallyHiddenText: "Statement review due"
+					}]
+				}
+			}, {
+				key: {
+					text: "Final comment review due"
+				},
+				value: {
+					text: appeal.timetable.finalCommentReviewDate | displayDate({ condensed: true }) if appeal.timetable.finalCommentReviewDate else ''
+				},
+				actions: {
+					items: [{
+						href: "#",
+						text: "Change",
+						visuallyHiddenText: "Final comment review due"
 					}]
 				}
 			}, {

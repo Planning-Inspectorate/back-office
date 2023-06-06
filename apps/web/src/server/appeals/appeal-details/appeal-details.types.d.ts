@@ -36,8 +36,9 @@ export type AppealLink = {
 };
 
 export type AppealTimetable = {
-	finalEventsDueDate: string | null;
-	questionnaireDueDate: string | null;
+	finalCommentReviewDate: string | null;
+	lpaQuestionnaireDueDate: string | null;
+	statementReviewDate: string | null;
 };
 
 export type AppealSiteVisit = {

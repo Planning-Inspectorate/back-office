@@ -4,25 +4,19 @@
 const config = {
 	timetable: {
 		FPA: {
-			questionnaireDueDate: {
-				daysFromStartDate: 30
+			lpaQuestionnaireDueDate: {
+				daysFromStartDate: 5
 			},
-			statementDueDate: {
-				daysFromStartDate: 60
+			statementReviewDate: {
+				daysFromStartDate: 25
 			},
-			interestedPartyRepsDueDate: {
-				daysFromStartDate: 90
-			},
-			finalEventsDueDate: {
-				daysFromStartDate: 120
+			finalCommentReviewDate: {
+				daysFromStartDate: 35
 			}
 		},
 		HAS: {
-			questionnaireDueDate: {
-				daysFromStartDate: 30
-			},
-			finalEventsDueDate: {
-				daysFromStartDate: 60
+			lpaQuestionnaireDueDate: {
+				daysFromStartDate: 5
 			}
 		}
 	}

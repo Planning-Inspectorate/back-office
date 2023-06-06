@@ -13,10 +13,9 @@ interface TimetableDeadline {
 interface TimetableConfig {
 	timetable: {
 		[key: string]: {
-			finalEventsDueDate: TimetableDeadline;
-			interestedPartyRepsDueDate?: TimetableDeadline;
-			questionnaireDueDate: TimetableDeadline;
-			statementDueDate?: TimetableDeadline;
+			finalCommentReviewDate?: TimetableDeadline;
+			lpaQuestionnaireDueDate: TimetableDeadline;
+			statementReviewDate?: TimetableDeadline;
 		};
 	};
 }
@@ -39,10 +38,9 @@ interface AppealSite {
 }
 
 interface AppealTimetable {
-	finalEventsDueDate: Date | null;
-	interestedPartyRepsDueDate?: Date | null;
-	questionnaireDueDate: Date | null;
-	statementDueDate?: Date | null;
+	finalCommentReviewDate?: Date | null;
+	lpaQuestionnaireDueDate: Date | null;
+	statementReviewDate?: Date | null;
 }
 
 interface RepositoryGetAllResultItem {
