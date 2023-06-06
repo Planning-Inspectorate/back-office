@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`excerpt.component should not truncate words when not strict 1`] = `
+"
+                <div class=\\"excerpt\\">
+            <div class=\\"excerpt-summary\\">
+                Quite...
+
+                <noscript>
+                    <details class=\\"govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" data-module=\\"govuk-details\\">
+  <summary class=\\"govuk-details__summary\\">
+    <span class=\\"govuk-details__summary-text\\">
+      Show content
+    </span>
+  </summary>
+  <div class=\\"govuk-details__text\\">
+    Quite short content, all will show
+  </div>
+</details>
+
+                </noscript>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
+                </p>
+            </div>
+
+            <div class=\\"excerpt-full display--none\\">
+                Quite short content, all will show
+
+                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Hide content</a>
+                </p>
+            <div>
+        </div>
+
+        "
+`;
+
+exports[`excerpt.component should render excerpt, truncated 1`] = `
+"
+                <div class=\\"excerpt\\">
+            <div class=\\"excerpt-summary\\">
+                Quite s...
+
+                <noscript>
+                    <details class=\\"govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" data-module=\\"govuk-details\\">
+  <summary class=\\"govuk-details__summary\\">
+    <span class=\\"govuk-details__summary-text\\">
+      Show content
+    </span>
+  </summary>
+  <div class=\\"govuk-details__text\\">
+    Quite short, first 7 only
+  </div>
+</details>
+
+                </noscript>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
+                </p>
+            </div>
+
+            <div class=\\"excerpt-full display--none\\">
+                Quite short, first 7 only
+
+                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Hide content</a>
+                </p>
+            <div>
+        </div>
+
+        "
+`;
+
+exports[`excerpt.component should show all content when short 1`] = `
+"
+                Quite short content, all will show
+
+        "
+`;
