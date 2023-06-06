@@ -37,6 +37,26 @@ export const fixtureTimetableItems = [
 		startDate: null,
 		startTime: '10:10',
 		endDate: null,
-		endTime: '10:10'
+		endTime: '10:10',
+		ExaminationTimetableType: {
+			id: 2,
+			name: 'Deadline'
+		}
+	},
+	{
+		id: 2,
+		caseId: 47,
+		examinationTypeId: 3,
+		name: 'Test',
+		description: '{"preText":"test","bulletPoints":["ponintone", "pointtwo"]}',
+		date: '2023-10-10T00:00:00.000Z',
+		startDate: null,
+		startTime: '10:10',
+		endDate: null,
+		endTime: '10:10',
+		ExaminationTimetableType: {
+			id: 3,
+			name: 'Procedural Deadline (Pre-Examination)'
+		}
 	}
 ];
