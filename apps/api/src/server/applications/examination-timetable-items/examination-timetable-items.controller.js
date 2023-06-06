@@ -15,7 +15,7 @@ export const getExaminationTimetableItems = async (_request, response) => {
 		const examinationTimetableItems = await exminationTimetableItemsRepository.getByCaseId(+caseId);
 		response.send(examinationTimetableItems);
 	} catch (error) {
-		console.log(error);
+		logger.error(error);
 		throw error;
 	}
 };
@@ -83,7 +83,6 @@ export const createExaminationTimetableItem = async (_request, response) => {
 const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId) => {
 	if (!examinationTimetableItem?.description) return;
 	const description = JSON.parse(examinationTimetableItem?.description);
-	console.log(description);
 	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
 		logger.info('No bulletpoints, skip creating sub folders');
 		return;
@@ -113,7 +112,6 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 			parentFolderId: parentFolderId,
 			displayOrder: 100
 		};
-		console.log(subFolder);
 		createFolderPromise.push(folderRepository.createFolder(subFolder));
 	});
 

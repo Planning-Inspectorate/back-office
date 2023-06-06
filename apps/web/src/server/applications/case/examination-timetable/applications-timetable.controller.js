@@ -4,7 +4,6 @@ import {
 	getCaseTimetableItemTypes,
 	getCaseTimetableItems
 } from './applications-timetable.service.js';
-import { format } from 'date-fns';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
@@ -58,12 +57,7 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 	const timetableItemsViewData = timetableItems.map((timetableItem) => {
 		return {
 			...timetableItem,
-			description: JSON.parse(timetableItem.description),
-			startDate: timetableItem.startDate
-				? format(new Date(timetableItem.startDate), 'dd MMM yyyy')
-				: null,
-			date: format(new Date(timetableItem.date), 'dd MMM yyyy'),
-			heading: `${format(new Date(timetableItem.date), 'dd MMM yyyy')} - ${timetableItem.name}`
+			description: JSON.parse(timetableItem.description)
 		};
 	});
 	response.render(`applications/case/examination-timetable`, {

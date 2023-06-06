@@ -44,13 +44,13 @@
 						value: { text: timetableItem.name }
 					}, {
 						key: { text: "Start Date" },
-						value: { text: timetableItem.startDate }
+						value: { text: timetableItem.startDate | displayDate({ condensed: true }) if timetableItem.startDate else '' }
 					}, {
 						key: { text: "Start Time" },
 						value: { text: timetableItem.startTime }
 					}, {
 						key: { text: "End Date" },
-						value: { text: timetableItem.date }
+						value: { text: timetableItem.date | displayDate({ condensed: true }) if timetableItem.date else '' }
 					}, {
 						key: { text: "End Time" },
 						value: { text: timetableItem.endTime }
@@ -59,8 +59,9 @@
 						value: { html: descriptionHtml }
 					}]
 				%}
+				{% set heading = [timetableItem.date | displayDate({ condensed: true }) if timetableItem.date else '', ' - ', timetableItem.name] | join %}
 				{% set row = {
-					heading: { text: timetableItem.heading },
+					heading: { text: heading },
 					content: { html: govukSummaryList({ rows: tableRows }) }
 				} %}
 				{% set accordionItems = accordionItems.concat([row]) %}
