@@ -22,9 +22,9 @@
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
 	<div>
-        <h3 class="govuk-heading-m">Pre-Examination</h3>
+		{% set accordionItemsExamination = [] %}
+		{% set accordionItemsPreExamination = [] %}
 		{% if timetableItems|length %}
-			{% set accordionItems = [] %}
 			{% for timetableItem in timetableItems %}
 				{% set descriptionHtml %}
 					<p class="govuk-body">{{timetableItem.description.preText}}</p>
@@ -64,21 +64,28 @@
 					heading: { text: heading },
 					content: { html: govukSummaryList({ rows: tableRows }) }
 				} %}
-				{% set accordionItems = accordionItems.concat([row]) %}
+				{% if (timetableItem.ExaminationTimetableType.name == 'Procedural Deadline (Pre-Examination)') %}
+					{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
+				{% else %}
+					{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
+				{% endif %}
 			{% endfor %}
+		{% endif %}
+		<h3 class="govuk-heading-m">Pre-Examination</h3>
+		{% if accordionItemsPreExamination|length %}
 			{{ govukAccordion({
 				id: "accordion-default",
-				items: accordionItems
+				items: accordionItemsPreExamination
 			}) }}
 		{% endif %}
 	</div>
 
 	<div>
         <h3 class="govuk-heading-m">Examination</h3>
-		{% if timetableItems|length %}
+		{% if accordionItemsExamination|length %}
 			{{ govukAccordion({
 				id: "accordion-default",
-				items: accordionItems
+				items: accordionItemsExamination
 			}) }}
 		{% endif %}
     </div>
