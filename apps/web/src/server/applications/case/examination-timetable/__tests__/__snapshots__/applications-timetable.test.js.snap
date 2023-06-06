@@ -1111,45 +1111,6 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <div>
                 <h3 class=\\"govuk-heading-m\\">Pre-Examination</h3>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-default\\">
-                    <div class=\\"govuk-accordion__section\\">
-                        <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-default-heading-1\\"> 10 Oct 2023 - Test</span></h2>
-                        </div>
-                        <div id=\\"accordion-default-content-1\\" class=\\"govuk-accordion__section-content\\"
-                        aria-labelledby=\\"accordion-default-heading-1\\">
-                            <dl class=\\"govuk-summary-list\\">
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">Test</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">
-                                        <p class=\\"govuk-body\\">test</p>
-                                        <ul class='govuk-list govuk-list--bullet'>
-                                            <li>ponintone</li>
-                                            <li>pointtwo</li>
-                                        </ul>
-                                    </dd>
-                                </div>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div>
                 <h3 class=\\"govuk-heading-m\\">Examination</h3>
