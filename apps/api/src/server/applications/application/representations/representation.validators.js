@@ -3,9 +3,12 @@ import { body } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 
 const isStrictTypeBoolean = async (value) => {
-	if (typeof value !== 'boolean') {
-		if (value !== null) throw new TypeError(`Must be a boolean or null`);
-	}
+	if (typeof value !== 'boolean') throw new TypeError(`Must be a boolean or null`);
+};
+
+const isStrictTypeBooleanOrNull = async (value) => {
+	if (typeof value !== 'boolean' && value !== null)
+		throw new TypeError(`Must be a boolean or null`);
 };
 
 const statuses = [
@@ -55,7 +58,7 @@ const representedValidations = () => {
 				.optional()
 				.isIn(contactTypes)
 				.withMessage(`Must be a valid type: ${contactTypes}`),
-			body(`${el}.under18`).optional().optional().custom(isStrictTypeBoolean)
+			body(`${el}.under18`).optional().custom(isStrictTypeBooleanOrNull)
 		];
 	});
 	return [...arrs];

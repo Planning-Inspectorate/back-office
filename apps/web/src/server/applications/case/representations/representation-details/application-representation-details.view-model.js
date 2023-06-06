@@ -41,6 +41,13 @@ import { format } from 'date-fns';
  */
 
 /**
+ *
+ * @param {boolean|null}under18
+ * @return {string}
+ */
+const formatUnder18TypesToString = (under18) =>
+	under18 === null ? (under18 ? 'Yes' : 'No') : 'Unknown';
+/**
  * @param {object} representation
  * @param {Contact[]} representation.contacts
  * @returns {object[]}
@@ -54,7 +61,7 @@ const getContactDetailsByContactType = ({ contacts }) => {
 			? contact.organisationName
 			: `${contact.firstName} ${contact.lastName}`,
 		jobTitle: contact.jobTitle || '',
-		under18: contact.under18 ? 'Yes' : 'No',
+		under18: formatUnder18TypesToString(contact.under18),
 		email: contact.email || '',
 		phoneNumber: contact.phoneNumber || '',
 		preferredContact: contact.contactMethod || '',

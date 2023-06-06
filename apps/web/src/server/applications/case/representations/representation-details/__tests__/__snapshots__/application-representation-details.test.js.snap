@@ -50,7 +50,7 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                         </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
-                    <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <dd class=\\"govuk-summary-list__value\\">Unknown</dd>
                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"edit/preferred-contact\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
                     </dd>
                 </div>
@@ -91,7 +91,7 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
                     </dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Under 18</dt>
-                    <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <dd class=\\"govuk-summary-list__value\\">Unknown</dd>
                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> under 18</span></a>
                     </dd>
                 </div>
