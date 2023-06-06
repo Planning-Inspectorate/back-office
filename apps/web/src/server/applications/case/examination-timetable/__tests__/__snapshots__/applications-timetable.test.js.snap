@@ -1133,6 +1133,10 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
                                     <dd class=\\"govuk-summary-list__value\\">
                                         <p class=\\"govuk-body\\">test</p>
+                                        <ul class='govuk-list govuk-list--bullet'>
+                                            <li>ponintone</li>
+                                            <li>pointtwo</li>
+                                        </ul>
                                     </dd>
                                 </div>
                             </dl>
@@ -1171,6 +1175,10 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
                                     <dd class=\\"govuk-summary-list__value\\">
                                         <p class=\\"govuk-body\\">test</p>
+                                        <ul class='govuk-list govuk-list--bullet'>
+                                            <li>ponintone</li>
+                                            <li>pointtwo</li>
+                                        </ul>
                                     </dd>
                                 </div>
                             </dl>
