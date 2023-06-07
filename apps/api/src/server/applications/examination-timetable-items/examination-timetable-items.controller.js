@@ -83,11 +83,6 @@ export const createExaminationTimetableItem = async (_request, response) => {
 const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId) => {
 	if (!examinationTimetableItem?.description) return;
 	const description = JSON.parse(examinationTimetableItem?.description);
-	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
-		logger.info('No bulletpoints, skip creating sub folders');
-		return;
-	}
-
 	const categoryType = await examinationTimetableTypesRepository.getById(
 		examinationTimetableItem.examinationTypeId
 	);
@@ -105,6 +100,21 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	 * @type {Promise<(import('@pins/api').Schema.Folder |null)>[]}
 	 */
 	const createFolderPromise = [];
+
+	// create Other sub folder
+	const otherFolder = {
+		displayNameEn: 'Other',
+		caseId: examinationTimetableItem.caseId,
+		parentFolderId: parentFolderId,
+		displayOrder: 100
+	};
+	createFolderPromise.push(folderRepository.createFolder(otherFolder));
+
+	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
+		logger.info('No bulletpoints');
+	}
+
+	// create sub folder for each bullet points.
 	description.bulletPoints.forEach((/** @type {String} */ folderName) => {
 		const subFolder = {
 			displayNameEn: folderName,
