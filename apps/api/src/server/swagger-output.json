@@ -1793,6 +1793,38 @@
 					}
 				}
 			}
+		},
+		"/applications/examination-timetable-items/{id}/update": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates an examination timetable item",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Examination timetable item update details",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -2311,11 +2343,11 @@
 					},
 					"name": {
 						"type": "string",
-						"example": "Exmaination Timetable Item"
+						"example": "Examination Timetable Item"
 					},
 					"description": {
 						"type": "string",
-						"example": "Exmaination Timetable Item Description"
+						"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
 					},
 					"date": {
 						"type": "string",
@@ -2349,11 +2381,11 @@
 				},
 				"name": {
 					"type": "string",
-					"example": "Exmaination Timetable Item"
+					"example": "Examination Timetable Item"
 				},
 				"description": {
 					"type": "string",
-					"example": "Exmaination Timetable Item Description"
+					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
 				},
 				"date": {
 					"type": "string",
@@ -2390,11 +2422,11 @@
 				},
 				"name": {
 					"type": "string",
-					"example": "Exmaination Timetable Item"
+					"example": "Examination Timetable Item"
 				},
 				"description": {
 					"type": "string",
-					"example": "Exmaination Timetable Item Description"
+					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
 				},
 				"date": {
 					"type": "string",
