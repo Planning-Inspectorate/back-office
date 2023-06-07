@@ -184,8 +184,9 @@ const document = {
 				id: 1,
 				caseId: 1,
 				examinationTypeId: 1,
-				name: 'Exmaination Timetable Item',
-				description: 'Exmaination Timetable Item Description',
+				name: 'Examination Timetable Item',
+				description:
+					'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
 				date: '2023-02-27T10:00:00Z',
 				startDate: '2023-02-27T10:00:00Z',
 				published: false,
@@ -197,8 +198,9 @@ const document = {
 		ExaminationTimetableItemRequestBody: {
 			caseId: 1,
 			examinationTypeId: 1,
-			name: 'Exmaination Timetable Item',
-			description: 'Exmaination Timetable Item Description',
+			name: 'Examination Timetable Item',
+			description:
+				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
 			date: '2023-02-27T10:00:00Z',
 			published: false,
 			folderId: 134,
@@ -210,8 +212,9 @@ const document = {
 			id: 1,
 			caseId: 1,
 			examinationTypeId: 1,
-			name: 'Exmaination Timetable Item',
-			description: 'Exmaination Timetable Item Description',
+			name: 'Examination Timetable Item',
+			description:
+				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
 			date: '2023-02-27T10:00:00Z',
 			published: false,
 			folderId: 134,
