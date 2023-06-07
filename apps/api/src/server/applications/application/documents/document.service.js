@@ -5,6 +5,10 @@ import * as documentVerisonRepository from '../../../repositories/document-metad
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
+import { eventClient } from '../../../infrastructure/event-client.js';
+import { buildNsipDocumentPayload } from './document.js';
+import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
 
 /** @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails */
 
@@ -368,12 +372,16 @@ export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) =
  * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
  */
 export const publishNsipDocuments = async (documentVersionIds) => {
-	await documentVerisonRepository.updateAll(documentVersionIds, {
+	const publishedDocuments = await documentVerisonRepository.updateAll(documentVersionIds, {
 		publishedStatus: 'publishing',
 		publishedStatusPrev: 'ready_to_publish'
 	});
 
-	// TODO: Enqueue to the publish document queue
+	await eventClient.sendEvents(
+		NSIP_DOCUMENT,
+		publishedDocuments.map(buildNsipDocumentPayload),
+		EventType.Update
+	);
 
 	return documentVersionIds.map(({ documentGuid }) => ({
 		documentGuid,

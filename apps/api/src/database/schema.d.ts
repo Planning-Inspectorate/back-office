@@ -248,7 +248,8 @@ export interface DocumentVersion extends schema.DocumentVersion {}
 
 export interface DocumentWithSubTables extends schema.Document {
 	folder: Folder;
-	documentVersion: DocumentVersion;
+	case: Case;
+	latestDocumentVersion: DocumentVersion;
 }
 
 export interface DocumentVersionWithDocument extends DocumentVersion {

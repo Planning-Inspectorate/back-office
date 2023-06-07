@@ -143,12 +143,27 @@ export const update = (documentGuid, { version = 1, ...documentDetails }) => {
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
  * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {Promise<import('apps/api/src/database/schema.js').DocumentVersionWithDocument[]>}
  */
 export const updateAll = async (documentVersionIds, documentDetails) => {
-	for (const { documentGuid, version } of documentVersionIds)
-		await databaseConnector.documentVersion.update({
-			where: { documentGuid_version: { documentGuid, version } },
-			data: documentDetails
-		});
+	const results = [];
+
+	for (const { documentGuid, version } of documentVersionIds) {
+		results.push(
+			await databaseConnector.documentVersion.update({
+				where: { documentGuid_version: { documentGuid, version } },
+				data: documentDetails,
+				include: {
+					Document: {
+						include: {
+							case: true
+						}
+					}
+				}
+			})
+		);
+	}
+
+	// @ts-ignore
+	return results;
 };
