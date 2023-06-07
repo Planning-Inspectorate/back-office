@@ -167,7 +167,7 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(3);
+		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(4);
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
 		});
