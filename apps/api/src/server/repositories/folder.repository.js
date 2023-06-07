@@ -310,10 +310,7 @@ const defaultCaseFolders = [
 					displayNameEn: 'Examination timetable',
 					displayOrder: 300,
 					childFolders: {
-						create: [
-							{ displayNameEn: 'Preliminary meetings', displayOrder: 100 },
-							{ displayNameEn: 'Site inspections', displayOrder: 200 }
-						]
+						create: [{ displayNameEn: 'Other', displayOrder: 100 }]
 					}
 				},
 				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
