@@ -12,6 +12,8 @@ const application1 = applicationFactoryForTests({
 	caseStatus: 'pre-application'
 });
 
+const { eventClient } = await import('../../../../infrastructure/event-client.js');
+
 /**
  * @type {any[]}
  */
@@ -153,15 +155,16 @@ describe('Ready-to-publish-documents', () => {
 describe('Publish documents', () => {
 	test('publishes selected documents on a case from ready-to-publish queue', async () => {
 		// GIVEN
-		const documentResponsePublished = {
-			caseId: 1,
-			documentGuid: 'document_to_publish_guid',
-			name: 'doc to publish',
-			description: 'doc with all required fields for publishing',
-			author: 'David',
-			filter1: 'Filter Category 1',
-			redactedStatus: 'redacted',
-			publishedStatus: 'publishing'
+		const updatedPublishedDocument = {
+			Document: {
+				guid: 'document_to_publish_guid'
+			},
+			version: 1,
+			originalFilename: 'original_filename.pdf',
+			fileName: 'filename.pdf',
+			size: 23452,
+			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
+			documentURI: 'https://published/en010120/filename.pdf'
 		};
 
 		databaseConnector.document.findMany.mockResolvedValue([
@@ -174,7 +177,7 @@ describe('Publish documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
-		databaseConnector.documentVersion.update.mockResolvedValue(documentResponsePublished);
+		databaseConnector.documentVersion.update.mockResolvedValue(updatedPublishedDocument);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
@@ -182,6 +185,16 @@ describe('Publish documents', () => {
 		});
 
 		// THEN
+		const expectedEventPayload = {
+			documentId: 'document_to_publish_guid',
+			version: '1',
+			filename: 'filename.pdf',
+			originalFilename: 'original_filename.pdf',
+			size: 23452,
+			documentURI: 'https://published/en010120/filename.pdf',
+			dateCreated: '2023-03-26T00:00:00.000Z'
+		};
+
 		expect(response.body).toEqual([
 			{
 				guid: 'document_to_publish_guid',
@@ -189,6 +202,12 @@ describe('Publish documents', () => {
 			}
 		]);
 		expect(response.status).toEqual(200);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-document',
+			[expectedEventPayload],
+			'Update'
+		);
 	});
 
 	test('throws error if document missing properties required publishing', async () => {
