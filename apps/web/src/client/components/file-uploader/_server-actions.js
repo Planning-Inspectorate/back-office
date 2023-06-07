@@ -4,6 +4,7 @@
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
 
+import { BlobServiceClient } from '@azure/storage-blob';
 import { BlobStorageClient } from '@pins/blob-storage-client';
 
 /**
@@ -99,8 +100,11 @@ const serverActions = (uploadForm) => {
 	 */
 	const uploadFiles = async (fileList, uploadInfo) => {
 		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
+		const blobEmulatorUrl = uploadForm.dataset.blobEmulatorUrl ?? '';
 
-		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
+		const blobStorageClient = isEmulatedStorage(blobEmulatorUrl)
+			? createStorageEmulatorClient(blobEmulatorUrl)
+			: BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
 		for (const documentUploadInfo of documents) {
 			const fileToUpload = [...fileList].find(
@@ -160,7 +164,30 @@ const serverActions = (uploadForm) => {
 		return response;
 	};
 
-	return { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB };
+	/**
+	 * Creates an anonymous storage client for a local emulator
+	 *
+	 * @param {string} blobStoreUrl
+	 * @returns {BlobStorageClient}
+	 */
+	const createStorageEmulatorClient = (blobStoreUrl) =>
+		new BlobStorageClient(new BlobServiceClient(blobStoreUrl));
+
+	/**
+	 * Helper function to check if the destination of an upload info is a local emulator
+	 *
+	 * @param {string} blobStoreUrl
+	 * @returns {boolean}
+	 */
+	const isEmulatedStorage = (blobStoreUrl) => blobStoreUrl !== '';
+
+	return {
+		getUploadInfoFromInternalDB,
+		uploadFiles,
+		getVersionUploadInfoFromInternalDB,
+		isEmulatedStorage,
+		createStorageEmulatorClient
+	};
 };
 
 export default serverActions;

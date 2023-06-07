@@ -205,13 +205,33 @@ docker-compose up
 
 then visit `http://localhost:15672/` to manage RabbitMQ using the username `guest` and password `guest`.
 
+
 ### Setting up Azure Blob Store emulator locally
 
-Run the following command:
+To run a local emulator, there are a number of required steps. In order to successfully write to the emulator, it is necessary to configure it over https, using a self-signed certificate, and with a Shared Access Signature (SAS).
+
+The first step is to create a local self-signed certificate, using OS built-in tools, or using tools such as `mkcert (https://github.com/FiloSottile/mkcert)`.
+
+Once the certificate is created, it needs to be accessible by docker, in order to start the Azurite emulator with https.
+
+The following command will create a docker container running the emulator, mapping a local folder containing the certificate (in the example below, the command is run from the folder containing the certificate `localhost+3.pem`, which is mapped and accessible from the docker container locally in the `/workspace` folder):
 
 ```shell
-docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --name blob-store-test -d mcr.microsoft.com/azure-storage/azurite:latest
+docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 -v ./:/workspace --name pins_azurite -d mcr.microsoft.com/azure-storage/azurite azurite --silent --blobHost 0.0.0.0 --cert /workspace/localhost+3.pem --key /workspace/localhost+3-key.pem --oauth basic --skipApiVersionCheck
 ```
+
+Once the emulator is running, it can be accessed by a client such as `Microsoft Azure Storage Explorer`. The self-signed certificate will not be trusted by default, so it can be added through the `Microsoft Azure Storage Explorer` edit menu; alternatively, the client can be started with the `--ignore-certificate-errors` flag.
+
+The client will be invaluable to allow the creation of the `document-service-uploads` blob container (where all the files are stored), and for creating a SAS over that container, which will be required to connect the application. The SAS url (in the format of `https://127.0.0.1:10000/devstoreaccount1/document-service-uploads?sv=2018-03-28&st=2023-06-02T12%3A00%3A42Z&se=2027-01-03T13%3A00%3A00Z&sr=c&sp=rwl&sig=yO2DcTNPhe40gZORzH3TGJ%2FUa%2FvPBfkSXHBJI3g%2FLQI%3D&api-version=2021-10-04`)
+
+Next step is to configure the application to use the emulator. That is achieved by adding the following to `./apps/web/.env.local`:
+
+`AZURE_BLOB_STORE_HOST=https://127.0.0.1:10000/`
+`AZURE_BLOB_EMULATOR_SAS_HOST=<the SAS url obtained previously>`
+
+Additionally, the `./apps/document-storage` environment config, needs also the `AZURE_BLOB_STORE_HOST=https://127.0.0.1:10000/` key.
+
+
 
 ## Docker
 

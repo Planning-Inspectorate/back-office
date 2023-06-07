@@ -6,6 +6,8 @@ import {
 	getCaseFolder
 } from './documentation/applications-documentation.service.js';
 
+import config from '@pins/web/environment/config.js';
+
 /**
  * @typedef {object} ApplicationCaseLocals
  * @property {number} caseId
@@ -60,6 +62,9 @@ export const registerFolder = async ({ params }, response, next) => {
 
 	// get the folderTree for breadcrumbs
 	response.locals.breadcrumbItems = await buildBreadcrumbItems(caseId, folderId);
+
+	// register the blob storage emulator, if configured
+	response.locals.blobEmulatorSasUrl = config.blobEmulatorSasUrl;
 
 	next();
 };

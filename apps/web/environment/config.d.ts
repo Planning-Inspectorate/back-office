@@ -5,6 +5,7 @@ export interface EnvironmentConfig {
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
 	blobStorageUrl: string;
+	blobEmulatorSasUrl: string;
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;

@@ -13,6 +13,7 @@ import { getCase } from './common/services/case.service.js';
  * @property {DomainType} domainType
  * @property {string} serviceName - The name of the service to be displayed in the page header.
  * @property {string} serviceUrl - The root url of the service.
+ * @property {string} sasBlobUrl - Indicates if using a local emulator with SAS connection string.
  */
 
 /**

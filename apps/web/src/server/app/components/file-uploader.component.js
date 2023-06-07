@@ -1,5 +1,6 @@
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
+import config from '@pins/web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
@@ -53,7 +54,10 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const uploadInfo = await createNewDocument(caseId, body);
 	const { documents } = uploadInfo;
 
-	const accessToken = await getActiveDirectoryAccessToken(session);
+	let accessToken = null;
+	if (!config.blobEmulatorSasUrl) {
+		accessToken = await getActiveDirectoryAccessToken(session);
+	}
 
 	uploadInfo.documents = documents.map((document) => {
 		const fileToUpload = body.find(

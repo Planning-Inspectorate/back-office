@@ -25,14 +25,14 @@ export async function getAllDocuments(request, response) {
 export async function uploadDocument(request, response) {
 	await blobStoreService.uploadBlob(
 		{
-			type: request.query.typ,
-			id: request.query.id
+			type: request.body.type,
+			id: request.body.id
 		},
 		{
 			documentType: request.body.documentType
 		},
 		{
-			originalName: request.file.originalName,
+			originalName: request.file.originalname,
 			content: request.file.buffer,
 			contentType: 'application/json'
 		}
