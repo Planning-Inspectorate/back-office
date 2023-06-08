@@ -228,7 +228,10 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
  * @returns {{key: {text: string}, value: {html: string}}[]}
  */
 const getCheckYourAnswersRows = (body) => {
-	const { description, name, itemTypeName } = body;
+	const { description, name, itemTypeName, templateType } = body;
+
+	const shouldShowField = (/** @type {string} */ fieldName) =>
+		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
 	const date = dateString(body['date.year'], body['date.month'], body['date.day']);
 	const startDate = dateString(
@@ -248,11 +251,11 @@ const getCheckYourAnswersRows = (body) => {
 	const rowsItems = [
 		{ key: 'Item type', value: itemTypeName },
 		{ key: 'Item name', value: name },
-		...(date ? [{ key: 'Date', value: date }] : []),
-		...(startDate ? [{ key: 'Start date', value: startDate }] : []),
-		...(endDate ? [{ key: 'End date', value: endDate }] : []),
-		...(startTime ? [{ key: 'Start time', value: startTime }] : []),
-		...(endTime ? [{ key: 'End time', value: endTime }] : []),
+		...(shouldShowField('date') ? [{ key: 'Date', value: date || '' }] : []),
+		...(shouldShowField('startDate') ? [{ key: 'Start date', value: startDate || '' }] : []),
+		...(shouldShowField('endDate') ? [{ key: 'End date', value: endDate || '' }] : []),
+		...(shouldShowField('startTime') ? [{ key: 'Start time', value: startTime || '' }] : []),
+		...(shouldShowField('endTime') ? [{ key: 'End time', value: endTime || '' }] : []),
 		{
 			key: 'Timetable item description (optional)',
 			value: (description || '').replace(/\*/g, '&middot;').replace(/\n/g, '<br />')

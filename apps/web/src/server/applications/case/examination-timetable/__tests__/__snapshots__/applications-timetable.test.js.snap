@@ -1256,6 +1256,9 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
                     <dd class=\\"govuk-summary-list__value\\">01:02</dd>
                 </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End time</dt>
+                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Timetable item description (optional)</dt>
                     <dd                     class=\\"govuk-summary-list__value\\">Some text with
                         <br>&middot; one point
