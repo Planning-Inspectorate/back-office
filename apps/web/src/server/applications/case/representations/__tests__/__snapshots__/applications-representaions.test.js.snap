@@ -99,7 +99,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <div class=\\"govuk-grid-column-one-half\\">
                 <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
             </div>
-            <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"govuk-grid-column-one-half text-align--right\\">
                 <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
                     <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
                         </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
@@ -257,7 +257,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <div class=\\"govuk-grid-column-one-half\\">
                 <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
             </div>
-            <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"govuk-grid-column-one-half text-align--right\\">
                 <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
                     <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
                         </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
