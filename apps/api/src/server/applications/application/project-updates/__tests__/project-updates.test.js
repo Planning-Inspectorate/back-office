@@ -104,15 +104,15 @@ describe('project-updates', () => {
 				}
 			},
 			{
-				name: 'validates pageNumber params',
+				name: 'validates page params',
 				id: 1,
-				query: 'pageNumber=abc',
+				query: 'page=abc',
 				caseEntry: { id: 1 },
 				want: {
 					status: 400,
 					body: {
 						errors: {
-							pageNumber: ERROR_MUST_BE_NUMBER
+							page: ERROR_MUST_BE_NUMBER
 						}
 					}
 				}
@@ -120,7 +120,7 @@ describe('project-updates', () => {
 			{
 				name: 'validates pagination params',
 				id: 1,
-				query: 'pageNumber=2&pageSize=23',
+				query: 'page=2&pageSize=23',
 				caseEntry: { id: 1 },
 				updates: [],
 				totalUpdates: 0,
