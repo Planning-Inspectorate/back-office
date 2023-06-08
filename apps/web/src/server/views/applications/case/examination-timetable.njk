@@ -28,7 +28,7 @@
 			{% for timetableItem in timetableItems %}
 				{% set descriptionHtml %}
 					<p class="govuk-body">{{timetableItem.description.preText}}</p>
-					{% if timetableItem.description.bulletPoints | length > 1%}
+					{% if timetableItem.description.bulletPoints |length %}
 						<ul class='govuk-list govuk-list--bullet'>
 							{% for bulletPoint in timetableItem.description.bulletPoints %}
 								<li>{{bulletPoint}}</li>
