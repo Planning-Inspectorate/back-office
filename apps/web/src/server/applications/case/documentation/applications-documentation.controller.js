@@ -240,7 +240,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		return container;
 	});
 
-	const { errors: apiErrors, items: publishedItems = null } = validationErrors
+	const { errors: apiErrors, documents: publishedItems = null } = validationErrors
 		? { errors: validationErrors }
 		: await publishCaseDocumentationFiles(caseId, items);
 
