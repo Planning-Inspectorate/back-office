@@ -471,7 +471,8 @@ describe('Representation repository', () => {
 									addressLine2: true,
 									town: true,
 									county: true,
-									postcode: true
+									postcode: true,
+									country: true
 								}
 							}
 						}
@@ -546,7 +547,8 @@ describe('Representation repository', () => {
 									addressLine2: true,
 									town: true,
 									county: true,
-									postcode: true
+									postcode: true,
+									country: true
 								}
 							}
 						}

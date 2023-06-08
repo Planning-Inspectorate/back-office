@@ -117,7 +117,8 @@ export const getById = async (id, caseId) => {
 							addressLine2: true,
 							town: true,
 							county: true,
-							postcode: true
+							postcode: true,
+							country: true
 						}
 					}
 				}

@@ -24,7 +24,8 @@ const serviceCustomer = {
 		addressLine2: 'Addr Line 2',
 		town: 'Town',
 		county: 'County',
-		postcode: 'Postcode'
+		postcode: 'Postcode',
+		country: 'Country'
 	}
 };
 

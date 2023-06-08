@@ -13,7 +13,8 @@ export function createAddress({
 	addressLine2 = '',
 	town = faker.address.city(),
 	county = '',
-	postcode = fake.createPostcode()
+	postcode = fake.createPostcode(),
+	country = ''
 } = {}) {
 	return {
 		id,
@@ -21,6 +22,7 @@ export function createAddress({
 		addressLine2,
 		town,
 		county,
-		postcode
+		postcode,
+		country
 	};
 }
