@@ -46,7 +46,7 @@ import { format } from 'date-fns';
  * @return {string}
  */
 const formatUnder18TypesToString = (under18) =>
-	under18 === null ? (under18 ? 'Yes' : 'No') : 'Unknown';
+	under18 === null ? 'Unknown' : under18 ? 'Yes' : 'No';
 /**
  * @param {object} representation
  * @param {Contact[]} representation.contacts
