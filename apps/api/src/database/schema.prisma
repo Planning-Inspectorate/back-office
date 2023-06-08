@@ -231,6 +231,7 @@ model Address {
   postcode              String?
   county                String?
   town                  String?
+  country               String?
   Appeal                Appeal[]
   ServiceCustomer       ServiceCustomer[]
   RepresentationContact RepresentationContact[]

@@ -661,6 +661,10 @@
 												"postcode": {
 													"type": "string",
 													"example": ""
+												},
+												"country": {
+													"type": "string",
+													"example": ""
 												}
 											}
 										},
@@ -876,6 +880,10 @@
 													"example": ""
 												},
 												"postcode": {
+													"type": "string",
+													"example": ""
+												},
+												"country": {
 													"type": "string",
 													"example": ""
 												}

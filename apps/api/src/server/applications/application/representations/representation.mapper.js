@@ -48,7 +48,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 	};
 
 	const formatAddressDetails = (address) => {
-		return pick(address, ['addressLine1', 'addressLine2', 'town', 'county', 'postcode']);
+		return pick(address, ['addressLine1', 'addressLine2', 'town', 'county', 'postcode', 'country']);
 	};
 
 	const formattedRepresented = formatContactDetails(representation.represented);

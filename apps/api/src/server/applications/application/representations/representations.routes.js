@@ -170,7 +170,8 @@ router.post(
 						addressLine2: '',
 						town: '',
 						county: '',
-						postcode: ''
+						postcode: '',
+						country: ''
 						},
 					type: 'PERSON',
 					under18: false
@@ -225,7 +226,8 @@ router.patch(
 						addressLine2: '',
 						town: '',
 						county: '',
-						postcode: ''
+						postcode: '',
+						country: ''
 						},
 					type: 'PERSON',
 					under18: false
