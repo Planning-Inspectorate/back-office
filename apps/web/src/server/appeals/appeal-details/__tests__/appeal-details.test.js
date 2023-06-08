@@ -70,6 +70,19 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render the received appeal details for a valid appealId without start date', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, startedAt: null });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render a page not found when the appealId is not valid/does not exist', async () => {
 			const appealIdThatDoesNotExist = 0;
 
