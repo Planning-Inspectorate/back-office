@@ -83,7 +83,7 @@ export const createCase = async (payload, session) => {
  */
 export const updateCase = async (caseId, payload) => {
 	let response;
-
+	console.log('entro qui');
 	try {
 		response = await patch(`applications/${caseId}`, {
 			json: payload
