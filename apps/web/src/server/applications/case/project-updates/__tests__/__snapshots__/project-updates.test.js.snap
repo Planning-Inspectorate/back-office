@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`project-updates GET /applications-service/:caseId/project-updates should render the project updates table 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> mock reference </h4>
+            <h1 class=\\"govuk-heading-xl\\">mock title</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">,
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <h2 class=\\"govuk-heading-m\\">Project updates</h2>
+        <form method=\\"GET\\">
+            <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
+            <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
+            <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-one-half\\">
+                    <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
+                </div>
+                <div class=\\"govuk-grid-column-one-half text-align--right\\">
+                    <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
+                        <span                         class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                            </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                            <span                             class=\\"govuk-visually-hidden\\">results per page</span>
+                                </a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </a>
+                                    </span>
+                    </p>
+                </div>
+            </div>
+            <table class=\\"govuk-table\\">
+                <thead class=\\"govuk-table__head\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"project-updates?page=1&amp;sortBy=datePublished\\" class=\\"sort-table__link \\"> Date published<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                        </th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Project update</th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"project-updates?page=1&amp;sortBy=emailSubscribers\\" class=\\"sort-table__link \\"> Email<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                        </th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"project-updates?page=1&amp;sortBy=status\\" class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                        </th>
+                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                    </tr>
+                </thead>
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\"></td>
+                        <td class=\\"govuk-table__cell\\">My project update</td>
+                        <td class=\\"govuk-table__cell\\">No</td>
+                        <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        </td>
+                        <td class=\\"govuk-table__cell\\"><a href=\\"project-updates/3/review\\">Review</a>
+                        </td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\"></td>
+                        <td class=\\"govuk-table__cell\\">My project update</td>
+                        <td class=\\"govuk-table__cell\\">No</td>
+                        <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        </td>
+                        <td class=\\"govuk-table__cell\\"><a href=\\"project-updates/3/review\\">Review</a>
+                        </td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <td class=\\"govuk-table__cell\\"></td>
+                        <td class=\\"govuk-table__cell\\">My project update</td>
+                        <td class=\\"govuk-table__cell\\">No</td>
+                        <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        </td>
+                        <td class=\\"govuk-table__cell\\"><a href=\\"project-updates/3/review\\">Review</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</main>"
+`;

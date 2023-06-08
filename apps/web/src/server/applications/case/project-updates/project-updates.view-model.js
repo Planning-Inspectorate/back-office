@@ -1,3 +1,4 @@
+import { booleanAnswer } from '../../../lib/nunjucks-filters/boolean-answer.js';
 import { displayDate } from '../../../lib/nunjucks-filters/date.js';
 
 /**
@@ -22,7 +23,7 @@ export function projectUpdatesRows(projectUpdates) {
 			id: update.id,
 			datePublished: '',
 			content: update.htmlContent,
-			emailed: update.emailSubscribers ? 'Yes' : 'No',
+			emailed: booleanAnswer(update.emailSubscribers),
 			status: {
 				color: statusColor(update.status),
 				label: update.status.replaceAll('_', ' ')
@@ -47,7 +48,7 @@ function statusColor(status) {
 	switch (status.toLowerCase()) {
 		case 'draft':
 			return 'grey';
-		case 'to-published':
+		case 'to-publish':
 			return 'purple';
 		case 'published':
 			return 'blue';
