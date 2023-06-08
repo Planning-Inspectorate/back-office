@@ -121,7 +121,9 @@ export async function updateDocumentationMetaData(request, response) {
 		newMetaData.documentType = null;
 	}
 
-	const { errors: apiErrors } = await updateDocumentMetaData(caseId, documentGuid, newMetaData);
+	const { errors: apiErrors } = validationErrors
+		? { errors: validationErrors }
+		: await updateDocumentMetaData(caseId, documentGuid, newMetaData);
 
 	if (validationErrors || apiErrors) {
 		const layout = getLayoutParameters(params, response.locals);

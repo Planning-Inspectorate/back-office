@@ -1,5 +1,6 @@
 export interface ApplicationsTimetableCreateBody extends Record<string, string | undefined> {
 	name: string;
+	templateType: string;
 	description: string;
 	itemTypeName: string;
 	'date.day'?: string;
