@@ -93,7 +93,7 @@ export async function previewApplicationsCaseExaminationTimeTable(request, respo
  */
 export async function publishApplicationsCaseExaminationTimeTable(request, response) {
 	await publishCaseTimetableItems(+request.params.caseId);
-	response.redirect(`./success`);
+	response.redirect(`./publish/success`);
 }
 
 /**
@@ -223,6 +223,15 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  */
 export async function showApplicationsCaseTimetableSuccessBanner(request, response) {
 	response.render('applications/case-timetable/timetable-new-item-success.njk');
+}
+
+/**
+ * Success banner when successfully creating a new examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
+ */
+export async function showApplicationsCaseTimetablePublishSuccessBanner(request, response) {
+	response.render('applications/case-timetable/timetable-item-publish-success.njk');
 }
 
 /**

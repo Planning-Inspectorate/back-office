@@ -45,4 +45,8 @@ applicationsTimetableRouter
 	.route('/publish')
 	.post(asyncRoute(controller.publishApplicationsCaseExaminationTimeTable));
 
+applicationsTimetableRouter
+	.route('/publish/success')
+	.get(asyncRoute(controller.showApplicationsCaseTimetablePublishSuccessBanner));
+
 export default applicationsTimetableRouter;
