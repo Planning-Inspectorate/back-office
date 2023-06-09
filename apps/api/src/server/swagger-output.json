@@ -2706,7 +2706,7 @@
 					},
 					"description": {
 						"type": "string",
-						"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
+						"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
 					},
 					"date": {
 						"type": "string",
@@ -2752,7 +2752,7 @@
 				},
 				"description": {
 					"type": "string",
-					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
+					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
 				},
 				"date": {
 					"type": "string",
@@ -2801,7 +2801,7 @@
 				},
 				"description": {
 					"type": "string",
-					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" line item 1\\r\\n\",\" Line item 2\"]}"
+					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
 				},
 				"date": {
 					"type": "string",
