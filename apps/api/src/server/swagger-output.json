@@ -1801,6 +1801,31 @@
 					}
 				}
 			}
+		},
+		"/applications/examination-timetable-items/publish/{id}": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Publish examination timetable items for the case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "query",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable items published"
+					}
+				}
+			}
 		}
 	},
 	"definitions": {

@@ -72,13 +72,13 @@ router.post(
 	asyncHandler(createExaminationTimetableItem)
 );
 
-router.post(
-	'/publish/:caseId',
+router.patch(
+	'/publish/:id',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/examination-timetable-items'
+        #swagger.path = '/applications/examination-timetable-items/publish/{id}'
         #swagger.description = 'Publish examination timetable items for the case'
-        #swagger.parameters['caseId'] = {
+        #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
 			required: true,

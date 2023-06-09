@@ -136,16 +136,18 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
  * @returns {Promise<void>}
  */
 export const publishExaminationTimetable = async (_request, response) => {
-	const { caseId } = _request.params;
+	const { id } = _request.params;
 	try {
-		// @ts-ignore
-		const examinationTimetableItems = await exminationTimetableItemsRepository.updateByCaseId(
-			+caseId,
+		await exminationTimetableItemsRepository.updateByCaseId(
+			+id,
+			// @ts-ignore
 			{
 				published: true
 			}
 		);
-		response.send(examinationTimetableItems);
+		response.send({
+			success: true
+		});
 	} catch (error) {
 		logger.error(error);
 		throw error;
