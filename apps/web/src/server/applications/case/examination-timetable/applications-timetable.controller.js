@@ -67,6 +67,25 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 }
 
 /**
+ * View the examination timetable page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
+ */
+export async function previewApplicationsCaseExaminationTimeTable(request, response) {
+	const timetableItems = await getCaseTimetableItems(+request.params.caseId);
+	const timetableItemsViewData = timetableItems.map((timetableItem) => {
+		return {
+			...timetableItem,
+			description: JSON.parse(timetableItem.description)
+		};
+	});
+	response.render(`applications/case/examination-timetable-preview`, {
+		selectedPageType: 'examination-timetable',
+		timetableItems: timetableItemsViewData
+	});
+}
+
+/**
  * Set the type of examination timetable to create
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: {text: string, value: string}[]}, {}, {}, {}, {}>}

@@ -1,7 +1,6 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./components/examination-timetable.component.njk" import examinationTimetableItems%}
 
 {% block sectionContent %}
     <div>
@@ -17,77 +16,14 @@
 		<p class="govuk-body">Create or manage an examination timetable</p>
 
 		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable'|url({caseId: caseId, step: 'new-item'})}}">Create new item</a>
+
+		<div>
+			<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">Preview and publish timetable items</a>
+		</div>
 	</div>
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-	<div>
-		{% set accordionItemsExamination = [] %}
-		{% set accordionItemsPreExamination = [] %}
-		{% if timetableItems|length %}
-			{% for timetableItem in timetableItems %}
-				{% set descriptionHtml %}
-					<p class="govuk-body">{{timetableItem.description.preText}}</p>
-					{% if timetableItem.description.bulletPoints |length %}
-						<ul class='govuk-list govuk-list--bullet'>
-							{% for bulletPoint in timetableItem.description.bulletPoints %}
-								<li>{{bulletPoint}}</li>
-							{% endfor %}
-						</ul>
-					{% endif %}
-				{% endset %}
-				{% set tableRows = [{
-						key: { text: "Item Type" },
-						value: { text: timetableItem.ExaminationTimetableType.name }
-					}, {
-						key: { text: "Iteam Name" },
-						value: { text: timetableItem.name }
-					}, {
-						key: { text: "Start Date" },
-						value: { text: timetableItem.startDate | displayDate({ condensed: true }) if timetableItem.startDate else '' }
-					}, {
-						key: { text: "Start Time" },
-						value: { text: timetableItem.startTime }
-					}, {
-						key: { text: "End Date" },
-						value: { text: timetableItem.date | displayDate({ condensed: true }) if timetableItem.date else '' }
-					}, {
-						key: { text: "End Time" },
-						value: { text: timetableItem.endTime }
-					}, {
-						key: { text: "Description" },
-						value: { html: descriptionHtml }
-					}]
-				%}
-				{% set heading = [timetableItem.date | displayDate({ condensed: true }) if timetableItem.date else '', ' - ', timetableItem.name] | join %}
-				{% set row = {
-					heading: { text: heading },
-					content: { html: govukSummaryList({ rows: tableRows }) }
-				} %}
-				{% if (timetableItem.ExaminationTimetableType.name == 'Procedural Deadline (Pre-Examination)') %}
-					{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
-				{% else %}
-					{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
-				{% endif %}
-			{% endfor %}
-		{% endif %}
-		<h3 class="govuk-heading-m">Pre-Examination</h3>
-		{% if accordionItemsPreExamination|length %}
-			{{ govukAccordion({
-				id: "accordion-default",
-				items: accordionItemsPreExamination
-			}) }}
-		{% endif %}
-	</div>
-
-	<div>
-        <h3 class="govuk-heading-m">Examination</h3>
-		{% if accordionItemsExamination|length %}
-			{{ govukAccordion({
-				id: "accordion-default",
-				items: accordionItemsExamination
-			}) }}
-		{% endif %}
-    </div>
+	{{ examinationTimetableItems(timetableItems) }}
 
 {% endblock %}

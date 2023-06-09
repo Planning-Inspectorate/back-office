@@ -37,4 +37,8 @@ applicationsTimetableRouter
 	.route('/new-item/success')
 	.get(registerCase, asyncRoute(controller.showApplicationsCaseTimetableSuccessBanner));
 
+applicationsTimetableRouter
+	.route('/preview')
+	.get(asyncRoute(controller.previewApplicationsCaseExaminationTimeTable));
+
 export default applicationsTimetableRouter;
