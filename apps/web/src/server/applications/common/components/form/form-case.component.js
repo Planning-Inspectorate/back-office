@@ -182,14 +182,16 @@ export async function caseSubSectorData({ session }, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseSubSectorProps, updatedCaseId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseSubSectorProps, updatedCaseId: number|null}>}
  */
 export async function caseSubSectorDataUpdate({ session, errors: validationErrors, body }, locals) {
 	const { caseId } = locals;
 	const { subSectorName } = body;
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
+	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+		? { errors: validationErrors }
+		: await updateCase(caseId, payload);
 
 	/** @type {ApplicationsCreateCaseSubSectorProps} * */
 	let properties = {
@@ -240,14 +242,16 @@ export async function caseRegionsData(request, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<{properties: ApplicationsCreateCaseRegionsProps, updatedCaseId?: number}>}
+ * @returns {Promise<{properties: ApplicationsCreateCaseRegionsProps, updatedCaseId: number|null}>}
  */
 export async function caseRegionsDataUpdate({ errors: validationErrors, body }, locals) {
 	const { caseId } = locals;
 	const selectedRegionNames = new Set(body['geographicalInformation.regionNames'] || []);
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
+	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+		? { errors: validationErrors }
+		: await updateCase(caseId, payload);
 
 	/** @type {ApplicationsCreateCaseRegionsProps} */
 	let properties = { errors: validationErrors || apiErrors, allRegions: [] };
@@ -345,11 +349,12 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
 	const { caseId } = locals;
 	/** @type {{properties?: ApplicationsCreateCaseTeamEmailProps, updatedCaseId?: number}} */
 	const propertiesWithId = { updatedCaseId: caseId };
-
 	const values = { caseEmail: body.caseEmail };
 	const payload = bodyToPayload(body);
 
-	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
+	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+		? { errors: validationErrors }
+		: await updateCase(caseId, payload);
 
 	if (validationErrors || apiErrors || !updatedCaseId) {
 		propertiesWithId.properties = { values, errors: validationErrors || apiErrors };

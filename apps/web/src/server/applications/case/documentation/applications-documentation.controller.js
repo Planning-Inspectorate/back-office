@@ -77,7 +77,9 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 		documents: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 
-	const { errors: apiErrors } = await updateCaseDocumentationFiles(caseId, payload);
+	const { errors: apiErrors } = validationErrors
+		? { errors: [validationErrors] }
+		: await updateCaseDocumentationFiles(caseId, payload);
 
 	if (validationErrors || apiErrors) {
 		const apiErrorMessage = (apiErrors || [])[0]?.guid
@@ -238,14 +240,15 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		return container;
 	});
 
-	const tryPublish = await publishCaseDocumentationFiles(caseId, items);
-	const { errors } = tryPublish;
+	const { errors: apiErrors, documents: publishedItems = null } = validationErrors
+		? { errors: validationErrors }
+		: await publishCaseDocumentationFiles(caseId, items);
 
 	const backLinkFolder = getSessionFolderPage(session) ?? '';
 	const backLink = backLinkFolder ?? url('document-category', { caseId });
 
 	// re-display publishing queue page, with error messages
-	if (validationErrors || errors) {
+	if (validationErrors || apiErrors) {
 		// need to get the info on the current publishing page to re-display it
 		const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, currentPageNumber);
 		const paginationButtons = getPaginationButtonData(
@@ -257,7 +260,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 			documentationFiles,
 			paginationButtons,
 			backLink,
-			errors: validationErrors || errors
+			errors: validationErrors || apiErrors
 		});
 	}
 
@@ -272,7 +275,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		selectedPageType: 'documentation-publish-success',
 		serviceName: 'Document/s successfully published',
-		successMessage: `${tryPublish.documents?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
+		successMessage: `${publishedItems?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
 		showPublishedBanner: true
 	});
 }
