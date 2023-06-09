@@ -1,0 +1,9 @@
+{% extends "./../layouts/applications.layout.njk" %}
+{% from "./components/examination-timetable.component.njk" import examinationTimetableItems%}
+
+{% block pageContent %}
+    <h1 class="govuk-heading-l">Publish examination timetable</h1>
+    <p class="govuk-body">Check before publishing</p>
+    {{ examinationTimetableItems(timetableItems) }}
+    <a class='govuk-button govuk-!-margin-top-5' href="{{'timetable'|url({caseId: caseId, step: 'publish'})}}">Publish exam timetable</a>
+{% endblock %}
