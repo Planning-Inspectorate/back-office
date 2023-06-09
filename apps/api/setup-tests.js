@@ -58,11 +58,13 @@ const mockRepresentationUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationActionCreate = jest.fn().mockResolvedValue({});
+
 const mockExaminationTimetableTypeFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableTypeFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableItemUpdate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -180,7 +182,8 @@ class MockPrismaClient {
 		return {
 			findMany: mockExaminationTimetableItemFindMany,
 			findUnique: mockExaminationTimetableItemFindUnique,
-			create: mockExaminationTimetableItemCreate
+			create: mockExaminationTimetableItemCreate,
+			update: mockExaminationTimetableItemUpdate
 		};
 	}
 

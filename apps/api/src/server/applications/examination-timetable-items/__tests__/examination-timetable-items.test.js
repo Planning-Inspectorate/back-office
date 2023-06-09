@@ -10,8 +10,8 @@ const examinationTimetableItem = {
 	id: 1,
 	caseId: 1,
 	examinationTypeId: 1,
-	name: 'Exmaination Timetable Item',
-	description: 'Exmaination Timetable Item Description',
+	name: 'Examination Timetable Item',
+	description: 'Examination Timetable Item Description',
 	date: '2023-02-27T10:00:00Z',
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
@@ -30,20 +30,59 @@ const examinationTimetableItemDeadline = {
 	id: 1,
 	caseId: 1,
 	examinationTypeId: 3,
-	name: 'Exmaination Timetable Item',
-	description: '{"preText":"deadline category", "bulletPoints":["ponintone", "pointtwo"]}',
+	name: 'Examination Timetable Item',
+	description: '{"preText":"deadline category", "bulletPoints":["pointone", "pointtwo"]}',
 	date: '2023-02-27T10:00:00Z',
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
 	endDate: '2023-02-27T12:00:00Z',
 	endTime: '12:20',
 	ExaminationTimetableType: {
-		id: 2,
-		name: 'Compulsory Acquisition Hearing',
-		templateType: 'starttime-mandatory',
-		displayNameEn: 'Compulsory acquisition hearing',
-		displayNameCy: 'Compulsory acquisition hearing'
+		id: 3,
+		name: 'Deadline',
+		templateType: 'deadline',
+		displayNameEn: 'Deadline',
+		displayNameCy: 'Deadline'
 	}
+};
+
+const examinationTimetableItemDeadlineUpdateBody = {
+	name: 'Examination Timetable Item updated',
+	description:
+		'{"preText":"deadline category updated", "bulletPoints":["pointone updated", "pointtwo updated"]}',
+	date: '2023-03-27T10:00:00Z',
+	startDate: '2023-03-27T10:00:00Z',
+	startTime: '11:20',
+	endDate: '2023-03-27T12:00:00Z',
+	endTime: '13:20'
+};
+const examinationTimetableItemDeadlineUpdateResponse = {
+	id: 1,
+	caseId: 1,
+	examinationTypeId: 3,
+	name: 'Examination Timetable Item updated',
+	description:
+		'{"preText":"deadline category updated", "bulletPoints":["pointone updated", "pointtwo updated"]}',
+	date: '2023-03-27T10:00:00Z',
+	startDate: '2023-03-27T10:00:00Z',
+	startTime: '11:20',
+	endDate: '2023-03-27T12:00:00Z',
+	endTime: '13:20',
+	ExaminationTimetableType: {
+		id: 3,
+		name: 'Deadline',
+		templateType: 'deadline',
+		displayNameEn: 'Deadline',
+		displayNameCy: 'Deadline'
+	}
+};
+
+const ExaminationFolder = {
+	id: 1,
+	caseId: 1,
+	displayNameEn: 'Examination',
+	parentFolderId: null,
+	displayOrder: 100
 };
 
 describe('Test examination timetable items API', () => {
@@ -76,13 +115,7 @@ describe('Test examination timetable items API', () => {
 
 	test('creates examination timetable item and examination sub folder', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		databaseConnector.folder.findFirst.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findFirst.mockResolvedValue(ExaminationFolder);
 		databaseConnector.folder.create.mockResolvedValue({
 			id: 2,
 			caseId: 1,
@@ -130,8 +163,8 @@ describe('Test examination timetable items API', () => {
 			id: 1,
 			caseId: 2,
 			examinationTypeId: 1,
-			name: 'Exmaination Timetable Item',
-			description: 'Exmaination Timetable Item Description',
+			name: 'Examination Timetable Item',
+			description: 'Examination Timetable Item Description',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
@@ -143,13 +176,7 @@ describe('Test examination timetable items API', () => {
 
 	test('creates examination timetable item and examination deadline category sub folders', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		databaseConnector.folder.findFirst.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findFirst.mockResolvedValue(ExaminationFolder);
 		databaseConnector.folder.create.mockResolvedValue({
 			id: 2,
 			caseId: 1,
@@ -171,5 +198,59 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
 		});
+	});
+
+	// and the update API
+	test('update examination timetable item', async () => {
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue(
+			examinationTimetableItemDeadlineUpdateResponse
+		);
+		const resp = await request
+			.patch('/applications/examination-timetable-items/1/update')
+			.send(examinationTimetableItemDeadlineUpdateBody);
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual(examinationTimetableItemDeadlineUpdateResponse);
+		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(1);
+	});
+
+	test('update examination timetable item throws 400 error on invalid exam type', async () => {
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
+		const resp = await request
+			.patch('/applications/examination-timetable-items/1/update')
+			.send({ examinationTypeId: 9999 });
+		expect(resp.status).toEqual(400);
+		expect(resp.body).toEqual({ errors: { examinationTypeId: 'Must be valid examination type' } });
+		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
+	});
+
+	test('update examination timetable item throws 400 error on invalid case id', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
+		const resp = await request
+			.patch('/applications/examination-timetable-items/1/update')
+			.send({ caseId: 9999 });
+		expect(resp.status).toEqual(400);
+		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
+	});
+
+	test('update examination timetable item throws 400 error on invalid non-numeric examination item id', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
+		const resp = await request
+			.patch('/applications/examination-timetable-items/wrongid/update')
+			.send({ name: 'new name' });
+		expect(resp.status).toEqual(400);
+		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
+	});
+
+	test('update examination timetable item throws 400 error on invalid examination item id', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
+		const resp = await request
+			.patch('/applications/examination-timetable-items/9999/update')
+			.send({ name: 'new name' });
+		expect(resp.status).toEqual(400);
+		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
 	});
 });

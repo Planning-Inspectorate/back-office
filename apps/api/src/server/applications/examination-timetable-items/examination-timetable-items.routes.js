@@ -8,6 +8,7 @@ import {
 } from './examination-timetable-items.controller.js';
 import {
 	validateCreateExaminationTimetableItem,
+	validateExistingExaminationTimetableItemId,
 	validateUpdateExaminationTimetableItem
 } from './examination-timetable-items.validators.js';
 
@@ -96,7 +97,12 @@ router.patch(
             description: 'Examination timetable item',
             schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
         }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing examination timetable item" } }
+        }
     */
+	validateExistingExaminationTimetableItemId,
 	validateUpdateExaminationTimetableItem,
 	asyncHandler(updateExaminationTimetableItem)
 );

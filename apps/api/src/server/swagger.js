@@ -186,7 +186,7 @@ const document = {
 				examinationTypeId: 1,
 				name: 'Examination Timetable Item',
 				description:
-					'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
+					'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
 				date: '2023-02-27T10:00:00Z',
 				startDate: '2023-02-27T10:00:00Z',
 				startTime: '10:20',
@@ -198,7 +198,7 @@ const document = {
 			examinationTypeId: 1,
 			name: 'Examination Timetable Item',
 			description:
-				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
+				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
@@ -210,7 +210,7 @@ const document = {
 			examinationTypeId: 1,
 			name: 'Examination Timetable Item',
 			description:
-				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" line item 1\\r\\n"," Line item 2"]}',
+				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
 			date: '2023-02-27T10:00:00Z',
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
