@@ -564,6 +564,7 @@ model ExaminationTimetableItem {
   startDate                DateTime?
   startTime                String?
   endTime                  String?
+  published                Boolean                  @default(false)
   Case                     Case                     @relation(fields: [caseId], references: [id])
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
 }
