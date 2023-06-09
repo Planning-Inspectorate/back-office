@@ -1107,6 +1107,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                 </div>
                 <p class=\\"govuk-body\\">Create or manage an examination timetable</p><a class='govuk-button govuk-!-margin-top-5'
                 href=\\"/applications-service/case/123/examination-timetable/new-item\\">Create new item</a>
+                <div><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/examination-timetable/preview\\">Preview and publish timetable items</a>
+                </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <div>
