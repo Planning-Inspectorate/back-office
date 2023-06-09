@@ -129,3 +129,25 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	await Promise.all(createFolderPromise);
 	logger.info('Sub folders created successfully');
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const publishExaminationTimetable = async (_request, response) => {
+	const { caseId } = _request.params;
+	try {
+		// @ts-ignore
+		const examinationTimetableItems = await exminationTimetableItemsRepository.updateByCaseId(
+			+caseId,
+			{
+				published: true
+			}
+		);
+		response.send(examinationTimetableItems);
+	} catch (error) {
+		logger.error(error);
+		throw error;
+	}
+};
