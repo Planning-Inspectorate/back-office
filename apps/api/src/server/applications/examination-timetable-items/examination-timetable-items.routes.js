@@ -3,9 +3,11 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import {
 	createExaminationTimetableItem,
 	getExaminationTimetableItem,
-	getExaminationTimetableItems
+	getExaminationTimetableItems,
+	publishExaminationTimetable
 } from './examination-timetable-items.controller.js';
 import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
+import { validateApplicationId } from '../application/application.validators.js';
 
 const router = createRouter();
 
@@ -68,6 +70,27 @@ router.post(
     */
 	validateCreateExaminationTimetableItem,
 	asyncHandler(createExaminationTimetableItem)
+);
+
+router.post(
+	'/publish/:caseId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items'
+        #swagger.description = 'Publish examination timetable items for the case'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {}
+        #swagger.responses[200] = {
+            description: 'Examination timetable items published',
+        }
+    */
+	validateApplicationId,
+	asyncHandler(publishExaminationTimetable)
 );
 
 export { router as examinationTimetableItemRoutes };
