@@ -41,4 +41,8 @@ applicationsTimetableRouter
 	.route('/preview')
 	.get(asyncRoute(controller.previewApplicationsCaseExaminationTimeTable));
 
+applicationsTimetableRouter
+	.route('/publish')
+	.post(asyncRoute(controller.publishApplicationsCaseExaminationTimeTable));
+
 export default applicationsTimetableRouter;

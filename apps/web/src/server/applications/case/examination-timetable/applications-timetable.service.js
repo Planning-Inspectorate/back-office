@@ -1,4 +1,4 @@
-import { get, post } from '../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 
@@ -40,4 +40,13 @@ export const createCaseTimetableItem = async (payload) => {
  */
 export const getCaseTimetableItems = async (caseId) => {
 	return get(`applications/examination-timetable-items/case/${caseId}`);
+};
+
+/**
+ * Publish case timetable items
+ * @param {number} caseId
+ * @returns {Promise<ApplicationsTimetable[]>}
+ */
+export const publishCaseTimetableItems = async (caseId) => {
+	return patch(`applications/examination-timetable-items/publish/${caseId}`, {});
 };
