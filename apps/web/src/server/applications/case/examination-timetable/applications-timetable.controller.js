@@ -2,7 +2,8 @@ import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
-	getCaseTimetableItems
+	getCaseTimetableItems,
+	publishCaseTimetableItems
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
@@ -83,6 +84,16 @@ export async function previewApplicationsCaseExaminationTimeTable(request, respo
 		selectedPageType: 'examination-timetable',
 		timetableItems: timetableItemsViewData
 	});
+}
+
+/**
+ * View the examination timetable page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
+ */
+export async function publishApplicationsCaseExaminationTimeTable(request, response) {
+	await publishCaseTimetableItems(+request.params.caseId);
+	response.redirect(`./success`);
 }
 
 /**

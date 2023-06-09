@@ -5,5 +5,7 @@
     <h1 class="govuk-heading-l">Publish examination timetable</h1>
     <p class="govuk-body">Check before publishing</p>
     {{ examinationTimetableItems(timetableItems) }}
-    <a class='govuk-button govuk-!-margin-top-5' href="{{'timetable'|url({caseId: caseId, step: 'publish'})}}">Publish exam timetable</a>
+    <form method="post" action="{{'timetable'|url({caseId: caseId, step: 'publish'})}}">
+        <button class='govuk-button govuk-!-margin-top-5'>Publish exam timetable</button>
+    </form>
 {% endblock %}
