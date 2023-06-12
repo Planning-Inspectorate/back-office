@@ -2358,6 +2358,10 @@
 						"type": "string",
 						"example": "2023-02-27T10:00:00Z"
 					},
+					"published": {
+						"type": "boolean",
+						"example": false
+					},
 					"startTime": {
 						"type": "string",
 						"example": "10:20"
@@ -2391,6 +2395,10 @@
 				"date": {
 					"type": "string",
 					"example": "2023-02-27T10:00:00Z"
+				},
+				"published": {
+					"type": "boolean",
+					"example": false
 				},
 				"startDate": {
 					"type": "string",
@@ -2432,6 +2440,10 @@
 				"date": {
 					"type": "string",
 					"example": "2023-02-27T10:00:00Z"
+				},
+				"published": {
+					"type": "boolean",
+					"example": false
 				},
 				"startDate": {
 					"type": "string",

@@ -172,4 +172,27 @@ describe('Test examination timetable items API', () => {
 			where: { id: 3 }
 		});
 	});
+
+	test('publish examination timetable item returns 404 when invalid case is not exists', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+		const resp = await request
+			.patch('/applications/examination-timetable-items/publish/13324')
+			.send({});
+		expect(resp.status).toEqual(404);
+	});
+
+	test('publish examination timetable item publishes examination items for the case', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
+		const resp = await request
+			.patch('/applications/examination-timetable-items/publish/123')
+			.send({});
+		expect(databaseConnector.examinationTimetableItem.updateMany).toHaveBeenCalledWith({
+			where: {
+				caseId: 123
+			},
+			data: { published: true }
+		});
+
+		expect(resp.status).toEqual(200);
+	});
 });

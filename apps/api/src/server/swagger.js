@@ -188,6 +188,7 @@ const document = {
 				description: 'Exmaination Timetable Item Description',
 				date: '2023-02-27T10:00:00Z',
 				startDate: '2023-02-27T10:00:00Z',
+				published: false,
 				startTime: '10:20',
 				endTime: '12:20'
 			}
@@ -198,6 +199,7 @@ const document = {
 			name: 'Exmaination Timetable Item',
 			description: 'Exmaination Timetable Item Description',
 			date: '2023-02-27T10:00:00Z',
+			published: false,
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
 			endTime: '12:20'
@@ -209,6 +211,7 @@ const document = {
 			name: 'Exmaination Timetable Item',
 			description: 'Exmaination Timetable Item Description',
 			date: '2023-02-27T10:00:00Z',
+			published: false,
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
 			endTime: '12:20'
