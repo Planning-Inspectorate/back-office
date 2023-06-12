@@ -6,26 +6,28 @@ import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/
 
 export {
 	Address,
-	AppealDetailsFromAppellant,
 	Appellant,
-	ExaminationTimetableType,
-	LPAQuestionnaire,
-	ReviewQuestionnaire,
-	Region,
-	Sector,
-	SubSector,
-	GridReference,
-	ZoomLevel,
+	AppellantCase,
 	BatchPayload,
 	CaseStatus,
-	RegionsOnApplicationDetails,
 	Document,
-	DocumentVersion,
 	DocumentUpdateInput,
+	DocumentVersion,
 	DocumentVersionUpdateInput,
+	ExaminationTimetableItem,
+	ExaminationTimetableType,
+	GridReference,
+	KnowledgeOfOtherLandowners,
+	LPAQuestionnaire,
+	PlanningObligationStatus,
+	Region,
+	RegionsOnApplicationDetails,
 	Representation,
 	RepresentationContact,
-	ExaminationTimetableItem
+	ReviewQuestionnaire,
+	Sector,
+	SubSector,
+	ZoomLevel
 } from '@prisma/client';
 
 export interface Case extends schema.Case {
@@ -57,7 +59,7 @@ export interface ServiceCustomer extends schema.ServiceCustomer {
 
 export interface Appeal extends schema.Appeal {
 	address?: schema.Address;
-	appealDetailsFromAppellant?: schema.AppealDetailsFromAppellant;
+	appellantCase?: schema.AppellantCase;
 	appealStatus: AppealStatus[];
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
@@ -76,6 +78,11 @@ export interface Appeal extends schema.Appeal {
 	siteVisit?: SiteVisit;
 	startedAt: Date;
 	validationDecision?: ValidationDecision[];
+}
+
+export interface AppellantCase extends schema.AppellantCase {
+	knowledgeOfOtherLandowners?: PlanningObligationStatus | null;
+	planningObligationStatus?: PlanningObligationStatus | null;
 }
 
 export interface AppealDocument {

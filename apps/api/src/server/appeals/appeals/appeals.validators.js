@@ -67,6 +67,12 @@ const getLPAQuestionnaireValidator = composeMiddleware(
 	validationErrorHandler
 );
 
+const getAppellantCaseValidator = composeMiddleware(
+	validateIdParameter('appealId'),
+	validateIdParameter('appellantCaseId'),
+	validationErrorHandler
+);
+
 const paginationParameterValidator = composeMiddleware(
 	validatePaginationParameter('pageNumber'),
 	validatePaginationParameter('pageSize'),
@@ -85,6 +91,7 @@ const patchAppealValidator = composeMiddleware(
 
 export {
 	getAppealValidator,
+	getAppellantCaseValidator,
 	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
 	patchAppealValidator
