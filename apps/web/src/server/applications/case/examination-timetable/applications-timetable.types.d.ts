@@ -26,6 +26,7 @@ export interface ApplicationsTimetable {
 	name: string;
 	description: string;
 	date: Date;
+	published: boolean;
 	startDate: Date | null;
 	startTime: string | null;
 	endTime: string | null;

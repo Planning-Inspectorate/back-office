@@ -9,7 +9,11 @@
 				<h2 class="govuk-heading-l">Examination timetable</h2>
 			</div>
 			<div class='govuk-grid-column-one-third'>
-				<strong class="govuk-tag govuk-tag--grey">UNPUBLISHED</strong>
+				{% if publishedStatus %}
+					<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+				{% else %}
+					<strong class="govuk-tag govuk-tag--grey">UNPUBLISHED</strong>
+				{% endif %}
 			</div>
 		</div>
 
