@@ -259,7 +259,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/ready-to-publish'
-        #swagger.description = 'Gets all documents that are ready to publish'
+        #swagger.description = 'Gets all documents that are ready to publish for the case'
 		#swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',

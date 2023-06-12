@@ -103,6 +103,7 @@ describe('Ready-to-publish-documents', () => {
 				}
 			],
 			where: {
+				caseId: 1,
 				documentVersion: {
 					some: {
 						version: 1,
