@@ -17,7 +17,10 @@ export const getById = (id) => {
 export const getByCaseId = (caseId) => {
 	return databaseConnector.examinationTimetableItem.findMany({
 		include: { ExaminationTimetableType: true },
-		where: { caseId }
+		where: { caseId },
+		orderBy: {
+			date: 'asc'
+		}
 	});
 };
 

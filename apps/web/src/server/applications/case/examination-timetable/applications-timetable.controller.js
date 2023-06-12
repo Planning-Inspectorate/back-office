@@ -186,7 +186,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		: null;
 	const date =
 		body['endDate.year'] && !body['date.year']
-			? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
+			? new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
 			: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`);
 
 	/** @type {ApplicationsTimetable} */
