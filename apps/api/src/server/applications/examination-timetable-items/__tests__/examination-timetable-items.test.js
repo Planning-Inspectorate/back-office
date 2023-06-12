@@ -59,7 +59,10 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.examinationTimetableItem.findMany).toHaveBeenCalledWith({
 			include: { ExaminationTimetableType: true },
-			where: { caseId: 1 }
+			where: { caseId: 1 },
+			orderBy: {
+				date: 'asc'
+			}
 		});
 	});
 
