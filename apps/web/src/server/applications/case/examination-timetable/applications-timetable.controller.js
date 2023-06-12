@@ -61,9 +61,11 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 			description: JSON.parse(timetableItem.description)
 		};
 	});
+	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published ? true : false;
 	response.render(`applications/case/examination-timetable`, {
 		selectedPageType: 'examination-timetable',
-		timetableItems: timetableItemsViewData
+		timetableItems: timetableItemsViewData,
+		publishedStatus
 	});
 }
 
@@ -198,7 +200,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		startTime: body['startTime.hours']
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,
-		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
+		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
+		published: false
 	};
 
 	const { errors } = await createCaseTimetableItem(payload);
