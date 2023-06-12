@@ -33,6 +33,7 @@ export const viewAppealDetails = async (request, response) => {
 				appealDetails?.allocationDetails ?? 'No allocation details for this appeal',
 			lpaReference:
 				appealDetails?.planningApplicationReference ?? 'No LPA reference for this appeal',
+			lpaQuestionnaireId: appealDetails?.lpaQuestionnaireId,
 			developmentType: appealDetails?.developmentType ?? ' No development type for this appeal',
 			eventType: appealDetails?.eventType ?? ' No event type for this appeal',
 			decision: appealDetails?.decision ?? 'Not issued yet',
