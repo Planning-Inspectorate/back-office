@@ -12,6 +12,8 @@
  * @typedef {import('apps/api/src/database/schema.js').DesignatedSiteDetails} DesignatedSiteDetails
  * @typedef {import('apps/api/src/database/schema.js').LPANotificationMethodDetails} LPANotificationMethodDetails
  * @typedef {import('apps/api/src/database/schema.js').ScheduleType} ScheduleType
+ * @typedef {import('apps/api/src/database/schema.js').PlanningObligationStatus} PlanningObligationStatus
+ * @typedef {import('apps/api/src/database/schema.js').KnowledgeOfOtherLandowners} KnowledgeOfOtherLandowners
  */
 
 /**
@@ -582,6 +584,40 @@ export const scheduleTypes = [
 ];
 
 /**
+ * An array of planning obligation statuses.
+ *
+ * @type {Pick<PlanningObligationStatus, 'name'>[]}
+ */
+export const planningObligationStatuses = [
+	{
+		name: 'Finalised'
+	},
+	{
+		name: 'Draft'
+	},
+	{
+		name: 'Not started'
+	}
+];
+
+/**
+ * An array of knowledge of other landowners values.
+ *
+ * @type {Pick<KnowledgeOfOtherLandowners, 'name'>[]}
+ */
+export const knowledgeOfOtherLandownersValues = [
+	{
+		name: 'Yes'
+	},
+	{
+		name: 'Some'
+	},
+	{
+		name: 'No'
+	}
+];
+
+/**
  * eed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
@@ -654,6 +690,20 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.scheduleType.upsert({
 			create: scheduleType,
 			where: { name: scheduleType.name },
+			update: {}
+		});
+	}
+	for (const planningObligationStatus of planningObligationStatuses) {
+		await databaseConnector.planningObligationStatus.upsert({
+			create: planningObligationStatus,
+			where: { name: planningObligationStatus.name },
+			update: {}
+		});
+	}
+	for (const knowledgeOfOtherLandownersValue of knowledgeOfOtherLandownersValues) {
+		await databaseConnector.knowledgeOfOtherLandowners.upsert({
+			create: knowledgeOfOtherLandownersValue,
+			where: { name: knowledgeOfOtherLandownersValue.name },
 			update: {}
 		});
 	}

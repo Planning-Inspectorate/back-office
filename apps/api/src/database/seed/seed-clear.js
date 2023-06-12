@@ -10,8 +10,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAddresses = databaseConnector.address.deleteMany();
-	const deleteAppealDetailsFromAppellant =
-		databaseConnector.appealDetailsFromAppellant.deleteMany();
+	const deleteAppellantCase = databaseConnector.appellantCase.deleteMany();
 	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
 	const deleteAppealTimetable = databaseConnector.appealTimetable.deleteMany();
 	const deleteAppellant = databaseConnector.appellant.deleteMany();
@@ -43,6 +42,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteRegion = databaseConnector.region.deleteMany();
 	const deleteZoomLevel = databaseConnector.zoomLevel.deleteMany();
 	const deleteExaminationTimetableType = databaseConnector.examinationTimetableItem.deleteMany();
+	const planningObligationStatus = databaseConnector.planningObligationStatus.deleteMany();
+	const knowledgeOfOtherLandowners = databaseConnector.knowledgeOfOtherLandowners.deleteMany();
 
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
@@ -71,7 +72,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,
-		deleteAppealDetailsFromAppellant,
+		deleteAppellantCase,
 		deleteAppealStatus,
 		deleteValidationDecision,
 		deleteDesignatedSitesOnLPAQuestionnaires,
@@ -98,6 +99,8 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteRegion;
 	await deleteZoomLevel;
 	await deleteExaminationTimetableType;
+	await planningObligationStatus;
+	await knowledgeOfOtherLandowners;
 }
 
 /**

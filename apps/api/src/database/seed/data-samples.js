@@ -2,6 +2,11 @@
  * Sample data used for development and testing
  */
 
+import {
+	APPEAL_TYPE_SHORTCODE_FPA,
+	APPEAL_TYPE_SHORTCODE_HAS
+} from '../../server/appeals/constants.js';
+
 /**
  * @typedef {import('../../server/applications/application/application.js')} Sector
  * @typedef {import('../../server/applications/application/application.js').Sector} SubSector
@@ -9,52 +14,65 @@
  * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
  * @typedef {import('apps/web/src/server/applications/applications.types').ExaminationTimetableType} ExaminationTimetableType
  * @typedef {import('apps/api/src/database/schema').CaseStatus} CaseStatus
+ * @typedef {import('apps/api/src/database/schema').Appellant} Appellant
+ * @typedef {import('apps/api/src/database/schema').LPAQuestionnaire} LPAQuestionnaire
+ * @typedef {import('apps/api/src/database/schema').AppellantCase} AppellantCase
  */
 
 /**
  * An array of appellants, each containing a name and email address.
  *
- * @type {Array<{name: string, email: string}>}
+ * @type {Pick<Appellant, 'name' | 'company' | 'email'>[]}
  */
 export const appellantsList = [
 	{
 		name: 'Lee Thornton',
+		company: 'Lee Thornton Ltd',
 		email: 'lee.thornton@gmail.com'
 	},
 	{
 		name: 'Haley Eland',
+		company: null,
 		email: 'haley.eland@gmail.com'
 	},
 	{
 		name: 'Roger Simmons',
+		company: 'Roger Simmons Ltd',
 		email: 'rg@gmail.com'
 	},
 	{
 		name: 'Sophie Skinner',
+		company: null,
 		email: 'skinner@gmail.com'
 	},
 	{
 		name: 'Ryan Marshall',
+		company: 'Ryan Marshall Ltd',
 		email: 'marshall@gmail.com'
 	},
 	{
 		name: 'Fiona Burgess',
+		company: null,
 		email: 'fi.bu@gmail.com'
 	},
 	{
 		name: 'Kevin Fowler',
+		company: 'Kevin Fowler Ltd',
 		email: 'kv@gmail.com'
 	},
 	{
 		name: 'Bob Ross',
+		company: null,
 		email: 'bob@gmail.com'
 	},
 	{
 		name: 'Eva Sharma',
+		company: 'Eva Sharma Ltd',
 		email: 'eva.sharma@gmail.com'
 	},
 	{
 		name: 'Elaine Madsen',
+		company: null,
 		email: 'ellie@gmail.com'
 	}
 ];
@@ -140,26 +158,52 @@ export const addressesList = [
 /**
  * An array of objects representing LPA questionnaire lists.
  *
- * @typedef {object[]} LPAQuestionnaireList
- * @property {boolean} affectsListedBuilding - Whether the proposed development affects a listed building.
- * @property {boolean} extraConditions - Whether there are any extra conditions attached to the planning permission.
- * @property {boolean} inGreenBelt - Whether the proposed development is in the green belt.
- * @property {boolean} inOrNearConservationArea - Whether the proposed development is in or near a conservation area.
- * @property {boolean} siteVisibleFromPublicLand - Whether the proposed development is visible from public land.
- * @property {string} siteVisibleFromPublicLandDescription - Description of the proposed development's visibility from public land.
- * @property {boolean} doesInspectorNeedToEnterSite - Whether the inspector needs to enter the site to view the proposed development.
- * @property {string} doesInspectorNeedToEnterSiteDescription - Description of why the inspector needs to enter the site to view the proposed development.
- * @property {boolean} doesInspectorNeedToAccessNeighboursLand - Whether the inspector needs to access the neighbour's land to view the proposed development.
- * @property {string} doesInspectorNeedToAccessNeighboursLandDescription - Description of why the inspector needs to access the neighbour's land to view the proposed development.
- * @property {boolean} healthAndSafetyIssues - Whether there are any health and safety issues associated with the proposed development.
- * @property {string} healthAndSafetyIssuesDescription - Description of the health and safety issues associated with the proposed development.
- * @property {string} appealsInImmediateAreaBeingConsidered - Appeals in the immediate area being considered.
- * @property {Date} sentAt - The date the questionnaire was sent.
- * @property {Date} receivedAt - The date the questionnaire was received.
+ * @type {{[key: string]: Pick<
+ * 	LPAQuestionnaire,
+ *  'communityInfrastructureLevyAdoptionDate' |
+ *	'developmentDescription' |
+ *	'doesAffectAListedBuilding' |
+ *	'doesAffectAScheduledMonument' |
+ *	'doesSiteHaveHealthAndSafetyIssues' |
+ *	'doesSiteRequireInspectorAccess' |
+ *	'extraConditions' |
+ *	'hasCommunityInfrastructureLevy' |
+ *	'hasCompletedAnEnvironmentalStatement' |
+ *	'hasEmergingPlan' |
+ *	'hasExtraConditions' |
+ *	'hasProtectedSpecies' |
+ *	'hasRepresentationsFromOtherParties' |
+ *	'hasResponsesOrStandingAdviceToUpload' |
+ *	'hasStatementOfCase' |
+ *	'hasStatutoryConsultees' |
+ *	'hasSupplementaryPlanningDocuments' |
+ *	'hasTreePreservationOrder' |
+ *	'healthAndSafetyDetails' |
+ *	'inCAOrrelatesToCA' |
+ *	'includesScreeningOption' |
+ *	'inquiryDays' |
+ *	'inspectorAccessDetails' |
+ *	'isCommunityInfrastructureLevyFormallyAdopted' |
+ *	'isEnvironmentalStatementRequired' |
+ *	'isGypsyOrTravellerSite' |
+ *	'isListedBuilding' |
+ *	'isPublicRightOfWay' |
+ *	'isSensitiveArea' |
+ *	'isSiteVisible' |
+ *	'isTheSiteWithinAnAONB' |
+ *	'meetsOrExceedsThresholdOrCriteriaInColumn2' |
+ *	'procedureTypeId' |
+ *	'receivedAt' |
+ *	'scheduleTypeId' |
+ *	'sensitiveAreaDetails' |
+ *	'sentAt' |
+ *	'siteWithinGreenBelt' |
+ *	'statutoryConsulteesDetails'
+ * >}}
  */
-export const lpaQuestionnaireList = [
-	{
-		communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
+export const lpaQuestionnaireList = {
+	[APPEAL_TYPE_SHORTCODE_FPA]: {
+		communityInfrastructureLevyAdoptionDate: new Date('2023-05-09T01:00:00.000Z'),
 		developmentDescription: '',
 		doesAffectAListedBuilding: true,
 		doesAffectAScheduledMonument: true,
@@ -199,8 +243,8 @@ export const lpaQuestionnaireList = [
 		siteWithinGreenBelt: true,
 		statutoryConsulteesDetails: 'Some other people need to be consulted'
 	},
-	{
-		communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
+	[APPEAL_TYPE_SHORTCODE_HAS]: {
+		communityInfrastructureLevyAdoptionDate: new Date('2023-05-09T01:00:00.000Z'),
 		developmentDescription: '',
 		doesAffectAListedBuilding: true,
 		doesAffectAScheduledMonument: true,
@@ -232,130 +276,7 @@ export const lpaQuestionnaireList = [
 		isSiteVisible: true,
 		isTheSiteWithinAnAONB: true,
 		meetsOrExceedsThresholdOrCriteriaInColumn2: true,
-		procedureTypeId: 1,
-		receivedAt: new Date(2022, 3, 21),
-		scheduleTypeId: 2,
-		sensitiveAreaDetails: 'The area is prone to flooding',
-		sentAt: new Date(2022, 3, 2),
-		siteWithinGreenBelt: true,
-		statutoryConsulteesDetails: 'Some other people need to be consulted'
-	},
-	{
-		communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
-		developmentDescription: '',
-		doesAffectAListedBuilding: true,
-		doesAffectAScheduledMonument: true,
-		doesSiteHaveHealthAndSafetyIssues: true,
-		doesSiteRequireInspectorAccess: true,
-		extraConditions: 'Some extra conditions',
-		hasCommunityInfrastructureLevy: true,
-		hasCompletedAnEnvironmentalStatement: true,
-		hasEmergingPlan: true,
-		hasExtraConditions: true,
-		hasProtectedSpecies: true,
-		hasRepresentationsFromOtherParties: true,
-		hasResponsesOrStandingAdviceToUpload: true,
-		hasStatementOfCase: true,
-		hasStatutoryConsultees: true,
-		hasSupplementaryPlanningDocuments: true,
-		hasTreePreservationOrder: true,
-		healthAndSafetyDetails: 'There is no mobile signal at the property',
-		inCAOrrelatesToCA: true,
-		includesScreeningOption: true,
-		inquiryDays: 2,
-		inspectorAccessDetails: 'The entrance is at the back of the property',
-		isCommunityInfrastructureLevyFormallyAdopted: true,
-		isEnvironmentalStatementRequired: true,
-		isGypsyOrTravellerSite: true,
-		isListedBuilding: true,
-		isPublicRightOfWay: true,
-		isSensitiveArea: true,
-		isSiteVisible: true,
-		isTheSiteWithinAnAONB: true,
-		meetsOrExceedsThresholdOrCriteriaInColumn2: true,
-		procedureTypeId: 1,
-		receivedAt: new Date(2022, 3, 21),
-		scheduleTypeId: 2,
-		sensitiveAreaDetails: 'The area is prone to flooding',
-		sentAt: new Date(2022, 3, 2),
-		siteWithinGreenBelt: true,
-		statutoryConsulteesDetails: 'Some other people need to be consulted'
-	},
-	{
-		communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
-		developmentDescription: '',
-		doesAffectAListedBuilding: true,
-		doesAffectAScheduledMonument: true,
-		doesSiteHaveHealthAndSafetyIssues: true,
-		doesSiteRequireInspectorAccess: true,
-		extraConditions: 'Some extra conditions',
-		hasCommunityInfrastructureLevy: true,
-		hasCompletedAnEnvironmentalStatement: true,
-		hasEmergingPlan: true,
-		hasExtraConditions: true,
-		hasProtectedSpecies: true,
-		hasRepresentationsFromOtherParties: true,
-		hasResponsesOrStandingAdviceToUpload: true,
-		hasStatementOfCase: true,
-		hasStatutoryConsultees: true,
-		hasSupplementaryPlanningDocuments: true,
-		hasTreePreservationOrder: true,
-		healthAndSafetyDetails: 'There is no mobile signal at the property',
-		inCAOrrelatesToCA: true,
-		includesScreeningOption: true,
-		inquiryDays: 2,
-		inspectorAccessDetails: 'The entrance is at the back of the property',
-		isCommunityInfrastructureLevyFormallyAdopted: true,
-		isEnvironmentalStatementRequired: true,
-		isGypsyOrTravellerSite: true,
-		isListedBuilding: true,
-		isPublicRightOfWay: true,
-		isSensitiveArea: true,
-		isSiteVisible: true,
-		isTheSiteWithinAnAONB: true,
-		meetsOrExceedsThresholdOrCriteriaInColumn2: true,
-		procedureTypeId: 1,
-		receivedAt: new Date(2022, 3, 21),
-		scheduleTypeId: 2,
-		sensitiveAreaDetails: 'The area is prone to flooding',
-		sentAt: new Date(2022, 3, 2),
-		siteWithinGreenBelt: true,
-		statutoryConsulteesDetails: 'Some other people need to be consulted'
-	},
-	{
-		communityInfrastructureLevyAdoptionDate: '2023-05-09T01:00:00.000Z',
-		developmentDescription: '',
-		doesAffectAListedBuilding: true,
-		doesAffectAScheduledMonument: true,
-		doesSiteHaveHealthAndSafetyIssues: true,
-		doesSiteRequireInspectorAccess: true,
-		extraConditions: 'Some extra conditions',
-		hasCommunityInfrastructureLevy: true,
-		hasCompletedAnEnvironmentalStatement: true,
-		hasEmergingPlan: true,
-		hasExtraConditions: true,
-		hasProtectedSpecies: true,
-		hasRepresentationsFromOtherParties: true,
-		hasResponsesOrStandingAdviceToUpload: true,
-		hasStatementOfCase: true,
-		hasStatutoryConsultees: true,
-		hasSupplementaryPlanningDocuments: true,
-		hasTreePreservationOrder: true,
-		healthAndSafetyDetails: 'There is no mobile signal at the property',
-		inCAOrrelatesToCA: true,
-		includesScreeningOption: true,
-		inquiryDays: 2,
-		inspectorAccessDetails: 'The entrance is at the back of the property',
-		isCommunityInfrastructureLevyFormallyAdopted: true,
-		isEnvironmentalStatementRequired: true,
-		isGypsyOrTravellerSite: true,
-		isListedBuilding: true,
-		isPublicRightOfWay: true,
-		isSensitiveArea: true,
-		isSiteVisible: true,
-		isTheSiteWithinAnAONB: true,
-		meetsOrExceedsThresholdOrCriteriaInColumn2: true,
-		procedureTypeId: 1,
+		procedureTypeId: 3,
 		receivedAt: new Date(2022, 3, 21),
 		scheduleTypeId: 2,
 		sensitiveAreaDetails: 'The area is prone to flooding',
@@ -363,7 +284,7 @@ export const lpaQuestionnaireList = [
 		siteWithinGreenBelt: true,
 		statutoryConsulteesDetails: 'Some other people need to be consulted'
 	}
-];
+};
 
 /**
  * Sample incomplete review questionnaire data.
@@ -402,34 +323,84 @@ export const incompleteReviewQuestionnaireSample = {
 };
 
 /**
- * An array of objects representing appeal details provided by the appellant.
+ * An array of objects representing appeal case details provided by the appellant.
  *
- * @typedef {object[]} AppealDetailsFromAppellantList
- * @property {boolean} siteVisibleFromPublicLand - Indicates if the site is visible from public land.
- * @property {string} siteVisibleFromPublicLandDescription - Description of the site's visibility from public land.
- * @property {boolean} appellantOwnsWholeSite - Indicates if the appellant owns the whole site.
- * @property {string} appellantOwnsWholeSiteDescription - Description of the appellant's ownership of the whole site.
- * @property {boolean} healthAndSafetyIssues - Indicates if there are any health and safety issues with the site.
- * @property {string} healthAndSafetyIssuesDescription - Description of any health and safety issues with the site.
+ * @type {{[key: string]: Pick<
+ * 	AppellantCase,
+ * 	'applicantFirstName' |
+ *  'applicantSurname' |
+ *  'areAllOwnersKnown' |
+ *  'hasAttemptedToIdentifyOwners' |
+ *  'hasDesignAndAccessStatement' |
+ *  'hasHealthAndSafetyIssues' |
+ *  'hasNewSupportingDocuments' |
+ *  'hasOtherTenants' |
+ *  'hasPlanningObligation' |
+ *  'hasSeparateOwnershipCertificate' |
+ *  'hasToldOwners' |
+ *  'hasToldTenants' |
+ *  'healthAndSafetyIssues' |
+ *  'isAgriculturalHolding' |
+ *  'isAgriculturalHoldingTenant' |
+ *  'isAppellantNamedOnApplication' |
+ *  'isDevelopmentDescriptionStillCorrect' |
+ *  'isSiteFullyOwned' |
+ *  'isSitePartiallyOwned' |
+ *  'isSiteVisibleFromPublicRoad' |
+ *  'newDevelopmentDescription' |
+ *  'visibilityRestrictions'
+ * >}}
  */
-export const appealDetailsFromAppellantList = [
-	{
-		siteVisibleFromPublicLand: true,
-		siteVisibleFromPublicLandDescription: 'site visit description',
-		appellantOwnsWholeSite: true,
-		appellantOwnsWholeSiteDescription: 'i own the whole site',
-		healthAndSafetyIssues: false,
-		healthAndSafetyIssuesDescription: 'everything is super safe'
+export const appellantCaseList = {
+	[APPEAL_TYPE_SHORTCODE_FPA]: {
+		applicantFirstName: 'Fiona',
+		applicantSurname: 'Burgess',
+		areAllOwnersKnown: true,
+		hasAttemptedToIdentifyOwners: true,
+		hasDesignAndAccessStatement: true,
+		hasHealthAndSafetyIssues: true,
+		hasNewSupportingDocuments: true,
+		hasOtherTenants: true,
+		hasPlanningObligation: true,
+		hasSeparateOwnershipCertificate: true,
+		hasToldOwners: true,
+		hasToldTenants: false,
+		healthAndSafetyIssues: 'There is no mobile reception at the site',
+		isAgriculturalHolding: true,
+		isAgriculturalHoldingTenant: true,
+		isAppellantNamedOnApplication: false,
+		isDevelopmentDescriptionStillCorrect: false,
+		isSiteFullyOwned: false,
+		isSitePartiallyOwned: true,
+		isSiteVisibleFromPublicRoad: false,
+		newDevelopmentDescription: 'A new extension has been added at the back',
+		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
-	{
-		siteVisibleFromPublicLand: true,
-		siteVisibleFromPublicLandDescription: 'site visit description',
-		appellantOwnsWholeSite: true,
-		appellantOwnsWholeSiteDescription: 'i own the whole site',
-		healthAndSafetyIssues: false,
-		healthAndSafetyIssuesDescription: 'everything is super safe'
+	[APPEAL_TYPE_SHORTCODE_HAS]: {
+		applicantFirstName: null,
+		applicantSurname: null,
+		areAllOwnersKnown: null,
+		hasAttemptedToIdentifyOwners: null,
+		hasDesignAndAccessStatement: null,
+		hasHealthAndSafetyIssues: false,
+		hasNewSupportingDocuments: false,
+		hasOtherTenants: null,
+		hasPlanningObligation: null,
+		hasSeparateOwnershipCertificate: null,
+		hasToldOwners: null,
+		hasToldTenants: null,
+		healthAndSafetyIssues: null,
+		isAgriculturalHolding: null,
+		isAgriculturalHoldingTenant: null,
+		isAppellantNamedOnApplication: true,
+		isDevelopmentDescriptionStillCorrect: null,
+		isSiteFullyOwned: true,
+		isSitePartiallyOwned: null,
+		isSiteVisibleFromPublicRoad: true,
+		newDevelopmentDescription: null,
+		visibilityRestrictions: null
 	}
-];
+};
 
 /**
  * An object representing a sample of an incomplete validation decision.
