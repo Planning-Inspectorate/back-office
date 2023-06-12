@@ -113,7 +113,7 @@ export type LpaQuestionnaireFullAppealEnvironmentalImpact = {
 };
 
 export type LpaQuestionnaireFullAppealNotifyingPeople = {
-	notificationMethod: notificationMethodOptions;
+	notificationMethod: NotificationMethodOptions;
 	siteNotice?: AppealDocument;
 	letterSentToNeighbours?: AppealDocument;
 	pressAdvert?: AppealDocument;
@@ -173,7 +173,7 @@ export type LpaQuestionnaireFullAppealProcess = {
 
 export type ProcedureType = 'Written representations' | 'Hearing' | 'Inquiry';
 
-export type notificationMethodOptions =
+export type NotificationMethodOptions =
 	| 'A site notice'
 	| 'Letter/email to interested parties'
 	| 'A press advert';
