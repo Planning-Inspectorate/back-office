@@ -63,6 +63,7 @@ const mockExaminationTimetableTypeFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get appeal() {
@@ -180,7 +181,8 @@ class MockPrismaClient {
 		return {
 			findMany: mockExaminationTimetableItemFindMany,
 			findUnique: mockExaminationTimetableItemFindUnique,
-			create: mockExaminationTimetableItemCreate
+			create: mockExaminationTimetableItemCreate,
+			updateMany: mockExaminationTimetableItemUpdateMany
 		};
 	}
 
