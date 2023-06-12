@@ -57,7 +57,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}`;
 
 	const folder = {
-		displayNameEn: folderName,
+		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
 		parentFolderId: examinationFolder.id,
 		displayOrder: 100
@@ -117,7 +117,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	// create sub folder for each bullet points.
 	description.bulletPoints.forEach((/** @type {String} */ folderName) => {
 		const subFolder = {
-			displayNameEn: folderName,
+			displayNameEn: folderName?.trim(),
 			caseId: examinationTimetableItem.caseId,
 			parentFolderId: parentFolderId,
 			displayOrder: 100
