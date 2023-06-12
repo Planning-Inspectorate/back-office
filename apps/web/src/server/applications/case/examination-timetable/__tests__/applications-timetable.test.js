@@ -23,6 +23,9 @@ const nocks = () => {
 		.times(2)
 		.reply(200, fixtureTimetableItems);
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, {});
+	nock('http://test/')
+		.patch('/applications/examination-timetable-items/publish/123')
+		.reply(200, {});
 };
 
 describe('Examination timetable page', () => {
@@ -310,5 +313,50 @@ describe('POST /case/123/examination-timetable/new-item/save', () => {
 			});
 
 		expect(response?.headers?.location).toEqual('./success');
+	});
+});
+
+describe('Publish examination timetable preview page', () => {
+	describe('GET /case/123/examination-timetable/preview', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/preview`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Publish examination timetable');
+		});
+	});
+});
+
+describe('Publish examination timetable success page', () => {
+	describe('POST /case/123/examination-timetable/preview', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should redirect to success page', async () => {
+			const response = await request.post(
+				`/applications-service/case/123/examination-timetable/publish`
+			);
+			expect(response?.headers?.location).toEqual('./publish/success');
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/publish/success`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Timetable item successfully published');
+		});
 	});
 });

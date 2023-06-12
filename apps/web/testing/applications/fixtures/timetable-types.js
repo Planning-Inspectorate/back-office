@@ -38,6 +38,7 @@ export const fixtureTimetableItems = [
 		startTime: '10:10',
 		endDate: null,
 		endTime: '10:10',
+		published: false,
 		ExaminationTimetableType: {
 			id: 2,
 			name: 'Deadline'
@@ -54,6 +55,7 @@ export const fixtureTimetableItems = [
 		startTime: '10:10',
 		endDate: null,
 		endTime: '10:10',
+		published: false,
 		ExaminationTimetableType: {
 			id: 3,
 			name: 'Procedural Deadline (Pre-Examination)'
