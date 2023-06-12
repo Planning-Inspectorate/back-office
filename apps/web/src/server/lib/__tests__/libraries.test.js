@@ -4,6 +4,7 @@ import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
+import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
 
 describe('Libraries', () => {
@@ -62,6 +63,143 @@ describe('Libraries', () => {
 					expect(got).toEqual(want);
 				});
 			}
+		});
+		describe('summary-list-builder', () => {
+			it('should generate 2 summary lists with 2 rows each', () => {
+				const testMappedSections = [
+					{
+						header: 'Section 1',
+						rows: [
+							{
+								title: 'Row 1',
+								value: 'Yes',
+								valueType: 'text',
+								actionText: 'Change',
+								actionLink: '#'
+							},
+							{
+								title: 'Row 2',
+								value: ['Option One', 'Option two'],
+								valueType: 'text',
+								actionText: 'Change',
+								actionLink: '#'
+							}
+						]
+					},
+					{
+						header: 'Section 2',
+						rows: [
+							{
+								title: 'Row 3',
+								value: ['http://testURLOne.com/file.txt', 'http://testURLTwo.com/filetwo.pdf'],
+								valueType: 'link',
+								actionText: 'Details',
+								actionLink: '#'
+							},
+							{
+								title: 'Row 4',
+								value: 'http://testURLOne.com/file.txt',
+								valueType: 'link',
+								actionText: 'Details',
+								actionLink: '#'
+							}
+						]
+					}
+				];
+				const expectedReturn = [
+					{
+						card: {
+							title: {
+								text: 'Section 1'
+							}
+						},
+						rows: [
+							{
+								key: {
+									text: 'Row 1'
+								},
+								value: {
+									html: '<p>Yes</p>'
+								},
+								actions: {
+									items: [
+										{
+											href: '#',
+											text: 'Change',
+											visuallyHiddenText: 'Row 1'
+										}
+									]
+								}
+							},
+							{
+								key: {
+									text: 'Row 2'
+								},
+								value: {
+									html: '<p>Option One</p><br><p>Option two</p><br>'
+								},
+								actions: {
+									items: [
+										{
+											href: '#',
+											text: 'Change',
+											visuallyHiddenText: 'Row 2'
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						card: {
+							title: {
+								text: 'Section 2'
+							}
+						},
+						rows: [
+							{
+								key: {
+									text: 'Row 3'
+								},
+								value: {
+									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a><br><a href="http://testURLTwo.com/filetwo.pdf" class="govuk-link">http://testURLTwo.com/filetwo.pdf</a><br>'
+								},
+								actions: {
+									items: [
+										{
+											href: '#',
+											text: 'Details',
+											visuallyHiddenText: 'Row 3'
+										}
+									]
+								}
+							},
+							{
+								key: {
+									text: 'Row 4'
+								},
+								value: {
+									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a>'
+								},
+								actions: {
+									items: [
+										{
+											href: '#',
+											text: 'Details',
+											visuallyHiddenText: 'Row 4'
+										}
+									]
+								}
+							}
+						]
+					}
+				];
+				const formattedSections = [];
+				for (const section of testMappedSections) {
+					formattedSections.push(generateSummaryList(section.header, section.rows));
+				}
+				expect(formattedSections).toEqual(expectedReturn);
+			});
 		});
 	});
 

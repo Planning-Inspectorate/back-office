@@ -367,7 +367,7 @@
 									text: appeal.documentationSummary.lpaQuestionnaire.dueDate | displayDate({ condensed: true }) if appeal.documentationSummary.lpaQuestionnaire.dueDate else ''
 								},
 								{
-									html: "<a href=\"#\" class=\"govuk-link\">Review</a>"
+									html: '<a href="/appeals-service/appeal-details/'+  appeal.id + '/lpa-questionnaire-review/' + appeal.lpaQuestionnaireId + '" class="govuk-link">Review</a>'
 								}
 							]
 						]
