@@ -1293,7 +1293,7 @@
 		"/applications/{id}/documents/ready-to-publish": {
 			"post": {
 				"tags": ["Applications"],
-				"description": "Gets all documents that are ready to publish",
+				"description": "Gets all documents that are ready to publish for the case",
 				"parameters": [
 					{
 						"name": "id",

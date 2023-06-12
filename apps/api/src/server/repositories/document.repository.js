@@ -214,10 +214,15 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
 /**
  * Filter document table to retrieve documents by 'ready-to-publish' status
  *
- * @param {{skipValue: number, pageSize: number, documentVersion?: number}} params
+ * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
  */
-export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, documentVersion = 1 }) => {
+export const getDocumentsReadyPublishStatus = ({
+	skipValue,
+	pageSize,
+	caseId,
+	documentVersion = 1
+}) => {
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
@@ -231,6 +236,7 @@ export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, documentVe
 			}
 		],
 		where: {
+			caseId,
 			documentVersion: {
 				some: {
 					version: documentVersion,

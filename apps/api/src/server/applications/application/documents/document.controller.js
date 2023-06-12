@@ -298,15 +298,17 @@ export const storeDocumentVersion = async (request, response) => {
 /**
  * Gets paginated array of documents in a folder
  *
- * @type {import('express').RequestHandler<{ folderId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ * @type {import('express').RequestHandler<{ folderId: number, id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
-export const getReadyToPublishDocuments = async ({ body }, response) => {
+export const getReadyToPublishDocuments = async ({ params: { id }, body }, response) => {
 	const { pageNumber = 1, pageSize = 125 } = body;
+
 	const skipValue = getSkipValue(pageNumber, pageSize);
 
 	const paginatedReadyToPublishDocuments = await documentRepository.getDocumentsReadyPublishStatus({
 		skipValue,
-		pageSize
+		pageSize,
+		caseId: +id
 	});
 
 	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus();
