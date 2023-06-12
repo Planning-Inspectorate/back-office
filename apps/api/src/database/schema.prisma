@@ -424,19 +424,18 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                  String            @id @default(uuid())
-  name                  String
-  folderId              Int
-  createdAt             DateTime          @default(now())
-  isDeleted             Boolean           @default(false)
-  representationId      Int?
-  latestVersionId       Int?
-  caseId                Int
-  folder                Folder            @relation(fields: [folderId], references: [id])
-  documentVersion       DocumentVersion[] @relation("VersionHistory")
-  Representation        Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  latestDocumentVersion DocumentVersion?  @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  case                  Case              @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  guid                     String                    @id @default(uuid())
+  name                     String
+  folderId                 Int
+  createdAt                DateTime                  @default(now())
+  isDeleted                Boolean                   @default(false)
+  latestVersionId          Int?
+  caseId                   Int
+  folder                   Folder                    @relation(fields: [folderId], references: [id])
+  documentVersion          DocumentVersion[]         @relation("VersionHistory")
+  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -491,20 +490,20 @@ model DocumentVersion {
 
 /// Representation model
 model Representation {
-  id                     Int                     @id @default(autoincrement())
+  id                     Int                        @id @default(autoincrement())
   reference              String
   caseId                 Int
   status                 String
-  originalRepresentation String                  @db.NText
-  redactedRepresentation String?                 @db.NText
-  redacted               Boolean                 @default(false)
+  originalRepresentation String                     @db.NText
+  redactedRepresentation String?                    @db.NText
+  redacted               Boolean                    @default(false)
   userId                 Int?
-  received               DateTime                @default(now())
-  case                   Case                    @relation(fields: [caseId], references: [id])
-  user                   User?                   @relation(fields: [userId], references: [id])
+  received               DateTime
+  case                   Case                       @relation(fields: [caseId], references: [id])
+  user                   User?                      @relation(fields: [userId], references: [id])
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
   contacts               RepresentationContact[]
-  attachments            Document[]
+  attachments            RepresentationAttachment[]
   representationActions  RepresentationAction[]
 
   @@index([reference], name: "reference")
@@ -543,6 +542,15 @@ model RepresentationAction {
   actionDate           DateTime
   notes                String?        @db.NText
   Representation       Representation @relation(fields: [representationId], references: [id])
+}
+
+//  RepresentationAttachment model
+model RepresentationAttachment {
+  id               Int            @id @default(autoincrement())
+  representationId Int
+  documentGuid     String         @unique
+  Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
+  Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
 }
 
 model ExaminationTimetableType {
