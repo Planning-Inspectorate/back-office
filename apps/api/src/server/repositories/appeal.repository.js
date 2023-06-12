@@ -13,7 +13,7 @@ import { getSkipValue } from '../utils/database-pagination.js';
 /**
  * @typedef {object} AppealInclusionOptions
  * @property {boolean=} address
- * @property {boolean=} appealDetailsFromAppellant
+ * @property {boolean=} appellantCase
  * @property {boolean=} appellant
  * @property {boolean=} inspectorDecision
  * @property {boolean=} lpaQuestionnaire
@@ -68,7 +68,12 @@ const appealRepository = (function () {
 				},
 				include: {
 					address: true,
-					appealDetailsFromAppellant: true,
+					appellantCase: {
+						include: {
+							knowledgeOfOtherLandowners: true,
+							planningObligationStatus: true
+						}
+					},
 					appellant: true,
 					appealStatus: {
 						where: {
