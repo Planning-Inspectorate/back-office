@@ -6,7 +6,7 @@ import {
 	fixtureDocumentFileVersions,
 	fixturePaginatedDocumentationFiles,
 	fixturePublishedDocumentationFile,
-	fixtureReadyToPublishDocumentationFile,
+	fixtureReadyToPublishDocumentationFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
