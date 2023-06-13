@@ -61,6 +61,7 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 			description: JSON.parse(timetableItem.description)
 		};
 	});
+
 	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published ? true : false;
 	response.render(`applications/case/examination-timetable`, {
 		selectedPageType: 'examination-timetable',
@@ -82,7 +83,7 @@ export async function previewApplicationsCaseExaminationTimeTable(request, respo
 			description: JSON.parse(timetableItem.description)
 		};
 	});
-	response.render(`applications/case/examination-timetable-preview`, {
+	response.render(`applications/case-timetable/timetable-preview.njk`, {
 		selectedPageType: 'examination-timetable',
 		timetableItems: timetableItemsViewData
 	});

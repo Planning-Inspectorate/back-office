@@ -24,15 +24,15 @@
 						key: { text: "Iteam Name" },
 						value: { text: timetableItem.name }
 					}, {
-						key: { text: "Start Date" },
-						value: { text: timetableItem.startDate | displayDate({ condensed: true }) if timetableItem.startDate else '' }
+						key: { text: "Start Date" if timetableItem.startDate else 'Date'},
+						value: { text: timetableItem.startDate | displayDate({ condensed: true }) if timetableItem.startDate else timetableItem.date | displayDate({ condensed: true }) }
 					}, {
 						key: { text: "Start Time" },
 						value: { text: timetableItem.startTime }
 					}, {
 						key: { text: "End Date" },
 						value: { text: timetableItem.date | displayDate({ condensed: true }) if timetableItem.date else '' }
-					}, {
+					} if timetableItem.startDate else null, {
 						key: { text: "End Time" },
 						value: { text: timetableItem.endTime }
 					}, {
