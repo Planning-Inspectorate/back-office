@@ -73,9 +73,14 @@ module.exports = {
 					// or a regular expression
 					if (
 						allowedScopes.some((allowedScope) => {
-							return isRegExp(scope)
-								? scope.match(/** @type {*} */ (allowedScope))
-								: allowedScope === scope;
+							if (isRegExp(allowedScope)) {
+								if (scope == null) {
+									return false;
+								}
+								return allowedScope.exec(scope) !== null;
+							} else {
+								return allowedScope === scope;
+							}
 						})
 					) {
 						return [true];
