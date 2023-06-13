@@ -1318,8 +1318,8 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='Lorem' id=\\"name\\" name=\\"name\\" type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='Some text with 
- * one point 
+                <input class=\\"govuk-input\\" value='Some text with
+ * one point
 * another point ' id=\\"description\\" name=\\"description\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='01' id=\\"date.day\\" name=\\"date.day\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='02' id=\\"date.month\\" name=\\"date.month\\"
@@ -1346,7 +1346,7 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
                 type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='' id=\\"timetable-id\\" name=\\"timetable-id\\"
+                <input class=\\"govuk-input\\" value='' id=\\"timetableTypeId\\" name=\\"timetableTypeId\\"
                 type=\\"hidden\\">
                 <dl class=\\"govuk-summary-list pins-files-list\\"><dt class=\\"govuk-summary-list__key\\">Item details</dt>
                     <dd class=\\"govuk-summary-list__actions\\">
@@ -1380,8 +1380,8 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='Lorem' id=\\"name\\" name=\\"name\\" type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='Some text with 
- * one point 
+                <input class=\\"govuk-input\\" value='Some text with
+ * one point
 * another point ' id=\\"description\\" name=\\"description\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='01' id=\\"date.day\\" name=\\"date.day\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='02' id=\\"date.month\\" name=\\"date.month\\"
@@ -1408,7 +1408,7 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                 type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
                 type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='' id=\\"timetable-id\\" name=\\"timetable-id\\"
+                <input class=\\"govuk-input\\" value='' id=\\"timetableTypeId\\" name=\\"timetableTypeId\\"
                 type=\\"hidden\\">
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Save item</button>

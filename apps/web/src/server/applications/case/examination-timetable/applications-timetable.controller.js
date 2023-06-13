@@ -2,6 +2,7 @@ import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
+	getCaseTimetableItem,
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
 	getCaseTimetableItemById,
@@ -230,7 +231,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	/** @type {ApplicationsTimetable} */
 	const payload = {
 		caseId: response.locals.caseId,
-		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
+		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
 		date,
@@ -241,8 +242,20 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
 		published: false
 	};
+	if (body['timetableId']) {
+		payload.id = Number.parseInt(body['timetableId'], 10);
+	}
 
-	const { errors } = await createCaseTimetableItem(payload);
+	let errors = null;
+	if (payload.id) {
+		// has exam id, therefore an existing record for update
+		const apiResponse = await updateCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+	} else {
+		// create new record
+		const apiResponse = await createCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+	}
 
 	if (errors) {
 		const rows = getCheckYourAnswersRows(body);
@@ -309,7 +322,6 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
  */
 const getCheckYourAnswersRows = (body) => {
 	const { description, name, itemTypeName, templateType } = body;
-
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
