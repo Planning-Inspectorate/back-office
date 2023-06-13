@@ -37,8 +37,10 @@ if (!config.authDisabled) {
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncRoute(handleSignout));
-router.route('/documents/:caseId/upload').post(postDocumentsUpload);
-router.route('/documents/:caseId/upload/:documentId/add-version').post(postUploadDocumentVersion);
+router.route('/documents/:domain/:caseId/upload').post(postDocumentsUpload);
+router
+	.route('/documents/:domain/:caseId/upload/:documentId/add-version')
+	.post(postUploadDocumentVersion);
 router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentsDownload));
 router.use('/appeals-service', appealsRouter);
 router.use('/applications-service', applicationsRouter);

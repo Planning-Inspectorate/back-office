@@ -4,7 +4,7 @@
 {% macro fileUploader(params) %}
 
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
-		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
+		 data-domain="{{ params.domain }}" data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
 		 {% if params.documentId %} data-document-id="{{ params.documentId }}"{% endif %}
 		 {% if params.blobEmulatorSasUrl %} data-blob-emulator-url="{{ params.blobEmulatorSasUrl }}"{% endif %}
 		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">

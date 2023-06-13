@@ -6,24 +6,27 @@ import config from '@pins/web/environment/config.js';
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
+/** @typedef {'application'|'appeal'} domains */
 
 /**
+ * @param {domains} domain
  * @param {string} caseId
  * @param {DocumentUploadInfo[]} payload
  * @returns {Promise<UploadInfo>}
  */
-export const createNewDocument = async (caseId, payload) => {
-	return post(`applications/${caseId}/documents`, { json: payload });
+export const createNewDocument = async (domain, caseId, payload) => {
+	return post(`${domain}/${caseId}/documents`, { json: payload });
 };
 
 /**
+ * @param {domains} domain
  * @param {string} caseId
  * @param {string} documentId
  * @param {DocumentUploadInfo} payload
  * @returns {Promise<DocumentUploadInfo>}
  */
-export const createNewDocumentVersion = async (caseId, documentId, payload) => {
-	return post(`applications/${caseId}/document/${documentId}/add-version`, { json: payload });
+export const createNewDocumentVersion = async (domain, caseId, documentId, payload) => {
+	return post(`${domain}/${caseId}/document/${documentId}/add-version`, { json: payload });
 };
 
 /**
@@ -45,13 +48,13 @@ export const documentName = (documentNameWithExtension) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
+ * @param {{params: {caseId: string, domain: domains}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
 export async function postDocumentsUpload({ params, body, session }, response) {
-	const { caseId } = params;
-	const uploadInfo = await createNewDocument(caseId, body);
+	const { caseId, domain } = params;
+	const uploadInfo = await createNewDocument(domain, caseId, body);
 	const { documents } = uploadInfo;
 
 	let accessToken = null;
@@ -76,14 +79,14 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentUploadInfo}} request
+ * @param {{params: {caseId: string, documentId: string, domain: domains}, session: SessionWithAuth, body: DocumentUploadInfo}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
 export async function postUploadDocumentVersion({ params, body, session }, response) {
-	const { caseId, documentId } = params;
+	const { domain, caseId, documentId } = params;
 
-	const document = await createNewDocumentVersion(caseId, documentId, body);
+	const document = await createNewDocumentVersion(domain, caseId, documentId, body);
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 

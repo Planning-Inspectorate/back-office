@@ -22,7 +22,7 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		const { folderId, caseId } = uploadForm.dataset;
+		const { domain, folderId, caseId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
 			documentSize: file.size,
@@ -32,7 +32,7 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		}));
 
-		return fetch(`/documents/${caseId}/upload/`, {
+		return fetch(`/documents/${domain}/${caseId}/upload/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getVersionUploadInfoFromInternalDB = async (file) => {
-		const { folderId, caseId, documentId } = uploadForm.dataset;
+		const { domain, folderId, caseId, documentId } = uploadForm.dataset;
 		const payload = {
 			documentName: file.name,
 			documentSize: file.size,
@@ -71,7 +71,7 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		};
 
-		return fetch(`/documents/${caseId}/upload/${documentId}/add-version`, {
+		return fetch(`/documents/${domain}/${caseId}/upload/${documentId}/add-version`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -167,19 +167,19 @@ const serverActions = (uploadForm) => {
 	/**
 	 * Creates an anonymous storage client for a local emulator
 	 *
-	 * @param {string} blobStoreUrl
+	 * @param {string} emulatorUrl
 	 * @returns {BlobStorageClient}
 	 */
-	const createStorageEmulatorClient = (blobStoreUrl) =>
-		new BlobStorageClient(new BlobServiceClient(blobStoreUrl));
+	const createStorageEmulatorClient = (emulatorUrl) =>
+		new BlobStorageClient(new BlobServiceClient(emulatorUrl));
 
 	/**
 	 * Helper function to check if the destination of an upload info is a local emulator
 	 *
-	 * @param {string} blobStoreUrl
+	 * @param {string} emulatorUrl
 	 * @returns {boolean}
 	 */
-	const isEmulatedStorage = (blobStoreUrl) => blobStoreUrl !== '';
+	const isEmulatedStorage = (emulatorUrl) => emulatorUrl !== '';
 
 	return {
 		getUploadInfoFromInternalDB,
