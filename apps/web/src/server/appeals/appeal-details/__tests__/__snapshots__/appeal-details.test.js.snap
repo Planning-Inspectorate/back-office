@@ -174,7 +174,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         <th scope=\\"row\\" class=\\"govuk-table__header\\">LPA Questionnaire</th>
                                         <td class=\\"govuk-table__cell\\">Not received</td>
                                         <td class=\\"govuk-table__cell\\">23 May 2024</td>
-                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"/appeals-service/appeal-details/1/lpa-questionnaire-review/undefined\\"
+                                            class=\\"govuk-link\\">Review</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -359,7 +360,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         <th scope=\\"row\\" class=\\"govuk-table__header\\">LPA Questionnaire</th>
                                         <td class=\\"govuk-table__cell\\">Not received</td>
                                         <td class=\\"govuk-table__cell\\">23 May 2024</td>
-                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"/appeals-service/appeal-details/3/lpa-questionnaire-review/undefined\\"
+                                            class=\\"govuk-link\\">Review</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -546,7 +548,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         <th scope=\\"row\\" class=\\"govuk-table__header\\">LPA Questionnaire</th>
                                         <td class=\\"govuk-table__cell\\">Not received</td>
                                         <td class=\\"govuk-table__cell\\">23 May 2024</td>
-                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"/appeals-service/appeal-details/2/lpa-questionnaire-review/undefined\\"
+                                            class=\\"govuk-link\\">Review</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -721,7 +724,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         <th scope=\\"row\\" class=\\"govuk-table__header\\">LPA Questionnaire</th>
                                         <td class=\\"govuk-table__cell\\">Not received</td>
                                         <td class=\\"govuk-table__cell\\">23 May 2024</td>
-                                        <td class=\\"govuk-table__cell\\"><a href=\\"#\\" class=\\"govuk-link\\">Review</a>
+                                        <td class=\\"govuk-table__cell\\"><a href=\\"/appeals-service/appeal-details/1/lpa-questionnaire-review/undefined\\"
+                                            class=\\"govuk-link\\">Review</a>
                                         </td>
                                     </tr>
                                 </tbody>
