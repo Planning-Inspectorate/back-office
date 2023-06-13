@@ -1,4 +1,5 @@
 export interface ApplicationsTimetableCreateBody extends Record<string, string | undefined> {
+	timetableId?: string;
 	name: string;
 	templateType: string;
 	description: string;
@@ -16,7 +17,7 @@ export interface ApplicationsTimetableCreateBody extends Record<string, string |
 	'starTime.minutes'?: string;
 	'endTime.hours'?: string;
 	'endTime.minutes'?: string;
-	'timetable-id': string;
+	timetableTypeId: string;
 }
 
 export interface ApplicationsTimetable {

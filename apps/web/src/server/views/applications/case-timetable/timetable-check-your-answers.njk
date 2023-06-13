@@ -18,6 +18,7 @@
 
 {% macro formValues() %}
 	<input class="govuk-input" value='{{ values.itemTypeName }}' id="timetable-type" name="timetable-type" type="hidden" >
+	<input class="govuk-input" value='{{ values.timetableId }}' id="timetableId" name="timetableId" type="hidden" >
 	<input class="govuk-input" value='{{ values.name }}' id="name" name="name" type="hidden" >
 	<input class="govuk-input" value='{{ values.description }}' id="description" name="description" type="hidden" >
 	<input class="govuk-input" value='{{ values['date.day'] }}' id="date.day" name="date.day" type="hidden" >
@@ -33,7 +34,7 @@
 	<input class="govuk-input" value='{{ values['startTime.minutes'] }}' id="startTime.minutes" name="startTime.minutes" type="hidden" >
 	<input class="govuk-input" value='{{ values['endTime.hours'] }}' id="endTime.hours" name="endTime.hours" type="hidden" >
 	<input class="govuk-input" value='{{ values['endTime.minutes'] }}' id="endTime.minutes" name="endTime.minutes" type="hidden" >
-	<input class="govuk-input" value='{{ values.templateId }}' id="timetable-id" name="timetable-id" type="hidden" >
+	<input class="govuk-input" value='{{ values.templateId }}' id="timetableTypeId" name="timetableTypeId" type="hidden" >
 {% endmacro %}
 
 {% block pageContent %}

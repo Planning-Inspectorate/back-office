@@ -52,6 +52,8 @@
 					<input class="govuk-input" value='{{ selectedItemType.id }}' id="templateId" name="templateId" type="hidden" >
 				</div>
 
+				<input class="govuk-input" value='{{ values.timetableId }}' id="timetableId" name="timetableId" type="hidden" >
+
 				{% if not isUndefined(templateFields.name) %}
 					{{ govukInput({
 							id: 'name',

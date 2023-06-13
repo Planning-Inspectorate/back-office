@@ -36,6 +36,30 @@ export const createCaseTimetableItem = async (payload) => {
 };
 
 /**
+ * Updates and existing timetable item
+ *
+ * @param {ApplicationsTimetable} payload
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
+ */
+export const updateCaseTimetableItem = async (payload) => {
+	let response;
+	try {
+		const updatedTimetable = await patch(
+			`applications/examination-timetable-items/${payload.id}/update`,
+			{
+				json: payload
+			}
+		);
+		response = { updatedTimetable };
+	} catch {
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+	return response;
+};
+
+/**
  * Get case timetable items
  * @param {number} caseId
  * @returns {Promise<ApplicationsTimetable[]>}
