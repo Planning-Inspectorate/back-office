@@ -28,7 +28,7 @@ module.exports = {
 			2,
 			'always',
 			{
-				build: [],
+				build: [null, 'deps'], // allow dependabot commits
 				chore: scopes,
 				ci: [],
 				docs: [null, ...scopes],
