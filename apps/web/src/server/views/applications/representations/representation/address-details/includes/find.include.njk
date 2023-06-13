@@ -1,0 +1,71 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{%
+  set addressListItems = [
+    {
+      attributes: { hidden: true },
+      disabled: true,
+      selected: true,
+      text: "" + addressList | length + " addresses found",
+      value: ""
+    }
+  ]
+%}
+
+{% for addressListItem in addressList %}
+  {%
+    set addressListItems = (addressListItems.push({
+      value: addressListItem.apiReference,
+      text: addressListItem.displayAddress
+    }), addressListItems)
+  %}
+{% endfor %}
+
+<div class="govuk-!-width-one-half govuk-!-margin-bottom-4">
+  <p class="govuk-label govuk-!-margin-top-0">
+    Postcode
+  </p>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      <p class="govuk-body">
+        <strong>{{ postcode | upper }}</strong>
+      </p>
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+      <a class="govuk-link govuk-body govuk-!-display-inline-block" href="{{ params.lookup }}">
+        Change
+      </a>
+    </div>
+  </div>
+</div>
+
+{% call govukFieldset({
+  classes: "govuk-!-width-two-thirds",
+  legend: {
+    text: "Select your address",
+    classes: "govuk-visually-hidden"
+  }
+}) %}
+
+  {{ govukSelect({
+    id: "address",
+    errorMessage: errors["address"] and {
+      text: errors["address"].msg
+    },
+    name: "address",
+    label: {
+      text: "Address"
+    },
+    items: addressListItems
+  }) }}
+
+{% endcall %}
+
+<div class="govuk-!-margin-bottom-6">
+  <a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0' href="{{ params.enter }}">
+    I can't find address on the list
+  </a>
+</div>
