@@ -1,7 +1,24 @@
 /**
+ * @typedef RowArray
+ * @type {object}
+ * @property {string} title - key column
+ * @property {(string | string[])} value - value column
+ * @property {string} valueType - link or text (determines html tags)
+ * @property {string} actionText - text for button
+ * @property {string} actionLink - url for button
+ */
+
+/**
+ * @typedef {{title: {text: string}}} Card Card for header
+ * @typedef {{text: string}} Key Key column
+ * @typedef {{html: string}} Value Value column
+ * @typedef {{items: {href: string, text: string, visuallyHiddenText: string}[]}} Actions Array of button actions: [{button link, button text, button hidden text}]
+ */
+
+/**
  * @param {string} header
- * @param {{title: string, value: string | string[], valueType: string, actionText: string, actionLink: string}[]} rowArray
- * @returns {{card: {title: {text: string}}, rows: {key: {text: string}, value: {html: string}, actions:{items: {href: string, text: string, visuallyHiddenText: string }[]}}[]}}
+ * @param {RowArray[]} rowArray
+ * @returns {{card: Card, rows: {key: Key, value: Value, actions: Actions}[]}}}
  */
 export function generateSummaryList(header, rowArray) {
 	const rows = [];
@@ -54,7 +71,7 @@ function formatRowValue(row) {
 
 /**
  * @param {string} type text | link
- * @param {string} link optional: if type is link
+ * @param {string} [link] optional: if type is link
  * @returns {{startTag: string, endTag: string}} <{{startTag}}>, </{{endTag}}>
  */
 function getHtmlTags(type, link) {
