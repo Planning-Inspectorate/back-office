@@ -40,7 +40,7 @@ export const postContactDetails = async (req, res) => {
 		});
 	}
 
-	const nextPagePath = `address-lookup`;
+	const nextPagePath = `address-details`;
 
 	let redirectUrl = getRepresentationPageUrl(nextPagePath, String(repId), String(repType));
 

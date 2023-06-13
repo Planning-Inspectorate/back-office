@@ -324,8 +324,13 @@ export const updateApplicationRepresentation = async (
 			},
 			data: {
 				address: {
-					update: {
-						...representativeAddress
+					upsert: {
+						create: {
+							...representativeAddress
+						},
+						update: {
+							...representativeAddress
+						}
 					}
 				}
 			}
