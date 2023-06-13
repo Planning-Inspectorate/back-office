@@ -82,4 +82,21 @@ const getLpaQuestionnaireById = async (req, res) => {
 	return res.send(formattedAppeal);
 };
 
-export { getAppealById, getAppeals, getLpaQuestionnaireById, updateAppealById };
+/**
+ * @type {import('express').RequestHandler}
+ * @returns {Promise<object>}
+ */
+const getAppellantCaseById = async (req, res) => {
+	const { appeal } = req;
+	const formattedAppeal = appealFormatter.formatAppellantCase(appeal);
+
+	return res.send(formattedAppeal);
+};
+
+export {
+	getAppealById,
+	getAppeals,
+	getAppellantCaseById,
+	getLpaQuestionnaireById,
+	updateAppealById
+};

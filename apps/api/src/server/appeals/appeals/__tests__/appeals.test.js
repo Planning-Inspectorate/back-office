@@ -8,180 +8,18 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
+import {
+	fullPlanningAppeal,
+	householdAppeal,
+	householdAppealTwo,
+	linkedAppeals,
+	otherAppeals
+} from '../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const request = supertest(app);
-const householdAppeal = {
-	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
-	appealStatus: [
-		{
-			status: 'awaiting_lpa_questionnaire',
-			valid: true
-		}
-	],
-	createdAt: new Date(2022, 1, 23),
-	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
-	planningApplicationReference: '48269/APP/2021/1482',
-	appellant: {
-		name: 'Lee Thornton',
-		agentName: null
-	},
-	startedAt: new Date(2022, 4, 18),
-	address: {
-		addressLine1: '96 The Avenue',
-		town: 'Maidstone',
-		county: 'Kent',
-		postcode: 'MD21 5XY'
-	},
-	appealTimetable: {
-		id: 1,
-		appealId: 1,
-		finalCommentReviewDate: null,
-		issueDeterminationDate: null,
-		lpaQuestionnaireDueDate: '2023-05-16T01:00:00.000Z',
-		statementReviewDate: null
-	},
-	appealType: {
-		id: 2,
-		type: 'household',
-		shorthand: 'HAS'
-	},
-	appealDetailsFromAppellant: {
-		appellantOwnsWholeSite: true,
-		siteVisibleFromPublicLand: true,
-		healthAndSafetyIssues: false
-	},
-	inspectorDecision: {
-		outcome: 'Not issued yet'
-	},
-	siteVisit: {
-		id: 1,
-		appealId: 1,
-		visitDate: '2022-03-31T12:00:00.000Z',
-		visitSlot: '1pm - 2pm',
-		visitType: 'unaccompanied'
-	},
-	lpaQuestionnaire: {
-		id: 1,
-		appealId: 1,
-		communityInfrastructureLevyAdoptionDate: null,
-		designatedSites: [
-			{
-				designatedSite: {
-					name: 'cSAC',
-					description: 'candidate special area of conservation'
-				}
-			}
-		],
-		developmentDescription: null,
-		doesAffectAListedBuilding: null,
-		doesAffectAScheduledMonument: null,
-		doesSiteHaveHealthAndSafetyIssues: null,
-		doesSiteRequireInspectorAccess: null,
-		extraConditions: null,
-		hasCommunityInfrastructureLevy: null,
-		hasCompletedAnEnvironmentalStatement: null,
-		hasEmergingPlan: null,
-		hasExtraConditions: null,
-		hasProtectedSpecies: null,
-		hasRepresentationsFromOtherParties: null,
-		hasResponsesOrStandingAdviceToUpload: null,
-		hasStatementOfCase: null,
-		hasStatutoryConsultees: null,
-		hasSupplementaryPlanningDocuments: null,
-		hasTreePreservationOrder: null,
-		inCAOrrelatesToCA: null,
-		includesScreeningOption: null,
-		isCommunityInfrastructureLevyFormallyAdopted: null,
-		isDevelopmentInOrNearDesignatedSites: null,
-		isEnvironmentalStatementRequired: null,
-		isGypsyOrTravellerSite: null,
-		isListedBuilding: null,
-		isPublicRightOfWay: null,
-		isSensitiveArea: null,
-		isSiteVisible: null,
-		isTheSiteWithinAnAONB: null,
-		listedBuildingDetails: [
-			{
-				grade: 'Grade I',
-				description: 'http://localhost:8080',
-				affectsListedBuilding: false
-			},
-			{
-				grade: 'Grade II',
-				description: 'http://localhost:8081',
-				affectsListedBuilding: true
-			}
-		],
-		lpaNotificationMethods: [
-			{
-				lpaNotificationMethod: {
-					name: 'A site notice'
-				}
-			}
-		],
-		meetsOrExceedsThresholdOrCriteriaInColumn2: null,
-		procedureType: {
-			name: 'Written'
-		},
-		procedureTypeId: 3,
-		receivedAt: null,
-		scheduleType: {
-			name: 'Schedule 1'
-		},
-		scheduleTypeId: 1,
-		sentAt: '2023-05-24T10:34:09.286Z',
-		siteWithinGreenBelt: null
-	},
-	linkedAppealId: 1,
-	otherAppealId: 3
-};
-const fullPlanningAppeal = {
-	...householdAppeal,
-	id: 2,
-	appealTimetable: {
-		id: 2,
-		appealId: 2,
-		finalCommentReviewDate: '2023-06-28T01:00:00.000Z',
-		issueDeterminationDate: null,
-		lpaQuestionnaireDueDate: '2023-05-16T01:00:00.000Z',
-		statementReviewDate: '2023-06-14T01:00:00.000Z'
-	},
-	appealType: {
-		id: 1,
-		type: 'full planning',
-		shorthand: 'FPA'
-	},
-	otherAppealId: null
-};
-const householdAppealTwo = {
-	...householdAppeal,
-	id: 3
-};
-const linkedAppeals = [
-	{
-		id: householdAppeal.id,
-		reference: householdAppeal.reference
-	},
-	{
-		id: fullPlanningAppeal.id,
-		reference: fullPlanningAppeal.reference
-	}
-];
-const otherAppeals = [
-	{
-		id: householdAppeal.id,
-		reference: householdAppeal.reference
-	},
-	{
-		id: householdAppealTwo.id,
-		reference: householdAppealTwo.reference
-	}
-];
 
-describe('Appeals', () => {
+describe('appeals routes', () => {
 	describe('/appeals', () => {
 		describe('GET', () => {
 			test('gets appeals when not given pagination params', async () => {
@@ -351,6 +189,7 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
 				databaseConnector.appeal.findMany
+					// @ts-ignore
 					.mockResolvedValueOnce(linkedAppeals)
 					.mockResolvedValueOnce(otherAppeals);
 
@@ -373,6 +212,7 @@ describe('Appeals', () => {
 						lpaQuestionnaireDueDate: householdAppeal.appealTimetable.lpaQuestionnaireDueDate
 					},
 					appealType: householdAppeal.appealType.type,
+					appellantCaseId: 1,
 					appellantName: householdAppeal.appellant.name,
 					decision: householdAppeal.inspectorDecision.outcome,
 					isParentAppeal: true,
@@ -414,6 +254,7 @@ describe('Appeals', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 				// @ts-ignore
 				databaseConnector.appeal.findMany
+					// @ts-ignore
 					.mockResolvedValueOnce(linkedAppeals)
 					.mockResolvedValueOnce([]);
 
@@ -438,6 +279,7 @@ describe('Appeals', () => {
 						statementReviewDate: fullPlanningAppeal.appealTimetable.statementReviewDate
 					},
 					appealType: fullPlanningAppeal.appealType.type,
+					appellantCaseId: 1,
 					appellantName: fullPlanningAppeal.appellant.name,
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
 					isParentAppeal: false,
@@ -764,169 +606,6 @@ describe('Appeals', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
-			});
-		});
-	});
-
-	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
-		describe('GET', () => {
-			test('gets a single lpa questionnaire', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-
-				const { lpaQuestionnaire } = householdAppeal;
-				const response = await request.get(
-					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
-				);
-
-				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					affectsListedBuildingDetails: [
-						{
-							grade: lpaQuestionnaire.listedBuildingDetails[1].grade,
-							description: lpaQuestionnaire.listedBuildingDetails[1].description
-						}
-					],
-					appealId: householdAppeal.id,
-					appealReference: householdAppeal.reference,
-					appealSite: {
-						addressLine1: householdAppeal.address.addressLine1,
-						town: householdAppeal.address.town,
-						county: householdAppeal.address.county,
-						postCode: householdAppeal.address.postcode
-					},
-					communityInfrastructureLevyAdoptionDate:
-						lpaQuestionnaire.communityInfrastructureLevyAdoptionDate,
-					designatedSites: lpaQuestionnaire.designatedSites.map(
-						({ designatedSite: { name, description } }) => ({ name, description })
-					),
-					developmentDescription: lpaQuestionnaire.developmentDescription,
-					documents: {
-						communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-						conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-						consultationResponses: 'consultation-responses.pdf',
-						definitiveMapAndStatement: 'right-of-way.pdf',
-						emergingPlans: ['emerging-plan-1.pdf'],
-						environmentalStatementResponses: 'environment-statement-responses.pdf',
-						issuedScreeningOption: 'issued-screening-opinion.pdf',
-						lettersToNeighbours: 'letters-to-neighbours.pdf',
-						otherRelevantPolicies: ['policy-1.pdf'],
-						planningOfficersReport: 'planning-officers-report.pdf',
-						policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-						pressAdvert: 'press-advert.pdf',
-						representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-						responsesOrAdvice: ['responses-or-advice.pdf'],
-						screeningDirection: 'screening-direction.pdf',
-						siteNotice: 'site-notice.pdf',
-						supplementaryPlanningDocuments: ['supplementary-1.pdf'],
-						treePreservationOrder: 'tree-preservation-order.pdf'
-					},
-					doesAffectAListedBuilding: lpaQuestionnaire.doesAffectAListedBuilding,
-					doesAffectAScheduledMonument: lpaQuestionnaire.doesAffectAScheduledMonument,
-					doesSiteHaveHealthAndSafetyIssues: lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues,
-					doesSiteRequireInspectorAccess: lpaQuestionnaire.doesSiteRequireInspectorAccess,
-					extraConditions: lpaQuestionnaire.extraConditions,
-					hasCommunityInfrastructureLevy: lpaQuestionnaire.hasCommunityInfrastructureLevy,
-					hasCompletedAnEnvironmentalStatement:
-						lpaQuestionnaire.hasCompletedAnEnvironmentalStatement,
-					hasEmergingPlan: lpaQuestionnaire.hasEmergingPlan,
-					hasExtraConditions: lpaQuestionnaire.hasExtraConditions,
-					hasProtectedSpecies: lpaQuestionnaire.hasProtectedSpecies,
-					hasRepresentationsFromOtherParties: lpaQuestionnaire.hasRepresentationsFromOtherParties,
-					hasResponsesOrStandingAdviceToUpload:
-						lpaQuestionnaire.hasResponsesOrStandingAdviceToUpload,
-					hasStatementOfCase: lpaQuestionnaire.hasStatementOfCase,
-					hasStatutoryConsultees: lpaQuestionnaire.hasStatutoryConsultees,
-					hasSupplementaryPlanningDocuments: lpaQuestionnaire.hasSupplementaryPlanningDocuments,
-					hasTreePreservationOrder: lpaQuestionnaire.hasTreePreservationOrder,
-					inCAOrrelatesToCA: lpaQuestionnaire.inCAOrrelatesToCA,
-					includesScreeningOption: lpaQuestionnaire.includesScreeningOption,
-					isCommunityInfrastructureLevyFormallyAdopted:
-						lpaQuestionnaire.isCommunityInfrastructureLevyFormallyAdopted,
-					isEnvironmentalStatementRequired: lpaQuestionnaire.isEnvironmentalStatementRequired,
-					isGypsyOrTravellerSite: lpaQuestionnaire.isGypsyOrTravellerSite,
-					isListedBuilding: lpaQuestionnaire.isListedBuilding,
-					isPublicRightOfWay: lpaQuestionnaire.isPublicRightOfWay,
-					isSensitiveArea: lpaQuestionnaire.isSensitiveArea,
-					isSiteVisible: lpaQuestionnaire.isSiteVisible,
-					isTheSiteWithinAnAONB: lpaQuestionnaire.isTheSiteWithinAnAONB,
-					listedBuildingDetails: [
-						{
-							grade: lpaQuestionnaire.listedBuildingDetails[0].grade,
-							description: lpaQuestionnaire.listedBuildingDetails[0].description
-						}
-					],
-					localPlanningDepartment: householdAppeal.localPlanningDepartment,
-					lpaNotificationMethods: lpaQuestionnaire.lpaNotificationMethods.map(
-						({ lpaNotificationMethod: { name } }) => ({ name })
-					),
-					lpaQuestionnaireId: lpaQuestionnaire.id,
-					meetsOrExceedsThresholdOrCriteriaInColumn2:
-						lpaQuestionnaire.meetsOrExceedsThresholdOrCriteriaInColumn2,
-					otherAppeals: [
-						{
-							appealId: 1,
-							appealReference: 'APP/Q9999/D/21/725284'
-						}
-					],
-					procedureType: lpaQuestionnaire.procedureType.name,
-					scheduleType: lpaQuestionnaire.scheduleType.name,
-					siteWithinGreenBelt: lpaQuestionnaire.siteWithinGreenBelt
-				});
-			});
-
-			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get(
-					`/appeals/one/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
-				);
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						appealId: ERROR_MUST_BE_NUMBER
-					}
-				});
-			});
-
-			test('returns an error if appealId is not found', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(null);
-
-				const response = await request.get(
-					`/appeals/3/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
-				);
-
-				expect(response.status).toEqual(404);
-				expect(response.body).toEqual({
-					errors: {
-						appealId: ERROR_NOT_FOUND
-					}
-				});
-			});
-
-			test('returns an error if lpaQuestionnaireId is not numeric', async () => {
-				const response = await request.get(`/appeals/${householdAppeal.id}/lpa-questionnaires/one`);
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						lpaQuestionnaireId: ERROR_MUST_BE_NUMBER
-					}
-				});
-			});
-
-			test('returns an error if lpaQuestionnaireId is not found', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-
-				const response = await request.get(`/appeals/${householdAppeal.id}/lpa-questionnaires/3`);
-
-				expect(response.status).toEqual(404);
-				expect(response.body).toEqual({
-					errors: {
-						lpaQuestionnaireId: ERROR_NOT_FOUND
-					}
-				});
 			});
 		});
 	});
