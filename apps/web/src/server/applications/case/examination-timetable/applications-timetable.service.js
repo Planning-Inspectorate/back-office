@@ -30,6 +30,9 @@ export const createCaseTimetableItem = async (payload) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
 		});
 	}
+
+	console.log(34, response);
+
 	return response;
 };
 
