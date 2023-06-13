@@ -1,0 +1,25 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% call govukFieldset({
+  legend: {
+    text: "Enter your postcode",
+    classes: "govuk-visually-hidden"
+  }
+}) %}
+
+  {{ govukInput({
+    classes: "govuk-!-width-one-third",
+    errorMessage: errors["lookupPostcode"] and {
+      text: errors["lookupPostcode"].msg
+    },
+    id: "lookupPostcode",
+    label: {
+      text: "Postcode",
+      isPageHeading: false
+    },
+    name: "lookupPostcode",
+    value: postcode
+  }) }}
+
+{% endcall %}

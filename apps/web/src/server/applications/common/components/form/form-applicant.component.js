@@ -155,7 +155,7 @@ export async function applicantAddressData({ query }, locals) {
 	const applicant = await getApplicantById(currentCase, applicantId);
 	const singlePostcode = queryPostcode ? `${queryPostcode}` : null;
 	const trimAddressPart = (/** @type {string | undefined} */ addressPart) =>
-		(addressPart ? `${addressPart.trim()}, ` : '');
+		addressPart ? `${addressPart.trim()}, ` : '';
 
 	let applicantAddress = '';
 

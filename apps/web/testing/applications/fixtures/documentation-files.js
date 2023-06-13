@@ -44,7 +44,7 @@ export const fixtureDocumentFileVersions = () => {
 			version: 1,
 			dateCreated: '2021-01-01T00:00:00.000Z',
 			redacted: false,
-			fileName: 'test-file-1.pdf',
+			fileName: 'test-file-1.pdf'
 		}
 	];
-}
+};

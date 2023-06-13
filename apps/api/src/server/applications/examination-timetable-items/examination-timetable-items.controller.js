@@ -56,11 +56,13 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		examinationTimetableItem.name
 	}`;
 
+	const displayOrder = +format(new Date(examinationTimetableItem.date), 'yyyyMMdd');
+
 	const folder = {
 		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
 		parentFolderId: examinationFolder.id,
-		displayOrder: 100
+		displayOrder
 	};
 
 	const itemFolder = await folderRepository.createFolder(folder);
