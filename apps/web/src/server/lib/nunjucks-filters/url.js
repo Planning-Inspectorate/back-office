@@ -60,6 +60,7 @@ export const url = (key, filterArguments = {}) => {
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
 	const representationId = getArgument('representationId', filterArguments);
+	const examinationTimetableItemId = getArgument('examinationTimetableItemId', filterArguments);
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 
 	switch (key) {
@@ -89,6 +90,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}${
 				timetableId ? `/${timetableId}` : ''
 			}`;
+		case 'timetable-edit':
+			return `${domainUrl}/case/${caseId}/examination-timetable/${examinationTimetableItemId}/${step}`;
 		case 'representation-details':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
 		case 'redact-representation':
