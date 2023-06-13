@@ -23,6 +23,7 @@ export class Page {
 		list: '.govuk-list',
 		mediumHeader: '.govuk-heading-m',
 		panel: '.govuk-panel',
+		panelBody: '.govuk-panel__body',
 		panelTitle: '.govuk-panel__title',
 		radio: '.govuk-radios__item',
 		rightCol: '.pins-column--right',
@@ -36,6 +37,7 @@ export class Page {
 		textArea: '.govuk-textarea',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
+		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
 		xlHeader: '.govuk-heading-xl'
 	};
 
@@ -52,6 +54,7 @@ export class Page {
 			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
 		errorMessage: () => cy.get(this.selectors.errorMessage),
+		summaryErrorMessages: () => cy.get(this.selectors.summaryErrorMessages),
 		goToDashboardLink: () =>
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Go to Dashboard', {
 				matchCase: true
@@ -59,8 +62,11 @@ export class Page {
 		input: () => cy.get(this.selectors.input),
 		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: true }),
 		loggedInUser: () => cy.get(`${this.selectors.rightCol} > span`),
+		panelBody: () => cy.get(`${this.selectors.panelBody}`),
+		panelTitle: () => cy.get(`${this.selectors.panelTitle}`),
 		radioButton: () => cy.get(this.selectors.radio),
 		sectionHeader: () => cy.get(this.selectors.headingLeft),
+		selectAllCheckboxes: () => cy.get('#selectAll'),
 		selectElem: () => cy.get(this.selectors.select),
 		saveAndContinue: () => this.clickButtonByText('Save and Continue'),
 		signOutLink: () =>
@@ -132,6 +138,18 @@ export class Page {
 		this.basePageElements.errorMessage().contains(errorMessage).should('exist');
 	}
 
+	validateErrorMessageIsInSummary(errorMessage) {
+		const messages = [];
+		this.basePageElements
+			.summaryErrorMessages()
+			.each((message) => {
+				messages.push(message.text().trim());
+			})
+			.then(() => {
+				expect(messages).to.include(errorMessage);
+			});
+	}
+
 	validateErrorMessageCountOnPage(numberOfErrors) {
 		this.basePageElements.errorMessage().should('have.length', numberOfErrors);
 	}
@@ -174,5 +192,19 @@ export class Page {
 				this.clickAccordionByText('Show all sections');
 			}
 		});
+	}
+
+	selectAllDocuments() {
+		this.basePageElements.selectAllCheckboxes().scrollIntoView().check({ force: true });
+	}
+
+	validateSuccessPanelTitle(successMessage, exactMatch = false) {
+		const assertType = exactMatch ? 'have.text' : 'include.text';
+		this.basePageElements.panelTitle().should(assertType, successMessage);
+	}
+
+	validateSuccessPanelBody(successMessage, exactMatch = false) {
+		const assertType = exactMatch ? 'have.text' : 'include.text';
+		this.basePageElements.panelBody().should(assertType, successMessage);
 	}
 }

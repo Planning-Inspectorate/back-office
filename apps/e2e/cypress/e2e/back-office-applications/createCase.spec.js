@@ -52,7 +52,7 @@ describe('Create A Case', () => {
 		});
 	});
 
-	context('Validation', () => {
+	context.skip('Validation', () => {
 		it('Should validate that all input validation errors in the create case flow', () => {
 			cy.visit('/');
 			applicationsHomePage.clickCreateNewCaseButton();

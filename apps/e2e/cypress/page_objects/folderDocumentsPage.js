@@ -3,13 +3,12 @@ import { Page } from './basePage';
 
 export class FolderDocumentsPage extends Page {
 	elements = {
-		redactionRadio: (isRedacted = false) => cy.get(`#isRedacted[value=${isRedacted ? '1' : '0'}]`),
+		redactionRadio: (redacted = false) => cy.get(redacted ? '#isRedacted-2' : '#isRedacted'),
 		statusRadio: (status) => this.basePageElements.radioButton().contains(status)
 	};
-
 	// U S E R  A C T I O N S
-	setRedactionStatus(isRedacted = false) {
-		this.elements.redactionRadio().click({ force: true });
+	setRedactionStatus(redacted = false) {
+		this.elements.redactionRadio(redacted).click({ force: true });
 	}
 
 	/**
