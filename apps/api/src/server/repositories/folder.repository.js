@@ -310,7 +310,9 @@ const defaultCaseFolders = [
 					displayNameEn: 'Examination timetable',
 					displayOrder: 300,
 					childFolders: {
-						create: [{ displayNameEn: 'Other', displayOrder: 100 }]
+						// for examination timetable we storing date in ddmmyyyy(31122023) format for display order.
+						// To display other in the end we need to put other in highest possible order.
+						create: [{ displayNameEn: 'Other', displayOrder: 20000000 }]
 					}
 				},
 				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
