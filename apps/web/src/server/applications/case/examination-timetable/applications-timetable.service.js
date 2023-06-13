@@ -31,8 +31,6 @@ export const createCaseTimetableItem = async (payload) => {
 		});
 	}
 
-	console.log(34, response);
-
 	return response;
 };
 
