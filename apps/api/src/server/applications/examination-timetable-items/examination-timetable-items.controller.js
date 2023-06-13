@@ -56,7 +56,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		examinationTimetableItem.name
 	}`;
 
-	const displayOrder = +format(new Date(examinationTimetableItem.date), 'ddMMyyyy');
+	const displayOrder = +format(new Date(examinationTimetableItem.date), 'yyyyMMdd');
 
 	const folder = {
 		displayNameEn: folderName?.trim(),
