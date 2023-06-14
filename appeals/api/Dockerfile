@@ -4,11 +4,11 @@ COPY package*.json ./
 
 COPY packages ./packages
 
-COPY apps/api apps/api
+COPY appeals/api apps/api
 ENV NODE_ENV=production
 RUN npm ci
-COPY apps/api/.env.development ./.env
-COPY apps/api/init.sh ./init.sh
+COPY appeals/api/.env.development ./.env
+COPY appeals/api/init.sh ./init.sh
 
 ENV SWAGGER_JSON_DIR=./appeals/api/src/server/openapi.json
 ENV DATABASE_URL=$DATABASE_URL
