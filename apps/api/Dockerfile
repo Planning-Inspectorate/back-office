@@ -10,7 +10,7 @@ RUN npm ci
 COPY apps/api/.env.development ./.env
 COPY apps/api/init.sh ./init.sh
 
-ENV SWAGGER_JSON_DIR=./apps/api/src/server/swagger-output.json
+ENV SWAGGER_JSON_DIR=./apps/api/src/server/openapi.json
 ENV DATABASE_URL=$DATABASE_URL
 
 WORKDIR /src/app/apps/api

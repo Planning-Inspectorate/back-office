@@ -1,0 +1,10 @@
+$text-align-attrs: (
+		'right': 'right',
+		'center': 'center',
+);
+
+@each $key, $val in $text-align-attrs {
+  .text-align--#{$key} {
+	text-align: #{$val};
+  }
+}

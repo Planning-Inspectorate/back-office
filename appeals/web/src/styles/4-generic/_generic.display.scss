@@ -1,0 +1,22 @@
+$display-attrs: (
+		none: 'none',
+		flex: 'flex',
+		block: 'block'
+);
+
+@each $key, $val in $display-attrs {
+  .display--#{$key} {
+	display: #{$val} !important;
+  }
+}
+
+.display--sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

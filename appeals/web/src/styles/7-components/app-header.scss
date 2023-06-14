@@ -1,0 +1,53 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "../1-settings/_settings.global.scss" as pins-colours;
+
+
+#pins-applications-header {
+  background: white;
+  color: colors.govuk-colour("black");
+  height: 8rem;
+  display: inline-block;
+  width: 100%;
+  padding: 1rem 0;
+  border-bottom: .5rem solid pins-colours.$pins-colours-green-200;
+  margin-bottom: 1rem;
+
+  .pins-row--decentered {
+	width: calc(100% + 106px);
+	display: flex;
+  }
+
+  .pins-column {
+	&--left {
+	  height: 5.5rem;
+	  border-left: 1.85px solid pins-colours.$pins-colours-green-200;
+	  padding-left: 1.68rem;
+	  width: 25%;
+
+	  span {
+		font-size: 1.125rem;
+		font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
+		display: table-caption;
+	  }
+	}
+
+	&--central {
+	  font-weight: 700;
+	  font-size: 1.5rem;
+	  width: 35%;
+	  text-align: center;
+	}
+
+	&--right {
+	  width: 40%;
+	  display: flex;
+	  align-items: center;
+	  justify-content: flex-end;
+
+	  > a {
+		margin-left: 3rem;
+	  }
+	}
+  }
+
+}

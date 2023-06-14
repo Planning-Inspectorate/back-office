@@ -995,10 +995,7 @@ const document = {
 	components: {}
 };
 
-const outputFile = './src/server/swagger-output.json';
-const endpointsFiles = [
-	'./src/server/appeals/**/*.routes.js',
-	'./src/server/applications/**/*.routes.js'
-];
+const outputFile = './src/server/openapi.json';
+const endpointsFiles = ['./src/server/applications/**/*.routes.js'];
 
-swaggerAutogen()(outputFile, endpointsFiles, document);
+swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);

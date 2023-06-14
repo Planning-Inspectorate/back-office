@@ -1,0 +1,4 @@
+{
+	"extends": "../../jsconfig.json",
+	"include": ["**/*.js", "../../packages/event-client/src/event-client.js"]
+}

@@ -1,0 +1,42 @@
+/* ==========================================================================
+   # IMAGES
+   ========================================================================== */
+
+/**
+ * 1. Fluid images for responsive purposes.
+ * 2. Offset `alt` text from surrounding copy.
+ * 3. Setting `vertical-align` removes the whitespace that appears under `img`
+ *    elements when they are dropped into a page as-is. Safer alternative to
+ *    using `display: block;`.
+ */
+
+img {
+	display: inline-block;
+	// The 100% in max-width refers to the container dimensions.
+	// Sometimes the [width] attribute will be smaller than this container, which means the image will not always be full width.
+	// Practically speaking, the image will never grow larger than its own internal or intrinsic dimensions.
+	// INFO: In theory if all images come with w and h attributes then this could be replaced with height: auto
+	max-width: 100%; /* [1] */
+	font-style: italic; /* [2] */
+	vertical-align: middle; /* [3] */
+}
+
+// If the w and h attributes are smaller than the largest srcset then a strict max-width: 100%
+// now competes with the [width] attribute. So the image will not take the "full width of its container" it will be smaller.
+// One easy solution here is to add width: auto to pair with our max-width: 100% and make sure the above works.
+// The problem is that if we do that, Chrome and FF will not be able to calculate the aspect ratio and fix CLS.
+// More info here: https://www.zachleat.com/web/fluid-images/
+// img[width] {
+// 	width: auto; /* Defer to max-width */
+// }
+
+img[width][height] {
+	height: auto; /* Preserve aspect ratio */
+}
+
+/* Let SVG scale without boundaries */
+img[src$=".svg"] {
+	width: 100%;
+	height: auto;
+	max-width: none;
+}

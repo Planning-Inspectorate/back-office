@@ -1,0 +1,123 @@
+@use "../govuk-frontend/govuk/helpers/_colour" as color;
+
+.govuk-accordion__section-content {
+  .govuk-summary-list:last-child {
+	margin-bottom: 25px;
+  }
+
+  .govuk-table__row:last-child {
+	.govuk-table__header,
+	.govuk-table__cell {
+	  border-bottom: none;
+	}
+  }
+}
+
+.pins-table {
+  &--fixed {
+	border-bottom: 1px solid color.govuk-colour("mid-grey");
+	table-layout: fixed;
+  }
+
+  &__cell {
+	&--xs {
+	  width: 80px;
+	}
+
+	&--s {
+	  width: 140px;
+	}
+
+	&--m {
+	  width: 180px;
+	}
+
+	&--l {
+	  width: 270px;
+	}
+
+	&--xl {
+	  width: 330px;
+	}
+  }
+
+  &--questionnaire {
+	table-layout: fixed;
+
+	tbody tr th {
+	  width: 330px;
+	}
+
+	tbody tr td:last-child {
+	  width: 400px;
+	}
+  }
+
+	&--error {
+	tbody .govuk-table__row{
+		border-left: 5px solid color.govuk-colour("red");
+
+		td:first-child {
+			padding-left: 1rem;
+		}
+	}
+	}
+}
+
+.pins-dashboard-list--drafts {
+  .govuk-accordion__controls {
+	display: none;
+  }
+
+  .govuk-accordion__section-toggle-text {
+	font-size: 0;
+	position: absolute;
+
+	&::after {
+	  content: 'Show all draft cases';
+	  font-size: 19px;
+	  position: relative;
+	  top: 2px;
+	}
+  }
+}
+
+.pins-dashboard-list--hide-controls {
+  margin-top: 2rem;
+
+  h2 {
+	margin-bottom: 0;
+  }
+
+  .govuk-accordion__section-toggle-text {
+	font-size: 0;
+
+	&:after {
+	  content: "Show subfolders";
+	  font-size: 19px;
+	  position: relative;
+	  top: 7px;
+	  left: 2px;
+	}
+  }
+
+  .govuk-accordion__controls {
+	display: none;
+  }
+
+  .govuk-accordion__section-button {
+	border: none;
+  }
+
+  .govuk-table__cell {
+	border-bottom-style: none;
+  }
+}
+
+#pins-publish-case {
+  @media (min-width: 40.0625em) {
+	.govuk-table__header, .govuk-summary-list__key {
+	  width: 260px;
+	}
+  }
+}

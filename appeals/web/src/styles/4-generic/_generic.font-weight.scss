@@ -1,0 +1,9 @@
+$font-weight-attrs: (
+		700: 700,
+);
+
+@each $key, $val in $font-weight-attrs {
+  .font-weight--#{$key} {
+	font-weight: #{$val};
+  }
+}

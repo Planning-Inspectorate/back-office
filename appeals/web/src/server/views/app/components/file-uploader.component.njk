@@ -1,0 +1,67 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro fileUploader(params) %}
+
+	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
+		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
+		 {% if params.documentId %} data-document-id="{{ params.documentId }}"{% endif %}
+		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
+		<div class="top-errors-hook"></div>
+
+		{% if params.formTitle %}
+			<h1 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h1>
+		{% endif %}
+		<form class="govuk-grid-column-two-thirds">
+			<div class="pins-file-upload--container">
+				<div class="govuk-body colour--secondary pins-file-upload--instructions">
+					{% if params.multiple %}
+						<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+					{% else %}
+						<label for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
+					{% endif %}
+					<span>
+					Your file must be {% for extension in params.allowedTypes %}
+
+						{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}{% endif %}
+						{% endfor %}.
+				</span>
+					<span>The total of your uploaded files must be smaller than 1 GB.</span>
+					<div class="middle-errors-hook"></div>
+				</div>
+				<div class="display--flex">
+					<input class="display--none"
+						   id="upload-file-{{ params.formId }}"
+						   accept="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}"
+						   type="file" name="files" value="Choose file"
+						   aria-controls="file-list-{{ params.formId }}"
+						   {% if params.multiple %}multiple{% endif %}>
+					<button type='button' class="pins-file-upload--button govuk-button">
+						Choose file
+					</button>
+					<span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'>
+					No file chosen
+				</span>
+				</div>
+				<div id="file-list-{{ params.formId }}">
+
+					<h2 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h2>
+					<ul class="pins-file-upload--files-rows"
+						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
+				</div>
+			</div>
+
+			{% if params.disclaimerText %}
+				{{ govukInsetText({
+					text: params.disclaimerText
+				}) }}
+			{% endif %}
+
+			<div class="display--flex">
+				{{ govukButton({ text: params.text, classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
+				<div class="progress-hook"></div>
+			</div>
+		</form>
+	</div>
+
+{% endmacro %}

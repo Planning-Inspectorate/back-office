@@ -1,0 +1,622 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+/// Appeal model
+/// Contains information of an Appeal that has been submitted to the Back Office
+/// TODO: Migrate this model to integrated into the Case model same as with Applications
+model Appeal {
+  id                           Int                         @id @default(autoincrement())
+  reference                    String
+  createdAt                    DateTime                    @default(now())
+  updatedAt                    DateTime                    @default(now())
+  addressId                    Int?
+  localPlanningDepartment      String
+  planningApplicationReference String
+  startedAt                    DateTime?
+  userId                       Int?
+  appellantId                  Int?                        @unique
+  appealTypeId                 Int?
+  linkedAppealId               Int?
+  otherAppealId                Int?
+  address                      Address?                    @relation(fields: [addressId], references: [id])
+  appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
+  appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
+  user                         User?                       @relation(fields: [userId], references: [id])
+  appealDetailsFromAppellant   AppealDetailsFromAppellant?
+  appealStatus                 AppealStatus[]
+  inspectorDecision            InspectorDecision?
+  lpaQuestionnaire             LPAQuestionnaire?
+  reviewQuestionnaire          ReviewQuestionnaire[]
+  siteVisit                    SiteVisit?
+  validationDecision           ValidationDecision[]
+  appealTimetable              AppealTimetable?
+  linkedAppeal                 Appeal?                     @relation("LinkedAppeals", fields: [linkedAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  linkedAppeals                Appeal[]                    @relation("LinkedAppeals")
+  otherAppeal                  Appeal?                     @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  otherAppeals                 Appeal[]                    @relation("OtherAppeals")
+}
+
+/// AppealType model
+/// Lookup table for types of Appeals, such as HAS and FPA
+model AppealType {
+  id        Int      @id @default(autoincrement())
+  type      String   @unique
+  shorthand String   @unique
+  Appeal    Appeal[]
+}
+
+/// AppealTimetable model
+model AppealTimetable {
+  id                      Int       @id @default(autoincrement())
+  appealId                Int       @unique
+  finalCommentReviewDate  DateTime?
+  issueDeterminationDate  DateTime?
+  lpaQuestionnaireDueDate DateTime?
+  statementReviewDate     DateTime?
+  appeal                  Appeal    @relation(fields: [appealId], references: [id])
+}
+
+/// AppealStatus model
+/// Stores the current and past statuses of Appeals
+/// Uses the `valid` value to mark statuses as current if True and past if False
+/// An appeal might have multiple valid statuses depending on the type of Appeal
+/// which can be built up into a compound status using the `subStateMachineName`
+/// `compoundStateName` values.
+model AppealStatus {
+  id                  Int      @id @default(autoincrement())
+  status              String   @default("ready_to_start")
+  createdAt           DateTime @default(now())
+  valid               Boolean  @default(true)
+  appealId            Int
+  subStateMachineName String?
+  compoundStateName   String?
+  appeal              Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// Appellant model
+/// Contains information about the person who created the Appeal
+model Appellant {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String
+  agentName String?
+  appeal    Appeal?
+}
+
+/// AppealDetailsFromAppellant model
+/// Contains information from the questionnaire that the Appellant
+/// would have filled out when submitting the Appeal
+model AppealDetailsFromAppellant {
+  id                                   Int      @id @default(autoincrement())
+  appealId                             Int      @unique
+  siteVisibleFromPublicLand            Boolean?
+  appellantOwnsWholeSite               Boolean?
+  appellantOwnsWholeSiteDescription    String?
+  healthAndSafetyIssues                Boolean?
+  healthAndSafetyIssuesDescription     String?
+  siteVisibleFromPublicLandDescription String?
+  appeal                               Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// Case model
+/// Contains information shared by Applications/Appeals and any other case type
+/// For Applications, the case reference is generated once the case passes Draft state
+/// This model is intended to contain records for all Applications, Appeals and any other Case Type
+model Case {
+  id                       Int                        @id @default(autoincrement())
+  reference                String?
+  modifiedAt               DateTime                   @default(now())
+  createdAt                DateTime                   @default(now())
+  description              String?
+  publishedAt              DateTime?
+  title                    String?
+  ApplicationDetails       ApplicationDetails?
+  CaseStatus               CaseStatus[]
+  folder                   Folder[]
+  gridReference            GridReference?
+  serviceCustomer          ServiceCustomer[]
+  Representation           Representation[]
+  ExaminationTimetableItem ExaminationTimetableItem[]
+  document                 Document[]
+}
+
+/// ServiceCustomer model
+/// Contains data of people who submitted Applications
+model ServiceCustomer {
+  id               Int      @id @default(autoincrement())
+  organisationName String?
+  firstName        String?
+  middleName       String?
+  lastName         String?
+  email            String?
+  website          String?
+  phoneNumber      String?
+  addressId        Int?
+  caseId           Int
+  address          Address? @relation(fields: [addressId], references: [id])
+  case             Case     @relation(fields: [caseId], references: [id])
+}
+
+/// GridReference model
+/// Records easting and northing for a case
+model GridReference {
+  id       Int  @id @default(autoincrement())
+  easting  Int?
+  northing Int?
+  caseId   Int  @unique
+  case     Case @relation(fields: [caseId], references: [id])
+}
+
+/// CaseStatus model
+/// Stores the current and past statuses of Cases
+/// Uses the `valid` value to mark statuses as current if True and past if False
+/// A case might have multiple valid statuses depending on the type of case
+/// which can be built up into a compound status using the `subStateMachineName` and
+/// `compoundStateName` values.
+model CaseStatus {
+  id                  Int      @id @default(autoincrement())
+  status              String
+  createdAt           DateTime @default(now())
+  valid               Boolean  @default(true)
+  subStateMachineName String?
+  compoundStateName   String?
+  caseId              Int
+  case                Case     @relation(fields: [caseId], references: [id])
+}
+
+/// ApplicationDetails model
+/// Contains general information about a case that pertains only to Applications
+model ApplicationDetails {
+  id                    Int                           @id @default(autoincrement())
+  caseId                Int                           @unique
+  subSectorId           Int?
+  locationDescription   String?
+  zoomLevelId           Int?
+  caseEmail             String?
+  submissionAtInternal  DateTime?
+  submissionAtPublished String?
+  case                  Case                          @relation(fields: [caseId], references: [id])
+  subSector             SubSector?                    @relation(fields: [subSectorId], references: [id])
+  zoomLevel             ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+  regions               RegionsOnApplicationDetails[]
+}
+
+/// RegionsOnApplicationDetails model
+/// Connects many-to-many Regions to Applications
+model RegionsOnApplicationDetails {
+  applicationDetailsId Int
+  regionId             Int
+  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
+  region               Region             @relation(fields: [regionId], references: [id])
+
+  @@id([applicationDetailsId, regionId])
+}
+
+/// Sector model
+/// Lookup table to Sectors that are assigned to Applications
+model Sector {
+  id            Int         @id @default(autoincrement())
+  abbreviation  String      @unique
+  name          String      @unique
+  displayNameEn String
+  displayNameCy String
+  subSector     SubSector[]
+}
+
+/// SubSector model
+/// Lookup table for Sub-Sectors that are assigned to Applications
+model SubSector {
+  id                 Int                  @id @default(autoincrement())
+  abbreviation       String               @unique
+  name               String               @unique
+  displayNameEn      String
+  displayNameCy      String
+  sectorId           Int
+  applicationDetails ApplicationDetails[]
+  sector             Sector               @relation(fields: [sectorId], references: [id])
+}
+
+/// Address model
+/// Contains information on addresses
+model Address {
+  id                    Int                     @id @default(autoincrement())
+  addressLine1          String?
+  addressLine2          String?
+  postcode              String?
+  county                String?
+  town                  String?
+  country               String?
+  Appeal                Appeal[]
+  ServiceCustomer       ServiceCustomer[]
+  RepresentationContact RepresentationContact[]
+}
+
+/// ValidationDecision model
+/// Contains decision from validation officer regarding the validity of an appeal
+model ValidationDecision {
+  id                         Int      @id @default(autoincrement())
+  appealId                   Int
+  createdAt                  DateTime @default(now())
+  decision                   String
+  namesDoNotMatch            Boolean  @default(false)
+  sensitiveInfo              Boolean  @default(false)
+  missingApplicationForm     Boolean  @default(false)
+  missingDecisionNotice      Boolean  @default(false)
+  missingGroundsForAppeal    Boolean  @default(false)
+  missingSupportingDocuments Boolean  @default(false)
+  inflammatoryComments       Boolean  @default(false)
+  openedInError              Boolean  @default(false)
+  wrongAppealTypeUsed        Boolean  @default(false)
+  outOfTime                  Boolean  @default(false)
+  noRightOfAppeal            Boolean  @default(false)
+  notAppealable              Boolean  @default(false)
+  lPADeemedInvalid           Boolean  @default(false)
+  otherReasons               String?
+  descriptionOfDevelopment   String?
+  appeal                     Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// LPAQuestionnaire model
+/// Contains responses from Local Planning Authority (LPA)
+/// regarding a specific appeal
+model LPAQuestionnaire {
+  id                                           Int                                         @id @default(autoincrement())
+  appealId                                     Int                                         @unique
+  procedureTypeId                              Int?
+  scheduleTypeId                               Int?
+  communityInfrastructureLevyAdoptionDate      DateTime?
+  developmentDescription                       String?
+  doesAffectAListedBuilding                    Boolean?
+  doesAffectAScheduledMonument                 Boolean?
+  doesSiteHaveHealthAndSafetyIssues            Boolean?
+  doesSiteRequireInspectorAccess               Boolean?
+  extraConditions                              String?
+  hasCommunityInfrastructureLevy               Boolean?
+  hasCompletedAnEnvironmentalStatement         Boolean?
+  hasEmergingPlan                              Boolean?
+  hasExtraConditions                           Boolean?
+  hasOtherAppeals                              Boolean?
+  hasProtectedSpecies                          Boolean?
+  hasRepresentationsFromOtherParties           Boolean?
+  hasResponsesOrStandingAdviceToUpload         Boolean?
+  hasStatementOfCase                           Boolean?
+  hasStatutoryConsultees                       Boolean?
+  hasSupplementaryPlanningDocuments            Boolean?
+  hasTreePreservationOrder                     Boolean?
+  healthAndSafetyDetails                       String?
+  inCAOrrelatesToCA                            Boolean?
+  includesScreeningOption                      Boolean?
+  inquiryDays                                  Int?
+  inspectorAccessDetails                       String?
+  isCommunityInfrastructureLevyFormallyAdopted Boolean?
+  isDevelopmentInOrNearDesignatedSites         Boolean?
+  isGypsyOrTravellerSite                       Boolean?
+  isListedBuilding                             Boolean?
+  isPublicRightOfWay                           Boolean?
+  isSensitiveArea                              Boolean?
+  isSiteVisible                                Boolean?
+  isTheSiteWithinAnAONB                        Boolean?
+  meetsOrExceedsThresholdOrCriteriaInColumn2   Boolean?
+  receivedAt                                   DateTime?
+  isEnvironmentalStatementRequired             Boolean?
+  sensitiveAreaDetails                         String?
+  sentAt                                       DateTime                                    @default(now())
+  siteWithinGreenBelt                          Boolean?
+  statutoryConsulteesDetails                   String?
+  appeal                                       Appeal                                      @relation(fields: [appealId], references: [id])
+  procedureType                                ProcedureType?                              @relation(fields: [procedureTypeId], references: [id])
+  scheduleType                                 ScheduleType?                               @relation(fields: [scheduleTypeId], references: [id])
+  designatedSites                              DesignatedSitesOnLPAQuestionnaires[]
+  lpaNotificationMethods                       LPANotificationMethodsOnLPAQuestionnaires[]
+  listedBuildingDetails                        ListedBuildingDetails[]
+}
+
+/// Region model
+/// Lookup table for Regions which might be assigned to applications
+model Region {
+  id                 Int                           @id @default(autoincrement())
+  name               String                        @unique
+  displayNameEn      String
+  displayNameCy      String
+  ApplicationDetails RegionsOnApplicationDetails[]
+}
+
+/// ReviewQuestionnaire model
+/// Contains information on validity and completeness of LPA questionnaire
+/// as decided by a case officer for an appeal.
+model ReviewQuestionnaire {
+  id                                                                          Int      @id @default(autoincrement())
+  appealId                                                                    Int
+  createdAt                                                                   DateTime @default(now())
+  complete                                                                    Boolean  @default(false)
+  applicationPlanningOfficersReportMissingOrIncorrect                         Boolean  @default(false)
+  applicationPlansToReachDecisionMissingOrIncorrect                           Boolean  @default(false)
+  applicationPlansToReachDecisionMissingOrIncorrectDescription                String?
+  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect                  Boolean  @default(false)
+  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription       String?
+  policiesOtherRelevantPoliciesMissingOrIncorrect                             Boolean  @default(false)
+  policiesOtherRelevantPoliciesMissingOrIncorrectDescription                  String?
+  policiesSupplementaryPlanningDocumentsMissingOrIncorrect                    Boolean  @default(false)
+  policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription         String?
+  siteConservationAreaMapAndGuidanceMissingOrIncorrect                        Boolean  @default(false)
+  siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription             String?
+  siteListedBuildingDescriptionMissingOrIncorrect                             Boolean  @default(false)
+  siteListedBuildingDescriptionMissingOrIncorrectDescription                  String?
+  thirdPartyApplicationNotificationMissingOrIncorrect                         Boolean  @default(false)
+  thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses          Boolean  @default(false)
+  thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice Boolean  @default(false)
+  thirdPartyApplicationPublicityMissingOrIncorrect                            Boolean  @default(false)
+  thirdPartyRepresentationsMissingOrIncorrect                                 Boolean  @default(false)
+  thirdPartyRepresentationsMissingOrIncorrectDescription                      String?
+  thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
+  thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
+  thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
+  appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// SiteVisit model
+/// Contains information regarding a scheduled site visit for an appeal
+model SiteVisit {
+  id        Int      @id @default(autoincrement())
+  appealId  Int      @unique
+  visitDate DateTime
+  visitSlot String
+  visitType String?
+  appeal    Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// InspectorDecision model
+/// Contains decisioin made by an inspector against an appeal post site visit
+model InspectorDecision {
+  id                     Int     @id @default(autoincrement())
+  appealId               Int     @unique
+  outcome                String
+  decisionLetterFilename String?
+  appeal                 Appeal  @relation(fields: [appealId], references: [id])
+}
+
+/// User model
+/// Contains information on Back Office users (PINS employees)
+model User {
+  id             Int              @id @default(autoincrement())
+  azureReference Int?             @unique
+  appeal         Appeal[]
+  Representation Representation[]
+}
+
+/// ZoomLevel model
+/// Lookup table for zoom level of an application
+model ZoomLevel {
+  id            Int                  @id @default(autoincrement())
+  name          String               @unique
+  displayOrder  Int                  @unique
+  displayNameEn String
+  displayNameCy String
+  Application   ApplicationDetails[]
+}
+
+/// Folder model
+/// Contains folders created for each case that will contain documents.
+/// This exists to specify the struture with which documents are displayed
+/// in the back office (not the front office).
+model Folder {
+  id             Int        @id @default(autoincrement())
+  displayNameEn  String
+  displayOrder   Int?
+  parentFolderId Int?
+  caseId         Int?
+  document       Document[]
+  case           Case?      @relation(fields: [caseId], references: [id])
+  parentFolder   Folder?    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childFolders   Folder[]   @relation("FolderTree")
+
+  @@unique([caseId, displayNameEn, parentFolderId])
+}
+
+/// Document model
+/// Contains information about the documents that are saved against a case.
+/// This model is a central space for each document which might have several
+/// versions and can store shared metadata.
+model Document {
+  guid                  String            @id @default(uuid())
+  name                  String
+  folderId              Int
+  createdAt             DateTime          @default(now())
+  isDeleted             Boolean           @default(false)
+  representationId      Int?
+  latestVersionId       Int?
+  caseId                Int
+  folder                Folder            @relation(fields: [folderId], references: [id])
+  documentVersion       DocumentVersion[] @relation("VersionHistory")
+  Representation        Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  latestDocumentVersion DocumentVersion?  @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                  Case              @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+
+  @@unique([name, folderId])
+  @@unique([guid, latestVersionId])
+}
+
+/// DocumentVersion model
+/// Stores information pertaining to each version of a document.
+/// Versions are stored against the `version` value (starting with 1).
+/// The physical location of these documents should be stored here.
+model DocumentVersion {
+  documentGuid           String
+  version                Int
+  lastModified           DateTime?
+  documentType           String?
+  published              Boolean   @default(false)
+  sourceSystem           String    @default("back-office")
+  origin                 String?
+  originalFilename       String?
+  fileName               String?
+  representative         String?
+  description            String?
+  owner                  String?
+  author                 String?
+  securityClassification String?
+  mime                   String?
+  horizonDataID          String?
+  fileMD5                String?
+  path                   String?
+  virusCheckStatus       String?
+  size                   Int?
+  stage                  String?
+  filter1                String?
+  blobStorageContainer   String?
+  blobStoragePath        String?
+  dateCreated            DateTime? @default(now())
+  datePublished          DateTime?
+  isDeleted              Boolean   @default(false)
+  examinationRefNo       String?
+  filter2                String?
+  publishedStatus        String?   @default("awaiting_upload")
+  publishedStatusPrev    String?
+  redactedStatus         String?
+  redacted               Boolean   @default(false)
+  documentURI            String?
+  Document               Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument  Document? @relation("LatestVersion")
+
+  @@id([documentGuid, version])
+  @@index([filter1], map: "filter1")
+  @@index([documentGuid], map: "documentGuid")
+}
+
+/// Representation model
+model Representation {
+  id                     Int                     @id @default(autoincrement())
+  reference              String
+  caseId                 Int
+  status                 String
+  originalRepresentation String                  @db.NText
+  redactedRepresentation String?                 @db.NText
+  redacted               Boolean                 @default(false)
+  userId                 Int?
+  received               DateTime                @default(now())
+  case                   Case                    @relation(fields: [caseId], references: [id])
+  user                   User?                   @relation(fields: [userId], references: [id])
+  type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
+  contacts               RepresentationContact[]
+  attachments            Document[]
+  representationActions  RepresentationAction[]
+
+  @@index([reference], name: "reference")
+}
+
+/// RepresentationContact model
+model RepresentationContact {
+  id               Int            @id @default(autoincrement())
+  representationId Int
+  firstName        String?
+  lastName         String?
+  jobTitle         String?
+  under18          Boolean?
+  type             String? // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
+  organisationName String?
+  email            String?
+  phoneNumber      String?
+  contactMethod    String? // Email | Phone Number
+  addressId        Int?
+  address          Address?       @relation(fields: [addressId], references: [id])
+  Representation   Representation @relation(fields: [representationId], references: [id])
+}
+
+// RepresentationAction model
+model RepresentationAction {
+  id                   Int            @id @default(autoincrement())
+  representationId     Int
+  type                 String? // STATUS | REDACTION | REDACT_STATUS
+  status               String?
+  previousStatus       String?
+  redactStatus         Boolean?
+  previousRedactStatus Boolean?
+  invalidReason        String?
+  referredTo           String?
+  actionBy             String
+  actionDate           DateTime
+  notes                String?        @db.NText
+  Representation       Representation @relation(fields: [representationId], references: [id])
+}
+
+model ExaminationTimetableType {
+  id            Int                        @id @default(autoincrement())
+  name          String                     @unique // Note this the value sent to the front office. Note the Title Case format
+  templateType  String?
+  displayNameEn String
+  displayNameCy String
+  items         ExaminationTimetableItem[]
+}
+
+model ExaminationTimetableItem {
+  id                       Int                      @id @default(autoincrement())
+  caseId                   Int
+  examinationTypeId        Int
+  name                     String
+  description              String?                  @db.NText
+  date                     DateTime?
+  startDate                DateTime?
+  startTime                String?
+  endTime                  String?
+  published                Boolean                  @default(false)
+  Case                     Case                     @relation(fields: [caseId], references: [id])
+  ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+}
+
+model ProcedureType {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  LPAQuestionnaire LPAQuestionnaire[]
+}
+
+model ScheduleType {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  LPAQuestionnaire LPAQuestionnaire[]
+}
+
+model DesignatedSite {
+  id                Int                                  @id @default(autoincrement())
+  name              String                               @unique
+  description       String
+  lpaQuestionnaires DesignatedSitesOnLPAQuestionnaires[]
+}
+
+model DesignatedSitesOnLPAQuestionnaires {
+  designatedSite     DesignatedSite   @relation(fields: [designatedSiteId], references: [id])
+  designatedSiteId   Int
+  lpaQuestionnaire   LPAQuestionnaire @relation(fields: [lpaQuestionnaireId], references: [id])
+  lpaQuestionnaireId Int
+
+  @@id([designatedSiteId, lpaQuestionnaireId])
+}
+
+model LPANotificationMethods {
+  id                Int                                         @id @default(autoincrement())
+  name              String                                      @unique
+  lpaQuestionnaires LPANotificationMethodsOnLPAQuestionnaires[]
+}
+
+model LPANotificationMethodsOnLPAQuestionnaires {
+  lpaNotificationMethod LPANotificationMethods @relation(fields: [notificationMethodId], references: [id])
+  notificationMethodId  Int
+  lpaQuestionnaire      LPAQuestionnaire       @relation(fields: [lpaQuestionnaireId], references: [id])
+  lpaQuestionnaireId    Int
+
+  @@id([notificationMethodId, lpaQuestionnaireId])
+}
+
+model ListedBuildingDetails {
+  id                    Int               @id @default(autoincrement())
+  lpaQuestionnaireId    Int?
+  grade                 String
+  description           String
+  affectsListedBuilding Boolean           @default(false)
+  lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
+}

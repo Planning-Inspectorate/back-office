@@ -1,6 +1,6 @@
 // @ts-nocheck
 import fs from 'node:fs/promises';
-import json from '../../../apps/api/src/server/swagger-output.json' assert { type: 'json' };
+import json from '../../../apps/api/src/server/openapi.json' assert { type: 'json' };
 
 const extractSwaggerInfo = (swaggerDoc) => {
 	const extractedData = [];
@@ -40,8 +40,8 @@ const extractSwaggerInfo = (swaggerDoc) => {
 const resolveSchemaRefs = (swaggerDoc, schema) => {
 	if (schema && schema.hasOwnProperty('$ref')) {
 		const ref = schema.$ref;
-		const [_, definitionName] = ref.split('#/definitions/');
-		return { schema: swaggerDoc.definitions[definitionName] };
+		const [_, definitionName] = ref.split('#/components/schemas/');
+		return { schema: swaggerDoc.components.schemas[definitionName] };
 	}
 	return { schema };
 };

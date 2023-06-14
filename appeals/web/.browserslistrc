@@ -1,0 +1,6 @@
+# https://browserslist.dev/?q=PiAxJSwgbGFzdCAyIHZlcnNpb25zLCBub3QgaWUgPD0gMTE%3D
+> 1%
+last 2 versions
+Chrome > 105
+Edge > 105,
+not ie <= 11
