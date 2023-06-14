@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { faker } from '@faker-js/faker';
 import { Page } from './basePage';
 
 export class DocumentPropertiesPage extends Page {
@@ -11,6 +12,19 @@ export class DocumentPropertiesPage extends Page {
 				.find('a'),
 		propertyValue: (keyText) =>
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
+	};
+
+	fileName = () => faker.lorem.word();
+	description = () => faker.lorem.sentence();
+	from = () => faker.lorem.word();
+	agent = () => faker.lorem.word();
+	webfilter = () => faker.lorem.word();
+	getDate = (received) => {
+		const today = new Date();
+		const day = today.getDate().toString().padStart(2, '0');
+		const month = (today.getMonth() + 1).toString().padStart(2, '0');
+		const year = today.getFullYear();
+		return `${day}/${month}/${received ? year - 1 : year}`;
 	};
 
 	#save() {
@@ -74,5 +88,21 @@ export class DocumentPropertiesPage extends Page {
 		this.elements.propertyValue(type).then((elem) => {
 			expect(elem.text().trim()).to.eq(`${day}/${month}/${year}`);
 		});
+	}
+
+	/**
+	 * @param {string} status - `Readacted` | `Unredacted`
+	 * @returns {void}
+	 */
+	updateAllProperties(status) {
+		this.updateDocumentProperty('File name', this.fileName());
+		this.updateDocumentProperty('Description', this.description());
+		this.updateDocumentProperty('From', this.from());
+		this.updateDocumentProperty('Agent (optional)', this.agent());
+		this.updateDocumentProperty('Webfilter', this.webfilter());
+		this.updateDocumentType('No document type');
+		this.updateDate('Date received', this.getDate(true));
+		this.updateRedactionStatus(status);
+		this.clickBackLink();
 	}
 }

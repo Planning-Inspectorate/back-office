@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { users } from '../fixtures/users';
+import { assertType } from '../support/utils/assertType';
 
 // @ts-nocheck
 export class Page {
@@ -199,12 +200,10 @@ export class Page {
 	}
 
 	validateSuccessPanelTitle(successMessage, exactMatch = false) {
-		const assertType = exactMatch ? 'have.text' : 'include.text';
-		this.basePageElements.panelTitle().should(assertType, successMessage);
+		this.basePageElements.panelTitle().should(assertType(exactMatch), successMessage);
 	}
 
 	validateSuccessPanelBody(successMessage, exactMatch = false) {
-		const assertType = exactMatch ? 'have.text' : 'include.text';
-		this.basePageElements.panelBody().should(assertType, successMessage);
+		this.basePageElements.panelBody().should(assertType(exactMatch), successMessage);
 	}
 }
