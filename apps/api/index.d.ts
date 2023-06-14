@@ -3,4 +3,4 @@ import * as Schema from './src/database/schema';
 
 export { Appeals, Schema };
 
-export type CaseType = 'appeals' | 'document';
+export type CaseType = 'application' | 'document';
