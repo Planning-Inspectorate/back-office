@@ -32,7 +32,7 @@ The key parts are:
 1. Ensure you have `azure-functions-core-tools` installed (try running `func --version` if you're not sure)
 2. Create a function project with `func init <project-name>`
 3. Navigate into the folder now created `cd <project-name>`
-4. Create a function from a template with `func new --template <template-name> --name <func-name>`
+4. Create a function from a template with `func new --template <template-name> --name <func-name>` (for a list of templates, use `func templates list`. Common ones we might use include `HTTP trigger` and `Azure Service Bus Topic trigger`)
 5. The `index.js` in the function folder should have the implementation added to it.
     a. The generated `index.js` will use `module.exports`, edit the function project `package.json` to add `"type": "module"`
     b. then edit the `index.js` to use  `export default async function` instead of `module.exports = async function`
