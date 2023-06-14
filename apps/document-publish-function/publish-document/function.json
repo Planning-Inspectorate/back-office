@@ -1,12 +1,12 @@
 {
 	"bindings": [
 		{
-			"name": "myQueueItem",
+			"name": "document",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "documents_to_publish",
-			"subscriptionName": "documents_to_publish_subscription",
-			"connection": "AZURE_SERVICE_BUS_CONNECTION"
+			"topicName": "nsip-documents",
+			"subscriptionName": "nsip-document-updated-publishing",
+			"connection": "ServiceBusConnection"
 		}
 	]
 }

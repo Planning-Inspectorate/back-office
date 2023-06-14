@@ -206,7 +206,10 @@ describe('Publish documents', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-document',
 			[expectedEventPayload],
-			'Update'
+			'Update',
+			{
+				publishing: true
+			}
 		);
 	});
 
