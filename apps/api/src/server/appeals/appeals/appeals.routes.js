@@ -3,15 +3,18 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import {
 	getAppealById,
 	getAppeals,
+	getAppellantCaseById,
 	getLpaQuestionnaireById,
 	updateAppealById
 } from './appeals.controller.js';
 import {
 	checkAppealExistsAndAddToRequest,
+	checkAppellantCaseExists,
 	checkLPAQuestionnaireExists
 } from './appeals.service.js';
 import {
 	getAppealValidator,
+	getAppellantCaseValidator,
 	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
 	patchAppealValidator
@@ -109,6 +112,25 @@ router.get(
 	checkAppealExistsAndAddToRequest,
 	checkLPAQuestionnaireExists,
 	asyncHandler(getLpaQuestionnaireById)
+);
+
+router.get(
+	'/:appealId/appellant-cases/:appellantCaseId',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/{appealId}/appellant-cases/{appellantCaseId}'
+		#swagger.description = Gets a single appellant case for an appeal by id
+		#swagger.responses[200] = {
+			description: 'Gets a single appellant case for an appeal by id',
+			schema: { $ref: '#/definitions/SingleAppellantCaseResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppellantCaseValidator,
+	checkAppealExistsAndAddToRequest,
+	checkAppellantCaseExists,
+	asyncHandler(getAppellantCaseById)
 );
 
 export { router as appealsRoutes };

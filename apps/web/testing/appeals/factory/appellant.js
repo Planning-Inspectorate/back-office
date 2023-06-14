@@ -14,5 +14,5 @@ export function createAppellant({
 	email = `${snakeCase(name)}@example.com`,
 	agentName = 'Agent Alma Adamson'
 } = {}) {
-	return { id, name, email, agentName };
+	return { id, name, email, agentName, company: `${name} Ltd` };
 }

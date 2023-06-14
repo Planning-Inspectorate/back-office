@@ -1127,14 +1127,11 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                                     <dd class=\\"govuk-summary-list__value\\">Test</dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
@@ -1169,14 +1166,11 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                                     <dd class=\\"govuk-summary-list__value\\">Test</dd>
                                 </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
+                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                                 </div>
                                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                                     <dd class=\\"govuk-summary-list__value\\">10:10</dd>
@@ -1335,14 +1329,11 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                             <dd class=\\"govuk-summary-list__value\\">Test</dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
+                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                             <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                             <dd class=\\"govuk-summary-list__value\\">10:10</dd>
@@ -1377,14 +1368,11 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Iteam Name</dt>
                             <dd class=\\"govuk-summary-list__value\\">Test</dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date</dt>
+                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Time</dt>
                             <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
                             <dd class=\\"govuk-summary-list__value\\">10:10</dd>
