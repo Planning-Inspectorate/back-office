@@ -380,7 +380,12 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
 		publishedDocuments.map(buildNsipDocumentPayload),
-		EventType.Update
+		EventType.Update,
+		// This is an additional flag which triggers the Azure Function that publishes documents.
+		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
+		{
+			publishing: true
+		}
 	);
 
 	return documentVersionIds.map(({ documentGuid }) => ({
