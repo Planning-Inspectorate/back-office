@@ -4,8 +4,8 @@ import { omitBy } from 'lodash-es';
  * @property {string|null} addressLine1
  * @property {string|null} addressLine2
  * @property {string|null} town
- * @property {string|null} county
  * @property {string|null} postcode
+ * @property {string|null} country
  */
 
 /**
@@ -38,11 +38,13 @@ export const formatContactDetails = (contact = {}) => ({
 	email: contact.email || '',
 	phoneNumber: contact.phoneNumber || '',
 	contactMethod: contact.contactMethod || '',
-	addressLine1: contact.address?.addressLine1 || '',
-	addressLine2: contact.address?.addressLine2 || '',
-	town: contact.address?.town || '',
-	county: contact.address?.county || '',
-	postcode: contact.address?.postcode || ''
+	address: {
+		addressLine1: contact.address?.addressLine1 || '',
+		addressLine2: contact.address?.addressLine2 || '',
+		town: contact.address?.town || '',
+		postcode: contact.address?.postcode || '',
+		country: contact.address?.country || ''
+	}
 });
 
 /**
@@ -72,6 +74,7 @@ export const replaceRepresentaionValuesAsBodyValues = (representation, body, rep
 		}
 	};
 };
+
 /**
  *
  * @param {*} errors
@@ -89,7 +92,7 @@ export const getFormattedErrorSummary = (errors) =>
  * @returns {object}
  */
 const stripEmptyStringKeyValueFromObject = (obj) => omitBy(obj, (v) => v === '');
-// object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ''));
+
 /**
  *
  * @param {string} repType

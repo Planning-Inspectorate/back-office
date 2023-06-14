@@ -3,15 +3,23 @@ import fetch from 'node-fetch';
 import appealRepository from '../../repositories/appeal.repository.js';
 import config from '../config.js';
 import {
+	APPEAL_TYPE_SHORTCODE_FPA,
 	BANK_HOLIDAY_FEED_DIVISION_ENGLAND,
 	BANK_HOLIDAY_FEED_URL,
 	ERROR_NOT_FOUND
 } from '../constants.js';
 
 /**
+<<<<<<< HEAD:appeals/api/src/server/appeals/appeals/appeals.service.js
  * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents
  * @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate
  * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions
+=======
+ * @typedef {import('@pins/api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents
+ * @typedef {import('@pins/api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate
+ * @typedef {import('@pins/api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions
+ * @typedef {import('@pins/api').Schema.AppealType} AppealType
+>>>>>>> main:apps/api/src/server/appeals/appeals/appeals.service.js
  */
 
 /**
@@ -145,4 +153,35 @@ const checkLPAQuestionnaireExists = async (req, res, next) => {
 	next();
 };
 
-export { calculateTimetable, checkAppealExistsAndAddToRequest, checkLPAQuestionnaireExists };
+/**
+ * @type {import('express').RequestHandler}
+ * @returns {Promise<object | void>}
+ */
+const checkAppellantCaseExists = async (req, res, next) => {
+	const {
+		appeal,
+		params: { appellantCaseId }
+	} = req;
+	const hasAppellantCase = appeal.appellantCase?.id === Number(appellantCaseId);
+
+	if (!hasAppellantCase) {
+		return res.status(404).send({ errors: { appellantCaseId: ERROR_NOT_FOUND } });
+	}
+
+	next();
+};
+
+/**
+ * @param {Pick<AppealType, 'shorthand'> | null} appealType
+ * @returns {boolean}
+ */
+const isFPA = (appealType) =>
+	Boolean(appealType && appealType.shorthand === APPEAL_TYPE_SHORTCODE_FPA);
+
+export {
+	calculateTimetable,
+	checkAppealExistsAndAddToRequest,
+	checkAppellantCaseExists,
+	checkLPAQuestionnaireExists,
+	isFPA
+};

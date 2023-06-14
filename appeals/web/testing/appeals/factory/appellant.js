@@ -12,7 +12,8 @@ export function createAppellant({
 	id = fake.createUniqueId(),
 	name = `${faker.name.firstName()} ${faker.name.lastName()}`,
 	email = `${snakeCase(name)}@example.com`,
-	agentName = 'Agent Alma Adamson'
+	agentName = 'Agent Alma Adamson',
+	company = 'ACME'
 } = {}) {
-	return { id, name, email, agentName };
+	return { id, name, email, agentName, company };
 }

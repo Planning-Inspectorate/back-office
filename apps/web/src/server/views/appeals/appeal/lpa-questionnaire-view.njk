@@ -1,0 +1,22 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+
+{%- set containerSize = "xl" -%}
+{%- set pageTitle = "LPA questionnaire - {{appeal.id}} - GOV.UK" -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	{%- for section in summaryList.formattedSections -%}
+		{{ govukSummaryList(section)}}
+	{%- endfor -%}
+
+{%- endblock -%}

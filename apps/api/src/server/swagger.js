@@ -575,6 +575,7 @@ const document = {
 				statementReviewDate: '2023-06-14T01:00:00.000Z'
 			},
 			appealType: 'household',
+			appellantCaseId: 1,
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
 			decision: 'Not issued yet',
@@ -608,6 +609,76 @@ const document = {
 					status: 'not_received',
 					dueDate: '2023-06-18T00:00:00.000Z'
 				}
+			}
+		},
+		SingleAppellantCaseResponse: {
+			agriculturalHolding: {
+				isAgriculturalHolding: true,
+				isTenant: true,
+				hasToldTenants: false,
+				hasOtherTenants: true
+			},
+			appealId: 1,
+			appealReference: 'APP/Q9999/D/21/965625',
+			appealSite: {
+				addressLine1: '21 The Pavement',
+				county: 'Wandsworth',
+				postCode: 'SW4 0HY'
+			},
+			appellantCaseId: 1,
+			appellant: {
+				name: 'Roger Simmons',
+				company: 'Roger Simmons Ltd'
+			},
+			applicant: {
+				firstName: 'Fiona',
+				surname: 'Burgess'
+			},
+			developmentDescription: {
+				isCorrect: false,
+				details: 'A new extension has been added at the back'
+			},
+			documents: {
+				appealStatement: 'appeal-statement.pdf',
+				applicationForm: 'application-form.pdf',
+				designAndAccessStatement: 'design-and-access-statement.pdf',
+				decisionLetter: 'decision-letter.pdf',
+				newPlansOrDrawings: ['new-plans-or-drawings-1.pdf', 'new-plans-or-drawings-2.pdf'],
+				newSupportingDocuments: ['newsupporting-doc-1.pdf', 'newsupporting-doc-2.pdf'],
+				planningObligation: 'planning-obligation.pdf',
+				plansDrawingsSupportingDocuments: [
+					'plans-drawings-supporting-documents-1.pdf',
+					'plans-drawings-supporting-documents-2.pdf'
+				],
+				separateOwnershipCertificate: 'separate-ownership-certificate.pdf'
+			},
+			hasAdvertisedAppeal: true,
+			hasDesignAndAccessStatement: true,
+			hasNewPlansOrDrawings: true,
+			hasNewSupportingDocuments: true,
+			hasSeparateOwnershipCertificate: true,
+			healthAndSafety: {
+				details: 'There is no mobile reception at the site',
+				hasIssues: true
+			},
+			isAppellantNamedOnApplication: false,
+			localPlanningDepartment: 'Wiltshire Council',
+			planningObligation: {
+				hasObligation: true,
+				status: 'Finalised'
+			},
+			procedureType: 'written',
+			siteOwnership: {
+				areAllOwnersKnown: true,
+				hasAttemptedToIdentifyOwners: true,
+				hasToldOwners: true,
+				isFullyOwned: false,
+				isPartiallyOwned: true,
+				knowsOtherLandowners: 'Some'
+			},
+			visibility: {
+				details: 'The site is behind a tall hedge',
+				isVisible: false
 			}
 		},
 		UpdateAppealRequest: {

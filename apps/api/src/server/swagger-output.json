@@ -3615,6 +3615,10 @@
 					"type": "string",
 					"example": "household"
 				},
+				"appellantCaseId": {
+					"type": "number",
+					"example": 1
+				},
 				"appellantName": {
 					"type": "string",
 					"example": "Fiona Burgess"
@@ -3717,6 +3721,253 @@
 									"example": "2023-06-18T00:00:00.000Z"
 								}
 							}
+						}
+					}
+				}
+			}
+		},
+		"SingleAppellantCaseResponse": {
+			"type": "object",
+			"properties": {
+				"agriculturalHolding": {
+					"type": "object",
+					"properties": {
+						"isAgriculturalHolding": {
+							"type": "boolean",
+							"example": true
+						},
+						"isTenant": {
+							"type": "boolean",
+							"example": true
+						},
+						"hasToldTenants": {
+							"type": "boolean",
+							"example": false
+						},
+						"hasOtherTenants": {
+							"type": "boolean",
+							"example": true
+						}
+					}
+				},
+				"appealId": {
+					"type": "number",
+					"example": 1
+				},
+				"appealReference": {
+					"type": "string",
+					"example": "APP/Q9999/D/21/965625"
+				},
+				"appealSite": {
+					"type": "object",
+					"properties": {
+						"addressLine1": {
+							"type": "string",
+							"example": "21 The Pavement"
+						},
+						"county": {
+							"type": "string",
+							"example": "Wandsworth"
+						},
+						"postCode": {
+							"type": "string",
+							"example": "SW4 0HY"
+						}
+					}
+				},
+				"appellantCaseId": {
+					"type": "number",
+					"example": 1
+				},
+				"appellant": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Roger Simmons"
+						},
+						"company": {
+							"type": "string",
+							"example": "Roger Simmons Ltd"
+						}
+					}
+				},
+				"applicant": {
+					"type": "object",
+					"properties": {
+						"firstName": {
+							"type": "string",
+							"example": "Fiona"
+						},
+						"surname": {
+							"type": "string",
+							"example": "Burgess"
+						}
+					}
+				},
+				"developmentDescription": {
+					"type": "object",
+					"properties": {
+						"isCorrect": {
+							"type": "boolean",
+							"example": false
+						},
+						"details": {
+							"type": "string",
+							"example": "A new extension has been added at the back"
+						}
+					}
+				},
+				"documents": {
+					"type": "object",
+					"properties": {
+						"appealStatement": {
+							"type": "string",
+							"example": "appeal-statement.pdf"
+						},
+						"applicationForm": {
+							"type": "string",
+							"example": "application-form.pdf"
+						},
+						"designAndAccessStatement": {
+							"type": "string",
+							"example": "design-and-access-statement.pdf"
+						},
+						"decisionLetter": {
+							"type": "string",
+							"example": "decision-letter.pdf"
+						},
+						"newPlansOrDrawings": {
+							"type": "array",
+							"example": ["new-plans-or-drawings-1.pdf", "new-plans-or-drawings-2.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"newSupportingDocuments": {
+							"type": "array",
+							"example": ["newsupporting-doc-1.pdf", "newsupporting-doc-2.pdf"],
+							"items": {
+								"type": "string"
+							}
+						},
+						"planningObligation": {
+							"type": "string",
+							"example": "planning-obligation.pdf"
+						},
+						"plansDrawingsSupportingDocuments": {
+							"type": "array",
+							"example": [
+								"plans-drawings-supporting-documents-1.pdf",
+								"plans-drawings-supporting-documents-2.pdf"
+							],
+							"items": {
+								"type": "string"
+							}
+						},
+						"separateOwnershipCertificate": {
+							"type": "string",
+							"example": "separate-ownership-certificate.pdf"
+						}
+					}
+				},
+				"hasAdvertisedAppeal": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasDesignAndAccessStatement": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasNewPlansOrDrawings": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasNewSupportingDocuments": {
+					"type": "boolean",
+					"example": true
+				},
+				"hasSeparateOwnershipCertificate": {
+					"type": "boolean",
+					"example": true
+				},
+				"healthAndSafety": {
+					"type": "object",
+					"properties": {
+						"details": {
+							"type": "string",
+							"example": "There is no mobile reception at the site"
+						},
+						"hasIssues": {
+							"type": "boolean",
+							"example": true
+						}
+					}
+				},
+				"isAppellantNamedOnApplication": {
+					"type": "boolean",
+					"example": false
+				},
+				"localPlanningDepartment": {
+					"type": "string",
+					"example": "Wiltshire Council"
+				},
+				"planningObligation": {
+					"type": "object",
+					"properties": {
+						"hasObligation": {
+							"type": "boolean",
+							"example": true
+						},
+						"status": {
+							"type": "string",
+							"example": "Finalised"
+						}
+					}
+				},
+				"procedureType": {
+					"type": "string",
+					"example": "written"
+				},
+				"siteOwnership": {
+					"type": "object",
+					"properties": {
+						"areAllOwnersKnown": {
+							"type": "boolean",
+							"example": true
+						},
+						"hasAttemptedToIdentifyOwners": {
+							"type": "boolean",
+							"example": true
+						},
+						"hasToldOwners": {
+							"type": "boolean",
+							"example": true
+						},
+						"isFullyOwned": {
+							"type": "boolean",
+							"example": false
+						},
+						"isPartiallyOwned": {
+							"type": "boolean",
+							"example": true
+						},
+						"knowsOtherLandowners": {
+							"type": "string",
+							"example": "Some"
+						}
+					}
+				},
+				"visibility": {
+					"type": "object",
+					"properties": {
+						"details": {
+							"type": "string",
+							"example": "The site is behind a tall hedge"
+						},
+						"isVisible": {
+							"type": "boolean",
+							"example": false
 						}
 					}
 				}

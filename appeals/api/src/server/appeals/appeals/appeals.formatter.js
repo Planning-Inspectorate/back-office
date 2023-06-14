@@ -1,9 +1,6 @@
 import formatAddress from '../../utils/address-block-formtter.js';
-import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	DOCUMENT_STATUS_NOT_RECEIVED,
-	DOCUMENT_STATUS_RECEIVED
-} from '../constants.js';
+import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
+import { isFPA } from './appeals.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -14,6 +11,7 @@ import {
 /** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
+/** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
 
 /**
  * @param {boolean} affectsListedBuilding
@@ -65,15 +63,14 @@ const appealFormatter = {
 				appealSite: formatAddress(appeal.address),
 				appealStatus: appeal.appealStatus[0].status,
 				appealTimetable: {
-					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
-						finalCommentReviewDate: appeal.appealTimetable?.finalCommentReviewDate || null
-					}),
 					lpaQuestionnaireDueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null,
-					...(appeal.appealType?.shorthand === APPEAL_TYPE_SHORTCODE_FPA && {
+					...(isFPA(appeal.appealType) && {
+						finalCommentReviewDate: appeal.appealTimetable?.finalCommentReviewDate || null,
 						statementReviewDate: appeal.appealTimetable?.statementReviewDate || null
 					})
 				},
 				appealType: appeal.appealType?.type,
+				appellantCaseId: appeal.appellantCase?.id,
 				appellantName: appeal.appellant?.name,
 				decision: appeal.inspectorDecision?.outcome,
 				isParentAppeal: appeal.linkedAppealId ? appeal.id === appeal.linkedAppealId : null,
@@ -89,9 +86,7 @@ const appealFormatter = {
 				startedAt: appeal.startedAt,
 				documentationSummary: {
 					appellantCase: {
-						status: appeal.appealDetailsFromAppellant
-							? DOCUMENT_STATUS_RECEIVED
-							: DOCUMENT_STATUS_NOT_RECEIVED,
+						status: appeal.appellantCase ? DOCUMENT_STATUS_RECEIVED : DOCUMENT_STATUS_NOT_RECEIVED,
 						dueDate: null
 					},
 					lpaQuestionnaire: {
@@ -199,6 +194,99 @@ const appealFormatter = {
 			siteWithinGreenBelt: lpaQuestionnaire?.siteWithinGreenBelt,
 			statutoryConsulteesDetails: lpaQuestionnaire?.statutoryConsulteesDetails
 		};
+	},
+	/**
+	 * @param {RepositoryGetByIdResultItem} appeal
+	 * @returns {SingleAppellantCaseResponse | void}}
+	 */
+	formatAppellantCase(appeal) {
+		const { appellantCase } = appeal;
+
+		if (appellantCase) {
+			return {
+				...(isFPA(appeal.appealType) && {
+					agriculturalHolding: {
+						isAgriculturalHolding: appellantCase.isAgriculturalHolding,
+						isTenant: appellantCase.isAgriculturalHoldingTenant,
+						hasToldTenants: appellantCase.hasToldTenants,
+						hasOtherTenants: appellantCase.hasOtherTenants
+					}
+				}),
+				appealId: appeal.id,
+				appealReference: appeal.reference,
+				appealSite: formatAddress(appeal.address),
+				appellantCaseId: appellantCase.id,
+				appellant: {
+					company: appeal.appellant?.company || null,
+					name: appeal.appellant?.name || null
+				},
+				applicant: {
+					firstName: appellantCase.applicantFirstName,
+					surname: appellantCase.applicantSurname
+				},
+				...(isFPA(appeal.appealType) && {
+					developmentDescription: {
+						isCorrect: appellantCase.isDevelopmentDescriptionStillCorrect,
+						details: appellantCase.newDevelopmentDescription
+					}
+				}),
+				documents: {
+					appealStatement: 'appeal-statement.pdf',
+					applicationForm: 'application-form.pdf',
+					decisionLetter: 'decision-letter.pdf',
+					...(isFPA(appeal.appealType) && {
+						designAndAccessStatement: 'design-and-access-statement.pdf',
+						newPlansOrDrawings: ['new-plans-or-drawings-1.pdf', 'new-plans-or-drawings-2.pdf']
+					}),
+					newSupportingDocuments: [
+						'new-supporting-documents-1.pdf',
+						'new-supporting-documents-2.pdf'
+					],
+					...(isFPA(appeal.appealType) && {
+						planningObligation: 'planning-obligation.pdf',
+						plansDrawingsSupportingDocuments: [
+							'plans-drawings-supporting-documents-1.pdf',
+							'plans-drawings-supporting-documents-2.pdf'
+						],
+						separateOwnershipCertificate: 'separate-ownership-certificate.pdf'
+					})
+				},
+				hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
+				...(isFPA(appeal.appealType) && {
+					hasDesignAndAccessStatement: appellantCase.hasDesignAndAccessStatement,
+					hasNewPlansOrDrawings: appellantCase.hasNewPlansOrDrawings
+				}),
+				hasNewSupportingDocuments: appellantCase.hasNewSupportingDocuments,
+				...(isFPA(appeal.appealType) && {
+					hasSeparateOwnershipCertificate: appellantCase.hasSeparateOwnershipCertificate
+				}),
+				healthAndSafety: {
+					details: appellantCase.healthAndSafetyIssues,
+					hasIssues: appellantCase.hasHealthAndSafetyIssues
+				},
+				isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
+				localPlanningDepartment: appeal.localPlanningDepartment,
+				...(isFPA(appeal.appealType) && {
+					planningObligation: {
+						hasObligation: appellantCase.hasPlanningObligation,
+						status: appellantCase.planningObligationStatus?.name || null
+					}
+				}),
+				procedureType: appeal.lpaQuestionnaire?.procedureType?.name,
+				siteOwnership: {
+					areAllOwnersKnown: appellantCase.areAllOwnersKnown,
+					hasAttemptedToIdentifyOwners: appellantCase.hasAttemptedToIdentifyOwners,
+					hasToldOwners: appellantCase.hasToldOwners,
+					isFullyOwned: appellantCase.isSiteFullyOwned,
+					isPartiallyOwned: appellantCase.isSitePartiallyOwned,
+					knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners?.name || null
+				},
+				visibility: {
+					details: appellantCase.visibilityRestrictions,
+					isVisible: appellantCase.isSiteVisibleFromPublicRoad
+				}
+			};
+		}
 	}
 };
 

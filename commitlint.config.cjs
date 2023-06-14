@@ -11,12 +11,14 @@ const scopes = [
 	'web',
 	'web/appeals',
 	'web/applications',
+	'functions',
+	/functions\/(.*)/,
 	'document-storage',
 	'document-check-function',
-	'e2e',
 	'odw-integration',
 	'document-publish-function',
 	'publish-document-function',
+	'e2e',
 	'express',
 	'platform',
 	'storage',
@@ -27,11 +29,12 @@ const scopes = [
 module.exports = {
 	extends: ['@commitlint/config-conventional'],
 	rules: {
+		'body-max-line-length': [2,	'always', 120], // dependabot needs longer lines, the value is somewhat arbitrary
 		'scope-enums': [
 			2,
 			'always',
 			{
-				build: [],
+				build: [null, 'deps'], // allow dependabot commits
 				chore: scopes,
 				ci: [],
 				docs: [null, ...scopes],
@@ -79,9 +82,14 @@ module.exports = {
 					// or a regular expression
 					if (
 						allowedScopes.some((allowedScope) => {
-							return isRegExp(scope)
-								? scope.match(/** @type {*} */ (allowedScope))
-								: allowedScope === scope;
+							if (isRegExp(allowedScope)) {
+								if (scope == null) {
+									return false;
+								}
+								return allowedScope.exec(scope) !== null;
+							} else {
+								return allowedScope === scope;
+							}
 						})
 					) {
 						return [true];

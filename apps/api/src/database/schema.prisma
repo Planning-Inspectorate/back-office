@@ -11,24 +11,24 @@ datasource db {
 /// Contains information of an Appeal that has been submitted to the Back Office
 /// TODO: Migrate this model to integrated into the Case model same as with Applications
 model Appeal {
-  id                           Int                         @id @default(autoincrement())
+  id                           Int                   @id @default(autoincrement())
   reference                    String
-  createdAt                    DateTime                    @default(now())
-  updatedAt                    DateTime                    @default(now())
+  createdAt                    DateTime              @default(now())
+  updatedAt                    DateTime              @default(now())
   addressId                    Int?
   localPlanningDepartment      String
   planningApplicationReference String
   startedAt                    DateTime?
   userId                       Int?
-  appellantId                  Int?                        @unique
+  appellantId                  Int?                  @unique
   appealTypeId                 Int?
   linkedAppealId               Int?
   otherAppealId                Int?
-  address                      Address?                    @relation(fields: [addressId], references: [id])
-  appealType                   AppealType?                 @relation(fields: [appealTypeId], references: [id])
-  appellant                    Appellant?                  @relation(fields: [appellantId], references: [id])
-  user                         User?                       @relation(fields: [userId], references: [id])
-  appealDetailsFromAppellant   AppealDetailsFromAppellant?
+  address                      Address?              @relation(fields: [addressId], references: [id])
+  appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
+  appellant                    Appellant?            @relation(fields: [appellantId], references: [id])
+  user                         User?                 @relation(fields: [userId], references: [id])
+  appellantCase                AppellantCase?
   appealStatus                 AppealStatus[]
   inspectorDecision            InspectorDecision?
   lpaQuestionnaire             LPAQuestionnaire?
@@ -36,10 +36,10 @@ model Appeal {
   siteVisit                    SiteVisit?
   validationDecision           ValidationDecision[]
   appealTimetable              AppealTimetable?
-  linkedAppeal                 Appeal?                     @relation("LinkedAppeals", fields: [linkedAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  linkedAppeals                Appeal[]                    @relation("LinkedAppeals")
-  otherAppeal                  Appeal?                     @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  otherAppeals                 Appeal[]                    @relation("OtherAppeals")
+  linkedAppeal                 Appeal?               @relation("LinkedAppeals", fields: [linkedAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  linkedAppeals                Appeal[]              @relation("LinkedAppeals")
+  otherAppeal                  Appeal?               @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  otherAppeals                 Appeal[]              @relation("OtherAppeals")
 }
 
 /// AppealType model
@@ -84,24 +84,48 @@ model AppealStatus {
 model Appellant {
   id        Int     @id @default(autoincrement())
   name      String
+  company   String?
   email     String
   agentName String?
   appeal    Appeal?
 }
 
-/// AppealDetailsFromAppellant model
+/// AppellantCase model
 /// Contains information from the questionnaire that the Appellant
 /// would have filled out when submitting the Appeal
-model AppealDetailsFromAppellant {
-  id                                   Int      @id @default(autoincrement())
-  appealId                             Int      @unique
-  siteVisibleFromPublicLand            Boolean?
-  appellantOwnsWholeSite               Boolean?
-  appellantOwnsWholeSiteDescription    String?
-  healthAndSafetyIssues                Boolean?
-  healthAndSafetyIssuesDescription     String?
-  siteVisibleFromPublicLandDescription String?
-  appeal                               Appeal   @relation(fields: [appealId], references: [id])
+model AppellantCase {
+  id                                   Int                         @id @default(autoincrement())
+  appealId                             Int                         @unique
+  knowledgeOfOtherLandownersId         Int?
+  planningObligationStatusId           Int?
+  applicantFirstName                   String?
+  applicantSurname                     String?
+  areAllOwnersKnown                    Boolean?
+  hasAdvertisedAppeal                  Boolean?
+  hasAttemptedToIdentifyOwners         Boolean?
+  hasDesignAndAccessStatement          Boolean?
+  hasHealthAndSafetyIssues             Boolean?
+  hasNewPlansOrDrawings                Boolean?
+  hasNewSupportingDocuments            Boolean?
+  hasOtherTenants                      Boolean?
+  hasPlanningObligation                Boolean?
+  hasSeparateOwnershipCertificate      Boolean?
+  hasSubmittedDesignAndAccessStatement Boolean?
+  hasToldOwners                        Boolean?
+  hasToldTenants                       Boolean?
+  healthAndSafetyIssues                String?
+  isAgriculturalHolding                Boolean?
+  isAgriculturalHoldingTenant          Boolean?
+  isAppellantNamedOnApplication        Boolean?
+  isDevelopmentDescriptionStillCorrect Boolean?
+  isSiteFullyOwned                     Boolean?
+  isSitePartiallyOwned                 Boolean?
+  isSiteVisibleFromPublicRoad          Boolean?
+  newDevelopmentDescription            String?
+  visibilityRestrictions               String?
+  appeal                               Appeal                      @relation(fields: [appealId], references: [id])
+  knowledgeOfOtherLandowners           KnowledgeOfOtherLandowners? @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
+  planningObligationStatus             PlanningObligationStatus?   @relation(fields: [planningObligationStatusId], references: [id])
 }
 
 /// Case model
@@ -424,19 +448,18 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                  String            @id @default(uuid())
-  name                  String
-  folderId              Int
-  createdAt             DateTime          @default(now())
-  isDeleted             Boolean           @default(false)
-  representationId      Int?
-  latestVersionId       Int?
-  caseId                Int
-  folder                Folder            @relation(fields: [folderId], references: [id])
-  documentVersion       DocumentVersion[] @relation("VersionHistory")
-  Representation        Representation?   @relation(fields: [representationId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  latestDocumentVersion DocumentVersion?  @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  case                  Case              @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  guid                     String                    @id @default(uuid())
+  name                     String
+  folderId                 Int
+  createdAt                DateTime                  @default(now())
+  isDeleted                Boolean                   @default(false)
+  latestVersionId          Int?
+  caseId                   Int
+  folder                   Folder                    @relation(fields: [folderId], references: [id])
+  documentVersion          DocumentVersion[]         @relation("VersionHistory")
+  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -491,20 +514,20 @@ model DocumentVersion {
 
 /// Representation model
 model Representation {
-  id                     Int                     @id @default(autoincrement())
+  id                     Int                        @id @default(autoincrement())
   reference              String
   caseId                 Int
   status                 String
-  originalRepresentation String                  @db.NText
-  redactedRepresentation String?                 @db.NText
-  redacted               Boolean                 @default(false)
+  originalRepresentation String                     @db.NText
+  redactedRepresentation String?                    @db.NText
+  redacted               Boolean                    @default(false)
   userId                 Int?
-  received               DateTime                @default(now())
-  case                   Case                    @relation(fields: [caseId], references: [id])
-  user                   User?                   @relation(fields: [userId], references: [id])
+  received               DateTime
+  case                   Case                       @relation(fields: [caseId], references: [id])
+  user                   User?                      @relation(fields: [userId], references: [id])
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
   contacts               RepresentationContact[]
-  attachments            Document[]
+  attachments            RepresentationAttachment[]
   representationActions  RepresentationAction[]
 
   @@index([reference], name: "reference")
@@ -543,6 +566,15 @@ model RepresentationAction {
   actionDate           DateTime
   notes                String?        @db.NText
   Representation       Representation @relation(fields: [representationId], references: [id])
+}
+
+//  RepresentationAttachment model
+model RepresentationAttachment {
+  id               Int            @id @default(autoincrement())
+  representationId Int
+  documentGuid     String         @unique
+  Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
+  Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
 }
 
 model ExaminationTimetableType {
@@ -619,4 +651,16 @@ model ListedBuildingDetails {
   description           String
   affectsListedBuilding Boolean           @default(false)
   lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
+}
+
+model PlanningObligationStatus {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  AppellantCase AppellantCase[]
+}
+
+model KnowledgeOfOtherLandowners {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  AppellantCase AppellantCase[]
 }

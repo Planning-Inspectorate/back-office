@@ -2,9 +2,10 @@
   "name": "back-office",
   "private": true,
   "workspaces": [
-    "packages/*",
+		"appeals/*",
     "apps/*",
-		"appeals/*"
+    "apps/functions/*",
+    "packages/*"
   ],
   "engines": {
     "node": ">=16.14.0"
