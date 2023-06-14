@@ -174,7 +174,7 @@ extends:
                   WEB_VERSION=$(cat apps/web/.release-version)
                   DOCUMENT_CHECK_FUNCTION_VERSION=$(cat apps/document-check-function/.release-version)
                   DOCUMENT_PUBLISH_FUNCTION_VERSION=$(cat apps/document-publish-function/.release-version)
-                  ODW_INTEGRATION_FUNCTION_VERSION=$(cat apps/odw-integration/.release-version)
+                  ODW_INTEGRATION_FUNCTION_VERSION=$(cat apps/functions/odw-integration/.release-version)
 
                   RELEASE=false
 
