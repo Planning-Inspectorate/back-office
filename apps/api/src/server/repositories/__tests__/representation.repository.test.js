@@ -456,6 +456,7 @@ describe('Representation repository', () => {
 					},
 					contacts: {
 						select: {
+							id: true,
 							type: true,
 							firstName: true,
 							lastName: true,
@@ -514,6 +515,7 @@ describe('Representation repository', () => {
 					},
 					contacts: {
 						select: {
+							id: true,
 							type: true,
 							firstName: true,
 							lastName: true,

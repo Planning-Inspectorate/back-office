@@ -14,6 +14,7 @@ import {
 	patchRepresentation
 } from './representations.controller.js';
 import { representationPatchValidator } from './representation.validators.js';
+import { representationsContactsRouter } from './contacts/contacts.route.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -249,5 +250,7 @@ router.patch(
 );
 
 router.use('/:repId/redact', representaionsRedactRouter);
+
+router.use('/:repId/contacts/:contactId', representationsContactsRouter);
 
 export const representaionsRouter = router;

@@ -1036,6 +1036,50 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/contacts/{contactId}": {
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Delete a representation contact for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "contactId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"contactId": {
+									"type": "number",
+									"example": 1
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
