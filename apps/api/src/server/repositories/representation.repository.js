@@ -123,24 +123,6 @@ export const getById = async (id, caseId) => {
 					}
 				}
 			},
-			attachments: {
-				select: {
-					documentVersion: {
-						select: {
-							fileName: true,
-							mime: true,
-							path: true
-						},
-						take: 1,
-						orderBy: {
-							lastModified: 'desc'
-						}
-					}
-				},
-				where: {
-					isDeleted: false
-				}
-			},
 			representationActions: {
 				select: {
 					notes: true,
