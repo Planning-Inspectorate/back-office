@@ -15,6 +15,7 @@ import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
 import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
+import { subscriptionRoutes } from './subscriptions/subscriptions.routes.js';
 
 const router = createRouter();
 
@@ -32,6 +33,8 @@ router.use('/sector', sectorRoutes);
 router.use('/zoom-level', zoomLevelRoutes);
 router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
 router.use('/examination-timetable-items', examinationTimetableItemRoutes);
+
+router.use('/subscriptions', subscriptionRoutes);
 
 router.use('/', documentRoutes);
 

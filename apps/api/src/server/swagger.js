@@ -1089,6 +1089,89 @@ const document = {
 			}
 		}
 	},
+	'@definitions': {
+		SubscriptionCreateRequest: {
+			type: 'object',
+			required: ['caseReference', 'emailAddress', 'subscriptionType'],
+			properties: {
+				caseReference: {
+					type: 'string',
+					description: 'the case reference the subscription relates to'
+				},
+				emailAddress: {
+					type: 'string',
+					format: 'email',
+					examples: ['alan.turing@planninginspectorate.gov.uk']
+				},
+				subscriptionType: {
+					type: 'string',
+					enum: ['decisionOnly', 'allUpdates'],
+					description: 'which updates does the subscriber wants to get notified of'
+				},
+				startDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to start getting updates'
+				},
+				endDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to stop getting updates'
+				},
+				language: {
+					type: 'string',
+					enum: ['English', 'Welsh'],
+					default: 'English'
+				}
+			}
+		},
+		SubscriptionCreateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						caseReference: {
+							type: 'string',
+							example: 'caseReference is required'
+						},
+						emailAddress: {
+							type: 'string',
+							example: 'emailAddress is required'
+						},
+						subscriptionType: {
+							type: 'string',
+							example: 'subscriptionType is required'
+						},
+						startDate: {
+							type: 'string',
+							example: 'startDate must be a valid date'
+						},
+						endDate: {
+							type: 'string',
+							example: 'endDate must be a valid date'
+						},
+						language: {
+							type: 'string',
+							example: "language must be one of 'English', 'Welsh'"
+						},
+						code: {
+							type: 'string',
+							example: 'P2002',
+							description: 'prisma error code'
+						},
+						constraint: {
+							type: 'string',
+							example: 'caseReference and emailAddress combination must be unique'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		}
+	},
 	components: {}
 };
 

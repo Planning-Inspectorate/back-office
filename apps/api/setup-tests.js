@@ -329,6 +329,12 @@ class MockPrismaClient {
 		};
 	}
 
+	subscription = {
+		create: jest.fn(),
+		update: jest.fn(),
+		findUnique: jest.fn()
+	};
+
 	$transaction(queries = []) {
 		return Promise.all(queries);
 	}
