@@ -34,7 +34,7 @@ export const postContactMethod = async (req, res) => {
 		});
 	}
 
-	const nextPagePath = `representation-type`;
+	const nextPagePath = locals.isRepresented ? `representation-type` : 'add-representation';
 
 	await patchRepresentation(caseId, String(repId), String(repType), body);
 

@@ -10,6 +10,8 @@ import { omitBy } from 'lodash-es';
 
 /**
  * @typedef {object} Contact
+ * @property {number|null} [id]
+ * @property {string|null} [type]
  * @property {string|null} [firstName]
  * @property {string|null} [lastName]
  * @property {string|null} [organisationName]
@@ -29,6 +31,8 @@ import { omitBy } from 'lodash-es';
  */
 
 export const formatContactDetails = (contact = {}) => ({
+	id: contact.id,
+	type: contact.type,
 	organisationName: contact.organisationName || '',
 	fullName: `${contact.firstName} ${contact.lastName}`,
 	firstName: contact.firstName,
