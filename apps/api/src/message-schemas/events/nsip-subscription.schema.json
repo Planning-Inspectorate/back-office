@@ -2,7 +2,7 @@
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"$id": "nsip-subscription.schema.json",
 	"title": "nsip-subscription",
-	"description": "Subset of PINS Data Model [Service User]",
+	"description": "Subscribers are a subset of Service Users, part of the PINS Data Model",
 	"type": "object",
 	"required": ["caseReference", "emailAddress", "subscriptionType"],
 	"properties": {
