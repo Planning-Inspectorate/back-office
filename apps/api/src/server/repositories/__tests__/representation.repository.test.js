@@ -477,24 +477,6 @@ describe('Representation repository', () => {
 							}
 						}
 					},
-					attachments: {
-						select: {
-							documentVersion: {
-								select: {
-									fileName: true,
-									mime: true,
-									path: true
-								},
-								take: 1,
-								orderBy: {
-									lastModified: 'desc'
-								}
-							}
-						},
-						where: {
-							isDeleted: false
-						}
-					},
 					representationActions: {
 						select: {
 							actionBy: true,
@@ -551,24 +533,6 @@ describe('Representation repository', () => {
 									country: true
 								}
 							}
-						}
-					},
-					attachments: {
-						select: {
-							documentVersion: {
-								select: {
-									fileName: true,
-									mime: true,
-									path: true
-								},
-								take: 1,
-								orderBy: {
-									lastModified: 'desc'
-								}
-							}
-						},
-						where: {
-							isDeleted: false
 						}
 					},
 					representationActions: {

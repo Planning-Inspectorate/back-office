@@ -18,7 +18,7 @@ export const getCaseRepresentations = async (caseId, pagination, filterAndSort) 
  * @returns {Promise<object>}
  */
 export const getCaseRepresentation = async (caseId, repId) => {
-	return representationsRepository.getById(repId, caseId);
+	return representationsRepository.getById(Number(repId), Number(caseId));
 };
 
 /**
