@@ -3,13 +3,13 @@ import { Page } from './basePage';
 
 export class FolderDocumentsPage extends Page {
 	elements = {
-		redactionRadio: (isRedacted = false) => cy.get(`#isRedacted[value=${isRedacted ? '1' : '0'}]`),
+		redactionRadio: (redacted = false) => cy.get(redacted ? '#isRedacted-2' : '#isRedacted'),
 		statusRadio: (status) => this.basePageElements.radioButton().contains(status)
 	};
 
 	// U S E R  A C T I O N S
-	setRedactionStatus(isRedacted = false) {
-		this.elements.redactionRadio().click({ force: true });
+	setRedactionStatus(redacted = false) {
+		this.elements.redactionRadio(redacted).click({ force: true });
 	}
 
 	/**
@@ -18,5 +18,29 @@ export class FolderDocumentsPage extends Page {
 	 */
 	setOverallStatus(status) {
 		this.elements.statusRadio(status).click({ force: true });
+	}
+
+	markAllReadyToPublish(redacted = false) {
+		this.setRedactionStatus(redacted);
+		this.setOverallStatus('Ready to publish');
+		this.selectAllDocuments();
+		this.clickButtonByText('Apply changes');
+	}
+
+	publishAllDocumentsInList() {
+		this.selectAllDocuments();
+		this.clickButtonByText('Publish documents');
+		this.validateSuccessPanelTitle('Document/s successfully published');
+	}
+
+	validateSuccessfulPublish(projectInfo, caseRef, docCount) {
+		this.validateSuccessPanelBody(`${docCount} documents published to the NI website`);
+		this.validateSuccessPanelBody(projectInfo.projectName);
+		this.validateSuccessPanelBody(caseRef);
+	}
+
+	validatePublishingQueueCase(projectInfo, caseRef) {
+		cy.contains(projectInfo.projectName).should('exist');
+		cy.contains(caseRef).should('exist');
 	}
 }

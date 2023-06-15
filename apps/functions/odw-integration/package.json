@@ -1,5 +1,5 @@
 {
-	"name": "@pins/odw-integration-functions",
+	"name": "@pins/function-odw-integration",
 	"version": "1.0.0",
 	"private": true,
 	"engines": {

@@ -12,7 +12,7 @@ export const projectInformation = () => {
 	const currentYear = new Date().getFullYear();
 
 	// P R O J E C T  I N F O R M A T I O N
-	let projectName = `Automation_Test_Case_${now}`;
+	let projectName = `AutoTest_${now}`;
 	let projectDescription = faker.lorem.sentence();
 	let projectLocation = faker.lorem.sentence();
 	const gridRefEasting = faker.random.numeric(6);

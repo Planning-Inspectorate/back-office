@@ -19,6 +19,7 @@ export class ExaminationTimetablePage extends Page {
 		endTimeHoursInput: () => cy.get('#endTime\\.hours'),
 		endTimeMinutesInput: () => cy.get('#endTime\\.minutes'),
 		description: () => cy.get('#description'),
+		timetableSelectInput: () => cy.get('#timetable-type'),
 		answerCell: (question) =>
 			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next()
 	};
@@ -58,11 +59,23 @@ export class ExaminationTimetablePage extends Page {
 		this.elements.description().clear().type(options.description);
 	}
 
+	fillItemNameAndDate(options) {
+		this.elements.itemNameInput().clear().type(options.itemName);
+		this.elements.dateDayInput().clear().type(options.day);
+		this.elements.dateMonthInput().clear().type(options.month);
+		this.elements.dateYearInput().clear().type(options.startYear);
+		this.elements.description().clear().type(options.description);
+	}
+
 	validateItemCreated() {
 		cy.get(this.selectors.panelTitle)
 			.invoke('text')
 			.then((text) => {
 				cy.wrap(text.trim()).should('equal', 'Timetable item successfully added');
 			});
+	}
+
+	selectTimetableItem(itemType) {
+		this.elements.timetableSelectInput().select(itemType);
 	}
 }

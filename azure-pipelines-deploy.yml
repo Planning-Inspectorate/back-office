@@ -106,7 +106,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy ODW Integration Functions
             artifact:
-              name: odw-integration-functions
+              name: function-odw-integration
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployODWIntegrationFunctions }}, 'true')
             steps:
