@@ -102,6 +102,7 @@ export const getById = async (id, caseId) => {
 			},
 			contacts: {
 				select: {
+					id: true,
 					type: true,
 					firstName: true,
 					lastName: true,
@@ -361,6 +362,28 @@ export const updateApplicationRepresentationRedaction = async (
 	return databaseConnector.representation.findFirst({
 		where: { id: representationId, caseId }
 	});
+};
+
+/**
+ *
+ * @param repId
+ * @param contactId
+ * @return {Prisma.Prisma__RepresentationContactClient<Prisma.RepresentationContactGetPayload<{where: {id}}>>}
+ */
+export const deleteApplicationRepresentationContact = async (repId, contactId) => {
+	const data = await databaseConnector.representationContact.findFirst({
+		where: { id: contactId }
+	});
+
+	const deleteAddressById = databaseConnector.address.delete({
+		where: { id: data.addressId }
+	});
+
+	const deleteRepresentationContactById = databaseConnector.representationContact.delete({
+		where: { id: contactId }
+	});
+
+	return databaseConnector.$transaction([deleteAddressById, deleteRepresentationContactById]);
 };
 
 /**
