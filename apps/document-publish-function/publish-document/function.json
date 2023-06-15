@@ -4,7 +4,7 @@
 			"name": "document",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "nsip-documents",
+			"topicName": "nsip-document",
 			"subscriptionName": "nsip-document-updated-publishing",
 			"connection": "ServiceBusConnection"
 		}
