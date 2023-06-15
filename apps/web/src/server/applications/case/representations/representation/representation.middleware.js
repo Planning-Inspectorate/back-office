@@ -51,6 +51,7 @@ export const addRepresentationToLocals = async (req, res, next) => {
 				representative
 			};
 		}
+
 		return next();
 	} catch (e) {
 		return next(e);

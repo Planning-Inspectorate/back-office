@@ -18,7 +18,7 @@
 		<div class="govuk-grid-column-one-half">
 			<form method="post" novalidate>
 				{{ govukRadios({
-					name: "contactMethod",
+					name: 'representationEntity',
 					fieldset: {
 						legend: {
 							text: pageTitle,
@@ -26,9 +26,9 @@
 							classes: "govuk-fieldset__legend--l"
 						}
 					},
-					items: contactMethodOptions,
-					errorMessage: errors["contactMethod"] and {
-						text: errors["contactMethod"].msg
+					items: representationEntityOptions,
+					errorMessage: errors["representationEntity"] and {
+						text: errors["representationEntity"].msg
 				}
 				}) }}
 

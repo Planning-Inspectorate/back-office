@@ -375,15 +375,21 @@ export const deleteApplicationRepresentationContact = async (repId, contactId) =
 		where: { id: contactId }
 	});
 
-	const deleteAddressById = databaseConnector.address.delete({
-		where: { id: data.addressId }
-	});
+	const deleteAddressById = [];
+
+	if (data.addressId) {
+		deleteAddressById.push(
+			databaseConnector.address.delete({
+				where: { id: Number(data.addressId) }
+			})
+		);
+	}
 
 	const deleteRepresentationContactById = databaseConnector.representationContact.delete({
 		where: { id: contactId }
 	});
 
-	return databaseConnector.$transaction([deleteAddressById, deleteRepresentationContactById]);
+	return databaseConnector.$transaction([...deleteAddressById, deleteRepresentationContactById]);
 };
 
 /**

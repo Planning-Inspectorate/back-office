@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation representation type GET /applications-service/case/1/relevant-representations/representation-entity should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Representation entity</h1>
+                        </legend>
+                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"PERSON\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity\\">An individual</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity-2\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"ORGANISATION\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity-2\\">An organisation</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity-3\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"AGENT\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity-3\\">A representative on behalf of another person, family group or organisation</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </form>
+        </div>
+        </div>
+</main>"
+`;
+
+exports[`Representation representation type POST /applications-service/case/1/relevant-representations/representation-entity Field validation: should show validation error if no option selected 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#representationEntity\\">Select one option</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"representationEntity-error\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Representation entity</h1>
+                        </legend>
+                        <p id=\\"representationEntity-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Select one option</p>
+                        <div                         class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"PERSON\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity\\">An individual</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity-2\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"ORGANISATION\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity-2\\">An organisation</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"representationEntity-3\\" name=\\"representationEntity\\"
+                                type=\\"radio\\" value=\\"AGENT\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"representationEntity-3\\">A representative on behalf of another person, family group or organisation</label>
+                            </div>
+                </div>
+                </fieldset>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+        </form>
+        </div>
+        </div>
+</main>"
+`;
