@@ -17,6 +17,7 @@ export class CaseCreatedSection extends SectionBase {
 			.invoke('text')
 			.then((text) => {
 				Cypress.env('currentCreatedCase', text);
+				cy.log('successfully copied new case reference', Cypress.env('currentCreatedCase'));
 			});
 	}
 
