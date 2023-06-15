@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 
 /**
  *
- * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
+ * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").DeleteRepresentationContact>}
  */
 export const deleteRepresentationContact = async ({ params }, response) => {
 	const { repId, contactId } = params;
