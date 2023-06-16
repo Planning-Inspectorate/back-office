@@ -1,6 +1,12 @@
 import { composeMiddleware } from '@pins/express';
-import { body } from 'express-validator';
+import { body, param, query } from 'express-validator';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
+
+export const validateGetSubscription = composeMiddleware(
+	query('caseReference').notEmpty().withMessage(`caseReference is required`),
+	query('emailAddress').notEmpty().withMessage(`emailAddress is required`),
+	validationErrorHandler
+);
 
 export const validateCreateSubscription = composeMiddleware(
 	body('caseReference')
@@ -42,6 +48,14 @@ export const validateCreateSubscription = composeMiddleware(
 		.withMessage('language must be a string')
 		.isIn(['English', 'Welsh'])
 		.withMessage(`language must be one of 'English', 'Welsh'`),
+	validationErrorHandler
+);
+
+export const validateUpdateSubscription = composeMiddleware(
+	param('id').notEmpty().withMessage(`id is required`),
+	body('endDate')
+		.isISO8601({ strict: true, strictSeparator: true })
+		.withMessage(`endDate must be a valid date`),
 	validationErrorHandler
 );
 

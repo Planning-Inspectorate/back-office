@@ -6,6 +6,10 @@
 	"type": "object",
 	"required": ["caseReference", "emailAddress", "subscriptionType"],
 	"properties": {
+		"subscriptionId": {
+			"type": "integer",
+			"description": "The unique identifier within the Back Office. Ignored as part of register-nsip-subscription."
+		},
 		"caseReference": {
 			"type": "string",
 			"description": "the case reference the subscription relates to"

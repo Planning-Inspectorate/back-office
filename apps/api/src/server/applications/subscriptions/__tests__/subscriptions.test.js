@@ -4,6 +4,10 @@ import { databaseConnector } from '../../../utils/database-connector';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 /**
+ * @typedef {import('../../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
+ */
+
+/**
  * @type {supertest.SuperTest<supertest.Test>}
  */
 let request;
@@ -12,6 +16,66 @@ describe('subscriptions', () => {
 	beforeAll(() => {
 		// only initialise our app when we're going to run some tests
 		request = supertest(app);
+	});
+
+	describe('get', () => {
+		const tests = [
+			{
+				name: 'should check all required fields',
+				query: {},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							caseReference: 'caseReference is required',
+							emailAddress: 'emailAddress is required'
+						}
+					}
+				}
+			},
+			{
+				name: 'should allow a valid request',
+				query: {
+					caseReference: '5123',
+					emailAddress: 'hello.world@example.com'
+				},
+				subscription: null,
+				want: {
+					status: 404,
+					body: { errors: { notFound: 'subscription not found' } }
+				}
+			},
+			{
+				name: 'should return a subscription',
+				query: {
+					caseReference: '1234',
+					emailAddress: 'hello.world@example.com'
+				},
+				subscription: { id: 123, caseReference: '1234', emailAddress: 'hello.world@example.com' },
+				want: {
+					status: 200,
+					body: { id: 123, caseReference: '1234', emailAddress: 'hello.world@example.com' }
+				}
+			}
+		];
+
+		for (const { name, query, subscription, want } of tests) {
+			test('' + name, async () => {
+				if (subscription !== undefined) {
+					databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
+				}
+				// action
+				let queryStr = '';
+				for (const [k, v] of Object.entries(query)) {
+					queryStr += `${k}=${encodeURIComponent(v)}&`;
+				}
+				const response = await request.get(`/applications/subscriptions?${queryStr}`);
+
+				// checks
+				expect(response.body).toEqual(want.body);
+				expect(response.status).toEqual(want.status);
+			});
+		}
 	});
 
 	describe('post', () => {
@@ -160,12 +224,119 @@ describe('subscriptions', () => {
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
 				if (createdId) {
+					const msg = {
+						...body,
+						subscriptionId: createdId
+					};
 					// this is OK because we always run some checks
 					// eslint-disable-next-line jest/no-conditional-expect
 					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 						'nsip-subscription',
-						[body], // transforming to and from the db schema should result in the same payload
+						[msg],
 						'Create'
+					);
+				}
+			});
+		}
+	});
+
+	describe('patch', () => {
+		const tests = [
+			{
+				name: 'should check all required fields',
+				body: {},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							endDate: 'endDate must be a valid date'
+						}
+					}
+				}
+			},
+			{
+				name: 'should validate endDate',
+				body: {
+					endDate: '2023-06-31T09:27:00.000Z'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							endDate: 'endDate must be a valid date'
+						}
+					}
+				}
+			},
+			{
+				name: 'should check endDate is after startDate',
+				body: {
+					endDate: '2023-06-01T09:27:00.000Z'
+				},
+				existing: { startDate: new Date('2023-06-16T09:27:00.000Z') },
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							endDate: 'endDate must be after startDate'
+						}
+					}
+				}
+			},
+			{
+				name: 'should update endDate',
+				body: {
+					endDate: '2023-06-15T09:27:00.000Z'
+				},
+				updated: {
+					id: 1,
+					endDate: new Date('2023-06-15T09:27:00.000Z'),
+					caseReference: '123',
+					emailAddress: 'user@example.com',
+					subscriptionType: 'allUpdates'
+				},
+				want: {
+					status: 200,
+					body: {
+						id: 1,
+						endDate: '2023-06-15T09:27:00.000Z',
+						caseReference: '123',
+						emailAddress: 'user@example.com',
+						subscriptionType: 'allUpdates'
+					}
+				}
+			}
+		];
+
+		for (const { name, body, updated, existing, want } of tests) {
+			test('' + name, async () => {
+				// setup
+				if (updated) {
+					databaseConnector.subscription.update.mockResolvedValueOnce(updated);
+				}
+				if (existing) {
+					databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
+				}
+
+				// action
+				const response = await request.patch('/applications/subscriptions/1').send(body);
+
+				// checks
+				expect(response.status).toEqual(want.status);
+				expect(response.body).toEqual(want.body);
+				if (updated) {
+					/** @type {NSIPSubscription|*} */
+					const msg = {
+						...want.body
+					};
+					delete msg.id;
+					msg.subscriptionId = updated.id;
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+						'nsip-subscription',
+						[msg],
+						'Update'
 					);
 				}
 			});
