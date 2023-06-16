@@ -96,7 +96,7 @@ extends:
                   repository: back-office/back-office-document-storage-api
           - name: Deploy Document Check Function
             artifact:
-              name: document-check-functions
+              name: function-document-check
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
             steps:
