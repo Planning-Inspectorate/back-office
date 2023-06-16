@@ -1,0 +1,23 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "register-nsip-subscription.schema.json",
+	"title": "register-nsip-subscription",
+	"description": "A command to register an NSIP subscription with the back office",
+	"type": "object",
+	"required": ["emailSubscriber"],
+	"properties": {
+		"__additonalProperties__": {
+			"type": "object",
+			"description": "Properties in additionalProperties in the Service Bus message. Not present in the message body.",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["Create", "Delete"]
+				}
+			}
+		},
+		"nsipSubscription": {
+			"$ref": "nsip-subscription.schema.json"
+		}
+	}
+}
