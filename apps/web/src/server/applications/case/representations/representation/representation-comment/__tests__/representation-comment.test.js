@@ -57,7 +57,9 @@ describe('Representation comment page', () => {
 					'received-date-day': '1'
 				});
 
-				expect(response?.headers?.location).toEqual('attachments?repId=1&repType=represented');
+				expect(response?.headers?.location).toEqual(
+					'attachment-upload?repId=1&repType=represented'
+				);
 			});
 		});
 
@@ -70,7 +72,9 @@ describe('Representation comment page', () => {
 					'received-date-day': '1'
 				});
 
-				expect(response?.headers?.location).toEqual('attachments?repId=1&repType=representative');
+				expect(response?.headers?.location).toEqual(
+					'attachment-upload?repId=1&repType=representative'
+				);
 			});
 		});
 	});
