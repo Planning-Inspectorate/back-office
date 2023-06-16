@@ -384,7 +384,7 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 		// This is an additional flag which triggers the Azure Function that publishes documents.
 		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
 		{
-			publishing: true
+			publishing: 'true'
 		}
 	);
 
