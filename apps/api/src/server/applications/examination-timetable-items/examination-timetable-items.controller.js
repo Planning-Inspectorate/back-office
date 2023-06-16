@@ -155,3 +155,31 @@ export const publishExaminationTimetable = async (_request, response) => {
 		throw error;
 	}
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const deleteExaminationTimetableItem = async (_request, response) => {
+	const { id } = _request.params;
+	const examinationTimetableItem = await exminationTimetableItemsRepository.getById(+id);
+
+	if (!examinationTimetableItem) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	if (examinationTimetableItem?.published) {
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: 'Can not delete published examination timetable item.' } });
+	}
+
+	await exminationTimetableItemsRepository.deleteById(+id);
+
+	response.send(examinationTimetableItem);
+};
