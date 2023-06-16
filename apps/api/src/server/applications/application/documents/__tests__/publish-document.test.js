@@ -208,7 +208,7 @@ describe('Publish documents', () => {
 			[expectedEventPayload],
 			'Update',
 			{
-				publishing: true
+				publishing: 'true'
 			}
 		);
 	});
