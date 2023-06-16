@@ -74,8 +74,8 @@ extends:
                   path: apps/functions/document-check
                 - name: function-odw-integration
                   path: apps/functions/odw-integration
-                - name: document-publish-function
-                  path: apps/document-publish-function
+                - name: function-document-publish
+                  path: apps/functions/document-publish
               stepName: check_files
       - name: Build API
         condition: >-
@@ -220,7 +220,7 @@ extends:
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-publish-function'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-document-publish'], 'true')
                 )
               )
             )
@@ -231,20 +231,20 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/event-client) --only=prod --workspace=@pins/document-publish-function
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/event-client) --only=prod --workspace=@pins/function-document-publish
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-publish-function/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/document-publish-function/node_modules/@pins/
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins/
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/document-publish-function
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/document-publish
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: document-publish-function
+            artifact: function-document-publish
             displayName: Publish Functions Artifact
       - name: Build Web
         condition: >-

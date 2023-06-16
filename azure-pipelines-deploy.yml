@@ -116,7 +116,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Document Publish Function
             artifact:
-              name: document-publish-function
+              name: function-document-publish
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDocumentPublishFunction }}, 'true')
             steps:
