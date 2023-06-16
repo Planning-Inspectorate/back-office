@@ -23,6 +23,10 @@ parameters:
     displayName: Build Document Publish Functions
     type: boolean
     default: true
+  - name: buildFunctionHandleSubscriptions
+    displayName: Build Function - Handle Subscriptions
+    type: boolean
+    default: true
 
 pr: none
 
@@ -80,6 +84,8 @@ extends:
                   path: apps/functions/odw-integration
                 - name: function-document-publish
                   path: apps/functions/document-publish
+                - name: function-handle-subscriptions
+                  path: apps/functions/handle-subscriptions
               stepName: check_files
       - name: Build API
         condition: >-
@@ -180,13 +186,13 @@ extends:
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildODWIntegrationFunctions }}, 'true')
+                eq(${{ parameters.buildDocumentCheckFunction }}, 'true')
               ),
               and(
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-odw-integration'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-check-function'], 'true')
                 )
               )
             )
@@ -197,19 +203,57 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/document-check-function
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/document-check-function/node_modules/
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/odw-integration
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/document-check-function
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-odw-integration
+            artifact: document-check-functions
+            displayName: Publish Functions Artifact
+      - name: Build Function - Handle Subscriptions
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildFunctionHandleSubscriptions }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-handle-subscriptions'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: function-handle-subscriptions
             displayName: Publish Functions Artifact
       - name: Build Document Publish Functions
         condition: >-
