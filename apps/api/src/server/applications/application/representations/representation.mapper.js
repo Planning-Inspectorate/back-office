@@ -27,7 +27,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			status: representation.status || 'DRAFT',
 			originalRepresentation: representation.originalRepresentation || '',
 			redacted: representation.redacted || false,
-			received: representation.received || new Date()
+			received: representation.received
 		};
 	}
 

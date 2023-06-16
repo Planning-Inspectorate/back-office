@@ -522,7 +522,7 @@ model Representation {
   redactedRepresentation String?                    @db.NText
   redacted               Boolean                    @default(false)
   userId                 Int?
-  received               DateTime
+  received               DateTime?
   case                   Case                       @relation(fields: [caseId], references: [id])
   user                   User?                      @relation(fields: [userId], references: [id])
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
