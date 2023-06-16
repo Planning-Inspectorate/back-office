@@ -11,6 +11,34 @@ import { Prisma } from '@prisma/client';
  * @throws {Error}
  * @returns {Promise<void>}
  */
+export async function getSubscription(request, response) {
+	const { query } = request;
+
+	const caseReference = String(query.caseReference);
+	const emailAddress = String(query.emailAddress);
+
+	try {
+		const res = await subscriptionRepository.findUnique(caseReference, emailAddress);
+
+		if (res === null) {
+			response.status(404).send({ errors: { notFound: 'subscription not found' } });
+		} else {
+			response.send(res);
+		}
+	} catch (/** @type {any} */ e) {
+		/** @type {Object<string, string>} */
+		const errors = {};
+		logger.warn(e, 'unhandled error');
+		errors.unknown = e.message || 'unknown';
+		response.status(400).send({ errors });
+	}
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
 export async function createSubscription(request, response) {
 	const { body } = request;
 
@@ -54,5 +82,63 @@ export async function createSubscription(request, response) {
 			errors.unknown = e.message || 'unknown';
 		}
 		response.status(400).send({ errors });
+	}
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export async function updateSubscription(request, response) {
+	const { body, params } = request;
+
+	const id = parseInt(params.id);
+	if (isNaN(id) || id <= 0) {
+		response.status(400).send({ errors: { id: 'must be a valid integer > 0' } });
+		return;
+	}
+
+	const endDate = new Date(body.endDate);
+
+	/** @type {import('@prisma/client').Prisma.SubscriptionUpdateInput} */
+	const subscription = {
+		endDate
+	};
+
+	try {
+		const existing = await subscriptionRepository.get(id);
+		if (existing && existing.startDate) {
+			if (existing.startDate > endDate) {
+				response.status(400).send({ errors: { endDate: 'endDate must be after startDate' } });
+				return;
+			}
+		}
+		const res = await subscriptionRepository.update(id, subscription);
+
+		await eventClient.sendEvents(
+			NSIP_SUBSCRIPTION,
+			[buildSubscriptionPayload(res)],
+			EventType.Update
+		);
+
+		response.send(res);
+	} catch (/** @type {any} */ e) {
+		/** @type {Object<string, string>} */
+		const errors = {};
+		let code = 400;
+		if (e instanceof Prisma.PrismaClientKnownRequestError) {
+			errors.code = e.code;
+			switch (e.code) {
+				case 'P2025':
+					errors.notFound = 'subscription not found';
+					code = 404;
+					break;
+			}
+		} else {
+			logger.warn(e, 'unhandled error');
+			errors.unknown = e.message || 'unknown';
+		}
+		response.status(code).send({ errors });
 	}
 }

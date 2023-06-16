@@ -1,5 +1,5 @@
 /**
- * @typedef {import('../../../message-schemas/events/nsip-subscriptiond.js').NSIPSubscription} NSIPSubscription
+ * @typedef {import('../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
  */
 
 /**
@@ -13,6 +13,9 @@ export function buildSubscriptionPayload(subscription) {
 		emailAddress: subscription.emailAddress,
 		subscriptionType: subscription.subscriptionType
 	};
+	if (subscription.id) {
+		payload.subscriptionId = subscription.id;
+	}
 	if (subscription.startDate) {
 		payload.startDate = subscription.startDate.toISOString();
 	}
