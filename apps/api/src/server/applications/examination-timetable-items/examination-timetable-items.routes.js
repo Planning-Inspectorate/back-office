@@ -4,7 +4,8 @@ import {
 	createExaminationTimetableItem,
 	getExaminationTimetableItem,
 	getExaminationTimetableItems,
-	publishExaminationTimetable
+	publishExaminationTimetable,
+	deleteExaminationTimetableItem
 } from './examination-timetable-items.controller.js';
 import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
@@ -91,6 +92,26 @@ router.patch(
     */
 	validateApplicationId,
 	asyncHandler(publishExaminationTimetable)
+);
+
+router.delete(
+	'/:id',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items/{id}'
+        #swagger.description = 'Delete examination timetable item by id'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Examination timetable item ID',
+			required: true,
+			type: 'integer'
+        }
+         #swagger.parameters['body'] = {}
+        #swagger.responses[200] = {
+            description: 'Examination timetable item successfully deleted',
+        }
+    */
+	asyncHandler(deleteExaminationTimetableItem)
 );
 
 export { router as examinationTimetableItemRoutes };

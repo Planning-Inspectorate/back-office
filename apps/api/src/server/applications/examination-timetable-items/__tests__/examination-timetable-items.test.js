@@ -17,6 +17,7 @@ const examinationTimetableItem = {
 	startTime: '10:20',
 	endDate: '2023-02-17T12:00:00Z',
 	endTime: '12:20',
+	published: true,
 	ExaminationTimetableType: {
 		id: 2,
 		name: 'Compulsory Acquisition Hearing',
@@ -37,6 +38,7 @@ const examinationTimetableItemDeadline = {
 	startTime: '10:20',
 	endDate: '2023-02-27T12:00:00Z',
 	endTime: '12:20',
+	published: false,
 	ExaminationTimetableType: {
 		id: 2,
 		name: 'Compulsory Acquisition Hearing',
@@ -194,6 +196,35 @@ describe('Test examination timetable items API', () => {
 				caseId: 123
 			},
 			data: { published: true }
+		});
+
+		expect(resp.status).toEqual(200);
+	});
+
+	test('Delete examination timetable item returns 404 when timetable is not exists', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
+		const resp = await request.delete('/applications/examination-timetable-items/13324').send({});
+		expect(resp.status).toEqual(404);
+	});
+
+	test('Delete examination timetable item returns 400 when timetable is published', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItem
+		);
+		const resp = await request.delete('/applications/examination-timetable-items/13324').send({});
+		expect(resp.status).toEqual(400);
+	});
+
+	test('Delete examination timetable item returns 200 when timetable is deleted successfully', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItemDeadline
+		);
+
+		const resp = await request.delete('/applications/examination-timetable-items/123').send({});
+		expect(databaseConnector.examinationTimetableItem.delete).toHaveBeenCalledWith({
+			where: {
+				id: 123
+			}
 		});
 
 		expect(resp.status).toEqual(200);

@@ -47,3 +47,14 @@ export const updateByCaseId = (caseId, examinationTimetableItem) => {
 		data: examinationTimetableItem
 	});
 };
+
+/**
+ *
+ * @param {number} id
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem | null>}
+ */
+export const deleteById = (id) => {
+	return databaseConnector.examinationTimetableItem.delete({
+		where: { id }
+	});
+};
