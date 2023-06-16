@@ -8,6 +8,7 @@ import relevantRepresentationTypeRouter from './representation/representation-ty
 import relevantRepContactMethodRouter from './representation/contact-method/contact-method.router.js';
 
 import relevantRepresentationUnder18Router from './representation/under-18/under-18.router.js';
+import relevantRepresentationCommentRouter from './representation/representation-comment/representation-comment.router.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
@@ -19,5 +20,6 @@ relevantRepsRouter.use('/', relevantRepContactDetailsRouter);
 relevantRepsRouter.use('/', relevantRepresentationTypeRouter);
 relevantRepsRouter.use('/', relevantRepContactMethodRouter);
 relevantRepsRouter.use('/', relevantRepresentationUnder18Router);
+relevantRepsRouter.use('/', relevantRepresentationCommentRouter);
 
 export default relevantRepsRouter;
