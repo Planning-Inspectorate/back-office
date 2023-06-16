@@ -1853,6 +1853,29 @@
 						}
 					}
 				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Delete examination timetable item by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					},
+					{
+						"name": "body",
+						"in": "query",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item successfully deleted"
+					}
+				}
 			}
 		},
 		"/applications/examination-timetable-items": {
