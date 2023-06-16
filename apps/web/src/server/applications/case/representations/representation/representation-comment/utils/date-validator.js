@@ -20,7 +20,6 @@ export const dateValidator = ({ dayInput, monthInput, yearInput }) => {
 				if (!body[monthInput] && body[yearInput]) {
 					return errorMessages.mustInclude + 'day and month';
 				}
-
 				if (!body[dayInput] && body[monthInput] && !body[yearInput]) {
 					return errorMessages.mustInclude + 'day and year';
 				}

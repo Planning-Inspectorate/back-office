@@ -93,5 +93,7 @@ export const postRepresentationComment = async (req, res) => {
 
 	await patchRepresentationNoMap(caseId, String(repId), String(repType), payload);
 
-	return res.redirect(getRepresentationPageUrl('attachments', String(repId), String(repType)));
+	return res.redirect(
+		getRepresentationPageUrl('attachment-upload', String(repId), String(repType))
+	);
 };
