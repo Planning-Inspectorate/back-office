@@ -1,5 +1,5 @@
 {
-    "name": "@pins/document-publish-function",
+    "name": "@pins/function-document-publish",
     "version": "0.0.0",
     "private": true,
     "engines": {
