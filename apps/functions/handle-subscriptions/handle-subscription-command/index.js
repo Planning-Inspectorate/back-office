@@ -32,7 +32,29 @@ export default async function (context, msg) {
 		} catch (e) {
 			context.log.error('error creating subscription', e);
 		}
-	}
+	} else if (type === EventType.Delete) {
+		try {
+			const { caseReference, emailAddress } = msg.body;
+			if (!caseReference || typeof caseReference !== 'string') {
+				context.log.warn(`Ingoring invalid message, invalid caseReference`, msg);
+				return;
+			}
+			if (!emailAddress || typeof emailAddress !== 'string') {
+				context.log.warn(`Ingoring invalid message, invalid emailAddress`, msg);
+				return;
+			}
+			const existing = await api.getSubscription(caseReference, emailAddress);
+			if (existing === null) {
+				context.log.warn(`Existing subscription not found`, msg);
+				return;
+			}
 
-	// todo: handle delete message
+			// todo: maybe we do want to delete?
+			const endDate = new Date().toISOString();
+			await api.updateSubscription(existing.id, { endDate });
+			context.log.info(`subscription updated to end now: ${existing.id}, ${endDate}`);
+		} catch (e) {
+			context.log.error('error deleting subscription', e);
+		}
+	}
 }
