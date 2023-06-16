@@ -4,8 +4,8 @@
 			"name": "registerSubscription",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "register_nsip_subscription",
-			"subscriptionName": "register_nsip_subscription_subscription",
+			"topicName": "register-nsip-subscription",
+			"subscriptionName": "register-nsip-subscription-subscription",
 			"connection": "AZURE_SERVICE_BUS_CONNECTION"
 		}
 	]
