@@ -65,6 +65,7 @@ const mockExaminationTimetableItemFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableItemDelete = jest.fn().mockResolvedValue({});
 const mockAddressDelete = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
@@ -189,7 +190,8 @@ class MockPrismaClient {
 			findMany: mockExaminationTimetableItemFindMany,
 			findUnique: mockExaminationTimetableItemFindUnique,
 			create: mockExaminationTimetableItemCreate,
-			updateMany: mockExaminationTimetableItemUpdateMany
+			updateMany: mockExaminationTimetableItemUpdateMany,
+			delete: mockExaminationTimetableItemDelete
 		};
 	}
 
