@@ -11,23 +11,12 @@ export default joi.object({
 		port: joi.number()
 	}),
 	serviceBusOptions: joi.object({
-		host: joi.string().optional(),
-		hostname: joi.string().optional(),
-		reconnect_limit: joi.number(),
-		password: joi.string().optional(),
-		port: joi.number(),
-		reconnect: joi.boolean(),
-		transport: joi.string().optional(),
-		username: joi.string().optional(),
-		subscriber: joi.string()
+		hostname: joi.string().optional()
 	}),
 	msal: joi.object({
 		clientId: joi.string().optional(),
 		clientSecret: joi.string().optional(),
 		tenantId: joi.string().optional()
-	}),
-	queues: joi.object({
-		startedCaseQueue: joi.string()
 	}),
 	log: joi.object({
 		levelFile: joi.string(),

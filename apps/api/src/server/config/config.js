@@ -14,22 +14,11 @@ const { value, error } = schema.validate({
 		host: environment.DOCUMENT_STORAGE_API_HOST
 	},
 	serviceBusOptions: {
-		host: environment.SERVICE_BUS_HOST,
-		hostname: environment.SERVICE_BUS_HOSTNAME,
-		reconnect_limit: Number(environment.SERVICE_BUS_RECONNECT_LIMIT),
-		password: environment.SERVICE_BUS_PASSWORD,
-		port: environment.SERVICE_BUS_PORT,
-		reconnect: false,
-		transport: environment.SERVICE_BUS_TRANSPORT,
-		username: environment.SERVICE_BUS_USERNAME,
-		subscriber: environment.SERVICE_BUS_SUBSCRIBER
+		hostname: environment.SERVICE_BUS_HOSTNAME
 	},
 	msal: {
 		clientId: environment.AUTH_CLIENT_BACKEND_API_ID,
 		tenantId: environment.AUTH_TENANT_ID
-	},
-	queues: {
-		startedCaseQueue: environment.SERVICE_BUS_STARTED_CASE_QUEUE
 	},
 	log: {
 		levelFile: environment.LOG_LEVEL_FILE || 'silent',
