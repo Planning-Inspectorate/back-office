@@ -32,10 +32,7 @@ const { value, error } = schema.validate({
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
-	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
-	clientCredentialsGrantEnabled:
-		environment?.CLIENT_CREDENTIAL_GRANT_ENABLED &&
-		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true'
 });
 
 if (error) {

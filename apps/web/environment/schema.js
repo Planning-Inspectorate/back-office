@@ -33,7 +33,5 @@ export default joi.object({
 			inspectorGroupId: joi.string()
 		})
 	}),
-	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-
-	clientCredentialsGrantEnabled: joi.boolean().optional()
+	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
 });

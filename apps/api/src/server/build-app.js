@@ -5,7 +5,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { appealsRoutes } from './appeals/appeals.routes.js';
 import { applicationsRoutes } from './applications/applications.routes.js';
-import { authorizeClientMiddleware } from './middleware/auth-handler.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
 import BackOfficeAppError from './utils/app-error.js';
@@ -27,8 +26,6 @@ const buildApp = (
 	app.use(compression());
 	app.use(morgan('combined'));
 	app.use(helmet());
-
-	app.use(authorizeClientMiddleware);
 
 	app.use(
 		'/appeals',
