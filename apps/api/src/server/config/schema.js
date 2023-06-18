@@ -24,6 +24,5 @@ export default joi.object({
 	}),
 	cwd: joi.string(),
 	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-	serviceBusEnabled: joi.boolean().optional(),
-	clientCredentialsGrantEnabled: joi.boolean().optional()
+	serviceBusEnabled: joi.boolean().optional()
 });

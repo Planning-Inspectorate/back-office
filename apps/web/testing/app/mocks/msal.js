@@ -32,18 +32,6 @@ export class ConfidentialClientApplication extends msal.ConfidentialClientApplic
 		)
 	);
 
-	// @ts-ignore
-	acquireTokenByClientCredential = jest.fn(() =>
-		Promise.resolve(
-			/** @type {Partial<import('@azure/msal-node').AuthenticationResult>} */ ({
-				accessToken: 'accessToken',
-				expiresOn: {
-					getTime: () => jest.fn(() => Date.now() + 3600)
-				}
-			})
-		)
-	);
-
 	acquireTokenSilent = jest.fn(() =>
 		Promise.resolve(
 			/** @type {import('@azure/msal-node').AuthenticationResult} */ ({
