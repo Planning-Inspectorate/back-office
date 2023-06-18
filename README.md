@@ -195,16 +195,6 @@ to check all apps.
 
 If testing storage or the service bus integration, then some extra tools are useful, as below.
 
-### Setting up RabbitMQ locally
-
-We use RabbitMQ to emulate working with Azure Service Bus. We use a plugin to send messages to the instance using the AMQP 1.0 protocol. Run the following command:
-
-```shell
-docker-compose up
-```
-
-then visit `http://localhost:15672/` to manage RabbitMQ using the username `guest` and password `guest`.
-
 ### Setting up Azure Blob Store emulator locally
 
 Run the following command:
