@@ -1,26 +1,22 @@
 {
-    "name": "@pins/document-check-function",
+    "name": "@pins/function-document-publish",
     "version": "0.0.0",
     "private": true,
     "engines": {
         "node": ">=16.14.0"
     },
-    "description": "Sends documents to be checked by anti-virus",
+    "description": "Publishes documents to the applications front office",
     "type": "module",
     "scripts": {
         "start": "func start",
-        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit"
     },
     "dependencies": {
         "@azure/functions": "^1.2.2",
-        "@azure/identity": "3.0.1",
-        "@pins/blob-storage-client": "^0.0.0",
         "azure-functions-core-tools": "3",
-        "clamscan": "^2.1.2",
         "dotenv": "16.0.3",
         "got": "*",
         "joi": "*",
-        "lodash-es": "^4.17.21",
         "pino": "7.11.0",
         "stub-azure-function-context": "^2.0.0-alpha.4"
     },
