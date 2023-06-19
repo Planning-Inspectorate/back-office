@@ -27,10 +27,10 @@ export default async function (context, msg) {
 	if (type === EventType.Create) {
 		try {
 			// todo: should we validate the request, or leave to the API?
-			const res = await api.createSubscription(msg.body);
-			context.log.info(`subscription created: ${res.id}`);
+			const res = await api.createOrUpdateSubscription(msg.body);
+			context.log.info(`subscription created/updated: ${res.id}`);
 		} catch (e) {
-			context.log.error('error creating subscription', e);
+			context.log.error('error creating/updating subscription', e);
 		}
 	} else if (type === EventType.Delete) {
 		try {

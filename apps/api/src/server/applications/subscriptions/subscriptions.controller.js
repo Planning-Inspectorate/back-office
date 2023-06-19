@@ -4,7 +4,7 @@ import { EventType } from '@pins/event-client';
 import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
 import { buildSubscriptionPayload } from './subscriptions.js';
 import logger from '../../utils/logger.js';
-import { addSubscription } from './subscriptions.service.js';
+import { createOrUpdateSubscription } from './subscriptions.service.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -39,14 +39,12 @@ export async function getSubscription(request, response) {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export async function createSubscription(request, response) {
+export async function putSubscription(request, response) {
 	try {
-		const id = await addSubscription(request.body);
-		if (id === null) {
-			response.status(400).send({
-				errors: { emailAddress: `subscription already exists for ${request.body.caseReference}` }
-			});
-			return;
+		const { id, created } = await createOrUpdateSubscription(request.body);
+
+		if (created) {
+			response.status(201);
 		}
 
 		response.send({ id });

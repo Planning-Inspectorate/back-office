@@ -1281,6 +1281,20 @@ const document = {
 					default: 'English'
 				}
 			}
+		},
+		InternalError: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						unknown: {
+							type: 'string',
+							example: 'unknown internal error'
+						}
+					}
+				}
+			}
 		}
 	},
 	components: {}

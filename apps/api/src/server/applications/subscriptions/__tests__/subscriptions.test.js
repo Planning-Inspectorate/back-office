@@ -78,7 +78,7 @@ describe('subscriptions', () => {
 		}
 	});
 
-	describe('post', () => {
+	describe('put (new)', () => {
 		const validReq = {
 			caseReference: '5123',
 			emailAddress: 'hello.world@example.com',
@@ -126,7 +126,7 @@ describe('subscriptions', () => {
 				},
 				createdId: 5,
 				want: {
-					status: 200,
+					status: 201,
 					body: { id: 5 }
 				}
 			},
@@ -138,7 +138,7 @@ describe('subscriptions', () => {
 				},
 				createdId: 6,
 				want: {
-					status: 200,
+					status: 201,
 					body: { id: 6 }
 				}
 			},
@@ -150,7 +150,7 @@ describe('subscriptions', () => {
 				},
 				createdId: 7,
 				want: {
-					status: 200,
+					status: 201,
 					body: { id: 7 }
 				}
 			},
@@ -162,7 +162,7 @@ describe('subscriptions', () => {
 				},
 				createdId: 8,
 				want: {
-					status: 200,
+					status: 201,
 					body: { id: 8 }
 				}
 			},
@@ -175,7 +175,7 @@ describe('subscriptions', () => {
 				},
 				createdId: 9,
 				want: {
-					status: 200,
+					status: 201,
 					body: { id: 9 }
 				}
 			},
@@ -201,6 +201,7 @@ describe('subscriptions', () => {
 			test('' + name, async () => {
 				// setup
 				databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
+
 				if (createdId) {
 					const created = {
 						...body,
@@ -219,7 +220,7 @@ describe('subscriptions', () => {
 				}
 
 				// action
-				const response = await request.post('/applications/subscriptions').send(body);
+				const response = await request.put('/applications/subscriptions').send(body);
 
 				// checks
 				expect(response.status).toEqual(want.status);
@@ -235,6 +236,120 @@ describe('subscriptions', () => {
 						'nsip-subscription',
 						[msg],
 						'Create'
+					);
+				}
+			});
+		}
+	});
+
+	describe('put (update)', () => {
+		const validReq = {
+			caseReference: '5123',
+			emailAddress: 'hello.world@example.com',
+			subscriptionType: 'allUpdates'
+		};
+		const tests = [
+			{
+				name: 'should allow a valid request',
+				body: {
+					caseReference: '5123',
+					emailAddress: 'hello.world@example.com',
+					subscriptionType: 'allUpdates'
+				},
+				updatedId: 5,
+				want: {
+					status: 200,
+					body: { id: 5 }
+				}
+			},
+			{
+				name: 'should validate startDate',
+				body: {
+					...validReq,
+					startDate: '2023-06-15T09:27:00.000Z'
+				},
+				updatedId: 6,
+				want: {
+					status: 200,
+					body: { id: 6 }
+				}
+			},
+			{
+				name: 'should validate endDate',
+				body: {
+					...validReq,
+					endDate: '2023-06-15T09:27:00.000Z'
+				},
+				updatedId: 7,
+				want: {
+					status: 200,
+					body: { id: 7 }
+				}
+			},
+			{
+				name: 'should validate language',
+				body: {
+					...validReq,
+					language: 'English'
+				},
+				updatedId: 8,
+				want: {
+					status: 200,
+					body: { id: 8 }
+				}
+			},
+			{
+				name: 'should check startDate is before endDate',
+				body: {
+					...validReq,
+					startDate: '2023-06-15T09:27:00.000Z',
+					endDate: '2023-06-30T09:27:00.000Z'
+				},
+				updatedId: 9,
+				want: {
+					status: 200,
+					body: { id: 9 }
+				}
+			}
+		];
+
+		for (const { name, body, updatedId, want } of tests) {
+			test('' + name, async () => {
+				// setup
+				databaseConnector.subscription.findUnique.mockResolvedValueOnce({ id: updatedId });
+
+				const updated = {
+					...body,
+					id: updatedId
+				};
+				if (body.startDate) {
+					updated.startDate = new Date(body.startDate);
+				}
+				if (body.endDate) {
+					updated.endDate = new Date(body.endDate);
+				}
+				if (body.language) {
+					updated.language = body.language;
+				}
+				databaseConnector.subscription.update.mockResolvedValueOnce(updated);
+
+				// action
+				const response = await request.put('/applications/subscriptions').send(body);
+
+				// checks
+				expect(response.body).toEqual(want.body);
+				expect(response.status).toEqual(want.status);
+				if (updatedId) {
+					const msg = {
+						...body,
+						subscriptionId: updatedId
+					};
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+						'nsip-subscription',
+						[msg],
+						'Update'
 					);
 				}
 			});
