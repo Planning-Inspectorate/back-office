@@ -1,8 +1,8 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import {
-	createSubscription,
 	getSubscription,
+	putSubscription,
 	updateSubscription
 } from './subscriptions.controller.js';
 import {
@@ -43,17 +43,21 @@ router.get(
             description: 'Not found',
             schema: { $ref: '#/definitions/SubscriptionNotFound' }
         }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
     */
 	validateGetSubscription,
 	asyncHandler(getSubscription)
 );
 
-router.post(
+router.put(
 	'/',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/subscriptions'
-        #swagger.description = 'Create a subscription'
+        #swagger.description = 'Create or update a subscription'
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'subscription parameters',
@@ -61,6 +65,10 @@ router.post(
             required: true
         }
         #swagger.responses[200] = {
+            description: 'Updated subscription',
+            schema: { id: {'type': 'number'} }
+        }
+        #swagger.responses[201] = {
             description: 'Created subscription',
             schema: { id: {'type': 'number'} }
         }
@@ -68,9 +76,13 @@ router.post(
             description: 'Bad request',
             schema: { $ref: '#/definitions/SubscriptionCreateBadRequest' }
         }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
     */
 	validateCreateSubscription,
-	asyncHandler(createSubscription)
+	asyncHandler(putSubscription)
 );
 
 router.patch(
@@ -102,6 +114,10 @@ router.patch(
         #swagger.responses[404] = {
             description: 'Not found',
             schema: { $ref: '#/definitions/SubscriptionNotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
         }
     */
 	validateUpdateSubscription,

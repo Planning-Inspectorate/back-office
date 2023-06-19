@@ -2195,12 +2195,18 @@
 						"schema": {
 							"$ref": "#/definitions/SubscriptionNotFound"
 						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
 					}
 				}
 			},
-			"post": {
+			"put": {
 				"tags": ["Applications"],
-				"description": "Create a subscription",
+				"description": "Create or update a subscription",
 				"parameters": [
 					{
 						"name": "body",
@@ -2214,6 +2220,26 @@
 				],
 				"responses": {
 					"200": {
+						"description": "Updated subscription",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string",
+											"example": "number"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"201": {
 						"description": "Created subscription",
 						"schema": {
 							"type": "object",
@@ -2237,6 +2263,12 @@
 						"description": "Bad request",
 						"schema": {
 							"$ref": "#/definitions/SubscriptionCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
 						}
 					}
 				}
@@ -2295,6 +2327,12 @@
 						"description": "Not found",
 						"schema": {
 							"$ref": "#/definitions/SubscriptionNotFound"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
 						}
 					}
 				}
@@ -6188,6 +6226,20 @@
 					"type": "string",
 					"enum": ["English", "Welsh"],
 					"default": "English"
+				}
+			}
+		},
+		"InternalError": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"unknown": {
+							"type": "string",
+							"example": "unknown internal error"
+						}
+					}
 				}
 			}
 		}

@@ -18,9 +18,9 @@ function getSubscription(caseReference, emailAddress) {
  * @param {*} subscription
  * @returns {Promise<{id: number}>}
  */
-function createSubscription(subscription) {
+function createOrUpdateSubscription(subscription) {
 	return got
-		.post(`https://${config.API_HOST}/applications/subscriptions/`, {
+		.put(`https://${config.API_HOST}/applications/subscriptions/`, {
 			json: subscription
 		})
 		.json();
@@ -42,6 +42,6 @@ function updateSubscription(id, subscription) {
 
 export default {
 	getSubscription,
-	createSubscription,
+	createOrUpdateSubscription,
 	updateSubscription
 };
