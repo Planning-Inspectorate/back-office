@@ -46,6 +46,11 @@ applicationsTimetableRouter
 	.post(asyncRoute(controller.publishApplicationsCaseExaminationTimeTable));
 
 applicationsTimetableRouter
+	.route('/delete/:timetableId')
+	.get(asyncRoute(controller.showApplicationsCaseTimetableDelete))
+	.post([registerCase], asyncRoute(controller.deleteApplicationsCaseTimetable));
+
+applicationsTimetableRouter
 	.route('/publish/success')
 	.get(registerCase, asyncRoute(controller.showApplicationsCaseTimetablePublishSuccessBanner));
 

@@ -121,3 +121,22 @@
 	}
   }
 }
+
+
+.timetable-table {
+	.govuk-summary-list__row:last-child {
+		border-bottom: 0;
+	}
+
+	.govuk-accordion__section:nth-child(2) button{
+		border-top: 0;
+	}
+
+	.govuk-accordion__section-heading-text {
+		font-size: 20px;
+	}
+
+	.govuk-accordion__show-all {
+		display: none;
+	}
+}

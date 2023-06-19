@@ -20,9 +20,12 @@ const nocks = () => {
 		.reply(200, fixtureTimetableTypes);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/123')
-		.times(2)
+		.times(3)
 		.reply(200, fixtureTimetableItems);
-	nock('http://test/').post('/applications/examination-timetable-items').reply(200, {});
+	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
+	nock('http://test/')
+		.get('/applications/examination-timetable-items/1')
+		.reply(200, fixtureTimetableItems[0]);
 	nock('http://test/')
 		.patch('/applications/examination-timetable-items/publish/123')
 		.reply(200, {});
@@ -331,6 +334,50 @@ describe('Publish examination timetable preview page', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Publish examination timetable');
+		});
+	});
+});
+
+describe('Delete examination timetable', () => {
+	beforeEach(async () => {
+		await request.get('/applications-service/case-team');
+		nocks();
+	});
+	describe('GET /case/123/examination-timetable/delete/1', () => {
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/delete/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Delete timetable item');
+		});
+	});
+
+	describe('POST /case/123/examination-timetable/delete/1', () => {
+		it('should show errors if api fails', async () => {
+			nock('http://test/').delete('/applications/examination-timetable-items/1').reply(500, {});
+
+			const response = await request.post(
+				`/applications-service/case/123/examination-timetable/delete/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('An error occurred');
+		});
+
+		it('should success page if deleting is succeful', async () => {
+			nock('http://test/').delete('/applications/examination-timetable-items/1').reply(200, {});
+
+			const response = await request.post(
+				`/applications-service/case/123/examination-timetable/delete/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Timetable item successfully deleted');
 		});
 	});
 });

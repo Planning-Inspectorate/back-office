@@ -41,7 +41,8 @@ export const fixtureTimetableItems = [
 		published: false,
 		ExaminationTimetableType: {
 			id: 2,
-			name: 'Deadline'
+			name: 'Deadline',
+			templateType: 'deadline'
 		}
 	},
 	{
@@ -58,7 +59,8 @@ export const fixtureTimetableItems = [
 		published: false,
 		ExaminationTimetableType: {
 			id: 3,
-			name: 'Procedural Deadline (Pre-Examination)'
+			name: 'Procedural Deadline (Pre-Examination)',
+			templateType: 'deadline-startdate-mandatory'
 		}
 	}
 ];
