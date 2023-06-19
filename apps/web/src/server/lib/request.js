@@ -74,4 +74,15 @@ export function patch(url, options) {
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.patch(url, options));
 }
 
+/**
+ *
+ * @template T
+ * @param {string | URL} url
+ * @param {import('got').OptionsOfJSONResponseBody=} options
+ * @returns {import('got').CancelableRequest<T>}
+ */
+export function deleteRequest(url, options) {
+	return /** @type {import('got').CancelableRequest<*>} */ (instance.delete(url, options));
+}
+
 export default instance;

@@ -1,0 +1,66 @@
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro timetableItemSummary(timetableItem) %}
+
+	{% set descriptionHtml %}
+		<p class="govuk-body">{{timetableItem.description.preText}}</p>
+
+		{% if timetableItem.description.bulletPoints | length %}
+			<ul class='govuk-list govuk-list--bullet'>
+				{% for bulletPoint in timetableItem.description.bulletPoints %}
+					<li>{{bulletPoint}}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endset %}
+
+	{% set rowsData = [
+		{
+			key: 'Item Type',
+			value: timetableItem.itemTypeName
+		}, {
+			key: 'Item Name',
+			value: timetableItem.name
+		}, {
+			key: "Date",
+			value: timetableItem.date
+		}, {
+			key: "Start Date",
+			value: timetableItem.startDate
+		}, {
+			key: "Start time",
+			value: timetableItem.startTime
+		}, {
+			key: "End Date",
+			value: timetableItem.endDate
+		}, {
+			key: "End Time",
+			value: timetableItem.endTime
+		}, {
+			key: "Description",
+			value: descriptionHtml
+		}
+
+	] %}
+
+	{% set tableRows = [] %}
+	{% for row in rowsData %}
+		{% if (row.value !== null) %}
+			{% set tableRows = tableRows.concat([
+				{
+					key: {
+						text: row.key
+					},
+
+					value: {
+						html: row.value
+					}
+				}
+			]) %}
+		{% endif %}
+	{% endfor %}
+
+	{{ govukSummaryList({rows: tableRows}) }}
+
+{% endmacro %}

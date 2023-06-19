@@ -56,6 +56,7 @@ export const url = (key, filterArguments = {}) => {
 	const caseId = getArgument('caseId', filterArguments);
 	const folderId = getArgument('folderId', filterArguments);
 	const documentGuid = getArgument('documentGuid', filterArguments);
+	const timetableId = getArgument('timetableId', filterArguments);
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
 	const representationId = getArgument('representationId', filterArguments);
@@ -85,7 +86,9 @@ export const url = (key, filterArguments = {}) => {
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'timetable':
-			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
+			return `${domainUrl}/case/${caseId}/examination-timetable/${step}${
+				timetableId ? `/${timetableId}` : ''
+			}`;
 		case 'representation-details':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
 		case 'redact-representation':

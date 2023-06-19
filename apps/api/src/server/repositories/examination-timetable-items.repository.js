@@ -6,7 +6,10 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem | null>}
  */
 export const getById = (id) => {
-	return databaseConnector.examinationTimetableItem.findUnique({ where: { id } });
+	return databaseConnector.examinationTimetableItem.findUnique({
+		include: { ExaminationTimetableType: true },
+		where: { id }
+	});
 };
 
 /**

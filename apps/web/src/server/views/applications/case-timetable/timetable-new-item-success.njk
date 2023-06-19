@@ -2,7 +2,7 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set serviceName = "Timetable item successfully added"  %}
+{% set serviceName = ["Timetable item successfully ", 'deleted' if isDeleted else 'added']|join  %}
 {% block pageTitle %}
 	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}

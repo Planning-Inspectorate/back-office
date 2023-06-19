@@ -1,4 +1,5 @@
-import { get, patch, post } from '../../../lib/request.js';
+import { get, patch, post, deleteRequest } from '../../../lib/request.js';
+import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 
@@ -44,10 +45,37 @@ export const getCaseTimetableItems = async (caseId) => {
 };
 
 /**
+ * Get one timetable item by its id
+ * @param {number} timetableId
+ * @returns {Promise<ApplicationsTimetable>}
+ */
+export const getCaseTimetableItemById = async (timetableId) => {
+	return get(`applications/examination-timetable-items/${timetableId}`);
+};
+
+/**
  * Publish case timetable items
  * @param {number} caseId
  * @returns {Promise<ApplicationsTimetable[]>}
  */
 export const publishCaseTimetableItems = async (caseId) => {
+	// TODO: handle errors
 	return patch(`applications/examination-timetable-items/publish/${caseId}`, {});
+};
+
+/**
+ * Delete single timetable item
+ * @param {number} timetableId
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
+ */
+export const deleteCaseTimetableItem = async (timetableId) => {
+	let response;
+	try {
+		response = await deleteRequest(`applications/examination-timetable-items/${timetableId}`);
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		response = { errors: { msg: 'An error occurred, please try again later' } };
+	}
+
+	return response;
 };
