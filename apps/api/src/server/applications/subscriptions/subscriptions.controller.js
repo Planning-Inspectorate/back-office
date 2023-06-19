@@ -14,6 +14,7 @@ import { Prisma } from '@prisma/client';
 export async function getSubscription(request, response) {
 	const { query } = request;
 
+	// we're expecting strings here, not other possible types (e.g. string[])
 	const caseReference = String(query.caseReference);
 	const emailAddress = String(query.emailAddress);
 
