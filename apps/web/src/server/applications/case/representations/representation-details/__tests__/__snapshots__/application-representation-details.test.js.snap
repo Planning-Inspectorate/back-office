@@ -199,6 +199,11 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
         <div class=\\"govuk-grid-column-full\\">
             <h3 class=\\"govuk-heading-m\\">Workflow</h3>
             <dl class=\\"govuk-summary-list\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redacted</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Redacted</dd>
+                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"representation-details/change-redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
+                    </dd>
+                </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                     <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--grey\\">awaiting review</strong></strong>
                     </dd>
