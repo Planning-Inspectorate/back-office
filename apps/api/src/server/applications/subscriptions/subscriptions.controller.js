@@ -4,6 +4,7 @@ import { EventType } from '@pins/event-client';
 import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
 import { buildSubscriptionPayload } from './subscriptions.js';
 import logger from '../../utils/logger.js';
+import { addSubscription } from './subscriptions.service.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -39,48 +40,16 @@ export async function getSubscription(request, response) {
  * @returns {Promise<void>}
  */
 export async function createSubscription(request, response) {
-	const { body } = request;
-
-	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
-	const subscription = {
-		caseReference: body.caseReference,
-		emailAddress: body.emailAddress,
-		subscriptionType: body.subscriptionType
-	};
-
-	if (body.startDate) {
-		subscription.startDate = new Date(body.startDate);
-	}
-	if (body.endDate) {
-		subscription.endDate = new Date(body.endDate);
-	}
-	if (body.language) {
-		subscription.language = body.language;
-	}
-
 	try {
-		const existing = await subscriptionRepository.findUnique(
-			subscription.caseReference,
-			subscription.emailAddress
-		);
-
-		if (existing !== null) {
-			// todo: resubscribe logic?
+		const id = await addSubscription(request.body);
+		if (id === null) {
 			response.status(400).send({
-				errors: { emailAddress: `subscription already exists for ${subscription.caseReference}` }
+				errors: { emailAddress: `subscription already exists for ${request.body.caseReference}` }
 			});
 			return;
 		}
 
-		const res = await subscriptionRepository.create(subscription);
-
-		await eventClient.sendEvents(
-			NSIP_SUBSCRIPTION,
-			[buildSubscriptionPayload(res)],
-			EventType.Create
-		);
-
-		response.send({ id: res.id });
+		response.send({ id });
 	} catch (/** @type {any} */ e) {
 		logger.warn(e, 'unhandled error');
 		response.status(500).send({
