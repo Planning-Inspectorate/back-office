@@ -36,7 +36,7 @@ export const createCaseTimetableItem = async (payload) => {
 };
 
 /**
- * Updates and existing timetable item
+ * Updates an existing timetable item
  *
  * @param {ApplicationsTimetable} payload
  * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}

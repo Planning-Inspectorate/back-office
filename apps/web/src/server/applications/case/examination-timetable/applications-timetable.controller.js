@@ -6,7 +6,8 @@ import {
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
 	getCaseTimetableItemById,
-	deleteCaseTimetableItem
+	deleteCaseTimetableItem,
+	updateCaseTimetableItem
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
@@ -286,6 +287,44 @@ export async function showApplicationsCaseTimetableSuccessBanner(request, respon
  */
 export async function showApplicationsCaseTimetablePublishSuccessBanner(request, response) {
 	response.render('applications/case-timetable/timetable-item-publish-success.njk');
+}
+
+/**
+ * Edit an existing examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {examinationTimetableItemId: string}>}
+ */
+export async function showApplicationsCaseTimetableDetailsExisting(
+	{ errors: validationErrors, params },
+	response
+) {
+	if (validationErrors) {
+		// const formProperties = await getCreateTimetableFormProperties(body.itemTypeName);
+		// return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		// 	errors: validationErrors,
+		// 	values: body,
+		// 	...formProperties
+		// });
+	}
+	const timetableItem = await getCaseTimetableItem(+params.examinationTimetableItemId);
+	const timetableTypes = await getCaseTimetableItemTypes();
+	const currentItemType = timetableTypes.find(
+		(item) => item.id === timetableItem.examinationTypeId
+	);
+	if (!currentItemType) {
+		throw new Error('Invalid Item Type');
+	}
+	const formProperties = await getCreateTimetableFormProperties(currentItemType.name);
+	const examBody = mapExaminationTimetableToFormBody(
+		timetableItem,
+		currentItemType?.id,
+		currentItemType.name
+	);
+	return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		errors: validationErrors,
+		values: examBody,
+		...formProperties
+	});
 }
 
 /**
