@@ -4,7 +4,6 @@ import { EventType } from '@pins/event-client';
 import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
 import { buildSubscriptionPayload } from './subscriptions.js';
 import logger from '../../utils/logger.js';
-import { Prisma } from '@prisma/client';
 
 /**
  * @type {import('express').RequestHandler}
@@ -27,11 +26,10 @@ export async function getSubscription(request, response) {
 			response.send(res);
 		}
 	} catch (/** @type {any} */ e) {
-		/** @type {Object<string, string>} */
-		const errors = {};
 		logger.warn(e, 'unhandled error');
-		errors.unknown = e.message || 'unknown';
-		response.status(400).send({ errors });
+		response.status(500).send({
+			errors: { unknown: 'unknown internal error' }
+		});
 	}
 }
 
@@ -61,6 +59,19 @@ export async function createSubscription(request, response) {
 	}
 
 	try {
+		const existing = await subscriptionRepository.findUnique(
+			subscription.caseReference,
+			subscription.emailAddress
+		);
+
+		if (existing !== null) {
+			// todo: resubscribe logic?
+			response.status(400).send({
+				errors: { emailAddress: `subscription already exists for ${subscription.caseReference}` }
+			});
+			return;
+		}
+
 		const res = await subscriptionRepository.create(subscription);
 
 		await eventClient.sendEvents(
@@ -71,18 +82,10 @@ export async function createSubscription(request, response) {
 
 		response.send({ id: res.id });
 	} catch (/** @type {any} */ e) {
-		/** @type {Object<string, string>} */
-		const errors = {};
-		if (e instanceof Prisma.PrismaClientKnownRequestError) {
-			errors.code = e.code;
-			if (e.code === 'P2002') {
-				errors.constraint = 'caseReference and emailAddress combination must be unique';
-			}
-		} else {
-			logger.warn(e, 'unhandled error');
-			errors.unknown = e.message || 'unknown';
-		}
-		response.status(400).send({ errors });
+		logger.warn(e, 'unhandled error');
+		response.status(500).send({
+			errors: { unknown: 'unknown internal error' }
+		});
 	}
 }
 
@@ -109,6 +112,10 @@ export async function updateSubscription(request, response) {
 
 	try {
 		const existing = await subscriptionRepository.get(id);
+		if (existing === null) {
+			response.status(404).send({ errors: { notFound: 'subscription not found' } });
+			return;
+		}
 		if (existing && existing.startDate) {
 			if (existing.startDate > endDate) {
 				response.status(400).send({ errors: { endDate: 'endDate must be after startDate' } });
@@ -125,21 +132,9 @@ export async function updateSubscription(request, response) {
 
 		response.send(res);
 	} catch (/** @type {any} */ e) {
-		/** @type {Object<string, string>} */
-		const errors = {};
-		let code = 400;
-		if (e instanceof Prisma.PrismaClientKnownRequestError) {
-			errors.code = e.code;
-			switch (e.code) {
-				case 'P2025':
-					errors.notFound = 'subscription not found';
-					code = 404;
-					break;
-			}
-		} else {
-			logger.warn(e, 'unhandled error');
-			errors.unknown = e.message || 'unknown';
-		}
-		response.status(code).send({ errors });
+		logger.warn(e, 'unhandled error');
+		response.status(500).send({
+			errors: { unknown: 'unknown internal error' }
+		});
 	}
 }

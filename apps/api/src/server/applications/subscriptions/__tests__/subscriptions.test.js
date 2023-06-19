@@ -200,6 +200,7 @@ describe('subscriptions', () => {
 		for (const { name, body, createdId, want } of tests) {
 			test('' + name, async () => {
 				// setup
+				databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
 				if (createdId) {
 					const created = {
 						...body,
@@ -288,6 +289,7 @@ describe('subscriptions', () => {
 				body: {
 					endDate: '2023-06-15T09:27:00.000Z'
 				},
+				existing: {},
 				updated: {
 					id: 1,
 					endDate: new Date('2023-06-15T09:27:00.000Z'),
@@ -311,10 +313,10 @@ describe('subscriptions', () => {
 		for (const { name, body, updated, existing, want } of tests) {
 			test('' + name, async () => {
 				// setup
-				if (updated) {
+				if (updated !== undefined) {
 					databaseConnector.subscription.update.mockResolvedValueOnce(updated);
 				}
-				if (existing) {
+				if (existing !== undefined) {
 					databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
 				}
 
