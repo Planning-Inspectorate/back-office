@@ -372,7 +372,7 @@ function createRepresentation(caseReference, index) {
  * @returns {import('@prisma/client').Prisma.ProjectUpdateCreateManyInput}
  */
 function generateProjectUpdate(caseId) {
-	const statuses = ['draft', 'to-publish', 'published', 'unpublished', 'archived'];
+	const statuses = ['draft', 'published', 'unpublished', 'archived'];
 	const content = [
 		'The application has been accepted for examination.',
 		'The application is expected to be re-submitted to the Planning Inspectorate.',

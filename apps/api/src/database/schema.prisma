@@ -761,23 +761,24 @@ model ExaminationTimetable {
 // subscribers, and published to the front office.
 // Otherwise known as Banners or Latest Updates.
 model ProjectUpdate {
-  id               Int       @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   // the ID of the case this project update relates to
-  caseId           Int
-  case             Case?     @relation(fields: [caseId], references: [id])
+  caseId            Int
+  case              Case?     @relation(fields: [caseId], references: [id])
   // the ID of the user who created this update
-  authorId         Int?
-  author           User?     @relation(fields: [authorId], references: [id])
+  authorId          Int?
+  author            User?     @relation(fields: [authorId], references: [id])
   // when was this project update first created
-  dateCreated      DateTime  @default(now())
+  dateCreated       DateTime  @default(now())
   // should this update be emailed to subscribers?
-  emailSubscribers Boolean   @default(false)
-  // status can only be set to published by an explicit publish api call, that will trigger the appropriate actions
-  // when setting to the status "Publish" via the app, it will set as "to-publish", until the "Publish" button is pressed
-  status           String    @default("draft") // draft | to-publish | published | unpublished | archived
+  emailSubscribers  Boolean   @default(false)
+  // status of this update
+  status            String    @default("draft") // draft | published | unpublished | archived
   // when was this project update changed to status "published"
-  datePublished    DateTime?
+  datePublished     DateTime?
+  // when the (background) task to notify subscribers has been run for this update, this will be marked true
+  sentToSubscribers Boolean   @default(false)
   // the content of this project update, which can include HTML and must be santised before entry into the database
   // it can only include <a> <b> <ul> <li> tags
-  htmlContent      String
+  htmlContent       String
 }
