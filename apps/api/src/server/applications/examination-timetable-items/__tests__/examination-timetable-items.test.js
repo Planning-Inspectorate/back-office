@@ -75,6 +75,7 @@ describe('Test examination timetable items API', () => {
 		const resp = await request.get('/applications/examination-timetable-items/1');
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
+			include: { ExaminationTimetableType: true },
 			where: { id: 1 }
 		});
 	});
