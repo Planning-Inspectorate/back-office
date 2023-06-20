@@ -1,8 +1,8 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { mapExaminationTimetableToFormBody } from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
-	getCaseTimetableItem,
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
 	getCaseTimetableItemById,
@@ -319,7 +319,7 @@ export async function showApplicationsCaseTimetableDetailsExisting(
 		// 	...formProperties
 		// });
 	}
-	const timetableItem = await getCaseTimetableItem(+params.examinationTimetableItemId);
+	const timetableItem = await getCaseTimetableItemById(+params.examinationTimetableItemId);
 	const timetableTypes = await getCaseTimetableItemTypes();
 	const currentItemType = timetableTypes.find(
 		(item) => item.id === timetableItem.examinationTypeId
