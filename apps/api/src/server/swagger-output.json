@@ -1157,6 +1157,58 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/attachment": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Add a representation attachment for an application document",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"documentId": {
+									"type": "string",
+									"example": "a guid"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"attachmentId": {
+									"type": "number",
+									"example": 1
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],

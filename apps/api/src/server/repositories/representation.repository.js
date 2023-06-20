@@ -435,6 +435,23 @@ function buildSearch(rawSearchTerm) {
 	};
 }
 
+// Attachments
+
+/**
+ *
+ * @param {number} representationId
+ * @param {string} documentId
+ * @return {Promise<Prisma.Prisma__RepresentationAttachmentClient<Prisma.RepresentationAttachmentGetPayload<{data: {representationId, documentGuid}}>>>}
+ */
+export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
+	return databaseConnector.representationAttachment.create({
+		data: {
+			documentGuid: documentId,
+			representationId
+		}
+	});
+};
+
 /**
  *
  * @param {string} field
