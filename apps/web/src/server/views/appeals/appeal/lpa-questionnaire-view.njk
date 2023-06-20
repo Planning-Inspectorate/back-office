@@ -1,6 +1,8 @@
 {%- extends "app/layouts/app-two-column.layout.njk" -%}
 
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
 
 {%- set containerSize = "xl" -%}
 {%- set pageTitle = "LPA questionnaire - {{appeal.id}} - GOV.UK" -%}
@@ -19,4 +21,35 @@
 		{{ govukSummaryList(section)}}
 	{%- endfor -%}
 
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<form action="" method="POST" novalidate>
+				{{ govukRadios({
+					name: "review-outcome",
+					id: "review-outcome",
+					fieldset: {
+						legend: {
+							text: "What is the outcome of your review?",
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					items: [
+						{
+							value: "complete",
+							text: "Complete"
+						},
+						{
+							value: "incomplete",
+							text: "Incomplete"
+						}
+					]
+					})
+				}}
+				{{ govukButton({
+					text: "Continue"
+				}) }}
+			</form>
+		</div>
+	</div>
 {%- endblock -%}
