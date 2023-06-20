@@ -6,6 +6,7 @@
 {%- from "govuk/components/accordion/macro.njk" import govukAccordion -%}
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "../components/status-tag.njk" import statusTag -%}
+{%- from "../components/appeal-details-summary.njk" import appealDetailsSummary %}
 
 {%- set containerSize = "xl" -%}
 {%- set pageTitle = "Appeal details - GOV.UK" -%}
@@ -113,7 +114,7 @@
 	{%- else -%}
 		{%- set caseTimetableInsetHtml -%}
 			<p>Case not started</p>
-			<a href="#" class="govuk-link">Review appeal</a>
+			<a href="{{ urls.appellantCase }}" class="govuk-link">Review appellant case</a>
 		{%- endset -%}
 		{{ govukInsetText({
 			html: caseTimetableInsetHtml,
@@ -156,23 +157,10 @@
 
 {%- block pageContent -%}
 	{{ statusTag(appeal.status) }}
-	{{ govukSummaryList({
-		classes: "govuk-summary-list--no-border",
-		rows: [{
-				key: {
-					text: "Site address"
-				},
-				value: {
-					text: appeal.siteAddress
-				}
-			}, {
-				key: {
-					text: "Local planning authority"
-				},
-				value: {
-					text: appeal.localPlanningAuthority
-				}
-			}]
+	{{ appealDetailsSummary({
+			appealSiteKey: "Site address",
+			appealSite: appeal.siteAddress,
+			localPlanningAuthority: appeal.localPlanningAuthority
 		})
 	}}
 	{{
@@ -353,7 +341,7 @@
 									text: appeal.documentationSummary.appellantCase.dueDate | displayDate({ condensed: true }) if appeal.documentationSummary.appellantCase.dueDate else ''
 								},
 								{
-									html: "<a href=\"#\" class=\"govuk-link\">Review</a>"
+									html: "<a href=\"" + urls.appellantCase + "\" class=\"govuk-link\">Review</a>"
 								}
 							],
 							[

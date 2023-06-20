@@ -1,9 +1,13 @@
 import { convertFromBooleanToYesNo } from '../../../lib/boolean-formatter.js';
 
 /**
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").BuilderParameters} SummaryListBuilderParameters
+ */
+
+/**
  *
  * @param {import('../appeal-details.types.js').SingleLPAQuestionnaireResponse} lpaQuestionnaireData
- * @returns {any[]}
+ * @returns {SummaryListBuilderParameters[]}
  */
 export function mapLpaQuestionnaire(lpaQuestionnaireData) {
 	const completeList = [];
@@ -15,9 +19,17 @@ export function mapLpaQuestionnaire(lpaQuestionnaireData) {
 }
 
 /**
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").RowArray} SummaryListBuilderRowArray
+ */
+
+/**
+ * @typedef {Object<[key: string], SummaryListBuilderRowArray>} MappedLPAQuestionnaireData
+ */
+
+/**
  *
  * @param {import('../appeal-details.types.js').SingleLPAQuestionnaireResponse} lpaQuestionnaireData
- * @returns
+ * @returns {MappedLPAQuestionnaireData}
  */
 function initialiseAndMapData(lpaQuestionnaireData) {
 	const mappedData = {};
@@ -260,10 +272,11 @@ function initialiseAndMapData(lpaQuestionnaireData) {
 
 	return mappedData;
 }
+
 /**
  *
- * @param {any} mappedData
- * @returns
+ * @param {MappedLPAQuestionnaireData} mappedData
+ * @returns {SummaryListBuilderParameters}
  */
 function householderConstraintsLpaQuestionnaire(mappedData) {
 	const header = '1. Constraints, designations and other issues';
@@ -290,8 +303,8 @@ function householderConstraintsLpaQuestionnaire(mappedData) {
 
 /**
  *
- * @param {any} mappedData
- * @returns
+ * @param {MappedLPAQuestionnaireData} mappedData
+ * @returns {SummaryListBuilderParameters}
  */
 function householderEnvironmentalLpaQuestionnaire(mappedData) {
 	const header = '2. Environmental impact assessment';

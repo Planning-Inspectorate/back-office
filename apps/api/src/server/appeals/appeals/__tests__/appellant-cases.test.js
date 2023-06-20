@@ -54,6 +54,7 @@ describe('appellant cases routes', () => {
 					},
 					isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
+					planningApplicationReference: '48269/APP/2021/1482',
 					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
 					siteOwnership: {
 						areAllOwnersKnown: appellantCase.areAllOwnersKnown,
@@ -136,6 +137,7 @@ describe('appellant cases routes', () => {
 					},
 					isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
+					planningApplicationReference: '48269/APP/2021/1482',
 					planningObligation: {
 						hasObligation: appellantCase.hasPlanningObligation,
 						status: appellantCase.planningObligationStatus.name
