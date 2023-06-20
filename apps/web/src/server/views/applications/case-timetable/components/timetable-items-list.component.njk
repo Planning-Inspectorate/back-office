@@ -12,7 +12,8 @@
 
 			{% set content %}
 				{{timetableItemSummary(timetableItem)}}
-				<a class='govuk-link colour--red' href='{{'timetable'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+				<a class='govuk-link colour--red' href='{{'timetable'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a> |
+				<a class='govuk-link' href="{{'timetable-edit'|url({caseId: caseId, examinationTimetableItemId: timetableItem.id, step: 'edit-item'})}}">Edit timetable item</a>
 			{% endset %}
 
 			{% set row = {
