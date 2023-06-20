@@ -197,6 +197,7 @@ interface SingleAppellantCaseResponse {
 		firstName: string | null;
 		surname: string | null;
 	};
+	planningApplicationReference: string;
 	developmentDescription?: {
 		isCorrect: boolean | null;
 		details: string | null;
