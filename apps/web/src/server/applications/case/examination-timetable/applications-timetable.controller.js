@@ -72,7 +72,7 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 /**
  * View the preview page of the examination timetable for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string}>}
  */
 export async function previewApplicationsCaseExaminationTimeTable(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
@@ -82,7 +82,8 @@ export async function previewApplicationsCaseExaminationTimeTable(_, response) {
 	);
 
 	response.render(`applications/case-timetable/timetable-preview.njk`, {
-		timetableItems: timetableItemsViewData
+		timetableItems: timetableItemsViewData,
+		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
 	});
 }
 

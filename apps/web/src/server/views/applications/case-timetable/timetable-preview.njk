@@ -1,6 +1,12 @@
 {% extends "./../layouts/applications.layout.njk" %}
 {% from "./components/timetable-items-list.component.njk" import timetableItemsList%}
 
+{% block beforeContent %}
+	<div class="govuk-width-container">
+		<a class="govuk-back-link" href="{{ backLink }}" >Back</a>
+	</div>
+{% endblock %}
+
 {% block pageContent %}
     <h1 class="govuk-heading-l">Publish examination timetable</h1>
     <p class="govuk-body">Check before publishing</p>
