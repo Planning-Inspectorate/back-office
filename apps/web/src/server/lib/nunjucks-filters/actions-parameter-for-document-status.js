@@ -1,5 +1,5 @@
 /**
- * @typedef {object} ActionsParameter
+ * @typedef {object} SummaryListRowActionsParameter
  * @property {Array<object>} items
  */
 /**
@@ -9,19 +9,26 @@
  * @param {string} href
  * @param {string} text
  * @param {string} visuallyHiddenText
- * @returns {ActionsParameter}
+ * @returns {SummaryListRowActionsParameter}
  */
-export const actionsParameterForDocumentStatus = (documentStatus = '', href = '#', text = 'Review', visuallyHiddenText = '') => {
+export const actionsParameterForDocumentStatus = (
+	documentStatus = '',
+	href = '#',
+	text = 'Review',
+	visuallyHiddenText = ''
+) => {
 	switch (documentStatus.toLowerCase()) {
 		case 'complete':
 		case 'incomplete':
 		case 'overdue':
 			return {
-				items: [{
-					href,
-					text,
-					visuallyHiddenText,
-				}]
+				items: [
+					{
+						href,
+						text,
+						visuallyHiddenText
+					}
+				]
 			};
 		case 'not started':
 		case 'none':

@@ -225,6 +225,7 @@ const appealFormatter = {
 					firstName: appellantCase.applicantFirstName,
 					surname: appellantCase.applicantSurname
 				},
+				planningApplicationReference: appeal.planningApplicationReference,
 				...(isFPA(appeal.appealType) && {
 					developmentDescription: {
 						isCorrect: appellantCase.isDevelopmentDescriptionStillCorrect,
