@@ -1,0 +1,47 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "../components/representation-status-tag.njk" import representationStatusTag %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+
+
+	<span class="govuk-caption-l">{{ orgOrName}}</span>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ pageHeading }}</h1>
+    <strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(status) }}</strong>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<form method="post" novalidate>
+
+					{{ govukRadios({
+						name: "changeStatus",
+                        fieldset: {
+                            legend: {
+                                isPageHeading: false
+                            }
+                        },
+						items: radioItems,
+						errorMessage: errors[changeStatus] and {
+							text: errors[changeStatus].msg
+						}
+					}) }}
+
+					{{ govukButton({
+						text: "Save changes",
+						type: "submit",
+						classes: "govuk-!-margin-top-3"
+					}) }}
+
+			</form>
+
+		</div>
+	</div>
+
+{% endblock %}
