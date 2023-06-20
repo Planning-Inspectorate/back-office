@@ -27,6 +27,7 @@
     "lint:js:fix": "npx eslint . --fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
+    "storage": "npm run dev --workspace=@pins/document-storage",
     "test": "turbo run test",
     "tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
     "web": "npm run dev --workspace=@pins/web",
