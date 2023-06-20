@@ -784,6 +784,24 @@ const document = {
 			siteWithinGreenBelt: true,
 			statutoryConsulteesDetails: 'Some other people need to be consulted'
 		},
+		UpdateAppellantCaseRequest: {
+			incompleteReasons: [1, 2, 3],
+			invalidReasons: [1, 2, 3],
+			validationOutcome: 'valid'
+		},
+		UpdateAppellantCaseResponse: {},
+		AllAppellantCaseIncompleteReasonsResponse: [
+			{
+				id: 1,
+				name: 'Other'
+			}
+		],
+		AllAppellantCaseInvalidReasonsResponse: [
+			{
+				id: 1,
+				name: 'Other'
+			}
+		],
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',

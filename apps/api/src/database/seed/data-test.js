@@ -535,10 +535,35 @@ export async function seedTestData(databaseConnector) {
 			name: 'Some'
 		}
 	});
+	const validationOutcomes = await databaseConnector.validationOutcome.findMany({
+		orderBy: {
+			name: 'asc'
+		}
+	});
+	const appellantCaseIncompleteReasons =
+		await databaseConnector.appellantCaseIncompleteReason.findMany();
+	const appellantCaseInvalidReasons = await databaseConnector.appellantCaseInvalidReason.findMany();
+
+	const appellantCaseValidationOutcomes = [
+		{
+			validationOutcomeId: validationOutcomes[0].id,
+			incompleteReasons: appellantCaseIncompleteReasons.map(({ id }) => id),
+			otherNotValidReasons: 'Another incomplete reason'
+		},
+		{
+			validationOutcomeId: validationOutcomes[1].id,
+			invalidReasons: appellantCaseInvalidReasons.map(({ id }) => id),
+			otherNotValidReasons: 'Another invalid reason'
+		},
+		{
+			validationOutcomeId: validationOutcomes[2].id
+		}
+	];
 
 	for (const appellantCase of appellantCases) {
 		const appeal = appeals.find(({ id }) => id === appellantCase.appealId);
 		const appealType = appealTypes.find(({ id }) => id === appeal?.appealTypeId);
+		const validationOutcome = appellantCaseValidationOutcomes[Math.floor(Math.random() * 3)];
 
 		await databaseConnector.appellantCase.update({
 			where: { id: appellantCase.id },
@@ -549,9 +574,31 @@ export async function seedTestData(databaseConnector) {
 				...(!appellantCase.isSiteFullyOwned && {
 					hasAdvertisedAppeal: true,
 					knowledgeOfOtherLandownersId: knowledgeOfOtherLandowners[0].id
-				})
+				}),
+				validationOutcomeId: validationOutcome.validationOutcomeId,
+				otherNotValidReasons:
+					(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
+					validationOutcome.otherNotValidReasons
 			}
 		});
+
+		if (validationOutcome.incompleteReasons) {
+			await databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany({
+				data: validationOutcome.incompleteReasons.map((item) => ({
+					appellantCaseIncompleteReasonId: item,
+					appellantCaseId: appellantCase.id
+				}))
+			});
+		}
+
+		if (validationOutcome.invalidReasons) {
+			await databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany({
+				data: validationOutcome.invalidReasons.map((item) => ({
+					appellantCaseInvalidReasonId: item,
+					appellantCaseId: appellantCase.id
+				}))
+			});
+		}
 	}
 
 	// now create some sample applications

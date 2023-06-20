@@ -16,6 +16,42 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
+		"/appeals/appellant-case-incomplete-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appellant case incomplete reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case incomplete reasons",
+						"schema": {
+							"$ref": "#/definitions/AllAppellantCaseIncompleteReasonsResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/appellant-case-invalid-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appellant case invalid reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case invalid reasons",
+						"schema": {
+							"$ref": "#/definitions/AllAppellantCaseInvalidReasonsResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -172,6 +208,47 @@
 						"description": "Gets a single appellant case for an appeal by id",
 						"schema": {
 							"$ref": "#/definitions/SingleAppellantCaseResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Appeals"],
+				"description": "Updates a single appellant case for an appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "appellantCaseId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Appellant case details to update",
+						"schema": {
+							"$ref": "#/definitions/UpdateAppellantCaseRequest"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single appeal by id",
+						"schema": {
+							"$ref": "#/definitions/UpdateAppellantCaseResponse"
 						}
 					},
 					"400": {
@@ -4579,6 +4656,65 @@
 				"statutoryConsulteesDetails": {
 					"type": "string",
 					"example": "Some other people need to be consulted"
+				}
+			}
+		},
+		"UpdateAppellantCaseRequest": {
+			"type": "object",
+			"properties": {
+				"incompleteReasons": {
+					"type": "array",
+					"example": [1, 2, 3],
+					"items": {
+						"type": "number"
+					}
+				},
+				"invalidReasons": {
+					"type": "array",
+					"example": [1, 2, 3],
+					"items": {
+						"type": "number"
+					}
+				},
+				"validationOutcome": {
+					"type": "string",
+					"example": "valid"
+				}
+			}
+		},
+		"UpdateAppellantCaseResponse": {
+			"type": "object",
+			"properties": {}
+		},
+		"AllAppellantCaseIncompleteReasonsResponse": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Other"
+					}
+				}
+			}
+		},
+		"AllAppellantCaseInvalidReasonsResponse": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Other"
+					}
 				}
 			}
 		},
