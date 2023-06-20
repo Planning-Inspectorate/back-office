@@ -12,6 +12,11 @@ import {
 import { representationChangeRedactionValidation } from './change-redaction/change-redaction.validator.js';
 import { addRepresentationToLocals } from '../representation/representation.middleware.js';
 import { getRepresentationDetailsTaskLogController } from './task-log/task-log.controller.js';
+import {
+	getRepresentationStatusController,
+	postRepresentationStatus
+} from './representation-status/representation-status.controller.js';
+import { representationStatusValidation } from './representation-status/representation-status.validators.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -35,5 +40,10 @@ representationDetailsRouter
 representationDetailsRouter
 	.route('/task-log')
 	.get(asyncRoute(getRepresentationDetailsTaskLogController));
+	
+representationDetailsRouter
+	.route('/change-status')
+	.get(asyncRoute(getRepresentationStatusController))
+	.post(representationStatusValidation, asyncRoute(postRepresentationStatus));
 
 export default representationDetailsRouter;
