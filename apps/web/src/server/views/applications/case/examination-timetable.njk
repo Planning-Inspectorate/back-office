@@ -22,7 +22,13 @@
 		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable'|url({caseId: caseId, step: 'new-item'})}}">Create new timetable item</a>
 
 		<div>
-			<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">Preview and publish timetable items</a>
+			<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
+			{% if publishedStatus %}
+				Preview and republish timetable items
+			{% else %}
+				Preview and publish timetable items
+			{% endif %}
+			</a>
 		</div>
 	</div>
 
