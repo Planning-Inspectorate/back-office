@@ -168,6 +168,9 @@ export async function postApplicationsCaseTimetableNew(request, response) {
 
 	if (formProperties) {
 		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			isCreated: true,
+			pageTitle: 'Create new item',
+			actionButtonTitle: 'Continue',
 			...formProperties,
 			values: request.body
 		});
@@ -189,6 +192,9 @@ export async function postApplicationsCaseTimetableDetails(
 		const formProperties = await getCreateTimetableFormProperties(body.itemTypeName);
 
 		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			isCreated: true,
+			pageTitle: 'Create new item',
+			actionButtonTitle: 'Continue',
 			errors: validationErrors,
 			values: body,
 			...formProperties
@@ -205,8 +211,13 @@ export async function postApplicationsCaseTimetableDetails(
  */
 export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, response) {
 	const rows = getCheckYourAnswersRows(body);
-
+	let pageHeaderMessage = 'Check your answers before creating a new item';
+	if (body.timetableId) {
+		// edit mode
+		pageHeaderMessage = 'Check your answers before editing an item';
+	}
 	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+		pageHeaderMessage,
 		rows,
 		values: body
 	});
@@ -248,10 +259,12 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	}
 
 	let errors = null;
+	let pageHeaderMessage = 'Check your answers before creating a new item';
 	if (payload.id) {
 		// has exam id, therefore an existing record for update
 		const apiResponse = await updateCaseTimetableItem(payload);
 		errors = apiResponse.errors;
+		pageHeaderMessage = 'Check your answers before editing an item';
 	} else {
 		// create new record
 		const apiResponse = await createCaseTimetableItem(payload);
@@ -260,8 +273,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 
 	if (errors) {
 		const rows = getCheckYourAnswersRows(body);
-
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+			pageHeaderMessage,
 			rows,
 			values: body,
 			errors
@@ -321,6 +334,9 @@ export async function showApplicationsCaseTimetableDetailsExisting(
 		currentItemType.name
 	);
 	return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		isEdited: true,
+		pageTitle: 'Edit timetable item',
+		actionButtonTitle: 'Save changes',
 		errors: validationErrors,
 		values: examBody,
 		...formProperties
