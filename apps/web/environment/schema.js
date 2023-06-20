@@ -3,6 +3,7 @@ import joi from 'joi';
 const logLevel = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'];
 
 export default joi.object({
+	appHostname: joi.string().uri(),
 	apiUrl: joi.string().uri(),
 	authDisabled: joi.boolean().optional(),
 	blobStorageUrl: joi.string(),

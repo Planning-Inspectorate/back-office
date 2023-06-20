@@ -6,6 +6,7 @@ import schema from './schema.js';
 const environment = loadEnvironment(process.env.NODE_ENV);
 
 const { value: validatedConfig, error } = schema.validate({
+	appHostname: environment.APP_HOSTNAME,
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
