@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Change representation status page GET /applications-service/case/1/relevant-representations/1/representations-details/change-status should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-l\\">James Bond</span>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Change status</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--grey\\">awaiting review</strong></strong>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"changeStatus\\" name=\\"changeStatus\\"
+                                type=\\"radio\\" value=\\"AWAITING_REVIEW\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"changeStatus\\">Awaiting review</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"changeStatus-2\\" name=\\"changeStatus\\"
+                                type=\\"radio\\" value=\\"REFERRED\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"changeStatus-2\\">Referred</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"changeStatus-3\\" name=\\"changeStatus\\"
+                                type=\\"radio\\" value=\\"INVALID\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"changeStatus-3\\">Invalid</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"changeStatus-4\\" name=\\"changeStatus\\"
+                                type=\\"radio\\" value=\\"VALID\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"changeStatus-4\\">Valid</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"changeStatus-5\\" name=\\"changeStatus\\"
+                                type=\\"radio\\" value=\\"WITHDRAWN\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"changeStatus-5\\">Withdrawn</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save changes</button>
+            </form>
+        </div>
+        </div>
+</main>"
+`;
