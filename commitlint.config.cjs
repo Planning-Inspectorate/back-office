@@ -7,6 +7,7 @@ const scopes = [
 	'api',
 	'api/applications',
 	'api-testing',
+	'web',
 	'web/applications',
 	'functions',
 	/functions\/(.*)/,
