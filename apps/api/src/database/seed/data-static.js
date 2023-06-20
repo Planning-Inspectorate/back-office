@@ -14,6 +14,9 @@
  * @typedef {import('apps/api/src/database/schema.js').ScheduleType} ScheduleType
  * @typedef {import('apps/api/src/database/schema.js').PlanningObligationStatus} PlanningObligationStatus
  * @typedef {import('apps/api/src/database/schema.js').KnowledgeOfOtherLandowners} KnowledgeOfOtherLandowners
+ * @typedef {import('apps/api/src/database/schema.js').ValidationOutcome} ValidationOutcome
+ * @typedef {import('apps/api/src/database/schema.js').AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
+ * @typedef {import('apps/api/src/database/schema.js').AppellantCaseInvalidReason} AppellantCaseInvalidReason
  */
 
 /**
@@ -618,6 +621,75 @@ export const knowledgeOfOtherLandownersValues = [
 ];
 
 /**
+ * An array of knowledge of validation outcomes.
+ *
+ * @type {Pick<ValidationOutcome, 'name'>[]}
+ */
+export const validationOutcomes = [
+	{
+		name: 'Valid'
+	},
+	{
+		name: 'Invalid'
+	},
+	{
+		name: 'Incomplete'
+	}
+];
+
+/**
+ * An array of knowledge of appellant case incomplete reasons.
+ *
+ * @type {Pick<AppellantCaseIncompleteReason, 'name'>[]}
+ */
+export const appellantCaseIncompleteReasons = [
+	{
+		name: 'Appellant name is not the same on the application form and appeal form'
+	},
+	{
+		name: 'Attachments and/or appendices have not been included to the full statement of case'
+	},
+	{
+		name: "LPA's decision notice is incorrect or incomplete"
+	},
+	{
+		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing'
+	},
+	{
+		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form'
+	},
+	{
+		name: 'The original application form is incomplete or missing'
+	},
+	{
+		name: 'Statement of case and ground of appeal are missing'
+	},
+	{
+		name: 'Other'
+	}
+];
+
+/**
+ * An array of knowledge of appellant case invalid reasons.
+ *
+ * @type {Pick<AppellantCaseInvalidReason, 'name'>[]}
+ */
+export const appellantCaseInvalidReasons = [
+	{
+		name: 'Appeal has not been submitted on time'
+	},
+	{
+		name: 'Documents have not been submitted on time'
+	},
+	{
+		name: "The appellant doesn't have the right to appeal"
+	},
+	{
+		name: 'Other'
+	}
+];
+
+/**
  * eed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
@@ -704,6 +776,27 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.knowledgeOfOtherLandowners.upsert({
 			create: knowledgeOfOtherLandownersValue,
 			where: { name: knowledgeOfOtherLandownersValue.name },
+			update: {}
+		});
+	}
+	for (const validationOutcome of validationOutcomes) {
+		await databaseConnector.validationOutcome.upsert({
+			create: validationOutcome,
+			where: { name: validationOutcome.name },
+			update: {}
+		});
+	}
+	for (const appellantCaseIncompleteReason of appellantCaseIncompleteReasons) {
+		await databaseConnector.appellantCaseIncompleteReason.upsert({
+			create: appellantCaseIncompleteReason,
+			where: { name: appellantCaseIncompleteReason.name },
+			update: {}
+		});
+	}
+	for (const appellantCaseInvalidReason of appellantCaseInvalidReasons) {
+		await databaseConnector.appellantCaseInvalidReason.upsert({
+			create: appellantCaseInvalidReason,
+			where: { name: appellantCaseInvalidReason.name },
 			update: {}
 		});
 	}
