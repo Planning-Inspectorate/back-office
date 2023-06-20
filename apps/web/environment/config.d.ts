@@ -1,6 +1,7 @@
 import { LevelWithSilent } from 'pino';
 
 export interface EnvironmentConfig {
+	appHostname: string;
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
