@@ -1,0 +1,14 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro organisationName(values, errors) %}
+	{{ govukInput({
+		label: {
+			text: "Applicant organisation name",
+    		classes: "govuk-visually-hidden"
+		},
+		id: "applicant.organisationName",
+		name: "applicant.organisationName",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.organisationName']
+	}) }}
+{% endmacro %}

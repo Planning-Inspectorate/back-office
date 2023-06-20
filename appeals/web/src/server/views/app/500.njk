@@ -1,0 +1,33 @@
+{% extends "app/layouts/app-two-column.layout.njk" %}
+
+{% set pageTitle = 'Sorry, there is a problem with the service' %}
+
+{% block pageContent %}
+	<p class="govuk-body">Try again later.</p>
+	<p class="govuk-body">
+		<a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if the problem persists.
+	</p>
+
+	{% if error and isDevelopment %}
+		<hr>
+		<h1 class="govuk-heading-m" style="color: #d4351c;">Error (only seen in dev mode):</h1>
+
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full">
+				<div>{{ error }}</div>
+
+				{% if error.errors %}
+					{% for err in error.errors %}
+						<pre style="border: 1px solid #ddd; overflow: scroll">
+							{{ err.stack }}
+						</pre>
+					{% endfor %}
+				{% else %}}
+					<pre style="border: 1px solid #ddd; overflow: scroll">
+						{{ error.stack }}
+					</pre>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

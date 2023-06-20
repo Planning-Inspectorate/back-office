@@ -1,0 +1,18 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro applicantEmail(values, errors) %}
+	{{ govukInput({
+		label: {
+			text: "Applicant mail address",
+    		classes: "govuk-visually-hidden"
+		},
+		id: "applicant.email",
+		name: "applicant.email",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.email'],
+		errorMessage: errors['applicant.email'] | errorMessage,
+		hint: {
+			text: "for example, contact@buildinganewbridge.com"
+		}
+	}) }}
+{% endmacro %}

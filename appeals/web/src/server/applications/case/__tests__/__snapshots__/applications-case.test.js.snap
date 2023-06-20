@@ -1,0 +1,1292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Applications case pages Preview and publish page GET /case/123/preview-and-publish When domainType is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Preview and publish page GET /case/123/preview-and-publish When domainType is not inspector if already published, should render the page with the previous publishing info 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <form id=\\"pins-publish-case\\" class=\\"govuk-grid-row \\" method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l\\">Preview and publish project</h1>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
+                </div>
+            </dl>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Project details</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                        <td class=\\"govuk-table__cell\\">Title CASE/07</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                        <td class=\\"govuk-table__cell\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                            Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                            ut aliquip ex ea commodo consequat</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                        <td class=\\"govuk-table__cell\\">London</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                        <td class=\\"govuk-table__cell\\">123456 (Easting)
+                            <br>987654 (Northing)</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                        <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                        <td class=\\"govuk-table__cell\\">City EN</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Applicant information</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                        <td class=\\"govuk-table__cell\\">Org name</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                        <td class=\\"govuk-table__cell\\">website.web</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                        <td class=\\"govuk-table__cell\\">email@email.co</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                        <td class=\\"govuk-table__cell\\">001</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class=\\"govuk-grid-column-full\\">
+            <button class=\\"govuk-button govuk-!-margin-top-5\\" data-module=\\"govuk-button\\">Accept and publish changes</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Applications case pages Preview and publish page GET /case/123/preview-and-publish When domainType is not inspector if not yet published, should render the page with no previous publishing info 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <form id=\\"pins-publish-case\\" class=\\"govuk-grid-row \\" method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l\\">Preview and publish project</h1>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not Published</strong>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
+                </div>
+            </dl>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Project details</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                        <td class=\\"govuk-table__cell\\">Title CASE/04</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                        <td class=\\"govuk-table__cell\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                            ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                        <td class=\\"govuk-table__cell\\">some@ema.il</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                        <td class=\\"govuk-table__cell\\">London</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                        <td class=\\"govuk-table__cell\\">123456 (Easting)
+                            <br>987654 (Northing)</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                        <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                        <td class=\\"govuk-table__cell\\">City EN</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Applicant information</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                        <td class=\\"govuk-table__cell\\">Org name</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                        <td class=\\"govuk-table__cell\\">website.web</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                        <td class=\\"govuk-table__cell\\">email@email.co</td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                        <td class=\\"govuk-table__cell\\">001</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class=\\"govuk-grid-column-full\\">
+            <button class=\\"govuk-button govuk-!-margin-top-5\\" data-module=\\"govuk-button\\">Accept and publish project</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish When domainType is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish When domainType is not inspector if the case is already published, should go the 2nd-time success banner page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/07</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Item EN 23, Item EN 24
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/7/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\">Project page updates published </h3>
+                    <p class=\\"govuk-body\\">The project page updates will show on the NSIPs website within the hour</p>
+                </div>
+            </div>
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
+                </div>
+            </dl>
+            <p class=\\"govuk-body-m colour--red font-weight--700\\">There are unpublished changes that have been made. Publish the project
+                for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/07</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                        Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/description\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/team-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/grid-references\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/zoom-level\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-organisation-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-full-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-address\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-website\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-telephone-number\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish When domainType is not inspector if the case is not published yet, should go the first-time success banner page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\"> Project page published </h3>
+                    <p class=\\"govuk-body\\">The project page will show on the NSIPs website within the hour</p>
+                </div>
+            </div>
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
+                </div>
+            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/04</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                        et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/description\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\">some@ema.il</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/team-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/grid-references\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/zoom-level\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Project information page GET /case/123/project-information When domainType is inspector should show no change links or publishing links 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/07</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Item EN 23, Item EN 24
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/7/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
+                </div>
+            </dl>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/07</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                        Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is not published should show no info about previous publishings 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not Published</strong>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
+                </div>
+            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/04</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                        et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/description\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\">some@ema.il</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/team-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/grid-references\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/zoom-level\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is published with no pending changes, should show publishing info and unpublish link 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/06 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/06</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Item EN 21, Item EN 22
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/6/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 31/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/06</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 21</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 22</dd>
+                </div>
+            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/6/preview-and-publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/06</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris
+                                        nisi ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/description\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/team-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/grid-references\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/zoom-level\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-organisation-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-full-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-address\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-website\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-telephone-number\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Project information page GET /case/123/project-information When domainType is not inspector When the case is published with pending changes, should show publishing info, unpublish link and warning about unpublished changes 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/07 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/07</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Item EN 23, Item EN 24
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/7/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
+                </div>
+            </dl>
+            <p class=\\"govuk-body-m colour--red font-weight--700\\">There are unpublished changes that have been made. Publish the project
+                for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
+            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            id=\\"\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
+                    </div>
+                    <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                    <td class=\\"govuk-table__cell\\">Title CASE/07</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
+                                    <td class=\\"govuk-table__cell\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                        Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                        ut aliquip ex ea commodo consequat</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/description\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/team-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
+                                    <td class=\\"govuk-table__cell\\">London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
+                                    <td class=\\"govuk-table__cell\\">123456 (Easting)
+                                        <br>987654 (Northing)</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/grid-references\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Region(s)</th>
+                                    <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
+                                    <td class=\\"govuk-table__cell\\">City EN</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/zoom-level\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
+                    </div>
+                    <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
+                        <table class=\\"govuk-table\\">
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
+                                    <td class=\\"govuk-table__cell\\">Org name</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-organisation-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">John Smith</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-full-name\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-address\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
+                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-website\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
+                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-email\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <td class=\\"govuk-table__cell\\">001</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-telephone-number\\"> Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Applications case pages Project overview page GET /case/123 should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-third\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/\\"> Overview</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Latest key dates</h2>
+            <ul class=\\"govuk-list govuk-list--bullet\\">
+                <li>Anticipated submission date:</li>
+                <li>Anticipated submission date internal:</li>
+            </ul><a class=\\"govuk-link\\" href=\\"#\\">Update key dates</a>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <h2 class=\\"govuk-heading-m\\">Summary information</h2>
+            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference</dt>
+                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant Information</dt>
+                    <dd class=\\"govuk-summary-list__value\\">Org name
+                        <br>email@email.co
+                        <br>001</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant website</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"//website.web\\">website.web</a>
+                    </dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project email</dt>
+                    <dd class=\\"govuk-summary-list__value\\">some@ema.il</dd>
+                </div>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page</dt>
+                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">NOT PUBLISHED</strong>
+                    </dd>
+                </div>
+            </dl><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/project-information\\"> Update project information</a>
+            <hr             class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+                <h2 class=\\"govuk-heading-m\\">Project team</h2>
+                <p class=\\"govuk-body\\">No project members have been added yet</p>
+        </div>
+    </div>
+</main>"
+`;

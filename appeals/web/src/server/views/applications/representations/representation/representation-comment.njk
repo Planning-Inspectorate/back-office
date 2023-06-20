@@ -1,0 +1,84 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<p class="govuk-body"><strong>Project name:</strong> {{ case.projectName }}</p>
+
+	<span class="govuk-caption-l">Add a representation</span>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<form method="post" novalidate>
+
+				{{ govukDateInput({
+					id: receivedDateKeys.date,
+					namePrefix: receivedDateKeys.date,
+					fieldset: {
+						legend: {
+							text: "Date received",
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+
+					errorMessage: hasDateErrors and {
+						text: errors[receivedDateKeys.date].msg or errors[receivedDateKeys.day].msg or errors[receivedDateKeys.month].msg or errors[receivedDateKeys.year].msg
+					},
+
+					items: [
+						{
+							classes: "govuk-input--width-2 govuk-input--error" if errors[receivedDateKeys.date] or dateInputsErrorStatus['day'] or errors[receivedDateKeys.day] else "govuk-input--width-2",
+							name: "day",
+							id: receivedDateKeys.day,
+							value: receivedDate.day
+						},
+						{
+							classes: "govuk-input--width-2 govuk-input--error" if errors[receivedDateKeys.date] or dateInputsErrorStatus['month'] or errors[receivedDateKeys.month] else "govuk-input--width-2",
+							name: "month",
+							id: receivedDateKeys.month,
+							value: receivedDate.month
+						},
+						{
+							classes: "govuk-input--width-4 govuk-input--error" if errors[receivedDateKeys.date] or dateInputsErrorStatus['year'] or errors[receivedDateKeys.year] else "govuk-input--width-4",
+							name: "year",
+							id: receivedDateKeys.year,
+							value: receivedDate.year
+						}
+					]
+				}) }}
+
+				{{ govukTextarea({
+					name: "originalRepresentation",
+					id: "originalRepresentation",
+					value: representation.originalRepresentation,
+					label: {
+						text: "Representation content",
+						classes: "govuk-label--s"
+					},
+					rows: 15,
+					spellcheck: true,
+					errorMessage: errors["originalRepresentation"] and {
+						text: errors["originalRepresentation"].msg
+					}
+
+				}) }}
+
+
+				{{ govukButton({
+					text: "Save and continue",
+					type: "submit",
+					classes: "govuk-!-margin-top-3"
+				}) }}
+
+
+			</form>
+		</div>
+	</div>
+{% endblock %}

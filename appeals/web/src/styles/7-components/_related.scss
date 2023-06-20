@@ -1,0 +1,12 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+.pins-related {
+	border: 1px solid colors.$govuk-border-colour;
+	border-top: 4px solid colors.$govuk-brand-colour;
+
+	// FIXME: No idea how to import these mixins without errors
+	// @include govuk-responsive-padding(4);
+	// @include govuk-responsive-margin(6, 'bottom')
+	margin-bottom: 30px;
+	padding: 20px;
+}

@@ -1,12 +1,12 @@
 const { isRegExp } = require('lodash');
 
 const scopes = [
+	'appeals',
+	'appeals/web',
+	'appeals/api',
 	'api',
-	'api/appeals',
 	'api/applications',
 	'api-testing',
-	'web',
-	'web/appeals',
 	'web/applications',
 	'functions',
 	/functions\/(.*)/,

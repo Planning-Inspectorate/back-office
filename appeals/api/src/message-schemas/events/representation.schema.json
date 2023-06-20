@@ -1,0 +1,118 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "representation.schema.json",
+	"title": "Representation",
+	"type": "object",
+	"required": [
+		"caseRef",
+		"representationId",
+		"represented",
+		"originalRepresentation",
+		"dateReceived"
+	],
+	"properties": {
+		"representationId": {
+			"type": "string"
+		},
+		"referenceId": {
+			"examples": ["TR043003-000010"],
+			"type": "string"
+		},
+		"examinationLibraryRef": {
+			"examples": ["RR-0001"],
+			"type": "string"
+		},
+		"caseRef": {
+			"type": "string"
+		},
+		"status": {
+			"type": "string",
+			"enum": ["awaiting_review", "referred", "valid", "invalid", "published", "archived"]
+		},
+		"originalRepresentation": {
+			"type": "string"
+		},
+		"redacted": {
+			"type": "boolean"
+		},
+		"redactedRepresentation": {
+			"type": "string"
+		},
+		"redactedBy": {
+			"type": "string",
+			"examples": ["Joe Blogs"]
+		},
+		"redactedNotes": {
+			"type": "string",
+			"examples": ["Removed names of family members"]
+		},
+		"representationFrom": {
+			"type": "string",
+			"enum": ["Myself", "Organisation", "Agent"]
+		},
+		"represented": {
+			"$ref": "interested-party.schema.json",
+			"description": "Person or organisation being represented"
+		},
+		"representative": {
+			"$ref": "interested-party.schema.json",
+			"description": "Person or organisation submitting representation in the case of Agent representationFrom"
+		},
+		"registerFor": {
+			"type": "string",
+			"enum": ["person", "organisation", "family_group"]
+		},
+		"representationType": {
+			"type": "string",
+			"enum": [
+				"Local Authorities",
+				"Parish Councils",
+				"Members of the Public/Businesses",
+				"Public & Businesses",
+				"Statutory Consultees",
+				"Non-Statutory Organisations",
+				"Another Individual"
+			]
+		},
+		"dateReceived": {
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"attachments": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/attachment"
+			}
+		}
+	},
+	"$defs": {
+		"attachment": {
+			"type": "object",
+			"required": ["documentId", "filename", "size", "documentURI"],
+			"properties": {
+				"documentId": {
+					"type": "string",
+					"examples": ["ID23343453"],
+					"description": "The unique identifier for the file"
+				},
+				"filename": {
+					"type": "string",
+					"examples": ["filename.pdf"],
+					"description": "Current stored filename of the file"
+				},
+				"size": {
+					"type": "number",
+					"examples": [23452]
+				},
+				"mime": {
+					"type": "string",
+					"examples": ["application/pdf"]
+				},
+				"documentURI": {
+					"type": "string",
+					"examples": ["blob:https://published/en010120/filename.pdf"]
+				}
+			}
+		}
+	}
+}

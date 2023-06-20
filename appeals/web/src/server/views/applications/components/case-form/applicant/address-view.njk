@@ -1,0 +1,40 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro addressView(postcode, applicantAddress, caseId) %}
+	{% if applicantAddress.length < 1 %}
+		<input type="hidden" name='currentFormStage' value="searchPostcode">
+		<div class="govuk-form-group">
+			<label class="govuk-label font-weight--700" for="postcode">
+				Postcode
+			</label>
+			<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text"
+				   value="{{ postcode }}">
+		</div>
+		{{ govukButton({ text: "Find address" }) }}
+	{% else %}
+		<div class="govuk-form-group">
+			<p class="govuk-body">{{ applicantAddress }}</p>
+		</div>
+		<input type="hidden" name="postcode" value="{{ postcode }}"/>
+		<div class="govuk-form-group">
+			<p class="govuk-label font-weight--700">
+				Postcode
+			</p>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-one-third">
+					<div class="govuk-grid-row govuk-button-group">
+						<p class='govuk-body govuk-grid-column-one-half'>{{ postcode | upper }}</p>
+						<div class="govuk-grid-column-one-half">
+							<a class="govuk-link " href="{{ 'case-edit'|url({caseId: caseId, step: 'applicant-address/new'}) }}">Change</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% block stepButton %}
+			{{ govukButton({ text: 'Save changes' }) }}
+		{% endblock %}
+	{% endif %}
+{% endmacro %}
+

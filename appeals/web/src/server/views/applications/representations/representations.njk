@@ -1,0 +1,102 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "applications/representations/components/table/representations-table.component.njk" import representationsTableComponent %}
+{% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "applications/representations/components/pagination/results-per-page.component.njk" import uiPageSizeInformation %}
+{% from "applications/representations/components/pre-search.component.njk" import preSearch %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-!-margin-left-0 govuk-!-margin-bottom-7">
+		<div class="pins-masthead-summary govuk-!-padding-4 govuk-!-padding-top-9 govuk-!-padding-bottom-2">
+			<span class="govuk-caption-xl"> {{ caseReference.reference }} </span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> {{ caseReference.title }} </h1>
+
+			<p class="govuk-body">
+				{{ caseReference.title }}
+			</p>
+
+			<strong class="govuk-heading-s">
+				{{ statusTag(caseReference.status.text ) }}
+			</strong>
+		</div>
+	</div>
+
+	{{ govukBreadcrumbs({
+		items: [
+			{
+				text: "Project documentation",
+				href: "/applications-service/case/" + caseId + "/project-documentation"
+			},
+			{
+				text: "Relevant representations",
+				href: "#"
+			}
+		]
+	}) }}
+
+	<h2 class="govuk-heading-l">Relevant representations</h2>
+
+	<form method="GET">
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-one-half">
+				{{ preSearch(filters) }}
+			</div>
+			<div class="govuk-grid-column-one-half">
+
+
+				{{ govukButton({
+					text: "Add a representation",
+					href: "/applications-service/case/" + caseId + "/relevant-representations/contact-details?repType=represented",
+					classes: "govuk-button--secondary"
+				}) }}
+
+			</div>
+		</div>
+
+		<h3 class="govuk-heading-m">Search representations</h3>
+
+			<input type="hidden" name="page" value="{{ queryData.page }}">
+			<input type="hidden" name="pageSize" value="{{ queryData.pageSize }}">
+			<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
+
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-one-half">
+					{{ govukInput({
+						id: "searchTerm",
+						name: "searchTerm",
+						value: queryData.searchTerm
+					}) }}
+				</div>
+
+				<div class="govuk-grid-column-one-half">
+					{{ govukButton({
+						classes: "govuk-button--secondary",
+						text: "Search",
+						name: "searchUpdated",
+						value: "updated"
+					}) }}
+				</div>
+			</div>
+
+			{% if representations.length > 0 %}
+				{{ uiPageSizeInformation(pagination) }}
+				{{ representationsTableComponent(representations, table, caseId) }}
+				{% if pagination.paginationLinks.items.length > 1 %}
+					{{ govukPagination(pagination.paginationLinks) }}
+				{% endif %}
+			{% else %}
+				<p>No matching representations to show.</p>
+			{% endif %}
+
+	</form>
+{% endblock %}
+
+

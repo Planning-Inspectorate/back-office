@@ -1,0 +1,177 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+.pins-files-list {
+  &__statuses, &__actions {
+	padding: 1rem 2rem;
+	background: colors.govuk-colour('light-grey');
+	height: 100%;
+
+	.govuk-fieldset__legend {
+	  color: colors.govuk-colour('dark-grey');
+	  margin-bottom: 2.75rem;
+	}
+
+	.govuk-link {
+	  margin-top: 1rem;
+	  display: block;
+	  font-size: 1.1875rem;
+	}
+
+	.govuk-grid-row {
+	  display: flex;
+	  justify-content: space-between;
+	  margin: 0;
+	}
+
+	.govuk-radios__item {
+	  height: 1.5rem;
+	}
+
+	.govuk-form-group {
+	  margin-bottom: 0;
+	}
+
+	.govuk-radios__label {
+	  height: 1.5rem;
+	  padding: 0;
+
+	  &::before {
+		width: 1.5rem;
+		height: 1.5rem;
+		background-color: colors.govuk-colour('white');
+	  }
+
+	  &::after {
+		top: 6px;
+		left: 6px;
+		border-width: 6px;
+	  }
+	}
+  }
+
+  &__info {
+	margin-top: 2.5rem;
+
+	> * {
+	  margin: 0 !important;
+	}
+
+	.pagination-info {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	}
+
+	.govuk-form-group {
+	  display: flex;
+	  align-items: center;
+	  margin-bottom: 0;
+
+	}
+
+	.govuk-select {
+	  width: 4.375rem;
+	  min-width: 4.375rem;
+	}
+
+	.govuk-label {
+	  margin-right: 1rem;
+	}
+  }
+
+  &__table {
+
+	&:not([class*="publish"]) {
+		tr:nth-child(1) td:nth-child(1) {
+		vertical-align: middle;
+		}
+
+		td:nth-child(1) {
+		width: 2.6rem;
+		}
+
+		td:nth-child(2) {
+		width: 19rem;
+		}
+	}
+
+	.govuk-table__row {
+		position: relative;
+
+		&--disabled {
+	  		background: rgba(colors.govuk-colour('light-grey'), 0.5);
+	  		* {
+				pointer-events: none;
+	  		}
+		}
+
+		&--failed:after {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 5px;
+			left: -15px;
+			display: block;
+			background: colors.govuk-colour('red');
+		}
+	}
+
+	&:not([class*="publish"]) {
+		.govuk-table__cell {
+			a,
+			p {
+				word-break: break-all;
+			}
+		}
+	}
+
+	.govuk-checkboxes__input {
+	  width: 28px;
+	  height: 28px;
+	}
+
+	.govuk-checkboxes__item {
+	  min-height: 0;
+
+	  label {
+		font-size: 0;
+		padding: 0;
+
+		&:before {
+		  width: 1.5rem;
+		  height: 1.5rem;
+		}
+
+		&:after {
+		  top: 6px;
+		  left: 5px;
+		  width: 14px;
+		  height: 9px;
+		}
+	  }
+	}
+
+	.govuk-form-group {
+	  margin-bottom: 0;
+	}
+
+
+	.govuk-link {
+	  margin-bottom: 1rem;
+	  display: block;
+	}
+
+	.file-info {
+	  margin: .5rem 0;
+	}
+  }
+
+  &__button-link {
+	background: none;
+	border: none;
+	padding: 0;
+	color: colors.govuk-colour('blue');
+	cursor: pointer;
+  }
+
+}

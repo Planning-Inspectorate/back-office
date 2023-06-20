@@ -1,0 +1,33 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "applications/representations/representation/components/representation-heading.component.njk" import representationHeading %}
+
+{% set representationType = representation[pageKey] %}
+
+{% set submitFormText = "Save and continue" %}
+{% if stage == 'lookup' %}
+{% set submitFormText = "Find address" %}
+{% endif %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageTitle %}
+	{{ pageTitle }}
+{% endblock %}
+
+{% block pageContent %}
+  {{ representationHeading(pageHeading, 'Add a representation', case.projectName) }}
+
+  <form method="post" novalidate>
+    <input type="hidden" name='stage' value="{{ stage }}">
+    <input type="hidden" name='setPostcode' value="{{ postcode }}">
+
+    {% include "applications/representations/representation/address-details/includes/" + stage + ".include.njk" %}
+
+    {{ govukButton({
+      text: submitFormText
+    }) }}
+  </form>
+{% endblock %}

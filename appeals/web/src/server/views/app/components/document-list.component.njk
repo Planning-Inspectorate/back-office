@@ -1,0 +1,13 @@
+{% from "app/components/document-link.component.njk" import documentLink %}
+
+{% macro documentList(documents) %}
+	{% if documents.length > 1 %}
+	<ul class="govuk-list">
+		{% for doc in documents %}
+			<li>{{ documentLink(doc) }}</li>
+		{% endfor %}
+	</ul>
+	{% elseif documents.length === 1 %}
+		{{ documentLink(documents[0]) }}
+	{% endif %}
+{% endmacro %}

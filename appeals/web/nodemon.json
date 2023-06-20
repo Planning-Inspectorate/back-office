@@ -1,0 +1,5 @@
+{
+	"verbose": false,
+	"ignore": ["src/server/static/**/*.js", "src/client/**/*.js", "scripts/**/*.js"],
+	"ext": "js,njk"
+}

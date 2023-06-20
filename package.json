@@ -2,6 +2,7 @@
   "name": "back-office",
   "private": true,
   "workspaces": [
+    "appeals/*",
     "apps/*",
     "apps/functions/*",
     "packages/*"
@@ -17,7 +18,7 @@
     "commit": "cz",
     "commitlint": "commitlint --from=$(git rev-parse $(git cherry origin/main | head -n 1 | cut -c 3-)^1)",
     "clean": "turbo run clean && rimraf node_modules",
-    "dev": "turbo run dev --no-cache --parallel --continue",
+    "dev": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
     "e2e": "npm run cy:run --workspace=@pins/e2e",
     "e2e:open": "npm run cy:open --workspace=@pins/e2e",
     "e2e:ci": "npm run cy:ci --workspace=@pins/e2e",
@@ -26,9 +27,11 @@
     "lint:js:fix": "npx eslint . --fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
-    "test": "turbo run test",
-    "tscheck": "turbo run prisma-generate && turbo run tscheck --parallel --filter=!@pins/api",
-    "web": "npm run dev --workspace=@pins/web"
+    "test": "turbo run test --filter=./apps/*",
+    "tscheck": "turbo run prisma-generate && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
+    "web": "npm run dev --workspace=@pins/web",
+    "dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
+    "test:appeals": "turbo run test --filter=./appeals/*"
   },
   "dependencies": {
     "got": "^12.5.2",

@@ -1,0 +1,83 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+.sort-table {
+
+  &__link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: colors.govuk-colour('blue');
+	white-space: nowrap;
+  }
+
+  &__link-icon {
+	display: flex;
+	flex-direction: column;
+	margin-left: .5em;
+
+	&:before, &:after {
+	  line-height: 1;
+	}
+
+	&:before {
+	  content: "\25b2";
+	}
+
+	&:after {
+	  content: "\25bc";
+	}
+
+	&--small {
+	font-size: .5em;
+	}
+
+	&--big {
+	  font-size: .8em;
+
+	  &:after {
+		content: "";
+	  }
+
+	  .sort-table__link--descending & {
+		&:after {
+		  content: "\25bc";
+		}
+
+		&:before {
+		  content: "";
+		}
+	  }
+
+
+	}
+
+  }
+
+
+  &--big:after {
+	font-size: .8em;
+	position: absolute;
+	right: -5px;
+	top: 2px;
+  }
+
+  &--big:before {
+	font-size: .8em;
+	position: absolute;
+	right: -5px;
+	top: 2px;
+  }
+
+  &--small:after {
+	position: absolute;
+	right: -1px;
+	top: 1px;
+	font-size: .5em;
+  }
+
+  &--small:before {
+	position: absolute;
+	right: -1px;
+	top: 9px;
+	font-size: .5em;
+  }
+}

@@ -1,0 +1,10 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% macro infoTypes(applicantInfoTypes) %}
+	{{ govukCheckboxes({
+		idPrefix: "selectedApplicantInfoTypes",
+		name: "selectedApplicantInfoTypes[]",
+		items: applicantInfoTypes
+	}) }}
+{% endmacro %}
+

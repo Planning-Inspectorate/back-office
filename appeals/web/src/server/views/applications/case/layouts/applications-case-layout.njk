@@ -1,0 +1,56 @@
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from "../components/case-page-navigation.component.njk" import casePageNavigation %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "../../components/status-tag.component.njk" import statusTag %}
+
+
+{% set pageCaption = userTypeMap %}
+{% set pageTitle = case.title %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to applications",
+		href: 'dashboard'|url({domainType: domainType})
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}
+	<div class="top-errors-hook" role="alert"></div>
+	<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+	<div class="govuk-grid-column-full">
+		<h4 class="govuk-heading-m"> {{ case.reference }} </h4>
+		<h1 class="govuk-heading-xl">
+		{% if pageCaption %}
+			<span class="govuk-caption-xl">{{ pageCaption }}</span>
+		{% endif %}{{ pageHeading or pageTitle }}
+		</h1>
+
+		{% block pageHeadingData %}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-full govuk-body">
+					{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
+					<br><br>
+					{{ statusTag(case.status) }}
+				</div>
+			</div>
+		{% endblock %}
+	</div>
+	</div>
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		{% block sectionMenu %}
+			<div class="govuk-grid-column-one-third">
+				{{ casePageNavigation({ case: case, domainType: domainType, selectedPageType: selectedPageType }) }}
+			</div>
+		{% endblock %}
+		<div class="govuk-grid-column-two-thirds">
+			{% block sectionContent %}
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+

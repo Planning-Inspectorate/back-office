@@ -1,0 +1,7 @@
+{% macro infoBox(params) %}
+	{% set classList = ['pins-info-box govuk-body govuk-!-padding-9 govuk-!-font-weight-regular govuk-!-font-size-24', params.classes] %}
+
+	<div class="{{ classList | className }}">
+		{{ params.text }}
+	</div>
+{% endmacro %}

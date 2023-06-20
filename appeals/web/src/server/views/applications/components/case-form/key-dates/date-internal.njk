@@ -1,0 +1,51 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro dateInternal(values, errors) %}
+<div class="govuk-form-group {{ 'govuk-form-group--error' if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) else '' }}">
+	<label class="govuk-label font-weight--700" for="submissionDateInternal">
+		Anticipated submission date internal
+	</label>
+	<div id="submissionDateInternal-hint" class="govuk-hint">
+		for example, 27 03 2023
+	</div>
+	{% if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) %}
+		<p id="submissionDateInternal-error" class="govuk-error-message">
+			<span class="govuk-visually-hidden">Error:</span> {{ errors['keyDates.submissionDateInternal'].msg }}
+		</p>
+	{% endif %}
+	<div class="govuk-grid-column-one-third">
+		<div class="govuk-grid-row pins-date-form-group">
+			{{ govukInput({
+				label: {
+					text: "Day",
+					classes: "govuk-hint"
+				},
+				id: "keyDates.submissionDateInternal.day",
+				name: "keyDates.submissionDateInternal.day",
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'dd'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.day'],
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
+			}) }}
+			{{ govukInput({
+				label: {
+					text: "Month",
+					classes: "govuk-hint"
+				},
+				id: "keyDates.submissionDateInternal.month",
+				name: "keyDates.submissionDateInternal.month",
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'MM'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.month'],
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
+			}) }}
+			{{ govukInput({
+				label: {
+					text: "Year",
+					classes: "govuk-hint"
+				},
+				id: "keyDates.submissionDateInternal.year",
+				name: "keyDates.submissionDateInternal.year",
+				value: values['keyDates.submissionDateInternal'] | datestamp({format: 'yyyy'}) if values['keyDates.submissionDateInternal'] else values['keyDates.submissionDateInternal.year'],
+				errorMessage: (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false)
+			}) }}
+		</div>
+	</div>
+</div>
+{% endmacro %}
