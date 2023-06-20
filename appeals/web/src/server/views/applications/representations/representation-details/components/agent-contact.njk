@@ -1,0 +1,109 @@
+{% macro agentContact(agentData) %}
+	<h3 class="govuk-heading-m">Agent contact details</h3>
+	<dl class="govuk-summary-list">
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
+			<dt class="govuk-summary-list__key">
+				Organisation name
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.orgName }}
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="#">
+					Change<span class="govuk-visually-hidden">organisation name</span>
+				</a>
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
+			<dt class="govuk-summary-list__key">
+				Name
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.name }}
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions govuk-summary-list__row--no-border">
+			<dt class="govuk-summary-list__key">
+				Email address
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.email }}
+			</dd>
+
+		</div>
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+			<dt class="govuk-summary-list__key">
+				Telephone number
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.phoneNumber }}
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row">
+			<dt class="govuk-summary-list__key">
+				Address
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.addressLine1 }} </br>
+
+				{% if agentData.addressLine2 %}
+					{{ agentData.addressLine2 }} </br>
+				{% endif %}
+
+				{% if agentData.town %}
+					{{ agentData.town }} </br>
+				{% endif %}
+
+				{% if agentData.county %}
+					{{ agentData.county }} </br>
+				{% endif %}
+
+				{{ agentData.postcode }}
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="#">
+					Change<span class="govuk-visually-hidden"> address</span>
+				</a>
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row">
+			<dt class="govuk-summary-list__key">
+				Preferred contact method
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.preferredContact if agentData.preferredContact else 'Email' }}
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="#">
+					Change<span class="govuk-visually-hidden"> preferred contact method</span>
+				</a>
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row">
+			<dt class="govuk-summary-list__key">
+				Type
+			</dt>
+			<dd class="govuk-summary-list__value">
+
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="#">
+					Change<span class="govuk-visually-hidden"> type</span>
+				</a>
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row">
+			<dt class="govuk-summary-list__key">
+				Under 18
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ agentData.under18 }}
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="#">
+					Change<span class="govuk-visually-hidden"> under 18</span>
+				</a>
+			</dd>
+		</div>
+	</dl>
+{% endmacro %}

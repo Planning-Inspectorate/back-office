@@ -1,0 +1,10 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% macro sector(values, errors, sectors) %}
+	{{ govukRadios({
+		name: 'sectorName',
+		idPrefix: 'sectorName',
+		errorMessage: errors.sectorName | errorMessage,
+		items: sectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.sectorName})
+	}) }}
+{% endmacro %}

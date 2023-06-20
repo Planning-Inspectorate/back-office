@@ -1,0 +1,9 @@
+
+.pins-content--sticky {
+  position: sticky;
+  top: 0;
+}
+
+html:has(#rr-table) {
+  scroll-behavior: unset;
+}

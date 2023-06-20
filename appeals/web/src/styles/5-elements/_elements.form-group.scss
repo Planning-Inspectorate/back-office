@@ -1,0 +1,50 @@
+@import "../govuk-frontend/govuk/settings/_spacing";
+@import "../govuk-frontend/govuk/settings/media-queries";
+@import "../govuk-frontend/govuk/helpers/_spacing";
+@import "../govuk-frontend/govuk/helpers/_media-queries";
+
+.pins-applications-create .govuk-form-group {
+	@include govuk-responsive-margin(7, "bottom");
+
+	.govuk-form-group:last-of-type {
+		margin-bottom: 0; // Remove margin from last item in nested groups
+	}
+}
+
+.pins-date-form-group {
+	display: flex;
+	justify-content: space-between;
+	.govuk-form-group {
+		width: 15%;
+		box-sizing: unset;
+		margin-bottom: 0;
+
+		&:nth-child(3) {
+			width: 30%;
+		}
+		&.govuk-form-group--error {
+			border-left: 0;
+			padding-left: 0;
+		}
+	}
+}
+
+.pins-time-form-group {
+	display: flex;
+	.govuk-form-group {
+		width: 19%;
+		box-sizing: unset;
+		margin-bottom: 0;
+
+		&:nth-child(2) {
+			width: 1rem;
+			line-height: 2.25rem;
+			text-align: center;
+		}
+
+		&.govuk-form-group--error {
+			border-left: 0;
+			padding-left: 0;
+		}
+	}
+}

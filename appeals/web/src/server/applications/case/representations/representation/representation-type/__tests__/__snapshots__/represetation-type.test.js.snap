@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation representation type GET /applications-service/case/1/relevant-representations/representation-type should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                        <h1 class=\\"govuk-fieldset__heading\\"> Representation type</h1>
+                    </legend>
+                    <div class=\\"govuk-form-group\\">
+                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Local authorities\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Local authorities</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Members of the public/businesses\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">Members of the public/businesses</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Non-statutory organisations\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">Non-statutory organisations</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-4\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Statutory consultees\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-4\\">Statutory consultees</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-5\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Parish councils\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-5\\">Parish councils</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</main>"
+`;
+
+exports[`Representation representation type POST /applications-service/case/1/relevant-representations/representation-type Field validation: should show validation error if no option selected 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#type\\">Select one option</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                        <h1 class=\\"govuk-fieldset__heading\\"> Representation type</h1>
+                    </legend>
+                    <div class=\\"govuk-form-group govuk-form-group--error\\">
+                        <p id=\\"type-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Select one option</p>
+                        <div                         class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Local authorities\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Local authorities</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Members of the public/businesses\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">Members of the public/businesses</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Non-statutory organisations\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">Non-statutory organisations</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-4\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Statutory consultees\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-4\\">Statutory consultees</label>
+                            </div>
+                            <div class=\\"govuk-radios__item\\">
+                                <input class=\\"govuk-radios__input\\" id=\\"type-5\\" name=\\"type\\" type=\\"radio\\"
+                                value=\\"Parish councils\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-5\\">Parish councils</label>
+                            </div>
+                    </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+        </fieldset>
+        </form>
+        </div>
+        </div>
+</main>"
+`;

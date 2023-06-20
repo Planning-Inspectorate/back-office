@@ -1,0 +1,48 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./case-edit-link.component.njk" import caseEditLink %}
+
+{% macro caseDetailsTable(case, domainType, isPublishPage) %}
+	{% set regionNames = [] %}
+	{% for item in case.geographicalInformation.regions %}
+		{% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
+	{% endfor %}
+
+	{% set gridReferences = '' %}
+	{% if case.geographicalInformation.gridReference.easting %}
+		{% set gridReferences = case.geographicalInformation.gridReference.easting + ' (Easting)' %}
+	{% endif %}
+	{% set gridReferences = gridReferences + '<br>' %}
+	{% if case.geographicalInformation.gridReference.northing %}
+		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
+	{% endif %}
+
+	{% set rowsData = [
+		{title: 'Project name', value: case.title, url: 'name' },
+		{title: 'Project description', value: case.description, url: 'description' },
+		{title: 'Project email address', value: case.caseEmail, url: 'team-email' },
+		{title: 'Project location', value: case.geographicalInformation.locationDescription, url: 'project-location' },
+		{title: 'Grid references', value: gridReferences, url: 'grid-references' },
+		{title: 'Region(s)', value: regionNames, url: 'regions' },
+		{title: 'Map zoom level', value: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level' }
+	] %}
+
+	{% set tableRows = [] %}
+	{% for rowData in rowsData %}
+		{% set cols = [{text: rowData.title}, {html: rowData.value}] %}
+		{% set linkCol =  {
+			html: caseEditLink({editStepUrl:rowData.url, caseId: case.id, domainType: domainType}),
+			classes: 'text-align--right pins-table__cell--s'
+		} %}
+		{% if not isPublishPage %}
+			{% set cols = (cols.push(linkCol), cols) %}
+		{% endif %}
+
+		{% set tableRows = (tableRows.push(cols), tableRows) %}
+	{% endfor %}
+
+
+	{{ govukTable({
+		firstCellIsHeader: true,
+		rows: tableRows
+	}) }}
+{% endmacro %}

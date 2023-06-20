@@ -1,0 +1,7 @@
+{% macro publishedTag(isPublished) %}
+	{# TODO: Handle unpublished case with different colour? #}
+	{% set publishedTagColor = 'green' if isPublished else 'grey' %}
+	{% set publishedLabel = 'Published' if isPublished else 'Not Published'%}
+
+	<strong class="govuk-tag govuk-tag--{{publishedTagColor}}">{{ publishedLabel }}</strong>
+{% endmacro %}

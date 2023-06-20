@@ -1,0 +1,9 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+.pins-info-box {
+	background-color: colors.govuk-colour("light-grey");
+	border-top: 1px solid colors.$govuk-border-colour;
+	border-bottom: 1px solid colors.$govuk-border-colour;
+	color: colors.$govuk-text-colour;
+	text-align: center;
+}

@@ -1,0 +1,62 @@
+{% extends "./layouts/applications-case-layout.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block sectionContent %}
+	{% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
+	{% set applicantFirstEmail = case.applicants[0].email %}
+	{% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
+	{% set applicantFirstWebsite = case.applicants[0].website %}
+	{% set userIsInspector = domainType === 'inspector' %}
+
+	<h2 class="govuk-heading-m">Latest key dates</h2>
+	<ul class="govuk-list govuk-list--bullet">
+		<li>Anticipated submission date: {{ case.keyDates.submissionDatePublished }}</li>
+		<li>Anticipated submission date internal: {{ case.keyDates.submissionDateInternal | datestamp({format: 'dd/MM/yyyy'}) }}</li>
+	</ul>
+
+	{% if not userIsInspector %}
+		<a class="govuk-link" href="#">Update key dates</a>
+	{% endif %}
+
+	{% set applicantFirstWebsiteValue = '' %}
+	{% if applicantFirstWebsite %}
+		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+	{% endif %}
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+	<h2 class="govuk-heading-m">Summary information</h2>
+	{{ govukSummaryList({
+		classes: 'govuk-summary-list--no-border',
+		rows: [
+			{
+				key: { text: "Case reference" },
+				value: { text: case.reference }
+			},
+			{
+				key: { text: "Applicant Information" },
+				value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
+			},
+			{
+				key: { text: "Applicant website" },
+				value: { html: applicantFirstWebsiteValue }
+			},
+			{
+				key: { text: "Project email" },
+				value: { text: case.caseEmail }
+			},
+			{
+				key: { text: "Project page" },
+				value: { html:  '<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>' }
+			}
+		]
+	}) }}
+
+	{% if not userIsInspector %}
+		<a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">
+		Update project information</a></li>
+	{% endif %}
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+	<h2 class="govuk-heading-m">Project team</h2>
+	<p class="govuk-body">No project members have been added yet</p>
+{% endblock %}

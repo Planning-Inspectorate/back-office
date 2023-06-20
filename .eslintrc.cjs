@@ -28,7 +28,12 @@ module.exports = {
 			}
 		},
 		{
-			files: ['apps/web/src/client/**', 'apps/web/testing/app/mocks/client-side.js'],
+			files: [
+				'apps/web/src/client/**',
+				'apps/web/testing/app/mocks/client-side.js',
+				'appeals/web/src/client/**',
+				'appeals/web/testing/app/mocks/client-side.js'
+			],
 			env: {
 				browser: true
 			}

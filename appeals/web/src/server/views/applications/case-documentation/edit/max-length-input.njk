@@ -1,0 +1,31 @@
+{% macro maxLengthInput(layout, value, errors) %}
+	{% set error = errors[layout.metaDataName] %}
+
+    <div class="govuk-form-group {{ "govuk-form-group--error" if error else "" }}">
+
+		<label class="govuk-label font-weight--700" for="{{ layout.metaDataName }}">
+            {{ layout.label }}
+        </label>
+
+        <div id="{{ layout.metaDataName }}-hint" class="govuk-hint">
+            {{ layout.hint }}
+        </div>
+
+        {% if errors[layout.metaDataName] %}
+            <p id="{{layout.metaDataName}}-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span>
+                {{ (error | errorMessage).text }}
+            </p>
+        {% endif %}
+
+        <input
+			class="govuk-input govuk-!-width-two-thirds {{ "govuk-input--error" if error else " " }}"
+			id="{{ layout.metaDataName }}"
+			name="{{ layout.metaDataName }}"
+			type="text"
+			value="{{ value }}"
+			aria-describedby="{{ layout.metaDataName }}-hint"
+			maxlength="{{ layout.maxLength }}">
+	</div>
+
+{% endmacro %}

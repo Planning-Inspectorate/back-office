@@ -1,0 +1,18 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% macro description(values, errors) %}
+	{{ govukTextarea({
+		name: "description",
+		id: "description",
+		label: {
+			text: "Description of the project",
+			classes: 'font-weight--700'
+		},
+		errorMessage: errors.description | errorMessage,
+		classes: "govuk-!-width-three-quarters",
+		value: values.description,
+		hint: {
+			text: "for example, An offshore wind generating station of capacity up to 285 MW"
+		}
+	}) }}
+{% endmacro %}

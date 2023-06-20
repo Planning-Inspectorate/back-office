@@ -1,0 +1,66 @@
+{% extends "./layouts/applications-case-layout.njk" %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "./components/case-info-table.component.njk" import caseInfoTable %}
+{% from "./components/case-details-table.component.njk" import caseDetailsTable %}
+{% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
+
+{% set userIsNotInspector = domainType !== 'inspector' %}
+
+{% set successBannerHtml %}
+	<h3 class="govuk-notification-banner__heading">
+		{% if isFirstTimePublished %} Project page published {% else %}Project page updates published  {% endif %}
+	</h3>
+	<p class="govuk-body">{% if isFirstTimePublished %} The project page will show on the NSIPs website within the hour{% else %} The project page updates will show on the NSIPs website within the hour{% endif %}</p>
+{% endset %}
+
+
+{% block sectionContent %}
+	{% if showPublishedBanner %}
+		{{ govukNotificationBanner({
+			html: successBannerHtml,
+			type: 'success'
+		}) }}
+	{% endif %}
+
+	<h2 class="govuk-heading-m">Project information</h2>
+
+	{{ caseInfoTable(case) }}
+
+	{% if userIsNotInspector %}
+		{% if case.publishedDate and case.publishedDate < case.modifiedDate %}
+			<p class="govuk-body-m colour--red font-weight--700">There are unpublished changes that have been made.
+				Publish
+				the project for changes to be applied.</p>
+		{% endif %}
+
+		<a class="govuk-link govuk-body-m" href="{{ 'case-view'|url({caseId:case.id, step: 'preview-and-publish'}) }}">
+			Preview and publish project
+		</a>
+	{% endif %}
+
+	{{ govukAccordion({
+		classes: 'govuk-!-margin-top-5',
+		items: [
+			{
+				heading: { text: 'Project details' },
+				content: {
+				html: caseDetailsTable(case, domainType)
+			}
+			},
+			{
+				heading: { text: 'Applicant information' },
+				content: {
+				html: caseApplicantTable(case, domainType)
+			}
+			}
+		]
+	}) }}
+
+	{% if case.publishedDate and userIsNotInspector %}
+		<a href="../{{ caseId }}/unpublish" class="govuk-link colour--red govuk-body-m">Unpublish project</a>
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,45 @@
+@use "sass:meta";
+@use "./settings.config" as settings-config;
+
+//* ========================================================================
+//  # GLOBAL SETTINGS
+//  ======================================================================== */
+
+// The global settings file contains any project-wide variables; things that
+// need to be made available to the entire codebase.
+
+/// Z-index layers map.
+/// @group global-settings
+$z-layers: (
+	"tooltip": 1110,
+	"popover": 1100,
+	// The big difference between these and the bellow (modal) is to cater for stacked modals.
+	"modal-layer":
+		(
+			"modal": 1050,
+			"modal-backdrop": 1040
+		),
+	"nav": 600,
+	"above": 100,
+	"default": 1,
+	"below": -100,
+	"seabed": -10000
+) !default;
+
+/// Characters which are escaped by the escape-svg function.
+/// @group global-settings
+$escaped-characters: (
+	("<", "%3c"),
+	(">", "%3e"),
+	("#", "%23"),
+	("(", "%28"),
+	(")", "%29")
+) !default;
+
+// Prefix for :root CSS variables
+$variable-prefix: pi- !default;
+
+/// pins colours
+$pins-colours-grey-100: #F3F2F1;
+$pins-colours-blue-500: #1D70B8;
+$pins-colours-green-200: #13A19B;

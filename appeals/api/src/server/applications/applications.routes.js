@@ -1,0 +1,70 @@
+import { Router as createRouter } from 'express';
+import { asyncHandler } from '../middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-request-parameters.js';
+import { applicationRoutes } from './application/application.routes.js';
+import { documentRoutes } from './application/documents/document.routes.js';
+import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
+import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
+import { caseTeamRoutes } from './case-team/case-team.routes.js';
+import { updateDocumentStatus } from './documents/documents.controller.js';
+import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
+import { examinationTimetableItemRoutes } from './examination-timetable-items/examination-timetable-items.routes.js';
+import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
+import { inspectorRoutes } from './inspector/inspector.routes.js';
+import { regionRoutes } from './region/region.routes.js';
+import { caseSearchRoutes } from './search/case-search.routes.js';
+import { sectorRoutes } from './sector/sector.routes.js';
+import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
+
+const router = createRouter();
+
+router.use('/case-team', caseTeamRoutes);
+
+router.use('/case-admin-officer', caseAdminOfficerRoutes);
+
+router.use('/inspector', inspectorRoutes);
+
+router.use('/search', caseSearchRoutes);
+
+// reference data
+router.use('/region', regionRoutes);
+router.use('/sector', sectorRoutes);
+router.use('/zoom-level', zoomLevelRoutes);
+router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
+router.use('/examination-timetable-items', examinationTimetableItemRoutes);
+
+router.use('/', documentRoutes);
+
+router.use('/', fileFoldersRoutes);
+
+router.use('/', applicationRoutes);
+
+router.patch(
+	'/documents/:documentGUID/status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path =  '/applications/documents/{documentGUID}/status'
+        #swagger.description = 'Updates document status from state machine'
+        #swagger.parameters['documentGUID'] = {
+            in: 'path',
+            description: 'Document GUID',
+			required: true,
+			type: 'string'
+        }
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Machine Action',
+            schema: { machineAction: 'uploading' }
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { caseId: 1, guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24', status: 'awaiting_virus_check'}
+        }
+	 */
+	validateDocumentGUID,
+	validateMachineAction,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateDocumentStatus)
+);
+
+export { router as applicationsRoutes };

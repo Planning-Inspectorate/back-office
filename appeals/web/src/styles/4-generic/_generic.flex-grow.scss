@@ -1,0 +1,9 @@
+$flex-grow-attrs: (
+	1: 1
+);
+
+@each $key, $val in $flex-grow-attrs {
+	.flex-grow--#{$key} {
+		flex-grow: #{$val};
+	}
+}

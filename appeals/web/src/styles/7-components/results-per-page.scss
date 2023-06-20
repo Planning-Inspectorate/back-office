@@ -1,0 +1,25 @@
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+
+.pins-content--sticky {
+  position: sticky;
+  top: 0;
+}
+
+.results-per-page {
+
+  &__button {
+	background: none!important;
+	border: none;
+	padding: 0!important;
+
+  }
+  &__button-link {
+	color:  colors.govuk-colour('blue');
+	text-decoration: underline;
+	cursor: pointer;
+  }
+
+  &__button-link-disabled {
+	color: colors.govuk-colour('black');
+  }
+}

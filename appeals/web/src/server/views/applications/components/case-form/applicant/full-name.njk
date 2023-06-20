@@ -1,0 +1,24 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro fullName(values, errors) %}
+	{{ govukInput({
+		label: {
+			text: "First name",
+			classes: 'font-weight--700'
+		},
+		id: "applicant.firstName",
+		name: "applicant.firstName",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.firstName']
+	}) }}
+	{{ govukInput({
+		label: {
+			text: "Last name",
+			classes: 'font-weight--700'
+		},
+		id: "applicant.lastName",
+		name: "applicant.lastName",
+		classes: "govuk-!-width-one-third",
+		value: values['applicant.lastName']
+	}) }}
+{% endmacro %}

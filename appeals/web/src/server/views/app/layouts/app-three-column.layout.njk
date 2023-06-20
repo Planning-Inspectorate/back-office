@@ -1,0 +1,39 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+
+{% block content %}
+  {% block pageHeading %}
+    {% if pageTitle %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <h1 class="govuk-heading-xl">
+            {% if pageCaption %}
+              <span class="govuk-caption-xl">{{ pageCaption }}</span>
+            {% endif %}{{ pageHeading or pageTitle }}
+          </h1>
+        </div>
+      </div>
+    {% endif %}
+  {% endblock %}
+  <div class="govuk-grid-row">
+    <div data-test-id="pageLeft" class="govuk-grid-column-one-quarter pins-content--sticky">
+      {% block pageLeft %}{% endblock %}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% if errors %}
+        {{ 
+          govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: errors | mapToErrorSummary
+          })
+        }}
+      {% endif %}
+      {% block pageContent %}{% endblock %}
+    </div>
+    <div data-test-id="pageRight" class="govuk-grid-column-one-quarter">
+      {% block pageRight %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
