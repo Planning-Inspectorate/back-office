@@ -305,7 +305,7 @@ extends:
               dockerfilePath: $(Build.SourcesDirectory)/appeals/api/Dockerfile
               repository: back-office/back-office-appeals-api
 
-			- name: Build Appeals Web
+      - name: Build Appeals Web
         condition: >-
           and(
             succeeded(),
