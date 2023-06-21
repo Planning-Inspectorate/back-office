@@ -6,7 +6,7 @@ import { getSkipValue } from '../utils/database-pagination.js';
 /** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
 /**
- * @typedef {import('@prisma/client').Prisma.PrismaPromise<T>} PrismaPromise
+ * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
  */
 

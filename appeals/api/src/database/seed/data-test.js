@@ -366,7 +366,7 @@ function createRepresentation(caseReference, index) {
 
 /**
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#db-client').PrismaClient} databaseConnector
  * @param {{name: string, displayNameEn: string}} subSector
  * @param {number} index
  */
@@ -448,7 +448,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 };
 
 /**
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#db-client').PrismaClient} databaseConnector
  */
 export async function seedTestData(databaseConnector) {
 	const appeals = [];

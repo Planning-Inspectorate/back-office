@@ -9,7 +9,7 @@ beforeEach(() => {
 
 test('modifyPrismaDocumentQueryMiddleware() testing delete action should convert action to update', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'delete',
 		model: 'Document',
@@ -31,7 +31,7 @@ test('modifyPrismaDocumentQueryMiddleware() testing delete action should convert
 
 test('modifyPrismaDocumentQueryMiddleware() testing findFirst action', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'findFirst',
 		model: 'Document',
@@ -54,7 +54,7 @@ test('modifyPrismaDocumentQueryMiddleware() testing findFirst action', () => {
 
 test('modifyPrismaDocumentQueryMiddleware() testing count action', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'count',
 		model: 'Document',
@@ -76,7 +76,7 @@ test('modifyPrismaDocumentQueryMiddleware() testing count action', () => {
 
 test('modifyPrismaDocumentQueryMiddleware() testing findUnique action should convert action to findFirst', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'findUnique',
 		model: 'Document',
@@ -98,7 +98,7 @@ test('modifyPrismaDocumentQueryMiddleware() testing findUnique action should con
 
 test('modifyPrismaDocumentQueryMiddleware() testing findMany action when isDeleted is included', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'findMany',
 		model: 'Document',
@@ -123,7 +123,7 @@ test('modifyPrismaDocumentQueryMiddleware() testing findMany action when isDelet
 
 test('modifyPrismaDocumentQueryMiddleware() testing findMany action when isDeleted is not included', () => {
 	// GIVEN
-	/** @type {Partial<import('@prisma/client').Prisma.MiddlewareParams>} */
+	/** @type {Partial<import('#db-client').Prisma.MiddlewareParams>} */
 	const parameters = {
 		action: 'findMany',
 		model: 'Document',

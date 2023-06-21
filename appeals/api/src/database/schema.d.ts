@@ -1,5 +1,5 @@
-import * as schema from '@prisma/client';
-import { ZoomLevel } from '@prisma/client';
+import * as schema from '#db-client';
+import { ZoomLevel } from '#db-client';
 import { GridReference } from 'packages/applications';
 import { string_to_uuid } from 'rhea/typings/util';
 import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/appeals/constants';
@@ -28,7 +28,7 @@ export {
 	Sector,
 	SubSector,
 	ZoomLevel
-} from '@prisma/client';
+} from '#db-client';
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;

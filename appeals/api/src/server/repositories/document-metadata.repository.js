@@ -3,7 +3,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 /**
 
  * @param {any} metadata
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
 
 export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
@@ -35,7 +35,7 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 /**
 
  * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
 
 export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
@@ -50,7 +50,7 @@ export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
  *
  * @async
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
 export const deleteDocument = (documentGuid) => {
 	return databaseConnector.document.delete({
@@ -66,7 +66,7 @@ export const deleteDocument = (documentGuid) => {
  *
  * @param {string} documentGuid
  * @param {number} version
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion |null>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion |null>}
  */
 
 export const getById = (documentGuid, version = 1) => {
@@ -97,7 +97,7 @@ export const getById = (documentGuid, version = 1) => {
 
  *
 
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
  */
 
 export const getAll = () => {
@@ -108,7 +108,7 @@ export const getAll = () => {
  * Get all document metadata
  *
  * @param {string} guid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion[] |null>}
  */
 
 export const getAllByDocumentGuid = (guid) => {
@@ -123,7 +123,7 @@ export const getAllByDocumentGuid = (guid) => {
 
  * @param {string} documentGuid
  * @param {import('@pins/api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.DocumentVersion>}
  */
 
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
