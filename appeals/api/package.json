@@ -82,9 +82,9 @@
     "swagger-autogen": "^2.21.4"
   },
 	"imports": {
-    "#db-client": {
-      "default": "./src/server/utils/db-client/index.js",
+		"#db-client": {
+			"default": "./src/server/utils/db-client/index.js",
 			"node": "@prisma/client"
-    }
-  }
+		}
+	}
 }
