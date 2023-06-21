@@ -1,9 +1,13 @@
 import { LevelWithSilent } from 'pino';
 
 export interface EnvironmentConfig {
+	// The web application hostname (e.g. back-office-dev.planninginspectorate.gov.uk)
+	appHostname: string;
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
+	// redirect path for MSAL auth, defaults to /auth/redirect
+	authRedirectPath: string;
 	blobStorageUrl: string;
 	bundleAnalyzer: boolean;
 	buildDir: string;
