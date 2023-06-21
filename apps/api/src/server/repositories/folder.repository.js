@@ -95,6 +95,22 @@ export const createFolder = (folder) => {
 };
 
 /**
+ * Deletes many folders by array of ids
+ *
+ * @param {number[]} idsToDelete
+ * @returns
+ */
+export const deleteFolderMany = (idsToDelete) => {
+	return databaseConnector.folder.deleteMany({
+		where: {
+			id: {
+				in: idsToDelete
+			}
+		}
+	});
+};
+
+/**
  * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
  *
  * @param {number} caseId
@@ -138,6 +154,19 @@ export const createFolders = (caseId) => {
 	}
 
 	return foldersCreated;
+};
+
+/**
+ *
+ * @param {number} folderId
+ * @param {*} updateValues
+ * @returns {Promise<(Folder |null)>}
+ */
+export const updateFolderById = (folderId, updateValues) => {
+	return databaseConnector.folder.update({
+		where: { id: folderId },
+		data: updateValues
+	});
 };
 
 /**
