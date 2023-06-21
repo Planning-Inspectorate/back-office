@@ -65,7 +65,7 @@ extends:
                       workingDirectory: $(Build.Repository.LocalPath)/appeals/api
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
-                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-app-back-office-appeals-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-appeals-api
@@ -74,7 +74,7 @@ extends:
             steps:
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
-                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-app-back-office-appeals-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
