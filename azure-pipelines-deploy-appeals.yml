@@ -77,6 +77,6 @@ extends:
                   appName: pins-app-back-office-appeals-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
-                  repository: back-office/back-office-web
+                  repository: back-office/appeals-web
     globalVariables:
       - template: azure-pipelines-variables.yml@self
