@@ -27,37 +27,39 @@
 {%- endset -%}
 
 {%- block pageContent -%}
-	{{ appealDetailsSummary({
-			appealSite: appeal.siteAddress,
-			localPlanningAuthority: appeal.localPlanningAuthority
-		})
-	}}
-	{{ summaryLists | safe }}
-	{{ govukRadios({
-		name: "reviewOutcome",
-		fieldset: {
-			legend: {
-				text: "What is the outcome of your review?",
-				classes: "govuk-fieldset__legend--m"
-			}
-		},
-		items: [
-			{
-				value: "valid",
-				text: "Valid"
+	<form method="post" novalidate="novalidate">
+		{{ appealDetailsSummary({
+				appealSite: appeal.siteAddress,
+				localPlanningAuthority: appeal.localPlanningAuthority
+			})
+		}}
+		{{ summaryLists | safe }}
+		{{ govukRadios({
+			name: "reviewOutcome",
+			fieldset: {
+				legend: {
+					text: "What is the outcome of your review?",
+					classes: "govuk-fieldset__legend--m"
+				}
 			},
-			{
-				value: "invalid",
-				text: "Invalid"
-			},
-			{
-				value: "incomplete",
-				text: "Incomplete"
-			}
-		]
-	}) }}
-	{{ govukButton({
-		text: "Continue",
-		type: "submit"
-	}) }}
+			items: [
+				{
+					value: "valid",
+					text: "Valid"
+				},
+				{
+					value: "invalid",
+					text: "Invalid"
+				},
+				{
+					value: "incomplete",
+					text: "Incomplete"
+				}
+			]
+		}) }}
+		{{ govukButton({
+			text: "Continue",
+			type: "submit"
+		}) }}
+	</form>
 {%- endblock -%}
