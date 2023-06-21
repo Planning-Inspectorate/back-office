@@ -1,4 +1,9 @@
-import { getTitles } from './utils/get-titles.js';
+import { getPageTitles } from '../utils/get-page-titles.js';
+
+const titles = {
+	default: 'Representation type',
+	change: 'Change representation type'
+};
 
 /**
  * @typedef {object|*} Locals
@@ -13,7 +18,7 @@ import { getTitles } from './utils/get-titles.js';
  */
 
 export const getRepresentationTypeViewModel = ({ repMode }, { representation }) => ({
-	...getTitles(repMode),
+	...getPageTitles(repMode, titles),
 	backLinkUrl: representation.pageLinks.backLinkUrl,
 	representationTypes: representationTypeOptions(representation)
 });

@@ -1,4 +1,9 @@
-import { getTitles } from './utils/get-titles.js';
+import { getPageTitles } from '../utils/get-page-titles.js';
+
+const titles = {
+	default: 'Under 18',
+	change: 'Change representation age'
+};
 
 /**
  * @typedef {object|*} Locals
@@ -19,7 +24,7 @@ import { getTitles } from './utils/get-titles.js';
  */
 
 export const getRepresentationTypeViewModel = ({ repMode, repType }, { representation }) => ({
-	...getTitles(repMode),
+	...getPageTitles(repMode, titles),
 	backLinkUrl: representation.pageLinks.backLinkUrl,
 	name: 'under18',
 	radioItems: getListOfOptions(representation[repType])
