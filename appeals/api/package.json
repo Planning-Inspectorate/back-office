@@ -80,5 +80,11 @@
     "rimraf": "^3.0.2",
     "supertest": "6.2.3",
     "swagger-autogen": "^2.21.4"
+  },
+	"imports": {
+    "#db-client": {
+      "default": "./src/server/utils/db-client/index.js",
+			"node": "@prisma/client"
+    }
   }
 }
