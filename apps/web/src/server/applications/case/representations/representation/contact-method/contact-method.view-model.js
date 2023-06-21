@@ -1,3 +1,5 @@
+import { getTitles } from './utils/get-titles.js';
+
 /**
  * @param {object} representation
  * @param {string} representation.contactMethod
@@ -44,12 +46,9 @@ const getContactMethodOptions = ({ contactMethod }) => {
  * @param {Locals} locals
  * @returns {object}
  */
-export const getContactMethodViewModel = (
-	{ repType, repId },
-	{ prefixBackLink, representation }
-) => ({
-	backLinkUrl: `${prefixBackLink}/address-details?repType=${repType}&repId=${repId}`,
+export const getContactMethodViewModel = ({ repType, repMode }, { representation }) => ({
+	...getTitles(repType, repMode),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageKey: repType,
-	pageTitle: 'Preferred contact method',
 	contactMethodOptions: getContactMethodOptions(representation[repType])
 });

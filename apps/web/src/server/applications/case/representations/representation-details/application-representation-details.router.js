@@ -10,10 +10,13 @@ import {
 	postRepresentationDetailsChangeRedactionController
 } from './change-redaction/change-redaction.controller.js';
 import { representationChangeRedactionValidation } from './change-redaction/change-redaction.validator.js';
+import { addRepresentationToLocals } from '../representation/representation.middleware.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
-representationDetailsRouter.route('/').get(asyncRoute(repsDetailsController.relevantRepDetails));
+representationDetailsRouter
+	.route('/')
+	.get(addRepresentationToLocals, asyncRoute(repsDetailsController.relevantRepDetails));
 
 representationDetailsRouter
 	.route('/redact-representation')

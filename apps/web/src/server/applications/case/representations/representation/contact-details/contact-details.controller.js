@@ -1,9 +1,9 @@
 import { patchRepresentation, postRepresentation } from '../representation.service.js';
 import {
 	getFormattedErrorSummary,
-	getRepresentationPageUrl,
 	replaceRepresentaionValuesAsBodyValues
 } from '../representation.utilities.js';
+import { buildRepresentationPageURL } from '../utils/get-representation-page-urls.js';
 import { getContactDetailsViewModel } from './contact-details.view-model.js';
 
 const view = 'applications/representations/representation/contact-details.njk';
@@ -12,12 +12,8 @@ const view = 'applications/representations/representation/contact-details.njk';
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getContactDetails = async (req, res) => {
-	const { query } = req;
-	return res.render(view, {
-		...getContactDetailsViewModel(query, res.locals)
-	});
-};
+export const getContactDetails = async (req, res) =>
+	res.render(view, getContactDetailsViewModel(req.query, res.locals));
 
 /**
  * @param {import("express").Request} req
@@ -40,15 +36,13 @@ export const postContactDetails = async (req, res) => {
 		});
 	}
 
-	const nextPagePath = `address-details`;
-
-	let redirectUrl = getRepresentationPageUrl(nextPagePath, String(repId), String(repType));
+	let redirectUrl = representation.pageLinks.redirectUrl;
 
 	if (repId) await patchRepresentation(caseId, String(repId), String(repType), body);
 	else {
 		const { id } = await postRepresentation(caseId, String(repType), body);
 
-		redirectUrl = getRepresentationPageUrl(nextPagePath, id, String(repType));
+		redirectUrl = buildRepresentationPageURL('/address-details', caseId, id, String(repType));
 	}
 
 	return res.redirect(redirectUrl);

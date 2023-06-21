@@ -1,3 +1,5 @@
+import { getTitles } from './utils/get-titles.js';
+
 /**
  * @typedef {object|*} Locals
  * @property {boolean} isRepresented
@@ -16,14 +18,8 @@
  * @returns {object}
  */
 
-export const getContactDetailsViewModel = (
-	{ repType, repId },
-	{ isRepresented, prefixBackLink }
-) => ({
-	backLinkUrl: isRepresented
-		? prefixBackLink
-		: `${prefixBackLink}/representation-entity?repType=${repType}&repId=${repId}`,
-	pageKey: repType,
-	pageTitle: isRepresented ? 'Add contact details' : 'Add agent contact details',
-	pageHeading: isRepresented ? 'Contact details' : 'Agent contact details'
+export const getContactDetailsViewModel = ({ repType, repMode }, { representation }) => ({
+	...getTitles(repType, repMode),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
+	pageKey: repType
 });

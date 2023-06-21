@@ -1,0 +1,102 @@
+import {
+	getRepresentaionDetailsPageUrl,
+	getRepresentationBaseUrl,
+	repRoutes
+} from './get-representation-page-urls.js';
+
+/**
+ * @typedef {object} PageURLs
+ * @property {string} addressDetails
+ * @property {string} agentAddressDetails
+ * @property {string} contactDetails
+ * @property {string} agentContactDetails
+ * @property {string} contactMethod
+ * @property {string} agentContactMethod
+ * @property {string} representationType
+ * @property {string} under18
+ * @property {string} representationEntity
+ * @property {string} addRepresentation
+ * @property {string} checkYourAnswers
+ */
+
+/**
+ * @typedef {object|*} MappedPageLinks
+ * @property {string} backLinkUrl
+ * @property {string} redirectUrl
+ */
+
+/**
+ * @param {string|null} backLinkUrl
+ * @param {string|null} redirectUrl
+ * @returns {MappedPageLinks}
+ */
+const mappedPageLinks = (backLinkUrl, redirectUrl) => ({
+	backLinkUrl,
+	redirectUrl
+});
+
+/**
+ * @param {string} path
+ * @param {PageURLs} pageURLs
+ * @returns {MappedPageLinks}
+ */
+const getRepresentativePageLinks = (path, pageURLs) => {
+	switch (path) {
+		case repRoutes.contactDetails:
+			return mappedPageLinks(pageURLs.representationEntity, pageURLs.agentAddressDetails);
+		case repRoutes.addressDetails:
+			return mappedPageLinks(pageURLs.agentContactDetails, pageURLs.agentContactMethod);
+		case repRoutes.contactMethod:
+			return mappedPageLinks(pageURLs.agentAddressDetails, pageURLs.addRepresentation);
+		default:
+			return mappedPageLinks(null, null);
+	}
+};
+
+/**
+ * @param {string} path
+ * @param {PageURLs} pageURLs
+ * @param {string} caseId
+ * @returns {MappedPageLinks}
+ */
+const getRepresentedPageLinks = (path, pageURLs, caseId) => {
+	switch (path) {
+		case repRoutes.contactDetails:
+			return mappedPageLinks(getRepresentationBaseUrl(caseId), pageURLs.addressDetails);
+		case repRoutes.addressDetails:
+			return mappedPageLinks(pageURLs.contactDetails, pageURLs.contactMethod);
+		case repRoutes.contactMethod:
+			return mappedPageLinks(pageURLs.addressDetails, pageURLs.representationType);
+		case repRoutes.representationType:
+			return mappedPageLinks(pageURLs.contactMethod, pageURLs.under18);
+		case repRoutes.under18:
+			return mappedPageLinks(pageURLs.representationType, pageURLs.representationEntity);
+		case repRoutes.representationEntity:
+			return mappedPageLinks(pageURLs.representationType, null);
+		default:
+			return mappedPageLinks(null, null);
+	}
+};
+
+/**
+ * @param {string|undefined} repMode
+ * @param {string} path
+ * @param {string} caseId
+ * @param {string} repId
+ * @param {string} repType
+ * @param {PageURLs} pageURLs
+ * @returns {MappedPageLinks}
+ */
+export const getPageLinks = (repMode, path, caseId, repId, repType, pageURLs) => {
+	let pageLinks = mappedPageLinks(null, null);
+
+	if (repMode === 'change') {
+		const representaionDetailsPageUrl = getRepresentaionDetailsPageUrl(caseId, repId);
+		pageLinks = mappedPageLinks(representaionDetailsPageUrl, representaionDetailsPageUrl);
+	} else if (repMode === 'check')
+		pageLinks = mappedPageLinks(pageURLs.checkYourAnswers, pageURLs.checkYourAnswers);
+	else if (repType === 'represented') pageLinks = getRepresentedPageLinks(path, pageURLs, caseId);
+	else if (repType === 'representative') pageLinks = getRepresentativePageLinks(path, pageURLs);
+
+	return pageLinks;
+};

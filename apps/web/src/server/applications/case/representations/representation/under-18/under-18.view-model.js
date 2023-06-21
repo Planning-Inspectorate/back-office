@@ -1,3 +1,5 @@
+import { getTitles } from './utils/get-titles.js';
+
 /**
  * @typedef {object|*} Locals
  * @property {boolean} isRepresented
@@ -16,13 +18,9 @@
  * @returns {object}
  */
 
-export const getRepresentationTypeViewModel = (
-	{ repType, repId },
-	{ prefixBackLink, representation }
-) => ({
-	backLinkUrl: `${prefixBackLink}/representation-type?repType=${repType}&repId=${repId}`,
-	pageTitle: 'Under 18',
-	pageHeading: 'Under 18',
+export const getRepresentationTypeViewModel = ({ repMode, repType }, { representation }) => ({
+	...getTitles(repMode),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	name: 'under18',
 	radioItems: getListOfOptions(representation[repType])
 });
