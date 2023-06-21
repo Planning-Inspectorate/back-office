@@ -81,7 +81,7 @@ describe('Representation address details page', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Chose an address from the list');
+				expect(element.innerHTML).toContain('Choose an address from the list');
 			});
 
 			it('should show the enter page validation errors', async () => {
