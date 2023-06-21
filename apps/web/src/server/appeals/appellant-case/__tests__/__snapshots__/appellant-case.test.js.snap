@@ -7,166 +7,385 @@ exports[`appeal-details GET /appellant-case should render the appellant case pag
             <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Appellant case</h1>
         </div>
     </div>
-    <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
-            <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
-        </div>
-        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
-            <dd             class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
-        </div>
-    </dl>
-    <div class=\\"govuk-summary-card\\">
-        <div class=\\"govuk-summary-card__title-wrapper\\">
-            <h2 class=\\"govuk-summary-card__title\\">1. The appellant</h2>
-        </div>
-        <div class=\\"govuk-summary-card__content\\">
-            <dl class=\\"govuk-summary-list\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Name</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Another individual</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Another individual</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application reference</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>undefined</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application reference</span></a>
-                    </dd>
-                </div>
-            </dl>
-        </div>
-    </div>
-    <div class=\\"govuk-summary-card\\">
-        <div class=\\"govuk-summary-card__title-wrapper\\">
-            <h2 class=\\"govuk-summary-card__title\\">2. The appeal site</h2>
-        </div>
-        <div class=\\"govuk-summary-card__content\\">
-            <dl class=\\"govuk-summary-list\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site address</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site fully owned</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site fully owned</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site partially owned</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>No</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site partially owned</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> All owners known</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>No</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> All owners known</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Attempted to identify owners</dt>
-                    <dd                     class=\\"govuk-summary-list__value\\"><span>No</span>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
+            </div>
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
+                <dd                 class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
+            </div>
+        </dl>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">1. The appellant</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Attempted to identify owners</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Name</span></a>
                         </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advertised appeal</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>No</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Advertised appeal</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Visibility</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Visibility</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site health and safety issues</dt>
-                    <dd                     class=\\"govuk-summary-list__value\\"><span>No</span>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Another individual</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site health and safety issues</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Another individual</span></a>
                         </dd>
-                </div>
-            </dl>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application reference</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>undefined</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application reference</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-    </div>
-    <div class=\\"govuk-summary-card\\">
-        <div class=\\"govuk-summary-card__title-wrapper\\">
-            <h2 class=\\"govuk-summary-card__title\\">3. The appeal</h2>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">2. The appeal site</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site address</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site fully owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site fully owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site partially owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site partially owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> All owners known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> All owners known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Attempted to identify owners</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Attempted to identify owners</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advertised appeal</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Advertised appeal</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Visibility</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Visibility</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site health and safety issues</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site health and safety issues</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-        <div class=\\"govuk-summary-card__content\\">
-            <dl class=\\"govuk-summary-list\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"application-form.pdf\\" class=\\"govuk-link\\">application-form.pdf</a>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"decision-letter.pdf\\" class=\\"govuk-link\\">decision-letter.pdf</a>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"appeal-statement.pdf\\" class=\\"govuk-link\\">appeal-statement.pdf</a>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
-                    <dd                     class=\\"govuk-summary-list__value\\"><span>Yes</span>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">3. The appeal</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"application-form.pdf\\" class=\\"govuk-link\\">application-form.pdf</a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
                         </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
-                    <dd                     class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-1.pdf\\" class=\\"govuk-link\\">new-supporting-documents-1.pdf</a>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"decision-letter.pdf\\" class=\\"govuk-link\\">decision-letter.pdf</a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
                         </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"></dt>
-                    <dd class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-2.pdf\\" class=\\"govuk-link\\">new-supporting-documents-2.pdf</a>
-                    </dd>
-                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change</a>
-                    </dd>
-                </div>
-            </dl>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"appeal-statement.pdf\\" class=\\"govuk-link\\">appeal-statement.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-1.pdf\\" class=\\"govuk-link\\">new-supporting-documents-1.pdf</a>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"></dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-2.pdf\\" class=\\"govuk-link\\">new-supporting-documents-2.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change</a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-    </div>
-    <div class=\\"govuk-form-group\\">
-        <fieldset class=\\"govuk-fieldset\\">
-            <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">What is the outcome of your review?</legend>
-            <div class=\\"govuk-radios\\"
-            data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome\\" name=\\"reviewOutcome\\"
-                    type=\\"radio\\" value=\\"valid\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome\\">Valid</label>
+        <div class=\\"govuk-form-group\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">What is the outcome of your review?</legend>
+                <div class=\\"govuk-radios\\"
+                data-module=\\"govuk-radios\\">
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"valid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome\\">Valid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-2\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"invalid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-2\\">Invalid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-3\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"incomplete\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-3\\">Incomplete</label>
+                    </div>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-2\\" name=\\"reviewOutcome\\"
-                    type=\\"radio\\" value=\\"invalid\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-2\\">Invalid</label>
-                </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-3\\" name=\\"reviewOutcome\\"
-                    type=\\"radio\\" value=\\"incomplete\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-3\\">Incomplete</label>
+            </fieldset>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appeal-details POST /appellant-case should re-render the appellant case page with an error if no review outcome was selected 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#reviewOutcome\\">Please select an outcome</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </fieldset>
+        </div>
     </div>
-    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Appellant case</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
+            </div>
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
+                <dd                 class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
+            </div>
+        </dl>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">1. The appellant</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Name</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Another individual</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Another individual</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application reference</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>undefined</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application reference</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">2. The appeal site</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site address</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site fully owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site fully owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site partially owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site partially owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> All owners known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> All owners known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Attempted to identify owners</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Attempted to identify owners</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advertised appeal</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Advertised appeal</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Visibility</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Visibility</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site health and safety issues</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site health and safety issues</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">3. The appeal</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"application-form.pdf\\" class=\\"govuk-link\\">application-form.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"decision-letter.pdf\\" class=\\"govuk-link\\">decision-letter.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"appeal-statement.pdf\\" class=\\"govuk-link\\">appeal-statement.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-1.pdf\\" class=\\"govuk-link\\">new-supporting-documents-1.pdf</a>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"></dt>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-2.pdf\\" class=\\"govuk-link\\">new-supporting-documents-2.pdf</a>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change</a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">What is the outcome of your review?</legend>
+                <div class=\\"govuk-radios\\"
+                data-module=\\"govuk-radios\\">
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"valid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome\\">Valid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-2\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"invalid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-2\\">Invalid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-3\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"incomplete\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-3\\">Incomplete</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appeal-details POST /appellant-case should render the confirmation page if selected review outcome value is "valid" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> Appeal valid</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The appeal has been marked as valid.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
+                <p                 class=\\"govuk-body\\">The case has been published on the Appeals Casework Portal.</p>
+                    <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"#\\">Read the email</a>
+                    </p>
+                    <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
+                    </p>
+            </div>
+        </div>
+    </div>
 </main>"
 `;
