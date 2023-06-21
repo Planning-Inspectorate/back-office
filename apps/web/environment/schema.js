@@ -6,6 +6,7 @@ export default joi.object({
 	appHostname: joi.string(),
 	apiUrl: joi.string().uri(),
 	authDisabled: joi.boolean().optional(),
+	authRedirectPath: joi.string(),
 	blobStorageUrl: joi.string(),
 	env: joi.string().valid('development', 'production', 'test', 'local'),
 	isRelease: joi.boolean().optional(),
