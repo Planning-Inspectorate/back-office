@@ -7,9 +7,6 @@ exports[`Representation details page GET /applications-service/case/1/relevant-r
         <div class=\\"govuk-grid-column-one-half\\">
             <form method=\\"post\\" novalidate>
                 <fieldset class=\\"govuk-fieldset\\">
-                    <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
-                        <h1 class=\\"govuk-fieldset__heading\\"> Contact details</h1>
-                    </legend>
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"organisationName\\">Organisation name (optional)</label>
                         <input class=\\"govuk-input\\" id=\\"organisationName\\"

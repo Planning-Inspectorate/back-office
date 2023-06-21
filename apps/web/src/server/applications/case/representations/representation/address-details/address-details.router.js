@@ -6,11 +6,12 @@ import {
 } from './address-details.controller.js';
 import { addressDetailsValidation } from './address-details.validators.js';
 import { addRepresentationToLocals } from '../representation.middleware.js';
+import { repRoutes } from '../utils/get-representation-page-urls.js';
 
 const relevantRepAddressDetailsRouter = createRouter({ mergeParams: true });
 
 relevantRepAddressDetailsRouter
-	.route('/address-details')
+	.route(repRoutes.addressDetails)
 	.get(addRepresentationToLocals, asyncRoute(getAddressDetailsController))
 	.post(
 		addRepresentationToLocals,

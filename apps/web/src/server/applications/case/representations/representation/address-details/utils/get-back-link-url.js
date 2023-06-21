@@ -1,4 +1,12 @@
-import { getRepresentationPageUrl } from '../../representation.utilities.js';
+/**
+ * @typedef {object} RepresentationPageLinks
+ * @property {string} backLinkUrl
+ */
+
+/**
+ * @typedef {object} Representation
+ * @property {RepresentationPageLinks} pageLinks
+ */
 
 /**
  * @typedef {object} Params
@@ -7,19 +15,18 @@ import { getRepresentationPageUrl } from '../../representation.utilities.js';
  */
 
 /**
- * @param {string} repId
- * @param {string} repType
+ * @param {Representation} representation
  * @param {string|undefined} stage
  * @param {Params} params
  * @returns {string}
  */
-export const getBackLinkUrl = (repId, repType, stage, params) => {
+export const getBackLinkUrl = (representation, stage, params) => {
 	switch (stage) {
 		case 'find':
 			return params.lookup;
 		case 'enter':
 			return params.find;
 		default:
-			return getRepresentationPageUrl(`contact-details`, repId, repType);
+			return representation.pageLinks.backLinkUrl;
 	}
 };

@@ -1,3 +1,5 @@
+import { getTitles } from './utils/get-titles.js';
+
 /**
  * @param {object} representation
  * @param {object} representation.representative
@@ -45,8 +47,8 @@ const getRepresentationEntityOptions = (representation) => {
 
 /**
  * @typedef {object|*} Query
+ * @property {string} repMode
  * @property {string} repType
- * @property {string} repId
  */
 
 /**
@@ -54,12 +56,9 @@ const getRepresentationEntityOptions = (representation) => {
  * @param {Locals} locals
  * @returns {object}
  */
-export const getRepresentationEntityViewModel = (
-	{ repType, repId },
-	{ prefixBackLink, representation }
-) => ({
-	backLinkUrl: `${prefixBackLink}/under-18?repType=${repType}&repId=${repId}`,
+export const getRepresentationEntityViewModel = ({ repMode, repType }, { representation }) => ({
+	...getTitles(repMode),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageKey: repType,
-	pageTitle: 'Representation entity',
 	representationEntityOptions: getRepresentationEntityOptions(representation)
 });

@@ -1,4 +1,4 @@
-{% macro agentContact(agentData) %}
+{% macro agentContact(agentData, changeLinks) %}
 	<h3 class="govuk-heading-m">Agent contact details</h3>
 	<dl class="govuk-summary-list">
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -9,8 +9,8 @@
 				{{ agentData.orgName }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
-					Change<span class="govuk-visually-hidden">organisation name</span>
+				<a class="govuk-link" href="{{ changeLinks.agentContactDetails }}">
+					Change<span class="govuk-visually-hidden"> agent contact details</span>
 				</a>
 			</dd>
 		</div>
@@ -61,7 +61,7 @@
 				{{ agentData.postcode }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
+				<a class="govuk-link" href="{{ changeLinks.agentAddressDetails }}">
 					Change<span class="govuk-visually-hidden"> address</span>
 				</a>
 			</dd>
@@ -74,34 +74,8 @@
 				{{ agentData.preferredContact if agentData.preferredContact else 'Email' }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
+				<a class="govuk-link" href="{{ changeLinks.agentContactMethod }}">
 					Change<span class="govuk-visually-hidden"> preferred contact method</span>
-				</a>
-			</dd>
-		</div>
-		<div class="govuk-summary-list__row">
-			<dt class="govuk-summary-list__key">
-				Type
-			</dt>
-			<dd class="govuk-summary-list__value">
-
-			</dd>
-			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
-					Change<span class="govuk-visually-hidden"> type</span>
-				</a>
-			</dd>
-		</div>
-		<div class="govuk-summary-list__row">
-			<dt class="govuk-summary-list__key">
-				Under 18
-			</dt>
-			<dd class="govuk-summary-list__value">
-				{{ agentData.under18 }}
-			</dd>
-			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
-					Change<span class="govuk-visually-hidden"> under 18</span>
 				</a>
 			</dd>
 		</div>

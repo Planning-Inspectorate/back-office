@@ -2,35 +2,36 @@ import { getAddressList } from './utils/get-address-list.js';
 import { getBackLinkUrl } from './utils/get-back-link-url.js';
 import { getStageParams } from './utils/get-stage-params.js';
 import { getStage } from './utils/get-stage.js';
+import { getTitles } from './utils/get-titles.js';
 
 /**
  * @typedef {object|*} Locals
- * @property {string} isRepresented
  * @property {object} representation
  */
 
 /**
- * @param {string} repId
- * @param {string} repType
+ * @param {object} query
  * @param {Locals} locals
+ * @param {string} repType
+ * @param {string|undefined} repMode
  * @param {string|undefined} stage
  * @param {string|undefined} postcode
  * @returns {Promise<object>}
  */
 export const getAddressDetailsViewModel = async (
-	repId,
+	query,
+	{ representation },
 	repType,
-	{ isRepresented, representation },
+	repMode,
 	stage,
 	postcode
 ) => {
-	const params = getStageParams(repId, repType, postcode);
+	const params = getStageParams(query, postcode);
 
 	return {
+		...getTitles(repType, repMode),
 		addressList: stage === 'find' && postcode ? await getAddressList(postcode) : [],
-		backLinkUrl: getBackLinkUrl(repId, repType, stage, params),
-		pageTitle: isRepresented ? 'Address details' : 'Add agent address details',
-		pageHeading: isRepresented ? 'Address details' : 'Add an agent address',
+		backLinkUrl: getBackLinkUrl(representation, stage, params),
 		params,
 		postcode,
 		pageKey: repType,

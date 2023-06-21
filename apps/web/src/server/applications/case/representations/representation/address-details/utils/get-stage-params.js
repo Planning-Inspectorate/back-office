@@ -1,5 +1,3 @@
-import { getRepresentationPageUrl } from '../../representation.utilities.js';
-
 /**
  * @typedef {object} StageParams
  * @property {string} lookup
@@ -8,17 +6,29 @@ import { getRepresentationPageUrl } from '../../representation.utilities.js';
  */
 
 /**
- * @param {string} repId
- * @param {string} repType
+ * @param {object} query
  * @param {string|undefined} postcode
  * @returns {StageParams}
  */
-export const getStageParams = (repId, repType, postcode) => {
-	const baseParams = `${getRepresentationPageUrl('', repId, repType)}&postcode=${postcode}&stage=`;
+export const getStageParams = (query, postcode) => {
+	const queryCopy = JSON.parse(JSON.stringify(query));
+
+	delete queryCopy.postcode;
+	delete queryCopy.stage;
+
+	const Params = new URLSearchParams();
+
+	for (const [key, value] of Object.entries(queryCopy)) {
+		Params.append(key, value);
+	}
+
+	if (postcode) Params.append('postcode', postcode);
+
+	const params = `?${Params.toString()}&stage=`;
 
 	return {
-		lookup: `${baseParams}lookup`,
-		find: `${baseParams}find`,
-		enter: `${baseParams}enter`
+		lookup: `${params}lookup`,
+		find: `${params}find`,
+		enter: `${params}enter`
 	};
 };

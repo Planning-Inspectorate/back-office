@@ -1,4 +1,4 @@
-{% macro representedSection(represented) %}
+{% macro representedSection(represented, changeLinks) %}
 	<h3 class="govuk-heading-m">Contact details</h3>
 	<dl class="govuk-summary-list">
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -9,8 +9,8 @@
 				{{ represented.orgName }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
-					Change<span class="govuk-visually-hidden"> organisation name</span>
+				<a class="govuk-link" href="{{ changeLinks.contactDetails }}">
+					Change<span class="govuk-visually-hidden"> contact details</span>
 				</a>
 			</dd>
 		</div>
@@ -69,7 +69,7 @@
 				{{ represented.postcode }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="#">
+				<a class="govuk-link" href="{{ changeLinks.addressDetails }}">
 					Change<span class="govuk-visually-hidden"> address</span>
 				</a>
 			</dd>
@@ -82,8 +82,8 @@
 				{{ represented.preferredContact if represented.preferredContact else 'Email' }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="edit/preferred-contact">
-					Change<span class="govuk-visually-hidden"> preferred preferred contact method</span>
+				<a class="govuk-link" href="{{ changeLinks.contactMethod }}">
+					Change<span class="govuk-visually-hidden"> preferred contact method</span>
 				</a>
 			</dd>
 		</div>
@@ -95,7 +95,7 @@
 
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="edit/preferred-contact">
+				<a class="govuk-link" href="{{ changeLinks.representationType }}">
 					Change<span class="govuk-visually-hidden"> type</span>
 				</a>
 			</dd>
@@ -108,7 +108,7 @@
 
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="edit/preferred-contact">
+				<a class="govuk-link" href="{{ changeLinks.representationEntity }}">
 					Change<span class="govuk-visually-hidden"> representation on behalf of</span>
 				</a>
 			</dd>
@@ -121,7 +121,7 @@
 				{{ represented.under18 }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="edit/preferred-contact">
+				<a class="govuk-link" href="{{ changeLinks.under18 }}">
 					Change<span class="govuk-visually-hidden"> under 18</span>
 				</a>
 			</dd>
