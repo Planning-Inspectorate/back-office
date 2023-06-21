@@ -12,7 +12,7 @@ export const validateLookupPostcode = createValidator(
 );
 
 export const validateAddress = createValidator(
-	body('address').notEmpty().withMessage('Chose an address from the list')
+	body('address').notEmpty().withMessage('Choose an address from the list')
 );
 
 export const validateAddressLineOne = createValidator(
