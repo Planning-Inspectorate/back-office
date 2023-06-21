@@ -1,0 +1,34 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% macro documentUploadInfo(params) %}
+  {{ 
+    govukInsetText({
+      text: "File size should be no more than 15MB"
+    })
+  }}
+  {{
+    govukDetails({
+      summaryText: 'Help with file formats',
+      html: fileFormatDetails()
+    })
+  }}
+{% endmacro %}
+
+{% macro fileFormatDetails() %}
+  <p class="govuk-body">Your file must be in one of the following formats:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for extname in[
+      'pdf',
+      'doc',
+      'docx',
+      'tif',
+      'tiff',
+      'jpg',
+      'jpeg',
+      'png'
+    ] %}
+      <li>{{ extname }}</li>
+    {% endfor %}
+  </ul>
+{% endmacro %}

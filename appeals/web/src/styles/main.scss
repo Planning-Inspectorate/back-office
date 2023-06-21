@@ -1,0 +1,63 @@
+// Use the GDS Design System as a foundation
+@use "../govuk-frontend/govuk/all" with (
+	$govuk-assets-path: "/",
+	$govuk-images-path: "/images/",
+	$govuk-fonts-path: "/fonts/"
+);
+
+// These are standalone dependencies loaded by the modules bellow.
+// ENV
+// 1 - SETTINGS
+// 2 - DESIGN TOKENS
+// 3 - TOOLS (functions, mixins)
+
+// Vendors
+@use "../accessible-autocomplete/src/autocomplete.css" as
+	accessible-autocomplete;
+
+// 4 - GENERIC
+@use "4-generic/generic.box-sizing" as generic-box-sizing;
+@use "4-generic/generic.font-weight" as generic-font-weight;
+@use "4-generic/generic.text-align" as generic-text-align;
+@use "4-generic/generic.colours" as generic-colours;
+@use "4-generic/generic.display" as generic-display;
+@use "4-generic/generic.flex-grow" as generic-flex-grow;
+@use "4-generic/generic.white-space" as generic-white-space;
+@use "4-generic/generic.word-break" as generic-word-break;
+@use "4-generic/generic.reset";
+
+// 5 - ELEMENTS
+@use "5-elements/elements.page" as elements-page;
+@use "5-elements/elements.images" as elements-images;
+@use "5-elements/elements.form-group" as form-group;
+
+// 6 - SKELETON
+@use "6-skeleton/container";
+
+// 7 - COMPONENTS
+@use "7-components/InfoBox/InfoBox" as InfoBox;
+@use "7-components/DashboardBox/DashboardBox" as DashboardBox;
+@use "7-components/ListMenu/ListMenu" as ListMenu;
+@use "7-components/app-header";
+@use "7-components/file-upload";
+@use "7-components/files-list";
+@use "7-components/autocomplete";
+@use "7-components/button-group";
+@use "7-components/header";
+@use "7-components/masthead";
+@use "7-components/related";
+@use "7-components/summary-list";
+@use "7-components/table";
+@use "7-components/sort-table";
+@use "7-components/status-tag";
+@use "7-components/results-per-page";
+@use "7-components/filter-box";
+
+// 8 - UTILITIES
+
+// 9 - PAGES
+
+@use "dev" as *;
+
+// Shame file used for everytihng you will be shamed for.
+@use "shame";

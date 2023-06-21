@@ -1,0 +1,9 @@
+$white-space-attrs: (
+	"pre-line": "pre-line"
+);
+
+@each $key, $val in $white-space-attrs {
+	.white-space--#{$key} {
+		white-space: #{$val};
+	}
+}

@@ -8,6 +8,10 @@ export {
 	Address,
 	Appellant,
 	AppellantCase,
+	AppellantCaseIncompleteReason,
+	AppellantCaseInvalidReason,
+	AppellantCaseIncompleteReasonOnAppellantCase,
+	AppellantCaseInvalidReasonOnAppellantCase,
 	BatchPayload,
 	CaseStatus,
 	Document,
@@ -27,6 +31,7 @@ export {
 	ReviewQuestionnaire,
 	Sector,
 	SubSector,
+	ValidationOutcome,
 	ZoomLevel
 } from '@prisma/client';
 

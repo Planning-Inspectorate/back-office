@@ -1,0 +1,42 @@
+@use "sass:map";
+@use "env-vars" as *;
+
+//* ========================================================================
+//  # CONFIG
+//  ======================================================================== */
+
+// A map of global config settings. Define any project-level configuration,
+// feature switches, etc. in here.
+
+/// The compiler will include a different path based on NODE_ENV that will contain different
+/// values for the same env variables. They are storred in src/styles/env
+///
+/// @type Bool
+/// @access private
+/// @group global-config
+$isDebug: false !default;
+
+@if ($ENV == "development") {
+	$isDebug: true;
+}
+
+/// Global config map. Contains config settings used across the entire project.
+///
+/// @type Map
+/// @group global-config
+$config: (
+	env: $ENV,
+	debug: $isDebug
+);
+
+/// You can access data in this map using the following function: config(key)
+///
+/// @param {string} $key - Config key parameter (ex: env, debug)
+///
+/// @example scss - Example usage:
+///   @if (config(debug) == true) { ... }
+///
+/// @group global-config
+@function config($key) {
+	@return map.get($config, $key);
+}

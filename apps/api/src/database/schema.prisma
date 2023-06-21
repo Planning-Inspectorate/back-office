@@ -94,38 +94,47 @@ model Appellant {
 /// Contains information from the questionnaire that the Appellant
 /// would have filled out when submitting the Appeal
 model AppellantCase {
-  id                                   Int                         @id @default(autoincrement())
-  appealId                             Int                         @unique
-  knowledgeOfOtherLandownersId         Int?
-  planningObligationStatusId           Int?
-  applicantFirstName                   String?
-  applicantSurname                     String?
-  areAllOwnersKnown                    Boolean?
-  hasAdvertisedAppeal                  Boolean?
-  hasAttemptedToIdentifyOwners         Boolean?
-  hasDesignAndAccessStatement          Boolean?
-  hasHealthAndSafetyIssues             Boolean?
-  hasNewPlansOrDrawings                Boolean?
-  hasNewSupportingDocuments            Boolean?
-  hasOtherTenants                      Boolean?
-  hasPlanningObligation                Boolean?
-  hasSeparateOwnershipCertificate      Boolean?
-  hasSubmittedDesignAndAccessStatement Boolean?
-  hasToldOwners                        Boolean?
-  hasToldTenants                       Boolean?
-  healthAndSafetyIssues                String?
-  isAgriculturalHolding                Boolean?
-  isAgriculturalHoldingTenant          Boolean?
-  isAppellantNamedOnApplication        Boolean?
-  isDevelopmentDescriptionStillCorrect Boolean?
-  isSiteFullyOwned                     Boolean?
-  isSitePartiallyOwned                 Boolean?
-  isSiteVisibleFromPublicRoad          Boolean?
-  newDevelopmentDescription            String?
-  visibilityRestrictions               String?
-  appeal                               Appeal                      @relation(fields: [appealId], references: [id])
-  knowledgeOfOtherLandowners           KnowledgeOfOtherLandowners? @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
-  planningObligationStatus             PlanningObligationStatus?   @relation(fields: [planningObligationStatusId], references: [id])
+  id                                             Int                                            @id @default(autoincrement())
+  appealId                                       Int                                            @unique
+  appellantCaseIncompleteReasonId                Int?
+  appellantCaseInvalidReasonId                   Int?
+  knowledgeOfOtherLandownersId                   Int?
+  planningObligationStatusId                     Int?
+  validationOutcomeId                            Int?
+  applicantFirstName                             String?
+  applicantSurname                               String?
+  areAllOwnersKnown                              Boolean?
+  hasAdvertisedAppeal                            Boolean?
+  hasAttemptedToIdentifyOwners                   Boolean?
+  hasDesignAndAccessStatement                    Boolean?
+  hasHealthAndSafetyIssues                       Boolean?
+  hasNewPlansOrDrawings                          Boolean?
+  hasNewSupportingDocuments                      Boolean?
+  hasOtherTenants                                Boolean?
+  hasPlanningObligation                          Boolean?
+  hasSeparateOwnershipCertificate                Boolean?
+  hasSubmittedDesignAndAccessStatement           Boolean?
+  hasToldOwners                                  Boolean?
+  hasToldTenants                                 Boolean?
+  healthAndSafetyIssues                          String?
+  isAgriculturalHolding                          Boolean?
+  isAgriculturalHoldingTenant                    Boolean?
+  isAppellantNamedOnApplication                  Boolean?
+  isDevelopmentDescriptionStillCorrect           Boolean?
+  isSiteFullyOwned                               Boolean?
+  isSitePartiallyOwned                           Boolean?
+  isSiteVisibleFromPublicRoad                    Boolean?
+  newDevelopmentDescription                      String?
+  otherNotValidReasons                           String?
+  visibilityRestrictions                         String?
+  appeal                                         Appeal                                         @relation(fields: [appealId], references: [id])
+  knowledgeOfOtherLandowners                     KnowledgeOfOtherLandowners?                    @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
+  planningObligationStatus                       PlanningObligationStatus?                      @relation(fields: [planningObligationStatusId], references: [id])
+  validationOutcome                              ValidationOutcome?                             @relation(fields: [validationOutcomeId], references: [id])
+  appellantCaseInvalidReason                     AppellantCaseInvalidReason?                    @relation(fields: [appellantCaseInvalidReasonId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  appellantCaseIncompleteReason                  AppellantCaseIncompleteReason?                 @relation(fields: [appellantCaseIncompleteReasonId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  appellantCaseIncompleteReasonsOnAppellantCases AppellantCaseIncompleteReasonOnAppellantCase[]
+  appellantCaseInvalidReasonsOnAppellantCases    AppellantCaseInvalidReasonOnAppellantCase[]
 }
 
 /// Case model
@@ -444,6 +453,7 @@ model Folder {
 }
 
 /// Document model
+
 /// Contains information about the documents that are saved against a case.
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
@@ -663,4 +673,42 @@ model KnowledgeOfOtherLandowners {
   id            Int             @id @default(autoincrement())
   name          String          @unique
   AppellantCase AppellantCase[]
+}
+
+model ValidationOutcome {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  AppellantCase AppellantCase[]
+}
+
+model AppellantCaseIncompleteReason {
+  id                                             Int                                            @id @default(autoincrement())
+  name                                           String                                         @unique
+  AppellantCase                                  AppellantCase[]
+  AppellantCaseIncompleteReasonsOnAppellantCases AppellantCaseIncompleteReasonOnAppellantCase[]
+}
+
+model AppellantCaseInvalidReason {
+  id                                          Int                                         @id @default(autoincrement())
+  name                                        String                                      @unique
+  AppellantCase                               AppellantCase[]
+  AppellantCaseInvalidReasonsOnAppellantCases AppellantCaseInvalidReasonOnAppellantCase[]
+}
+
+model AppellantCaseIncompleteReasonOnAppellantCase {
+  appellantCaseIncompleteReason   AppellantCaseIncompleteReason @relation(fields: [appellantCaseIncompleteReasonId], references: [id])
+  appellantCaseIncompleteReasonId Int
+  appellantCase                   AppellantCase                 @relation(fields: [appellantCaseId], references: [id])
+  appellantCaseId                 Int
+
+  @@id([appellantCaseIncompleteReasonId, appellantCaseId])
+}
+
+model AppellantCaseInvalidReasonOnAppellantCase {
+  appellantCaseInvalidReason   AppellantCaseInvalidReason @relation(fields: [appellantCaseInvalidReasonId], references: [id])
+  appellantCaseInvalidReasonId Int
+  appellantCase                AppellantCase              @relation(fields: [appellantCaseId], references: [id])
+  appellantCaseId              Int
+
+  @@id([appellantCaseInvalidReasonId, appellantCaseId])
 }

@@ -1,0 +1,45 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% set representationType = representation[pageKey] %}
+
+{% block pageContent %}
+
+	<p class="govuk-body"><strong>Project name:</strong> {{ case.projectName}}</p>
+
+	<span class="govuk-caption-l">Add a representation</span>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<form method="post" novalidate>
+				{{ govukRadios({
+					name: 'representationEntity',
+					fieldset: {
+						legend: {
+							text: pageTitle,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					items: representationEntityOptions,
+					errorMessage: errors["representationEntity"] and {
+						text: errors["representationEntity"].msg
+				}
+				}) }}
+
+				{{ govukButton({
+					text: "Save and continue",
+					type: "submit",
+					classes: "govuk-!-margin-top-3"
+				}) }}
+
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

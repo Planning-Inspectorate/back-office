@@ -1,0 +1,37 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+
+{% set serviceName = ["Upload new version of ", documentationFile.fileName] | join  %}
+{% block pageTitle %}
+	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{% set breadcrumbItems = breadcrumbItems | concat({text: [currentFolder.displayNameEn, ' documents']|join }) %}
+
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-0',
+		items: breadcrumbItems
+	})
+	}}
+{% endblock %}
+
+{% block pageContent %}
+	{{ fileUploader({
+        text: 'Upload',
+		formId: 1,
+		caseId: caseId,
+        documentId: documentationFile.documentGuid,
+		folderId: currentFolder.id,
+		formTitle: serviceName,
+		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
+		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
+		disclaimerText: "Uploading a new version changes the document status to ‘Not checked’"
+	}) }}
+
+{% endblock %}

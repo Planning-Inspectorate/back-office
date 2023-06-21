@@ -1,0 +1,39 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{#
+    Show an excerpt of content, with an option to show more
+    
+    Used in conjuction with some client-side JS, that handles the link clicks
+    See: src/client/components/excerpts.js
+    If no JS is enabled, fallsback to the govukDetails component
+#}
+{% macro excerpt(content, maxLength = 200, linkText = 'more', strictTruncate = false) %}
+	{% if content | length > maxLength %}
+        <div class="excerpt">
+            <div class="excerpt-summary">
+                {{ content | truncate(maxLength, strictTruncate) }}
+
+                <noscript>
+                    {{ govukDetails({
+                        summaryText: 'Show ' + linkText,
+                        html: content,
+                        classes: 'govuk-!-margin-bottom-1 govuk-!-margin-top-4'
+                    }) }}
+                </noscript>
+                <p class="govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4" >
+                    <a href="#" class="govuk-link govuk-link--no-visited-state excerpt-link">Show {{ linkText }}</a>
+                </p>
+            </div>
+
+            <div class="excerpt-full display--none">
+                {{ content | safe }}
+
+                <p class="govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4" >
+                    <a href="#" class="govuk-link govuk-link--no-visited-state excerpt-link">Hide {{ linkText }}</a>
+                </p>
+            <div>
+        </div>
+    {% else %}
+        {{ content | safe }}
+    {% endif %}
+{% endmacro %}

@@ -1,6 +1,8 @@
 import { LevelWithSilent } from 'pino';
 
 export interface EnvironmentConfig {
+	// The web application hostname (e.g. back-office-dev.planninginspectorate.gov.uk)
+	appHostname: string;
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
@@ -44,8 +46,6 @@ export interface EnvironmentConfig {
 	featureFlags: {
 		[key: string]: boolean;
 	};
-
-	clientCredentialsGrantEnabled: boolean;
 }
 
 const config: EnvironmentConfig;

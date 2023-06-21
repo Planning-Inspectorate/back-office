@@ -1,0 +1,78 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "s51-advice.schema.json",
+	"title": "S51 Advice",
+	"type": "object",
+	"required": ["adviceId", "adviceReference", "title", "from", "agent", "method", "dateGiven"],
+	"properties": {
+		"adviceId": {
+			"type": "number",
+			"examples": [1234]
+		},
+		"adviceReference": {
+			"type": "string",
+			"examples": ["TR0200007-0005"]
+		},
+		"caseId": {
+			"type": "number",
+			"examples": [1234]
+		},
+		"title": {
+			"type": "string",
+			"description": "Title of the advice",
+			"examples": ["Advice following issue of decision to accept the application for examination"]
+		},
+		"from": {
+			"type": "string",
+			"description": "Who the enquiry is from"
+		},
+		"agent": {
+			"type": "string",
+			"description": "Who the enquiry is on behalf of"
+		},
+		"method": {
+			"type": "string",
+			"description": "How the enquiry was made",
+			"enum": ["phone", "email", "meeting", "post"]
+		},
+		"enquiryDate": {
+			"type": "string",
+			"description": "Date the enquiry was made",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"enquiryDetails": {
+			"type": "string",
+			"description": "Details of the enquiry"
+		},
+		"adviceGivenBy": {
+			"type": "string",
+			"description": "Who issued the advice"
+		},
+		"adviceDate": {
+			"type": "string",
+			"description": "Date the advice was given",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"adviceDetails": {
+			"type": "string",
+			"description": "Details of the advice"
+		},
+		"status": {
+			"type": "string",
+			"enum": ["checked", "unchecked", "readytopublish", "published", "donotpublish"]
+		},
+		"redactionStatus": {
+			"type": "string",
+			"enum": ["unredacted", "redacted"]
+		},
+		"attachmentIds": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"description": "Collection of document IDs which are related to the S51 Advice"
+			}
+		}
+	}
+}

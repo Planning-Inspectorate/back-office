@@ -6,6 +6,7 @@ import schema from './schema.js';
 const environment = loadEnvironment(process.env.NODE_ENV);
 
 const { value: validatedConfig, error } = schema.validate({
+	appHostname: environment.APP_HOSTNAME,
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
@@ -42,11 +43,7 @@ const { value: validatedConfig, error } = schema.validate({
 		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-	},
-
-	clientCredentialsGrantEnabled:
-		environment.CLIENT_CREDENTIAL_GRANT_ENABLED &&
-		environment.CLIENT_CREDENTIAL_GRANT_ENABLED === 'true'
+	}
 });
 
 if (error) {

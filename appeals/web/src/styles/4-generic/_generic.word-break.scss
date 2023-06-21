@@ -1,0 +1,9 @@
+$word-break-attrs: (
+	"break-word": "break-word"
+);
+
+@each $key, $val in $word-break-attrs {
+	.word-break--#{$key} {
+		word-break: #{$val};
+	}
+}

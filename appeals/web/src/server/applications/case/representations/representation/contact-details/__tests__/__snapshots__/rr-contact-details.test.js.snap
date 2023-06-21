@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation details page GET /applications-service/case/1/relevant-representations/contact-details should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <form method=\\"post\\" novalidate>
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--l\\">
+                        <h1 class=\\"govuk-fieldset__heading\\"> Contact details</h1>
+                    </legend>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"organisationName\\">Organisation name (optional)</label>
+                        <input class=\\"govuk-input\\" id=\\"organisationName\\"
+                        name=\\"organisationName\\" type=\\"text\\" autocomplete=\\"organisationName\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"firstName\\">First name</label>
+                        <input class=\\"govuk-input\\" id=\\"firstName\\" name=\\"firstName\\"
+                        type=\\"text\\" autocomplete=\\"firstName\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"lastName\\">Last name</label>
+                        <input class=\\"govuk-input\\" id=\\"lastName\\" name=\\"lastName\\"
+                        type=\\"text\\" autocomplete=\\"lastName\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"jobTitle\\">Job title (optional)</label>
+                        <input class=\\"govuk-input\\" id=\\"jobTitle\\" name=\\"jobTitle\\"
+                        type=\\"text\\" autocomplete=\\"jobTitle\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"email\\">Email address (optional)</label>
+                        <input class=\\"govuk-input\\" id=\\"email\\"
+                        name=\\"email\\" type=\\"email\\" spellcheck=\\"false\\" autocomplete=\\"email\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"phoneNumber\\">Telephone number (optional)</label>
+                        <input class=\\"govuk-input\\" id=\\"phoneNumber\\"
+                        name=\\"phoneNumber\\" type=\\"tel\\" autocomplete=\\"tel\\" inputmode=\\"numeric\\">
+                    </div>
+                    <button type=\\"submit\\" class=\\"govuk-button govuk-!-margin-top-3\\" data-module=\\"govuk-button\\">Save and continue</button>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</main>"
+`;

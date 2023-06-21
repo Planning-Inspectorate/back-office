@@ -67,6 +67,15 @@ const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemDelete = jest.fn().mockResolvedValue({});
 const mockAddressDelete = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
+const mockValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
+const mockValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
+const mockAppellantCaseUpdate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -253,6 +262,45 @@ class MockPrismaClient {
 		};
 	}
 
+	get appellantCaseIncompleteReason() {
+		return {
+			findMany: mockAppellantCaseIncompleteReasonFindMany
+		};
+	}
+
+	get appellantCaseInvalidReason() {
+		return {
+			findMany: mockAppellantCaseInvalidReasonFindMany
+		};
+	}
+
+	get validationOutcome() {
+		return {
+			findMany: mockValidationOutcomeFindMany,
+			findUnique: mockValidationOutcomeFindUnique
+		};
+	}
+
+	get appellantCase() {
+		return {
+			update: mockAppellantCaseUpdate
+		};
+	}
+
+	get appellantCaseIncompleteReasonOnAppellantCase() {
+		return {
+			deleteMany: mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany,
+			createMany: mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany
+		};
+	}
+
+	get appellantCaseInvalidReasonOnAppellantCase() {
+		return {
+			deleteMany: mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany,
+			createMany: mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany
+		};
+	}
+
 	$transaction(queries = []) {
 		return Promise.all(queries);
 	}
@@ -272,12 +320,6 @@ jest.unstable_mockModule('@prisma/client', () => ({
 		// PrismaClient: MockPrismaClient,
 		// Prisma: MockPrisma
 	}
-}));
-
-jest.unstable_mockModule('jwks-rsa', () => ({
-	default: jest.fn().mockImplementation(() => ({
-		getSigningKey: () => ({ getPublicKey: () => 'string' })
-	}))
 }));
 
 const mockSendEvents = jest.fn();

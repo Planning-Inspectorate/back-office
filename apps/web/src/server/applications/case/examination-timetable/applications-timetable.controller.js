@@ -1,9 +1,11 @@
-import { dateString } from '../../../lib/nunjucks-filters/date.js';
+import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
 	getCaseTimetableItems,
-	publishCaseTimetableItems
+	publishCaseTimetableItems,
+	getCaseTimetableItemById,
+	deleteCaseTimetableItem
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
@@ -51,60 +53,95 @@ export const timetableTemplatesSchema = {
 /**
  * View the examination timetable page for a single case
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean}>}
  */
 export async function viewApplicationsCaseExaminationTimeTable(request, response) {
-	const timetableItems = await getCaseTimetableItems(+request.params.caseId);
-	const timetableItemsViewData = timetableItems.map((timetableItem) => {
-		return {
-			...timetableItem,
-			description: JSON.parse(timetableItem.description)
-		};
-	});
+	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published ? true : false;
+	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+		getTimetableRows(timetableItem)
+	);
+	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published;
+
 	response.render(`applications/case/examination-timetable`, {
-		selectedPageType: 'examination-timetable',
 		timetableItems: timetableItemsViewData,
 		publishedStatus
 	});
 }
 
 /**
- * View the examination timetable page for a single case
+ * View the preview page of the examination timetable for a single case
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string}>}
  */
-export async function previewApplicationsCaseExaminationTimeTable(request, response) {
-	const timetableItems = await getCaseTimetableItems(+request.params.caseId);
-	const timetableItemsViewData = timetableItems.map((timetableItem) => {
-		return {
-			...timetableItem,
-			description: JSON.parse(timetableItem.description)
-		};
-	});
+export async function previewApplicationsCaseExaminationTimeTable(_, response) {
+	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+
+	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+		getTimetableRows(timetableItem)
+	);
+
 	response.render(`applications/case-timetable/timetable-preview.njk`, {
-		selectedPageType: 'examination-timetable',
-		timetableItems: timetableItemsViewData
+		timetableItems: timetableItemsViewData,
+		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
 	});
 }
 
 /**
  * View the examination timetable page for a single case
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function publishApplicationsCaseExaminationTimeTable(request, response) {
-	await publishCaseTimetableItems(+request.params.caseId);
+	await publishCaseTimetableItems(response.locals.caseId);
+
+	// TODO: handle errors
+
 	response.redirect(`./publish/success`);
 }
 
+/**
+ * View the delete page for the examination timetable for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{timetableItem: Record<string, string>}, {}, {}, {}, {timetableId: string}>}
+ */
+export async function showApplicationsCaseTimetableDelete(request, response) {
+	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+	const timetableItemViewData = await getTimetableRows(timetableItem);
+
+	response.render(`applications/case-timetable/timetable-delete.njk`, {
+		timetableItem: timetableItemViewData
+	});
+}
+
+/**
+ * View the delete page for the examination timetable for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {timetableId: string}>}
+ */
+export async function deleteApplicationsCaseTimetable(request, response) {
+	const { errors } = await deleteCaseTimetableItem(+request.params.timetableId);
+
+	if (errors) {
+		const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+		const timetableItemViewData = await getTimetableRows(timetableItem);
+
+		return response.render(`applications/case-timetable/timetable-delete.njk`, {
+			timetableItem: timetableItemViewData,
+			errors
+		});
+	}
+
+	response.render(`applications/case-timetable/timetable-new-item-success.njk`, {
+		isDeleted: true
+	});
+}
 /**
  * Set the type of examination timetable to create
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: {text: string, value: string}[]}, {}, {}, {}, {}>}
  */
-export async function viewApplicationsCaseTimetableNew(request, response) {
+export async function viewApplicationsCaseTimetableNew(_, response) {
 	const timetableTypes = await getCaseTimetableItemTypes();
 
 	const formattedTimetableTypes = timetableTypes.map((timetableType) => ({
@@ -313,4 +350,34 @@ const getCheckYourAnswersRows = (body) => {
 			html: rowItem.value
 		}
 	}));
+};
+
+/**
+ *
+ * @param {ApplicationsTimetable} timetableItem
+ * @returns {Record<string, any>}
+ */
+const getTimetableRows = (timetableItem) => {
+	const { id, description, name, ExaminationTimetableType, date, startDate, startTime, endTime } =
+		timetableItem;
+
+	const templateType = ExaminationTimetableType?.templateType;
+
+	const shouldShowField = (/** @type {string} */ fieldName) =>
+		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType || 0], fieldName);
+
+	return {
+		id,
+		itemTypeName: ExaminationTimetableType?.name,
+		name,
+		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
+		startDate:
+			shouldShowField('startDate') && startDate
+				? displayDate(startDate, { condensed: true }) || ''
+				: null,
+		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
+		startTime: shouldShowField('startTime') ? startTime || '' : null,
+		endTime: shouldShowField('endTime') ? endTime || '' : null,
+		description: JSON.parse(description)
+	};
 };

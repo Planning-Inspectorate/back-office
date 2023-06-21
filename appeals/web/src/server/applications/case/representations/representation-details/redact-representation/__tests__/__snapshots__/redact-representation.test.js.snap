@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">mock redacted by</h1><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+    <p class=\\"govuk-body govuk-!-margin-0 govuk-!-margin-top-5\\"><strong>Project name:</strong> mock title</p>
+    <form method=\\"post\\">
+        <div class=\\"govuk-grid-row govuk-!-margin-top-8\\">
+            <div class=\\"govuk-grid-column-one-half\\" id=\\"original-representation-section\\"><span class=\\"govuk-heading-s display--flex\\"><span class=\\"flex-grow--1\\"> Original representation</span>
+                <a                 class=\\"govuk-link govuk-body govuk-!-margin-0\\" href=\\"#\\" id=\\"hide-original-representation-button\\">Hide</a>
+                    </span>
+                    <p class=\\"govuk-body white-space--pre-line word-break--break-word\\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+                        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                        nec, pellentesque eu, pretium quis, sem. Nulla con.</p>
+            </div>
+            <div class=\\"govuk-grid-column-one-half\\" id=\\"redact-representation-section\\"><a class=\\"govuk-link govuk-body govuk-!-display-none\\" href=\\"#\\" id=\\"show-original-representation-button\\"> Show original representation</a>
+                <div                 class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--s\\" for=\\"redact-representation-text\\">Redact representation</label>
+                    <textarea class=\\"govuk-textarea\\" id=\\"redact-representation-text\\"
+                    name=\\"redactedRepresentation\\" rows=\\"5\\">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+                        con.</textarea>
+            </div>
+            <button type=\\"submit\\" class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\"
+            id=\\"submit-redact-representation\\">Redact</button>
+        </div>
+        </div>
+        <div class=\\"govuk-!-margin-top-5\\">
+            <div class=\\"govuk-form-group\\">
+                <label class=\\"govuk-label govuk-label--s\\" for=\\"redact-representation-notes-text\\">Notes</label>
+                <textarea class=\\"govuk-textarea\\" id=\\"redact-representation-notes-text\\"
+                name=\\"notes\\" rows=\\"5\\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</textarea>
+            </div>
+            <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        </div>
+    </form>
+    <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+        const getSelectedText = (text, selectionStart, selectionEnd) => text.value.substring(selectionStart, selectionEnd);
+        
+        			const updateTextValue = (text, replacementText, startIndex, endIndex) => {
+        				const startText = text.value.substring(0, startIndex);
+        				const endText = text.value.substring(endIndex, text.value.length);
+        				text.value = \`\${startText}\${replacementText}\${endText}\`.trim();
+        			};
+        
+        			const addNotesText = (notesText, selectedText) => (notesText.value += \`\${notesText.value ? \\"\\\\n\\" : \\"\\"}\${selectedText}\`);
+        
+        			const submitRedactRep = (redactRepText, notesText) => {
+        				const { selectionStart, selectionEnd } = redactRepText;
+        				const selectedText = getSelectedText(redactRepText, selectionStart, selectionEnd);
+        				if (!selectedText) return;
+        				updateTextValue(redactRepText, \\"(Redacted)\\", selectionStart, selectionEnd);
+        				addNotesText(notesText, selectedText);
+        			};
+        
+        			const initRedactRepAction = () => {
+        				const submitRedactRepButton = document.querySelector(\\"#submit-redact-representation\\");
+        				const redactRepText = document.querySelector(\\"#redact-representation-text\\");
+        				const notesText = document.querySelector(\\"#redact-representation-notes-text\\");
+        
+        				submitRedactRepButton.addEventListener(\\"click\\", (event) => {
+        					event.preventDefault();
+        					submitRedactRep(redactRepText, notesText);
+        					initRedactRepTextHeight(false, true);
+        				});
+        			};
+        
+        			const hideOriginalRepSection = ({
+        					originalRepSection,
+        					redactRepSection,
+        					showOriginalRepButton
+        				}) => {
+        				originalRepSection.classList.add(\\"govuk-!-display-none\\");
+        				redactRepSection.classList.add(\\"govuk-grid-column-full\\");
+        				showOriginalRepButton.classList.remove(\\"govuk-!-display-none\\");
+        				showOriginalRepButton.classList.add(\\"govuk-!-display-inline-block\\");
+        			};
+        
+        			const showOriginalRepSection = ({
+        					originalRepSection,
+        					redactRepSection,
+        					showOriginalRepButton
+        				}) => {
+        				originalRepSection.classList.remove(\\"govuk-!-display-none\\");
+        				redactRepSection.classList.remove(\\"govuk-grid-column-full\\");
+        				showOriginalRepButton.classList.add(\\"govuk-!-display-none\\");
+        				showOriginalRepButton.classList.remove(\\"govuk-!-display-inline-block\\");
+        			};
+        
+        			const initRedactRepHideShow = () => {
+        				const hideSlowEls = {
+        					originalRepSection: document.querySelector(\\"#original-representation-section\\"),
+        					redactRepSection: document.querySelector(\\"#redact-representation-section\\"),
+        					hideOriginalRepButton: document.querySelector(\\"#hide-original-representation-button\\"),
+        					showOriginalRepButton: document.querySelector(\\"#show-original-representation-button\\")
+        				};
+        
+        				hideSlowEls.hideOriginalRepButton.addEventListener(\\"click\\", (event) => {
+        					event.preventDefault();
+        					hideOriginalRepSection(hideSlowEls);
+        					initRedactRepTextHeight();
+        				});
+        
+        				hideSlowEls.showOriginalRepButton.addEventListener(\\"click\\", (event) => {
+        					event.preventDefault();
+        					showOriginalRepSection(hideSlowEls);
+        					initRedactRepTextHeight();
+        				});
+        			};
+        
+        			const initRedactRepTextHeight = (sizeRepresentationText = true, sizeRepresentationNotesText = true) => {
+        				if (sizeRepresentationText) {
+        					const redactRepresentationText = document.querySelector('#redact-representation-text');
+        					redactRepresentationText.style.height = '1px';
+        					redactRepresentationText.style.height = \`\${redactRepresentationText.scrollHeight + 5}px\`;
+        				}
+        
+        				if (sizeRepresentationNotesText) {
+        					const redactRepresentationNotesText = document.querySelector('#redact-representation-notes-text');
+        					redactRepresentationNotesText.style.height = '1px';
+        					redactRepresentationNotesText.style.height = \`\${redactRepresentationNotesText.scrollHeight + 5}px\`;
+        				}
+        			}
+        
+        			initRedactRepAction();
+        			initRedactRepHideShow();
+        			initRedactRepTextHeight();
+    </script>
+</main>"
+`;

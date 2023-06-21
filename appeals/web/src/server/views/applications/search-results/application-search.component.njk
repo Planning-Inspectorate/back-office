@@ -1,0 +1,29 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro applicationSearch(params) %}
+
+	{% set csrfToken = params.csrfToken %}
+
+	<form method="post" action="search-results" novalidate class="pins-dashboard-box--form pins-dashboard-form" role="search" aria-label="Applications">
+		{% include 'app/includes/csrf.njk' %}
+		{{ govukInput({
+			label: {
+				text: params.label,
+				classes: "pins-dashboard-form--label",
+				isPageHeading: false
+			},
+			errorMessage: params.errors.query | errorMessage,
+			inputmode: "search",
+			classes: 'pins-dashboard-form--input',
+			id: "searchApplications",
+			name: "query",
+			value: params.query
+		}) }}
+
+		{{ govukButton({
+			classes: 'pins-dashboard-form--btn',
+			text: "Search"
+		}) }}
+	</form>
+{% endmacro %}

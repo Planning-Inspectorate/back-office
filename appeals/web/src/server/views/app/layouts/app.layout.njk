@@ -1,0 +1,62 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from '../components/global-header.njk' import globalHeader %}
+
+{% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container' %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ pathToCss | stripQueryParamsDev }}"/>
+  <script defer="defer" src="{{ pathToJs | stripQueryParamsDev }}"></script>
+{% endblock %}
+
+{% block pageTitle %}
+  {{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+{% endblock %}
+
+{% block header %}
+	{% set domainName = 'Planning Inspectorate'%}
+  {{ globalHeader(domainType, domainName) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {% block backLink %}
+		{% if backLinkUrl and backLinkText %}
+      {{ govukBackLink({ text: backLinkText, href: backLinkUrl }) }}
+    {% elseif backLinkUrl %}
+      {{ govukBackLink({ href: backLinkUrl }) }}
+    {% elseif backURL %}
+      {{ govukBackLink({ href: backURL }) }}
+      {% endif %}
+    {% endblock %}
+  {% endblock %}
+
+  {% block content %}
+	  {% block errorSummary %}
+    {% if errors %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {{
+					govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: errors | mapToErrorSummary
+					})
+				}}
+        </div>
+      </div>
+    {% endif %}
+		  {% endblock %}
+    {% block pageHeading %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <h1 class="govuk-heading-xl">
+            {% if pageCaption %}
+              <span class="govuk-caption-xl">{{ pageCaption }}</span>
+            {% endif %}{{ pageHeading or pageTitle }}
+          </h1>
+        </div>
+      </div>
+    {% endblock %}
+    {% block pageContent %}{% endblock %}
+  {% endblock %}

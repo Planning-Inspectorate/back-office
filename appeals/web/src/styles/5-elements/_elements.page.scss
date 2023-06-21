@@ -1,0 +1,27 @@
+@use "sass:math";
+
+/* ==========================================================================
+   # PAGE
+   ========================================================================== */
+
+/// override GDS Transport font-family for the entire project
+* {
+	font-family: arial, helvetica, sans-serif !important;
+}
+
+body {
+	/// Make our font sharper and utilize the text-rendering CSS property
+	/// to allow us to choose quality over speed
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+// Smooth scrolling IF user doesn't have a preference due to motion sensitivities
+@media screen and (prefers-reduced-motion: no-preference) {
+	html,
+	body {
+		scroll-behavior: smooth;
+	}
+}

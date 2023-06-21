@@ -1,0 +1,658 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applications GET /case-admin-officer should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /case-admin-officer should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
+                </div>
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
+                </div>
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /case-team should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /case-team should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
+                </div>
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
+                </div>
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /inspector should render a placeholder when there are no open applications 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\"></div>
+    </div>
+</main>"
+`;
+
+exports[`applications GET /inspector should render the open applications belonging to the user 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
+                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
+                role=\\"search\\" aria-label=\\"Applications\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
+                        <input class=\\"govuk-input pins-dashboard-form--input\\"
+                        id=\\"searchApplications\\" name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                    </div>
+                    <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--drafts\\">
+        <h2 class=\\"govuk-heading-l\\">Draft cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"draft-cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"draft-cases-list-heading-1\\"></span></h2>
+                </div>
+                <div id=\\"draft-cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"draft-cases-list-heading-1\\">
+                    <table class=\\"govuk-table\\">
+                        <thead class=\\"govuk-table__head\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                <th scope=\\"col\\" class=\\"govuk-table__header pins-table__cell--s\\">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody class=\\"govuk-table__body\\">
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/1/check-your-answers\\"> Title CASE/01</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\">01/01/2022</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/2/check-your-answers\\"> Case with no subsector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/create-new-case/3/check-your-answers\\"> Case with no sector</a>
+                                </td>
+                                <td class=\\"govuk-table__cell\\"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"pins-dashboard-list--open\\">
+        <h2 class=\\"govuk-heading-l\\">All cases</h2>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"cases-list\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-1\\"> Transport EN</span></h2>
+                </div>
+                <div id=\\"cases-list-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-1\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> HIG Highways EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/4/\\"> CASE/04 - Title CASE/04</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> WAT Water EN</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/5/\\"> CASE/05 - Title CASE/05</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
+                </div>
+                <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-2\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/6/\\"> CASE/06 - Title CASE/06</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
+                </div>
+                <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-3\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;

@@ -1,0 +1,60 @@
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./timetable-item-summary.component.njk" import timetableItemSummary %}
+
+{% macro timetableItemsList(timetableItems, caseId) %}
+	<div class='timetable-table'>
+		{% set accordionItemsExamination = [] %}
+		{% set accordionItemsPreExamination = [] %}
+
+		{% for timetableItem in timetableItems %}
+			{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
+
+			{% set content %}
+				{{timetableItemSummary(timetableItem)}}
+				<a class='govuk-link colour--red' href='{{'timetable'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+			{% endset %}
+
+			{% set row = {
+				heading: {
+					text: heading,
+					classes: 'govuk-heading-m'
+				},
+				content: {
+					html: content
+				}
+			} %}
+
+			{% if (timetableItem.ExaminationTimetableType.name == 'Procedural Deadline (Pre-Examination)') %}
+				{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
+			{% else %}
+				{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
+			{% endif %}
+
+		{% endfor %}
+
+		<h3 class="govuk-heading-m">Pre-Examination</h3>
+
+		{% if accordionItemsPreExamination.length === 0 %}
+			<p class='govuk-body'>No timetable items</p>
+		{% endif %}
+
+		{{ govukAccordion({
+				id: "accordion-pre-examination",
+				items: accordionItemsPreExamination
+		}) }}
+
+		<div class='govuk-!-margin-top-8'>
+			<h3 class="govuk-heading-m">Examination</h3>
+
+			{% if accordionItemsExamination.length === 0 %}
+				<p class='govuk-body'>No timetable items</p>
+			{% endif %}
+
+			{{ govukAccordion({
+				id: "accordion-examination",
+				items: accordionItemsExamination
+		}) }}
+		</div>
+	</div>
+{% endmacro %}
