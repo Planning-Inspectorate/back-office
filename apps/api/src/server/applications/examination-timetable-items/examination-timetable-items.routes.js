@@ -5,7 +5,8 @@ import {
 	getExaminationTimetableItem,
 	getExaminationTimetableItems,
 	publishExaminationTimetable,
-	deleteExaminationTimetableItem
+	deleteExaminationTimetableItem,
+	hasSubmissions
 } from './examination-timetable-items.controller.js';
 import { validateCreateExaminationTimetableItem } from './examination-timetable-items.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
@@ -106,12 +107,32 @@ router.delete(
 			required: true,
 			type: 'integer'
         }
-         #swagger.parameters['body'] = {}
+        #swagger.parameters['body'] = {}
         #swagger.responses[200] = {
             description: 'Examination timetable item successfully deleted',
         }
     */
 	asyncHandler(deleteExaminationTimetableItem)
+);
+
+router.get(
+	'/:id/has-submissions',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items/{id}/has-submissions'
+        #swagger.description = 'Gets examination timetable item by id'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Examination timetable item ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'Examination timetable item',
+            schema: { submissions: true }
+        }
+    */
+	asyncHandler(hasSubmissions)
 );
 
 export { router as examinationTimetableItemRoutes };

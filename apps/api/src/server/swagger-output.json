@@ -2004,6 +2004,38 @@
 					}
 				}
 			}
+		},
+		"/applications/examination-timetable-items/{id}/has-submissions": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets examination timetable item by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"submissions": {
+									"type": "boolean",
+									"example": true
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
