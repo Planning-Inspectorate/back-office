@@ -778,7 +778,11 @@ model ProjectUpdate {
   datePublished     DateTime?
   // when the (background) task to notify subscribers has been run for this update, this will be marked true
   sentToSubscribers Boolean   @default(false)
+  // an internal title/name for this update
+  title             String?
   // the content of this project update, which can include HTML and must be santised before entry into the database
   // it can only include <a> <b> <ul> <li> tags
   htmlContent       String
+  // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
+  htmlContentWelsh  String?
 }
