@@ -1,5 +1,6 @@
 import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
@@ -182,4 +183,72 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 	await exminationTimetableItemsRepository.deleteById(+id);
 
 	response.send(examinationTimetableItem);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const hasSubmissions = async (_request, response) => {
+	const { id } = _request.params;
+
+	let hasSubmissions = true;
+
+	const timetableItem = await exminationTimetableItemsRepository.getById(+id);
+	if (!timetableItem) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	hasSubmissions = await folderHasDocument(timetableItem.caseId, timetableItem.name);
+
+	if (hasSubmissions) {
+		response.send(hasSubmissions);
+	}
+
+	const description = timetableItem?.description ? JSON.parse(timetableItem.description) : null;
+
+	if (!description || !description?.bulletPoints || description?.bulletPoints?.length === 0) {
+		logger.info('No bulletpoints');
+	}
+
+	/**
+	 * @type {any[]}
+	 */
+	const documentsPromise = [];
+	description.bulletPoints.forEach((/** @type {string} */ point) => {
+		documentsPromise.push(folderHasDocument(timetableItem.caseId, point));
+	});
+
+	const documentsInBulletPoints = await Promise.all(documentsPromise);
+
+	if (documentsInBulletPoints.includes(true)) {
+		response.send(hasSubmissions);
+	}
+
+	response.send(hasSubmissions);
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {string} name
+ * @returns {Promise<Boolean>}
+ */
+const folderHasDocument = async (caseId, name) => {
+	const folder = await folderRepository.getFolderByNameAndCaseId(caseId, name);
+	if (!folder || !folder.id) {
+		logger.info(`No folder found for case: ${caseId} and name: ${name}`);
+		return false;
+	}
+	const documents = await documentRepository.countDocumentsInFolder(folder.id);
+
+	if (!documents) {
+		return false;
+	}
+
+	return true;
 };
