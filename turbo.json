@@ -21,9 +21,6 @@
 			"dependsOn": ["^build"],
 			"outputs": []
 		},
-		"prisma-generate": {
-			"cache": false
-		},
 		"tscheck": {
 			"cache": false
 		},
