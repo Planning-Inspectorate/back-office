@@ -2008,7 +2008,7 @@
 		"/applications/examination-timetable-items/{id}/has-submissions": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets examination timetable item by id",
+				"description": "Find examinsation iteam has submissions or not",
 				"parameters": [
 					{
 						"name": "id",

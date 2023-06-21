@@ -120,7 +120,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/examination-timetable-items/{id}/has-submissions'
-        #swagger.description = 'Gets examination timetable item by id'
+        #swagger.description = 'Find examinsation iteam has submissions or not'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Examination timetable item ID',
