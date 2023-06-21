@@ -1,4 +1,9 @@
-import { getTitles } from './utils/get-titles.js';
+import { getPageTitles } from '../utils/get-page-titles.js';
+
+const titles = {
+	default: 'Representation entity',
+	change: 'Change representation entity'
+};
 
 /**
  * @param {object} representation
@@ -57,7 +62,7 @@ const getRepresentationEntityOptions = (representation) => {
  * @returns {object}
  */
 export const getRepresentationEntityViewModel = ({ repMode, repType }, { representation }) => ({
-	...getTitles(repMode),
+	...getPageTitles(repMode, titles),
 	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageKey: repType,
 	representationEntityOptions: getRepresentationEntityOptions(representation)

@@ -1,4 +1,15 @@
-import { getTitles } from './utils/get-titles.js';
+import { getRepTypePageTitles } from '../utils/get-rep-type-page-titles.js';
+
+const titles = {
+	represented: {
+		default: 'Preferred contact method',
+		change: 'Change contact method'
+	},
+	representative: {
+		default: 'Preferred agent contact method',
+		change: 'Change agent contact method'
+	}
+};
 
 /**
  * @param {object} representation
@@ -47,7 +58,7 @@ const getContactMethodOptions = ({ contactMethod }) => {
  * @returns {object}
  */
 export const getContactMethodViewModel = ({ repType, repMode }, { representation }) => ({
-	...getTitles(repType, repMode),
+	...getRepTypePageTitles(repType, repMode, titles),
 	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageKey: repType,
 	contactMethodOptions: getContactMethodOptions(representation[repType])
