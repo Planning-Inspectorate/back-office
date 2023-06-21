@@ -2572,6 +2572,10 @@
 						"type": "boolean",
 						"example": false
 					},
+					"folderId": {
+						"type": "number",
+						"example": 134
+					},
 					"startTime": {
 						"type": "string",
 						"example": "10:20"
@@ -2609,6 +2613,10 @@
 				"published": {
 					"type": "boolean",
 					"example": false
+				},
+				"folderId": {
+					"type": "number",
+					"example": 134
 				},
 				"startDate": {
 					"type": "string",
@@ -2654,6 +2662,10 @@
 				"published": {
 					"type": "boolean",
 					"example": false
+				},
+				"folderId": {
+					"type": "number",
+					"example": 134
 				},
 				"startDate": {
 					"type": "string",
