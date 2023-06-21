@@ -27,7 +27,7 @@ const getRepresentativeTitles = (repMode) => {
 	let representativeTitles = mapTitles('Add agent contact details', 'Add agent contact details');
 
 	if (repMode === 'change')
-		representativeTitles = mapTitles('Edit agent details', 'Edit agent details');
+		representativeTitles = mapTitles('Change agent details', 'Change agent details');
 
 	return representativeTitles;
 };
