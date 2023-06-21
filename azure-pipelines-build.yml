@@ -68,6 +68,10 @@ extends:
                   path: apps/web
                 - name: api
                   path: apps/api
+                - name: appeals-api
+                  path: appeals/api
+                - name: appeals-web
+                  path: appeals/web
                 - name: documentStorageApi
                   path: apps/document-storage
                 - name: function-document-check
@@ -273,3 +277,58 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
               repository: back-office/back-office-web
+      - name: Build Appeals API
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildAPI }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-api'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/appeals/api/Dockerfile
+              repository: back-office/back-office-appeals-api
+
+			- name: Build Appeals Web
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildWeb }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-web'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/appeals/web/Dockerfile
+              repository: back-office/appeals-web
