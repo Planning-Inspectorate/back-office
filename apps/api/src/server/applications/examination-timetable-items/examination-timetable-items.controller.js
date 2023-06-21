@@ -6,6 +6,8 @@ import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
 import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
 
+/** @typedef {import('@pins/api').Schema.Folder} Folder */
+
 /**
  * @type {import('express').RequestHandler}
  * @throws {Error}
@@ -101,7 +103,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	}
 
 	/**
-	 * @type {Promise<(import('@pins/api').Schema.Folder |null)>[]}
+	 * @type {Promise<(Folder |null)>[]}
 	 */
 	const createFolderPromise = [];
 
@@ -132,6 +134,27 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	logger.info('Create sub folders');
 	await Promise.all(createFolderPromise);
 	logger.info('Sub folders created successfully');
+};
+
+/**
+ * Deletes all the sub folders in a exam timetable folder, assumption is that all folders are empty.
+ * eg for deadline exams, deletes all line item folders and the "Other" folder
+ *
+ * @param {Number} caseId
+ * @param {Number} parentFolderId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ */
+const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
+	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);
+
+	if (subFolders) {
+		let idsToDelete = [];
+		for (const /** @type {Folder} */ folder of subFolders) {
+			idsToDelete.push(folder.id);
+		}
+		await folderRepository.deleteFolderMany(idsToDelete);
+	}
+	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
 };
 
 /**
@@ -195,13 +218,62 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
  */
 export const updateExaminationTimetableItem = async ({ params, body }, response) => {
 	const { id } = params;
+	const timetableBeforeUpdate = await examinationTimetableItemsRepository.getById(+id);
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
-	const examinationTimetableItem = await examinationTimetableItemsRepository.update(
+	const updatedExaminationTimetableItem = await examinationTimetableItemsRepository.update(
 		+id,
 		mappedExamTimetableDetails
 	);
+	// if the name has changed, or the date field, then need to rename the corresponding folder
+	// and if there are any line items (bullet points) these need updating / deleting and recreating as well
+	if (timetableBeforeUpdate) {
+		if (
+			timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
+			timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
+		) {
+			// find the matching folder and rename it
 
-	response.send(examinationTimetableItem);
+			const currentFolderName = `${format(new Date(timetableBeforeUpdate.date), 'dd MMM yyyy')} - ${
+				timetableBeforeUpdate.name
+			}`;
+			const newFolderName = `${format(
+				new Date(mappedExamTimetableDetails.date),
+				'dd MMM yyyy'
+			)} - ${mappedExamTimetableDetails.name}`;
+			const newDisplayOrder = +format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd');
+			const timetableFolder = await folderRepository.getFolderByNameAndCaseId(
+				timetableBeforeUpdate?.caseId,
+				currentFolderName
+			);
+			if (timetableFolder) {
+				await folderRepository.updateFolderById(timetableFolder.id, {
+					displayNameEn: newFolderName,
+					displayOrder: newDisplayOrder
+				});
+
+				// TODO: at this stage in dev, only looking at updating folders with no submisssions in
+				// so for now, can delete existing subfolders and then rebuild using latest list
+				// only do this if the description/list items have changed
+				if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
+					await deleteDeadlineSubFolders(
+						updatedExaminationTimetableItem.caseId,
+						timetableFolder.id
+					);
+					// and new create the folders based on the new line items list
+					const updatedRecord = await examinationTimetableItemsRepository.getById(+id);
+					if (updatedRecord) {
+						await createDeadlineSubFolders(updatedRecord, timetableFolder.id);
+					}
+				}
+			} else {
+				throw new Error('No matching folder found');
+			}
+		}
+	} else {
+		throw new Error('No matching exam timetable record found');
+	}
+
+	response.send(updatedExaminationTimetableItem);
 };
 
 /**
