@@ -620,7 +620,7 @@ export const knowledgeOfOtherLandownersValues = [
 /**
  * eed static data into the database. Does not disconnect from the database or handle errors.
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#db-client').PrismaClient} databaseConnector
  */
 export async function seedStaticData(databaseConnector) {
 	for (const sector of sectors) {

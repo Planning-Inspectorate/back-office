@@ -40,7 +40,7 @@ export const create = (examinationTimetableItem) => {
  *
  * @param {number} caseId
  * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateByCaseId = (caseId, examinationTimetableItem) => {
 	return databaseConnector.examinationTimetableItem.updateMany({

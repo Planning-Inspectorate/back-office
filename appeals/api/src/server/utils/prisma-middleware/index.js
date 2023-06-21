@@ -3,7 +3,7 @@
  * The middleware ensures that when fetching Document data, only non-deleted records are returned.
  * When deleting a Document, it updates the `isDeleted` property instead of actually deleting the record.
  *
- * @param {import('@prisma/client').Prisma.MiddlewareParams} parameters - The Prisma Client parameters object.
+ * @param {import('#db-client').Prisma.MiddlewareParams} parameters - The Prisma Client parameters object.
  * @param {(arg0: any) => any} next - The next middleware in the chain.
  * @returns {Promise<(arg0: any) => any>} The result of the next middleware in the chain.
  */

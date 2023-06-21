@@ -1,7 +1,7 @@
 import { truncateTable } from '../prisma.truncate.js';
 
 /**
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#db-client').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();
@@ -105,7 +105,7 @@ export async function deleteAllRecords(databaseConnector) {
 
 /**
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#db-client').PrismaClient} databaseConnector
  */
 async function deleteLowestFolders(databaseConnector) {
 	await databaseConnector.folder.deleteMany({
