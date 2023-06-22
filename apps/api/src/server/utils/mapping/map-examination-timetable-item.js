@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es';
 
 /**
- * @typedef {{examinationTypeId: number, name?: string, description?: string, 'date'?: Date, startDate?: Date, startTime?: any, endTime?: any}} ExaminationTimetableUpdateRequest
+ * @typedef {{examinationTypeId: number, name: string, description?: string, 'date': Date, startDate?: Date, startTime?: any, endTime?: any}} ExaminationTimetableUpdateRequest
  */
 
 /**

@@ -238,7 +238,15 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(404);
 	});
 
-	test('Delete examination timetable item returns 400 when timetable is published', async () => {
+	test('Delete examination timetable item returns 400 when timetable is published and has submittions', async () => {
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(1);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItem
 		);
@@ -247,6 +255,15 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('Delete examination timetable item returns 200 when timetable is deleted successfully', async () => {
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(0);
+		databaseConnector.folder.findMany.mockResolvedValue([]);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItemDeadline
 		);
@@ -370,7 +387,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(examinationTimetableItemDeadline);
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue(examinationTimetableItemDeadlineUpdateResponse);
 		const resp = await request
-			.patch('/applications/examination-timetable-items/1/update')
+			.patch('/applications/examination-timetable-items/1')
 			.send(examinationTimetableItemDeadlineUpdateBody);
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual(examinationTimetableItemDeadlineUpdateResponse);
@@ -381,7 +398,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
 		const resp = await request
-			.patch('/applications/examination-timetable-items/1/update')
+			.patch('/applications/examination-timetable-items/1')
 			.send({ examinationTypeId: 9999 });
 		expect(resp.status).toEqual(400);
 		expect(resp.body).toEqual({ errors: { examinationTypeId: 'Must be valid examination type' } });
@@ -392,7 +409,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
 		const resp = await request
-			.patch('/applications/examination-timetable-items/1/update')
+			.patch('/applications/examination-timetable-items/1')
 			.send({ caseId: 9999 });
 		expect(resp.status).toEqual(400);
 		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
@@ -402,7 +419,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
 		const resp = await request
-			.patch('/applications/examination-timetable-items/wrongid/update')
+			.patch('/applications/examination-timetable-items/wrongid')
 			.send({ name: 'new name' });
 		expect(resp.status).toEqual(400);
 		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);
@@ -412,7 +429,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue({});
 		const resp = await request
-			.patch('/applications/examination-timetable-items/9999/update')
+			.patch('/applications/examination-timetable-items/9999')
 			.send({ name: 'new name' });
 		expect(resp.status).toEqual(400);
 		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(0);

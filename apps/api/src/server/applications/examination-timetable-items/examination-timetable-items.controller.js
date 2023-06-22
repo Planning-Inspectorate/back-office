@@ -147,13 +147,16 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);
 
-	if (subFolders) {
-		let idsToDelete = [];
-		for (const /** @type {Folder} */ folder of subFolders) {
-			idsToDelete.push(folder.id);
-		}
-		await folderRepository.deleteFolderMany(idsToDelete);
+	if (!subFolders) {
+		logger.info(`No sub folder found for the parent folder Id ${parentFolderId}`);
+		return;
 	}
+
+	const idsToDelete = [];
+	for (const /** @type {Folder} */ folder of subFolders) {
+		idsToDelete.push(folder.id);
+	}
+	await folderRepository.deleteFolderMany(idsToDelete);
 	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
 };
 
@@ -216,6 +219,15 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 
 	await examinationTimetableItemsRepository.deleteById(+id);
 
+	logger.info(`delete subfolder for folder Id ${examinationTimetableItem.folderId}`);
+	await deleteDeadlineSubFolders(
+		examinationTimetableItem.caseId,
+		examinationTimetableItem.folderId
+	);
+
+	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
+	await folderRepository.deleteById(examinationTimetableItem.folderId);
+
 	response.send(examinationTimetableItem);
 };
 
@@ -253,53 +265,29 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		+id,
 		mappedExamTimetableDetails
 	);
-	// if the name has changed, or the date field, then need to rename the corresponding folder
-	// and if there are any line items (bullet points) these need updating / deleting and recreating as well
-	if (timetableBeforeUpdate) {
-		if (
-			timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
-			timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
-		) {
-			// find the matching folder and rename it
 
-			const currentFolderName = `${format(new Date(timetableBeforeUpdate.date), 'dd MMM yyyy')} - ${
-				timetableBeforeUpdate.name
-			}`;
-			const newFolderName = `${format(
-				new Date(mappedExamTimetableDetails.date),
-				'dd MMM yyyy'
-			)} - ${mappedExamTimetableDetails.name}`;
-			const newDisplayOrder = +format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd');
-			const timetableFolder = await folderRepository.getFolderByNameAndCaseId(
-				timetableBeforeUpdate?.caseId,
-				currentFolderName
-			);
-			if (timetableFolder) {
-				await folderRepository.updateFolderById(timetableFolder.id, {
-					displayNameEn: newFolderName,
-					displayOrder: newDisplayOrder
-				});
+	if (
+		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
+		timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
+	) {
+		const newFolderName = `${format(new Date(mappedExamTimetableDetails.date), 'dd MMM yyyy')} - ${
+			mappedExamTimetableDetails.name
+		}`;
+		const newDisplayOrder = +format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd');
+		await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
+			displayNameEn: newFolderName,
+			displayOrder: newDisplayOrder
+		});
+	}
 
-				// TODO: at this stage in dev, only looking at updating folders with no submisssions in
-				// so for now, can delete existing subfolders and then rebuild using latest list
-				// only do this if the description/list items have changed
-				if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
-					await deleteDeadlineSubFolders(
-						updatedExaminationTimetableItem.caseId,
-						timetableFolder.id
-					);
-					// and new create the folders based on the new line items list
-					const updatedRecord = await examinationTimetableItemsRepository.getById(+id);
-					if (updatedRecord) {
-						await createDeadlineSubFolders(updatedRecord, timetableFolder.id);
-					}
-				}
-			} else {
-				throw new Error('No matching folder found');
-			}
-		}
-	} else {
-		throw new Error('No matching exam timetable record found');
+	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
+		logger.info('Delete sub folders');
+		await deleteDeadlineSubFolders(
+			updatedExaminationTimetableItem.caseId,
+			timetableBeforeUpdate.folderId
+		);
+		logger.info('Create new sub folders');
+		await createDeadlineSubFolders(updatedExaminationTimetableItem, timetableBeforeUpdate.folderId);
 	}
 
 	response.send(updatedExaminationTimetableItem);
