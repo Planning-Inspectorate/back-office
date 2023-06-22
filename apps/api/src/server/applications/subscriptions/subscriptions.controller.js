@@ -2,7 +2,7 @@ import * as subscriptionRepository from '../../repositories/subscription.resposi
 import { eventClient } from '../../infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
-import { buildSubscriptionPayload } from './subscriptions.js';
+import { buildSubscriptionPayloads, subscriptionToResponse } from './subscriptions.js';
 import logger from '../../utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
 
@@ -24,7 +24,7 @@ export async function getSubscription(request, response) {
 		if (res === null) {
 			response.status(404).send({ errors: { notFound: 'subscription not found' } });
 		} else {
-			response.send(res);
+			response.send(subscriptionToResponse(res));
 		}
 	} catch (/** @type {any} */ e) {
 		logger.warn(e, 'unhandled error');
@@ -91,13 +91,14 @@ export async function updateSubscription(request, response) {
 		}
 		const res = await subscriptionRepository.update(id, subscription);
 
+		// since we only allow updating end date (currently), we only need to send update events
 		await eventClient.sendEvents(
 			NSIP_SUBSCRIPTION,
-			[buildSubscriptionPayload(res)],
+			buildSubscriptionPayloads(res),
 			EventType.Update
 		);
 
-		response.send(res);
+		response.send(subscriptionToResponse(res));
 	} catch (/** @type {any} */ e) {
 		logger.warn(e, 'unhandled error');
 		response.status(500).send({

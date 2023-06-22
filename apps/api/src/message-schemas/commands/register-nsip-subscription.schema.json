@@ -18,6 +18,14 @@
 		},
 		"nsipSubscription": {
 			"$ref": "nsip-subscription.schema.json"
+		},
+		"subscriptionTypes": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": ["allUpdates", "applicationSubmitted", "applicationDecided", "registrationOpen"]
+			},
+			"description": "Which update(s) does the subscriber want to get notified of. Note nsipSubscription.subscriptionType is ignored."
 		}
 	}
 }

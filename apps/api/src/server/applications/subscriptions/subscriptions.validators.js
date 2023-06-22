@@ -25,13 +25,15 @@ export const validateCreateSubscription = composeMiddleware(
 			allow_ip_domain: false
 		})
 		.withMessage('emailAddress must be a valid email address'),
-	body('subscriptionType')
+	body('subscriptionTypes')
 		.notEmpty()
-		.withMessage('subscriptionType is required')
-		.isString()
-		.withMessage('subscriptionType must be a string')
-		.isIn(['decisionOnly', 'allUpdates'])
-		.withMessage(`subscriptionType must be one of 'decisionOnly', 'allUpdates'`),
+		.withMessage('subscriptionTypes is required')
+		.isArray({ min: 1 })
+		.withMessage('subscriptionTypes must be an array')
+		.custom((values) => values.every(validateSubscriptionType))
+		.withMessage(
+			`subscriptionTypes must be one of 'allUpdates', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'`
+		),
 	body('startDate')
 		.optional()
 		.isISO8601({ strict: true, strictSeparator: true })
@@ -74,4 +76,18 @@ function validateStartBeforeEnd(startDate, endDate) {
 	const start = new Date(startDate);
 	const end = new Date(endDate);
 	return start < end;
+}
+
+const subscriptionTypes = [
+	'allUpdates',
+	'applicationSubmitted',
+	'applicationDecided',
+	'registrationOpen'
+];
+/**
+ * @param {string} v
+ * @returns {boolean}
+ */
+function validateSubscriptionType(v) {
+	return subscriptionTypes.includes(v);
 }

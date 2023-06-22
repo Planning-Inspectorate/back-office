@@ -1,7 +1,11 @@
 import { eventClient } from '../../infrastructure/event-client';
 import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics';
 import * as subscriptionRepository from '../../repositories/subscription.respository.js';
-import { buildSubscriptionPayload } from './subscriptions';
+import {
+	buildSubscriptionPayloads,
+	subscriptionTypeChanges,
+	typesToSubscription
+} from './subscriptions';
 import { EventType } from '@pins/event-client';
 
 /**
@@ -24,7 +28,7 @@ export async function createOrUpdateSubscription(request) {
 
 		await eventClient.sendEvents(
 			NSIP_SUBSCRIPTION,
-			[buildSubscriptionPayload(res)],
+			buildSubscriptionPayloads(res),
 			EventType.Create
 		);
 
@@ -34,11 +38,11 @@ export async function createOrUpdateSubscription(request) {
 	// update existing
 	const res = await subscriptionRepository.update(existing.id, subscription);
 
-	await eventClient.sendEvents(
-		NSIP_SUBSCRIPTION,
-		[buildSubscriptionPayload(res)],
-		EventType.Update
-	);
+	const eventsByType = subscriptionTypeChanges(existing, res);
+
+	for (const [type, payloads] of Object.entries(eventsByType)) {
+		await eventClient.sendEvents(NSIP_SUBSCRIPTION, payloads, type);
+	}
 
 	return { id: res.id, created: false };
 }
@@ -47,13 +51,14 @@ export async function createOrUpdateSubscription(request) {
  * @param {any} request
  * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
  */
-function prepareInput(request) {
+export function prepareInput(request) {
 	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
 	const subscription = {
 		caseReference: request.caseReference,
-		emailAddress: request.emailAddress,
-		subscriptionType: request.subscriptionType
+		emailAddress: request.emailAddress
 	};
+
+	typesToSubscription(request.subscriptionTypes, subscription);
 
 	if (request.startDate) {
 		subscription.startDate = new Date(request.startDate);

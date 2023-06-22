@@ -721,13 +721,17 @@ model AppellantCaseInvalidReasonOnAppellantCase {
 // when a project update is published, all subscribers are emailed
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
-  id               Int    @id @default(autoincrement())
-  emailAddress     String
+  id            Int    @id @default(autoincrement())
+  emailAddress  String
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
-  caseReference    String
-  // what type of subscription? e.g. decisionOnly or allUpdates
-  subscriptionType String
+  caseReference String
+
+  // what has been subscribed to
+  subscribedToAllUpdates           Boolean @default(false)
+  subscribedToApplicationSubmitted Boolean @default(false)
+  subscribedToApplicationDecided   Boolean @default(false)
+  subscribedToRegistrationOpen     Boolean @default(false)
 
   startDate DateTime?
   endDate   DateTime?
