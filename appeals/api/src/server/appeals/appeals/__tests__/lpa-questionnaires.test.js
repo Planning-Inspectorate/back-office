@@ -1,5 +1,4 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
@@ -26,7 +25,6 @@ import {
 import { createManyToManyRelationData } from '../appeals.service.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('lpa questionnaires routes', () => {
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
