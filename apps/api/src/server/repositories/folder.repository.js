@@ -117,7 +117,7 @@ export const deleteFolderMany = (idsToDelete) => {
  * @returns
  */
 export const deleteById = (id) => {
-	return databaseConnector.folder.deleteMany({
+	return databaseConnector.folder.delete({
 		where: { id }
 	});
 };
