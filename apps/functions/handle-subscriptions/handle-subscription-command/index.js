@@ -26,8 +26,13 @@ export default async function (context, msg) {
 
 	if (type === EventType.Create) {
 		try {
+			/** @type {import('@pins/api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} */
+			const body = msg.body;
 			// todo: should we validate the request, or leave to the API?
-			const res = await api.createOrUpdateSubscription(msg.body);
+			const res = await api.createOrUpdateSubscription({
+				...body.nsipSubscription,
+				subscriptionTypes: body.subscriptionTypes
+			});
 			context.log.info(`subscription created/updated: ${res.id}`);
 		} catch (e) {
 			context.log.error('error creating/updating subscription', e);

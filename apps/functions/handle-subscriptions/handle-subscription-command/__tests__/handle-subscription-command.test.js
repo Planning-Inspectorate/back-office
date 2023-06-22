@@ -32,12 +32,12 @@ describe('handle-subscription-command', () => {
 					body: {}
 				},
 				log: {
-					info: `subscription created: 1`
+					info: `subscription created/updated: 1`
 				}
 			}
 		];
 
-		api.createSubscription = jest.fn().mockResolvedValue({ id: 1 });
+		api.createOrUpdateSubscription = jest.fn().mockResolvedValue({ id: 1 });
 		const context = {
 			log: jest.fn()
 		};
@@ -54,7 +54,7 @@ describe('handle-subscription-command', () => {
 				if (log.warn) {
 					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, msg);
 				} else {
-					expect(api.createSubscription).toHaveBeenLastCalledWith(msg.body);
+					expect(api.createOrUpdateSubscription).toHaveBeenLastCalledWith(msg.body);
 					expect(context.log.info).toHaveBeenLastCalledWith(log.info);
 				}
 				/* eslint-enable jest/no-conditional-expect */
