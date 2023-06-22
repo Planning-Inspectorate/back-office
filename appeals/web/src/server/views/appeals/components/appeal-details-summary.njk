@@ -1,0 +1,23 @@
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+
+{%- macro appealDetailsSummary(params) -%}
+	{{ govukSummaryList({
+		classes: "govuk-summary-list--no-border",
+		rows: [{
+				key: {
+					text: params.appealSiteKey if params.appealSiteKey else "Site address"
+				},
+				value: {
+					text: params.appealSite
+				}
+			}, {
+				key: {
+					text: params.localPlanningAuthorityKey if params.localPlanningAuthorityKey else "Local planning authority"
+				},
+				value: {
+					text: params.localPlanningAuthority
+				}
+			}]
+		})
+	}}
+{%- endmacro -%}
