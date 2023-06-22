@@ -204,6 +204,16 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 			.json({ errors: { message: 'Can not delete published examination timetable item.' } });
 	}
 
+	const hasSubmissions = await validateSubmissions(examinationTimetableItem);
+
+	if (examinationTimetableItem?.published && hasSubmissions) {
+		logger.info(`Examination timetable item with id: ${id} has submission.`);
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+	}
+
 	await examinationTimetableItemsRepository.deleteById(+id);
 
 	response.send(examinationTimetableItem);
@@ -218,7 +228,26 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
  */
 export const updateExaminationTimetableItem = async ({ params, body }, response) => {
 	const { id } = params;
+
 	const timetableBeforeUpdate = await examinationTimetableItemsRepository.getById(+id);
+
+	if (!timetableBeforeUpdate) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate);
+
+	if (timetableBeforeUpdate?.published && hasSubmissions) {
+		logger.info(`Examination timetable item with id: ${id} has submission.`);
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+	}
+
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 	const updatedExaminationTimetableItem = await examinationTimetableItemsRepository.update(
 		+id,
