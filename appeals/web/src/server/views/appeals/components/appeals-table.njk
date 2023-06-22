@@ -3,7 +3,7 @@
 
 {%- macro appealsTable(params) -%}
 	{%- macro createReferenceCell(appeal) -%}
-		<a class="govuk-link" href="/appeals-service/appeal-details/{{appeal.appealId}}">
+		<a class="govuk-link" href="/appeals/appeal-details/{{appeal.appealId}}">
 			{{ appeal.appealReference | appealShortReference }}
 		</a>
 	{%- endmacro -%}

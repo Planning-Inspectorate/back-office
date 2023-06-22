@@ -40,7 +40,7 @@ router.route('/auth/signout').get(asyncRoute(handleSignout));
 router.route('/documents/:caseId/upload').post(postDocumentsUpload);
 router.route('/documents/:caseId/upload/:documentId/add-version').post(postUploadDocumentVersion);
 router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentsDownload));
-router.use('/appeals-service', appealsRouter);
+router.use('/appeals', appealsRouter);
 router.use('/applications-service', applicationsRouter);
 
 export default router;
