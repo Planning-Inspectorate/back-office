@@ -1,12 +1,9 @@
 import { jest } from '@jest/globals';
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-
-const request = supertest(app);
 
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
