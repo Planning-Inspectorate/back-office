@@ -3,3 +3,7 @@ import * as representationsRepository from '../../../../repositories/representat
 export const addAttachmentRepresentation = async (repId, documentId) => {
 	return representationsRepository.addApplicationRepresentationAttachment(repId, documentId);
 };
+
+export const deleteAttachmentRepresentation = async (attachmentId) => {
+	return representationsRepository.deleteApplicationRepresentationAttachment(attachmentId);
+};

@@ -1,4 +1,7 @@
-import { addAttachmentRepresentation } from './attachment.service.js';
+import {
+	addAttachmentRepresentation,
+	deleteAttachmentRepresentation
+} from './attachment.service.js';
 import { Prisma } from '@prisma/client';
 
 const prismaUniqueConstraintFailedCode = 'P2002';
@@ -25,5 +28,25 @@ export const addRepresentationAttachment = async ({ params, body }, response) =>
 		return response
 			.status(500)
 			.json({ errors: { contact: `Error creating attachment for representation document` } });
+	}
+};
+
+/**
+ *
+ * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").deleteRepresentationAttachment>}
+ */
+export const deleteRepresentationAttachment = async ({ params }, response) => {
+	const { attachmentId } = params;
+
+	try {
+		const { id } = await deleteAttachmentRepresentation(Number(attachmentId));
+		return response.send({ attachmentId: id });
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			return response.status(404).json({ errors: { attachmentId: `not found` } });
+		}
+		return response
+			.status(500)
+			.json({ errors: { contact: `Error deleting attachment for representation document` } });
 	}
 };

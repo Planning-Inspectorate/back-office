@@ -441,7 +441,7 @@ function buildSearch(rawSearchTerm) {
  *
  * @param {number} representationId
  * @param {string} documentId
- * @return {Promise<Prisma.Prisma__RepresentationAttachmentClient<Prisma.RepresentationAttachmentGetPayload<{data: {representationId, documentGuid}}>>>}
+ * @returns {Promise<*>}
  */
 export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
 	return databaseConnector.representationAttachment.create({
@@ -449,6 +449,17 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 			documentGuid: documentId,
 			representationId
 		}
+	});
+};
+
+/**
+ *
+ * @param {number} attachmentId
+ * @returns {Promise<*>}
+ */
+export const deleteApplicationRepresentationAttachment = async (attachmentId) => {
+	return databaseConnector.representationAttachment.delete({
+		where: { id: attachmentId }
 	});
 };
 
