@@ -73,7 +73,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	body.folderId = itemFolder.id;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
 	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
 
@@ -284,7 +284,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 export const hasSubmissions = async (_request, response) => {
 	const { id } = _request.params;
 
-	const timetableItem = await exminationTimetableItemsRepository.getById(+id);
+	const timetableItem = await examinationTimetableItemsRepository.getById(+id);
 	if (!timetableItem) {
 		// @ts-ignore
 		return response
