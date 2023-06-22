@@ -55,7 +55,7 @@ extends:
                   - template: ../steps/azure_get_secrets.yml
                     parameters:
                       secrets:
-                        - name: back-office-sql-connection-string
+                        - name: back-office-appeals-sql-connection-string
                           variable: DATABASE_URL
                   - template: ../steps/node_script.yml
                     parameters:
