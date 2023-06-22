@@ -21,8 +21,8 @@
 		},
 		"subscriptionType": {
 			"type": "string",
-			"enum": ["decisionOnly", "allUpdates"],
-			"description": "which updates does the subscriber wants to get notified of"
+			"enum": ["allUpdates", "applicationSubmitted", "applicationDecided", "registrationOpen"],
+			"description": "which update does the subscriber want to get notified of. For multiple types, use multiple messages."
 		},
 		"startDate": {
 			"type": "string",

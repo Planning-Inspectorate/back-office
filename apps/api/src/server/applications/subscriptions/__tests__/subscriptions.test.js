@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test';
 import { databaseConnector } from '../../../utils/database-connector';
+import { prepareInput } from '../subscriptions.service';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 /**
@@ -51,16 +52,27 @@ describe('subscriptions', () => {
 					caseReference: '1234',
 					emailAddress: 'hello.world@example.com'
 				},
-				subscription: { id: 123, caseReference: '1234', emailAddress: 'hello.world@example.com' },
+				subscription: {
+					id: 123,
+					caseReference: '1234',
+					emailAddress: 'hello.world@example.com',
+					subscribedToAllUpdates: true
+				},
 				want: {
 					status: 200,
-					body: { id: 123, caseReference: '1234', emailAddress: 'hello.world@example.com' }
+					body: {
+						id: 123,
+						caseReference: '1234',
+						emailAddress: 'hello.world@example.com',
+						subscriptionTypes: ['allUpdates']
+					}
 				}
 			}
 		];
 
 		for (const { name, query, subscription, want } of tests) {
 			test('' + name, async () => {
+				databaseConnector.subscription.findUnique.mockReset();
 				if (subscription !== undefined) {
 					databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
 				}
@@ -82,7 +94,7 @@ describe('subscriptions', () => {
 		const validReq = {
 			caseReference: '5123',
 			emailAddress: 'hello.world@example.com',
-			subscriptionType: 'allUpdates'
+			subscriptionTypes: ['allUpdates']
 		};
 		const tests = [
 			{
@@ -94,7 +106,7 @@ describe('subscriptions', () => {
 						errors: {
 							caseReference: 'caseReference is required',
 							emailAddress: 'emailAddress is required',
-							subscriptionType: 'subscriptionType is required'
+							subscriptionTypes: 'subscriptionTypes is required'
 						}
 					}
 				}
@@ -104,7 +116,7 @@ describe('subscriptions', () => {
 				body: {
 					caseReference: 5123,
 					emailAddress: [1, 2],
-					subscriptionType: false
+					subscriptionTypes: false
 				},
 				want: {
 					status: 400,
@@ -112,7 +124,7 @@ describe('subscriptions', () => {
 						errors: {
 							caseReference: 'caseReference must be a string',
 							emailAddress: 'emailAddress must be a string',
-							subscriptionType: 'subscriptionType must be a string'
+							subscriptionTypes: 'subscriptionTypes must be an array'
 						}
 					}
 				}
@@ -122,7 +134,7 @@ describe('subscriptions', () => {
 				body: {
 					caseReference: '5123',
 					emailAddress: 'hello.world@example.com',
-					subscriptionType: 'allUpdates'
+					subscriptionTypes: ['allUpdates']
 				},
 				createdId: 5,
 				want: {
@@ -200,23 +212,17 @@ describe('subscriptions', () => {
 		for (const { name, body, createdId, want } of tests) {
 			test('' + name, async () => {
 				// setup
+				databaseConnector.subscription.findUnique.mockReset();
+				databaseConnector.subscription.create.mockReset();
 				databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
 
 				if (createdId) {
-					const created = {
-						...body,
-						id: createdId
-					};
-					if (body.startDate) {
-						created.startDate = new Date(body.startDate);
-					}
-					if (body.endDate) {
-						created.endDate = new Date(body.endDate);
-					}
-					if (body.language) {
-						created.language = body.language;
-					}
-					databaseConnector.subscription.create.mockResolvedValueOnce(created);
+					databaseConnector.subscription.create.mockImplementationOnce((sub) => {
+						return {
+							...sub.data,
+							id: createdId
+						};
+					});
 				}
 
 				// action
@@ -226,15 +232,20 @@ describe('subscriptions', () => {
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
 				if (createdId) {
-					const msg = {
-						...body,
-						subscriptionId: createdId
-					};
+					const msgs = body.subscriptionTypes.map((t) => {
+						const msg = {
+							...body,
+							subscriptionType: t,
+							subscriptionId: createdId
+						};
+						delete msg.subscriptionTypes;
+						return msg;
+					});
 					// this is OK because we always run some checks
 					// eslint-disable-next-line jest/no-conditional-expect
 					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 						'nsip-subscription',
-						[msg],
+						msgs,
 						'Create'
 					);
 				}
@@ -246,7 +257,7 @@ describe('subscriptions', () => {
 		const validReq = {
 			caseReference: '5123',
 			emailAddress: 'hello.world@example.com',
-			subscriptionType: 'allUpdates'
+			subscriptionTypes: ['allUpdates']
 		};
 		const tests = [
 			{
@@ -254,12 +265,15 @@ describe('subscriptions', () => {
 				body: {
 					caseReference: '5123',
 					emailAddress: 'hello.world@example.com',
-					subscriptionType: 'allUpdates'
+					subscriptionTypes: ['allUpdates']
 				},
-				updatedId: 5,
+				existing: { id: 5 },
 				want: {
 					status: 200,
-					body: { id: 5 }
+					body: { id: 5 },
+					events: {
+						Create: ['allUpdates']
+					}
 				}
 			},
 			{
@@ -268,10 +282,13 @@ describe('subscriptions', () => {
 					...validReq,
 					startDate: '2023-06-15T09:27:00.000Z'
 				},
-				updatedId: 6,
+				existing: { id: 6 },
 				want: {
 					status: 200,
-					body: { id: 6 }
+					body: { id: 6 },
+					events: {
+						Create: ['allUpdates']
+					}
 				}
 			},
 			{
@@ -280,10 +297,13 @@ describe('subscriptions', () => {
 					...validReq,
 					endDate: '2023-06-15T09:27:00.000Z'
 				},
-				updatedId: 7,
+				existing: { id: 7 },
 				want: {
 					status: 200,
-					body: { id: 7 }
+					body: { id: 7 },
+					events: {
+						Create: ['allUpdates']
+					}
 				}
 			},
 			{
@@ -292,10 +312,13 @@ describe('subscriptions', () => {
 					...validReq,
 					language: 'English'
 				},
-				updatedId: 8,
+				existing: { id: 8 },
 				want: {
 					status: 200,
-					body: { id: 8 }
+					body: { id: 8 },
+					events: {
+						Create: ['allUpdates']
+					}
 				}
 			},
 			{
@@ -305,32 +328,47 @@ describe('subscriptions', () => {
 					startDate: '2023-06-15T09:27:00.000Z',
 					endDate: '2023-06-30T09:27:00.000Z'
 				},
-				updatedId: 9,
+				existing: { id: 9 },
 				want: {
 					status: 200,
-					body: { id: 9 }
+					body: { id: 9 },
+					events: {
+						Create: ['allUpdates']
+					}
+				}
+			},
+			{
+				name: 'should send appropriate events for changes',
+				body: {
+					...validReq,
+					subscriptionTypes: ['applicationSubmitted', 'applicationDecided']
+				},
+				existing: {
+					id: 9,
+					subscribedToApplicationSubmitted: true,
+					subscribedToRegistrationOpen: true
+				},
+				want: {
+					status: 200,
+					body: { id: 9 },
+					events: {
+						Create: ['applicationDecided'],
+						Update: ['applicationSubmitted'],
+						Delete: ['registrationOpen']
+					}
 				}
 			}
 		];
 
-		for (const { name, body, updatedId, want } of tests) {
+		for (const { name, body, existing, want } of tests) {
 			test('' + name, async () => {
 				// setup
-				databaseConnector.subscription.findUnique.mockResolvedValueOnce({ id: updatedId });
+				databaseConnector.subscription.findUnique.mockReset();
+				databaseConnector.subscription.update.mockReset();
+				databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
 
-				const updated = {
-					...body,
-					id: updatedId
-				};
-				if (body.startDate) {
-					updated.startDate = new Date(body.startDate);
-				}
-				if (body.endDate) {
-					updated.endDate = new Date(body.endDate);
-				}
-				if (body.language) {
-					updated.language = body.language;
-				}
+				const updated = prepareInput(body);
+				updated.id = existing.id;
 				databaseConnector.subscription.update.mockResolvedValueOnce(updated);
 
 				// action
@@ -339,18 +377,24 @@ describe('subscriptions', () => {
 				// checks
 				expect(response.body).toEqual(want.body);
 				expect(response.status).toEqual(want.status);
-				if (updatedId) {
-					const msg = {
-						...body,
-						subscriptionId: updatedId
-					};
-					// this is OK because we always run some checks
-					// eslint-disable-next-line jest/no-conditional-expect
-					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-						'nsip-subscription',
-						[msg],
-						'Update'
-					);
+				if (existing.id) {
+					for (const [eventType, subTypes] of Object.entries(want.events)) {
+						// this is OK because we always run some checks
+						// eslint-disable-next-line jest/no-conditional-expect
+						expect(eventClient.sendEvents).toHaveBeenCalledWith(
+							'nsip-subscription',
+							subTypes.map((t) => {
+								const msg = {
+									...body,
+									subscriptionType: t,
+									subscriptionId: existing.id
+								};
+								delete msg.subscriptionTypes;
+								return msg;
+							}),
+							eventType
+						);
+					}
 				}
 			});
 		}
@@ -410,7 +454,7 @@ describe('subscriptions', () => {
 					endDate: new Date('2023-06-15T09:27:00.000Z'),
 					caseReference: '123',
 					emailAddress: 'user@example.com',
-					subscriptionType: 'allUpdates'
+					subscribedToAllUpdates: true
 				},
 				want: {
 					status: 200,
@@ -419,7 +463,7 @@ describe('subscriptions', () => {
 						endDate: '2023-06-15T09:27:00.000Z',
 						caseReference: '123',
 						emailAddress: 'user@example.com',
-						subscriptionType: 'allUpdates'
+						subscriptionTypes: ['allUpdates']
 					}
 				}
 			}
@@ -427,6 +471,8 @@ describe('subscriptions', () => {
 
 		for (const { name, body, updated, existing, want } of tests) {
 			test('' + name, async () => {
+				databaseConnector.subscription.findUnique.mockReset();
+				databaseConnector.subscription.update.mockReset();
 				// setup
 				if (updated !== undefined) {
 					databaseConnector.subscription.update.mockResolvedValueOnce(updated);
@@ -442,17 +488,21 @@ describe('subscriptions', () => {
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
 				if (updated) {
-					/** @type {NSIPSubscription|*} */
-					const msg = {
-						...want.body
-					};
-					delete msg.id;
-					msg.subscriptionId = updated.id;
+					const msgs = want.body.subscriptionTypes.map((t) => {
+						const msg = {
+							...want.body,
+							subscriptionType: t,
+							subscriptionId: updated.id
+						};
+						delete msg.subscriptionTypes;
+						delete msg.id;
+						return msg;
+					});
 					// this is OK because we always run some checks
 					// eslint-disable-next-line jest/no-conditional-expect
 					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 						'nsip-subscription',
-						[msg],
+						msgs,
 						'Update'
 					);
 				}

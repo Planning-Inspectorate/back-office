@@ -1124,9 +1124,12 @@ const document = {
 					format: 'email',
 					examples: ['alan.turing@planninginspectorate.gov.uk']
 				},
-				subscriptionType: {
-					type: 'string',
-					enum: ['decisionOnly', 'allUpdates'],
+				subscriptionTypes: {
+					type: 'array',
+					items: {
+						type: 'string',
+						enum: ['allUpdates', 'applicationSubmitted', 'applicationDecided', 'registrationOpen']
+					},
 					description: 'which updates does the subscriber wants to get notified of'
 				},
 				startDate: {
@@ -1160,9 +1163,9 @@ const document = {
 							type: 'string',
 							example: 'emailAddress is required'
 						},
-						subscriptionType: {
+						subscriptionTypes: {
 							type: 'string',
-							example: 'subscriptionType is required'
+							example: 'subscriptionTypes is required'
 						},
 						startDate: {
 							type: 'string',
@@ -1251,6 +1254,10 @@ const document = {
 			type: 'object',
 			required: ['caseReference', 'emailAddress', 'subscriptionType'],
 			properties: {
+				id: {
+					type: 'number',
+					description: 'back office ID for this subscription'
+				},
 				caseReference: {
 					type: 'string',
 					description: 'the case reference the subscription relates to'
@@ -1260,9 +1267,12 @@ const document = {
 					format: 'email',
 					examples: ['alan.turing@planninginspectorate.gov.uk']
 				},
-				subscriptionType: {
-					type: 'string',
-					enum: ['decisionOnly', 'allUpdates'],
+				subscriptionTypes: {
+					type: 'array',
+					items: {
+						type: 'string',
+						enum: ['allUpdates', 'applicationSubmitted', 'applicationDecided', 'registrationOpen']
+					},
 					description: 'which updates does the subscriber wants to get notified of'
 				},
 				startDate: {
