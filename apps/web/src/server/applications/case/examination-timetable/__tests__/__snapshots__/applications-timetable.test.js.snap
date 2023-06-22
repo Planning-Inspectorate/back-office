@@ -20,6 +20,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <input class=\\"govuk-input\\" id=\\"name\\" name=\\"name\\" type=\\"text\\">
@@ -130,6 +132,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -288,6 +292,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -454,6 +460,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -545,6 +553,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -671,6 +681,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -791,6 +803,8 @@ exports[`Create examination timetable page should display errors if start date a
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -937,6 +951,8 @@ exports[`Create examination timetable page should display errors if start time a
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
                 </div>
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -1264,7 +1280,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                             </ul>
                                         </dd>
                                     </div>
-                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a>
+                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a> |
+                                <a                                 class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/1/edit-item\\">Edit timetable item</a>
                             </div>
                         </div>
                         <div class=\\"govuk-accordion__section\\">
@@ -1298,7 +1315,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                             </ul>
                                         </dd>
                                     </div>
-                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a>
+                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a> |
+                                <a                                 class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/2/edit-item\\">Edit timetable item</a>
                             </div>
                         </div>
                     </div>
@@ -1317,9 +1335,11 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item\\">
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='Lorem' id=\\"name\\" name=\\"name\\" type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='Some text with
- * one point
+                <input class=\\"govuk-input\\" value='Some text with 
+ * one point 
 * another point ' id=\\"description\\" name=\\"description\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='01' id=\\"date.day\\" name=\\"date.day\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='02' id=\\"date.month\\" name=\\"date.month\\"
@@ -1379,9 +1399,11 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/save\\">
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
+                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='Lorem' id=\\"name\\" name=\\"name\\" type=\\"hidden\\">
-                <input class=\\"govuk-input\\" value='Some text with
- * one point
+                <input class=\\"govuk-input\\" value='Some text with 
+ * one point 
 * another point ' id=\\"description\\" name=\\"description\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='01' id=\\"date.day\\" name=\\"date.day\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='02' id=\\"date.month\\" name=\\"date.month\\"
@@ -1467,7 +1489,8 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                                     </ul>
                                 </dd>
                             </div>
-                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a> |
+                        <a                         class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/1/edit-item\\">Edit timetable item</a>
                     </div>
                 </div>
                 <div class=\\"govuk-accordion__section\\">
@@ -1501,7 +1524,8 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                                     </ul>
                                 </dd>
                             </div>
-                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a> |
+                        <a                         class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/2/edit-item\\">Edit timetable item</a>
                     </div>
                 </div>
             </div>
