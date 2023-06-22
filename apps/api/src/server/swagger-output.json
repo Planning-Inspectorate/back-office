@@ -1209,6 +1209,50 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/attachment/{attachmentId}": {
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Delete a representation attachment for an application document",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "attachmentId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"attachmentId": {
+									"type": "number",
+									"example": 1
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
