@@ -48,7 +48,6 @@ const examinationTimetableItemDeadline = {
 	}
 };
 
-/* TODO: uncomment this for main update test
 const examinationTimetableItemDeadlineUpdateBody = {
 	caseId: 1,
 	examinationTypeId: 3,
@@ -81,7 +80,7 @@ const examinationTimetableItemDeadlineUpdateResponse = {
 		displayNameEn: 'Deadline',
 		displayNameCy: 'Deadline'
 	}
-}; */
+};
 
 const ExaminationFolder = {
 	id: 1,
@@ -274,6 +273,8 @@ describe('Test examination timetable items API', () => {
 				id: 123
 			}
 		});
+		expect(databaseConnector.folder.delete).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
 
 		expect(resp.status).toEqual(200);
 	});
@@ -354,9 +355,7 @@ describe('Test examination timetable items API', () => {
 		expect(resp.body.submissions).toBe(true);
 	});
 
-	// and the update API
-	// TODO: This main success test is failing - it passes with test.only, but fails when all the tests are run.
-	/* 	test comment out ('update examination timetable item successfully', async () => {
+	test('update examination timetable item successfully', async () => {
 		const deadlineSubFolders = [
 			{
 				id: 2,
@@ -384,15 +383,20 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.folder.findUnique.mockResolvedValue(ExaminationFolder);
 		databaseConnector.folder.findMany.mockResolvedValue(deadlineSubFolders);
 		databaseConnector.folder.deleteMany.mockResolvedValue(deadlineSubFolders);
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(examinationTimetableItemDeadline);
-		databaseConnector.examinationTimetableItem.update.mockResolvedValue(examinationTimetableItemDeadlineUpdateResponse);
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItemDeadline
+		);
+		databaseConnector.examinationTimetableItem.update.mockResolvedValue(
+			examinationTimetableItemDeadlineUpdateResponse
+		);
 		const resp = await request
 			.patch('/applications/examination-timetable-items/1')
 			.send(examinationTimetableItemDeadlineUpdateBody);
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual(examinationTimetableItemDeadlineUpdateResponse);
+		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(1);
-	}); */
+	});
 
 	test('update examination timetable item throws 400 error on invalid exam type', async () => {
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue(null);

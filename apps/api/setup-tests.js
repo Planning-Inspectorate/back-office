@@ -47,6 +47,7 @@ const mockFolderFindUnique = jest.fn().mockResolvedValue({});
 const mockFolderFindFirst = jest.fn().mockResolvedValue({});
 const mockFolderFindMany = jest.fn().mockResolvedValue({});
 const mockFolderDeleteMany = jest.fn().mockResolvedValue({});
+const mockFolderDelete = jest.fn().mockResolvedValue({});
 
 const mockRegionFindMany = jest.fn().mockResolvedValue({});
 const mockRegionFindUnique = jest.fn().mockResolvedValue({});
@@ -194,7 +195,8 @@ class MockPrismaClient {
 			update: mockFolderUpdate,
 			updateMany: mockFolderUpdateMany,
 			findFirst: mockFolderFindFirst,
-			deleteMany: mockFolderDeleteMany
+			deleteMany: mockFolderDeleteMany,
+			delete: mockFolderDelete
 		};
 	}
 
