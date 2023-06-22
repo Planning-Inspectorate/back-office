@@ -1,0 +1,53 @@
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: Prod
+    values:
+      - Prod
+
+pool: pins-odt-agent-pool
+
+pr: none
+
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.2.0
+
+variables:
+  - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+  - group: pipeline_secrets
+
+jobs:
+  - deployment: Seed_DB
+    displayName: Seed ${{ parameters.environment }} Database
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: none
+            - checkout: self
+            - template: steps/node_script.yml@templates
+              parameters:
+                script: npm ci
+            - template: steps/azure_auth.yml@templates
+            - template: steps/azure_get_secrets.yml@templates
+              parameters:
+                secrets:
+                  - name: back-office-appeals-sql-connection-string
+                    variable: DATABASE_URL
+            - template: steps/node_script.yml@templates
+              parameters:
+                environmentVariables:
+                  DATABASE_URL: $(DATABASE_URL)
+                script: npm run db:seed:prod
+                workingDirectory: $(Build.Repository.LocalPath)/appeals/api
+    workspace:
+      clean: all
