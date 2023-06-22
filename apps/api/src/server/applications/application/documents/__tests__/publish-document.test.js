@@ -1,9 +1,6 @@
-import supertest from 'supertest';
-import { app } from '../../../../app-test.js';
+import { request } from '../../../../app-test.js';
 import { applicationFactoryForTests } from '../../../../utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
-
-const request = supertest(app);
 
 const application1 = applicationFactoryForTests({
 	id: 1,

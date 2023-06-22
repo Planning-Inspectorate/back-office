@@ -1,10 +1,8 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import { ERROR_MUST_BE_NUMBER, ERROR_NOT_FOUND } from '../../constants.js';
 import { householdAppeal } from '../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('lpa questionnaires routes', () => {
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {

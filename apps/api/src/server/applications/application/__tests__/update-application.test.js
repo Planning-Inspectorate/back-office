@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
-import supertest from 'supertest';
 
 /** @type {import('../application.js').NsipProjectPayload} */
 const expectedEventPayload = {
@@ -14,11 +13,9 @@ const expectedEventPayload = {
 	interestedPartyIds: []
 };
 
-const { app } = await import('../../../app-test.js');
+const { request } = await import('../../../app-test.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const { eventClient } = await import('../../../infrastructure/event-client.js');
-
-const request = supertest(app);
 
 describe('Update application', () => {
 	test('update-application updates application with just title and first notified date', async () => {
