@@ -1,5 +1,6 @@
 import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
@@ -50,14 +51,9 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		throw new Error(`Examination folder not found for the case ${body.caseId}`);
 	}
 
-	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
 	// Create sub folder for the examination timetable item.
-	const folderName = `${format(new Date(examinationTimetableItem.date), 'dd MMM yyyy')} - ${
-		examinationTimetableItem.name
-	}`;
-
-	const displayOrder = +format(new Date(examinationTimetableItem.date), 'yyyyMMdd');
-
+	const folderName = `${format(new Date(body.date), 'dd MMM yyyy')} - ${body.name}`;
+	const displayOrder = +format(new Date(body.date), 'yyyyMMdd');
 	const folder = {
 		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
@@ -70,6 +66,9 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	if (!itemFolder) {
 		throw Error('Failed to create sub folder for the examination item.');
 	}
+
+	body.folderId = itemFolder.id;
+	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
 
 	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
 
@@ -182,4 +181,75 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 	await exminationTimetableItemsRepository.deleteById(+id);
 
 	response.send(examinationTimetableItem);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const hasSubmissions = async (_request, response) => {
+	const { id } = _request.params;
+
+	const timetableItem = await exminationTimetableItemsRepository.getById(+id);
+	if (!timetableItem) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	const submissions = await validateSubmissions(timetableItem);
+
+	response.send({ submissions });
+};
+
+/**
+ *
+ * @param {import('@prisma/client').ExaminationTimetableItem} timetableItem
+ * @returns
+ */
+const validateSubmissions = async (timetableItem) => {
+	const folder = await folderRepository.getById(timetableItem.folderId);
+	if (!folder) {
+		logger.info('No associated folder found');
+		// @ts-ignore
+		return false;
+	}
+
+	const documents = await documentRepository.countDocumentsInFolder(timetableItem.folderId);
+	if (documents && documents > 0) {
+		logger.info(`Document found in folder ${timetableItem.folderId}`);
+		// @ts-ignore
+		return true;
+	}
+
+	const subFolders = await folderRepository.getByCaseId(
+		timetableItem.caseId,
+		timetableItem.folderId
+	);
+	if (!subFolders || subFolders.length === 0) {
+		logger.info(`No sub folder for folder ${timetableItem.folderId}`);
+		// @ts-ignore
+		return false;
+	}
+	/**
+	 * @type {any[]}
+	 */
+	const subFoldersDocumentsPromise = [];
+	subFolders.forEach((subFolder) => {
+		subFoldersDocumentsPromise.push(documentRepository.countDocumentsInFolder(subFolder.id));
+	});
+
+	const subfoldersDocuments = await Promise.all(subFoldersDocumentsPromise);
+
+	if (subfoldersDocuments.some((sd) => sd > 0)) {
+		logger.info(`Document found for parent folder ${timetableItem.folderId}`);
+		// @ts-ignore
+		return true;
+	}
+
+	logger.info(`Document not found for parent folder ${timetableItem.folderId}`);
+
+	return false;
 };

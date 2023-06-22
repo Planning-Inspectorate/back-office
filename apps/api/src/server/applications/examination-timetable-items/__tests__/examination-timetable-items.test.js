@@ -13,6 +13,7 @@ const examinationTimetableItem = {
 	name: 'Exmaination Timetable Item',
 	description: 'Exmaination Timetable Item Description',
 	date: '2023-02-27T10:00:00Z',
+	folderId: 1234,
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
 	endDate: '2023-02-17T12:00:00Z',
@@ -39,6 +40,7 @@ const examinationTimetableItemDeadline = {
 	endDate: '2023-02-27T12:00:00Z',
 	endTime: '12:20',
 	published: false,
+	folderId: 1234,
 	ExaminationTimetableType: {
 		id: 2,
 		name: 'Compulsory Acquisition Hearing',
@@ -229,5 +231,81 @@ describe('Test examination timetable items API', () => {
 		});
 
 		expect(resp.status).toEqual(200);
+	});
+
+	test('Has submissions examination timetable item returns 404 when timetable is not exists', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
+		const resp = await request
+			.get('/applications/examination-timetable-items/36/has-submissions')
+			.send({});
+		expect(resp.status).toEqual(404);
+	});
+
+	test('Has submissions examination timetable item returns 200 with true status when submissions found', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItem
+		);
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(1);
+		const resp = await request
+			.get('/applications/examination-timetable-items/36/has-submissions')
+			.send({});
+		expect(resp.status).toEqual(200);
+		expect(resp.body.submissions).toBe(true);
+	});
+
+	test('Has submissions examination timetable item returns 200 with false status when no submissions found', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItem
+		);
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(0);
+		databaseConnector.folder.findMany.mockResolvedValue([]);
+		const resp = await request
+			.get('/applications/examination-timetable-items/36/has-submissions')
+			.send({});
+		expect(resp.status).toEqual(200);
+		expect(resp.body.submissions).toBe(false);
+	});
+
+	test('Has submissions examination timetable item returns 200 with true status when submissions found in sub folder', async () => {
+		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+			examinationTimetableItem
+		);
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValueOnce(0);
+		databaseConnector.folder.findMany.mockResolvedValue([
+			{
+				id: 2,
+				caseId: 1,
+				displayNameEn: 'Examination Subfolder',
+				parentFolderId: 1,
+				displayOrder: 100
+			}
+		]);
+		databaseConnector.document.count.mockResolvedValueOnce(1);
+		const resp = await request
+			.get('/applications/examination-timetable-items/36/has-submissions')
+			.send({});
+		expect(resp.status).toEqual(200);
+		expect(resp.body.submissions).toBe(true);
 	});
 });

@@ -2004,6 +2004,38 @@
 					}
 				}
 			}
+		},
+		"/applications/examination-timetable-items/{id}/has-submissions": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Find examinsation iteam has submissions or not",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"submissions": {
+									"type": "boolean",
+									"example": true
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -2540,6 +2572,10 @@
 						"type": "boolean",
 						"example": false
 					},
+					"folderId": {
+						"type": "number",
+						"example": 134
+					},
 					"startTime": {
 						"type": "string",
 						"example": "10:20"
@@ -2577,6 +2613,10 @@
 				"published": {
 					"type": "boolean",
 					"example": false
+				},
+				"folderId": {
+					"type": "number",
+					"example": 134
 				},
 				"startDate": {
 					"type": "string",
@@ -2622,6 +2662,10 @@
 				"published": {
 					"type": "boolean",
 					"example": false
+				},
+				"folderId": {
+					"type": "number",
+					"example": 134
 				},
 				"startDate": {
 					"type": "string",

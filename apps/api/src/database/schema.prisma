@@ -439,15 +439,16 @@ model ZoomLevel {
 /// This exists to specify the struture with which documents are displayed
 /// in the back office (not the front office).
 model Folder {
-  id             Int        @id @default(autoincrement())
-  displayNameEn  String
-  displayOrder   Int?
-  parentFolderId Int?
-  caseId         Int?
-  document       Document[]
-  case           Case?      @relation(fields: [caseId], references: [id])
-  parentFolder   Folder?    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  childFolders   Folder[]   @relation("FolderTree")
+  id                       Int                        @id @default(autoincrement())
+  displayNameEn            String
+  displayOrder             Int?
+  parentFolderId           Int?
+  caseId                   Int?
+  document                 Document[]
+  case                     Case?                      @relation(fields: [caseId], references: [id])
+  parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childFolders             Folder[]                   @relation("FolderTree")
+  ExaminationTimetableItem ExaminationTimetableItem[]
 
   @@unique([caseId, displayNameEn, parentFolderId])
 }
@@ -606,9 +607,11 @@ model ExaminationTimetableItem {
   startDate                DateTime?
   startTime                String?
   endTime                  String?
+  folderId                 Int
   published                Boolean                  @default(false)
   Case                     Case                     @relation(fields: [caseId], references: [id])
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+  Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
 }
 
 model ProcedureType {
