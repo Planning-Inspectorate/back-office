@@ -141,7 +141,7 @@ router.get(
 );
 
 router.patch(
-	'/:id/update',
+	'/:id',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/examination-timetable-items/{id}/update'

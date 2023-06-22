@@ -44,12 +44,9 @@ export const createCaseTimetableItem = async (payload) => {
 export const updateCaseTimetableItem = async (payload) => {
 	let response;
 	try {
-		const updatedTimetable = await patch(
-			`applications/examination-timetable-items/${payload.id}/update`,
-			{
-				json: payload
-			}
-		);
+		const updatedTimetable = await patch(`applications/examination-timetable-items/${payload.id}`, {
+			json: payload
+		});
 		response = { updatedTimetable };
 	} catch {
 		response = new Promise((resolve) => {

@@ -111,6 +111,18 @@ export const deleteFolderMany = (idsToDelete) => {
 };
 
 /**
+ * Deletes folder by id
+ *
+ * @param {number} id
+ * @returns
+ */
+export const deleteById = (id) => {
+	return databaseConnector.folder.deleteMany({
+		where: { id }
+	});
+};
+
+/**
  * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
  *
  * @param {number} caseId
