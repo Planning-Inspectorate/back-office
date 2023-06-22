@@ -1,10 +1,19 @@
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
 
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
-/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.LookupTables} LookupTables */
+/** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.AppealTimetable} AppealTimetable */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCase} AppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.ValidationOutcome} ValidationOutcome */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -161,8 +170,8 @@ const appealRepository = (function () {
 		},
 		/**
 		 * @param {number} id
-		 * @param {import('@pins/api').Appeals.TimetableDeadlineDate} data
-		 * @returns {PrismaPromise<import('@pins/api').Schema.AppealTimetable>}
+		 * @param {TimetableDeadlineDate} data
+		 * @returns {PrismaPromise<AppealTimetable>}
 		 */
 		upsertAppealTimetableById(id, data) {
 			return databaseConnector.appealTimetable.upsert({
@@ -176,6 +185,76 @@ const appealRepository = (function () {
 					appeal: true
 				}
 			});
+		},
+		/**
+		 * @param {number} id
+		 * @param {{otherNotValidReasons?: string, validationOutcomeId?: number}} data
+		 * @returns {PrismaPromise<AppellantCase>}
+		 */
+		updateAppellantCaseById(id, data) {
+			return databaseConnector.appellantCase.update({
+				where: { id },
+				data
+			});
+		},
+		/**
+		 * @param {string} databaseTable
+		 * @returns {Promise<LookupTables[]>}
+		 */
+		getLookupList(databaseTable) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].findMany({
+				orderBy: {
+					id: 'asc'
+				}
+			});
+		},
+		/**
+		 * @param {string} validationOutcome
+		 * @returns {Promise<ValidationOutcome | null>}
+		 */
+		getValidationOutcomeByName(validationOutcome) {
+			return databaseConnector.validationOutcome.findUnique({
+				where: {
+					name: validationOutcome
+				}
+			});
+		},
+		/**
+		 * @param {number} appellantCaseId
+		 * @param {string[]} data
+		 * @returns {Promise<object>}
+		 */
+		updateAppellantCaseIncompleteReasonAppellantCaseById(appellantCaseId, data) {
+			return databaseConnector.$transaction([
+				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany({
+					where: { appellantCaseId }
+				}),
+				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany({
+					data: data.map((item) => ({
+						appellantCaseId,
+						appellantCaseIncompleteReasonId: Number(item)
+					}))
+				})
+			]);
+		},
+		/**
+		 * @param {number} appellantCaseId
+		 * @param {string[]} data
+		 * @returns {Promise<object>}
+		 */
+		updateAppellantCaseInvalidReasonAppellantCaseById(appellantCaseId, data) {
+			return databaseConnector.$transaction([
+				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany({
+					where: { appellantCaseId }
+				}),
+				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany({
+					data: data.map((item) => ({
+						appellantCaseId,
+						appellantCaseInvalidReasonId: Number(item)
+					}))
+				})
+			]);
 		}
 	};
 })();

@@ -207,4 +207,58 @@ const otherAppeals = [
 	}
 ];
 
-export { fullPlanningAppeal, householdAppeal, householdAppealTwo, linkedAppeals, otherAppeals };
+const appellantCaseIncompleteReasons = [
+	{
+		id: 1,
+		name: 'Reason 1'
+	},
+	{
+		id: 2,
+		name: 'Reason 2'
+	},
+	{
+		id: 3,
+		name: 'Other'
+	}
+];
+
+const appellantCaseInvalidReasons = [
+	{
+		id: 1,
+		name: 'Reason 1'
+	},
+	{
+		id: 2,
+		name: 'Reason 2'
+	},
+	{
+		id: 3,
+		name: 'Other'
+	}
+];
+
+const validationOutcomes = [
+	{
+		id: 1,
+		name: 'Incomplete'
+	},
+	{
+		id: 2,
+		name: 'Invalid'
+	},
+	{
+		id: 3,
+		name: 'Valid'
+	}
+];
+
+export {
+	appellantCaseIncompleteReasons,
+	appellantCaseInvalidReasons,
+	fullPlanningAppeal,
+	householdAppeal,
+	householdAppealTwo,
+	linkedAppeals,
+	otherAppeals,
+	validationOutcomes
+};

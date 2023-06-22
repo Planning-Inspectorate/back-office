@@ -2,6 +2,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
+			validationOutcome: ValidationOutcome;
 		}
 	}
 }
@@ -197,6 +198,7 @@ interface SingleAppellantCaseResponse {
 		firstName: string | null;
 		surname: string | null;
 	};
+	planningApplicationReference: string;
 	developmentDescription?: {
 		isCorrect: boolean | null;
 		details: string | null;
@@ -266,6 +268,8 @@ interface DocumentationSummary {
 
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
+type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
+
 export {
 	AppealListResponse,
 	AppealSite,
@@ -275,6 +279,7 @@ export {
 	DocumentationSummary,
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
+	LookupTables,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
 	SingleAppealDetailsResponse,
