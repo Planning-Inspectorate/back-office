@@ -1,6 +1,7 @@
 import { get, patch, post, deleteRequest } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
@@ -16,7 +17,7 @@ export const getCaseTimetableItemTypes = async () => {
 /**
  * Save new timetable item
  *
- * @param {ApplicationsTimetable} payload
+ * @param {ApplicationsTimetablePayload} payload
  * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
  */
 export const createCaseTimetableItem = async (payload) => {
@@ -41,7 +42,7 @@ export const createCaseTimetableItem = async (payload) => {
 /**
  * Updates an existing timetable item
  *
- * @param {ApplicationsTimetable} payload
+ * @param {ApplicationsTimetablePayload} payload
  * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
  */
 export const updateCaseTimetableItem = async (payload) => {
@@ -84,7 +85,7 @@ export const getCaseTimetableItemById = async (timetableId) => {
  * Return Timetable Item Type by its name
  *
  * @param {string} selectedItemTypeName
- * @returns {Promise<{text: string, value: string, templateType: string, id: number}>}
+ * @returns {Promise<{name: string, templateType: string, id: number}>}
  */
 export const getCaseTimetableItemTypeByName = async (selectedItemTypeName) => {
 	const timetableItemTypes = await getCaseTimetableItemTypes();
@@ -94,8 +95,7 @@ export const getCaseTimetableItemTypeByName = async (selectedItemTypeName) => {
 		timetableItemTypes[0];
 
 	return {
-		text: selectedItemType.displayNameEn,
-		value: selectedItemType.name || '',
+		name: selectedItemType.name || '',
 		templateType: selectedItemType.templateType,
 		id: selectedItemType.id
 	};
