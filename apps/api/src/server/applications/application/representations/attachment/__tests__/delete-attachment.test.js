@@ -12,7 +12,8 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		attachment: [{ id: 1 }]
 	}
 ];
 
