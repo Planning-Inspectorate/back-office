@@ -1,7 +1,29 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { ERROR_MUST_BE_NUMBER, ERROR_NOT_FOUND } from '../../constants.js';
-import { householdAppeal } from '../../tests/data.js';
+import {
+	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
+	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME,
+	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
+	ERROR_MAX_LENGTH_300,
+	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
+	ERROR_MUST_BE_NUMBER,
+	ERROR_MUST_BE_STRING,
+	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
+	ERROR_NOT_FOUND,
+	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
+	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS
+} from '../../constants.js';
+import {
+	baseExpectedLPAQuestionnaireResponse,
+	householdAppeal,
+	householdappealWithCompleteLPAQuestionnaire,
+	householdappealWithIncompleteLPAQuestionnaire,
+	lpaQuestionnaireIncompleteReasons,
+	lpaQuestionnaireValidationOutcomes,
+	otherAppeals
+} from '../../tests/data.js';
+import { createManyToManyRelationData } from '../appeals.service.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const request = supertest(app);
@@ -9,9 +31,11 @@ const request = supertest(app);
 describe('lpa questionnaires routes', () => {
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
 		describe('GET', () => {
-			test('gets a single lpa questionnaire', async () => {
+			test('gets a single lpa questionnaire with no outcome', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { lpaQuestionnaire } = householdAppeal;
 				const response = await request.get(
@@ -19,98 +43,53 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire));
+			});
+
+			test('gets a single lpa questionnaire with an outcome of Complete', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(
+					householdappealWithCompleteLPAQuestionnaire
+				);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
+
+				const { lpaQuestionnaire } = householdappealWithCompleteLPAQuestionnaire;
+				const response = await request.get(
+					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
+				);
+
+				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					affectsListedBuildingDetails: [
-						{
-							grade: lpaQuestionnaire.listedBuildingDetails[1].grade,
-							description: lpaQuestionnaire.listedBuildingDetails[1].description
-						}
-					],
-					appealId: householdAppeal.id,
-					appealReference: householdAppeal.reference,
-					appealSite: {
-						addressLine1: householdAppeal.address.addressLine1,
-						town: householdAppeal.address.town,
-						county: householdAppeal.address.county,
-						postCode: householdAppeal.address.postcode
-					},
-					communityInfrastructureLevyAdoptionDate:
-						lpaQuestionnaire.communityInfrastructureLevyAdoptionDate,
-					designatedSites: lpaQuestionnaire.designatedSites.map(
-						({ designatedSite: { name, description } }) => ({ name, description })
-					),
-					developmentDescription: lpaQuestionnaire.developmentDescription,
-					documents: {
-						communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-						conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-						consultationResponses: 'consultation-responses.pdf',
-						definitiveMapAndStatement: 'right-of-way.pdf',
-						emergingPlans: ['emerging-plan-1.pdf'],
-						environmentalStatementResponses: 'environment-statement-responses.pdf',
-						issuedScreeningOption: 'issued-screening-opinion.pdf',
-						lettersToNeighbours: 'letters-to-neighbours.pdf',
-						otherRelevantPolicies: ['policy-1.pdf'],
-						planningOfficersReport: 'planning-officers-report.pdf',
-						policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-						pressAdvert: 'press-advert.pdf',
-						representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-						responsesOrAdvice: ['responses-or-advice.pdf'],
-						screeningDirection: 'screening-direction.pdf',
-						siteNotice: 'site-notice.pdf',
-						supplementaryPlanningDocuments: ['supplementary-1.pdf'],
-						treePreservationOrder: 'tree-preservation-order.pdf'
-					},
-					doesAffectAListedBuilding: lpaQuestionnaire.doesAffectAListedBuilding,
-					doesAffectAScheduledMonument: lpaQuestionnaire.doesAffectAScheduledMonument,
-					doesSiteHaveHealthAndSafetyIssues: lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues,
-					doesSiteRequireInspectorAccess: lpaQuestionnaire.doesSiteRequireInspectorAccess,
-					extraConditions: lpaQuestionnaire.extraConditions,
-					hasCommunityInfrastructureLevy: lpaQuestionnaire.hasCommunityInfrastructureLevy,
-					hasCompletedAnEnvironmentalStatement:
-						lpaQuestionnaire.hasCompletedAnEnvironmentalStatement,
-					hasEmergingPlan: lpaQuestionnaire.hasEmergingPlan,
-					hasExtraConditions: lpaQuestionnaire.hasExtraConditions,
-					hasProtectedSpecies: lpaQuestionnaire.hasProtectedSpecies,
-					hasRepresentationsFromOtherParties: lpaQuestionnaire.hasRepresentationsFromOtherParties,
-					hasResponsesOrStandingAdviceToUpload:
-						lpaQuestionnaire.hasResponsesOrStandingAdviceToUpload,
-					hasStatementOfCase: lpaQuestionnaire.hasStatementOfCase,
-					hasStatutoryConsultees: lpaQuestionnaire.hasStatutoryConsultees,
-					hasSupplementaryPlanningDocuments: lpaQuestionnaire.hasSupplementaryPlanningDocuments,
-					hasTreePreservationOrder: lpaQuestionnaire.hasTreePreservationOrder,
-					inCAOrrelatesToCA: lpaQuestionnaire.inCAOrrelatesToCA,
-					includesScreeningOption: lpaQuestionnaire.includesScreeningOption,
-					isCommunityInfrastructureLevyFormallyAdopted:
-						lpaQuestionnaire.isCommunityInfrastructureLevyFormallyAdopted,
-					isEnvironmentalStatementRequired: lpaQuestionnaire.isEnvironmentalStatementRequired,
-					isGypsyOrTravellerSite: lpaQuestionnaire.isGypsyOrTravellerSite,
-					isListedBuilding: lpaQuestionnaire.isListedBuilding,
-					isPublicRightOfWay: lpaQuestionnaire.isPublicRightOfWay,
-					isSensitiveArea: lpaQuestionnaire.isSensitiveArea,
-					isSiteVisible: lpaQuestionnaire.isSiteVisible,
-					isTheSiteWithinAnAONB: lpaQuestionnaire.isTheSiteWithinAnAONB,
-					listedBuildingDetails: [
-						{
-							grade: lpaQuestionnaire.listedBuildingDetails[0].grade,
-							description: lpaQuestionnaire.listedBuildingDetails[0].description
-						}
-					],
-					localPlanningDepartment: householdAppeal.localPlanningDepartment,
-					lpaNotificationMethods: lpaQuestionnaire.lpaNotificationMethods.map(
-						({ lpaNotificationMethod: { name } }) => ({ name })
-					),
-					lpaQuestionnaireId: lpaQuestionnaire.id,
-					meetsOrExceedsThresholdOrCriteriaInColumn2:
-						lpaQuestionnaire.meetsOrExceedsThresholdOrCriteriaInColumn2,
-					otherAppeals: [
-						{
-							appealId: 1,
-							appealReference: 'APP/Q9999/D/21/725284'
-						}
-					],
-					procedureType: lpaQuestionnaire.procedureType.name,
-					scheduleType: lpaQuestionnaire.scheduleType.name,
-					siteWithinGreenBelt: lpaQuestionnaire.siteWithinGreenBelt
+					...baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire),
+					validationOutcome: lpaQuestionnaire.lpaQuestionnaireValidationOutcome.name
+				});
+			});
+
+			test('gets a single lpa questionnaire with an outcome of Incomplete', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(
+					householdappealWithIncompleteLPAQuestionnaire
+				);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
+
+				const { lpaQuestionnaire } = householdappealWithIncompleteLPAQuestionnaire;
+				const response = await request.get(
+					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire),
+					incompleteReasons:
+						lpaQuestionnaire.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire.map(
+							({ lpaQuestionnaireIncompleteReason }) => ({
+								name: lpaQuestionnaireIncompleteReason.name
+							})
+						),
+					otherNotValidReasons: lpaQuestionnaire.otherNotValidReasons,
+					validationOutcome: lpaQuestionnaire.lpaQuestionnaireValidationOutcome.name
 				});
 			});
 
@@ -164,6 +143,764 @@ describe('lpa questionnaires routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						lpaQuestionnaireId: ERROR_NOT_FOUND
+					}
+				});
+			});
+		});
+
+		describe('PATCH', () => {
+			test('updates an lpa questionnaire when the validation outcome is complete', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					validationOutcome: 'complete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[0].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.update
+				).not.toHaveBeenCalled();
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is Complete', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					validationOutcome: 'Complete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[0].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.update
+				).not.toHaveBeenCalled();
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a weekday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [1, 2, 3],
+					lpaQuestionnaireDueDate: '2023-06-21',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-06-21T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a weekend day with a bank holiday on the following Monday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [1, 2, 3],
+					lpaQuestionnaireDueDate: '2023-04-29',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-05-02T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a bank holiday Friday with a folowing bank holiday Monday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [1, 2, 3],
+					lpaQuestionnaireDueDate: '2023-04-07',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-04-11T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a bank holiday with a bank holiday the next day', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [1, 2, 3],
+					lpaQuestionnaireDueDate: '2023-12-25',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-12-27T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is incomplete with string array', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: ['1', '2', '3'],
+					lpaQuestionnaireDueDate: '2023-06-21',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-06-21T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is Incomplete with numeric array', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [1, 2, 3],
+					lpaQuestionnaireDueDate: '2023-06-21',
+					otherNotValidReasons: 'Another incomplete reason',
+					validationOutcome: 'Incomplete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
+						otherNotValidReasons: 'Another incomplete reason'
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons,
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2023-06-21T01:00:00.000Z'
+				});
+			});
+
+			test('returns an error if appealId is not numeric', async () => {
+				const response = await request
+					.patch(`/appeals/one/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`)
+					.send({
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_MUST_BE_NUMBER
+					}
+				});
+			});
+
+			test('returns an error if appealId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+				const response = await request
+					.patch(`/appeals/3/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`)
+					.send({
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						appealId: ERROR_NOT_FOUND
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireId is not numeric', async () => {
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}/lpa-questionnaires/one`)
+					.send({
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireId: ERROR_MUST_BE_NUMBER
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}/lpa-questionnaires/3`)
+					.send({
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireId: ERROR_NOT_FOUND
+					}
+				});
+			});
+
+			test('returns an error if validationOutcome is Complete and incompleteReasons is given', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1],
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						incompleteReasons: ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is not a string', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1, 3],
+						otherNotValidReasons: 123,
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_MUST_BE_STRING
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is more than 300 characters', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1, 3],
+						otherNotValidReasons: 'A'.repeat(301),
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_MAX_LENGTH_300
+					}
+				});
+			});
+
+			test('returns an error if validationOutcome is Complete and otherNotValidReasons is given', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						otherNotValidReasons: 'Another incomplete reason',
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS
+					}
+				});
+			});
+
+			test('returns an error if validationOutcome is Incomplete and incompleteReasons is not given', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validationOutcome: ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireDueDate is not in the correct format', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1],
+						lpaQuestionnaireDueDate: '05/05/2023',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireDueDate does not contain leading zeros', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1],
+						lpaQuestionnaireDueDate: '2023-5-5',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if lpaQuestionnaireDueDate is not a valid date', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1],
+						lpaQuestionnaireDueDate: '2023-02-30',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if validationOutcome is invalid', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(undefined);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						lpaQuestionnaireDueDate: '2023-06-21',
+						validationOutcome: 'invalid'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validationOutcome: ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is not given when validationOutcome is Incomplete and Other is selected', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1, 3],
+						lpaQuestionnaireDueDate: '2023-06-21',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_OTHER_NOT_VALID_REASONS_REQUIRED
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is given when validationOutcome is Incomplete and Other is not selected', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1, 2],
+						lpaQuestionnaireDueDate: '2023-06-21',
+						otherNotValidReasons: 'Another incomplete reason',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS
+					}
+				});
+			});
+
+			test('returns an error if incompleteReasons contains an invalid value', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send({
+						incompleteReasons: [1, 10],
+						lpaQuestionnaireDueDate: '2023-06-21',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						incompleteReasons: ERROR_NOT_FOUND
+					}
+				});
+			});
+
+			test('returns an error when unable to save the data', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[0]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaire.update.mockImplementation(() => {
+					throw new Error('InternalServer Error');
+				});
+
+				const body = {
+					validationOutcome: 'complete'
+				};
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+					)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[0].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(response.status).toEqual(500);
+				expect(response.body).toEqual({
+					errors: {
+						body: ERROR_FAILED_TO_SAVE_DATA
 					}
 				});
 			});

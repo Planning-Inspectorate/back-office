@@ -5,8 +5,9 @@ import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } fro
 import appealFormatter from './appeals.formatter.js';
 import {
 	calculateTimetable,
-	isAppellantCaseIncomplete,
-	isAppellantCaseInvalid
+	isOutcomeIncomplete,
+	isOutcomeInvalid,
+	recalculateDateIfNotBusinessDay
 } from './appeals.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
@@ -64,7 +65,14 @@ const updateAppealById = async (req, res) => {
 			}
 		}
 
-		await appealRepository.updateById(appealId, body);
+		await appealRepository.updateById(
+			appealId,
+			{
+				...body,
+				updatedAt: new Date()
+			},
+			'appeal'
+		);
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -111,24 +119,88 @@ const updateAppellantCaseById = async (req, res) => {
 	const appellantCaseId = Number(params.appellantCaseId);
 
 	try {
-		await appealRepository.updateAppellantCaseById(appellantCaseId, {
-			otherNotValidReasons,
-			validationOutcomeId: validationOutcome.id
-		});
+		await appealRepository.updateById(
+			appellantCaseId,
+			{
+				otherNotValidReasons,
+				appellantCaseValidationOutcomeId: validationOutcome.id
+			},
+			'appellantCase'
+		);
 
-		isAppellantCaseIncomplete(validationOutcome.name) &&
-			incompleteReasons &&
-			(await appealRepository.updateAppellantCaseIncompleteReasonAppellantCaseById(
-				appellantCaseId,
-				incompleteReasons
-			));
+		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: appellantCaseId,
+				data: incompleteReasons,
+				databaseTable: 'appellantCaseIncompleteReasonOnAppellantCase',
+				relationOne: 'appellantCaseId',
+				relationTwo: 'appellantCaseIncompleteReasonId'
+			});
+		}
 
-		isAppellantCaseInvalid(validationOutcome.name) &&
-			invalidReasons &&
-			(await appealRepository.updateAppellantCaseInvalidReasonAppellantCaseById(
-				appellantCaseId,
-				invalidReasons
-			));
+		if (isOutcomeInvalid(validationOutcome.name) && invalidReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: appellantCaseId,
+				data: invalidReasons,
+				databaseTable: 'appellantCaseInvalidReasonOnAppellantCase',
+				relationOne: 'appellantCaseId',
+				relationTwo: 'appellantCaseInvalidReasonId'
+			});
+		}
+	} catch (error) {
+		if (error) {
+			logger.error(error);
+			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
+		}
+	}
+
+	return res.send(body);
+};
+
+/**
+ * @type {RequestHandler}
+ * @returns {Promise<object>}
+ */
+const updateLPAQuestionnaireById = async (req, res) => {
+	const {
+		body,
+		body: { incompleteReasons, otherNotValidReasons },
+		params,
+		validationOutcome
+	} = req;
+	const lpaQuestionnaireId = Number(params.lpaQuestionnaireId);
+
+	try {
+		await appealRepository.updateById(
+			lpaQuestionnaireId,
+			{
+				otherNotValidReasons,
+				lpaQuestionnaireValidationOutcomeId: validationOutcome.id
+			},
+			'lPAQuestionnaire'
+		);
+
+		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: lpaQuestionnaireId,
+				data: incompleteReasons,
+				databaseTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
+				relationOne: 'lpaQuestionnaireId',
+				relationTwo: 'lpaQuestionnaireIncompleteReasonId'
+			});
+		}
+
+		if (body.lpaQuestionnaireDueDate) {
+			const lpaQuestionnaireDueDate = await recalculateDateIfNotBusinessDay(
+				body.lpaQuestionnaireDueDate
+			);
+
+			await appealRepository.upsertAppealTimetableById(Number(params.appealId), {
+				lpaQuestionnaireDueDate
+			});
+
+			body.lpaQuestionnaireDueDate = lpaQuestionnaireDueDate;
+		}
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -145,5 +217,6 @@ export {
 	getAppellantCaseById,
 	getLpaQuestionnaireById,
 	updateAppealById,
-	updateAppellantCaseById
+	updateAppellantCaseById,
+	updateLPAQuestionnaireById
 };

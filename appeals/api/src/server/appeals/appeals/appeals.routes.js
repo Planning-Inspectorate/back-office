@@ -6,7 +6,8 @@ import {
 	getAppellantCaseById,
 	getLpaQuestionnaireById,
 	updateAppealById,
-	updateAppellantCaseById
+	updateAppellantCaseById,
+	updateLPAQuestionnaireById
 } from './appeals.controller.js';
 import {
 	checkAppealExistsAndAddToRequest,
@@ -21,8 +22,13 @@ import {
 	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
 	patchAppealValidator,
-	patchAppellantCaseValidator
+	patchAppellantCaseValidator,
+	patchLPAQuestionnaireValidator
 } from './appeals.validators.js';
+import {
+	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
+	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME
+} from '../constants.js';
 
 const router = createRouter();
 
@@ -113,6 +119,36 @@ router.get(
 	asyncHandler(getLpaQuestionnaireById)
 );
 
+router.patch(
+	'/:appealId/lpa-questionnaires/:lpaQuestionnaireId',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}'
+		#swagger.description = Updates a single LPA questionnaire for an appeal by id
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'LPA questionnaire details to update',
+			schema: { $ref: '#/definitions/UpdateLPAQuestionnaireRequest' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Updates a single LPA questionnaire by id',
+			schema: { $ref: '#/definitions/UpdateLPAQuestionnaireResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	patchLPAQuestionnaireValidator,
+	checkAppealExistsAndAddToRequest,
+	checkLPAQuestionnaireExists,
+	checkValidationOutcomeExistsAndAddToRequest(
+		'lPAQuestionnaireValidationOutcome',
+		ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME
+	),
+	checkLookupValuesAreValid('incompleteReasons', 'lPAQuestionnaireIncompleteReason'),
+	asyncHandler(updateLPAQuestionnaireById)
+);
+
 router.get(
 	'/:appealId/appellant-cases/:appellantCaseId',
 	/*
@@ -154,7 +190,10 @@ router.patch(
 	patchAppellantCaseValidator,
 	checkAppealExistsAndAddToRequest,
 	checkAppellantCaseExists,
-	checkValidationOutcomeExistsAndAddToRequest,
+	checkValidationOutcomeExistsAndAddToRequest(
+		'appellantCaseValidationOutcome',
+		ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME
+	),
 	checkLookupValuesAreValid('incompleteReasons', 'appellantCaseIncompleteReason'),
 	checkLookupValuesAreValid('invalidReasons', 'appellantCaseInvalidReason'),
 	asyncHandler(updateAppellantCaseById)
