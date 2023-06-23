@@ -5,6 +5,7 @@
 
 {% set serviceName = "Examination timetable" %}
 {% set pageTitle = "Check your answers" %}
+{% set formAction = ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) if isEditing else ('timetable'|url({caseId: caseId, step: 'new-item'}))  %}
 
 {% block pageTitle %}
 	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
@@ -43,10 +44,10 @@
 		<div class='govuk-grid-column-full'>
 
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-				{{ pageHeaderMessage }}
+				{{ 'Check your answers before editing an item' if isEditing else 'Check your answers before creating a new item' }}
 			</h1>
 
-			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item'}) }}">
+			<form method="post" action="{{ ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) }}">
 				{% include 'app/includes/csrf.njk' %}
 				{{ formValues() }}
 				<dl class="govuk-summary-list pins-files-list">
@@ -62,7 +63,7 @@
   					rows: rows
 				}) }}
 
-			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/save'}) }}">
+			<form method="post" action="{{'timetable-item'|url({caseId: caseId, step: 'save'}) }}">
 				{% include 'app/includes/csrf.njk' %}
 
 				{{ formValues() }}

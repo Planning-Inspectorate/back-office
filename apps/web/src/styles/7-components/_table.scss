@@ -139,4 +139,13 @@
 	.govuk-accordion__show-all {
 		display: none;
 	}
+
+	.top-right-link {
+		display: flex;
+		justify-content: end;
+		position: relative;
+		height: 0;
+		top: -4rem;
+		line-height: 0;
+	}
 }

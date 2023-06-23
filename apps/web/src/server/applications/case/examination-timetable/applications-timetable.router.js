@@ -11,52 +11,54 @@ const applicationsTimetableRouter = createRouter({ mergeParams: true });
 applicationsTimetableRouter.use(assertDomainTypeIsNotInspector, registerCaseId);
 applicationsTimetableRouter
 	.route('/')
-	.get([registerCase], asyncRoute(controller.viewApplicationsCaseExaminationTimeTable));
+	.get(registerCase, asyncRoute(controller.viewApplicationsCaseTimetableList));
 
 applicationsTimetableRouter
-	.route('/new-item')
+	.route('/item/new')
 	.get(asyncRoute(controller.viewApplicationsCaseTimetableNew))
-	.post(asyncRoute(controller.postApplicationsCaseTimetableNew));
+	// click on change from "check-your-answers" page
+	.post(asyncRoute(controller.viewApplicationsCaseTimetableDetailsNew));
 
 applicationsTimetableRouter
-	.route('/new-item/validate')
+	.route('/item/edit/:timetableId')
+	.get(asyncRoute(controller.viewApplicationsCaseTimetableDetailsEdit))
+	// click on change from "check-your-answers" page
+	.post(asyncRoute(controller.viewApplicationsCaseTimetableDetailsNew));
+
+// click on "Continue" button from details-form
+// works for edit and new
+applicationsTimetableRouter
+	.route('/item/validate')
 	.post(
 		validators.validatorsDispatcher,
 		asyncRoute(controller.postApplicationsCaseTimetableDetails)
 	);
 
+// redirect to check-your-answers page
+// triggered by Validate controller: no button leads directly here
+// works for edit and new
 applicationsTimetableRouter
-	.route('/new-item/check-your-answers')
+	.route('/item/check-your-answers/:timetableId?')
 	.post(asyncRoute(controller.postApplicationsCaseTimetableCheckYourAnswers));
 
+// click on "Save" from "check-your-answers" page
+// works for edit and new
 applicationsTimetableRouter
-	.route('/new-item/save')
+	.route('/item/save')
 	.post(asyncRoute(controller.postApplicationsCaseTimetableSave));
-
-applicationsTimetableRouter
-	.route('/new-item/success')
-	.get(registerCase, asyncRoute(controller.showApplicationsCaseTimetableSuccessBanner));
 
 applicationsTimetableRouter
 	.route('/preview')
-	.get(asyncRoute(controller.previewApplicationsCaseExaminationTimeTable));
+	.get(asyncRoute(controller.viewApplicationsCaseTimetablesPreview))
+	.post(asyncRoute(controller.publishApplicationsCaseTimetables));
 
 applicationsTimetableRouter
-	.route('/publish')
-	.post(asyncRoute(controller.publishApplicationsCaseExaminationTimeTable));
+	.route('/item/delete/:timetableId')
+	.get(asyncRoute(controller.viewApplicationsCaseTimetableDelete))
+	.post(asyncRoute(controller.deleteApplicationsCaseTimetable));
 
 applicationsTimetableRouter
-	.route('/delete/:timetableId')
-	.get(asyncRoute(controller.showApplicationsCaseTimetableDelete))
-	.post([registerCase], asyncRoute(controller.deleteApplicationsCaseTimetable));
-
-applicationsTimetableRouter
-	.route('/publish/success')
-	.get(registerCase, asyncRoute(controller.showApplicationsCaseTimetablePublishSuccessBanner));
-
-applicationsTimetableRouter
-	.route('/:examinationTimetableItemId/edit-item')
-	.get(asyncRoute(controller.showApplicationsCaseTimetableDetailsExisting))
-	.post(asyncRoute(controller.postApplicationsCaseTimetableSave));
+	.route('/:action/success')
+	.get(registerCase, asyncRoute(controller.viewApplicationsCaseTimetableSuccessBanner));
 
 export default applicationsTimetableRouter;

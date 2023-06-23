@@ -25,6 +25,7 @@ export interface ApplicationsTimetable {
 	caseId: number;
 	examinationTypeId: number;
 	ExaminationTimetableType?: {
+		id: number;
 		name: string;
 		templateType: string;
 	};
