@@ -22,7 +22,7 @@ router.post(
 		},
 				#swagger.parameters['body'] = {
             in: 'body',
-            description: 'Representation Details',
+            description: 'Document Details',
             schema: {
             documentId: 'a guid',
             }
@@ -53,7 +53,7 @@ router.delete(
 			type: 'integer'
 		},
         #swagger.responses[200] = {
-            description: 'Representation',
+            description: 'Attachment',
             schema: {
 				attachmentId: 1,
 			}
