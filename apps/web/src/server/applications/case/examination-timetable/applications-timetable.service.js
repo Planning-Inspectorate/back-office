@@ -78,6 +78,27 @@ export const getCaseTimetableItemById = async (timetableId) => {
 };
 
 /**
+ * Return Timetable Item Type by its name
+ *
+ * @param {string} selectedItemTypeName
+ * @returns {Promise<{text: string, value: string, templateType: string, id: number}>}
+ */
+export const getCaseTimetableItemTypeByName = async (selectedItemTypeName) => {
+	const timetableItemTypes = await getCaseTimetableItemTypes();
+
+	const selectedItemType =
+		timetableItemTypes.find((itemType) => itemType.name === selectedItemTypeName) ||
+		timetableItemTypes[0];
+
+	return {
+		text: selectedItemType.displayNameEn,
+		value: selectedItemType.name || '',
+		templateType: selectedItemType.templateType,
+		id: selectedItemType.id
+	};
+};
+
+/**
  * Publish case timetable items
  * @param {number} caseId
  * @returns {Promise<ApplicationsTimetable[]>}
