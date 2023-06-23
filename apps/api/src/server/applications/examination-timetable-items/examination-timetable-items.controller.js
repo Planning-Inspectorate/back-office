@@ -219,16 +219,9 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
 	}
 
-	if (examinationTimetableItem?.published) {
-		// @ts-ignore
-		return response
-			.status(400)
-			.json({ errors: { message: 'Can not delete published examination timetable item.' } });
-	}
-
 	const hasSubmissions = await validateSubmissions(examinationTimetableItem);
 
-	if (examinationTimetableItem?.published && hasSubmissions) {
+	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
 		// @ts-ignore
 		return response
@@ -271,7 +264,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 
 	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate);
 
-	if (timetableBeforeUpdate?.published && hasSubmissions) {
+	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
 		// @ts-ignore
 		return response
