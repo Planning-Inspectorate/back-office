@@ -22,10 +22,11 @@
 			<div class="govuk-body">
 				<p class="govuk-body">
 					{% if action === 'published' %}
-						The examination timetable will show on the NI website within the hour</p>
+						The examination timetable will show on the NI website within the hour
 					{% else %}
 						Return to folder:
 					{% endif %}
+				</p>
 				<a href="{{'timetable'|url({caseId: caseId})}}" class="govuk-link">
 					Go back to examination table
 				</a>

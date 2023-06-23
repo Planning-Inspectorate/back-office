@@ -265,7 +265,27 @@ describe('Create examination timetable page', () => {
 				'startTime.minutes': '02'
 			});
 
-		expect(response?.headers?.location).toEqual('../check-your-answers/null');
+		expect(response?.headers?.location).toContain('check-your-answers');
+	});
+});
+
+describe('Edit examination timetable', () => {
+	describe('GET /case/123/examination-timetable/item/1/edit', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/item/edit/1`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Edit timetable item');
+		});
 	});
 });
 
@@ -294,6 +314,30 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 
 		expect(element.innerHTML).toMatchSnapshot();
 		expect(element.innerHTML).toContain('Check your answers before creating a new item');
+		expect(element.innerHTML).toContain('/item/new');
+	});
+
+	it('should show different texts and links when is Editing page', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/item/check-your-answers/1`)
+			.send({
+				templateType: 'starttime-mandatory',
+				itemTypeName: 'starttime-mandatory',
+				timetableId: 1,
+				name: 'Lorem',
+				'date.day': '01',
+				'date.month': '02',
+				'date.year': '2000',
+				'startTime.hours': '01',
+				'startTime.minutes': '02',
+				description: 'Some text with \n * one point \n* another point '
+			});
+
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+		expect(element.innerHTML).toContain('Check your answers before editing an item');
+		expect(element.innerHTML).toContain('/item/edit/1');
 	});
 });
 

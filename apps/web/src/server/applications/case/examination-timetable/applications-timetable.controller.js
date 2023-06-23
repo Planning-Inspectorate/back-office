@@ -321,7 +321,6 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {action: string}>}
  */
 export async function viewApplicationsCaseTimetableSuccessBanner(request, response) {
-	console.log('neanche ci provo');
 	response.render('applications/case-timetable/timetable-success-banner.njk', {
 		action: request.params.action
 	});
