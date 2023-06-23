@@ -42,7 +42,7 @@ export const getAddressDetailsViewModel = async (
 	return {
 		...getRepTypePageTitles(repType, repMode, titles),
 		addressList: stage === 'find' && postcode ? await getAddressList(postcode) : [],
-		backLinkUrl: getBackLinkUrl(representation, stage, params),
+		backLinkUrl: getBackLinkUrl(representation, stage, postcode, params),
 		params,
 		postcode,
 		pageKey: repType,

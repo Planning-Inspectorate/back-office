@@ -90,6 +90,9 @@ exports[`Representation address details page GET /applications-service/case/1/re
                     name=\\"lookupPostcode\\" type=\\"text\\">
                 </div>
             </fieldset>
+            <div class=\\"govuk-!-margin-bottom-6\\"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
+                href=\\"?repId=1&amp;repType=represented&amp;stage=enter\\"> Don't have a UK postcode?</a>
+            </div>
             <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         </form>
 </main>"
@@ -241,6 +244,9 @@ exports[`Representation address details page POST /applications-service/case/1/r
                     name=\\"lookupPostcode\\" type=\\"text\\" aria-describedby=\\"lookupPostcode-error\\">
                 </div>
             </fieldset>
+            <div class=\\"govuk-!-margin-bottom-6\\"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
+                href=\\"?repId=1&amp;repType=represented&amp;stage=enter\\"> Don't have a UK postcode?</a>
+            </div>
             <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         </form>
 </main>"
