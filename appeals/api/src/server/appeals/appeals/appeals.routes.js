@@ -5,25 +5,24 @@ import {
 	getAppeals,
 	getAppellantCaseById,
 	getLpaQuestionnaireById,
-	updateAppealById
+	updateAppealById,
+	updateAppellantCaseById
 } from './appeals.controller.js';
 import {
 	checkAppealExistsAndAddToRequest,
 	checkAppellantCaseExists,
-	checkLPAQuestionnaireExists
+	checkLookupValuesAreValid,
+	checkLPAQuestionnaireExists,
+	checkValidationOutcomeExistsAndAddToRequest
 } from './appeals.service.js';
 import {
 	getAppealValidator,
 	getAppellantCaseValidator,
 	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
-	patchAppealValidator
+	patchAppealValidator,
+	patchAppellantCaseValidator
 } from './appeals.validators.js';
-
-/**
- * @typedef {object} AppealParams
- * @property {number} appealId
- */
 
 const router = createRouter();
 
@@ -77,7 +76,7 @@ router.patch(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}'
 		#swagger.description = 'Updates a single appeal by id'
-		#swagger.parameters['body'] = {
+		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal details to update',
 			schema: { $ref: '#/definitions/UpdateAppealRequest' },
@@ -131,6 +130,34 @@ router.get(
 	checkAppealExistsAndAddToRequest,
 	checkAppellantCaseExists,
 	asyncHandler(getAppellantCaseById)
+);
+
+router.patch(
+	'/:appealId/appellant-cases/:appellantCaseId',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/{appealId}/appellant-cases/{appellantCaseId}'
+		#swagger.description = Updates a single appellant case for an appeal by id
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Appellant case details to update',
+			schema: { $ref: '#/definitions/UpdateAppellantCaseRequest' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Updates a single appeal by id',
+			schema: { $ref: '#/definitions/UpdateAppellantCaseResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	patchAppellantCaseValidator,
+	checkAppealExistsAndAddToRequest,
+	checkAppellantCaseExists,
+	checkValidationOutcomeExistsAndAddToRequest,
+	checkLookupValuesAreValid('incompleteReasons', 'appellantCaseIncompleteReason'),
+	checkLookupValuesAreValid('invalidReasons', 'appellantCaseInvalidReason'),
+	asyncHandler(updateAppellantCaseById)
 );
 
 export { router as appealsRoutes };

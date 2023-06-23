@@ -60,6 +60,7 @@ export const appealData = {
 	appealStatus: 'received_appeal',
 	appealType: 'household',
 	appellantName: 'Eva Sharma',
+	appellantCaseId: 0,
 	procedureType: 'Written',
 	developmentType: 'Minor Dwellings',
 	eventType: 'Site Visit',
@@ -102,6 +103,51 @@ export const appealData = {
 			status: 'not_received',
 			dueDate: '2024-05-23T10:27:06.626Z'
 		}
+	}
+};
+
+export const appellantCaseData = {
+	appealId: 170,
+	appealReference: 'APP/Q9999/D/21/431220',
+	appealSite: {
+		addressLine1: '92 Huntsmoor Road',
+		town: 'Tadley',
+		postCode: 'RG26 4BX'
+	},
+	appellantCaseId: 1,
+	appellant: {
+		company: 'Eva Sharma Ltd',
+		name: 'Eva Sharma'
+	},
+	applicant: {
+		firstName: null,
+		surname: null
+	},
+	documents: {
+		appealStatement: 'appeal-statement.pdf',
+		applicationForm: 'application-form.pdf',
+		decisionLetter: 'decision-letter.pdf',
+		newSupportingDocuments: ['new-supporting-documents-1.pdf', 'new-supporting-documents-2.pdf']
+	},
+	hasAdvertisedAppeal: null,
+	hasNewSupportingDocuments: false,
+	healthAndSafety: {
+		details: null,
+		hasIssues: false
+	},
+	isAppellantNamedOnApplication: true,
+	localPlanningDepartment: 'Waveney District Council',
+	siteOwnership: {
+		areAllOwnersKnown: null,
+		hasAttemptedToIdentifyOwners: null,
+		hasToldOwners: null,
+		isFullyOwned: true,
+		isPartiallyOwned: null,
+		knowsOtherLandowners: null
+	},
+	visibility: {
+		details: null,
+		isVisible: true
 	}
 };
 

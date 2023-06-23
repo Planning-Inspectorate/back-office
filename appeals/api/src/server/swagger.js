@@ -5,9 +5,9 @@ const document = {
 		// by default: '1.0.0'
 		version: '2.0',
 		// by default: 'REST API'
-		title: 'PINS Back Office API',
+		title: 'PINS Back Office Appeals API',
 		// by default: ''
-		description: 'PINS Back Office API documentation from Swagger'
+		description: 'PINS Back Office Appeals API documentation from Swagger'
 	},
 	// by default: 'localhost:3000'
 	host: '',
@@ -1067,9 +1067,6 @@ const document = {
 };
 
 const outputFile = './src/server/openapi.json';
-const endpointsFiles = [
-	'./src/server/appeals/**/*.routes.js',
-	'./src/server/applications/**/*.routes.js'
-];
+const endpointsFiles = ['./src/server/appeals/**/*.routes.js'];
 
 swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);
