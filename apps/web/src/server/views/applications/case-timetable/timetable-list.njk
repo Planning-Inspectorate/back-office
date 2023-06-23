@@ -1,6 +1,8 @@
-{% extends "./layouts/applications-case-layout.njk" %}
+{% extends "../case/layouts/applications-case-layout.njk" %}
+
+
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "../case-timetable/components/timetable-items-list.component.njk" import timetableItemsList %}
+{% from "./components/timetable-items-list.component.njk" import timetableItemsList %}
 
 {% block sectionContent %}
     <div>
@@ -19,7 +21,7 @@
 
 		<p class="govuk-body">Create or manage an examination timetable</p>
 
-		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable'|url({caseId: caseId, step: 'new-item'})}}">Create new timetable item</a>
+		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable-item'|url({caseId: caseId, step: 'new'})}}">Create new timetable item</a>
 
 		<div>
 			<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
