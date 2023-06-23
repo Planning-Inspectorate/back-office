@@ -9,9 +9,11 @@
  * @typedef {import('appeals/api/src/database/schema.js').ScheduleType} ScheduleType
  * @typedef {import('appeals/api/src/database/schema.js').PlanningObligationStatus} PlanningObligationStatus
  * @typedef {import('appeals/api/src/database/schema.js').KnowledgeOfOtherLandowners} KnowledgeOfOtherLandowners
- * @typedef {import('appeals/api/src/database/schema.js').ValidationOutcome} ValidationOutcome
+ * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
  * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
  * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason} AppellantCaseInvalidReason
+ * @typedef {import('apps/api/src/database/schema.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
+ * @typedef {import('apps/api/src/database/schema.js').LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
  */
 
 /**
@@ -139,11 +141,11 @@ export const knowledgeOfOtherLandownersValues = [
 ];
 
 /**
- * An array of knowledge of validation outcomes.
+ * An array of appellant case validation outcomes.
  *
- * @type {Pick<ValidationOutcome, 'name'>[]}
+ * @type {Pick<AppellantCaseValidationOutcome, 'name'>[]}
  */
-export const validationOutcomes = [
+export const appellantCaseValidationOutcomes = [
 	{
 		name: 'Valid'
 	},
@@ -156,7 +158,7 @@ export const validationOutcomes = [
 ];
 
 /**
- * An array of knowledge of appellant case incomplete reasons.
+ * An array of appellant case incomplete reasons.
  *
  * @type {Pick<AppellantCaseIncompleteReason, 'name'>[]}
  */
@@ -188,7 +190,7 @@ export const appellantCaseIncompleteReasons = [
 ];
 
 /**
- * An array of knowledge of appellant case invalid reasons.
+ * An array of appellant case invalid reasons.
  *
  * @type {Pick<AppellantCaseInvalidReason, 'name'>[]}
  */
@@ -208,7 +210,38 @@ export const appellantCaseInvalidReasons = [
 ];
 
 /**
- * eed static data into the database. Does not disconnect from the database or handle errors.
+ * An array of LPA questionnaire validation outcomes.
+ *
+ * @type {Pick<LPAQuestionnaireValidationOutcome, 'name'>[]}
+ */
+export const lpaQuestionnaireValidationOutcomes = [
+	{
+		name: 'Complete'
+	},
+	{
+		name: 'Incomplete'
+	}
+];
+
+/**
+ * An array of LPA questionnaire incomplete reasons.
+ *
+ * @type {Pick<LPAQuestionnaireIncompleteReason, 'name'>[]}
+ */
+export const lpaQuestionnaireIncompleteReasons = [
+	{
+		name: 'Documents or information are missing'
+	},
+	{
+		name: 'Policies are missing'
+	},
+	{
+		name: 'Other'
+	}
+];
+
+/**
+ * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
@@ -262,10 +295,10 @@ export async function seedStaticData(databaseConnector) {
 			update: {}
 		});
 	}
-	for (const validationOutcome of validationOutcomes) {
-		await databaseConnector.validationOutcome.upsert({
-			create: validationOutcome,
-			where: { name: validationOutcome.name },
+	for (const appellantCaseValidationOutcome of appellantCaseValidationOutcomes) {
+		await databaseConnector.appellantCaseValidationOutcome.upsert({
+			create: appellantCaseValidationOutcome,
+			where: { name: appellantCaseValidationOutcome.name },
 			update: {}
 		});
 	}
@@ -280,6 +313,20 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.appellantCaseInvalidReason.upsert({
 			create: appellantCaseInvalidReason,
 			where: { name: appellantCaseInvalidReason.name },
+			update: {}
+		});
+	}
+	for (const lpaQuestionnaireValidationOutcome of lpaQuestionnaireValidationOutcomes) {
+		await databaseConnector.lPAQuestionnaireValidationOutcome.upsert({
+			create: lpaQuestionnaireValidationOutcome,
+			where: { name: lpaQuestionnaireValidationOutcome.name },
+			update: {}
+		});
+	}
+	for (const lpaQuestionnaireIncompleteReason of lpaQuestionnaireIncompleteReasons) {
+		await databaseConnector.lPAQuestionnaireIncompleteReason.upsert({
+			create: lpaQuestionnaireIncompleteReason,
+			where: { name: lpaQuestionnaireIncompleteReason.name },
 			update: {}
 		});
 	}

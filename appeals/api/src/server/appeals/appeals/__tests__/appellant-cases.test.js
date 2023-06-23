@@ -3,7 +3,7 @@ import { app } from '../../../app-test.js';
 import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
-	ERROR_INVALID_VALIDATION_OUTCOME,
+	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
@@ -18,7 +18,7 @@ import {
 	appellantCaseInvalidReasons,
 	fullPlanningAppeal,
 	householdAppeal,
-	validationOutcomes
+	appellantCaseValidationOutcomes
 } from '../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -236,7 +236,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[0]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[0]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
 					appellantCaseIncompleteReasons
@@ -263,7 +265,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 1,
+						appellantCaseValidationOutcomeId: 1,
 						otherNotValidReasons: 'Another reason'
 					}
 				});
@@ -275,7 +277,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[0]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[0]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
 					appellantCaseIncompleteReasons
@@ -302,7 +306,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 1,
+						appellantCaseValidationOutcomeId: 1,
 						otherNotValidReasons: 'Another reason'
 					}
 				});
@@ -314,7 +318,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[1]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[1]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons
@@ -341,7 +347,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 2,
+						appellantCaseValidationOutcomeId: 2,
 						otherNotValidReasons: 'Another reason'
 					}
 				});
@@ -353,7 +359,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[1]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[1]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons
@@ -380,7 +388,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 2,
+						appellantCaseValidationOutcomeId: 2,
 						otherNotValidReasons: 'Another reason'
 					}
 				});
@@ -392,7 +400,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[2]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
 
 				const body = {
 					validationOutcome: 'Valid'
@@ -405,7 +415,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 3
+						appellantCaseValidationOutcomeId: 3
 					}
 				});
 				expect(response.status).toEqual(200);
@@ -416,7 +426,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[2]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
 
 				const body = {
 					validationOutcome: 'valid'
@@ -429,7 +441,7 @@ describe('appellant cases routes', () => {
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
 					data: {
-						validationOutcomeId: 3
+						appellantCaseValidationOutcomeId: 3
 					}
 				});
 				expect(response.status).toEqual(200);
@@ -612,7 +624,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[0]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[0]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
 					appellantCaseIncompleteReasons
@@ -639,7 +653,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[1]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[1]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons
@@ -666,7 +682,7 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(undefined);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(undefined);
 
 				const response = await request
 					.patch(
@@ -679,7 +695,7 @@ describe('appellant cases routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						validationOutcome: ERROR_INVALID_VALIDATION_OUTCOME
+						validationOutcome: ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME
 					}
 				});
 			});
@@ -688,7 +704,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[0]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[0]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
 					appellantCaseIncompleteReasons
@@ -715,7 +733,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[1]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[1]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons
@@ -742,7 +762,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[0]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[0]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
 					appellantCaseIncompleteReasons
@@ -770,7 +792,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[1]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[1]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons
@@ -834,7 +858,9 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.validationOutcome.findUnique.mockResolvedValue(validationOutcomes[2]);
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
 				// @ts-ignore
 				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
 					appellantCaseInvalidReasons

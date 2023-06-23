@@ -36,6 +36,8 @@ export async function deleteAllRecords(databaseConnector) {
 		databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany();
 	const deleteAppellantCaseInvalidReasonOnAppellantCase =
 		databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany();
+	const deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire =
+		databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.deleteMany();
 
 	// and reference data tables
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -52,7 +54,10 @@ export async function deleteAllRecords(databaseConnector) {
 		databaseConnector.appellantCaseIncompleteReason.deleteMany();
 	const deleteAppellantCaseInvalidReason =
 		databaseConnector.appellantCaseInvalidReason.deleteMany();
-	const deleteValidationOutcome = databaseConnector.validationOutcome.deleteMany();
+	const deleteAppellantCaseValidationOutcome =
+		databaseConnector.appellantCaseValidationOutcome.deleteMany();
+	const deleteLPAQuestionnaireValidationOutcome =
+		databaseConnector.lPAQuestionnaireValidationOutcome.deleteMany();
 
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
@@ -88,6 +93,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteValidationDecision,
 		deleteDesignatedSitesOnLPAQuestionnaires,
 		deleteLPANotificationMethodsOnLPAQuestionnaires,
+		deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
 		deleteLPAQuestionnaire,
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,
@@ -114,7 +120,8 @@ export async function deleteAllRecords(databaseConnector) {
 	await knowledgeOfOtherLandowners;
 	await deleteAppellantCaseIncompleteReason;
 	await deleteAppellantCaseInvalidReason;
-	await deleteValidationOutcome;
+	await deleteAppellantCaseValidationOutcome;
+	await deleteLPAQuestionnaireValidationOutcome;
 }
 
 /**

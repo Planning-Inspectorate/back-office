@@ -7,7 +7,7 @@ import { mapCaseStatus } from './map-case-status.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Case} application
+ * @param {import('@pins/appeals.api').Schema.Case} application
  * @returns {ApplicationWithSearchCriteriaResponse}
  */
 export const mapApplicationWithSearchCriteria = (application) => {

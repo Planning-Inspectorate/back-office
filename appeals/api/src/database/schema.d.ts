@@ -1,5 +1,5 @@
-import * as schema from '#db-client';
-import { ZoomLevel } from '#db-client';
+import * as schema from '../../src/server/utils/db-client';
+import { ZoomLevel } from '../../src/server/utils/db-client';
 import { GridReference } from 'packages/applications';
 import { string_to_uuid } from 'rhea/typings/util';
 import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/appeals/constants';
@@ -9,9 +9,10 @@ export {
 	Appellant,
 	AppellantCase,
 	AppellantCaseIncompleteReason,
-	AppellantCaseInvalidReason,
 	AppellantCaseIncompleteReasonOnAppellantCase,
+	AppellantCaseInvalidReason,
 	AppellantCaseInvalidReasonOnAppellantCase,
+	AppellantCaseValidationOutcome,
 	BatchPayload,
 	CaseStatus,
 	Document,
@@ -23,6 +24,9 @@ export {
 	GridReference,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,
+	LPAQuestionnaireIncompleteReason,
+	LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
+	LPAQuestionnaireValidationOutcome,
 	PlanningObligationStatus,
 	Region,
 	RegionsOnApplicationDetails,
@@ -31,7 +35,6 @@ export {
 	ReviewQuestionnaire,
 	Sector,
 	SubSector,
-	ValidationOutcome,
 	ZoomLevel
 } from '#db-client';
 
@@ -307,6 +310,10 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	isTheSiteWithinAnAONB: boolean | null;
 	listedBuildingDetails: ListedBuildingDetails[] | null;
 	lpaNotificationMethods: LPANotificationMethod[] | null;
+	lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire:
+		| schema.LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
+		| null;
+	lpaQuestionnaireValidationOutcome: LPAQuestionnaireValidationOutcome | null;
 	meetsOrExceedsThresholdOrCriteriaInColumn2: boolean | null;
 	procedureType: ProcedureType | null;
 	scheduleType: ScheduleType | null;
@@ -344,4 +351,9 @@ export interface ListedBuildingDetails extends schema.ListedBuildingDetails {
 	grade: string;
 	description: string;
 	affectsListedBuilding: boolean;
+}
+
+export interface LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire
+	extends schema.LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
+	lpaQuestionnaireIncompleteReason: schema.LPAQuestionnaireIncompleteReason | null;
 }

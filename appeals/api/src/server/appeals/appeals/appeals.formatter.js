@@ -1,6 +1,6 @@
 import formatAddress from '../../utils/address-block-formtter.js';
 import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
-import { isFPA } from './appeals.service.js';
+import { isFPA, isOutcomeIncomplete } from './appeals.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -31,10 +31,11 @@ const formatListedBuildingDetails = (affectsListedBuilding, values) =>
  * @param {number} appealId
  * @returns {LinkedAppeal[]}
  */
-const formatLinkedAppeals = (linkedAppeals, appealId) =>
-	linkedAppeals
+const formatLinkedAppeals = (linkedAppeals, appealId) => {
+	return linkedAppeals
 		.filter((appeal) => appeal.id !== appealId)
 		.map(({ id, reference }) => ({ appealId: id, appealReference: reference }));
+};
 
 const appealFormatter = {
 	/**
@@ -161,6 +162,14 @@ const appealFormatter = {
 			healthAndSafetyDetails: lpaQuestionnaire?.healthAndSafetyDetails,
 			inCAOrrelatesToCA: lpaQuestionnaire?.inCAOrrelatesToCA,
 			includesScreeningOption: lpaQuestionnaire?.includesScreeningOption,
+			...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
+				incompleteReasons:
+					lpaQuestionnaire?.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire?.map(
+						({ lpaQuestionnaireIncompleteReason }) => ({
+							name: lpaQuestionnaireIncompleteReason.name
+						})
+					) || null
+			}),
 			inquiryDays: lpaQuestionnaire?.inquiryDays,
 			inspectorAccessDetails: lpaQuestionnaire?.inspectorAccessDetails,
 			isCommunityInfrastructureLevyFormallyAdopted:
@@ -183,17 +192,18 @@ const appealFormatter = {
 			lpaQuestionnaireId: lpaQuestionnaire?.id,
 			meetsOrExceedsThresholdOrCriteriaInColumn2:
 				lpaQuestionnaire?.meetsOrExceedsThresholdOrCriteriaInColumn2,
-			otherAppeals: [
-				{
-					appealId: 1,
-					appealReference: 'APP/Q9999/D/21/725284'
-				}
-			],
+			otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
+			...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
+				...(isOutcomeIncomplete(
+					lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || ''
+				) && { otherNotValidReasons: lpaQuestionnaire?.otherNotValidReasons || null })
+			}),
 			procedureType: lpaQuestionnaire?.procedureType?.name,
 			scheduleType: lpaQuestionnaire?.scheduleType?.name,
 			sensitiveAreaDetails: lpaQuestionnaire?.sensitiveAreaDetails,
 			siteWithinGreenBelt: lpaQuestionnaire?.siteWithinGreenBelt,
-			statutoryConsulteesDetails: lpaQuestionnaire?.statutoryConsulteesDetails
+			statutoryConsulteesDetails: lpaQuestionnaire?.statutoryConsulteesDetails,
+			validationOutcome: lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || null
 		};
 	},
 	/**

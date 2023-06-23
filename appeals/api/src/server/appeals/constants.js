@@ -1,9 +1,10 @@
+export const VALIDATION_OUTCOME_COMPLETE = 'Complete';
+export const VALIDATION_OUTCOME_INCOMPLETE = 'Incomplete';
+export const VALIDATION_OUTCOME_INVALID = 'Invalid';
+export const VALIDATION_OUTCOME_VALID = 'Valid';
+
 export const APPEAL_TYPE_SHORTCODE_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTCODE_HAS = 'HAS';
-
-export const APPELLANT_CASE_VALIDATION_OUTCOME_INCOMPLETE = 'Incomplete';
-export const APPELLANT_CASE_VALIDATION_OUTCOME_INVALID = 'Invalid';
-export const APPELLANT_CASE_VALIDATION_OUTCOME_VALID = 'Valid';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
 export const BANK_HOLIDAY_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
@@ -18,9 +19,10 @@ export const ERROR_FAILED_TO_GET_DATA = 'Failed to get data';
 export const ERROR_FAILED_TO_SAVE_DATA = 'Failed to save data';
 export const ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME =
 	'Incomplete reasons should only be given if the validation outcome is Incomplete';
+export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_INCOMPLETE}, ${VALIDATION_OUTCOME_INVALID}, ${VALIDATION_OUTCOME_VALID}`;
+export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of Complete, Incomplete`;
 export const ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME =
 	'Invalid reasons should only be given if the validation outcome is Invalid';
-export const ERROR_INVALID_VALIDATION_OUTCOME = `Validation outcome must be one of ${APPELLANT_CASE_VALIDATION_OUTCOME_INCOMPLETE}, ${APPELLANT_CASE_VALIDATION_OUTCOME_INVALID}, ${APPELLANT_CASE_VALIDATION_OUTCOME_VALID}`;
 export const ERROR_MAX_LENGTH_300 = 'Must be 300 characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT =
@@ -40,3 +42,6 @@ export const ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS =
 	'Should not include validation outcome reasons when validationOutcome is Valid';
 export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete or Invalid';
+
+export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
+	'Validation outcome reasons are required when validationOutcome is Incomplete';

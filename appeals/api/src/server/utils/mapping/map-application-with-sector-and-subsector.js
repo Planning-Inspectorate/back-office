@@ -9,7 +9,7 @@ import { mapSector } from './map-sector.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Case} application
+ * @param {import('@pins/appeals.api').Schema.Case} application
  * @returns {ApplicationWithSectorResponse}
  */
 export const mapApplicationWithSectorAndSubSector = (application) => {
