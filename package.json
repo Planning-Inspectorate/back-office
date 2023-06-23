@@ -32,8 +32,8 @@
     "web": "npm run dev --workspace=@pins/web",
     "dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
     "test:appeals": "turbo run test --filter=./appeals/*",
-		"web:appeals": "npm run dev --workspace=@pins/appeals.web",
-		"api:appeals": "npm run dev --workspace=@pins/appeals.api"
+    "web:appeals": "npm run dev --workspace=@pins/appeals.web",
+    "api:appeals": "npm run dev --workspace=@pins/appeals.api"
   },
   "dependencies": {
     "got": "^12.5.2",
