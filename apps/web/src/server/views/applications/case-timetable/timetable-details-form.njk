@@ -8,6 +8,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set serviceName = "Examination timetable" %}
+{% set pageTitle = 'Edit timetable item' if isEditing else 'Create new item' %}
 
 {% block pageTitle %}
 	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
@@ -17,8 +18,8 @@
 
 {% block beforeContent %}
 	{{ govukBackLink({
-		text: "Back",
-		href: 'timetable'|url({caseId: caseId, step: 'new-item'})
+		text: "Back to examination table" if isEditing else "Back",
+		href: 'timetable'|url({caseId: caseId, step: '' if isEditing else 'new-item'})
 	}) }}
 {% endblock %}
 
@@ -32,28 +33,28 @@
 				<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
 					{{ pageTitle }}
 				</h1>
-				{% if isCreated %}
+				{% if isUndefined(isEditing) %}
 					<p class='govuk-body govuk-!-margin-bottom-5'>
 						Add examination timetable details
 					</p>
 				{% endif %}
 			</div>
 
-			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/validate'}) }}" novalidate="novalidate" class="govuk-grid-row">
+			<form method="post" action="{{'timetable-item'|url({caseId: caseId, step: 'validate' }) }}" novalidate="novalidate" class="govuk-grid-row">
 				{% include 'app/includes/csrf.njk' %}
 
 				{# Item type (input hidden coming from previous step) #}
-				<div class="govuk-form-group govuk-grid-column-full">
+				<div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
 					<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">
                             Timetable item type
                         </label>
-					<p class='govuk-body'>{{ selectedItemType.text }}</p>
-					<input class="govuk-input" value='{{ selectedItemType.value }}' id="itemTypeName" name="itemTypeName" type="hidden" >
+					<p class='govuk-body'>{{ selectedItemType.name }}</p>
+					<input class="govuk-input" value='{{ selectedItemType.name }}' id="itemTypeName" name="itemTypeName" type="hidden" >
 					<input class="govuk-input" value='{{ selectedItemType.templateType }}' id="templateType" name="templateType" type="hidden" >
 					<input class="govuk-input" value='{{ selectedItemType.id }}' id="templateId" name="templateId" type="hidden" >
+					<input class="govuk-input" value='{{ values.timetableId }}' id="timetableId" name="timetableId" type="hidden" >
 				</div>
 
-				<input class="govuk-input" value='{{ values.timetableId }}' id="timetableId" name="timetableId" type="hidden" >
 
 				{% if not isUndefined(templateFields.name) %}
 					{{ govukInput({
@@ -160,7 +161,7 @@
 				{% endif %}
 
 				<div class='govuk-grid-column-full'>
-					{{ govukButton({ text: actionButtonTitle, classes: 'govuk-!-margin-top-6'}) }}
+					{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
 				</div>
 
 			</form>

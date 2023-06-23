@@ -2,7 +2,8 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set serviceName = "Timetable item successfully published"  %}
+{% set serviceName = ["Timetable item successfully ", action]|join  %}
+
 {% block pageTitle %}
 	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
@@ -19,7 +20,13 @@
 			}) }}
 
 			<div class="govuk-body">
-				<p class="govuk-body">The examination timetable will show on the NI website within the hour</p>
+				<p class="govuk-body">
+					{% if action === 'published' %}
+						The examination timetable will show on the NI website within the hour
+					{% else %}
+						Return to folder:
+					{% endif %}
+				</p>
 				<a href="{{'timetable'|url({caseId: caseId})}}" class="govuk-link">
 					Go back to examination table
 				</a>

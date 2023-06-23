@@ -20,14 +20,16 @@ export interface ApplicationsTimetableCreateBody extends Record<string, string |
 	timetableTypeId: string;
 }
 
-export interface ApplicationsTimetable {
+export interface ExaminationTimetableType {
+	id: number;
+	name: string;
+	templateType: string;
+}
+
+export interface ApplicationsTimetablePayload {
 	id?: number;
 	caseId: number;
 	examinationTypeId: number;
-	ExaminationTimetableType?: {
-		name: string;
-		templateType: string;
-	};
 	name: string;
 	description: string;
 	date: Date;
@@ -35,4 +37,7 @@ export interface ApplicationsTimetable {
 	startDate: Date | null;
 	startTime: string | null;
 	endTime: string | null;
+}
+export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
+	ExaminationTimetableType: ExaminationTimetableType;
 }

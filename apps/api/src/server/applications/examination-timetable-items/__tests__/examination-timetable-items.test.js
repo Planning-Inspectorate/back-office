@@ -96,11 +96,21 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('gets all examination timetable items for case', async () => {
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(0);
+		databaseConnector.folder.findMany.mockResolvedValue([]);
 		databaseConnector.examinationTimetableItem.findMany.mockResolvedValue([
 			examinationTimetableItem
 		]);
 		const resp = await request.get('/applications/examination-timetable-items/case/1');
 		expect(resp.status).toEqual(200);
+		expect(resp.body[0].submissions).toBe(false);
 		expect(databaseConnector.examinationTimetableItem.findMany).toHaveBeenCalledWith({
 			include: { ExaminationTimetableType: true },
 			where: { caseId: 1 },
@@ -111,11 +121,21 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('gets examination timetable item by id', async () => {
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			displayNameEn: 'Examination',
+			parentFolderId: null,
+			displayOrder: 100
+		});
+		databaseConnector.document.count.mockResolvedValue(1);
+		databaseConnector.folder.findMany.mockResolvedValue([]);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItem
 		);
 		const resp = await request.get('/applications/examination-timetable-items/1');
 		expect(resp.status).toEqual(200);
+		expect(resp.body.submissions).toBe(true);
 		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
 			include: { ExaminationTimetableType: true },
 			where: { id: 1 }
@@ -277,82 +297,6 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
 
 		expect(resp.status).toEqual(200);
-	});
-
-	test('Has submissions examination timetable item returns 404 when timetable is not exists', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
-		const resp = await request
-			.get('/applications/examination-timetable-items/36/has-submissions')
-			.send({});
-		expect(resp.status).toEqual(404);
-	});
-
-	test('Has submissions examination timetable item returns 200 with true status when submissions found', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
-			examinationTimetableItem
-		);
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
-		databaseConnector.document.count.mockResolvedValue(1);
-		const resp = await request
-			.get('/applications/examination-timetable-items/36/has-submissions')
-			.send({});
-		expect(resp.status).toEqual(200);
-		expect(resp.body.submissions).toBe(true);
-	});
-
-	test('Has submissions examination timetable item returns 200 with false status when no submissions found', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
-			examinationTimetableItem
-		);
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
-		databaseConnector.document.count.mockResolvedValue(0);
-		databaseConnector.folder.findMany.mockResolvedValue([]);
-		const resp = await request
-			.get('/applications/examination-timetable-items/36/has-submissions')
-			.send({});
-		expect(resp.status).toEqual(200);
-		expect(resp.body.submissions).toBe(false);
-	});
-
-	test('Has submissions examination timetable item returns 200 with true status when submissions found in sub folder', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
-			examinationTimetableItem
-		);
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
-		databaseConnector.document.count.mockResolvedValueOnce(0);
-		databaseConnector.folder.findMany.mockResolvedValue([
-			{
-				id: 2,
-				caseId: 1,
-				displayNameEn: 'Examination Subfolder',
-				parentFolderId: 1,
-				displayOrder: 100
-			}
-		]);
-		databaseConnector.document.count.mockResolvedValueOnce(1);
-		const resp = await request
-			.get('/applications/examination-timetable-items/36/has-submissions')
-			.send({});
-		expect(resp.status).toEqual(200);
-		expect(resp.body.submissions).toBe(true);
 	});
 
 	test('update examination timetable item successfully', async () => {
