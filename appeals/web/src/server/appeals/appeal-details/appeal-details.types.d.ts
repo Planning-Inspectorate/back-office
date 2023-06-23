@@ -1,4 +1,5 @@
-import { Address } from '@pins/appeals';
+import { Address, AppealSite } from '@pins/appeals';
+
 export interface Appeal {
 	agentName: string;
 	allocationDetails: string;
@@ -8,6 +9,7 @@ export interface Appeal {
 	appealStatus: string;
 	appealType: string;
 	appellantName: string;
+	appellantCaseId: number;
 	procedureType: string;
 	caseOfficer?: Contact;
 	inspector?: Contact;

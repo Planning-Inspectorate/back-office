@@ -435,6 +435,34 @@ function buildSearch(rawSearchTerm) {
 	};
 }
 
+// Attachments
+
+/**
+ *
+ * @param {number} representationId
+ * @param {string} documentId
+ * @returns {Promise<*>}
+ */
+export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
+	return databaseConnector.representationAttachment.create({
+		data: {
+			documentGuid: documentId,
+			representationId
+		}
+	});
+};
+
+/**
+ *
+ * @param {number} attachmentId
+ * @returns {Promise<*>}
+ */
+export const deleteApplicationRepresentationAttachment = async (attachmentId) => {
+	return databaseConnector.representationAttachment.delete({
+		where: { id: attachmentId }
+	});
+};
+
 /**
  *
  * @param {string} field
