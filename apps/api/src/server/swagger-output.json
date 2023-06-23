@@ -2101,38 +2101,6 @@
 				}
 			}
 		},
-		"/applications/examination-timetable-items/{id}/has-submissions": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Find examinsation iteam has submissions or not",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Examination timetable item ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Examination timetable item",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"submissions": {
-									"type": "boolean",
-									"example": true
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/applications/examination-timetable-items/{id}/update": {
 			"patch": {
 				"tags": ["Applications"],
@@ -2731,6 +2699,10 @@
 					"endTime": {
 						"type": "string",
 						"example": "12:20"
+					},
+					"submissions": {
+						"type": "boolean",
+						"example": true
 					}
 				}
 			}
@@ -2826,6 +2798,10 @@
 				"endTime": {
 					"type": "string",
 					"example": "12:20"
+				},
+				"submissions": {
+					"type": "boolean",
+					"example": true
 				}
 			}
 		},

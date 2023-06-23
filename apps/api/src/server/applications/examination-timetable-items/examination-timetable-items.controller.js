@@ -19,7 +19,18 @@ export const getExaminationTimetableItems = async (_request, response) => {
 		const examinationTimetableItems = await examinationTimetableItemsRepository.getByCaseId(
 			+caseId
 		);
-		response.send(examinationTimetableItems);
+
+		if (!examinationTimetableItems || examinationTimetableItems.length === 0) {
+			// @ts-ignore
+			return response.send(examinationTimetableItems);
+		}
+
+		const examinationTimetableItemsForCase = [];
+		for (const examinationTimetableItem of examinationTimetableItems) {
+			const submissions = await validateSubmissions(examinationTimetableItem);
+			examinationTimetableItemsForCase.push({ ...examinationTimetableItem, submissions });
+		}
+		response.send(examinationTimetableItemsForCase);
 	} catch (error) {
 		logger.error(error);
 		throw error;
@@ -35,7 +46,15 @@ export const getExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
-	response.send(examinationTimetableItem);
+	if (!examinationTimetableItem) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	const submissions = await validateSubmissions(examinationTimetableItem);
+	response.send({ ...examinationTimetableItem, submissions });
 };
 
 /**
