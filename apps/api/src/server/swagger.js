@@ -192,7 +192,8 @@ const document = {
 				published: false,
 				folderId: 134,
 				startTime: '10:20',
-				endTime: '12:20'
+				endTime: '12:20',
+				submissions: true
 			}
 		],
 		ExaminationTimetableItemRequestBody: {
@@ -220,7 +221,8 @@ const document = {
 			folderId: 134,
 			startDate: '2023-02-27T10:00:00Z',
 			startTime: '10:20',
-			endTime: '12:20'
+			endTime: '12:20',
+			submissions: true
 		},
 		documentsPropertiesRequestBody: {
 			version: 1,
