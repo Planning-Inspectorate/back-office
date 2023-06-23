@@ -131,7 +131,7 @@ export async function viewApplicationsCaseTimetableDelete(request, response) {
 }
 
 /**
- * Delete one the examination timetable or render errors
+ * Delete one examination timetable or render errors
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {timetableId: string}>}
  */
@@ -169,7 +169,7 @@ export async function viewApplicationsCaseTimetableNew(_, response) {
 }
 
 /**
- * Show the details form template for the new examination timetable (2nd step)
+ * Show the details-form for the new examination timetable (2nd step)
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {timetableId: string, 'timetable-type': string}, {}, {}>}
  */
@@ -235,7 +235,7 @@ export async function postApplicationsCaseTimetableDetails(
 	}
 
 	// the 307 redirect allows to redirect keeping the method "POST" and its body
-	return response.redirect(307, `../check-your-answers/${body.timetableId ?? null}`);
+	return response.redirect(307, `../check-your-answers/${body.timetableId ?? ''}`);
 }
 
 /**
@@ -384,14 +384,14 @@ const getTimetableRows = (timetableItem) => {
 	const { id, description, name, ExaminationTimetableType, date, startDate, startTime, endTime } =
 		timetableItem;
 
-	const templateType = ExaminationTimetableType?.templateType;
+	const templateType = ExaminationTimetableType.templateType;
 
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
 	return {
 		id,
-		itemTypeName: ExaminationTimetableType?.name,
+		itemTypeName: ExaminationTimetableType.name,
 		name,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
 		startDate:
