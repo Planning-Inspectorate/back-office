@@ -1,9 +1,12 @@
-import * as exminationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
+import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
+
+/** @typedef {import('@pins/api').Schema.Folder} Folder */
 
 /**
  * @type {import('express').RequestHandler}
@@ -13,7 +16,9 @@ import logger from '../../utils/logger.js';
 export const getExaminationTimetableItems = async (_request, response) => {
 	const { caseId } = _request.params;
 	try {
-		const examinationTimetableItems = await exminationTimetableItemsRepository.getByCaseId(+caseId);
+		const examinationTimetableItems = await examinationTimetableItemsRepository.getByCaseId(
+			+caseId
+		);
 		response.send(examinationTimetableItems);
 	} catch (error) {
 		logger.error(error);
@@ -28,7 +33,7 @@ export const getExaminationTimetableItems = async (_request, response) => {
  */
 export const getExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.getById(+id);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
 	response.send(examinationTimetableItem);
 };
@@ -68,7 +73,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	body.folderId = itemFolder.id;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.create(body);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
 	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
 
@@ -98,7 +103,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	}
 
 	/**
-	 * @type {Promise<(import('@pins/api').Schema.Folder |null)>[]}
+	 * @type {Promise<(Folder |null)>[]}
 	 */
 	const createFolderPromise = [];
 
@@ -132,6 +137,30 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 };
 
 /**
+ * Deletes all the sub folders in a exam timetable folder, assumption is that all folders are empty.
+ * eg for deadline exams, deletes all line item folders and the "Other" folder
+ *
+ * @param {Number} caseId
+ * @param {Number} parentFolderId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ */
+const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
+	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);
+
+	if (!subFolders) {
+		logger.info(`No sub folder found for the parent folder Id ${parentFolderId}`);
+		return;
+	}
+
+	const idsToDelete = [];
+	for (const /** @type {Folder} */ folder of subFolders) {
+		idsToDelete.push(folder.id);
+	}
+	await folderRepository.deleteFolderMany(idsToDelete);
+	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
+};
+
+/**
  * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
@@ -139,7 +168,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await exminationTimetableItemsRepository.updateByCaseId(
+		await examinationTimetableItemsRepository.updateByCaseId(
 			+id,
 			// @ts-ignore
 			{
@@ -162,7 +191,7 @@ export const publishExaminationTimetable = async (_request, response) => {
  */
 export const deleteExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
-	const examinationTimetableItem = await exminationTimetableItemsRepository.getById(+id);
+	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
 	if (!examinationTimetableItem) {
 		// @ts-ignore
@@ -178,9 +207,90 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 			.json({ errors: { message: 'Can not delete published examination timetable item.' } });
 	}
 
-	await exminationTimetableItemsRepository.deleteById(+id);
+	const hasSubmissions = await validateSubmissions(examinationTimetableItem);
+
+	if (examinationTimetableItem?.published && hasSubmissions) {
+		logger.info(`Examination timetable item with id: ${id} has submission.`);
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+	}
+
+	await examinationTimetableItemsRepository.deleteById(+id);
+
+	logger.info(`delete subfolder for folder Id ${examinationTimetableItem.folderId}`);
+	await deleteDeadlineSubFolders(
+		examinationTimetableItem.caseId,
+		examinationTimetableItem.folderId
+	);
+
+	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
+	await folderRepository.deleteById(examinationTimetableItem.folderId);
 
 	response.send(examinationTimetableItem);
+};
+
+/**
+ * Updates the properties of a single Examination Timetable Item
+ *
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const updateExaminationTimetableItem = async ({ params, body }, response) => {
+	const { id } = params;
+
+	const timetableBeforeUpdate = await examinationTimetableItemsRepository.getById(+id);
+
+	if (!timetableBeforeUpdate) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+	}
+
+	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate);
+
+	if (timetableBeforeUpdate?.published && hasSubmissions) {
+		logger.info(`Examination timetable item with id: ${id} has submission.`);
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+	}
+
+	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
+	const updatedExaminationTimetableItem = await examinationTimetableItemsRepository.update(
+		+id,
+		mappedExamTimetableDetails
+	);
+
+	if (
+		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
+		timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
+	) {
+		const newFolderName = `${format(new Date(mappedExamTimetableDetails.date), 'dd MMM yyyy')} - ${
+			mappedExamTimetableDetails.name
+		}`;
+		const newDisplayOrder = +format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd');
+		await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
+			displayNameEn: newFolderName,
+			displayOrder: newDisplayOrder
+		});
+	}
+
+	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
+		logger.info('Delete sub folders');
+		await deleteDeadlineSubFolders(
+			updatedExaminationTimetableItem.caseId,
+			timetableBeforeUpdate.folderId
+		);
+		logger.info('Create new sub folders');
+		await createDeadlineSubFolders(updatedExaminationTimetableItem, timetableBeforeUpdate.folderId);
+	}
+
+	response.send(updatedExaminationTimetableItem);
 };
 
 /**
@@ -191,7 +301,7 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 export const hasSubmissions = async (_request, response) => {
 	const { id } = _request.params;
 
-	const timetableItem = await exminationTimetableItemsRepository.getById(+id);
+	const timetableItem = await examinationTimetableItemsRepository.getById(+id);
 	if (!timetableItem) {
 		// @ts-ignore
 		return response

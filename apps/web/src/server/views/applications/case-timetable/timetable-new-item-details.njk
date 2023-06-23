@@ -8,7 +8,6 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set serviceName = "Examination timetable" %}
-{% set pageTitle = "Create new item" %}
 
 {% block pageTitle %}
 	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
@@ -33,9 +32,11 @@
 				<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
 					{{ pageTitle }}
 				</h1>
-				<p class='govuk-body govuk-!-margin-bottom-5'>
-					Add examination timetable details
-				</p>
+				{% if isCreated %}
+					<p class='govuk-body govuk-!-margin-bottom-5'>
+						Add examination timetable details
+					</p>
+				{% endif %}
 			</div>
 
 			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'new-item/validate'}) }}" novalidate="novalidate" class="govuk-grid-row">
@@ -51,6 +52,8 @@
 					<input class="govuk-input" value='{{ selectedItemType.templateType }}' id="templateType" name="templateType" type="hidden" >
 					<input class="govuk-input" value='{{ selectedItemType.id }}' id="templateId" name="templateId" type="hidden" >
 				</div>
+
+				<input class="govuk-input" value='{{ values.timetableId }}' id="timetableId" name="timetableId" type="hidden" >
 
 				{% if not isUndefined(templateFields.name) %}
 					{{ govukInput({
@@ -157,7 +160,7 @@
 				{% endif %}
 
 				<div class='govuk-grid-column-full'>
-					{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
+					{{ govukButton({ text: actionButtonTitle, classes: 'govuk-!-margin-top-6'}) }}
 				</div>
 
 			</form>

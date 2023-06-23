@@ -1,11 +1,13 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { mapExaminationTimetableToFormBody } from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
 	getCaseTimetableItemById,
-	deleteCaseTimetableItem
+	deleteCaseTimetableItem,
+	updateCaseTimetableItem
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
@@ -166,6 +168,9 @@ export async function postApplicationsCaseTimetableNew(request, response) {
 
 	if (formProperties) {
 		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			isCreated: true,
+			pageTitle: 'Create new item',
+			actionButtonTitle: 'Continue',
 			...formProperties,
 			values: request.body
 		});
@@ -187,6 +192,9 @@ export async function postApplicationsCaseTimetableDetails(
 		const formProperties = await getCreateTimetableFormProperties(body.itemTypeName);
 
 		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+			isCreated: true,
+			pageTitle: 'Create new item',
+			actionButtonTitle: 'Continue',
 			errors: validationErrors,
 			values: body,
 			...formProperties
@@ -203,8 +211,13 @@ export async function postApplicationsCaseTimetableDetails(
  */
 export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, response) {
 	const rows = getCheckYourAnswersRows(body);
-
+	let pageHeaderMessage = 'Check your answers before creating a new item';
+	if (body.timetableId) {
+		// edit mode
+		pageHeaderMessage = 'Check your answers before editing an item';
+	}
 	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+		pageHeaderMessage,
 		rows,
 		values: body
 	});
@@ -230,7 +243,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	/** @type {ApplicationsTimetable} */
 	const payload = {
 		caseId: response.locals.caseId,
-		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
+		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
 		date,
@@ -241,13 +254,27 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
 		published: false
 	};
+	if (body['timetableId']) {
+		payload.id = Number.parseInt(body['timetableId'], 10);
+	}
 
-	const { errors } = await createCaseTimetableItem(payload);
+	let errors = null;
+	let pageHeaderMessage = 'Check your answers before creating a new item';
+	if (payload.id) {
+		// has exam id, therefore an existing record for update
+		const apiResponse = await updateCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+		pageHeaderMessage = 'Check your answers before editing an item';
+	} else {
+		// create new record
+		const apiResponse = await createCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+	}
 
 	if (errors) {
 		const rows = getCheckYourAnswersRows(body);
-
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+			pageHeaderMessage,
 			rows,
 			values: body,
 			errors
@@ -273,6 +300,47 @@ export async function showApplicationsCaseTimetableSuccessBanner(request, respon
  */
 export async function showApplicationsCaseTimetablePublishSuccessBanner(request, response) {
 	response.render('applications/case-timetable/timetable-item-publish-success.njk');
+}
+
+/**
+ * Edit an existing examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {examinationTimetableItemId: string}>}
+ */
+export async function showApplicationsCaseTimetableDetailsExisting(
+	{ errors: validationErrors, params },
+	response
+) {
+	if (validationErrors) {
+		// const formProperties = await getCreateTimetableFormProperties(body.itemTypeName);
+		// return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		// 	errors: validationErrors,
+		// 	values: body,
+		// 	...formProperties
+		// });
+	}
+	const timetableItem = await getCaseTimetableItemById(+params.examinationTimetableItemId);
+	const timetableTypes = await getCaseTimetableItemTypes();
+	const currentItemType = timetableTypes.find(
+		(item) => item.id === timetableItem.examinationTypeId
+	);
+	if (!currentItemType) {
+		throw new Error('Invalid Item Type');
+	}
+	const formProperties = await getCreateTimetableFormProperties(currentItemType.name);
+	const examBody = mapExaminationTimetableToFormBody(
+		timetableItem,
+		currentItemType?.id,
+		currentItemType.name
+	);
+	return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		isEdited: true,
+		pageTitle: 'Edit timetable item',
+		actionButtonTitle: 'Save changes',
+		errors: validationErrors,
+		values: examBody,
+		...formProperties
+	});
 }
 
 /**
@@ -309,7 +377,6 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
  */
 const getCheckYourAnswersRows = (body) => {
 	const { description, name, itemTypeName, templateType } = body;
-
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
