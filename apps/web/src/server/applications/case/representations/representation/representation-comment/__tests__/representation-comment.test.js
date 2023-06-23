@@ -77,5 +77,171 @@ describe('Representation comment page', () => {
 				);
 			});
 		});
+
+		describe('Field validation:', () => {
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should show validation error if received date is in the future', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-year': '2099',
+					'received-date-month': '1',
+					'received-date-day': '1'
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+				const monthInput = element.querySelector('#received-date-month');
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('Date received must be today or in the past');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if day value is not within range for given month', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '35',
+					'received-date-month': '12',
+					'received-date-year': '2000'
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+
+				expect(element.innerHTML).toContain('must be a real date');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if month value is not within 1-12 range', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '1',
+					'received-date-month': '14',
+					'received-date-year': '2000'
+				});
+
+				const element = parseHtml(response.text);
+				const monthInput = element.querySelector('#received-date-month');
+
+				expect(element.innerHTML).toContain('must be a real date');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if year value is not within 1000-9999 range', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '1',
+					'received-date-month': '1',
+					'received-date-year': '1'
+				});
+
+				const element = parseHtml(response.text);
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('must be a real date');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if day value is not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '',
+					'received-date-month': '12',
+					'received-date-year': '2000'
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+
+				expect(element.innerHTML).toContain('must include a day');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if day and month values are not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '',
+					'received-date-month': '',
+					'received-date-year': '2000'
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+				const monthInput = element.querySelector('#received-date-month');
+
+				expect(element.innerHTML).toContain('must include a day and month');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if day and year values are not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '',
+					'received-date-month': '1',
+					'received-date-year': ''
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('must include a day and year');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if month value is not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '1',
+					'received-date-month': '',
+					'received-date-year': '2000'
+				});
+
+				const element = parseHtml(response.text);
+				const monthInput = element.querySelector('#received-date-month');
+
+				expect(element.innerHTML).toContain('must include a month');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if month and year values are not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '1',
+					'received-date-month': '',
+					'received-date-year': ''
+				});
+
+				const element = parseHtml(response.text);
+				const monthInput = element.querySelector('#received-date-month');
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('must include a month and year');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if year value is not entered', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-day': '1',
+					'received-date-month': '1',
+					'received-date-year': ''
+				});
+
+				const element = parseHtml(response.text);
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('must include a year');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+		});
 	});
 });
