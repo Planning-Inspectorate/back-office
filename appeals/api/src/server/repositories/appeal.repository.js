@@ -1,5 +1,6 @@
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
+import { createManyToManyRelationData } from '../appeals/appeals/appeals.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -9,11 +10,12 @@ import { getSkipValue } from '../utils/database-pagination.js';
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.AppealTimetable} AppealTimetable */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCase} AppellantCase */
-/** @typedef {import('@pins/appeals.api').Schema.ValidationOutcome} ValidationOutcome */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseValidationOutcome} AppellantCaseValidationOutcome */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaire} LPAQuestionnaire */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -105,6 +107,12 @@ const appealRepository = (function () {
 									lpaNotificationMethod: true
 								}
 							},
+							lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire: {
+								include: {
+									lpaQuestionnaireIncompleteReason: true
+								}
+							},
+							lpaQuestionnaireValidationOutcome: true,
 							procedureType: true,
 							scheduleType: true
 						}
@@ -145,27 +153,18 @@ const appealRepository = (function () {
 		 * @param {number} id
 		 * @param {{
 		 *	startedAt?: string;
+		 *  otherNotValidReasons?: string;
+		 *  appellantCaseValidationOutcomeId?: number;
+		 *  lpaQuestionnaireValidationOutcomeId?: number;
 		 * }} data
-		 * @returns {PrismaPromise<{
-		 * 	id: number,
-		 *	reference: string,
-		 *	createdAt: Date,
-		 *	updatedAt: Date,
-		 *	addressId: number | null,
-		 *	localPlanningDepartment: string,
-		 *	planningApplicationReference: string,
-		 *	startedAt: Date | null,
-		 *	userId: number | null,
-		 *	appellantId: number | null,
-		 *	appealTypeId: number | null,
-		 * }>}
+		 * @param {string} databaseTable
+		 * @returns {PrismaPromise<object>}
 		 */
-		updateById(id, data) {
-			const updatedAt = new Date();
-
-			return databaseConnector.appeal.update({
+		updateById(id, data, databaseTable) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].update({
 				where: { id },
-				data: { updatedAt, ...data }
+				data
 			});
 		},
 		/**
@@ -187,17 +186,6 @@ const appealRepository = (function () {
 			});
 		},
 		/**
-		 * @param {number} id
-		 * @param {{otherNotValidReasons?: string, validationOutcomeId?: number}} data
-		 * @returns {PrismaPromise<AppellantCase>}
-		 */
-		updateAppellantCaseById(id, data) {
-			return databaseConnector.appellantCase.update({
-				where: { id },
-				data
-			});
-		},
-		/**
 		 * @param {string} databaseTable
 		 * @returns {Promise<LookupTables[]>}
 		 */
@@ -210,49 +198,37 @@ const appealRepository = (function () {
 			});
 		},
 		/**
-		 * @param {string} validationOutcome
-		 * @returns {Promise<ValidationOutcome | null>}
+		 * @param {string} databaseTable
+		 * @param {string} value
+		 * @returns {Promise<LookupTables | null>}
 		 */
-		getValidationOutcomeByName(validationOutcome) {
-			return databaseConnector.validationOutcome.findUnique({
+		getLookupListValueByName(databaseTable, value) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].findUnique({
 				where: {
-					name: validationOutcome
+					name: value
 				}
 			});
 		},
 		/**
-		 * @param {number} appellantCaseId
-		 * @param {string[]} data
+		 * @param {{
+		 *  id: number,
+		 *  data: Array<number | string>,
+		 *  databaseTable: string,
+		 *  relationOne: string,
+		 *  relationTwo: string,
+		 * }} param0
 		 * @returns {Promise<object>}
 		 */
-		updateAppellantCaseIncompleteReasonAppellantCaseById(appellantCaseId, data) {
+		updateManyToManyRelationTable({ id, data, databaseTable, relationOne, relationTwo }) {
 			return databaseConnector.$transaction([
-				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany({
-					where: { appellantCaseId }
+				// @ts-ignore
+				databaseConnector[databaseTable].deleteMany({
+					where: { [relationOne]: id }
 				}),
-				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany({
-					data: data.map((item) => ({
-						appellantCaseId,
-						appellantCaseIncompleteReasonId: Number(item)
-					}))
-				})
-			]);
-		},
-		/**
-		 * @param {number} appellantCaseId
-		 * @param {string[]} data
-		 * @returns {Promise<object>}
-		 */
-		updateAppellantCaseInvalidReasonAppellantCaseById(appellantCaseId, data) {
-			return databaseConnector.$transaction([
-				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany({
-					where: { appellantCaseId }
-				}),
-				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany({
-					data: data.map((item) => ({
-						appellantCaseId,
-						appellantCaseInvalidReasonId: Number(item)
-					}))
+				// @ts-ignore
+				databaseConnector[databaseTable].createMany({
+					data: createManyToManyRelationData({ data, relationOne, relationTwo, relationOneId: id })
 				})
 			]);
 		}

@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es';
 
 /**
- * @param {import('@pins/api').Schema.ZoomLevel} zoomLevel
+ * @param {import('@pins/appeals.api').Schema.ZoomLevel} zoomLevel
  * @returns {{name: string, displayOrder: number, displayNameEn: string, displayNameCy: string}}
  */
 export const mapZoomLevel = (zoomLevel) => {

@@ -1,3 +1,14 @@
+/** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
+
+import {
+	APPEAL_TYPE_SHORTCODE_FPA,
+	APPEAL_TYPE_SHORTCODE_HAS,
+	VALIDATION_OUTCOME_COMPLETE,
+	VALIDATION_OUTCOME_INCOMPLETE,
+	VALIDATION_OUTCOME_INVALID,
+	VALIDATION_OUTCOME_VALID
+} from '../constants';
+
 const householdAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
@@ -33,7 +44,7 @@ const householdAppeal = {
 	},
 	appealType: {
 		id: 2,
-		shorthand: 'HAS',
+		shorthand: APPEAL_TYPE_SHORTCODE_HAS,
 		type: 'household'
 	},
 	appellantCase: {
@@ -159,7 +170,7 @@ const fullPlanningAppeal = {
 	appealType: {
 		id: 1,
 		type: 'full planning',
-		shorthand: 'FPA'
+		shorthand: APPEAL_TYPE_SHORTCODE_FPA
 	},
 	appellantCase: {
 		...householdAppeal.appellantCase,
@@ -237,28 +248,177 @@ const appellantCaseInvalidReasons = [
 	}
 ];
 
-const validationOutcomes = [
+const appellantCaseValidationOutcomes = [
 	{
 		id: 1,
-		name: 'Incomplete'
+		name: VALIDATION_OUTCOME_INCOMPLETE
 	},
 	{
 		id: 2,
-		name: 'Invalid'
+		name: VALIDATION_OUTCOME_INVALID
 	},
 	{
 		id: 3,
-		name: 'Valid'
+		name: VALIDATION_OUTCOME_VALID
 	}
 ];
+
+const lpaQuestionnaireValidationOutcomes = [
+	{
+		id: 1,
+		name: VALIDATION_OUTCOME_COMPLETE
+	},
+	{
+		id: 2,
+		name: VALIDATION_OUTCOME_INCOMPLETE
+	}
+];
+
+const lpaQuestionnaireIncompleteReasons = [
+	{
+		id: 1,
+		name: 'Reason 1'
+	},
+	{
+		id: 2,
+		name: 'Reason 2'
+	},
+	{
+		id: 3,
+		name: 'Other'
+	}
+];
+
+const householdappealWithCompleteLPAQuestionnaire = {
+	...householdAppeal,
+	lpaQuestionnaire: {
+		...householdAppeal.lpaQuestionnaire,
+		lpaQuestionnaireValidationOutcome: lpaQuestionnaireValidationOutcomes[0]
+	}
+};
+
+const householdappealWithIncompleteLPAQuestionnaire = {
+	...householdAppeal,
+	lpaQuestionnaire: {
+		...householdAppeal.lpaQuestionnaire,
+		lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire: lpaQuestionnaireIncompleteReasons.map(
+			(reason) => ({
+				lpaQuestionnaireIncompleteReason: reason
+			})
+		),
+		lpaQuestionnaireValidationOutcome: lpaQuestionnaireValidationOutcomes[1],
+		otherNotValidReasons: 'Another reason for the appeal being incomplete'
+	}
+};
+
+/**
+ * @param {typeof householdAppeal.lpaQuestionnaire} lpaQuestionnaire
+ * @returns {SingleLPAQuestionnaireResponse}
+ */
+const baseExpectedLPAQuestionnaireResponse = (lpaQuestionnaire) => ({
+	affectsListedBuildingDetails: [
+		{
+			grade: lpaQuestionnaire.listedBuildingDetails[1].grade,
+			description: lpaQuestionnaire.listedBuildingDetails[1].description
+		}
+	],
+	appealId: householdAppeal.id,
+	appealReference: householdAppeal.reference,
+	appealSite: {
+		addressLine1: householdAppeal.address.addressLine1,
+		town: householdAppeal.address.town,
+		county: householdAppeal.address.county,
+		postCode: householdAppeal.address.postcode
+	},
+	communityInfrastructureLevyAdoptionDate: lpaQuestionnaire.communityInfrastructureLevyAdoptionDate,
+	designatedSites: lpaQuestionnaire.designatedSites.map(
+		({ designatedSite: { name, description } }) => ({ name, description })
+	),
+	developmentDescription: lpaQuestionnaire.developmentDescription,
+	documents: {
+		communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
+		conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
+		consultationResponses: 'consultation-responses.pdf',
+		definitiveMapAndStatement: 'right-of-way.pdf',
+		emergingPlans: ['emerging-plan-1.pdf'],
+		environmentalStatementResponses: 'environment-statement-responses.pdf',
+		issuedScreeningOption: 'issued-screening-opinion.pdf',
+		lettersToNeighbours: 'letters-to-neighbours.pdf',
+		otherRelevantPolicies: ['policy-1.pdf'],
+		planningOfficersReport: 'planning-officers-report.pdf',
+		policiesFromStatutoryDevelopment: ['policy-a.pdf'],
+		pressAdvert: 'press-advert.pdf',
+		representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
+		responsesOrAdvice: ['responses-or-advice.pdf'],
+		screeningDirection: 'screening-direction.pdf',
+		siteNotice: 'site-notice.pdf',
+		supplementaryPlanningDocuments: ['supplementary-1.pdf'],
+		treePreservationOrder: 'tree-preservation-order.pdf'
+	},
+	doesAffectAListedBuilding: lpaQuestionnaire.doesAffectAListedBuilding,
+	doesAffectAScheduledMonument: lpaQuestionnaire.doesAffectAScheduledMonument,
+	doesSiteHaveHealthAndSafetyIssues: lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues,
+	doesSiteRequireInspectorAccess: lpaQuestionnaire.doesSiteRequireInspectorAccess,
+	extraConditions: lpaQuestionnaire.extraConditions,
+	hasCommunityInfrastructureLevy: lpaQuestionnaire.hasCommunityInfrastructureLevy,
+	hasCompletedAnEnvironmentalStatement: lpaQuestionnaire.hasCompletedAnEnvironmentalStatement,
+	hasEmergingPlan: lpaQuestionnaire.hasEmergingPlan,
+	hasExtraConditions: lpaQuestionnaire.hasExtraConditions,
+	hasProtectedSpecies: lpaQuestionnaire.hasProtectedSpecies,
+	hasRepresentationsFromOtherParties: lpaQuestionnaire.hasRepresentationsFromOtherParties,
+	hasResponsesOrStandingAdviceToUpload: lpaQuestionnaire.hasResponsesOrStandingAdviceToUpload,
+	hasStatementOfCase: lpaQuestionnaire.hasStatementOfCase,
+	hasStatutoryConsultees: lpaQuestionnaire.hasStatutoryConsultees,
+	hasSupplementaryPlanningDocuments: lpaQuestionnaire.hasSupplementaryPlanningDocuments,
+	hasTreePreservationOrder: lpaQuestionnaire.hasTreePreservationOrder,
+	inCAOrrelatesToCA: lpaQuestionnaire.inCAOrrelatesToCA,
+	includesScreeningOption: lpaQuestionnaire.includesScreeningOption,
+	isCommunityInfrastructureLevyFormallyAdopted:
+		lpaQuestionnaire.isCommunityInfrastructureLevyFormallyAdopted,
+	isEnvironmentalStatementRequired: lpaQuestionnaire.isEnvironmentalStatementRequired,
+	isGypsyOrTravellerSite: lpaQuestionnaire.isGypsyOrTravellerSite,
+	isListedBuilding: lpaQuestionnaire.isListedBuilding,
+	isPublicRightOfWay: lpaQuestionnaire.isPublicRightOfWay,
+	isSensitiveArea: lpaQuestionnaire.isSensitiveArea,
+	isSiteVisible: lpaQuestionnaire.isSiteVisible,
+	isTheSiteWithinAnAONB: lpaQuestionnaire.isTheSiteWithinAnAONB,
+	listedBuildingDetails: [
+		{
+			grade: lpaQuestionnaire.listedBuildingDetails[0].grade,
+			description: lpaQuestionnaire.listedBuildingDetails[0].description
+		}
+	],
+	localPlanningDepartment: householdAppeal.localPlanningDepartment,
+	lpaNotificationMethods: lpaQuestionnaire.lpaNotificationMethods.map(
+		({ lpaNotificationMethod: { name } }) => ({ name })
+	),
+	lpaQuestionnaireId: lpaQuestionnaire.id,
+	meetsOrExceedsThresholdOrCriteriaInColumn2:
+		lpaQuestionnaire.meetsOrExceedsThresholdOrCriteriaInColumn2,
+	otherAppeals: [
+		{
+			appealId: otherAppeals[1].id,
+			appealReference: otherAppeals[1].reference
+		}
+	],
+	procedureType: lpaQuestionnaire.procedureType.name,
+	scheduleType: lpaQuestionnaire.scheduleType.name,
+	siteWithinGreenBelt: lpaQuestionnaire.siteWithinGreenBelt,
+	validationOutcome: null
+});
 
 export {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
+	appellantCaseValidationOutcomes,
+	baseExpectedLPAQuestionnaireResponse,
 	fullPlanningAppeal,
 	householdAppeal,
 	householdAppealTwo,
+	householdappealWithCompleteLPAQuestionnaire,
+	householdappealWithIncompleteLPAQuestionnaire,
 	linkedAppeals,
-	otherAppeals,
-	validationOutcomes
+	lpaQuestionnaireIncompleteReasons,
+	lpaQuestionnaireValidationOutcomes,
+	otherAppeals
 };

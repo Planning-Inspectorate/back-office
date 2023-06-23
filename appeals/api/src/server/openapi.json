@@ -69,6 +69,33 @@
 				}
 			}
 		},
+		"/appeals/lpa-questionnaire-incomplete-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets LPA questionnaire incomplete reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA questionnaire incomplete reasons",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireIncompleteReasonsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireIncompleteReasonsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -256,6 +283,68 @@
 						"description": "Not Found"
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Appeals"],
+				"description": "Updates a single LPA questionnaire for an appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "lpaQuestionnaireId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single LPA questionnaire by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateLPAQuestionnaireResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateLPAQuestionnaireResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "LPA questionnaire details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateLPAQuestionnaireRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateLPAQuestionnaireRequest"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/appeals/{appealId}/appellant-cases/{appellantCaseId}": {
@@ -323,15 +412,6 @@
 						"schema": {
 							"type": "string"
 						}
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Appellant case details to update",
-						"schema": {
-							"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
-						},
-						"required": true
 					}
 				],
 				"responses": {
@@ -355,6 +435,23 @@
 					},
 					"404": {
 						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appellant case details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
+							}
+						}
 					}
 				}
 			}
@@ -3129,6 +3226,134 @@
 				},
 				"xml": {
 					"name": "SingleLPAQuestionnaireResponse"
+				}
+			},
+			"UpdateAppellantCaseRequest": {
+				"type": "object",
+				"properties": {
+					"incompleteReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"invalidReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"otherNotValidReasons": {
+						"type": "string",
+						"example": "Another invalid reason"
+					},
+					"validationOutcome": {
+						"type": "string",
+						"example": "valid"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppellantCaseRequest"
+				}
+			},
+			"UpdateAppellantCaseResponse": {
+				"type": "object",
+				"properties": {},
+				"xml": {
+					"name": "UpdateAppellantCaseResponse"
+				}
+			},
+			"UpdateLPAQuestionnaireRequest": {
+				"type": "object",
+				"properties": {
+					"incompleteReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-06-21"
+					},
+					"otherNotValidReasons": {
+						"type": "string",
+						"example": "Another incomplete reason"
+					},
+					"validationOutcome": {
+						"type": "string",
+						"example": "incomplete"
+					}
+				},
+				"xml": {
+					"name": "UpdateLPAQuestionnaireRequest"
+				}
+			},
+			"UpdateLPAQuestionnaireResponse": {
+				"type": "object",
+				"properties": {},
+				"xml": {
+					"name": "UpdateLPAQuestionnaireResponse"
+				}
+			},
+			"AllAppellantCaseIncompleteReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Incomplete reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseIncompleteReasonsResponse"
+				}
+			},
+			"AllAppellantCaseInvalidReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Invalid reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseInvalidReasonsResponse"
+				}
+			},
+			"AllLPAQuestionnaireIncompleteReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Incomplete reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPAQuestionnaireIncompleteReasonsResponse"
 				}
 			},
 			"AppealsForCaseOfficer": {

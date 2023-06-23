@@ -11,6 +11,7 @@ const mockRegionFindUnique = jest.fn().mockResolvedValue({});
 const mockRegionsOnApplicationDetailsDeleteMany = jest.fn().mockResolvedValue({});
 const mockAppealFindUnique = jest.fn().mockResolvedValue({});
 const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
+const mocklPAQuestionnaireUpdate = jest.fn().mockResolvedValue({});
 const mockAppealStatusUpdateMany = jest.fn().mockResolvedValue({});
 const mockAppealStatusCreate = jest.fn().mockResolvedValue({});
 const mockAppealUpdate = jest.fn().mockResolvedValue({});
@@ -73,9 +74,22 @@ const mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany = jest.fn().moc
 const mockAppellantCaseInvalidReasonFindMany = jest.fn().mockResolvedValue({});
 const mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
 const mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
-const mockValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
-const mockValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
+const mockAppellantCaseValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
 const mockAppellantCaseUpdate = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonFindUnique = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireDeleteMany = jest
+	.fn()
+	.mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany = jest
+	.fn()
+	.mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate = jest
+	.fn()
+	.mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -114,7 +128,8 @@ class MockPrismaClient {
 
 	get lPAQuestionnaire() {
 		return {
-			create: mocklPAQuestionnaireCreate
+			create: mocklPAQuestionnaireCreate,
+			update: mocklPAQuestionnaireUpdate
 		};
 	}
 
@@ -274,10 +289,10 @@ class MockPrismaClient {
 		};
 	}
 
-	get validationOutcome() {
+	get appellantCaseValidationOutcome() {
 		return {
-			findMany: mockValidationOutcomeFindMany,
-			findUnique: mockValidationOutcomeFindUnique
+			findMany: mockAppellantCaseValidationOutcomeFindMany,
+			findUnique: mockAppellantCaseValidationOutcomeFindUnique
 		};
 	}
 
@@ -298,6 +313,28 @@ class MockPrismaClient {
 		return {
 			deleteMany: mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany,
 			createMany: mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany
+		};
+	}
+
+	get lPAQuestionnaireValidationOutcome() {
+		return {
+			findMany: mockLPAQuestionnaireValidationOutcomeFindMany,
+			findUnique: mockLPAQuestionnaireValidationOutcomeFindUnique
+		};
+	}
+
+	get lPAQuestionnaireIncompleteReason() {
+		return {
+			findUnique: mockLPAQuestionnaireIncompleteReasonFindUnique,
+			findMany: mockLPAQuestionnaireIncompleteReasonFindMany
+		};
+	}
+
+	get lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire() {
+		return {
+			deleteMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireDeleteMany,
+			createMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany,
+			update: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate
 		};
 	}
 

@@ -7,7 +7,7 @@ export const getAll = () => {
 /**
  *
  * @param {string} name
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableType | null>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableType | null>}
  */
 export const getByName = (name) => {
 	return databaseConnector.examinationTimetableType.findUnique({ where: { name } });
@@ -16,7 +16,7 @@ export const getByName = (name) => {
 /**
  *
  * @param {number} id
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableType | null>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableType | null>}
  */
 export const getById = (id) => {
 	return databaseConnector.examinationTimetableType.findUnique({ where: { id } });

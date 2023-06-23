@@ -784,6 +784,38 @@ const document = {
 			siteWithinGreenBelt: true,
 			statutoryConsulteesDetails: 'Some other people need to be consulted'
 		},
+		UpdateAppellantCaseRequest: {
+			incompleteReasons: [1, 2, 3],
+			invalidReasons: [1, 2, 3],
+			otherNotValidReasons: 'Another invalid reason',
+			validationOutcome: 'valid'
+		},
+		UpdateAppellantCaseResponse: {},
+		UpdateLPAQuestionnaireRequest: {
+			incompleteReasons: [1, 2, 3],
+			lpaQuestionnaireDueDate: '2023-06-21',
+			otherNotValidReasons: 'Another incomplete reason',
+			validationOutcome: 'incomplete'
+		},
+		UpdateLPAQuestionnaireResponse: {},
+		AllAppellantCaseIncompleteReasonsResponse: [
+			{
+				id: 1,
+				name: 'Incomplete reason'
+			}
+		],
+		AllAppellantCaseInvalidReasonsResponse: [
+			{
+				id: 1,
+				name: 'Invalid reason'
+			}
+		],
+		AllLPAQuestionnaireIncompleteReasonsResponse: [
+			{
+				id: 1,
+				name: 'Incomplete reason'
+			}
+		],
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
@@ -1008,7 +1040,7 @@ const document = {
 		BookSiteVisit: {
 			$siteVisitType: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.SiteVisitType} */ ([
+				'@enum': /** @type {import('@pins/appeals.api').Schema.SiteVisitType} */ ([
 					'accompanied',
 					'unaccompanied',
 					'access required'
@@ -1043,7 +1075,7 @@ const document = {
 			},
 			$outcome: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.InspectorDecisionOutcomeType} */ ([
+				'@enum': /** @type {import('@pins/appeals.api').Schema.InspectorDecisionOutcomeType} */ ([
 					'allowed',
 					'dismissed',
 					'split decision'

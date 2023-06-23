@@ -4,6 +4,7 @@ import { validationErrorHandler } from '../../middleware/error-handler.js';
 import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
+	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
 	ERROR_MAX_LENGTH_300,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
@@ -15,11 +16,7 @@ import {
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
 } from '../constants.js';
-import {
-	isAppellantCaseIncomplete,
-	isAppellantCaseInvalid,
-	isAppellantCaseValid
-} from './appeals.service.js';
+import { isOutcomeIncomplete, isOutcomeInvalid } from './appeals.service.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 
@@ -131,7 +128,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 	validateIdParameter('appellantCaseId'),
 	// @ts-ignore
 	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
-		if (value && !isAppellantCaseIncomplete(req.body.validationOutcome)) {
+		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
 			throw new Error(ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME);
 		}
 
@@ -139,7 +136,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 	}),
 	// @ts-ignore
 	validateValidationOutcomeReasons('invalidReasons', (value, { req }) => {
-		if (value && !isAppellantCaseInvalid(req.body.validationOutcome)) {
+		if (value && !isOutcomeInvalid(req.body.validationOutcome)) {
 			throw new Error(ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME);
 		}
 
@@ -152,7 +149,11 @@ const patchAppellantCaseValidator = composeMiddleware(
 		.isLength({ min: 0, max: 300 })
 		.withMessage(ERROR_MAX_LENGTH_300)
 		.custom((value, { req }) => {
-			if (value && isAppellantCaseValid(req.body.validationOutcome)) {
+			if (
+				value &&
+				!isOutcomeIncomplete(req.body.validationOutcome) &&
+				!isOutcomeInvalid(req.body.validationOutcome)
+			) {
 				throw new Error(ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS);
 			}
 
@@ -161,16 +162,57 @@ const patchAppellantCaseValidator = composeMiddleware(
 	body('validationOutcome')
 		.isString()
 		.custom((value, { req }) => {
-			if (isAppellantCaseIncomplete(value) && !req.body.incompleteReasons) {
+			if (isOutcomeIncomplete(value) && !req.body.incompleteReasons) {
 				throw new Error(ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED);
 			}
 
-			if (isAppellantCaseInvalid(value) && !req.body.invalidReasons) {
+			if (isOutcomeInvalid(value) && !req.body.invalidReasons) {
 				throw new Error(ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED);
 			}
 
 			return value;
 		}),
+	validationErrorHandler
+);
+
+const patchLPAQuestionnaireValidator = composeMiddleware(
+	validateIdParameter('appealId'),
+	validateIdParameter('lpaQuestionnaireId'),
+	// @ts-ignore
+	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
+		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+			throw new Error(ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME);
+		}
+
+		return value;
+	}),
+	body('otherNotValidReasons')
+		.optional()
+		.isString()
+		.withMessage(ERROR_MUST_BE_STRING)
+		.isLength({ min: 0, max: 300 })
+		.withMessage(ERROR_MAX_LENGTH_300)
+		.custom((value, { req }) => {
+			if (
+				value &&
+				!isOutcomeIncomplete(req.body.validationOutcome) &&
+				!isOutcomeInvalid(req.body.validationOutcome)
+			) {
+				throw new Error(ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS);
+			}
+
+			return value;
+		}),
+	body('validationOutcome')
+		.isString()
+		.custom((value, { req }) => {
+			if (isOutcomeIncomplete(value) && !req.body.incompleteReasons) {
+				throw new Error(ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED);
+			}
+
+			return value;
+		}),
+	validateDateParameter('lpaQuestionnaireDueDate'),
 	validationErrorHandler
 );
 
@@ -180,5 +222,6 @@ export {
 	getLPAQuestionnaireValidator,
 	paginationParameterValidator,
 	patchAppealValidator,
-	patchAppellantCaseValidator
+	patchAppellantCaseValidator,
+	patchLPAQuestionnaireValidator
 };
