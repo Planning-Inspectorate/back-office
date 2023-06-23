@@ -83,6 +83,25 @@ describe('Representation comment page', () => {
 				nocks();
 			});
 
+			it('should show validation error if received date is empty', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: 'test',
+					'received-date-year': '',
+					'received-date-month': '',
+					'received-date-day': ''
+				});
+
+				const element = parseHtml(response.text);
+				const dayInput = element.querySelector('#received-date-day');
+				const monthInput = element.querySelector('#received-date-month');
+				const yearInput = element.querySelector('#received-date-year');
+
+				expect(element.innerHTML).toContain('Enter the date');
+				expect(dayInput?.outerHTML).toContain('govuk-input--error');
+				expect(monthInput?.outerHTML).toContain('govuk-input--error');
+				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
 			it('should show validation error if received date is in the future', async () => {
 				const response = await request.post(baseUrl).send({
 					originalRepresentation: 'test',
@@ -241,6 +260,19 @@ describe('Representation comment page', () => {
 
 				expect(element.innerHTML).toContain('must include a year');
 				expect(yearInput?.outerHTML).toContain('govuk-input--error');
+			});
+
+			it('should show validation error if representation comment is empty', async () => {
+				const response = await request.post(baseUrl).send({
+					originalRepresentation: '',
+					'received-date-year': '2000',
+					'received-date-month': '1',
+					'received-date-day': '1'
+				});
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toContain('Enter a comment');
 			});
 		});
 	});
