@@ -2,21 +2,17 @@
  * Test data used for development and testing
  */
 
-import { createFolders } from '../../server/repositories/folder.repository.js';
 import {
 	addressesList,
 	appellantCaseList,
 	appellantsList,
-	caseStatusNames,
 	completeValidationDecisionSample,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
-	lpaQuestionnaireList,
-	represenations
+	lpaQuestionnaireList
 } from './data-samples.js';
-import { regions, subSectors, zoomLevels } from './data-static.js';
 import { calculateTimetable, isFPA } from '../../server/appeals/appeals/appeals.service.js';
 import {
 	APPEAL_TYPE_SHORTCODE_FPA,
@@ -41,18 +37,6 @@ function generateAppealReference() {
 	const number = Math.floor(Math.random() * 999_999 + 1);
 
 	return `APP/Q9999/D/21/${number}`;
-}
-
-// Application reference should be in the format (subSector)(5 digit sequential_number with leading 1) eg EN0110001
-/**
- * @param {{abbreviation: string}} subSector
- * @param {number} referenceNumber
- * @returns {string}
- */
-function generateApplicationReference(subSector, referenceNumber) {
-	const formattedReferenceNumber = `1000${referenceNumber}`.slice(-5);
-
-	return `${subSector.abbreviation}${formattedReferenceNumber}`;
 }
 
 /**
@@ -341,113 +325,6 @@ const appealsData = [
 ];
 
 /**
- *
- * @param {string} caseReference
- * @param {number} index
- * @returns {any}
- */
-function createRepresentation(caseReference, index) {
-	const { contacts, ...rep } = pickRandom(represenations);
-
-	const statuses = ['AWAITING_REVIEW', 'REFERRED', 'INVALID', 'PUBLISHED', 'WITHDRAWN', 'ARCHIVED'];
-
-	return {
-		reference: `${caseReference}-${index}`,
-		...rep,
-		status: statuses[Math.floor(Math.random() * statuses.length)],
-		contacts: {
-			create: contacts.create.map((contact) => ({
-				...contact,
-				address: { create: pickRandom(addressesList) }
-			}))
-		}
-	};
-}
-
-/**
- *
- * @param {import('#db-client').PrismaClient} databaseConnector
- * @param {{name: string, displayNameEn: string}} subSector
- * @param {number} index
- */
-const createApplication = async (databaseConnector, subSector, index) => {
-	const title = `${subSector.displayNameEn} Test Application ${index}`;
-	const caseStatus = pickRandom(caseStatusNames).name;
-	// Draft cases do not have a reference assigned to them yet
-	const reference = caseStatus === 'draft' ? null : generateApplicationReference(subSector, index);
-
-	let representations = [];
-
-	if (caseStatus !== 'draft') {
-		if (subSector.name === 'office_use' && index === 1) {
-			for (let loopIndex = 0; loopIndex < 101; loopIndex += 1) {
-				representations.push(createRepresentation(reference, loopIndex));
-			}
-		} else {
-			representations = [
-				createRepresentation(reference, 1),
-				createRepresentation(reference, 2),
-				createRepresentation(reference, 3)
-			];
-		}
-	}
-
-	const newCase = await databaseConnector.case.create({
-		data: {
-			reference,
-			modifiedAt: new Date(),
-			description: `A description of test case ${index} which is a case of subsector type ${subSector.displayNameEn}`,
-			title,
-			ApplicationDetails: {
-				create: {
-					subSector: {
-						connect: {
-							name: subSector.name
-						}
-					},
-					regions: {
-						create: [
-							{
-								region: {
-									connect: {
-										name: pickRandom(regions).name
-									}
-								}
-							}
-						]
-					},
-					zoomLevel: {
-						connect: {
-							name: pickRandom(zoomLevels).name
-						}
-					}
-				}
-			},
-			CaseStatus: {
-				create: [
-					{
-						status: caseStatus
-					}
-				]
-			},
-			serviceCustomer: {
-				create: [{}]
-			},
-			Representation: {
-				create: representations
-			}
-		}
-	});
-
-	// create folders if case is not in draft state
-	if (caseStatus !== 'draft') {
-		Promise.all(createFolders(newCase.id));
-	}
-
-	return newCase;
-};
-
-/**
  * @param {import('#db-client').PrismaClient} databaseConnector
  */
 export async function seedTestData(databaseConnector) {
@@ -535,10 +412,35 @@ export async function seedTestData(databaseConnector) {
 			name: 'Some'
 		}
 	});
+	const validationOutcomes = await databaseConnector.validationOutcome.findMany({
+		orderBy: {
+			name: 'asc'
+		}
+	});
+	const appellantCaseIncompleteReasons =
+		await databaseConnector.appellantCaseIncompleteReason.findMany();
+	const appellantCaseInvalidReasons = await databaseConnector.appellantCaseInvalidReason.findMany();
+
+	const appellantCaseValidationOutcomes = [
+		{
+			validationOutcomeId: validationOutcomes[0].id,
+			incompleteReasons: appellantCaseIncompleteReasons.map(({ id }) => id),
+			otherNotValidReasons: 'Another incomplete reason'
+		},
+		{
+			validationOutcomeId: validationOutcomes[1].id,
+			invalidReasons: appellantCaseInvalidReasons.map(({ id }) => id),
+			otherNotValidReasons: 'Another invalid reason'
+		},
+		{
+			validationOutcomeId: validationOutcomes[2].id
+		}
+	];
 
 	for (const appellantCase of appellantCases) {
 		const appeal = appeals.find(({ id }) => id === appellantCase.appealId);
 		const appealType = appealTypes.find(({ id }) => id === appeal?.appealTypeId);
+		const validationOutcome = appellantCaseValidationOutcomes[Math.floor(Math.random() * 3)];
 
 		await databaseConnector.appellantCase.update({
 			where: { id: appellantCase.id },
@@ -549,15 +451,30 @@ export async function seedTestData(databaseConnector) {
 				...(!appellantCase.isSiteFullyOwned && {
 					hasAdvertisedAppeal: true,
 					knowledgeOfOtherLandownersId: knowledgeOfOtherLandowners[0].id
-				})
+				}),
+				validationOutcomeId: validationOutcome.validationOutcomeId,
+				otherNotValidReasons:
+					(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
+					validationOutcome.otherNotValidReasons
 			}
 		});
-	}
 
-	// now create some sample applications
-	for (const { subSector } of subSectors) {
-		for (let index = 1; index < 4; index += 1) {
-			await createApplication(databaseConnector, subSector, index);
+		if (validationOutcome.incompleteReasons) {
+			await databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany({
+				data: validationOutcome.incompleteReasons.map((item) => ({
+					appellantCaseIncompleteReasonId: item,
+					appellantCaseId: appellantCase.id
+				}))
+			});
+		}
+
+		if (validationOutcome.invalidReasons) {
+			await databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany({
+				data: validationOutcome.invalidReasons.map((item) => ({
+					appellantCaseInvalidReasonId: item,
+					appellantCaseId: appellantCase.id
+				}))
+			});
 		}
 	}
 }

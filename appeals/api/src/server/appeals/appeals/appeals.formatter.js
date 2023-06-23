@@ -2,17 +2,17 @@ import formatAddress from '../../utils/address-block-formtter.js';
 import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
 import { isFPA } from './appeals.service.js';
 
-/** @typedef {import('@pins/api').Appeals.AppealListResponse} AppealListResponse */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
-/** @typedef {import('@pins/api').Appeals.SingleAppealDetailsResponse} SingleAppealDetailsResponse */
-/** @typedef {import('@pins/api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
-/** @typedef {import('@pins/api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
-/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
-/** @typedef {import('@pins/api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse */
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Schema.ListedBuildingDetails} ListedBuildingDetails */
-/** @typedef {import('@pins/api').Schema.AppealType} AppealType */
+/** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} SingleAppealDetailsResponse */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
+/** @typedef {import('@pins/appeals.api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
+/** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse */
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
+/** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
 
 /**
  * @param {boolean} affectsListedBuilding
@@ -225,6 +225,7 @@ const appealFormatter = {
 					firstName: appellantCase.applicantFirstName,
 					surname: appellantCase.applicantSurname
 				},
+				planningApplicationReference: appeal.planningApplicationReference,
 				...(isFPA(appeal.appealType) && {
 					developmentDescription: {
 						isCorrect: appellantCase.isDevelopmentDescriptionStillCorrect,
