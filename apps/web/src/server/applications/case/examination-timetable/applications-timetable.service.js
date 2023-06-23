@@ -2,6 +2,7 @@ import { get, patch, post, deleteRequest } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
  * Get the timetable item types
@@ -16,7 +17,7 @@ export const getCaseTimetableItemTypes = async () => {
  * Save new timetable item
  *
  * @param {ApplicationsTimetable} payload
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
  */
 export const createCaseTimetableItem = async (payload) => {
 	let response;
@@ -26,7 +27,9 @@ export const createCaseTimetableItem = async (payload) => {
 			json: payload
 		});
 		response = { updatedTimetable };
-	} catch {
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
 		});
@@ -39,7 +42,7 @@ export const createCaseTimetableItem = async (payload) => {
  * Updates an existing timetable item
  *
  * @param {ApplicationsTimetable} payload
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
  */
 export const updateCaseTimetableItem = async (payload) => {
 	let response;
@@ -48,11 +51,14 @@ export const updateCaseTimetableItem = async (payload) => {
 			json: payload
 		});
 		response = { updatedTimetable };
-	} catch {
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
 		});
 	}
+
 	return response;
 };
 
@@ -98,17 +104,27 @@ export const getCaseTimetableItemTypeByName = async (selectedItemTypeName) => {
 /**
  * Publish case timetable items
  * @param {number} caseId
- * @returns {Promise<ApplicationsTimetable[]>}
+ * @returns {Promise<{publishedItems: ApplicationsTimetable[], errors?: ValidationErrors}>}
  */
 export const publishCaseTimetableItems = async (caseId) => {
-	// TODO: handle errors
-	return patch(`applications/examination-timetable-items/publish/${caseId}`, {});
+	let response;
+	try {
+		response = await patch(`applications/examination-timetable-items/publish/${caseId}`, {});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
 };
 
 /**
  * Delete single timetable item
  * @param {number} timetableId
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: import('@pins/express').ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
  */
 export const deleteCaseTimetableItem = async (timetableId) => {
 	let response;
@@ -116,7 +132,10 @@ export const deleteCaseTimetableItem = async (timetableId) => {
 		response = await deleteRequest(`applications/examination-timetable-items/${timetableId}`);
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
-		response = { errors: { msg: 'An error occurred, please try again later' } };
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
 	}
 
 	return response;

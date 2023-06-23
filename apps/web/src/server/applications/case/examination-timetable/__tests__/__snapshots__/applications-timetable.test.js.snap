@@ -1,14 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item should show the page 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/new should show the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class='govuk-grid-row'>
         <div class='govuk-grid-column-two-thirds'>
             <div>
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
-                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -19,9 +18,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <input class=\\"govuk-input\\" id=\\"name\\" name=\\"name\\" type=\\"text\\">
@@ -93,7 +92,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item/validate templateType: deadline should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -120,7 +119,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -131,9 +130,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -249,7 +248,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item/validate templateType: deadline-startdate-mandatory should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline-startdate-mandatory should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -280,7 +279,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -291,9 +290,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -423,7 +422,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item/validate templateType: no-times should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: no-times should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -448,7 +447,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -459,9 +458,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -514,7 +513,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item/validate templateType: starttime-mandatory should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: starttime-mandatory should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -541,7 +540,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -552,9 +551,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -644,7 +643,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/new-item/validate templateType: starttime-optional should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: starttime-optional should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -669,7 +668,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -680,9 +679,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -791,7 +790,7 @@ exports[`Create examination timetable page should display errors if start date a
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -802,9 +801,9 @@ exports[`Create examination timetable page should display errors if start date a
                     type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -939,7 +938,7 @@ exports[`Create examination timetable page should display errors if start time a
                 <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
                 <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
             </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/validate\\"
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
@@ -950,9 +949,9 @@ exports[`Create examination timetable page should display errors if start time a
                     type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
                 </div>
-                <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                type=\\"hidden\\">
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
@@ -1060,12 +1059,12 @@ exports[`Create examination timetable page should display errors if start time a
 </main>"
 `;
 
-exports[`Delete examination timetable GET /case/123/examination-timetable/delete/1 should show the page 1`] = `
+exports[`Delete examination timetable GET /case/123/examination-timetable/item/delete/1 should show the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class='govuk-grid-row'>
         <div class='govuk-grid-column-full'>
             <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Delete timetable item</h1>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/delete/1\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/delete/1\\">
                 <dl class=\\"govuk-summary-list\\">
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                         <dd class=\\"govuk-summary-list__value\\">Deadline</dd>
@@ -1100,7 +1099,7 @@ exports[`Delete examination timetable GET /case/123/examination-timetable/delete
 </main>"
 `;
 
-exports[`Delete examination timetable POST /case/123/examination-timetable/delete/1 should show errors if api fails 1`] = `
+exports[`Delete examination timetable POST /case/123/examination-timetable/item/delete/1 should show errors if api fails 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -1120,7 +1119,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/delet
     <div class='govuk-grid-row'>
         <div class='govuk-grid-column-full'>
             <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Delete timetable item</h1>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/delete/1\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/delete/1\\">
                 <dl class=\\"govuk-summary-list\\">
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                         <dd class=\\"govuk-summary-list__value\\">Deadline</dd>
@@ -1155,7 +1154,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/delet
 </main>"
 `;
 
-exports[`Delete examination timetable POST /case/123/examination-timetable/delete/1 should success page if deleting is succeful 1`] = `
+exports[`Delete examination timetable POST /case/123/examination-timetable/item/delete/1 should show the delete success page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -1166,8 +1165,10 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/delet
                     <br><strong>CASE/04</strong>
                 </div>
             </div>
-            <div class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/examination-timetable/\\"
-                class=\\"govuk-link\\"> Go back to examination table</a>
+            <div class=\\"govuk-body\\">
+                <p class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/examination-timetable/\\"
+                    class=\\"govuk-link\\"> Go back to examination table</a>
+                </p>
             </div>
         </div>
     </div>
@@ -1236,7 +1237,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                     </div>
                 </div>
                 <p class=\\"govuk-body\\">Create or manage an examination timetable</p><a class='govuk-button govuk-!-margin-top-5'
-                href=\\"/applications-service/case/123/examination-timetable/new-item\\">Create new timetable item</a>
+                href=\\"/applications-service/case/123/examination-timetable/item/new/\\">Create new timetable item</a>
                 <div><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/examination-timetable/preview\\"> Preview and publish timetable items</a>
                 </div>
             </div>
@@ -1255,6 +1256,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                             </div>
                             <div id=\\"accordion-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
                             aria-labelledby=\\"accordion-examination-heading-1\\">
+                                <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/1\\">Edit timetable item</a>
+                                </div>
                                 <dl class=\\"govuk-summary-list\\">
                                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                                         <dd class=\\"govuk-summary-list__value\\">Deadline</dd>
@@ -1280,8 +1283,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                             </ul>
                                         </dd>
                                     </div>
-                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a> |
-                                <a                                 class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/1/edit-item\\">Edit timetable item</a>
+                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
                             </div>
                         </div>
                         <div class=\\"govuk-accordion__section\\">
@@ -1290,6 +1292,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                             </div>
                             <div id=\\"accordion-examination-content-2\\" class=\\"govuk-accordion__section-content\\"
                             aria-labelledby=\\"accordion-examination-heading-2\\">
+                                <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                                </div>
                                 <dl class=\\"govuk-summary-list\\">
                                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                                         <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
@@ -1315,8 +1319,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                                             </ul>
                                         </dd>
                                     </div>
-                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a> |
-                                <a                                 class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/2/edit-item\\">Edit timetable item</a>
+                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
                             </div>
                         </div>
                     </div>
@@ -1327,12 +1330,12 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
 </main>"
 `;
 
-exports[`POST /case/123/examination-timetable/new-item/check-your-answers should show page with the right fields correctly formatted 1`] = `
+exports[`POST /case/123/examination-timetable/item/check-your-answers should show page with the right fields correctly formatted 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class='govuk-grid-row'>
         <div class='govuk-grid-column-full'>
             <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Check your answers before creating a new item</h1>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/new/\\">
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
@@ -1396,7 +1399,7 @@ exports[`POST /case/123/examination-timetable/new-item/check-your-answers should
                         <br>&middot; another point</dd>
                 </div>
             </dl>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/new-item/save\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/save/\\">
                 <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
@@ -1464,6 +1467,8 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                     </div>
                     <div id=\\"accordion-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
                     aria-labelledby=\\"accordion-examination-heading-1\\">
+                        <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/1\\">Edit timetable item</a>
+                        </div>
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Deadline</dd>
@@ -1489,8 +1494,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                                     </ul>
                                 </dd>
                             </div>
-                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/1'>Delete timetable item</a> |
-                        <a                         class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/1/edit-item\\">Edit timetable item</a>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
                     </div>
                 </div>
                 <div class=\\"govuk-accordion__section\\">
@@ -1499,6 +1503,8 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                     </div>
                     <div id=\\"accordion-examination-content-2\\" class=\\"govuk-accordion__section-content\\"
                     aria-labelledby=\\"accordion-examination-heading-2\\">
+                        <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                        </div>
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
@@ -1524,14 +1530,13 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                                     </ul>
                                 </dd>
                             </div>
-                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/delete/2'>Delete timetable item</a> |
-                        <a                         class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/2/edit-item\\">Edit timetable item</a>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/publish\\">
+    <form method=\\"post\\">
         <button class='govuk-button govuk-!-margin-top-5'>Publish exam timetable</button>
     </form>
 </main>"
@@ -1557,7 +1562,7 @@ exports[`Publish examination timetable success page POST /case/123/examination-t
 </main>"
 `;
 
-exports[`Select examination timetable type page GET /case/123/examination-timetable/new-item should show the page 1`] = `
+exports[`Select examination timetable type page GET /case/123/examination-timetable/item/new should show the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
     <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>

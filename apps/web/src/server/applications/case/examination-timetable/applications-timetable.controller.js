@@ -96,9 +96,21 @@ export async function viewApplicationsCaseTimetablesPreview(_, response) {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function publishApplicationsCaseTimetables(_, response) {
-	await publishCaseTimetableItems(response.locals.caseId);
+	const { errors } = await publishCaseTimetableItems(response.locals.caseId);
 
-	// TODO: handle errors
+	if (errors) {
+		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+
+		const timetableItemsViewData = timetableItems.map((timetableItem) =>
+			getTimetableRows(timetableItem)
+		);
+
+		return response.render(`applications/case-timetable/timetable-preview.njk`, {
+			timetableItems: timetableItemsViewData,
+			errors,
+			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+		});
+	}
 
 	response.redirect(`./published/success`);
 }
@@ -309,6 +321,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {action: string}>}
  */
 export async function viewApplicationsCaseTimetableSuccessBanner(request, response) {
+	console.log('neanche ci provo');
 	response.render('applications/case-timetable/timetable-success-banner.njk', {
 		action: request.params.action
 	});
