@@ -12,6 +12,7 @@ import {
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 
 /** @type {Record<string, Record<string, boolean>>} */
@@ -195,18 +196,13 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
 export async function viewApplicationsCaseTimetableDetailsEdit({ params }, response) {
 	const timetableItem = await getCaseTimetableItemById(+params.timetableId);
 
-	if (!timetableItem.ExaminationTimetableType) {
-		throw new Error(`Template type not found for timetable item type ${timetableItem.id}`);
-	}
-
-	const { name: typeName, id: typeId, templateType } = timetableItem.ExaminationTimetableType;
-	const selectedItemType = { value: typeName, id: typeId, templateType };
-	const templateFields = timetableTemplatesSchema[selectedItemType?.templateType || 0];
+	const selectedItemType = timetableItem.ExaminationTimetableType;
+	const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
 
 	const values = mapExaminationTimetableToFormBody(
 		timetableItem,
 		selectedItemType.id,
-		selectedItemType.value
+		selectedItemType.name
 	);
 
 	return response.render(`applications/case-timetable/timetable-details-form.njk`, {
@@ -219,6 +215,7 @@ export async function viewApplicationsCaseTimetableDetailsEdit({ params }, respo
 
 /**
  * Handle the details form for the new/editing examination timetable (3th step)
+ * This is triggered by the "validate" url in the details form
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
@@ -237,6 +234,7 @@ export async function postApplicationsCaseTimetableDetails(
 		});
 	}
 
+	// the 307 redirect allows to redirect keeping the method "POST" and its body
 	return response.redirect(307, `../check-your-answers/${body.timetableId ?? null}`);
 }
 
@@ -273,7 +271,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 			? new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
 			: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`);
 
-	/** @type {ApplicationsTimetable} */
+	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
 		caseId: response.locals.caseId,
 		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
@@ -291,7 +289,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		payload.id = Number.parseInt(body['timetableId'], 10);
 	}
 
-	let errors = null;
+	let errors;
 	if (payload.id) {
 		// has exam id, therefore an existing record for update
 		const apiResponse = await updateCaseTimetableItem(payload);
@@ -321,6 +319,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {action: string}>}
  */
 export async function viewApplicationsCaseTimetableSuccessBanner(request, response) {
+	// action can be 'edited', 'published', 'created'
+
 	response.render('applications/case-timetable/timetable-success-banner.njk', {
 		action: request.params.action
 	});
@@ -387,7 +387,7 @@ const getTimetableRows = (timetableItem) => {
 	const templateType = ExaminationTimetableType?.templateType;
 
 	const shouldShowField = (/** @type {string} */ fieldName) =>
-		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType || 0], fieldName);
+		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
 	return {
 		id,

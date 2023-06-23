@@ -9,7 +9,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>starttime-mandatory</p>
                     <input class=\\"govuk-input\\" value='starttime-mandatory'
@@ -121,7 +121,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>deadline</p>
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
@@ -281,7 +281,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>deadline-startdate-mandatory</p>
                     <input class=\\"govuk-input\\" value='deadline-startdate-mandatory'
@@ -449,7 +449,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>no-times</p>
                     <input class=\\"govuk-input\\" value='no-times' id=\\"itemTypeName\\"
@@ -542,7 +542,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>starttime-mandatory</p>
                     <input class=\\"govuk-input\\" value='starttime-mandatory'
@@ -670,7 +670,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>starttime-optional</p>
                     <input class=\\"govuk-input\\" value='starttime-optional'
@@ -792,7 +792,7 @@ exports[`Create examination timetable page should display errors if start date a
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>deadline</p>
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
@@ -940,7 +940,7 @@ exports[`Create examination timetable page should display errors if start time a
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
                     <p class='govuk-body'>deadline</p>
                     <input class=\\"govuk-input\\" value='deadline' id=\\"itemTypeName\\"
@@ -1183,11 +1183,11 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
             </div>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'></p>
-                    <input class=\\"govuk-input\\" value='Deadline' id=\\"itemTypeName\\" name=\\"itemTypeName\\"
-                    type=\\"hidden\\">
+                    <p class='govuk-body'>Deadline</p>
+                    <input class=\\"govuk-input\\" value='Deadline' id=\\"itemTypeName\\"
+                    name=\\"itemTypeName\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='deadline' id=\\"templateType\\" name=\\"templateType\\"
                     type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='2' id=\\"templateId\\" name=\\"templateId\\"
