@@ -76,7 +76,7 @@ router.patch(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}'
 		#swagger.description = 'Updates a single appeal by id'
-		#swagger.parameters['body'] = {
+		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal details to update',
 			schema: { $ref: '#/definitions/UpdateAppealRequest' },
@@ -138,7 +138,7 @@ router.patch(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}/appellant-cases/{appellantCaseId}'
 		#swagger.description = Updates a single appellant case for an appeal by id
-		#swagger.parameters['body'] = {
+		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appellant case details to update',
 			schema: { $ref: '#/definitions/UpdateAppellantCaseRequest' },

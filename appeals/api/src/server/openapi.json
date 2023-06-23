@@ -2,8 +2,8 @@
 	"openapi": "3.0.0",
 	"info": {
 		"version": "2.0",
-		"title": "PINS Back Office API",
-		"description": "PINS Back Office API documentation from Swagger"
+		"title": "PINS Back Office Appeals API",
+		"description": "PINS Back Office Appeals API documentation from Swagger"
 	},
 	"host": "",
 	"basePath": "",
@@ -164,15 +164,6 @@
 						"schema": {
 							"type": "string"
 						}
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Appeal details to update",
-						"schema": {
-							"$ref": "#/components/schemas/UpdateAppealRequest"
-						},
-						"required": true
 					}
 				],
 				"responses": {
@@ -199,6 +190,23 @@
 					},
 					"500": {
 						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealRequest"
+							}
+						}
 					}
 				}
 			}
