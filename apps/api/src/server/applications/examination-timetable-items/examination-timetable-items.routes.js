@@ -6,8 +6,7 @@ import {
 	getExaminationTimetableItems,
 	publishExaminationTimetable,
 	deleteExaminationTimetableItem,
-	updateExaminationTimetableItem,
-	hasSubmissions
+	updateExaminationTimetableItem
 } from './examination-timetable-items.controller.js';
 import {
 	validateCreateExaminationTimetableItem,
@@ -118,26 +117,6 @@ router.delete(
         }
     */
 	asyncHandler(deleteExaminationTimetableItem)
-);
-
-router.get(
-	'/:id/has-submissions',
-	/*
-        #swagger.tags = ['Applications']
-        #swagger.path = '/applications/examination-timetable-items/{id}/has-submissions'
-        #swagger.description = 'Find examinsation iteam has submissions or not'
-        #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Examination timetable item ID',
-			required: true,
-			type: 'integer'
-        }
-        #swagger.responses[200] = {
-            description: 'Examination timetable item',
-            schema: { submissions: true }
-        }
-    */
-	asyncHandler(hasSubmissions)
 );
 
 router.patch(
