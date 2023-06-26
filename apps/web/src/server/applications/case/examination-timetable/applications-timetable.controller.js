@@ -418,6 +418,7 @@ const getTimetableRows = (timetableItem) => {
 	return {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
+		templateType: templateType,
 		name,
 		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
