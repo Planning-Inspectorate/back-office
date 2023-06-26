@@ -395,8 +395,25 @@ const getTimetableRows = (timetableItem) => {
 
 	const templateType = ExaminationTimetableType.templateType;
 
+	if (!templateType) {
+		throw new Error(
+			`Template type not found for timetable item type ${ExaminationTimetableType?.name}`
+		);
+	}
+
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
+
+	const startDateDisplay = () => {
+		if (shouldShowField('startDate')) {
+			if (startDate) {
+				return displayDate(startDate, { condensed: true });
+			} else {
+				return '';
+			}
+		}
+		return null;
+	};
 
 	return {
 		id,
@@ -404,10 +421,7 @@ const getTimetableRows = (timetableItem) => {
 		name,
 		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
-		startDate:
-			shouldShowField('startDate') && startDate
-				? displayDate(startDate, { condensed: true }) || ''
-				: null,
+		startDate: startDateDisplay(),
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,
