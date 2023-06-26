@@ -20,7 +20,7 @@ export default joi.object({
 	}),
 	serverProtocol: joi.string().valid('http', 'https'),
 	serverPort: joi.number(),
-	sessionSecret: joi.string(),
+	sessionSecret: joi.string().required(),
 	sslCertificateFile: joi.string(),
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({
