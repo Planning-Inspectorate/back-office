@@ -141,7 +141,7 @@
 					})  }}
 				{% endif %}
 
-				{% if selectedItemType.templateType === 'deadline' or selectedItemType.templateType === 'deadline-startdate-mandatory' %}
+				{% if selectedItemType.id === uniqueTimeTableTypes.DEADLINE %}
 					{{ govukInsetText({
 						text: "The portal for this deadline will open when the previous one closes or on your chosen start and end dates."
 					}) }}

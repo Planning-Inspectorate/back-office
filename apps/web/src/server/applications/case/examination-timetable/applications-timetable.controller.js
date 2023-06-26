@@ -54,6 +54,21 @@ export const timetableTemplatesSchema = {
 	}
 };
 
+export const uniqueTimeTableTypes = {
+	ACCOMPANIED_SITE_INSPECTION: 1,
+	COMPULSORY_ACQUISITION_HEARING: 2,
+	DEADLINE: 3,
+	DEADLINE_FOR_CLOSE_OF_EXAMINATION: 4,
+	ISSUED_BY: 5,
+	ISSUE_SPECIFIC_HEARING: 6,
+	OPEN_FLOOR_HEARING: 7,
+	OTHER_MEEETING: 8,
+	PRELIMINARY_MEEETING: 9,
+	PROCEDURAL_DEADLINE_PRE_EXAMINATION: 10,
+	PROCEDURAL_DECISION: 11,
+	PUBLICATION_OF: 12
+};
+
 /**
  * View the list of examination timetables for a single case
  *
@@ -184,7 +199,8 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
 		selectedItemType,
 		templateFields,
 		values: body,
-		isEditing: !!body.timetableId
+		isEditing: !!body.timetableId,
+		uniqueTimeTableTypes
 	});
 }
 
@@ -209,7 +225,8 @@ export async function viewApplicationsCaseTimetableDetailsEdit({ params }, respo
 		isEditing: true,
 		values,
 		templateFields,
-		selectedItemType
+		selectedItemType,
+		uniqueTimeTableTypes
 	});
 }
 
@@ -230,7 +247,8 @@ export async function postApplicationsCaseTimetableDetails(
 			errors: validationErrors,
 			values: body,
 			selectedItemType,
-			templateFields
+			templateFields,
+			uniqueTimeTableTypes
 		});
 	}
 

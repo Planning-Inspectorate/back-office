@@ -235,8 +235,6 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                         </div>
                     </div>
                 </div>
-                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
-                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <textarea class=\\"govuk-textarea\\"
@@ -410,8 +408,6 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                         </div>
                     </div>
                 </div>
-                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
-                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <textarea class=\\"govuk-textarea\\"
@@ -905,8 +901,6 @@ exports[`Create examination timetable page should display errors if start date a
                         </div>
                     </div>
                 </div>
-                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
-                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <textarea class=\\"govuk-textarea\\"
@@ -1052,8 +1046,6 @@ exports[`Create examination timetable page should display errors if start time a
                         </div>
                     </div>
                 </div>
-                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
-                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <textarea class=\\"govuk-textarea\\"
@@ -1294,8 +1286,6 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                         </div>
                     </div>
                 </div>
-                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
-                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <textarea class=\\"govuk-textarea\\"
