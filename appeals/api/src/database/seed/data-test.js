@@ -412,7 +412,7 @@ export async function seedTestData(databaseConnector) {
 			name: 'Some'
 		}
 	});
-	const validationOutcomes = await databaseConnector.validationOutcome.findMany({
+	const validationOutcomes = await databaseConnector.appellantCaseValidationOutcome.findMany({
 		orderBy: {
 			name: 'asc'
 		}
@@ -452,7 +452,7 @@ export async function seedTestData(databaseConnector) {
 					hasAdvertisedAppeal: true,
 					knowledgeOfOtherLandownersId: knowledgeOfOtherLandowners[0].id
 				}),
-				validationOutcomeId: validationOutcome.validationOutcomeId,
+				appellantCaseValidationOutcomeId: validationOutcome.validationOutcomeId,
 				otherNotValidReasons:
 					(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
 					validationOutcome.otherNotValidReasons
