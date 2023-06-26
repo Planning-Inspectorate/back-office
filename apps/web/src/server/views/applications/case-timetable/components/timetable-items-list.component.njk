@@ -11,11 +11,17 @@
 			{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
 
 			{% set content %}
-			<div class='top-right-link'>
-				<a class='govuk-link' href="{{'timetable-item'|url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'})}}">Edit timetable item</a>
-			</div>
-			{{timetableItemSummary(timetableItem)}}
-			<a class='govuk-link colour--red' href='{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+				{% if not timetableItem.submissions %}
+					<div class='top-right-link'>
+						<a class='govuk-link' href="{{'timetable-item'|url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'})}}">Edit timetable item</a>
+					</div>
+				{% endif %}
+
+				{{timetableItemSummary(timetableItem)}}
+
+				{% if not timetableItem.submissions %}
+					<a class='govuk-link colour--red' href='{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+				{% endif %}
 			{% endset %}
 
 			{% set row = {
