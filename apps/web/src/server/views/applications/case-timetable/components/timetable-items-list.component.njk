@@ -8,7 +8,7 @@
 		{% set accordionItemsPreExamination = [] %}
 
 		{% for timetableItem in timetableItems %}
-			{% if (timetableItem.itemTypeName == 'Procedural Deadline (Pre-Examination)' or timetableItem.itemTypeName == 'Deadline') %}
+			{% if (timetableItem.templateType in ['deadline-startdate-mandatory', 'deadline']) %}
 				{% set heading = [timetableItem.endDate, ' - ', timetableItem.name] | join %}
 			{% else %}
 				{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
