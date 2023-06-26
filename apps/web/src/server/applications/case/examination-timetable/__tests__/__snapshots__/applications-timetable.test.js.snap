@@ -23,7 +23,9 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
-                    <input class=\\"govuk-input\\" id=\\"name\\" name=\\"name\\" type=\\"text\\">
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <input class=\\"govuk-input\\" id=\\"name\\"
+                    name=\\"name\\" type=\\"text\\" aria-describedby=\\"name-hint\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
@@ -135,10 +137,11 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
@@ -295,10 +298,11 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date</label>
@@ -463,10 +467,11 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
@@ -556,10 +561,11 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
@@ -684,10 +690,11 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
@@ -806,10 +813,11 @@ exports[`Create examination timetable page should display errors if start date a
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
@@ -954,10 +962,11 @@ exports[`Create examination timetable page should display errors if start time a
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
                     <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                         name</p>
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-error\\">
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
@@ -1203,8 +1212,9 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-one-half\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
-                    <input class=\\"govuk-input\\" id=\\"name\\" name=\\"name\\" type=\\"text\\"
-                    value=\\"Test\\">
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <input class=\\"govuk-input\\" id=\\"name\\"
+                    name=\\"name\\" type=\\"text\\" value=\\"Test\\" aria-describedby=\\"name-hint\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
