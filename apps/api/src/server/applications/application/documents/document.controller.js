@@ -44,7 +44,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 
 	// Map the obtained URLs with documentName
 	const documentsWithUrls = documents.map((document) => {
-		return pick(document, ['documentName', 'blobStoreUrl']);
+		return pick(document, ['documentName', 'blobStoreUrl', 'GUID']);
 	});
 
 	// Send response with blob storage host, container, and documents with URLs

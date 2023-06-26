@@ -1,6 +1,7 @@
 import { hideErrors, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
+import { relevantRepresentationsAttachmentUpload } from './_relevant_representations_attachment.js';
 
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
@@ -196,16 +197,16 @@ const clientActions = (uploadForm) => {
 			buildProgressMessage({ show: true }, uploadForm);
 
 			let errors = null;
+			let uploadInfo;
 
 			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
-				const uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
-
-				errors = await uploadFiles(fileList, uploadInfo);
+				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
 			} else {
-				const uploadInfo = await getUploadInfoFromInternalDB(fileList);
-
-				errors = await uploadFiles(fileList, uploadInfo);
+				uploadInfo = await getUploadInfoFromInternalDB(fileList);
 			}
+
+			await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
+			errors = await uploadFiles(fileList, uploadInfo);
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {

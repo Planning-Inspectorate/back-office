@@ -57,7 +57,8 @@ describe('Provide document upload URLs', () => {
 			documents: [
 				{
 					documentName: 'test doc',
-					blobStoreUrl: '/some/path/test doc'
+					blobStoreUrl: '/some/path/test doc',
+					GUID: 'some-guid'
 				}
 			]
 		});
