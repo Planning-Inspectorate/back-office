@@ -404,17 +404,24 @@ const getTimetableRows = (timetableItem) => {
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
+	const startDateDisplay = () => {
+		if (shouldShowField('startDate')) {
+			if (startDate) {
+				return displayDate(startDate, { condensed: true });
+			} else {
+				return '';
+			}
+		}
+		return null;
+	};
+
 	return {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
 		name,
 		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
-		startDate: shouldShowField('startDate')
-			? startDate
-				? displayDate(startDate || '', { condensed: true })
-				: ''
-			: null,
+		startDate: startDateDisplay(),
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,
