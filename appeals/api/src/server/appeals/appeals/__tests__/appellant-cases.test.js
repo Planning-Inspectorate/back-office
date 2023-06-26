@@ -20,6 +20,8 @@ import {
 	appellantCaseValidationOutcomes
 } from '../../tests/data.js';
 
+const { databaseConnector } = await import('../../../utils/database-connector.js');
+
 describe('appellant cases routes', () => {
 	describe('/appeals/:appealId/appellant-cases/:appellantCaseId', () => {
 		describe('GET', () => {
