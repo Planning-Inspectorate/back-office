@@ -28,7 +28,7 @@
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
     "test": "turbo run test",
-    "tscheck": "npm run prisma-generate --workspace=@pins/api && npm run prisma-generate --workspace=@pins/appeals.api  && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
+    "tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
     "web": "npm run dev --workspace=@pins/web",
     "dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
     "test:appeals": "turbo run test --filter=./appeals/*",
