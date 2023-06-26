@@ -8,7 +8,11 @@
 		{% set accordionItemsPreExamination = [] %}
 
 		{% for timetableItem in timetableItems %}
-			{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
+			{% if (timetableItem.itemTypeName == 'Procedural Deadline (Pre-Examination)' or timetableItem.itemTypeName == 'Deadline') %}
+				{% set heading = [timetableItem.endDate, ' - ', timetableItem.name] | join %}
+			{% else %}
+				{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
+			{% endif %}
 
 			{% set content %}
 				{% if not timetableItem.submissions %}
@@ -34,7 +38,7 @@
 				}
 			} %}
 
-			{% if (timetableItem.ExaminationTimetableType.name == 'Procedural Deadline (Pre-Examination)') %}
+			{% if (timetableItem.itemTypeName == 'Procedural Deadline (Pre-Examination)') %}
 				{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
 			{% else %}
 				{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
