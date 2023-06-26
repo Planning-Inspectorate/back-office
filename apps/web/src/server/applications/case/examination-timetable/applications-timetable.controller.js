@@ -381,8 +381,17 @@ const getCheckYourAnswersRows = (body) => {
  * @returns {Record<string, any>}
  */
 const getTimetableRows = (timetableItem) => {
-	const { id, description, name, ExaminationTimetableType, date, startDate, startTime, endTime } =
-		timetableItem;
+	const {
+		id,
+		description,
+		submissions,
+		name,
+		ExaminationTimetableType,
+		date,
+		startDate,
+		startTime,
+		endTime
+	} = timetableItem;
 
 	const templateType = ExaminationTimetableType.templateType;
 
@@ -393,6 +402,7 @@ const getTimetableRows = (timetableItem) => {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
 		name,
+		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
 		startDate:
 			shouldShowField('startDate') && startDate
