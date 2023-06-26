@@ -1,8 +1,10 @@
 /**
  * @typedef {object} StageParams
  * @property {string} lookup
+ * @property {string} lookupWithoutPostcode
  * @property {string} find
  * @property {string} enter
+ * @property {string} enterWithoutPostcode
  */
 
 /**
@@ -22,13 +24,17 @@ export const getStageParams = (query, postcode) => {
 		Params.append(key, value);
 	}
 
+	const paramsWithoutPostcode = `?${Params.toString()}&stage=`;
+
 	if (postcode) Params.append('postcode', postcode);
 
-	const params = `?${Params.toString()}&stage=`;
+	const paramsWithPostcode = `?${Params.toString()}&stage=`;
 
 	return {
-		lookup: `${params}lookup`,
-		find: `${params}find`,
-		enter: `${params}enter`
+		lookup: `${paramsWithPostcode}lookup`,
+		lookupWithoutPostcode: `${paramsWithoutPostcode}lookup`,
+		find: `${paramsWithPostcode}find`,
+		enter: `${paramsWithPostcode}enter`,
+		enterWithoutPostcode: `${paramsWithoutPostcode}enter`
 	};
 };

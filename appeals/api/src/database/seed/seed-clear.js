@@ -1,7 +1,7 @@
 import { truncateTable } from '../prisma.truncate.js';
 
 /**
- * @param {import('#db-client').PrismaClient} databaseConnector
+ * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();
@@ -32,6 +32,12 @@ export async function deleteAllRecords(databaseConnector) {
 		databaseConnector.designatedSitesOnLPAQuestionnaires.deleteMany();
 	const deleteLPANotificationMethodsOnLPAQuestionnaires =
 		databaseConnector.lPANotificationMethodsOnLPAQuestionnaires.deleteMany();
+	const deleteAppellantCaseIncompleteReasonOnAppellantCase =
+		databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany();
+	const deleteAppellantCaseInvalidReasonOnAppellantCase =
+		databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany();
+	const deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire =
+		databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.deleteMany();
 
 	// and reference data tables
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -44,6 +50,14 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteExaminationTimetableType = databaseConnector.examinationTimetableItem.deleteMany();
 	const planningObligationStatus = databaseConnector.planningObligationStatus.deleteMany();
 	const knowledgeOfOtherLandowners = databaseConnector.knowledgeOfOtherLandowners.deleteMany();
+	const deleteAppellantCaseIncompleteReason =
+		databaseConnector.appellantCaseIncompleteReason.deleteMany();
+	const deleteAppellantCaseInvalidReason =
+		databaseConnector.appellantCaseInvalidReason.deleteMany();
+	const deleteAppellantCaseValidationOutcome =
+		databaseConnector.appellantCaseValidationOutcome.deleteMany();
+	const deleteLPAQuestionnaireValidationOutcome =
+		databaseConnector.lPAQuestionnaireValidationOutcome.deleteMany();
 
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
@@ -72,11 +86,14 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,
+		deleteAppellantCaseIncompleteReasonOnAppellantCase,
+		deleteAppellantCaseInvalidReasonOnAppellantCase,
 		deleteAppellantCase,
 		deleteAppealStatus,
 		deleteValidationDecision,
 		deleteDesignatedSitesOnLPAQuestionnaires,
 		deleteLPANotificationMethodsOnLPAQuestionnaires,
+		deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
 		deleteLPAQuestionnaire,
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,
@@ -101,11 +118,15 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteExaminationTimetableType;
 	await planningObligationStatus;
 	await knowledgeOfOtherLandowners;
+	await deleteAppellantCaseIncompleteReason;
+	await deleteAppellantCaseInvalidReason;
+	await deleteAppellantCaseValidationOutcome;
+	await deleteLPAQuestionnaireValidationOutcome;
 }
 
 /**
  *
- * @param {import('#db-client').PrismaClient} databaseConnector
+ * @param {import('@prisma/client').PrismaClient} databaseConnector
  */
 async function deleteLowestFolders(databaseConnector) {
 	await databaseConnector.folder.deleteMany({

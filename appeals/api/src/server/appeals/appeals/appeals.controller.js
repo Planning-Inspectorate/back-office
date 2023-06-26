@@ -3,12 +3,17 @@ import { getPageCount } from '../../utils/database-pagination.js';
 import logger from '../../utils/logger.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
-import { calculateTimetable } from './appeals.service.js';
+import {
+	calculateTimetable,
+	isOutcomeIncomplete,
+	isOutcomeInvalid,
+	recalculateDateIfNotBusinessDay
+} from './appeals.service.js';
 
-/** @typedef {import('./appeals.routes.js').AppealParams} AppealParams */
+/** @typedef {import('express').RequestHandler} RequestHandler */
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object>}
  */
 const getAppeals = async (req, res) => {
@@ -28,7 +33,7 @@ const getAppeals = async (req, res) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object>}
  */
 const getAppealById = async (req, res) => {
@@ -39,7 +44,7 @@ const getAppealById = async (req, res) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object>}
  */
 const updateAppealById = async (req, res) => {
@@ -60,7 +65,14 @@ const updateAppealById = async (req, res) => {
 			}
 		}
 
-		await appealRepository.updateById(appealId, body);
+		await appealRepository.updateById(
+			appealId,
+			{
+				...body,
+				updatedAt: new Date()
+			},
+			'appeal'
+		);
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -72,7 +84,7 @@ const updateAppealById = async (req, res) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object>}
  */
 const getLpaQuestionnaireById = async (req, res) => {
@@ -83,7 +95,7 @@ const getLpaQuestionnaireById = async (req, res) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object>}
  */
 const getAppellantCaseById = async (req, res) => {
@@ -93,10 +105,118 @@ const getAppellantCaseById = async (req, res) => {
 	return res.send(formattedAppeal);
 };
 
+/**
+ * @type {RequestHandler}
+ * @returns {Promise<object>}
+ */
+const updateAppellantCaseById = async (req, res) => {
+	const {
+		body,
+		body: { incompleteReasons, invalidReasons, otherNotValidReasons },
+		params,
+		validationOutcome
+	} = req;
+	const appellantCaseId = Number(params.appellantCaseId);
+
+	try {
+		await appealRepository.updateById(
+			appellantCaseId,
+			{
+				otherNotValidReasons,
+				appellantCaseValidationOutcomeId: validationOutcome.id
+			},
+			'appellantCase'
+		);
+
+		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: appellantCaseId,
+				data: incompleteReasons,
+				databaseTable: 'appellantCaseIncompleteReasonOnAppellantCase',
+				relationOne: 'appellantCaseId',
+				relationTwo: 'appellantCaseIncompleteReasonId'
+			});
+		}
+
+		if (isOutcomeInvalid(validationOutcome.name) && invalidReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: appellantCaseId,
+				data: invalidReasons,
+				databaseTable: 'appellantCaseInvalidReasonOnAppellantCase',
+				relationOne: 'appellantCaseId',
+				relationTwo: 'appellantCaseInvalidReasonId'
+			});
+		}
+	} catch (error) {
+		if (error) {
+			logger.error(error);
+			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
+		}
+	}
+
+	return res.send(body);
+};
+
+/**
+ * @type {RequestHandler}
+ * @returns {Promise<object>}
+ */
+const updateLPAQuestionnaireById = async (req, res) => {
+	const {
+		body,
+		body: { incompleteReasons, otherNotValidReasons },
+		params,
+		validationOutcome
+	} = req;
+	const lpaQuestionnaireId = Number(params.lpaQuestionnaireId);
+
+	try {
+		await appealRepository.updateById(
+			lpaQuestionnaireId,
+			{
+				otherNotValidReasons,
+				lpaQuestionnaireValidationOutcomeId: validationOutcome.id
+			},
+			'lPAQuestionnaire'
+		);
+
+		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
+			await appealRepository.updateManyToManyRelationTable({
+				id: lpaQuestionnaireId,
+				data: incompleteReasons,
+				databaseTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
+				relationOne: 'lpaQuestionnaireId',
+				relationTwo: 'lpaQuestionnaireIncompleteReasonId'
+			});
+		}
+
+		if (body.lpaQuestionnaireDueDate) {
+			const lpaQuestionnaireDueDate = await recalculateDateIfNotBusinessDay(
+				body.lpaQuestionnaireDueDate
+			);
+
+			await appealRepository.upsertAppealTimetableById(Number(params.appealId), {
+				lpaQuestionnaireDueDate
+			});
+
+			body.lpaQuestionnaireDueDate = lpaQuestionnaireDueDate;
+		}
+	} catch (error) {
+		if (error) {
+			logger.error(error);
+			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
+		}
+	}
+
+	return res.send(body);
+};
+
 export {
 	getAppealById,
 	getAppeals,
 	getAppellantCaseById,
 	getLpaQuestionnaireById,
-	updateAppealById
+	updateAppealById,
+	updateAppellantCaseById,
+	updateLPAQuestionnaireById
 };

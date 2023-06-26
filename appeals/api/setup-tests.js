@@ -11,6 +11,7 @@ const mockRegionFindUnique = jest.fn().mockResolvedValue({});
 const mockRegionsOnApplicationDetailsDeleteMany = jest.fn().mockResolvedValue({});
 const mockAppealFindUnique = jest.fn().mockResolvedValue({});
 const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
+const mocklPAQuestionnaireUpdate = jest.fn().mockResolvedValue({});
 const mockAppealStatusUpdateMany = jest.fn().mockResolvedValue({});
 const mockAppealStatusCreate = jest.fn().mockResolvedValue({});
 const mockAppealUpdate = jest.fn().mockResolvedValue({});
@@ -67,6 +68,28 @@ const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemDelete = jest.fn().mockResolvedValue({});
 const mockAddressDelete = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
+const mockAppellantCaseUpdate = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonFindUnique = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireDeleteMany = jest
+	.fn()
+	.mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany = jest
+	.fn()
+	.mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate = jest
+	.fn()
+	.mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -105,7 +128,8 @@ class MockPrismaClient {
 
 	get lPAQuestionnaire() {
 		return {
-			create: mocklPAQuestionnaireCreate
+			create: mocklPAQuestionnaireCreate,
+			update: mocklPAQuestionnaireUpdate
 		};
 	}
 
@@ -250,6 +274,67 @@ class MockPrismaClient {
 	get representationAction() {
 		return {
 			create: mockRepresentationActionCreate
+		};
+	}
+
+	get appellantCaseIncompleteReason() {
+		return {
+			findMany: mockAppellantCaseIncompleteReasonFindMany
+		};
+	}
+
+	get appellantCaseInvalidReason() {
+		return {
+			findMany: mockAppellantCaseInvalidReasonFindMany
+		};
+	}
+
+	get appellantCaseValidationOutcome() {
+		return {
+			findMany: mockAppellantCaseValidationOutcomeFindMany,
+			findUnique: mockAppellantCaseValidationOutcomeFindUnique
+		};
+	}
+
+	get appellantCase() {
+		return {
+			update: mockAppellantCaseUpdate
+		};
+	}
+
+	get appellantCaseIncompleteReasonOnAppellantCase() {
+		return {
+			deleteMany: mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany,
+			createMany: mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany
+		};
+	}
+
+	get appellantCaseInvalidReasonOnAppellantCase() {
+		return {
+			deleteMany: mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany,
+			createMany: mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany
+		};
+	}
+
+	get lPAQuestionnaireValidationOutcome() {
+		return {
+			findMany: mockLPAQuestionnaireValidationOutcomeFindMany,
+			findUnique: mockLPAQuestionnaireValidationOutcomeFindUnique
+		};
+	}
+
+	get lPAQuestionnaireIncompleteReason() {
+		return {
+			findUnique: mockLPAQuestionnaireIncompleteReasonFindUnique,
+			findMany: mockLPAQuestionnaireIncompleteReasonFindMany
+		};
+	}
+
+	get lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire() {
+		return {
+			deleteMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireDeleteMany,
+			createMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany,
+			update: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate
 		};
 	}
 

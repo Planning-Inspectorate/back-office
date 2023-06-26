@@ -1,10 +1,21 @@
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
+import { createManyToManyRelationData } from '../appeals/appeals/appeals.service.js';
 
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
-/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.LookupTables} LookupTables */
+/** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.AppealTimetable} AppealTimetable */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCase} AppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseValidationOutcome} AppellantCaseValidationOutcome */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
+/** @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaire} LPAQuestionnaire */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -96,6 +107,12 @@ const appealRepository = (function () {
 									lpaNotificationMethod: true
 								}
 							},
+							lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire: {
+								include: {
+									lpaQuestionnaireIncompleteReason: true
+								}
+							},
+							lpaQuestionnaireValidationOutcome: true,
 							procedureType: true,
 							scheduleType: true
 						}
@@ -136,33 +153,24 @@ const appealRepository = (function () {
 		 * @param {number} id
 		 * @param {{
 		 *	startedAt?: string;
+		 *  otherNotValidReasons?: string;
+		 *  appellantCaseValidationOutcomeId?: number;
+		 *  lpaQuestionnaireValidationOutcomeId?: number;
 		 * }} data
-		 * @returns {PrismaPromise<{
-		 * 	id: number,
-		 *	reference: string,
-		 *	createdAt: Date,
-		 *	updatedAt: Date,
-		 *	addressId: number | null,
-		 *	localPlanningDepartment: string,
-		 *	planningApplicationReference: string,
-		 *	startedAt: Date | null,
-		 *	userId: number | null,
-		 *	appellantId: number | null,
-		 *	appealTypeId: number | null,
-		 * }>}
+		 * @param {string} databaseTable
+		 * @returns {PrismaPromise<object>}
 		 */
-		updateById(id, data) {
-			const updatedAt = new Date();
-
-			return databaseConnector.appeal.update({
+		updateById(id, data, databaseTable) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].update({
 				where: { id },
-				data: { updatedAt, ...data }
+				data
 			});
 		},
 		/**
 		 * @param {number} id
-		 * @param {import('@pins/api').Appeals.TimetableDeadlineDate} data
-		 * @returns {PrismaPromise<import('@pins/api').Schema.AppealTimetable>}
+		 * @param {TimetableDeadlineDate} data
+		 * @returns {PrismaPromise<AppealTimetable>}
 		 */
 		upsertAppealTimetableById(id, data) {
 			return databaseConnector.appealTimetable.upsert({
@@ -176,6 +184,53 @@ const appealRepository = (function () {
 					appeal: true
 				}
 			});
+		},
+		/**
+		 * @param {string} databaseTable
+		 * @returns {Promise<LookupTables[]>}
+		 */
+		getLookupList(databaseTable) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].findMany({
+				orderBy: {
+					id: 'asc'
+				}
+			});
+		},
+		/**
+		 * @param {string} databaseTable
+		 * @param {string} value
+		 * @returns {Promise<LookupTables | null>}
+		 */
+		getLookupListValueByName(databaseTable, value) {
+			// @ts-ignore
+			return databaseConnector[databaseTable].findUnique({
+				where: {
+					name: value
+				}
+			});
+		},
+		/**
+		 * @param {{
+		 *  id: number,
+		 *  data: Array<number | string>,
+		 *  databaseTable: string,
+		 *  relationOne: string,
+		 *  relationTwo: string,
+		 * }} param0
+		 * @returns {Promise<object>}
+		 */
+		updateManyToManyRelationTable({ id, data, databaseTable, relationOne, relationTwo }) {
+			return databaseConnector.$transaction([
+				// @ts-ignore
+				databaseConnector[databaseTable].deleteMany({
+					where: { [relationOne]: id }
+				}),
+				// @ts-ignore
+				databaseConnector[databaseTable].createMany({
+					data: createManyToManyRelationData({ data, relationOne, relationTwo, relationOneId: id })
+				})
+			]);
 		}
 	};
 })();

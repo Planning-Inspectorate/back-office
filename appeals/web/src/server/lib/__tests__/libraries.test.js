@@ -119,7 +119,7 @@ describe('Libraries', () => {
 									text: 'Row 1'
 								},
 								value: {
-									html: '<p>Yes</p>'
+									html: '<span>Yes</span>'
 								},
 								actions: {
 									items: [
@@ -136,7 +136,7 @@ describe('Libraries', () => {
 									text: 'Row 2'
 								},
 								value: {
-									html: '<p>Option One</p><br><p>Option two</p><br>'
+									html: '<span>Option One</span><br><span>Option two</span><br>'
 								},
 								actions: {
 									items: [
@@ -196,6 +196,7 @@ describe('Libraries', () => {
 				];
 				const formattedSections = [];
 				for (const section of testMappedSections) {
+					// @ts-ignore
 					formattedSections.push(generateSummaryList(section.header, section.rows));
 				}
 				expect(formattedSections).toEqual(expectedReturn);

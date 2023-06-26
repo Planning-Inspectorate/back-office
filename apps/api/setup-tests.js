@@ -3,53 +3,64 @@ import { jest } from '@jest/globals';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
+const mockCaseCreate = jest.fn().mockResolvedValue({});
+const mockCaseUpdateMany = jest.fn().mockResolvedValue({});
+const mockCaseStatusUpdateMany = jest.fn().mockResolvedValue({});
+const mockCaseStatusCreate = jest.fn().mockResolvedValue({});
+const mockCaseFindMany = jest.fn().mockResolvedValue({});
+const mockCaseCount = jest.fn().mockResolvedValue({});
+
 const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
-const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
-const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
 const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
-const mockRegionFindUnique = jest.fn().mockResolvedValue({});
-const mockRegionsOnApplicationDetailsDeleteMany = jest.fn().mockResolvedValue({});
+
 const mockAppealFindUnique = jest.fn().mockResolvedValue({});
-const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
 const mockAppealStatusUpdateMany = jest.fn().mockResolvedValue({});
 const mockAppealStatusCreate = jest.fn().mockResolvedValue({});
 const mockAppealUpdate = jest.fn().mockResolvedValue({});
-const mockValidationDecisionCreate = jest.fn().mockResolvedValue({});
 const mockAppealStatusCreateMany = jest.fn().mockResolvedValue({});
 const mockAppealFindMany = jest.fn().mockResolvedValue({});
 const mockAppealCount = jest.fn().mockResolvedValue(0);
 const mockAppealTimetableUpsert = jest.fn().mockResolvedValue(0);
+const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
 const mockReviewQuestionnaireCreate = jest.fn().mockResolvedValue({});
-const mockCaseCreate = jest.fn().mockResolvedValue({});
-const mockFolderCreate = jest.fn().mockResolvedValue({});
-const mockCaseUpdateMany = jest.fn().mockResolvedValue({});
-const mockFolderUpdateMany = jest.fn().mockResolvedValue({});
-const mockRegionsOnApplicationDetailsUpdateMany = jest.fn().mockResolvedValue({});
-const mockCaseStatusUpdateMany = jest.fn().mockResolvedValue({});
-const mockCaseStatusCreate = jest.fn().mockResolvedValue({});
+const mockValidationDecisionCreate = jest.fn().mockResolvedValue({});
+
 const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
+
 const mockDocumentFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentUpdate = jest.fn().mockResolvedValue({});
-const mockFolderFindUnique = jest.fn().mockResolvedValue({});
-const mockFolderFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentUpsert = jest.fn().mockResolvedValue({});
-const mockFolderFindMany = jest.fn().mockResolvedValue({});
+const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentFindMany = jest.fn().mockResolvedValue({});
 const mockDocumentCount = jest.fn().mockResolvedValue({});
-const mockCaseFindMany = jest.fn().mockResolvedValue({});
-const mockRegionFindMany = jest.fn().mockResolvedValue({});
-const mockCaseCount = jest.fn().mockResolvedValue({});
-const mockSectorFindUnique = jest.fn().mockResolvedValue({});
-const mockSectorFindMany = jest.fn().mockResolvedValue({});
-const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
-const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
-const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentDelete = jest.fn().mockResolvedValue({});
 const mockDocumentVersionCreate = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
+
+const mockFolderCreate = jest.fn().mockResolvedValue({});
+const mockFolderUpdate = jest.fn().mockResolvedValue({});
+const mockFolderUpdateMany = jest.fn().mockResolvedValue({});
+const mockFolderFindUnique = jest.fn().mockResolvedValue({});
+const mockFolderFindFirst = jest.fn().mockResolvedValue({});
+const mockFolderFindMany = jest.fn().mockResolvedValue({});
+const mockFolderDeleteMany = jest.fn().mockResolvedValue({});
+const mockFolderDelete = jest.fn().mockResolvedValue({});
+
+const mockRegionFindMany = jest.fn().mockResolvedValue({});
+const mockRegionFindUnique = jest.fn().mockResolvedValue({});
+const mockRegionsOnApplicationDetailsUpdateMany = jest.fn().mockResolvedValue({});
+const mockRegionsOnApplicationDetailsDeleteMany = jest.fn().mockResolvedValue({});
+
+const mockSectorFindUnique = jest.fn().mockResolvedValue({});
+const mockSectorFindMany = jest.fn().mockResolvedValue({});
+const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
+const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
+const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
+const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
+
 const mockRepresentationCount = jest.fn().mockResolvedValue({});
 const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
@@ -59,13 +70,19 @@ const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationContactDelete = jest.fn().mockResolvedValue({});
 const mockRepresentationActionCreate = jest.fn().mockResolvedValue({});
+const mockRepresentationAttachmentCreate = jest.fn().mockResolvedValue({});
+const mockRepresentationAttachmentFindFirst = jest.fn().mockResolvedValue({});
+const mockRepresentationAttachmentDelete = jest.fn().mockResolvedValue({});
+
 const mockExaminationTimetableTypeFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableTypeFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindUnique = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
+const mockExaminationTimetableItemUpdate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemDelete = jest.fn().mockResolvedValue({});
+
 const mockAddressDelete = jest.fn().mockResolvedValue({});
 const mockAppellantCaseIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
 const mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
@@ -175,8 +192,11 @@ class MockPrismaClient {
 			findUnique: mockFolderFindUnique,
 			findMany: mockFolderFindMany,
 			create: mockFolderCreate,
+			update: mockFolderUpdate,
 			updateMany: mockFolderUpdateMany,
-			findFirst: mockFolderFindFirst
+			findFirst: mockFolderFindFirst,
+			deleteMany: mockFolderDeleteMany,
+			delete: mockFolderDelete
 		};
 	}
 
@@ -199,6 +219,7 @@ class MockPrismaClient {
 			findMany: mockExaminationTimetableItemFindMany,
 			findUnique: mockExaminationTimetableItemFindUnique,
 			create: mockExaminationTimetableItemCreate,
+			update: mockExaminationTimetableItemUpdate,
 			updateMany: mockExaminationTimetableItemUpdateMany,
 			delete: mockExaminationTimetableItemDelete
 		};
@@ -253,6 +274,13 @@ class MockPrismaClient {
 			findFirst: mockRepresentationContactFindFirst,
 			update: mockRepresentationContactUpdate,
 			delete: mockRepresentationContactDelete
+		};
+	}
+	get representationAttachment() {
+		return {
+			findFirst: mockRepresentationAttachmentFindFirst,
+			create: mockRepresentationAttachmentCreate,
+			delete: mockRepresentationAttachmentDelete
 		};
 	}
 

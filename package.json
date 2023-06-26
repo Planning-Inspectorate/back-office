@@ -27,11 +27,13 @@
     "lint:js:fix": "npx eslint . --fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
-    "test": "turbo run test --filter=!./appeals/*",
+    "test": "turbo run test",
     "tscheck": "turbo run prisma-generate && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
     "web": "npm run dev --workspace=@pins/web",
     "dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
-    "test:appeals": "turbo run test --filter=./appeals/*"
+    "test:appeals": "turbo run test --filter=./appeals/*",
+    "web:appeals": "npm run dev --workspace=@pins/appeals.web",
+    "api:appeals": "npm run dev --workspace=@pins/appeals.api"
   },
   "dependencies": {
     "got": "^12.5.2",

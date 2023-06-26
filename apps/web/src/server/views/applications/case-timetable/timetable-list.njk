@@ -1,0 +1,41 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./components/timetable-items-list.component.njk" import timetableItemsList %}
+
+{% block sectionContent %}
+    <div>
+		<div class='govuk-grid-row'>
+			<div class='govuk-grid-column-two-thirds'>
+				<h2 class="govuk-heading-l">Examination timetable</h2>
+			</div>
+			<div class='govuk-grid-column-one-third'>
+				{% if publishedStatus %}
+					<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+				{% else %}
+					<strong class="govuk-tag govuk-tag--grey">UNPUBLISHED</strong>
+				{% endif %}
+			</div>
+		</div>
+
+		<p class="govuk-body">Create or manage an examination timetable</p>
+
+		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable-item'|url({caseId: caseId, step: 'new'})}}">Create new timetable item</a>
+
+		<div>
+			<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
+			{% if publishedStatus %}
+				Preview and republish timetable items
+			{% else %}
+				Preview and publish timetable items
+			{% endif %}
+			</a>
+		</div>
+	</div>
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+	{{ timetableItemsList(timetableItems, caseId) }}
+
+{% endblock %}

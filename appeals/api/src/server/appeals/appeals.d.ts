@@ -2,6 +2,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
+			validationOutcome: ValidationOutcome;
 		}
 	}
 }
@@ -44,7 +45,7 @@ interface AppealTimetable {
 }
 
 interface RepositoryGetAllResultItem {
-	address?: import('@pins/api').Schema.Address | null;
+	address?: import('@pins/appeals.api').Schema.Address | null;
 	appealStatus: { status: string; subStateMachineName: string | null }[];
 	appealType: { shorthand: string; type: item } | null;
 	createdAt: Date;
@@ -54,20 +55,19 @@ interface RepositoryGetAllResultItem {
 }
 
 interface RepositoryGetByIdResultItem {
-	address?: import('@pins/api').Schema.Address | null;
+	address?: import('@pins/appeals.api').Schema.Address | null;
 	appealStatus: { status: string; subStateMachineName: string | null }[];
-	appealTimetable: import('@pins/api').Schema.AppealTimetable | null;
+	appealTimetable: import('@pins/appeals.api').Schema.AppealTimetable | null;
 	appealType: { shorthand: string; type: string } | null;
-	appellant: import('@pins/api').Schema.Appellant | null;
-	appellantCase?: import('@pins/api').Schema.AppellantCase | null;
+	appellant: import('@pins/appeals.api').Schema.Appellant | null;
+	appellantCase?: import('@pins/appeals.api').Schema.AppellantCase | null;
 	createdAt: Date;
 	id: number;
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
 	localPlanningDepartment: string;
-	lpaQuestionnaire: import('@pins/api').Schema.LPAQuestionnaire | null;
-	lpaQuestionnaire?: import('@pins/api').Schema.LPAQuestionnaire;
+	lpaQuestionnaire: import('@pins/appeals.api').Schema.LPAQuestionnaire | null;
 	otherAppeals: Appeal[];
 	planningApplicationReference: string;
 	reference: string;
@@ -152,6 +152,7 @@ interface SingleLPAQuestionnaireResponse {
 	sensitiveAreaDetails?: string | null;
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string | null;
+	validationOutcome: string | null;
 }
 
 interface SingleAppealDetailsResponse {
@@ -197,6 +198,7 @@ interface SingleAppellantCaseResponse {
 		firstName: string | null;
 		surname: string | null;
 	};
+	planningApplicationReference: string;
 	developmentDescription?: {
 		isCorrect: boolean | null;
 		details: string | null;
@@ -266,6 +268,8 @@ interface DocumentationSummary {
 
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
+type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
+
 export {
 	AppealListResponse,
 	AppealSite,
@@ -275,6 +279,7 @@ export {
 	DocumentationSummary,
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
+	LookupTables,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
 	SingleAppealDetailsResponse,

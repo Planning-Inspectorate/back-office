@@ -8,7 +8,7 @@ import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-objec
  */
 
 /**
- * @param {import('@pins/api').Schema.Case} application
+ * @param {import('@pins/appeals.api').Schema.Case} application
  * @param {string[]} columnsToPick
  * @returns {ApplicationResponse}
  */

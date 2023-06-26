@@ -1,5 +1,5 @@
 /**
- * @param {import('@pins/api').Schema.Address | null | undefined} address
+ * @param {import('@pins/appeals.api').Schema.Address | null | undefined} address
  * @returns {{addressLine1?: string, addressLine2?: string, town?: string, county?: string, postCode?: string | null}}
  */
 function formatAddress(address) {

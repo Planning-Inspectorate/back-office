@@ -86,9 +86,9 @@ export const url = (key, filterArguments = {}) => {
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'timetable':
-			return `${domainUrl}/case/${caseId}/examination-timetable/${step}${
-				timetableId ? `/${timetableId}` : ''
-			}`;
+			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
+		case 'timetable-item':
+			return `${domainUrl}/case/${caseId}/examination-timetable/item/${step}/${timetableId}`;
 		case 'representation-details':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
 		case 'redact-representation':

@@ -1,0 +1,65 @@
+{%- extends "app/layouts/app.layout.njk" -%}
+
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "../components/appeal-details-summary.njk" import appealDetailsSummary %}
+
+{%- set pageTitle = "Appellant case - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Appellant case</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- set summaryLists -%}
+	{%- for section in summaryList.formattedSections -%}
+		{{ govukSummaryList(section)}}
+	{%- endfor -%}
+{%- endset -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate">
+		{{ appealDetailsSummary({
+				appealSite: appeal.siteAddress,
+				localPlanningAuthority: appeal.localPlanningAuthority
+			})
+		}}
+		{{ summaryLists | safe }}
+		{{ govukRadios({
+			name: "reviewOutcome",
+			fieldset: {
+				legend: {
+					text: "What is the outcome of your review?",
+					classes: "govuk-fieldset__legend--m"
+				}
+			},
+			items: [
+				{
+					value: "valid",
+					text: "Valid"
+				},
+				{
+					value: "invalid",
+					text: "Invalid"
+				},
+				{
+					value: "incomplete",
+					text: "Incomplete"
+				}
+			]
+		}) }}
+		{{ govukButton({
+			text: "Continue",
+			type: "submit"
+		}) }}
+	</form>
+{%- endblock -%}

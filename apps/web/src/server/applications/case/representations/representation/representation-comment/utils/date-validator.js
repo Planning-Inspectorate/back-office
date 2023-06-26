@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { body } from 'express-validator';
 import { createValidator } from '@pins/express';
 import { isLeapYear } from 'date-fns';
@@ -8,15 +7,27 @@ const errorMessages = {
 	mustInclude: 'The date must include a '
 };
 
-export const dateValidator = ({ dayInput, monthInput, yearInput }) => {
+/**
+ *
+ * @param {object} receivedDateKeys
+ * @param {string} receivedDateKeys.dayInput
+ * @param {string} receivedDateKeys.monthInput
+ * @param {string} receivedDateKeys.yearInput
+ * @param {string} receivedDateKeys.dateInputContainerId
+ * @returns
+ */
+export const dateValidator = ({ dayInput, monthInput, yearInput, dateInputContainerId }) => {
 	return createValidator(
+		body(dateInputContainerId).custom((_, { req: { body } }) => {
+			if (!body[dayInput] && !body[monthInput] && !body[yearInput]) {
+				throw new Error(`Enter the date`);
+			}
+			return true;
+		}),
+
 		body(dayInput)
 			.notEmpty()
 			.withMessage((_, { req: { body } }) => {
-				if (!body[monthInput] && !body[yearInput]) {
-					return `Enter the date`;
-				}
-
 				if (!body[monthInput] && body[yearInput]) {
 					return errorMessages.mustInclude + 'day and month';
 				}
@@ -57,6 +68,7 @@ export const dateValidator = ({ dayInput, monthInput, yearInput }) => {
 				return true;
 			})
 			.withMessage(errorMessages.realDate),
+
 		body(monthInput).isInt({ min: 1, max: 12 }).withMessage(errorMessages.realDate),
 		body(yearInput).isInt({ min: 1000, max: 9999 }).withMessage(errorMessages.realDate)
 	);

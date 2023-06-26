@@ -90,6 +90,9 @@ exports[`Representation address details page GET /applications-service/case/1/re
                     name=\\"lookupPostcode\\" type=\\"text\\">
                 </div>
             </fieldset>
+            <div class=\\"govuk-!-margin-bottom-6\\"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
+                href=\\"?repId=1&amp;repType=represented&amp;stage=enter\\"> Don't have a UK postcode?</a>
+            </div>
             <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         </form>
 </main>"
@@ -166,7 +169,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#address\\">Chose an address from the list</a>
+                            <li><a href=\\"#address\\">Choose an address from the list</a>
                             </li>
                         </ul>
                     </div>
@@ -194,7 +197,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
                 <legend class=\\"govuk-fieldset__legend govuk-visually-hidden\\">Select your address</legend>
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label\\" for=\\"address\\">Address</label>
-                    <p id=\\"address-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Chose an address from
+                    <p id=\\"address-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose an address from
                         the list</p>
                     <select class=\\"govuk-select govuk-select--error\\" id=\\"address\\"
                     name=\\"address\\" aria-describedby=\\"address-error\\">
@@ -241,6 +244,9 @@ exports[`Representation address details page POST /applications-service/case/1/r
                     name=\\"lookupPostcode\\" type=\\"text\\" aria-describedby=\\"lookupPostcode-error\\">
                 </div>
             </fieldset>
+            <div class=\\"govuk-!-margin-bottom-6\\"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
+                href=\\"?repId=1&amp;repType=represented&amp;stage=enter\\"> Don't have a UK postcode?</a>
+            </div>
             <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
         </form>
 </main>"

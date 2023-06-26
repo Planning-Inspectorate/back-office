@@ -6,7 +6,7 @@ import { pick } from 'lodash-es';
 
 /**
  *
- * @param {import('@pins/api').Schema.Sector | import('@pins/api').Schema.SubSector | null | undefined} sector
+ * @param {import('@pins/appeals.api').Schema.Sector | import('@pins/appeals.api').Schema.SubSector | null | undefined} sector
  * @returns {SectorResponse}
  */
 export const mapSector = (sector) => {
