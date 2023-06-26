@@ -38,7 +38,7 @@
 				}
 			} %}
 
-			{% if (timetableItem.itemTypeName == 'Procedural Deadline (Pre-Examination)') %}
+			{% if (timetableItem.templateType == 'deadline-startdate-mandatory') %}
 				{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
 			{% else %}
 				{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
