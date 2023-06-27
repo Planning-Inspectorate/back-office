@@ -224,11 +224,12 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableRepository.update(
+		await examinationTimetableRepository.updateByCaseId(
 			+id,
 			// @ts-ignore
 			{
-				published: true
+				published: true,
+				publishedAt: new Date()
 			}
 		);
 		response.send({
@@ -278,6 +279,11 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 
 	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
 	await folderRepository.deleteById(examinationTimetableItem.folderId);
+
+	// @ts-ignore
+	await examinationTimetableRepository.update(examinationTimetableItem.examinationTimetableId, {
+		updatedAt: new Date()
+	});
 
 	response.send(examinationTimetableItem);
 };
@@ -345,6 +351,14 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 			caseId
 		);
 	}
+
+	// @ts-ignore
+	await examinationTimetableRepository.update(
+		updatedExaminationTimetableItem.examinationTimetableId,
+		{
+			updatedAt: new Date()
+		}
+	);
 
 	response.send(updatedExaminationTimetableItem);
 };

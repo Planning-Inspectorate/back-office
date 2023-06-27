@@ -5,7 +5,6 @@ const { databaseConnector } = await import('../../../utils/database-connector.js
 
 const examinationTimetableItem = {
 	id: 1,
-	caseId: 1,
 	examinationTypeId: 1,
 	name: 'Examination Timetable Item',
 	description: 'Examination Timetable Item Description',
@@ -14,19 +13,27 @@ const examinationTimetableItem = {
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
 	endTime: '12:20',
-	published: true,
 	ExaminationTimetableType: {
 		id: 2,
 		name: 'Compulsory Acquisition Hearing',
 		templateType: 'starttime-mandatory',
 		displayNameEn: 'Compulsory acquisition hearing',
 		displayNameCy: 'Compulsory acquisition hearing'
+	},
+	ExaminationTimetable: {
+		caseId: 1,
+		published: true
 	}
+};
+
+const examinationTimetableData = {
+	id: 1,
+	caseId: 1,
+	published: true
 };
 
 const examinationTimetableItemDeadline = {
 	id: 1,
-	caseId: 1,
 	examinationTypeId: 3,
 	name: 'Examination Timetable Item',
 	description: '{"preText":"deadline category", "bulletPoints":["pointone", "pointtwo"]}',
@@ -34,7 +41,6 @@ const examinationTimetableItemDeadline = {
 	startDate: '2023-02-27T10:00:00Z',
 	startTime: '10:20',
 	endTime: '12:20',
-	published: false,
 	folderId: 1234,
 	ExaminationTimetableType: {
 		id: 3,
@@ -42,6 +48,10 @@ const examinationTimetableItemDeadline = {
 		templateType: 'deadline',
 		displayNameEn: 'Deadline',
 		displayNameCy: 'Deadline'
+	},
+	ExaminationTimetable: {
+		caseId: 1,
+		published: false
 	}
 };
 
@@ -105,12 +115,16 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.findMany.mockResolvedValue([
 			examinationTimetableItem
 		]);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
 		const resp = await request.get('/applications/examination-timetable-items/case/1');
 		expect(resp.status).toEqual(200);
-		expect(resp.body[0].submissions).toBe(false);
+		expect(resp.body.items[0].submissions).toBe(false);
+		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledWith({
+			where: { caseId: 1 }
+		});
 		expect(databaseConnector.examinationTimetableItem.findMany).toHaveBeenCalledWith({
 			include: { ExaminationTimetableType: true },
-			where: { caseId: 1 },
+			where: { examinationTimetableId: 1 },
 			orderBy: {
 				date: 'asc'
 			}
@@ -134,7 +148,7 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 		expect(resp.body.submissions).toBe(true);
 		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
-			include: { ExaminationTimetableType: true },
+			include: { ExaminationTimetable: true, ExaminationTimetableType: true },
 			where: { id: 1 }
 		});
 	});
@@ -153,13 +167,16 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
 		);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
 		const resp = await request
 			.post('/applications/examination-timetable-items')
 			.send(examinationTimetableItemDeadline);
 		expect(resp.status).toEqual(200);
-		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
 		});
@@ -201,6 +218,8 @@ describe('Test examination timetable items API', () => {
 
 	test('creates examination timetable item and examination deadline category sub folders', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
 		databaseConnector.folder.findFirst.mockResolvedValue(ExaminationFolder);
 		databaseConnector.folder.create.mockResolvedValue({
 			id: 2,
@@ -217,8 +236,9 @@ describe('Test examination timetable items API', () => {
 			.post('/applications/examination-timetable-items')
 			.send(examinationTimetableItemDeadline);
 		expect(resp.status).toEqual(200);
-		expect(databaseConnector.case.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
 		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(4);
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
@@ -238,11 +258,11 @@ describe('Test examination timetable items API', () => {
 		const resp = await request
 			.patch('/applications/examination-timetable-items/publish/123')
 			.send({});
-		expect(databaseConnector.examinationTimetableItem.updateMany).toHaveBeenCalledWith({
+		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
 				caseId: 123
 			},
-			data: { published: true }
+			data: { published: true, publishedAt: expect.any(Date) }
 		});
 
 		expect(resp.status).toEqual(200);
