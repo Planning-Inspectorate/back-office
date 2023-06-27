@@ -1,11 +1,11 @@
 import {
-	getLpaQuestionnaireFromId
-	// TODO: uncomment when BOAT-238 is complete
-	// setReviewOutcomeForLpaQuestionnaire
+	getLpaQuestionnaireFromId,
+	setReviewOutcomeForLpaQuestionnaire
 } from './lpa-questionnaire-review.service.js';
 import { mapLpaQuestionnaire } from './lpa-questionnaire-review.mapper.js';
 import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
 import logger from '../../../lib/logger.js';
+import * as appealDetailsService from '../../appeal-details/appeal-details.service.js';
 
 /**
  *
@@ -49,14 +49,8 @@ export const postLpaQuestionnaire = async (
 	// If it succeeds validation
 	try {
 		const reviewOutcome = body['review-outcome'];
-
-		// TODO: uncomment when BOAT-238 is complete, remove logger.debug if not needed
-		// await setReviewOutcomeForLpaQuestionnaire(appealId, lpaQId, reviewOutcome);
-		logger.debug(`LPA questionnaire review outcome: ${reviewOutcome}`);
-
-		response.redirect(
-			`/appeals-service/appeal-details/${appealId}/lpa-questionnaire-review/${lpaQId}/complete`
-		);
+		await setReviewOutcomeForLpaQuestionnaire(appealId, lpaQId, reviewOutcome);
+		return renderLpaQuestionnaireReviewCompletePage(appealId, response);
 	} catch (error) {
 		let errorMessage = 'Something went wrong when completing LPA questionnaire review';
 		if (error instanceof Error) {
@@ -71,21 +65,40 @@ export const postLpaQuestionnaire = async (
 
 /**
  *
- * @param {*} request
+ * @param {string} appealId
  * @param {*} response
  */
-export const getLpaQuestionnaireReviewComplete = ({ params: { appealId, lpaQId } }, response) => {
-	/*
-	TODO:
-	- uncomment when generic "complete" page is done
-	- provide correct path to its .njk
-	- remove logger.debug
-	- write test for the review complete page
-	*/
-	logger.debug(`LPA questionnaire review complete page: ${appealId}, ${lpaQId}`);
+export const renderLpaQuestionnaireReviewCompletePage = async (appealId, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(appealId)
+		.catch((error) => logger.error(error));
 
-	response.render('appeals/appeal/generic-complete-page.njk', {
-		appealId,
-		lpaQId
-	});
+	if (appealDetails) {
+		return response.render('app/confirmation.njk', {
+			panel: {
+				appealReference: {
+					label: 'Appeal ID',
+					reference: appealDetails.appealReference
+				},
+				title: 'LPA questionnaire complete'
+			},
+			body: {
+				preTitle: 'The review of LPA questionnaire is finished.',
+				title: {
+					text: 'What happens next'
+				},
+				rows: [
+					{
+						text: "We've sent an email to the LPA to confirm their questionnaire is complete and the the review is finished."
+					},
+					{
+						href: `/appeals-service/appeal-details/${appealId}`,
+						text: 'Go back to case details'
+					}
+				]
+			}
+		});
+	}
+
+	return response.render(`app/404.njk`);
 };
