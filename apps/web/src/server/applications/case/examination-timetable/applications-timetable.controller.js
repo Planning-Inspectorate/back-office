@@ -14,6 +14,7 @@ import {
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+/** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
 
 /** @type {Record<string, Record<string, boolean>>} */
 export const timetableTemplatesSchema = {
@@ -77,14 +78,13 @@ export const uniqueTimeTableTypes = {
 export async function viewApplicationsCaseTimetableList(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
 	);
-	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published;
 
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
-		publishedStatus
+		publishedStatus: timetableItems?.published
 	});
 }
 
@@ -96,7 +96,7 @@ export async function viewApplicationsCaseTimetableList(_, response) {
 export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
 	);
 
@@ -117,7 +117,7 @@ export async function publishApplicationsCaseTimetables(_, response) {
 	if (errors) {
 		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-		const timetableItemsViewData = timetableItems.map((timetableItem) =>
+		const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 			getTimetableRows(timetableItem)
 		);
 
@@ -301,7 +301,6 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,
 		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
-		published: false
 	};
 	if (body['timetableId']) {
 		payload.id = Number.parseInt(body['timetableId'], 10);
@@ -395,7 +394,7 @@ const getCheckYourAnswersRows = (body) => {
 
 /**
  *
- * @param {ApplicationsTimetable} timetableItem
+ * @param {ApplicationExaminationTimetableItem} timetableItem
  * @returns {Record<string, any>}
  */
 const getTimetableRows = (timetableItem) => {

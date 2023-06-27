@@ -20,6 +20,7 @@ export {
 	DocumentVersionUpdateInput,
 	ExaminationTimetableItem,
 	ExaminationTimetableType,
+	ExaminationTimetable,
 	GridReference,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,

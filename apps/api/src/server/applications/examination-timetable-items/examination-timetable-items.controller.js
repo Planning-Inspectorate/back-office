@@ -1,4 +1,5 @@
 import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
@@ -16,13 +17,20 @@ import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/ma
 export const getExaminationTimetableItems = async (_request, response) => {
 	const { caseId } = _request.params;
 	try {
-		const examinationTimetableItems = await examinationTimetableItemsRepository.getByCaseId(
+		const examinationTimetable = await examinationTimetableRepository.getByCaseId(
 			+caseId
 		);
 
+		if (!examinationTimetable) {
+			// @ts-ignore
+			return response.send([]);
+		}
+
+		const examinationTimetableItems = await examinationTimetableItemsRepository.getByExaminationTimetableId(examinationTimetable.id);
+
 		if (!examinationTimetableItems || examinationTimetableItems.length === 0) {
 			// @ts-ignore
-			return response.send(examinationTimetableItems);
+			return response.send({...examinationTimetable, items: []});
 		}
 
 		const examinationTimetableItemsForCase = [];
@@ -30,7 +38,9 @@ export const getExaminationTimetableItems = async (_request, response) => {
 			const submissions = await validateSubmissions(examinationTimetableItem);
 			examinationTimetableItemsForCase.push({ ...examinationTimetableItem, submissions });
 		}
-		response.send(examinationTimetableItemsForCase);
+
+		const examinationTimetableResponse = { ...examinationTimetable, items: examinationTimetableItemsForCase };
+		response.send(examinationTimetableResponse);
 	} catch (error) {
 		logger.error(error);
 		throw error;
@@ -65,6 +75,16 @@ export const getExaminationTimetableItem = async (_request, response) => {
 export const createExaminationTimetableItem = async (_request, response) => {
 	const { body } = _request;
 
+	let examinationTimetable = await examinationTimetableRepository.getByCaseId(body.caseId);
+
+	if (!examinationTimetable) {
+		// @ts-ignore
+		examinationTimetable = await examinationTimetableRepository.create({
+			caseId: body.caseId,
+			published: body.published,
+		});
+	}
+
 	// find the examination folder id to create subfolder.
 	const examinationFolder = await folderRepository.getFolderByNameAndCaseId(
 		body.caseId,
@@ -92,6 +112,9 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	body.folderId = itemFolder.id;
+	body.examinationTimetableId = examinationTimetable.id;
+	delete body.caseId;
+	delete body.published;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
 	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);

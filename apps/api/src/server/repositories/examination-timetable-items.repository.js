@@ -18,13 +18,13 @@ export const getById = (id) => {
 
 /**
  *
- * @param {number} caseId
+ * @param {number} examinationTimetableId
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem[] | null>}
  */
-export const getByCaseId = (caseId) => {
+export const getByExaminationTimetableId = (examinationTimetableId) => {
 	return databaseConnector.examinationTimetableItem.findMany({
 		include: { ExaminationTimetableType: true },
-		where: { caseId },
+		where: { examinationTimetableId },
 		orderBy: {
 			date: 'asc'
 		}
