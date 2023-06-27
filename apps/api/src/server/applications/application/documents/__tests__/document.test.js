@@ -1,10 +1,7 @@
 import { jest } from '@jest/globals';
-import supertest from 'supertest';
-import { app } from '../../../../app-test.js';
+import { request } from '../../../../app-test.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 const { default: got } = await import('got');
-
-const request = supertest(app);
 
 const application = {
 	id: 1,

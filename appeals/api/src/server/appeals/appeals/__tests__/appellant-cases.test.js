@@ -1,5 +1,4 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
@@ -22,7 +21,6 @@ import {
 } from '../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('appellant cases routes', () => {
 	describe('/appeals/:appealId/appellant-cases/:appellantCaseId', () => {

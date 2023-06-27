@@ -1,11 +1,10 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
-	ERROR_MAX_LENGTH_300,
+	ERROR_MAX_LENGTH_300_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
@@ -26,7 +25,6 @@ import {
 import { createManyToManyRelationData } from '../appeals.service.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('lpa questionnaires routes', () => {
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
@@ -647,7 +645,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						otherNotValidReasons: ERROR_MAX_LENGTH_300
+						otherNotValidReasons: ERROR_MAX_LENGTH_300_CHARACTERS
 					}
 				});
 			});

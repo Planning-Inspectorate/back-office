@@ -17,10 +17,12 @@ import {
  * @returns {Promise<object>}
  */
 const getAppeals = async (req, res) => {
-	const pageNumber = Number(req.query.pageNumber) || DEFAULT_PAGE_NUMBER;
-	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
+	const { query } = req;
+	const pageNumber = Number(query.pageNumber) || DEFAULT_PAGE_NUMBER;
+	const pageSize = Number(query.pageSize) || DEFAULT_PAGE_SIZE;
+	const searchTerm = String(query.searchTerm);
 
-	const [itemCount, appeals = []] = await appealRepository.getAll(pageNumber, pageSize);
+	const [itemCount, appeals = []] = await appealRepository.getAll(pageNumber, pageSize, searchTerm);
 	const formattedAppeals = appeals.map((appeal) => appealFormatter.formatAppeals(appeal));
 
 	return res.send({
