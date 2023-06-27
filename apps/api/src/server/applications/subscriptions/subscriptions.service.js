@@ -1,11 +1,11 @@
-import { eventClient } from '../../infrastructure/event-client';
-import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics';
+import { eventClient } from '../../infrastructure/event-client.js';
+import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
 import * as subscriptionRepository from '../../repositories/subscription.respository.js';
 import {
 	buildSubscriptionPayloads,
 	subscriptionTypeChanges,
 	typesToSubscription
-} from './subscriptions';
+} from './subscriptions.js';
 import { EventType } from '@pins/event-client';
 
 /**
