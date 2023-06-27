@@ -22,7 +22,7 @@ export default joi.object({
 	serverPort: joi.number(),
 	sessionSecret: joi
 		.string()
-		.when('env', { is: 'test', then: joi.optional(), otherwise: joi.required() }),
+		.when('env', { is: 'test', then: joi.optional(), otherwise: joi.optional() }),
 	sslCertificateFile: joi.string(),
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({
