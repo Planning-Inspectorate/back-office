@@ -23,7 +23,8 @@ export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Validation outco
 export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of Complete, Incomplete`;
 export const ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME =
 	'Invalid reasons should only be given if the validation outcome is Invalid';
-export const ERROR_MAX_LENGTH_300 = 'Must be 300 characters or less';
+export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
+export const ERROR_MAX_LENGTH_300_CHARACTERS = 'Must be 300 characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT =
 	'Must be a valid date and in the format yyyy-mm-dd';

@@ -48,7 +48,7 @@ const { value: validatedConfig, error } = schema.validate({
 });
 
 if (error) {
-	throw error;
+	throw new Error(`Env validation error: ${error.message}`);
 }
 
 const cwd = url.fileURLToPath(new URL('..', import.meta.url));

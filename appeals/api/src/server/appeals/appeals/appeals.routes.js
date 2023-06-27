@@ -17,10 +17,10 @@ import {
 	checkValidationOutcomeExistsAndAddToRequest
 } from './appeals.service.js';
 import {
+	getAppealsValidator,
 	getAppealValidator,
 	getAppellantCaseValidator,
 	getLPAQuestionnaireValidator,
-	paginationParameterValidator,
 	patchAppealValidator,
 	patchAppellantCaseValidator,
 	patchLPAQuestionnaireValidator
@@ -40,13 +40,18 @@ router.get(
 		#swagger.description = 'Gets requested appeals, limited to the first 30 appeals if no pagination params are given'
 		#swagger.parameters['pageNumber'] = {
 			in: 'query',
-			description: 'The pagination page number, required if pageSize is given',
+			description: 'The pagination page number - required if pageSize is given',
 			example: 1,
 		}
 		#swagger.parameters['pageSize'] = {
 			in: 'query',
-			description: 'The pagination page size, required if pageNumber is given',
+			description: 'The pagination page size - required if pageNumber is given',
 			example: 30,
+		}
+		#swagger.parameters['searchTerm'] = {
+			in: 'query',
+			description: 'The search term - does a partial, case-insensitive match of appeal reference and postcode fields',
+			example: 'NR35 2ND',
 		}
 		#swagger.responses[200] = {
 			description: 'Requested appeals',
@@ -54,7 +59,7 @@ router.get(
 		}
 		#swagger.responses[400] = {}
 	 */
-	paginationParameterValidator,
+	getAppealsValidator,
 	asyncHandler(getAppeals)
 );
 

@@ -37,15 +37,32 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} pageNumber
 		 * @param {number} pageSize
+		 * @param {string} searchTerm
 		 * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
 		 */
-		getAll(pageNumber, pageSize) {
+		getAll(pageNumber, pageSize, searchTerm) {
 			const where = {
 				appealStatus: {
 					some: {
 						valid: true
 					}
-				}
+				},
+				...(searchTerm !== 'undefined' && {
+					OR: [
+						{
+							reference: {
+								contains: searchTerm
+							}
+						},
+						{
+							address: {
+								postcode: {
+									contains: searchTerm
+								}
+							}
+						}
+					]
+				})
 			};
 
 			return databaseConnector.$transaction([

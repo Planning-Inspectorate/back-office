@@ -2,9 +2,14 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { readdirSync, readFileSync } from 'node:fs';
 
-const schemas = readdirSync('./src/message-schemas/events').map((file) => {
-	return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
-});
+const schemas = readdirSync('./src/message-schemas/events')
+	.map((file) => {
+		if (!file.endsWith('.json')) {
+			return;
+		}
+		return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
+	})
+	.filter(Boolean);
 
 const ajv = new Ajv({ schemas });
 

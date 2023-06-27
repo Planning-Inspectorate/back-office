@@ -1,0 +1,43 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "nsip-subscription.schema.json",
+	"title": "nsip-subscription",
+	"description": "Subscribers are a subset of Service Users, part of the PINS Data Model",
+	"type": "object",
+	"required": ["caseReference", "emailAddress", "subscriptionType"],
+	"properties": {
+		"subscriptionId": {
+			"type": "integer",
+			"description": "The unique identifier within the Back Office. Ignored as part of register-nsip-subscription."
+		},
+		"caseReference": {
+			"type": "string",
+			"description": "the case reference the subscription relates to"
+		},
+		"emailAddress": {
+			"type": "string",
+			"format": "email",
+			"examples": ["alan.turing@planninginspectorate.gov.uk"]
+		},
+		"subscriptionType": {
+			"type": "string",
+			"enum": ["allUpdates", "applicationSubmitted", "applicationDecided", "registrationOpen"],
+			"description": "which update does the subscriber want to get notified of. For multiple types, use multiple messages."
+		},
+		"startDate": {
+			"type": "string",
+			"format": "date-time",
+			"description": "The date to start getting updates"
+		},
+		"endDate": {
+			"type": "string",
+			"format": "date-time",
+			"description": "The date to stop getting updates"
+		},
+		"language": {
+			"type": "string",
+			"enum": ["English", "Welsh"],
+			"default": "English"
+		}
+	}
+}

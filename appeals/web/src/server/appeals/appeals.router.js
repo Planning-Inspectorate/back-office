@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/appeals.web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { assertGroupAccess } from '../app/auth/auth.guards.js';
 import nationalListRouter from '../appeals/national-list/national-list.router.js';

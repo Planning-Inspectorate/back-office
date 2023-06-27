@@ -1089,6 +1089,224 @@ const document = {
 			}
 		}
 	},
+	'@definitions': {
+		SubscriptionGetBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						caseReference: {
+							type: 'string',
+							example: 'caseReference is required'
+						},
+						emailAddress: {
+							type: 'string',
+							example: 'emailAddress is required'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
+		SubscriptionCreateRequest: {
+			type: 'object',
+			required: ['caseReference', 'emailAddress', 'subscriptionType'],
+			properties: {
+				caseReference: {
+					type: 'string',
+					description: 'the case reference the subscription relates to'
+				},
+				emailAddress: {
+					type: 'string',
+					format: 'email',
+					examples: ['alan.turing@planninginspectorate.gov.uk']
+				},
+				subscriptionTypes: {
+					type: 'array',
+					items: {
+						type: 'string',
+						enum: ['allUpdates', 'applicationSubmitted', 'applicationDecided', 'registrationOpen']
+					},
+					description: 'which updates does the subscriber wants to get notified of'
+				},
+				startDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to start getting updates'
+				},
+				endDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to stop getting updates'
+				},
+				language: {
+					type: 'string',
+					enum: ['English', 'Welsh'],
+					default: 'English'
+				}
+			}
+		},
+		SubscriptionCreateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						caseReference: {
+							type: 'string',
+							example: 'caseReference is required'
+						},
+						emailAddress: {
+							type: 'string',
+							example: 'emailAddress is required'
+						},
+						subscriptionTypes: {
+							type: 'string',
+							example: 'subscriptionTypes is required'
+						},
+						startDate: {
+							type: 'string',
+							example: 'startDate must be a valid date'
+						},
+						endDate: {
+							type: 'string',
+							example: 'endDate must be a valid date'
+						},
+						language: {
+							type: 'string',
+							example: "language must be one of 'English', 'Welsh'"
+						},
+						code: {
+							type: 'string',
+							example: 'P2002',
+							description: 'prisma error code'
+						},
+						constraint: {
+							type: 'string',
+							example: 'caseReference and emailAddress combination must be unique'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
+		SubscriptionUpdateRequest: {
+			type: 'object',
+			required: ['endDate'],
+			properties: {
+				endDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to stop getting updates'
+				}
+			}
+		},
+		SubscriptionUpdateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						endDate: {
+							type: 'string',
+							example: 'endDate must be a valid date'
+						},
+						id: {
+							type: 'string',
+							example: "id must be a valid integer'"
+						},
+						code: {
+							type: 'string',
+							example: 'P2002',
+							description: 'prisma error code'
+						},
+						notFound: {
+							type: 'string',
+							example: 'subscription not found'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
+		SubscriptionNotFound: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						notFound: {
+							type: 'string',
+							example: 'subscription not found'
+						}
+					}
+				}
+			}
+		},
+		Subscription: {
+			type: 'object',
+			required: ['caseReference', 'emailAddress', 'subscriptionType'],
+			properties: {
+				id: {
+					type: 'number',
+					description: 'back office ID for this subscription'
+				},
+				caseReference: {
+					type: 'string',
+					description: 'the case reference the subscription relates to'
+				},
+				emailAddress: {
+					type: 'string',
+					format: 'email',
+					examples: ['alan.turing@planninginspectorate.gov.uk']
+				},
+				subscriptionTypes: {
+					type: 'array',
+					items: {
+						type: 'string',
+						enum: ['allUpdates', 'applicationSubmitted', 'applicationDecided', 'registrationOpen']
+					},
+					description: 'which updates does the subscriber wants to get notified of'
+				},
+				startDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to start getting updates'
+				},
+				endDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'The date to stop getting updates'
+				},
+				language: {
+					type: 'string',
+					enum: ['English', 'Welsh'],
+					default: 'English'
+				}
+			}
+		},
+		InternalError: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						unknown: {
+							type: 'string',
+							example: 'unknown internal error'
+						}
+					}
+				}
+			}
+		}
+	},
 	components: {}
 };
 

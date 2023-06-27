@@ -37,6 +37,7 @@ export interface ApplicationsTimetablePayload {
 	startDate: Date | null;
 	startTime: string | null;
 	endTime: string | null;
+	submissions?: boolean;
 }
 export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
 	ExaminationTimetableType: ExaminationTimetableType;

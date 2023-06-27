@@ -5,8 +5,9 @@ import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
-	ERROR_MAX_LENGTH_300,
+	ERROR_MAX_LENGTH_300_CHARACTERS,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
+	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
@@ -94,6 +95,17 @@ const validateValidationOutcomeReasons = (parameterName, customFn) =>
 		.withMessage(ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE)
 		.custom(customFn);
 
+const getAppealsValidator = composeMiddleware(
+	validatePaginationParameter('pageNumber'),
+	validatePaginationParameter('pageSize'),
+	query('searchTerm')
+		.optional()
+		.isString()
+		.isLength({ min: 2, max: 8 })
+		.withMessage(ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS),
+	validationErrorHandler
+);
+
 const getAppealValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validationErrorHandler
@@ -108,12 +120,6 @@ const getLPAQuestionnaireValidator = composeMiddleware(
 const getAppellantCaseValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validateIdParameter('appellantCaseId'),
-	validationErrorHandler
-);
-
-const paginationParameterValidator = composeMiddleware(
-	validatePaginationParameter('pageNumber'),
-	validatePaginationParameter('pageSize'),
 	validationErrorHandler
 );
 
@@ -147,7 +153,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
 		.isLength({ min: 0, max: 300 })
-		.withMessage(ERROR_MAX_LENGTH_300)
+		.withMessage(ERROR_MAX_LENGTH_300_CHARACTERS)
 		.custom((value, { req }) => {
 			if (
 				value &&
@@ -191,7 +197,7 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
 		.isLength({ min: 0, max: 300 })
-		.withMessage(ERROR_MAX_LENGTH_300)
+		.withMessage(ERROR_MAX_LENGTH_300_CHARACTERS)
 		.custom((value, { req }) => {
 			if (
 				value &&
@@ -217,10 +223,10 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 );
 
 export {
+	getAppealsValidator,
 	getAppealValidator,
 	getAppellantCaseValidator,
 	getLPAQuestionnaireValidator,
-	paginationParameterValidator,
 	patchAppealValidator,
 	patchAppellantCaseValidator,
 	patchLPAQuestionnaireValidator

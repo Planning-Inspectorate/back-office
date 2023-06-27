@@ -18,10 +18,6 @@ parameters:
     displayName: Run Database Migration
     type: boolean
     default: true
-  - name: runCypressTests
-    displayName: Run Cypress Tests
-    type: boolean
-    default: true
 
 pr: none
 trigger: none
@@ -45,7 +41,7 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     deploymentStages:
-      - name: Deploy Applications
+      - name: Deploy Appeals
         deploymentJobs:
           - name: Deploy Appeals API
             condition: eq(${{ parameters.deployAppealsAPI }}, 'true')

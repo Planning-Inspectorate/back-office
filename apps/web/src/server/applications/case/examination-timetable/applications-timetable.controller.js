@@ -381,23 +381,48 @@ const getCheckYourAnswersRows = (body) => {
  * @returns {Record<string, any>}
  */
 const getTimetableRows = (timetableItem) => {
-	const { id, description, name, ExaminationTimetableType, date, startDate, startTime, endTime } =
-		timetableItem;
+	const {
+		id,
+		description,
+		submissions,
+		name,
+		ExaminationTimetableType,
+		date,
+		startDate,
+		startTime,
+		endTime
+	} = timetableItem;
 
 	const templateType = ExaminationTimetableType.templateType;
+
+	if (!templateType) {
+		throw new Error(
+			`Template type not found for timetable item type ${ExaminationTimetableType?.name}`
+		);
+	}
 
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
+	const startDateDisplay = () => {
+		if (shouldShowField('startDate')) {
+			if (startDate) {
+				return displayDate(startDate, { condensed: true });
+			} else {
+				return '';
+			}
+		}
+		return null;
+	};
+
 	return {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
+		templateType: templateType,
 		name,
+		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
-		startDate:
-			shouldShowField('startDate') && startDate
-				? displayDate(startDate, { condensed: true }) || ''
-				: null,
+		startDate: startDateDisplay(),
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,

@@ -104,7 +104,7 @@
 					{
 						"name": "pageNumber",
 						"in": "query",
-						"description": "The pagination page number, required if pageSize is given",
+						"description": "The pagination page number - required if pageSize is given",
 						"example": 1,
 						"schema": {
 							"type": "string"
@@ -113,8 +113,17 @@
 					{
 						"name": "pageSize",
 						"in": "query",
-						"description": "The pagination page size, required if pageNumber is given",
+						"description": "The pagination page size - required if pageNumber is given",
 						"example": 30,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "The search term - does a partial, case-insensitive match of appeal reference and postcode fields",
+						"example": "NR35 2ND",
 						"schema": {
 							"type": "string"
 						}
