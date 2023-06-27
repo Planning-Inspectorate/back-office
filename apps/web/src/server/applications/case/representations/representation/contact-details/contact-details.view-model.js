@@ -1,3 +1,16 @@
+import { getRepTypePageTitles } from '../utils/get-rep-type-page-titles.js';
+
+const titles = {
+	represented: {
+		default: 'Contact details',
+		change: 'Change contact details'
+	},
+	representative: {
+		default: 'Add agent contact details',
+		change: 'Change agent contact details'
+	}
+};
+
 /**
  * @typedef {object|*} Locals
  * @property {boolean} isRepresented
@@ -16,14 +29,8 @@
  * @returns {object}
  */
 
-export const getContactDetailsViewModel = (
-	{ repType, repId },
-	{ isRepresented, prefixBackLink }
-) => ({
-	backLinkUrl: isRepresented
-		? prefixBackLink
-		: `${prefixBackLink}/representation-entity?repType=${repType}&repId=${repId}`,
-	pageKey: repType,
-	pageTitle: isRepresented ? 'Add contact details' : 'Add agent contact details',
-	pageHeading: isRepresented ? 'Contact details' : 'Agent contact details'
+export const getContactDetailsViewModel = ({ repType, repMode }, { representation }) => ({
+	...getRepTypePageTitles(repType, repMode, titles),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
+	pageKey: repType
 });

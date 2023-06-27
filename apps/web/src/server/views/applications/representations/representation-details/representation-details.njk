@@ -13,13 +13,14 @@
 
 {% block pageHeading %}
 {% endblock %}
+
 {% block pageTitle %}
 	Representation details
 {% endblock %}
 
 {% block beforeContent %}
 <div class="govuk-width-container">
-	<a class="govuk-back-link" href="{{backUrl}}" >Back</a>
+	<a class="govuk-back-link" href="{{backUrl}}">Back</a>
 </div>
 {% endblock %}
 
@@ -41,7 +42,7 @@
 {% if representationDetails.represented | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ representedSection(representationDetails.represented) }}
+			{{ representedSection(representationDetails.represented, changeLinks) }}
 		</div>
 	</div>
 {% endif %}
@@ -49,7 +50,7 @@
 {% if representationDetails.agentData | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ agentContactSection(representationDetails.agentData) }}
+			{{ agentContactSection(representationDetails.agentData, changeLinks) }}
 		</div>
 	</div>
 {% endif %}

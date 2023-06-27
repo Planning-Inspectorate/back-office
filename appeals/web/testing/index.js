@@ -7,7 +7,6 @@ import { installMockAppealsService } from './appeals/mocks/api.js';
 import { installFixedDate } from './util/date.js';
 
 /** @typedef {import('./appeals/appeals.test').AppealGroupId} AppealGroupId */
-/** @typedef {import('./applications/applications.test').ApplicationsGroupId} ApplicationsGroupId */
 
 let sessionId = 1;
 
@@ -22,19 +21,12 @@ let sessionId = 1;
 /**
  * @param {object} [options]
  * @param {boolean} [options.authenticated]
- * @param {Array<AppealGroupId | ApplicationsGroupId>} [options.groups]
+ * @param {Array<AppealGroupId>} [options.groups]
  * @returns {TestApplication}
  */
 export const createTestEnvironment = ({
 	authenticated = true,
-	groups = [
-		'appeals_case_officer',
-		'appeals_inspector',
-		'appeals_validation_officer',
-		'applications_case_admin_officer',
-		'applications_case_team',
-		'applications_inspector'
-	]
+	groups = ['appeals_case_officer', 'appeals_inspector', 'appeals_validation_officer']
 } = {}) => {
 	const testApp = express();
 	const getSessionID = () => sessionId;

@@ -2,8 +2,8 @@
 
 import { some } from 'lodash-es';
 
-/** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
-/** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
+/** @typedef {import('@pins/appeals.api').Schema.AppealStatus} AppealStatus */
+/** @typedef {import('@pins/appeals.api').Schema.AppealStatusType} AppealStatusType */
 
 /**
  * @param {Array<AppealStatus>} appealStatuses

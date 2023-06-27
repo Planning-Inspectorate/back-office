@@ -67,7 +67,7 @@ describe('Examination timetable page', () => {
 });
 
 describe('Select examination timetable type page', () => {
-	describe('GET /case/123/examination-timetable/new-item', () => {
+	describe('GET /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
 			await request.get('/applications-service/case-team');
 			nocks();
@@ -75,7 +75,7 @@ describe('Select examination timetable type page', () => {
 
 		it('should show the page', async () => {
 			const response = await request.get(
-				`/applications-service/case/123/examination-timetable/new-item`
+				`/applications-service/case/123/examination-timetable/item/new`
 			);
 			const element = parseHtml(response.text);
 
@@ -86,7 +86,7 @@ describe('Select examination timetable type page', () => {
 });
 
 describe('Create examination timetable page', () => {
-	describe('POST /case/123/examination-timetable/new-item', () => {
+	describe('POST /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
 			await request.get('/applications-service/case-team');
 			nocks();
@@ -94,7 +94,7 @@ describe('Create examination timetable page', () => {
 
 		it('should show the page', async () => {
 			const response = await request
-				.post(`/applications-service/case/123/examination-timetable/new-item`)
+				.post(`/applications-service/case/123/examination-timetable/item/new`)
 				.send({ 'timetable-type': 'starttime-mandatory' });
 			const element = parseHtml(response.text);
 
@@ -108,7 +108,7 @@ describe('Create examination timetable page', () => {
 		});
 	});
 
-	describe('POST /case/123/examination-timetable/new-item/validate', () => {
+	describe('POST /case/123/examination-timetable/item/validate', () => {
 		beforeEach(async () => {
 			await request.get('/applications-service/case-team');
 			nocks();
@@ -117,7 +117,7 @@ describe('Create examination timetable page', () => {
 		describe('templateType: starttime-mandatory', () => {
 			it('should display errors if mandatory fields are missing', async () => {
 				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
 					.send({
 						templateType: 'starttime-mandatory',
 						itemTypeName: 'starttime-mandatory'
@@ -135,7 +135,7 @@ describe('Create examination timetable page', () => {
 		describe('templateType: deadline', () => {
 			it('should display errors if mandatory fields are missing', async () => {
 				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
 					.send({
 						templateType: 'deadline',
 						itemTypeName: 'deadline'
@@ -153,7 +153,7 @@ describe('Create examination timetable page', () => {
 		describe('templateType: deadline-startdate-mandatory', () => {
 			it('should display errors if mandatory fields are missing', async () => {
 				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
 					.send({
 						templateType: 'deadline-startdate-mandatory',
 						itemTypeName: 'deadline-startdate-mandatory'
@@ -173,7 +173,7 @@ describe('Create examination timetable page', () => {
 		describe('templateType: starttime-optional', () => {
 			it('should display errors if mandatory fields are missing', async () => {
 				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
 					.send({
 						templateType: 'starttime-optional',
 						itemTypeName: 'starttime-optional'
@@ -190,7 +190,7 @@ describe('Create examination timetable page', () => {
 		describe('templateType: no-times', () => {
 			it('should display errors if mandatory fields are missing', async () => {
 				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
 					.send({
 						templateType: 'no-times',
 						itemTypeName: 'no-times'
@@ -207,7 +207,7 @@ describe('Create examination timetable page', () => {
 
 	it('should display errors if start date are after end date', async () => {
 		const response = await request
-			.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+			.post(`/applications-service/case/123/examination-timetable/item/validate`)
 			.send({
 				templateType: 'deadline',
 				itemTypeName: 'deadline',
@@ -230,7 +230,7 @@ describe('Create examination timetable page', () => {
 
 	it('should display errors if start time are after end time', async () => {
 		const response = await request
-			.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+			.post(`/applications-service/case/123/examination-timetable/item/validate`)
 			.send({
 				templateType: 'deadline',
 				itemTypeName: 'deadline',
@@ -253,7 +253,7 @@ describe('Create examination timetable page', () => {
 
 	it('should go to check-your-answers page if nothing is missing', async () => {
 		const response = await request
-			.post(`/applications-service/case/123/examination-timetable/new-item/validate`)
+			.post(`/applications-service/case/123/examination-timetable/item/validate`)
 			.send({
 				templateType: 'starttime-mandatory',
 				itemTypeName: 'starttime-mandatory',
@@ -265,11 +265,31 @@ describe('Create examination timetable page', () => {
 				'startTime.minutes': '02'
 			});
 
-		expect(response?.headers?.location).toEqual('./check-your-answers');
+		expect(response?.headers?.location).toContain('check-your-answers');
 	});
 });
 
-describe('POST /case/123/examination-timetable/new-item/check-your-answers', () => {
+describe('Edit examination timetable', () => {
+	describe('GET /case/123/examination-timetable/item/1/edit', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/item/edit/1`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Edit timetable item');
+		});
+	});
+});
+
+describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 	beforeEach(async () => {
 		await request.get('/applications-service/case-team');
 		nocks();
@@ -277,7 +297,7 @@ describe('POST /case/123/examination-timetable/new-item/check-your-answers', () 
 
 	it('should show page with the right fields correctly formatted', async () => {
 		const response = await request
-			.post(`/applications-service/case/123/examination-timetable/new-item/check-your-answers`)
+			.post(`/applications-service/case/123/examination-timetable/item/check-your-answers`)
 			.send({
 				templateType: 'starttime-mandatory',
 				itemTypeName: 'starttime-mandatory',
@@ -294,10 +314,34 @@ describe('POST /case/123/examination-timetable/new-item/check-your-answers', () 
 
 		expect(element.innerHTML).toMatchSnapshot();
 		expect(element.innerHTML).toContain('Check your answers before creating a new item');
+		expect(element.innerHTML).toContain('/item/new');
+	});
+
+	it('should show different texts and links when is Editing page', async () => {
+		const response = await request
+			.post(`/applications-service/case/123/examination-timetable/item/check-your-answers/1`)
+			.send({
+				templateType: 'starttime-mandatory',
+				itemTypeName: 'starttime-mandatory',
+				timetableId: 1,
+				name: 'Lorem',
+				'date.day': '01',
+				'date.month': '02',
+				'date.year': '2000',
+				'startTime.hours': '01',
+				'startTime.minutes': '02',
+				description: 'Some text with \n * one point \n* another point '
+			});
+
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+		expect(element.innerHTML).toContain('Check your answers before editing an item');
+		expect(element.innerHTML).toContain('/item/edit/1');
 	});
 });
 
-describe('POST /case/123/examination-timetable/new-item/save', () => {
+describe('POST /case/123/examination-timetable/item/save', () => {
 	beforeEach(async () => {
 		await request.get('/applications-service/case-team');
 		nocks();
@@ -305,7 +349,7 @@ describe('POST /case/123/examination-timetable/new-item/save', () => {
 
 	it('should go to success page', async () => {
 		const response = await request
-			.post(`/applications-service/case/123/examination-timetable/new-item/save`)
+			.post(`/applications-service/case/123/examination-timetable/item/save`)
 			.send({
 				templateType: 'starttime-mandatory',
 				itemTypeName: 'starttime-mandatory',
@@ -315,7 +359,7 @@ describe('POST /case/123/examination-timetable/new-item/save', () => {
 				description: 'Some text with \n * one point \n* another point '
 			});
 
-		expect(response?.headers?.location).toEqual('./success');
+		expect(response?.headers?.location).toEqual('../../created/success');
 	});
 });
 
@@ -343,10 +387,10 @@ describe('Delete examination timetable', () => {
 		await request.get('/applications-service/case-team');
 		nocks();
 	});
-	describe('GET /case/123/examination-timetable/delete/1', () => {
+	describe('GET /case/123/examination-timetable/item/delete/1', () => {
 		it('should show the page', async () => {
 			const response = await request.get(
-				`/applications-service/case/123/examination-timetable/delete/1`
+				`/applications-service/case/123/examination-timetable/item/delete/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -355,12 +399,12 @@ describe('Delete examination timetable', () => {
 		});
 	});
 
-	describe('POST /case/123/examination-timetable/delete/1', () => {
+	describe('POST /case/123/examination-timetable/item/delete/1', () => {
 		it('should show errors if api fails', async () => {
 			nock('http://test/').delete('/applications/examination-timetable-items/1').reply(500, {});
 
 			const response = await request.post(
-				`/applications-service/case/123/examination-timetable/delete/1`
+				`/applications-service/case/123/examination-timetable/item/delete/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -368,12 +412,21 @@ describe('Delete examination timetable', () => {
 			expect(element.innerHTML).toContain('An error occurred');
 		});
 
-		it('should success page if deleting is succeful', async () => {
+		it('should go to success page if deleting is successful', async () => {
 			nock('http://test/').delete('/applications/examination-timetable-items/1').reply(200, {});
 
 			const response = await request.post(
-				`/applications-service/case/123/examination-timetable/delete/1`
+				`/applications-service/case/123/examination-timetable/item/delete/1`
 			);
+
+			expect(response?.headers?.location).toEqual('../../deleted/success');
+		});
+
+		it('should show the delete success page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/deleted/success`
+			);
+
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -391,14 +444,14 @@ describe('Publish examination timetable success page', () => {
 
 		it('should redirect to success page', async () => {
 			const response = await request.post(
-				`/applications-service/case/123/examination-timetable/publish`
+				`/applications-service/case/123/examination-timetable/preview`
 			);
-			expect(response?.headers?.location).toEqual('./publish/success');
+			expect(response?.headers?.location).toEqual('./published/success');
 		});
 
 		it('should show the page', async () => {
 			const response = await request.get(
-				`/applications-service/case/123/examination-timetable/publish/success`
+				`/applications-service/case/123/examination-timetable/published/success`
 			);
 			const element = parseHtml(response.text);
 

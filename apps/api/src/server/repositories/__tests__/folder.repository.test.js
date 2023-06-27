@@ -95,4 +95,38 @@ describe('Folder repository', () => {
 		// THEN
 		expect(folders).toEqual(folderPath);
 	});
+
+	test('deletes several folders by ids', async () => {
+		// GIVEN
+		databaseConnector.folder.findMany.mockResolvedValue(folderPath);
+		databaseConnector.folder.deleteMany.mockResolvedValue(folderPath);
+
+		// WHEN
+		const folders = await folderRepository.deleteFolderMany([2, 1]);
+
+		// THEN
+		expect(folders).toEqual(folderPath);
+	});
+
+	test('updates a folder name and display order', async () => {
+		// GIVEN
+		databaseConnector.folder.findUnique.mockResolvedValue(singleFolder);
+		const updatedFolderExpected = {
+			id: 15,
+			displayNameEn: 'test folder name updated',
+			displayOrder: 200,
+			parentFolderId: null,
+			caseId: 4
+		};
+		databaseConnector.folder.update.mockResolvedValue(updatedFolderExpected);
+
+		// WHEN
+		const updatedFolder = await folderRepository.updateFolderById(15, {
+			displayNameEn: 'test folder name updated',
+			displayOrder: 200
+		});
+
+		// THEN
+		expect(updatedFolder).toEqual(updatedFolderExpected);
+	});
 });

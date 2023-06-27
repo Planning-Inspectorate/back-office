@@ -51,7 +51,7 @@ describe('Representation representation under 18', () => {
 			const response = await request.post(baseUrl).send({ under18: 'false' });
 
 			expect(response?.headers?.location).toEqual(
-				'representation-entity?repId=1&repType=represented'
+				'/applications-service/case/1/relevant-representations/representation-entity?repId=1&repType=represented'
 			);
 		});
 	});

@@ -6,6 +6,8 @@ export interface EnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
+	// redirect path for MSAL auth, defaults to /auth/redirect
+	authRedirectPath: string;
 	blobStorageUrl: string;
 	bundleAnalyzer: boolean;
 	buildDir: string;

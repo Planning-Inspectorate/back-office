@@ -11,7 +11,7 @@
     <h1 class="govuk-heading-l">Publish examination timetable</h1>
     <p class="govuk-body">Check before publishing</p>
     {{ timetableItemsList(timetableItems, caseId) }}
-    <form method="post" action="{{'timetable'|url({caseId: caseId, step: 'publish'})}}">
+    <form method="post">
         <button class='govuk-button govuk-!-margin-top-5'>Publish exam timetable</button>
     </form>
 {% endblock %}

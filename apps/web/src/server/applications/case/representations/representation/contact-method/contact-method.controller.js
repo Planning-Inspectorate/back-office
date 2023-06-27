@@ -1,5 +1,5 @@
 import { patchRepresentation } from '../representation.service.js';
-import { getFormattedErrorSummary, getRepresentationPageUrl } from '../representation.utilities.js';
+import { getFormattedErrorSummary } from '../representation.utilities.js';
 import { getContactMethodViewModel } from './contact-method.view-model.js';
 
 const view = 'applications/representations/representation/contact-method.njk';
@@ -8,12 +8,8 @@ const view = 'applications/representations/representation/contact-method.njk';
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getContactMethod = async (req, res) => {
-	const { query } = req;
-	return res.render(view, {
-		...getContactMethodViewModel(query, res.locals)
-	});
-};
+export const getContactMethod = async (req, res) =>
+	res.render(view, getContactMethodViewModel(req.query, res.locals));
 
 /**
  * @param {import("express").Request} req
@@ -34,11 +30,7 @@ export const postContactMethod = async (req, res) => {
 		});
 	}
 
-	const nextPagePath = locals.isRepresented ? `representation-type` : 'add-representation';
-
 	await patchRepresentation(caseId, String(repId), String(repType), body);
 
-	let redirectUrl = getRepresentationPageUrl(nextPagePath, String(repId), String(repType));
-
-	return res.redirect(redirectUrl);
+	return res.redirect(locals.representation.pageLinks.redirectUrl);
 };

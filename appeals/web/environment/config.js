@@ -6,8 +6,10 @@ import schema from './schema.js';
 const environment = loadEnvironment(process.env.NODE_ENV);
 
 const { value: validatedConfig, error } = schema.validate({
+	appHostname: environment.APP_HOSTNAME,
 	apiUrl: environment.API_HOST,
 	authDisabled: environment.AUTH_DISABLED,
+	authRedirectPath: environment.AUTH_REDIRECT_PATH || '/auth/redirect',
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
@@ -46,7 +48,7 @@ const { value: validatedConfig, error } = schema.validate({
 });
 
 if (error) {
-	throw error;
+	throw new Error(`Env validation error: ${error.message}`);
 }
 
 const cwd = url.fileURLToPath(new URL('..', import.meta.url));

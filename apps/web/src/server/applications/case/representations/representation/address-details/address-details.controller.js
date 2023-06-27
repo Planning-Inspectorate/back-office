@@ -1,6 +1,5 @@
 import {
 	getFormattedErrorSummary,
-	getRepresentationPageUrl,
 	replaceRepresentaionValuesAsBodyValues
 } from '../representation.utilities.js';
 import { getAddressDetailsViewModel } from './address-details.view-model.js';
@@ -12,16 +11,15 @@ import { formatAddress } from './utils/format-address.js';
 const view = 'applications/representations/representation/address-details/index.njk';
 
 /**
- *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { repId: string, repType: string, stage: string|undefined, postcode: string|undefined }, {}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { repType: string, repMode: string|undefined, stage: string|undefined, postcode: string|undefined }, {}>}
  */
 export const getAddressDetailsController = async (req, res) => {
 	const { query } = req;
-	const { repId, repType, stage, postcode } = query;
-	const { locals } = res;
+	const { repType, repMode, stage, postcode } = query;
 
 	return res.render(
 		view,
-		await getAddressDetailsViewModel(String(repId), String(repType), locals, stage, postcode)
+		await getAddressDetailsViewModel(query, res.locals, repType, repMode, stage, postcode)
 	);
 };
 
@@ -32,7 +30,7 @@ export const getAddressDetailsController = async (req, res) => {
 export const postAddressDetailsController = async (req, res) => {
 	const { body, errors, params, query } = req;
 	const { caseId } = params;
-	const { repId, repType } = query;
+	const { repId, repType, repMode } = query;
 	const { lookupPostcode, setPostcode, stage } = body;
 	const { locals } = res;
 	const { representation } = locals;
@@ -44,9 +42,10 @@ export const postAddressDetailsController = async (req, res) => {
 	if (stageErrors) {
 		return res.render(view, {
 			...(await getAddressDetailsViewModel(
-				String(repId),
-				String(repType),
+				query,
 				locals,
+				String(repType),
+				String(repMode),
 				stage,
 				postcode
 			)),
@@ -63,12 +62,19 @@ export const postAddressDetailsController = async (req, res) => {
 	if (stage === 'lookup')
 		return res.render(
 			view,
-			await getAddressDetailsViewModel(String(repId), String(repType), locals, 'find', postcode)
+			await getAddressDetailsViewModel(
+				query,
+				locals,
+				String(repType),
+				String(repMode),
+				'find',
+				postcode
+			)
 		);
 
 	const address = stage === 'find' ? await getSelectedAddress(body, postcode) : body;
 
 	await patchRepresentation(caseId, String(repId), String(repType), formatAddress(address));
 
-	res.redirect(getRepresentationPageUrl(`contact-method`, String(repId), String(repType)));
+	res.redirect(representation.pageLinks.redirectUrl);
 };

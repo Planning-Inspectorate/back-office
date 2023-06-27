@@ -1,5 +1,5 @@
 import { patchRepresentationNoMap } from '../representation.service.js';
-import { getFormattedErrorSummary, getRepresentationPageUrl } from '../representation.utilities.js';
+import { getFormattedErrorSummary } from '../representation.utilities.js';
 import { getRepresentationTypeViewModel } from './representation-type.view-model.js';
 
 const view = 'applications/representations/representation/representation-type.njk';
@@ -8,13 +8,8 @@ const view = 'applications/representations/representation/representation-type.nj
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getRepresentationType = async (req, res) => {
-	const { query } = req;
-
-	return res.render(view, {
-		...getRepresentationTypeViewModel(query, res.locals)
-	});
-};
+export const getRepresentationType = async (req, res) =>
+	res.render(view, getRepresentationTypeViewModel(req.query, res.locals));
 
 /**
  * @param {import("express").Request} req
@@ -36,5 +31,5 @@ export const postRepresentationType = async (req, res) => {
 
 	await patchRepresentationNoMap(caseId, String(repId), String(repType), body);
 
-	return res.redirect(getRepresentationPageUrl('under-18', String(repId), String(repType)));
+	return res.redirect(locals.representation.pageLinks.redirectUrl);
 };

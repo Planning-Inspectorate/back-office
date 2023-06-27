@@ -8,11 +8,24 @@
 		{% set accordionItemsPreExamination = [] %}
 
 		{% for timetableItem in timetableItems %}
-			{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
+			{% if (timetableItem.templateType in ['deadline-startdate-mandatory', 'deadline']) %}
+				{% set heading = [timetableItem.endDate, ' - ', timetableItem.name] | join %}
+			{% else %}
+				{% set heading = [timetableItem.date if timetableItem.date else timetableItem.startDate, ' - ', timetableItem.name] | join %}
+			{% endif %}
 
 			{% set content %}
+				{% if not timetableItem.submissions %}
+					<div class='top-right-link'>
+						<a class='govuk-link' href="{{'timetable-item'|url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'})}}">Edit timetable item</a>
+					</div>
+				{% endif %}
+
 				{{timetableItemSummary(timetableItem)}}
-				<a class='govuk-link colour--red' href='{{'timetable'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+
+				{% if not timetableItem.submissions %}
+					<a class='govuk-link colour--red' href='{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+				{% endif %}
 			{% endset %}
 
 			{% set row = {
@@ -25,7 +38,7 @@
 				}
 			} %}
 
-			{% if (timetableItem.ExaminationTimetableType.name == 'Procedural Deadline (Pre-Examination)') %}
+			{% if (timetableItem.templateType == 'deadline-startdate-mandatory') %}
 				{% set accordionItemsPreExamination = accordionItemsPreExamination.concat([row]) %}
 			{% else %}
 				{% set accordionItemsExamination = accordionItemsExamination.concat([row]) %}
@@ -33,7 +46,7 @@
 
 		{% endfor %}
 
-		<h3 class="govuk-heading-m">Pre-Examination</h3>
+		<h3 class="govuk-heading-m">Pre-examination</h3>
 
 		{% if accordionItemsPreExamination.length === 0 %}
 			<p class='govuk-body'>No timetable items</p>

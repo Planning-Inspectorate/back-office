@@ -1,11 +1,9 @@
 import { join, map, pick } from 'lodash-es';
 
-/** @typedef {import('../applications/applications.types').ApplicationsAddress} ApplicationsAddress */
-
 /**
  * converts a multi part address to a single string
  *
- * @param {ApplicationsAddress} address
+ * @param {{ addressLine1:string, addressLine2:string, town:string, postCode:string}} address
  * @returns {string}
  */
 export const addressToString = (address) => {

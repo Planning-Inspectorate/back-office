@@ -23,6 +23,10 @@ parameters:
     displayName: Build Document Publish Functions
     type: boolean
     default: true
+  - name: buildFunctionHandleSubscriptions
+    displayName: Build Function - Handle Subscriptions
+    type: boolean
+    default: true
 
 pr: none
 
@@ -68,6 +72,10 @@ extends:
                   path: apps/web
                 - name: api
                   path: apps/api
+                - name: appeals-api
+                  path: appeals/api
+                - name: appeals-web
+                  path: appeals/web
                 - name: documentStorageApi
                   path: apps/document-storage
                 - name: function-document-check
@@ -76,6 +84,8 @@ extends:
                   path: apps/functions/odw-integration
                 - name: function-document-publish
                   path: apps/functions/document-publish
+                - name: function-handle-subscriptions
+                  path: apps/functions/handle-subscriptions
               stepName: check_files
       - name: Build API
         condition: >-
@@ -197,7 +207,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -206,6 +216,44 @@ extends:
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: function-odw-integration
+            displayName: Publish Functions Artifact
+      - name: Build Function - Handle Subscriptions
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildFunctionHandleSubscriptions }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-handle-subscriptions'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: function-handle-subscriptions
             displayName: Publish Functions Artifact
       - name: Build Document Publish Functions
         condition: >-
@@ -273,3 +321,57 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
               repository: back-office/back-office-web
+      - name: Build Appeals API
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildAPI }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-api'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/appeals/api/Dockerfile
+              repository: back-office/back-office-appeals-api
+      - name: Build Appeals Web
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildWeb }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-web'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/azure_web_app_docker_build_push.yml@templates
+            parameters:
+              azurecrName: $(azurecrName)
+              dockerfilePath: $(Build.SourcesDirectory)/appeals/web/Dockerfile
+              repository: back-office/appeals-web

@@ -4,6 +4,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
 
 {% block pageHeading %}
 {% endblock %}
@@ -11,8 +12,20 @@
 {% block pageContent %}
 	<span class="govuk-caption-l">Attachment upload</span>
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-one-half">
-			<a href="{{ link }}"> Skip </a>
+		<div class="govuk-grid-column-full">
+			{{ fileUploader({
+				text: 'Save and continue',
+				formId: 1,
+				domain: 'applications',
+				caseId: caseId,
+				folderId: folderId,
+				formTitle: serviceName,
+				nextPageUrl: link,
+				allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
+				disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
+				multiple: true
+			}) }}
+			<a href="{{ link }}"> Skip this step</a>
 		</div>
 	</div>
 {% endblock %}

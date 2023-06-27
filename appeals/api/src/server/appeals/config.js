@@ -1,5 +1,5 @@
 /**
- * @type {import('@pins/api').Appeals.TimetableConfig}
+ * @type {import('@pins/appeals.api').Appeals.TimetableConfig}
  */
 const config = {
 	timetable: {

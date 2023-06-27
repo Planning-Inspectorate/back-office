@@ -1,4 +1,5 @@
 import { omitBy } from 'lodash-es';
+
 /**
  * @typedef {object} Address
  * @property {string|null} addressLine1
@@ -58,6 +59,7 @@ export const formatContactDetails = (contact = {}) => ({
  * @param {string} repType representation contact type (represented or representative)
  * @returns {string}
  */
+
 export const getRepresentationPageUrl = (url, repId, repType) =>
 	`${url}?repId=${repId}&repType=${repType}`;
 

@@ -1,12 +1,9 @@
 import { jest } from '@jest/globals';
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 import logger from '../../../utils/logger.js';
-
-const request = supertest(app);
 
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);

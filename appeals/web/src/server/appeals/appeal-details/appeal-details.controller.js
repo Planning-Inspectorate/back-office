@@ -4,10 +4,13 @@ import * as appealDetailsService from './appeal-details.service.js';
 /**
  * @typedef {object} ViewAppealDetailsRenderOptions
  * @property {object} appeal
+ * @property {object} urls
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewAppealDetailsRenderOptions>}  */
 export const viewAppealDetails = async (request, response) => {
+	const { originalUrl } = request;
+
 	const appealDetails = await appealDetailsService
 		.getAppealDetailsFromId(request.params.appealId)
 		.catch((error) => logger.error(error));
@@ -61,7 +64,12 @@ export const viewAppealDetails = async (request, response) => {
 			}
 		};
 
-		response.render('appeals/appeal/appeal-details.njk', { appeal: { ...formattedAppeal } });
+		response.render('appeals/appeal/appeal-details.njk', {
+			appeal: { ...formattedAppeal },
+			urls: {
+				appellantCase: `${originalUrl}/appellant-case`
+			}
+		});
 	} else {
 		response.render('app/404.njk');
 	}
