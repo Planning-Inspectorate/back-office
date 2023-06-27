@@ -1,5 +1,5 @@
 /**
- *
+ * Adds the document id to a relevant representations attachment to link a document to a representation
  * @param {*} uploadInfo
  * @param {*} uploadForm
  * @return {Promise<void>}

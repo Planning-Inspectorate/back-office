@@ -14,7 +14,8 @@ export const fileUploadController = async ({ params, body }, res) => {
 		const { caseId, repId } = params;
 		const response = await createRepresentationAttachment(caseId, repId, body);
 		return res.json(response);
-	} catch (e) {
-		logger.info('Representation attachment failed: ', e);
+	} catch (error) {
+		logger.info(`Representation attachment failed: ${error}`);
+		return res.send({ error: 'failed to create a representation attachment' });
 	}
 };
