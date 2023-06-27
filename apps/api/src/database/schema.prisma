@@ -155,9 +155,9 @@ model Case {
   gridReference            GridReference?
   serviceCustomer          ServiceCustomer[]
   Representation           Representation[]
-  ExaminationTimetableItem ExaminationTimetableItem[]
   document                 Document[]
   Subscriptions            Subscription[]
+  ExaminationTimetable ExaminationTimetable?
 }
 
 /// ServiceCustomer model
@@ -600,7 +600,7 @@ model ExaminationTimetableType {
 
 model ExaminationTimetableItem {
   id                       Int                      @id @default(autoincrement())
-  caseId                   Int
+  examinationTimetableId   Int
   examinationTypeId        Int
   name                     String
   description              String?                  @db.NText
@@ -609,9 +609,8 @@ model ExaminationTimetableItem {
   startTime                String?
   endTime                  String?
   folderId                 Int
-  published                Boolean                  @default(false)
-  Case                     Case                     @relation(fields: [caseId], references: [id])
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+  ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
   Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
 }
 
@@ -742,4 +741,15 @@ model Subscription {
 
   // we don't want to allow multiple records with the same email+caseRef combination
   @@unique([emailAddress, caseReference])
+}
+
+model ExaminationTimetable {
+  id                       Int                        @id @default(autoincrement())
+  caseId                   Int                        @unique
+  published                Boolean                    @default(false)
+  publishedAt              DateTime?
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @default(now())
+  case                     Case                       @relation(fields: [caseId], references: [id])
+  ExaminationTimetableItem ExaminationTimetableItem[]
 }
