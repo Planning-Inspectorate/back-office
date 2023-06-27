@@ -1,5 +1,4 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
@@ -18,7 +17,6 @@ import {
 } from '../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('appeals routes', () => {
 	describe('/appeals', () => {

@@ -67,7 +67,7 @@ extends:
     deploymentStages:
       - name: Deploy Applications
         deploymentJobs:
-          - name: Deploy API
+          - name: Deploy Applications API
             condition: eq(${{ parameters.deployAPI }}, 'true')
             steps:
               - ${{ if eq(parameters.schemaMigration, true) }}:
@@ -89,6 +89,15 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-api
+          - name: Deploy Applications Web
+            condition: eq(${{ parameters.deployWeb }}, 'true')
+            steps:
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-web
           - name: Deploy Document Storage API
             condition: eq(${{ parameters.deployDocumentStorageAPI }}, 'true')
             steps:
@@ -98,7 +107,7 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-document-storage-api
-          - name: Deploy Document Check Function
+          - name: Deploy Function - Document Check
             artifact:
               name: function-document-check
               sourcePipeline: Back Office Build
@@ -108,7 +117,7 @@ extends:
                 parameters:
                   appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
-          - name: Deploy ODW Integration Functions
+          - name: Deploy Function - ODW Integration
             artifact:
               name: function-odw-integration
               sourcePipeline: Back Office Build
@@ -118,15 +127,15 @@ extends:
                 parameters:
                   appName: pins-func-odw-subscriber-odw-subscriber-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
-          - name: Deploy Document Publish Function
+          - name: Deploy Function - Document Publish
             artifact:
               name: function-document-publish
               sourcePipeline: Back Office Build
-            condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
+            condition: eq(${{ parameters.deployDocumentPublishFunction }}, 'true')
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Handle Subscriptions
             artifact:
@@ -138,14 +147,5 @@ extends:
                 parameters:
                   appName: pins-func-handle-subs-handle-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
-          - name: Deploy Web
-            condition: eq(${{ parameters.deployWeb }}, 'true')
-            steps:
-              - template: ../steps/azure_web_app_deploy.yml
-                parameters:
-                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-web
     globalVariables:
       - template: azure-pipelines-variables.yml@self

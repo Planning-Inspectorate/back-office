@@ -1,10 +1,8 @@
-import supertest from 'supertest';
-import { app } from '../../../app-test.js';
+import { request } from '../../../app-test.js';
 import { appellantCaseIncompleteReasons } from '../../tests/data.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const request = supertest(app);
 
 describe('appellant case incomplete reasons routes', () => {
 	describe('/appeals/appellant-case-incomplete-reasons', () => {

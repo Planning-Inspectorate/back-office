@@ -1,8 +1,5 @@
-import supertest from 'supertest';
-import { app } from '../../../../app-test.js';
+import { request } from '../../../../app-test.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
-
-const request = supertest(app);
 
 const document1 = {
 	caseId: 1,

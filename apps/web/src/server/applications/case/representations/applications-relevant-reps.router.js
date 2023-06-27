@@ -10,6 +10,7 @@ import relevantRepEntityRouter from './representation/representation-entity/enti
 import relevantRepresentationCommentRouter from './representation/representation-comment/representation-comment.router.js';
 import relevantRepresentationAttachmentUploadRouter from './representation/attachment-upload/attachment-upload.router.js';
 import representationDetailsRouter from './representation-details/application-representation-details.router.js';
+import { fileUploadController } from './file-upload/file-upload.controller.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
@@ -23,5 +24,7 @@ relevantRepsRouter.use('/', relevantRepEntityRouter);
 relevantRepsRouter.use('/', relevantRepresentationCommentRouter);
 relevantRepsRouter.use('/', relevantRepresentationAttachmentUploadRouter);
 relevantRepsRouter.use('/:representationId/representation-details', representationDetailsRouter);
+
+relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);
 
 export default relevantRepsRouter;
