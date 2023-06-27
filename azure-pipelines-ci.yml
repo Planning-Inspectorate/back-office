@@ -36,3 +36,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               script: npm run test
+          - template: ../steps/node_script.yml
+            parameters:
+              # check web build script works
+              script: npm run build:release

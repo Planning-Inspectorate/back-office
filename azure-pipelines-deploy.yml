@@ -23,6 +23,10 @@ parameters:
     displayName: Deploy Document Publish Function
     type: boolean
     default: true
+  - name: deployFunctionHandleSubscriptions
+    displayName: Deploy Function - Handle Subscriptions
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -118,11 +122,21 @@ extends:
             artifact:
               name: function-document-publish
               sourcePipeline: Back Office Build
-            condition: eq(${{ parameters.deployDocumentPublishFunction }}, 'true')
+            condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Handle Subscriptions
+            artifact:
+              name: function-handle-subscriptions
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionHandleSubscriptions }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-handle-subs-handle-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
