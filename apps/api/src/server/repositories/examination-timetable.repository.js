@@ -26,9 +26,22 @@ export const create = (examinationTimetable) => {
  * @param {import('@pins/api').Schema.ExaminationTimetable} examinationTimetable
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetable>}
  */
-export const update = (caseId, examinationTimetable) => {
+export const updateByCaseId = (caseId, examinationTimetable) => {
 	return databaseConnector.examinationTimetable.update({
 		where: { caseId },
+		data: examinationTimetable
+	});
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {import('@pins/api').Schema.ExaminationTimetable} examinationTimetable
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetable>}
+ */
+export const update = (id, examinationTimetable) => {
+	return databaseConnector.examinationTimetable.update({
+		where: { id },
 		data: examinationTimetable
 	});
 };

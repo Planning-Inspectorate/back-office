@@ -58,6 +58,8 @@ export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
 export interface ApplicationExaminationTimetable {
 	id: number;
 	published: boolean;
+	publishedAt?: DateTime;
+	updatedAt: DateTime;
 	caseId: number;
 	items: ApplicationExaminationTimetableItem[];
 }

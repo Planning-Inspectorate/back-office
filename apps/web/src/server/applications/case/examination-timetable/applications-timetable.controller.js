@@ -73,18 +73,21 @@ export const uniqueTimeTableTypes = {
 /**
  * View the list of examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, republisheStatus: boolean}>}
  */
 export async function viewApplicationsCaseTimetableList(_, response) {
-	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
 
-	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
+	const timetableItemsViewData = examinationTimetable?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
 	);
 
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
-		publishedStatus: timetableItems?.published
+		publishedStatus: examinationTimetable?.published,
+		republisheStatus:
+			examinationTimetable?.published &&
+			examinationTimetable.publishedAt != examinationTimetable.updatedAt
 	});
 }
 
@@ -300,7 +303,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		startTime: body['startTime.hours']
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,
-		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
+		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
 	};
 	if (body['timetableId']) {
 		payload.id = Number.parseInt(body['timetableId'], 10);
