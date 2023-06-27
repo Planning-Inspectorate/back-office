@@ -69,7 +69,10 @@
 								classes: 'font-weight--700 govuk-!-margin-bottom-4'
 								},
 							errorMessage: errors.name | errorMessage,
-							value: values.name
+							value: values.name,
+							hint: {
+								text: "There is a limit of 200 characters"
+							}
 					}) }}
 				{% endif %}
 
