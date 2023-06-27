@@ -37,14 +37,19 @@ describe('LPA Questionnaire review', () => {
 		});
 
 		it('should redirect to the complete page if no errors are present', async () => {
-			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireData)
+				.patch('/appeals/1/lpa-questionnaires/2')
+				.reply(200, { validationOutcome: 'complete' });
 
-			await request.post(baseUrl).send({
+			const response = await request.post(baseUrl).send({
 				'review-outcome': 'complete'
 			});
 
-			// TODO: finish this test when BOAT-238 is done
-			expect(true).toBe(true);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 });

@@ -220,6 +220,33 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
 </main>"
 `;
 
+exports[`LPA Questionnaire review POST / should redirect to the complete page if no errors are present 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> LPA questionnaire complete</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The review of LPA questionnaire is finished.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
+                    and the the review is finished.</p>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go back to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`LPA Questionnaire review POST / should render LPA Questionnaire review with error (no answer provided) 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
