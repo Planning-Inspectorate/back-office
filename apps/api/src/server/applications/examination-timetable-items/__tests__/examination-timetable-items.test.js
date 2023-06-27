@@ -262,7 +262,7 @@ describe('Test examination timetable items API', () => {
 			where: {
 				caseId: 123
 			},
-			data: { published: true, publishedAt: expect.any(Date) }
+			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
 		});
 
 		expect(resp.status).toEqual(200);

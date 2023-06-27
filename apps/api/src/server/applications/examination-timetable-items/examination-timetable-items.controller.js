@@ -224,12 +224,14 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
+		const now = new Date();
 		await examinationTimetableRepository.updateByCaseId(
 			+id,
 			// @ts-ignore
 			{
 				published: true,
-				publishedAt: new Date()
+				publishedAt: now,
+				updatedAt: now
 			}
 		);
 		response.send({
