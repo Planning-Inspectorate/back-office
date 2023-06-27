@@ -7,7 +7,7 @@ import { databaseConnector } from '../utils/database-connector.js';
  */
 export const getByCaseId = (caseId) => {
 	return databaseConnector.examinationTimetable.findUnique({
-		where: { caseId },
+		where: { caseId }
 	});
 };
 
@@ -18,4 +18,17 @@ export const getByCaseId = (caseId) => {
  */
 export const create = (examinationTimetable) => {
 	return databaseConnector.examinationTimetable.create({ data: examinationTimetable });
-}
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {import('@pins/api').Schema.ExaminationTimetable} examinationTimetable
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetable>}
+ */
+export const update = (caseId, examinationTimetable) => {
+	return databaseConnector.examinationTimetable.update({
+		where: { caseId },
+		data: examinationTimetable
+	});
+};

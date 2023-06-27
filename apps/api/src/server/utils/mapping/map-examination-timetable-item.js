@@ -13,16 +13,7 @@ import { pick } from 'lodash-es';
 export const mapUpdateExaminationTimetableItemRequest = (examinationTimetableItemDetails) => {
 	const /** @type {ExaminationTimetableUpdateRequest} */ formattedDetails = pick(
 			examinationTimetableItemDetails,
-			[
-				'caseId',
-				'name',
-				'examinationTypeId',
-				'description',
-				'date',
-				'startDate',
-				'startTime',
-				'endTime'
-			]
+			['name', 'examinationTypeId', 'description', 'date', 'startDate', 'startTime', 'endTime']
 		);
 	return formattedDetails;
 };
