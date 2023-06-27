@@ -2,6 +2,7 @@ import supertest from 'supertest';
 import { app } from '../../../app-test.js';
 import {
 	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
@@ -22,9 +23,9 @@ const request = supertest(app);
 describe('appeals routes', () => {
 	describe('/appeals', () => {
 		describe('GET', () => {
-			test('gets appeals when not given pagination params', async () => {
+			test('gets appeals when not given pagination params or a search term', async () => {
 				// @ts-ignore
-				databaseConnector.appeal.count.mockResolvedValue(5);
+				databaseConnector.appeal.count.mockResolvedValue(2);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal, fullPlanningAppeal]);
 
@@ -38,7 +39,7 @@ describe('appeals routes', () => {
 				);
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					itemCount: 5,
+					itemCount: 2,
 					items: [
 						{
 							appealId: householdAppeal.id,
@@ -77,7 +78,7 @@ describe('appeals routes', () => {
 
 			test('gets appeals when given pagination params', async () => {
 				// @ts-ignore
-				databaseConnector.appeal.count.mockResolvedValue(5);
+				databaseConnector.appeal.count.mockResolvedValue(1);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([fullPlanningAppeal]);
 
@@ -91,7 +92,7 @@ describe('appeals routes', () => {
 				);
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					itemCount: 5,
+					itemCount: 1,
 					items: [
 						{
 							appealId: fullPlanningAppeal.id,
@@ -109,8 +110,182 @@ describe('appeals routes', () => {
 						}
 					],
 					page: 2,
-					pageCount: 5,
+					pageCount: 1,
 					pageSize: 1
+				});
+			});
+
+			test('gets appeals when given an uppercase search term', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request.get('/appeals?searchTerm=MD21');
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							OR: [
+								{
+									reference: {
+										contains: 'MD21'
+									}
+								},
+								{
+									address: {
+										postcode: {
+											contains: 'MD21'
+										}
+									}
+								}
+							],
+							appealStatus: {
+								some: {
+									valid: true
+								}
+							}
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								town: householdAppeal.address.town,
+								county: householdAppeal.address.county,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.localPlanningDepartment
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30
+				});
+			});
+
+			test('gets appeals when given a lowercase search term', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request.get('/appeals?searchTerm=md21');
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							OR: [
+								{
+									reference: {
+										contains: 'md21'
+									}
+								},
+								{
+									address: {
+										postcode: {
+											contains: 'md21'
+										}
+									}
+								}
+							],
+							appealStatus: {
+								some: {
+									valid: true
+								}
+							}
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								town: householdAppeal.address.town,
+								county: householdAppeal.address.county,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.localPlanningDepartment
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30
+				});
+			});
+
+			test('gets appeals when given a search term with a space', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request.get('/appeals?searchTerm=MD21 5XY');
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							OR: [
+								{
+									reference: {
+										contains: 'MD21 5XY'
+									}
+								},
+								{
+									address: {
+										postcode: {
+											contains: 'MD21 5XY'
+										}
+									}
+								}
+							],
+							appealStatus: {
+								some: {
+									valid: true
+								}
+							}
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								town: householdAppeal.address.town,
+								county: householdAppeal.address.county,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.localPlanningDepartment
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30
 				});
 			});
 
@@ -176,6 +351,28 @@ describe('appeals routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						pageSize: ERROR_MUST_BE_GREATER_THAN_ZERO
+					}
+				});
+			});
+
+			test('returns an error if searchTerm is less than 2 characters', async () => {
+				const response = await request.get('/appeals?searchTerm=a');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						searchTerm: ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS
+					}
+				});
+			});
+
+			test('returns an error if searchTerm is more than 8 characters', async () => {
+				const response = await request.get('/appeals?searchTerm=aaaaaaaaa');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						searchTerm: ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS
 					}
 				});
 			});
