@@ -4,7 +4,8 @@ import supertest from 'supertest';
 import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
 import {
 	fixtureTimetableTypes,
-	fixtureTimetableItems
+	fixtureTimetableItems,
+	fixtureTimetable
 } from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
@@ -21,7 +22,7 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/123')
 		.times(3)
-		.reply(200, fixtureTimetableItems);
+		.reply(200, fixtureTimetable);
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/1')
