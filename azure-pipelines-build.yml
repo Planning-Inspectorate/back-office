@@ -207,7 +207,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/odw-integration/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
