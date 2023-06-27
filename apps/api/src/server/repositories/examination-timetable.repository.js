@@ -1,0 +1,21 @@
+import { databaseConnector } from '../utils/database-connector.js';
+
+/**
+ *
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetable | null>}
+ */
+export const getByCaseId = (caseId) => {
+	return databaseConnector.examinationTimetable.findUnique({
+		where: { caseId },
+	});
+};
+
+/**
+ *
+ * @param {import('@pins/api').Schema.ExaminationTimetable} examinationTimetable
+ * @returns {Promise<import('@pins/api').Schema.ExaminationTimetable>}
+ */
+export const create = (examinationTimetable) => {
+	return databaseConnector.examinationTimetable.create({ data: examinationTimetable });
+}
