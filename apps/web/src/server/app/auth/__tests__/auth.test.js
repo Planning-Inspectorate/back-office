@@ -140,7 +140,7 @@ describe('auth', () => {
 		});
 
 		it('should silently reacquire a token on each route navigation', async () => {
-			await signinWithGroups(['appeals_validation_officer']);
+			await signinWithGroups(['applications_case_team']);
 			await request.get('/');
 
 			const client = getConfidentialClientApplication();
@@ -171,7 +171,7 @@ describe('auth', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 
-			await signinWithGroups(['appeals_validation_officer']);
+			await signinWithGroups(['applications_case_team']);
 			response = await request.get(`/unauthenticated`);
 			element = parseHtml(response.text, { rootElement: '.govuk-header' });
 
@@ -179,7 +179,7 @@ describe('auth', () => {
 		});
 
 		it('should destroy the msal token cache and session upon logging out', async () => {
-			await signinWithGroups(['appeals_validation_officer']);
+			await signinWithGroups(['applications_case_team']);
 			await request.get('/auth/signout');
 
 			// access an authenticated route to determine if we're signed out
@@ -278,11 +278,10 @@ function getConfidentialClientApplication() {
 	);
 }
 
-/** @typedef {'appeals_validation_officer' | 'appeals_case_officer' | 'appeals_inspector'} AppealGroupId  */
 /** @typedef {'applications_case_admin_officer' | 'applications_case_team' | 'applications_inspector'} ApplicationsGroupId  */
 
 /**
- * @param {Array<AppealGroupId | ApplicationsGroupId>} groups
+ * @param {Array<ApplicationsGroupId>} groups
  * @returns {Promise<void>}
  */
 async function signinWithGroups(groups) {

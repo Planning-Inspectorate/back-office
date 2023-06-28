@@ -33,7 +33,35 @@
               {% endif %}
             </ul>
           </div>
-        {% else %}
+        {% endif %}
+
+        {% if appealGroupIds.length > 0 %}
+          <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-m">Appeals</h2>
+            <ul class="govuk-list">
+                <li>
+                  <a href="/appeals-service/appeals-list" class="govuk-link">National List</a>
+                </li>
+              {# {% if appealGroupIds | includes(referenceData.appeals.caseOfficerGroupId) %}
+                <li>
+                  <a href="/appeals-service/case-officer" class="govuk-link">Case officer</a>
+                </li>
+              {% endif %}
+              {% if appealGroupIds | includes(referenceData.appeals.inspectorGroupId) %}
+                <li>
+                  <a href="/appeals-service/inspector" class="govuk-link">Inspector</a>
+                </li>
+              {% endif %}
+              {% if appealGroupIds | includes(referenceData.appeals.validationOfficerGroupId) %}
+                <li>
+                  <a href="/appeals-service/validation" class="govuk-link">Validation officer</a>
+                </li>
+              {% endif %} #}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% if applicationGroupdIds.length === 0 and appealGroupIds.length === 0 %}
           <div class="govuk-grid-column-two-thirds">
             <p class="govuk-body">No groups found.</p>
           </div>
