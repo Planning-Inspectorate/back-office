@@ -13,7 +13,7 @@ datasource db {
 /// TODO: Migrate this model to integrated into the Case model same as with Applications
 model Appeal {
   id                           Int                   @id @default(autoincrement())
-  reference                    String
+  reference                    String                @unique
   createdAt                    DateTime              @default(now())
   updatedAt                    DateTime              @default(now())
   addressId                    Int?
@@ -41,6 +41,8 @@ model Appeal {
   linkedAppeals                Appeal[]              @relation("LinkedAppeals")
   otherAppeal                  Appeal?               @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   otherAppeals                 Appeal[]              @relation("OtherAppeals")
+  Folder                       Folder[]
+  Document                     Document[]
 }
 
 /// AppealType model
@@ -152,12 +154,10 @@ model Case {
   title                    String?
   ApplicationDetails       ApplicationDetails?
   CaseStatus               CaseStatus[]
-  folder                   Folder[]
   gridReference            GridReference?
   serviceCustomer          ServiceCustomer[]
   Representation           Representation[]
   ExaminationTimetableItem ExaminationTimetableItem[]
-  document                 Document[]
 }
 
 /// ServiceCustomer model
@@ -444,18 +444,14 @@ model ZoomLevel {
 /// This exists to specify the struture with which documents are displayed
 /// in the back office (not the front office).
 model Folder {
-  id                       Int                        @id @default(autoincrement())
-  displayNameEn            String
-  displayOrder             Int?
-  parentFolderId           Int?
-  caseId                   Int?
-  document                 Document[]
-  case                     Case?                      @relation(fields: [caseId], references: [id])
-  parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  childFolders             Folder[]                   @relation("FolderTree")
-  ExaminationTimetableItem ExaminationTimetableItem[]
+  id          Int        @id @default(autoincrement())
+  path        String
+  displayName String?
+  caseId      Int?
+  documents   Document[]
+  case        Appeal?    @relation(fields: [caseId], references: [id])
 
-  @@unique([caseId, displayNameEn, parentFolderId])
+  @@unique([caseId, path])
 }
 
 /// Document model
@@ -475,7 +471,7 @@ model Document {
   documentVersion          DocumentVersion[]         @relation("VersionHistory")
   representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  case                     Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -616,7 +612,6 @@ model ExaminationTimetableItem {
   published                Boolean                  @default(false)
   Case                     Case                     @relation(fields: [caseId], references: [id])
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
-  Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
 }
 
 model ProcedureType {

@@ -1,7 +1,7 @@
 import { truncateTable } from '../prisma.truncate.js';
 
 /**
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();
@@ -74,12 +74,6 @@ export async function deleteAllRecords(databaseConnector) {
 	await truncateTable('RegionsOnApplicationDetails');
 	await truncateTable('ExaminationTimetableItem');
 
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-
 	await databaseConnector.$transaction([
 		deleteGridReference,
 		deleteServiceCustomers,
@@ -122,20 +116,4 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteAppellantCaseInvalidReason;
 	await deleteAppellantCaseValidationOutcome;
 	await deleteLPAQuestionnaireValidationOutcome;
-}
-
-/**
- *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
- */
-async function deleteLowestFolders(databaseConnector) {
-	await databaseConnector.folder.deleteMany({
-		where: {
-			childFolders: {
-				every: {
-					parentFolder: null
-				}
-			}
-		}
-	});
 }

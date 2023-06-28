@@ -12,8 +12,8 @@
  * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
  * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
  * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason} AppellantCaseInvalidReason
- * @typedef {import('apps/api/src/database/schema.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
- * @typedef {import('apps/api/src/database/schema.js').LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
+ * @typedef {import('appeals/api/src/database/schema.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
+ * @typedef {import('appeals/api/src/database/schema.js').LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
  */
 
 /**
@@ -243,7 +243,7 @@ export const lpaQuestionnaireIncompleteReasons = [
 /**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function seedStaticData(databaseConnector) {
 	for (const appealType of appealTypes) {

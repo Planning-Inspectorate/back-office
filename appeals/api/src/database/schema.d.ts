@@ -1,6 +1,4 @@
 import * as schema from '../../src/server/utils/db-client';
-import { ZoomLevel } from '../../src/server/utils/db-client';
-import { GridReference } from 'packages/applications';
 import { string_to_uuid } from 'rhea/typings/util';
 import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/appeals/constants';
 
@@ -9,45 +7,26 @@ export {
 	Appellant,
 	AppellantCase,
 	AppellantCaseIncompleteReason,
-	AppellantCaseIncompleteReasonOnAppellantCase,
 	AppellantCaseInvalidReason,
+	AppellantCaseIncompleteReasonOnAppellantCase,
 	AppellantCaseInvalidReasonOnAppellantCase,
-	AppellantCaseValidationOutcome,
-	BatchPayload,
-	CaseStatus,
+	Folder,
 	Document,
-	DocumentUpdateInput,
 	DocumentVersion,
-	DocumentVersionUpdateInput,
-	ExaminationTimetableItem,
-	ExaminationTimetableType,
-	GridReference,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,
-	LPAQuestionnaireIncompleteReason,
-	LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
-	LPAQuestionnaireValidationOutcome,
-	PlanningObligationStatus,
-	Region,
-	RegionsOnApplicationDetails,
-	Representation,
-	RepresentationContact,
 	ReviewQuestionnaire,
-	Sector,
-	SubSector,
-	ZoomLevel
-} from '#db-client';
+	LPAQuestionnaireIncompleteReason,
+	LPAQuestionnaireValidationOutcome,
+	AppellantCaseValidationOutcome,
+	PlanningObligationStatus
+} from '../../src/server/utils/db-client';
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	serviceCustomer?: ServiceCustomer[];
 	ApplicationDetails?: ApplicationDetails | null;
 	gridReference?: GridReference | null;
-}
-
-export interface Folder extends schema.Folder {
-	case?: Case;
-	parentFolder?: Folder;
 }
 
 export interface ApplicationDetails extends schema.ApplicationDetails {
@@ -98,6 +77,13 @@ export interface AppealDocument {
 	type: AppealDocumentType;
 	filename: string;
 	url: string;
+}
+
+export interface FolderTemplate {
+	path: string;
+	displayName?: string;
+	caseId?: number;
+	documents?: [Document];
 }
 
 export interface AppealStatus extends schema.AppealStatus {
@@ -215,16 +201,6 @@ export interface InspectorDecision extends schema.InspectorDecision {
 
 export type InspectorDecisionOutcomeType = 'allowed' | 'dismissed' | 'split decision';
 
-export type CaseStatusNameType =
-	| 'Pre-application'
-	| 'Acceptance'
-	| 'Pre-examination'
-	| 'Examination'
-	| 'Recommendation'
-	| 'Decision'
-	| 'Post decision'
-	| 'Withdrawn';
-
 export interface DocumentDetails {
 	documentId: number | null;
 	sourceSystem: string;
@@ -244,35 +220,9 @@ export interface DocumentDetails {
 	description: string | null;
 	version: number | null;
 	representative: string | null;
-	stage: string | null;
-	filter1: string | null;
-	filter2: string | null;
 	documentType: string | null;
 	caseRef: string | null;
-	examinationRefNo: string;
 }
-
-export interface DocumentVersion extends schema.DocumentVersion {}
-
-export interface DocumentWithSubTables extends schema.Document {
-	folder: Folder;
-	case: Case;
-	latestDocumentVersion: DocumentVersion;
-}
-
-export interface DocumentVersionWithDocument extends DocumentVersion {
-	documentName?: string;
-	Document?: DocumentWithSubTables;
-}
-
-export interface DocumentVersionInput extends DocumentVersion {
-	documentName?: string;
-}
-
-export interface DocumentMetadata extends schema.DocumentMetadata {}
-
-export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
-
 export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	communityInfrastructureLevyAdoptionDate: Date | null;
 	designatedSites: DesignatedSite[] | null;
