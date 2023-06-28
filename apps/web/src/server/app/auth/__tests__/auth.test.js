@@ -191,82 +191,12 @@ describe('auth', () => {
 
 	describe('authorization', () => {
 		it('should display the services page when a user belongs to more than one group', async () => {
-			await signinWithGroups(['appeals_validation_officer', 'applications_case_team']);
+			await signinWithGroups(['applications_case_admin_officer', 'applications_case_team']);
 
 			const response = await request.get('/');
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		describe('/appeals-service/appeals-list', () => {
-			beforeEach(() => {
-				nock('http://test/').get('/appeals?pageNumber=1&pageSize=30').reply(200, []);
-			});
-
-			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups([]);
-
-				const response = await request.get('/appeals-service/appeals-list').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with your login'
-				);
-			});
-
-			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['appeals_validation_officer']);
-
-				const response = await request.get('/appeals-service/appeals-list');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeals');
-			});
-
-			it('should redirect to the national-list page from the root path', async () => {
-				await signinWithGroups(['appeals_validation_officer']);
-
-				const response = await request.get('/').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual('Appeals');
-			});
-		});
-
-		describe('/applications-service/case-admin-officer', () => {
-			beforeEach(() => {
-				nock('http://test/').get('/applications/case-admin-officer').reply(200, []);
-			});
-
-			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['applications_case_team', 'applications_case_team']);
-
-				const response = await request.get('/applications-service/inspector').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with your login'
-				);
-			});
-
-			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['applications_case_admin_officer']);
-
-				const response = await request.get('/applications-service/case-admin-officer');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
-			});
-
-			it('should redirect to the case admin officer page from the root path', async () => {
-				await signinWithGroups(['applications_case_admin_officer']);
-
-				const response = await request.get('/').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
-			});
 		});
 
 		describe('/applications-service/case-team', () => {

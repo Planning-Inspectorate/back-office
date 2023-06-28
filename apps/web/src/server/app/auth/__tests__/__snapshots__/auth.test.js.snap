@@ -286,12 +286,7 @@ exports[`auth authorization should display the services page when a user belongs
                 <ul class=\\"govuk-list\\">
                     <li><a href=\\"/applications-service/case-team\\" class=\\"govuk-link\\">Case team</a>
                     </li>
-                </ul>
-            </div>
-            <div class=\\"govuk-grid-column-one-half\\">
-                <h2 class=\\"govuk-heading-m\\">Appeals</h2>
-                <ul class=\\"govuk-list\\">
-                    <li><a href=\\"/appeals-service/appeals-list\\" class=\\"govuk-link\\">National List</a>
+                    <li><a href=\\"/applications-service/case-admin-officer\\" class=\\"govuk-link\\">Case admin officer</a>
                     </li>
                 </ul>
             </div>

@@ -4,7 +4,7 @@ import { capitalize } from 'lodash-es';
 
 /**
  *
- * @param {import('apps/web/src/server/appeals/appellant-case/appellant-case.types').SingleAppellantCaseResponse} appellantCaseData
+ * @param {import('appeals/web/src/server/appeals/appellant-case/appellant-case.types').SingleAppellantCaseResponse} appellantCaseData
  * @returns {SummaryListBuilderParameters[]}
  */
 export function mapResponseToSummaryListBuilderParameters(appellantCaseData) {
