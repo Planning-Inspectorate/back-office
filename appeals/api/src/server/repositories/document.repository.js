@@ -50,6 +50,24 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 };
 
 /**
+ * Get a all documents for a caseId
+ *
+ * @param {number} caseId
+ * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.Document |null>}
+ */
+export const getDocumentsByAppealId = (caseId) => {
+	return databaseConnector.document.findMany({
+		include: { documentVersion: true },
+		where: {
+			isDeleted: false,
+			folder: {
+				caseId
+			}
+		}
+	});
+};
+
+/**
  * From a given list of document ids, retrieve the ones which are publishable
  *
  * @param {string[]} documentIds

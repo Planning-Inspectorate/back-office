@@ -266,6 +266,8 @@ interface DocumentationSummary {
 	lpaQuestionnaire?: DocumentationSummaryEntry;
 }
 
+interface CaseFolder {}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
