@@ -32,7 +32,7 @@
     "web:appeals": "npm run dev --workspace=@pins/appeals.web",
     "api:appeals": "npm run dev --workspace=@pins/appeals.api",
 		"dev:applications": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
-		"test:applications": "turbo run test",
+		"test:applications": "turbo run test --filter=./apps/*",
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
     "api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing"
