@@ -11,7 +11,10 @@ CREATE TABLE [dbo].[ProjectUpdate] (
     [emailSubscribers] BIT NOT NULL CONSTRAINT [ProjectUpdate_emailSubscribers_df] DEFAULT 0,
     [status] NVARCHAR(1000) NOT NULL CONSTRAINT [ProjectUpdate_status_df] DEFAULT 'draft',
     [datePublished] DATETIME2,
+    [sentToSubscribers] BIT NOT NULL CONSTRAINT [ProjectUpdate_sentToSubscribers_df] DEFAULT 0,
+    [title] NVARCHAR(1000),
     [htmlContent] NVARCHAR(1000) NOT NULL,
+    [htmlContentWelsh] NVARCHAR(1000),
     CONSTRAINT [ProjectUpdate_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
