@@ -2,7 +2,6 @@ import { databaseConnector } from '../utils/database-connector.js';
 import { defaultCaseFolders } from './folder.layout.repository.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
-/** @typedef {import('@pins/appeals').FolderTemplate} FolderTemplate */
 
 /**
  * Returns array of folders in a folder or case (if parentFolderId is null)
