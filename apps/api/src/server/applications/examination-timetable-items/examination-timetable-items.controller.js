@@ -92,6 +92,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	body.folderId = itemFolder.id;
+	body.publishedAt = null;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
 	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
@@ -186,11 +187,13 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
  */
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
+	console.log(189, 'publish gse');
 	try {
 		await examinationTimetableItemsRepository.updateByCaseId(
 			+id,
 			// @ts-ignore
 			{
+				publishedAt: new Date(),
 				published: true
 			}
 		);

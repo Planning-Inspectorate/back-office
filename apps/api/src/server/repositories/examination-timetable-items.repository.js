@@ -47,11 +47,16 @@ export const create = (examinationTimetableItem) => {
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
  */
 export const updateByCaseId = (caseId, examinationTimetableItem) => {
+	const data = {
+		...examinationTimetableItem,
+		modifiedAt: new Date()
+	};
+
 	return databaseConnector.examinationTimetableItem.updateMany({
 		where: {
 			caseId
 		},
-		data: examinationTimetableItem
+		data
 	});
 };
 
@@ -65,7 +70,10 @@ export const updateByCaseId = (caseId, examinationTimetableItem) => {
 export const update = (id, examinationTimetableItem) => {
 	return databaseConnector.examinationTimetableItem.update({
 		where: { id: id },
-		data: examinationTimetableItem
+		data: {
+			modifiedAt: new Date(),
+			...examinationTimetableItem
+		}
 	});
 };
 

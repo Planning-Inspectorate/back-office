@@ -1,0 +1,21 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[ExaminationTimetableItem] ADD
+    [publishedAt] DATETIME2,
+	[modifiedAt] DATETIME2 NOT NULL CONSTRAINT [ExaminationTimetableItem_modifiedAt_df] DEFAULT CURRENT_TIMESTAMP;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
