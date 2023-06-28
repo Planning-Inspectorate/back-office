@@ -22,7 +22,6 @@
 					{% endif %}
 					<span>
 					Your file must be {% for extension in params.allowedTypes %}
-
 						{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}{% endif %}
 						{% endfor %}.
 				</span>
