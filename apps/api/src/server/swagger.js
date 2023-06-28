@@ -451,9 +451,12 @@ const document = {
 					authorId: 3,
 					$dateCreated: '2022-12-21T12:42:40.885Z',
 					$emailSubscribers: true,
+					$sentToSubscribers: true,
 					$status: 'draft',
 					datePublished: '2022-12-22T12:42:40.885Z',
-					$htmlContent: '<b>Important Update</b> Something happened.'
+					title: 'Internal title',
+					$htmlContent: '<b>Important Update</b> Something happened.',
+					htmlContentWelsh: '<b>Diweddariad Pwysig</b> Digwyddodd rhywbeth.'
 				}
 			]
 		},

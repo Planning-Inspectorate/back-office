@@ -11,7 +11,10 @@ describe('project-updates.view-model', () => {
 				caseId: 2,
 				dateCreated: '',
 				emailSubscribers: false,
+				sentToSubscribers: false,
 				htmlContent: '',
+				htmlContentWelsh: null,
+				title: null,
 				id: 3,
 				status: 'draft'
 			};

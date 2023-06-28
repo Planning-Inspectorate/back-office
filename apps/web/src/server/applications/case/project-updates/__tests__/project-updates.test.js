@@ -21,7 +21,10 @@ function testUpdate() {
 		caseId: 2,
 		dateCreated: '',
 		emailSubscribers: false,
+		sentToSubscribers: false,
 		htmlContent: 'My project update',
+		htmlContentWelsh: null,
+		title: null,
 		id: 3,
 		status: 'draft'
 	};
