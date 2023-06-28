@@ -25,8 +25,11 @@ describe('project-updates', () => {
 				dateCreated: now,
 				status: 'draft',
 				emailSubscribers: true,
+				sentToSubscribers: true,
 				authorId: 1,
 				htmlContent: 'content',
+				htmlContentWelsh: null,
+				title: null,
 				datePublished: null
 			};
 		};

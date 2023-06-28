@@ -9,8 +9,11 @@ export function mapProjectUpdate(projectUpdate) {
 		authorId: projectUpdate.authorId,
 		dateCreated: projectUpdate.dateCreated.toISOString(),
 		emailSubscribers: projectUpdate.emailSubscribers,
+		sentToSubscribers: projectUpdate.sentToSubscribers,
 		status: projectUpdate.status,
 		datePublished: projectUpdate.datePublished?.toISOString(),
-		htmlContent: projectUpdate.htmlContent
+		title: projectUpdate.title,
+		htmlContent: projectUpdate.htmlContent,
+		htmlContentWelsh: projectUpdate.htmlContentWelsh
 	};
 }
