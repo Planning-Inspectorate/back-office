@@ -32,7 +32,7 @@
 				{{pageTitle}}
 			</h1>
 
-			<form method="post" action="{{'timetable'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id}) }}">
+			<form method="post" action="{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id}) }}">
 				{% include 'app/includes/csrf.njk' %}
 
 				{{timetableItemSummary(timetableItem)}}

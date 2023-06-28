@@ -1,3 +1,10 @@
+import { getPageTitles } from '../utils/get-page-titles.js';
+
+const titles = {
+	default: 'Representation type',
+	change: 'Change representation type'
+};
+
 /**
  * @typedef {object|*} Locals
  * @property {boolean} isRepresented
@@ -5,23 +12,14 @@
  */
 
 /**
- * @typedef {object|*} Query
- * @property {string} repType
- * @property {string} repId
- */
-
-/**
- * @param {Query} query
+ * @param {object|*} query
  * @param {Locals} locals
  * @returns {object}
  */
 
-export const getRepresentationTypeViewModel = (
-	{ repType, repId },
-	{ prefixBackLink, representation }
-) => ({
-	backLinkUrl: `${prefixBackLink}/contact-method?repType=${repType}&repId=${repId}`,
-	pageTitle: 'Representation type',
+export const getRepresentationTypeViewModel = ({ repMode }, { representation }) => ({
+	...getPageTitles(repMode, titles),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	representationTypes: representationTypeOptions(representation)
 });
 

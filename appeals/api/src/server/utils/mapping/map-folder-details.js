@@ -1,4 +1,4 @@
-/** @typedef {import('@pins/api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
 
 /**

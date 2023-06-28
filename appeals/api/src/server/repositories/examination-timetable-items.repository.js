@@ -3,7 +3,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 /**
  *
  * @param {number} id
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem | null>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableItem | null>}
  */
 export const getById = (id) => {
 	return databaseConnector.examinationTimetableItem.findUnique({
@@ -15,7 +15,7 @@ export const getById = (id) => {
 /**
  *
  * @param {number} caseId
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem[] | null>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableItem[] | null>}
  */
 export const getByCaseId = (caseId) => {
 	return databaseConnector.examinationTimetableItem.findMany({
@@ -29,8 +29,8 @@ export const getByCaseId = (caseId) => {
 
 /**
  *
- * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem>}
+ * @param {import('@pins/appeals.api').Schema.ExaminationTimetableItem} examinationTimetableItem
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableItem>}
  */
 export const create = (examinationTimetableItem) => {
 	return databaseConnector.examinationTimetableItem.create({ data: examinationTimetableItem });
@@ -39,8 +39,8 @@ export const create = (examinationTimetableItem) => {
 /**
  *
  * @param {number} caseId
- * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
- * @returns {import('#db-client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ * @param {import('@pins/appeals.api').Schema.ExaminationTimetableItem} examinationTimetableItem
+ * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.BatchPayload>}
  */
 export const updateByCaseId = (caseId, examinationTimetableItem) => {
 	return databaseConnector.examinationTimetableItem.updateMany({
@@ -54,7 +54,7 @@ export const updateByCaseId = (caseId, examinationTimetableItem) => {
 /**
  *
  * @param {number} id
- * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem | null>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.ExaminationTimetableItem | null>}
  */
 export const deleteById = (id) => {
 	return databaseConnector.examinationTimetableItem.delete({

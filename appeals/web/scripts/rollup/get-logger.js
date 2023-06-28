@@ -16,6 +16,6 @@ export const getLogger = ({ scope = 'PI' } = {}) =>
 			error: { badge: figures.cross, color: 'red', label: '', stream: [process.stderr] },
 			log: { badge: figures.info, color: 'magenta', label: '', stream: [process.stdout] },
 			success: { badge: figures.tick, color: 'green', label: '', stream: [process.stdout] },
-			warn: { badge: figures.warning, color: 'orange', label: '', stream: [process.stdout] }
+			warn: { badge: figures.warning, color: 'yellow', label: '', stream: [process.stdout] }
 		}
 	});

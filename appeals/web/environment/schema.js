@@ -3,8 +3,10 @@ import joi from 'joi';
 const logLevel = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent'];
 
 export default joi.object({
+	appHostname: joi.string(),
 	apiUrl: joi.string().uri(),
 	authDisabled: joi.boolean().optional(),
+	authRedirectPath: joi.string(),
 	blobStorageUrl: joi.string(),
 	env: joi.string().valid('development', 'production', 'test', 'local'),
 	isRelease: joi.boolean().optional(),
@@ -18,7 +20,9 @@ export default joi.object({
 	}),
 	serverProtocol: joi.string().valid('http', 'https'),
 	serverPort: joi.number(),
-	sessionSecret: joi.string(),
+	sessionSecret: joi
+		.string()
+		.when('env', { is: 'test', then: joi.optional(), otherwise: joi.optional() }),
 	sslCertificateFile: joi.string(),
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({

@@ -1,4 +1,5 @@
 export interface ApplicationsTimetableCreateBody extends Record<string, string | undefined> {
+	timetableId?: string;
 	name: string;
 	templateType: string;
 	description: string;
@@ -16,17 +17,19 @@ export interface ApplicationsTimetableCreateBody extends Record<string, string |
 	'starTime.minutes'?: string;
 	'endTime.hours'?: string;
 	'endTime.minutes'?: string;
-	'timetable-id': string;
+	timetableTypeId: string;
 }
 
-export interface ApplicationsTimetable {
+export interface ExaminationTimetableType {
+	id: number;
+	name: string;
+	templateType: string;
+}
+
+export interface ApplicationsTimetablePayload {
 	id?: number;
 	caseId: number;
 	examinationTypeId: number;
-	ExaminationTimetableType?: {
-		name: string;
-		templateType: string;
-	};
 	name: string;
 	description: string;
 	date: Date;
@@ -34,4 +37,8 @@ export interface ApplicationsTimetable {
 	startDate: Date | null;
 	startTime: string | null;
 	endTime: string | null;
+	submissions?: boolean;
+}
+export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
+	ExaminationTimetableType: ExaminationTimetableType;
 }

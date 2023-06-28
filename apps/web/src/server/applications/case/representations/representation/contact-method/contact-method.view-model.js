@@ -1,3 +1,16 @@
+import { getRepTypePageTitles } from '../utils/get-rep-type-page-titles.js';
+
+const titles = {
+	represented: {
+		default: 'Preferred contact method',
+		change: 'Change contact method'
+	},
+	representative: {
+		default: 'Preferred agent contact method',
+		change: 'Change agent contact method'
+	}
+};
+
 /**
  * @param {object} representation
  * @param {string} representation.contactMethod
@@ -44,12 +57,9 @@ const getContactMethodOptions = ({ contactMethod }) => {
  * @param {Locals} locals
  * @returns {object}
  */
-export const getContactMethodViewModel = (
-	{ repType, repId },
-	{ prefixBackLink, representation }
-) => ({
-	backLinkUrl: `${prefixBackLink}/address-details?repType=${repType}&repId=${repId}`,
+export const getContactMethodViewModel = ({ repType, repMode }, { representation }) => ({
+	...getRepTypePageTitles(repType, repMode, titles),
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageKey: repType,
-	pageTitle: 'Preferred contact method',
 	contactMethodOptions: getContactMethodOptions(representation[repType])
 });

@@ -1,36 +1,48 @@
+import { getRepTypePageTitles } from '../utils/get-rep-type-page-titles.js';
 import { getAddressList } from './utils/get-address-list.js';
 import { getBackLinkUrl } from './utils/get-back-link-url.js';
 import { getStageParams } from './utils/get-stage-params.js';
 import { getStage } from './utils/get-stage.js';
 
+const titles = {
+	represented: {
+		default: 'Address details',
+		change: 'Change address details'
+	},
+	representative: {
+		default: 'Add agent address details',
+		change: 'Change agent address details'
+	}
+};
+
 /**
  * @typedef {object|*} Locals
- * @property {string} isRepresented
  * @property {object} representation
  */
 
 /**
- * @param {string} repId
- * @param {string} repType
+ * @param {object} query
  * @param {Locals} locals
+ * @param {string} repType
+ * @param {string|undefined} repMode
  * @param {string|undefined} stage
  * @param {string|undefined} postcode
  * @returns {Promise<object>}
  */
 export const getAddressDetailsViewModel = async (
-	repId,
+	query,
+	{ representation },
 	repType,
-	{ isRepresented, representation },
+	repMode,
 	stage,
 	postcode
 ) => {
-	const params = getStageParams(repId, repType, postcode);
+	const params = getStageParams(query, postcode);
 
 	return {
+		...getRepTypePageTitles(repType, repMode, titles),
 		addressList: stage === 'find' && postcode ? await getAddressList(postcode) : [],
-		backLinkUrl: getBackLinkUrl(repId, repType, stage, params),
-		pageTitle: isRepresented ? 'Address details' : 'Add agent address details',
-		pageHeading: isRepresented ? 'Address details' : 'Add an agent address',
+		backLinkUrl: getBackLinkUrl(representation, stage, postcode, params),
 		params,
 		postcode,
 		pageKey: repType,

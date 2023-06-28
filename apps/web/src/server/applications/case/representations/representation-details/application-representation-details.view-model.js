@@ -65,11 +65,11 @@ const getContactDetailsByContactType = ({ contacts }) => {
 		email: contact.email || '',
 		phoneNumber: contact.phoneNumber || '',
 		preferredContact: contact.contactMethod || '',
-		addressLine1: contact.address.addressLine1 || '',
-		addressLine2: contact.address.addressLine2 || '',
-		town: contact.address.town || '',
-		county: contact.address.county || '',
-		postcode: contact.address.postcode || ''
+		addressLine1: contact.address?.addressLine1 || '',
+		addressLine2: contact.address?.addressLine2 || '',
+		town: contact.address?.town || '',
+		county: contact.address?.county || '',
+		postcode: contact.address?.postcode || ''
 	}));
 };
 

@@ -1,4 +1,4 @@
-import { add, addBusinessDays, isAfter, isBefore, sub } from 'date-fns';
+import { add, addBusinessDays, isAfter, isBefore, isWeekend, parseISO, sub } from 'date-fns';
 import fetch from 'node-fetch';
 import appealRepository from '../../repositories/appeal.repository.js';
 import config from '../config.js';
@@ -6,14 +6,24 @@ import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	BANK_HOLIDAY_FEED_DIVISION_ENGLAND,
 	BANK_HOLIDAY_FEED_URL,
-	ERROR_NOT_FOUND
+	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
+	ERROR_NOT_FOUND,
+	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
+	VALIDATION_OUTCOME_COMPLETE,
+	VALIDATION_OUTCOME_INCOMPLETE,
+	VALIDATION_OUTCOME_INVALID,
+	VALIDATION_OUTCOME_VALID
 } from '../constants.js';
 
 /**
- * @typedef {import('@pins/api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents
- * @typedef {import('@pins/api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate
- * @typedef {import('@pins/api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions
- * @typedef {import('@pins/api').Schema.AppealType} AppealType
+ * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents
+ * @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate
+ * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions
+ * @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType
+ * @typedef {import('express').NextFunction} NextFunction
+ * @typedef {import('express').Request} Request
+ * @typedef {import('express').RequestHandler} RequestHandler
+ * @typedef {import('express').Response} Response
  */
 
 /**
@@ -40,6 +50,7 @@ const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISIO
 		const bankHolidayFeed = await fetch(BANK_HOLIDAY_FEED_URL);
 		const bankHolidayFeedJson = await bankHolidayFeed.json();
 
+		// @ts-ignore
 		return bankHolidayFeedJson[division].events;
 	} catch (error) {
 		throw new Error(String(error));
@@ -54,7 +65,7 @@ const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISIO
  * @param {BankHolidayFeedEvents} bankHolidays
  * @returns {{ bankHolidayCount: number, calculatedDate: Date }}
  */
-const recalculateDeadlineForBankHolidays = (dateFrom, dateTo, bankHolidays) => {
+const recalculateDateForBankHolidays = (dateFrom, dateTo, bankHolidays) => {
 	const bankHolidayCount = bankHolidaysBetweenDates(dateFrom, dateTo, bankHolidays);
 
 	if (bankHolidayCount) {
@@ -65,6 +76,57 @@ const recalculateDeadlineForBankHolidays = (dateFrom, dateTo, bankHolidays) => {
 	}
 
 	return { bankHolidayCount, calculatedDate: new Date(dateTo) };
+};
+
+/**
+ * @param {Date} startedAt
+ * @param {Date} calculatedDate
+ * @param {BankHolidayFeedEvents} bankHolidays
+ * @returns {Date}
+ */
+const addBankHolidayDays = (startedAt, calculatedDate, bankHolidays) => {
+	let bankHolidayCount = 0;
+
+	({ bankHolidayCount, calculatedDate } = recalculateDateForBankHolidays(
+		startedAt,
+		calculatedDate,
+		bankHolidays
+	));
+
+	while (bankHolidayCount > 0) {
+		({ bankHolidayCount, calculatedDate } = recalculateDateForBankHolidays(
+			calculatedDate,
+			calculatedDate,
+			bankHolidays
+		));
+	}
+
+	return calculatedDate;
+};
+
+/**
+ * @param {string} date
+ * @returns {Date}
+ */
+const addWeekendDays = (date) => {
+	let calculatedDate = parseISO(date);
+
+	while (isWeekend(calculatedDate)) {
+		calculatedDate = addBusinessDays(calculatedDate, 1);
+	}
+
+	return calculatedDate;
+};
+
+/**
+ * @param {string} date
+ * @returns {Promise<Date>}
+ */
+const recalculateDateIfNotBusinessDay = async (date) => {
+	const bankHolidays = await fetchBankHolidaysForDivision();
+	const calculatedDate = addWeekendDays(date);
+
+	return addBankHolidayDays(calculatedDate, calculatedDate, bankHolidays);
 };
 
 /**
@@ -88,21 +150,7 @@ const calculateTimetable = async (appealType, startedAt) => {
 			return Object.fromEntries(
 				Object.entries(appealTimetableConfig).map(([fieldName, { daysFromStartDate }]) => {
 					let calculatedDate = addBusinessDays(new Date(startedAt), daysFromStartDate);
-					let bankHolidayCount = 0;
-
-					({ bankHolidayCount, calculatedDate } = recalculateDeadlineForBankHolidays(
-						startedAt,
-						calculatedDate,
-						bankHolidays
-					));
-
-					while (bankHolidayCount > 0) {
-						({ bankHolidayCount, calculatedDate } = recalculateDeadlineForBankHolidays(
-							calculatedDate,
-							calculatedDate,
-							bankHolidays
-						));
-					}
+					calculatedDate = addBankHolidayDays(startedAt, calculatedDate, bankHolidays);
 
 					return [fieldName, calculatedDate];
 				})
@@ -112,7 +160,7 @@ const calculateTimetable = async (appealType, startedAt) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object | void>}
  */
 const checkAppealExistsAndAddToRequest = async (req, res, next) => {
@@ -130,7 +178,7 @@ const checkAppealExistsAndAddToRequest = async (req, res, next) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object | void>}
  */
 const checkLPAQuestionnaireExists = async (req, res, next) => {
@@ -148,7 +196,7 @@ const checkLPAQuestionnaireExists = async (req, res, next) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {RequestHandler}
  * @returns {Promise<object | void>}
  */
 const checkAppellantCaseExists = async (req, res, next) => {
@@ -166,16 +214,164 @@ const checkAppellantCaseExists = async (req, res, next) => {
 };
 
 /**
+ * @param {string} fieldName
+ * @param {string} databaseTable
+ * @returns {(req: {
+ * 	 body: {
+ * 		 [key: string]: string | string[],
+ *     otherNotValidReasons: string
+ *     validationOutcome: string
+ *   }
+ * }, res: Response, next: NextFunction) => Promise<object | void>}
+ */
+const checkLookupValuesAreValid = (fieldName, databaseTable) => async (req, res, next) => {
+	const {
+		body: { otherNotValidReasons }
+	} = req;
+	let {
+		body: { [fieldName]: valuesToCheck }
+	} = req;
+
+	if (valuesToCheck) {
+		valuesToCheck = typeof valuesToCheck !== 'object' ? [valuesToCheck] : valuesToCheck;
+
+		const lookupValues = await appealRepository.getLookupList(databaseTable);
+		const lookupValueOtherId = lookupValues.find(({ name }) => name === 'Other')?.id;
+
+		if (
+			lookupValueOtherId &&
+			valuesToCheck.some((valueToCheck) => Number(valueToCheck) === lookupValueOtherId) &&
+			!otherNotValidReasons
+		) {
+			return res
+				.status(400)
+				.send({ errors: { otherNotValidReasons: ERROR_OTHER_NOT_VALID_REASONS_REQUIRED } });
+		}
+
+		const lookupValueIds = lookupValues.map(({ id }) => id);
+		const hasValidValues = valuesToCheck.every((valueToCheck) =>
+			lookupValueIds.includes(Number(valueToCheck))
+		);
+
+		if (!hasValidValues) {
+			return res.status(404).send({ errors: { [fieldName]: ERROR_NOT_FOUND } });
+		}
+
+		if (
+			lookupValueOtherId &&
+			valuesToCheck.every((valueToCheck) => Number(valueToCheck) !== lookupValueOtherId) &&
+			otherNotValidReasons
+		) {
+			return res.status(400).send({
+				errors: { otherNotValidReasons: ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS }
+			});
+		}
+	}
+
+	next();
+};
+
+/**
+ * @param {string} databaseTable
+ * @param {string} errorMessage
+ * @returns {(req: Request, res: Response, next: NextFunction) => Promise<object | void>}
+ */
+const checkValidationOutcomeExistsAndAddToRequest =
+	(databaseTable, errorMessage) => async (req, res, next) => {
+		const {
+			body: { validationOutcome }
+		} = req;
+
+		const validationOutcomeMatch = await appealRepository.getLookupListValueByName(
+			databaseTable,
+			validationOutcome
+		);
+
+		if (!validationOutcomeMatch) {
+			return res.status(400).send({
+				errors: {
+					validationOutcome: errorMessage
+				}
+			});
+		}
+
+		req.validationOutcome = validationOutcomeMatch;
+
+		next();
+	};
+
+/**
+ *
+ * @param {{
+ *  data: Array<number | string>
+ *  relationOne: string
+ *  relationTwo: string
+ *  relationOneId: number
+ * }} param0
+ * @returns
+ */
+const createManyToManyRelationData = ({ data, relationOne, relationTwo, relationOneId }) =>
+	data.map((item) => ({
+		[relationOne]: relationOneId,
+		[relationTwo]: Number(item)
+	}));
+
+/**
  * @param {Pick<AppealType, 'shorthand'> | null} appealType
  * @returns {boolean}
  */
 const isFPA = (appealType) =>
 	Boolean(appealType && appealType.shorthand === APPEAL_TYPE_SHORTCODE_FPA);
 
+/**
+ * @param {string} validationOutcomeParameter
+ * @param {string} validationOutcomeConstant
+ * @returns {boolean}
+ */
+const compareValidationOutcome = (validationOutcomeParameter, validationOutcomeConstant) =>
+	validationOutcomeParameter.toLowerCase() === validationOutcomeConstant.toLowerCase();
+
+/**
+ * @param {string} validationOutcome
+ * @returns {boolean}
+ */
+const isOutcomeComplete = (validationOutcome) =>
+	compareValidationOutcome(validationOutcome, VALIDATION_OUTCOME_COMPLETE);
+
+/**
+ * @param {string} validationOutcome
+ * @returns {boolean}
+ */
+const isOutcomeIncomplete = (validationOutcome) =>
+	compareValidationOutcome(validationOutcome, VALIDATION_OUTCOME_INCOMPLETE);
+
+/**
+ * @param {string} validationOutcome
+ * @returns {boolean}
+ */
+const isOutcomeInvalid = (validationOutcome) =>
+	compareValidationOutcome(validationOutcome, VALIDATION_OUTCOME_INVALID);
+
+/**
+ * @param {string} validationOutcome
+ * @returns {boolean}
+ */
+const isOutcomeValid = (validationOutcome) =>
+	compareValidationOutcome(validationOutcome, VALIDATION_OUTCOME_VALID);
+
 export {
 	calculateTimetable,
 	checkAppealExistsAndAddToRequest,
 	checkAppellantCaseExists,
 	checkLPAQuestionnaireExists,
-	isFPA
+	checkLookupValuesAreValid,
+	checkValidationOutcomeExistsAndAddToRequest,
+	createManyToManyRelationData,
+	fetchBankHolidaysForDivision,
+	isFPA,
+	isOutcomeComplete,
+	isOutcomeIncomplete,
+	isOutcomeInvalid,
+	isOutcomeValid,
+	recalculateDateIfNotBusinessDay
 };

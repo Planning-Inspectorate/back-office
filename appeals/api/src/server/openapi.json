@@ -2,8 +2,8 @@
 	"openapi": "3.0.0",
 	"info": {
 		"version": "2.0",
-		"title": "PINS Back Office API",
-		"description": "PINS Back Office API documentation from Swagger"
+		"title": "PINS Back Office Appeals API",
+		"description": "PINS Back Office Appeals API documentation from Swagger"
 	},
 	"host": "",
 	"basePath": "",
@@ -15,6 +15,87 @@
 	],
 	"securityDefinitions": {},
 	"paths": {
+		"/appeals/appellant-case-incomplete-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appellant case incomplete reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case incomplete reasons",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseIncompleteReasonsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseIncompleteReasonsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/appellant-case-invalid-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appellant case invalid reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case invalid reasons",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseInvalidReasonsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseInvalidReasonsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/lpa-questionnaire-incomplete-reasons": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets LPA questionnaire incomplete reasons",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA questionnaire incomplete reasons",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireIncompleteReasonsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireIncompleteReasonsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -23,7 +104,7 @@
 					{
 						"name": "pageNumber",
 						"in": "query",
-						"description": "The pagination page number, required if pageSize is given",
+						"description": "The pagination page number - required if pageSize is given",
 						"example": 1,
 						"schema": {
 							"type": "string"
@@ -32,8 +113,17 @@
 					{
 						"name": "pageSize",
 						"in": "query",
-						"description": "The pagination page size, required if pageNumber is given",
+						"description": "The pagination page size - required if pageNumber is given",
 						"example": 30,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "The search term - does a partial, case-insensitive match of appeal reference and postcode fields",
+						"example": "NR35 2ND",
 						"schema": {
 							"type": "string"
 						}
@@ -110,15 +200,6 @@
 						"schema": {
 							"type": "string"
 						}
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Appeal details to update",
-						"schema": {
-							"$ref": "#/components/schemas/UpdateAppealRequest"
-						},
-						"required": true
 					}
 				],
 				"responses": {
@@ -145,6 +226,23 @@
 					},
 					"500": {
 						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealRequest"
+							}
+						}
 					}
 				}
 			}
@@ -194,6 +292,68 @@
 						"description": "Not Found"
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Appeals"],
+				"description": "Updates a single LPA questionnaire for an appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "lpaQuestionnaireId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single LPA questionnaire by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateLPAQuestionnaireResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateLPAQuestionnaireResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "LPA questionnaire details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateLPAQuestionnaireRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateLPAQuestionnaireRequest"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/appeals/{appealId}/appellant-cases/{appellantCaseId}": {
@@ -241,1042 +401,13 @@
 						"description": "Not Found"
 					}
 				}
-			}
-		},
-		"/applications": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Creates new application",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Application Details",
-						"schema": {
-							"$ref": "#/components/schemas/CreateApplication"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "ID of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"applicantIds": {
-											"type": "array",
-											"example": [2],
-											"items": {
-												"type": "number"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"applicantIds": {
-											"type": "array",
-											"example": [2],
-											"items": {
-												"type": "number"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/start": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Moves application from Draft state to Pre-Application state",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Application Details",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "AB0110203"
-										},
-										"status": {
-											"type": "string",
-											"example": "Pre-Application"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "AB0110203"
-										},
-										"status": {
-											"type": "string",
-											"example": "Pre-Application"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all of the application details",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "query",
-						"in": "query",
-						"description": "Application details",
-						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "BC010001"
-										},
-										"title": {
-											"type": "string",
-											"example": "Office Use Test Application 1"
-										},
-										"description": {
-											"type": "string",
-											"example": "A description of test case 1 which is a case of subsector type Office Use"
-										},
-										"status": {
-											"type": "string",
-											"example": "Withdrawn"
-										},
-										"caseEmail": {
-											"type": "string",
-											"example": "caseemail@gmail.com"
-										},
-										"sector": {
-											"type": "object",
-											"properties": {}
-										},
-										"subSector": {
-											"type": "object",
-											"properties": {
-												"name": {
-													"type": "string",
-													"example": "office_use"
-												},
-												"abbreviation": {
-													"type": "string",
-													"example": "BC01"
-												},
-												"displayNameEn": {
-													"type": "string",
-													"example": "Office Use"
-												},
-												"displayNameCy": {
-													"type": "string",
-													"example": "Office Use"
-												}
-											}
-										},
-										"applicants": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										},
-										"geographicalInformation": {
-											"type": "object",
-											"properties": {
-												"mapZoomLevel": {
-													"type": "object",
-													"properties": {
-														"id": {
-															"type": "number",
-															"example": 5
-														},
-														"name": {
-															"type": "string",
-															"example": "district"
-														},
-														"displayNameEn": {
-															"type": "string",
-															"example": "District"
-														},
-														"displayNameCy": {
-															"type": "string",
-															"example": "District"
-														}
-													}
-												}
-											}
-										},
-										"locationDescription": {
-											"type": "string",
-											"example": "location description"
-										},
-										"gridReference": {
-											"type": "object",
-											"properties": {}
-										},
-										"regions": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {}
-											}
-										},
-										"keyDates": {
-											"type": "object",
-											"properties": {}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "BC010001"
-										},
-										"title": {
-											"type": "string",
-											"example": "Office Use Test Application 1"
-										},
-										"description": {
-											"type": "string",
-											"example": "A description of test case 1 which is a case of subsector type Office Use"
-										},
-										"status": {
-											"type": "string",
-											"example": "Withdrawn"
-										},
-										"caseEmail": {
-											"type": "string",
-											"example": "caseemail@gmail.com"
-										},
-										"sector": {
-											"type": "object",
-											"properties": {}
-										},
-										"subSector": {
-											"type": "object",
-											"properties": {
-												"name": {
-													"type": "string",
-													"example": "office_use"
-												},
-												"abbreviation": {
-													"type": "string",
-													"example": "BC01"
-												},
-												"displayNameEn": {
-													"type": "string",
-													"example": "Office Use"
-												},
-												"displayNameCy": {
-													"type": "string",
-													"example": "Office Use"
-												}
-											}
-										},
-										"applicants": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										},
-										"geographicalInformation": {
-											"type": "object",
-											"properties": {
-												"mapZoomLevel": {
-													"type": "object",
-													"properties": {
-														"id": {
-															"type": "number",
-															"example": 5
-														},
-														"name": {
-															"type": "string",
-															"example": "district"
-														},
-														"displayNameEn": {
-															"type": "string",
-															"example": "District"
-														},
-														"displayNameCy": {
-															"type": "string",
-															"example": "District"
-														}
-													}
-												}
-											}
-										},
-										"locationDescription": {
-											"type": "string",
-											"example": "location description"
-										},
-										"gridReference": {
-											"type": "object",
-											"properties": {}
-										},
-										"regions": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {}
-											}
-										},
-										"keyDates": {
-											"type": "object",
-											"properties": {}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
 			},
 			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates application",
+				"tags": ["Appeals"],
+				"description": "Updates a single appellant case for an appeal by id",
 				"parameters": [
 					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Application Details",
-						"schema": {
-							"$ref": "#/components/schemas/UpdateApplication"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "ID of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"applicantIds": {
-											"type": "array",
-											"example": [2],
-											"items": {
-												"type": "number"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"applicantIds": {
-											"type": "array",
-											"example": [2],
-											"items": {
-												"type": "number"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/publish": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "publish application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "response will have the date that the case was published as a timestamp",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"publishedDate": {
-											"type": "number",
-											"example": 1673873105
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"publishedDate": {
-											"type": "number",
-											"example": 1673873105
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets list of representations on an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "page",
-						"in": "query",
-						"description": "Page to show",
-						"required": false,
-						"example": 1,
-						"minimum": 1,
-						"schema": {
-							"type": "integer"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "query",
-						"description": "Page size",
-						"required": false,
-						"example": 25,
-						"minimum": 1,
-						"maximum": 100,
-						"schema": {
-							"type": "integer"
-						}
-					},
-					{
-						"name": "searchTerm",
-						"in": "query",
-						"description": "Search Term",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "status",
-						"in": "query",
-						"description": "Filter by status",
-						"required": false,
-						"schema": {
-							"type": "array",
-							"example": [""],
-							"items": {
-								"type": "string"
-							}
-						},
-						"style": "form",
-						"explode": true
-					},
-					{
-						"name": "under18",
-						"in": "query",
-						"description": "Filter by under18",
-						"required": false,
-						"schema": {
-							"type": "boolean"
-						}
-					},
-					{
-						"name": "sortBy",
-						"in": "query",
-						"description": "Sort by field. +field for ASC, -field for DESC",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representations",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"page": {
-											"type": "number",
-											"example": 1
-										},
-										"pageSize": {
-											"type": "number",
-											"example": 25
-										},
-										"pageCount": {
-											"type": "number",
-											"example": 1
-										},
-										"itemCount": {
-											"type": "number",
-											"example": 100
-										},
-										"items": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"id": {
-														"type": "number",
-														"example": 1
-													},
-													"reference": {
-														"type": "string",
-														"example": "BC0110001-2"
-													},
-													"status": {
-														"type": "string",
-														"example": "VALID"
-													},
-													"redacted": {
-														"type": "boolean",
-														"example": true
-													},
-													"received": {
-														"type": "string",
-														"example": "2023-03-14T14:28:25.704Z"
-													},
-													"firstName": {
-														"type": "string",
-														"example": "James"
-													},
-													"lastName": {
-														"type": "string",
-														"example": "Bond"
-													},
-													"organisationName": {
-														"type": "string",
-														"example": "MI6"
-													}
-												}
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"page": {
-											"type": "number",
-											"example": 1
-										},
-										"pageSize": {
-											"type": "number",
-											"example": 25
-										},
-										"pageCount": {
-											"type": "number",
-											"example": 1
-										},
-										"itemCount": {
-											"type": "number",
-											"example": 100
-										},
-										"items": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"id": {
-														"type": "number",
-														"example": 1
-													},
-													"reference": {
-														"type": "string",
-														"example": "BC0110001-2"
-													},
-													"status": {
-														"type": "string",
-														"example": "VALID"
-													},
-													"redacted": {
-														"type": "boolean",
-														"example": true
-													},
-													"received": {
-														"type": "string",
-														"example": "2023-03-14T14:28:25.704Z"
-													},
-													"firstName": {
-														"type": "string",
-														"example": "James"
-													},
-													"lastName": {
-														"type": "string",
-														"example": "Bond"
-													},
-													"organisationName": {
-														"type": "string",
-														"example": "MI6"
-													}
-												}
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"post": {
-				"tags": ["Applications"],
-				"description": "Creates a representation for an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Representation Details",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"status": {
-									"type": "string",
-									"example": "DRAFT"
-								},
-								"redacted": {
-									"type": "boolean",
-									"example": false
-								},
-								"received": {
-									"type": "string",
-									"example": "2023-03-14T14:28:25.704Z"
-								},
-								"originalRepresentation": {
-									"type": "string",
-									"example": "This is the representation text"
-								},
-								"represented": {
-									"type": "object",
-									"properties": {
-										"firstName": {
-											"type": "string",
-											"example": "Peter"
-										},
-										"lastName": {
-											"type": "string",
-											"example": "Biggins"
-										},
-										"organisationName": {
-											"type": "string",
-											"example": ""
-										},
-										"jobTitle": {
-											"type": "string",
-											"example": ""
-										},
-										"email": {
-											"type": "string",
-											"example": "peter.bigins@dummy.email"
-										},
-										"phoneNumber": {
-											"type": "string",
-											"example": "0123456789"
-										},
-										"address": {
-											"type": "object",
-											"properties": {
-												"addressLine1": {
-													"type": "string",
-													"example": ""
-												},
-												"addressLine2": {
-													"type": "string",
-													"example": ""
-												},
-												"town": {
-													"type": "string",
-													"example": ""
-												},
-												"county": {
-													"type": "string",
-													"example": ""
-												},
-												"postcode": {
-													"type": "string",
-													"example": ""
-												},
-												"country": {
-													"type": "string",
-													"example": ""
-												}
-											}
-										},
-										"type": {
-											"type": "string",
-											"example": "PERSON"
-										},
-										"under18": {
-											"type": "boolean",
-											"example": false
-										}
-									}
-								},
-								"representative": {
-									"type": "object",
-									"properties": {}
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations/{repId}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets a representation on an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Representation ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "BC0110001-2"
-										},
-										"status": {
-											"type": "string",
-											"example": "VALID"
-										},
-										"redacted": {
-											"type": "boolean",
-											"example": true
-										},
-										"received": {
-											"type": "string",
-											"example": "2023-03-14T14:28:25.704Z"
-										},
-										"originalRepresentation": {
-											"type": "string",
-											"example": ""
-										},
-										"redactedRepresentation": {
-											"type": "string",
-											"example": ""
-										},
-										"redactedBy": {
-											"type": "object",
-											"properties": {}
-										},
-										"contacts": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										},
-										"attachments": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"reference": {
-											"type": "string",
-											"example": "BC0110001-2"
-										},
-										"status": {
-											"type": "string",
-											"example": "VALID"
-										},
-										"redacted": {
-											"type": "boolean",
-											"example": true
-										},
-										"received": {
-											"type": "string",
-											"example": "2023-03-14T14:28:25.704Z"
-										},
-										"originalRepresentation": {
-											"type": "string",
-											"example": ""
-										},
-										"redactedRepresentation": {
-											"type": "string",
-											"example": ""
-										},
-										"redactedBy": {
-											"type": "object",
-											"properties": {}
-										},
-										"contacts": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										},
-										"attachments": {
-											"type": "array",
-											"example": [],
-											"items": {}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates a representation for an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
+						"name": "appealId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -1284,277 +415,7 @@
 						}
 					},
 					{
-						"name": "body",
-						"in": "body",
-						"description": "Representation Details",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"status": {
-									"type": "string",
-									"example": "DRAFT"
-								},
-								"redacted": {
-									"type": "boolean",
-									"example": false
-								},
-								"redactedBy": {
-									"type": "string",
-									"example": "A users name who has performed a redaction"
-								},
-								"redactedNotes": {
-									"type": "string",
-									"example": "A string if redacted text"
-								},
-								"received": {
-									"type": "string",
-									"example": "2023-03-14T14:28:25.704Z"
-								},
-								"originalRepresentation": {
-									"type": "string",
-									"example": "This is the representation text"
-								},
-								"represented": {
-									"type": "object",
-									"properties": {
-										"firstName": {
-											"type": "string",
-											"example": "Peter"
-										},
-										"lastName": {
-											"type": "string",
-											"example": "Biggins"
-										},
-										"organisationName": {
-											"type": "string",
-											"example": ""
-										},
-										"jobTitle": {
-											"type": "string",
-											"example": ""
-										},
-										"email": {
-											"type": "string",
-											"example": "peter.bigins@dummy.email"
-										},
-										"phoneNumber": {
-											"type": "string",
-											"example": "0123456789"
-										},
-										"address": {
-											"type": "object",
-											"properties": {
-												"addressLine1": {
-													"type": "string",
-													"example": ""
-												},
-												"addressLine2": {
-													"type": "string",
-													"example": ""
-												},
-												"town": {
-													"type": "string",
-													"example": ""
-												},
-												"county": {
-													"type": "string",
-													"example": ""
-												},
-												"postcode": {
-													"type": "string",
-													"example": ""
-												},
-												"country": {
-													"type": "string",
-													"example": ""
-												}
-											}
-										},
-										"type": {
-											"type": "string",
-											"example": "PERSON"
-										},
-										"under18": {
-											"type": "boolean",
-											"example": false
-										}
-									}
-								},
-								"representative": {
-									"type": "object",
-									"properties": {}
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations/{repId}/redact": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Redact a representation for an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Representation redact details",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"actionBy": {
-									"type": "string",
-									"example": "Joe Bloggs"
-								},
-								"redactedRepresentation": {
-									"type": "string",
-									"example": "This is the original Rep"
-								},
-								"notes": {
-									"type": "string",
-									"example": "Removed PII from original"
-								},
-								"type": {
-									"type": "string",
-									"example": "REDACTION"
-								},
-								"invalidReason": {
-									"type": "string",
-									"example": "an invalid reason"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"status": {
-											"type": "string",
-											"example": "DRAFT"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations/{repId}/contacts/{contactId}": {
-			"delete": {
-				"tags": ["Applications"],
-				"description": "Delete a representation contact for an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "contactId",
+						"name": "appellantCaseId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -1564,1281 +425,42 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Representation",
+						"description": "Updates a single appeal by id",
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "object",
-									"properties": {
-										"contactId": {
-											"type": "number",
-											"example": 1
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
+									"$ref": "#/components/schemas/UpdateAppellantCaseResponse"
 								}
 							},
 							"application/xml": {
 								"schema": {
-									"type": "object",
-									"properties": {
-										"contactId": {
-											"type": "number",
-											"example": 1
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
+									"$ref": "#/components/schemas/UpdateAppellantCaseResponse"
 								}
 							}
 						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/{guid}/metadata": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "This endpoint enables the storage of metadata for a document linked to a particular case, whether it",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
 					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the required document here"
+					"400": {
+						"description": "Bad Request"
 					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/components/schemas/documentsMetadataRequestBody"
-						}
+					"404": {
+						"description": "Not Found"
 					}
-				],
-				"responses": {
-					"200": {
-						"description": "The metadata has been successfully stored.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appellant case details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
 							}
 						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/components/schemas/documentsToSave"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Documents that have been saved",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsAndBlobStorageURLs"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsAndBlobStorageURLs"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/document/{guid}/add-version": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID here"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the required document here"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/components/schemas/documentToSave"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document that have been saved",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsAndBlobStorageURLs"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsAndBlobStorageURLs"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/update": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates the status and/or redaction status on an array of documents",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Update Details",
-						"schema": {
-							"$ref": "#/components/schemas/documentsToUpdateRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Documents that have been updated",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"guid": {
-												"type": "string",
-												"example": "0084b156-006b-48b1-a47f-e7176414db29"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"guid": {
-												"type": "string",
-												"example": "0084b156-006b-48b1-a47f-e7176414db29"
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/{guid}/properties": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets the properties of a single file on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the required document here"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document properties",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPropertiesRequestBody"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPropertiesRequestBody"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/documents/{guid}/properties": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets the properties of a single file on a case",
-				"parameters": [
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the required document here"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document properties",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPropertiesRequestBody"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPropertiesRequestBody"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/{guid}/revert-published-status": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Reverts the published status of a document to the previous status",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the document"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK"
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/{guid}/delete": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Deletes a document associated with a specific application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "guid of the required document here"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The document has been successfully soft-deleted and is no longer accessible.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"type": {
-											"type": "string",
-											"example": "object"
-										},
-										"properties": {
-											"type": "object",
-											"properties": {
-												"isDeleted": {
-													"type": "object",
-													"properties": {
-														"type": {
-															"type": "string",
-															"example": "boolean"
-														},
-														"description": {
-															"type": "string",
-															"example": "Indicates whether the document has been successfully soft-deleted."
-														}
-													}
-												}
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"type": {
-											"type": "string",
-											"example": "object"
-										},
-										"properties": {
-											"type": "object",
-											"properties": {
-												"isDeleted": {
-													"type": "object",
-													"properties": {
-														"type": {
-															"type": "string",
-															"example": "boolean"
-														},
-														"description": {
-															"type": "string",
-															"example": "Indicates whether the document has been successfully soft-deleted."
-														}
-													}
-												}
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/ready-to-publish": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Gets all documents that are ready to publish for the case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "document pagination parameters",
-						"schema": {
-							"$ref": "#/components/schemas/DocumentsInCriteriaRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "An paginated data set of documents and their properties",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaginatedDocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/PaginatedDocumentDetails"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/publish": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Publishes the documents selected from the Ready to Publish queue",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Array of document guids to publish",
-						"schema": {
-							"$ref": "#/components/schemas/documentsToPublishRequestBody"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Documents that have been published",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPublished"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/documentsPublished"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets list of top level folders on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 1
-											},
-											"displayNameEn": {
-												"type": "string",
-												"example": "Post-decision"
-											},
-											"displayOrder": {
-												"type": "number",
-												"example": 1100
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 1
-											},
-											"displayNameEn": {
-												"type": "string",
-												"example": "Post-decision"
-											},
-											"displayOrder": {
-												"type": "number",
-												"example": 1100
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders/{folderId}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets details of a single folder on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "folderId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Id of current folder"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"displayNameEn": {
-											"type": "string",
-											"example": "Post-decision"
-										},
-										"displayOrder": {
-											"type": "number",
-											"example": 1100
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "number",
-											"example": 1
-										},
-										"displayNameEn": {
-											"type": "string",
-											"example": "Post-decision"
-										},
-										"displayOrder": {
-											"type": "number",
-											"example": 1100
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders/{folderId}/parent-folders": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets the parent folder path list for a folder on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "folderId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Id of current folder"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "IDs of application",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 2
-											},
-											"displayNameEn": {
-												"type": "string",
-												"example": "Acceptance"
-											},
-											"displayOrder": {
-												"type": "number",
-												"example": 200
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 2
-											},
-											"displayNameEn": {
-												"type": "string",
-												"example": "Acceptance"
-											},
-											"displayOrder": {
-												"type": "number",
-												"example": 200
-											}
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/folders/{folderId}/documents": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Gets paginated array of documents in a folder on a case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "folderId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Id of current folder"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "document pagination parameters",
-						"schema": {
-							"$ref": "#/components/schemas/DocumentsInCriteriaRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "An paginated data set of documents and their properties",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaginatedDocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/PaginatedDocumentDetails"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/documents/{documentGUID}/status": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates document status from state machine",
-				"parameters": [
-					{
-						"name": "documentGUID",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Document GUID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Machine Action",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"machineAction": {
-									"type": "string",
-									"example": "uploading"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document status updated",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"caseId": {
-											"type": "number",
-											"example": 1
-										},
-										"guid": {
-											"type": "string",
-											"example": "a1b2c4d4-7ce5-410c-937e-28926dd7ab24"
-										},
-										"status": {
-											"type": "string",
-											"example": "awaiting_virus_check"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"caseId": {
-											"type": "number",
-											"example": 1
-										},
-										"guid": {
-											"type": "string",
-											"example": "a1b2c4d4-7ce5-410c-937e-28926dd7ab24"
-										},
-										"status": {
-											"type": "string",
-											"example": "awaiting_virus_check"
-										}
-									},
-									"xml": {
-										"name": "main"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/case-team": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForCaseTeam"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForCaseTeam"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/case-admin-officer": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team admin",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForCaseAdminOfficer"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForCaseAdminOfficer"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/inspector": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team admin",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForInspector"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForInspector"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/search": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Gets all applications as per search criteria",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"description": "case query parameters",
-						"schema": {
-							"$ref": "#/components/schemas/ApplicationsForSearchCriteriaRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "List of applications as per search criteria",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForSearchCriteria"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ApplicationsForSearchCriteria"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/region": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all regions available",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of regions",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RegionsForApplications"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/RegionsForApplications"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/sector": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all sectors and sub-sectors",
-				"parameters": [
-					{
-						"name": "obj",
-						"in": "query",
-						"description": "Sector Name",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"sectorName": {
-									"type": "string",
-									"example": ""
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "List of sectors or sub-sectors",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Sectors"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Sectors"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/zoom-level": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all map zoom levels available",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of map zoom levels",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/MapZoomLevelForApplications"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/MapZoomLevelForApplications"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-type": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all examination timetable types available",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of examination timetable types",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableTypes"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableTypes"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-items/case/{caseId}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all examination timetable items for the case",
-				"parameters": [
-					{
-						"name": "caseId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "List of examination timetable items",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItems"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItems"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-items/{id}": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets examination timetable item by id",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Examination timetable item ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Examination timetable item",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItemResponseBody"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItemResponseBody"
-								}
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"tags": ["Applications"],
-				"description": "Delete examination timetable item by id",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Examination timetable item ID"
-					},
-					{
-						"name": "body",
-						"in": "query",
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Examination timetable item successfully deleted"
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-items": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Create an examination timetable item for the case",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"description": "document pagination parameters",
-						"schema": {
-							"$ref": "#/components/schemas/ExaminationTimetableItemRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Created examination timetable item",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItemResponseBody"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/ExaminationTimetableItemResponseBody"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-items/publish/{id}": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Publish examination timetable items for the case",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "query",
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Examination timetable items published"
 					}
 				}
 			}
@@ -5613,6 +3235,134 @@
 				},
 				"xml": {
 					"name": "SingleLPAQuestionnaireResponse"
+				}
+			},
+			"UpdateAppellantCaseRequest": {
+				"type": "object",
+				"properties": {
+					"incompleteReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"invalidReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"otherNotValidReasons": {
+						"type": "string",
+						"example": "Another invalid reason"
+					},
+					"validationOutcome": {
+						"type": "string",
+						"example": "valid"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppellantCaseRequest"
+				}
+			},
+			"UpdateAppellantCaseResponse": {
+				"type": "object",
+				"properties": {},
+				"xml": {
+					"name": "UpdateAppellantCaseResponse"
+				}
+			},
+			"UpdateLPAQuestionnaireRequest": {
+				"type": "object",
+				"properties": {
+					"incompleteReasons": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-06-21"
+					},
+					"otherNotValidReasons": {
+						"type": "string",
+						"example": "Another incomplete reason"
+					},
+					"validationOutcome": {
+						"type": "string",
+						"example": "incomplete"
+					}
+				},
+				"xml": {
+					"name": "UpdateLPAQuestionnaireRequest"
+				}
+			},
+			"UpdateLPAQuestionnaireResponse": {
+				"type": "object",
+				"properties": {},
+				"xml": {
+					"name": "UpdateLPAQuestionnaireResponse"
+				}
+			},
+			"AllAppellantCaseIncompleteReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Incomplete reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseIncompleteReasonsResponse"
+				}
+			},
+			"AllAppellantCaseInvalidReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Invalid reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseInvalidReasonsResponse"
+				}
+			},
+			"AllLPAQuestionnaireIncompleteReasonsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Incomplete reason"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPAQuestionnaireIncompleteReasonsResponse"
 				}
 			},
 			"AppealsForCaseOfficer": {

@@ -6,11 +6,12 @@ import {
 	postRepresentationComment
 } from './representation-comment.controller.js';
 import { representationCommentValidation } from './representation-comment.validators.js';
+import { repRoutes } from '../utils/get-representation-page-urls.js';
 
 const relevantRepresentationCommentRouter = createRouter({ mergeParams: true });
 
 relevantRepresentationCommentRouter
-	.route('/add-representation')
+	.route(repRoutes.addRepresentation)
 	.get(addRepresentationToLocals, asyncRoute(getRepresentationComment))
 	.post(
 		addRepresentationToLocals,

@@ -162,6 +162,19 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 
 /**
  *
+ * @param {number} folderId
+ *  @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const countDocumentsInFolder = (folderId) => {
+	return databaseConnector.document.count({
+		where: {
+			folderId
+		}
+	});
+};
+
+/**
+ *
  * @param {string} documentGUID
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
  */

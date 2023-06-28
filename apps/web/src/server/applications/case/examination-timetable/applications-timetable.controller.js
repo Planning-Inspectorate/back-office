@@ -1,14 +1,18 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { mapExaminationTimetableToFormBody } from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
 	getCaseTimetableItemById,
-	deleteCaseTimetableItem
+	deleteCaseTimetableItem,
+	updateCaseTimetableItem,
+	getCaseTimetableItemTypeByName
 } from './applications-timetable.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
+/** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 
 /** @type {Record<string, Record<string, boolean>>} */
@@ -50,12 +54,27 @@ export const timetableTemplatesSchema = {
 	}
 };
 
+export const uniqueTimeTableTypes = {
+	ACCOMPANIED_SITE_INSPECTION: 1,
+	COMPULSORY_ACQUISITION_HEARING: 2,
+	DEADLINE: 3,
+	DEADLINE_FOR_CLOSE_OF_EXAMINATION: 4,
+	ISSUED_BY: 5,
+	ISSUE_SPECIFIC_HEARING: 6,
+	OPEN_FLOOR_HEARING: 7,
+	OTHER_MEEETING: 8,
+	PRELIMINARY_MEEETING: 9,
+	PROCEDURAL_DEADLINE_PRE_EXAMINATION: 10,
+	PROCEDURAL_DECISION: 11,
+	PUBLICATION_OF: 12
+};
+
 /**
- * View the examination timetable page for a single case
+ * View the list of examination timetables for a single case
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean}>}
  */
-export async function viewApplicationsCaseExaminationTimeTable(request, response) {
+export async function viewApplicationsCaseTimetableList(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
 	const timetableItemsViewData = timetableItems.map((timetableItem) =>
@@ -63,18 +82,18 @@ export async function viewApplicationsCaseExaminationTimeTable(request, response
 	);
 	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published;
 
-	response.render(`applications/case/examination-timetable`, {
+	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
 		publishedStatus
 	});
 }
 
 /**
- * View the preview page of the examination timetable for a single case
+ * View the preview page of the examination timetables for a single case
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string}>}
  */
-export async function previewApplicationsCaseExaminationTimeTable(_, response) {
+export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
 	const timetableItemsViewData = timetableItems.map((timetableItem) =>
@@ -88,16 +107,28 @@ export async function previewApplicationsCaseExaminationTimeTable(_, response) {
 }
 
 /**
- * View the examination timetable page for a single case
+ * Publish the examination timetables
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function publishApplicationsCaseExaminationTimeTable(request, response) {
-	await publishCaseTimetableItems(response.locals.caseId);
+export async function publishApplicationsCaseTimetables(_, response) {
+	const { errors } = await publishCaseTimetableItems(response.locals.caseId);
 
-	// TODO: handle errors
+	if (errors) {
+		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-	response.redirect(`./publish/success`);
+		const timetableItemsViewData = timetableItems.map((timetableItem) =>
+			getTimetableRows(timetableItem)
+		);
+
+		return response.render(`applications/case-timetable/timetable-preview.njk`, {
+			timetableItems: timetableItemsViewData,
+			errors,
+			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+		});
+	}
+
+	response.redirect(`./published/success`);
 }
 
 /**
@@ -105,9 +136,9 @@ export async function publishApplicationsCaseExaminationTimeTable(request, respo
  *
  * @type {import('@pins/express').RenderHandler<{timetableItem: Record<string, string>}, {}, {}, {}, {timetableId: string}>}
  */
-export async function showApplicationsCaseTimetableDelete(request, response) {
+export async function viewApplicationsCaseTimetableDelete(request, response) {
 	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
-	const timetableItemViewData = await getTimetableRows(timetableItem);
+	const timetableItemViewData = getTimetableRows(timetableItem);
 
 	response.render(`applications/case-timetable/timetable-delete.njk`, {
 		timetableItem: timetableItemViewData
@@ -115,7 +146,7 @@ export async function showApplicationsCaseTimetableDelete(request, response) {
 }
 
 /**
- * View the delete page for the examination timetable for a single case
+ * Delete one examination timetable or render errors
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {timetableId: string}>}
  */
@@ -124,7 +155,7 @@ export async function deleteApplicationsCaseTimetable(request, response) {
 
 	if (errors) {
 		const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
-		const timetableItemViewData = await getTimetableRows(timetableItem);
+		const timetableItemViewData = getTimetableRows(timetableItem);
 
 		return response.render(`applications/case-timetable/timetable-delete.njk`, {
 			timetableItem: timetableItemViewData,
@@ -132,12 +163,10 @@ export async function deleteApplicationsCaseTimetable(request, response) {
 		});
 	}
 
-	response.render(`applications/case-timetable/timetable-new-item-success.njk`, {
-		isDeleted: true
-	});
+	response.redirect('../../deleted/success');
 }
 /**
- * Set the type of examination timetable to create
+ * Set the type for a new examination timetable (1st step)
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: {text: string, value: string}[]}, {}, {}, {}, {}>}
  */
@@ -155,27 +184,55 @@ export async function viewApplicationsCaseTimetableNew(_, response) {
 }
 
 /**
- * Dispatch the new examination timetable to the right template
+ * Show the details-form for the new examination timetable (2nd step)
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {'timetable-type': string}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {timetableId: string, 'timetable-type': string}, {}, {}>}
  */
-export async function postApplicationsCaseTimetableNew(request, response) {
-	const selectedItemTypeName = request.body['timetable-type'];
+export async function viewApplicationsCaseTimetableDetailsNew({ body }, response) {
+	const selectedItemTypeName = body['timetable-type'];
 
-	const formProperties = await getCreateTimetableFormProperties(selectedItemTypeName);
+	const selectedItemType = await getCaseTimetableItemTypeByName(selectedItemTypeName);
 
-	if (formProperties) {
-		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
-			...formProperties,
-			values: request.body
-		});
-	}
+	const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
 
-	response.render(`app/500.njk`);
+	return response.render(`applications/case-timetable/timetable-details-form.njk`, {
+		selectedItemType,
+		templateFields,
+		values: body,
+		isEditing: !!body.timetableId,
+		uniqueTimeTableTypes
+	});
 }
 
 /**
- * Handle the new examination timetable details form
+ * Edit an existing examination timetable
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function viewApplicationsCaseTimetableDetailsEdit({ params }, response) {
+	const timetableItem = await getCaseTimetableItemById(+params.timetableId);
+
+	const selectedItemType = timetableItem.ExaminationTimetableType;
+	const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
+
+	const values = mapExaminationTimetableToFormBody(
+		timetableItem,
+		selectedItemType.id,
+		selectedItemType.name
+	);
+
+	return response.render(`applications/case-timetable/timetable-details-form.njk`, {
+		isEditing: true,
+		values,
+		templateFields,
+		selectedItemType,
+		uniqueTimeTableTypes
+	});
+}
+
+/**
+ * Handle the details form for the new/editing examination timetable (3th step)
+ * This is triggered by the "validate" url in the details form
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
@@ -184,20 +241,23 @@ export async function postApplicationsCaseTimetableDetails(
 	response
 ) {
 	if (validationErrors) {
-		const formProperties = await getCreateTimetableFormProperties(body.itemTypeName);
-
-		return response.render(`applications/case-timetable/timetable-new-item-details.njk`, {
+		const selectedItemType = await getCaseTimetableItemTypeByName(body.itemTypeName);
+		const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
+		return response.render(`applications/case-timetable/timetable-details-form.njk`, {
 			errors: validationErrors,
 			values: body,
-			...formProperties
+			selectedItemType,
+			templateFields,
+			uniqueTimeTableTypes
 		});
 	}
 
-	return response.redirect(307, './check-your-answers');
+	// the 307 redirect allows to redirect keeping the method "POST" and its body
+	return response.redirect(307, `../check-your-answers/${body.timetableId ?? ''}`);
 }
 
 /**
- * New examination timetable check your anwers page
+ * Check your answers page for the new/edited examination timetable
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
@@ -206,12 +266,13 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
 
 	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 		rows,
-		values: body
+		values: body,
+		isEditing: !!body.timetableId
 	});
 }
 
 /**
- * Save new examination timetable
+ * Save new/edited examination timetable
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
@@ -219,6 +280,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	const splitDescription = body.description.split('*');
 	const preText = splitDescription.shift();
 	const bulletPoints = splitDescription;
+
 	const startDate = body['startDate.year']
 		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
 		: null;
@@ -227,10 +289,10 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 			? new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
 			: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`);
 
-	/** @type {ApplicationsTimetable} */
+	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
 		caseId: response.locals.caseId,
-		examinationTypeId: Number.parseInt(body['timetable-id'], 10),
+		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
 		name: body.name,
 		description: JSON.stringify({ preText, bulletPoints }),
 		date,
@@ -241,66 +303,46 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
 		published: false
 	};
+	if (body['timetableId']) {
+		payload.id = Number.parseInt(body['timetableId'], 10);
+	}
 
-	const { errors } = await createCaseTimetableItem(payload);
+	let errors;
+	if (payload.id) {
+		// has exam id, therefore an existing record for update
+		const apiResponse = await updateCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+	} else {
+		// create new record
+		const apiResponse = await createCaseTimetableItem(payload);
+		errors = apiResponse.errors;
+	}
 
 	if (errors) {
 		const rows = getCheckYourAnswersRows(body);
-
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
+			isEditing: !!payload.id,
 			rows,
 			values: body,
 			errors
 		});
 	}
 
-	response.redirect(`./success`);
+	response.redirect(`../../${payload.id ? 'edited' : 'created'}/success`);
 }
 
 /**
- * Success banner when successfully creating a new examination timetable
+ * Success banner when successfully publishing an examination timetable
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {action: string}>}
  */
-export async function showApplicationsCaseTimetableSuccessBanner(request, response) {
-	response.render('applications/case-timetable/timetable-new-item-success.njk');
+export async function viewApplicationsCaseTimetableSuccessBanner(request, response) {
+	// action can be 'edited', 'published', 'created'
+
+	response.render('applications/case-timetable/timetable-success-banner.njk', {
+		action: request.params.action
+	});
 }
-
-/**
- * Success banner when successfully creating a new examination timetable
- *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
- */
-export async function showApplicationsCaseTimetablePublishSuccessBanner(request, response) {
-	response.render('applications/case-timetable/timetable-item-publish-success.njk');
-}
-
-/**
- *
- * @param {string} selectedItemTypeName
- * @returns {Promise<{selectedItemType: {text: string, value: string}, templateFields: Record<string, boolean>}|null>}
- */
-const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
-	const timetableItemTypes = await getCaseTimetableItemTypes();
-
-	const selectedItemType = timetableItemTypes.find(
-		(itemType) => itemType.name === selectedItemTypeName
-	);
-
-	if (selectedItemType) {
-		const formattedSelectedItemType = {
-			text: selectedItemType.displayNameEn,
-			value: selectedItemType.name,
-			templateType: selectedItemType.templateType,
-			id: selectedItemType.id
-		};
-		const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
-
-		return { selectedItemType: formattedSelectedItemType, templateFields };
-	}
-
-	return null;
-};
 
 /**
  *
@@ -309,7 +351,6 @@ const getCreateTimetableFormProperties = async (selectedItemTypeName) => {
  */
 const getCheckYourAnswersRows = (body) => {
 	const { description, name, itemTypeName, templateType } = body;
-
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
 
@@ -358,23 +399,48 @@ const getCheckYourAnswersRows = (body) => {
  * @returns {Record<string, any>}
  */
 const getTimetableRows = (timetableItem) => {
-	const { id, description, name, ExaminationTimetableType, date, startDate, startTime, endTime } =
-		timetableItem;
+	const {
+		id,
+		description,
+		submissions,
+		name,
+		ExaminationTimetableType,
+		date,
+		startDate,
+		startTime,
+		endTime
+	} = timetableItem;
 
-	const templateType = ExaminationTimetableType?.templateType;
+	const templateType = ExaminationTimetableType.templateType;
+
+	if (!templateType) {
+		throw new Error(
+			`Template type not found for timetable item type ${ExaminationTimetableType?.name}`
+		);
+	}
 
 	const shouldShowField = (/** @type {string} */ fieldName) =>
-		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType || 0], fieldName);
+		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
+
+	const startDateDisplay = () => {
+		if (shouldShowField('startDate')) {
+			if (startDate) {
+				return displayDate(startDate, { condensed: true });
+			} else {
+				return '';
+			}
+		}
+		return null;
+	};
 
 	return {
 		id,
-		itemTypeName: ExaminationTimetableType?.name,
+		itemTypeName: ExaminationTimetableType.name,
+		templateType: templateType,
 		name,
+		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
-		startDate:
-			shouldShowField('startDate') && startDate
-				? displayDate(startDate, { condensed: true }) || ''
-				: null,
+		startDate: startDateDisplay(),
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,

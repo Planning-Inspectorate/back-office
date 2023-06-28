@@ -17,10 +17,9 @@ export function getLpaQuestionnaireFromId(appealId, lpaQuestionnaireId) {
  * @returns {Promise<LpaQuestionnaire>}
  */
 export function setReviewOutcomeForLpaQuestionnaire(appealId, lpaQuestionnaireId, reviewOutcome) {
-	// TODO: when BOAT-238 is complete - update based on API schema
 	return patch(`appeals/${appealId}/lpa-questionnaires/${lpaQuestionnaireId}`, {
 		json: {
-			reviewOutcome
+			validationOutcome: reviewOutcome
 		}
 	});
 }

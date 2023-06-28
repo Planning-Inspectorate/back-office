@@ -5,10 +5,10 @@ import { arrayOfStatusesContainsString } from './array-of-statuses-contains-stri
 import formatDate from './date-formatter.js';
 import daysBetweenDates from './days-between-dates.js';
 
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
-/** @typedef {import('@pins/api').Schema.InspectorDecision} InspectorDecision */
-/** @typedef {import('@pins/api').Schema.SiteVisit} SiteVisit */
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.AppealStatus} AppealStatus */
+/** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} InspectorDecision */
+/** @typedef {import('@pins/appeals.api').Schema.SiteVisit} SiteVisit */
 
 /**
  * @param {Appeal} appeal

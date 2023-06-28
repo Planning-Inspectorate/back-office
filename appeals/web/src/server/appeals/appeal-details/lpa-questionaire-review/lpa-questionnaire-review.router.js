@@ -9,6 +9,4 @@ router
 	.get(lpaQuestionnaireController.getLpaQuestionnaire)
 	.post(validators.validateReviewOutcome, lpaQuestionnaireController.postLpaQuestionnaire);
 
-router.route('/:lpaQId/complete').get(lpaQuestionnaireController.getLpaQuestionnaireReviewComplete);
-
 export default router;

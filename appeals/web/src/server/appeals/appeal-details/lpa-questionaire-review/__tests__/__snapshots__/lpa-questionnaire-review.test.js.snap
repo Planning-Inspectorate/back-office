@@ -16,8 +16,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                 <div class=\\"govuk-summary-card__content\\">
                     <dl class=\\"govuk-summary-list\\">
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Listed building</span></a>
                             </dd>
@@ -31,8 +30,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a listed building</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a listed building</span></a>
                                 </dd>
@@ -46,15 +44,13 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a scheduled monument</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a scheduled monument</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Conservation area</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Conservation area</span></a>
                             </dd>
@@ -66,32 +62,27 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Protected species</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Protected species</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Area of outstanding natural beauty</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Area of outstanding natural beauty</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Designated sites</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>potential special protection area (pSPA)</p>
-                                <br>
-                                <p>special area of conservation (SAC)</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>potential special protection area (pSPA)</span>
+                                <br><span>special area of conservation (SAC)</span>
                                 <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Designated sites</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Tree Preservation Order</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Tree Preservation Order</span></a>
                             </dd>
@@ -103,15 +94,13 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Gypsy of traveller</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Gypsy of traveller</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Public right of way</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Public right of way</span></a>
                             </dd>
@@ -132,22 +121,19 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                 <div class=\\"govuk-summary-card__content\\">
                     <dl class=\\"govuk-summary-list\\">
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Schedule Type</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Schedule 2</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Schedule 2</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Schedule Type</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Environment Statement Needed</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Environment Statement Needed</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Environment Statement Complete</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Environment Statement Complete</span></a>
                                 </dd>
@@ -159,8 +145,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Screening Opinion Issued</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Screening Opinion Issued</span></a>
                                 </dd>
@@ -184,22 +169,19 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects sensitive area</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects sensitive area</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sensitive area details</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>The area is prone to flooding</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>The area is prone to flooding</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Sensitive area details</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Meets or exceeds threshold or criteria in column 2</span></a>
                                 </dd>
@@ -238,6 +220,33 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
 </main>"
 `;
 
+exports[`LPA Questionnaire review POST / should redirect to the complete page if no errors are present 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> LPA questionnaire complete</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The review of LPA questionnaire is finished.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
+                    and the the review is finished.</p>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go back to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`LPA Questionnaire review POST / should render LPA Questionnaire review with error (no answer provided) 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
@@ -265,8 +274,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class=\\"govuk-summary-card__content\\">
                     <dl class=\\"govuk-summary-list\\">
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Listed building</span></a>
                             </dd>
@@ -280,8 +288,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a listed building</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a listed building</span></a>
                                 </dd>
@@ -295,15 +302,13 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a scheduled monument</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a scheduled monument</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Conservation area</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Conservation area</span></a>
                             </dd>
@@ -315,32 +320,27 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Protected species</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Protected species</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Area of outstanding natural beauty</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Area of outstanding natural beauty</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Designated sites</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>potential special protection area (pSPA)</p>
-                                <br>
-                                <p>special area of conservation (SAC)</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>potential special protection area (pSPA)</span>
+                                <br><span>special area of conservation (SAC)</span>
                                 <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Designated sites</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Tree Preservation Order</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Tree Preservation Order</span></a>
                             </dd>
@@ -352,15 +352,13 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Gypsy of traveller</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Gypsy of traveller</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Public right of way</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Public right of way</span></a>
                             </dd>
@@ -381,22 +379,19 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class=\\"govuk-summary-card__content\\">
                     <dl class=\\"govuk-summary-list\\">
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Schedule Type</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Schedule 2</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Schedule 2</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Schedule Type</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Environment Statement Needed</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Environment Statement Needed</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Environment Statement Complete</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Environment Statement Complete</span></a>
                                 </dd>
@@ -408,8 +403,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Screening Opinion Issued</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Screening Opinion Issued</span></a>
                                 </dd>
@@ -433,22 +427,19 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects sensitive area</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects sensitive area</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sensitive area details</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p>The area is prone to flooding</p>
+                            <dd class=\\"govuk-summary-list__value\\"><span>The area is prone to flooding</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Sensitive area details</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class=\\"govuk-summary-list__value\\">
-                                <p>Yes</p>
+                            <dd                             class=\\"govuk-summary-list__value\\"><span>Yes</span>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Meets or exceeds threshold or criteria in column 2</span></a>
                                 </dd>

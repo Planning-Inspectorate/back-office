@@ -7,7 +7,8 @@ import { dateReceivedValidator } from './utils/received-date-validator.js';
 const validateDate = dateValidator({
 	dayInput: receivedDateKeys.day,
 	monthInput: receivedDateKeys.month,
-	yearInput: receivedDateKeys.year
+	yearInput: receivedDateKeys.year,
+	dateInputContainerId: receivedDateKeys.date
 });
 
 const validateWholeDate = dateReceivedValidator(

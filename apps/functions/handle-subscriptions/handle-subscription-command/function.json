@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "registerSubscription",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "register-nsip-subscription",
+			"subscriptionName": "register-nsip-subscription-subscription",
+			"connection": "AZURE_SERVICE_BUS_CONNECTION"
+		}
+	]
+}

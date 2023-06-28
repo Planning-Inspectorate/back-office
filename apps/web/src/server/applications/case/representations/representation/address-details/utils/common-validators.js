@@ -41,7 +41,7 @@ export const validateAddressPostcode = createValidator(
 		.withMessage('Enter a postcode')
 		.isLength({ min: 1, max: 16 })
 		.withMessage('Postcode must be between 1 and 16 characters')
-		.isPostalCode('GB')
+		.isPostalCode('any')
 		.withMessage('Enter a valid postcode')
 );
 

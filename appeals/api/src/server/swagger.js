@@ -5,9 +5,9 @@ const document = {
 		// by default: '1.0.0'
 		version: '2.0',
 		// by default: 'REST API'
-		title: 'PINS Back Office API',
+		title: 'PINS Back Office Appeals API',
 		// by default: ''
-		description: 'PINS Back Office API documentation from Swagger'
+		description: 'PINS Back Office Appeals API documentation from Swagger'
 	},
 	// by default: 'localhost:3000'
 	host: '',
@@ -784,6 +784,38 @@ const document = {
 			siteWithinGreenBelt: true,
 			statutoryConsulteesDetails: 'Some other people need to be consulted'
 		},
+		UpdateAppellantCaseRequest: {
+			incompleteReasons: [1, 2, 3],
+			invalidReasons: [1, 2, 3],
+			otherNotValidReasons: 'Another invalid reason',
+			validationOutcome: 'valid'
+		},
+		UpdateAppellantCaseResponse: {},
+		UpdateLPAQuestionnaireRequest: {
+			incompleteReasons: [1, 2, 3],
+			lpaQuestionnaireDueDate: '2023-06-21',
+			otherNotValidReasons: 'Another incomplete reason',
+			validationOutcome: 'incomplete'
+		},
+		UpdateLPAQuestionnaireResponse: {},
+		AllAppellantCaseIncompleteReasonsResponse: [
+			{
+				id: 1,
+				name: 'Incomplete reason'
+			}
+		],
+		AllAppellantCaseInvalidReasonsResponse: [
+			{
+				id: 1,
+				name: 'Invalid reason'
+			}
+		],
+		AllLPAQuestionnaireIncompleteReasonsResponse: [
+			{
+				id: 1,
+				name: 'Incomplete reason'
+			}
+		],
 		AppealsForCaseOfficer: {
 			$AppealId: 1,
 			$AppealReference: '',
@@ -1008,7 +1040,7 @@ const document = {
 		BookSiteVisit: {
 			$siteVisitType: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.SiteVisitType} */ ([
+				'@enum': /** @type {import('@pins/appeals.api').Schema.SiteVisitType} */ ([
 					'accompanied',
 					'unaccompanied',
 					'access required'
@@ -1043,7 +1075,7 @@ const document = {
 			},
 			$outcome: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.InspectorDecisionOutcomeType} */ ([
+				'@enum': /** @type {import('@pins/appeals.api').Schema.InspectorDecisionOutcomeType} */ ([
 					'allowed',
 					'dismissed',
 					'split decision'
@@ -1067,9 +1099,6 @@ const document = {
 };
 
 const outputFile = './src/server/openapi.json';
-const endpointsFiles = [
-	'./src/server/appeals/**/*.routes.js',
-	'./src/server/applications/**/*.routes.js'
-];
+const endpointsFiles = ['./src/server/appeals/**/*.routes.js'];
 
 swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);

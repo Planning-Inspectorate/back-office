@@ -1,0 +1,21 @@
+{
+  "name": "@pins/functions-handle-subscriptions",
+  "version": "1.0.0",
+  "description": "Azure Function to handle subscription messages",
+  "scripts": {
+    "start": "func start",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "type": "module",
+  "dependencies": {
+    "@pins/event-client": "^0.0.0",
+    "@pins/platform": "^0.0.0",
+    "dotenv": "*",
+    "got": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+    "cross-env": "*",
+    "jest": "*"
+  }
+}

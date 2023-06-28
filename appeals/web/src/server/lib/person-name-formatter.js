@@ -1,11 +1,9 @@
 import { join, map, pick } from 'lodash-es';
 
-/** @typedef {import('../applications/applications.types').Applicant} Applicant */
-
 /**
  * converts a multi part person name to a single string
  *
- * @param {Applicant} applicant
+ * @param {{firstName:string, lastName:string}} applicant
  * @returns {string}
  */
 export const nameToString = (applicant) => {

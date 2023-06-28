@@ -4,7 +4,7 @@ import appealRepository from '../repositories/appeal.repository.js';
 import { arrayOfStatusesContainsString } from '../utils/array-of-statuses-contains-string.js';
 import { asyncHandler } from './async-handler.js';
 
-/** @typedef {import('@pins/api').Schema.AppealStatusType} AppealStatusType */
+/** @typedef {import('@pins/appeals.api').Schema.AppealStatusType} AppealStatusType */
 
 /**
  * Create an express middleware that validates an appeal against a given status or statuses.

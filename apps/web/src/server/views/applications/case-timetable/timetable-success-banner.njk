@@ -1,0 +1,36 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set serviceName = ["Timetable item successfully ", action]|join  %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block beforeContent %}{% endblock %}
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+			{{ govukPanel({
+				titleText: serviceName,
+				html: [case.title, '<br> The case reference number <br> <strong>', case.reference, '</strong>']|join
+			}) }}
+
+			<div class="govuk-body">
+				<p class="govuk-body">
+					{% if action === 'published' %}
+						The examination timetable will show on the NI website within the hour
+					{% else %}
+						Return to folder:
+					{% endif %}
+				</p>
+				<a href="{{'timetable'|url({caseId: caseId})}}" class="govuk-link">
+					Go back to examination table
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
