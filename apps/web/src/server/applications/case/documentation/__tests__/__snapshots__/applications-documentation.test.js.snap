@@ -6715,8 +6715,8 @@ exports[`applications documentation Document properties delete page If the user 
                 </tbody>
             </table>
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
-                            ></span><span class=\\"font-weight--700\\"> Project management
-                            ></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+ > </span><span class=\\"font-weight--700\\"> Project management
+ > </span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
             </p>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
         </form>
@@ -6749,8 +6749,8 @@ exports[`applications documentation Document properties delete page If the user 
                 </tbody>
             </table>
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
-                            ></span><span class=\\"font-weight--700\\"> Project management
-                            ></span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
+ > </span><span class=\\"font-weight--700\\"> Project management
+ > </span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
             </p>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
         </form>
@@ -6766,10 +6766,7 @@ exports[`applications documentation Document properties delete page If the user 
                 <h1 class=\\"govuk-panel__title\\"> Document successfully deleted</h1>
             </div>
             <div class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
-                class=\\"govuk-link\\"><span 						> Project documentation
-								></span><span 						> Project management
-								></span><span 								class=\\"font-weight--700\\"
-						> Sub folder level 2</span></a>
+                class=\\"govuk-link\\"><span> Project documentation  > </span><span> Project management  > </span><span  class=\\"font-weight--700\\" > Sub folder level 2 </span></a>
             </div>
         </div>
     </div>
@@ -6805,23 +6802,23 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
             <ul class=\\"govuk-list\\">
-                <li class=\\"govuk-!-margin-top-7\\"></li>
-                <li class=\\"govuk-!-margin-top-4\\">Case reference: CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\">Document reference number:</li>
-                <li class=\\"govuk-!-margin-top-4\\">MP3, 9 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>File type and size:</strong> MP3, 9 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
+                </li>
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
-                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4\\"
-                href=\\"/documents/123/download/11/\\">Download</a>
             </div>
             <nav>
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> Document actions</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\"><a class=\\"govuk-link display--block\\" href=\\"/open\\">Open</a><a class=\\"govuk-link display--block\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
-                    </div>
-                </details>
+                <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                href=\\"/documents/123/download/11/\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
@@ -6891,9 +6888,6 @@ exports[`applications documentation Document properties page If the user is not 
                                 </dd>
                             </div>
                         </dl>
-                        <div class=\\"text-align--right\\"><a href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\"
-                            class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
-                        </div>
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
@@ -6939,23 +6933,23 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
-                <li class=\\"govuk-!-margin-top-7\\"></li>
-                <li class=\\"govuk-!-margin-top-4\\">Case reference: CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\">Document reference number:</li>
-                <li class=\\"govuk-!-margin-top-4\\">PDF, 2.6 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua Ut enim ad minim veniam</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>File type and size:</strong> PDF, 2.6 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
+                </li>
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
-                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-4\\"
-                href=\\"/documents/123/download/3/\\">Download</a>
             </div>
             <nav>
-                <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                    <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> Document actions</span>
-                    </summary>
-                    <div class=\\"govuk-details__text\\"><a class=\\"govuk-link display--block\\" href=\\"/open\\">Open</a><a class=\\"govuk-link display--block\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-link display--block\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
-                    </div>
-                </details>
+                <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                href=\\"/documents/123/download/3/\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
@@ -7026,9 +7020,6 @@ exports[`applications documentation Document properties page If the user is not 
                                 </dd>
                             </div>
                         </dl>
-                        <div class=\\"text-align--right\\"><a href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\"
-                            class=\\"govuk-button govuk-!-margin-0 govuk-button--warning pins-button-link\\"> Delete</a>
-                        </div>
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
@@ -13359,10 +13350,7 @@ exports[`applications documentation Document publishing queue If the user is not
                 </div>
             </div>
             <div class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
-                class=\\"govuk-link\\"><span 						> Project documentation
-								></span><span 						> Project management
-								></span><span 								class=\\"font-weight--700\\"
-						> Sub folder level 2</span></a>
+                class=\\"govuk-link\\"><span> Project documentation  > </span><span> Project management  > </span><span  class=\\"font-weight--700\\" > Sub folder level 2 </span></a>
             </div>
         </div>
     </div>
@@ -21243,23 +21231,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
         <form class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                    <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be 
-PDF, 
-DOC, 
-DOCX, 
-PPT, 
-PPTX, 
-XLS, 
-XLSX, 
-JPG, 
-JPEG, 
-MPEG, 
-MP3, 
-MP4, 
-MOV, 
-PNG, 
-TIF, 
-	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class=\\"middle-errors-hook\\"></div>
             </div>
             <div class=\\"display--flex\\">

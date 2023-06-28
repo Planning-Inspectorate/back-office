@@ -70,9 +70,7 @@
                 {% for breadcrumbItem in breadcrumbItems %}
                     <span class="font-weight--700">
                         {{ breadcrumbItem.text }}
-                        {% if loop.index < breadcrumbItems.length %}
-                            >
-                        {% endif %}
+                        {% if loop.index < breadcrumbItems.length %} > {% endif %}
                     </span>
                 {% endfor %}
             </p>
