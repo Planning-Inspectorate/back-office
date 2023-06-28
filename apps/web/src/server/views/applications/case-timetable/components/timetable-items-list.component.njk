@@ -25,6 +25,10 @@
 
 				{% if not timetableItem.submissions %}
 					<a class='govuk-link colour--red' href='{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
+				{% else %}
+					<p class='govuk-body-s font-weight--700'>
+						There are already submissions in a folder associated with this timetable item. You cannot edit or delete items with existing submissions.
+					</p>
 				{% endif %}
 			{% endset %}
 

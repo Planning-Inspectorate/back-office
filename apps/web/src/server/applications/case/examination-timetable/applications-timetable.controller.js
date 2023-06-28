@@ -10,6 +10,7 @@ import {
 	updateCaseTimetableItem,
 	getCaseTimetableItemTypeByName
 } from './applications-timetable.service.js';
+import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
@@ -141,6 +142,15 @@ export async function publishApplicationsCaseTimetables(_, response) {
  */
 export async function viewApplicationsCaseTimetableDelete(request, response) {
 	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+
+	if (timetableItem.submissions) {
+		pino.error(
+			`[WEB] Cannot delete Examination Timetable ${+request.params.timetableId}: submissions found`
+		);
+
+		return response.render('app/500.njk');
+	}
+
 	const timetableItemViewData = getTimetableRows(timetableItem);
 
 	response.render(`applications/case-timetable/timetable-delete.njk`, {
@@ -214,6 +224,11 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
  */
 export async function viewApplicationsCaseTimetableDetailsEdit({ params }, response) {
 	const timetableItem = await getCaseTimetableItemById(+params.timetableId);
+
+	if (timetableItem.submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${params.timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
 
 	const selectedItemType = timetableItem.ExaminationTimetableType;
 	const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
