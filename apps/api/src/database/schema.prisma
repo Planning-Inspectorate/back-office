@@ -668,6 +668,38 @@ model ListedBuildingDetails {
   lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
 }
 
+// ProjectUpdate represents some content in relation to a case (application/nsip) that may be of interest to
+// members of the public and those with an interest in that case. These updates are ultimately sent out to email
+// subscribers, and published to the front office.
+// Otherwise known as Banners or Latest Updates.
+model ProjectUpdate {
+  id                Int       @id @default(autoincrement())
+  // the ID of the case this project update relates to
+  caseId            Int
+  case              Case?     @relation(fields: [caseId], references: [id])
+  // the ID of the user who created this update
+  authorId          Int?
+  author            User?     @relation(fields: [authorId], references: [id])
+  // when was this project update first created
+  dateCreated       DateTime  @default(now())
+  // should this update be emailed to subscribers?
+  emailSubscribers  Boolean   @default(false)
+  // status of this update
+  status            String    @default("draft") // draft | published | unpublished | archived
+  // when was this project update changed to status "published"
+  datePublished     DateTime?
+  // when the (background) task to notify subscribers has been run for this update, this will be marked true
+  sentToSubscribers Boolean   @default(false)
+  // an internal title/name for this update
+  // MVP only includes content, so title is optional and for future use
+  title             String?
+  // the content of this project update, which can include HTML and must be santised before entry into the database
+  // it can only include <a> <b> <ul> <li> tags
+  htmlContent       String
+  // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
+  htmlContentWelsh  String?
+}
+
 model PlanningObligationStatus {
   id            Int             @id @default(autoincrement())
   name          String          @unique
