@@ -3,7 +3,6 @@ import compression from 'compression';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { appealsRoutes } from './appeals/appeals.routes.js';
 import { applicationsRoutes } from './applications/applications.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
@@ -26,13 +25,6 @@ const buildApp = (
 	app.use(compression());
 	app.use(morgan('combined'));
 	app.use(helmet());
-
-	app.use(
-		'/appeals',
-		versionRoutes({
-			1: appealsRoutes
-		})
-	);
 
 	app.use(
 		'/applications',
