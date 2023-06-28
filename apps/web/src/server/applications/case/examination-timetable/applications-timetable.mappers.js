@@ -1,9 +1,10 @@
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+/** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
 
 /**
  * Converts DB exam record to an obj suitable for edit display
- * @param {ApplicationsTimetable} examTimetable
+ * @param {ApplicationExaminationTimetableItem} examTimetable
  * @param {number} examTimeTableTypeId
  * @param {string} examTimeTableTypeName
  * @returns {ApplicationsTimetableCreateBody}

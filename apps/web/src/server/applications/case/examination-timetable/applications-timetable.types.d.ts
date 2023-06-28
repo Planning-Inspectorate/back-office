@@ -26,19 +26,40 @@ export interface ExaminationTimetableType {
 	templateType: string;
 }
 
-export interface ApplicationsTimetablePayload {
+export interface ApplicationExaminationTimetableItem {
 	id?: number;
-	caseId: number;
+	examinationTimetableId: number;
 	examinationTypeId: number;
 	name: string;
 	description: string;
 	date: Date;
-	published: boolean;
 	startDate: Date | null;
 	startTime: string | null;
 	endTime: string | null;
 	submissions?: boolean;
+	ExaminationTimetableType: ExaminationTimetableType;
+}
+
+export interface ApplicationsTimetablePayload {
+	id?: number;
+	examinationTypeId: number;
+	name: string;
+	description: string;
+	date: Date;
+	startDate: Date | null;
+	startTime: string | null;
+	endTime: string | null;
+	submissions?: boolean;
+	caseId: number;
 }
 export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
 	ExaminationTimetableType: ExaminationTimetableType;
+}
+export interface ApplicationExaminationTimetable {
+	id: number;
+	published: boolean;
+	publishedAt?: DateTime;
+	updatedAt: DateTime;
+	caseId: number;
+	items: ApplicationExaminationTimetableItem[];
 }

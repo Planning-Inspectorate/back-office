@@ -3,6 +3,8 @@ import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+/** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetable} ApplicationExaminationTimetable */
+/** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
@@ -66,7 +68,7 @@ export const updateCaseTimetableItem = async (payload) => {
 /**
  * Get case timetable items
  * @param {number} caseId
- * @returns {Promise<ApplicationsTimetable[]>}
+ * @returns {Promise<ApplicationExaminationTimetable>}
  */
 export const getCaseTimetableItems = async (caseId) => {
 	return get(`applications/examination-timetable-items/case/${caseId}`);
@@ -75,7 +77,7 @@ export const getCaseTimetableItems = async (caseId) => {
 /**
  * Get one timetable item by its id
  * @param {number} timetableId
- * @returns {Promise<ApplicationsTimetable>}
+ * @returns {Promise<ApplicationExaminationTimetableItem>}
  */
 export const getCaseTimetableItemById = async (timetableId) => {
 	return get(`applications/examination-timetable-items/${timetableId}`);

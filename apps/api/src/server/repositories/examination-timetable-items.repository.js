@@ -11,20 +11,20 @@ import { databaseConnector } from '../utils/database-connector.js';
  */
 export const getById = (id) => {
 	return databaseConnector.examinationTimetableItem.findUnique({
-		include: { ExaminationTimetableType: true },
+		include: { ExaminationTimetableType: true, ExaminationTimetable: true },
 		where: { id }
 	});
 };
 
 /**
  *
- * @param {number} caseId
+ * @param {number} examinationTimetableId
  * @returns {Promise<import('@pins/api').Schema.ExaminationTimetableItem[] | null>}
  */
-export const getByCaseId = (caseId) => {
+export const getByExaminationTimetableId = (examinationTimetableId) => {
 	return databaseConnector.examinationTimetableItem.findMany({
 		include: { ExaminationTimetableType: true },
-		where: { caseId },
+		where: { examinationTimetableId },
 		orderBy: {
 			date: 'asc'
 		}
@@ -41,21 +41,6 @@ export const create = (examinationTimetableItem) => {
 };
 
 /**
- *
- * @param {number} caseId
- * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
- */
-export const updateByCaseId = (caseId, examinationTimetableItem) => {
-	return databaseConnector.examinationTimetableItem.updateMany({
-		where: {
-			caseId
-		},
-		data: examinationTimetableItem
-	});
-};
-
-/**
  * Saves an updated Examination Timetable Item to the DB
  *
  * @param {number} id
@@ -64,7 +49,7 @@ export const updateByCaseId = (caseId, examinationTimetableItem) => {
  */
 export const update = (id, examinationTimetableItem) => {
 	return databaseConnector.examinationTimetableItem.update({
-		where: { id: id },
+		where: { id },
 		data: examinationTimetableItem
 	});
 };

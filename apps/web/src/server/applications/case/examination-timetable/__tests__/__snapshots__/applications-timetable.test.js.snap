@@ -1358,12 +1358,13 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                     <div class='govuk-grid-column-two-thirds'>
                         <h2 class=\\"govuk-heading-l\\">Examination timetable</h2>
                     </div>
-                    <div class='govuk-grid-column-one-third'><strong class=\\"govuk-tag govuk-tag--grey\\">UNPUBLISHED</strong>
+                    <div class='govuk-grid-column-one-third'><strong class=\\"govuk-tag govuk-tag--green\\">PUBLISHED</strong>
                     </div>
                 </div>
                 <p class=\\"govuk-body\\">Create or manage an examination timetable</p><a class='govuk-button govuk-!-margin-top-5'
                 href=\\"/applications-service/case/123/examination-timetable/item/new/\\">Create new timetable item</a>
-                <div><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/examination-timetable/preview\\"> Preview and publish timetable items</a>
+                <div><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/examination-timetable/preview\\"> Preview and republish timetable items</a>
+                    <p                     class=\\"govuk-body-s govuk-!-margin-top-6 font-weight--700 colour--red\\">Republish the examination timetable to view changes on the website</p>
                 </div>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">

@@ -10,10 +10,12 @@ import {
 	updateCaseTimetableItem,
 	getCaseTimetableItemTypeByName
 } from './applications-timetable.service.js';
+import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
+/** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
 
 /** @type {Record<string, Record<string, boolean>>} */
 export const timetableTemplatesSchema = {
@@ -72,19 +74,21 @@ export const uniqueTimeTableTypes = {
 /**
  * View the list of examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, republishStatus: boolean}>}
  */
 export async function viewApplicationsCaseTimetableList(_, response) {
-	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
 
-	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+	const timetableItemsViewData = examinationTimetable?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
 	);
-	const publishedStatus = timetableItems?.length > 0 && timetableItems[0]?.published;
 
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
-		publishedStatus
+		publishedStatus: examinationTimetable?.published,
+		republishStatus:
+			examinationTimetable?.published &&
+			examinationTimetable.publishedAt != examinationTimetable.updatedAt
 	});
 }
 
@@ -96,7 +100,7 @@ export async function viewApplicationsCaseTimetableList(_, response) {
 export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-	const timetableItemsViewData = timetableItems.map((timetableItem) =>
+	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
 	);
 
@@ -117,7 +121,7 @@ export async function publishApplicationsCaseTimetables(_, response) {
 	if (errors) {
 		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
 
-		const timetableItemsViewData = timetableItems.map((timetableItem) =>
+		const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 			getTimetableRows(timetableItem)
 		);
 
@@ -138,6 +142,15 @@ export async function publishApplicationsCaseTimetables(_, response) {
  */
 export async function viewApplicationsCaseTimetableDelete(request, response) {
 	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+
+	if (timetableItem.submissions) {
+		pino.error(
+			`[WEB] Cannot delete Examination Timetable ${+request.params.timetableId}: submissions found`
+		);
+
+		return response.render('app/500.njk');
+	}
+
 	const timetableItemViewData = getTimetableRows(timetableItem);
 
 	response.render(`applications/case-timetable/timetable-delete.njk`, {
@@ -211,6 +224,11 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
  */
 export async function viewApplicationsCaseTimetableDetailsEdit({ params }, response) {
 	const timetableItem = await getCaseTimetableItemById(+params.timetableId);
+
+	if (timetableItem.submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${params.timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
 
 	const selectedItemType = timetableItem.ExaminationTimetableType;
 	const templateFields = timetableTemplatesSchema[selectedItemType.templateType];
@@ -300,8 +318,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		startTime: body['startTime.hours']
 			? `${body['startTime.hours']}:${body['startTime.minutes']}`
 			: null,
-		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null,
-		published: false
+		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
 	};
 	if (body['timetableId']) {
 		payload.id = Number.parseInt(body['timetableId'], 10);
@@ -395,7 +412,7 @@ const getCheckYourAnswersRows = (body) => {
 
 /**
  *
- * @param {ApplicationsTimetable} timetableItem
+ * @param {ApplicationExaminationTimetableItem} timetableItem
  * @returns {Record<string, any>}
  */
 const getTimetableRows = (timetableItem) => {

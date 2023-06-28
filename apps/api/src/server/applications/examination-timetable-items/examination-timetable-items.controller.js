@@ -1,4 +1,5 @@
 import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
@@ -16,21 +17,37 @@ import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/ma
 export const getExaminationTimetableItems = async (_request, response) => {
 	const { caseId } = _request.params;
 	try {
-		const examinationTimetableItems = await examinationTimetableItemsRepository.getByCaseId(
-			+caseId
-		);
+		const examinationTimetable = await examinationTimetableRepository.getByCaseId(+caseId);
+
+		if (!examinationTimetable) {
+			// @ts-ignore
+			return response.send([]);
+		}
+
+		const examinationTimetableItems =
+			await examinationTimetableItemsRepository.getByExaminationTimetableId(
+				examinationTimetable.id
+			);
 
 		if (!examinationTimetableItems || examinationTimetableItems.length === 0) {
 			// @ts-ignore
-			return response.send(examinationTimetableItems);
+			return response.send({ ...examinationTimetable, items: [] });
 		}
 
 		const examinationTimetableItemsForCase = [];
 		for (const examinationTimetableItem of examinationTimetableItems) {
-			const submissions = await validateSubmissions(examinationTimetableItem);
+			const submissions = await validateSubmissions(
+				examinationTimetableItem,
+				examinationTimetable.caseId
+			);
 			examinationTimetableItemsForCase.push({ ...examinationTimetableItem, submissions });
 		}
-		response.send(examinationTimetableItemsForCase);
+
+		const examinationTimetableResponse = {
+			...examinationTimetable,
+			items: examinationTimetableItemsForCase
+		};
+		response.send(examinationTimetableResponse);
 	} catch (error) {
 		logger.error(error);
 		throw error;
@@ -53,7 +70,9 @@ export const getExaminationTimetableItem = async (_request, response) => {
 			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
 	}
 
-	const submissions = await validateSubmissions(examinationTimetableItem);
+	// @ts-ignore
+	const caseId = examinationTimetableItem.ExaminationTimetable.caseId;
+	const submissions = await validateSubmissions(examinationTimetableItem, caseId);
 	response.send({ ...examinationTimetableItem, submissions });
 };
 
@@ -64,6 +83,16 @@ export const getExaminationTimetableItem = async (_request, response) => {
  */
 export const createExaminationTimetableItem = async (_request, response) => {
 	const { body } = _request;
+
+	let examinationTimetable = await examinationTimetableRepository.getByCaseId(body.caseId);
+
+	if (!examinationTimetable) {
+		// @ts-ignore
+		examinationTimetable = await examinationTimetableRepository.create({
+			caseId: body.caseId,
+			published: body.published
+		});
+	}
 
 	// find the examination folder id to create subfolder.
 	const examinationFolder = await folderRepository.getFolderByNameAndCaseId(
@@ -92,9 +121,16 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	}
 
 	body.folderId = itemFolder.id;
+	body.examinationTimetableId = examinationTimetable.id;
+	delete body.caseId;
+	delete body.published;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
-	await createDeadlineSubFolders(examinationTimetableItem, itemFolder.id);
+	await createDeadlineSubFolders(
+		examinationTimetableItem,
+		itemFolder.id,
+		examinationTimetable.caseId
+	);
 
 	response.send(examinationTimetableItem);
 };
@@ -103,9 +139,10 @@ export const createExaminationTimetableItem = async (_request, response) => {
  *
  * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @param {Number} parentFolderId
+ * @param {Number} caseId
  * @returns
  */
-const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId) => {
+const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId, caseId) => {
 	if (!examinationTimetableItem?.description) return;
 	const description = JSON.parse(examinationTimetableItem?.description);
 	const categoryType = await examinationTimetableTypesRepository.getById(
@@ -129,7 +166,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	// create Other sub folder
 	const otherFolder = {
 		displayNameEn: 'Other',
-		caseId: examinationTimetableItem.caseId,
+		caseId,
 		parentFolderId: parentFolderId,
 		displayOrder: 100
 	};
@@ -143,7 +180,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
 	description.bulletPoints.forEach((/** @type {String} */ folderName) => {
 		const subFolder = {
 			displayNameEn: folderName?.trim(),
-			caseId: examinationTimetableItem.caseId,
+			caseId,
 			parentFolderId: parentFolderId,
 			displayOrder: 100
 		};
@@ -187,11 +224,14 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableItemsRepository.updateByCaseId(
+		const now = new Date();
+		await examinationTimetableRepository.updateByCaseId(
 			+id,
 			// @ts-ignore
 			{
-				published: true
+				published: true,
+				publishedAt: now,
+				updatedAt: now
 			}
 		);
 		response.send({
@@ -218,8 +258,9 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 			.status(404)
 			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
 	}
-
-	const hasSubmissions = await validateSubmissions(examinationTimetableItem);
+	// @ts-ignore
+	const caseId = examinationTimetableItem.ExaminationTimetable.caseId;
+	const hasSubmissions = await validateSubmissions(examinationTimetableItem, caseId);
 
 	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
@@ -233,12 +274,18 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 
 	logger.info(`delete subfolder for folder Id ${examinationTimetableItem.folderId}`);
 	await deleteDeadlineSubFolders(
-		examinationTimetableItem.caseId,
+		// @ts-ignore
+		examinationTimetableItem.ExaminationTimetable.caseId,
 		examinationTimetableItem.folderId
 	);
 
 	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
 	await folderRepository.deleteById(examinationTimetableItem.folderId);
+
+	// @ts-ignore
+	await examinationTimetableRepository.update(examinationTimetableItem.examinationTimetableId, {
+		updatedAt: new Date()
+	});
 
 	response.send(examinationTimetableItem);
 };
@@ -262,7 +309,9 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
 	}
 
-	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate);
+	// @ts-ignore
+	const caseId = timetableBeforeUpdate.ExaminationTimetable.caseId;
+	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate, caseId);
 
 	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
@@ -293,45 +342,36 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	}
 
 	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
+		// @ts-ignore
+		const caseId = timetableBeforeUpdate.ExaminationTimetable.caseId;
 		logger.info('Delete sub folders');
-		await deleteDeadlineSubFolders(
-			updatedExaminationTimetableItem.caseId,
-			timetableBeforeUpdate.folderId
-		);
+		await deleteDeadlineSubFolders(caseId, timetableBeforeUpdate.folderId);
 		logger.info('Create new sub folders');
-		await createDeadlineSubFolders(updatedExaminationTimetableItem, timetableBeforeUpdate.folderId);
+		await createDeadlineSubFolders(
+			updatedExaminationTimetableItem,
+			timetableBeforeUpdate.folderId,
+			caseId
+		);
 	}
+
+	// @ts-ignore
+	await examinationTimetableRepository.update(
+		updatedExaminationTimetableItem.examinationTimetableId,
+		{
+			updatedAt: new Date()
+		}
+	);
 
 	response.send(updatedExaminationTimetableItem);
 };
 
 /**
- * @type {import('express').RequestHandler}
- * @throws {Error}
- * @returns {Promise<void>}
- */
-export const hasSubmissions = async (_request, response) => {
-	const { id } = _request.params;
-
-	const timetableItem = await examinationTimetableItemsRepository.getById(+id);
-	if (!timetableItem) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
-	}
-
-	const submissions = await validateSubmissions(timetableItem);
-
-	response.send({ submissions });
-};
-
-/**
  *
  * @param {import('@prisma/client').ExaminationTimetableItem} timetableItem
+ * @param {Number} caseId
  * @returns
  */
-const validateSubmissions = async (timetableItem) => {
+const validateSubmissions = async (timetableItem, caseId) => {
 	const folder = await folderRepository.getById(timetableItem.folderId);
 	if (!folder) {
 		logger.info('No associated folder found');
@@ -346,10 +386,7 @@ const validateSubmissions = async (timetableItem) => {
 		return true;
 	}
 
-	const subFolders = await folderRepository.getByCaseId(
-		timetableItem.caseId,
-		timetableItem.folderId
-	);
+	const subFolders = await folderRepository.getByCaseId(caseId, timetableItem.folderId);
 	if (!subFolders || subFolders.length === 0) {
 		logger.info(`No sub folder for folder ${timetableItem.folderId}`);
 		// @ts-ignore
