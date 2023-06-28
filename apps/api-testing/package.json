@@ -1,5 +1,5 @@
 {
-	"name": "@pins/api-testing",
+	"name": "@pins/applications.api-testing",
 	"version": "1.0.0",
 	"description": "API Tests for the Back Office Application",
 	"main": "index.js",

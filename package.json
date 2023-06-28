@@ -11,14 +11,11 @@
     "node": ">=16.14.0"
   },
   "scripts": {
-    "api": "npm run dev --workspace=@pins/api",
-    "api:test": "npm run test --workspace=@pins/api-testing",
     "build": "turbo run build",
     "build:release": "turbo run build:release",
     "commit": "cz",
     "commitlint": "commitlint --from=$(git rev-parse $(git cherry origin/main | head -n 1 | cut -c 3-)^1)",
     "clean": "turbo run clean && rimraf node_modules",
-    "dev": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
     "e2e": "npm run cy:run --workspace=@pins/e2e",
     "e2e:open": "npm run cy:open --workspace=@pins/e2e",
     "e2e:ci": "npm run cy:ci --workspace=@pins/e2e",
@@ -27,14 +24,18 @@
     "lint:js:fix": "npx eslint . --fix",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "release": "multi-semantic-release --ignore-packages=packages/**",
-    "storage": "npm run dev --workspace=@pins/document-storage",
+    "storage": "npm run dev --workspace=@pins/applications.document-storage",
     "test": "turbo run test",
-    "tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/api --filter=!@pins/appeals.api",
-    "web": "npm run dev --workspace=@pins/web",
+    "tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api --filter=!@pins/appeals.api",
     "dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
     "test:appeals": "turbo run test --filter=./appeals/*",
     "web:appeals": "npm run dev --workspace=@pins/appeals.web",
-    "api:appeals": "npm run dev --workspace=@pins/appeals.api"
+    "api:appeals": "npm run dev --workspace=@pins/appeals.api",
+		"dev:applications": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
+		"test:applications": "turbo run test",
+		"web:applications": "npm run dev --workspace=@pins/applications.web",
+		"api:applications": "npm run dev --workspace=@pins/applications.api",
+    "api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing"
   },
   "dependencies": {
     "got": "^12.5.2",
