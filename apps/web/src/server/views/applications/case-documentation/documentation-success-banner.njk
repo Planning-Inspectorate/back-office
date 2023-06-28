@@ -21,15 +21,8 @@
 				Return to folder:
 				<a href="{{ breadcrumbItems[breadcrumbItems.length - 1].href }}" class="govuk-link">
 					{% for breadcrumbItem in breadcrumbItems %}
-						<span
-							{% if loop.index === breadcrumbItems.length %}
-								class="font-weight--700"
-							{% endif %}
-						>
-							{{ breadcrumbItem.text }}
-							{% if loop.index < breadcrumbItems.length %}
-								>
-							{% endif %}
+						<span {% if loop.index === breadcrumbItems.length %} class="font-weight--700" {% endif %}>
+							{{ breadcrumbItem.text }} {% if loop.index < breadcrumbItems.length %} > {% endif %}
 						</span>
 					{% endfor %}
 				</a>
