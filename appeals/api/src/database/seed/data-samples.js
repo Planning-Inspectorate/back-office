@@ -8,15 +8,9 @@ import {
 } from '../../server/appeals/constants.js';
 
 /**
- * @typedef {import('../../server/applications/application/application.js')} Sector
- * @typedef {import('../../server/applications/application/application.js').Sector} SubSector
- * @typedef {import('apps/web/src/server/applications/applications.types').Region} Region
- * @typedef {import('apps/web/src/server/applications/applications.types').ZoomLevel} ZoomLevel
- * @typedef {import('apps/web/src/server/applications/applications.types').ExaminationTimetableType} ExaminationTimetableType
- * @typedef {import('apps/api/src/database/schema').CaseStatus} CaseStatus
- * @typedef {import('apps/api/src/database/schema').Appellant} Appellant
- * @typedef {import('apps/api/src/database/schema').LPAQuestionnaire} LPAQuestionnaire
- * @typedef {import('apps/api/src/database/schema').AppellantCase} AppellantCase
+ * @typedef {import('appeals/api/src/database/schema').Appellant} Appellant
+ * @typedef {import('appeals/api/src/database/schema').LPAQuestionnaire} LPAQuestionnaire
+ * @typedef {import('appeals/api/src/database/schema').AppellantCase} AppellantCase
  */
 
 /**
@@ -464,30 +458,13 @@ export const completeValidationDecisionSample = {
 	descriptionOfDevelopment: 'Some Description'
 };
 
-/**
- * An array of case status names.
- *
- * @type {CaseStatus[]}
- */
-export const caseStatusNames = [
-	{ name: 'draft' },
-	{ name: 'pre_application' },
-	{ name: 'acceptance' },
-	{ name: 'pre_examination' },
-	{ name: 'examination' },
-	{ name: 'recommendation' },
-	{ name: 'decision' },
-	{ name: 'post_decision' },
-	{ name: 'withdrawn' }
-];
-
 export const represenations = [
 	{
 		status: 'VALID',
 		originalRepresentation:
-			'Yes, we have a good represttation here.. We Will Send more data - See attached files.',
+			'Yes, we have a good representation here.. We Will Send more data - See attached files.',
 		redactedRepresentation:
-			'Yes, we have a good represttation here.. We Will Send more data - See attached files.',
+			'Yes, we have a good representation here.. We Will Send more data - See attached files.',
 		redacted: true,
 		received: new Date(),
 		user: {
