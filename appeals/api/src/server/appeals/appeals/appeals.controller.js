@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import appealRepository from '../../repositories/appeal.repository.js';
 import { getPageCount } from '../../utils/database-pagination.js';
 import logger from '../../utils/logger.js';
@@ -7,6 +8,8 @@ import {
 	calculateTimetable,
 	isOutcomeIncomplete,
 	isOutcomeInvalid,
+	isOutcomeValid,
+	joinDateAndTime,
 	recalculateDateIfNotBusinessDay
 } from './appeals.service.js';
 
@@ -36,9 +39,9 @@ const getAppeals = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {object}
  */
-const getAppealById = async (req, res) => {
+const getAppealById = (req, res) => {
 	const { appeal } = req;
 	const formattedAppeal = appealFormatter.formatAppeal(appeal);
 
@@ -50,31 +53,11 @@ const getAppealById = async (req, res) => {
  * @returns {Promise<object>}
  */
 const updateAppealById = async (req, res) => {
-	const {
-		appeal: { appealType },
-		body,
-		body: { startedAt },
-		params
-	} = req;
+	const { body, params } = req;
 	const appealId = Number(params.appealId);
 
 	try {
-		if (appealType) {
-			const timetable = await calculateTimetable(appealType.shorthand, startedAt);
-
-			if (timetable) {
-				await appealRepository.upsertAppealTimetableById(appealId, timetable);
-			}
-		}
-
-		await appealRepository.updateById(
-			appealId,
-			{
-				...body,
-				updatedAt: new Date()
-			},
-			'appeal'
-		);
+		await appealRepository.updateAppealById(appealId, body);
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -87,9 +70,9 @@ const updateAppealById = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {object}
  */
-const getLpaQuestionnaireById = async (req, res) => {
+const getLpaQuestionnaireById = (req, res) => {
 	const { appeal } = req;
 	const formattedAppeal = appealFormatter.formatLpaQuestionnaire(appeal);
 
@@ -98,9 +81,9 @@ const getLpaQuestionnaireById = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {object}
  */
-const getAppellantCaseById = async (req, res) => {
+const getAppellantCaseById = (req, res) => {
 	const { appeal } = req;
 	const formattedAppeal = appealFormatter.formatAppellantCase(appeal);
 
@@ -113,42 +96,32 @@ const getAppellantCaseById = async (req, res) => {
  */
 const updateAppellantCaseById = async (req, res) => {
 	const {
+		appeal: { id: appealId, appealType },
 		body,
 		body: { incompleteReasons, invalidReasons, otherNotValidReasons },
-		params,
+		params: { appellantCaseId },
 		validationOutcome
 	} = req;
-	const appellantCaseId = Number(params.appellantCaseId);
 
 	try {
-		await appealRepository.updateById(
-			appellantCaseId,
-			{
-				otherNotValidReasons,
-				appellantCaseValidationOutcomeId: validationOutcome.id
-			},
-			'appellantCase'
-		);
+		let startedAt = undefined;
+		let timetable = undefined;
 
-		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
-			await appealRepository.updateManyToManyRelationTable({
-				id: appellantCaseId,
-				data: incompleteReasons,
-				databaseTable: 'appellantCaseIncompleteReasonOnAppellantCase',
-				relationOne: 'appellantCaseId',
-				relationTwo: 'appellantCaseIncompleteReasonId'
-			});
+		if (isOutcomeValid(validationOutcome.name) && appealType) {
+			startedAt = await recalculateDateIfNotBusinessDay(
+				joinDateAndTime(format(new Date(), 'yyyy-MM-dd'))
+			);
+			timetable = await calculateTimetable(appealType.shorthand, startedAt);
 		}
 
-		if (isOutcomeInvalid(validationOutcome.name) && invalidReasons) {
-			await appealRepository.updateManyToManyRelationTable({
-				id: appellantCaseId,
-				data: invalidReasons,
-				databaseTable: 'appellantCaseInvalidReasonOnAppellantCase',
-				relationOne: 'appellantCaseId',
-				relationTwo: 'appellantCaseInvalidReasonId'
-			});
-		}
+		await appealRepository.updateAppellantCaseValidationOutcome({
+			appellantCaseId: Number(appellantCaseId),
+			validationOutcomeId: validationOutcome.id,
+			otherNotValidReasons,
+			...(isOutcomeIncomplete(validationOutcome.name) && { incompleteReasons }),
+			...(isOutcomeInvalid(validationOutcome.name) && { invalidReasons }),
+			...(isOutcomeValid(validationOutcome.name) && { appealId, startedAt, timetable })
+		});
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -167,42 +140,31 @@ const updateLPAQuestionnaireById = async (req, res) => {
 	const {
 		body,
 		body: { incompleteReasons, otherNotValidReasons },
-		params,
+		params: { appealId, lpaQuestionnaireId },
 		validationOutcome
 	} = req;
-	const lpaQuestionnaireId = Number(params.lpaQuestionnaireId);
 
 	try {
-		await appealRepository.updateById(
-			lpaQuestionnaireId,
-			{
-				otherNotValidReasons,
-				lpaQuestionnaireValidationOutcomeId: validationOutcome.id
-			},
-			'lPAQuestionnaire'
-		);
-
-		if (isOutcomeIncomplete(validationOutcome.name) && incompleteReasons) {
-			await appealRepository.updateManyToManyRelationTable({
-				id: lpaQuestionnaireId,
-				data: incompleteReasons,
-				databaseTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
-				relationOne: 'lpaQuestionnaireId',
-				relationTwo: 'lpaQuestionnaireIncompleteReasonId'
-			});
-		}
+		let timetable = undefined;
 
 		if (body.lpaQuestionnaireDueDate) {
-			const lpaQuestionnaireDueDate = await recalculateDateIfNotBusinessDay(
-				body.lpaQuestionnaireDueDate
-			);
-
-			await appealRepository.upsertAppealTimetableById(Number(params.appealId), {
-				lpaQuestionnaireDueDate
-			});
-
-			body.lpaQuestionnaireDueDate = lpaQuestionnaireDueDate;
+			timetable = {
+				lpaQuestionnaireDueDate: await recalculateDateIfNotBusinessDay(body.lpaQuestionnaireDueDate)
+			};
 		}
+
+		await appealRepository.updateLPAQuestionnaireValidationOutcome({
+			lpaQuestionnaireId: Number(lpaQuestionnaireId),
+			validationOutcomeId: validationOutcome.id,
+			otherNotValidReasons,
+			...(isOutcomeIncomplete(validationOutcome.name) && {
+				appealId: Number(appealId),
+				incompleteReasons,
+				timetable
+			})
+		});
+
+		body.lpaQuestionnaireDueDate = timetable?.lpaQuestionnaireDueDate;
 	} catch (error) {
 		if (error) {
 			logger.error(error);

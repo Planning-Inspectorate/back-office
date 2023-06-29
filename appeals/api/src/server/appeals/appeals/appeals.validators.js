@@ -4,10 +4,10 @@ import { validationErrorHandler } from '../../middleware/error-handler.js';
 import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
+	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
 	ERROR_MAX_LENGTH_300_CHARACTERS,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
-	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
@@ -17,7 +17,7 @@ import {
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
 } from '../constants.js';
-import { isOutcomeIncomplete, isOutcomeInvalid } from './appeals.service.js';
+import { isOutcomeIncomplete, isOutcomeInvalid, joinDateAndTime } from './appeals.service.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 
@@ -39,12 +39,6 @@ const isGreaterThanZero = (value) => Number(value) >= 1;
  * @returns {boolean}
  */
 const hasPageNumberAndPageSize = (pageNumber, pageSize) => !!(pageNumber && pageSize);
-
-/**
- * @param {string} value
- * @returns {string}
- */
-const joinDateAndTime = (value) => `${value}T01:00:00.000Z`;
 
 /**
  * @param {string} parameterName

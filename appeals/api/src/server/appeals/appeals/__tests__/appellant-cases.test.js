@@ -1,8 +1,13 @@
+// @ts-nocheck
+import { jest } from '@jest/globals';
+
+import { addBusinessDays, format } from 'date-fns';
 import { request } from '../../../app-test.js';
 import {
+	DEFAULT_TIMESTAMP_TIME,
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
-	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
 	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
+	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
@@ -15,14 +20,21 @@ import {
 import {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
+	appellantCaseValidationOutcomes,
 	fullPlanningAppeal,
-	householdAppeal,
-	appellantCaseValidationOutcomes
+	householdAppeal
 } from '../../tests/data.js';
+import { joinDateAndTime } from '../appeals.service.js';
+import config from '../../config.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
+const startedAt = new Date(joinDateAndTime(format(new Date(), 'yyyy-MM-dd')));
 
 describe('appellant cases routes', () => {
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	describe('/appeals/:appealId/appellant-cases/:appellantCaseId', () => {
 		describe('GET', () => {
 			test('gets a single appellant case for a household appeal', async () => {
@@ -394,33 +406,7 @@ describe('appellant cases routes', () => {
 				expect(response.body).toEqual(body);
 			});
 
-			test('updates appellant case when the validation outcome is Valid', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-				// @ts-ignore
-				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
-					appellantCaseValidationOutcomes[2]
-				);
-
-				const body = {
-					validationOutcome: 'Valid'
-				};
-				const { appellantCase } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${householdAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
-
-				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
-					where: { id: appellantCase.id },
-					data: {
-						appellantCaseValidationOutcomeId: 3
-					}
-				});
-				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
-			});
-
-			test('updates appellant case when the validation outcome is valid', async () => {
+			test('updates appellant case and sets the timetable for a household appeal when the validation outcome is valid', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
@@ -442,6 +428,166 @@ describe('appellant cases routes', () => {
 						appellantCaseValidationOutcomeId: 3
 					}
 				});
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
+					expect.objectContaining({
+						update: {
+							lpaQuestionnaireDueDate: addBusinessDays(
+								startedAt,
+								config.timetable.HAS.lpaQuestionnaireDueDate.daysFromStartDate
+							)
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('updates appellant case and sets the timetable for a full planning appeal when the validation outcome is valid', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+				// @ts-ignore
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
+
+				const body = {
+					validationOutcome: 'valid'
+				};
+				const { appellantCase } = fullPlanningAppeal;
+				const response = await request
+					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
+					where: { id: appellantCase.id },
+					data: {
+						appellantCaseValidationOutcomeId: 3
+					}
+				});
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
+					expect.objectContaining({
+						update: {
+							finalCommentReviewDate: addBusinessDays(
+								startedAt,
+								config.timetable.FPA.finalCommentReviewDate.daysFromStartDate
+							),
+							lpaQuestionnaireDueDate: addBusinessDays(
+								startedAt,
+								config.timetable.FPA.lpaQuestionnaireDueDate.daysFromStartDate
+							),
+							statementReviewDate: addBusinessDays(
+								startedAt,
+								config.timetable.FPA.statementReviewDate.daysFromStartDate
+							)
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('sets the timetable deadline to two days after the deadline if the deadline day and the day after are bank holidays', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
+
+				jest.useFakeTimers().setSystemTime(new Date('2023-12-18'));
+
+				const body = {
+					validationOutcome: 'valid'
+				};
+				const { appellantCase } = fullPlanningAppeal;
+				const response = await request
+					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
+					where: { id: appellantCase.id },
+					data: {
+						appellantCaseValidationOutcomeId: 3
+					}
+				});
+
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
+					expect.objectContaining({
+						update: {
+							lpaQuestionnaireDueDate: new Date(`2023-12-27T${DEFAULT_TIMESTAMP_TIME}Z`)
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('sets the timetable deadline to the Monday after the deadline if the deadline is a Saturday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
+
+				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+
+				const body = {
+					validationOutcome: 'valid'
+				};
+				const { appellantCase } = fullPlanningAppeal;
+				const response = await request
+					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
+					where: { id: appellantCase.id },
+					data: {
+						appellantCaseValidationOutcomeId: 3
+					}
+				});
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
+					expect.objectContaining({
+						update: {
+							lpaQuestionnaireDueDate: new Date(`2023-06-12T${DEFAULT_TIMESTAMP_TIME}Z`)
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(body);
+			});
+
+			test('sets the timetable deadline to the Tuesday after the deadline if the deadline is a Saturday and the Monday after is a bank holiday', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
+					appellantCaseValidationOutcomes[2]
+				);
+
+				jest.useFakeTimers().setSystemTime(new Date('2023-05-22'));
+
+				const body = {
+					validationOutcome: 'valid'
+				};
+				const { appellantCase } = fullPlanningAppeal;
+				const response = await request
+					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
+					where: { id: appellantCase.id },
+					data: {
+						appellantCaseValidationOutcomeId: 3
+					}
+				});
+				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
+					expect.objectContaining({
+						update: {
+							lpaQuestionnaireDueDate: new Date(`2023-05-30T${DEFAULT_TIMESTAMP_TIME}Z`)
+						}
+					})
+				);
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});

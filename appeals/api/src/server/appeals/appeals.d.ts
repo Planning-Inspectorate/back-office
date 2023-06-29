@@ -272,6 +272,8 @@ type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'desc
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
 
+type NotValidReasons = Array<number | string>;
+
 export {
 	AppealListResponse,
 	AppealSite,
@@ -282,6 +284,7 @@ export {
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
+	NotValidReasons,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
 	SingleAppealDetailsResponse,
