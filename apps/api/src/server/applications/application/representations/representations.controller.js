@@ -1,3 +1,4 @@
+import { sortByFromQuery } from '../../../utils/query/sort-by.js';
 import {
 	createCaseRepresentation,
 	getCaseRepresentation,
@@ -53,28 +54,9 @@ export const getRepresentations = async ({ params, query }, response) => {
 	}
 
 	let sort = null;
-
-	if (query.sortBy) {
-		let field;
-		let direction;
-
-		switch (query.sortBy.slice(0, 1)) {
-			case '-':
-				direction = 'desc';
-				field = query.sortBy.slice(1);
-				break;
-
-			case '+':
-				direction = 'asc';
-				field = query.sortBy.slice(1);
-				break;
-
-			default:
-				direction = 'asc';
-				field = query.sortBy;
-		}
-
-		sort = [{ [field]: direction }];
+	const sortBy = sortByFromQuery(query.sortBy);
+	if (sortBy) {
+		sort = [sortBy];
 	}
 
 	const { count, items } = await getCaseRepresentations(

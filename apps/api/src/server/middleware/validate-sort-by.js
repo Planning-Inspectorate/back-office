@@ -10,7 +10,6 @@ import { ERROR_INVALID_SORT_BY, ERROR_INVALID_SORT_BY_OPTION } from './errors.js
  * @returns
  */
 export function validateSortByValue(options, value) {
-	console.log('value', value);
 	const first = value[0];
 	if (first !== '-' && first !== '+') {
 		throw new Error(ERROR_INVALID_SORT_BY);
