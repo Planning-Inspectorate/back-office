@@ -9,6 +9,7 @@ export const APPEAL_TYPE_SHORTCODE_HAS = 'HAS';
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
 export const BANK_HOLIDAY_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
 
+export const DEFAULT_TIMESTAMP_TIME = '01:00:00.000';
 export const DEFAULT_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 30;
 

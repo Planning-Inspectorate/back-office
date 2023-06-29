@@ -6,6 +6,7 @@ import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	BANK_HOLIDAY_FEED_DIVISION_ENGLAND,
 	BANK_HOLIDAY_FEED_URL,
+	DEFAULT_TIMESTAMP_TIME,
 	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
 	ERROR_NOT_FOUND,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
@@ -19,6 +20,7 @@ import {
  * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents
  * @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate
  * @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons
  * @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType
  * @typedef {import('express').NextFunction} NextFunction
  * @typedef {import('express').Request} Request
@@ -303,7 +305,7 @@ const checkValidationOutcomeExistsAndAddToRequest =
 /**
  *
  * @param {{
- *  data: Array<number | string>
+ *  data: NotValidReasons
  *  relationOne: string
  *  relationTwo: string
  *  relationOneId: number
@@ -359,6 +361,12 @@ const isOutcomeInvalid = (validationOutcome) =>
 const isOutcomeValid = (validationOutcome) =>
 	compareValidationOutcome(validationOutcome, VALIDATION_OUTCOME_VALID);
 
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+const joinDateAndTime = (value) => `${value}T${DEFAULT_TIMESTAMP_TIME}Z`;
+
 export {
 	calculateTimetable,
 	checkAppealExistsAndAddToRequest,
@@ -373,5 +381,6 @@ export {
 	isOutcomeIncomplete,
 	isOutcomeInvalid,
 	isOutcomeValid,
+	joinDateAndTime,
 	recalculateDateIfNotBusinessDay
 };

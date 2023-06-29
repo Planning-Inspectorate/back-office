@@ -7,6 +7,7 @@ import { createManyToManyRelationData } from '../appeals/appeals/appeals.service
 /** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
 /** @typedef {import('@pins/appeals.api').Appeals.LookupTables} LookupTables */
 /** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
+/** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.AppealTimetable} AppealTimetable */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCase} AppellantCase */
@@ -169,7 +170,6 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} id
 		 * @param {{
-		 *	startedAt?: string;
 		 *  otherNotValidReasons?: string;
 		 *  appellantCaseValidationOutcomeId?: number;
 		 *  lpaQuestionnaireValidationOutcomeId?: number;
@@ -182,6 +182,22 @@ const appealRepository = (function () {
 			return databaseConnector[databaseTable].update({
 				where: { id },
 				data
+			});
+		},
+		/**
+		 * @param {number} id
+		 * @param {{
+		 *	startedAt?: string;
+		 * }} data
+		 * @returns {PrismaPromise<object>}
+		 */
+		updateAppealById(id, data) {
+			return databaseConnector.appeal.update({
+				where: { id },
+				data: {
+					...data,
+					updatedAt: new Date()
+				}
 			});
 		},
 		/**
@@ -230,15 +246,15 @@ const appealRepository = (function () {
 		/**
 		 * @param {{
 		 *  id: number,
-		 *  data: Array<number | string>,
+		 *  data: NotValidReasons,
 		 *  databaseTable: string,
 		 *  relationOne: string,
 		 *  relationTwo: string,
 		 * }} param0
-		 * @returns {Promise<object>}
+		 * @returns {object[]}
 		 */
 		updateManyToManyRelationTable({ id, data, databaseTable, relationOne, relationTwo }) {
-			return databaseConnector.$transaction([
+			return [
 				// @ts-ignore
 				databaseConnector[databaseTable].deleteMany({
 					where: { [relationOne]: id }
@@ -247,7 +263,122 @@ const appealRepository = (function () {
 				databaseConnector[databaseTable].createMany({
 					data: createManyToManyRelationData({ data, relationOne, relationTwo, relationOneId: id })
 				})
-			]);
+			];
+		},
+		/**
+		 * @param {{
+		 * 	appellantCaseId: number,
+		 *	validationOutcomeId: number,
+		 *	otherNotValidReasons: string,
+		 *	incompleteReasons?: NotValidReasons,
+		 *	invalidReasons?: NotValidReasons,
+		 *	appealId?: number,
+		 *	timetable?: TimetableDeadlineDate,
+		 *	startedAt?: Date
+		 * }} param0
+		 * @returns {Promise<object>}
+		 */
+		updateAppellantCaseValidationOutcome({
+			appellantCaseId,
+			validationOutcomeId,
+			otherNotValidReasons,
+			incompleteReasons,
+			invalidReasons,
+			appealId,
+			timetable,
+			startedAt
+		}) {
+			const transaction = [
+				this.updateById(
+					appellantCaseId,
+					{
+						otherNotValidReasons,
+						appellantCaseValidationOutcomeId: validationOutcomeId
+					},
+					'appellantCase'
+				)
+			];
+
+			if (incompleteReasons) {
+				transaction.push(
+					...this.updateManyToManyRelationTable({
+						id: appellantCaseId,
+						data: incompleteReasons,
+						databaseTable: 'appellantCaseIncompleteReasonOnAppellantCase',
+						relationOne: 'appellantCaseId',
+						relationTwo: 'appellantCaseIncompleteReasonId'
+					})
+				);
+			}
+
+			if (invalidReasons) {
+				transaction.push(
+					...this.updateManyToManyRelationTable({
+						id: appellantCaseId,
+						data: invalidReasons,
+						databaseTable: 'appellantCaseInvalidReasonOnAppellantCase',
+						relationOne: 'appellantCaseId',
+						relationTwo: 'appellantCaseInvalidReasonId'
+					})
+				);
+			}
+
+			if (appealId && startedAt && timetable) {
+				transaction.push(
+					this.updateAppealById(appealId, { startedAt: startedAt.toISOString() }),
+					this.upsertAppealTimetableById(appealId, timetable)
+				);
+			}
+
+			return databaseConnector.$transaction(transaction);
+		},
+		/**
+		 * @param {{
+		 * 	lpaQuestionnaireId: number,
+		 *  validationOutcomeId: number,
+		 *	otherNotValidReasons: string,
+		 *	incompleteReasons?: NotValidReasons,
+		 *	appealId?: number,
+		 *	timetable?: TimetableDeadlineDate,
+		 * }} param0
+		 * @returns {Promise<object>}
+		 */
+		updateLPAQuestionnaireValidationOutcome({
+			lpaQuestionnaireId,
+			validationOutcomeId,
+			otherNotValidReasons,
+			incompleteReasons,
+			appealId,
+			timetable
+		}) {
+			const transaction = [
+				this.updateById(
+					lpaQuestionnaireId,
+					{
+						otherNotValidReasons,
+						lpaQuestionnaireValidationOutcomeId: validationOutcomeId
+					},
+					'lPAQuestionnaire'
+				)
+			];
+
+			if (incompleteReasons) {
+				transaction.push(
+					...this.updateManyToManyRelationTable({
+						id: lpaQuestionnaireId,
+						data: incompleteReasons,
+						databaseTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId'
+					})
+				);
+			}
+
+			if (appealId && timetable) {
+				transaction.push(this.upsertAppealTimetableById(appealId, timetable));
+			}
+
+			return databaseConnector.$transaction(transaction);
 		}
 	};
 })();
