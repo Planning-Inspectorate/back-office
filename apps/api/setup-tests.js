@@ -13,18 +13,6 @@ const mockCaseCount = jest.fn().mockResolvedValue({});
 const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
 const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
 
-const mockAppealFindUnique = jest.fn().mockResolvedValue({});
-const mockAppealStatusUpdateMany = jest.fn().mockResolvedValue({});
-const mockAppealStatusCreate = jest.fn().mockResolvedValue({});
-const mockAppealUpdate = jest.fn().mockResolvedValue({});
-const mockAppealStatusCreateMany = jest.fn().mockResolvedValue({});
-const mockAppealFindMany = jest.fn().mockResolvedValue({});
-const mockAppealCount = jest.fn().mockResolvedValue(0);
-const mockAppealTimetableUpsert = jest.fn().mockResolvedValue(0);
-const mocklPAQuestionnaireCreate = jest.fn().mockResolvedValue({});
-const mockReviewQuestionnaireCreate = jest.fn().mockResolvedValue({});
-const mockValidationDecisionCreate = jest.fn().mockResolvedValue({});
-
 const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
 
 const mockDocumentFindUnique = jest.fn().mockResolvedValue({});
@@ -88,60 +76,11 @@ const mockExaminationTimetableCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableUpdate = jest.fn().mockResolvedValue({});
 
 const mockAddressDelete = jest.fn().mockResolvedValue({});
-const mockAppellantCaseIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
-const mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
-const mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
-const mockAppellantCaseInvalidReasonFindMany = jest.fn().mockResolvedValue({});
-const mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany = jest.fn().mockResolvedValue({});
-const mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany = jest.fn().mockResolvedValue({});
-const mockValidationOutcomeFindMany = jest.fn().mockResolvedValue({});
-const mockValidationOutcomeFindUnique = jest.fn().mockResolvedValue({});
-const mockAppellantCaseUpdate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
 		return {
 			delete: mockAddressDelete
-		};
-	}
-	get appeal() {
-		return {
-			findUnique: mockAppealFindUnique,
-			update: mockAppealUpdate,
-			findMany: mockAppealFindMany,
-			count: mockAppealCount
-		};
-	}
-
-	get appealStatus() {
-		return {
-			updateMany: mockAppealStatusUpdateMany,
-			create: mockAppealStatusCreate,
-			createMany: mockAppealStatusCreateMany
-		};
-	}
-
-	get appealTimetable() {
-		return {
-			upsert: mockAppealTimetableUpsert
-		};
-	}
-
-	get reviewQuestionnaire() {
-		return {
-			create: mockReviewQuestionnaireCreate
-		};
-	}
-
-	get lPAQuestionnaire() {
-		return {
-			create: mocklPAQuestionnaireCreate
-		};
-	}
-
-	get validationDecision() {
-		return {
-			create: mockValidationDecisionCreate
 		};
 	}
 
@@ -299,45 +238,6 @@ class MockPrismaClient {
 	get representationAction() {
 		return {
 			create: mockRepresentationActionCreate
-		};
-	}
-
-	get appellantCaseIncompleteReason() {
-		return {
-			findMany: mockAppellantCaseIncompleteReasonFindMany
-		};
-	}
-
-	get appellantCaseInvalidReason() {
-		return {
-			findMany: mockAppellantCaseInvalidReasonFindMany
-		};
-	}
-
-	get validationOutcome() {
-		return {
-			findMany: mockValidationOutcomeFindMany,
-			findUnique: mockValidationOutcomeFindUnique
-		};
-	}
-
-	get appellantCase() {
-		return {
-			update: mockAppellantCaseUpdate
-		};
-	}
-
-	get appellantCaseIncompleteReasonOnAppellantCase() {
-		return {
-			deleteMany: mockAppellantCaseIncompleteReasonOnAppellantCaseDeleteMany,
-			createMany: mockAppellantCaseIncompleteReasonOnAppellantCaseCreateMany
-		};
-	}
-
-	get appellantCaseInvalidReasonOnAppellantCase() {
-		return {
-			deleteMany: mockAppellantCaseInvalidReasonOnAppellantCaseDeleteMany,
-			createMany: mockAppellantCaseInvalidReasonOnAppellantCaseCreateMany
 		};
 	}
 
