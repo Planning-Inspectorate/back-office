@@ -1,13 +1,13 @@
 /**
  * Create a sortBy object suitable for use with a database query, from a sortBy query string.
  *
- * @param {string} [queryStr] - in the format `<+|-><field>`
+ * @param {string|any} [queryStr] - in the format `<+|-><field>`
  * @returns {Object<string, string>|undefined}
  */
 export function sortByFromQuery(queryStr) {
 	let orderBy;
 
-	if (!queryStr) {
+	if (typeof queryStr !== 'string') {
 		return orderBy;
 	}
 
