@@ -490,6 +490,9 @@ describe('Representation repository', () => {
 							referredTo: true,
 							status: true,
 							type: true
+						},
+						orderBy: {
+							actionDate: 'asc'
 						}
 					},
 					attachments: {
@@ -563,6 +566,9 @@ describe('Representation repository', () => {
 							referredTo: true,
 							status: true,
 							type: true
+						},
+						orderBy: {
+							actionDate: 'asc'
 						}
 					},
 					attachments: {

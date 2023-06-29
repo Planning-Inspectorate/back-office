@@ -136,6 +136,9 @@ export const getById = async (id, caseId) => {
 					referredTo: true,
 					actionDate: true,
 					notes: true
+				},
+				orderBy: {
+					actionDate: 'asc'
 				}
 			},
 			attachments: {
