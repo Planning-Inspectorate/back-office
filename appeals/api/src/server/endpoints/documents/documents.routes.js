@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../middleware/async-handler.js';
+import { asyncHandler } from '../../middleware/async-handler.js';
 import { getDocuments } from './documents.controller.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */

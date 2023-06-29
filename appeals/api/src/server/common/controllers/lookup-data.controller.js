@@ -1,6 +1,6 @@
-import appealRepository from '../../../repositories/appeal.repository.js';
-import logger from '../../../utils/logger.js';
-import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import logger from '../../utils/logger.js';
+import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../endpoints/constants.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */

@@ -23,7 +23,7 @@ import {
 	appellantCaseValidationOutcomes,
 	fullPlanningAppeal,
 	householdAppeal
-} from '../../tests/data.js';
+} from '../../../tests/data.js';
 import { joinDateAndTime } from '../appeals.service.js';
 import config from '../../config.js';
 

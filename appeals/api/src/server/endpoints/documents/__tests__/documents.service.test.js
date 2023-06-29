@@ -1,4 +1,4 @@
-import { defaultCaseFolders } from '../../repositories/folder.layout.repository.js';
+import { defaultCaseFolders } from '../../../repositories/folder.layout.repository.js';
 
 describe('appeals documents', () => {
 	describe('appeals folders', () => {

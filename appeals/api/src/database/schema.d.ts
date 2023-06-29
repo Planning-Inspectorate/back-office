@@ -1,6 +1,9 @@
 import * as schema from '../../src/server/utils/db-client';
 import { string_to_uuid } from 'rhea/typings/util';
-import { APPEAL_TYPE_SHORTCODE_FPA, APPEAL_TYPE_SHORTCODE_HAS } from '../server/appeals/constants';
+import {
+	APPEAL_TYPE_SHORTCODE_FPA,
+	APPEAL_TYPE_SHORTCODE_HAS
+} from '../server/endpoints/constants';
 
 export {
 	Address,

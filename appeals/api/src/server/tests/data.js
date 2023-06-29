@@ -7,7 +7,7 @@ import {
 	VALIDATION_OUTCOME_INCOMPLETE,
 	VALIDATION_OUTCOME_INVALID,
 	VALIDATION_OUTCOME_VALID
-} from '../constants';
+} from '../endpoints/constants.js';
 
 const householdAppeal = {
 	id: 1,
