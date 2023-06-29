@@ -5,7 +5,7 @@
 import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	APPEAL_TYPE_SHORTCODE_HAS
-} from '../../server/appeals/constants.js';
+} from '../../server/endpoints/constants.js';
 
 /**
  * @typedef {import('appeals/api/src/database/schema').Appellant} Appellant

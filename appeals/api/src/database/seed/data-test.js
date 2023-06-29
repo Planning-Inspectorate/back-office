@@ -13,11 +13,11 @@ import {
 	localPlanningDepartmentList,
 	lpaQuestionnaireList
 } from './data-samples.js';
-import { calculateTimetable, isFPA } from '../../server/appeals/appeals/appeals.service.js';
+import { calculateTimetable, isFPA } from '../../server/endpoints/appeals/appeals.service.js';
 import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	APPEAL_TYPE_SHORTCODE_HAS
-} from '../../server/appeals/constants.js';
+} from '../../server/endpoints/constants.js';
 
 /**
  * @returns {Date} date two weeks ago

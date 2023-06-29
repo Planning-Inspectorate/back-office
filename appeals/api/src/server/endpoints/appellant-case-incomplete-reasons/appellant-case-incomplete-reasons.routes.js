@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getLookupData } from '../common/controllers/lookup-data.controller.js';
+import { getLookupData } from '../../common/controllers/lookup-data.controller.js';
 
 const router = createRouter();
 

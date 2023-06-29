@@ -1,6 +1,6 @@
-import appealRepository from '../repositories/appeal.repository.js';
-import { upsertCaseFolders } from '../repositories/folder.repository.js';
-import { getDocumentsByAppealId } from '../repositories/document.repository.js';
+import appealRepository from '../../repositories/appeal.repository.js';
+import { upsertCaseFolders } from '../../repositories/folder.repository.js';
+import { getDocumentsByAppealId } from '../../repositories/document.repository.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -36,7 +36,7 @@ export const getDocumentsForAppeal = async (appealId, sectionName = null) => {
 /**
  * Returns the current appeal by reference
  * @param {number} appealId
- * @returns {Promise<import("../appeals/appeals").RepositoryGetByIdResultItem|void>}
+ * @returns {Promise<import("../appeals.js").RepositoryGetByIdResultItem|void>}
  */
 const getAppeal = async (appealId) => {
 	const appeal = await appealRepository.getById(appealId);

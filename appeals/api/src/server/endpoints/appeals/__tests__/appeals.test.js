@@ -14,7 +14,7 @@ import {
 	householdAppealTwo,
 	linkedAppeals,
 	otherAppeals
-} from '../../tests/data.js';
+} from '../../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 

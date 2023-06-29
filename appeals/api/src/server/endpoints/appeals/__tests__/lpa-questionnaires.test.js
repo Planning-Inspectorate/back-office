@@ -21,7 +21,7 @@ import {
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals
-} from '../../tests/data.js';
+} from '../../../tests/data.js';
 import { createManyToManyRelationData } from '../appeals.service.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
