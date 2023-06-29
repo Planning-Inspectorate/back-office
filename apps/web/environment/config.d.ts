@@ -34,11 +34,6 @@ export interface EnvironmentConfig {
 	sslCertificateKeyFile: string;
 	tmpDir: string;
 	referenceData: {
-		appeals: {
-			caseOfficerGroupId: string;
-			inspectorGroupId: string;
-			validationOfficerGroupId: string;
-		};
 		applications: {
 			caseAdminOfficerGroupId: string;
 			caseTeamGroupId: string;

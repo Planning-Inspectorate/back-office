@@ -16,7 +16,7 @@ describe('auth', () => {
 
 	describe('authentication', () => {
 		it('should sign in an unauthenticated user via azure SSO', async () => {
-			const response = await request.get('/appeals-service/validation').redirects(1);
+			const response = await request.get('/applications-service/case-team').redirects(1);
 			const client = getConfidentialClientApplication();
 
 			// Assert azure msal client was instantiated correctly
@@ -51,7 +51,7 @@ describe('auth', () => {
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('msal_code');
 
-			expect(redirect.get('Location')).toEqual('/appeals-service/validation');
+			expect(redirect.get('Location')).toEqual('/applications-service/case-team');
 		});
 
 		it('should redirect to an error page when the redirect from MSAL is incomplete', async () => {

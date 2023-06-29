@@ -26,11 +26,6 @@ export default joi.object({
 	sslCertificateFile: joi.string(),
 	sslCertificateKeyFile: joi.string(),
 	referenceData: joi.object({
-		appeals: joi.object({
-			caseOfficerGroupId: joi.string(),
-			inspectorGroupId: joi.string(),
-			validationOfficerGroupId: joi.string()
-		}),
 		applications: joi.object({
 			caseAdminOfficerGroupId: joi.string(),
 			caseTeamGroupId: joi.string(),
