@@ -15,7 +15,7 @@ function getSubscription(caseReference, emailAddress) {
 
 /**
  *
- * @param {import('@pins/api/src/server/applications/subscriptions/subscription.d.ts').Subscription} subscription
+ * @param {import('@pins/applications.api/src/server/applications/subscriptions/subscription.d.ts').Subscription} subscription
  * @returns {Promise<{id: number}>}
  */
 function createOrUpdateSubscription(subscription) {

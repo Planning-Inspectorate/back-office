@@ -4,7 +4,7 @@ import { mapZoomLevel } from '../../utils/mapping/map-zoom-level.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.ZoomLevel[]} zoomLevels
+ * @param {import('@pins/applications.api').Schema.ZoomLevel[]} zoomLevels
  * @returns {{name: string, displayOrder: number, displayNameEn: string, displayNameCy: string}[]}
  */
 const mapZoomLevels = (zoomLevels) => {

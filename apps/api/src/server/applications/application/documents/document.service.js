@@ -76,7 +76,7 @@ const getCaseStageMapping = async (folderId) => {
  *
  * @param {number} caseId
  * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
- * @returns {Promise<import('@pins/api').Schema.Document[]>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Document[]>}
  */
 const upsertDocumentsToDatabase = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
@@ -138,7 +138,7 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 };
 
 /**
- * @param {import('@pins/api').Schema.Document[]} documents
+ * @param {import('@pins/applications.api').Schema.Document[]} documents
  * @param {string} caseReference
  * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string}[]}
  */

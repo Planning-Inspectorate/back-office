@@ -7,7 +7,7 @@ export const getAll = () => {
 /**
  *
  * @param {string} name
- * @returns {Promise<import('@pins/api').Schema.Region | null>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Region | null>}
  */
 export const getByName = (name) => {
 	return databaseConnector.region.findUnique({ where: { name } });
@@ -16,7 +16,7 @@ export const getByName = (name) => {
 /**
  *
  * @param {number} id
- * @returns {Promise<import('@pins/api').Schema.Region | null>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Region | null>}
  */
 export const getRegionById = (id) => {
 	return databaseConnector.region.findUnique({ where: { id } });

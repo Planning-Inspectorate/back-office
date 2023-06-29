@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import applicationsRouter from '../applications/applications.router.js';

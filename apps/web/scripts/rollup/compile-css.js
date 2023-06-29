@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import autoprefixer from 'autoprefixer';
 import kleur from 'kleur';
 import fs from 'node:fs';

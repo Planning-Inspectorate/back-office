@@ -14,7 +14,7 @@ export class TransitionStateError extends Error {
 }
 
 /**
- * @param {import('@pins/api').CaseType} caseType
+ * @param {import('@pins/applications.api').CaseType} caseType
  * @returns {Function}
  */
 const mapStateMachine = (caseType) => {
@@ -35,7 +35,7 @@ const mapStateMachine = (caseType) => {
 };
 
 /**
- * @param {{caseType: import('@pins/api').CaseType, context: object, status: object | string, machineAction: string, throwError: boolean}} transitionParams
+ * @param {{caseType: import('@pins/applications.api').CaseType, context: object, status: object | string, machineAction: string, throwError: boolean}} transitionParams
  * @returns {import('xstate').State<any, any, any, any, any>}
  */
 export const transitionState = ({

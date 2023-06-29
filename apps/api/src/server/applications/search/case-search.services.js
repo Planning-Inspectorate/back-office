@@ -7,7 +7,7 @@ import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-applic
  */
 
 /**
- * @param {import('@pins/api').Schema.Case[]} applications
+ * @param {import('@pins/applications.api').Schema.Case[]} applications
  * @returns {ApplicationWithSearchCriteriaResponse[]}
  */
 const mapApplicationsWithSearchCriteria = (applications) => {

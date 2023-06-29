@@ -2,7 +2,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  * @param {{name: string | undefined}} arguments
- * @returns {Promise<import('@pins/api').Schema.SubSector[]>}
+ * @returns {Promise<import('@pins/applications.api').Schema.SubSector[]>}
  */
 export const getBySector = ({ name }) => {
 	return databaseConnector.subSector.findMany({
@@ -17,7 +17,7 @@ export const getBySector = ({ name }) => {
 /**
  *
  * @param {string} name
- * @returns {Promise<import('@pins/api').Schema.SubSector | null>}
+ * @returns {Promise<import('@pins/applications.api').Schema.SubSector | null>}
  */
 export const getByName = (name) => {
 	return databaseConnector.subSector.findUnique({

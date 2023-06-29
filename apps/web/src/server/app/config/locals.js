@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import fs from 'node:fs';
 
 /**

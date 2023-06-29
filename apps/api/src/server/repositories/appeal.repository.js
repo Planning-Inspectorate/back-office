@@ -1,19 +1,19 @@
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
 
-/** @typedef {import('@pins/api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
-/** @typedef {import('@pins/api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
-/** @typedef {import('@pins/api').Appeals.LinkedAppeal} LinkedAppeal */
-/** @typedef {import('@pins/api').Appeals.LookupTables} LookupTables */
-/** @typedef {import('@pins/api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Schema.AppealTimetable} AppealTimetable */
-/** @typedef {import('@pins/api').Schema.AppellantCase} AppellantCase */
-/** @typedef {import('@pins/api').Schema.ValidationOutcome} ValidationOutcome */
-/** @typedef {import('@pins/api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason */
-/** @typedef {import('@pins/api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason */
-/** @typedef {import('@pins/api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
-/** @typedef {import('@pins/api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
+/** @typedef {import('@pins/applications.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
+/** @typedef {import('@pins/applications.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/applications.api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/applications.api').Appeals.LookupTables} LookupTables */
+/** @typedef {import('@pins/applications.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
+/** @typedef {import('@pins/applications.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/applications.api').Schema.AppealTimetable} AppealTimetable */
+/** @typedef {import('@pins/applications.api').Schema.AppellantCase} AppellantCase */
+/** @typedef {import('@pins/applications.api').Schema.ValidationOutcome} ValidationOutcome */
+/** @typedef {import('@pins/applications.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason */
+/** @typedef {import('@pins/applications.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason */
+/** @typedef {import('@pins/applications.api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
+/** @typedef {import('@pins/applications.api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
 /**
  * @typedef {import('@prisma/client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T

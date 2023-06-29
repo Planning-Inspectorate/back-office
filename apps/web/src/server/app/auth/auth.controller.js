@@ -1,5 +1,5 @@
 import msalNode from '@azure/msal-node';
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import { promisify } from 'node:util';
 import pino from '../../lib/logger.js';
 import * as authService from './auth.service.js';

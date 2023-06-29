@@ -4,7 +4,7 @@ import { mapRegion } from '../../utils/mapping/map-region.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Region[]} regions
+ * @param {import('@pins/applications.api').Schema.Region[]} regions
  * @returns {{name: string, displayNameEn: string, displayNameCy: string}[]}
  */
 const mapRegions = (regions) => {

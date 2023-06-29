@@ -1053,7 +1053,7 @@ const document = {
 		BookSiteVisit: {
 			$siteVisitType: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.SiteVisitType} */ ([
+				'@enum': /** @type {import('@pins/applications.api').Schema.SiteVisitType} */ ([
 					'accompanied',
 					'unaccompanied',
 					'access required'
@@ -1088,11 +1088,12 @@ const document = {
 			},
 			$outcome: {
 				required: true,
-				'@enum': /** @type {import('@pins/api').Schema.InspectorDecisionOutcomeType} */ ([
-					'allowed',
-					'dismissed',
-					'split decision'
-				])
+				'@enum':
+					/** @type {import('@pins/applications.api').Schema.InspectorDecisionOutcomeType} */ ([
+						'allowed',
+						'dismissed',
+						'split decision'
+					])
 			}
 		},
 		UploadStatement: {

@@ -1,4 +1,4 @@
-import { assertDomainTypeIsNotInspector } from '@pins/web/src/server/applications/create-new-case/applications-create.guards.js';
+import { assertDomainTypeIsNotInspector } from '@pins/applications.web/src/server/applications/create-new-case/applications-create.guards.js';
 import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as locals from '../applications-case.locals.js';

@@ -68,7 +68,7 @@ import { pick } from 'lodash-es';
 const sourceSystem = 'ODT';
 
 /**
- * @param {import('@pins/api').Schema.Case} projectEntity
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns {NsipProjectPayload}
  */
 export const buildNsipProjectPayload = (projectEntity) => {
@@ -100,7 +100,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 };
 
 /**
- * @param {import('@pins/api').Schema.Case} projectEntity
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns {NsipProjectPayload | undefined}
  */
 const mapApplicationDetails = (projectEntity) => {
@@ -137,7 +137,7 @@ const mapApplicationDetails = (projectEntity) => {
 };
 
 /**
- * @param {import('@pins/api').Schema.Case} projectEntity
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns { { sector: string, projectType: string } | undefined}
  */
 const mapSectorAndType = (projectEntity) => {

@@ -3,7 +3,7 @@ import { mapCaseStatusString } from './map-case-status-string.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.CaseStatus[] | null} caseStatus
+ * @param {import('@pins/applications.api').Schema.CaseStatus[] | null} caseStatus
  * @returns {string | object}
  */
 export const mapCaseStatus = (caseStatus) => {
