@@ -12,7 +12,12 @@ export async function getProjectUpdates(req, res) {
 	const page = Number(req.query.page) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 	const caseId = parseInt(req.params.id);
-	const orderBy = sortByFromQuery(String(req.query.sortBy));
+	let sortBy;
+	if (req.query.sortBy) {
+		// don't convert undefined to 'undefined' string
+		sortBy = String(req.query.sortBy);
+	}
+	const orderBy = sortByFromQuery(sortBy);
 	logger.debug({ caseId, page, pageSize, orderBy }, 'getProjectUpdates');
 
 	const result = await listProjectUpdates(caseId, page, pageSize, orderBy);
