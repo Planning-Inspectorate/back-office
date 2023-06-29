@@ -7,10 +7,10 @@ import { getDocuments } from './documents.controller.js';
 const router = createRouter();
 
 router.get(
-	'/:appealId',
+	'/:appealId/documents',
 	/*
 		#swagger.tags = ['Appeal Documents']
-		#swagger.path = '/appeals/documents/{appealId}'
+		#swagger.path = '/appeals/{appealId}/documents'
 		#swagger.description = Returns the contents of the appeal folders
 		#swagger.responses[200] = {
 			description: 'Gets all the documents for a specific appeal by id',

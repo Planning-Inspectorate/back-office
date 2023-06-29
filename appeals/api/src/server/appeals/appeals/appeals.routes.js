@@ -1,5 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
+import { documentsRoutes } from '../../documents/documents.routes.js';
 import {
 	getAppealById,
 	getAppeals,
@@ -62,6 +63,8 @@ router.get(
 	getAppealsValidator,
 	asyncHandler(getAppeals)
 );
+
+router.use(documentsRoutes);
 
 router.get(
 	'/:appealId',

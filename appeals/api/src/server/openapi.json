@@ -96,45 +96,6 @@
 				}
 			}
 		},
-		"/appeals/documents/{appealId}": {
-			"get": {
-				"tags": ["Appeal Documents"],
-				"description": "Returns the contents of the appeal folders",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Folder"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Folder"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			}
-		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -500,6 +461,45 @@
 								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/documents": {
+			"get": {
+				"tags": ["Appeal Documents"],
+				"description": "Returns the contents of the appeal folders",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets all the documents for a specific appeal by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Folder"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/Folder"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
 					}
 				}
 			}
