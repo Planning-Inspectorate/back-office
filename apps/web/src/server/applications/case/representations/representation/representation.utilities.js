@@ -35,7 +35,7 @@ export const formatContactDetails = (contact = {}) => ({
 	id: contact.id,
 	type: contact.type,
 	organisationName: contact.organisationName || '',
-	fullName: `${contact.firstName} ${contact.lastName}`,
+	fullName: contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}` : '',
 	firstName: contact.firstName,
 	lastName: contact.lastName,
 	jobTitle: contact.jobTitle || '',

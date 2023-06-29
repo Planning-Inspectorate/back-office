@@ -1,0 +1,93 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% from "../components/representation-address.njk" import representationAddress %}
+{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+
+{% set represented = representation.represented %}
+
+{{
+  representationSummaryList([
+    {
+      items: [
+        {
+          key: 'Organisation name',
+          value: represented.organisationName
+        },
+        {
+          key: 'Full name',
+          value: represented.fullName
+        },
+        {
+          key: 'Job title',
+          value: represented.jobTitle
+        },
+        {
+          key: 'Email address',
+          value: represented.email
+        },
+        {
+          key: 'Telephone number',
+          value: represented.phoneNumber
+        }
+      ],
+      error: null,
+      link: checkLinks.contactDetails,
+      linkText: "Change contact details"
+    },
+    {
+      items: [
+        {
+          key: 'Address',
+          value: representationAddress(represented.address)
+        }
+      ],
+      error: errors['represented.address.postcode'],
+      link: checkLinks.addressDetails,
+      linkText: "Change address details"
+    },
+    {
+      items: [
+        {
+          key: 'Preferred contact method',
+          value: selectedContactMethodOptionText.represented
+        }
+      ],
+      error: errors['represented.contactMethod'],
+      link: checkLinks.contactMethod,
+      linkText: "Change preferred contact method"
+    },
+    {
+      items: [
+        {
+          key: 'Type',
+          value: representation.type
+        }
+      ],
+      error: errors.type,
+      link: checkLinks.representationType,
+      linkText: "Change type"
+    },
+    {
+      items: [
+        {
+          key: 'Under 18',
+          value: selectedUnder18OptionText
+        }
+      ],
+      error: errors['represented.under18'],
+      link: checkLinks.under18,
+      linkText: "Change under 18"
+    },
+    {
+      items: [
+        {
+          key: 'Representation on behalf of',
+          value: selectedEntityOptionText
+        }
+      ],
+      error: errors['represented.type'],
+      link: checkLinks.representationEntity,
+      linkText: "Change representation on behalf of"
+    }
+  ])
+}}

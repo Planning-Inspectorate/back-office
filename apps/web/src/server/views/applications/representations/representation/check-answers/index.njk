@@ -1,0 +1,39 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% from "applications/representations/representation/components/representation-heading.component.njk" import representationHeading %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageTitle %}
+	{{ pageTitle }}
+{% endblock %}
+
+{% block pageContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ representationHeading(pageHeading, 'Add a representation', case.projectName) }}
+
+      {% include "applications/representations/representation/check-answers/includes/represented-details.include.njk" %}
+
+      {% if representation.representative.type %}
+        {% include "applications/representations/representation/check-answers/includes/representative-details.include.njk" %}
+      {% endif %}
+
+      {% include "applications/representations/representation/check-answers/includes/representation.include.njk" %}
+
+      {% if representation.attachments | length > 0 %}
+        {% include "applications/representations/representation/check-answers/includes/attachments.include.njk" %}
+      {% endif %}
+
+      <form method="post">
+        {{ govukButton({
+          text: "Submit for review",
+          value: representation.id
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+<h3 class="govuk-heading-m">Attachments</h3>
+
+{% set attachments = '' %}
+
+{% for attachment in representation.attachments %}
+  {% set attachments = attachments + '<li><strong>' + attachment.filename + '</strong></li>' %}
+{% endfor %}
+
+{{ govukSummaryList({
+  classes: 'govuk-!-margin-bottom-9',
+  rows: [
+    {
+      actions: {
+        items: [
+          {
+            href: checkLinks.attachmentUpload,
+            text: "Change",
+            visuallyHiddenText: "Change attachments"
+          }
+        ]
+      },
+      key: {
+        html: '
+          <ul class="govuk-list">
+            ' + attachments + '
+          </ul>
+        '
+      },
+      value: {
+        classes: "display--none"
+      }
+    }
+  ]
+}) }}

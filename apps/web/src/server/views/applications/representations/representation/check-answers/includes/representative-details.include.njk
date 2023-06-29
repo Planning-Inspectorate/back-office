@@ -1,0 +1,60 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% from "../components/representation-address.njk" import representationAddress %}
+{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+
+{% set representative = representation.representative %}
+
+<h3 class="govuk-heading-m">Agent details</h3>
+
+{{ representationSummaryList([
+  {
+    items: [
+      {
+        key: 'Organisation name',
+        value: representative.organisationName
+      },
+      {
+        key: 'Full name',
+        value: representative.fullName
+      },
+      {
+        key: 'Job title',
+        value: representative.jobTitle
+      },
+      {
+        key: 'Email address',
+        value: representative.email
+      },
+      {
+        key: 'Telephone number',
+        value: representative.phoneNumber
+      }
+    ],
+    error: errors['representative.firstName'],
+    link: checkLinks.agentContactDetails,
+    linkText: "Change contact details"
+  },
+  {
+    items: [
+      {
+        key: 'Address',
+        value: representationAddress(representative.address)
+      }
+    ],
+    error: errors['representative.address.postcode'],
+    link: checkLinks.agentAddressDetails,
+    linkText: "Change address details"
+  },
+  {
+    items: [
+      {
+        key: 'Preferred contact method',
+        value: selectedContactMethodOptionText.representative
+      }
+    ],
+    error: errors['representative.contactMethod'],
+    link: checkLinks.agentContactMethod,
+    linkText: "Change preferred contact method"
+  }
+]) }}

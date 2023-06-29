@@ -58,14 +58,14 @@ describe('Representation comment page', () => {
 				});
 
 				expect(response?.headers?.location).toEqual(
-					'attachment-upload?repId=1&repType=represented'
+					'/applications-service/case/1/relevant-representations/attachment-upload?repId=1&repType=represented'
 				);
 			});
 		});
 
 		describe('Representative', () => {
 			it('should redirect to the next page', async () => {
-				const response = await request.post(baseUrl + '&repType=representative').send({
+				const response = await request.post(baseUrl + '&repType=represented').send({
 					originalRepresentation: 'test',
 					'received-date-year': '2023',
 					'received-date-month': '1',
@@ -73,7 +73,7 @@ describe('Representation comment page', () => {
 				});
 
 				expect(response?.headers?.location).toEqual(
-					'attachment-upload?repId=1&repType=representative'
+					'/applications-service/case/1/relevant-representations/attachment-upload?repId=1&repType=represented'
 				);
 			});
 		});

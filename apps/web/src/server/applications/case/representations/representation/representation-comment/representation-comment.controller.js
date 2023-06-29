@@ -1,7 +1,6 @@
 import { patchRepresentationNoMap } from '../representation.service.js';
 import {
 	getFormattedErrorSummary,
-	getRepresentationPageUrl,
 	replaceRepresentaionValuesAsBodyValues
 } from '../representation.utilities.js';
 import {
@@ -17,14 +16,12 @@ const view = 'applications/representations/representation/representation-comment
  * @param {import("express").Response} res
  */
 export const getRepresentationComment = async (req, res) => {
-	const { query } = req;
-
 	const representationReceivedDate = res.locals.representation.received
 		? new Date(res.locals.representation.received)
 		: '';
 
 	return res.render(view, {
-		...getRepresentationCommentViewModel(query, res.locals),
+		...getRepresentationCommentViewModel(res.locals),
 		receivedDate: representationReceivedDate && {
 			day: representationReceivedDate.getUTCDate(),
 			month: representationReceivedDate.getUTCMonth() + 1,
@@ -72,7 +69,7 @@ export const postRepresentationComment = async (req, res) => {
 		}
 
 		return res.render(view, {
-			...getRepresentationCommentViewModel(query, locals),
+			...getRepresentationCommentViewModel(locals),
 			...replaceRepresentaionValuesAsBodyValues(
 				{ ...locals.representation, ...payload },
 				{},
@@ -93,7 +90,5 @@ export const postRepresentationComment = async (req, res) => {
 
 	await patchRepresentationNoMap(caseId, String(repId), String(repType), payload);
 
-	return res.redirect(
-		getRepresentationPageUrl('attachment-upload', String(repId), String(repType))
-	);
+	return res.redirect(locals.representation.pageLinks.redirectUrl);
 };

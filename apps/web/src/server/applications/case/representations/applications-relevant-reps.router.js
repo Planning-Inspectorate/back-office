@@ -9,6 +9,7 @@ import relevantRepresentationUnder18Router from './representation/under-18/under
 import relevantRepEntityRouter from './representation/representation-entity/entity.router.js';
 import relevantRepresentationCommentRouter from './representation/representation-comment/representation-comment.router.js';
 import relevantRepresentationAttachmentUploadRouter from './representation/attachment-upload/attachment-upload.router.js';
+import relevantRepCheckAnswersRouter from './representation/check-answers/check-answers.router.js';
 import representationDetailsRouter from './representation-details/application-representation-details.router.js';
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 
@@ -23,6 +24,7 @@ relevantRepsRouter.use('/', relevantRepresentationUnder18Router);
 relevantRepsRouter.use('/', relevantRepEntityRouter);
 relevantRepsRouter.use('/', relevantRepresentationCommentRouter);
 relevantRepsRouter.use('/', relevantRepresentationAttachmentUploadRouter);
+relevantRepsRouter.use('/', relevantRepCheckAnswersRouter);
 relevantRepsRouter.use('/:representationId/representation-details', representationDetailsRouter);
 
 relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);

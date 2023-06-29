@@ -14,7 +14,7 @@ exports[`Representation contact method page GET /applications-service/case/1/rel
                         <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"contactMethod\\" name=\\"contactMethod\\"
-                                type=\\"radio\\" value=\\"email\\">
+                                type=\\"radio\\" value=\\"email\\" checked>
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"contactMethod\\">Email</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">
@@ -62,7 +62,7 @@ exports[`Representation contact method page POST /applications-service/case/1/re
                         <div                         class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"contactMethod\\" name=\\"contactMethod\\"
-                                type=\\"radio\\" value=\\"email\\">
+                                type=\\"radio\\" value=\\"email\\" checked>
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"contactMethod\\">Email</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">

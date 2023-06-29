@@ -31,7 +31,7 @@ export const getRepresentationTypeViewModel = ({ repMode, repType }, { represent
 });
 
 /**
- * @typedef {object|*} repType
+ * @typedef {object} repType
  * @property {string} value
  * @property {string} text
  * @property {boolean?} checked
@@ -65,10 +65,13 @@ const listOfRadioOptions = [
  * @param {boolean?} rep.under18
  * @return repTypes
  */
-const getListOfOptions = ({ under18 = null }) =>
-	listOfRadioOptions.map((option) => {
-		if (option.value === under18) {
-			option.checked = true;
+export const getListOfOptions = ({ under18 }) => {
+	const under18Options = JSON.parse(JSON.stringify(listOfRadioOptions));
+
+	return under18Options.map(
+		(/** @type {{ value: boolean | null; checked: boolean; }} */ option) => {
+			if (option.value === under18) option.checked = true;
+			return option;
 		}
-		return option;
-	});
+	);
+};

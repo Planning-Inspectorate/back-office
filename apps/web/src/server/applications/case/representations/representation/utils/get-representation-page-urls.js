@@ -6,14 +6,15 @@ export const repRoutes = {
 	under18: '/under-18',
 	representationEntity: '/representation-entity',
 	addRepresentation: '/add-representation',
-	checkYourAnswers: '/check-your-answers'
+	attachmentUpload: '/attachment-upload',
+	checkAnswers: '/check-answers'
 };
 
 /**
  * @param {string} route
  * @param {string} caseId
  * @param {string} repId
- * @param {string} repType
+ * @param {string|null} repType
  * @returns {string}
  */
 export const buildRepresentationPageURL = (route, caseId, repId, repType) => {
@@ -53,7 +54,8 @@ export const getRepresentaionDetailsPageUrl = (caseId, repId) =>
  * @property {string} under18
  * @property {string} representationEntity
  * @property {string} addRepresentation
- * @property {string} checkYourAnswers
+ * @property {string} attachmentUpload
+ * @property {string} checkAnswers
  */
 
 /**
@@ -112,10 +114,11 @@ export const getRepresentationPageURLs = (caseId, repId) => ({
 		repId,
 		'represented'
 	),
-	checkYourAnswers: buildRepresentationPageURL(
-		repRoutes.checkYourAnswers,
+	attachmentUpload: buildRepresentationPageURL(
+		repRoutes.attachmentUpload,
 		caseId,
 		repId,
 		'represented'
-	)
+	),
+	checkAnswers: buildRepresentationPageURL(repRoutes.checkAnswers, caseId, repId, null)
 });
