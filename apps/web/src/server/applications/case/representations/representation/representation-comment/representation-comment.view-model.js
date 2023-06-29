@@ -1,22 +1,10 @@
 /**
- * @typedef {object|*} Locals
- * @property {boolean} isRepresented
- * @property {string} prefixBackLink
- */
-
-/**
- * @typedef {object|*} Query
- * @property {string} repType
- * @property {string} repId
- */
-/**
- * @param {Query} query
- * @param {Locals} locals
+ * @param {object|*} locals
  * @returns {object}
  */
 
-export const getRepresentationCommentViewModel = ({ repType, repId }, { prefixBackLink }) => ({
-	backLinkUrl: `${prefixBackLink}/representation-entity?repType=${repType}&repId=${repId}`,
+export const getRepresentationCommentViewModel = ({ representation }) => ({
+	backLinkUrl: representation.pageLinks.backLinkUrl,
 	pageTitle: 'Add representation'
 });
 

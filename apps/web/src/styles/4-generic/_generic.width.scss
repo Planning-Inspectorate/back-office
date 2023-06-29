@@ -1,0 +1,10 @@
+$width-attrs: (
+	"auto": "auto",
+	"0": "0"
+);
+
+@each $key, $val in $width-attrs {
+	.width--#{$key} {
+		width: #{$val};
+	}
+}

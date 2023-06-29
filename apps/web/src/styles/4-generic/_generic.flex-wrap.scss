@@ -1,0 +1,9 @@
+$flex-wrap-attrs: (
+	"wrap": "wrap"
+);
+
+@each $key, $val in $flex-wrap-attrs {
+	.flex-wrap--#{$key} {
+		flex-wrap: #{$val};
+	}
+}

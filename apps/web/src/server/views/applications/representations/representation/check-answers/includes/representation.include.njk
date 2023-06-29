@@ -1,0 +1,25 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+
+<h3 class="govuk-heading-m">Representation</h3>
+
+{{
+  representationSummaryList([
+    {
+      items: [
+        {
+          key: 'Date received',
+          value: representation.originalRepresentation and representation.received | displayDate
+        },
+        {
+          key: 'Original representation',
+          value: representation.originalRepresentation
+        }
+      ],
+      error: errors['originalRepresentation'],
+      link: checkLinks.addRepresentation,
+      linkText: "Change representation"
+    }
+  ])
+}}

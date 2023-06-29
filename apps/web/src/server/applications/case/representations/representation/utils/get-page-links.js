@@ -16,7 +16,8 @@ import {
  * @property {string} under18
  * @property {string} representationEntity
  * @property {string} addRepresentation
- * @property {string} checkYourAnswers
+ * @property {string} attachmentUpload
+ * @property {string} checkAnswers
  */
 
 /**
@@ -73,6 +74,8 @@ const getRepresentedPageLinks = (path, pageURLs, caseId) => {
 			return mappedPageLinks(pageURLs.representationType, pageURLs.representationEntity);
 		case repRoutes.representationEntity:
 			return mappedPageLinks(pageURLs.representationType, null);
+		case repRoutes.addRepresentation:
+			return mappedPageLinks(pageURLs.representationEntity, pageURLs.attachmentUpload);
 		default:
 			return mappedPageLinks(null, null);
 	}
@@ -94,7 +97,9 @@ export const getPageLinks = (repMode, path, caseId, repId, repType, pageURLs) =>
 		const representaionDetailsPageUrl = getRepresentaionDetailsPageUrl(caseId, repId);
 		pageLinks = mappedPageLinks(representaionDetailsPageUrl, representaionDetailsPageUrl);
 	} else if (repMode === 'check')
-		pageLinks = mappedPageLinks(pageURLs.checkYourAnswers, pageURLs.checkYourAnswers);
+		pageLinks = mappedPageLinks(pageURLs.checkAnswers, pageURLs.checkAnswers);
+	else if (path === repRoutes.checkAnswers)
+		pageLinks = mappedPageLinks(pageURLs.attachmentUpload, getRepresentationBaseUrl(caseId));
 	else if (repType === 'represented') pageLinks = getRepresentedPageLinks(path, pageURLs, caseId);
 	else if (repType === 'representative') pageLinks = getRepresentativePageLinks(path, pageURLs);
 

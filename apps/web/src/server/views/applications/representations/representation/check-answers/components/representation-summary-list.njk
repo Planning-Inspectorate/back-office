@@ -1,0 +1,74 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro summaryListKeyValueLayout(rows, error) %}
+  {% set listClasses = "display--block govuk-!-margin-0" %}
+  {% set listRows = [] %}
+
+  {% for row in rows %}
+    {% set listRows = (listRows.push({
+      actions: {
+        classes: "display--none"
+      },
+      classes: "display--flex flex-wrap--wrap govuk-summary-list__row--no-border",
+      key: {
+        classes: "govuk-!-width-one-third",
+        text: row.key
+      },
+      value: {
+        classes: "govuk-!-width-two-thirds govuk-!-margin-0",
+        html: row.value
+      }
+    }), listRows) %}
+  {% endfor %}
+
+  {% if error %}
+    {% set listRows = (listRows.push({
+      actions: {
+        classes: "display--none"
+      },
+      classes: "display--flex flex-wrap--wrap govuk-summary-list__row--no-border",
+      key: {
+        classes: "govuk-!-width-full",
+        html: '<span class="govuk-error-message govuk-!-margin-0">' + error.msg + '</span>'
+      }
+    }), listRows) %}
+
+    {% set listClasses = listClasses + " govuk-form-group--error" %}
+  {% endif %}
+
+  {{ govukSummaryList({
+    attributes: { id: error.param },
+    classes: listClasses,
+    rows: listRows
+  }) }}
+{% endmacro %}
+
+{% macro representationSummaryList(rows) %}
+  {% set rowItems = [] %}
+
+  {% for row in rows %}
+    {% set rowItems = (rowItems.push({
+      actions: {
+        items: [
+          {
+            href: row.link,
+            text: "Change",
+            visuallyHiddenText: row.linkText
+          }
+        ]
+      },
+      key: {
+        classes: "govuk-!-padding-0 width--auto",
+        html: summaryListKeyValueLayout(row.items, row.error)
+      },
+      value: {
+        classes: "width--0 govuk-!-padding-0"
+      }
+    }), rowItems) %}
+  {% endfor %}
+
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: rowItems
+  }) }}
+{% endmacro %}

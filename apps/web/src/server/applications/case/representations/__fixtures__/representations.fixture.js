@@ -35,7 +35,7 @@ export const representationFixture = {
 		'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 	redactedRepresentation:
 		'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO (Redacted)',
-	type: null,
+	type: 'Local authorities',
 	user: null,
 	contacts: [
 		{
@@ -45,6 +45,7 @@ export const representationFixture = {
 			organisationName: null,
 			jobTitle: null,
 			under18: false,
+			contactMethod: 'email',
 			email: 'test@example.com',
 			phoneNumber: '01234 567890',
 			address: {
@@ -62,6 +63,7 @@ export const representationFixture = {
 			organisationName: '',
 			jobTitle: null,
 			under18: false,
+			contactMethod: 'email',
 			email: 'test-agent@example.com',
 			phoneNumber: '01234 567890',
 			address: {
