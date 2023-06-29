@@ -11,6 +11,7 @@ const { value: validatedConfig, error } = schema.validate({
 	authDisabled: environment.AUTH_DISABLED,
 	authRedirectPath: environment.AUTH_REDIRECT_PATH || '/auth/redirect',
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
+	blobEmulatorSasUrl: environment.AZURE_BLOB_EMULATOR_SAS_HOST,
 	env: environment.NODE_ENV,
 	isRelease: environment.APP_RELEASE,
 	logLevelFile: environment.LOG_LEVEL_FILE,
