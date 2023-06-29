@@ -126,9 +126,23 @@ export const getById = async (id, caseId) => {
 			},
 			representationActions: {
 				select: {
-					notes: true,
+					type: true,
+					actionBy: true,
+					redactStatus: true,
+					previousRedactStatus: true,
 					status: true,
-					actionBy: true
+					previousStatus: true,
+					invalidReason: true,
+					referredTo: true,
+					actionDate: true,
+					notes: true
+				}
+			},
+			attachments: {
+				select: {
+					id: true,
+					documentGuid: true,
+					Document: true
 				}
 			}
 		},

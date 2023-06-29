@@ -6,7 +6,8 @@ import {
 } from './representaions.service.js';
 import {
 	getLatestRedaction,
-	mapCreateOrUpdateRepRequestToRepository
+	mapCreateOrUpdateRepRequestToRepository,
+	mapDocumentRepresentationAttachments
 } from './representation.mapper.js';
 
 /**
@@ -23,6 +24,7 @@ export const getRepresentation = async ({ params }, response) => {
 	}
 
 	const latestRedaction = getLatestRedaction(representation);
+	representation.attachments = mapDocumentRepresentationAttachments(representation.attachments);
 
 	return response.send({
 		...representation,

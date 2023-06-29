@@ -84,4 +84,21 @@ export const mapCreateOrUpdateRepRequestToRepository = (
  * @return { actionBy: string, notes: string }
  */
 export const getLatestRedaction = ({ representationActions }) =>
-	representationActions ? representationActions[representationActions.length - 1] : {};
+	representationActions.filter(({ type }) => type === 'REDACTION').pop();
+
+/**
+ *
+ * @param {object} attachments
+ * @param {string} attachments.id
+ * @param {string} attachments.documentGuid
+ * @param {*} attachments.Document
+ * @return {*}
+ */
+export const mapDocumentRepresentationAttachments = (attachments) =>
+	attachments.map((attachment) => {
+		return {
+			attachmentId: attachment.id,
+			documentId: attachment.documentGuid,
+			filename: attachment.Document?.name
+		};
+	});

@@ -7,7 +7,14 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		attachments: [
+			{
+				id: 1,
+				documentGuid: 'document-guid'
+			}
+		],
+		representationActions: []
 	}
 ];
 

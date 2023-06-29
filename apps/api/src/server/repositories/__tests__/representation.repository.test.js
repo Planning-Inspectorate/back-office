@@ -481,8 +481,22 @@ describe('Representation repository', () => {
 					representationActions: {
 						select: {
 							actionBy: true,
+							actionDate: true,
+							invalidReason: true,
 							notes: true,
-							status: true
+							previousRedactStatus: true,
+							previousStatus: true,
+							redactStatus: true,
+							referredTo: true,
+							status: true,
+							type: true
+						}
+					},
+					attachments: {
+						select: {
+							Document: true,
+							documentGuid: true,
+							id: true
 						}
 					}
 				},
@@ -540,8 +554,22 @@ describe('Representation repository', () => {
 					representationActions: {
 						select: {
 							actionBy: true,
+							actionDate: true,
+							invalidReason: true,
 							notes: true,
-							status: true
+							previousRedactStatus: true,
+							previousStatus: true,
+							redactStatus: true,
+							referredTo: true,
+							status: true,
+							type: true
+						}
+					},
+					attachments: {
+						select: {
+							Document: true,
+							documentGuid: true,
+							id: true
 						}
 					}
 				},
