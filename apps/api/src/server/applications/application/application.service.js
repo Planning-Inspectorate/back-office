@@ -36,7 +36,7 @@ class StartApplicationError extends Error {
 
 /**
  * @param {number} id
- * @returns {Promise<import('@pins/api').Schema.Case>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Case>}
  * @throws {Error}
  */
 const verifyAllApplicationDetailsPresent = async (id) => {

@@ -10,7 +10,7 @@ import { mapValuesUsingObject } from './map-values-using-object.js';
 import { mapZoomLevel } from './map-zoom-level.js';
 
 /**
- * @param {import('@pins/api').Schema.Case} caseDetails
+ * @param {import('@pins/applications.api').Schema.Case} caseDetails
  * @returns {{
  *  title?: string | undefined,
  *  description?: string | undefined,

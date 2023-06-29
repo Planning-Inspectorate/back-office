@@ -32,7 +32,7 @@ const serviceCustomer = {
 /**
  *
  * @param {{regions?: boolean, mapZoomLevel?: boolean, subSector?: boolean}} param0
- * @returns {import('@pins/api').Schema.ApplicationDetails}
+ * @returns {import('@pins/applications.api').Schema.ApplicationDetails}
  */
 const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector = true }) => {
 	return {
@@ -104,7 +104,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
  *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
- * @returns {import('@pins/api').Schema.Case}
+ * @returns {import('@pins/applications.api').Schema.Case}
  */
 export const applicationFactoryForTests = ({
 	id,

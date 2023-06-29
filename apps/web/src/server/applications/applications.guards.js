@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import { assertGroupAccess } from '../app/auth/auth.guards.js';
 import pino from '../lib/logger.js';
 import { getSessionApplicationsDomainType } from './applications-session.service.js';

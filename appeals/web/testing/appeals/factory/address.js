@@ -1,7 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { fake } from '@pins/platform';
 
+<<<<<<< HEAD
 /** @typedef {import('@pins/appeals.api').Schema.Address} AddressData */
+=======
+/** @typedef {import('@pins/applications.api').Schema.Address} AddressData */
+>>>>>>> 8eb59656 (chore(web/applications): .updated lock-file and refs (boas-971))
 
 /**
  * @param {Partial<AddressData>} options

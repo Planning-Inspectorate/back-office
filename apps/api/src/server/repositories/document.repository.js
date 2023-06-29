@@ -5,7 +5,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 /**
  *
  * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number}} document
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const upsert = (document) => {
 	return databaseConnector.document.upsert({
@@ -19,7 +19,7 @@ export const upsert = (document) => {
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
  */
 export const getById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -49,7 +49,7 @@ export const getByIdWithVersion = (documentGuid) => {
  *
  * @param {string} documentGuid
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
  */
 export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 	return databaseConnector.document.findFirst({
@@ -119,8 +119,8 @@ export const getPublishableDocuments = (documentIds) => {
 /**
  *
  * @param {string} documentId
- * @param {import('@pins/api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('@pins/api').Schema.Document>}
+ * @param {import('@pins/applications.api').Schema.DocumentUpdateInput} documentDetails
+ * @returns {Promise<import('@pins/applications.api').Schema.Document>}
  */
 export const update = (documentId, documentDetails) => {
 	return databaseConnector.document.update({
@@ -136,7 +136,7 @@ export const update = (documentId, documentDetails) => {
  *
  * @async
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const deleteDocument = (documentGuid) => {
 	return databaseConnector.document.delete({
@@ -149,7 +149,7 @@ export const deleteDocument = (documentGuid) => {
 /**
  *
  * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
  */
 export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
 	return databaseConnector.document.findMany({
@@ -191,7 +191,7 @@ export const countDocumentsInFolder = (folderId) => {
 /**
  *
  * @param {string} documentGUID
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document | null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document | null>}
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
@@ -206,7 +206,7 @@ export const getByDocumentGUID = (documentGUID) => {
 
 /**
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
@@ -243,7 +243,7 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
  * Filter document table to retrieve documents by 'ready-to-publish' status
  *
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document[]>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
  */
 export const getDocumentsReadyPublishStatus = ({
 	skipValue,

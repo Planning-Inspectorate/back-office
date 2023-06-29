@@ -1,5 +1,5 @@
 import { installRequestLocalsMiddleware } from '@pins/express';
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';

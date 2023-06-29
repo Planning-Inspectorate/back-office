@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import humps from 'humps';
 import { msalClient } from '../../lib/msal.js';
 

@@ -12,7 +12,7 @@ import { getCaseDetails, startApplication } from './application.service.js';
 
 /**
  *
- * @param {import("@pins/api").Schema.ServiceCustomer[] | undefined} serviceCustomers
+ * @param {import("@pins/applications.api").Schema.ServiceCustomer[] | undefined} serviceCustomers
  * @returns {number[]}
  */
 const getServiceCustomerIds = (serviceCustomers) => {

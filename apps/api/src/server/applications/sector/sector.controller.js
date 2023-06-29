@@ -11,7 +11,7 @@ import { mapSector } from '../../utils/mapping/map-sector.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Sector[]} sectors
+ * @param {import('@pins/applications.api').Schema.Sector[]} sectors
  * @returns {SectorResponse[]}
  */
 const mapSectors = (sectors) => {

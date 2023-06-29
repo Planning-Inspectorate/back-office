@@ -5,10 +5,10 @@ import { arrayOfStatusesContainsString } from './array-of-statuses-contains-stri
 import formatDate from './date-formatter.js';
 import daysBetweenDates from './days-between-dates.js';
 
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Schema.AppealStatus} AppealStatus */
-/** @typedef {import('@pins/api').Schema.InspectorDecision} InspectorDecision */
-/** @typedef {import('@pins/api').Schema.SiteVisit} SiteVisit */
+/** @typedef {import('@pins/applications.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/applications.api').Schema.AppealStatus} AppealStatus */
+/** @typedef {import('@pins/applications.api').Schema.InspectorDecision} InspectorDecision */
+/** @typedef {import('@pins/applications.api').Schema.SiteVisit} SiteVisit */
 
 /**
  * @param {Appeal} appeal
@@ -64,7 +64,8 @@ function formatSiteVisit({ visitDate, visitSlot, visitType }) {
 function formatStatus(appealStatuses) {
 	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_booked')) return 'booked';
 	if (arrayOfStatusesContainsString(appealStatuses, 'decision_due')) return 'decision due';
-	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked')) return 'not yet booked';
+	if (arrayOfStatusesContainsString(appealStatuses, 'site_visit_not_yet_booked'))
+		return 'not yet booked';
 	if (arrayOfStatusesContainsString(appealStatuses, 'appeal_decided')) return 'appeal decided';
 	throw new Error('Unknown status');
 }

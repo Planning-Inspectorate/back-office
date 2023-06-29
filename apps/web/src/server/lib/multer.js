@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import multer from 'multer';
 import crypto from 'node:crypto';
 import path from 'node:path';

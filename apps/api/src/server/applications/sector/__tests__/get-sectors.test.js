@@ -5,7 +5,7 @@ import { nodeCache, setCache } from '../../../utils/cache-data.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 /**
- * @type {import('@pins/api').Schema.Sector}
+ * @type {import('@pins/applications.api').Schema.Sector}
  */
 const sector = {
 	id: 1,
@@ -18,7 +18,7 @@ const sector = {
 const unknownSectorName = 'some-unknown-sector';
 
 /**
- * @type {import('@pins/api').Schema.SubSector}
+ * @type {import('@pins/applications.api').Schema.SubSector}
  */
 const subSector = {
 	id: 2,

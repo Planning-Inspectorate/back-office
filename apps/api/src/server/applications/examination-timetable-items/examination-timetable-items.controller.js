@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
 import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
 
-/** @typedef {import('@pins/api').Schema.Folder} Folder */
+/** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
 /**
  * @type {import('express').RequestHandler}
@@ -137,7 +137,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 
 /**
  *
- * @param {import('@pins/api').Schema.ExaminationTimetableItem} examinationTimetableItem
+ * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @param {Number} parentFolderId
  * @param {Number} caseId
  * @returns
@@ -198,7 +198,7 @@ const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId
  *
  * @param {Number} caseId
  * @param {Number} parentFolderId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.BatchPayload>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload>}
  */
 const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);

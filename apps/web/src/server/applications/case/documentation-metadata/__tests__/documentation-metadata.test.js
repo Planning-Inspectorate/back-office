@@ -3,7 +3,7 @@ import {
 	fixturePublishedDocumentationFile,
 	fixtureReadyToPublishDocumentationFile,
 	fixtureNotCheckedDocumentationFile
-} from '@pins/web/testing/applications/fixtures/documentation-files.js';
+} from '@pins/applications.web/testing/applications/fixtures/documentation-files.js';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';

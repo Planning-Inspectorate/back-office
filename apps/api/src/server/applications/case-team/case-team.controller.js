@@ -9,7 +9,7 @@ import { applicationStates } from '../state-machine/application.machine.js';
 
 /**
  *
- * @param {import('@pins/api').Schema.Case[]} applications
+ * @param {import('@pins/applications.api').Schema.Case[]} applications
  * @returns {ApplicationWithSectorResponse[]}
  */
 const mapApplicationsWithSectorAndSubSector = (applications) => {

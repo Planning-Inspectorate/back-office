@@ -7,7 +7,7 @@ export const getAll = () => {
 /**
  *
  * @param {string} name
- * @returns {Promise<import('@pins/api').Schema.ZoomLevel | null>}
+ * @returns {Promise<import('@pins/applications.api').Schema.ZoomLevel | null>}
  */
 export const getByName = (name) => {
 	return databaseConnector.zoomLevel.findUnique({ where: { name } });

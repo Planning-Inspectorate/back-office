@@ -1,4 +1,4 @@
-import config from '@pins/web/environment/config.js';
+import config from '@pins/applications.web/environment/config.js';
 import { intersection } from 'lodash-es';
 import pino from '../lib/logger.js';
 import * as authSession from './auth/auth-session.service.js';

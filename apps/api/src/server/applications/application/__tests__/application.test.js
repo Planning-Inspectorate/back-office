@@ -33,7 +33,7 @@ describe('Application', () => {
 
 	test('buildNsipProjectPayload maps NSIP Case to NSIP Application Payload', () => {
 		// 1. Arrange
-		/** @type {import('@pins/api').Schema.Case} */
+		/** @type {import('@pins/applications.api').Schema.Case} */
 		const projectEntity = applicationFactoryForTests({
 			id: 1,
 			title: 'EN010003 - NI Case 3 Name',
