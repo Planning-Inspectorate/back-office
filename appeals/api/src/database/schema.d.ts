@@ -22,23 +22,6 @@ export {
 	PlanningObligationStatus
 } from '../../src/server/utils/db-client';
 
-export interface Case extends schema.Case {
-	CaseStatus?: CaseStatus;
-	serviceCustomer?: ServiceCustomer[];
-	ApplicationDetails?: ApplicationDetails | null;
-	gridReference?: GridReference | null;
-}
-
-export interface ApplicationDetails extends schema.ApplicationDetails {
-	regions?: Region[];
-	zoomLevel?: ZoomLevel;
-	subSector?: SubSector | null;
-}
-
-export interface SubSector extends schema.SubSector {
-	sector?: schema.Sector;
-}
-
 export interface ServiceCustomer extends schema.ServiceCustomer {
 	address?: schema.Address;
 	case?: schema.Case;
@@ -223,6 +206,7 @@ export interface DocumentDetails {
 	documentType: string | null;
 	caseRef: string | null;
 }
+
 export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	communityInfrastructureLevyAdoptionDate: Date | null;
 	designatedSites: DesignatedSite[] | null;
