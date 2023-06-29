@@ -1,4 +1,4 @@
-import { getDocumentsForAppeal } from './documents.service.js';
+import { getDocumentsForAppeal, addDocumentsToAppeal } from './documents.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -13,4 +13,25 @@ const getDocuments = async (req, res) => {
 	return res.send(paths);
 };
 
-export { getDocuments };
+/**
+ *
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ */
+const addDocuments = async ({ params, body }, response) => {
+	const { appealId } = params;
+	const documentInfo = await addDocumentsToAppeal(body, Number(appealId));
+
+	const storageInfo = {
+		documents: documentInfo.documents.map((d) => {
+			return {
+				documentName: d.documentName,
+				GUID: d.GUID,
+				blobStoreUrl: d.blobStoreUrl
+			};
+		})
+	};
+
+	response.send(storageInfo);
+};
+
+export { getDocuments, addDocuments };

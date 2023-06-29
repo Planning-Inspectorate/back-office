@@ -7,7 +7,7 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number}} document
  * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.Document>}
  */
-export const upsert = (document) => {
+export const upsertDocument = (document) => {
 	return databaseConnector.document.upsert({
 		create: document,
 		where: { name_folderId: { name: document.name, folderId: document.folderId } },

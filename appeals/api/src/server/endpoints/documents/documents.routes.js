@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getDocuments } from './documents.controller.js';
+import { getDocuments, addDocuments } from './documents.controller.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 
@@ -20,6 +20,22 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	asyncHandler(getDocuments)
+);
+
+router.post(
+	'/:appealId/documents',
+	/*
+		#swagger.tags = ['Appeal Documents']
+		#swagger.path = '/appeals/{appealId}/documents'
+		#swagger.description = Returns the contents of the appeal folders
+		#swagger.responses[200] = {
+			description: 'Gets all the documents for a specific appeal by id',
+			schema: { $ref: '#/definitions/Folder' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	asyncHandler(addDocuments)
 );
 
 export { router as documentsRoutes };
