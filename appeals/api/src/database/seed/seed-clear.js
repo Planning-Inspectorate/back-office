@@ -1,12 +1,8 @@
-import { truncateTable } from '../prisma.truncate.js';
-
 /**
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
-	const deleteCases = databaseConnector.case.deleteMany();
-	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
-	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
+	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAddresses = databaseConnector.address.deleteMany();
@@ -20,10 +16,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteSiteVisit = databaseConnector.siteVisit.deleteMany();
 	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
 	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
-	const deleteGridReference = databaseConnector.gridReference.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
-	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
@@ -43,11 +37,6 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
 	const deleteDesignatedSites = databaseConnector.designatedSite.deleteMany();
 	const deletelpaNotificationMethods = databaseConnector.lPANotificationMethods.deleteMany();
-	const deleteSubSector = databaseConnector.subSector.deleteMany();
-	const deleteSector = databaseConnector.sector.deleteMany();
-	const deleteRegion = databaseConnector.region.deleteMany();
-	const deleteZoomLevel = databaseConnector.zoomLevel.deleteMany();
-	const deleteExaminationTimetableType = databaseConnector.examinationTimetableItem.deleteMany();
 	const planningObligationStatus = databaseConnector.planningObligationStatus.deleteMany();
 	const knowledgeOfOtherLandowners = databaseConnector.knowledgeOfOtherLandowners.deleteMany();
 	const deleteAppellantCaseIncompleteReason =
@@ -70,16 +59,8 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteDocumentsVersions;
 	await deleteDocuments;
 
-	// truncate tables
-	await truncateTable('RegionsOnApplicationDetails');
-	await truncateTable('ExaminationTimetableItem');
-
 	await databaseConnector.$transaction([
-		deleteGridReference,
 		deleteServiceCustomers,
-		deleteApplicationDetails,
-		deleteCaseStatuses,
-		deleteCases,
 		deleteAppellantCaseIncompleteReasonOnAppellantCase,
 		deleteAppellantCaseInvalidReasonOnAppellantCase,
 		deleteAppellantCase,
@@ -95,9 +76,9 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAppealTimetable,
 		deleteAddresses,
 		deleteInspectorDecision,
+		deleteFolders,
 		deleteAppeals,
 		deleteAppellant,
-		deleteFolders,
 		deleteListedBuildingDetails
 	]);
 
@@ -105,11 +86,6 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteAppealTypes;
 	await deleteDesignatedSites;
 	await deletelpaNotificationMethods;
-	await deleteSubSector;
-	await deleteSector;
-	await deleteRegion;
-	await deleteZoomLevel;
-	await deleteExaminationTimetableType;
 	await planningObligationStatus;
 	await knowledgeOfOtherLandowners;
 	await deleteAppellantCaseIncompleteReason;

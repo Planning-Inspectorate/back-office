@@ -140,26 +140,6 @@ model AppellantCase {
   appellantCaseInvalidReasonsOnAppellantCases    AppellantCaseInvalidReasonOnAppellantCase[]
 }
 
-/// Case model
-/// Contains information shared by Applications/Appeals and any other case type
-/// For Applications, the case reference is generated once the case passes Draft state
-/// This model is intended to contain records for all Applications, Appeals and any other Case Type
-model Case {
-  id                       Int                        @id @default(autoincrement())
-  reference                String?
-  modifiedAt               DateTime                   @default(now())
-  createdAt                DateTime                   @default(now())
-  description              String?
-  publishedAt              DateTime?
-  title                    String?
-  ApplicationDetails       ApplicationDetails?
-  CaseStatus               CaseStatus[]
-  gridReference            GridReference?
-  serviceCustomer          ServiceCustomer[]
-  Representation           Representation[]
-  ExaminationTimetableItem ExaminationTimetableItem[]
-}
-
 /// ServiceCustomer model
 /// Contains data of people who submitted Applications
 model ServiceCustomer {
@@ -174,86 +154,6 @@ model ServiceCustomer {
   addressId        Int?
   caseId           Int
   address          Address? @relation(fields: [addressId], references: [id])
-  case             Case     @relation(fields: [caseId], references: [id])
-}
-
-/// GridReference model
-/// Records easting and northing for a case
-model GridReference {
-  id       Int  @id @default(autoincrement())
-  easting  Int?
-  northing Int?
-  caseId   Int  @unique
-  case     Case @relation(fields: [caseId], references: [id])
-}
-
-/// CaseStatus model
-/// Stores the current and past statuses of Cases
-/// Uses the `valid` value to mark statuses as current if True and past if False
-/// A case might have multiple valid statuses depending on the type of case
-/// which can be built up into a compound status using the `subStateMachineName` and
-/// `compoundStateName` values.
-model CaseStatus {
-  id                  Int      @id @default(autoincrement())
-  status              String
-  createdAt           DateTime @default(now())
-  valid               Boolean  @default(true)
-  subStateMachineName String?
-  compoundStateName   String?
-  caseId              Int
-  case                Case     @relation(fields: [caseId], references: [id])
-}
-
-/// ApplicationDetails model
-/// Contains general information about a case that pertains only to Applications
-model ApplicationDetails {
-  id                    Int                           @id @default(autoincrement())
-  caseId                Int                           @unique
-  subSectorId           Int?
-  locationDescription   String?
-  zoomLevelId           Int?
-  caseEmail             String?
-  submissionAtInternal  DateTime?
-  submissionAtPublished String?
-  case                  Case                          @relation(fields: [caseId], references: [id])
-  subSector             SubSector?                    @relation(fields: [subSectorId], references: [id])
-  zoomLevel             ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
-  regions               RegionsOnApplicationDetails[]
-}
-
-/// RegionsOnApplicationDetails model
-/// Connects many-to-many Regions to Applications
-model RegionsOnApplicationDetails {
-  applicationDetailsId Int
-  regionId             Int
-  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
-  region               Region             @relation(fields: [regionId], references: [id])
-
-  @@id([applicationDetailsId, regionId])
-}
-
-/// Sector model
-/// Lookup table to Sectors that are assigned to Applications
-model Sector {
-  id            Int         @id @default(autoincrement())
-  abbreviation  String      @unique
-  name          String      @unique
-  displayNameEn String
-  displayNameCy String
-  subSector     SubSector[]
-}
-
-/// SubSector model
-/// Lookup table for Sub-Sectors that are assigned to Applications
-model SubSector {
-  id                 Int                  @id @default(autoincrement())
-  abbreviation       String               @unique
-  name               String               @unique
-  displayNameEn      String
-  displayNameCy      String
-  sectorId           Int
-  applicationDetails ApplicationDetails[]
-  sector             Sector               @relation(fields: [sectorId], references: [id])
 }
 
 /// Address model
@@ -355,16 +255,6 @@ model LPAQuestionnaire {
   lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
 }
 
-/// Region model
-/// Lookup table for Regions which might be assigned to applications
-model Region {
-  id                 Int                           @id @default(autoincrement())
-  name               String                        @unique
-  displayNameEn      String
-  displayNameCy      String
-  ApplicationDetails RegionsOnApplicationDetails[]
-}
-
 /// ReviewQuestionnaire model
 /// Contains information on validity and completeness of LPA questionnaire
 /// as decided by a case officer for an appeal.
@@ -428,17 +318,6 @@ model User {
   Representation Representation[]
 }
 
-/// ZoomLevel model
-/// Lookup table for zoom level of an application
-model ZoomLevel {
-  id            Int                  @id @default(autoincrement())
-  name          String               @unique
-  displayOrder  Int                  @unique
-  displayNameEn String
-  displayNameCy String
-  Application   ApplicationDetails[]
-}
-
 /// Folder model
 /// Contains folders created for each case that will contain documents.
 /// This exists to specify the struture with which documents are displayed
@@ -455,7 +334,6 @@ model Folder {
 }
 
 /// Document model
-
 /// Contains information about the documents that are saved against a case.
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
@@ -535,7 +413,6 @@ model Representation {
   redacted               Boolean                    @default(false)
   userId                 Int?
   received               DateTime?
-  case                   Case                       @relation(fields: [caseId], references: [id])
   user                   User?                      @relation(fields: [userId], references: [id])
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
   contacts               RepresentationContact[]
@@ -587,31 +464,6 @@ model RepresentationAttachment {
   documentGuid     String         @unique
   Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
   Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
-}
-
-model ExaminationTimetableType {
-  id            Int                        @id @default(autoincrement())
-  name          String                     @unique // Note this the value sent to the front office. Note the Title Case format
-  templateType  String?
-  displayNameEn String
-  displayNameCy String
-  items         ExaminationTimetableItem[]
-}
-
-model ExaminationTimetableItem {
-  id                       Int                      @id @default(autoincrement())
-  caseId                   Int
-  examinationTypeId        Int
-  name                     String
-  description              String?                  @db.NText
-  date                     DateTime?
-  startDate                DateTime?
-  startTime                String?
-  endTime                  String?
-  folderId                 Int
-  published                Boolean                  @default(false)
-  Case                     Case                     @relation(fields: [caseId], references: [id])
-  ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
 }
 
 model ProcedureType {
