@@ -1,5 +1,5 @@
 import { EventType } from '@pins/event-client';
-import api from './back-office-api-client';
+import api from './back-office-api-client.js';
 
 /**
  *

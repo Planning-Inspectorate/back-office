@@ -7,7 +7,7 @@
 export function sortByFromQuery(queryStr) {
 	let orderBy;
 
-	if (typeof queryStr !== 'string') {
+	if (typeof queryStr !== 'string' || queryStr === '') {
 		return orderBy;
 	}
 
