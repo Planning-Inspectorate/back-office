@@ -1,5 +1,5 @@
-import api from '../back-office-api-client';
-import run from '../index';
+import api from '../back-office-api-client.js';
+import run from '../index.js';
 import { jest } from '@jest/globals';
 
 describe('handle-subscription-command', () => {
