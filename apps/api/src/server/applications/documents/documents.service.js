@@ -1,10 +1,10 @@
 import { EventType } from '@pins/event-client';
-import { eventClient } from '../../infrastructure/event-client';
-import { NSIP_DOCUMENT } from '../../infrastructure/topics';
-import { buildNsipDocumentPayload } from '../application/documents/document';
+import { eventClient } from '../../infrastructure/event-client.js';
+import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
+import { buildNsipDocumentPayload } from '../application/documents/document.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
-import { nextStatusInDocumentStateMachine } from '../application/application.service';
+import { nextStatusInDocumentStateMachine } from '../application/application.service.js';
 
 /**
  * @param {string} guid

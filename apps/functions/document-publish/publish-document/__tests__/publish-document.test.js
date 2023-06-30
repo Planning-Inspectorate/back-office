@@ -2,8 +2,8 @@
 // eslint-disable-next-line no-unused-vars
 import { jest } from '@jest/globals';
 import got from 'got';
-import { index } from '../index';
-import { blobClient } from '../blob-client';
+import { index } from '../index.js';
+import { blobClient } from '../blob-client.js';
 
 const mock200Response = { json: jest.fn().mockResolvedValue({}) };
 
