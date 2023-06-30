@@ -13,14 +13,12 @@ const getSelectedEntityOptionText = (representation) =>
 /**
  *
  * @param {object|*} representation
- * @return {string|null}
+ * @return {string|undefined}
  */
 const getSelectedUnder18OptionText = (representation) =>
-	getListOfOptions(representation.represented).find(
-		(/** @type {{ checked: boolean; }} */ option) => {
-			return option.checked;
-		}
-	)?.text;
+	getListOfOptions(representation.represented).find((option) => {
+		return option.checked;
+	})?.text;
 
 /**
  *
