@@ -14,6 +14,11 @@ describe('sort-by', () => {
 				want: undefined
 			},
 			{
+				name: 'empty string',
+				queryStr: '',
+				want: undefined
+			},
+			{
 				name: 'no explicit +/-',
 				queryStr: 'myField',
 				want: { myField: 'asc' }
