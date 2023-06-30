@@ -16,7 +16,7 @@ const nocks = () => {
 		.persist();
 
 	nock('http://test/')
-		.patch(`/applications/1/representations/1`)
+		.patch(`/applications/1/representations/1/redact`)
 		.reply(200, { message: 'it okay' })
 		.persist();
 };
