@@ -24,6 +24,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteDocuments = databaseConnector.document.deleteMany();
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
+	const deleteRepresentationAttachment = databaseConnector.representationAttachment.deleteMany();
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
@@ -58,6 +59,7 @@ export async function deleteAllRecords(databaseConnector) {
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
 	await deleteRepresentationContact;
+	await deleteRepresentationAttachment;
 	await deleteRepresentation;
 
 	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
