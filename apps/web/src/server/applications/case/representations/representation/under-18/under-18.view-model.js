@@ -6,15 +6,15 @@ const titles = {
 };
 
 /**
- * @typedef {object|*} Locals
- * @property {boolean} isRepresented
- * @property {string} prefixBackLink
- */
-
-/**
  * @typedef {object|*} Query
  * @property {string} repType
  * @property {string} repId
+ */
+
+/**
+ * @typedef {object|*} Locals
+ * @property {boolean} isRepresented
+ * @property {string} prefixBackLink
  */
 
 /**
@@ -32,46 +32,35 @@ export const getRepresentationTypeViewModel = ({ repMode, repType }, { represent
 
 /**
  * @typedef {object} repType
- * @property {string} value
+ * @property {boolean?} value
  * @property {string} text
  * @property {boolean?} checked
  */
 
 /**
- * @typedef {Array.<repType>} repTypes
- */
-
-const listOfRadioOptions = [
-	{
-		value: true,
-		text: 'Yes',
-		checked: false
-	},
-	{
-		value: false,
-		text: 'No',
-		checked: false
-	},
-	{
-		value: null,
-		text: 'Unknown',
-		checked: false
-	}
-];
-
-/**
  *
  * @param {object} rep
  * @param {boolean?} rep.under18
- * @return repTypes
+ * @return {Array<repType>}
  */
-export const getListOfOptions = ({ under18 }) => {
-	const under18Options = JSON.parse(JSON.stringify(listOfRadioOptions));
-
-	return under18Options.map(
-		(/** @type {{ value: boolean | null; checked: boolean; }} */ option) => {
-			if (option.value === under18) option.checked = true;
-			return option;
+export const getListOfOptions = ({ under18 }) =>
+	[
+		{
+			value: true,
+			text: 'Yes',
+			checked: false
+		},
+		{
+			value: false,
+			text: 'No',
+			checked: false
+		},
+		{
+			value: null,
+			text: 'Unknown',
+			checked: false
 		}
-	);
-};
+	].map((option) => {
+		if (option.value === under18) option.checked = true;
+		return option;
+	});

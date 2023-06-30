@@ -28,7 +28,14 @@ describe('Representation address details page', () => {
 			nocks();
 		});
 
-		it('should render the page and have the lookup fields', async () => {
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should have required fields', async () => {
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
@@ -50,15 +57,35 @@ describe('Representation address details page', () => {
 	});
 
 	describe('POST /applications-service/case/1/relevant-representations/check-answers', () => {
-		beforeEach(async () => {
-			nocks();
-			nock('http://test/')
-				.patch(`/applications/1/representations/1`, {
-					status: 'AWAITING_REVIEW'
-				})
-				.reply(200, { message: 'ok' });
+		describe('and there are errors', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+				nock('http://test/')
+					.get('/applications/1/representations/1')
+					.reply(200, {
+						...representationFixture,
+						type: ''
+					});
+			});
+
+			it('should render the page with errors', async () => {
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+			});
 		});
-		describe('Field validation:', () => {
+
+		describe('and there are no errors', () => {
+			beforeEach(async () => {
+				nocks();
+				nock('http://test/')
+					.patch(`/applications/1/representations/1`, {
+						status: 'AWAITING_REVIEW'
+					})
+					.reply(200, { message: 'ok' });
+			});
+
 			it('should redirect to the next page', async () => {
 				const response = await request.post(baseUrl);
 
