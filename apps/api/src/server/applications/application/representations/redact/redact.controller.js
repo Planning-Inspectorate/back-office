@@ -3,7 +3,7 @@ import { updateRedactedRepresentation } from './redact.service.js';
 
 /**
  *
- * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
+ * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").PatchRepresentationRedact>}
  */
 export const patchRepresentationRedact = async ({ params, body }, response) => {
 	const { id: caseId, repId: representationId } = params;

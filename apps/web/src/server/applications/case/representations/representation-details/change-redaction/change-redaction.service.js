@@ -11,7 +11,7 @@ export const patchRepresentationDetailsChangeRedaction = async (
 	representationId,
 	payload
 ) => {
-	return patch(`applications/${caseId}/representations/${representationId}`, {
+	return patch(`applications/${caseId}/representations/${representationId}/redact`, {
 		json: payload
 	});
 };

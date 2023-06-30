@@ -2,6 +2,7 @@ import { getRepresentationDetails } from '../applications-relevant-rep-details.s
 import { getFormattedErrorSummary } from '../../representation/representation.utilities.js';
 import { patchRepresentationDetailsChangeRedaction } from './change-redaction.service.js';
 import { getRepresentationDetailsChangeRedactionViewModel } from './change-redaction.view-model.js';
+import * as authSession from '../../../../../app/auth/auth-session.service.js';
 
 const view = 'applications/representations/representation-details/change-redaction.njk';
 
@@ -26,7 +27,7 @@ export const getRepresentationDetailsChangeRedactionController = async (req, res
  *  @type {import('@pins/express').RenderHandler<{}, {}, {  changeRedaction: string }, {}, {representationId: string, caseId: string}>}
  */
 export const postRepresentationDetailsChangeRedactionController = async (req, res) => {
-	const { body, errors } = req;
+	const { body, errors, session } = req;
 	const { caseId, representationId } = req.params;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
@@ -43,7 +44,8 @@ export const postRepresentationDetailsChangeRedactionController = async (req, re
 	}
 
 	await patchRepresentationDetailsChangeRedaction(caseId, representationId, {
-		redacted: body.changeRedaction === 'true'
+		redactStatus: body.changeRedaction === 'true',
+		actionBy: authSession.getAccount(session)?.name
 	});
 
 	return res.redirect(
