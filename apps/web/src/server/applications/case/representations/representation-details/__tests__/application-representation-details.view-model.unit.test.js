@@ -49,6 +49,7 @@ describe('application representation details view-models', () => {
 				reference: 'BC0110001-1',
 				status: 'AWAITING_REVIEW',
 				redacted: true,
+				type: 'mock type',
 				redactedBy: 'mock redacted by',
 				redactedNotes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
 				redactedNotesExcerpt: '',
