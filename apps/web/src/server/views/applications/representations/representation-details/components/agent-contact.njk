@@ -1,4 +1,4 @@
-{% macro agentContact(agentData, changeLinks) %}
+{% macro agentContact(agentData, selectedOptionsText, changeLinks) %}
 	<h3 class="govuk-heading-m">Agent contact details</h3>
 	<dl class="govuk-summary-list">
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -71,7 +71,7 @@
 				Preferred contact method
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ agentData.preferredContact if agentData.preferredContact else 'Email' }}
+				{{ selectedOptionsText.selectedContactMethodOptionText.representative }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="{{ changeLinks.agentContactMethod }}">

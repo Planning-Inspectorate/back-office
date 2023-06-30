@@ -1,5 +1,6 @@
 import { getCaseReferenceViewModel } from '../application-representations.view-model.js';
 import { getCase } from '../applications-relevant-reps.service.js';
+import { getSelectedOptionsText } from '../representation/utils/get-selected-options-text.js';
 import { getRepModeLinks } from '../utils/get-rep-mode-links.js';
 import { getRepresentationDetailsViewModel } from './application-representation-details.view-model.js';
 import { getRepresentationDetails } from './applications-relevant-rep-details.service.js';
@@ -25,6 +26,7 @@ export async function relevantRepDetails(req, res) {
 		representationId,
 		caseReference: caseReferenceViewModel,
 		representationDetails: representationDetailsViewModel,
-		changeLinks: getRepModeLinks(locals.representation.pageURLs, 'change')
+		changeLinks: getRepModeLinks(locals.representation.pageURLs, 'change'),
+		selectedOptionsText: getSelectedOptionsText(locals.representation)
 	});
 }
