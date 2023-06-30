@@ -1,6 +1,6 @@
 import config from './config.js';
 import got from 'got';
-import { blobClient } from './blob-client';
+import { blobClient } from './blob-client.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
