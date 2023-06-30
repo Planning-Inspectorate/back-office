@@ -2,9 +2,20 @@ import { request } from '../../../../app-test.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const document1 = {
+	guid: 'D1234',
+	name: 'Tom',
+	folderId: 2,
+	blobStorageContainer: 'Container',
+	blobStoragePath: 'Container',
+	caseId: 1,
+	latestVersionNo: 1
+};
+
+const documentVersion1 = {
 	caseId: 1,
 	documentGuid: 'D1234',
-	publishedStatus: 'awaiting_virus_check'
+	publishedStatus: 'awaiting_virus_check',
+	Document: document1
 };
 
 const documentToUpdate1 = {
@@ -28,16 +39,15 @@ describe('Update document status when uploading', () => {
 			folderId: 2,
 			blobStorageContainer: 'Container',
 			blobStoragePath: 'Container',
+			caseId: 1,
+			latestVersionNo: 1,
 			documentVersion: [
 				{
 					publishedStatus: 'awaiting_upload'
 				}
 			]
 		});
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			caseId: 1
-		});
-		databaseConnector.documentVersion.update.mockResolvedValue(document1);
+		databaseConnector.documentVersion.update.mockResolvedValue(documentVersion1);
 
 		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
@@ -55,6 +65,13 @@ describe('Update document status when uploading', () => {
 			where: { documentGuid_version: { documentGuid: 'D1234', version: 1 } },
 			data: {
 				publishedStatus: 'awaiting_virus_check'
+			},
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
 			}
 		});
 	});
