@@ -1257,6 +1257,48 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/status": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Update a representation status for an application and create an action",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"repId": {
+									"type": "number",
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "INVALID"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],

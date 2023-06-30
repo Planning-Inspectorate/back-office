@@ -1,0 +1,79 @@
+import { jest } from '@jest/globals';
+import { request } from '../../../../../app-test.js';
+
+const { databaseConnector } = await import('../../../../../utils/database-connector.js');
+
+const existingRepresentations = [
+	{
+		id: 1,
+		representationId: 1,
+		reference: 'BC0110001-2',
+		status: 'VALID',
+		redacted: true,
+		received: '2023-03-14T14:28:25.704Z'
+	}
+];
+
+const mockDate = new Date('2023-01-02');
+
+describe('Patch Application Representation Status', () => {
+	beforeAll(() => {
+		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
+		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+		databaseConnector.representation.update.mockResolvedValue();
+		databaseConnector.representationAction.create.mockResolvedValue();
+		jest.useFakeTimers().setSystemTime(mockDate);
+	});
+
+	it('Patch representation status', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/status')
+			.send({
+				actionBy: 'a person',
+				status: 'INVALID',
+				invalidReason: 'Duplicate',
+				notes: 'the rep has been redacted',
+				updatedBy: 'jim bo'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: { status: 'INVALID' },
+			where: { id: 1 }
+		});
+
+		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
+			data: {
+				actionBy: 'jim bo',
+				actionDate: mockDate,
+				invalidReason: 'Duplicate',
+				notes: 'the rep has been redacted',
+				previousStatus: 'VALID',
+				representationId: 1,
+				status: 'INVALID',
+				type: 'STATUS'
+			}
+		});
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			repId: 1
+		});
+	});
+
+	it('Patch representation status - invalid request - missing mandatory field', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/status')
+			.send({})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				status: 'Invalid value',
+				updatedBy: 'is a required field'
+			}
+		});
+	});
+});

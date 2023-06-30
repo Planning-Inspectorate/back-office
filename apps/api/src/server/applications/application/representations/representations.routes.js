@@ -16,6 +16,7 @@ import {
 import { representationPatchValidator } from './representation.validators.js';
 import { representationsContactsRouter } from './contacts/contacts.route.js';
 import { representationsAttachmentRouter } from './attachment/attachment.route.js';
+import { representationsStatusRouter } from './status/status.route.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -254,5 +255,6 @@ router.use('/:repId/redact', representaionsRedactRouter);
 
 router.use('/:repId/contacts/:contactId', representationsContactsRouter);
 router.use('/:repId/attachment', representationsAttachmentRouter);
+router.use('/:repId/status', representationsStatusRouter);
 
 export const representaionsRouter = router;
