@@ -5,6 +5,7 @@ import {
 	getCaseTimetableItemTypes,
 	getCaseTimetableItems,
 	publishCaseTimetableItems,
+	unpublishCaseTimetableItems,
 	getCaseTimetableItemById,
 	deleteCaseTimetableItem,
 	updateCaseTimetableItem,
@@ -95,7 +96,7 @@ export async function viewApplicationsCaseTimetableList(_, response) {
 /**
  * View the preview page of the examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string}>}
  */
 export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
@@ -106,7 +107,27 @@ export async function viewApplicationsCaseTimetablesPreview(_, response) {
 
 	response.render(`applications/case-timetable/timetable-preview.njk`, {
 		timetableItems: timetableItemsViewData,
-		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
+		stage: 'publish'
+	});
+}
+
+/**
+ * View the preview page of the examination timetables for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string}>}
+ */
+export async function viewApplicationsCaseTimetablesUnpublishPreview(_, response) {
+	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+
+	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
+		getTimetableRows(timetableItem)
+	);
+
+	response.render(`applications/case-timetable/timetable-preview.njk`, {
+		timetableItems: timetableItemsViewData,
+		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
+		stage: 'unpublish'
 	});
 }
 
@@ -133,6 +154,31 @@ export async function publishApplicationsCaseTimetables(_, response) {
 	}
 
 	response.redirect(`./published/success`);
+}
+
+/**
+ * Unpublish the examination timetables
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function unpublishApplicationsCaseTimetables(_, response) {
+	const { errors } = await unpublishCaseTimetableItems(response.locals.caseId);
+
+	if (errors) {
+		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+
+		const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
+			getTimetableRows(timetableItem)
+		);
+
+		return response.render(`applications/case-timetable/timetable-preview.njk`, {
+			timetableItems: timetableItemsViewData,
+			errors,
+			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+		});
+	}
+
+	response.redirect(`./unpublished/success`);
 }
 
 /**

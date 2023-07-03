@@ -1458,6 +1458,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                     </div>
                 </div>
             </div>
+            <div><a class=\\"govuk-link colour--red\\" href=\\"/applications-service/case/123/examination-timetable/unpublish-preview\\"> Unpublish timetable</a>
+            </div>
         </div>
     </div>
 </main>"
@@ -1833,5 +1835,128 @@ exports[`Select examination timetable type page GET /case/123/examination-timeta
         </div>
         <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
     </form>
+</main>"
+`;
+
+exports[`Unpublish examination timetable preview page GET /case/123/examination-timetable/unpublish-preview should show the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-xl\\"></h1>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\">Unpublish examination timetable</h1>
+    <p class=\\"govuk-body\\">Check before unpublishing</p>
+    <div class='timetable-table'>
+        <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-pre-examination-heading-1\\"> 10 Oct 2023 - Test</span></h2>
+                </div>
+                <div id=\\"accordion-pre-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"accordion-pre-examination-heading-1\\">
+                    <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                    </div>
+                    <dl class=\\"govuk-summary-list\\">
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Test</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                            <dd class=\\"govuk-summary-list__value\\"></dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
+                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                            <dd class=\\"govuk-summary-list__value\\">
+                                <p class=\\"govuk-body\\">test</p>
+                                <ul class='govuk-list govuk-list--bullet'>
+                                    <li>ponintone</li>
+                                    <li>pointtwo</li>
+                                </ul>
+                            </dd>
+                        </div>
+                    </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
+                </div>
+            </div>
+        </div>
+        <div class='govuk-!-margin-top-8'>
+            <h3 class=\\"govuk-heading-m\\">Examination</h3>
+            <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-examination\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-examination-heading-1\\"> 10 Oct 2023 - Test</span></h2>
+                    </div>
+                    <div id=\\"accordion-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-examination-heading-1\\">
+                        <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/1\\">Edit timetable item</a>
+                        </div>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Deadline</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Test</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                <dd class=\\"govuk-summary-list__value\\">
+                                    <p class=\\"govuk-body\\">test</p>
+                                    <ul class='govuk-list govuk-list--bullet'>
+                                        <li>ponintone</li>
+                                        <li>pointtwo</li>
+                                    </ul>
+                                </dd>
+                            </div>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method=\\"post\\">
+        <button class='govuk-button govuk-!-margin-top-5'>Unpublish exam timetable</button>
+    </form>
+</main>"
+`;
+
+exports[`Unpublish examination timetable success page POST /case/123/examination-timetable/unpublish-preview should show the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+            <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully unpublished</h1>
+                <div class=\\"govuk-panel__body\\">Title CASE/04
+                    <br>The case reference number
+                    <br><strong>CASE/04</strong>
+                </div>
+            </div>
+            <div class=\\"govuk-body\\">
+                <p class=\\"govuk-body\\">Return to folder:</p><a href=\\"/applications-service/case/123/examination-timetable/\\"
+                class=\\"govuk-link\\"> Go back to examination table</a>
+            </div>
+        </div>
+    </div>
 </main>"
 `;

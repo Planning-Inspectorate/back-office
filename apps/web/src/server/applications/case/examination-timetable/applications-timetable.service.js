@@ -124,6 +124,26 @@ export const publishCaseTimetableItems = async (caseId) => {
 };
 
 /**
+ * Unpublish case timetable items
+ * @param {number} caseId
+ * @returns {Promise<{publishedItems: ApplicationsTimetable[], errors?: ValidationErrors}>}
+ */
+export const unpublishCaseTimetableItems = async (caseId) => {
+	let response;
+	try {
+		response = await patch(`applications/examination-timetable-items/unpublish/${caseId}`, {});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+
+/**
  * Delete single timetable item
  * @param {number} timetableId
  * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
