@@ -1,12 +1,20 @@
-import api from '../back-office-api-client';
-import run from '../index';
+import api from '../back-office-api-client.js';
+import run from '../index.js';
 import { jest } from '@jest/globals';
 
 describe('handle-subscription-command', () => {
+	function setupContextLog(ctx) {
+		ctx.log = jest.fn();
+		ctx.log.info = jest.fn();
+		ctx.log.warn = jest.fn();
+		ctx.log.error = jest.fn();
+	}
+
 	describe('create', () => {
 		const tests = [
 			{
 				name: 'should handle no message type',
+				context: {},
 				msg: {},
 				log: {
 					warn: 'Ingoring invalid message, no type'
@@ -14,22 +22,33 @@ describe('handle-subscription-command', () => {
 			},
 			{
 				name: 'should handle invalid message type',
-				msg: {
-					applicationProperties: {
-						type: 'random-str'
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'random-str'
+						}
 					}
 				},
+				msg: {},
 				log: {
 					warn: `Ingoring invalid message, unsupported type 'random-str'`
 				}
 			},
 			{
 				name: 'should handle valid message',
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'Create'
+						}
+					}
+				},
 				msg: {
-					applicationProperties: {
-						type: 'Create'
+					nsipSubscription: {
+						caseReference: 'abc',
+						emailAddress: 'fake@example.com'
 					},
-					body: {}
+					subscriptionTypes: ['allUpdates']
 				},
 				log: {
 					info: `subscription created/updated: 1`
@@ -38,15 +57,10 @@ describe('handle-subscription-command', () => {
 		];
 
 		api.createOrUpdateSubscription = jest.fn().mockResolvedValue({ id: 1 });
-		const context = {
-			log: jest.fn()
-		};
-		context.log.info = jest.fn();
-		context.log.warn = jest.fn();
-		context.log.error = jest.fn();
 
-		for (const { name, msg, log } of tests) {
+		for (const { name, context, msg, log } of tests) {
 			it('' + name, async () => {
+				setupContextLog(context);
 				await run(context, msg);
 				expect(context.log).toHaveBeenLastCalledWith('Handle subscription message', msg);
 				// this is OK because we always run some checks
@@ -54,7 +68,10 @@ describe('handle-subscription-command', () => {
 				if (log.warn) {
 					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, msg);
 				} else {
-					expect(api.createOrUpdateSubscription).toHaveBeenLastCalledWith(msg.body);
+					expect(api.createOrUpdateSubscription).toHaveBeenLastCalledWith({
+						...msg.nsipSubscription,
+						subscriptionTypes: msg.subscriptionTypes
+					});
 					expect(context.log.info).toHaveBeenLastCalledWith(log.info);
 				}
 				/* eslint-enable jest/no-conditional-expect */
@@ -75,11 +92,15 @@ describe('handle-subscription-command', () => {
 		const tests = [
 			{
 				name: 'should check for caseReference',
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'Delete'
+						}
+					}
+				},
 				msg: {
-					applicationProperties: {
-						type: 'Delete'
-					},
-					body: {}
+					nsipSubscription: {}
 				},
 				log: {
 					warn: `Ingoring invalid message, invalid caseReference`
@@ -87,11 +108,15 @@ describe('handle-subscription-command', () => {
 			},
 			{
 				name: 'should check for emailAddress',
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'Delete'
+						}
+					}
+				},
 				msg: {
-					applicationProperties: {
-						type: 'Delete'
-					},
-					body: {
+					nsipSubscription: {
 						caseReference: '13334'
 					}
 				},
@@ -101,11 +126,15 @@ describe('handle-subscription-command', () => {
 			},
 			{
 				name: 'should try and fetch existing subscription',
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'Delete'
+						}
+					}
+				},
 				msg: {
-					applicationProperties: {
-						type: 'Delete'
-					},
-					body: {
+					nsipSubscription: {
 						caseReference: '13334',
 						emailAddress: 'user@example.com'
 					}
@@ -117,11 +146,15 @@ describe('handle-subscription-command', () => {
 			},
 			{
 				name: 'should update existing subscription',
+				context: {
+					bindingData: {
+						applicationProperties: {
+							type: 'Delete'
+						}
+					}
+				},
 				msg: {
-					applicationProperties: {
-						type: 'Delete'
-					},
-					body: {
+					nsipSubscription: {
 						caseReference: '13334',
 						emailAddress: 'user@example.com'
 					}
@@ -135,15 +168,11 @@ describe('handle-subscription-command', () => {
 
 		api.getSubscription = jest.fn().mockResolvedValue({ id: 1 });
 		api.updateSubscription = jest.fn().mockResolvedValue({ id: 1 });
-		const context = {
-			log: jest.fn()
-		};
-		context.log.info = jest.fn();
-		context.log.warn = jest.fn();
-		context.log.error = jest.fn();
 
-		for (const { name, msg, log, existing } of tests) {
+		for (const { name, context, msg, log, existing } of tests) {
 			it('' + name, async () => {
+				setupContextLog(context);
+
 				if (existing !== undefined) {
 					api.getSubscription.mockResolvedValueOnce(existing);
 				}
@@ -156,8 +185,8 @@ describe('handle-subscription-command', () => {
 					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, msg);
 				} else {
 					expect(api.getSubscription).toHaveBeenLastCalledWith(
-						msg.body.caseReference,
-						msg.body.emailAddress
+						msg.nsipSubscription.caseReference,
+						msg.nsipSubscription.emailAddress
 					);
 					expect(api.updateSubscription).toHaveBeenLastCalledWith(existing?.id, {
 						endDate: mockDate.toISOString()

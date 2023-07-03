@@ -25,6 +25,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
+	const deleteRepresentationAttachment = databaseConnector.representationAttachment.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
 	const deleteListedBuildingDetails = databaseConnector.listedBuildingDetails.deleteMany();
@@ -56,6 +57,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteValidationOutcome = databaseConnector.validationOutcome.deleteMany();
 
 	// Truncate calls on data tables
+	await deleteRepresentationAttachment;
 	await deleteRepresentationAction;
 	await deleteRepresentationContact;
 	await deleteRepresentation;

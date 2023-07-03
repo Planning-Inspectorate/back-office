@@ -14,7 +14,7 @@ exports[`Representation representation type GET /applications-service/case/1/rel
                         <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"Local authorities\\">
+                                value=\\"Local authorities\\" checked>
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Local authorities</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">
@@ -77,7 +77,7 @@ exports[`Representation representation type POST /applications-service/case/1/re
                         <div                         class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"Local authorities\\">
+                                value=\\"Local authorities\\" checked>
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">Local authorities</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">

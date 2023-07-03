@@ -19,6 +19,7 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 				include: {
 					folder: {
 						include: {
+							// TODO: This will never work for nested folders, need to refactor to use new denormalised Case
 							case: {
 								include: {
 									CaseStatus: true
@@ -41,7 +42,14 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid: guid, version } },
-		data: { publishedStatus: status }
+		data: { publishedStatus: status },
+		include: {
+			Document: {
+				include: {
+					case: true
+				}
+			}
+		}
 	});
 };
 

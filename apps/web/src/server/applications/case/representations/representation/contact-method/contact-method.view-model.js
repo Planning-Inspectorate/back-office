@@ -12,11 +12,18 @@ const titles = {
 };
 
 /**
+ * @typedef {object} ContactMethodOption
+ * @property {string} value
+ * @property {string} text
+ * @property {boolean} checked
+ */
+
+/**
  * @param {object} representation
  * @param {string} representation.contactMethod
- * @returns {Array<object>} contactMethodOptions array
+ * @returns {Array<ContactMethodOption>} contactMethodOptions array
  */
-const getContactMethodOptions = ({ contactMethod }) => {
+export const getContactMethodOptions = ({ contactMethod }) => {
 	const optionsList = [
 		{
 			value: 'email',

@@ -1,6 +1,5 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { BlobServiceClient } from '@azure/storage-blob';
-import { Readable } from 'node:stream';
 
 export class BlobStorageClient {
 	/**
@@ -144,20 +143,19 @@ export class BlobStorageClient {
 
 	/**
 	 *
-	 * @param {{currentContainer: string, currentFilePath: string, desiredContainer: string, desiredFilePath: string}} blobStorageHost
+	 * @param {{sourceContainerName: string, sourceBlobName: string, destinationContainerName: string, destinationBlobName: string}} blobStorageHost
 	 */
-	copyFile = async ({ currentContainer, currentFilePath, desiredContainer, desiredFilePath }) => {
-		const currentBlockBlobClient = this.#getBlockBlobClient(currentContainer, currentFilePath);
+	copyFile = async ({
+		sourceContainerName,
+		sourceBlobName,
+		destinationContainerName,
+		destinationBlobName
+	}) => {
+		const sourceBlob = this.#getBlockBlobClient(sourceContainerName, sourceBlobName);
+		const destinationBlob = this.#getBlockBlobClient(destinationContainerName, destinationBlobName);
 
-		const file = await currentBlockBlobClient.download();
-		const fileStream = file.readableStreamBody;
+		const copyJob = await destinationBlob.beginCopyFromURL(sourceBlob.url);
 
-		if (typeof fileStream === 'undefined') {
-			throw new TypeError('File Empty');
-		}
-
-		const desiredBlockBlobClient = this.#getBlockBlobClient(desiredContainer, desiredFilePath);
-
-		await desiredBlockBlobClient.uploadStream(Readable.from(fileStream));
+		await copyJob.pollUntilDone();
 	};
 }

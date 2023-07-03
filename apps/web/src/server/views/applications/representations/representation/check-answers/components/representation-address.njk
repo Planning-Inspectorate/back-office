@@ -1,0 +1,23 @@
+{% macro representationAddress(address) %}
+
+  {% if address.addressLine1 %}
+    {{ address.addressLine1 }}
+  {% endif %}
+
+  {% if address.addressLine2 %}
+    <br>{{ address.addressLine2 }}
+  {% endif %}
+
+  {% if address.town %}
+    <br>{{ address.town }}
+  {% endif %}
+
+  {% if address.postcode %}
+    <br>{{ address.postcode }}
+  {% endif %}
+
+  {% if address.country %}
+    <br>{{ address.country }}
+  {% endif %}
+
+{% endmacro %}

@@ -1,8 +1,8 @@
 import { getCaseReferenceViewModel } from '../application-representations.view-model.js';
 import { getCase } from '../applications-relevant-reps.service.js';
+import { getRepModeLinks } from '../utils/get-rep-mode-links.js';
 import { getRepresentationDetailsViewModel } from './application-representation-details.view-model.js';
 import { getRepresentationDetails } from './applications-relevant-rep-details.service.js';
-import { getChangeLinks } from './utils/get-change-links.js';
 
 const view = 'applications/representations/representation-details/representation-details.njk';
 
@@ -25,6 +25,6 @@ export async function relevantRepDetails(req, res) {
 		representationId,
 		caseReference: caseReferenceViewModel,
 		representationDetails: representationDetailsViewModel,
-		changeLinks: getChangeLinks(locals.representation.pageURLs)
+		changeLinks: getRepModeLinks(locals.representation.pageURLs, 'change')
 	});
 }

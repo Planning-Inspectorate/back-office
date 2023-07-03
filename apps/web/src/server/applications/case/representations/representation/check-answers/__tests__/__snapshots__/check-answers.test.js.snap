@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Representation address details page GET /applications-service/case/1/relevant-representations/check-answers should have required fields 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+            <h1             class=\\"govuk-heading-l\\">Check your answers</h1>
+                <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Mrs Sue</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test@example.com</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+                    </div>
+                </dl>
+                </dt>
+                <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+                </dd>
+        </div>
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">96 The Avenue
+                <br>Maidstone
+                <br>MD21 5XY</dd>
+        </div>
+        </dl>
+        </dt>
+        <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+        </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Type</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Local authorities</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-type?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change type</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Under 18</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">No</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/under-18?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change under 18</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Representation on behalf of</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">An individual</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-entity?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation on behalf of</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Agent details</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">James Bond</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test-agent@example.com</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">92 Huntsmoor Road
+            <br>RG26 4BX</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Representation</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Date received</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">31 May 2023</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Original representation</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">The proposals size, loss of food producing land, battery storage size
+                and technology, joined up thinking between DCO applications</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/add-representation?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation</span></a>
+    </dd>
+    </div>
+    </dl>
+    <form method=\\"post\\">
+        <button value=\\"1\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Submit for review</button>
+    </form>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Representation address details page GET /applications-service/case/1/relevant-representations/check-answers should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+            <h1             class=\\"govuk-heading-l\\">Check your answers</h1>
+                <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Mrs Sue</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test@example.com</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+                    </div>
+                </dl>
+                </dt>
+                <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+                </dd>
+        </div>
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">96 The Avenue
+                <br>Maidstone
+                <br>MD21 5XY</dd>
+        </div>
+        </dl>
+        </dt>
+        <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+        </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Type</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Local authorities</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-type?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change type</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Under 18</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">No</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/under-18?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change under 18</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Representation on behalf of</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">An individual</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-entity?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation on behalf of</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Agent details</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">James Bond</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test-agent@example.com</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">92 Huntsmoor Road
+            <br>RG26 4BX</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Representation</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Date received</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">31 May 2023</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Original representation</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">The proposals size, loss of food producing land, battery storage size
+                and technology, joined up thinking between DCO applications</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/add-representation?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation</span></a>
+    </dd>
+    </div>
+    </dl>
+    <form method=\\"post\\">
+        <button value=\\"1\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Submit for review</button>
+    </form>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`Representation address details page POST /applications-service/case/1/relevant-representations/check-answers and there are errors should render the page with errors 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+            <h1             class=\\"govuk-heading-l\\">Check your answers</h1>
+                <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Mrs Sue</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test@example.com</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+                        <dd                         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+                    </div>
+                </dl>
+                </dt>
+                <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+                </dd>
+        </div>
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">96 The Avenue
+                <br>Maidstone
+                <br>MD21 5XY</dd>
+        </div>
+        </dl>
+        </dt>
+        <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+        </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Type</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-type?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change type</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Under 18</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">No</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/under-18?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change under 18</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Representation on behalf of</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">An individual</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/representation-entity?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation on behalf of</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Agent details</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Organisation name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Full name</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">James Bond</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Job title</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\"></dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Email address</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">test-agent@example.com</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Telephone number</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">01234 567890</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change contact details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Address</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">92 Huntsmoor Road
+            <br>RG26 4BX</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/address-details?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change address details</span></a>
+    </dd>
+    </div>
+    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Preferred contact method</dt>
+        <dd         class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">Email</dd>
+    </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/contact-method?repId=1&amp;repType=representative&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change preferred contact method</span></a>
+    </dd>
+    </div>
+    </dl>
+    <h3 class=\\"govuk-heading-m\\">Representation</h3>
+    <dl class=\\"govuk-summary-list govuk-!-margin-bottom-9\\">
+        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key govuk-!-padding-0 govuk-!-width-full\\"><dl class=\\"govuk-summary-list display--block govuk-!-margin-0\\" id=\\"\\"><div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Date received</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">31 May 2023</dd>
+        </div>
+        <div class=\\"govuk-summary-list__row display--flex flex-wrap--wrap govuk-summary-list__row--no-border\\"><dt class=\\"govuk-summary-list__key govuk-!-width-one-third\\"> Original representation</dt>
+            <dd             class=\\"govuk-summary-list__value govuk-!-width-two-thirds govuk-!-margin-0\\">The proposals size, loss of food producing land, battery storage size
+                and technology, joined up thinking between DCO applications</dd>
+        </div>
+    </dl>
+    </dt>
+    <dd class=\\"govuk-summary-list__value width--0 govuk-!-padding-0\\"></dd>
+    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/add-representation?repId=1&amp;repType=represented&amp;repMode=check\\"> Change<span class=\\"govuk-visually-hidden\\"> Change representation</span></a>
+    </dd>
+    </div>
+    </dl>
+    <form method=\\"post\\">
+        <button value=\\"1\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Submit for review</button>
+    </form>
+    </div>
+    </div>
+</main>"
+`;

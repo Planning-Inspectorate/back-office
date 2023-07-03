@@ -6,14 +6,21 @@ const titles = {
 };
 
 /**
+ * @typedef {object} RepresentationEntityOption
+ * @property {string} value
+ * @property {string} text
+ * @property {boolean} checked
+ */
+
+/**
  * @param {object} representation
  * @param {object} representation.representative
  * @param {string|*} representation.representative.id
  * @param {object} representation.represented
  * @param {string|null} representation.represented.type
- * @returns {Array<object>} contactMethodOptions array
+ * @returns {Array<RepresentationEntityOption>} contactMethodOptions array
  */
-const getRepresentationEntityOptions = (representation) => {
+export const getRepresentationEntityOptions = (representation) => {
 	const optionsList = [
 		{
 			value: 'PERSON',
