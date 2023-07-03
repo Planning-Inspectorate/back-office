@@ -106,6 +106,12 @@ export function subscriptionToTypes(subscription) {
  * @param {import('@prisma/client').Prisma.SubscriptionCreateInput} subscription
  */
 export function typesToSubscription(types, subscription) {
+	// ensure all fields are reset to false (not just left as they are) for updates
+	subscription.subscribedToAllUpdates = false;
+	subscription.subscribedToApplicationDecided = false;
+	subscription.subscribedToApplicationSubmitted = false;
+	subscription.subscribedToRegistrationOpen = false;
+
 	if (types.includes(SubscriptionTypes.AllUpdates)) {
 		subscription.subscribedToAllUpdates = true;
 	} else {
