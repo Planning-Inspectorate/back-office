@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
-
 import { addBusinessDays, format } from 'date-fns';
 import { request } from '../../../app-test.js';
 import {
@@ -15,7 +14,9 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
-	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
+	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
+	STATE_TARGET_INVALID,
+	STATE_TARGET_LPA_QUESTIONNAIRE_DUE
 } from '../../constants.js';
 import {
 	appellantCaseIncompleteReasons,
@@ -279,6 +280,7 @@ describe('appellant cases routes', () => {
 						otherNotValidReasons: 'Another reason'
 					}
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -320,6 +322,7 @@ describe('appellant cases routes', () => {
 						otherNotValidReasons: 'Another reason'
 					}
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -359,6 +362,14 @@ describe('appellant cases routes', () => {
 					data: {
 						appellantCaseValidationOutcomeId: 2,
 						otherNotValidReasons: 'Another reason'
+					}
+				});
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_INVALID,
+						valid: true
 					}
 				});
 				expect(response.status).toEqual(200);
@@ -402,11 +413,19 @@ describe('appellant cases routes', () => {
 						otherNotValidReasons: 'Another reason'
 					}
 				});
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_INVALID,
+						valid: true
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
 
-			test('updates appellant case and sets the timetable for a household appeal when the validation outcome is valid', async () => {
+			test('updates appellant case when the validation outcome is valid and sets the timetable and correct status for a household appeal', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
@@ -438,11 +457,19 @@ describe('appellant cases routes', () => {
 						}
 					})
 				);
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
+						valid: true
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
 
-			test('updates appellant case and sets the timetable for a full planning appeal when the validation outcome is valid', async () => {
+			test('updates appellant case when the validation outcome is Valid and sets the timetable for a full planning appeal', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 				// @ts-ignore
@@ -451,7 +478,7 @@ describe('appellant cases routes', () => {
 				);
 
 				const body = {
-					validationOutcome: 'valid'
+					validationOutcome: 'Valid'
 				};
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
@@ -482,6 +509,14 @@ describe('appellant cases routes', () => {
 						}
 					})
 				);
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
+						valid: true
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});

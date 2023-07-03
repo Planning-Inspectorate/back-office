@@ -14,7 +14,7 @@ const householdAppeal = {
 	reference: 'APP/Q9999/D/21/1345264',
 	appealStatus: [
 		{
-			status: 'awaiting_lpa_questionnaire',
+			status: 'ready_to_start',
 			valid: true
 		}
 	],
