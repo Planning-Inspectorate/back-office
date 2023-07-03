@@ -23,8 +23,8 @@ import { format } from 'date-fns';
  * @property {string|null} addressLine1
  * @property {string|null} addressLine2
  * @property {string|null} town
- * @property {string|null} county
  * @property {string|null} postcode
+ * @property {string|null} country
  */
 
 /**
@@ -69,8 +69,8 @@ const getContactDetailsByContactType = ({ contacts }) => {
 		addressLine1: contact.address?.addressLine1 || '',
 		addressLine2: contact.address?.addressLine2 || '',
 		town: contact.address?.town || '',
-		county: contact.address?.county || '',
-		postcode: contact.address?.postcode || ''
+		postcode: contact.address?.postcode || '',
+		country: contact.address?.country || ''
 	}));
 };
 

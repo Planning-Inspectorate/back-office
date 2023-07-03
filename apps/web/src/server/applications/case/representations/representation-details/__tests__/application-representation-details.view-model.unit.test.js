@@ -19,8 +19,8 @@ describe('application representation details view-models', () => {
 				addressLine1: '8 The Chase',
 				addressLine2: '',
 				town: 'Findon',
-				county: '',
-				postcode: 'BN14 0TT'
+				postcode: 'BN14 0TT',
+				country: 'Great Britain'
 			});
 		});
 
@@ -38,8 +38,8 @@ describe('application representation details view-models', () => {
 				addressLine1: '44 Rivervale',
 				addressLine2: '',
 				town: 'Bridport',
-				county: '',
-				postcode: 'DT6 5RN'
+				postcode: 'DT6 5RN',
+				country: 'Great Britain'
 			});
 		});
 

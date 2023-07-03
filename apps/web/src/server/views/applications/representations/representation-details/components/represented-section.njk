@@ -65,11 +65,9 @@
 					{{ represented.town }} </br>
 				{% endif %}
 
-				{% if represented.county %}
-					{{ represented.county }} </br>
-				{% endif %}
+				{{ represented.postcode }} </br>
 
-				{{ represented.postcode }}
+				{{ represented.country }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="{{ changeLinks.addressDetails }}">
