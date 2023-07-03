@@ -17,6 +17,11 @@ import {
 	postRepresentationStatus
 } from './representation-status/representation-status.controller.js';
 import { representationStatusValidation } from './representation-status/representation-status.validators.js';
+import {
+	getRepresentationStatusNotesController,
+	postRepresentationStatusNotesController
+} from './representation-status/representation-status-notes/representation-status-notes.controller.js';
+import { representationStatusNotesValidation } from './representation-status/representation-status-notes/representation-status-notes.validators.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -45,5 +50,10 @@ representationDetailsRouter
 	.route('/change-status')
 	.get(asyncRoute(getRepresentationStatusController))
 	.post(representationStatusValidation, asyncRoute(postRepresentationStatus));
+
+representationDetailsRouter
+	.route('/status-result')
+	.get(asyncRoute(getRepresentationStatusNotesController))
+	.post(representationStatusNotesValidation, asyncRoute(postRepresentationStatusNotesController));
 
 export default representationDetailsRouter;
