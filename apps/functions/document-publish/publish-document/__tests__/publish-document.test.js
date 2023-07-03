@@ -24,9 +24,10 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil',
 				originalFilename: 'olive oil.jpeg',
-				documentURI: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
-			expectedName: 'BC0110003-001-olive oil.jpeg'
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
 			name: 'Matching extension is not changed',
@@ -37,7 +38,8 @@ describe('Publishing document', () => {
 				originalFilename: 'olive oil.jpeg',
 				documentURI: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
-			expectedName: 'BC0110003-001-olive oil.jpeg'
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
 			name: 'Mismatching extension is maintained and original extension is added',
@@ -46,13 +48,14 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.png',
-				documentURI: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI: '//application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
-			expectedName: 'BC0110003-001-olive oil.jpeg.png'
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedDestinationName: 'BC0110003-001-olive oil.jpeg.png'
 		}
 	];
 
-	it.each(testCases)('$name', async ({ document, expectedName }) => {
+	it.each(testCases)('$name', async ({ document, expectedSourceName, expectedDestinationName }) => {
 		// Arrange
 		const mockGotPatch = jest.spyOn(got, 'patch');
 		const mockCopyFile = jest.spyOn(blobClient, 'copyFile');
@@ -66,9 +69,9 @@ describe('Publishing document', () => {
 		// Assert
 		expect(mockCopyFile).toHaveBeenNthCalledWith(1, {
 			sourceContainerName: 'source-container',
-			sourceBlobName: document.documentURI,
+			sourceBlobName: expectedSourceName,
 			destinationContainerName: 'publish-container',
-			destinationBlobName: expectedName
+			destinationBlobName: expectedDestinationName
 		});
 
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
