@@ -93,8 +93,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
 		case 'redact-representation':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/redact-representation`;
-		case 'representation-status-result':
-			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/representation-status-result`;
+		case 'change-status':
+			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/change-status`;
+		case 'status-result':
+			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/status-result`;
 		default:
 			return 'app/404';
 	}

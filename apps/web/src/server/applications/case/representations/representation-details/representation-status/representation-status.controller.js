@@ -1,11 +1,11 @@
-import { patchRepresentation } from '../applications-relevant-rep-details.service.js';
 import { getRepresentationDetails } from '../applications-relevant-rep-details.service.js';
-import {
-	getRepresentationStatusViewModel,
-	getPreviousPageUrl,
-	getNextPageUrl
-} from './representation-status.view-model.js';
+import { getRepresentationStatusViewModel } from './representation-status.view-model.js';
 import { getFormattedErrorSummary } from '../representation-details.utilities.js';
+import {
+	getRepresentationDetailsPageUrl,
+	getStatusResultPageUrl
+} from './representation-status.utils.js';
+import { patchRepresentation } from '../applications-relevant-rep-details.service.js';
 
 const view =
 	'applications/representations/representation-details/representation-status/representation-status.njk';
@@ -16,11 +16,19 @@ const view =
  */
 export const getRepresentationStatusController = async (req, res) => {
 	const { caseId, representationId } = req.params;
+	const newStatusEdit = req.query.changeStatus;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
 
+	if (newStatusEdit) representationDetails.status = newStatusEdit;
+
 	return res.render(view, {
-		...getRepresentationStatusViewModel(caseId, representationId, representationDetails)
+		...getRepresentationStatusViewModel(
+			caseId,
+			representationId,
+			!!newStatusEdit,
+			representationDetails
+		)
 	});
 };
 
@@ -41,17 +49,23 @@ export const postRepresentationStatus = async (req, res) => {
 		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
 
 		return res.render(view, {
-			...getRepresentationStatusViewModel(caseId, String(representationId), representationDetails),
+			...getRepresentationStatusViewModel(
+				caseId,
+				String(representationId),
+				false,
+				representationDetails
+			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
 		});
 	}
 
-	const response = await patchRepresentation(caseId, String(representationId), payload);
-
-	if (response.status === 'VALID') {
-		res.redirect(getPreviousPageUrl(caseId, String(representationId)));
+	if (payload.status === 'VALID') {
+		await patchRepresentation(caseId, String(representationId), payload);
+		res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
 	} else {
-		res.redirect(getNextPageUrl(caseId, String(representationId)));
+		res.redirect(
+			`${getStatusResultPageUrl(caseId, String(representationId))}?changeStatus=${payload.status}`
+		);
 	}
 };

@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { getOrgOrNameForRepresentation } from './representation-details.utilities.js';
 
 /**
  * @typedef {object} Representation
@@ -51,24 +52,20 @@ import { format } from 'date-fns';
 
 /**
  *
- * @param {boolean|null}under18
+ * @param {boolean|null} under18
  * @return {string}
  */
 const formatUnder18TypesToString = (under18) =>
 	under18 === null ? 'Unknown' : under18 ? 'Yes' : 'No';
 /**
- * @param {object} representation
- * @param {Contact[]} representation.contacts
+ * @param {Representation} representation
  * @returns {object[]}
  */
-const getContactDetailsByContactType = ({ contacts }) => {
-	return contacts.map((contact) => ({
+const getContactDetailsByContactType = (representation) => {
+	return representation.contacts.map((contact) => ({
 		type: contact.type,
 		orgName: contact.organisationName || '',
 		name: `${contact.firstName} ${contact.lastName}`,
-		orgOrName: contact.organisationName
-			? contact.organisationName
-			: `${contact.firstName} ${contact.lastName}`,
 		jobTitle: contact.jobTitle || '',
 		under18: formatUnder18TypesToString(contact.under18),
 		email: contact.email || '',
@@ -109,6 +106,7 @@ const getRepresentationData = (representation) => ({
 	id: representation.id,
 	reference: representation.reference,
 	status: representation.status,
+	orgOrName: getOrgOrNameForRepresentation(representation),
 	redacted: representation.redacted,
 	received: formatDate(representation.received),
 	originalRepresentation: representation.originalRepresentation,

@@ -29,7 +29,8 @@ const nocks = () => {
 		})
 		.reply(200, {
 			id: 1,
-			status: 'REFERRED'
+			status: 'REFERRED',
+			referredTo: ''
 		});
 };
 
@@ -83,17 +84,17 @@ describe('Change representation status page', () => {
 			expect(element.innerHTML).toContain('Select one option');
 		});
 
-		it('should patch the representation and redirect to /representation-status-result page', async () => {
+		it('should redirect to /status-result page on page submission', async () => {
 			const response = await request.post(baseUrl).send({
 				changeStatus: 'REFERRED'
 			});
 
 			expect(response?.headers?.location).toEqual(
-				'/applications-service/case/1/relevant-representations/1/representation-details/representation-status-result'
+				'/applications-service/case/1/relevant-representations/1/representation-details/status-result?changeStatus=REFERRED'
 			);
 		});
 
-		it('should patch the representation and redirect to details page if VALID status was posted', async () => {
+		it('should and redirect back to details page if VALID status was selected', async () => {
 			const response = await request.post(baseUrl).send({
 				changeStatus: 'VALID'
 			});
