@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test';
-import { databaseConnector } from '../../../utils/database-connector';
-import { prepareInput } from '../subscriptions.service';
+import { databaseConnector } from '../../../utils/database-connector.js';
+import { prepareInput } from '../subscriptions.service.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 /**
@@ -506,6 +506,97 @@ describe('subscriptions', () => {
 						'Update'
 					);
 				}
+			});
+		}
+	});
+
+	describe('prepareInput', () => {
+		/**
+		 * @typedef {Object} Test
+		 * @property {string} name
+		 * @property {*} request
+		 * @property {import('@prisma/client').Prisma.SubscriptionCreateInput} want
+		 */
+		/** @type {Test[]} */
+		const tests = [
+			{
+				name: 'should prepare basic request, setting all subscription fields false',
+				request: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscriptionTypes: []
+				},
+				want: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscribedToAllUpdates: false,
+					subscribedToApplicationDecided: false,
+					subscribedToApplicationSubmitted: false,
+					subscribedToRegistrationOpen: false,
+					startDate: null,
+					endDate: null
+				}
+			},
+			{
+				name: 'should set only all updates subscription fields true',
+				request: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscriptionTypes: ['allUpdates', 'applicationDecided']
+				},
+				want: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscribedToAllUpdates: true,
+					subscribedToApplicationDecided: false,
+					subscribedToApplicationSubmitted: false,
+					subscribedToRegistrationOpen: false,
+					startDate: null,
+					endDate: null
+				}
+			},
+			{
+				name: 'should set appropriate subscription fields true',
+				request: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscriptionTypes: ['applicationDecided', 'registrationOpen']
+				},
+				want: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscribedToAllUpdates: false,
+					subscribedToApplicationDecided: true,
+					subscribedToApplicationSubmitted: false,
+					subscribedToRegistrationOpen: true,
+					startDate: null,
+					endDate: null
+				}
+			},
+			{
+				name: 'should set start and end as dates',
+				request: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscriptionTypes: ['applicationDecided', 'registrationOpen'],
+					startDate: '2023-07-03T07:44:00Z',
+					endDate: '2023-07-15T07:44:00Z'
+				},
+				want: {
+					caseReference: 'abc',
+					emailAddress: 'hello@example.com',
+					subscribedToAllUpdates: false,
+					subscribedToApplicationDecided: true,
+					subscribedToApplicationSubmitted: false,
+					subscribedToRegistrationOpen: true,
+					startDate: new Date('2023-07-03T07:44:00Z'),
+					endDate: new Date('2023-07-15T07:44:00Z')
+				}
+			}
+		];
+		for (const { name, request, want } of tests) {
+			it('' + name, () => {
+				expect(prepareInput(request)).toEqual(want);
 			});
 		}
 	});
