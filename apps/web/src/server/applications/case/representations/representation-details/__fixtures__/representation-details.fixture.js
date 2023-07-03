@@ -30,8 +30,8 @@ export const representationDetailsFixture = {
 				addressLine1: '44 Rivervale',
 				addressLine2: null,
 				town: 'Bridport',
-				county: null,
-				postcode: 'DT6 5RN'
+				postcode: 'DT6 5RN',
+				country: 'Great Britain'
 			}
 		},
 		{
@@ -48,8 +48,8 @@ export const representationDetailsFixture = {
 				addressLine1: '8 The Chase',
 				addressLine2: null,
 				town: 'Findon',
-				county: null,
-				postcode: 'BN14 0TT'
+				postcode: 'BN14 0TT',
+				country: 'Great Britain'
 			}
 		}
 	],
