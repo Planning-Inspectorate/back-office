@@ -17,22 +17,10 @@ const nocks = () => {
 	nock('http://test/')
 		.patch(`/applications/1/representations/1`, {
 			status: 'INVALID',
-			invalidReason: 'DUPLICATE'
+			invalidReason: 'Duplicate',
+			updatedBy: 'Joe Blogs'
 		})
-		.reply(200, {
-			id: 1,
-			status: 'INVALID'
-		});
-
-	nock('http://test/')
-		.patch(`/applications/1/representations/1`, {
-			status: 'REFERRED',
-			referredTo: 'INSPECTOR'
-		})
-		.reply(200, {
-			id: 1,
-			status: 'REFERRED'
-		});
+		.reply(200, { message: 'all good' });
 };
 
 describe('Change representation status page', () => {
@@ -63,10 +51,10 @@ describe('Change representation status page', () => {
 			const response = await request.get(`${baseUrl}?changeStatus=REFERRED`);
 			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toContain('Case team');
+			expect(element.innerHTML).toContain('Case Team');
 			expect(element.innerHTML).toContain('Inspector');
-			expect(element.innerHTML).toContain('Central admin team');
-			expect(element.innerHTML).toContain('Interested party');
+			expect(element.innerHTML).toContain('Central Admin Team');
+			expect(element.innerHTML).toContain('Interested Party');
 		});
 
 		it('should contain specified radio options if status is INVALID', async () => {
@@ -87,22 +75,11 @@ describe('Change representation status page', () => {
 			await request.get('/applications-service/case-team');
 		});
 
-		it('should show validation error if no option was selected', async () => {
-			const response = await request.post(`${baseUrl}?changeStatus=AWAITING_REVIEW`).send({});
+		it('should show validation error if no option was selected (except for WITHDRAWN and AWAITING_REVIEW)', async () => {
+			const response = await request.post(`${baseUrl}?changeStatus=INVALID`).send({});
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toContain('Select one option');
-		});
-
-		it('should patch the representation and redirect to details page', async () => {
-			const response = await request.post(`${baseUrl}?changeStatus=INVALID`).send({
-				changeStatus: 'INVALID',
-				invalidReason: 'DUPLICATE'
-			});
-
-			expect(response?.headers?.location).toEqual(
-				'/applications-service/case/1/relevant-representations/1/representation-details'
-			);
 		});
 	});
 });

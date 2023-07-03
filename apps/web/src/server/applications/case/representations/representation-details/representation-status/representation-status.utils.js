@@ -1,14 +1,14 @@
 import { url } from '../../../../../lib/nunjucks-filters/url.js';
 /**
  *
- * @param {{status: string, updateBy: string|undefined, body: {notes: string?, statusResult: string?}}} statusUpdate
+ * @param {{status: string, updatedBy: string|undefined, body: {notes: string?, statusResult: string?}}} statusUpdate
  * @returns {object}
  */
 export const mapStatusPayload = (statusUpdate) => {
 	let mappedPayload = {};
 
 	mappedPayload.status = statusUpdate.status;
-	mappedPayload.actionBy = statusUpdate.updateBy;
+	mappedPayload.updatedBy = statusUpdate.updatedBy;
 
 	if (statusUpdate.body.notes) mappedPayload.notes = statusUpdate.body.notes;
 	if (statusUpdate.status === 'REFERRED') mappedPayload.referredTo = statusUpdate.body.statusResult;

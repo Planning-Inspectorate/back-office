@@ -1,5 +1,5 @@
 import * as authSession from '../../../../../../app/auth/auth-session.service.js';
-import { patchRepresentation } from '../../applications-relevant-rep-details.service.js';
+import { patchRepresentationStatus } from '../representation-status.service.js';
 import { getRepresentationDetails } from '../../applications-relevant-rep-details.service.js';
 import { getRepresentationStatusNotesViewModel } from './representation-status-notes.view-model.js';
 import { getFormattedErrorSummary } from '../../representation-details.utilities.js';
@@ -40,9 +40,10 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 	const payload = {
 		status: String(newStatus),
 		body,
-		updateBy: authSession.getAccount(session)?.name
+		updatedBy: authSession.getAccount(session)?.name
 	};
-	console.log('payload :>> ', payload);
+	body.testing = 'testing';
+	console.log('body :>> ', body);
 	console.log('mapped :>> ', mapStatusPayload(payload));
 	if (errors) {
 		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
@@ -59,7 +60,13 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 		});
 	}
 
-	await patchRepresentation(caseId, String(representationId), mapStatusPayload(payload));
+	const response = await patchRepresentationStatus(
+		caseId,
+		String(representationId),
+		mapStatusPayload(payload)
+	);
+
+	console.log('response :>> ', response);
 
 	res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
 };
