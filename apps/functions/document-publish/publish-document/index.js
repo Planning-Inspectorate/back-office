@@ -26,7 +26,7 @@ export const index = async (
 
 	await blobClient.copyFile({
 		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
-		sourceBlobName: documentURI,
+		sourceBlobName: documentURI.replace(/^\/+/, ''),
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
 		destinationBlobName: publishFileName
 	});
