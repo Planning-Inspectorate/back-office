@@ -4,7 +4,7 @@ import { validationErrorHandler } from '../../../../middleware/error-handler.js'
 import { representationsStatusesList } from '../representation.validators.js';
 
 const invalidReasons = ['Duplicate', 'Merged', 'Not relevant', 'Resubmitted', 'Test'];
-const referredTo = ['Case Team', 'Inspector', 'Central Admin Team', 'Interest Party'];
+const referredTo = ['Case Team', 'Inspector', 'Central Admin Team', 'Interested Party'];
 export const representationPatchStatusValidator = composeMiddleware(
 	body('status')
 		.isString()
