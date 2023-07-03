@@ -2,13 +2,7 @@ import { isEmpty, pick } from 'lodash-es';
 
 export const updateRepRedactRequestToRepository = (body) => {
 	const representation = pick(body, ['redactedRepresentation', 'redacted']);
-	const representationAction = pick(body, [
-		'type',
-		'invalidReason',
-		'notes',
-		'actionBy',
-		'redactStatus'
-	]);
+	const representationAction = pick(body, ['type', 'notes', 'actionBy', 'redactStatus']);
 
 	if ('redactStatus' in representationAction) {
 		if (!representationAction.type) representationAction.type = 'REDACT_STATUS';

@@ -19,13 +19,15 @@ router.patch(
 		}
 		#swagger.parameters['body'] = {
             in: 'body',
-            description: 'Representation redact details',
+            description: 'Representation redact details \n type can be REDACT_STATUS or REDACT. If REDACT_STATUS then redactedRepresentation is not a mandatory field but redactStatus will be.',
             schema: {
 	          actionBy: "Joe Bloggs",
 						redactedRepresentation: "This is the original Rep",
             notes: "Removed PII from original",
             type: 'REDACTION',
-            invalidReason: 'an invalid reason'
+            redacted: true,
+            redactStatus: true,
+
 			}
         }
         #swagger.responses[200] = {
