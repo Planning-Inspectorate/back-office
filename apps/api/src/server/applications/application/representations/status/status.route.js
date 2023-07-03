@@ -24,7 +24,7 @@ router.patch(
             status: 'INVALID',
             notes: "some notes",
             updatedBy: "Joe Bloggs",
-            invalidReason: "Duplicate"
+            invalidReason: "Duplicate",
             referredTo: "Inspector"
             }
         }
