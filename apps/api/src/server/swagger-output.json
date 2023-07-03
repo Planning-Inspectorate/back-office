@@ -1274,6 +1274,36 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Status body to update a rep stats and create a rep action",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "INVALID"
+								},
+								"notes": {
+									"type": "string",
+									"example": "some notes"
+								},
+								"updatedBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								},
+								"invalidReason": {
+									"type": "string",
+									"example": "Duplicate"
+								},
+								"referredTo": {
+									"type": "string",
+									"example": "Inspector"
+								}
+							}
+						}
 					}
 				],
 				"responses": {
