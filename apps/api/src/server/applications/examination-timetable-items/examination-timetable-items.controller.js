@@ -248,6 +248,32 @@ export const publishExaminationTimetable = async (_request, response) => {
  * @throws {Error}
  * @returns {Promise<void>}
  */
+export const unpublishExaminationTimetable = async (_request, response) => {
+	const { id } = _request.params;
+	try {
+		const now = new Date();
+		await examinationTimetableRepository.updateByCaseId(
+			+id,
+			// @ts-ignore
+			{
+				published: false,
+				updatedAt: now
+			}
+		);
+		response.send({
+			success: true
+		});
+	} catch (error) {
+		logger.error(error);
+		throw error;
+	}
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
 export const deleteExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);

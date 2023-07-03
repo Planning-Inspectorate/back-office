@@ -5,6 +5,7 @@ import {
 	getExaminationTimetableItem,
 	getExaminationTimetableItems,
 	publishExaminationTimetable,
+	unpublishExaminationTimetable,
 	deleteExaminationTimetableItem,
 	updateExaminationTimetableItem
 } from './examination-timetable-items.controller.js';
@@ -97,6 +98,27 @@ router.patch(
     */
 	validateApplicationId,
 	asyncHandler(publishExaminationTimetable)
+);
+
+router.patch(
+	'/unpublish/:id',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/examination-timetable-items/unpublish/{id}'
+        #swagger.description = 'Unpublish examination timetable items for the case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {}
+        #swagger.responses[200] = {
+            description: 'Examination timetable items unpublished',
+        }
+    */
+	validateApplicationId,
+	asyncHandler(unpublishExaminationTimetable)
 );
 
 router.delete(

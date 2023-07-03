@@ -41,6 +41,15 @@
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
+
 	{{ timetableItemsList(timetableItems, caseId) }}
+
+	{% if publishedStatus %}
+		<div>
+			<a class="govuk-link colour--red" href="{{'timetable'|url({caseId: caseId, step: 'unpublish-preview'})}}">
+				Unpublish timetable
+			</a>
+		</div>
+	{% endif %}	
 
 {% endblock %}
