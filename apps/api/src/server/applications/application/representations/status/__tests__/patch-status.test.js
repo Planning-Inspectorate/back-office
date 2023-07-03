@@ -76,4 +76,61 @@ describe('Patch Application Representation Status', () => {
 			}
 		});
 	});
+
+	it('Patch representation status - invalid request - status = INVALID', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/status')
+			.send({
+				updatedBy: 'a person',
+				status: 'INVALID'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				status: 'INVALID status requires invalidReason'
+			}
+		});
+	});
+
+	it('Patch representation status - invalid request - status = REFERRED', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/status')
+			.send({
+				updatedBy: 'a person',
+				status: 'REFERRED'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				status: 'REFERRED status requires referredTo'
+			}
+		});
+	});
+
+	it('Patch representation status - invalid request - status, invalidReason, referredTo', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/status')
+			.send({
+				updatedBy: 'a person',
+				invalidReason: 'i did not feel like it',
+				referredTo: 'myself'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				status: 'Invalid value',
+				invalidReason: 'Must be a valid: Duplicate,Merged,Not relevant,Resubmitted,Test',
+				referredTo: 'Must be a valid: Case Team,Inspector,Central Admin Team,Interested Party'
+			}
+		});
+	});
 });
