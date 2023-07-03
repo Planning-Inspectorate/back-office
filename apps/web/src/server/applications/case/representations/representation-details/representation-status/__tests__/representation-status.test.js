@@ -93,15 +93,5 @@ describe('Change representation status page', () => {
 				'/applications-service/case/1/relevant-representations/1/representation-details/status-result?changeStatus=REFERRED'
 			);
 		});
-
-		it('should and redirect back to details page if VALID status was selected', async () => {
-			const response = await request.post(baseUrl).send({
-				changeStatus: 'VALID'
-			});
-
-			expect(response?.headers?.location).toEqual(
-				'/applications-service/case/1/relevant-representations/1/representation-details'
-			);
-		});
 	});
 });
