@@ -16,6 +16,7 @@ import { format } from 'date-fns';
  * @property {string} redactedNotesExcerpt
  * @property {string} redactedBy
  * @property {string} type
+ * @property {Attachment []}  attachments
  */
 
 /**
@@ -25,6 +26,13 @@ import { format } from 'date-fns';
  * @property {string|null} town
  * @property {string|null} county
  * @property {string|null} postcode
+ */
+
+/**
+ * @typedef {object} Attachment
+ * @property {string} filename
+ * @property {string} documentGuid
+ * @property {number} id
  */
 
 /**
@@ -110,7 +118,8 @@ const getRepresentationData = (representation) => ({
 	redactedNotes: representation.redactedNotes,
 	redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
 	redactedBy: representation.redactedBy,
-	type: representation.type
+	type: representation.type,
+	attachments: representation.attachments
 });
 
 /**
