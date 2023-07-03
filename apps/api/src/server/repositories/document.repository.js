@@ -30,6 +30,21 @@ export const getById = (documentGuid) => {
 };
 
 /**
+ * Get a document by documentGuid
+ *
+ * @param {string} documentGuid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ */
+export const getByIdWithVersion = (documentGuid) => {
+	return databaseConnector.document.findUnique({
+		include: { documentVersion: true },
+		where: {
+			guid: documentGuid
+		}
+	});
+};
+
+/**
  * Get a document by documentGuid and caseId
  *
  * @param {string} documentGuid
