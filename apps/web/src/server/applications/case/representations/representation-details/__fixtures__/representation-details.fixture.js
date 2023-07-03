@@ -53,5 +53,11 @@ export const representationDetailsFixture = {
 			}
 		}
 	],
-	attachments: []
+	attachments: [
+		{
+			filename: 'a doc',
+			id: 1,
+			documentGuid: 'a doc guid'
+		}
+	]
 };
