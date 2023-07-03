@@ -46,7 +46,7 @@ describe('application representation details view-models', () => {
 				id: 1,
 				reference: 'BC0110001-1',
 				status: 'AWAITING_REVIEW',
-				orgOrName: 'James Bond',
+				orgOrName: 'Mrs Sue',
 				redacted: true,
 				type: 'mock type',
 				redactedBy: 'mock redacted by',
