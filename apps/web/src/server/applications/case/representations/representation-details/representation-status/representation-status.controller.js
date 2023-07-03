@@ -1,11 +1,12 @@
 import { getRepresentationDetails } from '../applications-relevant-rep-details.service.js';
 import { getRepresentationStatusViewModel } from './representation-status.view-model.js';
 import { getFormattedErrorSummary } from '../representation-details.utilities.js';
+import * as authSession from '../../../../../app/auth/auth-session.service.js';
 import {
 	getRepresentationDetailsPageUrl,
 	getStatusResultPageUrl
 } from './representation-status.utils.js';
-import { patchRepresentation } from '../applications-relevant-rep-details.service.js';
+import { patchRepresentationStatus } from './representation-status.service.js';
 
 const view =
 	'applications/representations/representation-details/representation-status/representation-status.njk';
@@ -38,11 +39,12 @@ export const getRepresentationStatusController = async (req, res) => {
  */
 
 export const postRepresentationStatus = async (req, res) => {
-	const { body, params, errors } = req;
+	const { body, params, errors, session } = req;
 	const { caseId, representationId } = params;
 
 	const payload = {
-		status: body.changeStatus
+		status: body.changeStatus,
+		updatedBy: authSession.getAccount(session)?.name
 	};
 
 	if (errors) {
@@ -61,7 +63,7 @@ export const postRepresentationStatus = async (req, res) => {
 	}
 
 	if (payload.status === 'VALID') {
-		await patchRepresentation(caseId, String(representationId), payload);
+		await patchRepresentationStatus(caseId, String(representationId), payload);
 		res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
 	} else {
 		res.redirect(

@@ -19,50 +19,50 @@ const getPageContentByStatus = (newStatus) => {
 
 	const radioItemsForReferredStatus = [
 		{
-			value: 'CASE_TEAM',
-			text: 'Case team',
+			value: 'Case Team',
+			text: 'Case Team',
 			checked: false
 		},
 		{
-			value: 'INSPECTOR',
+			value: 'Inspector',
 			text: 'Inspector',
 			checked: false
 		},
 		{
-			value: 'ADMIN_TEAM',
-			text: 'Central admin team',
+			value: 'Central Admin Team',
+			text: 'Central Admin Team',
 			checked: false
 		},
 		{
-			value: 'INTERESTED_PARTY',
-			text: 'Interested party',
+			value: 'Interested Party',
+			text: 'Interested Party',
 			checked: false
 		}
 	];
 
 	const radioItemsForInvalidStatus = [
 		{
-			value: 'DUPLICATE',
+			value: 'Duplicate',
 			text: 'Duplicate',
 			checked: false
 		},
 		{
-			value: 'MERGED',
+			value: 'Merged',
 			text: 'Merged',
 			checked: false
 		},
 		{
-			value: 'NOT_RELEVANT',
+			value: 'Not relevant',
 			text: 'Not relevant',
 			checked: false
 		},
 		{
-			value: 'RESUBMITTED',
+			value: 'Resubmitted',
 			text: 'Resubmitted',
 			checked: false
 		},
 		{
-			value: 'TEST',
+			value: 'Test',
 			text: 'TEST',
 			checked: false
 		}
