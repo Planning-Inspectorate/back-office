@@ -70,24 +70,22 @@ describe('subscriptions', () => {
 			}
 		];
 
-		for (const { name, query, subscription, want } of tests) {
-			test('' + name, async () => {
-				databaseConnector.subscription.findUnique.mockReset();
-				if (subscription !== undefined) {
-					databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
-				}
-				// action
-				let queryStr = '';
-				for (const [k, v] of Object.entries(query)) {
-					queryStr += `${k}=${encodeURIComponent(v)}&`;
-				}
-				const response = await request.get(`/applications/subscriptions?${queryStr}`);
+		it.each(tests)('$name', async ({ query, subscription, want }) => {
+			databaseConnector.subscription.findUnique.mockReset();
+			if (subscription !== undefined) {
+				databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
+			}
+			// action
+			let queryStr = '';
+			for (const [k, v] of Object.entries(query)) {
+				queryStr += `${k}=${encodeURIComponent(v)}&`;
+			}
+			const response = await request.get(`/applications/subscriptions?${queryStr}`);
 
-				// checks
-				expect(response.body).toEqual(want.body);
-				expect(response.status).toEqual(want.status);
-			});
-		}
+			// checks
+			expect(response.body).toEqual(want.body);
+			expect(response.status).toEqual(want.status);
+		});
 	});
 
 	describe('put (new)', () => {
@@ -209,48 +207,46 @@ describe('subscriptions', () => {
 			}
 		];
 
-		for (const { name, body, createdId, want } of tests) {
-			test('' + name, async () => {
-				// setup
-				databaseConnector.subscription.findUnique.mockReset();
-				databaseConnector.subscription.create.mockReset();
-				databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
+		it.each(tests)('$name', async ({ body, createdId, want }) => {
+			// setup
+			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.create.mockReset();
+			databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
 
-				if (createdId) {
-					databaseConnector.subscription.create.mockImplementationOnce((sub) => {
-						return {
-							...sub.data,
-							id: createdId
-						};
-					});
-				}
+			if (createdId) {
+				databaseConnector.subscription.create.mockImplementationOnce((sub) => {
+					return {
+						...sub.data,
+						id: createdId
+					};
+				});
+			}
 
-				// action
-				const response = await request.put('/applications/subscriptions').send(body);
+			// action
+			const response = await request.put('/applications/subscriptions').send(body);
 
-				// checks
-				expect(response.status).toEqual(want.status);
-				expect(response.body).toEqual(want.body);
-				if (createdId) {
-					const msgs = body.subscriptionTypes.map((t) => {
-						const msg = {
-							...body,
-							subscriptionType: t,
-							subscriptionId: createdId
-						};
-						delete msg.subscriptionTypes;
-						return msg;
-					});
-					// this is OK because we always run some checks
-					// eslint-disable-next-line jest/no-conditional-expect
-					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-						'nsip-subscription',
-						msgs,
-						'Create'
-					);
-				}
-			});
-		}
+			// checks
+			expect(response.status).toEqual(want.status);
+			expect(response.body).toEqual(want.body);
+			if (createdId) {
+				const msgs = body.subscriptionTypes.map((t) => {
+					const msg = {
+						...body,
+						subscriptionType: t,
+						subscriptionId: createdId
+					};
+					delete msg.subscriptionTypes;
+					return msg;
+				});
+				// this is OK because we always run some checks
+				// eslint-disable-next-line jest/no-conditional-expect
+				expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+					'nsip-subscription',
+					msgs,
+					'Create'
+				);
+			}
+		});
 	});
 
 	describe('put (update)', () => {
@@ -360,44 +356,42 @@ describe('subscriptions', () => {
 			}
 		];
 
-		for (const { name, body, existing, want } of tests) {
-			test('' + name, async () => {
-				// setup
-				databaseConnector.subscription.findUnique.mockReset();
-				databaseConnector.subscription.update.mockReset();
-				databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
+		it.each(tests)('$name', async ({ body, existing, want }) => {
+			// setup
+			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.update.mockReset();
+			databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
 
-				const updated = prepareInput(body);
-				updated.id = existing.id;
-				databaseConnector.subscription.update.mockResolvedValueOnce(updated);
+			const updated = prepareInput(body);
+			updated.id = existing.id;
+			databaseConnector.subscription.update.mockResolvedValueOnce(updated);
 
-				// action
-				const response = await request.put('/applications/subscriptions').send(body);
+			// action
+			const response = await request.put('/applications/subscriptions').send(body);
 
-				// checks
-				expect(response.body).toEqual(want.body);
-				expect(response.status).toEqual(want.status);
-				if (existing.id) {
-					for (const [eventType, subTypes] of Object.entries(want.events)) {
-						// this is OK because we always run some checks
-						// eslint-disable-next-line jest/no-conditional-expect
-						expect(eventClient.sendEvents).toHaveBeenCalledWith(
-							'nsip-subscription',
-							subTypes.map((t) => {
-								const msg = {
-									...body,
-									subscriptionType: t,
-									subscriptionId: existing.id
-								};
-								delete msg.subscriptionTypes;
-								return msg;
-							}),
-							eventType
-						);
-					}
+			// checks
+			expect(response.body).toEqual(want.body);
+			expect(response.status).toEqual(want.status);
+			if (existing.id) {
+				for (const [eventType, subTypes] of Object.entries(want.events)) {
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenCalledWith(
+						'nsip-subscription',
+						subTypes.map((t) => {
+							const msg = {
+								...body,
+								subscriptionType: t,
+								subscriptionId: existing.id
+							};
+							delete msg.subscriptionTypes;
+							return msg;
+						}),
+						eventType
+					);
 				}
-			});
-		}
+			}
+		});
 	});
 
 	describe('patch', () => {
@@ -468,46 +462,43 @@ describe('subscriptions', () => {
 				}
 			}
 		];
+		it.each(tests)('$name', async ({ body, updated, existing, want }) => {
+			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.update.mockReset();
+			// setup
+			if (updated !== undefined) {
+				databaseConnector.subscription.update.mockResolvedValueOnce(updated);
+			}
+			if (existing !== undefined) {
+				databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
+			}
 
-		for (const { name, body, updated, existing, want } of tests) {
-			test('' + name, async () => {
-				databaseConnector.subscription.findUnique.mockReset();
-				databaseConnector.subscription.update.mockReset();
-				// setup
-				if (updated !== undefined) {
-					databaseConnector.subscription.update.mockResolvedValueOnce(updated);
-				}
-				if (existing !== undefined) {
-					databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
-				}
+			// action
+			const response = await request.patch('/applications/subscriptions/1').send(body);
 
-				// action
-				const response = await request.patch('/applications/subscriptions/1').send(body);
-
-				// checks
-				expect(response.status).toEqual(want.status);
-				expect(response.body).toEqual(want.body);
-				if (updated) {
-					const msgs = want.body.subscriptionTypes.map((t) => {
-						const msg = {
-							...want.body,
-							subscriptionType: t,
-							subscriptionId: updated.id
-						};
-						delete msg.subscriptionTypes;
-						delete msg.id;
-						return msg;
-					});
-					// this is OK because we always run some checks
-					// eslint-disable-next-line jest/no-conditional-expect
-					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-						'nsip-subscription',
-						msgs,
-						'Update'
-					);
-				}
-			});
-		}
+			// checks
+			expect(response.status).toEqual(want.status);
+			expect(response.body).toEqual(want.body);
+			if (updated) {
+				const msgs = want.body.subscriptionTypes.map((t) => {
+					const msg = {
+						...want.body,
+						subscriptionType: t,
+						subscriptionId: updated.id
+					};
+					delete msg.subscriptionTypes;
+					delete msg.id;
+					return msg;
+				});
+				// this is OK because we always run some checks
+				// eslint-disable-next-line jest/no-conditional-expect
+				expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+					'nsip-subscription',
+					msgs,
+					'Update'
+				);
+			}
+		});
 	});
 
 	describe('prepareInput', () => {
@@ -594,10 +585,8 @@ describe('subscriptions', () => {
 				}
 			}
 		];
-		for (const { name, request, want } of tests) {
-			it('' + name, () => {
-				expect(prepareInput(request)).toEqual(want);
-			});
-		}
+		it.each(tests)('$name', ({ request, want }) => {
+			expect(prepareInput(request)).toEqual(want);
+		});
 	});
 });
