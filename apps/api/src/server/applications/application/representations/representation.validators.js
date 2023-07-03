@@ -11,7 +11,7 @@ const isStrictTypeBooleanOrNull = async (value) => {
 		throw new TypeError(`Must be a boolean or null`);
 };
 
-const statuses = [
+export const representationsStatusesList = [
 	'AWAITING_REVIEW',
 	'REFERRED',
 	'INVALID',
@@ -68,8 +68,8 @@ export const representationPatchValidator = composeMiddleware(
 	body('status')
 		.optional()
 		.isString()
-		.isIn(statuses)
-		.withMessage(`Must be a valid status: ${statuses}`),
+		.isIn(representationsStatusesList)
+		.withMessage(`Must be a valid status: ${representationsStatusesList}`),
 	body('redacted').optional().custom(isStrictTypeBoolean),
 	body('received').optional(),
 	body('originalRepresentation').optional().isString(),

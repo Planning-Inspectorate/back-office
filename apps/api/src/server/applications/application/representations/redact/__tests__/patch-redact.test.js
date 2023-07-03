@@ -30,7 +30,7 @@ describe('Patch Application Representation Redact', () => {
 			.send({
 				actionBy: 'a person',
 				redactedRepresentation: 'i have been redacted',
-				notes: 'the rep has been redacted'
+				notes: 'This is a duplicate Rep.'
 			})
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
@@ -45,7 +45,7 @@ describe('Patch Application Representation Redact', () => {
 				actionBy: 'a person',
 				actionDate: mockDate,
 				previousRedactStatus: true,
-				notes: 'the rep has been redacted',
+				notes: 'This is a duplicate Rep.',
 				redactStatus: true,
 				representationId: 1,
 				type: 'REDACTION'
@@ -70,6 +70,35 @@ describe('Patch Application Representation Redact', () => {
 			errors: {
 				actionBy: 'is a mandatory field',
 				redactedRepresentation: 'is a mandatory field'
+			}
+		});
+	});
+
+	it('Patch representation redact - invalid request - Must be a valid status', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/redact')
+			.send({ actionBy: 'a person', redactedRepresentation: 'a valid rep', type: 'bad type' })
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				type: 'Must be a valid type of: REDACTION,STATUS,REDACT_STATUS'
+			}
+		});
+	});
+	it('Patch representation redact - invalid request - redactStatus', async () => {
+		const response = await request
+			.patch('/applications/1/representations/1/redact')
+			.send({ actionBy: 'a person', redactStatus: 'a valid rep', type: 'REDACT_STATUS' })
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: {
+				redactStatus: 'Invalid value'
 			}
 		});
 	});

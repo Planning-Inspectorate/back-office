@@ -482,6 +482,36 @@ export const deleteApplicationRepresentationAttachment = async (attachmentId) =>
 
 /**
  *
+ * @param {number} repId
+ * @param {object}action
+ * @returns {Promise<*>}
+ */
+export const updateApplicationRepresentationStatus = async (repId, action) => {
+	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
+
+	const updateRepStatus = databaseConnector.representation.update({
+		where: { id: repId },
+		data: {
+			status: action.status
+		}
+	});
+
+	const addAction = databaseConnector.representationAction.create({
+		data: {
+			representationId: repId,
+			previousStatus: representation.status,
+			...action,
+			actionDate: new Date()
+		}
+	});
+
+	const [rep] = await databaseConnector.$transaction([updateRepStatus, addAction]);
+
+	return rep;
+};
+
+/**
+ *
  * @param {string} field
  * @param {string} searchTerm
  * @returns {any}
