@@ -283,10 +283,11 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 /**
  * Handle the removal of the documentation from the publishing queue
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: number, documentGuid: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {documentGuid: string}>}
  */
 export async function removeApplicationsCaseDocumentationPublishingQueue(request, response) {
-	const { caseId, documentGuid } = request.params;
+	const { documentGuid } = request.params;
+	const { caseId } = response.locals;
 
 	await removeCaseDocumentationPublishingQueue(caseId, documentGuid);
 
