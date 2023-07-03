@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Change representation status page GET /applications-service/case/1/relevant-representations/1/representations-details/change-status should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-l\\">James Bond</span>
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-l\\">Mrs Sue</span>
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-2\\">Change status</h1><strong class=\\"govuk-heading-s govuk-!-margin-bottom-6\\"><strong class=\\"govuk-tag govuk-tag--grey\\">awaiting review</strong></strong>
     <div     class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
