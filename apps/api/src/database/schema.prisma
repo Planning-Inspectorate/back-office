@@ -570,12 +570,12 @@ model RepresentationAction {
   id                   Int            @id @default(autoincrement())
   representationId     Int
   type                 String? // STATUS | REDACTION | REDACT_STATUS
-  status               String?
+  status               String? // AWAITING_REVIEW | REFERRED | INVALID | VALID | WITHDRAWN
   previousStatus       String?
   redactStatus         Boolean?
   previousRedactStatus Boolean?
-  invalidReason        String?
-  referredTo           String?
+  invalidReason        String? // DUPLICATE | MERGED | NOT_RELEVANT | RESUBMITTED
+  referredTo           String? // CASE_TEAM | INSPECTOR | ADMIN_TEAM | INTERESTED_PARTY
   actionBy             String
   actionDate           DateTime
   notes                String?        @db.NText
