@@ -1,12 +1,15 @@
 import { request } from '../../../../app-test.js';
 import { databaseConnector } from '../../../../utils/database-connector.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../constants.js';
-import { mapProjectUpdate } from '../project-updates.mapper.js';
+import { buildProjectUpdatePayload, mapProjectUpdate } from '../project-updates.mapper.js';
 import {
 	ERROR_INVALID_SORT_BY,
 	ERROR_INVALID_SORT_BY_OPTION,
 	ERROR_MUST_BE_NUMBER
 } from '../../../../middleware/errors.js';
+import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+import { eventClient } from '../../../../infrastructure/event-client.js';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -302,6 +305,9 @@ describe('project-updates', () => {
 					htmlContent:
 						'<b>Something Important</b> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 				},
+				existingCase: {
+					reference: 'abc-123'
+				},
 				created: {
 					id: 5,
 					caseId: 1,
@@ -324,19 +330,24 @@ describe('project-updates', () => {
 			}
 		];
 
-		it.each(tests)('$name', async ({ body, created, want }) => {
+		it.each(tests)('$name', async ({ body, created, existingCase, want }) => {
 			// setup
 			// mock case
 			databaseConnector.case.findUnique.mockReset();
 			databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+
 			databaseConnector.projectUpdate.create.mockReset();
+
+			let createdUpdate;
 
 			if (created) {
 				databaseConnector.projectUpdate.create.mockImplementationOnce((req) => {
-					return {
+					createdUpdate = {
 						...created,
-						...req.data
+						...req.data,
+						case: existingCase
 					};
+					return createdUpdate;
 				});
 			}
 
@@ -346,24 +357,15 @@ describe('project-updates', () => {
 			// checks
 			expect(response.status).toEqual(want.status);
 			expect(response.body).toEqual(want.body);
-			// if (createdId) {
-			// 	const msgs = body.subscriptionTypes.map((t) => {
-			// 		const msg = {
-			// 			...body,
-			// 			subscriptionType: t,
-			// 			subscriptionId: createdId
-			// 		};
-			// 		delete msg.subscriptionTypes;
-			// 		return msg;
-			// 	});
-			// 	// this is OK because we always run some checks
-			// 	// eslint-disable-next-line jest/no-conditional-expect
-			// 	expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-			// 		'nsip-subscription',
-			// 		msgs,
-			// 		'Create'
-			// 	);
-			// }
+			if (created) {
+				// this is OK because we always run some checks
+				// eslint-disable-next-line jest/no-conditional-expect
+				expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+					NSIP_PROJECT_UPDATE,
+					[buildProjectUpdatePayload(createdUpdate, existingCase.reference)],
+					EventType.Create
+				);
+			}
 		});
 	});
 });

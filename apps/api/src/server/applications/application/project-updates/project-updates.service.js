@@ -1,0 +1,34 @@
+import { EventType } from '@pins/event-client';
+import { eventClient } from '../../../infrastructure/event-client.js';
+import { createProjectUpdate } from '../../../repositories/project-update.respository.js';
+import { projectUpdateCreateReq } from './project-updates.js';
+import { buildProjectUpdatePayload, mapProjectUpdate } from './project-updates.mapper.js';
+import { NSIP_PROJECT_UPDATE } from '../../../infrastructure/topics.js';
+import logger from '../../../utils/logger.js';
+
+/**
+ * Create a new project update, and send the Create event
+ *
+ * @param {*} body
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+ */
+export async function createProjectUpdateService(body, caseId) {
+	// request already validated, but we need to map it to a create request
+	// this links to the case, and avoids extra fields being added
+	const createReq = projectUpdateCreateReq(body, caseId);
+
+	const created = await createProjectUpdate(createReq);
+
+	if (created.case && created.case.reference) {
+		await eventClient.sendEvents(
+			NSIP_PROJECT_UPDATE,
+			[buildProjectUpdatePayload(created, created.case.reference)],
+			EventType.Create
+		);
+	} else {
+		logger.warn('createProjectUpdateService: project update case has no reference. No event sent.');
+	}
+
+	return mapProjectUpdate(created);
+}

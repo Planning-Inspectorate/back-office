@@ -37,10 +37,14 @@ export async function listProjectUpdates(caseId, pageNumber, pageSize, orderBy) 
  * Create a new project update
  *
  * @param {import('@prisma/client').Prisma.ProjectUpdateCreateInput} req
- * @returns {Promise<import('@prisma/client').ProjectUpdate>}
+ * @returns {Promise<import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>>}
  */
 export async function createProjectUpdate(req) {
 	return databaseConnector.projectUpdate.create({
-		data: req
+		data: req,
+		include: {
+			// return the related case too
+			case: true
+		}
 	});
 }
