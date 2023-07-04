@@ -11,6 +11,7 @@ import {
 } from './change-redaction/change-redaction.controller.js';
 import { representationChangeRedactionValidation } from './change-redaction/change-redaction.validator.js';
 import { addRepresentationToLocals } from '../representation/representation.middleware.js';
+import { getRepresentationDetailsTaskLogController } from './task-log/task-log.controller.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -30,5 +31,9 @@ representationDetailsRouter
 		representationChangeRedactionValidation,
 		asyncRoute(postRepresentationDetailsChangeRedactionController)
 	);
+
+representationDetailsRouter
+	.route('/task-log')
+	.get(asyncRoute(getRepresentationDetailsTaskLogController));
 
 export default representationDetailsRouter;

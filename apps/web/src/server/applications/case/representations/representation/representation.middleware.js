@@ -20,7 +20,7 @@ const getCaseViewModel = ({ title }) => ({
  * @returns {{represented: object, representative: object}}
  */
 
-const getContactDetailsByContactType = ({ contacts }) => ({
+export const getContactDetailsByContactType = ({ contacts }) => ({
 	represented: formatContactDetails(contacts.find((element) => element.type !== 'AGENT')),
 	representative: formatContactDetails(contacts.find((element) => element.type === 'AGENT'))
 });
