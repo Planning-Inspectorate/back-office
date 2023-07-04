@@ -1,8 +1,9 @@
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
+/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
+/** @typedef {{folderId: string, documentId: string, caseId: string, blobStorageHost: string, blobStorageContainer: string, useBlobEmulator: string}} UploadForm */
 
 import { BlobServiceClient } from '@azure/storage-blob';
 import { BlobStorageClient } from '@pins/blob-storage-client';
@@ -22,15 +23,18 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		const { folderId, caseId } = uploadForm.dataset;
-		const payload = [...fileList].map((file) => ({
-			documentName: file.name,
-			documentSize: file.size,
-			documentType: file.type,
-			caseId,
-			folderId,
-			fileRowId: file.fileRowId
-		}));
+		const { blobStorageContainer, folderId, caseId } = uploadForm.dataset;
+		const payload = {
+			blobStorageContainer,
+			documents: [...fileList].map((file) => ({
+				documentName: file.name,
+				documentSize: file.size,
+				documentType: file.type,
+				caseId,
+				folderId,
+				fileRowId: file.fileRowId
+			}))
+		};
 
 		return fetch(`/documents/${caseId}/upload/`, {
 			method: 'POST',
@@ -61,17 +65,20 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getVersionUploadInfoFromInternalDB = async (file) => {
-		const { folderId, caseId, documentId } = uploadForm.dataset;
+		const { blobStorageContainer, folderId, caseId, documentId } = uploadForm.dataset;
 		const payload = {
-			documentName: file.name,
-			documentSize: file.size,
-			documentType: file.type,
-			caseId,
-			folderId,
-			fileRowId: file.fileRowId
+			blobStorageContainer,
+			document: {
+				documentName: file.name,
+				documentSize: file.size,
+				documentType: file.type,
+				caseId,
+				folderId,
+				fileRowId: file.fileRowId
+			}
 		};
 
-		return fetch(`/documents/${caseId}/upload/${documentId}/add-version`, {
+		return fetch(`/documents/${caseId}/upload/${documentId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -99,11 +106,15 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}>}
 	 */
 	const uploadFiles = async (fileList, uploadInfo) => {
-		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
-		const blobEmulatorSasUrl = uploadForm.dataset.documentBlobEmulatorUrl ?? '';
+		const { documents, accessToken } = uploadInfo;
+		const { blobStorageHost, blobStorageContainer, useBlobEmulator } =
+			/** type: UploadForm **/ uploadForm.dataset;
+		if (blobStorageHost == undefined || blobStorageContainer == undefined) {
+			throw new Error('blobStorageHost or blobStorageContainer are undefined.');
+		}
 		const blobStorageClient =
-			blobEmulatorSasUrl && !accessToken
-				? new BlobStorageClient(new BlobServiceClient(blobEmulatorSasUrl))
+			useBlobEmulator && !accessToken
+				? new BlobStorageClient(new BlobServiceClient(blobStorageHost))
 				: BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
 		for (const documentUploadInfo of documents) {
@@ -117,7 +128,7 @@ const serverActions = (uploadForm) => {
 					fileToUpload,
 					blobStoreUrl,
 					blobStorageClient,
-					blobStorageContainer ?? 'document-service-uploads'
+					blobStorageContainer
 				);
 
 				if (errorOutcome) {

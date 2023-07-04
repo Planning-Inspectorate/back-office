@@ -2,18 +2,29 @@ import config from '@pins/appeals.web/environment/config.js';
 
 /** @type {import('@pins/express').RenderHandler<object>}  */
 export const upload = async (request, response) => {
-	const { appealId, folderId } = request.params;
+	const { appealId, folderId, documentId } = request.params;
 
-	return response.render('appeals/appeal/document-upload.njk', {
+	return response.render('appeals/documents/document-upload.njk', {
 		caseId: appealId,
 		folderId,
-		blobEmulatorSasUrl: config.blobEmulatorSasUrl
+		documentId,
+		useBlobEmulator: config.useBlobEmulator,
+		blobStorageHost:
+			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
+		blobStorageContainer: config.blobStorageDefaultContainer
 	});
 };
 
 /** @type {import('@pins/express').RenderHandler<object>}  */
 export const download = async (request, response) => {
-	return response.render('appeals/appeal/document-download.njk', {
-		blobEmulatorSasUrl: config.blobEmulatorSasUrl
-	});
+	return response.render('appeals/documents/document-download.njk', {});
 };
+
+/** @type {import('@pins/express').RenderHandler<object>}  */
+export const listFolders = async (request, response) => {
+	return response.render('appeals/documents/folders.njk', {});
+};
+
+// todo
+//export const listFolders()
+//export const listFiles()

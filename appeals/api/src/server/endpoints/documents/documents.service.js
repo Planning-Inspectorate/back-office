@@ -1,18 +1,29 @@
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import logger from '../../utils/logger.js';
-import config from '../../config/config.js';
 import appealRepository from '../../repositories/appeal.repository.js';
 import {
-	mapDocumentsToSendToDatabase,
-	mapDocumentsToSendToBlobStorage,
-	mapDocumentNameForStorageUrl
+	mapDocumentsForDatabase,
+	mapDocumentsForBlobStorage,
+	mapDocumentNameForStorageUrl,
+	mapBlobPath
 } from './documents.mapper.js';
 import { upsertCaseFolders } from '../../repositories/folder.repository.js';
-import { getDocumentsByAppealId, upsertDocument } from '../../repositories/document.repository.js';
+import {
+	getDocumentsByAppealId,
+	getDocumentById,
+	upsertDocument,
+	updateDocument
+} from '../../repositories/document.repository.js';
+import { upsertDocumentVersion } from '../../repositories/document-metadata.repository.js';
 
+/** @typedef {import("../appeals.js").RepositoryGetByIdResultItem} RepositoryResult */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.FolderTemplate} FolderTemplate */
+/** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
+/** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
+/** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
+/** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 
 /**
  * Returns a list of document paths available for the current Appeal
@@ -42,38 +53,95 @@ export const getDocumentsForAppeal = async (appealId, sectionName = null) => {
 };
 
 /**
- * @param {{documentName: string, caseId: number, folderId: number, documentType: string, documentSize: number, fileRowId: string, }[]} documentsToUpload
- * @param {number} appealId
- * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
+ * Returns a list of document paths available for the current Appeal
+ * @param {string} documentId
+ * @returns {Promise<Document>}
  */
-export const addDocumentsToAppeal = async (documentsToUpload, appealId) => {
+export const getDocumentForAppeal = async (documentId) => {
+	const document = await getDocumentById(documentId);
+	return document;
+};
+
+/**
+ * @param {DocumentApiRequest} upload
+ * @param {number} appealId
+ * @returns {Promise<{documents: BlobInfo[]}>}}
+ */
+export const addDocumentsToAppeal = async (upload, appealId) => {
+	const appeal = await getAppeal(appealId);
+	if (!appeal || appeal.reference == null) {
+		throw new Error('Case not found or has no reference');
+	}
+	const { blobStorageContainer, documents } = upload;
+	const documentsToSendToDatabase = mapDocumentsForDatabase(
+		appealId,
+		blobStorageContainer,
+		documents
+	);
+	const documentsFromDatabase = await upsertDocumentMetadata(
+		appealId,
+		appeal.reference,
+		documentsToSendToDatabase
+	);
+
+	return {
+		documents: mapDocumentsForBlobStorage(documentsFromDatabase, appeal.reference)
+	};
+};
+
+/**
+ * @param {DocumentVersionApiRequest} upload
+ * @param {number} appealId
+ * @param {string} documentId
+ * @returns {Promise<{documents: BlobInfo[]}>}}
+ */
+export const addVersionToDocument = async (upload, appealId, documentId) => {
 	const appeal = await getAppeal(appealId);
 	if (!appeal || appeal.reference == null) {
 		throw new Error('Case not found or has no reference');
 	}
 
-	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(appealId, documentsToUpload);
-	const documentsFromDatabase = await upsertDocumentMetadata(appealId, documentsToSendToDatabase);
+	const { blobStorageContainer, document } = upload;
+	const documentsToSendToDatabase = mapDocumentsForDatabase(appealId, blobStorageContainer, [
+		document
+	]);
 
-	const metadataResponse = {
-		blobStorageHost: config.blobStorageHost,
-		blobStorageContainer: config.blobStorageHost,
-		documents: mapDocumentsToSendToBlobStorage(documentsFromDatabase, appeal.reference)
+	const documentVersion = documentsToSendToDatabase[0];
+	const masterDocument = await getDocumentById(documentId);
+	const newVersionId = masterDocument.latestVersionId + 1;
+	const newDocumentVersion = await upsertDocumentVersion({
+		documentGuid: documentId,
+		fileName: masterDocument.name,
+		originalFilename: mapDocumentNameForStorageUrl(documentVersion.name),
+		mime: documentVersion.documentType,
+		size: documentVersion.documentSize,
+		version: newVersionId,
+		blobStoragePath: mapBlobPath(
+			masterDocument.guid,
+			appeal.reference,
+			documentVersion.name,
+			newVersionId
+		),
+		blobStorageContainer: documentVersion.blobStorageContainer
+	});
+
+	await updateDocument(documentId, {
+		latestVersionId: newDocumentVersion.version
+	});
+
+	return {
+		documents: mapDocumentsForBlobStorage(
+			[newDocumentVersion.Document],
+			appeal.reference,
+			newVersionId
+		)
 	};
-	//await getStorageLocation(requestToDocumentStorage);
-
-	// await upsertDocumentVersionsMetadataToDatabase(
-	// 	responseFromDocumentStorage.documents,
-	// 	responseFromDocumentStorage.blobStorageContainer
-	// );
-
-	return metadataResponse;
 };
 
 /**
  * Returns the current appeal by reference
  * @param {number} appealId
- * @returns {Promise<import("../appeals.js").RepositoryGetByIdResultItem|void>}
+ * @returns {Promise<RepositoryResult|void>}
  */
 const getAppeal = async (appealId) => {
 	const appeal = await appealRepository.getById(appealId);
@@ -83,10 +151,11 @@ const getAppeal = async (appealId) => {
 /**
  *
  * @param {number} caseId
- * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
- * @returns {Promise<import('@pins/appeals.api').Schema.Document[]>}
+ * @param {string} reference
+ * @param {DocumentMetadata[]} documents
+ * @returns {Promise<Document[]>}
  */
-const upsertDocumentMetadata = async (caseId, documents) => {
+const upsertDocumentMetadata = async (caseId, reference, documents) => {
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
 		.handleError((error) => {
@@ -103,31 +172,27 @@ const upsertDocumentMetadata = async (caseId, documents) => {
 
 			logger.info(`Upserted document with guid: ${document.guid}`);
 
-			// Call the documentVersionRepository.upsert function to upsert metadata for the document to the database.
-			// await documentVerisonRepository.upsert({
-			// 	documentGuid: document.guid,
-			// 	fileName,
-			// 	originalFilename: fileName,
-			// 	mime: documentToDB.documentType,
-			// 	size: documentToDB.documentSize,
-			// 	version: 1
-			// });
+			await upsertDocumentVersion({
+				documentGuid: document.guid,
+				fileName,
+				originalFilename: fileName,
+				mime: documentToDB.documentType,
+				size: documentToDB.documentSize,
+				version: 1,
+				blobStoragePath: mapBlobPath(document.guid, reference, fileName, 1),
+				blobStorageContainer: documentToDB.blobStorageContainer
+			});
 
-			// await documentRepository.update(document.guid, {
-			// 	latestVersionId: 1
-			// });
+			await updateDocument(document.guid, {
+				latestVersionId: 1
+			});
 
-			// // Log that the metadata for the document has been upserted and its GUID.
-			// logger.info(`Upserted metadata for document with guid: ${document.guid}`);
+			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
 			return document;
 		});
 
-	// Log the total number of documents that were upserted to the database.
-
-	//logger.info(`Upserted ${results.length} documents to database`);
-
-	// Return the array of upserted documents.
+	logger.info(`Upserted ${results.length} documents to database`);
 
 	return results;
 };

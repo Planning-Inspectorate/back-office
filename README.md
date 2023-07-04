@@ -2,7 +2,7 @@
 
 This is the Planning Inspectorate Back Office monorepo that contains all the apps for running the back office. 
 
-The back office system includes a JSON API, which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
+The back office system contains individual stacks for appeal and applications back office features. Each includes a JSON API, which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
 
 Most of the apps are built with [Express.js](https://expressjs.com/), and the front-end uses the [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html) and the [GOV.UK Design System](https://design-system.service.gov.uk/).
 
@@ -48,8 +48,6 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<YourSt
 
 Later on, when connecting to the database, follow the instructions for ARM64.
 
-Another alternative is to use [Azure Data Studio](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio).
-
 #### Database Setup
 
 1. Connect to the container
@@ -90,6 +88,8 @@ Run `sqlcmd`:
 sqlcmd -S pins_sql_server -U SA -P "<YourStrong@Passw0rd>"
 ```
 
+Another alternative is to use [Azure Data Studio](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio) as a database client, to create and monitor the database contents.
+
 #### Environment Setup
 
 The `api` app needs to know how to connect to the database. Create a `.env` file in `apps/api` with a `DATABASE_URL` entry, as follows:
@@ -111,8 +111,7 @@ apps/api> npm run db:migrate
 ```shell
 apps/api> npm run db:seed
 ```
-
-### Running Locally
+### Running Locally the Applications Stack
 
 Ensure a database is running and setup, then:
 
@@ -197,11 +196,7 @@ If testing storage or the service bus integration, then some extra tools are use
 
 ### Setting up Azure Blob Store emulator locally
 
-Run the following command:
-
-```shell
-docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 --name blob-store-test -d mcr.microsoft.com/azure-storage/azurite:latest
-```
+[Please refer to the emulator setup document](./docs/azurite-blob-emulator.md)
 
 ## Docker
 

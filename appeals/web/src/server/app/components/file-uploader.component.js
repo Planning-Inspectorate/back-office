@@ -4,12 +4,13 @@ import config from '@pins/appeals.web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
-/** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
-
+/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
+/** @typedef {import('@pins/appeals/index.js').UploadInfo} UploadInfo */
+/** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
+/** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
 /**
  * @param {string} caseId
- * @param {DocumentUploadInfo[]} payload
+ * @param {DocumentApiRequest} payload
  * @returns {Promise<UploadInfo>}
  */
 export const createNewDocument = async (caseId, payload) => {
@@ -19,12 +20,74 @@ export const createNewDocument = async (caseId, payload) => {
 /**
  * @param {string} caseId
  * @param {string} documentId
- * @param {DocumentUploadInfo} payload
- * @returns {Promise<DocumentUploadInfo>}
+ * @param {DocumentVersionApiRequest} payload
+ * @returns {Promise<UploadInfo>}
  */
 export const createNewDocumentVersion = async (caseId, documentId, payload) => {
-	return post(`appeals/${caseId}/document/${documentId}/add-version`, { json: payload });
+	return post(`appeals/${caseId}/documents/${documentId}`, { json: payload });
 };
+
+/**
+ * Generic controller for applications and appeals for files upload
+ *
+ * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentApiRequest}} request
+ * @param {*} response
+ * @returns {Promise<{}>}
+ */
+export async function postDocumentsUpload({ params, body, session }, response) {
+	const { caseId } = params;
+	const uploadInfo = await createNewDocument(caseId, body);
+	const { documents } = uploadInfo;
+
+	let accessToken = undefined;
+	if (config.useBlobEmulator !== true) {
+		accessToken = await getActiveDirectoryAccessToken(session);
+	}
+
+	uploadInfo.documents = documents.map((document) => {
+		const fileToUpload = body.documents.find(
+			(file) => documentName(file.documentName) === document.documentName
+		);
+		const documentWithRowId = { ...document };
+
+		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
+
+		return documentWithRowId;
+	});
+
+	return response.send({ ...uploadInfo, accessToken });
+}
+
+/**
+ * Generic controller for applications and appeals for files upload
+ *
+ * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentVersionApiRequest}} request
+ * @param {*} response
+ * @returns {Promise<{}>}
+ */
+export async function postUploadDocumentVersion({ params, body, session }, response) {
+	const { caseId, documentId } = params;
+	const uploadInfo = await createNewDocumentVersion(caseId, documentId, body);
+	const { documents } = uploadInfo;
+
+	let accessToken = undefined;
+	if (config.useBlobEmulator !== true) {
+		accessToken = await getActiveDirectoryAccessToken(session);
+	}
+
+	uploadInfo.documents = documents.map((document) => {
+		const fileToUpload = body.document;
+		const documentWithRowId = { ...document };
+
+		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
+
+		return documentWithRowId;
+	});
+	const document = uploadInfo.documents[0];
+	document.fileRowId = body?.document.fileRowId || '';
+
+	return response.send({ ...uploadInfo, accessToken });
+}
 
 /**
  * Remove extension from document name
@@ -41,53 +104,3 @@ export const documentName = (documentNameWithExtension) => {
 
 	return documentNameSplit.join('.');
 };
-
-/**
- * Generic controller for applications and appeals for files upload
- *
- * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
- * @param {*} response
- * @returns {Promise<{}>}
- */
-export async function postDocumentsUpload({ params, body, session }, response) {
-	const { caseId } = params;
-	const uploadInfo = await createNewDocument(caseId, body);
-	const { documents } = uploadInfo;
-
-	let accessToken = undefined;
-	if (config.blobEmulatorSasUrl == null) {
-		accessToken = await getActiveDirectoryAccessToken(session);
-	}
-
-	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.find(
-			(file) => documentName(file.documentName) === document.documentName
-		);
-		const documentWithRowId = { ...document };
-
-		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
-
-		return documentWithRowId;
-	});
-
-	return response.send({ ...uploadInfo, accessToken });
-}
-
-/**
- * Generic controller for applications and appeals for files upload
- *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentUploadInfo}} request
- * @param {*} response
- * @returns {Promise<{}>}
- */
-export async function postUploadDocumentVersion({ params, body, session }, response) {
-	const { caseId, documentId } = params;
-
-	const document = await createNewDocumentVersion(caseId, documentId, body);
-
-	const accessToken = await getActiveDirectoryAccessToken(session);
-
-	document.fileRowId = body?.fileRowId || '';
-
-	return response.send({ ...document, accessToken });
-}

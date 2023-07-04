@@ -776,6 +776,6 @@ const document = {
 };
 
 const outputFile = './src/server/openapi.json';
-const endpointsFiles = ['./src/server/appeals/**/*.routes.js'];
+const endpointsFiles = ['./src/server/endpoints/**/*.routes.js'];
 
 swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);
