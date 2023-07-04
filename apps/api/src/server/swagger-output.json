@@ -1984,6 +1984,54 @@
 						"schema": {
 							"$ref": "#/definitions/ApplicationProjectUpdates"
 						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Create a project update for this application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Project update parameters",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdateCreateRequest"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Created project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdateCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
 					}
 				}
 			}
@@ -3986,80 +4034,25 @@
 			"type": "object",
 			"properties": {
 				"page": {
-					"type": "number",
-					"example": 1
+					"type": "integer",
+					"minimum": 0
 				},
 				"pageCount": {
-					"type": "number",
-					"example": 27
+					"type": "integer",
+					"minimum": 0
 				},
 				"pageSize": {
-					"type": "number",
-					"example": 25
+					"type": "integer",
+					"minimum": 0
 				},
 				"itemCount": {
-					"type": "number",
-					"example": 57
+					"type": "integer",
+					"minimum": 0
 				},
 				"items": {
 					"type": "array",
 					"items": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "number",
-								"example": 1
-							},
-							"caseId": {
-								"type": "number",
-								"example": 2
-							},
-							"authorId": {
-								"type": "number",
-								"example": 3
-							},
-							"dateCreated": {
-								"type": "string",
-								"example": "2022-12-21T12:42:40.885Z"
-							},
-							"emailSubscribers": {
-								"type": "boolean",
-								"example": true
-							},
-							"sentToSubscribers": {
-								"type": "boolean",
-								"example": true
-							},
-							"status": {
-								"type": "string",
-								"example": "draft"
-							},
-							"datePublished": {
-								"type": "string",
-								"example": "2022-12-22T12:42:40.885Z"
-							},
-							"title": {
-								"type": "string",
-								"example": "Internal title"
-							},
-							"htmlContent": {
-								"type": "string",
-								"example": "<b>Important Update</b> Something happened."
-							},
-							"htmlContentWelsh": {
-								"type": "string",
-								"example": "<b>Diweddariad Pwysig</b> Digwyddodd rhywbeth."
-							}
-						},
-						"required": [
-							"id",
-							"caseId",
-							"dateCreated",
-							"emailSubscribers",
-							"sentToSubscribers",
-							"status",
-							"htmlContent"
-						]
+						"$ref": "#/definitions/ApplicationProjectUpdate"
 					}
 				}
 			}
@@ -6345,6 +6338,106 @@
 				}
 			},
 			"required": ["finalcomment"]
+		},
+		"ApplicationProjectUpdate": {
+			"allOf": [
+				{
+					"$ref": "#/definitions/ApplicationProjectUpdateCreateRequest"
+				},
+				{
+					"type": "object",
+					"requiredProperties": ["id", "caseId", "dateCreated", "sentToSubscribers"],
+					"properties": {
+						"id": {
+							"type": "integer",
+							"minimum": 0
+						},
+						"caseId": {
+							"type": "integer",
+							"minimum": 0
+						},
+						"dateCreated": {
+							"type": "string",
+							"format": "date-time",
+							"description": "The date this update was created",
+							"example": "2022-12-21T12:42:40.885Z"
+						},
+						"sentToSubscribers": {
+							"type": "boolean",
+							"description": "Has this update been emailed to subscribers?"
+						},
+						"datePublished": {
+							"type": "string",
+							"format": "date-time",
+							"description": "The date this update's status was set to published",
+							"example": "2022-12-21T12:42:40.885Z"
+						}
+					}
+				}
+			]
+		},
+		"ApplicationProjectUpdateCreateRequest": {
+			"type": "object",
+			"requiredProperties": ["emailSubscribers", "status", "htmlContent"],
+			"properties": {
+				"authorId": {
+					"type": "integer",
+					"description": "The back-office ID of the user who created this updated"
+				},
+				"emailSubscribers": {
+					"type": "boolean",
+					"description": "Will this update be emailed to subscribers?"
+				},
+				"status": {
+					"type": "string",
+					"enum": ["draft", "published", "unpublished", "archived"],
+					"description": "The current status of this update"
+				},
+				"title": {
+					"type": "string",
+					"description": "The internal title of this update"
+				},
+				"htmlContent": {
+					"type": "string",
+					"description": "The HTML content of this update, it can only include `<a> <b> <ul> <li>` tags",
+					"example": "<b>Important Update</b> Something happened."
+				},
+				"htmlContentWelsh": {
+					"type": "string",
+					"description": "The HTML content of this update in Welsh, it can only include `<a> <b> <ul> <li>` tags",
+					"example": "<b>Diweddariad Pwysig</b> Digwyddodd rhywbeth."
+				}
+			}
+		},
+		"ApplicationProjectUpdateCreateBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"emailSubscribers": {
+							"type": "string",
+							"example": "emailSubscribers is required"
+						},
+						"status": {
+							"type": "string",
+							"example": "status is required"
+						},
+						"htmlContent": {
+							"type": "string",
+							"example": "htmlContent is required"
+						},
+						"title": {
+							"type": "string",
+							"example": "title must be a string"
+						},
+						"htmlContentWelsh": {
+							"type": "string",
+							"example": "title must be a string"
+						}
+					}
+				}
+			}
 		},
 		"SubscriptionGetBadRequest": {
 			"type": "object",
