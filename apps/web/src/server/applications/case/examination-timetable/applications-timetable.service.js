@@ -116,7 +116,9 @@ export const publishCaseTimetableItems = async (caseId) => {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+			resolve({
+				errors: { msg: 'There was an issue and the timetable could not be published, try again' }
+			});
 		});
 	}
 
@@ -136,7 +138,9 @@ export const unpublishCaseTimetableItems = async (caseId) => {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+			resolve({
+				errors: { msg: 'There was an issue and the timetable could not be unpublished, try again' }
+			});
 		});
 	}
 
