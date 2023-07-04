@@ -492,7 +492,7 @@ describe('Representation repository', () => {
 							type: true
 						},
 						orderBy: {
-							actionDate: 'asc'
+							actionDate: 'desc'
 						}
 					},
 					attachments: {
@@ -568,7 +568,7 @@ describe('Representation repository', () => {
 							type: true
 						},
 						orderBy: {
-							actionDate: 'asc'
+							actionDate: 'desc'
 						}
 					},
 					attachments: {

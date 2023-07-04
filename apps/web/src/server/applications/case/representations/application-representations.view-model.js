@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+import { getFinalRepPageUrl } from './utils/get-final-rep-page-url.js';
+import { repModeLinkOptions } from './utils/get-rep-mode-links.js';
 
 /**
  *
@@ -57,16 +59,18 @@ const getRedacted = ({ redacted }) => (redacted ? 'Redacted' : 'Unredacted');
  *
  * @param {object} args
  * @param {Array.<{reference: string, organisationName?: string, firstName?: string , lastName?: string, received: string, redacted: boolean, status: string, id: string}>} args.items
+ * @param {string} caseId
  * @returns {Array.<{}>}
  */
-export function getRepresentationsViewModel({ items }) {
+export function getRepresentationsViewModel({ items }, caseId) {
 	return items.map((rep) => ({
 		reference: rep.reference,
 		title: getTitle(rep),
 		received: formatDate(rep),
 		redacted: getRedacted(rep),
 		status: getStatus(rep),
-		id: rep.id
+		id: rep.id,
+		link: getFinalRepPageUrl(rep, caseId, repModeLinkOptions.summary)
 	}));
 }
 

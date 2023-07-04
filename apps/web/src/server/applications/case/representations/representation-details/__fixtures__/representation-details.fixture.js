@@ -30,8 +30,8 @@ export const representationDetailsFixture = {
 				addressLine1: '44 Rivervale',
 				addressLine2: null,
 				town: 'Bridport',
-				county: null,
-				postcode: 'DT6 5RN'
+				postcode: 'DT6 5RN',
+				country: 'Great Britain'
 			}
 		},
 		{
@@ -48,10 +48,54 @@ export const representationDetailsFixture = {
 				addressLine1: '8 The Chase',
 				addressLine2: null,
 				town: 'Findon',
-				county: null,
-				postcode: 'BN14 0TT'
+				postcode: 'BN14 0TT',
+				country: 'Great Britain'
 			}
 		}
 	],
-	attachments: []
+	attachments: [
+		{
+			filename: 'a doc',
+			id: 1,
+			documentGuid: 'a doc guid'
+		}
+	],
+	representationActions: [
+		{
+			type: 'REDACTION',
+			actionBy: 'user 3',
+			redactStatus: true,
+			previousRedactStatus: true,
+			status: null,
+			previousStatus: null,
+			invalidReason: null,
+			referredTo: null,
+			actionDate: '2023-06-30T12:51:32.769Z',
+			notes: null
+		},
+		{
+			type: 'REDACT_STATUS',
+			actionBy: 'user 2',
+			redactStatus: true,
+			previousRedactStatus: true,
+			status: null,
+			previousStatus: null,
+			invalidReason: null,
+			referredTo: null,
+			actionDate: '2023-06-30T12:51:37.492Z',
+			notes: null
+		},
+		{
+			type: 'STATUS',
+			actionBy: 'user 1',
+			redactStatus: null,
+			previousRedactStatus: null,
+			status: 'REFERRED',
+			previousStatus: 'REFERRED',
+			invalidReason: 'Duplicate',
+			referredTo: 'Case Team',
+			actionDate: '2023-06-30T10:54:24.136Z',
+			notes: 'Some notes'
+		}
+	]
 };

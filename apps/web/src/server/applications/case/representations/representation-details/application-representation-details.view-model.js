@@ -16,6 +16,7 @@ import { format } from 'date-fns';
  * @property {string} redactedNotesExcerpt
  * @property {string} redactedBy
  * @property {string} type
+ * @property {Attachment []}  attachments
  */
 
 /**
@@ -23,8 +24,15 @@ import { format } from 'date-fns';
  * @property {string|null} addressLine1
  * @property {string|null} addressLine2
  * @property {string|null} town
- * @property {string|null} county
  * @property {string|null} postcode
+ * @property {string|null} country
+ */
+
+/**
+ * @typedef {object} Attachment
+ * @property {string} filename
+ * @property {string} documentGuid
+ * @property {number} id
  */
 
 /**
@@ -69,8 +77,8 @@ const getContactDetailsByContactType = ({ contacts }) => {
 		addressLine1: contact.address?.addressLine1 || '',
 		addressLine2: contact.address?.addressLine2 || '',
 		town: contact.address?.town || '',
-		county: contact.address?.county || '',
-		postcode: contact.address?.postcode || ''
+		postcode: contact.address?.postcode || '',
+		country: contact.address?.country || ''
 	}));
 };
 
@@ -110,7 +118,8 @@ const getRepresentationData = (representation) => ({
 	redactedNotes: representation.redactedNotes,
 	redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
 	redactedBy: representation.redactedBy,
-	type: representation.type
+	type: representation.type,
+	attachments: representation.attachments
 });
 
 /**

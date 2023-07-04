@@ -1,0 +1,55 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{% call govukFieldset({
+				legend: {
+					text: pageHeading,
+					classes: "govuk-fieldset__legend--l",
+					isPageHeading: true
+				}
+			}) %}
+				<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(representationDetails.status) }}</strong>
+				<table class="govuk-table">
+					<caption class="govuk-table__caption govuk-table__caption--m">{{ pageTitle }}</caption>
+					<thead class="govuk-table__head">
+					<tr class="govuk-table__row">
+						{% for header in taskLog.head %}
+							<th scope="col" class="govuk-table__header">{{ header }}</th>
+						{% endfor %}
+					</tr>
+					</thead>
+					<tbody class="govuk-table__body">
+					{% for item in taskLog.body %}
+						<tr class="govuk-table__row">
+							<td class="govuk-table__cell">{{ item.date | datestamp({format: 'd MMMM yyyy'}) }}</td>
+							<td class="govuk-table__cell">{{ item.logType }}</td>
+							{% if item.isStatus %}
+								<td class="govuk-table__cell">{{ representationStatusTag(item.from ) }}</td>
+								<td class="govuk-table__cell">{{ representationStatusTag(item.to ) }}</td>
+							{% else %}
+								<td class="govuk-table__cell">{{ item.from }}</td>
+								<td class="govuk-table__cell">{{ item.to }}</td>
+							{% endif %}
+							<td class="govuk-table__cell">{{ item.author }}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+				<a href="{{ backLinkUrl }}" class="govuk-button"> Return to dashboard </a>
+			{% endcall %}
+
+		</div>
+	</div>
+
+{% endblock %}

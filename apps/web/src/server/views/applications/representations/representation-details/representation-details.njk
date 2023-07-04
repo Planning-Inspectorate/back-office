@@ -69,7 +69,12 @@
 
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ attachmentsSection() }}
+			{{ attachmentsSection(representationDetails.representationData.attachments, changeLinks, relevantRepDocumentFolder, caseId) }}
 		</div>
 	</div>
+
+
+
+
+
 {% endblock %}

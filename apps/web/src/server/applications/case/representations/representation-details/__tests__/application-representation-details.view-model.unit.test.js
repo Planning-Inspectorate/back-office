@@ -19,8 +19,8 @@ describe('application representation details view-models', () => {
 				addressLine1: '8 The Chase',
 				addressLine2: '',
 				town: 'Findon',
-				county: '',
-				postcode: 'BN14 0TT'
+				postcode: 'BN14 0TT',
+				country: 'Great Britain'
 			});
 		});
 
@@ -38,8 +38,8 @@ describe('application representation details view-models', () => {
 				addressLine1: '44 Rivervale',
 				addressLine2: '',
 				town: 'Bridport',
-				county: '',
-				postcode: 'DT6 5RN'
+				postcode: 'DT6 5RN',
+				country: 'Great Britain'
 			});
 		});
 
@@ -54,6 +54,13 @@ describe('application representation details view-models', () => {
 				redactedNotes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
 				redactedNotesExcerpt: '',
 				received: '27 Apr 2023',
+				attachments: [
+					{
+						filename: 'a doc',
+						id: 1,
+						documentGuid: 'a doc guid'
+					}
+				],
 				originalRepresentation:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 				redactedRepresentation:

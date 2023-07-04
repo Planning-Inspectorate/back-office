@@ -1,9 +1,12 @@
 import { getCaseReferenceViewModel } from '../application-representations.view-model.js';
 import { getCase } from '../applications-relevant-reps.service.js';
 import { getSelectedOptionsText } from '../representation/utils/get-selected-options-text.js';
-import { getRepModeLinks } from '../utils/get-rep-mode-links.js';
+import { getRepModeLinks, repModeLinkOptions } from '../utils/get-rep-mode-links.js';
 import { getRepresentationDetailsViewModel } from './application-representation-details.view-model.js';
-import { getRepresentationDetails } from './applications-relevant-rep-details.service.js';
+import {
+	getRelevantRepFolder,
+	getRepresentationDetails
+} from './applications-relevant-rep-details.service.js';
 
 const view = 'applications/representations/representation-details/representation-details.njk';
 
@@ -17,6 +20,7 @@ export async function relevantRepDetails(req, res) {
 
 	const caseReference = await getCase(caseId);
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
+	const relevantRepDocumentFolder = await getRelevantRepFolder(caseId);
 
 	const caseReferenceViewModel = getCaseReferenceViewModel(caseReference);
 	const representationDetailsViewModel = getRepresentationDetailsViewModel(representationDetails);
@@ -26,7 +30,8 @@ export async function relevantRepDetails(req, res) {
 		representationId,
 		caseReference: caseReferenceViewModel,
 		representationDetails: representationDetailsViewModel,
-		changeLinks: getRepModeLinks(locals.representation.pageURLs, 'change'),
-		selectedOptionsText: getSelectedOptionsText(locals.representation)
+		changeLinks: getRepModeLinks(locals.representation.pageURLs, repModeLinkOptions.change),
+		selectedOptionsText: getSelectedOptionsText(locals.representation),
+		relevantRepDocumentFolder
 	});
 }

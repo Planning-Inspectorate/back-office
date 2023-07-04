@@ -4,7 +4,7 @@ import { getRepresentationsViewModel } from '../application-representations.view
 describe('application representations view-model', () => {
 	describe('#representationsVieModel', () => {
 		it('should return representations mapped to the view model', () => {
-			const response = getRepresentationsViewModel(representationsFixture);
+			const response = getRepresentationsViewModel(representationsFixture, '1');
 
 			expect(response).toEqual([
 				{
@@ -16,7 +16,8 @@ describe('application representations view-model', () => {
 						text: 'AWAITING REVIEW'
 					},
 					title: 'org name 1',
-					id: '1'
+					id: '1',
+					link: '/applications-service/case/1/relevant-representations/1/representation-details'
 				},
 				{
 					received: '01 Jan 2022',
@@ -27,7 +28,8 @@ describe('application representations view-model', () => {
 						text: 'VALID'
 					},
 					title: 'first lastName',
-					id: '2'
+					id: '2',
+					link: '/applications-service/case/1/relevant-representations/2/representation-details'
 				}
 			]);
 		});
