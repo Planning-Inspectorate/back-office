@@ -1,5 +1,4 @@
-import supertest from 'supertest';
-import { app } from '#app-test';
+import { request } from '#app-test';
 import { databaseConnector } from '#utils/database-connector.js';
 import { prepareInput } from '../subscriptions.service.js';
 import { eventClient } from '#infrastructure/event-client.js';
@@ -8,17 +7,7 @@ import { eventClient } from '#infrastructure/event-client.js';
  * @typedef {import('../../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
  */
 
-/**
- * @type {supertest.SuperTest<supertest.Test>}
- */
-let request;
-
 describe('subscriptions', () => {
-	beforeAll(() => {
-		// only initialise our app when we're going to run some tests
-		request = supertest(app);
-	});
-
 	describe('get', () => {
 		const tests = [
 			{
