@@ -13,6 +13,8 @@ import { relevantRepresentationsAttachmentUpload } from './_relevant_representat
  * @returns {*}
  */
 const clientActions = (uploadForm) => {
+	/** @type {NodeListOf<HTMLElement> | null} */
+	const uploadDescriptions = uploadForm.querySelectorAll('.pins-file-upload--text');
 	/** @type {HTMLElement | null} */
 	const uploadButton = uploadForm.querySelector('.pins-file-upload--button');
 	/** @type {HTMLElement | null} */
@@ -24,7 +26,15 @@ const clientActions = (uploadForm) => {
 	/** @type {HTMLElement | null} */
 	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
 
-	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter || !submitButton) return;
+	if (
+		!uploadDescriptions ||
+		!uploadButton ||
+		!uploadInput ||
+		!filesRows ||
+		!uploadCounter ||
+		!submitButton
+	)
+		return;
 
 	let globalDataTransfer = new DataTransfer();
 
@@ -45,11 +55,21 @@ const clientActions = (uploadForm) => {
 	 *
 	 */
 	const updateButtonText = () => {
+		const isMultipleUploadAllowed = uploadForm.dataset.multiple || false;
 		const filesRowsNumber = globalDataTransfer.files.length;
 
-		uploadButton.innerHTML = filesRowsNumber > 0 ? 'Add more files' : 'Choose file';
-		uploadButton.blur();
-		uploadCounter.textContent = filesRowsNumber > 0 ? `${filesRowsNumber} files` : 'No file chosen';
+		if (isMultipleUploadAllowed) {
+			uploadButton.innerHTML = filesRowsNumber > 0 ? 'Add more files' : 'Choose file';
+			uploadButton.blur();
+			uploadCounter.textContent =
+				filesRowsNumber > 0 ? `${filesRowsNumber} files` : 'No file chosen';
+		} else {
+			for (const uploadDescription of [...uploadDescriptions]) {
+				uploadDescription.style.display = filesRowsNumber > 0 ? 'none' : 'block';
+			}
+			uploadButton.style.display = filesRowsNumber > 0 ? 'none' : 'block';
+			uploadCounter.style.display = filesRowsNumber > 0 ? 'none' : 'block';
+		}
 	};
 
 	/**
@@ -62,7 +82,7 @@ const clientActions = (uploadForm) => {
 		if (selectedFile.name.length > 255) {
 			return { message: 'NAME_SINGLE_FILE' };
 		}
-		if (!allowedMimeTypes.includes(selectedFile.type)) {
+		if (selectedFile.type === '' || !allowedMimeTypes.includes(selectedFile.type)) {
 			return { message: 'TYPE_SINGLE_FILE' };
 		}
 		return null;

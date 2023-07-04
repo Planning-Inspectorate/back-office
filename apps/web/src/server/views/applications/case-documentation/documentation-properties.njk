@@ -35,7 +35,7 @@
 					<li class="govuk-!-margin-top-4"><strong>Version:</strong> {{ documentationFile.version }}</li>
                 </ul>
                 <div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
-                    <a class="govuk-button govuk-!-margin-0" href="version/upload">
+                    <a class="govuk-button govuk-!-margin-0" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'new-version'}) }}">
                         Upload new version
                     </a>
                 </div>
