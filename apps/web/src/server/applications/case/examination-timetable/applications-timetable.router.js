@@ -47,10 +47,17 @@ applicationsTimetableRouter
 	.route('/item/save')
 	.post(asyncRoute(controller.postApplicationsCaseTimetableSave));
 
+// Timetable preview for publishing
 applicationsTimetableRouter
 	.route('/preview')
 	.get(asyncRoute(controller.viewApplicationsCaseTimetablesPreview))
 	.post(asyncRoute(controller.publishApplicationsCaseTimetables));
+
+// Timetable preview for unpublishing
+applicationsTimetableRouter
+	.route('/unpublish-preview')
+	.get(asyncRoute(controller.viewApplicationsCaseTimetablesUnpublishPreview))
+	.post(asyncRoute(controller.unpublishApplicationsCaseTimetables));
 
 applicationsTimetableRouter
 	.route('/item/delete/:timetableId')
