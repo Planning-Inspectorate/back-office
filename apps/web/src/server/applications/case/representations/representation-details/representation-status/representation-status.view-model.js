@@ -1,8 +1,8 @@
-import { getOrgOrNameForRepresentation } from '../representation-details.utilities.js';
+import { getContactDetailsByContactType } from '../../representation/representation.middleware.js';
 import { getRepresentationDetailsPageUrl } from './representation-status.utils.js';
 
 /**
- * @typedef {import('../application-representation-details.view-model.js').Representation} Representation
+ * @typedef {import('../../relevant-representation.types.js').Representation} Representation
  */
 
 /**
@@ -40,7 +40,7 @@ const getRadioItems = (status, isStatusEdit) => {
 	];
 
 	return optionsList.map((option) => {
-		if (isStatusEdit && option.value === status) {
+		if (!!isStatusEdit && option.value === status) {
 			option.checked = true;
 		}
 		return option;
@@ -50,7 +50,7 @@ const getRadioItems = (status, isStatusEdit) => {
 /**
  * @param {string} caseId
  * @param {string} repId
- * @param {string|boolean} isStatusEdit
+ * @param {string|*} isStatusEdit
  * @param {Representation} representationDetails
  * @returns {object}
  */
@@ -58,16 +58,20 @@ const getRadioItems = (status, isStatusEdit) => {
 export const getRepresentationStatusViewModel = (
 	caseId,
 	repId,
-	isStatusEdit,
-	representationDetails
+	representationDetails,
+	isStatusEdit
 ) => {
+	const oldStatus = representationDetails.status;
+	const { represented } = getContactDetailsByContactType(representationDetails);
+	const status = isStatusEdit ? isStatusEdit : oldStatus;
+
 	return {
 		caseId,
 		repId,
-		orgOrName: getOrgOrNameForRepresentation(representationDetails),
+		orgOrName: represented.organisationName ? represented.organisationName : represented.fullName,
 		pageHeading: 'Change status',
-		status: representationDetails.status,
-		radioItems: getRadioItems(representationDetails.status, isStatusEdit),
+		status,
+		radioItems: getRadioItems(status, isStatusEdit),
 		backLinkUrl: getRepresentationDetailsPageUrl(caseId, repId)
 	};
 };

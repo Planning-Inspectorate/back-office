@@ -4,7 +4,7 @@ import {
 } from '../representation-status.utils.js';
 
 /**
- * @typedef {import('../../application-representation-details.view-model.js').Representation} Representation
+ * @typedef {import('../../../relevant-representation.types.js').Representation} Representation
  */
 
 /**
@@ -91,19 +91,23 @@ const getPageContentByStatus = (newStatus) => {
  * @param {string} caseId
  * @param {string} repId
  * @param {Representation} representationDetails
+ * @param {string} newStatus
  * @returns {object}
  */
 
-export const getRepresentationStatusNotesViewModel = (caseId, repId, representationDetails) => {
+export const getRepresentationStatusNotesViewModel = (
+	caseId,
+	repId,
+	representationDetails,
+	newStatus
+) => {
 	return {
 		caseId,
 		repId,
-		status: representationDetails.status,
-		pageHeading: getPageContentByStatus(representationDetails.status).pageHeading,
-		radioItems: getPageContentByStatus(representationDetails.status).radioItems,
+		status: newStatus,
+		pageHeading: getPageContentByStatus(newStatus).pageHeading,
+		radioItems: getPageContentByStatus(newStatus).radioItems,
 		summaryPageLinkUrl: getRepresentationDetailsPageUrl(caseId, repId),
-		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${
-			representationDetails.status
-		}`
+		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${newStatus}`
 	};
 };

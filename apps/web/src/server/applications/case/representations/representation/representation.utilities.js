@@ -1,28 +1,10 @@
 import { omitBy } from 'lodash-es';
 
 /**
- * @typedef {object} Address
- * @property {string|null} addressLine1
- * @property {string|null} addressLine2
- * @property {string|null} town
- * @property {string|null} postcode
- * @property {string|null} country
+ * @typedef {import('../relevant-representation.types.js').Representation} Representation
  */
-
 /**
- * @typedef {object} Contact
- * @property {number|null} [id]
- * @property {string|null} [type]
- * @property {string|null} [firstName]
- * @property {string|null} [lastName]
- * @property {string|null} [organisationName]
- * @property {string} [type]
- * @property {string|null} [jobTitle]
- * @property {boolean} [under18]
- * @property {string|null} [email]
- * @property {string|null} [phoneNumber]
- * @property {string|null} [contactMethod]
- * @property {Address} [address]
+ * @typedef {import('../relevant-representation.types.js').Contact} Contact
  */
 
 /**
