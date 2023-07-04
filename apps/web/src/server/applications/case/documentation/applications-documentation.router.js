@@ -76,13 +76,6 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/document/:documentGuid/:action')
-	.get(
-		[assertDomainTypeIsNotInspector, locals.registerFolder],
-		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
-	);
-
-applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/delete')
 	.post(
 		[
@@ -94,10 +87,17 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/document/:documentGuid/version/upload')
+	.route('/:folderId/document/:documentGuid/new-version')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationVersionUpload)
+	);
+
+applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/:action')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
 	);
 
 export default applicationsDocumentationRouter;
