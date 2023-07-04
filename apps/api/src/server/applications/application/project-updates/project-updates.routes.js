@@ -2,8 +2,9 @@ import { Router as createRouter } from 'express';
 import { validateApplicationId } from '../application.validators.js';
 import { validatePaginationParameters } from '../../../middleware/pagination-validation.js';
 import { asyncHandler } from '../../../middleware/async-handler.js';
-import { getProjectUpdates } from './project-updates.controller.js';
+import { postProjectUpdate, getProjectUpdates } from './project-updates.controller.js';
 import { validateSortBy } from '../../../middleware/validate-sort-by.js';
+import { validateCreateProjectUpdate } from './project-updates.validators.js';
 
 const router = createRouter();
 
@@ -39,11 +40,51 @@ router.get(
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
         }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
     */
 	validateApplicationId,
 	validatePaginationParameters(),
 	validateSortBy(['datePublished', 'emailSubscribers', 'status']),
 	asyncHandler(getProjectUpdates)
+);
+
+router.post(
+	'/:id/project-updates',
+	/*
+		#swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/project-updates'
+        #swagger.description = 'Create a project update for this application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Project update parameters',
+            schema: { $ref: '#/definitions/ApplicationProjectUpdateCreateRequest' },
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Created project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+            schema: { $ref: '#/definitions/ApplicationProjectUpdateCreateBadRequest' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+	*/
+	validateApplicationId,
+	validateCreateProjectUpdate,
+	asyncHandler(postProjectUpdate)
 );
 
 export { router as projectUpdateRoutes };

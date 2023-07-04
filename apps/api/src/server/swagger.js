@@ -1109,6 +1109,113 @@ const document = {
 		}
 	},
 	'@definitions': {
+		ApplicationProjectUpdate: {
+			allOf: [
+				{ $ref: '#/definitions/ApplicationProjectUpdateCreateRequest' },
+				{
+					type: 'object',
+					requiredProperties: ['id', 'caseId', 'dateCreated', 'sentToSubscribers'],
+					properties: {
+						id: { type: 'integer', minimum: 0 },
+						caseId: { type: 'integer', minimum: 0 },
+						dateCreated: {
+							type: 'string',
+							format: 'date-time',
+							description: 'The date this update was created',
+							example: '2022-12-21T12:42:40.885Z'
+						},
+						sentToSubscribers: {
+							type: 'boolean',
+							description: 'Has this update been emailed to subscribers?'
+						},
+						datePublished: {
+							type: 'string',
+							format: 'date-time',
+							description: "The date this update's status was set to published",
+							example: '2022-12-21T12:42:40.885Z'
+						}
+					}
+				}
+			]
+		},
+		ApplicationProjectUpdateCreateRequest: {
+			type: 'object',
+			requiredProperties: ['emailSubscribers', 'status', 'htmlContent'],
+			properties: {
+				authorId: {
+					type: 'integer',
+					description: 'The back-office ID of the user who created this updated'
+				},
+				emailSubscribers: {
+					type: 'boolean',
+					description: 'Will this update be emailed to subscribers?'
+				},
+				status: {
+					type: 'string',
+					enum: ['draft', 'published', 'unpublished', 'archived'],
+					description: 'The current status of this update'
+				},
+				title: {
+					type: 'string',
+					description: 'The internal title of this update'
+				},
+				htmlContent: {
+					type: 'string',
+					description:
+						'The HTML content of this update, it can only include `<a> <b> <ul> <li>` tags',
+					example: '<b>Important Update</b> Something happened.'
+				},
+				htmlContentWelsh: {
+					type: 'string',
+					description:
+						'The HTML content of this update in Welsh, it can only include `<a> <b> <ul> <li>` tags',
+					example: '<b>Diweddariad Pwysig</b> Digwyddodd rhywbeth.'
+				}
+			}
+		},
+		ApplicationProjectUpdateCreateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						emailSubscribers: {
+							type: 'string',
+							example: 'emailSubscribers is required'
+						},
+						status: {
+							type: 'string',
+							example: 'status is required'
+						},
+						htmlContent: {
+							type: 'string',
+							example: 'htmlContent is required'
+						},
+						title: {
+							type: 'string',
+							example: 'title must be a string'
+						},
+						htmlContentWelsh: {
+							type: 'string',
+							example: 'title must be a string'
+						}
+					}
+				}
+			}
+		},
+		ApplicationProjectUpdates: {
+			type: 'object',
+			properties: {
+				page: { type: 'integer', minimum: 0 },
+				pageCount: { type: 'integer', minimum: 0 },
+				pageSize: { type: 'integer', minimum: 0 },
+				itemCount: { type: 'integer', minimum: 0 },
+				items: {
+					type: 'array',
+					items: { $ref: '#/definitions/ApplicationProjectUpdate' }
+				}
+			}
+		},
 		SubscriptionGetBadRequest: {
 			type: 'object',
 			properties: {
