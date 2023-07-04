@@ -1,0 +1,40 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "nsip-project-update.schema.json",
+	"title": "NSIP Project Update",
+	"description": "NSIP Project Update (formerly known as Banners)",
+	"type": "object",
+	"required": ["id", "caseReference", "updateContentEnglish", "updateStatus"],
+	"properties": {
+		"id": {
+			"type": "integer",
+			"description": "The unique identifier within the Back Office."
+		},
+		"caseReference": {
+			"type": "string",
+			"description": "the case reference this update relates to"
+		},
+		"updateDate": {
+			"type": "string",
+			"format": "date-time",
+			"description": "The date the update was published"
+		},
+		"updateName": {
+			"type": "string",
+			"description": "Internal title or name of the update"
+		},
+		"updateContentEnglish": {
+			"type": "string",
+			"description": "HTML content of the update in English. Can only include `<a> <b> <ul> <li>` tags."
+		},
+		"updateContentWelsh": {
+			"type": "string",
+			"description": "HTML content of the update in Welsh. Can only include `<a> <b> <ul> <li>` tags."
+		},
+		"updateStatus": {
+			"type": "string",
+			"enum": ["draft", "published", "unpublished", "archived"],
+			"description": "The current status of this update"
+		}
+	}
+}

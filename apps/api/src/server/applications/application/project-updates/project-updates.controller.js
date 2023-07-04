@@ -1,13 +1,10 @@
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
-import {
-	createProjectUpdate,
-	listProjectUpdates
-} from '../../../repositories/project-update.respository.js';
+import { listProjectUpdates } from '../../../repositories/project-update.respository.js';
 import { getPageCount } from '../../../utils/database-pagination.js';
 import { mapProjectUpdate } from './project-updates.mapper.js';
 import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
-import { projectUpdateCreateReq } from './project-updates.js';
+import { createProjectUpdateService } from './project-updates.service.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -37,11 +34,6 @@ export async function getProjectUpdates(req, res) {
 export async function postProjectUpdate(req, res) {
 	const caseId = parseInt(req.params.id);
 	logger.debug({ body: req.body, caseId }, 'postProjectUpdate');
-	// request already validated, but we need to map it to a create request
-	// this links to the case, and avoids extra fields being added
-	const createReq = projectUpdateCreateReq(req.body, caseId);
-
-	const created = await createProjectUpdate(createReq);
-
-	res.send(mapProjectUpdate(created));
+	const update = await createProjectUpdateService(req.body, caseId);
+	res.send(update);
 }

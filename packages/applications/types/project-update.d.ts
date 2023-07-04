@@ -1,3 +1,6 @@
+/**
+ * Project update type returned by the API
+ */
 export interface ProjectUpdate {
 	id: number;
 	caseId: number;
@@ -12,10 +15,4 @@ export interface ProjectUpdate {
 	htmlContentWelsh: string | null;
 }
 
-export type ProjectUpdateStatus =
-	| 'draft'
-	| 'to-publish'
-	| 'published'
-	| 'unpublished'
-	| 'archived'
-	| string;
+export type ProjectUpdateStatus = 'draft' | 'published' | 'unpublished' | 'archived' | string;
