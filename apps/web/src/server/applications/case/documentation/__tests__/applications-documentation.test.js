@@ -27,15 +27,15 @@ const nocks = (/** @type {string} */ domainType) => {
 		.reply(200, fixtureDocumentationTopLevelFolders);
 	nock('http://test/')
 		.get('/applications/123/folders/21')
-		.times(2)
+		.times(3)
 		.reply(200, fixtureDocumentationSingleFolder);
 	nock('http://test/')
 		.get('/applications/123/folders/21/parent-folders')
-		.times(2)
+		.times(3)
 		.reply(200, fixtureDocumentationFolderPath);
 	nock('http://test/')
 		.get('/applications/123/folders/21/sub-folders')
-		.times(2)
+		.times(3)
 		.reply(200, fixtureDocumentationSubFolders);
 
 	nock('http://test/')
@@ -309,6 +309,23 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('/edit/published-date');
 			});
+		});
+	});
+
+	describe('Document upload new version', () => {
+		beforeAll(async () => {
+			nocks('case-team');
+			await request.get('/applications-service/case-team');
+		});
+
+		it('page should render', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/new-version`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Upload new version');
 		});
 	});
 

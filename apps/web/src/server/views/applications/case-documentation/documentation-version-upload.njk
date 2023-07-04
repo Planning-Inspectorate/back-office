@@ -1,10 +1,9 @@
 {% extends "app/layouts/app.layout.njk" %}
 
 {% from 'app/components/file-uploader.component.njk' import fileUploader %}
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-
-{% set serviceName = ["Upload new version of ", documentationFile.fileName] | join  %}
+{% set serviceName = ["Upload new version of ", documentationFile.fileName] | join %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
@@ -12,13 +11,13 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
-	{% set breadcrumbItems = breadcrumbItems | concat({text: [currentFolder.displayNameEn, ' documents']|join }) %}
 
-	{{ govukBreadcrumbs({
-		classes: 'govuk-!-margin-top-0',
-		items: breadcrumbItems
+{{ govukBackLink({
+  	text: "Back",
+  	href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'})
 	})
-	}}
+}}
+
 {% endblock %}
 
 {% block pageContent %}
@@ -31,7 +30,7 @@
 		formTitle: serviceName,
 		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
-		disclaimerText: "Uploading a new version changes the document status to ‘Not checked’"
+		disclaimerText: "Uploading a new version changes the document status to ‘Not checked’. If there’s a previous version in the publishing queue, it will be removed"
 	}) }}
 
 {% endblock %}

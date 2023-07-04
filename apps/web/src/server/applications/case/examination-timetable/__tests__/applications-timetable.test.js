@@ -30,6 +30,9 @@ const nocks = () => {
 	nock('http://test/')
 		.patch('/applications/examination-timetable-items/publish/123')
 		.reply(200, {});
+	nock('http://test/')
+		.patch('/applications/examination-timetable-items/unpublish/123')
+		.reply(200, {});
 };
 
 describe('Examination timetable page', () => {
@@ -383,6 +386,25 @@ describe('Publish examination timetable preview page', () => {
 	});
 });
 
+describe('Unpublish examination timetable preview page', () => {
+	describe('GET /case/123/examination-timetable/unpublish-preview', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/unpublish-preview`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Unpublish examination timetable');
+		});
+	});
+});
+
 describe('Delete examination timetable', () => {
 	beforeEach(async () => {
 		await request.get('/applications-service/case-team');
@@ -458,6 +480,32 @@ describe('Publish examination timetable success page', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Timetable item successfully published');
+		});
+	});
+});
+
+describe('Unpublish examination timetable success page', () => {
+	describe('POST /case/123/examination-timetable/unpublish-preview', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		it('should redirect to success page', async () => {
+			const response = await request.post(
+				`/applications-service/case/123/examination-timetable/unpublish-preview`
+			);
+			expect(response?.headers?.location).toEqual('./unpublished/success');
+		});
+
+		it('should show the page', async () => {
+			const response = await request.get(
+				`/applications-service/case/123/examination-timetable/unpublished/success`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Timetable item successfully unpublished');
 		});
 	});
 });

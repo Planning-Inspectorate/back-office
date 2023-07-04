@@ -5,13 +5,14 @@ exports[`Representation attachment-upload page GET /applications-service/case/1/
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"check-answers?repId=1&amp;repType=represented\\"
-            data-case-id=\\"1\\" data-folder-id=\\"10\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
+            data-case-id=\\"1\\" data-multiple=\\"true\\" data-folder-id=\\"10\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
                 <div class=\\"top-errors-hook\\"></div>
                 <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Planning Inspectorate Applications</h1>
                 <form class=\\"govuk-grid-column-two-thirds\\">
                     <div class=\\"pins-file-upload--container\\">
                         <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                            <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                            <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+.</span><span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                             <div                             class=\\"middle-errors-hook\\"></div>
                     </div>
                     <div class=\\"display--flex\\">
