@@ -138,7 +138,7 @@ export const getById = async (id, caseId) => {
 					notes: true
 				},
 				orderBy: {
-					actionDate: 'asc'
+					actionDate: 'desc'
 				}
 			},
 			attachments: {
