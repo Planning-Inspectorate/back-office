@@ -574,8 +574,8 @@ model RepresentationAction {
   previousStatus       String?
   redactStatus         Boolean?
   previousRedactStatus Boolean?
-  invalidReason        String? // DUPLICATE | MERGED | NOT_RELEVANT | RESUBMITTED
-  referredTo           String? // CASE_TEAM | INSPECTOR | ADMIN_TEAM | INTERESTED_PARTY
+  invalidReason        String?
+  referredTo           String?
   actionBy             String
   actionDate           DateTime
   notes                String?        @db.NText
