@@ -30,5 +30,5 @@ export const getRelevantRepFolder = async (caseId) => {
 export const patchRepresentation = async (caseId, representationId, body) =>
 	patch(`applications/${caseId}/representations/${representationId}`, {
 		json: body
-	});
+});
 

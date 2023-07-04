@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { representationDetailsFixture } from '../__fixtures__/representation-details.fixture.js';
 import { getRepresentationDetailsViewModel } from '../application-representation-details.view-model.js';
 
@@ -10,6 +11,7 @@ describe('application representation details view-models', () => {
 				type: 'AGENT',
 				orgName: '',
 				name: 'James Bond',
+				orgOrName: 'James Bond',
 				jobTitle: '',
 				under18: 'No',
 				email: 'test-agent@example.com',
@@ -28,6 +30,7 @@ describe('application representation details view-models', () => {
 				type: 'PERSON',
 				orgName: '',
 				name: 'Mrs Sue',
+				orgOrName: 'Mrs Sue',
 				jobTitle: '',
 				under18: 'No',
 				email: 'test@example.com',
@@ -46,7 +49,6 @@ describe('application representation details view-models', () => {
 				id: 1,
 				reference: 'BC0110001-1',
 				status: 'AWAITING_REVIEW',
-				orgOrName: 'Mrs Sue',
 				redacted: true,
 				type: 'mock type',
 				redactedBy: 'mock redacted by',

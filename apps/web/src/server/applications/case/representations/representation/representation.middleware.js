@@ -4,6 +4,11 @@ import { formatContactDetails } from './representation.utilities.js';
 import { getPageLinks } from './utils/get-page-links.js';
 
 /**
+ * @typedef {import('../relevant-representation.types.js').Representation} Representation
+ * @typedef {import('../relevant-representation.types.js').Contact} Contact
+ */
+
+/**
  *
  * @param {object} case
  * @param {string} case.title
@@ -15,9 +20,8 @@ const getCaseViewModel = ({ title }) => ({
 
 /**
  *
- * @param {object} representation
- * @param {Array<any>} representation.contacts
- * @returns {{represented: object, representative: object}}
+ * @param {Representation} representation
+ * @returns {{represented: Contact, representative: Contact}}
  */
 
 export const getContactDetailsByContactType = ({ contacts }) => ({
