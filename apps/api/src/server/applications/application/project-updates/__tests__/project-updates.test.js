@@ -1,5 +1,4 @@
-import supertest from 'supertest';
-import { app } from '../../../../app-test.js';
+import { request } from '../../../../app-test.js';
 import { databaseConnector } from '../../../../utils/database-connector.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../constants.js';
 import { mapProjectUpdate } from '../project-updates.mapper.js';
@@ -8,8 +7,6 @@ import {
 	ERROR_INVALID_SORT_BY_OPTION,
 	ERROR_MUST_BE_NUMBER
 } from '../../../../middleware/errors.js';
-
-const request = supertest(app);
 
 describe('project-updates', () => {
 	describe('get', () => {
