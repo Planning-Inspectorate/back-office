@@ -42,7 +42,7 @@
 {% if representationDetails.represented | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ representedSection(representationDetails.represented, changeLinks) }}
+			{{ representedSection(representationDetails, selectedOptionsText, changeLinks) }}
 		</div>
 	</div>
 {% endif %}
@@ -50,7 +50,7 @@
 {% if representationDetails.agentData | length  %}
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
-			{{ agentContactSection(representationDetails.agentData, changeLinks) }}
+			{{ agentContactSection(representationDetails.agentData, selectedOptionsText, changeLinks) }}
 		</div>
 	</div>
 {% endif %}

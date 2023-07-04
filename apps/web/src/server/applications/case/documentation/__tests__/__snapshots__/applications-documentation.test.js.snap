@@ -6811,7 +6811,7 @@ exports[`applications documentation Document properties page If the user is not 
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
                 </li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
             <nav>
                 <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
@@ -6942,7 +6942,7 @@ exports[`applications documentation Document properties page If the user is not 
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
                 </li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"version/upload\\"> Upload new version</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
             <nav>
                 <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
@@ -21195,6 +21195,43 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
+exports[`applications documentation Document upload new version page should render 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
+    data-case-id=\\"123\\" data-multiple=\\"\\" data-folder-id=\\"21\\" data-document-id=\\"11\\"
+    data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
+        <div class=\\"top-errors-hook\\"></div>
+        <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Upload new version of 12 Ullamco laboris nisi ut aliquip ex</h1>
+        <form class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"pins-file-upload--container\\">
+                <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
+                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single file to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+.</span><span class='pins-file-upload--text'>Your uploaded file must be smaller than 1 GB.</span>
+                    <div                     class=\\"middle-errors-hook\\"></div>
+            </div>
+            <div class=\\"display--flex\\">
+                <input class=\\"display--none\\" id=\\"upload-file-1\\" accept=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\"
+                type=\\"file\\" name=\\"files\\" value=\\"Choose file\\" aria-controls=\\"file-list-1\\">
+                <button type='button' class=\\"pins-file-upload--button govuk-button\\">Choose file</button><span role=\\"status\\" aria-live=\\"assertive\\" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id=\\"file-list-1\\">
+                <h2 class=\\"display--sr-only\\" id=\\"file-list-title-1\\">List of files to upload</h2>
+                <ul class=\\"pins-file-upload--files-rows\\" aria-describedby=\\"file-list-title-1\\"
+                aria-live=\\"polite\\"></ul>
+            </div>
+    </div>
+    <div class=\\"govuk-inset-text\\">Uploading a new version changes the document status to ‘Not checked’.
+        If there’s a previous version in the publishing queue, it will be removed</div>
+    <div     class=\\"display--flex\\">
+        <button class=\\"govuk-button pins-file-upload--submit\\" data-module=\\"govuk-button\\"
+        id=\\"submit-button-1\\">Upload</button>
+        <div class=\\"progress-hook\\"></div>
+        </div>
+        </form>
+        </div>
+</main>"
+`;
+
 exports[`applications documentation GET /case/123/project-documentation should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
@@ -21225,13 +21262,14 @@ exports[`applications documentation GET /case/123/project-documentation should r
 exports[`applications documentation GET /case/123/project-documentation/21/sub-folder-level2/upload should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
-    data-case-id=\\"123\\" data-folder-id=\\"21\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
+    data-case-id=\\"123\\" data-multiple=\\"true\\" data-folder-id=\\"21\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
         <div class=\\"top-errors-hook\\"></div>
         <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Upload files in Sub folder level 2 folder</h1>
         <form class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                    <label for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+.</span><span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class=\\"middle-errors-hook\\"></div>
             </div>
             <div class=\\"display--flex\\">

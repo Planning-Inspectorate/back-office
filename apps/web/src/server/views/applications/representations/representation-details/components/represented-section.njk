@@ -1,4 +1,7 @@
-{% macro representedSection(represented, changeLinks) %}
+{% macro representedSection(representationDetails, selectedOptionsText, changeLinks) %}
+	{% set represented = representationDetails.represented %}
+	{% set representationData = representationDetails.representationData %}
+
 	<h3 class="govuk-heading-m">Contact details</h3>
 	<dl class="govuk-summary-list">
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-border">
@@ -79,7 +82,7 @@
 				Preferred contact method
 			</dt>
 			<dd class="govuk-summary-list__value">
-				{{ represented.preferredContact if represented.preferredContact else 'Email' }}
+				{{ selectedOptionsText.selectedContactMethodOptionText.represented }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="{{ changeLinks.contactMethod }}">
@@ -92,24 +95,11 @@
 				Type
 			</dt>
 			<dd class="govuk-summary-list__value">
-
+				{{ representationData.type }}
 			</dd>
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="{{ changeLinks.representationType }}">
 					Change<span class="govuk-visually-hidden"> type</span>
-				</a>
-			</dd>
-		</div>
-		<div class="govuk-summary-list__row">
-			<dt class="govuk-summary-list__key">
-				Representation on behalf of
-			</dt>
-			<dd class="govuk-summary-list__value">
-
-			</dd>
-			<dd class="govuk-summary-list__actions">
-				<a class="govuk-link" href="{{ changeLinks.representationEntity }}">
-					Change<span class="govuk-visually-hidden"> representation on behalf of</span>
 				</a>
 			</dd>
 		</div>
@@ -123,6 +113,19 @@
 			<dd class="govuk-summary-list__actions">
 				<a class="govuk-link" href="{{ changeLinks.under18 }}">
 					Change<span class="govuk-visually-hidden"> under 18</span>
+				</a>
+			</dd>
+		</div>
+		<div class="govuk-summary-list__row">
+			<dt class="govuk-summary-list__key">
+				Representation on behalf of
+			</dt>
+			<dd class="govuk-summary-list__value">
+				{{ selectedOptionsText.selectedEntityOptionText }}
+			</dd>
+			<dd class="govuk-summary-list__actions">
+				<a class="govuk-link" href="{{ changeLinks.representationEntity }}">
+					Change<span class="govuk-visually-hidden"> representation on behalf of</span>
 				</a>
 			</dd>
 		</div>

@@ -15,6 +15,7 @@ import { format } from 'date-fns';
  * @property {string} redactedNotes
  * @property {string} redactedNotesExcerpt
  * @property {string} redactedBy
+ * @property {string} type
  */
 
 /**
@@ -108,7 +109,8 @@ const getRepresentationData = (representation) => ({
 	redactedRepresentationExcerpt: getExcerpt(representation.redactedRepresentation),
 	redactedNotes: representation.redactedNotes,
 	redactedNotesExcerpt: getExcerpt(representation.redactedNotes),
-	redactedBy: representation.redactedBy
+	redactedBy: representation.redactedBy,
+	type: representation.type
 });
 
 /**
@@ -117,7 +119,6 @@ const getRepresentationData = (representation) => ({
  */
 export const getRepresentationDetailsViewModel = (representation) => {
 	const [represented, agentData] = getContactDetailsByContactType(representation);
-
 	return {
 		agentData,
 		represented,

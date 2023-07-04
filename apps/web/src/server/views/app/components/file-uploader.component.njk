@@ -4,7 +4,7 @@
 {% macro fileUploader(params) %}
 
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
-		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
+		 data-case-id="{{ params.caseId }}" data-multiple="{{params.multiple}}" data-folder-id="{{ params.folderId }}"
 		 {% if params.documentId %} data-document-id="{{ params.documentId }}"{% endif %}
 		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
 		<div class="top-errors-hook"></div>
@@ -16,16 +16,21 @@
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
 					{% if params.multiple %}
-						<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
+						<label class='pins-file-upload--text' for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
 					{% else %}
-						<label for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
+						<label class='pins-file-upload--text' for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
 					{% endif %}
-					<span>
+					<span class='pins-file-upload--text'>
 					Your file must be {% for extension in params.allowedTypes %}
-						{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}{% endif %}
+							{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}
+							{% endif %}
 						{% endfor %}.
-				</span>
-					<span>The total of your uploaded files must be smaller than 1 GB.</span>
+					</span>
+					{% if params.multiple %}
+						<span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
+					{% else %}
+						<span class='pins-file-upload--text'>Your uploaded file must be smaller than 1 GB.</span>
+					{% endif %}
 					<div class="middle-errors-hook"></div>
 				</div>
 				<div class="display--flex">

@@ -1257,6 +1257,78 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/{repId}/status": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Update a representation status for an application and create an action",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Status body to update a rep stats and create a rep action",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "INVALID"
+								},
+								"notes": {
+									"type": "string",
+									"example": "some notes"
+								},
+								"updatedBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								},
+								"invalidReason": {
+									"type": "string",
+									"example": "Duplicate"
+								},
+								"referredTo": {
+									"type": "string",
+									"example": "Inspector"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"repId": {
+									"type": "number",
+									"example": 1
+								},
+								"status": {
+									"type": "string",
+									"example": "INVALID"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
