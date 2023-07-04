@@ -138,7 +138,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class=\\"govuk-table__cell\\">Redacted</td>
                     <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
                     </td>
-                    <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/1/representation-details\\"> Review </a>
+                    <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Review </a>
                     </td>
                 </tr>
                 <tr class=\\"govuk-table__row\\">
@@ -148,7 +148,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class=\\"govuk-table__cell\\">Unredacted</td>
                     <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag\\" id=\\"list-convictions-status-2\\">VALID</span>
                     </td>
-                    <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/2/representation-details\\"> Review </a>
+                    <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/2/representation-details\\"> Review </a>
                     </td>
                 </tr>
             </tbody>
@@ -297,7 +297,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <td class=\\"govuk-table__cell\\">Redacted</td>
                     <td class=\\"govuk-table__cell\\"><span class=\\"govuk-tag govuk-tag--grey\\" id=\\"list-convictions-status-1\\">AWAITING REVIEW</span>
                     </td>
-                    <td class=\\"govuk-table__cell\\"><a href=\\"relevant-representations/1/representation-details\\"> Review </a>
+                    <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Review </a>
                     </td>
                 </tr>
             </tbody>

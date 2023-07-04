@@ -1,3 +1,4 @@
+import { repModeLinkOptions } from '../../utils/get-rep-mode-links.js';
 import {
 	getRepresentaionDetailsPageUrl,
 	getRepresentationBaseUrl,
@@ -93,10 +94,10 @@ const getRepresentedPageLinks = (path, pageURLs, caseId) => {
 export const getPageLinks = (repMode, path, caseId, repId, repType, pageURLs) => {
 	let pageLinks = mappedPageLinks(null, null);
 
-	if (repMode === 'change') {
+	if (repMode === repModeLinkOptions.change) {
 		const representaionDetailsPageUrl = getRepresentaionDetailsPageUrl(caseId, repId);
 		pageLinks = mappedPageLinks(representaionDetailsPageUrl, representaionDetailsPageUrl);
-	} else if (repMode === 'check')
+	} else if (repMode === repModeLinkOptions.check)
 		pageLinks = mappedPageLinks(pageURLs.checkAnswers, pageURLs.checkAnswers);
 	else if (path === repRoutes.checkAnswers)
 		pageLinks = mappedPageLinks(pageURLs.attachmentUpload, getRepresentationBaseUrl(caseId));

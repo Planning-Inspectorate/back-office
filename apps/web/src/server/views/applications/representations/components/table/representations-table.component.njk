@@ -35,7 +35,7 @@
 			<td class="govuk-table__cell">{{ reps.redacted }}</td>
 			{{ statusTag(reps.status, loop.index) }}
 			<td class="govuk-table__cell">
-				<a href="relevant-representations/{{reps.id}}/representation-details"> Review </a>
+				<a href="{{reps.link}}"> Review </a>
 			</td>
 		</tr>
 	{% endfor %}
