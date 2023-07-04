@@ -44,7 +44,7 @@ describe('Representation attachment-upload page', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain(
-				'data-next-page-url="check-answers?repId=1&amp;repType=represented"'
+				'data-next-page-url="/applications-service/case/1/relevant-representations/1/representation-details"'
 			);
 			expect(element.innerHTML).toContain('data-folder-id="10"');
 			expect(element.innerHTML).toContain('data-case-id="1"');

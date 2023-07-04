@@ -29,7 +29,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 	);
 
 	return res.render(view, {
-		representations: getRepresentationsViewModel(representations),
+		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
 		caseId,
 		table: {

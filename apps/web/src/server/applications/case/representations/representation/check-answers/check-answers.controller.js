@@ -10,7 +10,7 @@ const view = 'applications/representations/representation/check-answers/index.nj
  * @param {import("express").Response} res
  */
 export const getCheckAnswersController = async (req, res) =>
-	res.render(view, getCheckAnswersViewModel(req.params.caseId, res.locals));
+	res.render(view, getCheckAnswersViewModel(req.query, req.params, res.locals));
 
 /**
  * @param {import("express").Request} req
@@ -26,7 +26,7 @@ export const postCheckAnswersController = async (req, res) => {
 
 	if (checkAnswersErrors) {
 		return res.render(view, {
-			...getCheckAnswersViewModel(caseId, locals),
+			...getCheckAnswersViewModel(req.query, req.params, locals),
 			errors: checkAnswersErrors,
 			errorSummary: getFormattedErrorSummary(checkAnswersErrors)
 		});

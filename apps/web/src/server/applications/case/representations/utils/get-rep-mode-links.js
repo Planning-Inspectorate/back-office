@@ -1,3 +1,9 @@
+export const repModeLinkOptions = {
+	change: 'change',
+	check: 'check',
+	summary: 'summary'
+};
+
 /**
  * @typedef {Object.<string, string>} repModeLinks
  */
