@@ -1,12 +1,14 @@
 import { databaseConnector } from '../utils/database-connector.js';
+/** @typedef {import('apps/api/src/database/schema.js').Document} Document */
+/** @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
 
 /**
 
  * @param {any} metadata
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
+ * @returns {import('#db-client').PrismaPromise<DocumentVersion>}
  */
 
-export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
+export const upsertDocumentVersion = ({ documentGuid, version = 1, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
 		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
 
@@ -17,153 +19,22 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 		include: {
 			Document: {
 				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
+					folder: {}
 				}
 			}
 		}
 	});
-};
-
-/**
-
- * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-
-export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
-	return databaseConnector.documentVersion.update({
-		where: { documentGuid_version: { documentGuid: guid, version } },
-		data: { publishedStatus: status }
-	});
-};
-
-/**
- *  Deletes a document from the database based on its `guid`
- *
- * @async
- * @param {string} documentGuid
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-export const deleteDocument = (documentGuid) => {
-	return databaseConnector.document.delete({
-		where: {
-			guid: documentGuid
-		}
-	});
-};
-
-/**
-
- * Get a document metadata by documentGuid
- *
- * @param {string} documentGuid
- * @param {number} version
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion |null>}
- */
-
-export const getById = (documentGuid, version = 1) => {
-	return databaseConnector.documentVersion.findUnique({
-		where: { documentGuid_version: { documentGuid, version } },
-
-		include: {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	});
-};
-
-/**
-
- * Get all document metadata
-
- *
-
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion[] |null>}
- */
-
-export const getAll = () => {
-	return databaseConnector.documentVersion.findMany();
 };
 
 /**
  * Get all document metadata
  *
  * @param {string} guid
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion[] |null>}
+ * @returns {import('#db-client').PrismaPromise<DocumentVersion[] |null>}
  */
 
 export const getAllByDocumentGuid = (guid) => {
 	return databaseConnector.documentVersion.findMany({
 		where: { documentGuid: guid }
 	});
-};
-
-/**
-
- *
-
- * @param {string} documentGuid
- * @param {import('@pins/appeals.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-
-export const update = (documentGuid, { version = 1, ...documentDetails }) => {
-	return databaseConnector.documentVersion.update({
-		where: { documentGuid_version: { documentGuid, version } },
-
-		data: documentDetails
-	});
-};
-
-// update DocumentVersion
-// join Document on document.latestVersionId =
-
-/**
- * TODO: Might be worth having an identifier for DocumentVersion that isn't a composite of the documentId and versionNo.
- * It would make it easier to work with these items in bulk using Prisma.
- *
- * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @param {import('@pins/appeals.api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('apps/api/src/database/schema.js').DocumentVersionWithDocument[]>}
- */
-export const updateAll = async (documentVersionIds, documentDetails) => {
-	const results = [];
-
-	for (const { documentGuid, version } of documentVersionIds) {
-		results.push(
-			await databaseConnector.documentVersion.update({
-				where: { documentGuid_version: { documentGuid, version } },
-				data: documentDetails,
-				include: {
-					Document: {
-						include: {
-							case: true
-						}
-					}
-				}
-			})
-		);
-	}
-
-	// @ts-ignore
-	return results;
 };
