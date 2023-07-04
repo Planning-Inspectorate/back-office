@@ -20,10 +20,15 @@ export const getRepresentationStatusNotesController = async (req, res) => {
 	const newStatus = req.query.changeStatus;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
-	representationDetails.status = newStatus;
+	//representationDetails.status = newStatus;
 
 	return res.render(view, {
-		...getRepresentationStatusNotesViewModel(caseId, representationId, representationDetails)
+		...getRepresentationStatusNotesViewModel(
+			caseId,
+			representationId,
+			representationDetails,
+			String(newStatus)
+		)
 	});
 };
 
@@ -35,38 +40,30 @@ export const getRepresentationStatusNotesController = async (req, res) => {
 export const postRepresentationStatusNotesController = async (req, res) => {
 	const { body, params, errors, session } = req;
 	const { caseId, representationId } = params;
-	const newStatus = req.query.changeStatus;
+	const { changeStatus: newStatus } = req.query;
 
-	const payload = {
-		status: String(newStatus),
-		body,
-		updatedBy: authSession.getAccount(session)?.name
-	};
-	body.testing = 'testing';
-	console.log('body :>> ', body);
-	console.log('mapped :>> ', mapStatusPayload(payload));
 	if (errors) {
 		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
-		representationDetails.status = newStatus;
+		//representationDetails.status = newStatus;
 
 		return res.render(view, {
 			...getRepresentationStatusNotesViewModel(
 				caseId,
 				String(representationId),
-				representationDetails
+				representationDetails,
+				String(newStatus)
 			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
 		});
 	}
 
-	const response = await patchRepresentationStatus(
-		caseId,
-		String(representationId),
-		mapStatusPayload(payload)
-	);
+	const payload = {
+		status: String(newStatus),
+		body,
+		updatedBy: authSession.getAccount(session)?.name
+	};
 
-	console.log('response :>> ', response);
-
+	await patchRepresentationStatus(caseId, String(representationId), mapStatusPayload(payload));
 	res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
 };

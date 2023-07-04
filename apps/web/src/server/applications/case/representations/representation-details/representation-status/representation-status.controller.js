@@ -15,20 +15,18 @@ const view =
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getRepresentationStatusController = async (req, res) => {
-	const { caseId, representationId } = req.params;
-	const newStatusEdit = req.query.changeStatus;
+export const getRepresentationStatusController = async ({ params, query }, res) => {
+	const { caseId, representationId } = params;
+	const { changeStatus } = query;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
-
-	if (newStatusEdit) representationDetails.status = newStatusEdit;
 
 	return res.render(view, {
 		...getRepresentationStatusViewModel(
 			caseId,
 			representationId,
-			!!newStatusEdit,
-			representationDetails
+			representationDetails,
+			changeStatus
 		)
 	});
 };
@@ -38,8 +36,7 @@ export const getRepresentationStatusController = async (req, res) => {
  * @param {import("express").Response} res
  */
 
-export const postRepresentationStatus = async (req, res) => {
-	const { body, params, errors, session } = req;
+export const postRepresentationStatus = async ({ body, params, errors, session }, res) => {
 	const { caseId, representationId } = params;
 
 	const payload = {
@@ -54,8 +51,8 @@ export const postRepresentationStatus = async (req, res) => {
 			...getRepresentationStatusViewModel(
 				caseId,
 				String(representationId),
-				false,
-				representationDetails
+				representationDetails,
+				false
 			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)

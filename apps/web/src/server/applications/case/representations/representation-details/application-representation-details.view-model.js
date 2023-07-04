@@ -1,58 +1,12 @@
 import { format } from 'date-fns';
-import { getOrgOrNameForRepresentation } from './representation-details.utilities.js';
 
 /**
- * @typedef {object} Representation
- * @property {number} id
- * @property {string} reference
- * @property {string} status
- * @property {Contact[]} contacts
- * @property {boolean} redacted
- * @property {string} received
- * @property {string} originalRepresentation
- * @property {string} representationExcerpt
- * @property {string} redactedRepresentation
- * @property {string} redactedRepresentationExcerpt
- * @property {string} redactedNotes
- * @property {string} redactedNotesExcerpt
- * @property {string} redactedBy
- * @property {string} type
- * @property {Attachment []}  attachments
- */
-
-/**
- * @typedef {object} Address
- * @property {string|null} addressLine1
- * @property {string|null} addressLine2
- * @property {string|null} town
- * @property {string|null} postcode
- * @property {string|null} country
- */
-
-/**
- * @typedef {object} Attachment
- * @property {string} filename
- * @property {string} documentGuid
- * @property {number} id
- */
-
-/**
- * @typedef {object} Contact
- * @property {string|null} firstName
- * @property {string|null} lastName
- * @property {string|null} organisationName
- * @property {string|null} contactMethod
- * @property {string} type
- * @property {string|null} jobTitle
- * @property {boolean} under18
- * @property {string|null} email
- * @property {string|null} phoneNumber
- * @property {Address} address
+ * @typedef {import('../relevant-representation.types.js').Representation} Representation
  */
 
 /**
  *
- * @param {boolean|null} under18
+ * @param {boolean|null|undefined} under18
  * @return {string}
  */
 const formatUnder18TypesToString = (under18) =>
@@ -66,6 +20,9 @@ const getContactDetailsByContactType = (representation) => {
 		type: contact.type,
 		orgName: contact.organisationName || '',
 		name: `${contact.firstName} ${contact.lastName}`,
+		orgOrName: contact.organisationName
+			? contact.organisationName
+			: `${contact.firstName} ${contact.lastName}`,
 		jobTitle: contact.jobTitle || '',
 		under18: formatUnder18TypesToString(contact.under18),
 		email: contact.email || '',
@@ -106,7 +63,6 @@ const getRepresentationData = (representation) => ({
 	id: representation.id,
 	reference: representation.reference,
 	status: representation.status,
-	orgOrName: getOrgOrNameForRepresentation(representation),
 	redacted: representation.redacted,
 	received: formatDate(representation.received),
 	originalRepresentation: representation.originalRepresentation,

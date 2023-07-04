@@ -28,7 +28,11 @@
 	<div class="govuk-grid-row govuk-!-margin-bottom-6">
 		<div class="govuk-grid-column-full">
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">
-				{{ representationDetails.representationData.orgOrName }}
+				{% if  representationDetails.represented.orgOrName %}
+					{{ representationDetails.represented.orgOrName }}
+				{% else %}
+					{{ representationDetails.agentData.orgOrName }}
+				{% endif %}
 			</h1>
 			<strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(representationDetails.representationData.status) }}</strong>
 			<p class="govuk-!-margin-bottom-6"><strong>Project name:</strong> {{ caseReference.title }}</p>
