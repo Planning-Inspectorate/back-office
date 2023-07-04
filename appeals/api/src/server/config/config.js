@@ -10,9 +10,6 @@ const { value, error } = schema.validate({
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/openapi.json',
 	DATABASE_URL: environment.DATABASE_URL,
 	defaultApiVersion: environment.DEFAULT_API_VERSION || '1',
-	documentStorageApi: {
-		host: environment.DOCUMENT_STORAGE_API_HOST
-	},
 	serviceBusOptions: {
 		hostname: environment.SERVICE_BUS_HOSTNAME
 	},

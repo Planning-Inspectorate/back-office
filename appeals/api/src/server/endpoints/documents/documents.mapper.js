@@ -1,17 +1,22 @@
+/** @typedef {import('@pins/appeals/index.js').FileUploadInfo} FileUploadInfo */
+/** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
+/** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documents
- * @returns {{name: string, caseId: number, folderId: number; documentType: string, documentSize: number}[]}
+ * @param {string} blobStorageContainer,
+ * @param {FileUploadInfo[]} documents
+ * @returns {DocumentMetadata[]}
  */
-export const mapDocumentsToSendToDatabase = (caseId, documents) => {
+export const mapDocumentsForDatabase = (caseId, blobStorageContainer, documents) => {
 	return documents?.map((document) => {
 		return {
 			name: document.documentName,
 			caseId,
 			folderId: document.folderId,
 			documentType: document.documentType,
-			documentSize: document.documentSize
+			documentSize: document.documentSize,
+			blobStorageContainer
 		};
 	});
 };
@@ -19,33 +24,39 @@ export const mapDocumentsToSendToDatabase = (caseId, documents) => {
 /**
  * @param {import('@pins/api').Schema.Document[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, blobStoreUrl: string}[]}
+ * @param {number} versionId
+ * @returns {BlobInfo[]}
  */
-export const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
+export const mapDocumentsForBlobStorage = (documents, caseReference, versionId = 1) => {
 	return documents.map((document) => {
 		return {
 			caseType: 'appeal',
 			caseReference,
 			GUID: document.guid,
 			documentName: document.name,
-			blobStoreUrl: `appeal/${mapCaseReferenceForStorageUrl(caseReference)}/${
-				document.guid
-			}/${mapDocumentNameForStorageUrl(document.name)}`
+			blobStoreUrl: mapBlobPath(document.guid, caseReference, document.name, versionId)
 		};
 	});
 };
 
 /**
- * @param {string} caseReference
- * @returns string
+ * @type {(guid: string, caseReference: string, name: string, versionId: number) => string}
+ */
+export const mapBlobPath = (guid, caseReference, name, versionId = 1) => {
+	return `appeal/${mapCaseReferenceForStorageUrl(
+		caseReference
+	)}/${guid}/v${versionId}/${mapDocumentNameForStorageUrl(name)}`;
+};
+
+/**
+ * @type {(caseReference: string) => string}
  */
 export const mapCaseReferenceForStorageUrl = (caseReference) => {
 	return caseReference.replace(/\//g, '-');
 };
 
 /**
- * @param {string} documentName
- * @returns string
+ * @type {(documentName: string) => string}
  */
 export const mapDocumentNameForStorageUrl = (documentName) => {
 	if (!documentName.includes('.')) return documentName;

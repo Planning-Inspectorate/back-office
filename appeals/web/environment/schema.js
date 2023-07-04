@@ -9,6 +9,8 @@ export default joi.object({
 	authRedirectPath: joi.string(),
 	blobStorageUrl: joi.string(),
 	blobEmulatorSasUrl: joi.string(),
+	blobStorageDefaultContainer: joi.string(),
+	useBlobEmulator: joi.boolean().optional(),
 	env: joi.string().valid('development', 'production', 'test', 'local'),
 	isRelease: joi.boolean().optional(),
 	logLevelFile: joi.string().valid(...logLevel),
