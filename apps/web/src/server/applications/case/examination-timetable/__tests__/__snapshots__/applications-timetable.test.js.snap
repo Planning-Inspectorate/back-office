@@ -1953,7 +1953,8 @@ exports[`Unpublish examination timetable success page POST /case/123/examination
                 </div>
             </div>
             <div class=\\"govuk-body\\">
-                <p class=\\"govuk-body\\">Return to folder:</p><a href=\\"/applications-service/case/123/examination-timetable/\\"
+                <p class=\\"govuk-body\\">The examination timetable will be unpublished from the NI website within
+                    the hour</p><a href=\\"/applications-service/case/123/examination-timetable/\\"
                 class=\\"govuk-link\\"> Go back to examination table</a>
             </div>
         </div>

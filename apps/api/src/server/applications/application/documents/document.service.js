@@ -269,7 +269,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	// Step 3: Finding existing document from database
 	logger.info(`Finding existing document from database...`);
 
-	const documentFromDatabase = await documentRepository.getById(documentId);
+	const documentFromDatabase = await documentRepository.getByIdWithVersion(documentId);
 
 	if (!documentFromDatabase) {
 		throw new Error('Document not found');
@@ -291,13 +291,22 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	const fileName = documentName(documentToSendToDatabase.name);
 	const version = documentFromDatabase.latestVersionId + 1;
 
+	const { documentVersion } = documentFromDatabase;
+
 	await documentVerisonRepository.upsert({
 		documentGuid: documentId,
 		fileName,
 		originalFilename: fileName,
 		mime: documentToSendToDatabase.documentType,
 		size: documentToSendToDatabase.documentSize,
-		version
+		version,
+		description: documentVersion?.description,
+		representative: documentVersion?.representative,
+		owner: documentVersion?.owner,
+		securityClassification: documentVersion?.securityClassification,
+		filter1: documentVersion?.filter1,
+		filter2: documentVersion?.filter2,
+		documentType: documentVersion?.documentType
 	});
 
 	// Step 6: Map documents to the format expected by the blob storage service
