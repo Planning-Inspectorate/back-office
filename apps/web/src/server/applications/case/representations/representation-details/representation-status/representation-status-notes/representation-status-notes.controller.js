@@ -12,8 +12,7 @@ const view =
 	'applications/representations/representation-details/representation-status/representation-status-notes.njk';
 
 /**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { representationId: string, caseId: string, changeStatus: string }, { caseId: string, representationId: string}>}
  */
 export const getRepresentationStatusNotesController = async (req, res) => {
 	const { caseId, representationId } = req.params;
@@ -26,30 +25,28 @@ export const getRepresentationStatusNotesController = async (req, res) => {
 			caseId,
 			representationId,
 			representationDetails,
-			String(newStatus)
+			newStatus
 		)
 	});
 };
 
 /**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { representationId: string, caseId: string, changeStatus: string }, { caseId: string, representationId: string}>}
  */
-
 export const postRepresentationStatusNotesController = async (req, res) => {
 	const { body, params, errors, session } = req;
 	const { caseId, representationId } = params;
 	const { changeStatus: newStatus } = req.query;
 
 	if (errors) {
-		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
+		const representationDetails = await getRepresentationDetails(caseId, representationId);
 
 		return res.render(view, {
 			...getRepresentationStatusNotesViewModel(
 				caseId,
-				String(representationId),
+				representationId,
 				representationDetails,
-				String(newStatus)
+				newStatus
 			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
@@ -57,7 +54,7 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 	}
 
 	const payload = {
-		status: String(newStatus),
+		status: newStatus,
 		body,
 		updatedBy: authSession.getAccount(session)?.name
 	};
