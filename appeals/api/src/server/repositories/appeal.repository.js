@@ -379,6 +379,27 @@ const appealRepository = (function () {
 			}
 
 			return databaseConnector.$transaction(transaction);
+		},
+		/**
+		 * @param {number} appealId
+		 * @param {string} status
+		 * @returns {PrismaPromise<object>}
+		 */
+		updateAppealStatus(appealId, status) {
+			return databaseConnector.$transaction([
+				databaseConnector.appealStatus.updateMany({
+					where: { appealId },
+					data: { valid: false }
+				}),
+				databaseConnector.appealStatus.create({
+					data: {
+						appealId,
+						createdAt: new Date(),
+						status,
+						valid: true
+					}
+				})
+			]);
 		}
 	};
 })();
