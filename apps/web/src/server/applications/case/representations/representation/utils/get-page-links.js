@@ -74,9 +74,11 @@ const getRepresentedPageLinks = (path, pageURLs, caseId) => {
 		case repRoutes.under18:
 			return mappedPageLinks(pageURLs.representationType, pageURLs.representationEntity);
 		case repRoutes.representationEntity:
-			return mappedPageLinks(pageURLs.representationType, null);
+			return mappedPageLinks(pageURLs.under18, null);
 		case repRoutes.addRepresentation:
 			return mappedPageLinks(pageURLs.representationEntity, pageURLs.attachmentUpload);
+		case repRoutes.attachmentUpload:
+			return mappedPageLinks(pageURLs.addRepresentation, null);
 		default:
 			return mappedPageLinks(null, null);
 	}

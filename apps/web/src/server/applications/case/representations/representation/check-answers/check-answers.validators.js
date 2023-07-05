@@ -1,5 +1,5 @@
 import { createValidator } from '@pins/express';
-import { body } from 'express-validator';
+import { body, oneOf } from 'express-validator';
 
 export const checkAnswersValidation = [
 	createValidator(
@@ -9,8 +9,18 @@ export const checkAnswersValidation = [
 		body('represented.contactMethod').notEmpty().withMessage('Enter preferred method of contact')
 	),
 	createValidator(body('type').notEmpty().withMessage('Enter type')),
-	createValidator(body('represented.under18').notEmpty().withMessage('Enter Under 18')),
-	createValidator(body('represented.type').notEmpty().withMessage('Enter on behalf of')),
+	createValidator(
+		body('represented.under18')
+			.exists({
+				checkNull: false
+			})
+			.withMessage('Enter Under 18')
+	),
+	createValidator(
+		oneOf([body('represented.type').notEmpty(), body('representative.type').notEmpty()], {
+			message: 'Enter on behalf of'
+		})
+	),
 	createValidator(
 		body('representative.firstName').notEmpty().withMessage('Enter agent contact details')
 	),
