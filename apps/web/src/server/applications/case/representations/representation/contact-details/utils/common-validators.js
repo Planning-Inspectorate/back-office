@@ -41,10 +41,8 @@ export const validateEmail = createValidator([
 
 export const validatePhoneNumber = createValidator([
 	body('phoneNumber')
-		.isLength({ min: 0, max: 255 })
-		.withMessage('Telephone number must be 255 characters or less')
 		.optional({ checkFalsy: true })
 		.trim()
-		.matches(/^[0-9+\s]*$/)
+		.matches(/^\+?(?:\d\s?){10,12}$/)
 		.withMessage('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192')
 ]);
