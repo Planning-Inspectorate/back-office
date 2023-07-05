@@ -22,7 +22,9 @@
 			<div class="govuk-body">
 				<p class="govuk-body">
 					{% if action === 'published' %}
-						The examination timetable will show on the NI website within the hour
+						The examination timetable will show on the NI website within the hour				
+					{% elseif action === 'unpublished' %}
+						The examination timetable will be unpublished from the NI website within the hour
 					{% else %}
 						Return to folder:
 					{% endif %}

@@ -13,6 +13,7 @@ export const getRepresentationAttachmentUpload = async ({ params }, res) => {
 	const { locals } = res;
 
 	return res.render(view, {
+		backLinkUrl: locals.representation.pageLinks.backLinkUrl,
 		link: getFinalRepPageUrl(locals.representation, caseId),
 		caseId,
 		folderId: folder?.id

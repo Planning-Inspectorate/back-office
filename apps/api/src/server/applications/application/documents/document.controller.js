@@ -167,12 +167,19 @@ export const updateDocuments = async ({ body }, response) => {
  * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
-export const getDocumentProperties = async ({ params: { id: caseId, guid } }, response) => {
+export const getDocumentProperties = async ({ params: { guid } }, response) => {
 	// Step 1: Retrieve the document by its GUID and case ID.
-	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+	const document = await documentRepository.getById(guid);
+
+	if (!document) {
+		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
+	}
 
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
-	const documentVersion = await documentVersionRepository.getById(document.guid);
+	const documentVersion = await documentVersionRepository.getById(
+		document.guid,
+		document.latestVersionId
+	);
 
 	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
