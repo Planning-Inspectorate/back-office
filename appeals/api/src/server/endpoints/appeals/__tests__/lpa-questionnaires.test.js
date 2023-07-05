@@ -1,3 +1,5 @@
+// @ts-nocheck
+import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import {
 	ERROR_FAILED_TO_SAVE_DATA,
@@ -11,10 +13,13 @@ import {
 	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
 	ERROR_NOT_FOUND,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
-	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS
+	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
+	STATE_TARGET_ARRANGE_SITE_VISIT,
+	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
 import {
 	baseExpectedLPAQuestionnaireResponse,
+	fullPlanningAppeal,
 	householdAppeal,
 	householdappealWithCompleteLPAQuestionnaire,
 	householdappealWithIncompleteLPAQuestionnaire,
@@ -27,6 +32,10 @@ import { createManyToManyRelationData } from '../appeals.service.js';
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 describe('lpa questionnaires routes', () => {
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
 		describe('GET', () => {
 			test('gets a single lpa questionnaire with no outcome', async () => {
@@ -147,9 +156,17 @@ describe('lpa questionnaires routes', () => {
 		});
 
 		describe('PATCH', () => {
-			test('updates an lpa questionnaire when the validation outcome is complete', async () => {
+			test('updates an lpa questionnaire when the validation outcome is complete for a household appeal', async () => {
 				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.appeal.findUnique.mockResolvedValue({
+					...householdAppeal,
+					appealStatus: [
+						{
+							status: 'lpa_questionnaire_due',
+							valid: true
+						}
+					]
+				});
 				// @ts-ignore
 				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
 					lpaQuestionnaireValidationOutcomes[0]
@@ -176,6 +193,14 @@ describe('lpa questionnaires routes', () => {
 						id: householdAppeal.lpaQuestionnaire.id
 					}
 				});
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_ARRANGE_SITE_VISIT,
+						valid: true
+					}
+				});
 				expect(
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.update
 				).not.toHaveBeenCalled();
@@ -183,9 +208,17 @@ describe('lpa questionnaires routes', () => {
 				expect(response.body).toEqual(body);
 			});
 
-			test('updates an lpa questionnaire when the validation outcome is Complete', async () => {
+			test('updates an lpa questionnaire when the validation outcome is Complete for a full planning appeal', async () => {
 				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.appeal.findUnique.mockResolvedValue({
+					...fullPlanningAppeal,
+					appealStatus: [
+						{
+							status: 'lpa_questionnaire_due',
+							valid: true
+						}
+					]
+				});
 				// @ts-ignore
 				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
 					lpaQuestionnaireValidationOutcomes[0]
@@ -200,7 +233,7 @@ describe('lpa questionnaires routes', () => {
 				};
 				const response = await request
 					.patch(
-						`/appeals/${householdAppeal.id}/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
+						`/appeals/${fullPlanningAppeal.id}/lpa-questionnaires/${fullPlanningAppeal.lpaQuestionnaire.id}`
 					)
 					.send(body);
 
@@ -209,7 +242,15 @@ describe('lpa questionnaires routes', () => {
 						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[0].id
 					},
 					where: {
-						id: householdAppeal.lpaQuestionnaire.id
+						id: fullPlanningAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+					data: {
+						appealId: fullPlanningAppeal.id,
+						createdAt: expect.any(Date),
+						status: STATE_TARGET_STATEMENT_REVIEW,
+						valid: true
 					}
 				});
 				expect(
@@ -262,6 +303,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
@@ -312,6 +354,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
@@ -362,6 +405,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
@@ -412,6 +456,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
@@ -462,6 +507,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
@@ -512,6 +558,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
