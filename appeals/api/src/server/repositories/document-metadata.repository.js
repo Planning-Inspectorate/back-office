@@ -74,25 +74,21 @@ export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 		metadata.fileName = name;
 		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
 
-		const documentVersion = await tx.documentVersion.upsert({
+		await tx.documentVersion.upsert({
 			create: { ...metadata, version: newVersionId, Document: { connect: { guid: documentGuid } } },
 			where: { documentGuid_version: { documentGuid, version: newVersionId } },
-			update: {},
-			include: {
-				Document: {
-					include: {
-						folder: {}
-					}
-				}
-			}
+			update: {}
 		});
 
 		await tx.document.update({
-			data: { latestVersionId: documentVersion.version },
+			data: { latestVersionId: newVersionId },
 			where: { guid: documentGuid }
 		});
 
-		return documentVersion;
+		return await tx.documentVersion.findFirst({
+			include: { Document: true },
+			where: { documentGuid, version: newVersionId }
+		});
 	});
 
 	return transaction;
