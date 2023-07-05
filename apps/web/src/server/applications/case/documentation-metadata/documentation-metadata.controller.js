@@ -67,6 +67,14 @@ const layouts = {
 	type: {
 		items: [
 			{
+				value: 'DCO decision letter (SoS)(approve)',
+				text: 'DCO decision letter (SoS)(approve)'
+			},
+			{
+				value: 'DCO decision letter (SoS)(refuse)',
+				text: 'DCO decision letter (SoS)(refuse)'
+			},
+			{
 				value: 'Rule 8 letter',
 				text: 'Rule 8 letter'
 			},
