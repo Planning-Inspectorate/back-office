@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { representationDetailsFixture } from '../__fixtures__/representation-details.fixture.js';
 import { getRepresentationDetailsViewModel } from '../application-representation-details.view-model.js';
 

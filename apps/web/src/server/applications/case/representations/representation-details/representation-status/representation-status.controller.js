@@ -39,11 +39,6 @@ export const getRepresentationStatusController = async ({ params, query }, res) 
 export const postRepresentationStatus = async ({ body, params, errors, session }, res) => {
 	const { caseId, representationId } = params;
 
-	const payload = {
-		status: body.changeStatus,
-		updatedBy: authSession.getAccount(session)?.name
-	};
-
 	if (errors) {
 		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
 
@@ -58,6 +53,11 @@ export const postRepresentationStatus = async ({ body, params, errors, session }
 			errorSummary: getFormattedErrorSummary(errors)
 		});
 	}
+
+	const payload = {
+		status: body.changeStatus,
+		updatedBy: authSession.getAccount(session)?.name
+	};
 
 	if (payload.status === 'VALID') {
 		await patchRepresentationStatus(caseId, String(representationId), payload);

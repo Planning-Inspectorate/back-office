@@ -13,14 +13,14 @@ export type Representation = {
 	redactedNotesExcerpt: string;
 	redactedBy: string;
 	type: string;
-	attachments: string
+	attachments: array;
 };
 
 export type Address = {
 	addressLine1: string | null;
 	addressLine2: string | null;
 	town: string | null;
-	county: string | null;
+	county?: string | null;
 	postcode: string | null;
 	country: string | null;
 };
