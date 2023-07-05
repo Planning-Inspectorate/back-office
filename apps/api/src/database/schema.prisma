@@ -570,7 +570,7 @@ model RepresentationAction {
   id                   Int            @id @default(autoincrement())
   representationId     Int
   type                 String? // STATUS | REDACTION | REDACT_STATUS
-  status               String? // AWAITING_REVIEW | REFERRED | INVALID | VALID | WITHDRAWN
+  status               String?
   previousStatus       String?
   redactStatus         Boolean?
   previousRedactStatus Boolean?

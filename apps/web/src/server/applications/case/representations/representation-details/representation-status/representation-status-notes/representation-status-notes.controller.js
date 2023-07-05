@@ -20,7 +20,6 @@ export const getRepresentationStatusNotesController = async (req, res) => {
 	const newStatus = req.query.changeStatus;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
-	//representationDetails.status = newStatus;
 
 	return res.render(view, {
 		...getRepresentationStatusNotesViewModel(
@@ -44,7 +43,6 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 
 	if (errors) {
 		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
-		//representationDetails.status = newStatus;
 
 		return res.render(view, {
 			...getRepresentationStatusNotesViewModel(
