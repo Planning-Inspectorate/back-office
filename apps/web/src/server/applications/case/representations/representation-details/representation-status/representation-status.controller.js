@@ -40,15 +40,10 @@ export const postRepresentationStatus = async ({ body, params, errors, session }
 	const { caseId, representationId } = params;
 
 	if (errors) {
-		const representationDetails = await getRepresentationDetails(caseId, String(representationId));
+		const representationDetails = await getRepresentationDetails(caseId, representationId);
 
 		return res.render(view, {
-			...getRepresentationStatusViewModel(
-				caseId,
-				String(representationId),
-				representationDetails,
-				false
-			),
+			...getRepresentationStatusViewModel(caseId, representationId, representationDetails, false),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
 		});
@@ -60,11 +55,11 @@ export const postRepresentationStatus = async ({ body, params, errors, session }
 	};
 
 	if (payload.status === 'VALID') {
-		await patchRepresentationStatus(caseId, String(representationId), payload);
-		res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
+		await patchRepresentationStatus(caseId, representationId, payload);
+		res.redirect(getRepresentationDetailsPageUrl(caseId, representationId));
 	} else {
 		res.redirect(
-			`${getStatusResultPageUrl(caseId, String(representationId))}?changeStatus=${payload.status}`
+			`${getStatusResultPageUrl(caseId, representationId)}?changeStatus=${payload.status}`
 		);
 	}
 };

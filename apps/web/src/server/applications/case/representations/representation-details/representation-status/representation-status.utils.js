@@ -1,7 +1,7 @@
 import { url } from '../../../../../lib/nunjucks-filters/url.js';
 /**
  *
- * @param {{status: string, updatedBy: string|undefined, body: {notes: string?, statusResult: string?}}} statusUpdate
+ * @param {{status: string, updatedBy: string|undefined, body: {notes?: string, statusResult?: string} }} statusUpdate
  * @returns {object}
  */
 export const mapStatusPayload = (statusUpdate) => {
