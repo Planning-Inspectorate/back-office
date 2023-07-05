@@ -20,6 +20,7 @@ export const ERROR_FAILED_TO_GET_DATA = 'Failed to get data';
 export const ERROR_FAILED_TO_SAVE_DATA = 'Failed to save data';
 export const ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME =
 	'Incomplete reasons should only be given if the validation outcome is Incomplete';
+export const ERROR_INVALID_APPEAL_TYPE = `Appeal type must be one of ${APPEAL_TYPE_SHORTCODE_FPA}, ${APPEAL_TYPE_SHORTCODE_HAS}`;
 export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_INCOMPLETE}, ${VALIDATION_OUTCOME_INVALID}, ${VALIDATION_OUTCOME_VALID}`;
 export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of Complete, Incomplete`;
 export const ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME =
@@ -44,6 +45,16 @@ export const ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS =
 	'Should not include validation outcome reasons when validationOutcome is Valid';
 export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete or Invalid';
-
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
+
+export const STATE_TARGET_ARRANGE_SITE_VISIT = 'arrange_site_visit';
+export const STATE_TARGET_COMPLETE = 'complete';
+export const STATE_TARGET_FINAL_COMMENT_REVIEW = 'final_comment_review';
+export const STATE_TARGET_INVALID = 'invalid';
+export const STATE_TARGET_ISSUE_DETERMINATION = 'issue_determination';
+export const STATE_TARGET_LPA_QUESTIONNAIRE_DUE = 'lpa_questionnaire_due';
+export const STATE_TARGET_READY_TO_START = 'ready_to_start';
+export const STATE_TARGET_STATEMENT_REVIEW = 'statement_review';
+
+export const STATE_TYPE_FINAL = 'final';

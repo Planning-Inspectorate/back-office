@@ -12,6 +12,7 @@ import {
 	joinDateAndTime,
 	recalculateDateIfNotBusinessDay
 } from './appeals.service.js';
+import transitionState from '../../state/transition-state.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -96,7 +97,7 @@ const getAppellantCaseById = (req, res) => {
  */
 const updateAppellantCaseById = async (req, res) => {
 	const {
-		appeal: { id: appealId, appealType },
+		appeal: { id: appealId, appealStatus, appealType },
 		body,
 		body: { incompleteReasons, invalidReasons, otherNotValidReasons },
 		params: { appellantCaseId },
@@ -122,6 +123,13 @@ const updateAppellantCaseById = async (req, res) => {
 			...(isOutcomeInvalid(validationOutcome.name) && { invalidReasons }),
 			...(isOutcomeValid(validationOutcome.name) && { appealId, startedAt, timetable })
 		});
+
+		await transitionState({
+			appealId,
+			appealType: String(appealType?.shorthand),
+			currentState: appealStatus[0].status,
+			trigger: validationOutcome.name
+		});
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -138,9 +146,10 @@ const updateAppellantCaseById = async (req, res) => {
  */
 const updateLPAQuestionnaireById = async (req, res) => {
 	const {
+		appeal: { id: appealId, appealStatus, appealType },
 		body,
 		body: { incompleteReasons, otherNotValidReasons },
-		params: { appealId, lpaQuestionnaireId },
+		params: { lpaQuestionnaireId },
 		validationOutcome
 	} = req;
 
@@ -158,10 +167,17 @@ const updateLPAQuestionnaireById = async (req, res) => {
 			validationOutcomeId: validationOutcome.id,
 			otherNotValidReasons,
 			...(isOutcomeIncomplete(validationOutcome.name) && {
-				appealId: Number(appealId),
+				appealId,
 				incompleteReasons,
 				timetable
 			})
+		});
+
+		await transitionState({
+			appealId,
+			appealType: String(appealType?.shorthand),
+			currentState: appealStatus[0].status,
+			trigger: validationOutcome.name
 		});
 
 		body.lpaQuestionnaireDueDate = timetable?.lpaQuestionnaireDueDate;
