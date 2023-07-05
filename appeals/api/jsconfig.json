@@ -4,7 +4,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"#db-client": ["./src/server/utils/db-client"]
+			"#db-client": ["./src/server/utils/db-client/"]
 		}
 	}
 }
