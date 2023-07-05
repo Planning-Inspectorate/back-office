@@ -22,19 +22,20 @@ export const mapDocumentsForDatabase = (caseId, blobStorageContainer, documents)
 };
 
 /**
- * @param {import('@pins/api').Schema.Document[]} documents
+ * @param {import('@pins/appeals.api').Schema.DocumentVersion[]} documents
  * @param {string} caseReference
  * @param {number} versionId
  * @returns {BlobInfo[]}
  */
 export const mapDocumentsForBlobStorage = (documents, caseReference, versionId = 1) => {
 	return documents.map((document) => {
+		const fileName = document.fileName || document.documentGuid;
 		return {
 			caseType: 'appeal',
 			caseReference,
-			GUID: document.guid,
-			documentName: document.name,
-			blobStoreUrl: mapBlobPath(document.guid, caseReference, document.name, versionId)
+			GUID: document.documentGuid,
+			documentName: fileName,
+			blobStoreUrl: mapBlobPath(document.documentGuid, caseReference, fileName, versionId)
 		};
 	});
 };

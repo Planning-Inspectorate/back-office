@@ -32,7 +32,7 @@ export interface BlobInfo {
 	caseType: string;
 	caseReference: string;
 	GUID: string;
-	documentName: string;
+	documentName?: string;
 	blobStoreUrl: string;
 }
 
