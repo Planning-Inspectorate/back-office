@@ -109,19 +109,15 @@ export const addVersionToDocument = async (upload, appealId, documentId) => {
 	const documentVersion = documentsToSendToDatabase[0];
 	const masterDocument = await getDocumentById(documentId);
 	const newVersionId = masterDocument.latestVersionId + 1;
+	const documentName = mapDocumentNameForStorageUrl(masterDocument.name);
 	const newDocumentVersion = await upsertDocumentVersion({
 		documentGuid: documentId,
-		fileName: masterDocument.name,
-		originalFilename: mapDocumentNameForStorageUrl(documentVersion.name),
+		fileName: documentName,
+		originalFilename: documentVersion.name,
 		mime: documentVersion.documentType,
 		size: documentVersion.documentSize,
 		version: newVersionId,
-		blobStoragePath: mapBlobPath(
-			masterDocument.guid,
-			appeal.reference,
-			documentVersion.name,
-			newVersionId
-		),
+		blobStoragePath: mapBlobPath(masterDocument.guid, appeal.reference, documentName, newVersionId),
 		blobStorageContainer: documentVersion.blobStorageContainer
 	});
 
@@ -175,7 +171,7 @@ const upsertDocumentMetadata = async (caseId, reference, documents) => {
 			await upsertDocumentVersion({
 				documentGuid: document.guid,
 				fileName,
-				originalFilename: fileName,
+				originalFilename: documentToDB.name,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				version: 1,
