@@ -1,25 +1,16 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
-/** @typedef {import('apps/api/src/database/schema.js').Document} Document */
-
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /**
- *
- * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number}} document
- * @returns {import('#db-client').PrismaPromise<Document>}
+ * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
+ * @template T
  */
-export const upsertDocument = (document) => {
-	return databaseConnector.document.upsert({
-		create: document,
-		where: { name_folderId: { name: document.name, folderId: document.folderId } },
-		update: {}
-	});
-};
 
 /**
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('#db-client').PrismaPromise<Document | null>}
+ * @returns {PrismaPromise<Document | null>}
  */
 export const getDocumentById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -36,7 +27,7 @@ export const getDocumentById = (documentGuid) => {
  * Get a all documents for a caseId
  *
  * @param {number} caseId
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.Document |null>}
+ * @returns {PrismaPromise<Document[]>}
  */
 export const getDocumentsByAppealId = (caseId) => {
 	return databaseConnector.document.findMany({
@@ -51,26 +42,11 @@ export const getDocumentsByAppealId = (caseId) => {
 };
 
 /**
- *
- * @param {string} documentId
- * @param {import('@pins/appeals.api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('@pins/appeals.api').Schema.Document>}
- */
-export const updateDocument = (documentId, documentDetails) => {
-	return databaseConnector.document.update({
-		where: {
-			guid: documentId
-		},
-		data: documentDetails
-	});
-};
-
-/**
  *  Deletes a document from the database based on its `guid`
  *
  * @async
  * @param {string} documentGuid
- * @returns {import('#db-client').PrismaPromise<Document>}
+ * @returns {PrismaPromise<Document>}
  */
 export const deleteDocument = (documentGuid) => {
 	return databaseConnector.document.delete({
@@ -83,7 +59,7 @@ export const deleteDocument = (documentGuid) => {
 /**
  *
  * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
- * @returns {import('#db-client').PrismaPromise<Document[]>}
+ * @returns {PrismaPromise<Document[]>}
  */
 export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
 	return databaseConnector.document.findMany({

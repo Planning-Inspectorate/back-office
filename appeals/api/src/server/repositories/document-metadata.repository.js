@@ -4,13 +4,13 @@ import {
 	mapBlobPath
 } from '../endpoints/documents/documents.mapper.js';
 
-/** @typedef {import('apps/api/src/database/schema.js').Document} Document */
-/** @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 
 /**
  * @param {any} metadata
  * @param {any} context
- * @returns {import('./appeal.repository.js').PrismaPromise<DocumentVersion>}
+ * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocument = async (metadata, context) => {
 	// @ts-ignore
@@ -56,7 +56,7 @@ export const addDocument = async (metadata, context) => {
 
 /**
  * @param {any} metadata
- * @returns {import('./appeal.repository.js').PrismaPromise<DocumentVersion>}
+ * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 	// @ts-ignore
@@ -66,9 +66,14 @@ export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 			where: { guid: documentGuid }
 		});
 
+		if (document == null) {
+			throw new Error('Document not found');
+		}
+
 		const { reference } = document.case;
 		const { name, latestVersionId } = document;
 
+		// @ts-ignore
 		const newVersionId = latestVersionId + 1;
 
 		metadata.fileName = name;

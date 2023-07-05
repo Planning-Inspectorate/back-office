@@ -1,4 +1,10 @@
 {
 	"extends": "../../jsconfig.json",
-	"include": ["**/*.js", "../../packages/event-client/src/event-client.js"]
+	"include": ["**/*.js", "../../packages/event-client/src/event-client.js"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"#db-client": ["./src/server/utils/db-client/"]
+		}
+	}
 }
