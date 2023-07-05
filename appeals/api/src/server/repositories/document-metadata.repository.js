@@ -1,40 +1,99 @@
 import { databaseConnector } from '../utils/database-connector.js';
+import {
+	mapDocumentNameForStorageUrl,
+	mapBlobPath
+} from '../endpoints/documents/documents.mapper.js';
+
 /** @typedef {import('apps/api/src/database/schema.js').Document} Document */
 /** @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
 
 /**
-
  * @param {any} metadata
- * @returns {import('#db-client').PrismaPromise<DocumentVersion>}
+ * @param {any} context
+ * @returns {import('./appeal.repository.js').PrismaPromise<DocumentVersion>}
  */
+export const addDocument = async (metadata, context) => {
+	// @ts-ignore
+	const transaction = await databaseConnector.$transaction(async (tx) => {
+		const fileName = mapDocumentNameForStorageUrl(metadata.originalFilename);
+		const document = await tx.document.create({
+			data: {
+				caseId: context.caseId,
+				folderId: context.folderId,
+				name: fileName
+			}
+		});
 
-export const upsertDocumentVersion = ({ documentGuid, version = 1, ...metadata }) => {
-	return databaseConnector.documentVersion.upsert({
-		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
+		const { guid, name } = document;
+		const newVersionId = 1;
 
-		where: { documentGuid_version: { documentGuid, version } },
+		metadata.fileName = name;
+		metadata.blobStoragePath = mapBlobPath(guid, context.reference, name, newVersionId);
 
-		update: { ...metadata, version },
-
-		include: {
-			Document: {
-				include: {
-					folder: {}
+		const documentVersion = await tx.documentVersion.upsert({
+			create: { ...metadata, version: newVersionId, Document: { connect: { guid } } },
+			where: { documentGuid_version: { documentGuid: guid, version: newVersionId } },
+			update: {},
+			include: {
+				Document: {
+					include: {
+						folder: {}
+					}
 				}
 			}
-		}
+		});
+
+		await tx.document.update({
+			data: { latestVersionId: documentVersion.version },
+			where: { guid }
+		});
+
+		return documentVersion;
 	});
+
+	return transaction;
 };
 
 /**
- * Get all document metadata
- *
- * @param {string} guid
- * @returns {import('#db-client').PrismaPromise<DocumentVersion[] |null>}
+ * @param {any} metadata
+ * @returns {import('./appeal.repository.js').PrismaPromise<DocumentVersion>}
  */
+export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
+	// @ts-ignore
+	const transaction = await databaseConnector.$transaction(async (tx) => {
+		const document = await tx.document.findFirst({
+			include: { case: true },
+			where: { guid: documentGuid }
+		});
 
-export const getAllByDocumentGuid = (guid) => {
-	return databaseConnector.documentVersion.findMany({
-		where: { documentGuid: guid }
+		const { reference } = document.case;
+		const { name, latestVersionId } = document;
+
+		const newVersionId = latestVersionId + 1;
+
+		metadata.fileName = name;
+		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
+
+		const documentVersion = await tx.documentVersion.upsert({
+			create: { ...metadata, version: newVersionId, Document: { connect: { guid: documentGuid } } },
+			where: { documentGuid_version: { documentGuid, version: newVersionId } },
+			update: {},
+			include: {
+				Document: {
+					include: {
+						folder: {}
+					}
+				}
+			}
+		});
+
+		await tx.document.update({
+			data: { latestVersionId: documentVersion.version },
+			where: { guid: documentGuid }
+		});
+
+		return documentVersion;
 	});
+
+	return transaction;
 };

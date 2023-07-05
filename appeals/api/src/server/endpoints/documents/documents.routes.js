@@ -7,6 +7,8 @@ import {
 	addDocuments,
 	addDocumentVersion
 } from './documents.controller.js';
+import { checkAppealExistsAndAddToRequest } from '../appeals/appeals.service.js';
+import { getAppealValidator } from '../appeals/appeals.validators.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 
@@ -25,6 +27,8 @@ router.get(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(getDocuments)
 );
 
@@ -41,6 +45,8 @@ router.get(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(getDocumentLocations)
 );
 
@@ -57,6 +63,8 @@ router.get(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(getDocument)
 );
 
@@ -79,6 +87,8 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(addDocuments)
 );
 
@@ -101,6 +111,8 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(addDocumentVersion)
 );
 
