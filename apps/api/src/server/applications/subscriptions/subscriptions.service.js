@@ -1,6 +1,6 @@
-import { eventClient } from '../../infrastructure/event-client.js';
-import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
-import * as subscriptionRepository from '../../repositories/subscription.respository.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
+import * as subscriptionRepository from '#repositories/subscription.respository.js';
 import {
 	buildSubscriptionPayloads,
 	subscriptionTypeChanges,

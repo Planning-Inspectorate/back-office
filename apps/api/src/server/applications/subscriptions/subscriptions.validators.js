@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { body, param, query } from 'express-validator';
-import { validationErrorHandler } from '../../middleware/error-handler.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 
 export const validateGetSubscription = composeMiddleware(
 	query('caseReference').notEmpty().withMessage(`caseReference is required`),

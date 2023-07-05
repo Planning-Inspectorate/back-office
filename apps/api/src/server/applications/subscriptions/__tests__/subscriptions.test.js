@@ -1,8 +1,8 @@
 import supertest from 'supertest';
-import { app } from '../../../app-test';
-import { databaseConnector } from '../../../utils/database-connector.js';
+import { app } from '#app-test';
+import { databaseConnector } from '#utils/database-connector.js';
 import { prepareInput } from '../subscriptions.service.js';
-const { eventClient } = await import('../../../infrastructure/event-client.js');
+import { eventClient } from '#infrastructure/event-client.js';
 
 /**
  * @typedef {import('../../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription

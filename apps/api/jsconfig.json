@@ -1,4 +1,15 @@
 {
 	"extends": "../../jsconfig.json",
-	"include": ["**/*.js", "../../packages/event-client/src/event-client.js"]
+	"include": ["**/*.js", "../../packages/event-client/src/event-client.js"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"#app-test": ["./src/server/app-test.js"],
+			"#config/*": ["./src/server/config/*"],
+			"#infrastructure/*": ["./src/server/infrastructure/*"],
+			"#middleware/*": ["./src/server/middleware/*"],
+			"#repositories/*": ["./src/server/repositories/*"],
+			"#utils/*": ["./src/server/utils/*"]
+		}
+	}
 }
