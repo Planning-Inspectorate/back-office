@@ -75,12 +75,12 @@ const layouts = {
 				text: 'DCO decision letter (SoS)(refuse)'
 			},
 			{
-				value: 'Rule 8 letter',
-				text: 'Rule 8 letter'
-			},
-			{
 				value: 'Exam library',
 				text: 'Exam library'
+			},
+			{
+				value: 'Rule 8 letter',
+				text: 'Rule 8 letter'
 			},
 			{
 				value: '',
