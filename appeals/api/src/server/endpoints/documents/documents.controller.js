@@ -14,8 +14,8 @@ import {
  * @returns {Promise<object>}
  */
 const getDocumentLocations = async (req, res) => {
-	const { appealId } = req.params;
-	const allFoldersAndDocuments = await getDocumentsForAppeal(Number(appealId));
+	const { appeal } = req;
+	const allFoldersAndDocuments = await getDocumentsForAppeal(appeal);
 	const locations = allFoldersAndDocuments.map((p) => {
 		return {
 			displayName: p.displayName,
@@ -31,8 +31,8 @@ const getDocumentLocations = async (req, res) => {
  * @returns {Promise<object>}
  */
 const getDocuments = async (req, res) => {
-	const { appealId } = req.params;
-	const allFoldersAndDocuments = await getDocumentsForAppeal(Number(appealId));
+	const { appeal } = req;
+	const allFoldersAndDocuments = await getDocumentsForAppeal(appeal);
 
 	return res.send(allFoldersAndDocuments);
 };
@@ -50,11 +50,11 @@ const getDocument = async (req, res) => {
 
 /**
  *
- * @type {import('express').RequestHandler<any, any, DocumentApiRequest> } | any, any>}
+ * @type {RequestHandler}
  */
-const addDocuments = async ({ params, body }, response) => {
-	const { appealId } = params;
-	const documentInfo = await addDocumentsToAppeal(body, Number(appealId));
+const addDocuments = async (req, res) => {
+	const { appeal } = req;
+	const documentInfo = await addDocumentsToAppeal(req.body, appeal);
 
 	const storageInfo = {
 		documents: documentInfo.documents.map((d) => {
@@ -66,16 +66,17 @@ const addDocuments = async ({ params, body }, response) => {
 		})
 	};
 
-	response.send(storageInfo);
+	res.send(storageInfo);
 };
 
 /**
  *
- * @type {import('express').RequestHandler<any, any, DocumentVersionApiRequest | any, any>}
+ * @type {RequestHandler}
  */
-const addDocumentVersion = async ({ params, body }, response) => {
-	const { appealId, documentId } = params;
-	const documentInfo = await addVersionToDocument(body, Number(appealId), documentId);
+const addDocumentVersion = async (req, res) => {
+	const { appeal, body } = req;
+	const { documentId } = req.params;
+	const documentInfo = await addVersionToDocument(body, appeal, documentId);
 
 	const storageInfo = {
 		documents: documentInfo.documents.map((d) => {
@@ -87,7 +88,7 @@ const addDocumentVersion = async ({ params, body }, response) => {
 		})
 	};
 
-	response.send(storageInfo);
+	res.send(storageInfo);
 };
 
 export { getDocumentLocations, getDocument, getDocuments, addDocuments, addDocumentVersion };
