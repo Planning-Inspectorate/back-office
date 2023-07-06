@@ -17,31 +17,15 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 };
 
 /**
- * @param {string} machineAction
- * @returns {RegExp}
- */
-const expectedErrorMessage = (machineAction) => {
-	const transitionFrom = {
-		check_success: 'not_user_checked',
-		check_fail: 'failed_virus_check',
-		uploading: 'awaiting_virus_check'
-	}[machineAction];
-
-	return new RegExp(`Could not transition '${transitionFrom}' using '${machineAction}'.`);
-};
-
-/**
  *
  * @param {Error} error
- * @param {string} machineAction
  * @returns {boolean}
  */
-const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error, machineAction) => {
+const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error) => {
 	return (
 		error instanceof HTTPError &&
 		error.code === 'ERR_NON_2XX_3XX_RESPONSE' &&
-		error.response.statusCode === 409 &&
-		JSON.parse(error.response.body)?.errors?.application.match(expectedErrorMessage(machineAction))
+		error.response.statusCode === 409
 	);
 };
 
@@ -54,7 +38,7 @@ export const sendDocumentStateAction = async (documentGuid, machineAction, log) 
 	try {
 		await sendRequestToBackOffice(documentGuid, machineAction);
 	} catch (error) {
-		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error, machineAction)) {
+		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error)) {
 			log.info(`Document status already updated using the state machine trigger ${machineAction}`);
 		} else {
 			log.error(error);
