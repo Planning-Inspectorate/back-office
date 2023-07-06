@@ -29,11 +29,12 @@ export const getFilterViewModel = (filters) => {
 
 	return [
 		buildStatus('Awaiting review', 'AWAITING_REVIEW', filtersArray),
-		buildStatus('Referred', 'REFERRED', filtersArray),
-		buildStatus('Invalid', 'INVALID', filtersArray),
 		buildStatus('Valid', 'VALID', filtersArray),
+		buildStatus('Draft', 'DRAFT', filtersArray),
 		buildStatus('Published', 'PUBLISHED', filtersArray),
+		buildStatus('Referred', 'REFERRED', filtersArray),
 		buildStatus('Withdrawn', 'WITHDRAWN', filtersArray),
+		buildStatus('Invalid', 'INVALID', filtersArray),
 		buildStatus('Archived', 'ARCHIVED', filtersArray),
 		buildStatus('Under 18', 'UNDER_18', filtersArray)
 	];
