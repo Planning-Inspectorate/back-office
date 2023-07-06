@@ -25,6 +25,7 @@ const householdAppeal = {
 	appellant: {
 		agentName: 'Mr Agent',
 		company: 'Lee Thornton Ltd',
+		email: 'l.thornton@example.com',
 		name: 'Lee Thornton'
 	},
 	startedAt: new Date(2022, 4, 18),

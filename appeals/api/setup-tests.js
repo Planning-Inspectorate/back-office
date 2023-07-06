@@ -369,6 +369,7 @@ jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 
 const mockGotGet = jest.fn();
 const mockGotPost = jest.fn();
+const mockSendEmail = jest.fn();
 
 jest.unstable_mockModule('jsonwebtoken', () => ({
 	default: {
@@ -381,5 +382,11 @@ jest.unstable_mockModule('got', () => ({
 	default: {
 		get: mockGotGet,
 		post: mockGotPost
+	}
+}));
+
+jest.unstable_mockModule('notifications-node-client', () => ({
+	NotifyClient: class {
+		sendEmail = mockSendEmail;
 	}
 }));

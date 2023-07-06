@@ -1,24 +1,25 @@
+/** @typedef {import('@pins/appeals.api').Schema} Schema */
+
 declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
 			validationOutcome: ValidationOutcome;
+			notifyClient: NotifyClient;
 		}
 	}
 }
 
-interface TimetableDeadline {
-	daysFromStartDate: number;
+interface NotifyClient {
+	sendEmail: (
+		template: NotifyTemplate,
+		recipientEmail: string,
+		personalisation: { [key: string]: string }
+	) => void;
 }
 
-interface TimetableConfig {
-	timetable: {
-		[key: string]: {
-			finalCommentReviewDate?: TimetableDeadline;
-			lpaQuestionnaireDueDate: TimetableDeadline;
-			statementReviewDate?: TimetableDeadline;
-		};
-	};
+interface NotifyTemplate {
+	id: string;
 }
 
 interface TimetableDeadlineDate {
@@ -45,7 +46,7 @@ interface AppealTimetable {
 }
 
 interface RepositoryGetAllResultItem {
-	address?: import('@pins/appeals.api').Schema.Address | null;
+	address?: Schema.Address | null;
 	appealStatus: { status: string; subStateMachineName: string | null }[];
 	appealType: { shorthand: string; type: item } | null;
 	createdAt: Date;
@@ -55,19 +56,19 @@ interface RepositoryGetAllResultItem {
 }
 
 interface RepositoryGetByIdResultItem {
-	address?: import('@pins/appeals.api').Schema.Address | null;
+	address?: Schema.Address | null;
 	appealStatus: { status: string; subStateMachineName: string | null }[];
-	appealTimetable: import('@pins/appeals.api').Schema.AppealTimetable | null;
+	appealTimetable: Schema.AppealTimetable | null;
 	appealType: { shorthand: string; type: string } | null;
-	appellant: import('@pins/appeals.api').Schema.Appellant | null;
-	appellantCase?: import('@pins/appeals.api').Schema.AppellantCase | null;
+	appellant: Schema.Appellant | null;
+	appellantCase?: Schema.AppellantCase | null;
 	createdAt: Date;
 	id: number;
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
 	localPlanningDepartment: string;
-	lpaQuestionnaire: import('@pins/appeals.api').Schema.LPAQuestionnaire | null;
+	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
 	otherAppeals: Appeal[];
 	planningApplicationReference: string;
 	reference: string;
@@ -284,12 +285,13 @@ export {
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
+	NotifyClient,
+	NotifyTemplate,
 	NotValidReasons,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleLPAQuestionnaireResponse,
-	TimetableConfig,
 	TimetableDeadlineDate
 };

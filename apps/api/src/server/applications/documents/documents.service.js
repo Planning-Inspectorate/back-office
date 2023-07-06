@@ -4,20 +4,13 @@ import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
 import { buildNsipDocumentPayload } from '../application/documents/document.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
-import { nextStatusInDocumentStateMachine } from '../application/application.service.js';
 
 /**
  * @param {string} guid
- * @param {string} newStatus
+ * @param {string} status
  */
-export const updateStatus = async (guid, newStatus) => {
+export const updateStatus = async (guid, status) => {
 	const document = await documentRepository.getByDocumentGUID(guid);
-
-	const currentDocumentStatus = document?.documentVersion[0]?.publishedStatus;
-
-	/** @type {string} */
-	// @ts-ignore
-	const status = nextStatusInDocumentStateMachine(currentDocumentStatus, newStatus);
 
 	const updatedDocument = await documentVersionRepository.updateDocumentStatus({
 		guid,

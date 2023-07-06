@@ -1924,7 +1924,7 @@
 							"properties": {
 								"machineAction": {
 									"type": "string",
-									"example": "uploading"
+									"example": "awaiting_virus_check"
 								}
 							}
 						}

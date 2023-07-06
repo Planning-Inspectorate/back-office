@@ -23,18 +23,15 @@ const generateHttpError = (body, statusCode) => {
 	return { json: jest.fn().mockRejectedValue(error) };
 };
 
-const backOfficeFailedToMarkAsUploadedError = generateHttpError(
-	'{"errors":{"application":"Could not transition \'awaiting_virus_check\' using \'uploading\'."}}',
-	409
-);
+const backOfficeFailedToMarkAsUploadedError = generateHttpError('{}', 409);
 
 const backOfficeFailedToMarkAsPassedAVError = generateHttpError(
-	'{"errors":{"application":"Could not transition \'not_user_checked\' using \'check_success\'."}}',
+	'{"errors":{"application":"Could not transition \'not_user_checked\' using \'not_user_checked\'."}}',
 	409
 );
 
 const backOfficeFailedToMarkAsFailedAVError = generateHttpError(
-	'{"errors":{"application":"Could not transition \'failed_virus_check\' using \'check_fail\'."}}',
+	'{"errors":{"application":"Could not transition \'failed_virus_check\' using \'failed_virus_check\'."}}',
 	409
 );
 
@@ -74,12 +71,12 @@ describe('document passes AV checks', () => {
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			1,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-			{ json: { machineAction: 'uploading' } }
+			{ json: { machineAction: 'awaiting_virus_check' } }
 		);
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			2,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-			{ json: { machineAction: 'check_success' } }
+			{ json: { machineAction: 'not_user_checked' } }
 		);
 		expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 	});
@@ -102,12 +99,12 @@ describe('document passes AV checks', () => {
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'uploading' } }
+				{ json: { machineAction: 'awaiting_virus_check' } }
 			);
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'check_success' } }
+				{ json: { machineAction: 'not_user_checked' } }
 			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
@@ -131,12 +128,12 @@ describe('document passes AV checks', () => {
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				1,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'uploading' } }
+				{ json: { machineAction: 'awaiting_virus_check' } }
 			);
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'check_success' } }
+				{ json: { machineAction: 'not_user_checked' } }
 			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
@@ -161,12 +158,12 @@ describe('document fails AV checks', () => {
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			1,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-			{ json: { machineAction: 'uploading' } }
+			{ json: { machineAction: 'awaiting_virus_check' } }
 		);
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			2,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-			{ json: { machineAction: 'check_fail' } }
+			{ json: { machineAction: 'failed_virus_check' } }
 		);
 		expect(mockGotDelete).toHaveBeenCalledTimes(1);
 		expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
@@ -197,14 +194,14 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
 					json: {
-						machineAction: 'uploading'
+						machineAction: 'awaiting_virus_check'
 					}
 				}
 			);
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'check_fail' } }
+				{ json: { machineAction: 'failed_virus_check' } }
 			);
 			expect(mockGotDelete).toHaveBeenCalledTimes(1);
 			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
@@ -234,14 +231,14 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
 					json: {
-						machineAction: 'uploading'
+						machineAction: 'awaiting_virus_check'
 					}
 				}
 			);
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'check_fail' } }
+				{ json: { machineAction: 'failed_virus_check' } }
 			);
 			expect(mockGotDelete).toHaveBeenCalledTimes(1);
 			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
@@ -273,14 +270,14 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{
 					json: {
-						machineAction: 'uploading'
+						machineAction: 'awaiting_virus_check'
 					}
 				}
 			);
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'check_fail' } }
+				{ json: { machineAction: 'failed_virus_check' } }
 			);
 			expect(mockGotDelete).toHaveBeenCalledTimes(1);
 			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {

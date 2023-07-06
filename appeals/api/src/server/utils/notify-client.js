@@ -1,0 +1,50 @@
+import { NotifyClient as GovNotify } from 'notifications-node-client';
+import config from '../config/config.js';
+import logger from './logger.js';
+import {
+	ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL,
+	ERROR_GOV_NOTIFY_API_KEY_NOT_SET
+} from '../endpoints/constants.js';
+
+/** @typedef {import('@pins/appeals.api').Appeals.NotifyTemplate} NotifyTemplate */
+
+class NotifyClient {
+	/** @type {any} */
+	govNotify = null;
+
+	constructor() {
+		this.init();
+	}
+
+	init() {
+		if (config.govNotify.api.key) {
+			this.govNotify = new GovNotify(config.govNotify.api.key);
+			return;
+		}
+
+		logger.error(ERROR_GOV_NOTIFY_API_KEY_NOT_SET);
+	}
+
+	/**
+	 * @param {NotifyTemplate} template
+	 * @param {string} recipientEmail
+	 * @param {{[key: string]: string}} [personalisation]
+	 */
+	sendEmail(template, recipientEmail, personalisation) {
+		try {
+			if (this.govNotify) {
+				return this.govNotify.sendEmail(template.id, recipientEmail, {
+					emailReplyToId: null,
+					personalisation,
+					reference: null
+				});
+			}
+
+			logger.error(ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL);
+		} catch (error) {
+			logger.error(error);
+		}
+	}
+}
+
+export default NotifyClient;

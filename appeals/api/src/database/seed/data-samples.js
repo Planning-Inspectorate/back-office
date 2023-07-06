@@ -6,6 +6,7 @@ import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	APPEAL_TYPE_SHORTCODE_HAS
 } from '../../server/endpoints/constants.js';
+import config from '../../../src/server/config/config.js';
 
 /**
  * @typedef {import('appeals/api/src/database/schema').Appellant} Appellant
@@ -22,52 +23,52 @@ export const appellantsList = [
 	{
 		name: 'Lee Thornton',
 		company: 'Lee Thornton Ltd',
-		email: 'lee.thornton@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Haley Eland',
 		company: null,
-		email: 'haley.eland@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Roger Simmons',
 		company: 'Roger Simmons Ltd',
-		email: 'rg@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Sophie Skinner',
 		company: null,
-		email: 'skinner@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Ryan Marshall',
 		company: 'Ryan Marshall Ltd',
-		email: 'marshall@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Fiona Burgess',
 		company: null,
-		email: 'fi.bu@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Kevin Fowler',
 		company: 'Kevin Fowler Ltd',
-		email: 'kv@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Bob Ross',
 		company: null,
-		email: 'bob@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Eva Sharma',
 		company: 'Eva Sharma Ltd',
-		email: 'eva.sharma@gmail.com'
+		email: config.govNotify.testMailbox
 	},
 	{
 		name: 'Elaine Madsen',
 		company: null,
-		email: 'ellie@gmail.com'
+		email: config.govNotify.testMailbox
 	}
 ];
 

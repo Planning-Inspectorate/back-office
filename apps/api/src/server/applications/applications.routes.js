@@ -60,7 +60,7 @@ router.patch(
 		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Machine Action',
-            schema: { machineAction: 'uploading' }
+            schema: { machineAction: 'awaiting_virus_check' }
         }
         #swagger.responses[200] = {
             description: 'Document status updated',
