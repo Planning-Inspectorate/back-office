@@ -2,7 +2,13 @@ import { format } from 'date-fns';
 import appealRepository from '../../repositories/appeal.repository.js';
 import { getPageCount } from '../../utils/database-pagination.js';
 import logger from '../../utils/logger.js';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
+import {
+	DEFAULT_DATE_FORMAT_DATABASE,
+	DEFAULT_DATE_FORMAT_DISPLAY,
+	DEFAULT_PAGE_NUMBER,
+	DEFAULT_PAGE_SIZE,
+	ERROR_FAILED_TO_SAVE_DATA
+} from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
 import {
 	calculateTimetable,
@@ -13,6 +19,7 @@ import {
 	recalculateDateIfNotBusinessDay
 } from './appeals.service.js';
 import transitionState from '../../state/transition-state.js';
+import config from '../../config/config.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -97,7 +104,7 @@ const getAppellantCaseById = (req, res) => {
  */
 const updateAppellantCaseById = async (req, res) => {
 	const {
-		appeal: { id: appealId, appealStatus, appealType },
+		appeal: { id: appealId, appealStatus, appealType, reference, appellant },
 		body,
 		body: { incompleteReasons, invalidReasons, otherNotValidReasons },
 		params: { appellantCaseId },
@@ -110,9 +117,19 @@ const updateAppellantCaseById = async (req, res) => {
 
 		if (isOutcomeValid(validationOutcome.name) && appealType) {
 			startedAt = await recalculateDateIfNotBusinessDay(
-				joinDateAndTime(format(new Date(), 'yyyy-MM-dd'))
+				joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMAT_DATABASE))
 			);
 			timetable = await calculateTimetable(appealType.shorthand, startedAt);
+
+			await req.notifyClient.sendEmail(
+				config.govNotify.template.validAppellantCase,
+				appellant.email,
+				{
+					appeal_reference: reference,
+					appeal_type: appealType.shorthand,
+					date_started: format(startedAt, DEFAULT_DATE_FORMAT_DISPLAY)
+				}
+			);
 		}
 
 		await appealRepository.updateAppellantCaseValidationOutcome({

@@ -3,6 +3,8 @@ import { jest } from '@jest/globals';
 import { addBusinessDays, format } from 'date-fns';
 import { request } from '../../../app-test.js';
 import {
+	DEFAULT_DATE_FORMAT_DATABASE,
+	DEFAULT_DATE_FORMAT_DISPLAY,
 	DEFAULT_TIMESTAMP_TIME,
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
@@ -26,12 +28,16 @@ import {
 	householdAppeal
 } from '../../../tests/data.js';
 import { joinDateAndTime } from '../appeals.service.js';
-import config from '../../config.js';
+import config from '../../../config/config.js';
+import { NotifyClient } from 'notifications-node-client';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
-const startedAt = new Date(joinDateAndTime(format(new Date(), 'yyyy-MM-dd')));
+const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMAT_DATABASE)));
+const notifyClient = new NotifyClient();
 
 describe('appellant cases routes', () => {
+	config.govNotify.api.key = 'gov-notify-api-key-123';
+
 	afterEach(() => {
 		jest.useRealTimers();
 	});
@@ -465,6 +471,19 @@ describe('appellant cases routes', () => {
 						valid: true
 					}
 				});
+				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
+					config.govNotify.template.validAppellantCase.id,
+					householdAppeal.appellant.email,
+					{
+						emailReplyToId: null,
+						personalisation: {
+							appeal_reference: householdAppeal.reference,
+							appeal_type: householdAppeal.appealType.shorthand,
+							date_started: format(new Date(), DEFAULT_DATE_FORMAT_DISPLAY)
+						},
+						reference: null
+					}
+				);
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -511,12 +530,25 @@ describe('appellant cases routes', () => {
 				);
 				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
 					data: {
-						appealId: householdAppeal.id,
+						appealId: fullPlanningAppeal.id,
 						createdAt: expect.any(Date),
 						status: STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
 						valid: true
 					}
 				});
+				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
+					config.govNotify.template.validAppellantCase.id,
+					fullPlanningAppeal.appellant.email,
+					{
+						emailReplyToId: null,
+						personalisation: {
+							appeal_reference: fullPlanningAppeal.reference,
+							appeal_type: fullPlanningAppeal.appealType.shorthand,
+							date_started: format(new Date(), DEFAULT_DATE_FORMAT_DISPLAY)
+						},
+						reference: null
+					}
+				);
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});

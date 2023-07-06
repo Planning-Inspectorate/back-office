@@ -1,11 +1,10 @@
 import { add, addBusinessDays, isAfter, isBefore, isWeekend, parseISO, sub } from 'date-fns';
 import fetch from 'node-fetch';
 import appealRepository from '../../repositories/appeal.repository.js';
-import config from '../config.js';
+import config from '../../config/config.js';
 import {
 	APPEAL_TYPE_SHORTCODE_FPA,
 	BANK_HOLIDAY_FEED_DIVISION_ENGLAND,
-	BANK_HOLIDAY_FEED_URL,
 	DEFAULT_TIMESTAMP_TIME,
 	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
 	ERROR_NOT_FOUND,
@@ -49,7 +48,7 @@ const bankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) =>
  */
 const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISION_ENGLAND) => {
 	try {
-		const bankHolidayFeed = await fetch(BANK_HOLIDAY_FEED_URL);
+		const bankHolidayFeed = await fetch(config.bankHolidayFeed.hostname);
 		const bankHolidayFeedJson = await bankHolidayFeed.json();
 
 		// @ts-ignore
