@@ -7,29 +7,31 @@ export const APPEAL_TYPE_SHORTCODE_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTCODE_HAS = 'HAS';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
-export const BANK_HOLIDAY_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
 
-export const DEFAULT_TIMESTAMP_TIME = '01:00:00.000';
+export const DEFAULT_DATE_FORMAT_DATABASE = 'yyyy-MM-dd';
+export const DEFAULT_DATE_FORMAT_DISPLAY = 'dd LLL yyyy';
 export const DEFAULT_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 30;
+export const DEFAULT_TIMESTAMP_TIME = '01:00:00.000';
 
 export const DOCUMENT_STATUS_NOT_RECEIVED = 'not_received';
 export const DOCUMENT_STATUS_RECEIVED = 'received';
 
 export const ERROR_FAILED_TO_GET_DATA = 'Failed to get data';
 export const ERROR_FAILED_TO_SAVE_DATA = 'Failed to save data';
+export const ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL = 'Failed to send notification email';
+export const ERROR_GOV_NOTIFY_API_KEY_NOT_SET = 'Gov Notify API key is not set';
 export const ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME =
 	'Incomplete reasons should only be given if the validation outcome is Incomplete';
 export const ERROR_INVALID_APPEAL_TYPE = `Appeal type must be one of ${APPEAL_TYPE_SHORTCODE_FPA}, ${APPEAL_TYPE_SHORTCODE_HAS}`;
 export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_INCOMPLETE}, ${VALIDATION_OUTCOME_INVALID}, ${VALIDATION_OUTCOME_VALID}`;
-export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of Complete, Incomplete`;
+export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_COMPLETE}, ${VALIDATION_OUTCOME_INCOMPLETE}`;
 export const ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME =
 	'Invalid reasons should only be given if the validation outcome is Invalid';
 export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
 export const ERROR_MAX_LENGTH_300_CHARACTERS = 'Must be 300 characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
-export const ERROR_MUST_BE_CORRECT_DATE_FORMAT =
-	'Must be a valid date and in the format yyyy-mm-dd';
+export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in the format ${DEFAULT_DATE_FORMAT_DATABASE}`;
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_MUST_BE_STRING = 'Must be a string';

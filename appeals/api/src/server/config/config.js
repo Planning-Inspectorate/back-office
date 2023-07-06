@@ -29,7 +29,39 @@ const { value, error } = schema.validate({
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
-	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true'
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
+	timetable: {
+		FPA: {
+			lpaQuestionnaireDueDate: {
+				daysFromStartDate: 5
+			},
+			statementReviewDate: {
+				daysFromStartDate: 25
+			},
+			finalCommentReviewDate: {
+				daysFromStartDate: 35
+			}
+		},
+		HAS: {
+			lpaQuestionnaireDueDate: {
+				daysFromStartDate: 5
+			}
+		}
+	},
+	govNotify: {
+		api: {
+			key: environment.GOV_NOTIFY_API_KEY
+		},
+		template: {
+			validAppellantCase: {
+				id: '3b4b74b4-b604-411b-9c98-5be2c6f3bdfd'
+			}
+		},
+		testMailbox: environment.TEST_MAILBOX || 'appellant@example.com'
+	},
+	bankHolidayFeed: {
+		hostname: 'https://www.gov.uk/bank-holidays.json'
+	}
 });
 
 if (error) {

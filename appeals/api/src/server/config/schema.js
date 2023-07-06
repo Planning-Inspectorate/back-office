@@ -20,5 +20,37 @@ export default joi.object({
 	}),
 	cwd: joi.string(),
 	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-	serviceBusEnabled: joi.boolean().optional()
+	serviceBusEnabled: joi.boolean().optional(),
+	timetable: joi.object({
+		FPA: joi.object({
+			lpaQuestionnaireDueDate: joi.object({
+				daysFromStartDate: joi.number()
+			}),
+			statementReviewDate: joi.object({
+				daysFromStartDate: joi.number()
+			}),
+			finalCommentReviewDate: joi.object({
+				daysFromStartDate: joi.number()
+			})
+		}),
+		HAS: joi.object({
+			lpaQuestionnaireDueDate: joi.object({
+				daysFromStartDate: joi.number()
+			})
+		})
+	}),
+	govNotify: joi.object({
+		api: joi.object({
+			key: joi.string()
+		}),
+		template: joi.object({
+			validAppellantCase: joi.object({
+				id: joi.string()
+			})
+		}),
+		testMailbox: joi.string()
+	}),
+	bankHolidayFeed: joi.object({
+		hostname: joi.string()
+	})
 });
