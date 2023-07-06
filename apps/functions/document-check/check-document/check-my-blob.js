@@ -9,7 +9,7 @@ import { scanStream } from './scan-stream.js';
  * @returns {string}
  */
 const mapIsInfectedToMachineAction = (isInfected) => {
-	return isInfected ? 'check_fail' : 'check_success';
+	return isInfected ? 'failed_virus_check' : 'not_user_checked';
 };
 
 /**
@@ -75,8 +75,8 @@ const deleteDocument = async (documentUri, log) => {
 export const checkMyBlob = async (log, blobUri, blobStream) => {
 	const { guid } = getBlobCaseReferenceAndGuid(blobUri);
 
-	log.info('Sending document state is uploading to back office');
-	await sendDocumentStateAction(guid, 'uploading', log);
+	log.info('Sending document state is awaiting_virus_check to back office');
+	await sendDocumentStateAction(guid, 'awaiting_virus_check', log);
 
 	log.info('Scanning document for viruses');
 

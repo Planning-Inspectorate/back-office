@@ -217,24 +217,6 @@ export const getCaseDetails = async (id, query) => {
 
 /**
  *
- * @param {string | any } status
- * @param {string} machineAction
- * @returns {import('xstate').StateValue}
- */
-export const nextStatusInDocumentStateMachine = (status, machineAction) => {
-	const nextStatus = transitionState({
-		caseType: 'document',
-		status,
-		machineAction,
-		context: {},
-		throwError: true
-	});
-
-	return nextStatus.value;
-};
-
-/**
- *
  * @param {number | any} caseId
  * @param {string} guid
  * @param {string} status

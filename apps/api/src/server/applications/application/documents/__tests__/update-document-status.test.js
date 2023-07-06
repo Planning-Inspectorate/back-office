@@ -30,8 +30,8 @@ const documentToUpdate1 = {
 };
 
 // --------------------------------------------------------------------------------------------------
-describe('Update document status when uploading', () => {
-	test('updates document status when uploading', async () => {
+describe('Update document status when awaiting_virus_check', () => {
+	test('updates document status when awaiting_virus_check', async () => {
 		// GIVEN
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'D1234',
@@ -51,7 +51,7 @@ describe('Update document status when uploading', () => {
 
 		// WHEN
 		const response = await request.patch('/applications/documents/D1234/status').send({
-			machineAction: 'uploading'
+			machineAction: 'awaiting_virus_check'
 		});
 
 		// THEN
@@ -72,55 +72,6 @@ describe('Update document status when uploading', () => {
 						case: true
 					}
 				}
-			}
-		});
-	});
-
-	test('throws error if incorrect machine action', async () => {
-		// GIVEN
-
-		// WHEN
-		const response = await request.patch('/applications/documents/D1234/status').send({
-			machineAction: 'wrong-action'
-		});
-
-		// THEN
-		expect(response.status).toEqual(409);
-		expect(response.body).toEqual({
-			errors: {
-				application: "Could not transition 'awaiting_upload' using 'wrong-action'."
-			}
-		});
-	});
-
-	test("throws error if incorrect machine action given the document's current state", async () => {
-		// GIVEN
-
-		// WHEN
-		const response = await request.patch('/applications/documents/D1234/status').send({
-			machineAction: 'check_fail'
-		});
-
-		// THEN
-		expect(response.status).toEqual(409);
-		expect(response.body).toEqual({
-			errors: {
-				application: "Could not transition 'awaiting_upload' using 'check_fail'."
-			}
-		});
-	});
-
-	test('throws error if no machine action provided', async () => {
-		// GIVEN
-
-		// WHEN
-		const response = await request.patch('/applications/documents/D1234/status').send();
-
-		// THEN
-		expect(response.status).toEqual(400);
-		expect(response.body).toEqual({
-			errors: {
-				machineAction: 'Please provide a value for machine action'
 			}
 		});
 	});
