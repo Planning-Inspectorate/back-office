@@ -14,9 +14,9 @@ import {
 	getRandomLocalPlanningDepartment
 } from './util.js';
 
-/** @typedef {Omit<import('@pins/api').Schema.AppealStatus, 'appealId'>} AppealStatusData */
-/** @typedef {import('@pins/api').Schema.Appeal} Appeal */
-/** @typedef {import('@pins/api').Schema.AppealTypeCode} AppealTypeCode */
+/** @typedef {Omit<import('@pins/appeals.api').Schema.AppealStatus, 'appealId'>} AppealStatusData */
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.AppealTypeCode} AppealTypeCode */
 /** @typedef {Omit<Appeal, 'appealType' | 'appealTypeId' | 'appealStatus'> & { appealTypeCode: AppealTypeCode; appealStatus: AppealStatusData[] }} AppealData */
 
 /**

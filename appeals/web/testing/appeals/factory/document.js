@@ -1,7 +1,7 @@
 import { fake } from '@pins/platform';
 import { snakeCase } from 'lodash-es';
 
-/** @typedef {import('@pins/api').Schema.AppealDocument} AppealDocument */
+/** @typedef {import('@pins/appeals.api').Schema.AppealDocument} AppealDocument */
 
 /**
  * @param {Partial<AppealDocument>} [options={}]
