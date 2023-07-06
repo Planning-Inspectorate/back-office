@@ -1,17 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Representation attachment-upload page GET /applications-service/case/1/relevant-representations/attachment-upload should render the page and have the lookup fields 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-l\\">Attachment upload</span>
-    <div class=\\"govuk-grid-row\\">
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p><span class=\\"govuk-caption-l\\">Add a representation</span>
+    <div     class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"
             data-case-id=\\"1\\" data-multiple=\\"true\\" data-folder-id=\\"10\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
                 <div class=\\"top-errors-hook\\"></div>
-                <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Planning Inspectorate Applications</h1>
+                <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Upload an attachment</h1>
                 <form class=\\"govuk-grid-column-two-thirds\\">
                     <div class=\\"pins-file-upload--container\\">
                         <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
                             <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+
 .</span><span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                             <div                             class=\\"middle-errors-hook\\"></div>
                     </div>
@@ -34,8 +36,8 @@ exports[`Representation attachment-upload page GET /applications-service/case/1/
                 <div class=\\"progress-hook\\"></div>
         </div>
         </form>
-    </div><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Skip this step</a>
-    </div>
-    </div>
+        </div><a href=\\"/applications-service/case/1/relevant-representations/1/representation-details\\"> Skip this step</a>
+        </div>
+        </div>
 </main>"
 `;
