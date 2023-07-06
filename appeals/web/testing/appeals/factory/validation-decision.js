@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { fake } from '@pins/platform';
 
-/** @typedef {import('@pins/api').Schema.ValidValidationDecision} ValidValidationDecision */
-/** @typedef {import('@pins/api').Schema.InvalidValidationDecision} InvalidValidationDecision */
-/** @typedef {import('@pins/api').Schema.IncompleteValidationDecision} IncompleteValidationDecision */
+/** @typedef {import('@pins/appeals.api').Schema.ValidValidationDecision} ValidValidationDecision */
+/** @typedef {import('@pins/appeals.api').Schema.InvalidValidationDecision} InvalidValidationDecision */
+/** @typedef {import('@pins/appeals.api').Schema.IncompleteValidationDecision} IncompleteValidationDecision */
 
 /**
  * @param {Partial<ValidValidationDecision>} [options={}]

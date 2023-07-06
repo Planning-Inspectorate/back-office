@@ -5,7 +5,9 @@
 
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
 		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
+		 data-blob-storage-host="{{ params.blobStorageHost }}" data-blob-storage-container="{{ params.blobStorageContainer}}"
 		 {% if params.documentId %} data-document-id="{{ params.documentId }}"{% endif %}
+		 {% if params.useBlobEmulator %} data-use-blob-emulator="{{ params.useBlobEmulator }}"{% endif %}
 		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
 		<div class="top-errors-hook"></div>
 

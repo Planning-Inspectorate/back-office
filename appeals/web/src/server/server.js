@@ -17,7 +17,6 @@ app.set('etag', 'weak');
 // Express http/s ports
 if (config.serverProtocol === 'http') {
 	app.set('http-port', config.serverPort);
-
 	app.listen(app.get('http-port'), () => {
 		pino.info(
 			`Server is running at http://localhost:${app.get('http-port')} in ${app.get('env')} mode`

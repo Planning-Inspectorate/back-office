@@ -6,12 +6,14 @@ import { initAll as initGovUKScripts } from 'govuk-frontend';
 import initExcerpt from './components/excerpts/excerpt.js';
 import initFilesListModule from './components/files-list/files-list.module.js';
 import initSelectAllCheckbox from './components/select-all-checkbox/select-all-checkbox.js';
+import initFileUploaderModule from './components/file-uploader/file-uploader.module.js';
 
 const initAll = () => {
 	initGovUKScripts();
 	initExcerpt();
 	initFilesListModule();
 	initSelectAllCheckbox();
+	initFileUploaderModule();
 };
 
 initAll();

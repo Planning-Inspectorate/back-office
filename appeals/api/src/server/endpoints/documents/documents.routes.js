@@ -1,6 +1,14 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { getDocuments } from './documents.controller.js';
+import {
+	getDocumentLocations,
+	getDocument,
+	getDocuments,
+	addDocuments,
+	addDocumentVersion
+} from './documents.controller.js';
+import { checkAppealExistsAndAddToRequest } from '../appeals/appeals.service.js';
+import { getAppealValidator } from '../appeals/appeals.validators.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 
@@ -19,7 +27,93 @@ router.get(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
 	asyncHandler(getDocuments)
+);
+
+router.get(
+	'/:appealId/document-locations',
+	/*
+		#swagger.tags = ['Appeal Documents']
+		#swagger.path = '/appeals/{appealId}/document-locations'
+		#swagger.description = Returns the contents of the appeal folders
+		#swagger.responses[200] = {
+			description: 'Gets all the documents for a specific appeal by id',
+			schema: { $ref: '#/definitions/Folder' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	asyncHandler(getDocumentLocations)
+);
+
+router.get(
+	'/:appealId/documents/:documentId',
+	/*
+		#swagger.tags = ['Appeal Documents']
+		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
+		#swagger.description = Returns the contents of the appeal folders
+		#swagger.responses[200] = {
+			description: 'Gets all the documents for a specific appeal by id',
+			schema: { $ref: '#/definitions/DocumentDetails' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	asyncHandler(getDocument)
+);
+
+router.post(
+	'/:appealId/documents',
+	/*
+		#swagger.tags = ['Appeal Documents']
+		#swagger.path = '/appeals/{appealId}/documents'
+		#swagger.description = Upload documents to a case
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Appeal documents to post',
+			schema: { $ref: '#/definitions/DocumentDetails' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Gets all the documents for a specific appeal by id',
+			schema: { $ref: '#/definitions/DocumentDetails' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	asyncHandler(addDocuments)
+);
+
+router.post(
+	'/:appealId/documents/:documentId',
+	/*
+		#swagger.tags = ['Appeal Documents']
+		#swagger.path = '/appeals/{appealId}/documents/:documentId'
+		#swagger.description = Add a new version of a document
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Appeal documents to post',
+			schema: { $ref: '#/definitions/DocumentDetails' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Gets all the documents for a specific appeal by id',
+			schema: { $ref: '#/definitions/DocumentDetails' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	asyncHandler(addDocumentVersion)
 );
 
 export { router as documentsRoutes };

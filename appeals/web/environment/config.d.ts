@@ -9,6 +9,9 @@ export interface EnvironmentConfig {
 	// redirect path for MSAL auth, defaults to /auth/redirect
 	authRedirectPath: string;
 	blobStorageUrl: string;
+	blobStorageDefaultContainer: string;
+	blobEmulatorSasUrl: string;
+	useBlobEmulator: boolean;
 	bundleAnalyzer: boolean;
 	buildDir: string;
 	cwd: string;

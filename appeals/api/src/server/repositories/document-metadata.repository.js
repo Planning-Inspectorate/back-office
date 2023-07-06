@@ -1,169 +1,100 @@
 import { databaseConnector } from '../utils/database-connector.js';
+import {
+	mapDocumentNameForStorageUrl,
+	mapBlobPath
+} from '../endpoints/documents/documents.mapper.js';
+
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 
 /**
-
  * @param {any} metadata
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
+ * @param {any} context
+ * @returns {Promise<DocumentVersion | null>}
  */
-
-export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
-	return databaseConnector.documentVersion.upsert({
-		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
-
-		where: { documentGuid_version: { documentGuid, version } },
-
-		update: { ...metadata, version },
-
-		include: {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	});
-};
-
-/**
-
- * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-
-export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
-	return databaseConnector.documentVersion.update({
-		where: { documentGuid_version: { documentGuid: guid, version } },
-		data: { publishedStatus: status }
-	});
-};
-
-/**
- *  Deletes a document from the database based on its `guid`
- *
- * @async
- * @param {string} documentGuid
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-export const deleteDocument = (documentGuid) => {
-	return databaseConnector.document.delete({
-		where: {
-			guid: documentGuid
-		}
-	});
-};
-
-/**
-
- * Get a document metadata by documentGuid
- *
- * @param {string} documentGuid
- * @param {number} version
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion |null>}
- */
-
-export const getById = (documentGuid, version = 1) => {
-	return databaseConnector.documentVersion.findUnique({
-		where: { documentGuid_version: { documentGuid, version } },
-
-		include: {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	});
-};
-
-/**
-
- * Get all document metadata
-
- *
-
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion[] |null>}
- */
-
-export const getAll = () => {
-	return databaseConnector.documentVersion.findMany();
-};
-
-/**
- * Get all document metadata
- *
- * @param {string} guid
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion[] |null>}
- */
-
-export const getAllByDocumentGuid = (guid) => {
-	return databaseConnector.documentVersion.findMany({
-		where: { documentGuid: guid }
-	});
-};
-
-/**
-
- *
-
- * @param {string} documentGuid
- * @param {import('@pins/appeals.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('#db-client').PrismaPromise<import('@pins/appeals.api').Schema.DocumentVersion>}
- */
-
-export const update = (documentGuid, { version = 1, ...documentDetails }) => {
-	return databaseConnector.documentVersion.update({
-		where: { documentGuid_version: { documentGuid, version } },
-
-		data: documentDetails
-	});
-};
-
-// update DocumentVersion
-// join Document on document.latestVersionId =
-
-/**
- * TODO: Might be worth having an identifier for DocumentVersion that isn't a composite of the documentId and versionNo.
- * It would make it easier to work with these items in bulk using Prisma.
- *
- * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @param {import('@pins/appeals.api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('apps/api/src/database/schema.js').DocumentVersionWithDocument[]>}
- */
-export const updateAll = async (documentVersionIds, documentDetails) => {
-	const results = [];
-
-	for (const { documentGuid, version } of documentVersionIds) {
-		results.push(
-			await databaseConnector.documentVersion.update({
-				where: { documentGuid_version: { documentGuid, version } },
-				data: documentDetails,
-				include: {
-					Document: {
-						include: {
-							case: true
-						}
-					}
-				}
-			})
-		);
-	}
-
+export const addDocument = async (metadata, context) => {
 	// @ts-ignore
-	return results;
+	const transaction = await databaseConnector.$transaction(async (tx) => {
+		const fileName = mapDocumentNameForStorageUrl(metadata.originalFilename);
+		const document = await tx.document.create({
+			data: {
+				caseId: context.caseId,
+				folderId: context.folderId,
+				name: fileName
+			}
+		});
+
+		const { guid, name } = document;
+		const newVersionId = 1;
+
+		metadata.fileName = name;
+		metadata.blobStoragePath = mapBlobPath(guid, context.reference, name, newVersionId);
+
+		const documentVersion = await tx.documentVersion.upsert({
+			create: { ...metadata, version: newVersionId, Document: { connect: { guid } } },
+			where: { documentGuid_version: { documentGuid: guid, version: newVersionId } },
+			update: {},
+			include: {
+				Document: {
+					include: {
+						folder: {}
+					}
+				}
+			}
+		});
+
+		await tx.document.update({
+			data: { latestVersionId: documentVersion.version },
+			where: { guid }
+		});
+
+		return documentVersion;
+	});
+
+	return transaction;
+};
+
+/**
+ * @param {any} metadata
+ * @returns {Promise<DocumentVersion | null>}
+ */
+export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
+	// @ts-ignore
+	const transaction = await databaseConnector.$transaction(async (tx) => {
+		const document = await tx.document.findFirst({
+			include: { case: true },
+			where: { guid: documentGuid }
+		});
+
+		if (document == null) {
+			throw new Error('Document not found');
+		}
+
+		const { reference } = document.case;
+		const { name, latestVersionId } = document;
+
+		// @ts-ignore
+		const newVersionId = latestVersionId + 1;
+
+		metadata.fileName = name;
+		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
+
+		await tx.documentVersion.upsert({
+			create: { ...metadata, version: newVersionId, Document: { connect: { guid: documentGuid } } },
+			where: { documentGuid_version: { documentGuid, version: newVersionId } },
+			update: {}
+		});
+
+		await tx.document.update({
+			data: { latestVersionId: newVersionId },
+			where: { guid: documentGuid }
+		});
+
+		return await tx.documentVersion.findFirst({
+			include: { Document: true },
+			where: { documentGuid, version: newVersionId }
+		});
+	});
+
+	return transaction;
 };
