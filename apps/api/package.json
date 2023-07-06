@@ -80,5 +80,13 @@
     "rimraf": "^3.0.2",
     "supertest": "6.2.3",
     "swagger-autogen": "^2.21.4"
+  },
+  "imports": {
+    "#app-test": "./src/server/app-test.js",
+    "#config/*": "./src/server/config/*",
+    "#infrastructure/*": "./src/server/infrastructure/*",
+    "#middleware/*": "./src/server/middleware/*",
+    "#repositories/*": "./src/server/repositories/*",
+    "#utils/*": "./src/server/utils/*"
   }
 }
