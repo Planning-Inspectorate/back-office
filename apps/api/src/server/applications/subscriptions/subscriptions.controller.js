@@ -1,9 +1,9 @@
-import * as subscriptionRepository from '../../repositories/subscription.respository.js';
-import { eventClient } from '../../infrastructure/event-client.js';
+import * as subscriptionRepository from '#repositories/subscription.respository.js';
+import { eventClient } from '#infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
-import { NSIP_SUBSCRIPTION } from '../../infrastructure/topics.js';
+import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import { buildSubscriptionPayloads, subscriptionToResponse } from './subscriptions.js';
-import logger from '../../utils/logger.js';
+import logger from '#utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
 
 /**

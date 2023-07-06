@@ -52,7 +52,7 @@ const representedValidations = () => {
 			body(`${el}.email`).optional().isEmail().withMessage('is not a valid email'),
 			body(`${el}.phoneNumber`)
 				.optional()
-				.isMobilePhone()
+				.matches(/^\+?(?:\d\s?){10,12}$/)
 				.withMessage('is not a valid phone number'),
 			body(`${el}.type`)
 				.optional()
