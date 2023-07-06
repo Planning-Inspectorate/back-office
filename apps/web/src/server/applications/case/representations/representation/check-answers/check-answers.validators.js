@@ -17,9 +17,10 @@ export const checkAnswersValidation = [
 			.withMessage('Enter Under 18')
 	),
 	createValidator(
-		oneOf([body('represented.type').notEmpty(), body('representative.type').notEmpty()], {
-			message: 'Enter on behalf of'
-		})
+		oneOf(
+			[body('represented.type').notEmpty(), body('representative.type').notEmpty()],
+			'Enter on behalf of'
+		)
 	),
 	createValidator(
 		body('representative.firstName').notEmpty().withMessage('Enter agent contact details')
