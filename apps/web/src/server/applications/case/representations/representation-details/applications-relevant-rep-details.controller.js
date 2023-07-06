@@ -7,6 +7,7 @@ import {
 	getRelevantRepFolder,
 	getRepresentationDetails
 } from './applications-relevant-rep-details.service.js';
+import { getWorkflowValues } from './utils/get-workflow-values.js';
 
 const view = 'applications/representations/representation-details/representation-details.njk';
 
@@ -32,6 +33,7 @@ export async function relevantRepDetails(req, res) {
 		representationDetails: representationDetailsViewModel,
 		changeLinks: getRepModeLinks(locals.representation.pageURLs, repModeLinkOptions.change),
 		selectedOptionsText: getSelectedOptionsText(locals.representation),
-		relevantRepDocumentFolder
+		relevantRepDocumentFolder,
+		workflow: getWorkflowValues(locals.representation)
 	});
 }
