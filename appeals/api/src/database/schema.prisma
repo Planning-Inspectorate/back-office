@@ -41,8 +41,8 @@ model Appeal {
   linkedAppeals                Appeal[]              @relation("LinkedAppeals")
   otherAppeal                  Appeal?               @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   otherAppeals                 Appeal[]              @relation("OtherAppeals")
-  Folder                       Folder[]
-  Document                     Document[]
+  folders                      Folder[]
+  documents                    Document[]
 }
 
 /// AppealType model
