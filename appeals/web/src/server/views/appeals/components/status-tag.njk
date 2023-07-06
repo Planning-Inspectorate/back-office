@@ -1,4 +1,4 @@
-{%- macro statusTag(status) -%}
+{%- macro statusTag(status, classes = '') -%}
 	{%- set statusTagColor = 'grey' -%}
 	{%- set statusLabel = status -%}
 	{#
@@ -26,5 +26,5 @@
 		{%- case 'incomplete' -%}
 			{%- set statusTagColor = 'yellow' -%}
 	{%- endswitch -%}
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}} single-line">{{ statusLabel | replace("_", " ") }}</strong>
+	<strong class="govuk-tag govuk-tag--{{ statusTagColor }} single-line{{ ' ' + classes if classes }}">{{ statusLabel | replace("_", " ") }}</strong>
 {%- endmacro -%}
