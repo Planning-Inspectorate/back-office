@@ -16,12 +16,10 @@ const extractSwaggerInfo = (swaggerDoc) => {
 			}, {});
 
 			const parameterSchemas = parameters.map((param) => {
-				if (param.hasOwnProperty('$ref')) {
-					const ref = param.$ref;
-					const [_, paramName] = ref.split('#/parameters/');
-					return resolveSchemaRefs(swaggerDoc, swaggerDoc.parameters[paramName].schema);
-				} else {
+				if (param.hasOwnProperty('schema') && param.schema.hasOwnProperty('$ref')) {
 					return resolveSchemaRefs(swaggerDoc, param.schema);
+				} else {
+					return param;
 				}
 			});
 
