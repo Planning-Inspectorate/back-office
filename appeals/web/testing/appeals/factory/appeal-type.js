@@ -1,6 +1,6 @@
 import { fake } from '@pins/platform';
 
-/** @typedef {import('@pins/api').Schema.AppealType} AppealType */
+/** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
 
 /**
  * @param {Partial<AppealType>} [options={}]

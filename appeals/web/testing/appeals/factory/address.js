@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { fake } from '@pins/platform';
 
-/** @typedef {import('@pins/api').Schema.Address} AddressData */
+/** @typedef {import('@pins/appeals.api').Schema.Address} AddressData */
 
 /**
  * @param {Partial<AddressData>} options
