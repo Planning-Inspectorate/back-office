@@ -14,16 +14,18 @@
 
 {% block pageContent %}
 	<div class="govuk-grid-row">
-		<h2 class="govuk-heading-m">Project updates</h2>
+		<div class="govuk-grid-column-full">
+			<h2 class="govuk-heading-m">Project updates</h2>
 
-		<form method="GET">
-			<input type="hidden" name="page" value="{{ queryData.page }}">
-			<input type="hidden" name="pageSize" value="{{ queryData.pageSize }}">
-			<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
+			<form method="GET">
+				<input type="hidden" name="page" value="{{ queryData.page }}">
+				<input type="hidden" name="pageSize" value="{{ queryData.pageSize }}">
+				<input type="hidden" name="sortBy" value="{{ queryData.sortBy }}">
 
-			{{ uiPageSizeInformation(pagination) }}
-			{{ projectUpdatesTable(tableHeaders, projectUpdatesRows) }}
-			{{ uiPaginationLinks(pagination) }}
-		</form>
+				{{ uiPageSizeInformation(pagination) }}
+				{{ projectUpdatesTable(tableHeaders, projectUpdatesRows) }}
+				{{ uiPaginationLinks(pagination) }}
+			</form>
+		</div>
 	</div>
 {% endblock %}
