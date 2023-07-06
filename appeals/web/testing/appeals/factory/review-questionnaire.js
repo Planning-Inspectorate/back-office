@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { fake } from '@pins/platform';
 
-/** @typedef {import('@pins/api').Schema.ReviewQuestionnaire} ReviewQuestionnaire */
+/** @typedef {import('@pins/appeals.api').Schema.ReviewQuestionnaire} ReviewQuestionnaire */
 
 /**
  * @param {Partial<Omit<ReviewQuestionnaire, 'complete'>>} [options={}]

@@ -3,7 +3,7 @@
 // import sub from 'date-fns/sub/index.js';
 // import { random } from 'lodash-es';
 
-// /** @typedef {import('@pins/api').Schema.LPAQuestionnaire} LPAQuestionnaireData */
+// /** @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaire} LPAQuestionnaireData */
 
 // /**
 //  * @param {Partial<LPAQuestionnaireData>} [options={}]
