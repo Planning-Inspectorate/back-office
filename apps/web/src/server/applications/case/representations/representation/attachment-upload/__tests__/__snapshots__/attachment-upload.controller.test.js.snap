@@ -13,7 +13,6 @@ exports[`Representation attachment-upload page GET /applications-service/case/1/
                     <div class=\\"pins-file-upload--container\\">
                         <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
                             <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
-
 .</span><span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                             <div                             class=\\"middle-errors-hook\\"></div>
                     </div>
