@@ -1,0 +1,91 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% from "../components/representation-status-tag.njk" import representationStatusTag %}
+
+{%
+  set workflowRows = [
+    {
+      actions: {
+        items: [
+          {
+            href: 'representation-details/change-redaction',
+            text: "Change",
+            visuallyHiddenText: "Change redacted"
+          }
+        ]
+      },
+      key: {
+        text: "Redaction"
+      },
+      value: {
+        text: workflow.redacted
+      }
+    },
+    {
+      actions: {
+        items: [
+          {
+            href: 'representation-details/change-status',
+            text: "Change",
+            visuallyHiddenText: "Change status"
+          }
+        ]
+      },
+      key: {
+        text: "Status"
+      },
+      value: {
+        html: representationStatusTag(representation.status)
+      }
+    }
+  ]
+%}
+
+{% if workflow.sectionsToDisplay.notes and workflow.notes %}
+  {% set workflowRows = (workflowRows.push(
+    {
+      key: {
+        text: "Notes"
+      },
+      value: {
+        text: workflow.notes
+      }
+    }
+  ), workflowRows) %}
+{% endif %}
+
+{% if workflow.sectionsToDisplay.referredTo and workflow.referredTo %}
+  {% set workflowRows = (workflowRows.push(
+    {
+      key: {
+        text: "Referred to"
+      },
+      value: {
+        text: workflow.referredTo
+      }
+    }
+  ), workflowRows) %}
+{% endif %}
+
+{% if workflow.sectionsToDisplay.invalidReason and workflow.invalidReason %}
+  {% set workflowRows = (workflowRows.push(
+    {
+      key: {
+        text: "Reason invalid"
+      },
+      value: {
+        text: workflow.invalidReason
+      }
+    }
+  ), workflowRows) %}
+{% endif %}
+
+<h3 class="govuk-heading-m">
+  Workflow
+</h3>
+
+{{ govukSummaryList({
+  rows: workflowRows
+}) }}
+
+<a class="govuk-button govuk-button--secondary" href="representation-details/task-log">View task log</a>
