@@ -1,0 +1,49 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro documentationDetailsTab(documentationFile, caseId, folderId) %}
+
+	{% set properties = [
+						{label: 'File name', value: documentationFile.fileName, link: 'name'},
+						{label: 'Description', value: documentationFile.description, link: 'description'},
+						{label: 'From', value: documentationFile.author, link: 'author'},
+						{label: 'Agent (optional)', value: documentationFile.representative, link: 'agent'},
+						{label: 'Case stage', value: documentationFile.stage},
+						{label: 'Webfilter', value: documentationFile.filter1, link: 'webfilter'},
+						{label: 'Document type (optional)', value: documentationFile.documentType, link: 'type'},
+						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
+						{label: 'Published date', value: (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.datePublished else null},
+						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
+						{label: 'Status', value: documentationFile.publishedStatus|statusName }
+	] %}
+
+
+	{% set propertiesRow = [] %}
+
+	{% for property in properties %}
+		{% set rowActions = {} %}
+
+		{% if property.link %}
+			{% set documentEditLink = ('document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: property.link})) %}
+
+			{% set rowActions = {
+								href: documentEditLink,
+								text: "Change",
+								visuallyHiddenText: property.label
+			} %}
+		{% endif %}
+
+		{% set row = {
+			key: { text: property.label },
+			value: { text: property.value },
+			actions: { items: [rowActions]}
+		} %}
+
+		{% set propertiesRow = propertiesRow.concat([row]) %}
+	{% endfor %}
+
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+		{{ govukSummaryList({
+        	rows: propertiesRow
+        }) }}
+
+{% endmacro %}

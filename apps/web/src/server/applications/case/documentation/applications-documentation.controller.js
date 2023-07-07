@@ -26,6 +26,7 @@ import {
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
+/** @typedef {import('../../applications.types').DocumentVersion} DocumentVersion */
 /** @typedef {import('../../common/services/session.service.js').SessionWithFilesNumberOnList} SessionWithFilesNumberOnList */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationUploadProps} CaseDocumentationUploadProps */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationBody} CaseDocumentationBody */
@@ -131,29 +132,33 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 }
 
 /**
+ * View the documentation properties page
+ *
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[]}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationProperties({ params }, response) {
+	const { documentGuid } = params;
+	const { caseId } = response.locals;
+
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
+
+	response.render(`applications/case-documentation/properties/documentation-properties`, {
+		documentationFile,
+		documentVersions
+	});
+}
+
+/**
  * View the documentation pages
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null, documentVersionsRows: any[]}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
 	const { documentGuid, action } = params;
 	const { caseId } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
-	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
-
-	const documentVersionsRows = [];
-
-	for (const documentVersion of documentVersions) {
-		const row = [
-			{ text: documentVersion.version },
-			{ text: documentVersion.fileName },
-			{ text: documentVersion.dateCreated },
-			{ text: documentVersion.redacted }
-		];
-
-		documentVersionsRows.push(row);
-	}
 
 	const isReadyToPublish = documentationFile.publishedStatus === 'ready_to_publish';
 	const warningText = isReadyToPublish
@@ -162,8 +167,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 
 	response.render(`applications/case-documentation/documentation-${action}`, {
 		documentationFile,
-		warningText,
-		documentVersionsRows
+		warningText
 	});
 }
 

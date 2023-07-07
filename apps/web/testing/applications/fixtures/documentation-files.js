@@ -3,7 +3,8 @@ import { createDocumentationFile } from '../factory/documentation-file.js';
 /**
  * @typedef {import('../../../src/server/applications/applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('../../../src/server/applications/applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
- */
+ * @typedef {import('../../../src/server/applications/applications.types').DocumentVersion} DocumentVersion
+ * /
 
 /** @type {DocumentationFile[]} */
 export const fixtureDocumentationFiles = [...Array.from({ length: 200 }).keys()].map((index) =>
@@ -38,13 +39,33 @@ export const fixturePaginatedDocumentationFiles = (page, pageDefaultSize) => ({
 	)
 });
 
+/**
+ *
+ * @returns {DocumentVersion[]}
+ */
 export const fixtureDocumentFileVersions = () => {
 	return [
 		{
+			documentGuid: '123',
 			version: 1,
-			dateCreated: '2021-01-01T00:00:00.000Z',
+			dateCreated: 1688389740,
+			datePublished: 1688389743,
+			dateUnpublished: 1688389743,
 			redacted: false,
-			fileName: 'test-file-1.pdf'
+			fileName: 'test-file-1.pdf',
+			size: 3000,
+			mime: 'application/pdf'
+		},
+		{
+			documentGuid: '456',
+			version: 2,
+			dateCreated: 1688389740,
+			datePublished: null,
+			dateUnpublished: null,
+			redacted: false,
+			fileName: 'test-file-1.pdf',
+			size: 5000,
+			mime: 'video/mp4'
 		}
 	];
 };

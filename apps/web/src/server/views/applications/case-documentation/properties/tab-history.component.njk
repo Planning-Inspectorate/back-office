@@ -1,0 +1,86 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% macro documentationHistoryTab(documentVersions, caseId) %}
+
+	{% set documentVersionsRows = [] %}
+	{% for documentVersion in documentVersions %}
+
+		{% set name %}
+			{% set isPreviewActive = (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
+
+			{% if isPreviewActive %}
+				<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
+			{% else %}
+				<p class="font-weight--700">
+					{{ documentVersion.fileName }}
+				</p>
+			{% endif %}
+
+			<p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>
+				{{ documentVersion.mime|fileType }},{{ documentVersion.size|fileSize }}
+			</p>
+			{% endset %}
+
+			{% set activity %}
+			<p>
+				<strong>Uploaded:</strong>
+				{{ documentVersion.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}
+			</p>
+
+			<p class='govuk-!-margin-top-2'>
+				<strong>Published:</strong>
+				{% if documentVersion.datePublished %}
+					{{ documentVersion.datePublished|datestamp({format: 'dd/MM/yyyy'}) }}
+				{% else %}
+							Unpublished
+				{% endif %}
+			</p>
+
+			{% if documentVersion.dateUnpublished %}
+				<p class='govuk-!-margin-top-2'>
+					<strong>Unpublished:</strong>
+					{{ documentVersion.dateUnpublished|datestamp({format: 'dd/MM/yyyy'}) }}
+				</p>
+			{% endif %}
+		{% endset %}
+
+		{% set redacted = 'Redacted' if documentVersion.redacted else 'Unredacted'%}
+
+		{% set download %}
+		<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid}) }}'>
+				Download
+			</a>
+		{% endset %}
+
+		{% set row = [
+			{
+				text: documentVersion.version
+			}, {
+				html: name
+			}, {
+				html: activity
+			}, {
+				text: redacted
+			}, {
+				html: download
+			}
+		] %}
+		{% set documentVersionsRows = documentVersionsRows.concat([row]) %}
+
+	{% endfor %}
+
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+	{{ govukTable({
+			classes: 'pins-file-versions-table',
+            captionClasses: "govuk-table__caption--m",
+            head: [
+               	{ text: "Version" },
+                { text: "File name" },
+                { text: "Activity" },
+                { text: "Redaction" },
+                { text: "Download" }
+            ],
+            rows: documentVersionsRows
+    }) }}
+
+{% endmacro %}
