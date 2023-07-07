@@ -1,4 +1,9 @@
 /**
+ * @typedef {import('../../relevant-representation.types.js').Representation} Representation
+ * @typedef {import('../../relevant-representation.types.js').RepresentationAction} RepresentationAction
+ */
+
+/**
  * @param {string} status
  * @returns {object}
  */
@@ -22,14 +27,14 @@ const getSectionsToDisplay = (status) => {
 };
 
 /**
- * @param {Array<object|*>} representationActions
+ * @param {Array<RepresentationAction>} representationActions
  * @returns {object|*}
  */
 const getLatestWorkflowAction = (representationActions) =>
 	representationActions.find((representationAction) => representationAction.type === 'STATUS');
 
 /**
- * @param {object|*} representation
+ * @param {Representation} representation
  * @returns {{redacted: string, notes: string, referredTo: string, invalidReason: string, sectionsToDisplay: object}}
  */
 export const getWorkflowValues = ({ status, redacted, representationActions }) => {
