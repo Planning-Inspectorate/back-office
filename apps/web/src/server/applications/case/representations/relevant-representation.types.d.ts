@@ -14,6 +14,7 @@ export type Representation = {
 	redactedBy: string;
 	type: string;
 	attachments: array;
+	representationActions: RepresentationAction[];
 };
 
 export type Address = {
@@ -32,11 +33,23 @@ export type Contact = {
 	lastName?: string | null;
 	fullName?: string | null;
 	organisationName?: string | null;
-	type?: string;
 	jobTitle?: string | null;
 	under18?: boolean | null;
 	email?: string | null;
 	phoneNumber?: string | null;
 	contactMethod?: string | null;
 	address?: Address;
+};
+
+export type RepresentationAction = {
+	type: string;
+	actionBy: string;
+	redactStatus: boolean | null;
+	previousRedactStatus: boolean | null;
+	status: string | null;
+	previousStatus: string | null;
+	invalidReason: string | null;
+	referredTo: string | null;
+	actionDate: string;
+	notes: string | null;
 };

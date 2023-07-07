@@ -45,7 +45,7 @@ representationDetailsRouter
 representationDetailsRouter
 	.route('/task-log')
 	.get(asyncRoute(getRepresentationDetailsTaskLogController));
-	
+
 representationDetailsRouter
 	.route('/change-status')
 	.get(asyncRoute(getRepresentationStatusController))
