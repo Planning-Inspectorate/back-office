@@ -1,4 +1,4 @@
-/** @typedef {import('@pins/appeals.api').Schema} Schema */
+import { Schema } from 'index';
 
 declare global {
 	namespace Express {
@@ -135,6 +135,7 @@ interface SingleLPAQuestionnaireResponse {
 	includesScreeningOption?: boolean | null;
 	inquiryDays?: number | null;
 	inspectorAccessDetails?: string | null;
+	isAffectingNeighbouringSites?: boolean | null;
 	isCommunityInfrastructureLevyFormallyAdopted?: boolean | null;
 	isEnvironmentalStatementRequired?: boolean | null;
 	isGypsyOrTravellerSite?: boolean | null;
@@ -148,6 +149,7 @@ interface SingleLPAQuestionnaireResponse {
 	lpaNotificationMethods?: LPANotificationMethodDetails[] | null;
 	lpaQuestionnaireId?: number;
 	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean | null;
+	neighbouringSiteContacts: NeighbouringSiteContactsResponse[] | null;
 	otherAppeals: LinkedAppeal[];
 	procedureType?: string;
 	scheduleType?: string;
@@ -155,6 +157,14 @@ interface SingleLPAQuestionnaireResponse {
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string | null;
 	validationOutcome: string | null;
+}
+
+interface NeighbouringSiteContactsResponse {
+	address: AppealSite;
+	email: Schema.NeighbouringSiteContact.email;
+	firstName: Schema.NeighbouringSiteContact.firstName;
+	lastName: Schema.NeighbouringSiteContact.lastName;
+	telephone: Schema.NeighbouringSiteContact.telephone;
 }
 
 interface SingleAppealDetailsResponse {

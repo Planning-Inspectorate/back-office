@@ -159,16 +159,17 @@ model ServiceCustomer {
 /// Address model
 /// Contains information on addresses
 model Address {
-  id                    Int                     @id @default(autoincrement())
-  addressLine1          String?
-  addressLine2          String?
-  postcode              String?
-  county                String?
-  town                  String?
-  country               String?
-  Appeal                Appeal[]
-  ServiceCustomer       ServiceCustomer[]
-  RepresentationContact RepresentationContact[]
+  id                      Int                       @id @default(autoincrement())
+  addressLine1            String?
+  addressLine2            String?
+  postcode                String?
+  county                  String?
+  town                    String?
+  country                 String?
+  Appeal                  Appeal[]
+  ServiceCustomer         ServiceCustomer[]
+  RepresentationContact   RepresentationContact[]
+  NeighbouringSiteContact NeighbouringSiteContact[]
 }
 
 /// ValidationDecision model
@@ -229,6 +230,7 @@ model LPAQuestionnaire {
   includesScreeningOption                            Boolean?
   inquiryDays                                        Int?
   inspectorAccessDetails                             String?
+  isAffectingNeighbouringSites                       Boolean?
   isCommunityInfrastructureLevyFormallyAdopted       Boolean?
   isDevelopmentInOrNearDesignatedSites               Boolean?
   isGypsyOrTravellerSite                             Boolean?
@@ -253,6 +255,7 @@ model LPAQuestionnaire {
   listedBuildingDetails                              ListedBuildingDetails[]
   lpaQuestionnaireValidationOutcome                  LPAQuestionnaireValidationOutcome?                   @relation(fields: [lpaQuestionnaireValidationOutcomeId], references: [id])
   lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
+  neighbouringSiteContact                            NeighbouringSiteContact[]
 }
 
 /// ReviewQuestionnaire model
@@ -587,4 +590,16 @@ model LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
   lpaQuestionnaireId                 Int
 
   @@id([lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId])
+}
+
+model NeighbouringSiteContact {
+  id                 Int               @id @default(autoincrement())
+  addressId          Int?
+  lpaQuestionnaireId Int?
+  firstName          String
+  lastName           String?
+  telephone          String
+  email              String
+  lpaQuestionnaire   LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
+  address            Address?          @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

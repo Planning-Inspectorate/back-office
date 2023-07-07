@@ -21,8 +21,8 @@ import {
 	baseExpectedLPAQuestionnaireResponse,
 	fullPlanningAppeal,
 	householdAppeal,
-	householdappealWithCompleteLPAQuestionnaire,
-	householdappealWithIncompleteLPAQuestionnaire,
+	householdAppealWithCompleteLPAQuestionnaire,
+	householdAppealWithIncompleteLPAQuestionnaire,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals
@@ -56,12 +56,12 @@ describe('lpa questionnaires routes', () => {
 			test('gets a single lpa questionnaire with an outcome of Complete', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(
-					householdappealWithCompleteLPAQuestionnaire
+					householdAppealWithCompleteLPAQuestionnaire
 				);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
-				const { lpaQuestionnaire } = householdappealWithCompleteLPAQuestionnaire;
+				const { lpaQuestionnaire } = householdAppealWithCompleteLPAQuestionnaire;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
 				);
@@ -76,12 +76,12 @@ describe('lpa questionnaires routes', () => {
 			test('gets a single lpa questionnaire with an outcome of Incomplete', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(
-					householdappealWithIncompleteLPAQuestionnaire
+					householdAppealWithIncompleteLPAQuestionnaire
 				);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
-				const { lpaQuestionnaire } = householdappealWithIncompleteLPAQuestionnaire;
+				const { lpaQuestionnaire } = householdAppealWithIncompleteLPAQuestionnaire;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
 				);

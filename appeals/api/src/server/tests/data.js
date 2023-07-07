@@ -8,6 +8,7 @@ import {
 	VALIDATION_OUTCOME_INVALID,
 	VALIDATION_OUTCOME_VALID
 } from '../endpoints/constants.js';
+import formatAddress from '../utils/address-block-formtter.js';
 
 const householdAppeal = {
 	id: 1,
@@ -113,6 +114,7 @@ const householdAppeal = {
 		hasTreePreservationOrder: null,
 		inCAOrrelatesToCA: null,
 		includesScreeningOption: null,
+		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: null,
 		isDevelopmentInOrNearDesignatedSites: null,
 		isEnvironmentalStatementRequired: null,
@@ -142,6 +144,23 @@ const householdAppeal = {
 			}
 		],
 		meetsOrExceedsThresholdOrCriteriaInColumn2: null,
+		neighbouringSiteContact: [
+			{
+				firstName: 'Eva',
+				lastName: 'Sharma',
+				telephone: '01234567891',
+				email: 'eva.sharma@example.com',
+				address: {
+					id: 1,
+					addressLine1: '44 Rivervale',
+					addressLine2: null,
+					town: 'Bridport',
+					postcode: 'DT6 5RN',
+					county: null,
+					country: null
+				}
+			}
+		],
 		procedureType: {
 			name: 'Written'
 		},
@@ -290,7 +309,7 @@ const lpaQuestionnaireIncompleteReasons = [
 	}
 ];
 
-const householdappealWithCompleteLPAQuestionnaire = {
+const householdAppealWithCompleteLPAQuestionnaire = {
 	...householdAppeal,
 	lpaQuestionnaire: {
 		...householdAppeal.lpaQuestionnaire,
@@ -298,7 +317,7 @@ const householdappealWithCompleteLPAQuestionnaire = {
 	}
 };
 
-const householdappealWithIncompleteLPAQuestionnaire = {
+const householdAppealWithIncompleteLPAQuestionnaire = {
 	...householdAppeal,
 	lpaQuestionnaire: {
 		...householdAppeal.lpaQuestionnaire,
@@ -374,6 +393,7 @@ const baseExpectedLPAQuestionnaireResponse = (lpaQuestionnaire) => ({
 	hasTreePreservationOrder: lpaQuestionnaire.hasTreePreservationOrder,
 	inCAOrrelatesToCA: lpaQuestionnaire.inCAOrrelatesToCA,
 	includesScreeningOption: lpaQuestionnaire.includesScreeningOption,
+	isAffectingNeighbouringSites: lpaQuestionnaire.isAffectingNeighbouringSites,
 	isCommunityInfrastructureLevyFormallyAdopted:
 		lpaQuestionnaire.isCommunityInfrastructureLevyFormallyAdopted,
 	isEnvironmentalStatementRequired: lpaQuestionnaire.isEnvironmentalStatementRequired,
@@ -396,6 +416,12 @@ const baseExpectedLPAQuestionnaireResponse = (lpaQuestionnaire) => ({
 	lpaQuestionnaireId: lpaQuestionnaire.id,
 	meetsOrExceedsThresholdOrCriteriaInColumn2:
 		lpaQuestionnaire.meetsOrExceedsThresholdOrCriteriaInColumn2,
+	neighbouringSiteContacts: [
+		{
+			...lpaQuestionnaire.neighbouringSiteContact[0],
+			address: formatAddress(lpaQuestionnaire.neighbouringSiteContact[0].address)
+		}
+	],
 	otherAppeals: [
 		{
 			appealId: otherAppeals[1].id,
@@ -416,8 +442,8 @@ export {
 	fullPlanningAppeal,
 	householdAppeal,
 	householdAppealTwo,
-	householdappealWithCompleteLPAQuestionnaire,
-	householdappealWithIncompleteLPAQuestionnaire,
+	householdAppealWithCompleteLPAQuestionnaire,
+	householdAppealWithIncompleteLPAQuestionnaire,
 	linkedAppeals,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,

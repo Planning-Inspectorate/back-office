@@ -9,68 +9,110 @@ import {
 import config from '../../../src/server/config/config.js';
 
 /**
- * @typedef {import('appeals/api/src/database/schema').Appellant} Appellant
- * @typedef {import('appeals/api/src/database/schema').LPAQuestionnaire} LPAQuestionnaire
- * @typedef {import('appeals/api/src/database/schema').AppellantCase} AppellantCase
+ * @typedef {import('@pins/appeals.api').Schema.Appellant} Appellant
+ * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaire} LPAQuestionnaire
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCase} AppellantCase
+ * @typedef {import('@pins/appeals.api').Schema.NeighbouringSiteContact} NeighbouringSiteContact
+ * @typedef {import('@pins/appeals.api').Appeals.AppealSite} AppealSite
  */
+
+export const personList = [
+	{
+		firstName: 'Lee',
+		lastName: 'Thornton',
+		company: 'Lee Thornton Ltd',
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Haley',
+		lastName: 'Eland',
+		company: null,
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Roger',
+		lastName: 'Simmons',
+		company: 'Roger Simmons Ltd',
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Sophie',
+		lastName: 'Skinner',
+		company: null,
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Ryan',
+		lastName: 'Marshall',
+		company: 'Ryan Marshall Ltd',
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Fiona',
+		lastName: 'Burgess',
+		company: null,
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Kevin',
+		lastName: 'Fowler',
+		company: 'Kevin Fowler Ltd',
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Bob',
+		lastName: 'Ross',
+		company: null,
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Eva',
+		lastName: 'Sharma',
+		company: 'Eva Sharma Ltd',
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	},
+	{
+		firstName: 'Elaine',
+		lastName: 'Madsen',
+		company: null,
+		email: config.govNotify.testMailbox,
+		telephone: '01234567891'
+	}
+];
 
 /**
  * An array of appellants, each containing a name and email address.
  *
  * @type {Pick<Appellant, 'name' | 'company' | 'email'>[]}
  */
-export const appellantsList = [
-	{
-		name: 'Lee Thornton',
-		company: 'Lee Thornton Ltd',
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Haley Eland',
-		company: null,
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Roger Simmons',
-		company: 'Roger Simmons Ltd',
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Sophie Skinner',
-		company: null,
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Ryan Marshall',
-		company: 'Ryan Marshall Ltd',
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Fiona Burgess',
-		company: null,
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Kevin Fowler',
-		company: 'Kevin Fowler Ltd',
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Bob Ross',
-		company: null,
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Eva Sharma',
-		company: 'Eva Sharma Ltd',
-		email: config.govNotify.testMailbox
-	},
-	{
-		name: 'Elaine Madsen',
-		company: null,
-		email: config.govNotify.testMailbox
-	}
-];
+export const appellantsList = personList.map(({ firstName, lastName, company, email }) => ({
+	name: `${firstName} ${lastName}`,
+	company,
+	email
+}));
+
+/**
+ * An array of neighbouring site contacts.
+ *
+ * @type {Pick<NeighbouringSiteContact, 'firstName' | 'lastName' | 'email' | 'telephone'>[]}
+ */
+export const neighbouringSiteContactsList = personList.map(
+	({ firstName, lastName, email, telephone }) => ({
+		firstName,
+		lastName,
+		email,
+		telephone
+	})
+);
 
 export const localPlanningDepartmentList = [
 	'Maidstone Borough Council',
@@ -178,6 +220,7 @@ export const addressesList = [
  *	'includesScreeningOption' |
  *	'inquiryDays' |
  *	'inspectorAccessDetails' |
+ *	'isAffectingNeighbouringSites' |
  *	'isCommunityInfrastructureLevyFormallyAdopted' |
  *	'isEnvironmentalStatementRequired' |
  *	'isGypsyOrTravellerSite' |
@@ -221,6 +264,7 @@ export const lpaQuestionnaireList = {
 		includesScreeningOption: true,
 		inquiryDays: 2,
 		inspectorAccessDetails: 'The entrance is at the back of the property',
+		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
@@ -262,6 +306,7 @@ export const lpaQuestionnaireList = {
 		includesScreeningOption: true,
 		inquiryDays: 2,
 		inspectorAccessDetails: 'The entrance is at the back of the property',
+		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
