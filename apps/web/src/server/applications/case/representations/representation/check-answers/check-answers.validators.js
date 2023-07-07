@@ -1,5 +1,16 @@
 import { createValidator } from '@pins/express';
-import { body, oneOf } from 'express-validator';
+import { body } from 'express-validator';
+
+const validateOnBehalfOf = () => {
+	return [
+		body('onBehalfOf').custom((_, { req: { body } }) => {
+			if (!body.represented.type && !body.representative.type)
+				throw new Error('Enter on behalf of');
+
+			return true;
+		})
+	];
+};
 
 export const checkAnswersValidation = [
 	createValidator(
@@ -16,12 +27,7 @@ export const checkAnswersValidation = [
 			})
 			.withMessage('Enter Under 18')
 	),
-	createValidator(
-		oneOf(
-			[body('represented.type').notEmpty(), body('representative.type').notEmpty()],
-			'Enter on behalf of'
-		)
-	),
+	createValidator(validateOnBehalfOf()),
 	createValidator(
 		body('representative.firstName').notEmpty().withMessage('Enter agent contact details')
 	),
