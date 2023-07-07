@@ -10,7 +10,9 @@
 {% endblock %}
 
 {% block pageContent %}
-	<span class="govuk-caption-l">Attachment upload</span>
+	<p class="govuk-body"><strong>Project name:</strong> {{ case.projectName}}</p>
+
+	<span class="govuk-caption-l">Add a representation</span>
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{{ fileUploader({
@@ -19,7 +21,7 @@
 				domain: 'applications',
 				caseId: caseId,
 				folderId: folderId,
-				formTitle: serviceName,
+				formTitle: 'Upload an attachment',
 				nextPageUrl: link,
 				allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 				disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
