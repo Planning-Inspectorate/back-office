@@ -353,12 +353,18 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
  *
  * @param {string} documentGuid - The GUID of the document to upsert metadata for.
  * @param {DocumentVersion} documentVersionBody - The metadata body to use for upserting.
+ * @param {number} version
  * @returns {Promise<DocumentDetails>} A promise that resolves with the document details after the upsert.
  */
-export const upsertDocumentVersionAndReturnDetails = async (documentGuid, documentVersionBody) => {
+export const upsertDocumentVersionAndReturnDetails = async (
+	documentGuid,
+	documentVersionBody,
+	version
+) => {
 	const documentVersion = await documentVerisonRepository.upsert({
 		...documentVersionBody,
-		documentGuid
+		documentGuid,
+		version
 	});
 
 	return mapSingleDocumentDetailsFromVersion(documentVersion);

@@ -327,19 +327,20 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  */
 export const storeDocumentVersion = async (request, response) => {
 	// Extract caseId and guid from the request parameters
-	const { id: caseId, guid } = request.params;
+	const { guid } = request.params;
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
 	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
 
 	// Retrieve the document from the database using the provided guid and caseId
-	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+	const document = await documentRepository.getById(guid);
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		documentVersionMetadataBody
+		documentVersionMetadataBody,
+		document.latestVersionId
 	);
 
 	// Send the document details back in the response
