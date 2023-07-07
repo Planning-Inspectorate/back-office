@@ -9,19 +9,20 @@ import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 /**
  * Download one document or redirects to its url if preview is active
  *
- * @param {{params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
+ * @param {{params: {caseId: number, guid: string, preview?: string, version: number}, session: SessionWithAuth}} request
  * @param {Response} response
  * @returns {Promise<Response>}
  */
 const getDocumentsDownload = async ({ params, session }, response) => {
-	const { guid: fileGuid, preview, caseId } = params;
+	const { guid: fileGuid, preview, caseId, version } = params;
 	const { blobStorageUrl } = config;
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	const { blobStorageContainer, documentURI } = await getCaseDocumentationFileInfo(
 		caseId,
-		fileGuid
+		fileGuid,
+		version
 	);
 
 	if (!blobStorageContainer || !documentURI) {
