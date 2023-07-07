@@ -19,4 +19,12 @@ const getPayload = ({ role = 'case-team', query = 'BC', pageNumber = 1, pageSize
 const invalidRoleError = { errors: { role: 'Role is not valid' } };
 const blankQueryError = { errors: { query: 'Query cannot be blank' } };
 
-export { schema, request, applicationInfo, getPayload, invalidRoleError, blankQueryError };
+export {
+	schema,
+	request,
+	applicationInfo,
+	getPayload,
+	invalidRoleError,
+	blankQueryError,
+	endpoint
+};
