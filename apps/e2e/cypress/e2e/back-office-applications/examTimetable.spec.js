@@ -7,7 +7,6 @@ import { CreateCasePage } from '../../page_objects/createCasePage';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { ExaminationTimetablePage } from '../../page_objects/examinationTimetablePage';
-import { faker } from '@faker-js/faker';
 import { timetableItem } from '../../support/utils/createTimetableItemInfo';
 
 const applicationsHomePage = new ApplicationsHomePage();
@@ -30,6 +29,12 @@ const itemOptions = [
 	'Publication Of'
 ];
 
+const texts = {
+	examTimetableLinkText: 'Examination timetable',
+	createTimetableButtonText: 'Create new timetable item',
+	successMessageText: 'Timetable item successfully created'
+};
+
 describe('Examination Timetable', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
@@ -44,8 +49,8 @@ describe('Examination Timetable', () => {
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
-		examTimetablePage.clickLinkByText('Examination timetable');
-		examTimetablePage.clickButtonByText('Create new item');
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 	});
 
 	it('The dropdown should have correct items', () => {
@@ -101,7 +106,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description (optional)', options.description);
 		examTimetablePage.clickButtonByText('Save item');
-		examTimetablePage.validateSuccessPanelTitle('Timetable item successfully added');
+		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
 	});
@@ -121,7 +126,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description (optional)', options.description);
 		examTimetablePage.clickButtonByText('Save item');
-		examTimetablePage.validateSuccessPanelTitle('Timetable item successfully added');
+		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
 	});
@@ -138,7 +143,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Date', options.startDateFull);
 		examTimetablePage.checkAnswer('Timetable item description (optional)', options.description);
 		examTimetablePage.clickButtonByText('Save item');
-		examTimetablePage.validateSuccessPanelTitle('Timetable item successfully added');
+		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
 	});
@@ -157,7 +162,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description (optional)', options.description);
 		examTimetablePage.clickButtonByText('Save item');
-		examTimetablePage.validateSuccessPanelTitle('Timetable item successfully added');
+		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
 		examTimetablePage.clickLinkByText('Go back to examination table');

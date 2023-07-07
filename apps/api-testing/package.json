@@ -4,19 +4,20 @@
 	"description": "API Tests for the Back Office Application",
 	"main": "index.js",
 	"scripts": {
-		"start:test": "./api-test.sh",
 		"schemas:clean": "rm -rf ./schemas",
-		"api:test": "mocha 'tests/**/*.test.js'",
-		"test:parallel": "mocha 'tests/**/*.test.js' --parallel --jobs 10",
-		"init-test": "node utils/generate-schema.js"
+		"api:test": "mocha 'tests/**/*.test.js' --timeout 5000; npm run schemas:clean",
+		"init-test": "node utils/generate-schema.js",
+		"test": "./api-test.sh"
 	},
 	"license": "ISC",
 	"dependencies": {
+		"@pins/e2e": "*",
 		"ajv": "^8.12.0",
 		"chai": "^4.3.7",
 		"dotenv": "^16.0.3",
 		"mocha": "^10.2.0",
-		"supertest": "^6.3.3"
+		"supertest": "^6.3.3",
+		"@faker-js/faker": "^7.6.0"
 	},
 	"type": "module"
 }
