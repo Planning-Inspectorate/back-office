@@ -13,5 +13,10 @@ export const users = {
 		email: Cypress.env('INSPECTOR_EMAIL'),
 		id: 'inspector',
 		typeName: 'Inspector'
+	},
+	validationOfficer: {
+		email: Cypress.env('VALIDATION_OFFICER_EMAIL'),
+		id: 'validation-officer',
+		typeName: 'Validation officer'
 	}
 };

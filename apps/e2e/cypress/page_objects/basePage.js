@@ -206,4 +206,8 @@ export class Page {
 	validateSuccessPanelBody(successMessage, exactMatch = false) {
 		this.basePageElements.panelBody().should(assertType(exactMatch), successMessage);
 	}
+
+	navigateToAppealsService() {
+		cy.visit('/appeals-service/appeals-list');
+	}
 }

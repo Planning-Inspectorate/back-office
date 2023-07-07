@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Page } from './basePage';
 
 export class AppealsListPage extends Page {
@@ -21,5 +22,13 @@ export class AppealsListPage extends Page {
 
 		// Selectors from base page eg this.selectors
 		cy.get(this.selectors.errorMessage).should('have.text', 'this is an error message');
+	}
+
+	clickAppealFromList(position) {
+		this.basePageElements
+			.tableRow()
+			.eq(position - 1)
+			.find(this.selectors.link)
+			.click();
 	}
 }
