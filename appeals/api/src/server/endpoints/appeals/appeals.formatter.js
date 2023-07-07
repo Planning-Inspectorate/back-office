@@ -172,6 +172,7 @@ const appealFormatter = {
 			}),
 			inquiryDays: lpaQuestionnaire?.inquiryDays,
 			inspectorAccessDetails: lpaQuestionnaire?.inspectorAccessDetails,
+			isAffectingNeighbouringSites: lpaQuestionnaire?.isAffectingNeighbouringSites,
 			isCommunityInfrastructureLevyFormallyAdopted:
 				lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
 			isEnvironmentalStatementRequired: lpaQuestionnaire?.isEnvironmentalStatementRequired,
@@ -192,6 +193,15 @@ const appealFormatter = {
 			lpaQuestionnaireId: lpaQuestionnaire?.id,
 			meetsOrExceedsThresholdOrCriteriaInColumn2:
 				lpaQuestionnaire?.meetsOrExceedsThresholdOrCriteriaInColumn2,
+			neighbouringSiteContacts: lpaQuestionnaire?.neighbouringSiteContact?.length
+				? lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
+						address: formatAddress(contact.address),
+						email: contact.email,
+						firstName: contact.firstName,
+						lastName: contact.lastName,
+						telephone: contact.telephone
+				  }))
+				: null,
 			otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
 			...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
 				...(isOutcomeIncomplete(

@@ -427,6 +427,7 @@ const document = {
 			includesScreeningOption: true,
 			inquiryDays: 2,
 			inspectorAccessDetails: 'The entrance is at the back of the property',
+			isAffectingNeighbouringSites: true,
 			isCommunityInfrastructureLevyFormallyAdopted: true,
 			isEnvironmentalStatementRequired: true,
 			isGypsyOrTravellerSite: true,
@@ -449,6 +450,19 @@ const document = {
 			],
 			lpaQuestionnaireId: 1,
 			meetsOrExceedsThresholdOrCriteriaInColumn2: true,
+			neighbouringSiteContacts: [
+				{
+					address: {
+						addressLine1: '44 Rivervale',
+						town: 'Bridport',
+						postCode: 'DT6 5RN'
+					},
+					email: 'eva.sharma@example.com',
+					firstName: 'Eva',
+					lastName: 'Sharma',
+					telephone: '01234567891'
+				}
+			],
 			otherAppeals: [
 				{
 					appealId: 1,
