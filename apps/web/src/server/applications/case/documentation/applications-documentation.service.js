@@ -95,10 +95,11 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
  *
  * @param {number} caseId
  * @param {string} fileGuid
+ * @param {number} version
  * @returns {Promise<DocumentationFile>}
  */
-export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
-	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
+export const getCaseDocumentationFileInfo = async (caseId, fileGuid, version = 1) => {
+	return get(`applications/${caseId}/documents/${fileGuid}/version/${version}/properties`);
 };
 
 /**
