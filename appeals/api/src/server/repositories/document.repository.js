@@ -1,4 +1,4 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /**
@@ -7,7 +7,7 @@ import { databaseConnector } from '../utils/database-connector.js';
  */
 
 /**
- * Get a document by documentGuid
+ * Get a document by its guid
  *
  * @param {string} documentGuid
  * @returns {PrismaPromise<Document | null>}
@@ -15,7 +15,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 export const getDocumentById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
 		include: {
-			documentVersion: true
+			latestDocumentVersion: true
 		},
 		where: {
 			guid: documentGuid
@@ -24,14 +24,32 @@ export const getDocumentById = (documentGuid) => {
 };
 
 /**
- * Get a all documents for a caseId
+ * Get a document by its guid
+ *
+ * @param {string} documentGuid
+ * @returns {PrismaPromise<Document | null>}
+ */
+export const getDocumentWithAllVersionsById = (documentGuid) => {
+	return databaseConnector.document.findUnique({
+		include: {
+			documentVersion: true,
+			latestDocumentVersion: true
+		},
+		where: {
+			guid: documentGuid
+		}
+	});
+};
+
+/**
+ * Get all the documents for a caseId
  *
  * @param {number} caseId
  * @returns {PrismaPromise<Document[]>}
  */
 export const getDocumentsByAppealId = (caseId) => {
 	return databaseConnector.document.findMany({
-		include: { documentVersion: true },
+		include: { latestDocumentVersion: true },
 		where: {
 			isDeleted: false,
 			folder: {

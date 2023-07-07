@@ -326,7 +326,7 @@ model Folder {
   id          Int        @id @default(autoincrement())
   path        String
   displayName String?
-  caseId      Int?
+  caseId      Int
   documents   Document[]
   case        Appeal?    @relation(fields: [caseId], references: [id])
 
@@ -394,7 +394,7 @@ model DocumentVersion {
   redactedStatus         String?
   redacted               Boolean   @default(false)
   documentURI            String?
-  Document               Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  parentDocument         Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
   latestVersionDocument  Document? @relation("LatestVersion")
 
   @@id([documentGuid, version])

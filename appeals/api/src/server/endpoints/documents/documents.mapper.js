@@ -1,6 +1,8 @@
 /** @typedef {import('@pins/appeals/index.js').FileUploadInfo} FileUploadInfo */
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
+
 /**
  *
  * @param {number} caseId
@@ -22,21 +24,25 @@ export const mapDocumentsForDatabase = (caseId, blobStorageContainer, documents)
 };
 
 /**
- * @param {import('@pins/appeals.api').Schema.DocumentVersion[]} documents
+ * @param {(DocumentVersion|null)[]} documents
  * @param {string} caseReference
  * @param {number} versionId
- * @returns {BlobInfo[]}
+ * @returns {(BlobInfo|null)[]}
  */
 export const mapDocumentsForBlobStorage = (documents, caseReference, versionId = 1) => {
 	return documents.map((document) => {
-		const fileName = document.fileName || document.documentGuid;
-		return {
-			caseType: 'appeal',
-			caseReference,
-			GUID: document.documentGuid,
-			documentName: fileName,
-			blobStoreUrl: mapBlobPath(document.documentGuid, caseReference, fileName, versionId)
-		};
+		if (document) {
+			const fileName = document.fileName || document.documentGuid;
+			return {
+				caseType: 'appeal',
+				caseReference,
+				GUID: document.documentGuid,
+				documentName: fileName,
+				blobStoreUrl: mapBlobPath(document.documentGuid, caseReference, fileName, versionId)
+			};
+		}
+
+		return null;
 	});
 };
 

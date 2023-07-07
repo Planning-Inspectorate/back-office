@@ -83,6 +83,12 @@
     "swagger-autogen": "^2.21.4"
   },
   "imports": {
-    "#db-client": "./src/server/utils/db-client/index.js"
+    "#db-client": "./src/server/utils/db-client/index.js",
+		"#utils/*": "./src/server/utils/*",
+		"#repositories/*": "./src/server/repositories/*",
+		"#infrastructure/*": "./src/server/infrastructure/*",
+		"#middleware/*": "./src/server/middleware/*",
+		"#endpoints/*": "./src/server/endpoints/*",
+		"#tests/*": "./src/server/tests/*"
   }
 }

@@ -1,16 +1,9 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
-import {
-	getDocumentLocations,
-	getDocument,
-	getDocuments,
-	addDocuments,
-	addDocumentVersion
-} from './documents.controller.js';
-import { checkAppealExistsAndAddToRequest } from '../appeals/appeals.service.js';
-import { getAppealValidator } from '../appeals/appeals.validators.js';
-
-/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+import { asyncHandler } from '#middleware/async-handler.js';
+import { getAppealValidator } from '#endpoints/appeals/appeals.validators.js';
+import { checkAppealExistsAndAddToRequest } from '#endpoints/appeals/appeals.service.js';
+import { validateDocumentAndAddToRequest } from './documents.middleware.js';
+import * as controller from './documents.controller.js';
 
 const router = createRouter();
 
@@ -29,7 +22,7 @@ router.get(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(getDocuments)
+	asyncHandler(controller.getDocuments)
 );
 
 router.get(
@@ -47,7 +40,7 @@ router.get(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(getDocumentLocations)
+	asyncHandler(controller.getDocumentLocations)
 );
 
 router.get(
@@ -65,7 +58,8 @@ router.get(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(getDocument)
+	validateDocumentAndAddToRequest,
+	asyncHandler(controller.getDocument)
 );
 
 router.post(
@@ -89,7 +83,7 @@ router.post(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(addDocuments)
+	asyncHandler(controller.addDocuments)
 );
 
 router.post(
@@ -113,7 +107,8 @@ router.post(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(addDocumentVersion)
+	validateDocumentAndAddToRequest,
+	asyncHandler(controller.addDocumentVersion)
 );
 
 export { router as documentsRoutes };

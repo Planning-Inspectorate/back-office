@@ -1,39 +1,39 @@
 export interface FileUploadInfo {
 	documentName: string;
-	folderId: number;
 	documentType: string;
 	documentSize: number;
+	folderId: number;
 }
 
 export interface DocumentMetadata {
-	name: string;
+	blobStorageContainer: string;
 	caseId: number;
-	folderId: number;
 	documentType: string;
 	documentSize: number;
-	blobStorageContainer: string;
+	folderId: number;
+	name: string;
 }
 
 export interface DocumentUploadInfo {
-	documentName: string;
-	fileRowId: string;
 	blobStoreUrl?: string;
+	documentName: string;
 	failedReason?: string;
+	fileRowId: string;
 }
 
 export interface UploadInfo {
 	accessToken: AccessToken;
-	blobStorageHost: string;
 	blobStorageContainer: string;
+	blobStorageHost: string;
 	documents: DocumentUploadInfo[];
 }
 
 export interface BlobInfo {
+	blobStoreUrl: string;
 	caseType: string;
 	caseReference: string;
-	GUID: string;
 	documentName?: string;
-	blobStoreUrl: string;
+	GUID: string;
 }
 
 export interface DocumentApiRequest {
@@ -47,10 +47,10 @@ export interface DocumentVersionApiRequest {
 }
 
 export interface MappedDocument {
-	documentName: string;
 	caseId: number;
-	folderId: number;
+	documentName: string;
 	documentType: string;
 	documentSize: number;
 	fileRowId: string;
+	folderId: number;
 }

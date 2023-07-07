@@ -4,7 +4,13 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"#db-client": ["./src/server/utils/db-client/"]
+			"#db-client": ["./src/server/utils/db-client/"],
+			"#utils/*": ["./src/server/utils/*"],
+			"#repositories/*": ["./src/server/repositories/*"],
+			"#infrastructure/*": ["./src/server/infrastructure/*"],
+			"#middleware/*": ["./src/server/middleware/*"],
+			"#endpoints/*": ["./src/server/endpoints/*"],
+			"#tests/*": ["./src/server/tests/*"]
 		}
 	}
 }

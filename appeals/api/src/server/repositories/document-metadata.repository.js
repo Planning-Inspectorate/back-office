@@ -1,19 +1,17 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 import {
 	mapDocumentNameForStorageUrl,
 	mapBlobPath
-} from '../endpoints/documents/documents.mapper.js';
+} from '#endpoints/documents/documents.mapper.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
-
 /**
  * @param {any} metadata
  * @param {any} context
  * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocument = async (metadata, context) => {
-	// @ts-ignore
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const fileName = mapDocumentNameForStorageUrl(metadata.originalFilename);
 		const document = await tx.document.create({
@@ -28,19 +26,17 @@ export const addDocument = async (metadata, context) => {
 		const newVersionId = 1;
 
 		metadata.fileName = name;
-		metadata.blobStoragePath = mapBlobPath(guid, context.reference, name, newVersionId);
+		metadata.blobStoragePath = metadata.documentURI = mapBlobPath(
+			guid,
+			context.reference,
+			name,
+			newVersionId
+		);
 
 		const documentVersion = await tx.documentVersion.upsert({
-			create: { ...metadata, version: newVersionId, Document: { connect: { guid } } },
+			create: { ...metadata, version: newVersionId, parentDocument: { connect: { guid } } },
 			where: { documentGuid_version: { documentGuid: guid, version: newVersionId } },
-			update: {},
-			include: {
-				Document: {
-					include: {
-						folder: {}
-					}
-				}
-			}
+			update: {}
 		});
 
 		await tx.document.update({
@@ -48,7 +44,12 @@ export const addDocument = async (metadata, context) => {
 			where: { guid }
 		});
 
-		return documentVersion;
+		const latestVersion = await tx.documentVersion.findFirst({
+			include: { parentDocument: true },
+			where: { documentGuid: guid, version: newVersionId }
+		});
+
+		return latestVersion;
 	});
 
 	return transaction;
@@ -77,10 +78,19 @@ export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 		const newVersionId = latestVersionId + 1;
 
 		metadata.fileName = name;
-		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
+		metadata.blobStoragePath = metadata.documentURI = mapBlobPath(
+			documentGuid,
+			reference,
+			name,
+			newVersionId
+		);
 
 		await tx.documentVersion.upsert({
-			create: { ...metadata, version: newVersionId, Document: { connect: { guid: documentGuid } } },
+			create: {
+				...metadata,
+				version: newVersionId,
+				parentDocument: { connect: { guid: documentGuid } }
+			},
 			where: { documentGuid_version: { documentGuid, version: newVersionId } },
 			update: {}
 		});
@@ -90,10 +100,12 @@ export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 			where: { guid: documentGuid }
 		});
 
-		return await tx.documentVersion.findFirst({
-			include: { Document: true },
+		const latestVersion = await tx.documentVersion.findFirst({
+			include: { parentDocument: true },
 			where: { documentGuid, version: newVersionId }
 		});
+
+		return latestVersion;
 	});
 
 	return transaction;
