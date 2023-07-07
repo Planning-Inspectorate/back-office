@@ -84,11 +84,11 @@
   },
   "imports": {
     "#db-client": "./src/server/utils/db-client/index.js",
-		"#utils/*": "./src/server/utils/*",
-		"#repositories/*": "./src/server/repositories/*",
-		"#infrastructure/*": "./src/server/infrastructure/*",
-		"#middleware/*": "./src/server/middleware/*",
-		"#endpoints/*": "./src/server/endpoints/*",
-		"#tests/*": "./src/server/tests/*"
+    "#utils/*": "./src/server/utils/*",
+    "#repositories/*": "./src/server/repositories/*",
+    "#infrastructure/*": "./src/server/infrastructure/*",
+    "#middleware/*": "./src/server/middleware/*",
+    "#endpoints/*": "./src/server/endpoints/*",
+    "#tests/*": "./src/server/tests/*"
   }
 }
