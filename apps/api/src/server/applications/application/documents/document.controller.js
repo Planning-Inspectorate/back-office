@@ -336,6 +336,10 @@ export const storeDocumentVersion = async (request, response) => {
 	// Retrieve the document from the database using the provided guid and caseId
 	const document = await documentRepository.getById(guid);
 
+	if (!document) {
+		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
+
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,

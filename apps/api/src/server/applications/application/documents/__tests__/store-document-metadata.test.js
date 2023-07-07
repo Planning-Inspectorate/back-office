@@ -74,7 +74,7 @@ describe('store Document metadata', () => {
 	});
 
 	test('This test case verifies that the metadata is correctly associated with the appropriate document and case when creating/updating document metadata.', async () => {
-		databaseConnector.document.findFirst.mockResolvedValue(mockResolvedDocumentValue());
+		databaseConnector.document.findUnique.mockResolvedValue(mockResolvedDocumentValue());
 
 		databaseConnector.documentVersion.upsert.mockResolvedValue(mockResolvedDocumentVersionValue());
 
@@ -122,20 +122,15 @@ describe('store Document metadata', () => {
 			}
 		});
 
-		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
-			include: { documentVersion: true },
+		expect(databaseConnector.document.findUnique).toHaveBeenCalledWith({
 			where: {
-				guid: '1111-2222-3333',
-				isDeleted: false,
-				folder: {
-					caseId: 1
-				}
+				guid: '1111-2222-3333'
 			}
 		});
 	});
 
 	test('If the case is not linked to a document, this test case generates a 404 error.', async () => {
-		databaseConnector.document.findFirst.mockResolvedValue(null);
+		databaseConnector.document.findUnique.mockResolvedValue(null);
 
 		const response = await request
 			.post('/applications/1/documents/1111-2222-3333/metadata')
@@ -144,19 +139,14 @@ describe('store Document metadata', () => {
 		expect(response.statusCode).toEqual(404);
 
 		expect(response.body).toEqual({
-			errors: 'document not found: guid 1111-2222-3333 related to caseId 1'
+			errors: 'Document not found: guid 1111-2222-3333'
 		});
 
 		expect(databaseConnector.documentVersion.upsert).not.toHaveBeenCalled();
 
-		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
-			include: { documentVersion: true },
+		expect(databaseConnector.document.findUnique).toHaveBeenCalledWith({
 			where: {
-				guid: '1111-2222-3333',
-				isDeleted: false,
-				folder: {
-					caseId: 1
-				}
+				guid: '1111-2222-3333'
 			}
 		});
 	});
