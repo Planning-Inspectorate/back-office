@@ -34,23 +34,23 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-2\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"REFERRED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-2\\">Referred</label>
+                                            value=\\"VALID\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-2\\">Valid</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-3\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"INVALID\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-3\\">Invalid</label>
+                                            value=\\"DRAFT\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-3\\">Draft</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-4\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"VALID\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-4\\">Valid</label>
+                                            value=\\"PUBLISHED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-4\\">Published</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-5\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"PUBLISHED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-5\\">Published</label>
+                                            value=\\"REFERRED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-5\\">Referred</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-6\\" name=\\"filters\\" type=\\"checkbox\\"
@@ -59,13 +59,18 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-7\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"ARCHIVED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-7\\">Archived</label>
+                                            value=\\"INVALID\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-7\\">Invalid</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-8\\" name=\\"filters\\" type=\\"checkbox\\"
+                                            value=\\"ARCHIVED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-8\\">Archived</label>
+                                        </div>
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"filters-9\\" name=\\"filters\\" type=\\"checkbox\\"
                                             value=\\"UNDER_18\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-8\\">Under 18</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-9\\">Under 18</label>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -191,23 +196,23 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-2\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"REFERRED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-2\\">Referred</label>
+                                            value=\\"VALID\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-2\\">Valid</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-3\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"INVALID\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-3\\">Invalid</label>
+                                            value=\\"DRAFT\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-3\\">Draft</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-4\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"VALID\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-4\\">Valid</label>
+                                            value=\\"PUBLISHED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-4\\">Published</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-5\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"PUBLISHED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-5\\">Published</label>
+                                            value=\\"REFERRED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-5\\">Referred</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-6\\" name=\\"filters\\" type=\\"checkbox\\"
@@ -216,13 +221,18 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-7\\" name=\\"filters\\" type=\\"checkbox\\"
-                                            value=\\"ARCHIVED\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-7\\">Archived</label>
+                                            value=\\"INVALID\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-7\\">Invalid</label>
                                         </div>
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"filters-8\\" name=\\"filters\\" type=\\"checkbox\\"
+                                            value=\\"ARCHIVED\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-8\\">Archived</label>
+                                        </div>
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"filters-9\\" name=\\"filters\\" type=\\"checkbox\\"
                                             value=\\"UNDER_18\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-8\\">Under 18</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"filters-9\\">Under 18</label>
                                         </div>
                                     </div>
                                 </fieldset>

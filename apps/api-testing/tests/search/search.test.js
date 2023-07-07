@@ -7,12 +7,13 @@ import {
 	getPayload,
 	invalidRoleError,
 	request,
-	schema
+	schema,
+	endpoint
 } from './index.js';
 
-describe('Applications - Search', () => {
+describe(`POST - ${endpoint}`, () => {
 	beforeEach(() => {
-		request.reset();
+		request.clear();
 	});
 
 	describe('Positive', () => {
