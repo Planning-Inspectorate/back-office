@@ -3,16 +3,16 @@ import { expect } from 'chai';
 import { validateSchema } from '../../utils/schema-validation.js';
 import { endpoint, request, schema } from './index.js';
 
-describe('Applications - Region', () => {
+describe(`GET - ${endpoint}`, () => {
 	beforeEach(() => {
-		request.reset();
+		request.clear();
 	});
 
 	describe('Positive', () => {
 		it('should return 200 status and match schema', async () => {
 			const { body, statusCode } = await request.get();
 			expect(statusCode).to.equal(200);
-			await validateSchema(schema, body);
+			validateSchema(schema, body);
 		});
 	});
 
@@ -20,7 +20,7 @@ describe('Applications - Region', () => {
 		it('should return 200 with invalid query params', async () => {
 			const { body, statusCode } = await request.get({ path: `${endpoint}?foo=bar` });
 			expect(statusCode).to.equal(200);
-			await validateSchema(schema, body);
+			validateSchema(schema, body);
 		});
 
 		it('should return a 405 status code and an error message indicating that the requested method is not allowed', async () => {

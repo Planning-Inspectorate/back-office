@@ -24,6 +24,5 @@ export async function validateSchema(schema, responseBody) {
 
 	const validate = await ajv.compile(schema);
 	const isValid = validate(responseBody);
-	if (!isValid) logger.error(JSON.stringify(validate.errors, null, 2));
-	expect(isValid).to.be.true;
+	expect(isValid, `schema validation failed: ${JSON.stringify(validate.errors)}`).to.be.true;
 }
