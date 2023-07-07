@@ -94,6 +94,13 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/properties')
+	.get(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationProperties)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],

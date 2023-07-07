@@ -6789,7 +6789,7 @@ exports[`applications documentation Document properties page If the user is insp
 exports[`applications documentation Document properties page If the user is not inspector page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full pins-dashboard-list--hide-controls govuk-!-margin-top-0\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
             <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
                 <ol class=\\"govuk-breadcrumbs__list\\">
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
@@ -6891,21 +6891,44 @@ exports[`applications documentation Document properties page If the user is not 
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
-                        <table class=\\"govuk-table\\">
+                        <table class=\\"govuk-table pins-file-versions-table\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Download</th>
                                 </tr>
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\">test-file-1.pdf</td>
-                                    <td class=\\"govuk-table__cell\\">2021-01-01T00:00:00.000Z</td>
-                                    <td class=\\"govuk-table__cell\\">false</td>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/\\" class=\\"govuk-link\\">test-file-1.pdf</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/123/'> Download</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">2</td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">test-file-1.pdf</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/456/'> Download</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -6920,7 +6943,7 @@ exports[`applications documentation Document properties page If the user is not 
 exports[`applications documentation Document properties page If the user is not inspector should not show publishedDate edit link if document is not published 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full pins-dashboard-list--hide-controls govuk-!-margin-top-0\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
             <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
                 <ol class=\\"govuk-breadcrumbs__list\\">
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
@@ -7023,21 +7046,44 @@ exports[`applications documentation Document properties page If the user is not 
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
-                        <table class=\\"govuk-table\\">
+                        <table class=\\"govuk-table pins-file-versions-table\\">
                             <thead class=\\"govuk-table__head\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Download</th>
                                 </tr>
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\">test-file-1.pdf</td>
-                                    <td class=\\"govuk-table__cell\\">2021-01-01T00:00:00.000Z</td>
-                                    <td class=\\"govuk-table__cell\\">false</td>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/\\" class=\\"govuk-link\\">test-file-1.pdf</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/123/'> Download</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">2</td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">test-file-1.pdf</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/456/'> Download</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

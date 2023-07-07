@@ -120,5 +120,10 @@ export interface DocumentVersion {
 	version: number;
 	fileName: string;
 	dateCreated: number;
+	datePublished: number | null;
+	dateUnpublished: number | null;
 	redacted: boolean;
+	documentGuid: string;
+	mime: string;
+	size: number;
 }

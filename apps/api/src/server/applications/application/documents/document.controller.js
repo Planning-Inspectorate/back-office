@@ -22,6 +22,7 @@ import {
 	validateDocumentVersionMetadataBody,
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing
 } from './document.validators.js';
+import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /**
  * @typedef {import('apps/api/src/database/schema.js').Document} Document
@@ -207,7 +208,20 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 		throw new BackOfficeAppError(`No document versions found for guid ${guid}`, 404);
 	}
 
-	response.status(200).send(documentVersions);
+	const mappedDocumentVersions = documentVersions.map(
+		(/** @type {Record<string, any>} */ documentVersion) => ({
+			...documentVersion,
+			dateCreated: documentVersion?.dateCreated
+				? mapDateStringToUnixTimestamp(documentVersion?.dateCreated?.toString())
+				: null,
+			datePublished: documentVersion?.datePublished
+				? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
+				: null
+			// TODO: add unpublished date
+		})
+	);
+
+	response.status(200).send(mappedDocumentVersions);
 };
 
 /**
