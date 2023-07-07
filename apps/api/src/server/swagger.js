@@ -1162,14 +1162,14 @@ const document = {
 				htmlContent: {
 					type: 'string',
 					description:
-						'The HTML content of this update, it can only include `<a> <b> <ul> <li>` tags',
-					example: '<b>Important Update</b> Something happened.'
+						'The HTML content of this update, it can only include `<p> <a> <strong> <ul> <li> <br>` tags',
+					example: '<strong>Important Update</strong> Something happened.'
 				},
 				htmlContentWelsh: {
 					type: 'string',
 					description:
-						'The HTML content of this update in Welsh, it can only include `<a> <b> <ul> <li>` tags',
-					example: '<b>Diweddariad Pwysig</b> Digwyddodd rhywbeth.'
+						'The HTML content of this update in Welsh, it can only include `<p> <a> <strong> <ul> <li> <br>` tags',
+					example: '<strong>Diweddariad Pwysig</strong> Digwyddodd rhywbeth.'
 				}
 			}
 		},

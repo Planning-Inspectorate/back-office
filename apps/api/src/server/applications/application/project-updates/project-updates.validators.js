@@ -3,6 +3,11 @@ import { body } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import sanitizeHtml from 'sanitize-html';
 
+export const allowedTags = ['a', 'br', 'strong', 'ul', 'li', 'p'];
+export const allowedTagsList = allowedTags.map((t) => `<${t}>`).join(' ');
+export const htmlContentError = `htmlContent can only contain ${allowedTagsList} tags`;
+export const htmlContentWelshError = `htmlContentWelsh can only contain ${allowedTagsList} tags`;
+
 export const validateCreateProjectUpdate = composeMiddleware(
 	body('emailSubscribers')
 		.notEmpty()
@@ -20,14 +25,14 @@ export const validateCreateProjectUpdate = composeMiddleware(
 		.isString()
 		.withMessage('htmlContent must be a string')
 		.custom(contentIsSafe)
-		.withMessage('htmlContent can only contain <a> <b> <ul> <li> tags'),
+		.withMessage(htmlContentError),
 	body('title').optional().isString().withMessage('title must be a string'),
 	body('htmlContentWelsh')
 		.optional()
 		.isString()
 		.withMessage('htmlContentWelsh must be a string')
 		.custom(contentIsSafe)
-		.withMessage('htmlContentWelsh can only contain <a> <b> <ul> <li> tags'),
+		.withMessage(htmlContentWelshError),
 	validationErrorHandler
 );
 
@@ -39,7 +44,7 @@ export const validateCreateProjectUpdate = composeMiddleware(
  */
 export function contentIsSafe(content) {
 	const sanitized = sanitizeHtml(content, {
-		allowedTags: ['a', 'b', 'ul', 'li'],
+		allowedTags,
 		allowedAttributes: {
 			a: ['href']
 		},

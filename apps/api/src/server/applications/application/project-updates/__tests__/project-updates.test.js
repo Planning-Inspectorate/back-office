@@ -10,6 +10,7 @@ import {
 import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../../infrastructure/event-client.js';
+import { htmlContentError } from '../project-updates.validators.js';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -260,7 +261,7 @@ describe('project-updates', () => {
 					status: 400,
 					body: {
 						errors: {
-							htmlContent: 'htmlContent can only contain <a> <b> <ul> <li> tags'
+							htmlContent: htmlContentError
 						}
 					}
 				}
@@ -276,7 +277,7 @@ describe('project-updates', () => {
 					status: 400,
 					body: {
 						errors: {
-							htmlContent: 'htmlContent can only contain <a> <b> <ul> <li> tags'
+							htmlContent: htmlContentError
 						}
 					}
 				}
@@ -292,7 +293,7 @@ describe('project-updates', () => {
 					status: 400,
 					body: {
 						errors: {
-							htmlContent: 'htmlContent can only contain <a> <b> <ul> <li> tags'
+							htmlContent: htmlContentError
 						}
 					}
 				}
@@ -303,7 +304,7 @@ describe('project-updates', () => {
 					emailSubscribers: true,
 					status: 'draft',
 					htmlContent:
-						'<b>Something Important</b> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+						'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 				},
 				existingCase: {
 					reference: 'abc-123'
@@ -324,7 +325,7 @@ describe('project-updates', () => {
 						sentToSubscribers: false,
 						status: 'draft',
 						htmlContent:
-							'<b>Something Important</b> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 					}
 				}
 			}
