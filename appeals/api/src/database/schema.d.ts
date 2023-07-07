@@ -68,8 +68,7 @@ export interface AppealDocument {
 export interface FolderTemplate {
 	path: string;
 	displayName?: string;
-	caseId?: number;
-	documents?: [Document];
+	caseId: number;
 }
 
 export interface AppealStatus extends schema.AppealStatus {

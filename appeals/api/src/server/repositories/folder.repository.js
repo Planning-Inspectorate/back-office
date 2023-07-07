@@ -1,4 +1,4 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 import { defaultCaseFolders } from './folder.layout.repository.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -27,7 +27,7 @@ export const upsertCaseFolders = async (caseId) => {
 		const topFoldersCreated = await databaseConnector.folder.upsert({
 			create: folder,
 			where: { caseId_path: { caseId, path: folder.path } },
-			update: folder
+			update: { displayName: folder.displayName }
 		});
 		foldersCreated.push(topFoldersCreated);
 	}

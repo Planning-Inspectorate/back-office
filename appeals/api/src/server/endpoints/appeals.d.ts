@@ -6,6 +6,7 @@ declare global {
 			appeal: RepositoryGetByIdResultItem;
 			validationOutcome: ValidationOutcome;
 			notifyClient: NotifyClient;
+			document: Schema.Document;
 		}
 	}
 }

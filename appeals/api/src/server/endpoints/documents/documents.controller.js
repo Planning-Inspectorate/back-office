@@ -1,12 +1,8 @@
-import {
-	getDocumentsForAppeal,
-	getDocumentForAppeal,
-	addDocumentsToAppeal,
-	addVersionToDocument
-} from './documents.service.js';
+import * as service from './documents.service.js';
 
 /** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
 /** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
+/** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
 /**
@@ -15,7 +11,7 @@ import {
  */
 const getDocumentLocations = async (req, res) => {
 	const { appeal } = req;
-	const allFoldersAndDocuments = await getDocumentsForAppeal(appeal);
+	const allFoldersAndDocuments = await service.getDocumentsForAppeal(appeal);
 	const locations = allFoldersAndDocuments.map((p) => {
 		return {
 			displayName: p.displayName,
@@ -32,7 +28,7 @@ const getDocumentLocations = async (req, res) => {
  */
 const getDocuments = async (req, res) => {
 	const { appeal } = req;
-	const allFoldersAndDocuments = await getDocumentsForAppeal(appeal);
+	const allFoldersAndDocuments = await service.getDocumentsForAppeal(appeal);
 
 	return res.send(allFoldersAndDocuments);
 };
@@ -42,53 +38,49 @@ const getDocuments = async (req, res) => {
  * @returns {Promise<object>}
  */
 const getDocument = async (req, res) => {
-	const { documentId } = req.params;
-	const doc = await getDocumentForAppeal(documentId);
-
-	return res.send(doc);
+	const { document } = req;
+	return res.send(document);
 };
 
 /**
  *
  * @type {RequestHandler}
+ * @returns {Promise<object>}
  */
 const addDocuments = async (req, res) => {
 	const { appeal } = req;
-	const documentInfo = await addDocumentsToAppeal(req.body, appeal);
+	const documentInfo = await service.addDocumentsToAppeal(req.body, appeal);
 
-	const storageInfo = {
-		documents: documentInfo.documents.map((d) => {
-			return {
-				documentName: d.documentName,
-				GUID: d.GUID,
-				blobStoreUrl: d.blobStoreUrl
-			};
-		})
-	};
-
-	res.send(storageInfo);
+	return res.send(getStorageInfo(documentInfo.documents));
 };
 
 /**
  *
  * @type {RequestHandler}
+ * @returns {Promise<object>}
  */
 const addDocumentVersion = async (req, res) => {
-	const { appeal, body } = req;
-	const { documentId } = req.params;
-	const documentInfo = await addVersionToDocument(body, appeal, documentId);
+	const { appeal, body, document } = req;
+	const documentInfo = await service.addVersionToDocument(body, appeal, document);
 
-	const storageInfo = {
-		documents: documentInfo.documents.map((d) => {
-			return {
-				documentName: d.documentName,
-				GUID: d.GUID,
-				blobStoreUrl: d.blobStoreUrl
-			};
+	return res.send(getStorageInfo(documentInfo.documents));
+};
+
+/**
+ * @type {(docs: (BlobInfo|null)[]) => object}
+ */
+const getStorageInfo = (docs) => {
+	return {
+		documents: docs.map((d) => {
+			if (d) {
+				return {
+					documentName: d.documentName,
+					GUID: d.GUID,
+					blobStoreUrl: d.blobStoreUrl
+				};
+			}
 		})
 	};
-
-	res.send(storageInfo);
 };
 
 export { getDocumentLocations, getDocument, getDocuments, addDocuments, addDocumentVersion };
