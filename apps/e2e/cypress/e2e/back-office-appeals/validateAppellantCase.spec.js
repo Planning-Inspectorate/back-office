@@ -8,7 +8,6 @@ const page = new AppealsListPage();
 describe('Appeals feature', () => {
 	beforeEach(() => {
 		cy.login(users.inspector);
-		//	page.verifyInspectorIsSignedIn();
 	});
 
 	it('Validate appellant case', () => {
