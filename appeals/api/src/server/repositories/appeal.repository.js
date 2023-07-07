@@ -131,6 +131,11 @@ const appealRepository = (function () {
 								}
 							},
 							lpaQuestionnaireValidationOutcome: true,
+							neighbouringSiteContact: {
+								include: {
+									address: true
+								}
+							},
 							procedureType: true,
 							scheduleType: true
 						}
@@ -251,7 +256,7 @@ const appealRepository = (function () {
 		 *  relationOne: string,
 		 *  relationTwo: string,
 		 * }} param0
-		 * @returns {object[]}
+		 * @returns {LookupTables[]}
 		 */
 		updateManyToManyRelationTable({ id, data, databaseTable, relationOne, relationTwo }) {
 			return [
@@ -383,7 +388,7 @@ const appealRepository = (function () {
 		/**
 		 * @param {number} appealId
 		 * @param {string} status
-		 * @returns {PrismaPromise<object>}
+		 * @returns {Promise<object>}
 		 */
 		updateAppealStatus(appealId, status) {
 			return databaseConnector.$transaction([

@@ -18,6 +18,7 @@ export {
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,
+	NeighbouringSiteContact,
 	ReviewQuestionnaire,
 	LPAQuestionnaireIncompleteReason,
 	LPAQuestionnaireValidationOutcome,
@@ -251,6 +252,7 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 		| null;
 	lpaQuestionnaireValidationOutcome: LPAQuestionnaireValidationOutcome | null;
 	meetsOrExceedsThresholdOrCriteriaInColumn2: boolean | null;
+	neighbouringSiteContact: schema.NeighbouringSiteContact[] | null;
 	procedureType: ProcedureType | null;
 	scheduleType: ScheduleType | null;
 	sensitiveAreaDetails: string | null;

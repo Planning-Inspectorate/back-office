@@ -2187,6 +2187,10 @@
 						"type": "string",
 						"example": "The entrance is at the back of the property"
 					},
+					"isAffectingNeighbouringSites": {
+						"type": "boolean",
+						"example": true
+					},
 					"isCommunityInfrastructureLevyFormallyAdopted": {
 						"type": "boolean",
 						"example": true
@@ -2258,6 +2262,47 @@
 					"meetsOrExceedsThresholdOrCriteriaInColumn2": {
 						"type": "boolean",
 						"example": true
+					},
+					"neighbouringSiteContacts": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"address": {
+									"type": "object",
+									"properties": {
+										"addressLine1": {
+											"type": "string",
+											"example": "44 Rivervale"
+										},
+										"town": {
+											"type": "string",
+											"example": "Bridport"
+										},
+										"postCode": {
+											"type": "string",
+											"example": "DT6 5RN"
+										}
+									}
+								},
+								"email": {
+									"type": "string",
+									"example": "eva.sharma@example.com"
+								},
+								"firstName": {
+									"type": "string",
+									"example": "Eva"
+								},
+								"lastName": {
+									"type": "string",
+									"example": "Sharma"
+								},
+								"telephone": {
+									"type": "string",
+									"example": "07000123456"
+								}
+							}
+						}
 					},
 					"otherAppeals": {
 						"type": "array",

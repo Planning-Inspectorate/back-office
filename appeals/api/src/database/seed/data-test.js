@@ -11,7 +11,8 @@ import {
 	incompleteValidationDecisionSample,
 	invalidValidationDecisionSample,
 	localPlanningDepartmentList,
-	lpaQuestionnaireList
+	lpaQuestionnaireList,
+	neighbouringSiteContactsList
 } from './data-samples.js';
 import { calculateTimetable, isFPA } from '../../server/endpoints/appeals/appeals.service.js';
 import {
@@ -42,11 +43,9 @@ function generateAppealReference() {
 /**
  *
  * @param {object[] | string[]} list
- * @returns {object | string}
+ * @returns {number}
  */
-function pickRandom(list) {
-	return list[Math.floor(Math.random() * list.length)];
-}
+const pickRandom = (list) => Math.floor(Math.random() * list.length);
 
 /**
  *
@@ -110,10 +109,10 @@ const appealFactory = ({
 		reference: generateAppealReference(),
 		startedAt,
 		appealStatus: { create: statuses },
-		appellant: { create: pickRandom(appellantsList) },
-		localPlanningDepartment: pickRandom(localPlanningDepartmentList),
+		appellant: { create: appellantsList[pickRandom(appellantsList)] },
+		localPlanningDepartment: localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)],
 		planningApplicationReference: '48269/APP/2021/1482',
-		address: { create: pickRandom(addressesList) },
+		address: { create: addressesList[pickRandom(addressesList)] },
 		...(incompleteValidationDecision && {
 			validationDecision: { create: incompleteValidationDecisionSample }
 		}),
@@ -338,6 +337,7 @@ export async function seedTestData(databaseConnector) {
 	const lpaQuestionnaires = await databaseConnector.lPAQuestionnaire.findMany();
 	const designatedSites = await databaseConnector.designatedSite.findMany();
 	const lpaNotificationMethods = await databaseConnector.lPANotificationMethods.findMany();
+	const addresses = await databaseConnector.address.findMany();
 
 	for (const lpaQuestionnaire of lpaQuestionnaires) {
 		await databaseConnector.designatedSitesOnLPAQuestionnaires.createMany({
@@ -362,6 +362,16 @@ export async function seedTestData(databaseConnector) {
 				notificationMethodId: lpaNotificationMethods[item].id
 			}))
 		});
+
+		if (lpaQuestionnaire.isAffectingNeighbouringSites) {
+			await databaseConnector.neighbouringSiteContact.createMany({
+				data: [1, 2].map(() => ({
+					...neighbouringSiteContactsList[pickRandom(neighbouringSiteContactsList)],
+					addressId: addresses[pickRandom(addresses)].id,
+					lpaQuestionnaireId: lpaQuestionnaire.id
+				}))
+			});
+		}
 	}
 
 	const linkedAppealGroups = [
@@ -440,7 +450,8 @@ export async function seedTestData(databaseConnector) {
 	for (const appellantCase of appellantCases) {
 		const appeal = appeals.find(({ id }) => id === appellantCase.appealId);
 		const appealType = appealTypes.find(({ id }) => id === appeal?.appealTypeId);
-		const validationOutcome = appellantCaseValidationOutcomes[Math.floor(Math.random() * 3)];
+		const validationOutcome =
+			appellantCaseValidationOutcomes[pickRandom(appellantCaseValidationOutcomes)];
 
 		await databaseConnector.appellantCase.update({
 			where: { id: appellantCase.id },
