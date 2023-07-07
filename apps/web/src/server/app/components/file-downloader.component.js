@@ -1,6 +1,6 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
 import config from '../../../../environment/config.js';
-import { getCaseDocumentationFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
+import { getCaseDocumentationVersionFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -19,7 +19,7 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { blobStorageContainer, documentURI } = await getCaseDocumentationFileInfo(
+	const { blobStorageContainer, documentURI } = await getCaseDocumentationVersionFileInfo(
 		caseId,
 		fileGuid,
 		version

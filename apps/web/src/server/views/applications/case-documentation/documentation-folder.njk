@@ -230,7 +230,7 @@
 											{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, isPreviewActive: isPreviewActive}),
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}),
 													text:documentationFile.fileName
 												},
 												isPreviewActive
@@ -278,7 +278,7 @@
 												{
 													classes: 'govuk-body-s',
 													data: ['download-', documentationFile.documentGuid]|join,
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid}),
+													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}),
 													text:'Download'
 												},
 												isNotDisabled

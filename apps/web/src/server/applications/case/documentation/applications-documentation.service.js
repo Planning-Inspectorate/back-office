@@ -95,10 +95,21 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
  *
  * @param {number} caseId
  * @param {string} fileGuid
+ * @returns {Promise<DocumentationFile>}
+ */
+export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
+	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
+};
+
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {number} caseId
+ * @param {string} fileGuid
  * @param {number} version
  * @returns {Promise<DocumentationFile>}
  */
-export const getCaseDocumentationFileInfo = async (caseId, fileGuid, version = 1) => {
+export const getCaseDocumentationVersionFileInfo = async (caseId, fileGuid, version = 1) => {
 	return get(`applications/${caseId}/documents/${fileGuid}/version/${version}/properties`);
 };
 
