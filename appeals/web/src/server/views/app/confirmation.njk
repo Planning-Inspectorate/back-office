@@ -1,8 +1,8 @@
-{% extends "app/layouts/app.layout.njk" %}
+{%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "govuk/components/panel/macro.njk" import govukPanel -%}
 
-{% set serviceName = 'Planning inspectorate' %}
+{%- set serviceName = 'Planning inspectorate' -%}
 
 {%- set panelHtml -%}
 	{%- if panel.appealReference -%}
@@ -15,7 +15,7 @@
 {%- set bodyTitleHeadingLevel = body.title.headingLevel if body.title.headingLevel else 2 -%}
 {%- set bodyTitleClasses = body.title.classes if body.title.classes else 'govuk-heading-m' -%}
 
-{% block main %}
+{%- block main -%}
 	<main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
 		<div class="{{ containerClasses }}">
 			<div class="govuk-grid-row">
@@ -47,4 +47,4 @@
 			</div>
 		</div>
 	</main>
-{% endblock %}
+{%- endblock -%}

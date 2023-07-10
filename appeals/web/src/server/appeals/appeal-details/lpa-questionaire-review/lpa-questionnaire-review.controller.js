@@ -20,7 +20,7 @@ const renderLpaQuestionnaire = async (appealId, lpaQId, response, errors = null)
 	const mappedLpaQuestionnaireSections = mapLpaQuestionnaire(lpaQuestionnaireResponse);
 	const formattedSections = [];
 	for (const section of mappedLpaQuestionnaireSections) {
-		formattedSections.push(generateSummaryList(section.header, section.rows));
+		formattedSections.push(generateSummaryList(section.rows, section.header));
 	}
 
 	return response.render('appeals/appeal/lpa-questionnaire-view.njk', {

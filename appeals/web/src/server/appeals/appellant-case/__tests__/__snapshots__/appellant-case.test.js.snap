@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`appeal-details GET /appellant-case should render the appellant case page 1`] = `
+exports[`appellant-case GET /appellant-case should render the appellant case page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
@@ -173,7 +173,114 @@ exports[`appeal-details GET /appellant-case should render the appellant case pag
 </main>"
 `;
 
-exports[`appeal-details POST /appellant-case should re-render the appellant case page with an error if no review outcome was selected 1`] = `
+exports[`appellant-case GET /appellant-case/check-your-answers should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/check-your-answers should render the check your answers page with the expected content if required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\">Check your answers before confirming your review</h1>
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Review outcome</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>invalid</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Review outcome</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Invalid reasons</dt>
+                        <dd class=\\"govuk-summary-list__value\\">
+                            <ul class=\\"govuk-!-margin-top-0 govuk-!-padding-left-0\\">
+                                <li>Appeal has not been submitted on time</li>
+                                <li>Documents have not been submitted on time</li>
+                                <li>The appellant doesn't have the right to appeal</li>
+                            </ul>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Invalid reasons</span></a>
+                        </dd>
+                    </div>
+                </dl>
+                <div class=\\"govuk-inset-text\\">Confirming this review will inform the appellant of the outcome</div>
+                <form                 method=\\"post\\" novalidate=\\"novalidate\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm</button>
+                    </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid should render the invalid reason page if required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case should re-render the appellant case page with the expected error message if no review outcome was selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -361,7 +468,7 @@ exports[`appeal-details POST /appellant-case should re-render the appellant case
 </main>"
 `;
 
-exports[`appeal-details POST /appellant-case should render the confirmation page if selected review outcome value is "valid" 1`] = `
+exports[`appellant-case POST /appellant-case should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid" 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-width-container\\">
         <div class=\\"govuk-grid-row\\">
@@ -378,14 +485,164 @@ exports[`appeal-details POST /appellant-case should render the confirmation page
             <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
                 <p class=\\"govuk-body\\">The appeal has been marked as valid.</p>
                 <h2 class=\\"govuk-heading-m\\">What happens next</h2>
-                <p class=\\"govuk-body\\">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
+                <p class=\\"govuk-body\\">We&#39;ve sent the start letter email to the appellant and LPA.</p>
                 <p                 class=\\"govuk-body\\">The case has been published on the Appeals Casework Portal.</p>
-                    <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"#\\">Read the email</a>
-                    </p>
                     <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
                     </p>
             </div>
         </div>
     </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision invalid confirmation page, if posted outcome was "invalid" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> Appeal invalid</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The appeal has been closed.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent an email to the appellant and LPA to inform them the case
+                    is invalid.</p>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if "other" reason was selected but no "otherReason" was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#otherReason\\">If selecting &quot;Other&quot;, you must provide details in the text box</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" checked data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional\\" id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if no invalid reason was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#invalidReason\\">Please select one or more reasons why the appeal is invalid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
 </main>"
 `;
