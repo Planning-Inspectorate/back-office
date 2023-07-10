@@ -13,7 +13,7 @@
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
 						{label: 'Published date', value: (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.datePublished else null},
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
-						{label: 'Status', value: documentationFile.publishedStatus|statusName }
+						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if documentationFile.publishedStatus != 'published' else null }
 	] %}
 
 
