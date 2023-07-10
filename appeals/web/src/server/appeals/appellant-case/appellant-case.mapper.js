@@ -1,12 +1,13 @@
 import { addressToString } from '../../lib/address-formatter.js';
 import { convertFromBooleanToYesNo } from '../../lib/boolean-formatter.js';
+import { capitalize } from 'lodash-es';
 
 /**
  *
  * @param {import('apps/web/src/server/appeals/appellant-case/appellant-case.types').SingleAppellantCaseResponse} appellantCaseData
  * @returns {SummaryListBuilderParameters[]}
  */
-export function mapAppellantCase(appellantCaseData) {
+export function mapResponseToSummaryListBuilderParameters(appellantCaseData) {
 	const completeList = [];
 	const mappedData = mapData(appellantCaseData);
 	completeList.push(appellantDataList(mappedData));
@@ -16,7 +17,123 @@ export function mapAppellantCase(appellantCaseData) {
 }
 
 /**
- * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder").RowArray} SummaryListBuilderRowArray
+ *
+ * @param {import('./appellant-case.service.js').AppellantCaseReviewOutcome} reviewOutcome
+ * @param {import('.prisma/client').AppellantCaseInvalidReason[]} invalidReasonOptions
+ * @returns {SummaryListBuilderParameters}
+ */
+export function mapReviewOutcomeToSummaryListBuilderParameters(
+	reviewOutcome,
+	invalidReasonOptions
+) {
+	const reasonsContent = [];
+
+	switch (reviewOutcome.validationOutcome) {
+		case 'invalid':
+			if (!reviewOutcome.invalidReasons) {
+				throw new Error('validationOutcome is "invalid" but invalidReasons was not found');
+			}
+			reviewOutcome.invalidReasons.forEach((reason) => {
+				for (const possibleReason of invalidReasonOptions) {
+					if (reason === possibleReason.id) {
+						const reasonText =
+							possibleReason.name.toLowerCase() === 'other'
+								? `${possibleReason.name}: ${reviewOutcome.otherNotValidReasons || ''}`
+								: possibleReason.name;
+						reasonsContent.push(reasonText);
+					}
+				}
+			});
+			break;
+		case 'incomplete':
+			// TODO: BOAT-235
+			reasonsContent.push('');
+			break;
+		default:
+			break;
+	}
+
+	/** @type {import('../../lib/nunjucks-template-builders/summary-list-builder').Row[]} */
+	const sectionData = [
+		{
+			title: 'Review outcome',
+			value: reviewOutcome.validationOutcome,
+			valueType: 'text',
+			actionText: 'Change',
+			actionLink: '#'
+		},
+		{
+			title: `${capitalize(reviewOutcome.validationOutcome)} reasons`,
+			value: reasonsContent,
+			valueType: 'unorderedList',
+			actionText: 'Change',
+			actionLink: '#'
+		}
+	];
+
+	return { rows: sectionData };
+}
+
+/**
+ *
+ * @param {import('.prisma/client').AppellantCaseInvalidReason[]} invalidReasonOptions
+ * @param {string[]|number[]} [checkedOptionValues]
+ * @returns {import('../appeals.types').CheckboxItemParameter[]}
+ */
+export function mapInvalidReasonsToCheckboxItemParameters(
+	invalidReasonOptions,
+	checkedOptionValues
+) {
+	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
+		checkedOptionValues = [checkedOptionValues];
+	}
+
+	let checkedOptions = checkedOptionValues?.map((value) =>
+		typeof value === 'string' ? parseInt(value, 10) : value
+	);
+
+	return invalidReasonOptions.map((reason) => ({
+		value: `${reason.id}`,
+		text: reason.name,
+		...(checkedOptions && {
+			checked: checkedOptions.includes(reason.id)
+		})
+	}));
+}
+
+/**
+ *
+ * @param {'valid'|'invalid'|'incomplete'} validationOutcome
+ * @param {string|string[]} [invalidReasons]
+ * @param {string} [otherNotValidReasons]
+ * @returns {import('./appellant-case.service.js').AppellantCaseReviewOutcome}
+ */
+export function mapPostedReviewOutcomeToApiReviewOutcome(
+	validationOutcome,
+	invalidReasons,
+	otherNotValidReasons
+) {
+	let parsedInvalidReasons;
+
+	if (invalidReasons) {
+		if (!Array.isArray(invalidReasons)) {
+			invalidReasons = [invalidReasons];
+		}
+		parsedInvalidReasons = invalidReasons.map((reason) => parseInt(reason, 10));
+		if (!parsedInvalidReasons.every((value) => !Number.isNaN(value))) {
+			throw new Error('failed to parse one or more invalid reason IDs to integer');
+		}
+	}
+
+	return {
+		validationOutcome,
+		...(invalidReasons && { invalidReasons: parsedInvalidReasons }),
+		...(otherNotValidReasons && { otherNotValidReasons })
+	};
+}
+
+/**
+ * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder").Row} SummaryListBuilderRowArray
  */
 
 /**

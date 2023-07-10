@@ -24,7 +24,6 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building details</dt>
                             <dd class=\\"govuk-summary-list__value\\"><a href=\\"Grade I: http://localhost:8080/document-0.pdf\\" class=\\"govuk-link\\">Grade I: http://localhost:8080/document-0.pdf</a>
                                 <br><a href=\\"Grade II: http://localhost:8080/document-1.pdf\\" class=\\"govuk-link\\">Grade II: http://localhost:8080/document-1.pdf</a>
-                                <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Listed building details</span></a>
                             </dd>
@@ -38,7 +37,6 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a listed building details</dt>
                             <dd                             class=\\"govuk-summary-list__value\\"><a href=\\"Grade III: http://localhost:8080/document-2.pdf\\" class=\\"govuk-link\\">Grade III: http://localhost:8080/document-2.pdf</a>
                                 <br><a href=\\"Grade IV: http://localhost:8080/document-3.pdf\\" class=\\"govuk-link\\">Grade IV: http://localhost:8080/document-3.pdf</a>
-                                <br>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a listed building details</span></a>
                                 </dd>
@@ -76,7 +74,6 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Designated sites</dt>
                             <dd class=\\"govuk-summary-list__value\\"><span>potential special protection area (pSPA)</span>
                                 <br><span>special area of conservation (SAC)</span>
-                                <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Designated sites</span></a>
                             </dd>
@@ -282,7 +279,6 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Listed building details</dt>
                             <dd class=\\"govuk-summary-list__value\\"><a href=\\"Grade I: http://localhost:8080/document-0.pdf\\" class=\\"govuk-link\\">Grade I: http://localhost:8080/document-0.pdf</a>
                                 <br><a href=\\"Grade II: http://localhost:8080/document-1.pdf\\" class=\\"govuk-link\\">Grade II: http://localhost:8080/document-1.pdf</a>
-                                <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Listed building details</span></a>
                             </dd>
@@ -296,7 +292,6 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Affects a listed building details</dt>
                             <dd                             class=\\"govuk-summary-list__value\\"><a href=\\"Grade III: http://localhost:8080/document-2.pdf\\" class=\\"govuk-link\\">Grade III: http://localhost:8080/document-2.pdf</a>
                                 <br><a href=\\"Grade IV: http://localhost:8080/document-3.pdf\\" class=\\"govuk-link\\">Grade IV: http://localhost:8080/document-3.pdf</a>
-                                <br>
                                 </dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Affects a listed building details</span></a>
                                 </dd>
@@ -334,7 +329,6 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Designated sites</dt>
                             <dd class=\\"govuk-summary-list__value\\"><span>potential special protection area (pSPA)</span>
                                 <br><span>special area of conservation (SAC)</span>
-                                <br>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Designated sites</span></a>
                             </dd>

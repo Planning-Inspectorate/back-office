@@ -1,15 +1,15 @@
 /**
- * @typedef {'span' | 'text' | 'link'} HtmlTagType
+ * @typedef {'text' | 'link' | 'unorderedList'} HtmlTagType
  */
 
 /**
- * @typedef RowArray
+ * @typedef Row
  * @type {object}
  * @property {string} title - key column
  * @property {(string | string[])} value - value column
- * @property {HtmlTagType} valueType - determines html tags
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
+ * @property {HtmlTagType} valueType - determines html tags
  */
 
 /**
@@ -21,19 +21,25 @@
 
 /**
  * @typedef {Object} BuilderParameters
- * @property {string} header
- * @property {RowArray[]} rows
+ * @property {string} [header]
+ * @property {Row[]} rows
  */
 
 /**
- * @param {string} header
- * @param {RowArray[]} rowArray
- * @returns {{card: Card, rows: {key: Key, value: Value, actions: Actions}[]}}}
+ * @typedef {Object} SummaryListComponentParameters
+ * @property {{key: Key, value: Value, actions: Actions}[]} rows
+ * @property {Card} [card]
  */
-export function generateSummaryList(header, rowArray) {
-	const rows = [];
-	for (const row of rowArray) {
-		rows.push({
+
+/**
+ * @param {Row[]} rows
+ * @param {string} [header]
+ * @returns {SummaryListComponentParameters}
+ */
+export function generateSummaryList(rows, header) {
+	/** @type {SummaryListComponentParameters} */
+	const componentParameters = {
+		rows: rows.map((row) => ({
 			key: {
 				text: row.title
 			},
@@ -49,48 +55,74 @@ export function generateSummaryList(header, rowArray) {
 					}
 				]
 			}
-		});
-	}
-	return {
-		card: {
+		}))
+	};
+
+	if (header) {
+		componentParameters.card = {
 			title: {
 				text: header
 			}
-		},
-		rows: rows
-	};
+		};
+	}
+
+	return componentParameters;
 }
 
 /**
  * @param {{ valueType: HtmlTagType; value: string | string[]; }} row
+ * @returns {string}
  */
 function formatRowValue(row) {
 	let rowValueAsHtml = '';
+	let htmlTags;
+
 	if (Array.isArray(row.value)) {
-		const arrayOfValues = row.value;
-		for (const value of arrayOfValues) {
-			const htmlTags = getHtmlTags(row.valueType, value);
-			rowValueAsHtml += `${htmlTags.startTag}${value}${htmlTags.endTag}<br>`;
+		for (let i = 0; i < row.value.length; i++) {
+			const value = row.value[i];
+			htmlTags = getHtmlTags(row.valueType, value);
+			rowValueAsHtml += `${htmlTags.startTag}${value}${htmlTags.endTag}${
+				i < row.value.length - 1 && row.valueType !== 'unorderedList' ? '<br>' : ''
+			}`;
 		}
 	} else {
-		const htmlTags = getHtmlTags(row.valueType, row.value);
+		htmlTags = getHtmlTags(row.valueType, row.value);
 		rowValueAsHtml = `${htmlTags.startTag}${row.value}${htmlTags.endTag}`;
 	}
+
+	if (htmlTags?.wrappingStartTag && htmlTags?.wrappingEndTag) {
+		rowValueAsHtml = `${htmlTags.wrappingStartTag}${rowValueAsHtml}${htmlTags.wrappingEndTag}`;
+	}
+
 	return rowValueAsHtml;
 }
 
 /**
+ * @typedef {Object} HtmlTagsEntry
+ * @property {string} startTag
+ * @property {string} endTag
+ * @property {string} [wrappingStartTag]
+ * @property {string} [wrappingEndTag]
+ */
+
+/**
  * @param {HtmlTagType} type
  * @param {string} [href] optional: if type is link
- * @returns {{startTag: string, endTag: string}} <{{startTag}}>, </{{endTag}}>
+ * @returns {HtmlTagsEntry}
  */
 function getHtmlTags(type, href) {
 	/**
-	 * @type {Object<string, {startTag: string, endTag: string}>}
+	 * @type {Object<string, HtmlTagsEntry>}
 	 */
 	let determineHtmlTag = {
 		text: { startTag: '<span>', endTag: '</span>' },
-		link: { startTag: `<a href="${href}" class="govuk-link">`, endTag: `</a>` }
+		link: { startTag: `<a href="${href}" class="govuk-link">`, endTag: `</a>` },
+		unorderedList: {
+			startTag: '<li>',
+			endTag: '</li>',
+			wrappingStartTag: '<ul class="govuk-!-margin-top-0 govuk-!-padding-left-0">',
+			wrappingEndTag: '</ul>'
+		}
 	};
 
 	return determineHtmlTag[type];
