@@ -6,6 +6,9 @@ import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
+import { objectContainsAllKeys } from '../object-utilities.js';
+import { checkboxItemParameterAddConditionalHtml } from '../nunjucks-filters/checkbox-item-parameter-add-conditional-html.js';
+import { cloneDeep } from 'lodash-es';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -69,6 +72,7 @@ describe('Libraries', () => {
 				const testMappedSections = [
 					{
 						header: 'Section 1',
+						/** @type {import('../nunjucks-template-builders/summary-list-builder.js').Row[]} */
 						rows: [
 							{
 								title: 'Row 1',
@@ -88,6 +92,7 @@ describe('Libraries', () => {
 					},
 					{
 						header: 'Section 2',
+						/** @type {import('../nunjucks-template-builders/summary-list-builder.js').Row[]} */
 						rows: [
 							{
 								title: 'Row 3',
@@ -136,7 +141,7 @@ describe('Libraries', () => {
 									text: 'Row 2'
 								},
 								value: {
-									html: '<span>Option One</span><br><span>Option two</span><br>'
+									html: '<span>Option One</span><br><span>Option two</span>'
 								},
 								actions: {
 									items: [
@@ -162,7 +167,7 @@ describe('Libraries', () => {
 									text: 'Row 3'
 								},
 								value: {
-									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a><br><a href="http://testURLTwo.com/filetwo.pdf" class="govuk-link">http://testURLTwo.com/filetwo.pdf</a><br>'
+									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a><br><a href="http://testURLTwo.com/filetwo.pdf" class="govuk-link">http://testURLTwo.com/filetwo.pdf</a>'
 								},
 								actions: {
 									items: [
@@ -196,8 +201,7 @@ describe('Libraries', () => {
 				];
 				const formattedSections = [];
 				for (const section of testMappedSections) {
-					// @ts-ignore
-					formattedSections.push(generateSummaryList(section.header, section.rows));
+					formattedSections.push(generateSummaryList(section.rows, section.header));
 				}
 				expect(formattedSections).toEqual(expectedReturn);
 			});
@@ -351,6 +355,78 @@ describe('Libraries', () => {
 			const formattedApplicant = nameToString(applicant);
 
 			expect(typeof formattedApplicant).toEqual('string');
+		});
+	});
+
+	describe('objectContainsAllKeys', () => {
+		it('should return true if the provided object contains all of the provided keys, false otherwise', () => {
+			const testObject = {
+				firstKey: 'firstKey value',
+				'second-key': 'second-key value',
+				3: '3 value',
+				fourthKey: ['fourthKey', 'value']
+			};
+
+			expect(objectContainsAllKeys(testObject, 'firstKey')).toBe(true);
+			expect(objectContainsAllKeys(testObject, 'second-key')).toBe(true);
+			expect(objectContainsAllKeys(testObject, '3')).toBe(true);
+			expect(objectContainsAllKeys(testObject, 'fourthKey')).toBe(true);
+			expect(objectContainsAllKeys(testObject, 'keyThatDoesNotExist')).toBe(false);
+			expect(objectContainsAllKeys(testObject, ['firstKey', 'second-key', '3', 'fourthKey'])).toBe(
+				true
+			);
+			expect(
+				objectContainsAllKeys(testObject, [
+					'firstKey',
+					'second-key',
+					'3',
+					'fourthKey',
+					'keyThatDoesNotExist'
+				])
+			).toBe(false);
+		});
+	});
+
+	describe('checkboxItemParameterAddConditionalHtml', () => {
+		it('should add the provided html to the "conditional" property of each item in the provided checkbox/radio "items" parameter object whose "propertyToCheck" is equal to "valueToCheckFor"', () => {
+			const itemParameters = [
+				{
+					value: '1',
+					text: 'item 1'
+				},
+				{
+					value: '2',
+					text: 'item'
+				},
+				{
+					value: '3',
+					text: 'item'
+				}
+			];
+			const conditionalHtml = '<div>conditional html</div>';
+			const expectedResult = { html: '<div>conditional html</div>' };
+
+			const resultForValueProperty = checkboxItemParameterAddConditionalHtml(
+				cloneDeep(itemParameters),
+				'value',
+				'1',
+				conditionalHtml
+			);
+
+			expect(resultForValueProperty[0].conditional).toEqual(expectedResult);
+			expect(resultForValueProperty[1].conditional).toBe(undefined);
+			expect(resultForValueProperty[2].conditional).toBe(undefined);
+
+			const resultForTextProperty = checkboxItemParameterAddConditionalHtml(
+				cloneDeep(itemParameters),
+				'text',
+				'item',
+				conditionalHtml
+			);
+
+			expect(resultForTextProperty[0].conditional).toBe(undefined);
+			expect(resultForTextProperty[1].conditional).toEqual(expectedResult);
+			expect(resultForTextProperty[2].conditional).toEqual(expectedResult);
 		});
 	});
 });

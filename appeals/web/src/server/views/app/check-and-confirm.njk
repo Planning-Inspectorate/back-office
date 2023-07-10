@@ -1,0 +1,36 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = "Check answers - GOV.UK" -%}
+{%- set serviceName = 'Planning inspectorate' -%}
+{%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-full' -%}
+{%- set titleHeadingLevel = title.headingLevel if title.headingLevel else 1 -%}
+
+{%- set summaryLists -%}
+	{%- for section in summaryList.formattedSections -%}
+		{{ govukSummaryList(section)}}
+	{%- endfor -%}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+	<h{{ titleHeadingLevel }} class="govuk-heading-xl govuk-!-margin-bottom-3">{{ title.text }}</h{{ titleHeadingLevel }}>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	{{ summaryLists | safe }}
+	{%- if insetText -%}
+		{{ govukInsetText({
+			text: insetText
+		}) }}
+	{%- endif -%}
+	<form method="post" novalidate="novalidate">
+		{{ govukButton({
+			text: submitButtonText if submitButtonText else "Confirm",
+			type: "submit"
+		}) }}
+	</form>
+{%- endblock -%}

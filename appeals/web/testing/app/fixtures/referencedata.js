@@ -267,3 +267,22 @@ export const lpaQuestionnaireData = {
 
 export const getRandomLocalPlanningDepartment = () =>
 	/** @type {string} */ (sample(localPlanningDepartments));
+
+export const appellantCaseInvalidReasons = [
+	{
+		id: 21,
+		name: 'Appeal has not been submitted on time'
+	},
+	{
+		id: 22,
+		name: 'Documents have not been submitted on time'
+	},
+	{
+		id: 23,
+		name: "The appellant doesn't have the right to appeal"
+	},
+	{
+		id: 24,
+		name: 'Other'
+	}
+];

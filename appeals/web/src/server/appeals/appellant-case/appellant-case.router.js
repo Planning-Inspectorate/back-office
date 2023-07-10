@@ -9,4 +9,14 @@ router
 	.get(controller.getAppellantCase)
 	.post(validators.validateReviewOutcome, controller.postAppellantCase);
 
+router
+	.route('/invalid')
+	.get(controller.getInvalidReason)
+	.post(validators.validateInvalidReason, controller.postInvalidReason);
+
+router
+	.route('/check-your-answers')
+	.get(controller.getCheckAndConfirm)
+	.post(controller.postCheckAndConfirm);
+
 export default router;

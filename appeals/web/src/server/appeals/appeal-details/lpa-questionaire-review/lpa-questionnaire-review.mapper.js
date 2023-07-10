@@ -19,7 +19,7 @@ export function mapLpaQuestionnaire(lpaQuestionnaireData) {
 }
 
 /**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").RowArray} SummaryListBuilderRowArray
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").Row} SummaryListBuilderRowArray
  */
 
 /**
