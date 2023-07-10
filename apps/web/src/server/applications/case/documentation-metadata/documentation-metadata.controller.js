@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" |"type"|"webfilter"|"agent"| "author"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {{caseId: number, folderId: number }} ResponseLocals */
@@ -63,6 +63,16 @@ const layouts = {
 		],
 		pageTitle: 'Select the redaction status',
 		metaDataName: 'redactedStatus'
+	},
+	'published-status': {
+		items: [
+			{ value: 'not_checked', text: 'Not checked' },
+			{ value: 'checked', text: 'Checked' },
+			{ value: 'ready_to_publish', text: 'Ready to publish' },
+			{ value: 'do_not_publish', text: 'Do not publish' }
+		],
+		pageTitle: 'Select the document status',
+		metaDataName: 'publishedStatus'
 	},
 	type: {
 		items: [
