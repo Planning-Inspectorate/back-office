@@ -139,7 +139,11 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Documents that have been updated',
-            schema: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29' } ]
+            schema: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29', "status": "not_checked", "redactedStatus": "redacted" } ]
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing application" } }
         }
 	 */
 	validateApplicationId,
@@ -333,6 +337,10 @@ router.patch(
         #swagger.responses[200] = {
             description: 'Documents that have been published',
             schema: { $ref: '#/definitions/documentsPublished' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { documents: "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29" } }
         }
 	 */
 	validateApplicationId,
