@@ -1,42 +1,30 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Web APP: Dev",
-			"runtimeExecutable": "npm",
-			"runtimeArgs": [
-				"run",
-				"dev",
-				"--inspect-brk"
-			],
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "cwd": "${workspaceFolder}/apps/web",
-			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen"
-        },
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
 		{
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "API APP: Dev",
+			"type": "pwa-node",
+			"request": "launch",
+			"name": "Web APP: Dev",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": [
-				"run",
-				"dev",
-				"--inspect-brk"
-			],
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "cwd": "${workspaceFolder}/apps/api",
+			"runtimeArgs": ["run", "dev", "--inspect-brk"],
+			"skipFiles": ["<node_internals>/**"],
+			"cwd": "${workspaceFolder}/appeals/web",
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen"
-        }
-    ]
+		},
+		{
+			"type": "pwa-node",
+			"request": "launch",
+			"name": "API APP: Dev",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev", "--inspect-brk"],
+			"skipFiles": ["<node_internals>/**"],
+			"cwd": "${workspaceFolder}/appeals/api",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen"
+		}
+	]
 }
