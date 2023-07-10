@@ -30,7 +30,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/{guid}/metadata'
-        #swagger.description = 'This endpoint enables the storage of metadata for a document linked to a particular case, whether it's newly created or updated.'
+        #swagger.description = 'This endpoint enables the storage of metadata for a document linked to a particular case, whether it is newly created or updated.'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',

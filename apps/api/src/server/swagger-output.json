@@ -1332,7 +1332,7 @@
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
-				"description": "This endpoint enables the storage of metadata for a document linked to a particular case, whether it",
+				"description": "This endpoint enables the storage of metadata for a document linked to a particular case, whether it is newly created or updated.",
 				"parameters": [
 					{
 						"name": "id",
