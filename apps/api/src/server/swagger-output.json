@@ -1469,6 +1469,34 @@
 									"guid": {
 										"type": "string",
 										"example": "0084b156-006b-48b1-a47f-e7176414db29"
+									},
+									"status": {
+										"type": "string",
+										"example": "not_checked"
+									},
+									"redactedStatus": {
+										"type": "string",
+										"example": "redacted"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Example of an error response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
 									}
 								}
 							},
@@ -1712,6 +1740,26 @@
 						"description": "Documents that have been published",
 						"schema": {
 							"$ref": "#/definitions/documentsPublished"
+						}
+					},
+					"400": {
+						"description": "Example of an error response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"documents": {
+											"type": "string",
+											"example": "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -2578,7 +2626,7 @@
 					"type": "boolean",
 					"example": true
 				},
-				"items": {
+				"documents": {
 					"type": "array",
 					"items": {
 						"type": "object",
@@ -2595,7 +2643,7 @@
 		"documentsToPublishRequestBody": {
 			"type": "object",
 			"properties": {
-				"items": {
+				"documents": {
 					"type": "array",
 					"items": {
 						"type": "object",
@@ -2647,7 +2695,7 @@
 						"type": "string",
 						"example": "0084b156-006b-48b1-a47f-e7176414db29"
 					},
-					"status": {
+					"publishedStatus": {
 						"type": "string",
 						"example": "published"
 					}
