@@ -16,7 +16,7 @@ import { getRepresentaionDetailsPageUrl } from '../../representation/utils/get-r
  * @param {boolean|null} toConvert
  * @return {string}
  */
-const mapTrueFalseToYesNo = (toConvert) => (toConvert ? 'Yes' : 'No');
+const mapBooleanToRedacted = (toConvert) => (toConvert ? 'Redacted' : 'Unredacted');
 
 /**
  *
@@ -38,8 +38,8 @@ const mapTaskLog = (representationActions) => ({
 		from:
 			action.type === 'STATUS'
 				? action.previousStatus
-				: mapTrueFalseToYesNo(action.previousRedactStatus),
-		to: action.type === 'STATUS' ? action.status : mapTrueFalseToYesNo(action.redactStatus),
+				: mapBooleanToRedacted(action.previousRedactStatus),
+		to: action.type === 'STATUS' ? action.status : mapBooleanToRedacted(action.redactStatus),
 		author: action.actionBy
 	}))
 });
