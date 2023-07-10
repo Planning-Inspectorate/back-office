@@ -74,7 +74,7 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 	// @ts-ignore
 	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
 		Document,
-		...documentVersion[0]
+		...documentVersion[documentVersion.length - 1]
 	}));
 
 	return {

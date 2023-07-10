@@ -197,6 +197,36 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 /**
  * Gets the properties/metadata for a single document
  *
+ * @type {import('express').RequestHandler<{id: string;guid: string, version: number}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const getDocumentVersionProperties = async ({ params: { guid, version } }, response) => {
+	// Step 1: Retrieve the document by its GUID and case ID.
+	const document = await documentRepository.getById(guid);
+
+	if (!document) {
+		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
+	}
+
+	// Step 2: Retrieve the metadata for the document version associated with the GUID.
+	const documentVersion = await documentVersionRepository.getById(document.guid, version);
+
+	// Step 3: If the document metadata is not found, throw an error.
+	if (documentVersion === null || typeof documentVersion === 'undefined') {
+		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
+	}
+
+	// Step 4: Map the document metadata to a format to be returned in the API response.
+	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
+
+	// Step 5: Return the document metadata in the response.
+	response.status(200).send(documentDetails);
+};
+
+/**
+ * Gets the properties/metadata for a single document
+ *
  * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
  * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
@@ -297,19 +327,24 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  */
 export const storeDocumentVersion = async (request, response) => {
 	// Extract caseId and guid from the request parameters
-	const { id: caseId, guid } = request.params;
+	const { guid } = request.params;
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
 	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
 
 	// Retrieve the document from the database using the provided guid and caseId
-	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+	const document = await documentRepository.getById(guid);
+
+	if (!document) {
+		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		documentVersionMetadataBody
+		documentVersionMetadataBody,
+		document.latestVersionId
 	);
 
 	// Send the document details back in the response

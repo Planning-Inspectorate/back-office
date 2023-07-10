@@ -1,6 +1,6 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
 import config from '../../../../environment/config.js';
-import { getCaseDocumentationFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
+import { getCaseDocumentationVersionFileInfo } from '../../applications/case/documentation/applications-documentation.service.js';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -9,19 +9,20 @@ import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 /**
  * Download one document or redirects to its url if preview is active
  *
- * @param {{params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
+ * @param {{params: {caseId: number, guid: string, preview?: string, version: number}, session: SessionWithAuth}} request
  * @param {Response} response
  * @returns {Promise<Response>}
  */
 const getDocumentsDownload = async ({ params, session }, response) => {
-	const { guid: fileGuid, preview, caseId } = params;
+	const { guid: fileGuid, preview, caseId, version } = params;
 	const { blobStorageUrl } = config;
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { blobStorageContainer, documentURI } = await getCaseDocumentationFileInfo(
+	const { blobStorageContainer, documentURI } = await getCaseDocumentationVersionFileInfo(
 		caseId,
-		fileGuid
+		fileGuid,
+		version
 	);
 
 	if (!blobStorageContainer || !documentURI) {

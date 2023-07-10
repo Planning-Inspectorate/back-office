@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
-import { addBusinessDays, format } from 'date-fns';
+import { format } from 'date-fns';
 import { request } from '../../../app-test.js';
 import {
 	DEFAULT_DATE_FORMAT_DATABASE,
@@ -27,7 +27,7 @@ import {
 	fullPlanningAppeal,
 	householdAppeal
 } from '../../../tests/data.js';
-import { joinDateAndTime } from '../appeals.service.js';
+import { calculateTimetable, joinDateAndTime } from '../appeals.service.js';
 import config from '../../../config/config.js';
 import { NotifyClient } from 'notifications-node-client';
 
@@ -439,6 +439,10 @@ describe('appellant cases routes', () => {
 					appellantCaseValidationOutcomes[2]
 				);
 
+				const expectedTimeTable = await calculateTimetable(
+					householdAppeal.appealType.shorthand,
+					startedAt
+				);
 				const body = {
 					validationOutcome: 'valid'
 				};
@@ -455,12 +459,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
-						update: {
-							lpaQuestionnaireDueDate: addBusinessDays(
-								startedAt,
-								config.timetable.HAS.lpaQuestionnaireDueDate.daysFromStartDate
-							)
-						}
+						update: expectedTimeTable
 					})
 				);
 				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
@@ -496,6 +495,10 @@ describe('appellant cases routes', () => {
 					appellantCaseValidationOutcomes[2]
 				);
 
+				const expectedTimeTable = await calculateTimetable(
+					fullPlanningAppeal.appealType.shorthand,
+					startedAt
+				);
 				const body = {
 					validationOutcome: 'Valid'
 				};
@@ -512,20 +515,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(databaseConnector.appealTimetable.upsert).toHaveBeenCalledWith(
 					expect.objectContaining({
-						update: {
-							finalCommentReviewDate: addBusinessDays(
-								startedAt,
-								config.timetable.FPA.finalCommentReviewDate.daysFromStartDate
-							),
-							lpaQuestionnaireDueDate: addBusinessDays(
-								startedAt,
-								config.timetable.FPA.lpaQuestionnaireDueDate.daysFromStartDate
-							),
-							statementReviewDate: addBusinessDays(
-								startedAt,
-								config.timetable.FPA.statementReviewDate.daysFromStartDate
-							)
-						}
+						update: expectedTimeTable
 					})
 				);
 				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({

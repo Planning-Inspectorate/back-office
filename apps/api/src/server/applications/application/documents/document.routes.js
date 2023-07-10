@@ -13,7 +13,8 @@ import {
 	publishDocuments,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
-	updateDocuments
+	updateDocuments,
+	getDocumentVersionProperties
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -172,6 +173,38 @@ router.get(
         }
     */
 	asyncHandler(getDocumentProperties)
+);
+
+router.get(
+	'/:id/documents/:guid/version/:version/properties',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/version/:version/properties'
+        #swagger.description = 'Gets the properties of a single file on a case by version id'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
+		#swagger.parameters['version'] = {
+            in: 'path',
+			description: 'version of the required document here',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+        }
+    */
+	asyncHandler(getDocumentVersionProperties)
 );
 
 router.get(

@@ -61,6 +61,7 @@ export const url = (key, filterArguments = {}) => {
 	const step = getArgument('step', filterArguments);
 	const representationId = getArgument('representationId', filterArguments);
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
+	const version = getArgument('version', filterArguments);
 
 	switch (key) {
 		case 'base-url':
@@ -80,7 +81,9 @@ export const url = (key, filterArguments = {}) => {
 		case 'document-category':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/${step}`;
 		case 'document-download':
-			return `/documents/${caseId}/download/${documentGuid}/${isPreviewActive ? 'preview' : ''}`;
+			return `/documents/${caseId}/download/${documentGuid}/version/${version}/${
+				isPreviewActive ? 'preview' : ''
+			}`;
 		case 'documents-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
 		case 'search-results':
