@@ -239,7 +239,7 @@ describe('applications documentation', () => {
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
 					.send({
-						status: 'not_user_checked',
+						status: 'not_checked',
 						selectedFilesIds: ['2']
 					});
 

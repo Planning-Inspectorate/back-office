@@ -23,7 +23,7 @@ const documentToUpdate1 = {
 	documentGuid: 'documenttoupdate_1_guid',
 	name: 'doc to update 1',
 	description: 'doc with all required fields for publishing',
-	publishedStatus: 'not_user_checked',
+	publishedStatus: 'not_checked',
 	filter1: 'Filter Category 1',
 	redactedStatus: 'redacted',
 	author: 'David'
@@ -78,7 +78,7 @@ describe('Update document status when awaiting_virus_check', () => {
 });
 
 describe('Update document statuses and redacted statuses', () => {
-	test('updates document status to not_user_checked AND redacted status to redacted', async () => {
+	test('updates document status to not_checked AND redacted status to redacted', async () => {
 		// GIVEN
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'documenttoupdate_1_guid',
@@ -105,7 +105,7 @@ describe('Update document statuses and redacted statuses', () => {
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
-			status: 'not_user_checked',
+			status: 'not_checked',
 			redacted: true,
 			documents: [{ guid: 'documenttoupdate_1_guid' }]
 		});
@@ -116,13 +116,13 @@ describe('Update document statuses and redacted statuses', () => {
 			{
 				guid: 'documenttoupdate_1_guid',
 				redactedStatus: 'redacted',
-				status: 'not_user_checked'
+				status: 'not_checked'
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1_guid', version: 1 } },
 			data: {
-				publishedStatus: 'not_user_checked',
+				publishedStatus: 'not_checked',
 				redactedStatus: 'redacted'
 			}
 		});
@@ -200,14 +200,14 @@ describe('Update document statuses and redacted statuses', () => {
 		});
 	});
 
-	test('updates document status only to not_user_checked - redacted status remains unchanged', async () => {
+	test('updates document status only to not_checked - redacted status remains unchanged', async () => {
 		// GIVEN
 		const documentResponseUnredacted = {
 			caseId: 1,
 			documentGuid: 'documenttoupdate_2_guid',
 			name: 'doc to update 2',
 			description: 'doc with all required fields for publishing',
-			publishedStatus: 'not_user_checked',
+			publishedStatus: 'not_checked',
 			filter1: 'Filter Category 1',
 			redactedStatus: 'unredacted',
 			author: 'David'
@@ -238,7 +238,7 @@ describe('Update document statuses and redacted statuses', () => {
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/update').send({
-			status: 'not_user_checked',
+			status: 'not_checked',
 			documents: [{ guid: 'documenttoupdate_2_guid' }]
 		});
 
@@ -248,13 +248,13 @@ describe('Update document statuses and redacted statuses', () => {
 			{
 				guid: 'documenttoupdate_2_guid',
 				redactedStatus: 'unredacted',
-				status: 'not_user_checked'
+				status: 'not_checked'
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_2_guid', version: 1 } },
 			data: {
-				publishedStatus: 'not_user_checked'
+				publishedStatus: 'not_checked'
 			}
 		});
 	});
@@ -330,7 +330,7 @@ describe('Update document statuses and redacted statuses', () => {
 			description: 'doc with all required fields for publishing',
 			author: 'David',
 			filter1: 'Filter Category 1',
-			publishedStatus: 'user_checked',
+			publishedStatus: 'checked',
 			redactedStatus: 'unredacted'
 		};
 
@@ -363,7 +363,7 @@ describe('Update document statuses and redacted statuses', () => {
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1a_guid', version: 1 } },
 			data: {
 				publishedStatus: 'ready_to_publish',
-				publishedStatusPrev: 'user_checked'
+				publishedStatusPrev: 'checked'
 			}
 		});
 	});

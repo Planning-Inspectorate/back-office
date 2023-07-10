@@ -100,12 +100,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -916,12 +916,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -2200,12 +2200,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -3107,12 +3107,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -4338,12 +4338,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -5567,12 +5567,12 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"not_user_checked\\">
+                                                    value=\\"not_checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
                                                     <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                                    value=\\"user_checked\\">
+                                                    value=\\"checked\\">
                                                     <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
                                                 </div>
                                                 <div class=\\"govuk-radios__item\\">
@@ -6715,7 +6715,9 @@ exports[`applications documentation Document properties delete page If the user 
                 </tbody>
             </table>
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
+
  > </span><span class=\\"font-weight--700\\"> Project management
+
  > </span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
             </p>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
@@ -6749,7 +6751,9 @@ exports[`applications documentation Document properties delete page If the user 
                 </tbody>
             </table>
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation
+
  > </span><span class=\\"font-weight--700\\"> Project management
+
  > </span><span class=\\"font-weight--700\\"> Sub folder level 2</span>
             </p>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
@@ -7040,7 +7044,7 @@ exports[`applications documentation Document properties page If the user is not 
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Ready to publish</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/published-status\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
                                 </dd>
                             </div>
                         </dl>
@@ -21254,6 +21258,7 @@ exports[`applications documentation Document upload new version page should rend
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
                     <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single file to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+
 .</span><span class='pins-file-upload--text'>Your uploaded file must be smaller than 1 GB.</span>
                     <div                     class=\\"middle-errors-hook\\"></div>
             </div>
@@ -21317,6 +21322,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
                     <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF
+
 .</span><span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class=\\"middle-errors-hook\\"></div>
             </div>

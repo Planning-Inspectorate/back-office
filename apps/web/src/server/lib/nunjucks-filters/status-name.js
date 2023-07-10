@@ -17,10 +17,10 @@ export const statusName = (key) => {
 		case 'failed_virus_check':
 			documentStatusName = 'Failed virus check';
 			break;
-		case 'not_user_checked':
+		case 'not_checked':
 			documentStatusName = 'Unchecked';
 			break;
-		case 'user_checked':
+		case 'checked':
 			documentStatusName = 'Checked';
 			break;
 		case 'ready_to_publish':

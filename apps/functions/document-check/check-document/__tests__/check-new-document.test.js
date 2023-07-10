@@ -26,7 +26,7 @@ const generateHttpError = (body, statusCode) => {
 const backOfficeFailedToMarkAsUploadedError = generateHttpError('{}', 409);
 
 const backOfficeFailedToMarkAsPassedAVError = generateHttpError(
-	'{"errors":{"application":"Could not transition \'not_user_checked\' using \'not_user_checked\'."}}',
+	'{"errors":{"application":"Could not transition \'not_checked\' using \'not_checked\'."}}',
 	409
 );
 
@@ -76,7 +76,7 @@ describe('document passes AV checks', () => {
 		expect(mockGotPatch).toHaveBeenNthCalledWith(
 			2,
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-			{ json: { machineAction: 'not_user_checked' } }
+			{ json: { machineAction: 'not_checked' } }
 		);
 		expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 	});
@@ -104,7 +104,7 @@ describe('document passes AV checks', () => {
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'not_user_checked' } }
+				{ json: { machineAction: 'not_checked' } }
 			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
@@ -133,7 +133,7 @@ describe('document passes AV checks', () => {
 			expect(mockGotPatch).toHaveBeenNthCalledWith(
 				2,
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
-				{ json: { machineAction: 'not_user_checked' } }
+				{ json: { machineAction: 'not_checked' } }
 			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
