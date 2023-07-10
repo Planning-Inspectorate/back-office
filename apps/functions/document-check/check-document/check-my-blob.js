@@ -9,7 +9,7 @@ import { scanStream } from './scan-stream.js';
  * @returns {string}
  */
 const mapIsInfectedToMachineAction = (isInfected) => {
-	return isInfected ? 'failed_virus_check' : 'not_user_checked';
+	return isInfected ? 'failed_virus_check' : 'not_checked';
 };
 
 /**

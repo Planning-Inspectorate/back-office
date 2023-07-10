@@ -47,7 +47,7 @@ const document = {
 			documentSize: 1024
 		},
 		documentsToUpdateRequestBody: {
-			status: 'not_user_checked',
+			status: 'not_checked',
 			redacted: true,
 			items: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
 		},

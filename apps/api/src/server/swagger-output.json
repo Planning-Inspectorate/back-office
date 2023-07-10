@@ -2572,7 +2572,7 @@
 			"properties": {
 				"status": {
 					"type": "string",
-					"example": "not_user_checked"
+					"example": "not_checked"
 				},
 				"redacted": {
 					"type": "boolean",
