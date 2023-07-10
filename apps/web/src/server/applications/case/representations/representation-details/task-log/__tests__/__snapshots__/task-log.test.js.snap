@@ -23,15 +23,15 @@ exports[`Representation task log page GET /applications-service/case/1/relevant-
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\">30 June 2023</td>
                             <td class=\\"govuk-table__cell\\">Redacted change</td>
-                            <td class=\\"govuk-table__cell\\">Yes</td>
-                            <td class=\\"govuk-table__cell\\">Yes</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">user 3</td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\">30 June 2023</td>
                             <td class=\\"govuk-table__cell\\">Redacted change</td>
-                            <td class=\\"govuk-table__cell\\">Yes</td>
-                            <td class=\\"govuk-table__cell\\">Yes</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">user 2</td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
