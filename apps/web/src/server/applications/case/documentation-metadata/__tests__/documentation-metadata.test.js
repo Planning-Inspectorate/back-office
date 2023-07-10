@@ -1,5 +1,9 @@
 import { parseHtml } from '@pins/platform';
-import { fixturePublishedDocumentationFile } from '@pins/web/testing/applications/fixtures/documentation-files.js';
+import {
+	fixturePublishedDocumentationFile,
+	fixtureReadyToPublishDocumentationFile,
+	fixtureNotCheckedDocumentationFile
+} from '@pins/web/testing/applications/fixtures/documentation-files.js';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
@@ -12,7 +16,15 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/123/documents/456/properties')
 		.reply(200, fixturePublishedDocumentationFile);
+	nock('http://test/')
+		.get('/applications/123/documents/90/properties')
+		.reply(200, fixtureReadyToPublishDocumentationFile);
+	nock('http://test/')
+		.get('/applications/123/documents/110/properties')
+		.reply(200, fixtureNotCheckedDocumentationFile);
 	nock('http://test/').post('/applications/123/documents/456/metadata').reply(200, {});
+	nock('http://test/').post('/applications/123/documents/90/metadata').reply(200, {});
+	nock('http://test/').post('/applications/123/documents/110/metadata').reply(200, {});
 };
 
 describe('Edit applications documentation metadata', () => {
@@ -30,6 +42,10 @@ describe('Edit applications documentation metadata', () => {
 	});
 
 	const baseUrl = '/applications-service/case/123/project-documentation/18/document/456/edit';
+	const baseUrlReadyToPublish =
+		'/applications-service/case/123/project-documentation/18/document/90/edit';
+	const baseUrlNotChecked =
+		'/applications-service/case/123/project-documentation/18/document/110/edit';
 
 	describe('Edit name', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/name', () => {
@@ -459,6 +475,81 @@ describe('Edit applications documentation metadata', () => {
 					'datePublished.year': '2000'
 				});
 
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit publish status', () => {
+		describe('GET /case/123/project-documentation/18/document/90/edit/published-status', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrlReadyToPublish}/published-status`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select the document status');
+				expect(element.innerHTML).toContain(
+					`value="${fixtureReadyToPublishDocumentationFile.publishedStatus}" checked`
+				);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/90/edit/published-status', () => {
+			it('should return an error if required properties are not defined', async () => {
+				nock('http://test/')
+					.patch('/applications/123/documents/update')
+					.reply(500, {
+						errors: [
+							{
+								guid: '90'
+							}
+						]
+					});
+				const response = await request
+					.post(`${baseUrlNotChecked}/published-status`)
+					.send({ publishedStatus: 'ready_to_publish' });
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain(
+					'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes'
+				);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/110/edit/published-status', () => {
+			it('should redirect to document properties page if there is no error', async () => {
+				nock('http://test/')
+					.patch('/applications/123/documents/update')
+					.reply(200, [
+						{
+							guid: '110',
+							status: 'checked',
+							redactedStatus: 'redacted'
+						}
+					]);
+				const response = await request
+					.post(`${baseUrlNotChecked}/published-status`)
+					.send({ publishedStatus: 'checked' });
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/110/edit/published-status Ready To Publish Success', () => {
+			it('should redirect to document properties page if there is no error for ready_to_publish', async () => {
+				nock('http://test/')
+					.patch('/applications/123/documents/update')
+					.reply(200, [
+						{
+							guid: '110',
+							status: 'ready_to_publish',
+							redactedStatus: 'redacted'
+						}
+					]);
+				const response = await request
+					.post(`${baseUrlNotChecked}/published-status`)
+					.send({ publishedStatus: 'ready_to_publish' });
 				expect(response?.headers?.location).toEqual('../properties');
 			});
 		});

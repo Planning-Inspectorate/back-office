@@ -21,6 +21,11 @@ export const fixtureReadyToPublishDocumentationFile =
 	fixtureDocumentationFiles.find((document) => document.publishedStatus === 'ready_to_publish') ||
 	fixtureDocumentationFiles[0];
 
+/** @type {DocumentationFile} */
+export const fixtureNotCheckedDocumentationFile =
+	fixtureDocumentationFiles.find((document) => document.publishedStatus === 'not_checked') ||
+	fixtureDocumentationFiles[0];
+
 /**
  *
  * @param {number} page
