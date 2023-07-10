@@ -394,6 +394,95 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
 </main>"
 `;
 
+exports[`Edit applications documentation metadata Edit publish status GET /case/123/project-documentation/18/document/90/edit/published-status should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Select the document status</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"not_checked\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"checked\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"ready_to_publish\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"do_not_publish\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit publish status POST /case/123/project-documentation/18/document/90/edit/published-status should return an error if required properties are not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"> Select the document status</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"not_checked\\" checked>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus\\">Not checked</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-2\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"checked\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-2\\">Checked</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-3\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"ready_to_publish\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-3\\">Ready to publish</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"publishedStatus-4\\" name=\\"publishedStatus\\"
+                    type=\\"radio\\" value=\\"do_not_publish\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"publishedStatus-4\\">Do not publish</label>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit published date GET /case/123/project-documentation/18/document/456/edit/published-date should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter the document published date</h1>

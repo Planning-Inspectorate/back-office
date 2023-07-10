@@ -6817,12 +6817,15 @@ exports[`applications documentation Document properties page If the user is not 
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
-            <nav>
-                <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
-                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                    <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
@@ -6972,12 +6975,334 @@ exports[`applications documentation Document properties page If the user is not 
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
-            <nav>
-                <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h4><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
-                <a                 class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                    <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
+                </div>
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
+                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
+                    <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
+                    <ul class=\\"govuk-tabs__list\\">
+                        <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-properties\\"> Document properties</a>
+                        </li>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-history\\"> Document history</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-tabs__panel\\" id=\\"document-properties\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document properties</h4>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> File name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">4 Elit sed do</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/name\\"> Change<span class=\\"govuk-visually-hidden\\"> File name</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                    Ut enim ad minim veniam</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Adipiscing elit</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Elit Eiusmod</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
+                                <dd class=\\"govuk-summary-list__value\\">pre-examination</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Consectetur</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/webfilter\\"> Change<span class=\\"govuk-visually-hidden\\"> Webfilter</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Document type (optional)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Rule 8 letter</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/type\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type (optional)</span></a>
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
+                                <dd class=\\"govuk-summary-list__value\\">01/12/2022</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Redacted</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Ready to publish</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/published-status\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
+                        <table class=\\"govuk-table pins-file-versions-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Download</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">1</td>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                        class=\\"govuk-link\\">test-file-1.pdf</a>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">2</td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">test-file-1.pdf</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page If the user is not inspector should not show publishedStatus edit link if document is published 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
+                <ol class=\\"govuk-breadcrumbs__list\\">
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </div>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
+            <ul class=\\"govuk-list\\">
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>File type and size:</strong> MP3, 9 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
+                </li>
+            </ul>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
+            </div>
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                    <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
+                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
+                    <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
+                    <ul class=\\"govuk-tabs__list\\">
+                        <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-properties\\"> Document properties</a>
+                        </li>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#document-history\\"> Document history</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-tabs__panel\\" id=\\"document-properties\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document properties</h4>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> File name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">12 Ullamco laboris nisi ut aliquip ex</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/name\\"> Change<span class=\\"govuk-visually-hidden\\"> File name</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Ut labore</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Ullamco Veniam</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
+                                <dd class=\\"govuk-summary-list__value\\">withdrawn</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Et dolore</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/webfilter\\"> Change<span class=\\"govuk-visually-hidden\\"> Webfilter</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Document type (optional)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/type\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type (optional)</span></a>
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
+                                <dd class=\\"govuk-summary-list__value\\">01/12/2022</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
+                                <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/published-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Published date</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Published</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"document-history\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document history</h4>
+                        <table class=\\"govuk-table pins-file-versions-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Version</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Activity</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Download</th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">1</td>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                        class=\\"govuk-link\\">test-file-1.pdf</a>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">2</td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">test-file-1.pdf</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p><strong>Uploaded:</strong> 03/07/2023</p>
+                                        <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">Unredacted</td>
+                                    <td class=\\"govuk-table__cell\\"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page If the user is not inspector should show publishing queue link if document is ready to publish 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
+                <ol class=\\"govuk-breadcrumbs__list\\">
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </div>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
+            <ul class=\\"govuk-list\\">
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua Ut enim ad minim veniam</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>File type and size:</strong> PDF, 2.6 MB</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Version:</strong>
+                </li>
+            </ul>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
+            </div>
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                    <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                    href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
+                        href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
+                </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
