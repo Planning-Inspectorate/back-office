@@ -78,4 +78,58 @@ describe('project-updates', () => {
 			expect(element.innerHTML).toContain(testUpdate().htmlContent);
 		});
 	});
+
+	describe('GET /applications-service/:caseId/project-updates/create', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl + '/create');
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - project updates form present
+			expect(element.innerHTML).toContain('Create a project update');
+			expect(element.innerHTML).toContain('Content');
+			expect(element.innerHTML).toContain('Email to subscribers?');
+		});
+	});
+
+	describe('POST /applications-service/:caseId/project-updates/create', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		const tests = [
+			{
+				name: 'should check content',
+				body: {},
+				expectContains: ['The project update needs to be at least 12 characters long']
+			},
+			{
+				name: 'should render the next step',
+				body: {
+					content: 'hello, world',
+					emailSubscribers: true
+				},
+				expectContains: []
+			}
+		];
+
+		it.each(tests)(`$name`, async ({ body, expectContains }) => {
+			const response = await request.post(baseUrl + '/create').send(body);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			for (const str of expectContains) {
+				expect(element.innerHTML).toContain(str);
+			}
+		});
+	});
 });

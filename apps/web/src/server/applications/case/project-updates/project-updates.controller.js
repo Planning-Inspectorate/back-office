@@ -47,7 +47,7 @@ export async function projectUpdatesTable({ params, query }, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCreateGet(req, res) {
-	return res.render(formView, createFormView(req.locals.case, req.errors, req.body));
+	return res.render(formView, createFormView(res.locals.case, req.errors, req.body));
 }
 
 /**
