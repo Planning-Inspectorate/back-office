@@ -125,15 +125,18 @@ export interface DocumentVersion {
 	size: number;
 	history: {
 		created: {
-			agent: string; // TODO: do we need the whole user object or the name is enough?
+			name: string;
+			username: string;
 			date: number;
 		};
 		published: {
-			agent: string;
+			name: string;
+			username: string;
 			date: number;
 		} | null;
 		unpublished: {
-			agent: string;
+			name: string;
+			username: string;
 			date: number;
 		} | null;
 	};

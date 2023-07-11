@@ -1,7 +1,6 @@
 /** @typedef {import('express-session').Session & AuthState} SessionWithAuth */
 /** @typedef {import('./auth.service').AccountInfo} AccountInfo */
 /** @typedef {import('@pins/platform').MsalAuthenticationResult} MsalAuthenticationResult */
-
 /**
  * @typedef {object} AuthenticationData
  * @property {string} nonce
@@ -20,6 +19,17 @@
  */
 export const destroyAuthenticationData = (session) => {
 	delete session.authenticationData;
+};
+
+/**
+ * @param {SessionWithAuth} session
+ * @returns {AccountInfo}
+ */
+export const getSessionAccount = (session) => {
+	if (session.account) {
+		return session.account;
+	}
+	throw new Error('Account data does not exist.');
 };
 
 /**
