@@ -104,7 +104,7 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 			// Log that the document has been upserted and its GUID.
 			logger.info(`Upserted document with guid: ${document.guid}`);
 
-			// @richard
+			// Get the cases stage to be applied to the document based on the folder
 			const stage = await getCaseStageMapping(documentToDB.folderId);
 
 			// Call the documentVersionRepository.upsert function to upsert metadata for the document to the database.
@@ -217,8 +217,6 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
 
-	// @richard
-
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
@@ -308,8 +306,6 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	const version = documentFromDatabase.latestVersionId + 1;
 
 	const { documentVersion } = documentFromDatabase;
-
-	// @richard
 
 	await documentVersionRepository.upsert({
 		documentGuid: documentId,
