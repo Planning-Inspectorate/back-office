@@ -28,10 +28,27 @@ function initHtmlContentEditor() {
 		if (input.value) {
 			editor.setHTML(input.value);
 		}
+		const editBox = editor.getEditorElements().wwEditor;
+		const charCount = el.parentElement?.getElementsByClassName('character-count')[0];
+
+		function updateCharacterCount() {
+			if (!charCount) {
+				return;
+			}
+			const text = editBox.innerText || editBox.textContent || '';
+			charCount.textContent = text.length.toString();
+		}
 
 		// another option here is 'change', but that fires for every key press
 		editor.addHook('blur', () => {
 			input.value = editor.getHTML();
+			updateCharacterCount();
+		});
+		if (!charCount) {
+			return; // not always enabled, don't add the listener unless we need it
+		}
+		editor.addHook('change', () => {
+			updateCharacterCount();
 		});
 	}
 	// find all the editors on the page, and initialise

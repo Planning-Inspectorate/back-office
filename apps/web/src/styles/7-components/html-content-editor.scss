@@ -5,3 +5,7 @@
     background: url('/images/toastui-icons.png') no-repeat;
 }
   
+.toastui-editor-toolbar-icons {
+    // this is in the module, but get's overridden somehow
+    background-position-y: 3px;
+}
