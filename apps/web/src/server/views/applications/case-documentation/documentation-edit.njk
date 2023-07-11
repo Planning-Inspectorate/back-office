@@ -42,7 +42,7 @@
 				errors: errors})
 			}}
 		</div>
-    {% elif(componentName === 'redactedStatus' or componentName === 'documentType') %}
+    {% elif(componentName === 'redactedStatus' or componentName === 'documentType' or componentName === 'publishedStatus') %}
         {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% else %}
         {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}

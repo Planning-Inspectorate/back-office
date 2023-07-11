@@ -239,7 +239,7 @@ describe('applications documentation', () => {
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
 					.send({
-						status: 'not_user_checked',
+						status: 'not_checked',
 						selectedFilesIds: ['2']
 					});
 
@@ -308,6 +308,28 @@ describe('applications documentation', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('/edit/published-date');
+			});
+
+			it('should not show publishedStatus edit link if document is published', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/100/properties`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('/edit/published-status');
+				expect(element.innerHTML).not.toContain('/project-documentation/publishing-queue');
+			});
+
+			it('should show publishing queue link if document is ready to publish', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/90/properties`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('/edit/published-status');
+				expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 			});
 		});
 	});

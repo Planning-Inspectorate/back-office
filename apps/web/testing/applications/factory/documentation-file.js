@@ -62,8 +62,8 @@ export function createDocumentationFile(options = {}) {
 	})}`;
 
 	const publishedStatus = [
-		'user_checked',
-		'not_user_checked',
+		'checked',
+		'not_checked',
 		'ready_to_publish',
 		'do_not_publish',
 		'unpublished',
