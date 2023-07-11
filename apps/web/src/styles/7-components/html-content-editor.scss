@@ -1,0 +1,7 @@
+@use "toastui-editor.css";
+
+.toastui-editor-toolbar-icons {
+    // override inline base64 image - to satisfy CSP
+    background: url('/images/toastui-icons.png') no-repeat;
+}
+  
