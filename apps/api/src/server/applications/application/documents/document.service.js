@@ -217,6 +217,8 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
 
+	// @richard
+
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
