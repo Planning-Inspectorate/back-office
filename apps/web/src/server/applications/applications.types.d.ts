@@ -119,11 +119,22 @@ export interface DocumentationFile {
 export interface DocumentVersion {
 	version: number;
 	fileName: string;
-	dateCreated: number;
-	datePublished: number | null;
-	dateUnpublished: number | null;
 	redacted: boolean;
 	documentGuid: string;
 	mime: string;
 	size: number;
+	history: {
+		created: {
+			agent: string; // TODO: do we need the whole user object or the name is enough?
+			date: number;
+		};
+		published: {
+			agent: string;
+			date: number;
+		} | null;
+		unpublished: {
+			agent: string;
+			date: number;
+		} | null;
+	};
 }

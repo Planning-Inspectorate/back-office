@@ -48,29 +48,43 @@ export const fixturePaginatedDocumentationFiles = (page, pageDefaultSize) => ({
  *
  * @returns {DocumentVersion[]}
  */
-export const fixtureDocumentFileVersions = () => {
-	return [
-		{
-			documentGuid: '123',
-			version: 1,
-			dateCreated: 1688389740,
-			datePublished: 1688389743,
-			dateUnpublished: 1688389743,
-			redacted: false,
-			fileName: 'test-file-1.pdf',
-			size: 3000,
-			mime: 'application/pdf'
+export const fixtureDocumentFileVersions = [
+	{
+		documentGuid: '123',
+		version: 1,
+		history: {
+			created: {
+				agent: 'Jane Doe',
+				date: 1688389743
+			},
+			published: {
+				agent: 'John Doe',
+				date: 1688389740
+			},
+			unpublished: {
+				agent: 'John Doe',
+				date: 1688389743
+			}
 		},
-		{
-			documentGuid: '456',
-			version: 2,
-			dateCreated: 1688389740,
-			datePublished: null,
-			dateUnpublished: null,
-			redacted: false,
-			fileName: 'test-file-1.pdf',
-			size: 5000,
-			mime: 'video/mp4'
-		}
-	];
-};
+		redacted: false,
+		fileName: 'test-file-1.pdf',
+		size: 3000,
+		mime: 'application/pdf'
+	},
+	{
+		documentGuid: '456',
+		version: 2,
+		history: {
+			created: {
+				agent: 'Jane Doe',
+				date: 1688389743
+			},
+			published: null,
+			unpublished: null
+		},
+		redacted: false,
+		fileName: 'test-file-1.pdf',
+		size: 5000,
+		mime: 'video/mp4'
+	}
+];

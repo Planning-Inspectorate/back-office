@@ -6,42 +6,45 @@
 	{% for documentVersion in documentVersions %}
 
 		{% set name %}
-			{% set isPreviewActive = (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
+		{% set isPreviewActive = (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
 
-			{% if isPreviewActive %}
-				<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
+		{% if isPreviewActive %}
+			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
+		{% else %}
+			<p class="font-weight--700">
+				{{ documentVersion.fileName }}
+			</p>
+		{% endif %}
+
+		<p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>
+			{{ documentVersion.mime|fileType }},{{ documentVersion.size|fileSize }}
+		</p>
+		{% endset %}
+
+		{% set activity %}
+		<p>
+			<strong>Uploaded:</strong>
+			{{ documentVersion.history.created.date|datestamp({format: 'dd/MM/yyyy'}) }},
+			{{ documentVersion.history.created.agent }}
+		</p>
+
+		<p class='govuk-!-margin-top-2'>
+			<strong>Published:</strong>
+			{% if documentVersion.history.published %}
+				{{ documentVersion.history.published.date|datestamp({format: 'dd/MM/yyyy'}) }},
+				{{ documentVersion.history.published.agent }}
 			{% else %}
-				<p class="font-weight--700">
-					{{ documentVersion.fileName }}
-				</p>
-			{% endif %}
-
-			<p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>
-				{{ documentVersion.mime|fileType }},{{ documentVersion.size|fileSize }}
-			</p>
-			{% endset %}
-
-			{% set activity %}
-			<p>
-				<strong>Uploaded:</strong>
-				{{ documentVersion.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}
-			</p>
-
-			<p class='govuk-!-margin-top-2'>
-				<strong>Published:</strong>
-				{% if documentVersion.datePublished %}
-					{{ documentVersion.datePublished|datestamp({format: 'dd/MM/yyyy'}) }}
-				{% else %}
 							Unpublished
 				{% endif %}
-			</p>
+		</p>
 
-			{% if documentVersion.dateUnpublished %}
-				<p class='govuk-!-margin-top-2'>
-					<strong>Unpublished:</strong>
-					{{ documentVersion.dateUnpublished|datestamp({format: 'dd/MM/yyyy'}) }}
-				</p>
-			{% endif %}
+		{% if documentVersion.history.unpublished %}
+			<p class='govuk-!-margin-top-2'>
+				<strong>Unpublished:</strong>
+				{{ documentVersion.history.unpublished.date|datestamp({format: 'dd/MM/yyyy'}) }},
+				{{ documentVersion.history.unpublished.agent }}
+			</p>
+		{% endif %}
 		{% endset %}
 
 		{% set redacted = 'Redacted' if documentVersion.redacted else 'Unredacted'%}
