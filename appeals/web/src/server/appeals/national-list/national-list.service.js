@@ -6,9 +6,11 @@ import { paginationDefaultSettings } from '../appeal.constants.js';
 /**
  * @param {number} pageNumber
  * @param {number} pageSize
+ * @param {string} searchParam
  * @returns {Promise<AppealList>}
  */
 export const getAppealsByPage = (
 	pageNumber = paginationDefaultSettings.firstPageNumber,
-	pageSize = paginationDefaultSettings.pageSize
-) => get(`appeals?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+	pageSize = paginationDefaultSettings.pageSize,
+	searchParam = ''
+) => get(`appeals?pageNumber=${pageNumber}&pageSize=${pageSize}${searchParam}`);

@@ -22,6 +22,17 @@ describe('national-list', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render national list - search term', async () => {
+			nock('http://test/')
+				.get('/appeals?pageNumber=1&pageSize=30&searchTerm=1')
+				.reply(200, appealsNationalList);
+
+			const response = await request.get(`${baseUrl}?&searchTerm=1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render national list - 10 pages - all page indexes in one row', async () => {
 			nock('http://test/')
 				.get('/appeals?pageNumber=1&pageSize=30')
