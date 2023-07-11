@@ -210,7 +210,7 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 	}
 
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
-	const documentVersion = await documentVersionRepository.getById(document.guid, version);
+	const documentVersion = await documentVersionRepository.getById(document.guid, +version);
 
 	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
