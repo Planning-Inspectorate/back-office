@@ -8,6 +8,8 @@ import * as nationalListService from './national-list.service.js';
  * @property {object[]} appeals
  * @property {string} userRole
  * @property {Pagination} pagination
+ * @property {string} searchTerm
+ * @property {string} nationalListHeading
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewNationalListRenderOptions>}  */
@@ -23,7 +25,12 @@ export const viewNationalList = async (request, response) => {
 		? Number.parseInt(String(query.pageSize), 10)
 		: paginationDefaultSettings.pageSize;
 
-	const appealsData = await nationalListService.getAppealsByPage(pageNumber, pageSize);
+	const searchTerm = query?.searchTerm ? String(query.searchTerm) : '';
+	const searchParam = searchTerm ? `&searchTerm=${searchTerm}` : '';
+	const nationalListHeading = searchTerm ? 'Search results' : 'All cases';
+
+	const appealsData = await nationalListService.getAppealsByPage(pageNumber, pageSize, searchParam);
+
 	const { items: appeals, page: currentPage, pageCount: totalPages } = appealsData;
 
 	const previousPage = currentPage - 1;
@@ -40,20 +47,20 @@ export const viewNationalList = async (request, response) => {
 	if (totalPages > 1) {
 		if (currentPage > 1) {
 			pagination.previous = {
-				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber - 1}`
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber - 1}${searchParam}`
 			};
 		}
 
 		if (currentPage < totalPages) {
 			pagination.next = {
-				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber + 1}`
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber + 1}${searchParam}`
 			};
 		}
 
 		// first index
 		pagination.items.push({
 			number: 1,
-			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${paginationDefaultSettings.firstPageNumber}`,
+			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${paginationDefaultSettings.firstPageNumber}${searchParam}`,
 			current: currentPage === 1
 		});
 
@@ -63,7 +70,7 @@ export const viewNationalList = async (request, response) => {
 			for (let pageIndex = 2; pageIndex <= totalPages; pageIndex += 1) {
 				pagination.items.push({
 					number: pageIndex,
-					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageIndex}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageIndex}${searchParam}`,
 					current: currentPage === pageIndex
 				});
 			}
@@ -77,7 +84,7 @@ export const viewNationalList = async (request, response) => {
 			if (previousPage > 1) {
 				pagination.items.push({
 					number: previousPage,
-					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${previousPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${previousPage}${searchParam}`,
 					current: false
 				});
 			}
@@ -85,7 +92,7 @@ export const viewNationalList = async (request, response) => {
 			if (currentPage > 1) {
 				pagination.items.push({
 					number: currentPage,
-					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${currentPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${currentPage}${searchParam}`,
 					current: true
 				});
 			}
@@ -93,7 +100,7 @@ export const viewNationalList = async (request, response) => {
 			if (nextPage > 1 && nextPage < totalPages) {
 				pagination.items.push({
 					number: nextPage,
-					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${nextPage}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${nextPage}${searchParam}`,
 					current: false
 				});
 			}
@@ -107,7 +114,7 @@ export const viewNationalList = async (request, response) => {
 			if (currentPage < totalPages) {
 				pagination.items.push({
 					number: totalPages,
-					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${totalPages}`,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${totalPages}${searchParam}`,
 					current: currentPage === totalPages
 				});
 			}
@@ -116,6 +123,8 @@ export const viewNationalList = async (request, response) => {
 	response.render('appeals/all-appeals/dashboard.njk', {
 		userRole: 'Case officer',
 		appeals,
-		pagination
+		pagination,
+		searchTerm,
+		nationalListHeading
 	});
 };

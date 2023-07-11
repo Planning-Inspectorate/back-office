@@ -1,14 +1,45 @@
-{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{%- from "govuk/components/pagination/macro.njk" import govukPagination -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
 {%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "../components/appeals-table.njk" import appealsTable -%}
 
 {%- set containerSize = 'xl' -%}
-{%- set pageTitle = 'Appeals' -%}
+{%- set pageTitle = 'National List' -%}
 
 {%- block pageContent -%}
 	<span class="govuk-caption-xl">{{userRole}}</span>
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">All cases</h2>
+	<h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+	<div class="govuk-caption-m govuk-!-margin-bottom-3">
+		Enter appeal ID or postcode
+	</div>
+	<div class="govuk-grid-row">
+		<form action="" method="GET" novalidate>
+			<div class="govuk-grid-column-two-thirds">
+				{{
+					govukInput({
+						id: "searchTerm",
+						name: "searchTerm",
+						value: searchTerm
+					})
+				}}
+			</div>
+			<div class="govuk-grid-column-one-third">
+				{{
+					govukButton({
+						text: "Search"
+					})
+				}}
+			</div>
+		</form>
+	</div>
+	{% if searchTerm %}
+		<div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-3">Back to all cases</a></div>
+	{% endif %}
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">{{ nationalListHeading }}</h2>
 	{{
 		appealsTable({
 			appeals: appeals
