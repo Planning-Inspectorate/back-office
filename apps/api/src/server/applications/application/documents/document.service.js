@@ -1,7 +1,7 @@
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVerisonRepository from '../../../repositories/document-metadata.repository.js';
+import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
@@ -9,6 +9,7 @@ import { eventClient } from '../../../infrastructure/event-client.js';
 import { buildNsipDocumentPayload } from './document.js';
 import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { getFolder } from '../file-folders/folders.service.js';
 
 /** @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails */
 
@@ -64,6 +65,15 @@ const mapDocumentToSendToDatabase = (document) => {
 
 /**
  *
+ * @param {number} folderId
+ */
+const getCaseStageMapping = async (folderId) => {
+	const folder = await getFolder(folderId);
+	return folder?.stage;
+};
+
+/**
+ *
  * @param {number} caseId
  * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
  * @returns {Promise<import('@pins/api').Schema.Document[]>}
@@ -94,13 +104,17 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 			// Log that the document has been upserted and its GUID.
 			logger.info(`Upserted document with guid: ${document.guid}`);
 
+			// @richard
+			const stage = await getCaseStageMapping(documentToDB.folderId);
+
 			// Call the documentVersionRepository.upsert function to upsert metadata for the document to the database.
-			await documentVerisonRepository.upsert({
+			await documentVersionRepository.upsert({
 				documentGuid: document.guid,
 				fileName,
 				originalFilename: fileName,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
+				stage: stage,
 				version: 1
 			});
 
@@ -174,7 +188,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
 
 			// Upsert the metadata using the documentVerisonRepository
-			return documentVerisonRepository.upsert(metadata);
+			return documentVersionRepository.upsert(metadata);
 		});
 };
 
@@ -202,6 +216,8 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
+
+	// @richard
 
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 
@@ -293,7 +309,9 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 
 	const { documentVersion } = documentFromDatabase;
 
-	await documentVerisonRepository.upsert({
+	// @richard
+
+	await documentVersionRepository.upsert({
 		documentGuid: documentId,
 		fileName,
 		originalFilename: fileName,
@@ -334,7 +352,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	// Step 8: Upsert document versions metadata to the database
 	logger.info(`Upserting document versions metadata to database...`);
 
-	await documentVerisonRepository.update(documentId, {
+	await documentVersionRepository.update(documentId, {
 		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
 		version,
 		documentURI: responseFromDocumentStorage.documents[0].blobStoreUrl
@@ -361,7 +379,7 @@ export const upsertDocumentVersionAndReturnDetails = async (
 	documentVersionBody,
 	version
 ) => {
-	const documentVersion = await documentVerisonRepository.upsert({
+	const documentVersion = await documentVersionRepository.upsert({
 		...documentVersionBody,
 		documentGuid,
 		version
@@ -387,7 +405,7 @@ export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) =
  * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
  */
 export const publishNsipDocuments = async (documentVersionIds) => {
-	const publishedDocuments = await documentVerisonRepository.updateAll(documentVersionIds, {
+	const publishedDocuments = await documentVersionRepository.updateAll(documentVersionIds, {
 		publishedStatus: 'publishing',
 		publishedStatusPrev: 'ready_to_publish'
 	});

@@ -4,13 +4,14 @@
 /**
  *
  * @param { Folder } folderDetails
- * @returns { FolderDetails}
+ * @returns { FolderDetails }
  */
 export const mapSingleFolderDetails = (folderDetails) => {
 	return {
 		id: folderDetails.id,
 		displayNameEn: folderDetails.displayNameEn,
-		displayOrder: folderDetails.displayOrder
+		displayOrder: folderDetails.displayOrder,
+		stage: folderDetails.stage
 	};
 };
 
