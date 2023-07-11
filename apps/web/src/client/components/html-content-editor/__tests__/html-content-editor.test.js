@@ -10,6 +10,7 @@ const DOM = `
     </label>
     <input type="hidden" name="content">
     <div class="html-content-editor"></div>
+	<div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
     <noscript>
         <div class="govuk-form-group">
             <label class="govuk-label govuk-!-font-weight-bold">
@@ -56,5 +57,24 @@ describe('html-content-editor', () => {
 		textBox.blur();
 		// check the hidden input has the correct value - used for form submission
 		expect(input.value).toEqual(exampleText);
+	});
+	it('should count characters', async () => {
+		// first textbox is markdown preview (hidden/not-used)
+		const textBox = document.getElementsByClassName('toastui-editor-contents')[1];
+		const charCount = document.getElementsByClassName('character-count')[0];
+		if (!(textBox instanceof HTMLDivElement)) {
+			throw new Error('div expected');
+		}
+		if (!(charCount instanceof HTMLSpanElement)) {
+			throw new Error('span expected');
+		}
+
+		const exampleText = '<p>My example content with some <strong>markup</strong></p>';
+		// focus -> "type" some text -> blur
+		textBox.focus();
+		textBox.innerHTML = exampleText;
+		textBox.blur();
+		// check the character count is correct (excluding HTML tags)
+		expect(charCount.textContent).toEqual('35');
 	});
 });
