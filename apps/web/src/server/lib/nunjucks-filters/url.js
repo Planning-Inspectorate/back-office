@@ -9,6 +9,7 @@ import slugify from 'slugify';
  * @property {number=} caseId
  * @property {number=} folderId
  * @property {number=} representationId
+ * @property {number=} projectUpdateId
  * @property {string=} documentGuid
  * @property {string=} step
  * @property {string=} query
@@ -62,6 +63,7 @@ export const url = (key, filterArguments = {}) => {
 	const representationId = getArgument('representationId', filterArguments);
 	const documentationCategory = makeDocumentationCategoryPath(filterArguments);
 	const version = getArgument('version', filterArguments);
+	const projectUpdateId = getArgument('projectUpdateId', filterArguments);
 
 	switch (key) {
 		case 'base-url':
@@ -88,8 +90,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
 		case 'project-updates':
 			return `${domainUrl}/case/${caseId}/project-updates`;
+		case 'project-updates-create':
+			return `${domainUrl}/case/${caseId}/project-updates/create`;
 		case 'project-updates-step':
-			return `${domainUrl}/case/${caseId}/project-updates/${step}`;
+			return `${domainUrl}/case/${caseId}/project-updates/${projectUpdateId}/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 'timetable':

@@ -1,4 +1,5 @@
 {% extends "./layouts/applications-case-layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "applications/case/project-updates/project-updates-table.njk" import projectUpdatesTable %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
@@ -8,7 +9,7 @@
 {% block beforeContent %}
 	{{ govukBackLink({
 		text: "Back to project overview",
-		href: 'case-view'|url({caseId: caseId})
+		href: "case-view"|url({caseId: caseId})
 	}) }}
 {% endblock %}
 
@@ -16,6 +17,11 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<h2 class="govuk-heading-m">Project updates</h2>
+
+			{{ govukButton({
+				text: "Create a project update",
+				href: "project-updates-create" | url({caseId: caseId})
+			}) }}
 
 			<form method="GET">
 				<input type="hidden" name="page" value="{{ queryData.page }}">
