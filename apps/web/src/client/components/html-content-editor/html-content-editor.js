@@ -50,6 +50,7 @@ function initHtmlContentEditor() {
 		editor.addHook('change', () => {
 			updateCharacterCount();
 		});
+		updateCharacterCount(); // update for any existing content
 	}
 	// find all the editors on the page, and initialise
 	const editors = document.getElementsByClassName('html-content-editor');
