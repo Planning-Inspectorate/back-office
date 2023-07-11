@@ -1,0 +1,57 @@
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "applications/components/html-content-editor.njk" import htmlContentEditor %}
+
+{# don't include the layouts page heading #}
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		classes: 'govuk-!-margin-top-3',
+		text: "Back",
+		href: "project-updates" | url({caseId: caseId})
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+    <p class="govuk-body"><strong>Project name:</strong> {{ case.title }}</p>
+
+	<h1 class="govuk-heading-l">{{ title }}</h1>
+
+	<form method="post" action="" novalidate="novalidate">
+		{% include 'app/includes/csrf.njk' %}
+
+		{% for component in form.components %}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					<div class="govuk-form-group">
+						{{ formComponent(component) }}
+					</div>
+				</div>
+			</div>   
+        {% endfor %}
+
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-one-half">
+				{{ govukButton({ text: buttonText, type: "submit" }) }}
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% macro formComponent(component) %}
+	{% if component.type == 'checkboxes' %}
+        {{ govukCheckboxes(component) }}
+	{% elif component.type == 'radios' %}
+        {{ govukRadios(component) }}
+    {% elif component.type == 'textarea' %}
+        {{ govukTextarea(component) }}
+    {% elif component.type == 'html-content-editor' %}
+        {{ htmlContentEditor(component) }}
+	{% endif %}
+{% endmacro %}

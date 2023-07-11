@@ -19,3 +19,7 @@ declare module 'govuk-frontend' {
 declare module '@rollup/plugin-beep' {
 	export default function (): import('rollup').Plugin;
 }
+
+declare module 'sanitize-html' {
+	export default function (content: string, options: any): string;
+}
