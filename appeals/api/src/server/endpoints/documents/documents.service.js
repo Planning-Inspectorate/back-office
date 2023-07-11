@@ -2,7 +2,6 @@ import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import logger from '#utils/logger.js';
 import { mapDocumentsForDatabase, mapDocumentsForBlobStorage } from './documents.mapper.js';
 import { upsertCaseFolders } from '#repositories/folder.repository.js';
-import { getDocumentsByAppealId } from '#repositories/document.repository.js';
 import { addDocument, addDocumentVersion } from '#repositories/document-metadata.repository.js';
 
 /** @typedef {import("../appeals.js").RepositoryGetByIdResultItem} RepositoryResult */
@@ -18,22 +17,10 @@ import { addDocument, addDocumentVersion } from '#repositories/document-metadata
 /**
  * Returns all documents for the current Appeal, or filtered by section name
  * @param {RepositoryResult} appeal
- * @param {('appellantCase'|'lpaQuestionnaire'|null)} sectionName
  * @returns {Promise<Folder[]>}
  */
-export const getDocumentsForAppeal = async (appeal, sectionName = null) => {
+export const getFoldersForAppeal = async (appeal) => {
 	const folderLayout = await upsertCaseFolders(appeal.id);
-	const documents = await getDocumentsByAppealId(appeal.id);
-
-	for (const folder of folderLayout) {
-		// @ts-ignore
-		folder.documents = documents.filter((d) => d.folderId === folder.id);
-	}
-
-	if (sectionName) {
-		return folderLayout.filter((f) => f.path.indexOf(sectionName) >= 0);
-	}
-
 	return folderLayout;
 };
 

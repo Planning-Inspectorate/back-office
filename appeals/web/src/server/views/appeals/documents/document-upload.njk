@@ -3,16 +3,18 @@
 {% from 'app/components/file-uploader.component.njk' import fileUploader %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
-
-{% set serviceName = ["Upload files in folder: ", folderId, " folder"] | join  %}
+{% set serviceName = "Upload files"  %}
+{% set serviceDescription = folderName if folderName else folderPath  %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
 
-{% block pageHeading %}{% endblock %}
-
+{% block pageHeading %}
+	{{ serviceDescription }}
+{% endblock %}
 
 {% block pageContent %}
+
 	{{ fileUploader({
 		text: 'Save and continue',
 		formId: 1,
@@ -23,10 +25,10 @@
 		useBlobEmulator: useBlobEmulator,
 		blobStorageContainer: blobStorageContainer,
 		formTitle: serviceName,
-		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
+		nextPageUrl: ['/appeals-service/appeal-details/', caseId] | join,
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
-		multiple: true
+		multiple: multiple
 	}) }}
 
 {% endblock %}
