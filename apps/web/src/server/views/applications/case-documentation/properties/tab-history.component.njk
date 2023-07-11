@@ -25,24 +25,24 @@
 		<p>
 			<strong>Uploaded:</strong>
 			{{ documentVersion.history.created.date|datestamp({format: 'dd/MM/yyyy'}) }},
-			{{ documentVersion.history.created.agent }}
+			{{ documentVersion.history.created.name }}
 		</p>
 
 		<p class='govuk-!-margin-top-2'>
 			<strong>Published:</strong>
 			{% if documentVersion.history.published %}
 				{{ documentVersion.history.published.date|datestamp({format: 'dd/MM/yyyy'}) }},
-				{{ documentVersion.history.published.agent }}
+				{{ documentVersion.history.published.name }}
 			{% else %}
-							Unpublished
-				{% endif %}
+				Unpublished
+			{% endif %}
 		</p>
 
 		{% if documentVersion.history.unpublished %}
 			<p class='govuk-!-margin-top-2'>
 				<strong>Unpublished:</strong>
 				{{ documentVersion.history.unpublished.date|datestamp({format: 'dd/MM/yyyy'}) }},
-				{{ documentVersion.history.unpublished.agent }}
+				{{ documentVersion.history.unpublished.name }}
 			</p>
 		{% endif %}
 		{% endset %}

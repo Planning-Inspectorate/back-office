@@ -54,15 +54,18 @@ export const fixtureDocumentFileVersions = [
 		version: 1,
 		history: {
 			created: {
-				agent: 'Jane Doe',
+				name: 'Jane Doe',
+				username: 'jane.doe@planninginspectorate.gov.uk',
 				date: 1688389743
 			},
 			published: {
-				agent: 'John Doe',
+				name: 'John Doe',
+				username: 'john.doe@planninginspectorate.gov.uk',
 				date: 1688389740
 			},
 			unpublished: {
-				agent: 'John Doe',
+				name: 'John Doe',
+				username: 'john.doe@planninginspectorate.gov.uk',
 				date: 1688389743
 			}
 		},
@@ -76,7 +79,8 @@ export const fixtureDocumentFileVersions = [
 		version: 2,
 		history: {
 			created: {
-				agent: 'Jane Doe',
+				name: 'Jane Doe',
+				username: 'john.doe@planninginspectorate.gov.uk',
 				date: 1688389743
 			},
 			published: null,
