@@ -465,99 +465,6 @@
 				}
 			}
 		},
-		"/appeals/{appealId}/documents": {
-			"get": {
-				"tags": ["Appeal Documents"],
-				"description": "Returns the contents of the appeal folders",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Folder"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Folder"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			},
-			"post": {
-				"tags": ["Appeal Documents"],
-				"description": "Upload documents to a case",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Appeal documents to post",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/appeals/{appealId}/document-locations": {
 			"get": {
 				"tags": ["Appeal Documents"],
@@ -640,6 +547,62 @@
 					},
 					"404": {
 						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/documents": {
+			"post": {
+				"tags": ["Appeal Documents"],
+				"description": "Upload documents to a case",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets all the documents for a specific appeal by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal documents to post",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						}
 					}
 				}
 			}
@@ -2299,7 +2262,7 @@
 								},
 								"telephone": {
 									"type": "string",
-									"example": "07000123456"
+									"example": "01234567891"
 								}
 							}
 						}

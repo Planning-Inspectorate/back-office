@@ -1,11 +1,12 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '../../lib/async-route.js';
 import * as controller from './appeal-documents.controller.js';
+import { validateCaseFolderId, validateCaseDocumentId } from './appeal-documents.middleware.js';
 
 const router = createRouter({ mergeParams: true });
 
-//router.route('/').get(controller.listFolders);
-//router.route('/:folderId/').get(controller.listFiles);
-router.route('/:folderId/upload/:documentId?').get(controller.upload);
-//router.route('/:fileId/download').get(controller.download);
+router
+	.route('/:folderId/upload/:documentId?')
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.upload));
 
 export default router;
