@@ -190,99 +190,207 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
+		stage: null,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Logistics',
 					displayOrder: 100,
+					stage: null,
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Travel', displayOrder: 100 },
-							{ displayNameEn: 'Welsh', displayOrder: 200 }
+							{
+								displayNameEn: 'Travel',
+								displayOrder: 100,
+								stage: null
+							},
+							{
+								displayNameEn: 'Welsh',
+								displayOrder: 200,
+								stage: null
+							}
 						]
 					}
 				},
-				{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200 },
-				{ displayNameEn: 'Fees', displayOrder: 300 }
+				{
+					displayNameEn: 'Mail merge spreadsheet',
+					displayOrder: 200,
+					stage: null
+				},
+				{
+					displayNameEn: 'Fees',
+					displayOrder: 300,
+					stage: null
+				}
 			]
 		}
 	},
-	{ displayNameEn: 'Legal advice', displayOrder: 200 },
+	{
+		displayNameEn: 'Legal advice',
+		displayOrder: 200,
+		stage: null
+	},
 	{
 		displayNameEn: 'Transboundary',
 		displayOrder: 300,
+		stage: 'Pre-application',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'First screening', displayOrder: 100 },
-				{ displayNameEn: 'Second screening', displayOrder: 200 }
+				{
+					displayNameEn: 'First screening',
+					displayOrder: 100,
+					stage: 'Pre-application'
+				},
+				{
+					displayNameEn: 'Second screening',
+					displayOrder: 200,
+					stage: 'Pre-application'
+				}
 			]
 		}
 	},
 	{
 		displayNameEn: 'Land rights',
 		displayOrder: 400,
+		stage: null,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'S52',
 					displayOrder: 100,
+					stage: null,
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Applicant request', displayOrder: 100 },
-							{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
-							{ displayNameEn: 'Correspondence', displayOrder: 300 }
+							{
+								displayNameEn: 'Applicant request',
+								displayOrder: 100,
+								stage: null
+							},
+							{
+								displayNameEn: 'Recommendation and authorisation',
+								displayOrder: 200,
+								stage: null
+							},
+							{
+								displayNameEn: 'Correspondence',
+								displayOrder: 300,
+								stage: null
+							}
 						]
 					}
 				},
 				{
 					displayNameEn: 'S53',
 					displayOrder: 200,
+					stage: null,
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Applicant request', displayOrder: 100 },
-							{ displayNameEn: 'Recommendation and authorisation', displayOrder: 200 },
-							{ displayNameEn: 'Correspondence', displayOrder: 300 }
+							{
+								displayNameEn: 'Applicant request',
+								displayOrder: 100,
+								stage: null
+							},
+							{
+								displayNameEn: 'Recommendation and authorisation',
+								displayOrder: 200,
+								stage: null
+							},
+							{
+								displayNameEn: 'Correspondence',
+								displayOrder: 300,
+								stage: null
+							}
 						]
 					}
 				}
 			]
 		}
 	},
-	{ displayNameEn: 'S51 advice', displayOrder: 500 },
+	{
+		displayNameEn: 'S51 advice',
+		displayOrder: 500,
+		stage: null
+	},
 	{
 		displayNameEn: 'Pre-application',
 		displayOrder: 600,
+		stage: 'Pre-application',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'Events / meetings',
+					displayOrder: 100,
+					stage: 'Pre-application'
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 200,
+					stage: 'Pre-application'
+				},
 				{
 					displayNameEn: 'EIA',
 					displayOrder: 300,
+					stage: 'Pre-application',
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Screening', displayOrder: 100 },
+							{
+								displayNameEn: 'Screening',
+								displayOrder: 100,
+								stage: 'Pre-application'
+							},
 							{
 								displayNameEn: 'Scoping',
 								displayOrder: 200,
+								stage: 'Pre-application',
 								childFolders: {
-									create: [{ displayNameEn: 'Responses', displayOrder: 100 }]
+									create: [
+										{
+											displayNameEn: 'Responses',
+											displayOrder: 100,
+											stage: 'Pre-application'
+										}
+									]
 								}
 							}
 						]
 					}
 				},
-				{ displayNameEn: 'Habitat regulations', displayOrder: 400 },
-				{ displayNameEn: 'Evidence plans', displayOrder: 500 },
-				{ displayNameEn: 'Draft documents', displayOrder: 600 },
+				{
+					displayNameEn: 'Habitat regulations',
+					displayOrder: 400,
+					stage: 'Pre-application'
+				},
+				{
+					displayNameEn: 'Evidence plans',
+					displayOrder: 500,
+					stage: 'Pre-application'
+				},
+				{
+					displayNameEn: 'Draft documents',
+					displayOrder: 600,
+					stage: 'Pre-application'
+				},
 				{
 					displayNameEn: "Developer's consultation",
 					displayOrder: 700,
+					stage: 'Pre-application',
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Statutory', displayOrder: 100 },
-							{ displayNameEn: 'Non-statutory', displayOrder: 200 },
-							{ displayNameEn: 'Consultation feedback', displayOrder: 300 }
+							{
+								displayNameEn: 'Statutory',
+								displayOrder: 100,
+								stage: 'Pre-application'
+							},
+							{
+								displayNameEn: 'Non-statutory',
+								displayOrder: 200,
+								stage: 'Pre-application'
+							},
+							{
+								displayNameEn: 'Consultation feedback',
+								displayOrder: 300,
+								stage: 'Pre-application'
+							}
 						]
 					}
 				}
@@ -292,90 +400,226 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Acceptance',
 		displayOrder: 700,
+		stage: 'Acceptance',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-				{ displayNameEn: 'Correspondence', displayOrder: 200 },
-				{ displayNameEn: 'EST', displayOrder: 300 },
+				{
+					displayNameEn: 'Events / meetings',
+					displayOrder: 100,
+					stage: 'Acceptance'
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 200,
+					stage: 'Acceptance'
+				},
+				{
+					displayNameEn: 'EST',
+					displayOrder: 300,
+					stage: 'Acceptance'
+				},
 				{
 					displayNameEn: 'Application documents',
 					displayOrder: 400,
+					stage: 'Acceptance',
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Application form', displayOrder: 100 },
-							{ displayNameEn: 'Compulsory acquisition information', displayOrder: 200 },
-							{ displayNameEn: 'DCO documents', displayOrder: 300 },
-							{ displayNameEn: 'Environmental statement', displayOrder: 400 },
-							{ displayNameEn: 'Other documents', displayOrder: 500 },
-							{ displayNameEn: 'Plans', displayOrder: 600 },
-							{ displayNameEn: 'Reports', displayOrder: 700 },
-							{ displayNameEn: 'Additional Reg 6 information', displayOrder: 800 }
+							{
+								displayNameEn: 'Application form',
+								displayOrder: 100,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Compulsory acquisition information',
+								displayOrder: 200,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'DCO documents',
+								displayOrder: 300,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Environmental statement',
+								displayOrder: 400,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Other documents',
+								displayOrder: 500,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Plans',
+								displayOrder: 600,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Reports',
+								displayOrder: 700,
+								stage: 'Acceptance'
+							},
+							{
+								displayNameEn: 'Additional Reg 6 information',
+								displayOrder: 800,
+								stage: 'Acceptance'
+							}
 						]
 					}
 				},
-				{ displayNameEn: 'Adequacy of consultation', displayOrder: 500 },
-				{ displayNameEn: 'Reg 5 and Reg 6', displayOrder: 600 },
-				{ displayNameEn: 'Drafting and decision', displayOrder: 700 }
+				{
+					displayNameEn: 'Adequacy of consultation',
+					displayOrder: 500,
+					stage: 'Acceptance'
+				},
+				{
+					displayNameEn: 'Reg 5 and Reg 6',
+					displayOrder: 600,
+					stage: 'Acceptance'
+				},
+				{
+					displayNameEn: 'Drafting and decision',
+					displayOrder: 700,
+					stage: 'Acceptance'
+				}
 			]
 		}
 	},
 	{
 		displayNameEn: 'Pre-examination',
 		displayOrder: 800,
+		stage: 'Pre-examination',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'Events / meetings',
+					displayOrder: 100,
+					stage: 'Pre-examination'
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 200,
+					stage: 'Pre-examination'
+				},
 				{
 					displayNameEn: 'Additional submissions',
 					displayOrder: 300,
+					stage: 'Pre-examination',
 					childFolders: {
-						create: [{ displayNameEn: 'Post submission changes', displayOrder: 100 }]
+						create: [
+							{
+								displayNameEn: 'Post submission changes',
+								displayOrder: 100,
+								stage: 'Pre-examination'
+							}
+						]
 					}
 				},
-				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
-				{ displayNameEn: 'EIA', displayOrder: 500 },
-				{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
+				{
+					displayNameEn: 'Procedural decisions',
+					displayOrder: 400,
+					stage: 'Pre-examination'
+				},
+				{
+					displayNameEn: 'EIA',
+					displayOrder: 500,
+					stage: 'Pre-examination'
+				},
+				{
+					displayNameEn: 'Habitat regulations',
+					displayOrder: 600,
+					stage: 'Pre-examination'
+				}
 			]
 		}
 	},
-	{ displayNameEn: 'Relevant representations', displayOrder: 900 },
+	{
+		displayNameEn: 'Relevant representations',
+		displayOrder: 900,
+		stage: 'Pre-examination'
+	},
 	{
 		displayNameEn: 'Examination',
 		displayOrder: 1000,
+		stage: 'Examination',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Correspondence', displayOrder: 100 },
-				{ displayNameEn: 'Additional submissions', displayOrder: 200 },
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 100,
+					stage: 'Examination'
+				},
+				{
+					displayNameEn: 'Additional submissions',
+					displayOrder: 200,
+					stage: 'Examination'
+				},
 				{
 					displayNameEn: 'Examination timetable',
 					displayOrder: 300,
+					stage: 'Examination',
 					childFolders: {
 						// for examination timetable we storing date in yyyyMMdd(20231230) format for display order.
 						// To display other in the end we need to put other in highest possible order.
-						create: [{ displayNameEn: 'Other', displayOrder: 30000000 }]
+						create: [
+							{
+								displayNameEn: 'Other',
+								displayOrder: 30000000,
+								stage: 'Examination'
+							}
+						]
 					}
 				},
-				{ displayNameEn: 'Procedural decisions', displayOrder: 400 },
-				{ displayNameEn: 'EIA', displayOrder: 500 },
-				{ displayNameEn: 'Habitat regulations', displayOrder: 600 }
+				{
+					displayNameEn: 'Procedural decisions',
+					displayOrder: 400,
+					stage: 'Examination'
+				},
+				{
+					displayNameEn: 'EIA',
+					displayOrder: 500,
+					stage: 'Examination'
+				},
+				{
+					displayNameEn: 'Habitat regulations',
+					displayOrder: 600,
+					stage: 'Examination'
+				}
 			]
 		}
 	},
 	{
 		displayNameEn: 'Recommendation',
 		displayOrder: 1100,
+		stage: 'Recommendation',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Events / meetings', displayOrder: 100 },
-				{ displayNameEn: 'Correspondence', displayOrder: 200 },
+				{
+					displayNameEn: 'Events / meetings',
+					displayOrder: 100,
+					stage: 'Recommendation'
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 200,
+					stage: 'Recommendation'
+				},
 				{
 					displayNameEn: 'Recommendation report',
 					displayOrder: 300,
+					stage: 'Recommendation',
 					childFolders: {
 						create: [
-							{ displayNameEn: 'Drafts', displayOrder: 100 },
-							{ displayNameEn: 'Final submitted report', displayOrder: 200 }
+							{
+								displayNameEn: 'Drafts',
+								displayOrder: 100,
+								stage: 'Recommendation'
+							},
+							{
+								displayNameEn: 'Final submitted report',
+								displayOrder: 200,
+								stage: 'Recommendation'
+							}
 						]
 					}
 				}
@@ -385,23 +629,53 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Decision',
 		displayOrder: 1200,
+		stage: 'Decision',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'SoS consultation', displayOrder: 100 },
-				{ displayNameEn: 'SoS decision', displayOrder: 200 }
+				{
+					displayNameEn: 'SoS consultation',
+					displayOrder: 100,
+					stage: 'Decision'
+				},
+				{
+					displayNameEn: 'SoS decision',
+					displayOrder: 200,
+					stage: 'Decision'
+				}
 			]
 		}
 	},
 	{
 		displayNameEn: 'Post-decision',
 		displayOrder: 1300,
+		stage: 'Post-decision',
 		childFolders: {
 			create: [
-				{ displayNameEn: 'Judicial review', displayOrder: 100 },
-				{ displayNameEn: 'Costs', displayOrder: 200 },
-				{ displayNameEn: 'Non-material change', displayOrder: 300 },
-				{ displayNameEn: 'Material change', displayOrder: 400 },
-				{ displayNameEn: 'Redetermination', displayOrder: 500 }
+				{
+					displayNameEn: 'Judicial review',
+					displayOrder: 100,
+					stage: 'Post-decision'
+				},
+				{
+					displayNameEn: 'Costs',
+					displayOrder: 200,
+					stage: 'Post-decision'
+				},
+				{
+					displayNameEn: 'Non-material change',
+					displayOrder: 300,
+					stage: 'Post-decision'
+				},
+				{
+					displayNameEn: 'Material change',
+					displayOrder: 400,
+					stage: 'Post-decision'
+				},
+				{
+					displayNameEn: 'Redetermination',
+					displayOrder: 500,
+					stage: 'Post-decision'
+				}
 			]
 		}
 	}

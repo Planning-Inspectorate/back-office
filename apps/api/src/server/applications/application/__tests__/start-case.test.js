@@ -87,31 +87,55 @@ describe('Start case', () => {
 				displayNameEn: 'Project management',
 				displayOrder: 100,
 				caseId: 1,
+				stage: null,
 				childFolders: {
 					create: [
 						{
 							displayNameEn: 'Logistics',
 							displayOrder: 100,
 							caseId: 1,
+							stage: null,
 							childFolders: {
 								create: [
-									{ displayNameEn: 'Travel', displayOrder: 100, caseId: 1 },
-									{ displayNameEn: 'Welsh', displayOrder: 200, caseId: 1 }
+									{
+										displayNameEn: 'Travel',
+										displayOrder: 100,
+										caseId: 1,
+										stage: null
+									},
+									{
+										displayNameEn: 'Welsh',
+										displayOrder: 200,
+										caseId: 1,
+										stage: null
+									}
 								]
 							}
 						},
-						{ displayNameEn: 'Mail merge spreadsheet', displayOrder: 200, caseId: 1 },
-						{ displayNameEn: 'Fees', displayOrder: 300, caseId: 1 }
+						{
+							displayNameEn: 'Mail merge spreadsheet',
+							displayOrder: 200,
+							caseId: 1,
+							stage: null
+						},
+						{
+							displayNameEn: 'Fees',
+							displayOrder: 300,
+							caseId: 1,
+							stage: null
+						}
 					]
 				}
 			}
 		});
+
 		// 2nd top level folder
 		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
 				displayNameEn: 'Legal advice',
 				displayOrder: 200,
-				caseId: 1
+				caseId: 1,
+				stage: null
 			}
 		});
 		// 3rd top level folder
@@ -119,13 +143,24 @@ describe('Start case', () => {
 			data: {
 				displayNameEn: 'Transboundary',
 				displayOrder: 300,
-				caseId: 1,
+				stage: 'Pre-application',
 				childFolders: {
 					create: [
-						{ displayNameEn: 'First screening', displayOrder: 100, caseId: 1 },
-						{ displayNameEn: 'Second screening', displayOrder: 200, caseId: 1 }
+						{
+							displayNameEn: 'First screening',
+							displayOrder: 100,
+							caseId: 1,
+							stage: 'Pre-application'
+						},
+						{
+							displayNameEn: 'Second screening',
+							displayOrder: 200,
+							caseId: 1,
+							stage: 'Pre-application'
+						}
 					]
-				}
+				},
+				caseId: 1
 			}
 		});
 
