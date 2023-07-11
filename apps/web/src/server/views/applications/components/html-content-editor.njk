@@ -23,7 +23,7 @@
             {{ govukErrorMessage({text: errorMessage}) }}
         {% endif %}
         <input type="hidden" name="{{ params.name }}" value="{{ params.value }}">
-        <div class="html-content-editor">{{ params.value }}</div>
+        <div class="html-content-editor" id="{{ params.name }}">{{ params.value }}</div>
         {% if params.characterCount %}
             <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
         {% endif %}
