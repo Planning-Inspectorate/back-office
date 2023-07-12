@@ -12,6 +12,7 @@ import relevantRepresentationAttachmentUploadRouter from './representation/attac
 import relevantRepCheckAnswersRouter from './representation/check-answers/check-answers.router.js';
 import representationDetailsRouter from './representation-details/application-representation-details.router.js';
 import { fileUploadController } from './file-upload/file-upload.controller.js';
+import { csvController } from './csv.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
@@ -28,5 +29,7 @@ relevantRepsRouter.use('/', relevantRepCheckAnswersRouter);
 relevantRepsRouter.use('/:representationId/representation-details', representationDetailsRouter);
 
 relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);
+
+relevantRepsRouter.route('/:redId/api/csv').get(csvController);
 
 export default relevantRepsRouter;

@@ -429,7 +429,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 
 	if (caseStatus !== 'draft') {
 		if (subSector.name === 'office_use' && index === 1) {
-			for (let loopIndex = 0; loopIndex < 101; loopIndex += 1) {
+			for (let loopIndex = 0; loopIndex < 3000; loopIndex += 1) {
 				representations.push(createRepresentation(reference, loopIndex));
 			}
 		} else {
