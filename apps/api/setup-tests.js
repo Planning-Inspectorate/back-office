@@ -348,6 +348,7 @@ class MockPrismaClient {
 	};
 
 	projectUpdate = {
+		create: jest.fn(),
 		count: jest.fn().mockResolvedValue(0),
 		findMany: jest.fn().mockResolvedValue([])
 	};

@@ -64,7 +64,15 @@ app.use(
 			defaultSrc: ["'self'", config.blobStorageUrl],
 			'font-src': ["'self'"],
 			'img-src': ["'self'", config.blobStorageUrl],
-			'style-src': ["'self'"]
+			'style-src': [
+				"'self'",
+				// the hashes below are for the toastui editor, used for rich-text editing
+				// allowing specific styles by hash is still safe enough
+				"'unsafe-hashes'",
+				"'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
+				"'sha256-dCNOmK/nSY+12vHzasLXiswzlGT5UHA7jAGYkvmCuQs='",
+				"'sha256-aqNNdDLnnrDOnTNdkJpYlAxKVJtLt9CtFLklmInuUAE='"
+			]
 		}
 	})
 );
@@ -103,6 +111,7 @@ nunjucksEnvironment.express(app);
 app.set('view engine', 'njk');
 
 // Serve static files (fonts, images, generated CSS and JS, etc)
+app.use(serveStatic('src/server/static'));
 app.use(serveStatic('src/server/static'));
 
 // Mount all routes on / path.

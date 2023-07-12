@@ -1,15 +1,16 @@
-import supertest from 'supertest';
-import { app } from '../../../../app-test.js';
+import { request } from '../../../../app-test.js';
 import { databaseConnector } from '../../../../utils/database-connector.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../constants.js';
-import { mapProjectUpdate } from '../project-updates.mapper.js';
+import { buildProjectUpdatePayload, mapProjectUpdate } from '../project-updates.mapper.js';
 import {
 	ERROR_INVALID_SORT_BY,
 	ERROR_INVALID_SORT_BY_OPTION,
 	ERROR_MUST_BE_NUMBER
 } from '../../../../middleware/errors.js';
-
-const request = supertest(app);
+import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+import { eventClient } from '../../../../infrastructure/event-client.js';
+import { htmlContentError } from '../project-updates.validators.js';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -213,5 +214,159 @@ describe('project-updates', () => {
 				expect(response.body).toEqual(want.body);
 			});
 		}
+	});
+
+	describe('post', () => {
+		const tests = [
+			{
+				name: 'should check all required fields',
+				body: {},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							emailSubscribers: 'emailSubscribers is required',
+							status: 'status is required',
+							htmlContent: 'htmlContent is required'
+						}
+					}
+				}
+			},
+			{
+				name: 'should check all field types',
+				body: {
+					emailSubscribers: 'str',
+					status: 1,
+					htmlContent: false
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							emailSubscribers: 'emailSubscribers must be a boolean',
+							status: `status must be one of 'draft', 'published', 'unpublished', 'archived'`,
+							htmlContent: 'htmlContent must be a string'
+						}
+					}
+				}
+			},
+			{
+				name: 'should check HTML content is safe - disallowed tags',
+				body: {
+					emailSubscribers: true,
+					status: 'draft',
+					htmlContent: '<img src="https://image.com/not-allowed"> Something happened'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							htmlContent: htmlContentError
+						}
+					}
+				}
+			},
+			{
+				name: 'should check HTML content is safe - insecure link',
+				body: {
+					emailSubscribers: true,
+					status: 'draft',
+					htmlContent: '<a src="http://image.com/insecure">New Link</a>Something happened'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							htmlContent: htmlContentError
+						}
+					}
+				}
+			},
+			{
+				name: 'should check HTML content is safe - script',
+				body: {
+					emailSubscribers: true,
+					status: 'draft',
+					htmlContent: `<script>function myMaliciousFunc(){window.location='https://my-bad-site.com';}</script>Something happened`
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							htmlContent: htmlContentError
+						}
+					}
+				}
+			},
+			{
+				name: 'should allow a valid request',
+				body: {
+					emailSubscribers: true,
+					status: 'draft',
+					htmlContent:
+						'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+				},
+				existingCase: {
+					reference: 'abc-123'
+				},
+				created: {
+					id: 5,
+					caseId: 1,
+					dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+					sentToSubscribers: false
+				},
+				want: {
+					status: 200,
+					body: {
+						id: 5,
+						caseId: 1,
+						dateCreated: '2023-07-04T10:00:00.000Z',
+						emailSubscribers: true,
+						sentToSubscribers: false,
+						status: 'draft',
+						htmlContent:
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+					}
+				}
+			}
+		];
+
+		it.each(tests)('$name', async ({ body, created, existingCase, want }) => {
+			// setup
+			// mock case
+			databaseConnector.case.findUnique.mockReset();
+			databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+
+			databaseConnector.projectUpdate.create.mockReset();
+
+			let createdUpdate;
+
+			if (created) {
+				databaseConnector.projectUpdate.create.mockImplementationOnce((req) => {
+					createdUpdate = {
+						...created,
+						...req.data,
+						case: existingCase
+					};
+					return createdUpdate;
+				});
+			}
+
+			// action
+			const response = await request.post('/applications/1/project-updates').send(body);
+
+			// checks
+			expect(response.status).toEqual(want.status);
+			expect(response.body).toEqual(want.body);
+			if (created) {
+				// this is OK because we always run some checks
+				// eslint-disable-next-line jest/no-conditional-expect
+				expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+					NSIP_PROJECT_UPDATE,
+					[buildProjectUpdatePayload(createdUpdate, existingCase.reference)],
+					EventType.Create
+				);
+			}
+		});
 	});
 });

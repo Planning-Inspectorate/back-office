@@ -4,6 +4,7 @@ import { getPageCount } from '../../../utils/database-pagination.js';
 import { mapProjectUpdate } from './project-updates.mapper.js';
 import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
+import { createProjectUpdateService } from './project-updates.service.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -25,4 +26,14 @@ export async function getProjectUpdates(req, res) {
 		pageCount: getPageCount(result.count, pageSize),
 		pageSize
 	});
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export async function postProjectUpdate(req, res) {
+	const caseId = parseInt(req.params.id);
+	logger.debug({ body: req.body, caseId }, 'postProjectUpdate');
+	const update = await createProjectUpdateService(req.body, caseId);
+	res.send(update);
 }

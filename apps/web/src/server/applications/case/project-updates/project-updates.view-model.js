@@ -37,6 +37,63 @@ export function projectUpdatesRows(projectUpdates) {
 }
 
 /**
+ * The form view for the create page
+ *
+ * @param {any} caseInfo
+ * @param {import('@pins/express').ValidationErrors | undefined} errors
+ * @param {Record<string, any>} values
+ * @returns {import('./project-updates-form').ProjectUpdatesFormView}
+ */
+export function createFormView(caseInfo, errors, values) {
+	let emailSubscribers = true;
+	if (Object.prototype.hasOwnProperty.call(values, 'emailSubscribers')) {
+		emailSubscribers = values.emailSubscribers;
+	}
+	return {
+		case: caseInfo,
+		title: 'Create a project update',
+		buttonText: 'Save and continue',
+		errors, // for error summary
+		form: {
+			components: [
+				{
+					type: 'html-content-editor',
+					name: 'content',
+					label: {
+						text: 'Content',
+						classes: 'govuk-!-font-weight-bold'
+					},
+					characterCount: true,
+					value: values.content,
+					errorMessage: errors?.content
+				},
+				{
+					type: 'checkboxes',
+					name: 'emailSubscribers',
+					fieldset: {
+						legend: {
+							text: 'Email to subscribers?',
+							classes: 'govuk-!-font-weight-bold'
+						}
+					},
+					hint: {
+						text: 'De-select if you do not want to send an email notification to subcribers'
+					},
+					items: [
+						{
+							value: true,
+							text: 'Send to subscribers',
+							checked: emailSubscribers
+						}
+					],
+					errorMessage: errors?.emailSubscribers
+				}
+			]
+		}
+	};
+}
+
+/**
  *
  * @param {string} status
  * @returns {string}

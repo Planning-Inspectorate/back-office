@@ -1,0 +1,38 @@
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{#
+    Show an html-content-editor (using toastui)
+    
+    Used in conjuction with some client-side JS
+    See: src/client/components/html-content-editor
+    If no JS is enabled, fallsback to the govukTextarea component
+#}
+{% macro htmlContentEditor(params) %}
+    <div class="govuk-form-group{% if params.errorMessage %} govuk-form-group--error{% endif %}">
+        {{ govukLabel({
+            html: params.label.html,
+            text: params.label.text,
+            classes: params.label.classes,
+            isPageHeading: params.label.isPageHeading,
+            attributes: params.label.attributes,
+            for: params.id
+        }) | indent(2) | trim }}
+        {% if params.errorMessage %}
+            {{ govukErrorMessage({text: errorMessage}) }}
+        {% endif %}
+        <input type="hidden" name="{{ params.name }}" value="{{ params.value }}">
+        <div class="html-content-editor" id="{{ params.name }}">{{ params.value }}</div>
+        {% if params.characterCount %}
+            <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
+        {% endif %}
+        <noscript>
+            {{ govukTextarea({
+                name: params.name,
+                label: params.label,
+                value: params.value
+            }) }}
+        </noscript>
+    </div>
+{% endmacro %}
