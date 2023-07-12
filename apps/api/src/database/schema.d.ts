@@ -5,12 +5,6 @@ import { string_to_uuid } from 'rhea/typings/util';
 
 export {
 	Address,
-	Appellant,
-	AppellantCase,
-	AppellantCaseIncompleteReason,
-	AppellantCaseInvalidReason,
-	AppellantCaseIncompleteReasonOnAppellantCase,
-	AppellantCaseInvalidReasonOnAppellantCase,
 	BatchPayload,
 	CaseStatus,
 	Document,
@@ -21,17 +15,12 @@ export {
 	ExaminationTimetableType,
 	ExaminationTimetable,
 	GridReference,
-	KnowledgeOfOtherLandowners,
-	LPAQuestionnaire,
-	PlanningObligationStatus,
 	Region,
 	RegionsOnApplicationDetails,
 	Representation,
 	RepresentationContact,
-	ReviewQuestionnaire,
 	Sector,
 	SubSector,
-	ValidationOutcome,
 	ZoomLevel
 } from '@prisma/client';
 
