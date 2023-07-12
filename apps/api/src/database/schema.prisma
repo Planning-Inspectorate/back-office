@@ -223,8 +223,8 @@ model DocumentVersion {
   version                Int
   lastModified           DateTime?
   documentType           String?
-  published              Boolean   @default(false)
-  sourceSystem           String    @default("back-office")
+  published              Boolean               @default(false)
+  sourceSystem           String                @default("back-office")
   origin                 String?
   originalFilename       String?
   fileName               String?
@@ -243,18 +243,19 @@ model DocumentVersion {
   filter1                String?
   blobStorageContainer   String?
   blobStoragePath        String?
-  dateCreated            DateTime? @default(now())
+  dateCreated            DateTime?             @default(now())
   datePublished          DateTime?
-  isDeleted              Boolean   @default(false)
+  isDeleted              Boolean               @default(false)
   examinationRefNo       String?
   filter2                String?
-  publishedStatus        String?   @default("awaiting_upload")
+  publishedStatus        String?               @default("awaiting_upload")
   publishedStatusPrev    String?
   redactedStatus         String?
-  redacted               Boolean   @default(false)
+  redacted               Boolean               @default(false)
   documentURI            String?
-  Document               Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
-  latestVersionDocument  Document? @relation("LatestVersion")
+  Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument  Document?             @relation("LatestVersion")
+  DocumentActivityLog    DocumentActivityLog[]
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
@@ -418,4 +419,14 @@ model ProjectUpdate {
   htmlContent       String
   // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
   htmlContentWelsh  String?
+}
+
+model DocumentActivityLog {
+  id              Int             @id @default(autoincrement())
+  documentGuid    String
+  version         Int
+  user            String
+  status          String
+  createdAt       DateTime        @default(now())
+  DocumentVersion DocumentVersion @relation(fields: [documentGuid, version], references: [documentGuid, version])
 }
