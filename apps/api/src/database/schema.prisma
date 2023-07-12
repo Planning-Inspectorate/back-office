@@ -7,136 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// Appeal model
-/// Contains information of an Appeal that has been submitted to the Back Office
-/// TODO: Migrate this model to integrated into the Case model same as with Applications
-model Appeal {
-  id                           Int                   @id @default(autoincrement())
-  reference                    String
-  createdAt                    DateTime              @default(now())
-  updatedAt                    DateTime              @default(now())
-  addressId                    Int?
-  localPlanningDepartment      String
-  planningApplicationReference String
-  startedAt                    DateTime?
-  userId                       Int?
-  appellantId                  Int?                  @unique
-  appealTypeId                 Int?
-  linkedAppealId               Int?
-  otherAppealId                Int?
-  address                      Address?              @relation(fields: [addressId], references: [id])
-  appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
-  appellant                    Appellant?            @relation(fields: [appellantId], references: [id])
-  user                         User?                 @relation(fields: [userId], references: [id])
-  appellantCase                AppellantCase?
-  appealStatus                 AppealStatus[]
-  inspectorDecision            InspectorDecision?
-  lpaQuestionnaire             LPAQuestionnaire?
-  reviewQuestionnaire          ReviewQuestionnaire[]
-  siteVisit                    SiteVisit?
-  validationDecision           ValidationDecision[]
-  appealTimetable              AppealTimetable?
-  linkedAppeal                 Appeal?               @relation("LinkedAppeals", fields: [linkedAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  linkedAppeals                Appeal[]              @relation("LinkedAppeals")
-  otherAppeal                  Appeal?               @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  otherAppeals                 Appeal[]              @relation("OtherAppeals")
-}
-
-/// AppealType model
-/// Lookup table for types of Appeals, such as HAS and FPA
-model AppealType {
-  id        Int      @id @default(autoincrement())
-  type      String   @unique
-  shorthand String   @unique
-  Appeal    Appeal[]
-}
-
-/// AppealTimetable model
-model AppealTimetable {
-  id                      Int       @id @default(autoincrement())
-  appealId                Int       @unique
-  finalCommentReviewDate  DateTime?
-  issueDeterminationDate  DateTime?
-  lpaQuestionnaireDueDate DateTime?
-  statementReviewDate     DateTime?
-  appeal                  Appeal    @relation(fields: [appealId], references: [id])
-}
-
-/// AppealStatus model
-/// Stores the current and past statuses of Appeals
-/// Uses the `valid` value to mark statuses as current if True and past if False
-/// An appeal might have multiple valid statuses depending on the type of Appeal
-/// which can be built up into a compound status using the `subStateMachineName`
-/// `compoundStateName` values.
-model AppealStatus {
-  id                  Int      @id @default(autoincrement())
-  status              String   @default("ready_to_start")
-  createdAt           DateTime @default(now())
-  valid               Boolean  @default(true)
-  appealId            Int
-  subStateMachineName String?
-  compoundStateName   String?
-  appeal              Appeal   @relation(fields: [appealId], references: [id])
-}
-
-/// Appellant model
-/// Contains information about the person who created the Appeal
-model Appellant {
-  id        Int     @id @default(autoincrement())
-  name      String
-  company   String?
-  email     String
-  agentName String?
-  appeal    Appeal?
-}
-
-/// AppellantCase model
-/// Contains information from the questionnaire that the Appellant
-/// would have filled out when submitting the Appeal
-model AppellantCase {
-  id                                             Int                                            @id @default(autoincrement())
-  appealId                                       Int                                            @unique
-  appellantCaseIncompleteReasonId                Int?
-  appellantCaseInvalidReasonId                   Int?
-  knowledgeOfOtherLandownersId                   Int?
-  planningObligationStatusId                     Int?
-  validationOutcomeId                            Int?
-  applicantFirstName                             String?
-  applicantSurname                               String?
-  areAllOwnersKnown                              Boolean?
-  hasAdvertisedAppeal                            Boolean?
-  hasAttemptedToIdentifyOwners                   Boolean?
-  hasDesignAndAccessStatement                    Boolean?
-  hasHealthAndSafetyIssues                       Boolean?
-  hasNewPlansOrDrawings                          Boolean?
-  hasNewSupportingDocuments                      Boolean?
-  hasOtherTenants                                Boolean?
-  hasPlanningObligation                          Boolean?
-  hasSeparateOwnershipCertificate                Boolean?
-  hasSubmittedDesignAndAccessStatement           Boolean?
-  hasToldOwners                                  Boolean?
-  hasToldTenants                                 Boolean?
-  healthAndSafetyIssues                          String?
-  isAgriculturalHolding                          Boolean?
-  isAgriculturalHoldingTenant                    Boolean?
-  isAppellantNamedOnApplication                  Boolean?
-  isDevelopmentDescriptionStillCorrect           Boolean?
-  isSiteFullyOwned                               Boolean?
-  isSitePartiallyOwned                           Boolean?
-  isSiteVisibleFromPublicRoad                    Boolean?
-  newDevelopmentDescription                      String?
-  otherNotValidReasons                           String?
-  visibilityRestrictions                         String?
-  appeal                                         Appeal                                         @relation(fields: [appealId], references: [id])
-  knowledgeOfOtherLandowners                     KnowledgeOfOtherLandowners?                    @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
-  planningObligationStatus                       PlanningObligationStatus?                      @relation(fields: [planningObligationStatusId], references: [id])
-  validationOutcome                              ValidationOutcome?                             @relation(fields: [validationOutcomeId], references: [id])
-  appellantCaseInvalidReason                     AppellantCaseInvalidReason?                    @relation(fields: [appellantCaseInvalidReasonId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  appellantCaseIncompleteReason                  AppellantCaseIncompleteReason?                 @relation(fields: [appellantCaseIncompleteReasonId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  appellantCaseIncompleteReasonsOnAppellantCases AppellantCaseIncompleteReasonOnAppellantCase[]
-  appellantCaseInvalidReasonsOnAppellantCases    AppellantCaseInvalidReasonOnAppellantCase[]
-}
-
 /// Case model
 /// Contains information shared by Applications/Appeals and any other case type
 /// For Applications, the case reference is generated once the case passes Draft state
@@ -267,89 +137,8 @@ model Address {
   county                String?
   town                  String?
   country               String?
-  Appeal                Appeal[]
   ServiceCustomer       ServiceCustomer[]
   RepresentationContact RepresentationContact[]
-}
-
-/// ValidationDecision model
-/// Contains decision from validation officer regarding the validity of an appeal
-model ValidationDecision {
-  id                         Int      @id @default(autoincrement())
-  appealId                   Int
-  createdAt                  DateTime @default(now())
-  decision                   String
-  namesDoNotMatch            Boolean  @default(false)
-  sensitiveInfo              Boolean  @default(false)
-  missingApplicationForm     Boolean  @default(false)
-  missingDecisionNotice      Boolean  @default(false)
-  missingGroundsForAppeal    Boolean  @default(false)
-  missingSupportingDocuments Boolean  @default(false)
-  inflammatoryComments       Boolean  @default(false)
-  openedInError              Boolean  @default(false)
-  wrongAppealTypeUsed        Boolean  @default(false)
-  outOfTime                  Boolean  @default(false)
-  noRightOfAppeal            Boolean  @default(false)
-  notAppealable              Boolean  @default(false)
-  lPADeemedInvalid           Boolean  @default(false)
-  otherReasons               String?
-  descriptionOfDevelopment   String?
-  appeal                     Appeal   @relation(fields: [appealId], references: [id])
-}
-
-/// LPAQuestionnaire model
-/// Contains responses from Local Planning Authority (LPA)
-/// regarding a specific appeal
-model LPAQuestionnaire {
-  id                                           Int                                         @id @default(autoincrement())
-  appealId                                     Int                                         @unique
-  procedureTypeId                              Int?
-  scheduleTypeId                               Int?
-  communityInfrastructureLevyAdoptionDate      DateTime?
-  developmentDescription                       String?
-  doesAffectAListedBuilding                    Boolean?
-  doesAffectAScheduledMonument                 Boolean?
-  doesSiteHaveHealthAndSafetyIssues            Boolean?
-  doesSiteRequireInspectorAccess               Boolean?
-  extraConditions                              String?
-  hasCommunityInfrastructureLevy               Boolean?
-  hasCompletedAnEnvironmentalStatement         Boolean?
-  hasEmergingPlan                              Boolean?
-  hasExtraConditions                           Boolean?
-  hasOtherAppeals                              Boolean?
-  hasProtectedSpecies                          Boolean?
-  hasRepresentationsFromOtherParties           Boolean?
-  hasResponsesOrStandingAdviceToUpload         Boolean?
-  hasStatementOfCase                           Boolean?
-  hasStatutoryConsultees                       Boolean?
-  hasSupplementaryPlanningDocuments            Boolean?
-  hasTreePreservationOrder                     Boolean?
-  healthAndSafetyDetails                       String?
-  inCAOrrelatesToCA                            Boolean?
-  includesScreeningOption                      Boolean?
-  inquiryDays                                  Int?
-  inspectorAccessDetails                       String?
-  isCommunityInfrastructureLevyFormallyAdopted Boolean?
-  isDevelopmentInOrNearDesignatedSites         Boolean?
-  isGypsyOrTravellerSite                       Boolean?
-  isListedBuilding                             Boolean?
-  isPublicRightOfWay                           Boolean?
-  isSensitiveArea                              Boolean?
-  isSiteVisible                                Boolean?
-  isTheSiteWithinAnAONB                        Boolean?
-  meetsOrExceedsThresholdOrCriteriaInColumn2   Boolean?
-  receivedAt                                   DateTime?
-  isEnvironmentalStatementRequired             Boolean?
-  sensitiveAreaDetails                         String?
-  sentAt                                       DateTime                                    @default(now())
-  siteWithinGreenBelt                          Boolean?
-  statutoryConsulteesDetails                   String?
-  appeal                                       Appeal                                      @relation(fields: [appealId], references: [id])
-  procedureType                                ProcedureType?                              @relation(fields: [procedureTypeId], references: [id])
-  scheduleType                                 ScheduleType?                               @relation(fields: [scheduleTypeId], references: [id])
-  designatedSites                              DesignatedSitesOnLPAQuestionnaires[]
-  lpaNotificationMethods                       LPANotificationMethodsOnLPAQuestionnaires[]
-  listedBuildingDetails                        ListedBuildingDetails[]
 }
 
 /// Region model
@@ -362,66 +151,11 @@ model Region {
   ApplicationDetails RegionsOnApplicationDetails[]
 }
 
-/// ReviewQuestionnaire model
-/// Contains information on validity and completeness of LPA questionnaire
-/// as decided by a case officer for an appeal.
-model ReviewQuestionnaire {
-  id                                                                          Int      @id @default(autoincrement())
-  appealId                                                                    Int
-  createdAt                                                                   DateTime @default(now())
-  complete                                                                    Boolean  @default(false)
-  applicationPlanningOfficersReportMissingOrIncorrect                         Boolean  @default(false)
-  applicationPlansToReachDecisionMissingOrIncorrect                           Boolean  @default(false)
-  applicationPlansToReachDecisionMissingOrIncorrectDescription                String?
-  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect                  Boolean  @default(false)
-  policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription       String?
-  policiesOtherRelevantPoliciesMissingOrIncorrect                             Boolean  @default(false)
-  policiesOtherRelevantPoliciesMissingOrIncorrectDescription                  String?
-  policiesSupplementaryPlanningDocumentsMissingOrIncorrect                    Boolean  @default(false)
-  policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription         String?
-  siteConservationAreaMapAndGuidanceMissingOrIncorrect                        Boolean  @default(false)
-  siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription             String?
-  siteListedBuildingDescriptionMissingOrIncorrect                             Boolean  @default(false)
-  siteListedBuildingDescriptionMissingOrIncorrectDescription                  String?
-  thirdPartyApplicationNotificationMissingOrIncorrect                         Boolean  @default(false)
-  thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses          Boolean  @default(false)
-  thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice Boolean  @default(false)
-  thirdPartyApplicationPublicityMissingOrIncorrect                            Boolean  @default(false)
-  thirdPartyRepresentationsMissingOrIncorrect                                 Boolean  @default(false)
-  thirdPartyRepresentationsMissingOrIncorrectDescription                      String?
-  thirdPartyAppealNotificationMissingOrIncorrect                              Boolean  @default(false)
-  thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses               Boolean  @default(false)
-  thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice      Boolean  @default(false)
-  appeal                                                                      Appeal   @relation(fields: [appealId], references: [id])
-}
-
-/// SiteVisit model
-/// Contains information regarding a scheduled site visit for an appeal
-model SiteVisit {
-  id        Int      @id @default(autoincrement())
-  appealId  Int      @unique
-  visitDate DateTime
-  visitSlot String
-  visitType String?
-  appeal    Appeal   @relation(fields: [appealId], references: [id])
-}
-
-/// InspectorDecision model
-/// Contains decisioin made by an inspector against an appeal post site visit
-model InspectorDecision {
-  id                     Int     @id @default(autoincrement())
-  appealId               Int     @unique
-  outcome                String
-  decisionLetterFilename String?
-  appeal                 Appeal  @relation(fields: [appealId], references: [id])
-}
-
 /// User model
 /// Contains information on Back Office users (PINS employees)
 model User {
   id             Int              @id @default(autoincrement())
   azureReference Int?             @unique
-  appeal         Appeal[]
   Representation Representation[]
   ProjectUpdate  ProjectUpdate[]
 }
@@ -458,7 +192,6 @@ model Folder {
 }
 
 /// Document model
-
 /// Contains information about the documents that are saved against a case.
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
@@ -615,108 +348,6 @@ model ExaminationTimetableItem {
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
   ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
   Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
-}
-
-model ProcedureType {
-  id               Int                @id @default(autoincrement())
-  name             String             @unique
-  LPAQuestionnaire LPAQuestionnaire[]
-}
-
-model ScheduleType {
-  id               Int                @id @default(autoincrement())
-  name             String             @unique
-  LPAQuestionnaire LPAQuestionnaire[]
-}
-
-model DesignatedSite {
-  id                Int                                  @id @default(autoincrement())
-  name              String                               @unique
-  description       String
-  lpaQuestionnaires DesignatedSitesOnLPAQuestionnaires[]
-}
-
-model DesignatedSitesOnLPAQuestionnaires {
-  designatedSite     DesignatedSite   @relation(fields: [designatedSiteId], references: [id])
-  designatedSiteId   Int
-  lpaQuestionnaire   LPAQuestionnaire @relation(fields: [lpaQuestionnaireId], references: [id])
-  lpaQuestionnaireId Int
-
-  @@id([designatedSiteId, lpaQuestionnaireId])
-}
-
-model LPANotificationMethods {
-  id                Int                                         @id @default(autoincrement())
-  name              String                                      @unique
-  lpaQuestionnaires LPANotificationMethodsOnLPAQuestionnaires[]
-}
-
-model LPANotificationMethodsOnLPAQuestionnaires {
-  lpaNotificationMethod LPANotificationMethods @relation(fields: [notificationMethodId], references: [id])
-  notificationMethodId  Int
-  lpaQuestionnaire      LPAQuestionnaire       @relation(fields: [lpaQuestionnaireId], references: [id])
-  lpaQuestionnaireId    Int
-
-  @@id([notificationMethodId, lpaQuestionnaireId])
-}
-
-model ListedBuildingDetails {
-  id                    Int               @id @default(autoincrement())
-  lpaQuestionnaireId    Int?
-  grade                 String
-  description           String
-  affectsListedBuilding Boolean           @default(false)
-  lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
-}
-
-model PlanningObligationStatus {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique
-  AppellantCase AppellantCase[]
-}
-
-model KnowledgeOfOtherLandowners {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique
-  AppellantCase AppellantCase[]
-}
-
-model ValidationOutcome {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique
-  AppellantCase AppellantCase[]
-}
-
-model AppellantCaseIncompleteReason {
-  id                                             Int                                            @id @default(autoincrement())
-  name                                           String                                         @unique
-  AppellantCase                                  AppellantCase[]
-  AppellantCaseIncompleteReasonsOnAppellantCases AppellantCaseIncompleteReasonOnAppellantCase[]
-}
-
-model AppellantCaseInvalidReason {
-  id                                          Int                                         @id @default(autoincrement())
-  name                                        String                                      @unique
-  AppellantCase                               AppellantCase[]
-  AppellantCaseInvalidReasonsOnAppellantCases AppellantCaseInvalidReasonOnAppellantCase[]
-}
-
-model AppellantCaseIncompleteReasonOnAppellantCase {
-  appellantCaseIncompleteReason   AppellantCaseIncompleteReason @relation(fields: [appellantCaseIncompleteReasonId], references: [id])
-  appellantCaseIncompleteReasonId Int
-  appellantCase                   AppellantCase                 @relation(fields: [appellantCaseId], references: [id])
-  appellantCaseId                 Int
-
-  @@id([appellantCaseIncompleteReasonId, appellantCaseId])
-}
-
-model AppellantCaseInvalidReasonOnAppellantCase {
-  appellantCaseInvalidReason   AppellantCaseInvalidReason @relation(fields: [appellantCaseInvalidReasonId], references: [id])
-  appellantCaseInvalidReasonId Int
-  appellantCase                AppellantCase              @relation(fields: [appellantCaseId], references: [id])
-  appellantCaseId              Int
-
-  @@id([appellantCaseInvalidReasonId, appellantCaseId])
 }
 
 // Subscription represents a subscriber interested in project updates for a case

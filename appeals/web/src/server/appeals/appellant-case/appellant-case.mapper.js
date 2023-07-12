@@ -19,7 +19,7 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData) {
 /**
  *
  * @param {import('./appellant-case.service.js').AppellantCaseReviewOutcome} reviewOutcome
- * @param {import('.prisma/client').AppellantCaseInvalidReason[]} invalidReasonOptions
+ * @param {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason[]} invalidReasonOptions
  * @returns {SummaryListBuilderParameters}
  */
 export function mapReviewOutcomeToSummaryListBuilderParameters(
@@ -76,7 +76,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 
 /**
  *
- * @param {import('.prisma/client').AppellantCaseInvalidReason[]} invalidReasonOptions
+ * @param {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason[]} invalidReasonOptions
  * @param {string[]|number[]} [checkedOptionValues]
  * @returns {import('../appeals.types').CheckboxItemParameter[]}
  */

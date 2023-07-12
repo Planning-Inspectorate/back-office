@@ -33,7 +33,7 @@ export async function setReviewOutcomeForAppellantCase(appealId, appellantCaseId
 }
 
 /**
- * @returns {Promise<import('.prisma/client').AppellantCaseInvalidReason[]>}
+ * @returns {Promise<import('@pins/appeals.api').Schema.AppellantCaseInvalidReason[]>}
  */
 export async function getAppellantCaseInvalidReasons() {
 	return get(`appeals/appellant-case-invalid-reasons`);
