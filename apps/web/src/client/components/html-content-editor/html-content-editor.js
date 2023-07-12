@@ -28,7 +28,7 @@ function initHtmlContentEditor() {
 		});
 
 		if (input.value) {
-			editor.setHTML(input.value);
+			editor.setHTML(decodeURI(input.value));
 		}
 		const editBox = editor.getEditorElements().wwEditor;
 		const charCount = el.parentElement?.getElementsByClassName('character-count')[0];
