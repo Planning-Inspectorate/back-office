@@ -216,6 +216,7 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
 };
 
+// BREADCRUMB
 /**
  * @type {import('express').RequestHandler}
  * @throws {Error}
@@ -224,16 +225,7 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		const now = new Date();
-		await examinationTimetableRepository.updateByCaseId(
-			+id,
-			// @ts-ignore
-			{
-				published: true,
-				publishedAt: now,
-				updatedAt: now
-			}
-		);
+
 		response.send({
 			success: true
 		});

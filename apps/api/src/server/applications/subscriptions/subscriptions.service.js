@@ -26,6 +26,7 @@ export async function createOrUpdateSubscription(request) {
 		// new subscription
 		const res = await subscriptionRepository.create(subscription);
 
+		// BREADCRUMB
 		await eventClient.sendEvents(
 			NSIP_SUBSCRIPTION,
 			buildSubscriptionPayloads(res),
