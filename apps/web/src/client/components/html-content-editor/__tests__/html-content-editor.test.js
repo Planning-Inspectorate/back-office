@@ -56,7 +56,7 @@ describe('html-content-editor', () => {
 		textBox.innerHTML = exampleText;
 		textBox.blur();
 		// check the hidden input has the correct value - used for form submission
-		expect(input.value).toEqual(exampleText);
+		expect(input.value).toEqual(encodeURI(exampleText));
 	});
 	it('should count characters', async () => {
 		// first textbox is markdown preview (hidden/not-used)

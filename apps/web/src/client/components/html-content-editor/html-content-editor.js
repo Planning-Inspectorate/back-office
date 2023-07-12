@@ -3,6 +3,8 @@ import Editor from '@toast-ui/editor';
 /**
  * Initialise the html-content-editor module, used in conjuction with html-content-editor.component.njk
  *
+ * Resulting input value is URI-encoded.
+ *
  * Fallbacks to using govukTextarea in the template if there is no JS enabled.
  */
 function initHtmlContentEditor() {
@@ -41,7 +43,7 @@ function initHtmlContentEditor() {
 
 		// another option here is 'change', but that fires for every key press
 		editor.addHook('blur', () => {
-			input.value = editor.getHTML();
+			input.value = encodeURI(editor.getHTML());
 			updateCharacterCount();
 		});
 		if (!charCount) {
