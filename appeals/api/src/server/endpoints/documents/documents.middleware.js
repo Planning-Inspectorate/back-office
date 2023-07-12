@@ -24,9 +24,6 @@ export const validateDocumentAndAddToRequest = async (req, res, next) => {
  */
 export const ensureCaseFolders = async (req, res, next) => {
 	const { appeal } = req;
-	if (!appeal || !appeal.id || !appeal.reference) {
-		return res.status(404).send({ errors: { appealId: ERROR_NOT_FOUND } });
-	}
 
 	await upsertCaseFolders(appeal.id);
 	next();
