@@ -38,11 +38,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -61,7 +61,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -154,7 +154,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
@@ -854,11 +854,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -877,7 +877,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -948,7 +948,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -970,7 +970,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
@@ -2068,11 +2068,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2091,7 +2091,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -2138,11 +2138,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2161,7 +2161,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -2232,7 +2232,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -2254,7 +2254,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
@@ -2961,11 +2961,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2983,7 +2983,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 </div>
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"></div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -3045,11 +3045,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -3068,7 +3068,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -3139,7 +3139,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -3161,7 +3161,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
@@ -4276,11 +4276,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -4299,7 +4299,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -4370,7 +4370,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -4392,7 +4392,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
@@ -5505,11 +5505,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\">Sub folder a</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
                                         </td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\">Sub folder b</a>
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -5528,7 +5528,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload\\"> Upload files</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue </a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -5599,7 +5599,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkdownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
                             <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
@@ -5621,7 +5621,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </div>
                         </div>
                     </div>
-                    <p><span id=\\"selectedFilesNumber\\">0</span> document(s) selected</p>
+                    <p><span id=\\"selectedfilesnumber\\">0</span> document(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">

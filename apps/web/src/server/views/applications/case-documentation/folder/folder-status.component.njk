@@ -1,0 +1,63 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
+{% macro folderStatus(currentFolder, documentationFiles, caseId, userIsInspector) %}
+
+	{% set isS51folder = currentFolder.displayNameEn === 'S51 advice' %}
+
+	{% set contentNumberText %}
+		{% if isS51folder %}
+			This folder contains {{ documentationFiles.itemCount }} item(s) of S51 advice.
+		{% else %}
+			This folder contains {{ documentationFiles.itemCount }} document(s).
+		{% endif %}
+	{% endset %}
+
+	{% set newItemButton %}
+	{% if isS51folder %}
+		{% set buttonHref = 's51-create' | url({caseId: caseId, documentationCategory: currentFolder, step: 'title'}) %}
+		{% set buttonText = "Create new S51 advice"%}
+	{% else %}
+		{% set buttonHref = 'document-category'|url({caseId: caseId, documentationCategory: currentFolder, step: 'upload'}) %}
+		{% set buttonText = "Upload files" %}
+	{% endif %}
+
+	<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{buttonHref}}">
+		{{buttonText}}
+	</a>
+	{% endset %}
+
+	{% set queueLink %}
+	{% if isS51folder %}
+		<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-queue'|url({caseId:caseId})}}">
+			View S51 publishing queue
+		</a>
+	{% else %}
+		<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'documents-queue'|url({caseId:caseId})}}">
+			View publishing queue
+		</a>
+	{% endif %}
+	{% endset %}
+
+	<div class="govuk-width-container">
+		<div class="govuk-grid-row govuk-!-margin-top-0">
+			<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+				<h3 class="govuk-heading-m">Documents</h3>
+				<p class="govuk-body">
+					{{ contentNumberText }}
+				</p>
+			</div>
+		</div>
+		<div class="govuk-grid-row govuk-!-margin-top-0">
+			<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+				{% if not userIsInspector %}
+					{{ newItemButton | safe }}
+				{% endif %}
+			</div>
+			<div class="govuk-grid-column-one-third">
+				{{ queueLink | safe }}
+			</div>
+		</div>
+	</div>
+
+{% endmacro %}

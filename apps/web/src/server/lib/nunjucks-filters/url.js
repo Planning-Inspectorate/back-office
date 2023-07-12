@@ -96,6 +96,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-updates/${projectUpdateId}/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
+		case 's51-create':
+			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/create/${step}`;
+		case 's51-queue':
+			return `${domainUrl}/case/${caseId}/project-documentation/s51-queue`;
 		case 'timetable':
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		case 'timetable-item':

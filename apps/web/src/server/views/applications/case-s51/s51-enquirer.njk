@@ -1,0 +1,72 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "S51 advice" %}
+{% set pageTitle = "Enter who the enquiry was from" %}
+
+{% block pageTitle %}
+    {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+		text: "Back",
+		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'title'})
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+        {{ pageTitle }}
+    </h1>
+
+	<p class='govuk-body colour--secondary'>
+        This can be a person, an organisation, or both
+    </p>
+
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
+        {{ govukInput({
+		label: {
+			text: "Enquirer's first name",
+			classes: 'font-weight--700'
+		},
+		id: "enquirerFirstName",
+		name: "enquirerFirstName",
+		classes: "govuk-!-width-one-third",
+		value: values.enquirerFirstName,
+		errorMessage: errors.enquirerFirstName | errorMessage
+	}) }}
+
+        {{ govukInput({
+		label: {
+			text: "Enquirer's last name",
+			classes: 'font-weight--700'
+		},
+		id: "enquirerLastName",
+		name: "enquirerLastName",
+		value: values.enquirerLastName,
+		classes: "govuk-!-width-one-third",
+		errorMessage: errors.enquirerLastName | errorMessage
+	}) }}
+
+        {{ govukInput({
+		label: {
+			text: "Enquirer's organisation",
+			classes: 'font-weight--700'
+		},
+		id: "enquirerOrganisation",
+		name: "enquirerOrganisation",
+		value: values.enquirerOrganisation,
+		classes: "govuk-!-width-one-third",
+		errorMessage: errors.enquirerOrganisation | errorMessage
+	}) }}
+
+        {{ govukButton({ text: 'Continue'}) }}
+    </form>
+{% endblock %}

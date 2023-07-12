@@ -1,0 +1,44 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "S51 advice" %}
+{% set pageTitle = "Enter who gave the advice" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'enquiry-details' })
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
+
+	<p class='govuk-body colour--secondary govuk-!-margin-bottom-5'>
+       	Enter the name of the person who gave the advice. <strong>This is for internal use only.</strong>
+	</p>
+
+		<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+			{{ govukInput({
+		id: "title",
+		name: "title",
+		classes: "govuk-!-width-one-third",
+		errorMessage: errors.firstName | errorMessage
+
+	}) }}
+
+			{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
+		</form>
+	{% endblock %}

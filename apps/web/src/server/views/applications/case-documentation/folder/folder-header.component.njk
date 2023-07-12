@@ -1,0 +1,49 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
+{% macro folderHeader(currentFolder, subFolders, caseId) %}
+
+	{% set isS51folder = currentFolder.displayNameEn === 'S51 advice' %}
+
+	{% set folderRows = [] %}
+	{% set folderItems = {} %}
+
+	{# #1: Create links to each subfolder  #}
+	{% for subFolder in subFolders %}
+
+		{% set subFolderLink %}
+		<a class="govuk-link govuk-body-m" href="{{'document-category' |url({caseId: caseId, documentationCategory: subFolder})}}">
+			{{ subFolder.displayNameEn }}
+		</a>
+		{% endset %}
+
+		{% set folderRows = folderRows | concat([
+			[
+				{
+					html: subFolderLink
+				}
+			]
+		]) %}
+	{% endfor %}
+
+
+	{# #2: If folder is not S51, create accordion items #}
+	{% if not isS51folder%}
+		{% set folderItems = {
+			items: [
+				{
+					content: {
+						html: govukTable({rows: folderRows})
+					}
+				}
+			]
+		} %}
+	{% endif %}
+
+	{# #3: Template with title and accordion #}
+	<div class="pins-dashboard-list--hide-controls">
+		<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
+		{{ govukAccordion(folderItems) }}
+	</div>
+
+{% endmacro %}

@@ -1,0 +1,46 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "S51 advice" %}
+{% set pageTitle = "Enquiry details" %}
+
+{% block pageTitle %}
+    {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+		text: "Back",
+		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'method' })
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+        {{ pageTitle }}
+    </h1>
+
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        {{ govukInput({
+		label: {
+			text: "S51 title",
+			classes: 'font-weight--700'
+		},
+		id: "title",
+		name: "title",
+		classes: "govuk-!-width-one-third",
+		errorMessage: errors.title | errorMessage,
+		hint: {
+			text: "For example,  'Advice following issue of decision to accept the application for examination'"
+		}
+	}) }}
+
+        {{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
+    </form>
+{% endblock %}
