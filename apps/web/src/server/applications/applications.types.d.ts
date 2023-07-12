@@ -141,3 +141,16 @@ export interface DocumentVersion {
 		} | null;
 	};
 }
+
+export interface S51Advice {
+	title: string;
+	enquirerFirstName: string;
+	enquirerLastName: string;
+	enquirerOrganisation: string;
+	enquiryMethod: string;
+	enquiryDate: number;
+	enquiryDetails: string;
+	adviser: string;
+	adviceDate: number;
+	adviceDetails: string;
+}

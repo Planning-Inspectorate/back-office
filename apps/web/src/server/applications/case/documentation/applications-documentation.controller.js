@@ -39,7 +39,7 @@ import {
  *
  * @type {import('@pins/express').RenderHandler<{documentationCategories: DocumentationCategory[]}, {}>}
  */
-export async function viewApplicationsCaseDocumentationCategories(request, response) {
+export async function viewApplicationsCaseDocumentationCategories(_, response) {
 	const { caseId } = response.locals;
 	const documentationCategories = await getCaseFolders(caseId);
 	const properties = { documentationCategories: sortBy(documentationCategories, ['displayOrder']) };
@@ -55,7 +55,7 @@ export async function viewApplicationsCaseDocumentationCategories(request, respo
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const properties = await documentationFolderData(request, response);
 
-	response.render(`applications/case-documentation/documentation-folder`, properties);
+	response.render(`applications/case-documentation/folder/documentation-folder`, properties);
 }
 
 /**
@@ -96,7 +96,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 		properties.documentationFiles.items = failedItems;
 
-		return response.render(`applications/case-documentation/documentation-folder`, {
+		return response.render(`applications/case-documentation/folder/documentation-folder`, {
 			...properties,
 			errors: validationErrors || apiErrorMessage,
 			failedItems: apiErrors
