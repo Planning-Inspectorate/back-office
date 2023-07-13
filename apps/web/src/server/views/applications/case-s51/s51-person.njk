@@ -30,15 +30,16 @@
        	Enter the name of the person who gave the advice. <strong>This is for internal use only.</strong>
 	</p>
 
-		<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
-			{{ govukInput({
-		id: "title",
-		name: "title",
+	<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+		{{ govukInput({
+		id: "adviser",
+		name: "adviser",
 		classes: "govuk-!-width-one-third",
-		errorMessage: errors.firstName | errorMessage
+		errorMessage: errors.adviser | errorMessage,
+		value: values.adviser
 
 	}) }}
 
-			{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
-		</form>
-	{% endblock %}
+		{{ govukButton({ text: 'Continue' }) }}
+	</form>
+{% endblock %}
