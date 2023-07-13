@@ -3,9 +3,22 @@ import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
 import { EventType } from '@pins/event-client';
 
-// @todo implement
-function buildPublishPayload() {
-	return {};
+/**
+ * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetable} NSIPExamTimetable
+ */
+
+/**
+ * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
+ * @returns { NSIPExamTimetable }
+ */
+function buildPublishPayload(examinationTimetableItem) {
+	return {
+		date: examinationTimetableItem.date,
+		description: examinationTimetableItem.description,
+		eventTitle: examinationTimetableItem.name,
+		type: examinationTimetableItem.examinationTypeId
+
+	}
 }
 
 /**
@@ -16,7 +29,7 @@ function buildPublishPayload() {
  */
 export async function publish(id) {
 	const now = new Date();
-	await examinationTimetableRepository.updateByCaseId(
+	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(
 		+id,
 		// @ts-ignore
 		{
@@ -28,7 +41,7 @@ export async function publish(id) {
 
 	await eventClient.sendEvents(
 		NSIP_EXAM_TIMETABLE,
-		[buildPublishPayload()],
+		examinationTimetableItems,
 		EventType.Create
 	);
 }
