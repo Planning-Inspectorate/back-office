@@ -19,4 +19,17 @@ describe('Appeals feature', () => {
 		page.clickButtonByText('Continue');
 		page.clickLinkByText('Go to case details');
 	});
+
+	it('Invalidate appellant case', () => {
+		cy.visit('/appeals-service/appeals-list');
+		page.clickAppealFromList(2);
+		page.clickAccordionByText('case documentation');
+		page.clickLinkByText('Review');
+		page.basePageElements.radioButton().contains('Invalid').click();
+		page.clickButtonByText('Continue');
+		page.chooseCheckboxByIndex(1);
+		page.clickButtonByText('Continue');
+		page.clickButtonByText('Confirm');
+		page.clickLinkByText('Go to case details');
+	});
 });
