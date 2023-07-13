@@ -221,7 +221,7 @@ const appealFormatter = {
 	 * @returns {SingleAppellantCaseResponse | void}}
 	 */
 	formatAppellantCase(appeal) {
-		const { appellantCase } = appeal;
+		const { appellantCase, siteVisit } = appeal;
 
 		if (appellantCase) {
 			return {
@@ -302,6 +302,10 @@ const appealFormatter = {
 					isFullyOwned: appellantCase.isSiteFullyOwned,
 					isPartiallyOwned: appellantCase.isSitePartiallyOwned,
 					knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners?.name || null
+				},
+				siteVisit: {
+					siteVisitId: siteVisit?.id || null,
+					visitType: siteVisit?.siteVisitType?.name || null
 				},
 				visibility: {
 					details: appellantCase.visibilityRestrictions,

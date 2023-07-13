@@ -294,12 +294,14 @@ model ReviewQuestionnaire {
 /// SiteVisit model
 /// Contains information regarding a scheduled site visit for an appeal
 model SiteVisit {
-  id        Int      @id @default(autoincrement())
-  appealId  Int      @unique
-  visitDate DateTime
-  visitSlot String
-  visitType String?
-  appeal    Appeal   @relation(fields: [appealId], references: [id])
+  id              Int            @id @default(autoincrement())
+  appealId        Int            @unique
+  siteVisitTypeId Int?
+  visitDate       DateTime?
+  visitStartTime  String?
+  visitEndTime    String?
+  appeal          Appeal         @relation(fields: [appealId], references: [id])
+  siteVisitType   SiteVisitType? @relation(fields: [siteVisitTypeId], references: [id])
 }
 
 /// InspectorDecision model
@@ -602,4 +604,10 @@ model NeighbouringSiteContact {
   email              String
   lpaQuestionnaire   LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
   address            Address?          @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model SiteVisitType {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  siteVisit SiteVisit[]
 }

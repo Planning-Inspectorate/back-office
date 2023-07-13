@@ -4,9 +4,10 @@ declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
-			validationOutcome: ValidationOutcome;
-			notifyClient: NotifyClient;
 			document: Schema.Document;
+			notifyClient: NotifyClient;
+			visitType: SiteVisitType;
+			validationOutcome: ValidationOutcome;
 		}
 	}
 }
@@ -14,7 +15,7 @@ declare global {
 interface NotifyClient {
 	sendEmail: (
 		template: NotifyTemplate,
-		recipientEmail: string,
+		recipientEmail?: string,
 		personalisation: { [key: string]: string }
 	) => void;
 }
@@ -48,8 +49,8 @@ interface AppealTimetable {
 
 interface RepositoryGetAllResultItem {
 	address?: Schema.Address | null;
-	appealStatus: { status: string; subStateMachineName: string | null }[];
-	appealType: { shorthand: string; type: item } | null;
+	appealStatus: Schema.AppealStatus[];
+	appealType: Schema.AppealType | null;
 	createdAt: Date;
 	id: number;
 	localPlanningDepartment: string;
@@ -58,9 +59,9 @@ interface RepositoryGetAllResultItem {
 
 interface RepositoryGetByIdResultItem {
 	address?: Schema.Address | null;
-	appealStatus: { status: string; subStateMachineName: string | null }[];
+	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
-	appealType: { shorthand: string; type: string } | null;
+	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
 	appellantCase?: Schema.AppellantCase | null;
 	createdAt: Date;
@@ -73,7 +74,7 @@ interface RepositoryGetByIdResultItem {
 	otherAppeals: Appeal[];
 	planningApplicationReference: string;
 	reference: string;
-	siteVisit?: { visitDate: Date } | null;
+	siteVisit: Schema.SiteVisit | null;
 	startedAt: Date | null;
 }
 
@@ -246,6 +247,10 @@ interface SingleAppellantCaseResponse {
 		isPartiallyOwned: boolean | null;
 		knowsOtherLandowners: string | null;
 	};
+	siteVisit: {
+		siteVisitId: number | null;
+		visitType: string | null;
+	};
 	visibility: {
 		details: string | null;
 		isVisible: boolean | null;
@@ -280,6 +285,15 @@ interface DocumentationSummary {
 
 interface CaseFolder {}
 
+interface SingleSiteVisitDetailsResponse {
+	appealId: number;
+	visitDate: Date | null;
+	siteVisitId: number;
+	visitEndTime: string | null;
+	visitStartTime: string | null;
+	visitType: string;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -304,5 +318,6 @@ export {
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleLPAQuestionnaireResponse,
+	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate
 };

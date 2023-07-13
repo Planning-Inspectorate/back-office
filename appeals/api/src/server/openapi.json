@@ -96,6 +96,180 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/site-visits": {
+			"post": {
+				"tags": ["Appeals"],
+				"description": "Creates a single site visit",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Creates a single site visit",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateSiteVisitResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateSiteVisitResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Site visit details to create",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSiteVisitRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateSiteVisitRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/site-visits/{siteVisitId}": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets a single site visit by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "siteVisitId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single site visit by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleSiteVisitResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleSiteVisitResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Appeals"],
+				"description": "Updates a single site visit by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "siteVisitId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Creates a single site visit by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateSiteVisitResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateSiteVisitResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Site visit details to create",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateSiteVisitRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateSiteVisitRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -695,182 +869,6 @@
 					"name": "Folder"
 				}
 			},
-			"documentsPropertiesRequestBody": {
-				"type": "object",
-				"properties": {
-					"version": {
-						"type": "number",
-						"example": 1
-					},
-					"createdAt": {
-						"type": "string",
-						"example": "2023-02-27T10:00:00Z"
-					},
-					"lastModified": {
-						"type": "string",
-						"example": "2023-02-27T12:00:00Z"
-					},
-					"documentType": {
-						"type": "string",
-						"example": "PDF"
-					},
-					"published": {
-						"type": "boolean",
-						"example": false
-					},
-					"sourceSystem": {
-						"type": "string",
-						"example": "Salesforce"
-					},
-					"origin": {
-						"type": "string",
-						"example": "Email"
-					},
-					"representative": {
-						"type": "string",
-						"example": "John Doe"
-					},
-					"description": {
-						"type": "string",
-						"example": "Marketing Brochure"
-					},
-					"documentGuid": {
-						"type": "string",
-						"example": "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
-					},
-					"datePublished": {
-						"type": "string",
-						"example": "2023-03-01T10:00:00Z"
-					},
-					"owner": {
-						"type": "string",
-						"example": "Jane Doe"
-					},
-					"author": {
-						"type": "string",
-						"example": "Marketing Team"
-					},
-					"securityClassification": {
-						"type": "string",
-						"example": "Confidential"
-					},
-					"mime": {
-						"type": "string",
-						"example": "application/pdf"
-					},
-					"horizonDataID": {
-						"type": "string",
-						"example": "123456789"
-					},
-					"fileMD5": {
-						"type": "string",
-						"example": "f60c381d96dcedec4b4fb4b9e1f6e14e"
-					},
-					"path": {
-						"type": "string",
-						"example": "/documents/marketing/ab12cd34-5678-90ef-ghij-klmnopqrstuv.pdf"
-					},
-					"virusCheckStatus": {
-						"type": "string",
-						"example": "Clean"
-					},
-					"size": {
-						"type": "number",
-						"example": 1024
-					},
-					"stage": {
-						"type": "number",
-						"example": 3
-					},
-					"filter1": {
-						"type": "string",
-						"example": "Marketing"
-					},
-					"filter2": {
-						"type": "string",
-						"example": "Brochure"
-					}
-				},
-				"xml": {
-					"name": "documentsPropertiesRequestBody"
-				}
-			},
-			"documentsMetadataResponseBody": {
-				"type": "object",
-				"properties": {
-					"version": {
-						"type": "number",
-						"example": 1
-					},
-					"documentId": {
-						"type": "string",
-						"example": "a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99"
-					},
-					"datePublished": {
-						"type": "string",
-						"example": ""
-					},
-					"caseRef": {
-						"type": "string",
-						"example": "BC0210002"
-					},
-					"documentName": {
-						"type": "string",
-						"example": "5"
-					},
-					"blobStorageContainer": {
-						"type": "string",
-						"example": "document-service-uploads"
-					},
-					"documentURI": {
-						"type": "string",
-						"example": "/application/BC010001/1111-2222-3333/my doc.pdf"
-					},
-					"from": {
-						"type": "string",
-						"example": "joe blogs"
-					},
-					"dateCreated": {
-						"type": "number",
-						"example": 1677585578
-					},
-					"size": {
-						"type": "number",
-						"example": 0
-					},
-					"fileType": {
-						"type": "string",
-						"example": ""
-					},
-					"redacted": {
-						"type": "boolean",
-						"example": false
-					},
-					"status": {
-						"type": "string",
-						"example": "awaiting_upload"
-					},
-					"description": {
-						"type": "string",
-						"example": ""
-					},
-					"agent": {
-						"type": "string",
-						"example": ""
-					},
-					"documentType": {
-						"type": "string",
-						"example": ""
-					},
-					"webFilter": {
-						"type": "string",
-						"example": ""
-					}
-				},
-				"xml": {
-					"name": "documentsMetadataResponseBody"
-				}
-			},
 			"DocumentDetails": {
 				"type": "object",
 				"properties": {
@@ -965,423 +963,6 @@
 				},
 				"xml": {
 					"name": "DocumentDetails"
-				}
-			},
-			"AppealToValidate": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 1
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": "APP/Q9999/D/21/1345264"
-					},
-					"AppellantName": {
-						"type": "string",
-						"example": "Lee Thornton"
-					},
-					"AppealStatus": {
-						"type": "string",
-						"example": "new"
-					},
-					"Received": {
-						"type": "string",
-						"example": "18 Mar 2022"
-					},
-					"AppealSite": {
-						"type": "object",
-						"properties": {
-							"AddressLine1": {
-								"type": "string",
-								"example": "96 The Avenue"
-							},
-							"AddressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"Town": {
-								"type": "string",
-								"example": "Maidstone"
-							},
-							"County": {
-								"type": "string",
-								"example": "Kent"
-							},
-							"PostCode": {
-								"type": "string",
-								"example": "MD21 5XY"
-							}
-						}
-					},
-					"LocalPlanningDepartment": {
-						"type": "string",
-						"example": "Maidstone Borough Council"
-					},
-					"PlanningApplicationReference": {
-						"type": "string",
-						"example": "48269/APP/2021/1482"
-					},
-					"Documents": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"Type": {
-									"type": "string",
-									"example": ""
-								},
-								"Filename": {
-									"type": "string",
-									"example": ""
-								},
-								"URL": {
-									"type": "string",
-									"example": ""
-								}
-							}
-						}
-					},
-					"reason": {
-						"type": "object",
-						"properties": {
-							"inflammatoryComments": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingApplicationForm": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingDecisionNotice": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingGroundsForAppeal": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingSupportingDocuments": {
-								"type": "boolean",
-								"example": true
-							},
-							"namesDoNotMatch": {
-								"type": "boolean",
-								"example": true
-							},
-							"openedInError": {
-								"type": "boolean",
-								"example": true
-							},
-							"otherReasons": {
-								"type": "string",
-								"example": "Some other weird reason"
-							},
-							"sensitiveInfo": {
-								"type": "boolean",
-								"example": true
-							},
-							"wrongAppealTypeUsed": {
-								"type": "boolean",
-								"example": true
-							}
-						}
-					}
-				},
-				"xml": {
-					"name": "AppealToValidate"
-				}
-			},
-			"AppealDetailsAfterStatementUpload": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 2
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": "ABC"
-					},
-					"canUploadStatementsUntil": {
-						"type": "string",
-						"example": "08 March 2022"
-					}
-				},
-				"xml": {
-					"name": "AppealDetailsAfterStatementUpload"
-				}
-			},
-			"AppealDetailsAfterFinalCommentUpload": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 2
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": "ABC"
-					},
-					"canUploadFinalCommentsUntil": {
-						"type": "string",
-						"example": "08 March 2022"
-					}
-				},
-				"xml": {
-					"name": "AppealDetailsAfterFinalCommentUpload"
-				}
-			},
-			"AppealsToValidate": {
-				"type": "array",
-				"items": {
-					"type": "object",
-					"properties": {
-						"AppealId": {
-							"type": "number",
-							"example": 1
-						},
-						"AppealReference": {
-							"type": "string",
-							"example": "APP/Q9999/D/21/1345264"
-						},
-						"AppealStatus": {
-							"type": "string",
-							"enum": ["new", "incomplete"]
-						},
-						"Received": {
-							"type": "string",
-							"example": "18 Mar 2022"
-						},
-						"AppealSite": {
-							"type": "object",
-							"properties": {
-								"AddressLine1": {
-									"type": "string",
-									"example": "96 The Avenue"
-								},
-								"AddressLine2": {
-									"type": "string",
-									"example": ""
-								},
-								"Town": {
-									"type": "string",
-									"example": "Maidstone"
-								},
-								"County": {
-									"type": "string",
-									"example": "Kent"
-								},
-								"PostCode": {
-									"type": "string",
-									"example": "MD21 5XY"
-								}
-							}
-						}
-					}
-				},
-				"xml": {
-					"name": "AppealsToValidate"
-				}
-			},
-			"ChangeAppeal": {
-				"type": "object",
-				"properties": {
-					"AppellantName": {
-						"type": "string",
-						"example": "John Doe"
-					},
-					"Address": {
-						"type": "object",
-						"properties": {
-							"AddressLine1": {
-								"type": "string",
-								"example": ""
-							},
-							"AddressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"Town": {
-								"type": "string",
-								"example": ""
-							},
-							"County": {
-								"type": "string",
-								"example": ""
-							},
-							"PostCode": {
-								"type": "string",
-								"example": ""
-							}
-						},
-						"required": ["AddressLine1", "AddressLine2", "Town", "County", "PostCode"]
-					},
-					"LocalPlanningDepartment": {
-						"type": "string",
-						"example": ""
-					},
-					"PlanningApplicationReference": {
-						"type": "string",
-						"example": ""
-					}
-				},
-				"required": [
-					"AppellantName",
-					"Address",
-					"LocalPlanningDepartment",
-					"PlanningApplicationReference"
-				],
-				"xml": {
-					"name": "ChangeAppeal"
-				}
-			},
-			"ValidationDecision": {
-				"type": "object",
-				"properties": {
-					"AppealStatus": {
-						"type": "string",
-						"enum": ["invalid", "incomplete", "valid"]
-					},
-					"descriptionOfDevelopment": {
-						"type": "string",
-						"example": ""
-					},
-					"Reason": {
-						"type": "object",
-						"properties": {
-							"namesDoNotMatch": {
-								"type": "boolean",
-								"example": true
-							},
-							"sensitiveInfo": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingApplicationForm": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingDecisionNotice": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingGroundsForAppeal": {
-								"type": "boolean",
-								"example": true
-							},
-							"missingSupportingDocuments": {
-								"type": "boolean",
-								"example": true
-							},
-							"inflammatoryComments": {
-								"type": "boolean",
-								"example": true
-							},
-							"openedInError": {
-								"type": "boolean",
-								"example": true
-							},
-							"wrongAppealTypeUsed": {
-								"type": "boolean",
-								"example": true
-							},
-							"outOfTime": {
-								"type": "boolean",
-								"example": true
-							},
-							"noRightOfAppeal": {
-								"type": "boolean",
-								"example": true
-							},
-							"notAppealable": {
-								"type": "boolean",
-								"example": true
-							},
-							"lPADeemedInvalid": {
-								"type": "boolean",
-								"example": true
-							},
-							"otherReasons": {
-								"type": "string",
-								"example": ""
-							}
-						},
-						"required": [
-							"namesDoNotMatch",
-							"sensitiveInfo",
-							"missingApplicationForm",
-							"missingDecisionNotice",
-							"missingGroundsForAppeal",
-							"missingSupportingDocuments",
-							"inflammatoryComments",
-							"openedInError",
-							"wrongAppealTypeUsed",
-							"outOfTime",
-							"noRightOfAppeal",
-							"notAppealable",
-							"lPADeemedInvalid",
-							"otherReasons"
-						]
-					}
-				},
-				"required": ["AppealStatus", "descriptionOfDevelopment", "Reason"],
-				"xml": {
-					"name": "ValidationDecision"
-				}
-			},
-			"AppealDetailsWhenUploadingStatementsAndFinalComments": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 1
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": ""
-					},
-					"AppealSite": {
-						"type": "object",
-						"properties": {
-							"AddressLine1": {
-								"type": "string",
-								"example": ""
-							},
-							"AddressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"Town": {
-								"type": "string",
-								"example": ""
-							},
-							"County": {
-								"type": "string",
-								"example": ""
-							},
-							"PostCode": {
-								"type": "string",
-								"example": ""
-							}
-						}
-					},
-					"LocalPlanningDepartment": {
-						"type": "string",
-						"example": ""
-					},
-					"acceptingStatements": {
-						"type": "boolean",
-						"example": false
-					},
-					"acceptingFinalComments": {
-						"type": "boolean",
-						"example": true
-					}
-				},
-				"xml": {
-					"name": "AppealDetailsWhenUploadingStatementsAndFinalComments"
 				}
 			},
 			"AllAppeals": {
@@ -2379,6 +1960,134 @@
 					"name": "UpdateLPAQuestionnaireResponse"
 				}
 			},
+			"CreateSiteVisitRequest": {
+				"type": "object",
+				"properties": {
+					"visitDate": {
+						"type": "string",
+						"example": "2023-07-07"
+					},
+					"visitEndTime": {
+						"type": "string",
+						"example": "18:00"
+					},
+					"visitStartTime": {
+						"type": "string",
+						"example": "16:00"
+					},
+					"visitType": {
+						"type": "string",
+						"example": "access required"
+					}
+				},
+				"xml": {
+					"name": "CreateSiteVisitRequest"
+				}
+			},
+			"CreateSiteVisitResponse": {
+				"type": "object",
+				"properties": {
+					"visitDate": {
+						"type": "string",
+						"example": "2023-07-07T01:00:00.000Z"
+					},
+					"visitEndTime": {
+						"type": "string",
+						"example": "18:00"
+					},
+					"visitStartTime": {
+						"type": "string",
+						"example": "16:00"
+					},
+					"visitType": {
+						"type": "string",
+						"example": "access required"
+					}
+				},
+				"xml": {
+					"name": "CreateSiteVisitResponse"
+				}
+			},
+			"UpdateSiteVisitRequest": {
+				"type": "object",
+				"properties": {
+					"visitDate": {
+						"type": "string",
+						"example": "2023-07-09"
+					},
+					"visitEndTime": {
+						"type": "string",
+						"example": "12:00"
+					},
+					"visitStartTime": {
+						"type": "string",
+						"example": "10:00"
+					},
+					"visitType": {
+						"type": "string",
+						"example": "Accompanied"
+					}
+				},
+				"xml": {
+					"name": "UpdateSiteVisitRequest"
+				}
+			},
+			"UpdateSiteVisitResponse": {
+				"type": "object",
+				"properties": {
+					"visitDate": {
+						"type": "string",
+						"example": "2023-07-09T01:00:00.000Z"
+					},
+					"visitEndTime": {
+						"type": "string",
+						"example": "12:00"
+					},
+					"visitStartTime": {
+						"type": "string",
+						"example": "10:00"
+					},
+					"visitType": {
+						"type": "string",
+						"example": "Accompanied"
+					}
+				},
+				"xml": {
+					"name": "UpdateSiteVisitResponse"
+				}
+			},
+			"SingleSiteVisitResponse": {
+				"type": "object",
+				"properties": {
+					"appealId": {
+						"type": "number",
+						"example": 2
+					},
+					"siteVisitId": {
+						"type": "number",
+						"example": 1
+					},
+					"visitType": {
+						"type": "string",
+						"example": "Access required"
+					},
+					"visitDate": {
+						"type": "string",
+						"example": "2023-07-07"
+					},
+					"visitEndTime": {
+						"type": "string",
+						"example": "18:00"
+					},
+					"visitStartTime": {
+						"type": "string",
+						"example": "16:00"
+					}
+				},
+				"xml": {
+					"name": "SingleSiteVisitResponse"
+				}
+			},
 			"AllAppellantCaseIncompleteReasonsResponse": {
 				"type": "array",
 				"items": {
@@ -2434,1014 +2143,6 @@
 				},
 				"xml": {
 					"name": "AllLPAQuestionnaireIncompleteReasonsResponse"
-				}
-			},
-			"AppealsForCaseOfficer": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 1
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": ""
-					},
-					"QuestionnaireDueDate": {
-						"type": "string",
-						"example": "01 Jun 2022"
-					},
-					"AppealSite": {
-						"type": "object",
-						"properties": {
-							"AddressLine1": {
-								"type": "string",
-								"example": "96 The Avenue"
-							},
-							"AddressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"Town": {
-								"type": "string",
-								"example": "Maidstone"
-							},
-							"County": {
-								"type": "string",
-								"example": "Kent"
-							},
-							"PostCode": {
-								"type": "string",
-								"example": "MD21 5XY"
-							}
-						},
-						"required": ["AddressLine1", "AddressLine2", "Town", "County", "PostCode"]
-					},
-					"QuestionnaireStatus": {
-						"type": "string",
-						"enum": ["awaiting", "received", "overdue"]
-					}
-				},
-				"required": [
-					"AppealId",
-					"AppealReference",
-					"QuestionnaireDueDate",
-					"AppealSite",
-					"QuestionnaireStatus"
-				],
-				"xml": {
-					"name": "AppealsForCaseOfficer"
-				}
-			},
-			"AppealForCaseOfficer": {
-				"type": "object",
-				"properties": {
-					"AppealId": {
-						"type": "number",
-						"example": 1
-					},
-					"AppealReference": {
-						"type": "string",
-						"example": ""
-					},
-					"LocalPlanningDepartment": {
-						"type": "string",
-						"example": ""
-					},
-					"PlanningApplicationReference": {
-						"type": "string",
-						"example": ""
-					},
-					"AppealSiteNearConservationArea": {
-						"type": "boolean",
-						"example": false
-					},
-					"WouldDevelopmentAffectSettingOfListedBuilding": {
-						"type": "boolean",
-						"example": false
-					},
-					"ListedBuildingDesc": {
-						"type": "string",
-						"example": ""
-					},
-					"AppealSite": {
-						"type": "object",
-						"properties": {
-							"AddressLine1": {
-								"type": "string",
-								"example": "96 The Avenue"
-							},
-							"AddressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"Town": {
-								"type": "string",
-								"example": "Maidstone"
-							},
-							"County": {
-								"type": "string",
-								"example": "Kent"
-							},
-							"PostCode": {
-								"type": "string",
-								"example": "MD21 5XY"
-							}
-						},
-						"required": ["AddressLine1", "AddressLine2", "Town", "County", "PostCode"]
-					},
-					"Documents": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"Type": {
-									"type": "string",
-									"example": ""
-								},
-								"Filename": {
-									"type": "string",
-									"example": ""
-								},
-								"URL": {
-									"type": "string",
-									"example": ""
-								}
-							},
-							"required": ["Type", "Filename", "URL"]
-						}
-					}
-				},
-				"required": [
-					"AppealId",
-					"AppealReference",
-					"LocalPlanningDepartment",
-					"PlanningApplicationReference",
-					"AppealSiteNearConservationArea",
-					"WouldDevelopmentAffectSettingOfListedBuilding",
-					"ListedBuildingDesc",
-					"AppealSite",
-					"Documents"
-				],
-				"xml": {
-					"name": "AppealForCaseOfficer"
-				}
-			},
-			"MoreAppealsForInspector": {
-				"type": "object",
-				"properties": {
-					"appealId": {
-						"type": "number",
-						"example": 1
-					},
-					"appealAge": {
-						"type": "number",
-						"example": 10
-					},
-					"address": {
-						"type": "object",
-						"properties": {
-							"addressLine1": {
-								"type": "string",
-								"example": ""
-							},
-							"addressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"town": {
-								"type": "string",
-								"example": ""
-							},
-							"county": {
-								"type": "string",
-								"example": ""
-							},
-							"postCode": {
-								"type": "string",
-								"example": ""
-							}
-						},
-						"required": ["addressLine1", "addressLine2", "town", "county", "postCode"]
-					},
-					"appealType": {
-						"type": "string",
-						"example": "HAS"
-					},
-					"specialist": {
-						"type": "string",
-						"example": "General"
-					},
-					"provisionalSiteVisitType": {
-						"type": "string",
-						"enum": ["unaccompanied", "access required"]
-					}
-				},
-				"required": ["appealId", "appealAge", "address", "appealType", "provisionalSiteVisitType"],
-				"xml": {
-					"name": "MoreAppealsForInspector"
-				}
-			},
-			"documentsMetadataResponse": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "number",
-						"example": 1
-					},
-					"caseRef": {
-						"type": "string",
-						"example": ""
-					},
-					"documentGuid": {
-						"type": "string",
-						"example": "1111-2222-3333"
-					},
-					"horizonDataID": {
-						"type": "string",
-						"example": ""
-					},
-					"version": {
-						"type": "string",
-						"example": ""
-					},
-					"path": {
-						"type": "string",
-						"example": ""
-					},
-					"virusCheckStatus": {
-						"type": "string",
-						"example": ""
-					},
-					"fileMD5": {
-						"type": "string",
-						"example": ""
-					},
-					"mime": {
-						"type": "string",
-						"example": ""
-					},
-					"fileSize": {
-						"type": "number",
-						"example": 0
-					},
-					"fileType": {
-						"type": "string",
-						"example": ""
-					},
-					"createdAt": {
-						"type": "string",
-						"example": ""
-					},
-					"lastModified": {
-						"type": "string",
-						"example": ""
-					},
-					"datePublished": {
-						"type": "string",
-						"example": ""
-					},
-					"documentType": {
-						"type": "string",
-						"example": ""
-					},
-					"securityClassification": {
-						"type": "string",
-						"example": ""
-					},
-					"sourceSystem": {
-						"type": "string",
-						"example": ""
-					},
-					"origin": {
-						"type": "string",
-						"example": ""
-					},
-					"owner": {
-						"type": "string",
-						"example": ""
-					},
-					"author": {
-						"type": "string",
-						"example": ""
-					},
-					"representative": {
-						"type": "string",
-						"example": ""
-					},
-					"description": {
-						"type": "string",
-						"example": ""
-					},
-					"stage": {
-						"type": "number",
-						"example": 1
-					}
-				},
-				"xml": {
-					"name": "documentsMetadataResponse"
-				}
-			},
-			"AppealsForInspector": {
-				"type": "object",
-				"properties": {
-					"appealId": {
-						"type": "number",
-						"example": 1
-					},
-					"appealAge": {
-						"type": "number",
-						"example": 10
-					},
-					"appealSite": {
-						"type": "object",
-						"properties": {
-							"addressLine1": {
-								"type": "string",
-								"example": ""
-							},
-							"addressLine2": {
-								"type": "string",
-								"example": ""
-							},
-							"town": {
-								"type": "string",
-								"example": ""
-							},
-							"county": {
-								"type": "string",
-								"example": ""
-							},
-							"postCode": {
-								"type": "string",
-								"example": ""
-							}
-						},
-						"required": ["addressLine1", "addressLine2", "town", "county", "postCode"]
-					},
-					"appealType": {
-						"type": "string",
-						"example": "HAS"
-					},
-					"reference": {
-						"type": "string",
-						"example": ""
-					},
-					"status": {
-						"type": "string",
-						"enum": ["not yet booked", "booked", "decision due"]
-					},
-					"siteVisitType": {
-						"type": "string",
-						"enum": ["accompanied", "unaccompanied", "access required"]
-					},
-					"provisionalSiteVisitType": {
-						"type": "string",
-						"enum": ["unaccompanied", "access required"]
-					}
-				},
-				"required": [
-					"appealId",
-					"appealAge",
-					"appealSite",
-					"appealType",
-					"reference",
-					"status",
-					"siteVisitType",
-					"provisionalSiteVisitType"
-				],
-				"xml": {
-					"name": "AppealsForInspector"
-				}
-			},
-			"AppealDetailsForInspector": {
-				"type": "object",
-				"properties": {
-					"appealId": {
-						"type": "number",
-						"example": 1
-					},
-					"status": {
-						"type": "string",
-						"enum": ["not yet booked", "booked", "decision due"]
-					},
-					"reference": {
-						"type": "string",
-						"example": "APP/2021/56789/4909983"
-					},
-					"availableForSiteVisitBooking": {
-						"type": "boolean",
-						"example": true
-					},
-					"provisionalSiteVisitType": {
-						"type": "string",
-						"enum": ["unaccompanied", "access required"]
-					},
-					"appellantName": {
-						"type": "string",
-						"example": "Maria Sharma"
-					},
-					"email": {
-						"type": "string",
-						"example": "maria.sharma@gmail.com"
-					},
-					"expectedSiteVisitBookingAvailableFrom": {
-						"type": "string",
-						"example": "19 June 2022"
-					},
-					"descriptionOfDevelopment": {
-						"type": "string",
-						"example": "some description of development"
-					},
-					"appealReceivedDate": {
-						"type": "string",
-						"example": "12 December 2020"
-					},
-					"extraConditions": {
-						"type": "boolean",
-						"example": false
-					},
-					"affectsListedBuilding": {
-						"type": "boolean",
-						"example": false
-					},
-					"inGreenBelt": {
-						"type": "boolean",
-						"example": false
-					},
-					"inOrNearConservationArea": {
-						"type": "boolean",
-						"example": false
-					},
-					"emergingDevelopmentPlanOrNeighbourhoodPlan": {
-						"type": "boolean",
-						"example": false
-					},
-					"emergingDevelopmentPlanOrNeighbourhoodPlanDescription": {
-						"type": "string",
-						"example": "plans"
-					},
-					"appealAge": {
-						"type": "number",
-						"example": 12
-					},
-					"localPlanningDepartment": {
-						"type": "string",
-						"example": "some other department"
-					},
-					"bookedSiteVisit": {
-						"type": "object",
-						"properties": {
-							"visitDate": {
-								"type": "string",
-								"example": "12 December 2022"
-							},
-							"visitSlot": {
-								"type": "string",
-								"example": "1pm - 2pm"
-							},
-							"visitType": {
-								"type": "string",
-								"enum": ["accompanied", "unaccompanied", "access required"]
-							}
-						}
-					},
-					"address": {
-						"type": "object",
-						"properties": {
-							"addressLine1": {
-								"type": "string",
-								"example": "66 Grove Road"
-							},
-							"postCode": {
-								"type": "string",
-								"example": "BS16 2BP"
-							},
-							"town": {
-								"type": "string",
-								"example": "Fishponds"
-							}
-						}
-					},
-					"lpaAnswers": {
-						"type": "object",
-						"properties": {
-							"canBeSeenFromPublic": {
-								"type": "boolean",
-								"example": true
-							},
-							"canBeSeenFromPublicDescription": {
-								"type": "string",
-								"example": "not visible from public land"
-							},
-							"inspectorNeedsToEnterSite": {
-								"type": "boolean",
-								"example": false
-							},
-							"inspectorNeedsToEnterSiteDescription": {
-								"type": "string",
-								"example": "inspector will want to enter site"
-							},
-							"inspectorNeedsAccessToNeighboursLand": {
-								"type": "boolean",
-								"example": false
-							},
-							"inspectorNeedsAccessToNeighboursLandDescription": {
-								"type": "string",
-								"example": "should be able to see ok"
-							},
-							"healthAndSafetyIssues": {
-								"type": "boolean",
-								"example": false
-							},
-							"healthAndSafetyIssuesDescription": {
-								"type": "string",
-								"example": "not really"
-							},
-							"appealsInImmediateArea": {
-								"type": "string",
-								"example": "abcd, ABC/DEF/GHI"
-							}
-						}
-					},
-					"appellantAnswers": {
-						"type": "object",
-						"properties": {
-							"canBeSeenFromPublic": {
-								"type": "boolean",
-								"example": true
-							},
-							"canBeSeenFromPublicDescription": {
-								"type": "string",
-								"example": "site visit description"
-							},
-							"appellantOwnsWholeSite": {
-								"type": "boolean",
-								"example": true
-							},
-							"appellantOwnsWholeSiteDescription": {
-								"type": "string",
-								"example": "i own the whole site"
-							},
-							"healthAndSafetyIssues": {
-								"type": "boolean",
-								"example": false
-							},
-							"healthAndSafetyIssuesDescription": {
-								"type": "string",
-								"example": "everything is super safe"
-							}
-						}
-					}
-				},
-				"xml": {
-					"name": "AppealDetailsForInspector"
-				}
-			},
-			"AppealsAssignedToInspector": {
-				"type": "object",
-				"properties": {
-					"successfullyAssigned": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"appealId": {
-									"type": "number",
-									"example": 1
-								},
-								"reference": {
-									"type": "string",
-									"example": "APP/Q9999/D/21/1345264"
-								},
-								"appealType": {
-									"type": "string",
-									"example": "HAS"
-								},
-								"specialist": {
-									"type": "string",
-									"example": "General"
-								},
-								"provisionalVisitType": {
-									"type": "string",
-									"enum": ["unaccompanied", "access required"]
-								},
-								"appealSite": {
-									"type": "object",
-									"properties": {
-										"addressLine1": {
-											"type": "string",
-											"example": "96 The Avenue"
-										},
-										"county": {
-											"type": "string",
-											"example": "Kent"
-										},
-										"town": {
-											"type": "string",
-											"example": "Maidstone"
-										},
-										"postCode": {
-											"type": "string",
-											"example": "MD21 5XY"
-										}
-									},
-									"required": ["addressLine1", "county", "town", "postCode"]
-								},
-								"appealAge": {
-									"type": "number",
-									"example": 41
-								}
-							},
-							"required": [
-								"appealId",
-								"reference",
-								"appealType",
-								"specialist",
-								"provisionalVisitType",
-								"appealSite",
-								"appealAge"
-							]
-						}
-					},
-					"unsuccessfullyAssigned": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"appealId": {
-									"type": "number",
-									"example": 4
-								},
-								"reference": {
-									"type": "string",
-									"example": "APP/Q9999/D/21/1345264"
-								},
-								"appealType": {
-									"type": "string",
-									"example": "HAS"
-								},
-								"specialist": {
-									"type": "string",
-									"example": "General"
-								},
-								"provisionalVisitType": {
-									"type": "string",
-									"enum": ["unaccompanied", "access required"]
-								},
-								"appealSite": {
-									"type": "object",
-									"properties": {
-										"addressLine1": {
-											"type": "string",
-											"example": "96 The Avenue"
-										},
-										"county": {
-											"type": "string",
-											"example": "Kent"
-										},
-										"town": {
-											"type": "string",
-											"example": "Maidstone"
-										},
-										"postCode": {
-											"type": "string",
-											"example": "MD21 5XY"
-										}
-									},
-									"required": ["addressLine1", "county", "town", "postCode"]
-								},
-								"appealAge": {
-									"type": "number",
-									"example": 41
-								},
-								"reason": {
-									"type": "string",
-									"enum": ["appeal in wrong state", "appeal already assigned"]
-								}
-							},
-							"required": [
-								"appealId",
-								"reference",
-								"appealType",
-								"specialist",
-								"provisionalVisitType",
-								"appealSite",
-								"appealAge",
-								"reason"
-							]
-						}
-					}
-				},
-				"required": ["successfullyAssigned", "unsuccessfullyAssigned"],
-				"xml": {
-					"name": "AppealsAssignedToInspector"
-				}
-			},
-			"UpdateAppealDetailsByCaseOfficer": {
-				"type": "object",
-				"properties": {
-					"listedBuildingDescription": {
-						"type": "string",
-						"example": ""
-					}
-				},
-				"required": ["listedBuildingDescription"],
-				"xml": {
-					"name": "UpdateAppealDetailsByCaseOfficer"
-				}
-			},
-			"AppealAfterUpdateForCaseOfficer": {
-				"type": "object",
-				"properties": {
-					"appealStatus": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "number",
-									"example": 2
-								},
-								"status": {
-									"type": "string",
-									"example": "incomplete_lpa_questionnaire"
-								},
-								"valid": {
-									"type": "boolean",
-									"example": true
-								}
-							},
-							"required": ["id", "status", "valid"]
-						}
-					},
-					"createdAt": {
-						"type": "string",
-						"example": "2022-01-01T00:00:00.000Z"
-					},
-					"id": {
-						"type": "number",
-						"example": 1
-					},
-					"localPlanningDepartment": {
-						"type": "string",
-						"example": "Local planning dept"
-					},
-					"lpaQuestionnaire": {
-						"type": "object",
-						"properties": {
-							"listedBuildingDescription": {
-								"type": "string",
-								"example": "*"
-							}
-						},
-						"required": ["listedBuildingDescription"]
-					},
-					"planningApplicationReference": {
-						"type": "string",
-						"example": "0181/811/8181"
-					},
-					"reference": {
-						"type": "string",
-						"example": "APP/Q9999/D/21/323259"
-					},
-					"updatedAt": {
-						"type": "string",
-						"example": "2022-01-01T00:00:00.000Z"
-					},
-					"userId": {
-						"type": "number",
-						"example": 100
-					}
-				},
-				"required": [
-					"appealStatus",
-					"createdAt",
-					"id",
-					"localPlanningDepartment",
-					"lpaQuestionnaire",
-					"planningApplicationReference",
-					"reference",
-					"updatedAt",
-					"userId"
-				],
-				"xml": {
-					"name": "AppealAfterUpdateForCaseOfficer"
-				}
-			},
-			"SendLPAQuestionnaireConfirmation": {
-				"type": "object",
-				"properties": {
-					"reason": {
-						"type": "object",
-						"properties": {
-							"applicationPlansToReachDecisionMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"applicationPlansToReachDecisionMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"policiesStatutoryDevelopmentPlanPoliciesMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"policiesOtherRelevanPoliciesMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"policiesOtherRelevanPoliciesMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"policiesSupplementaryPlanningDocumentsMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"policiesSupplementaryPlanningDocumentsMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"siteConservationAreaMapAndGuidanceMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"siteConservationAreaMapAndGuidanceMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"siteListedBuildingDescriptionMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"siteListedBuildingDescriptionMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"thirdPartyApplicationNotificationMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"thirdPartyApplicationNotificationMissingOrIncorrectListOfAddresses": {
-								"type": "boolean",
-								"example": false
-							},
-							"thirdPartyApplicationNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice": {
-								"type": "boolean",
-								"example": false
-							},
-							"thirdPartyRepresentationsMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"thirdPartyRepresentationsMissingOrIncorrectDescription": {
-								"type": "string",
-								"example": ""
-							},
-							"thirdPartyAppealNotificationMissingOrIncorrect": {
-								"type": "boolean",
-								"example": true
-							},
-							"thirdPartyAppealNotificationMissingOrIncorrectListOfAddresses": {
-								"type": "boolean",
-								"example": false
-							},
-							"thirdPartyAppealNotificationMissingOrIncorrectCopyOfLetterOrSiteNotice": {
-								"type": "boolean",
-								"example": false
-							}
-						}
-					}
-				},
-				"xml": {
-					"name": "SendLPAQuestionnaireConfirmation"
-				}
-			},
-			"BookSiteVisit": {
-				"type": "object",
-				"properties": {
-					"siteVisitType": {
-						"required": true,
-						"type": "string",
-						"enum": ["accompanied", "unaccompanied", "access required"]
-					},
-					"siteVisitDate": {
-						"type": "object",
-						"properties": {
-							"required": {
-								"type": "boolean",
-								"example": true
-							},
-							"type": {
-								"type": "string",
-								"example": "string"
-							},
-							"format": {
-								"type": "string",
-								"example": "date"
-							},
-							"example": {
-								"type": "string",
-								"example": "2022-01-01"
-							}
-						}
-					},
-					"siteVisitTimeSlot": {
-						"required": true,
-						"type": "string",
-						"enum": [
-							"8am to 10am",
-							"9am to 11am",
-							"10am to midday",
-							"11am to 1pm",
-							"midday to 2pm",
-							"1pm to 3pm",
-							"2pm to 4pm",
-							"3pm to 5pm",
-							"4pm to 6pm",
-							"5pm to 7pm"
-						]
-					}
-				},
-				"required": ["siteVisitType", "siteVisitDate", "siteVisitTimeSlot"],
-				"xml": {
-					"name": "BookSiteVisit"
-				}
-			},
-			"IssueDecision": {
-				"type": "object",
-				"properties": {
-					"decisionLetter": {
-						"type": "object",
-						"properties": {
-							"type": {
-								"type": "string",
-								"example": "file"
-							},
-							"required": {
-								"type": "boolean",
-								"example": true
-							}
-						}
-					},
-					"outcome": {
-						"required": true,
-						"type": "string",
-						"enum": ["allowed", "dismissed", "split decision"]
-					}
-				},
-				"required": ["decisionLetter", "outcome"],
-				"xml": {
-					"name": "IssueDecision"
-				}
-			},
-			"UploadStatement": {
-				"type": "object",
-				"properties": {
-					"statement": {
-						"type": "object",
-						"properties": {
-							"type": {
-								"type": "string",
-								"example": "file"
-							},
-							"required": {
-								"type": "boolean",
-								"example": true
-							}
-						}
-					}
-				},
-				"required": ["statement"],
-				"xml": {
-					"name": "UploadStatement"
-				}
-			},
-			"UploadFinalComment": {
-				"type": "object",
-				"properties": {
-					"finalcomment": {
-						"type": "object",
-						"properties": {
-							"type": {
-								"type": "string",
-								"example": "file"
-							},
-							"required": {
-								"type": "boolean",
-								"example": true
-							}
-						}
-					}
-				},
-				"required": ["finalcomment"],
-				"xml": {
-					"name": "UploadFinalComment"
 				}
 			}
 		}

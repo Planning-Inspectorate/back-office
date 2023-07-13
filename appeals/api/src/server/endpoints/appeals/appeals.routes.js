@@ -15,7 +15,7 @@ import {
 	checkAppellantCaseExists,
 	checkLookupValuesAreValid,
 	checkLPAQuestionnaireExists,
-	checkValidationOutcomeExistsAndAddToRequest
+	checkLookupValueIsValidAndAddToRequest
 } from './appeals.service.js';
 import {
 	getAppealsValidator,
@@ -149,7 +149,8 @@ router.patch(
 	patchLPAQuestionnaireValidator,
 	checkAppealExistsAndAddToRequest,
 	checkLPAQuestionnaireExists,
-	checkValidationOutcomeExistsAndAddToRequest(
+	checkLookupValueIsValidAndAddToRequest(
+		'validationOutcome',
 		'lPAQuestionnaireValidationOutcome',
 		ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME
 	),
@@ -198,7 +199,8 @@ router.patch(
 	patchAppellantCaseValidator,
 	checkAppealExistsAndAddToRequest,
 	checkAppellantCaseExists,
-	checkValidationOutcomeExistsAndAddToRequest(
+	checkLookupValueIsValidAndAddToRequest(
+		'validationOutcome',
 		'appellantCaseValidationOutcome',
 		ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME
 	),

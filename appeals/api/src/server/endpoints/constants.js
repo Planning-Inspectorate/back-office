@@ -12,6 +12,7 @@ export const DEFAULT_DATE_FORMAT_DATABASE = 'yyyy-MM-dd';
 export const DEFAULT_DATE_FORMAT_DISPLAY = 'dd LLL yyyy';
 export const DEFAULT_PAGE_NUMBER = 1;
 export const DEFAULT_PAGE_SIZE = 30;
+export const DEFAULT_TIME_FORMAT = 'HH:mm';
 export const DEFAULT_TIMESTAMP_TIME = '01:00:00.000';
 
 export const DOCUMENT_STATUS_NOT_RECEIVED = 'not_received';
@@ -23,15 +24,18 @@ export const ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL = 'Failed to send notificat
 export const ERROR_GOV_NOTIFY_API_KEY_NOT_SET = 'Gov Notify API key is not set';
 export const ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME =
 	'Incomplete reasons should only be given if the validation outcome is Incomplete';
-export const ERROR_INVALID_APPEAL_TYPE = `Appeal type must be one of ${APPEAL_TYPE_SHORTCODE_FPA}, ${APPEAL_TYPE_SHORTCODE_HAS}`;
-export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_INCOMPLETE}, ${VALIDATION_OUTCOME_INVALID}, ${VALIDATION_OUTCOME_VALID}`;
-export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Validation outcome must be one of ${VALIDATION_OUTCOME_COMPLETE}, ${VALIDATION_OUTCOME_INCOMPLETE}`;
+export const ERROR_INVALID_APPEAL_TYPE = `Must be one of ${APPEAL_TYPE_SHORTCODE_FPA}, ${APPEAL_TYPE_SHORTCODE_HAS}`;
+export const ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME = `Must be one of ${VALIDATION_OUTCOME_INCOMPLETE}, ${VALIDATION_OUTCOME_INVALID}, ${VALIDATION_OUTCOME_VALID}`;
+export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Must be one of ${VALIDATION_OUTCOME_COMPLETE}, ${VALIDATION_OUTCOME_INCOMPLETE}`;
 export const ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME =
 	'Invalid reasons should only be given if the validation outcome is Invalid';
+export const ERROR_INVALID_SITE_VISIT_TYPE =
+	'Must be one of access required, accompanied, unaccompanied';
 export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
 export const ERROR_MAX_LENGTH_300_CHARACTERS = 'Must be 300 characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in the format ${DEFAULT_DATE_FORMAT_DATABASE}`;
+export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = `Must be a valid time and in the format hh:mm`;
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_MUST_BE_STRING = 'Must be a string';
@@ -43,6 +47,10 @@ export const ERROR_OTHER_NOT_VALID_REASONS_REQUIRED =
 	'Required when invalidReasons or incompleteReasons contains Other';
 export const ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED =
 	'Both pageNumber and pageSize are required for pagination';
+export const ERROR_SITE_VISIT_REQUIRED_FIELDS =
+	'If any of visitDate, visitStartTime or visitEndTime are given then all these fields are required';
+export const ERROR_START_TIME_MUST_BE_EARLIER_THAN_END_TIME =
+	'Start time must be earlier than end time';
 export const ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS =
 	'Should not include validation outcome reasons when validationOutcome is Valid';
 export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =

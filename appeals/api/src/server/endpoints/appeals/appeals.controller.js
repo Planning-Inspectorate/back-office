@@ -123,7 +123,7 @@ const updateAppellantCaseById = async (req, res) => {
 
 			await req.notifyClient.sendEmail(
 				config.govNotify.template.validAppellantCase,
-				appellant.email,
+				appellant?.email,
 				{
 					appeal_reference: reference,
 					appeal_type: appealType.shorthand,
@@ -141,12 +141,7 @@ const updateAppellantCaseById = async (req, res) => {
 			...(isOutcomeValid(validationOutcome.name) && { appealId, startedAt, timetable })
 		});
 
-		await transitionState({
-			appealId,
-			appealType: String(appealType?.shorthand),
-			currentState: appealStatus[0].status,
-			trigger: validationOutcome.name
-		});
+		await transitionState(appealId, appealType, appealStatus, validationOutcome.name);
 	} catch (error) {
 		if (error) {
 			logger.error(error);
@@ -190,12 +185,7 @@ const updateLPAQuestionnaireById = async (req, res) => {
 			})
 		});
 
-		await transitionState({
-			appealId,
-			appealType: String(appealType?.shorthand),
-			currentState: appealStatus[0].status,
-			trigger: validationOutcome.name
-		});
+		await transitionState(appealId, appealType, appealStatus, validationOutcome.name);
 
 		body.lpaQuestionnaireDueDate = timetable?.lpaQuestionnaireDueDate;
 	} catch (error) {

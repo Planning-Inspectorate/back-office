@@ -13,14 +13,16 @@ export const createSiteVisit = ({
 	id = fake.createUniqueId(),
 	appealId = fake.createUniqueId(),
 	visitDate = add(new Date(), { days: random(1, 7) }),
-	visitSlot = '1pm - 2pm',
-	visitType = 'accompanied'
+	visitEndTime = '16:00',
+	visitStartTime = '14:00',
+	siteVisitTypeId = 1
 } = {}) => {
 	return {
 		id,
 		appealId,
 		visitDate,
-		visitSlot,
-		visitType
+		visitEndTime,
+		visitStartTime,
+		siteVisitTypeId
 	};
 };

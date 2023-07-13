@@ -79,9 +79,13 @@ const householdAppeal = {
 	siteVisit: {
 		id: 1,
 		appealId: 1,
-		visitDate: '2022-03-31T12:00:00.000Z',
-		visitSlot: '1pm - 2pm',
-		visitType: 'unaccompanied'
+		visitDate: '2022-03-31T01:00:00.000Z',
+		visitEndTime: '03:00',
+		visitStartTime: '01:00',
+		siteVisitType: {
+			id: 1,
+			name: 'Access required'
+		}
 	},
 	lpaQuestionnaire: {
 		id: 1,
