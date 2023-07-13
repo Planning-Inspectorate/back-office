@@ -60,6 +60,7 @@
     "multer": "1.4.4",
     "node-cache": "^5.1.2",
     "node-fetch": "^3.3.1",
+    "object-sizeof": "^2.6.3",
     "pino": "^8.1.0",
     "pino-http": "^8.1.0",
     "pino-pretty": "^8.1.0",

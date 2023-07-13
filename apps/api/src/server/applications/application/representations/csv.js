@@ -1,38 +1,38 @@
-import { stringify } from 'csv-stringify/sync';
-import { databaseConnector } from '#utils/database-connector.js';
 import { Router as createRouter } from 'express';
-
 import * as stream from 'stream';
+import { getDataInBatches } from './chatres.js';
+import { Readable } from 'stream';
+
+const Transform = stream.Transform;
+
+class TransformToCSV extends Transform {
+	constructor(options) {
+		super(options);
+	}
+
+	_transform(chunk, enc, cb) {
+		for (const data of chunk) {
+			this.push(`${data.id},${data.reference},${data.status},${data.caseId}\n`);
+		}
+		cb();
+	}
+}
 
 const router = createRouter({ mergeParams: true });
 router.get('/', async (req, res) => {
 	console.time('Time to complete');
-	const value = await databaseConnector.representation.findMany({
-		where: { caseId: Number(req.params.id) }
-	});
+	const readableStream = new Readable({ objectMode: true });
+	const transformToCSV = new TransformToCSV({ objectMode: true });
 
-	console.log('Total data items: ', value.length, 'For case', req.params.id);
-	value.map((id, reference, status, redacted, received, firstName, lastName, organisationName) => ({
-		id,
-		reference,
-		status,
-		redacted,
-		received,
-		name: organisationName ? organisationName : `${firstName} ${lastName}`
-	}));
-	const output = stringify(value, { header: true, escape_formulas: true });
+	const batchSize = 100;
+	getDataInBatches(readableStream, batchSize, Number(req.params.id));
 
-	let fileContents = Buffer.from(output);
-
-	let readStream = new stream.PassThrough();
-	readStream.end(fileContents);
+	readableStream._read = () => {};
 
 	res.set('Content-disposition', 'attachment; filename=' + 'output.csv');
 	res.set('Content-Type', 'text/csv');
-
-	readStream.pipe(res);
+	readableStream.pipe(transformToCSV).pipe(res);
 	console.timeEnd('Time to complete');
-	// res.sendFile(output);
 });
 
 export const csvRouter = router;
