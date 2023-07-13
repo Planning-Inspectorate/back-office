@@ -1,10 +1,10 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-// import {
-// 	validationDateFuture,
-// 	validationDateMandatory,
-// 	validationDateValid
-// } from '../../common/validators/dates.validators.js';
+import {
+	validationDateFuture,
+	validationDateMandatory,
+	validationDateValid
+} from '../../common/validators/dates.validators.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -21,9 +21,9 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 		title: validateS51Title,
 		enquirer: validateS51Enquirer,
 		method: validateS51Method,
-		'enquiry-details': validateS51EnquiryDetails,
+		'enquiry-details': validateS51Details('enquiry', 'enquiry details'),
 		person: validateS51Person,
-		'advice-details': validateS51AdviceDetails
+		'advice-details': validateS51Details('advice', 'advice given')
 	};
 
 	if (validators[step]) {
@@ -34,101 +34,109 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 };
 
 export const validateS51Title = createValidator(
-	body('fileName')
+	body('title')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a file name')
+		.withMessage('You must enter a S51 advice title')
 		.isLength({ max: 255 })
 		.withMessage('The name must be 255 characters or fewer')
 );
 
-export const validateS51Enquirer = createValidator(
-	body('description')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('You must enter a description of the document')
-		.isLength({ max: 800 })
-		.withMessage('The description must be 800 characters or fewer')
-);
-
 export const validateS51Method = createValidator(
-	body('author')
+	body('enquiryMethod')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter who the document is from')
-		.isLength({ max: 150 })
-		.withMessage('The value must be 150 characters or fewer')
-);
-
-export const validateS51EnquiryDetails = createValidator(
-	body('filter1')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('You must enter a webfilter')
-		.isLength({ max: 100 })
-		.withMessage('The webfilter must be 100 characters or fewer')
+		.withMessage('You must select a method of enquiry')
 );
 
 export const validateS51Person = createValidator(
-	body('representative')
-		.trim()
-		.isLength({ max: 150 })
-		.withMessage('The agent name be 150 characters or fewer')
+	body('adviser').trim().isLength({ min: 1 }).withMessage('You must enter a name')
 );
 
-export const validateS51AdviceDetails = createValidator(
-	body('redactedStatus')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('You must select a redaction status')
-);
+/**
+ * Check name, last name and organisation exist and are valid
+ *
+ * @type {RequestHandler}
+ */
+export const validateS51Enquirer = (request, response, next) => {
+	const checkNotNull = body('all')
+		.custom((_, { req }) => {
+			const body = req.body;
+			const allEmpty = !(
+				!body.enquirerFirstName &&
+				!body.enquirerLastName &&
+				!body.enquirerOrganisation
+			);
 
-// /**
-//  * Check date is valid and in the past
-//  *
-//  * @type {RequestHandler}
-//  */
-// export const validateDocumentationMetaDateCreated = (request, response, next) => {
-// 	const fieldName = 'dateCreated';
-// 	const extendedFieldName = 'receipt date';
+			return allEmpty;
+		})
+		.withMessage('You must enter either a name, organisation or both');
 
-// 	const checkMandatoryDate = validationDateMandatory(
-// 		{ fieldName, extendedFieldName },
-// 		request.body
-// 	);
+	const checkLastNameIfFirstName = body('enquirerLastName')
+		.custom((_, { req }) => {
+			const body = req.body;
+			const lastNameNotDefined = !(!!body.enquirerFirstName && !body.enquirerLastName);
 
-// 	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
+			return lastNameNotDefined;
+		})
+		.withMessage('You must enter a last name');
 
-// 	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+	const checkFirstNameIfLastName = body('enquirerFirstName')
+		.custom((_, { req }) => {
+			const body = req.body;
+			const firstNameNotDefined = !(!body.enquirerFirstName && !!body.enquirerLastName);
 
-// 	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
-// 		request,
-// 		response,
-// 		next
-// 	);
-// };
+			return firstNameNotDefined;
+		})
+		.withMessage('You must enter a first name');
 
-// /**
-//  * Check date is valid and in the past
-//  *
-//  * @type {RequestHandler}
-//  */
-// export const validateDocumentationMetaDatePublished = (request, response, next) => {
-// 	const fieldName = 'datePublished';
-// 	const extendedFieldName = 'published date';
+	return createValidator([checkNotNull, checkLastNameIfFirstName, checkFirstNameIfLastName])(
+		request,
+		response,
+		next
+	);
+};
 
-// 	const checkMandatoryDate = validationDateMandatory(
-// 		{ fieldName, extendedFieldName },
-// 		request.body
-// 	);
+/**
+ * Check date is valid and in the past and details are provided
+ *
+ * @param {string} fieldName
+ * @param {string} extendedDetailsFieldName
+ * @returns {RequestHandler}
+ */
+export const validateS51Details =
+	(fieldName, extendedDetailsFieldName) => (request, response, next) => {
+		const dateFieldName = `${fieldName}Date`;
 
-// 	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
+		const detailsFieldName = `${fieldName}Details`;
 
-// 	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+		const checkMandatoryDate = validationDateMandatory(
+			{ fieldName: dateFieldName, extendedFieldName: 'date' },
+			request.body
+		);
 
-// 	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
-// 		request,
-// 		response,
-// 		next
-// 	);
-// };
+		const checkValidDate = validationDateValid(
+			{ fieldName: dateFieldName, extendedFieldName: 'date' },
+			request.body
+		);
+
+		const checkPastDate = validationDateFuture(
+			{ fieldName: dateFieldName, extendedFieldName: 'date' },
+			request.body,
+			false
+		);
+
+		const checkEnquiryDetails = createValidator(
+			body(detailsFieldName)
+				.trim()
+				.isLength({ min: 1 })
+				.withMessage(`You must enter the ${extendedDetailsFieldName}`)
+		);
+
+		return createValidator([
+			checkMandatoryDate,
+			checkValidDate,
+			checkPastDate,
+			checkEnquiryDetails
+		])(request, response, next);
+	};
