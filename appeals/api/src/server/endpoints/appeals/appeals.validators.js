@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
-import { body, param, query } from 'express-validator';
-import { validationErrorHandler } from '../../middleware/error-handler.js';
+import { body, query } from 'express-validator';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
 	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
@@ -8,7 +8,6 @@ import {
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
 	ERROR_MAX_LENGTH_300_CHARACTERS,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
-	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
@@ -17,7 +16,9 @@ import {
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
 } from '../constants.js';
-import { isOutcomeIncomplete, isOutcomeInvalid, joinDateAndTime } from './appeals.service.js';
+import { isOutcomeIncomplete, isOutcomeInvalid } from './appeals.service.js';
+import validateDateParameter from '#common/validators/date-parameter.js';
+import validateIdParameter from '#common/validators/id-parameter.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 
@@ -57,24 +58,6 @@ const validatePaginationParameter = (parameterName) =>
 		.withMessage(ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED);
 
 /**
- * @param {string} parameterName
- * @returns {ValidationChain}
- */
-const validateIdParameter = (parameterName) =>
-	param(parameterName).isInt().withMessage(ERROR_MUST_BE_NUMBER);
-
-/**
- * @param {string} parameterName
- * @returns {ValidationChain}
- */
-const validateDateParameter = (parameterName) =>
-	body(parameterName)
-		.optional()
-		.isDate()
-		.withMessage(ERROR_MUST_BE_CORRECT_DATE_FORMAT)
-		.customSanitizer(joinDateAndTime);
-
-/**
  *
  * @param {string} parameterName
  * @param {() => void} customFn
@@ -85,7 +68,7 @@ const validateValidationOutcomeReasons = (parameterName, customFn) =>
 		.optional()
 		.isArray()
 		.withMessage(ERROR_MUST_BE_ARRAY_OF_IDS)
-		.isLength({ min: 1 })
+		.custom((value) => value[0])
 		.withMessage(ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE)
 		.custom(customFn);
 

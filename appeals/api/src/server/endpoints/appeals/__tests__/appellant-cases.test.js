@@ -48,7 +48,7 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const { appellantCase } = householdAppeal;
+				const { appellantCase, siteVisit } = householdAppeal;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/appellant-cases/${appellantCase.id}`
 				);
@@ -99,6 +99,10 @@ describe('appellant cases routes', () => {
 						isPartiallyOwned: appellantCase.isSitePartiallyOwned,
 						knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners.name
 					},
+					siteVisit: {
+						siteVisitId: siteVisit.id,
+						visitType: siteVisit.siteVisitType.name
+					},
 					visibility: {
 						details: appellantCase.visibilityRestrictions,
 						isVisible: appellantCase.isSiteVisibleFromPublicRoad
@@ -110,7 +114,7 @@ describe('appellant cases routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
-				const { appellantCase } = fullPlanningAppeal;
+				const { appellantCase, siteVisit } = fullPlanningAppeal;
 				const response = await request.get(
 					`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`
 				);
@@ -185,6 +189,10 @@ describe('appellant cases routes', () => {
 						isFullyOwned: appellantCase.isSiteFullyOwned,
 						isPartiallyOwned: appellantCase.isSitePartiallyOwned,
 						knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners.name
+					},
+					siteVisit: {
+						siteVisitId: siteVisit.id,
+						visitType: siteVisit.siteVisitType.name
 					},
 					visibility: {
 						details: appellantCase.visibilityRestrictions,

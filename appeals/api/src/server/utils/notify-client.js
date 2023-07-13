@@ -27,12 +27,12 @@ class NotifyClient {
 
 	/**
 	 * @param {NotifyTemplate} template
-	 * @param {string} recipientEmail
+	 * @param {string | undefined} recipientEmail
 	 * @param {{[key: string]: string}} [personalisation]
 	 */
 	sendEmail(template, recipientEmail, personalisation) {
 		try {
-			if (this.govNotify) {
+			if (this.govNotify && recipientEmail) {
 				return this.govNotify.sendEmail(template.id, recipientEmail, {
 					emailReplyToId: null,
 					personalisation,

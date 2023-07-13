@@ -7,7 +7,7 @@ import hasStateMachine from './state-machines/has.js';
 import fpaStateMachine from './state-machines/fpa.js';
 
 /**
- * @param {string} appealType
+ * @param {string | undefined} appealType
  * @param {string} currentState
  */
 const createStateMachine = (appealType, currentState) => {

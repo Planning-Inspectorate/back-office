@@ -3,17 +3,18 @@
  */
 
 /**
- * @typedef {import('appeals/api/src/database/schema.js').ProcedureType} ProcedureType
- * @typedef {import('appeals/api/src/database/schema.js').DesignatedSiteDetails} DesignatedSiteDetails
- * @typedef {import('appeals/api/src/database/schema.js').LPANotificationMethodDetails} LPANotificationMethodDetails
- * @typedef {import('appeals/api/src/database/schema.js').ScheduleType} ScheduleType
- * @typedef {import('appeals/api/src/database/schema.js').PlanningObligationStatus} PlanningObligationStatus
- * @typedef {import('appeals/api/src/database/schema.js').KnowledgeOfOtherLandowners} KnowledgeOfOtherLandowners
- * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
- * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
- * @typedef {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason} AppellantCaseInvalidReason
- * @typedef {import('appeals/api/src/database/schema.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
- * @typedef {import('appeals/api/src/database/schema.js').LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
+ * @typedef {import('@pins/appeals.api').Schema.ProcedureType} ProcedureType
+ * @typedef {import('@pins/appeals.api').Schema.DesignatedSiteDetails} DesignatedSiteDetails
+ * @typedef {import('@pins/appeals.api').Schema.LPANotificationMethodDetails} LPANotificationMethodDetails
+ * @typedef {import('@pins/appeals.api').Schema.ScheduleType} ScheduleType
+ * @typedef {import('@pins/appeals.api').Schema.PlanningObligationStatus} PlanningObligationStatus
+ * @typedef {import('@pins/appeals.api').Schema.KnowledgeOfOtherLandowners} KnowledgeOfOtherLandowners
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason
+ * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
+ * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
+ * @typedef {import('@pins/appeals.api').Schema.SiteVisitType} SiteVisitType
  */
 
 /**
@@ -241,6 +242,17 @@ export const lpaQuestionnaireIncompleteReasons = [
 ];
 
 /**
+ * An array of site visit types.
+ *
+ * @type {Pick<SiteVisitType, 'name'>[]}
+ */
+export const siteVisitTypes = [
+	{ name: 'Access required' },
+	{ name: 'Accompanied' },
+	{ name: 'Unaccompanied' }
+];
+
+/**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
@@ -327,6 +339,13 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.lPAQuestionnaireIncompleteReason.upsert({
 			create: lpaQuestionnaireIncompleteReason,
 			where: { name: lpaQuestionnaireIncompleteReason.name },
+			update: {}
+		});
+	}
+	for (const siteVisitType of siteVisitTypes) {
+		await databaseConnector.siteVisitType.upsert({
+			create: { name: siteVisitType.name },
+			where: { name: siteVisitType.name },
 			update: {}
 		});
 	}

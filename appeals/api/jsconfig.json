@@ -10,7 +10,8 @@
 			"#infrastructure/*": ["./src/server/infrastructure/*"],
 			"#middleware/*": ["./src/server/middleware/*"],
 			"#endpoints/*": ["./src/server/endpoints/*"],
-			"#tests/*": ["./src/server/tests/*"]
+			"#tests/*": ["./src/server/tests/*"],
+			"#common/*": ["./src/server/common/*"]
 		}
 	}
 }

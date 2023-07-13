@@ -90,6 +90,9 @@ const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany = jest
 const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate = jest
 	.fn()
 	.mockResolvedValue({});
+const mockSiteVisitCreate = jest.fn().mockResolvedValue({});
+const mockSiteVisitUpdate = jest.fn().mockResolvedValue({});
+const mockSiteVisitTypeFindUnique = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -335,6 +338,19 @@ class MockPrismaClient {
 			deleteMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireDeleteMany,
 			createMany: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireCreateMany,
 			update: mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate
+		};
+	}
+
+	get siteVisit() {
+		return {
+			create: mockSiteVisitCreate,
+			update: mockSiteVisitUpdate
+		};
+	}
+
+	get siteVisitType() {
+		return {
+			findUnique: mockSiteVisitTypeFindUnique
 		};
 	}
 

@@ -273,30 +273,32 @@ const checkLookupValuesAreValid = (fieldName, databaseTable) => async (req, res,
 };
 
 /**
+ * @param {string} fieldName
  * @param {string} databaseTable
  * @param {string} errorMessage
  * @returns {(req: Request, res: Response, next: NextFunction) => Promise<object | void>}
  */
-const checkValidationOutcomeExistsAndAddToRequest =
-	(databaseTable, errorMessage) => async (req, res, next) => {
-		const {
-			body: { validationOutcome }
-		} = req;
+const checkLookupValueIsValidAndAddToRequest =
+	(fieldName, databaseTable, errorMessage) => async (req, res, next) => {
+		const { [fieldName]: lookupField } = req.body;
 
-		const validationOutcomeMatch = await appealRepository.getLookupListValueByName(
-			databaseTable,
-			validationOutcome
-		);
+		if (lookupField) {
+			const validationOutcomeMatch = await appealRepository.getLookupListValueByName(
+				databaseTable,
+				lookupField
+			);
 
-		if (!validationOutcomeMatch) {
-			return res.status(400).send({
-				errors: {
-					validationOutcome: errorMessage
-				}
-			});
+			if (!validationOutcomeMatch) {
+				return res.status(400).send({
+					errors: {
+						[fieldName]: errorMessage
+					}
+				});
+			}
+
+			// @ts-ignore
+			req[fieldName] = validationOutcomeMatch;
 		}
-
-		req.validationOutcome = validationOutcomeMatch;
 
 		next();
 	};
@@ -372,7 +374,7 @@ export {
 	checkAppellantCaseExists,
 	checkLPAQuestionnaireExists,
 	checkLookupValuesAreValid,
-	checkValidationOutcomeExistsAndAddToRequest,
+	checkLookupValueIsValidAndAddToRequest,
 	createManyToManyRelationData,
 	fetchBankHolidaysForDivision,
 	isFPA,

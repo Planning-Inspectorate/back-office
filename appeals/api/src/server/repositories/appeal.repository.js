@@ -17,6 +17,7 @@ import { createManyToManyRelationData } from '../endpoints/appeals/appeals.servi
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReasonOnAppellantCase} AppellantCaseIncompleteReasonOnAppellantCase */
 /** @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReasonOnAppellantCase} AppellantCaseInvalidReasonOnAppellantCase */
 /** @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaire} LPAQuestionnaire */
+/** @typedef {import('@pins/appeals.api').Schema.SiteVisit} SiteVisit */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -140,7 +141,11 @@ const appealRepository = (function () {
 							scheduleType: true
 						}
 					},
-					siteVisit: true
+					siteVisit: {
+						include: {
+							siteVisitType: true
+						}
+					}
 				}
 			});
 
@@ -178,6 +183,10 @@ const appealRepository = (function () {
 		 *  otherNotValidReasons?: string;
 		 *  appellantCaseValidationOutcomeId?: number;
 		 *  lpaQuestionnaireValidationOutcomeId?: number;
+		 * 	visitDate?: Date;
+		 * 	visitEndTime?: string;
+		 * 	visitStartTime?: string;
+		 * 	siteVisitTypeId?: number;
 		 * }} data
 		 * @param {string} databaseTable
 		 * @returns {PrismaPromise<object>}
@@ -405,6 +414,21 @@ const appealRepository = (function () {
 					}
 				})
 			]);
+		},
+		/**
+		 * @param {{
+		 *  appealId: number;
+		 * 	visitDate?: Date;
+		 * 	visitEndTime?: string;
+		 * 	visitStartTime?: string;
+		 * 	siteVisitTypeId?: number;
+		 * }} data
+		 * @returns {PrismaPromise<SiteVisit>}
+		 */
+		createSiteVisitById(data) {
+			return databaseConnector.siteVisit.create({
+				data
+			});
 		}
 	};
 })();

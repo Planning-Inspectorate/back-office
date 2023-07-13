@@ -17,7 +17,9 @@ import {
 import { calculateTimetable, isFPA } from '../../server/endpoints/appeals/appeals.service.js';
 import {
 	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS
+	APPEAL_TYPE_SHORTCODE_HAS,
+	STATE_TARGET_COMPLETE,
+	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../server/endpoints/constants.js';
 
 /**
@@ -87,8 +89,7 @@ const buildCompoundState = (
  *  startedAt?: Date | null,
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
- *  connectToUser?: boolean,
- *  siteVisitBooked?: boolean}} param0
+ *  connectToUser?: boolean}} param0
  * @returns {object}
  */
 const appealFactory = ({
@@ -101,8 +102,7 @@ const appealFactory = ({
 	startedAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
-	connectToUser = false,
-	siteVisitBooked = false
+	connectToUser = false
 }) => {
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
@@ -137,15 +137,6 @@ const appealFactory = ({
 					where: {
 						azureReference: 1
 					}
-				}
-			}
-		}),
-		...(siteVisitBooked && {
-			siteVisit: {
-				create: {
-					visitDate: new Date(2022, 3, 1),
-					visitSlot: '1pm - 2pm',
-					visitType: 'unaccompanied'
 				}
 			}
 		})
@@ -295,8 +286,7 @@ const appealsIssueDetermination = [
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
 		completeReviewQuestionnaire: true,
-		connectToUser: true,
-		siteVisitBooked: true
+		connectToUser: true
 	})
 ];
 
@@ -308,8 +298,7 @@ const appealsComplete = [
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
 		completeReviewQuestionnaire: true,
-		connectToUser: true,
-		siteVisitBooked: true
+		connectToUser: true
 	})
 ];
 
@@ -330,6 +319,7 @@ export async function seedTestData(databaseConnector) {
 	const appeals = [];
 
 	for (const appealData of appealsData) {
+		// @ts-ignore
 		const appeal = await databaseConnector.appeal.create({ data: appealData });
 		appeals.push(appeal);
 	}
@@ -400,6 +390,8 @@ export async function seedTestData(databaseConnector) {
 	);
 
 	const appealTypes = await databaseConnector.appealType.findMany();
+	const appealStatus = await databaseConnector.appealStatus.findMany();
+	const siteVisitType = await databaseConnector.siteVisitType.findMany();
 
 	for (const { appealTypeId, id, startedAt } of appeals) {
 		if (startedAt) {
@@ -410,6 +402,25 @@ export async function seedTestData(databaseConnector) {
 				data: {
 					appealId: id,
 					...appealTimetable
+				}
+			});
+		}
+
+		const statusWithSiteVisitSet = appealStatus.find(
+			({ appealId, status, valid }) =>
+				appealId === id &&
+				valid &&
+				[STATE_TARGET_ISSUE_DETERMINATION, STATE_TARGET_COMPLETE].includes(status)
+		);
+
+		if (statusWithSiteVisitSet) {
+			await databaseConnector.siteVisit.create({
+				data: {
+					appealId: id,
+					visitDate: new Date(),
+					visitEndTime: '16:00',
+					visitStartTime: '14:00',
+					siteVisitTypeId: siteVisitType[pickRandom(siteVisitType)].id
 				}
 			});
 		}

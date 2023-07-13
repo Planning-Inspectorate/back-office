@@ -23,7 +23,8 @@ export {
 	LPAQuestionnaireIncompleteReason,
 	LPAQuestionnaireValidationOutcome,
 	AppellantCaseValidationOutcome,
-	PlanningObligationStatus
+	PlanningObligationStatus,
+	SiteVisitType
 } from '../../src/server/utils/db-client';
 
 export interface ServiceCustomer extends schema.ServiceCustomer {
@@ -73,8 +74,8 @@ export interface FolderTemplate {
 }
 
 export interface AppealStatus extends schema.AppealStatus {
-	status: AppealStatusType;
-	subStateMachineName: AppealStatusMachineType | null;
+	status: string;
+	subStateMachineName: string | null;
 }
 
 export interface AppealType extends schema.AppealType {
@@ -176,10 +177,8 @@ export type ValidationDecision =
 	| IncompleteValidationDecision;
 
 export interface SiteVisit extends schema.SiteVisit {
-	visitType: SiteVisitType;
+	siteVisitType?: SiteVisitType;
 }
-
-export type SiteVisitType = 'accompanied' | 'unaccompanied' | 'access required';
 
 export interface InspectorDecision extends schema.InspectorDecision {
 	outcome: InspectorDecisionOutcomeType;
