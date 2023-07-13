@@ -1,6 +1,6 @@
 {% extends "../layouts/applications.layout.njk" %}
 
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set serviceName = "S51 advice" %}
@@ -22,6 +22,24 @@
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
+
+	{% set methodsItems = [
+		{
+			value: 'phone',
+			text: 'Phone'
+		}, {
+			value: 'email',
+			text: 'Email'
+		}, {
+			value: 'meeting',
+			text: 'Meeting'
+		}, {
+			value: 'post',
+			text: 'Post'
+		}
+	]
+ 	%}
+
 	<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
 		{{ pageTitle }}
 	</h1>
@@ -31,20 +49,17 @@
     </p>
 
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
-		{{ govukInput({
-		label: {
-			text: "S51 title",
-			classes: 'font-weight--700'
-		},
-		id: "title",
-		name: "title",
-		classes: "govuk-!-width-one-third",
-		errorMessage: errors.title | errorMessage,
-		hint: {
-			text: "For example,  'Advice following issue of decision to accept the application for examination'"
-		}
-	}) }}
 
-		{{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
+		{{ govukRadios({
+			name: 'enquiryMethod',
+			id: 'enquiryMethod',
+
+			items: methodsItems,
+			errorMessage: errors.enquiryMethod,
+			items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})
+
+		}) }}
+
+		{{ govukButton({ text: 'Continue'}) }}
 	</form>
 {% endblock %}

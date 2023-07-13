@@ -1,19 +1,21 @@
 {% extends "../layouts/applications.layout.njk" %}
 
-{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
 
 {% set serviceName = "S51 advice" %}
 {% set pageTitle = "Enquiry details" %}
 
 {% block pageTitle %}
-    {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
 
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
+	{{ govukBackLink({
 		text: "Back",
 		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'method' })
 	}) }}
@@ -22,25 +24,41 @@
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-        {{ pageTitle }}
-    </h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
 
-    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
-        {{ govukInput({
-		label: {
-			text: "S51 title",
-			classes: 'font-weight--700'
-		},
-		id: "title",
-		name: "title",
-		classes: "govuk-!-width-one-third",
-		errorMessage: errors.title | errorMessage,
-		hint: {
-			text: "For example,  'Advice following issue of decision to accept the application for examination'"
-		}
-	}) }}
+	<form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-2 pins-applications-create">
+		{{ dateInput({
+			layout: {
+				fieldName: 'enquiryDate',
+				label: 'Enquiry date',
+				classes: 'govuk-grid-column-one-third',
+				hint: 'For example, 01 02 2000'
+			},
+			errors: errors,
+			values: values
+		}) }}
 
-        {{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
-    </form>
+		{{ govukTextarea({
+			name: "enquiryDetails",
+			id: "enquiryDetails",
+			formGroup: {
+				classes: 'govuk-grid-column-two-thirds govuk-!-margin-top-4 govuk-!-margin-bottom-0'
+			},
+			hint: {
+    			text: "Add the details of the enquiry. You will be able to add attachments later."
+  			},
+			label: {
+				text: "Enquiry details",
+				classes: 'font-weight--700 govuk-!-margin-bottom-4'
+			},
+			errorMessage: errors.enquiryDetails | errorMessage,
+			value: values.enquiryDetails
+		}) }}
+
+		<div class='govuk-grid-column-full'>
+		{{ govukButton({ text: 'Continue' }) }}
+		</div>
+	</form>
 {% endblock %}

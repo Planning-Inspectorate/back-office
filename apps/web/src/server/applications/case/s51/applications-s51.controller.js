@@ -7,8 +7,8 @@ import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 const createS51Journey = {
 	title: { nextPage: 'enquirer' },
 	enquirer: { nextPage: 'method' },
-	method: { nextPage: 'enquire-details' },
-	'enquire-details': { nextPage: 'person' },
+	method: { nextPage: 'enquiry-details' },
+	'enquiry-details': { nextPage: 'person' },
 	person: { nextPage: 'advice-details' },
 	'advice-details': { nextPage: 'check-your-answers' }
 };
