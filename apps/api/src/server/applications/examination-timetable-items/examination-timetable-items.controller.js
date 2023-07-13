@@ -6,6 +6,7 @@ import * as folderRepository from '../../repositories/folder.repository.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
 import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
+import * as examinationTimetableItemsService from './examination-timetable-items.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -225,6 +226,7 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
+		await examinationTimetableItemsService.publish(id);
 
 		response.send({
 			success: true
