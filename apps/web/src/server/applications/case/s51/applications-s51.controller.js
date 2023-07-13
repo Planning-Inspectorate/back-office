@@ -34,7 +34,7 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	const { errors, body, session, params } = request;
 
 	if (errors) {
-		response.render(`applications/case-s51/s51-${params.step}`, {
+		return response.render(`applications/case-s51/s51-${params.step}`, {
 			values: body,
 			errors
 		});
