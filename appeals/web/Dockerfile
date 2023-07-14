@@ -15,7 +15,7 @@ COPY package-lock.json .
 COPY turbo.json .
 
 COPY packages ./packages
-COPY appeals/web ./apps/web
+COPY appeals/web ./appeals/web
 
 RUN npm ci --loglevel notice
 
@@ -33,7 +33,7 @@ WORKDIR /usr/src/app
 
 COPY --from=pins-web-builder /usr/src/app ./
 
-WORKDIR /usr/src/app/apps/web
+WORKDIR /usr/src/app/appeals/web
 
 ENV NODE_ENV=production
 ENV APP_RELEASE=true
@@ -42,4 +42,4 @@ ENV APP_RELEASE=true
 
 EXPOSE 8080
 
-CMD [ "node", "./src/server/server.js" ]
+ENTRYPOINT npm run start
