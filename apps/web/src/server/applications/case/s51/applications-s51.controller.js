@@ -18,6 +18,15 @@ const createS51Journey = {
  *
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null}, {}, {}, {}, {step: string}>}
  */
+export async function viewApplicationsCaseS51Folder(request, response) {
+	response.render(`applications/case-documentation/folder/documentation-folder`);
+}
+
+/**
+ * Show pages for creating/editing s51 advice
+ *
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null}, {}, {}, {}, {step: string}>}
+ */
 export async function viewApplicationsCaseS51CreatePage(request, response) {
 	const { session, params } = request;
 	const values = getSessionS51(session);

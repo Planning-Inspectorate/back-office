@@ -59,6 +59,14 @@ export const fixtureDocumentationSingleFolder = {
 	caseId: 123
 };
 
+export const fixtureS51Folder = {
+	id: 21,
+	displayNameEn: 'S51 advice folder',
+	displayOrder: 100,
+	parentFolderId: 1,
+	caseId: 123
+};
+
 // this mocks the return from getting parent path on folder id 21
 export const fixtureDocumentationFolderPath = [
 	{ id: 1, displayNameEn: 'Project management', parentFolderId: null, caseId: 123 },

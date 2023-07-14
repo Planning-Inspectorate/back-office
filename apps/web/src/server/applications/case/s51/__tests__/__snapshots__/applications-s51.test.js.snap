@@ -1,0 +1,421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-documentation/21/s51-advice/create/advice-details should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Advice details</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-2 pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date advice given</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"adviceDate.day\\" name=\\"adviceDate.day\\"
+                        type=\\"text\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"adviceDate.month\\" name=\\"adviceDate.month\\"
+                        type=\\"text\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"adviceDate.year\\" name=\\"adviceDate.year\\"
+                        type=\\"text\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-two-thirds govuk-!-margin-top-4 govuk-!-margin-bottom-0\\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"adviceDetails\\">Advice given</label>
+            <div id=\\"adviceDetails-hint\\" class=\\"govuk-hint\\">Add the details of the advice given. You will be able to add attachments
+                later.</div>
+            <textarea class=\\"govuk-textarea\\" id=\\"adviceDetails\\" name=\\"adviceDetails\\"
+            rows=\\"5\\" aria-describedby=\\"adviceDetails-hint\\"></textarea>
+        </div>
+        <div class='govuk-grid-column-full'>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Enquirer GET /case/123/project-documentation/21/s51-advice/create/enquirer should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Enter who the enquiry was from</h1>
+    <p class='govuk-body colour--secondary'>This can be a person, an organisation, or both</p>
+    <form method=\\"post\\"
+    action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerFirstName\\">Enquirer&#39;s first name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerFirstName\\" name=\\"enquirerFirstName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerLastName\\">Enquirer&#39;s last name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerLastName\\" name=\\"enquirerLastName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerOrganisation\\">Enquirer&#39;s organisation</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerOrganisation\\" name=\\"enquirerOrganisation\\" type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if last name is provided with no name 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#enquirerFirstName\\">You must enter a first name</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Enter who the enquiry was from</h1>
+    <p class='govuk-body colour--secondary'>This can be a person, an organisation, or both</p>
+    <form method=\\"post\\"
+    action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerFirstName\\">Enquirer&#39;s first name</label>
+            <p id=\\"enquirerFirstName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a first
+                name</p>
+            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
+            id=\\"enquirerFirstName\\" name=\\"enquirerFirstName\\" type=\\"text\\" aria-describedby=\\"enquirerFirstName-error\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerLastName\\">Enquirer&#39;s last name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerLastName\\" name=\\"enquirerLastName\\" type=\\"text\\" value=\\"Joe\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerOrganisation\\">Enquirer&#39;s organisation</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerOrganisation\\" name=\\"enquirerOrganisation\\" type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if name is provided with no lastname 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#enquirerLastName\\">You must enter a last name</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Enter who the enquiry was from</h1>
+    <p class='govuk-body colour--secondary'>This can be a person, an organisation, or both</p>
+    <form method=\\"post\\"
+    action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerFirstName\\">Enquirer&#39;s first name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerFirstName\\" name=\\"enquirerFirstName\\" type=\\"text\\" value=\\"Joe\\">
+        </div>
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerLastName\\">Enquirer&#39;s last name</label>
+            <p id=\\"enquirerLastName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a last
+                name</p>
+            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
+            id=\\"enquirerLastName\\" name=\\"enquirerLastName\\" type=\\"text\\" aria-describedby=\\"enquirerLastName-error\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerOrganisation\\">Enquirer&#39;s organisation</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerOrganisation\\" name=\\"enquirerOrganisation\\" type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if no data is provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#all\\">You must enter either a name, organisation or both</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Enter who the enquiry was from</h1>
+    <p class='govuk-body colour--secondary'>This can be a person, an organisation, or both</p>
+    <form method=\\"post\\"
+    action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerFirstName\\">Enquirer&#39;s first name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerFirstName\\" name=\\"enquirerFirstName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerLastName\\">Enquirer&#39;s last name</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerLastName\\" name=\\"enquirerLastName\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"enquirerOrganisation\\">Enquirer&#39;s organisation</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"enquirerOrganisation\\" name=\\"enquirerOrganisation\\" type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-documentation/21/s51-advice/create/enquiry-details should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Enquiry details</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-2 pins-applications-create\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Enquiry date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"enquiryDate.day\\" name=\\"enquiryDate.day\\"
+                        type=\\"text\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"enquiryDate.month\\" name=\\"enquiryDate.month\\"
+                        type=\\"text\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"enquiryDate.year\\" name=\\"enquiryDate.year\\"
+                        type=\\"text\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-two-thirds govuk-!-margin-top-4 govuk-!-margin-bottom-0\\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"enquiryDetails\\">Enquiry details</label>
+            <div id=\\"enquiryDetails-hint\\" class=\\"govuk-hint\\">Add the details of the enquiry. You will be able to add attachments later.</div>
+            <textarea             class=\\"govuk-textarea\\" id=\\"enquiryDetails\\" name=\\"enquiryDetails\\" rows=\\"5\\"
+            aria-describedby=\\"enquiryDetails-hint\\"></textarea>
+        </div>
+        <div class='govuk-grid-column-full'>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Method GET /case/123/project-documentation/21/s51-advice/create/method should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Select the method of enquiry</h1>
+    <p class='govuk-body colour--secondary'>How was the enquiry made?</p>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\"
+    class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"enquiryMethod\\" name=\\"enquiryMethod\\"
+                    type=\\"radio\\" value=\\"phone\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"enquiryMethod\\">Phone</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"enquiryMethod-2\\" name=\\"enquiryMethod\\"
+                    type=\\"radio\\" value=\\"email\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"enquiryMethod-2\\">Email</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"enquiryMethod-3\\" name=\\"enquiryMethod\\"
+                    type=\\"radio\\" value=\\"meeting\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"enquiryMethod-3\\">Meeting</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"enquiryMethod-4\\" name=\\"enquiryMethod\\"
+                    type=\\"radio\\" value=\\"post\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"enquiryMethod-4\\">Post</label>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Person GET /case/123/project-documentation/21/s51-advice/create/person should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Enter who gave the advice</h1>
+    <p class='govuk-body colour--secondary govuk-!-margin-bottom-5'>Enter the name of the person who gave the advice. <strong>This is for internal use only.</strong>
+    </p>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"adviser\\" name=\\"adviser\\"
+            type=\\"text\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Title GET /case/123/project-documentation/21/s51-advice/create/title If user is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Title GET /case/123/project-documentation/21/s51-advice/create/title If user is not inspector should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Enter the S51 advice title</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">S51 title</label>
+            <div id=\\"title-hint\\" class=\\"govuk-hint\\">For example, &#39;Advice following issue of decision to accept the application
+                for examination&#39;</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Title POST /case/123/project-documentation/21/s51-advice/create/title Should return error if title is not provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#title\\">You must enter a S51 advice title</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Enter the S51 advice title</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group govuk-form-group--error\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">S51 title</label>
+            <div id=\\"title-hint\\" class=\\"govuk-hint\\">For example, &#39;Advice following issue of decision to accept the application
+                for examination&#39;</div>
+            <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a S51
+                advice title</p>
+            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
+            id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint title-error\\">
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-advice/ If user is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-advice/ If user is not inspector should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
+                <ol class=\\"govuk-breadcrumbs__list\\">
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
+                    </li>
+                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </div>
+            <div class=\\"pins-dashboard-list--hide-controls\\">
+                <h2 class=\\"govuk-heading-l\\">S51 advice folder folder</h2>
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                    <div class=\\"govuk-accordion__section\\">
+                        <div class=\\"govuk-accordion__section-header\\">
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                        </div>
+                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                            <table class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-width-container\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <p class=\\"govuk-body\\">This folder contains document(s).</p>
+                    </div>
+                </div>
+                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice-folder/upload\\"> Upload files</a>
+                    </div>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
