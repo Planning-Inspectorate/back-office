@@ -4,7 +4,11 @@ import { validatePaginationParameters } from '../../../middleware/pagination-val
 import { asyncHandler } from '../../../middleware/async-handler.js';
 import * as controller from './project-updates.controller.js';
 import { validateSortBy } from '../../../middleware/validate-sort-by.js';
-import { validateCreateProjectUpdate } from './project-updates.validators.js';
+import {
+	validateCreateProjectUpdate,
+	validateProjectUpdateId,
+	validateUpdateProjectUpdate
+} from './project-updates.validators.js';
 
 const router = createRouter();
 
@@ -119,7 +123,55 @@ router.get(
         }
     */
 	validateApplicationId,
+	validateProjectUpdateId,
 	asyncHandler(controller.getProjectUpdate)
+);
+
+router.patch(
+	'/:id/project-updates/:projectUpdateId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/project-updates/{projectUpdateId}'
+        #swagger.description = 'Update a project update'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Project update parameters',
+            schema: { $ref: '#/definitions/ApplicationProjectUpdateUpdateRequest' },
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'The project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+            schema: { $ref: '#/definitions/ApplicationProjectUpdateCreateBadRequest' }
+        }
+        #swagger.responses[404] = {
+            description: 'Not found',
+            schema: { $ref: '#/definitions/NotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateApplicationId,
+	validateProjectUpdateId,
+	validateUpdateProjectUpdate,
+	asyncHandler(controller.patchProjectUpdate)
 );
 
 export { router as projectUpdateRoutes };

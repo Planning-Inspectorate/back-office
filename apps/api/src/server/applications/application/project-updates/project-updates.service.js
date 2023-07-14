@@ -1,8 +1,15 @@
 import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../infrastructure/event-client.js';
-import { createProjectUpdate } from '../../../repositories/project-update.respository.js';
-import { projectUpdateCreateReq } from './project-updates.js';
-import { buildProjectUpdatePayload, mapProjectUpdate } from './project-updates.mapper.js';
+import {
+	createProjectUpdate,
+	updateProjectUpdate
+} from '../../../repositories/project-update.respository.js';
+import {
+	buildProjectUpdatePayload,
+	mapProjectUpdate,
+	projectUpdateCreateReq,
+	projectUpdateUpdateReq
+} from './project-updates.mapper.js';
 import { NSIP_PROJECT_UPDATE } from '../../../infrastructure/topics.js';
 import logger from '../../../utils/logger.js';
 
@@ -31,4 +38,29 @@ export async function createProjectUpdateService(body, caseId) {
 	}
 
 	return mapProjectUpdate(created);
+}
+
+/**
+ * Update a project update, and send the Update event
+ *
+ * @param {*} body
+ * @param {number} projectUpdateId
+ * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+ */
+export async function updateProjectUpdateService(body, projectUpdateId) {
+	const updateReq = projectUpdateUpdateReq(body);
+
+	const update = await updateProjectUpdate(projectUpdateId, updateReq);
+
+	if (update.case && update.case.reference) {
+		await eventClient.sendEvents(
+			NSIP_PROJECT_UPDATE,
+			[buildProjectUpdatePayload(update, update.case.reference)],
+			EventType.Update
+		);
+	} else {
+		logger.warn('updateProjectUpdateService: project update case has no reference. No event sent.');
+	}
+
+	return mapProjectUpdate(update);
 }

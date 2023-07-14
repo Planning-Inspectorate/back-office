@@ -477,5 +477,165 @@ describe('project-updates', () => {
 				});
 			}
 		});
+
+		describe('patch', () => {
+			const tests = [
+				{
+					name: 'should check for numerical IDs',
+					body: {},
+					projectUpdateId: 'hello',
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								projectUpdateId: 'project update id must be a number'
+							}
+						}
+					}
+				},
+				{
+					name: 'should check all field types',
+					body: {
+						emailSubscribers: 'str',
+						status: 1,
+						htmlContent: false
+					},
+					projectUpdateId: 1,
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								emailSubscribers: 'emailSubscribers must be a boolean',
+								status: `status must be one of 'draft', 'published', 'unpublished', 'archived'`,
+								htmlContent: 'htmlContent must be a string'
+							}
+						}
+					}
+				},
+				{
+					name: 'should check HTML content is safe - disallowed tags',
+					body: {
+						emailSubscribers: true,
+						status: 'draft',
+						htmlContent: '<img src="https://image.com/not-allowed"> Something happened'
+					},
+					projectUpdateId: 1,
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								htmlContent: htmlContentError
+							}
+						}
+					}
+				},
+				{
+					name: 'should check HTML content is safe - insecure link',
+					body: {
+						emailSubscribers: true,
+						status: 'draft',
+						htmlContent: '<a src="http://image.com/insecure">New Link</a>Something happened'
+					},
+					projectUpdateId: 1,
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								htmlContent: htmlContentError
+							}
+						}
+					}
+				},
+				{
+					name: 'should check HTML content is safe - script',
+					body: {
+						emailSubscribers: true,
+						status: 'draft',
+						htmlContent: `<script>function myMaliciousFunc(){window.location='https://my-bad-site.com';}</script>Something happened`
+					},
+					projectUpdateId: 1,
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								htmlContent: htmlContentError
+							}
+						}
+					}
+				},
+				{
+					name: 'should allow a valid request',
+					body: {
+						emailSubscribers: true,
+						status: 'draft',
+						htmlContent:
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+					},
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false
+					},
+					want: {
+						status: 200,
+						body: {
+							id: 5,
+							caseId: 1,
+							dateCreated: '2023-07-04T10:00:00.000Z',
+							emailSubscribers: true,
+							sentToSubscribers: false,
+							status: 'draft',
+							htmlContent:
+								'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+						}
+					}
+				}
+			];
+
+			it.each(tests)('$name', async ({ body, projectUpdateId, updated, existingCase, want }) => {
+				// setup
+				// mock case
+				databaseConnector.case.findUnique.mockReset();
+				databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+
+				databaseConnector.projectUpdate.update.mockReset();
+
+				let projectUpdate;
+
+				if (updated) {
+					databaseConnector.projectUpdate.update.mockImplementationOnce((req) => {
+						projectUpdate = {
+							...updated,
+							...req.data,
+							case: existingCase
+						};
+						return projectUpdate;
+					});
+				}
+
+				// action
+				const response = await request
+					.patch(`/applications/1/project-updates/${projectUpdateId}`)
+					.send(body);
+
+				// checks
+				expect(response.status).toEqual(want.status);
+				expect(response.body).toEqual(want.body);
+				if (updated) {
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+						NSIP_PROJECT_UPDATE,
+						[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
+						EventType.Update
+					);
+				}
+			});
+		});
 	});
 });
