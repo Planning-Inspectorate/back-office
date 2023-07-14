@@ -4,20 +4,18 @@ COPY package*.json ./
 
 COPY packages ./packages
 
-COPY appeals/api apps/api
+COPY appeals/api appeals/api
 ENV NODE_ENV=production
 RUN npm ci
 COPY appeals/api/.env.development ./.env
-COPY appeals/api/init.sh ./init.sh
 
-ENV SWAGGER_JSON_DIR=./apps/api/src/server/openapi.json
+# relative to cwd
+ENV SWAGGER_JSON_DIR=./src/server/openapi.json
 ENV DATABASE_URL=$DATABASE_URL
 
-WORKDIR /src/app/apps/api
+WORKDIR /src/app/appeals/api
 RUN npx prisma generate
-
-WORKDIR /src/app
 
 EXPOSE 3000
 
-ENTRYPOINT ["sh", "/src/app/init.sh"]
+ENTRYPOINT npm run start
