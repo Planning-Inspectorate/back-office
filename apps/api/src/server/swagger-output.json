@@ -1832,6 +1832,61 @@
 						}
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Update a project update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Project update parameters",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdateUpdateRequest"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdateCreateBadRequest"
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"schema": {
+							"$ref": "#/definitions/NotFound"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
 			}
 		},
 		"/applications/documents/{documentGUID}/status": {
@@ -6182,6 +6237,34 @@
 					"type": "integer",
 					"description": "The back-office ID of the user who created this updated"
 				},
+				"emailSubscribers": {
+					"type": "boolean",
+					"description": "Will this update be emailed to subscribers?"
+				},
+				"status": {
+					"type": "string",
+					"enum": ["draft", "published", "unpublished", "archived"],
+					"description": "The current status of this update"
+				},
+				"title": {
+					"type": "string",
+					"description": "The internal title of this update"
+				},
+				"htmlContent": {
+					"type": "string",
+					"description": "The HTML content of this update, it can only include `<p> <a> <strong> <ul> <li> <br>` tags",
+					"example": "<strong>Important Update</strong> Something happened."
+				},
+				"htmlContentWelsh": {
+					"type": "string",
+					"description": "The HTML content of this update in Welsh, it can only include `<p> <a> <strong> <ul> <li> <br>` tags",
+					"example": "<strong>Diweddariad Pwysig</strong> Digwyddodd rhywbeth."
+				}
+			}
+		},
+		"ApplicationProjectUpdateUpdateRequest": {
+			"type": "object",
+			"properties": {
 				"emailSubscribers": {
 					"type": "boolean",
 					"description": "Will this update be emailed to subscribers?"

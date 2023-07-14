@@ -2,6 +2,10 @@ import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
 
 /**
+ * @typedef {import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>} ProjectUpdateWithCase
+ */
+
+/**
  * List project updates for a particular case
  *
  * @param {number} caseId
@@ -37,7 +41,7 @@ export async function listProjectUpdates(caseId, pageNumber, pageSize, orderBy) 
  * Create a new project update
  *
  * @param {import('@prisma/client').Prisma.ProjectUpdateCreateInput} req
- * @returns {Promise<import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>>}
+ * @returns {Promise<ProjectUpdateWithCase>}
  */
 export async function createProjectUpdate(req) {
 	return databaseConnector.projectUpdate.create({
@@ -57,6 +61,26 @@ export async function createProjectUpdate(req) {
  */
 export async function getProjectUpdate(id) {
 	return databaseConnector.projectUpdate.findUnique({
+		where: {
+			id
+		}
+	});
+}
+
+/**
+ * Update a project update
+ *
+ * @param {number} id
+ * @param {import('@prisma/client').Prisma.ProjectUpdateUpdateInput} req
+ * @returns {Promise<ProjectUpdateWithCase>}
+ */
+export async function updateProjectUpdate(id, req) {
+	return databaseConnector.projectUpdate.update({
+		data: req,
+		include: {
+			// return the related case too
+			case: true
+		},
 		where: {
 			id
 		}

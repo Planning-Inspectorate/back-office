@@ -1174,6 +1174,37 @@ const document = {
 				}
 			}
 		},
+		// same as create, but no required properties
+		ApplicationProjectUpdateUpdateRequest: {
+			type: 'object',
+			properties: {
+				emailSubscribers: {
+					type: 'boolean',
+					description: 'Will this update be emailed to subscribers?'
+				},
+				status: {
+					type: 'string',
+					enum: ['draft', 'published', 'unpublished', 'archived'],
+					description: 'The current status of this update'
+				},
+				title: {
+					type: 'string',
+					description: 'The internal title of this update'
+				},
+				htmlContent: {
+					type: 'string',
+					description:
+						'The HTML content of this update, it can only include `<p> <a> <strong> <ul> <li> <br>` tags',
+					example: '<strong>Important Update</strong> Something happened.'
+				},
+				htmlContentWelsh: {
+					type: 'string',
+					description:
+						'The HTML content of this update in Welsh, it can only include `<p> <a> <strong> <ul> <li> <br>` tags',
+					example: '<strong>Diweddariad Pwysig</strong> Digwyddodd rhywbeth.'
+				}
+			}
+		},
 		ApplicationProjectUpdateCreateBadRequest: {
 			type: 'object',
 			properties: {

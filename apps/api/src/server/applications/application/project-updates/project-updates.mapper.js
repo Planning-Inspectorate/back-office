@@ -52,3 +52,67 @@ export function buildProjectUpdatePayload(update, caseReference) {
 
 	return payload;
 }
+
+/**
+ * Map a request body to a create request object, and sanitise the HTML
+ *
+ * @param {*} body
+ * @param {number} caseId
+ * @returns {import('@prisma/client').Prisma.ProjectUpdateCreateInput}
+ */
+export function projectUpdateCreateReq(body, caseId) {
+	/** @type {import('@prisma/client').Prisma.ProjectUpdateCreateInput} */
+	const createReq = {
+		emailSubscribers: body.emailSubscribers,
+		status: body.status,
+		htmlContent: body.htmlContent,
+		case: {
+			connect: {
+				id: caseId
+			}
+		}
+	};
+	if (body.authorId) {
+		createReq.author = {
+			connect: {
+				id: parseInt(body.authorId)
+			}
+		};
+	}
+	if (body.title) {
+		createReq.title = body.title;
+	}
+	if (body.htmlContentWelsh) {
+		createReq.htmlContentWelsh = body.htmlContentWelsh;
+	}
+
+	return createReq;
+}
+
+/**
+ * Map a request body to a update request object, and sanitise the HTML
+ *
+ * @param {*} body
+ * @returns {import('@prisma/client').Prisma.ProjectUpdateUpdateInput}
+ */
+export function projectUpdateUpdateReq(body) {
+	/** @type {import('@prisma/client').Prisma.ProjectUpdateUpdateInput} */
+	const updateReq = {};
+	if (Object.prototype.hasOwnProperty.call(body, 'emailSubscribers')) {
+		updateReq.emailSubscribers = body.emailSubscribers;
+	}
+	if (body.status) {
+		updateReq.status = body.status;
+	}
+	if (body.title) {
+		updateReq.title = body.title;
+	}
+	if (body.htmlContent) {
+		updateReq.htmlContent = body.htmlContent;
+	}
+	if (body.htmlContentWelsh) {
+		updateReq.htmlContentWelsh = body.htmlContentWelsh;
+	}
+
+	return updateReq;
+}

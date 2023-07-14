@@ -4,7 +4,10 @@ import { getPageCount } from '../../../utils/database-pagination.js';
 import { mapProjectUpdate } from './project-updates.mapper.js';
 import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
-import { createProjectUpdateService } from './project-updates.service.js';
+import {
+	createProjectUpdateService,
+	updateProjectUpdateService
+} from './project-updates.service.js';
 import { NotFound } from '#utils/api-errors.js';
 
 /**
@@ -54,4 +57,15 @@ export async function getProjectUpdate(req, res) {
 	} else {
 		res.send(mapProjectUpdate(result));
 	}
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export async function patchProjectUpdate(req, res) {
+	const caseId = parseInt(req.params.id);
+	const projectUpdateId = parseInt(req.params.projectUpdateId);
+	logger.debug({ body: req.body, caseId, projectUpdateId }, 'patchProjectUpdate');
+	const update = await updateProjectUpdateService(req.body, projectUpdateId);
+	res.send(update);
 }
