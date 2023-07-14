@@ -688,7 +688,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         aria-labelledby=\\"accordion-default-1-heading-2\\">
                             <div class=\\"govuk-inset-text govuk-!-margin-top-0\\">
                                 <p>Case not started</p><a href=\\"/appeals-service/appeal-details/2/appellant-case\\"
-                                class=\\"govuk-link\\">Review appellant case</a>
+                                class=\\"govuk-link\\">Review appeal</a>
                             </div>
                         </div>
                     </div>
