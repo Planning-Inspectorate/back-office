@@ -3,7 +3,12 @@ import { buildQueryString } from '../../common/components/build-query-string.js'
 import { getPaginationInfo } from '../../common/components/pagination/pagination.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
 import { bodyToCreateRequest } from './project-updates.mapper.js';
-import { createProjectUpdate, getProjectUpdates } from './project-updates.service.js';
+import {
+	createProjectUpdate,
+	getProjectUpdate,
+	getProjectUpdates,
+	patchProjectUpdate
+} from './project-updates.service.js';
 import { createFormView, projectUpdatesRows } from './project-updates.view-model.js';
 
 const view = 'applications/case/project-updates.njk';
@@ -66,6 +71,60 @@ export async function projectUpdatesCreatePost(req, res) {
 		caseId: parseInt(caseId),
 		step: 'status',
 		projectUpdateId
+	});
+	res.redirect(nextUrl);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesStatusGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	const errors = req.errors;
+	return res.render(formView, {
+		case: res.locals.case,
+		title: 'Set status',
+		buttonText: 'Save and continue',
+		errors, // for error summary
+		form: {
+			components: [
+				{
+					type: 'radios',
+					name: 'status',
+					value: projectUpdate.status,
+					items: [
+						{
+							value: 'draft',
+							text: 'Draft'
+						},
+						{
+							value: 'published',
+							text: 'Publish'
+						}
+					],
+					errorMessage: errors?.status
+				}
+			]
+		}
+	});
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesStatusPost(req, res) {
+	if (req.errors) {
+		return projectUpdatesStatusGet(req, res);
+	}
+	const { caseId, projectUpdateId } = req.params;
+	await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
+	const nextUrl = url('project-updates-step', {
+		caseId: parseInt(caseId),
+		step: 'preview',
+		projectUpdateId: parseInt(projectUpdateId)
 	});
 	res.redirect(nextUrl);
 }
