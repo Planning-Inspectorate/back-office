@@ -48,6 +48,7 @@ pids
 
 # Editors
 .idea
+**/*.swp
 
 # Env settings / local env files
 .env.local
