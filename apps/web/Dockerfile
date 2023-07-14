@@ -42,4 +42,4 @@ ENV APP_RELEASE=true
 
 EXPOSE 8080
 
-CMD [ "node", "./src/server/server.js" ]
+ENTRYPOINT npm run start
