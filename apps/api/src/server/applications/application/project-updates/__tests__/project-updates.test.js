@@ -11,6 +11,7 @@ import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../../infrastructure/event-client.js';
 import { htmlContentError } from '../project-updates.validators.js';
+import { NotFound } from '#utils/api-errors.js';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -366,6 +367,114 @@ describe('project-updates', () => {
 					[buildProjectUpdatePayload(createdUpdate, existingCase.reference)],
 					EventType.Create
 				);
+			}
+		});
+	});
+
+	describe('project-update', () => {
+		describe('get', () => {
+			const now = new Date();
+			/**
+			 * @param {number} caseId
+			 * @returns {import('@prisma/client').ProjectUpdate}
+			 */
+			const dummyProjectUpdate = (caseId) => {
+				return {
+					id: 1,
+					caseId,
+					dateCreated: now,
+					status: 'draft',
+					emailSubscribers: true,
+					sentToSubscribers: true,
+					authorId: 1,
+					htmlContent: 'content',
+					htmlContentWelsh: null,
+					title: null,
+					datePublished: null
+				};
+			};
+			const tests = [
+				{
+					name: 'invalid caseId',
+					id: '5463',
+					want: {
+						status: 404,
+						body: {
+							errors: {
+								id: 'Must be an existing application'
+							}
+						}
+					}
+				},
+				{
+					name: 'non-existant caseId',
+					id: 1,
+					want: {
+						status: 404,
+						body: {
+							errors: {
+								id: 'Must be an existing application'
+							}
+						}
+					}
+				},
+				{
+					name: 'not found',
+					id: 1,
+					caseEntry: { id: 1 },
+					projectUpdateId: 1,
+					projectUpdate: {},
+					want: {
+						status: 404,
+						body: NotFound
+					}
+				},
+				{
+					name: 'not found: wrong case Id',
+					id: 1,
+					caseEntry: { id: 1 },
+					projectUpdateId: 1,
+					projectUpdate: dummyProjectUpdate(2),
+					want: {
+						status: 404,
+						body: NotFound
+					}
+				},
+				{
+					name: 'formatted update',
+					id: 1,
+					caseEntry: { id: 1 },
+					projectUpdateId: 1,
+					projectUpdate: dummyProjectUpdate(1),
+					want: {
+						status: 200,
+						body: mapProjectUpdate(dummyProjectUpdate(1))
+					}
+				}
+			];
+
+			for (const { name, id, projectUpdateId, projectUpdate, caseEntry, want } of tests) {
+				test('' + name, async () => {
+					// setup
+					databaseConnector.case.findUnique.mockReset();
+					databaseConnector.projectUpdate.findUnique.mockReset();
+
+					if (caseEntry) {
+						databaseConnector.case.findUnique.mockResolvedValueOnce(caseEntry);
+					}
+
+					if (projectUpdateId) {
+						databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(projectUpdate);
+					}
+
+					// action
+					const url = `/applications/${id}/project-updates/${projectUpdateId}`;
+					const response = await request.get(url);
+
+					// checks
+					expect(response.status).toEqual(want.status);
+					expect(response.body).toEqual(want.body);
+				});
 			}
 		});
 	});

@@ -250,7 +250,8 @@ class MockPrismaClient {
 	projectUpdate = {
 		create: jest.fn(),
 		count: jest.fn().mockResolvedValue(0),
-		findMany: jest.fn().mockResolvedValue([])
+		findMany: jest.fn().mockResolvedValue([]),
+		findUnique: jest.fn()
 	};
 
 	$transaction(queries = []) {

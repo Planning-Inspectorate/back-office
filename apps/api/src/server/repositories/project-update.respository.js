@@ -48,3 +48,17 @@ export async function createProjectUpdate(req) {
 		}
 	});
 }
+
+/**
+ * Get a project update
+ *
+ * @param {number} id
+ * @returns {Promise<import('@prisma/client').ProjectUpdate|null>}
+ */
+export async function getProjectUpdate(id) {
+	return databaseConnector.projectUpdate.findUnique({
+		where: {
+			id
+		}
+	});
+}

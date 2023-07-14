@@ -16,250 +16,6 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
-		"/appeals/appellant-case-incomplete-reasons": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appellant case incomplete reasons",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appellant case incomplete reasons",
-						"schema": {
-							"$ref": "#/definitions/AllAppellantCaseIncompleteReasonsResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					}
-				}
-			}
-		},
-		"/appeals/appellant-case-invalid-reasons": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets appellant case invalid reasons",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appellant case invalid reasons",
-						"schema": {
-							"$ref": "#/definitions/AllAppellantCaseInvalidReasonsResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					}
-				}
-			}
-		},
-		"/appeals": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets requested appeals, limited to the first 30 appeals if no pagination params are given",
-				"parameters": [
-					{
-						"name": "pageNumber",
-						"in": "query",
-						"description": "The pagination page number, required if pageSize is given",
-						"example": 1,
-						"type": "string"
-					},
-					{
-						"name": "pageSize",
-						"in": "query",
-						"description": "The pagination page size, required if pageNumber is given",
-						"example": 30,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Requested appeals",
-						"schema": {
-							"$ref": "#/definitions/AllAppeals"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					}
-				}
-			}
-		},
-		"/appeals/{appealId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets a single appeal by id",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets a single appeal by id",
-						"schema": {
-							"$ref": "#/definitions/SingleAppealResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			},
-			"patch": {
-				"tags": ["Appeals"],
-				"description": "Updates a single appeal by id",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Appeal details to update",
-						"schema": {
-							"$ref": "#/definitions/UpdateAppealRequest"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Updates a single appeal by id",
-						"schema": {
-							"$ref": "#/definitions/UpdateAppealResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets a single LPA questionnaire for an appeal by id",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "lpaQuestionnaireId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets a single LPA questionnaire for an appeal by id",
-						"schema": {
-							"$ref": "#/definitions/SingleLPAQuestionnaireResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			}
-		},
-		"/appeals/{appealId}/appellant-cases/{appellantCaseId}": {
-			"get": {
-				"tags": ["Appeals"],
-				"description": "Gets a single appellant case for an appeal by id",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "appellantCaseId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Gets a single appellant case for an appeal by id",
-						"schema": {
-							"$ref": "#/definitions/SingleAppellantCaseResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			},
-			"patch": {
-				"tags": ["Appeals"],
-				"description": "Updates a single appellant case for an appeal by id",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "appellantCaseId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Appellant case details to update",
-						"schema": {
-							"$ref": "#/definitions/UpdateAppellantCaseRequest"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Updates a single appeal by id",
-						"schema": {
-							"$ref": "#/definitions/UpdateAppellantCaseResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			}
-		},
 		"/applications": {
 			"post": {
 				"tags": ["Applications"],
@@ -2025,6 +1781,48 @@
 						"description": "Bad request",
 						"schema": {
 							"$ref": "#/definitions/ApplicationProjectUpdateCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/project-updates/{projectUpdateId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get a project update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"schema": {
+							"$ref": "#/definitions/NotFound"
 						}
 					},
 					"500": {
@@ -6650,6 +6448,20 @@
 						"unknown": {
 							"type": "string",
 							"example": "unknown internal error"
+						}
+					}
+				}
+			}
+		},
+		"NotFound": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"notFound": {
+							"type": "string",
+							"example": "resource not found"
 						}
 					}
 				}
