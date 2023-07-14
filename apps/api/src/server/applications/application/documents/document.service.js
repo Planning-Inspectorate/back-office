@@ -423,3 +423,29 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 		publishedStatus: 'publishing'
 	}));
 };
+
+/**
+ * @param {{documentReference: string}[]} documents
+ * @returns {number}
+ */
+export const getNextDocumentReferenceIndex = (documents) => {
+	const references = documents.flatMap((d) => {
+		const match = d.documentReference.match(/-(\d+)/);
+		if (!match) return [];
+
+		const index = Number(match);
+		if (isNaN(index)) return [];
+
+		return index;
+	});
+
+	return Math.max(...references) + 1;
+};
+
+/**
+ * @param {string} caseId
+ * @param {number} index
+ * @returns {string}
+ */
+export const makeDocumentReference = (caseId, index) =>
+	`${caseId}-${index.toString().padStart(6, '0')}`;
