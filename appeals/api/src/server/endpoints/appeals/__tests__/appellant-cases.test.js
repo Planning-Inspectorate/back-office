@@ -6,14 +6,15 @@ import {
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
 	DEFAULT_TIMESTAMP_TIME,
-	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
 	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
-	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
+	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
 	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
 	ERROR_NOT_FOUND,
+	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
+	ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
@@ -39,6 +40,7 @@ describe('appellant cases routes', () => {
 	config.govNotify.api.key = 'gov-notify-api-key-123';
 
 	afterEach(() => {
+		jest.resetAllMocks();
 		jest.useRealTimers();
 	});
 
@@ -257,7 +259,7 @@ describe('appellant cases routes', () => {
 		});
 
 		describe('PATCH', () => {
-			test('updates appellant case when the validation outcome is Incomplete with numeric array', async () => {
+			test('updates appellant case when the validation outcome is Incomplete with numeric array and an appeal due date', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
@@ -278,10 +280,12 @@ describe('appellant cases routes', () => {
 				);
 
 				const body = {
+					appealDueDate: '2023-07-14',
 					incompleteReasons: [1, 2, 3],
 					validationOutcome: 'Incomplete',
 					otherNotValidReasons: 'Another reason'
 				};
+				const formattedAppealDueDate = joinDateAndTime(body.appealDueDate);
 				const { appellantCase } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellant-cases/${appellantCase.id}`)
@@ -294,12 +298,22 @@ describe('appellant cases routes', () => {
 						otherNotValidReasons: 'Another reason'
 					}
 				});
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					where: { id: householdAppeal.id },
+					data: {
+						dueDate: formattedAppealDueDate,
+						updatedAt: expect.any(Date)
+					}
+				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
+				expect(response.body).toEqual({
+					...body,
+					appealDueDate: formattedAppealDueDate
+				});
 			});
 
-			test('updates appellant case when the validation outcome is incomplete with string array', async () => {
+			test('updates appellant case when the validation outcome is incomplete with string array and no appeal due date', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
@@ -337,6 +351,7 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
+				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -386,6 +401,7 @@ describe('appellant cases routes', () => {
 						valid: true
 					}
 				});
+				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -435,6 +451,7 @@ describe('appellant cases routes', () => {
 						valid: true
 					}
 				});
+				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -491,6 +508,14 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				expect(databaseConnector.appeal.update).toHaveBeenCalledTimes(1);
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					where: { id: householdAppeal.id },
+					data: {
+						startedAt: startedAt.toISOString(),
+						updatedAt: expect.any(Date)
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -547,6 +572,14 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				expect(databaseConnector.appeal.update).toHaveBeenCalledTimes(1);
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					where: { id: fullPlanningAppeal.id },
+					data: {
+						startedAt: startedAt.toISOString(),
+						updatedAt: expect.any(Date)
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -719,6 +752,63 @@ describe('appellant cases routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						appellantCaseId: ERROR_NOT_FOUND
+					}
+				});
+			});
+
+			test('returns an error if appealDueDate is not in the correct format', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${fullPlanningAppeal.id}/appellant-cases/${householdAppeal.appellantCase.id}`
+					)
+					.send({
+						appealDueDate: '05/05/2023',
+						incompleteReasons: [1],
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if appealDueDate does not contain leading zeros', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/appellant-cases/${householdAppeal.appellantCase.id}`
+					)
+					.send({
+						appealDueDate: '2023-5-5',
+						incompleteReasons: [1],
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if appealDueDate is not a valid date', async () => {
+				const response = await request
+					.patch(
+						`/appeals/${householdAppeal.id}/appellant-cases/${householdAppeal.appellantCase.id}`
+					)
+					.send({
+						appealDueDate: '2023-02-30',
+						incompleteReasons: [1],
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
 					}
 				});
 			});
@@ -1040,7 +1130,7 @@ describe('appellant cases routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						incompleteReasons: ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME
+						incompleteReasons: ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME
 					}
 				});
 			});
@@ -1058,7 +1148,7 @@ describe('appellant cases routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						invalidReasons: ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME
+						invalidReasons: ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME
 					}
 				});
 			});

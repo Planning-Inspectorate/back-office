@@ -2,8 +2,6 @@ import { composeMiddleware } from '@pins/express';
 import { body, query } from 'express-validator';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
-	ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME,
-	ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
 	ERROR_MAX_LENGTH_300_CHARACTERS,
@@ -12,6 +10,8 @@ import {
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
+	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
+	ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
@@ -21,6 +21,7 @@ import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
+/** @typedef {import('express').Request} Request */
 
 /**
  * @param {string} value
@@ -108,11 +109,19 @@ const patchAppealValidator = composeMiddleware(
 
 const patchAppellantCaseValidator = composeMiddleware(
 	validateIdParameter('appealId'),
+	// @ts-ignore
+	validateDateParameter('appealDueDate', (value, { req }) => {
+		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+		}
+
+		return value;
+	}),
 	validateIdParameter('appellantCaseId'),
 	// @ts-ignore
 	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
 		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
-			throw new Error(ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME);
+			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
 		}
 
 		return value;
@@ -120,7 +129,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 	// @ts-ignore
 	validateValidationOutcomeReasons('invalidReasons', (value, { req }) => {
 		if (value && !isOutcomeInvalid(req.body.validationOutcome)) {
-			throw new Error(ERROR_INVALID_REASONS_ONLY_FOR_INVALID_OUTCOME);
+			throw new Error(ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME);
 		}
 
 		return value;
@@ -164,7 +173,7 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 	// @ts-ignore
 	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
 		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
-			throw new Error(ERROR_INCOMPLETE_REASONS_ONLY_FOR_INCOMPLETE_OUTCOME);
+			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
 		}
 
 		return value;

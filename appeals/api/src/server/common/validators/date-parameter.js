@@ -6,13 +6,15 @@ import { body } from 'express-validator';
 
 /**
  * @param {string} parameterName
+ * @param {() => true} customFn
  * @returns {ValidationChain}
  */
-const validateDateParameter = (parameterName) =>
+const validateDateParameter = (parameterName, customFn = () => true) =>
 	body(parameterName)
 		.optional()
 		.isDate()
 		.withMessage(ERROR_MUST_BE_CORRECT_DATE_FORMAT)
+		.custom(customFn)
 		.customSanitizer(joinDateAndTime);
 
 export default validateDateParameter;

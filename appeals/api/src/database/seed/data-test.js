@@ -488,6 +488,10 @@ export async function seedTestData(databaseConnector) {
 					appellantCaseId: appellantCase.id
 				}))
 			});
+			await databaseConnector.appeal.update({
+				where: { id: appellantCase.appealId },
+				data: { dueDate: new Date() }
+			});
 		}
 
 		if (validationOutcome.invalidReasons) {
