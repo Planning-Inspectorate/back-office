@@ -1,4 +1,5 @@
 import { pick } from 'lodash-es';
+import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
@@ -9,8 +10,11 @@ import {
 	mapSingleDocumentDetailsFromVersion
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
+import { getByCaseId } from '../../documents/documents.service.js';
 import {
 	formatDocumentUpdateResponseBody,
+	getNextDocumentReferenceIndex,
+	makeDocumentReference,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishNsipDocuments,
@@ -36,6 +40,15 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
+
+	const currentDocuments = await getByCaseId(params.id);
+  const theCase = await caseRepository.getById(params.id, { applicationDetails: true, gridReference: true });
+
+	let nextReferenceIndex = getNextDocumentReferenceIndex(currentDocuments);
+	for (const doc of documentsToUpload) {
+		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
+		nextReferenceIndex++;
+	}
 
 	// Obtain URLs for documents from blob storage
 	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
