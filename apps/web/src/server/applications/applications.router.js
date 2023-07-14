@@ -7,12 +7,20 @@ import * as locals from './applications.locals.js';
 import applicationsCaseRouter from './case/applications-case.router.js';
 import applicationsCreateRouter from './create-new-case/applications-create.router.js';
 import applicationsSearchRouter from './search-results/applications-search.router.js';
+import { destroySessionS51 } from './case/s51/applications-s51.session.js';
 
 const router = createRouter();
 const domainRouter = createRouter({ mergeParams: true });
 
 router.use(filters.registerFilters);
 router.use(locals.registerLocals);
+router.use((request, _, next) => {
+	const { originalUrl, session } = request;
+	if (!originalUrl.includes('s51-advice/create')) {
+		destroySessionS51(session);
+	}
+	next();
+});
 
 /** Functionality-driven URLS */
 
