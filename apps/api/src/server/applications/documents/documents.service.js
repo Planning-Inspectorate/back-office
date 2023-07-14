@@ -4,6 +4,21 @@ import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
 import { buildNsipDocumentPayload } from '../application/documents/document.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
+import * as folderRepository from '../../repositories/folder.repository.js';
+
+/**
+ * @param {number} caseId
+ */
+export const getByCaseId = async (caseId) => {
+	const folders = await folderRepository.getByCaseId(caseId);
+	const documents = await Promise.all(
+		folders.map((f) =>
+			documentRepository.getDocumentsInFolder({ folderId: f.id, skipValue: 0, pageSize: 0 })
+		)
+	);
+
+	return documents.flat();
+};
 
 /**
  * @param {string} guid
