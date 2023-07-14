@@ -41,6 +41,7 @@ export interface Appeal extends schema.Appeal {
 	appellant?: schema.Appellant;
 	createdAt: Date;
 	documents?: AppealDocument[];
+	dueDate?: Date;
 	id: number;
 	inspectorDecision?: InspectorDecision;
 	linkedAppealId?: number | null;

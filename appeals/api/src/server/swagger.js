@@ -325,6 +325,7 @@ const document = {
 			statutoryConsulteesDetails: 'Some other people need to be consulted'
 		},
 		UpdateAppellantCaseRequest: {
+			appealDueDate: '2023-12-13',
 			incompleteReasons: [1, 2, 3],
 			invalidReasons: [1, 2, 3],
 			otherNotValidReasons: 'Another invalid reason',

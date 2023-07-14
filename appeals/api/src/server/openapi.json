@@ -1892,6 +1892,10 @@
 			"UpdateAppellantCaseRequest": {
 				"type": "object",
 				"properties": {
+					"appealDueDate": {
+						"type": "string",
+						"example": "2023-12-13"
+					},
 					"incompleteReasons": {
 						"type": "array",
 						"example": [1, 2, 3],

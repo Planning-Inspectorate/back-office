@@ -106,7 +106,7 @@ const updateAppellantCaseById = async (req, res) => {
 	const {
 		appeal: { id: appealId, appealStatus, appealType, reference, appellant },
 		body,
-		body: { incompleteReasons, invalidReasons, otherNotValidReasons },
+		body: { appealDueDate, incompleteReasons, invalidReasons, otherNotValidReasons },
 		params: { appellantCaseId },
 		validationOutcome
 	} = req;
@@ -142,6 +142,10 @@ const updateAppellantCaseById = async (req, res) => {
 		});
 
 		await transitionState(appealId, appealType, appealStatus, validationOutcome.name);
+
+		if (appealDueDate) {
+			await appealRepository.updateAppealById(appealId, { dueDate: appealDueDate });
+		}
 	} catch (error) {
 		if (error) {
 			logger.error(error);

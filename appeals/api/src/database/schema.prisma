@@ -25,6 +25,7 @@ model Appeal {
   appealTypeId                 Int?
   linkedAppealId               Int?
   otherAppealId                Int?
+  dueDate                      DateTime?
   address                      Address?              @relation(fields: [addressId], references: [id])
   appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
   appellant                    Appellant?            @relation(fields: [appellantId], references: [id])

@@ -202,6 +202,7 @@ const appealRepository = (function () {
 		 * @param {number} id
 		 * @param {{
 		 *	startedAt?: string;
+		 *	dueDate?: string;
 		 * }} data
 		 * @returns {PrismaPromise<object>}
 		 */
