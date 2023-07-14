@@ -12,6 +12,10 @@ const mockCaseReference = {
 	status: 'in test',
 	reference: 'mock reference'
 };
+const mockProjectUpdate = {
+	id: 1,
+	status: 'draft'
+};
 /**
  * @returns {import('@pins/applications').ProjectUpdate}
  */
@@ -44,6 +48,10 @@ const nocks = () => {
 			itemCount: 3,
 			items: [testUpdate(), testUpdate(), testUpdate()]
 		})
+		.persist();
+	nock('http://test/')
+		.get(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
+		.reply(200, mockProjectUpdate)
 		.persist();
 };
 
@@ -117,6 +125,54 @@ describe('project-updates', () => {
 				body: {
 					content: 'hello, world',
 					emailSubscribers: true
+				},
+				expectContains: []
+			}
+		];
+
+		it.each(tests)(`$name`, async ({ body, expectContains }) => {
+			const response = await request.post(baseUrl + '/create').send(body);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			for (const str of expectContains) {
+				expect(element.innerHTML).toContain(str);
+			}
+		});
+	});
+
+	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/status', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl + '/1/status');
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - project updates form present
+			expect(element.innerHTML).toContain('Set status');
+			expect(element.innerHTML).toContain('Draft');
+			expect(element.innerHTML).toContain('Publish');
+		});
+	});
+
+	describe('POST /applications-service/:caseId/project-updates/:projectUpdateId/status', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		const tests = [
+			{
+				name: 'should render the next step',
+				body: {
+					status: 'published'
 				},
 				expectContains: []
 			}

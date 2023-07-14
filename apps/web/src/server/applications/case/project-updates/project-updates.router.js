@@ -20,7 +20,8 @@ projectUpdatesRouter
 
 projectUpdatesRouter
 	.route('/:projectUpdateId/status')
-	.get(asyncRoute(controller.projectUpdatesTable));
+	.get(asyncRoute(controller.projectUpdatesStatusGet))
+	.post(asyncRoute(controller.projectUpdatesStatusPost));
 
 projectUpdatesRouter
 	.route('/:projectUpdateId/preview')
