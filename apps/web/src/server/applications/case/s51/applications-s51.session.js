@@ -16,7 +16,7 @@ export const getSessionS51 = (session) => session.s51 || null;
  * @returns {void}
  */
 export const destroySessionS51 = (session) => {
-	delete session.s51;
+	if (session.s51) delete session.s51;
 };
 
 /**
