@@ -2,7 +2,7 @@ import { Router as createRouter } from 'express';
 import { validateApplicationId } from '../application.validators.js';
 import { validatePaginationParameters } from '../../../middleware/pagination-validation.js';
 import { asyncHandler } from '../../../middleware/async-handler.js';
-import { postProjectUpdate, getProjectUpdates } from './project-updates.controller.js';
+import * as controller from './project-updates.controller.js';
 import { validateSortBy } from '../../../middleware/validate-sort-by.js';
 import { validateCreateProjectUpdate } from './project-updates.validators.js';
 
@@ -48,7 +48,7 @@ router.get(
 	validateApplicationId,
 	validatePaginationParameters(),
 	validateSortBy(['datePublished', 'emailSubscribers', 'status']),
-	asyncHandler(getProjectUpdates)
+	asyncHandler(controller.getProjectUpdates)
 );
 
 router.post(
@@ -84,7 +84,42 @@ router.post(
 	*/
 	validateApplicationId,
 	validateCreateProjectUpdate,
-	asyncHandler(postProjectUpdate)
+	asyncHandler(controller.postProjectUpdate)
+);
+
+router.get(
+	'/:id/project-updates/:projectUpdateId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/project-updates/{projectUpdateId}'
+        #swagger.description = 'Get a project update'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'The project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[404] = {
+            description: 'Not found',
+            schema: { $ref: '#/definitions/NotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(controller.getProjectUpdate)
 );
 
 export { router as projectUpdateRoutes };

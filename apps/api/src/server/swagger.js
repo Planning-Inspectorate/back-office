@@ -1432,6 +1432,20 @@ const document = {
 					}
 				}
 			}
+		},
+		NotFound: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						notFound: {
+							type: 'string',
+							example: 'resource not found'
+						}
+					}
+				}
+			}
 		}
 	},
 	components: {}
