@@ -109,8 +109,8 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                             </div>
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                value=\\"published\\">
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Publish</label>
+                                value=\\"ready-to-publish\\">
+                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Ready to Publish</label>
                             </div>
                         </div>
                     </div>

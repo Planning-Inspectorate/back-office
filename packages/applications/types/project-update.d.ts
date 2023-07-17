@@ -15,4 +15,10 @@ export interface ProjectUpdate {
 	htmlContentWelsh: string | null;
 }
 
-export type ProjectUpdateStatus = 'draft' | 'published' | 'unpublished' | 'archived' | string;
+export type ProjectUpdateStatus =
+	| 'draft'
+	| 'ready-to-publish'
+	| 'published'
+	| 'unpublished'
+	| 'archived'
+	| string;

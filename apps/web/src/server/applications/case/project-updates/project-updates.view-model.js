@@ -1,3 +1,4 @@
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { booleanAnswer } from '../../../lib/nunjucks-filters/boolean-answer.js';
 import { displayDate } from '../../../lib/nunjucks-filters/date.js';
 
@@ -94,6 +95,37 @@ export function createFormView(caseInfo, errors, values) {
 }
 
 /**
+ * Return the govukRadio options for the given status
+ *
+ * @param {string} status
+ * @returns {{text: string, value: string}}
+ */
+export function statusRadioOption(status) {
+	let text = status;
+	switch (status) {
+		case ProjectUpdate.Status.draft:
+			text = 'Draft';
+			break;
+		case ProjectUpdate.Status.readyToPublish:
+			text = 'Ready to Publish';
+			break;
+		case ProjectUpdate.Status.published:
+			text = 'Published';
+			break;
+		case ProjectUpdate.Status.archived:
+			text = 'Archived';
+			break;
+		case ProjectUpdate.Status.unpublished:
+			text = 'Unpublished';
+			break;
+	}
+	return {
+		text,
+		value: status
+	};
+}
+
+/**
  *
  * @param {string} status
  * @returns {string}
@@ -103,15 +135,15 @@ function statusColor(status) {
 	// at https://design-system.service.gov.uk/components/tag/#additional-colours
 	// or https://github.dev/alphagov/govuk-frontend/src/govuk/components/tag/_index.scss
 	switch (status.toLowerCase()) {
-		case 'draft':
+		case ProjectUpdate.Status.draft:
 			return 'grey';
-		case 'to-publish':
+		case ProjectUpdate.Status.readyToPublish:
 			return 'purple';
-		case 'published':
+		case ProjectUpdate.Status.published:
 			return 'blue';
-		case 'archived':
+		case ProjectUpdate.Status.archived:
 			return 'red';
-		case 'unpublished':
+		case ProjectUpdate.Status.unpublished:
 			return 'yellow';
 	}
 	return 'grey';
