@@ -60,6 +60,7 @@ const document = {
 			documents: [
 				{
 					documentName: 'document.pdf',
+					documentReference: 'docRef',
 					blobStoreUrl: '/some/path/document.pdf'
 				}
 			]

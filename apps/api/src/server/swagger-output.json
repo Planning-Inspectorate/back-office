@@ -2578,6 +2578,10 @@
 								"type": "string",
 								"example": "document.pdf"
 							},
+							"documentReference": {
+								"type": "string",
+								"example": "docRef"
+							},
 							"blobStoreUrl": {
 								"type": "string",
 								"example": "/some/path/document.pdf"
