@@ -34,8 +34,8 @@ export const documentName = (documentNameWithExtension) => {
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documents
- * @returns {{name: string, caseId: number, folderId: number; documentType: string, documentSize: number}[]}
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documents
+ * @returns {{name: string, caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string}[]}
  */
 const mapDocumentsToSendToDatabase = (caseId, documents) => {
 	return documents?.map((document) => {
@@ -44,22 +44,24 @@ const mapDocumentsToSendToDatabase = (caseId, documents) => {
 			caseId,
 			folderId: document.folderId,
 			documentType: document.documentType,
-			documentSize: document.documentSize
+			documentSize: document.documentSize,
+			documentReference: document.documentReference
 		};
 	});
 };
 
 /**
  *
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}} document
- * @returns {{name: string, folderId: number; documentType: string, documentSize: number}}
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}} document
+ * @returns {{name: string, folderId: number; documentType: string, documentSize: number, reference: string}}
  */
 const mapDocumentToSendToDatabase = (document) => {
 	return {
 		name: document.documentName,
 		folderId: document.folderId,
 		documentType: document.documentType,
-		documentSize: document.documentSize
+		documentSize: document.documentSize,
+		reference: document.documentReference
 	};
 };
 
@@ -75,7 +77,7 @@ const getCaseStageMapping = async (folderId) => {
 /**
  *
  * @param {number} caseId
- * @param {{name: string, folderId: number; documentType: string, documentSize: number}[]} documents
+ * @param {{name: string, folderId: number; documentType: string, documentSize: number, documentReference: string}[]} documents
  * @returns {Promise<import('@pins/applications.api').Schema.Document[]>}
  */
 const upsertDocumentsToDatabase = async (caseId, documents) => {
@@ -98,7 +100,8 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 			const document = await documentRepository.upsert({
 				name: fileName,
 				caseId,
-				folderId: documentToDB.folderId
+				folderId: documentToDB.folderId,
+				reference: documentToDB.documentReference
 			});
 
 			// Log that the document has been upserted and its GUID.
@@ -148,7 +151,8 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 			caseType: 'application',
 			caseReference,
 			GUID: document.guid,
-			documentName: document.name
+			documentName: document.name,
+			documentReference: document.reference
 		};
 	});
 };
@@ -193,7 +197,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 };
 
 /**
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documentsToUpload
  * @param {number} caseId
  * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
  */
@@ -201,7 +205,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
 
-	const caseForDocuments = await caseRepository.getById(+caseId, {});
+	const caseForDocuments = await caseRepository.getById(Number(caseId), {});
 
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 

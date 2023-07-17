@@ -4,7 +4,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  *
- * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number}} document
+ * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const upsert = (document) => {
