@@ -7,7 +7,7 @@
  * @type {object}
  * @property {string} title - key column
  * @property {(string[] | string)} value - value column
- * @property {Object<string, string>[] | null} attributes - custom attributes
+ * @property {{[key: string]: string} | null} [attributes] - custom attributes
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
  * @property {HtmlTagType} valueType - determines html tags
