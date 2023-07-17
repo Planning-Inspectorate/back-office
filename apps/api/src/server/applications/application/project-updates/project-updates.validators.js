@@ -2,13 +2,14 @@ import { composeMiddleware } from '@pins/express';
 import { body, param } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import sanitizeHtml from 'sanitize-html';
+import { ProjectUpdate } from '@pins/applications/src/application/project-update.js';
 
 export const allowedTags = ['a', 'br', 'strong', 'ul', 'li', 'p'];
 export const allowedTagsList = allowedTags.map((t) => `<${t}>`).join(' ');
 export const htmlContentError = `htmlContent can only contain ${allowedTagsList} tags`;
 export const htmlContentWelshError = `htmlContentWelsh can only contain ${allowedTagsList} tags`;
-const statuses = ['draft', 'published', 'unpublished', 'archived'];
-const statusList = statuses.map((s) => `'${s}'`).join(', ');
+const statusList = ProjectUpdate.StatusList.map((s) => `'${s}'`).join(', ');
+export const statusError = `status must be one of ${statusList}`;
 
 export const validateCreateProjectUpdate = composeMiddleware(
 	body('emailSubscribers')
@@ -19,8 +20,8 @@ export const validateCreateProjectUpdate = composeMiddleware(
 	body('status')
 		.notEmpty()
 		.withMessage('status is required')
-		.isIn(statuses)
-		.withMessage(`status must be one of ${statusList}`),
+		.isIn(ProjectUpdate.StatusList)
+		.withMessage(statusError),
 	body('htmlContent')
 		.notEmpty()
 		.withMessage('htmlContent is required')
@@ -45,7 +46,7 @@ export const validateProjectUpdateId = composeMiddleware(
 
 export const validateUpdateProjectUpdate = composeMiddleware(
 	body('emailSubscribers').optional().isBoolean().withMessage('emailSubscribers must be a boolean'),
-	body('status').optional().isIn(statuses).withMessage(`status must be one of ${statusList}`),
+	body('status').optional().isIn(ProjectUpdate.StatusList).withMessage(statusError),
 	body('htmlContent')
 		.optional()
 		.isString()

@@ -1,5 +1,6 @@
 {
     "name": "@pins/applications",
+    "description": "types and other common code for applications",
     "version": "0.0.0",
     "type": "module",
     "main": "index.d.ts",
