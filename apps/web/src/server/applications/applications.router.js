@@ -15,8 +15,13 @@ const domainRouter = createRouter({ mergeParams: true });
 router.use(filters.registerFilters);
 router.use(locals.registerLocals);
 router.use((request, _, next) => {
+	// destroy session containing data for the S51 advice creation journey
+	// triggers in every page
+	// only activates when there is some data in the session
 	const { originalUrl, session } = request;
-	if (!originalUrl.includes('s51-advice/create')) {
+	/** @type{any} */
+	const sessionWithS51 = session;
+	if (sessionWithS51.s51 && !originalUrl.includes('s51-advice/create')) {
 		destroySessionS51(session);
 	}
 	next();
