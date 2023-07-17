@@ -341,7 +341,7 @@ model ExaminationTimetableItem {
   examinationTypeId        Int
   name                     String
   description              String?                  @db.NText
-  date                     DateTime?
+  date                     DateTime
   startDate                DateTime?
   startTime                String?
   endTime                  String?

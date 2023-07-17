@@ -217,7 +217,6 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
 };
 
-// BREADCRUMB
 /**
  * @type {import('express').RequestHandler}
  * @throws {Error}

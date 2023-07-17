@@ -1,5 +1,7 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
@@ -96,6 +98,86 @@ const ExaminationFolder = {
 	parentFolderId: null,
 	displayOrder: 100
 };
+
+const publishExaminationTimetableItemsData = [
+	{
+		id: 1,
+		examinationTimetableId: 1,
+		examinationTypeId: 1,
+		name: 'My timetable',
+		description:
+			'{"preText":"adsfsdfsd","bulletPoints":["Line item 1","Line item 2","Line item 3"]}',
+		date: new Date('2022-01-01T00:00:00.000Z'),
+		startDate: null,
+		startTime: '13:00',
+		endTime: '13:59',
+		folderId: 5167,
+		ExaminationTimetableType: {
+			id: 1,
+			name: 'Accompanied Site Inspection',
+			templateType: 'starttime-mandatory',
+			displayNameEn: 'Accompanied site inspection',
+			displayNameCy: 'Accompanied site inspection'
+		}
+	},
+	{
+		id: 2,
+		examinationTimetableId: 1,
+		examinationTypeId: 3,
+		name: 'Test deadline',
+		description: '{"preText":"Description","bulletPoints":["Line item 1","Line item 2"]}',
+		date: new Date('2023-06-20T00:00:00.000Z'),
+		startDate: new Date('2022-12-12T00:00:00.000Z'),
+		startTime: '13:00',
+		endTime: '13:00',
+		folderId: 5168,
+		ExaminationTimetableType: {
+			id: 3,
+			name: 'Deadline',
+			templateType: 'deadline',
+			displayNameEn: 'Deadline',
+			displayNameCy: 'Deadline'
+		}
+	}
+];
+
+const expectedPublishExaminationTimetableItemsPayload = [
+	{
+		date: '2022-01-01T00:00:00.000Z',
+		description: 'adsfsdfsd',
+		eventDeadlineStartDate: undefined,
+		eventId: 1,
+		eventLineItems: [
+			{
+				eventLineItemDescription: 'Line item 1'
+			},
+			{
+				eventLineItemDescription: 'Line item 2'
+			},
+			{
+				eventLineItemDescription: 'Line item 3'
+			}
+		],
+		eventTitle: 'My timetable',
+		type: 'Accompanied Site Inspection'
+	},
+	{
+		date: '2023-06-20T00:00:00.000Z',
+		description: 'Description',
+		eventDeadlineStartDate: 'Mon Dec 12 2022',
+		eventId: 2,
+		eventLineItems: [
+			{
+				eventLineItemDescription: 'Line item 1'
+			},
+			{
+				eventLineItemDescription: 'Line item 2'
+			}
+		],
+		eventTitle: 'Test deadline',
+		type: 'Deadline'
+	}
+];
 
 describe('Test examination timetable items API', () => {
 	afterEach(() => {
@@ -255,15 +337,29 @@ describe('Test examination timetable items API', () => {
 
 	test('publish examination timetable item publishes examination items for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
+
+		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
+
+		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(
+			publishExaminationTimetableItemsData
+		);
+
 		const resp = await request
 			.patch('/applications/examination-timetable-items/publish/123')
 			.send({});
+
 		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
 				caseId: 123
 			},
 			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_EXAM_TIMETABLE,
+			expectedPublishExaminationTimetableItemsPayload,
+			'Create'
+		);
 
 		expect(resp.status).toEqual(200);
 	});
