@@ -14,12 +14,12 @@ applicationsS51Router
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Folder));
 
 applicationsS51Router
+	.route('/create/check-your-answers')
+	.post(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers));
+
+applicationsS51Router
 	.route('/create/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CreatePage))
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
-
-applicationsS51Router
-	.route('/create/check-your-answers')
-	.post(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers));
 
 export default applicationsS51Router;

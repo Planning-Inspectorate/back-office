@@ -4,7 +4,7 @@
  */
 
 /**
- * Get the case-officer state from the session.
+ * Get the data for the S51 advice that is being created
  *
  * @param {SessionWithS51} session
  * @returns {Partial<S51Advice> | null}
@@ -20,7 +20,7 @@ export const destroySessionS51 = (session) => {
 };
 
 /**
- * Set the reviewed questionnaire data after completing a review.
+ * Set the data for the S51 advice that is being created
  *
  * @param {SessionWithS51} session
  * @param {Partial<S51Advice>} newS51Data
