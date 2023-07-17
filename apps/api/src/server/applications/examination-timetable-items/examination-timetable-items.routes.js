@@ -97,7 +97,7 @@ router.patch(
         }
     */
 	validateApplicationId,
-	asyncHandler(publishExaminationTimetable) // BREADCRUMB
+	asyncHandler(publishExaminationTimetable)
 );
 
 router.patch(
