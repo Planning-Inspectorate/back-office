@@ -14,10 +14,10 @@ import * as controller from './documents.controller.js';
 const router = createRouter();
 
 router.get(
-	'/:appealId/document-location/:folderId',
+	'/:appealId/document-folders/:folderId',
 	/*
 		#swagger.tags = ['Appeal Documents']
-		#swagger.path = '/appeals/{appealId}/document-location/{folderId}'
+		#swagger.path = '/appeals/{appealId}/document-folders/{folderId}'
 		#swagger.description = Returns the contents of a single appeal folder, by id
 		#swagger.responses[200] = {
 			description: 'Returns the contents of a single appeal folder, by id',
