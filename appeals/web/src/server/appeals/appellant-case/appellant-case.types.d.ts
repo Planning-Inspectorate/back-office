@@ -1,4 +1,5 @@
 import { AppealSite } from '@pins/appeals';
+import { FolderInfo, DocumentInfo } from '../appeal-documents/appeal-documents.types.js';
 
 // TODO: BOAT-245
 export interface SingleAppellantCaseResponse {
@@ -26,11 +27,11 @@ export interface SingleAppellantCaseResponse {
 		details: string | null;
 	};
 	documents: {
-		appealStatement: string;
-		applicationForm: string;
-		decisionLetter: string;
-		designAndAccessStatement?: string;
-		newSupportingDocuments: string[];
+		appealStatement: FolderInfo;
+		applicationForm: FolderInfo;
+		decisionLetter: FolderInfo;
+		designAndAccessStatement?: FolderInfo;
+		newSupportingDocuments: FolderInfo;
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;

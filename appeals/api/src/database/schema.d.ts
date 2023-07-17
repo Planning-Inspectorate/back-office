@@ -13,7 +13,6 @@ export {
 	AppellantCaseInvalidReason,
 	AppellantCaseIncompleteReasonOnAppellantCase,
 	AppellantCaseInvalidReasonOnAppellantCase,
-	Folder,
 	Document,
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
@@ -72,6 +71,10 @@ export interface FolderTemplate {
 	path: string;
 	displayName?: string;
 	caseId: number;
+}
+
+export interface Folder extends schema.Folder {
+	documents: schema.Document[];
 }
 
 export interface AppealStatus extends schema.AppealStatus {

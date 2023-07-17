@@ -1,8 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
-import {
-	mapDocumentNameForStorageUrl,
-	mapBlobPath
-} from '#endpoints/documents/documents.mapper.js';
+import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
@@ -13,12 +10,11 @@ import {
  */
 export const addDocument = async (metadata, context) => {
 	const transaction = await databaseConnector.$transaction(async (tx) => {
-		const fileName = mapDocumentNameForStorageUrl(metadata.originalFilename);
 		const document = await tx.document.create({
 			data: {
 				caseId: context.caseId,
 				folderId: context.folderId,
-				name: fileName
+				name: metadata.originalFilename
 			}
 		});
 
@@ -26,12 +22,9 @@ export const addDocument = async (metadata, context) => {
 		const newVersionId = 1;
 
 		metadata.fileName = name;
-		metadata.blobStoragePath = metadata.documentURI = mapBlobPath(
-			guid,
-			context.reference,
-			name,
-			newVersionId
-		);
+		metadata.blobStoragePath = mapBlobPath(guid, context.reference, name, newVersionId);
+
+		metadata.documentURI = `${context.blobStorageHost}/${metadata.blobStorageContainer}/${metadata.blobStoragePath}`;
 
 		const documentVersion = await tx.documentVersion.upsert({
 			create: { ...metadata, version: newVersionId, parentDocument: { connect: { guid } } },
@@ -59,7 +52,7 @@ export const addDocument = async (metadata, context) => {
  * @param {any} metadata
  * @returns {Promise<DocumentVersion | null>}
  */
-export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
+export const addDocumentVersion = async ({ context, documentGuid, ...metadata }) => {
 	// @ts-ignore
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const document = await tx.document.findFirst({
@@ -78,12 +71,9 @@ export const addDocumentVersion = async ({ documentGuid, ...metadata }) => {
 		const newVersionId = latestVersionId + 1;
 
 		metadata.fileName = name;
-		metadata.blobStoragePath = metadata.documentURI = mapBlobPath(
-			documentGuid,
-			reference,
-			name,
-			newVersionId
-		);
+		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
+
+		metadata.documentURI = `${context.blobStorageHost}/${metadata.blobStorageContainer}/${metadata.blobStoragePath}`;
 
 		await tx.documentVersion.upsert({
 			create: {

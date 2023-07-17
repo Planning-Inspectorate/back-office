@@ -15,10 +15,14 @@ export const defaultCaseFolders = (caseId) => {
 		},
 		{ caseId, path: 'appellantCase/applicationForm' },
 		{ caseId, path: 'appellantCase/decisionLetter' },
-		{ caseId, path: 'appellantCase/newSupportingDocuments' },
-		{ caseId, path: 'lpaQuestionnaire/communityInfrastructureLevy' },
-		{ caseId, path: 'lpaQuestionnaire/conservationAreaMapAndGuidance' },
-		{ caseId, path: 'lpaQuestionnaire/consultationResponses' },
-		{ caseId, path: 'lpaQuestionnaire/definitiveMapAndStatement' }
+		{ caseId, path: 'appellantCase/designAndAccessStatement' },
+		{ caseId, path: 'appellantCase/planningObligation' },
+		{ caseId, path: 'appellantCase/plansDrawingsSupportingDocuments' },
+		{ caseId, path: 'appellantCase/separateOwnershipCertificate' },
+		{ caseId, path: 'appellantCase/newSupportingDocuments' }
+		// { caseId, path: 'lpaQuestionnaire/communityInfrastructureLevy' },
+		// { caseId, path: 'lpaQuestionnaire/conservationAreaMapAndGuidance' },
+		// { caseId, path: 'lpaQuestionnaire/consultationResponses' },
+		// { caseId, path: 'lpaQuestionnaire/definitiveMapAndStatement' }
 	];
 };

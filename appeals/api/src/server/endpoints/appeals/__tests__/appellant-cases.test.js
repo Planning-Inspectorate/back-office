@@ -28,6 +28,7 @@ import {
 	fullPlanningAppeal,
 	householdAppeal
 } from '../../../tests/data.js';
+import { folder } from '#tests/documents/mocks.js';
 import { calculateTimetable, joinDateAndTime } from '../appeals.service.js';
 import config from '../../../config/config.js';
 import { NotifyClient } from 'notifications-node-client';
@@ -48,6 +49,7 @@ describe('appellant cases routes', () => {
 		describe('GET', () => {
 			test('gets a single appellant case for a household appeal', async () => {
 				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { appellantCase, siteVisit } = householdAppeal;
@@ -75,13 +77,13 @@ describe('appellant cases routes', () => {
 						surname: appellantCase.applicantSurname
 					},
 					documents: {
-						appealStatement: 'appeal-statement.pdf',
-						applicationForm: 'application-form.pdf',
-						decisionLetter: 'decision-letter.pdf',
-						newSupportingDocuments: [
-							'new-supporting-documents-1.pdf',
-							'new-supporting-documents-2.pdf'
-						]
+						appealStatement: {
+							documents: [],
+							path: folder.path
+						},
+						applicationForm: {},
+						decisionLetter: {},
+						newSupportingDocuments: {}
 					},
 					hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
 					hasNewSupportingDocuments: appellantCase.hasNewSupportingDocuments,
@@ -114,6 +116,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for a full planning appeal', async () => {
 				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
 				const { appellantCase, siteVisit } = fullPlanningAppeal;
@@ -151,21 +154,18 @@ describe('appellant cases routes', () => {
 						details: appellantCase.newDevelopmentDescription
 					},
 					documents: {
-						appealStatement: 'appeal-statement.pdf',
-						applicationForm: 'application-form.pdf',
-						decisionLetter: 'decision-letter.pdf',
-						designAndAccessStatement: 'design-and-access-statement.pdf',
-						newPlansOrDrawings: ['new-plans-or-drawings-1.pdf', 'new-plans-or-drawings-2.pdf'],
-						newSupportingDocuments: [
-							'new-supporting-documents-1.pdf',
-							'new-supporting-documents-2.pdf'
-						],
-						planningObligation: 'planning-obligation.pdf',
-						plansDrawingsSupportingDocuments: [
-							'plans-drawings-supporting-documents-1.pdf',
-							'plans-drawings-supporting-documents-2.pdf'
-						],
-						separateOwnershipCertificate: 'separate-ownership-certificate.pdf'
+						appealStatement: {
+							documents: [],
+							path: folder.path
+						},
+						applicationForm: {},
+						designAndAccessStatement: {},
+						decisionLetter: {},
+						newPlansOrDrawings: {},
+						newSupportingDocuments: {},
+						planningObligation: {},
+						plansDrawingsSupportingDocuments: {},
+						separateOwnershipCertificate: {}
 					},
 					hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
 					hasDesignAndAccessStatement: appellantCase.hasDesignAndAccessStatement,

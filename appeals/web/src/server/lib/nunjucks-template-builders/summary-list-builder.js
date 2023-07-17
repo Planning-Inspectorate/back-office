@@ -6,7 +6,8 @@
  * @typedef Row
  * @type {object}
  * @property {string} title - key column
- * @property {(string | string[])} value - value column
+ * @property {(string[] | string)} value - value column
+ * @property {Object<string, string>[] | null} attributes - custom attributes
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
  * @property {HtmlTagType} valueType - determines html tags
@@ -70,7 +71,7 @@ export function generateSummaryList(rows, header) {
 }
 
 /**
- * @param {{ valueType: HtmlTagType; value: string | string[]; }} row
+ * @param {Row} row
  * @returns {string}
  */
 function formatRowValue(row) {
@@ -85,6 +86,10 @@ function formatRowValue(row) {
 				i < row.value.length - 1 && row.valueType !== 'unorderedList' ? '<br>' : ''
 			}`;
 		}
+	} else if (row.attributes) {
+		// @ts-ignore
+		htmlTags = getHtmlAnchorWithAttributes(row.attributes);
+		rowValueAsHtml = `${htmlTags.startTag}${row.value}${htmlTags.endTag}`;
 	} else {
 		htmlTags = getHtmlTags(row.valueType, row.value);
 		rowValueAsHtml = `${htmlTags.startTag}${row.value}${htmlTags.endTag}`;
@@ -126,4 +131,19 @@ function getHtmlTags(type, href) {
 	};
 
 	return determineHtmlTag[type];
+}
+
+/**
+ * @param {Object<string, string>} attributes
+ * @returns {HtmlTagsEntry}
+ */
+function getHtmlAnchorWithAttributes(attributes) {
+	const attrs = Object.keys(attributes)
+		.map((a) => `${a}="${attributes[a]}"`)
+		.join(' ');
+
+	return {
+		startTag: `<a ${attrs} class="govuk-link">`,
+		endTag: `</a>`
+	};
 }

@@ -17,7 +17,7 @@ export const appeal = {
 };
 
 export const folder = {
-	id: 23,
+	folderId: 23,
 	displayName: 'myfolder',
 	path: 'appellantCase/appealStatement',
 	caseId: appeal.reference,
@@ -25,6 +25,7 @@ export const folder = {
 };
 
 export const newDocRequest = {
+	blobStorageHost: 'host',
 	blobStorageContainer: 'document-service-uploads',
 	documents: [
 		{
@@ -33,12 +34,13 @@ export const newDocRequest = {
 			documentType: 'application/pdf',
 			documentSize: 14699,
 			fileRowId: `file_row_1685470289030_16995`,
-			folderId: folder.id
+			folderId: folder.folderId
 		}
 	]
 };
 
 export const newDocVersionRequest = {
+	blobStorageHost: 'host',
 	blobStorageContainer: 'document-service-uploads',
 	document: {
 		caseId: appeal.id,
@@ -46,7 +48,7 @@ export const newDocVersionRequest = {
 		documentType: 'application/pdf',
 		documentSize: 14699,
 		fileRowId: `file_row_1685470289030_16995`,
-		folderId: folder.id
+		folderId: folder.folderId
 	}
 };
 

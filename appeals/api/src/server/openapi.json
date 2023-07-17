@@ -639,13 +639,21 @@
 				}
 			}
 		},
-		"/appeals/{appealId}/document-locations": {
+		"/appeals/{appealId}/document-location/{folderId}": {
 			"get": {
 				"tags": ["Appeal Documents"],
-				"description": "Returns the contents of the appeal folders",
+				"description": "Returns the contents of a single appeal folder, by id",
 				"parameters": [
 					{
 						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "folderId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -655,7 +663,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
+						"description": "Returns the contents of a single appeal folder, by id",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -741,7 +749,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
+						"description": "Document metadata successfully added",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -797,7 +805,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
+						"description": "Document metadata successfully added",
 						"content": {
 							"application/json": {
 								"schema": {

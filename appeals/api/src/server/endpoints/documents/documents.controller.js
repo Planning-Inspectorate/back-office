@@ -9,10 +9,11 @@ import * as service from './documents.service.js';
  * @type {RequestHandler}
  * @returns {Promise<object>}
  */
-const getDocumentLocations = async (req, res) => {
+const getDocumentsByFolderId = async (req, res) => {
 	const { appeal } = req;
-	const folders = await service.getFoldersForAppeal(appeal);
-	return res.send(folders);
+	const { folderId } = req.params;
+	const folder = await service.getFolderForAppeal(appeal, folderId);
+	return res.send(folder);
 };
 
 /**
@@ -65,4 +66,4 @@ const getStorageInfo = (docs) => {
 	};
 };
 
-export { getDocumentLocations, getDocument, addDocuments, addDocumentVersion };
+export { getDocumentsByFolderId, getDocument, addDocuments, addDocumentVersion };

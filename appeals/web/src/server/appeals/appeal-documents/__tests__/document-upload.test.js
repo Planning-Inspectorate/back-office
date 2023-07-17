@@ -30,7 +30,7 @@ describe('documents upload', () => {
 
 	it('should return 404 if appeal ID is not found', async () => {
 		nock('http://test/').get(`/appeals/${invalidAppealId}`).reply(404);
-		nock('http://test/').get(`/appeals/${invalidAppealId}/document-locations`).reply(404);
+		nock('http://test/').get(`/appeals/${invalidAppealId}/document-location/1`).reply(404);
 
 		const response = await request.get(getControllerEndpoint(invalidAppealId, invalidFolderId));
 		expect(response.statusCode).toBe(404);
@@ -39,7 +39,7 @@ describe('documents upload', () => {
 	it('should return 404 if folder ID is not found', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, invalidFolderId));
@@ -49,7 +49,7 @@ describe('documents upload', () => {
 	it('should return 404 if document ID is not found', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 		nock('http://test/').get(`/appeals/${invalidAppealId}/documents/${documentId}`).reply(404);
 
@@ -62,7 +62,7 @@ describe('documents upload', () => {
 	it('should render upload form if appeal ID and folder ID are found', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
@@ -75,7 +75,7 @@ describe('documents upload', () => {
 	it('should render upload form if appeal ID, folder ID and document ID are found', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/documents/${documentId}`)
@@ -93,7 +93,7 @@ describe('documents upload', () => {
 	it('should render appeal ID and folder ID as data attributes', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
@@ -113,7 +113,7 @@ describe('documents upload', () => {
 	it('should render appeal ID, folder ID and document ID as data attributes', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
-			.get(`/appeals/${validAppealId}/document-locations`)
+			.get(`/appeals/${validAppealId}/document-location/1`)
 			.reply(200, validFolders);
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/documents/${documentId}`)
@@ -133,6 +133,22 @@ describe('documents upload', () => {
 		expect(dataAttributes['data-document-id']).toEqual(documentId);
 		// @ts-ignore
 		expect(html.querySelector('#upload-file-1')?.attributes['multiple']).toBeUndefined();
+	});
+
+	it('should render blob host and container', async () => {
+		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
+		nock('http://test/')
+			.get(`/appeals/${validAppealId}/document-location/1`)
+			.reply(200, validFolders);
+
+		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
+		const html = parseHtml(response.text);
+
+		const dataAttributes = processAttrs(html.querySelector('.pins-file-upload')?.attributes);
+		// @ts-ignore
+		expect(dataAttributes['data-blob-storage-host']).not.toBe(null);
+		// @ts-ignore
+		expect(dataAttributes['data-blob-storage-container']).not.toBe(null);
 	});
 });
 

@@ -1,7 +1,9 @@
 import { format } from 'date-fns';
-import appealRepository from '../../repositories/appeal.repository.js';
-import { getPageCount } from '../../utils/database-pagination.js';
-import logger from '../../utils/logger.js';
+import appealRepository from '#repositories/appeal.repository.js';
+import { getPageCount } from '#utils/database-pagination.js';
+import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
+import logger from '#utils/logger.js';
+
 import {
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
@@ -89,11 +91,12 @@ const getLpaQuestionnaireById = (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {object}
+ * @returns {Promise<object>}
  */
-const getAppellantCaseById = (req, res) => {
+const getAppellantCaseById = async (req, res) => {
 	const { appeal } = req;
-	const formattedAppeal = appealFormatter.formatAppellantCase(appeal);
+	const folders = await getFoldersForAppeal(appeal, 'appellantCase');
+	const formattedAppeal = appealFormatter.formatAppellantCase(appeal, folders);
 
 	return res.send(formattedAppeal);
 };

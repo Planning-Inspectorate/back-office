@@ -1,4 +1,4 @@
-import { getFolderLayout, getFileInfo } from './appeal.documents.service.js';
+import { getFolder, getFileInfo } from './appeal.documents.service.js';
 
 /**
  * @type {import("express").RequestHandler}
@@ -6,18 +6,13 @@ import { getFolderLayout, getFileInfo } from './appeal.documents.service.js';
  */
 export const validateCaseFolderId = async (req, res, next) => {
 	const { appealId, folderId } = req.params;
-	const folders = await getFolderLayout(appealId);
-	if (folders && !req.caseFolders) {
-		req.caseFolders = folders;
-	}
+	const folder = await getFolder(appealId, folderId);
 
-	if (
-		!folders ||
-		folders.map((/** @type {{ id: number; }} */ f) => f.id).indexOf(Number(folderId)) === -1
-	) {
+	if (!folder) {
 		return res.status(404).render('app/404');
 	}
 
+	req.currentFolder = folder;
 	next();
 };
 

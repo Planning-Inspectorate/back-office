@@ -1,7 +1,19 @@
 import { databaseConnector } from '#utils/database-connector.js';
-import { defaultCaseFolders } from './folder.layout.repository.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+
+/**
+ * Returns array of folders in a folder or case (if parentFolderId is null)
+ *
+ * @param {number} id
+ * @returns {Promise<Folder|null>}
+ */
+export const getById = (id) => {
+	return databaseConnector.folder.findUnique({
+		where: { id },
+		include: { documents: true }
+	});
+};
 
 /**
  * Returns array of folders in a folder or case (if parentFolderId is null)
@@ -10,27 +22,27 @@ import { defaultCaseFolders } from './folder.layout.repository.js';
  * @returns {Promise<Folder[]>}
  */
 export const getByCaseId = (caseId) => {
-	return databaseConnector.folder.findMany({ where: { caseId } });
+	return databaseConnector.folder.findMany({
+		where: { caseId },
+		include: { documents: true }
+	});
 };
 
 /**
- * Creates the top level folders on a case using the folder template
- * and recursively creates all sub folders.
- * Returns an array of promises
+ * Returns array of folders in a folder or case (if parentFolderId is null)
  *
  * @param {number} caseId
+ * @param {string} path
  * @returns {Promise<Folder[]>}
  */
-export const upsertCaseFolders = async (caseId) => {
-	const foldersCreated = [];
-	for (const folder of defaultCaseFolders(caseId)) {
-		const topFoldersCreated = await databaseConnector.folder.upsert({
-			create: folder,
-			where: { caseId_path: { caseId, path: folder.path } },
-			update: { displayName: folder.displayName }
-		});
-		foldersCreated.push(topFoldersCreated);
-	}
-
-	return foldersCreated;
+export const getByCaseIdPath = (caseId, path) => {
+	return databaseConnector.folder.findMany({
+		where: {
+			caseId,
+			path: {
+				startsWith: path
+			}
+		},
+		include: { documents: true }
+	});
 };

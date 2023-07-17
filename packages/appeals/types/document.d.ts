@@ -6,6 +6,7 @@ export interface FileUploadInfo {
 }
 
 export interface DocumentMetadata {
+	blobStorageHost: string;
 	blobStorageContainer: string;
 	caseId: number;
 	documentType: string;
@@ -37,11 +38,13 @@ export interface BlobInfo {
 }
 
 export interface DocumentApiRequest {
+	blobStorageHost: string;
 	blobStorageContainer: string;
 	documents: MappedDocument[];
 }
 
 export interface DocumentVersionApiRequest {
+	blobStorageHost: string;
 	blobStorageContainer: string;
 	document: MappedDocument;
 }

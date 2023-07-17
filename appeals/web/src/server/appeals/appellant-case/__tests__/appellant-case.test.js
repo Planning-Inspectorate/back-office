@@ -28,6 +28,13 @@ describe('appellant-case', () => {
 	afterEach(teardown);
 
 	describe('GET /appellant-case', () => {
+		beforeEach(() => {
+			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
+		});
+
+		afterEach(() => {
+			nock.cleanAll();
+		});
 		it('should render the appellant case page', async () => {
 			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
 			const element = parseHtml(response.text);

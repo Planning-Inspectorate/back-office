@@ -124,10 +124,26 @@ export const appellantCaseData = {
 		surname: null
 	},
 	documents: {
-		appealStatement: 'appeal-statement.pdf',
-		applicationForm: 'application-form.pdf',
-		decisionLetter: 'decision-letter.pdf',
-		newSupportingDocuments: ['new-supporting-documents-1.pdf', 'new-supporting-documents-2.pdf']
+		appealStatement: {
+			folderId: 1,
+			path: 'appellantCase/appealStatement',
+			documents: []
+		},
+		applicationForm: {
+			folderId: 2,
+			path: 'appellantCase/applicationForm',
+			documents: []
+		},
+		decisionLetter: {
+			folderId: 3,
+			path: 'appellantCase/decisionLetter',
+			documents: []
+		},
+		newSupportingDocuments: {
+			folderId: 4,
+			path: 'appellantCase/newSupportingDocuments',
+			documents: []
+		}
 	},
 	hasAdvertisedAppeal: null,
 	hasNewSupportingDocuments: false,

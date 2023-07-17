@@ -1,7 +1,7 @@
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import logger from '#utils/logger.js';
 import { mapDocumentsForDatabase, mapDocumentsForBlobStorage } from './documents.mapper.js';
-import { upsertCaseFolders } from '#repositories/folder.repository.js';
+import { getByCaseId, getByCaseIdPath, getById } from '#repositories/folder.repository.js';
 import { addDocument, addDocumentVersion } from '#repositories/document-metadata.repository.js';
 
 /** @typedef {import("../appeals.js").RepositoryGetByIdResultItem} RepositoryResult */
@@ -15,13 +15,33 @@ import { addDocument, addDocumentVersion } from '#repositories/document-metadata
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 
 /**
- * Returns all documents for the current Appeal, or filtered by section name
+ * Returns all folder for the current Appeal
  * @param {RepositoryResult} appeal
+ * @param {string} folderId
+ * @returns {Promise<Folder|null>}
+ */
+export const getFolderForAppeal = async (appeal, folderId) => {
+	//if (!folderId)
+	const folder = await getById(Number(folderId));
+	if (folder && folder.caseId === appeal.id) {
+		return folder;
+	}
+
+	return null;
+};
+
+/**
+ * Returns all folder for the current Appeal
+ * @param {RepositoryResult} appeal
+ * @param {string?} path
  * @returns {Promise<Folder[]>}
  */
-export const getFoldersForAppeal = async (appeal) => {
-	const folderLayout = await upsertCaseFolders(appeal.id);
-	return folderLayout;
+export const getFoldersForAppeal = async (appeal, path = null) => {
+	if (path) {
+		return await getByCaseIdPath(appeal.id, path);
+	}
+
+	return await getByCaseId(appeal.id);
 };
 
 /**
@@ -31,12 +51,10 @@ export const getFoldersForAppeal = async (appeal) => {
  * @returns {Promise<{documents: (BlobInfo|null)[]}>}}
  */
 export const addDocumentsToAppeal = async (upload, appeal) => {
-	if (!appeal || appeal.reference == null) {
-		throw new Error('Case not found or has no reference');
-	}
-	const { blobStorageContainer, documents } = upload;
+	const { blobStorageHost, blobStorageContainer, documents } = upload;
 	const documentsToSendToDatabase = mapDocumentsForDatabase(
 		appeal.id,
+		blobStorageHost,
 		blobStorageContainer,
 		documents
 	);
@@ -83,7 +101,8 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
 				{
 					caseId,
 					reference,
-					folderId: Number(d.folderId)
+					folderId: Number(d.folderId),
+					blobStorageHost: d.blobStorageHost
 				}
 			);
 
@@ -110,20 +129,22 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
  * @returns {Promise<{documents: (BlobInfo|null)[]}>}}
  */
 export const addVersionToDocument = async (upload, appeal, document) => {
-	if (!appeal || appeal.reference == null) {
-		throw new Error('Case not found or has no reference');
-	}
-
 	if (!document) {
 		throw new Error('Document not found');
 	}
 
-	const { blobStorageContainer, document: uploadedDocument } = upload;
-	const documentToSendToDatabase = mapDocumentsForDatabase(appeal.id, blobStorageContainer, [
-		uploadedDocument
-	])[0];
+	const { blobStorageHost, blobStorageContainer, document: uploadedDocument } = upload;
+	const documentToSendToDatabase = mapDocumentsForDatabase(
+		appeal.id,
+		blobStorageHost,
+		blobStorageContainer,
+		[uploadedDocument]
+	)[0];
 
 	const documentVersionCreated = await addDocumentVersion({
+		context: {
+			blobStorageHost: documentToSendToDatabase.blobStorageHost
+		},
 		documentGuid: document.guid,
 		fileName: document.name,
 		originalFilename: documentToSendToDatabase.name,

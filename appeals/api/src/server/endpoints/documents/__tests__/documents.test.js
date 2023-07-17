@@ -4,6 +4,7 @@ import * as folderRepository from '#repositories/folder.repository.js';
 import { defaultCaseFolders } from '#repositories/folder.layout.repository.js';
 import {
 	appeal,
+	folder,
 	newDocRequest,
 	newDocVersionRequest,
 	blobInfo,
@@ -72,12 +73,14 @@ describe('appeals documents', () => {
 		test('post single document', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
 				appeal.id,
+				newDocRequest.blobStorageHost,
 				newDocRequest.blobStorageContainer,
 				newDocRequest.documents
 			);
-			mappedReq.forEach((m) =>
-				expect(m.blobStorageContainer).toEqual(newDocRequest.blobStorageContainer)
-			);
+			mappedReq.forEach((m) => {
+				expect(m.blobStorageHost).toEqual(newDocRequest.blobStorageHost);
+				expect(m.blobStorageContainer).toEqual(newDocRequest.blobStorageContainer);
+			});
 
 			const prismaMock = {
 				document: {
@@ -100,12 +103,14 @@ describe('appeals documents', () => {
 		test('post new document version', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
 				appeal.id,
+				newDocVersionRequest.blobStorageHost,
 				newDocVersionRequest.blobStorageContainer,
 				[newDocVersionRequest.document]
 			);
-			mappedReq.forEach((m) =>
-				expect(m.blobStorageContainer).toEqual(newDocVersionRequest.blobStorageContainer)
-			);
+			mappedReq.forEach((m) => {
+				expect(m.blobStorageHost).toEqual(newDocVersionRequest.blobStorageHost);
+				expect(m.blobStorageContainer).toEqual(newDocVersionRequest.blobStorageContainer);
+			});
 
 			const prismaMock = {
 				document: {
@@ -128,6 +133,14 @@ describe('appeals documents', () => {
 				documentCreated.guid
 			);
 			expect(response).toEqual({ documents: [blobInfo] });
+		});
+	});
+
+	describe('documents services', () => {
+		test('get folders for appeal', async () => {
+			databaseConnector.folder.findMany.mockReturnValue([folder]);
+			const folders = await service.getFoldersForAppeal(appeal, 'appellantCase');
+			expect(folders).toEqual([folder]);
 		});
 	});
 });
