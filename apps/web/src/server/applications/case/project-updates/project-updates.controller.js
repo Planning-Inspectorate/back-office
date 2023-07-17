@@ -9,7 +9,12 @@ import {
 	getProjectUpdates,
 	patchProjectUpdate
 } from './project-updates.service.js';
-import { createFormView, projectUpdatesRows } from './project-updates.view-model.js';
+import {
+	createFormView,
+	projectUpdatesRows,
+	statusRadioOption
+} from './project-updates.view-model.js';
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
 const view = 'applications/case/project-updates.njk';
 const formView = 'applications/case/project-updates/project-updates-form.njk';
@@ -95,14 +100,8 @@ export async function projectUpdatesStatusGet(req, res) {
 					name: 'status',
 					value: projectUpdate.status,
 					items: [
-						{
-							value: 'draft',
-							text: 'Draft'
-						},
-						{
-							value: 'published',
-							text: 'Publish'
-						}
+						statusRadioOption(ProjectUpdate.Status.draft),
+						statusRadioOption(ProjectUpdate.Status.readyToPublish)
 					],
 					errorMessage: errors?.status
 				}

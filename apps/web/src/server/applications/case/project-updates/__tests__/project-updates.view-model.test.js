@@ -53,14 +53,14 @@ describe('project-updates.view-model', () => {
 				name: 'status',
 				updates: [
 					{ ...testUpdate(), status: 'draft' },
-					{ ...testUpdate(), status: 'to-publish' },
+					{ ...testUpdate(), status: 'ready-to-publish' },
 					{ ...testUpdate(), status: 'published' },
 					{ ...testUpdate(), status: 'unpublished' },
 					{ ...testUpdate(), status: 'archived' }
 				],
 				want: [
 					{ ...testUpdateRow(), status: { color: 'grey', label: 'draft' } },
-					{ ...testUpdateRow(), status: { color: 'purple', label: 'to-publish' } },
+					{ ...testUpdateRow(), status: { color: 'purple', label: 'ready-to-publish' } },
 					{ ...testUpdateRow(), status: { color: 'blue', label: 'published' } },
 					{ ...testUpdateRow(), status: { color: 'yellow', label: 'unpublished' } },
 					{ ...testUpdateRow(), status: { color: 'red', label: 'archived' } }

@@ -11,6 +11,7 @@ export class ProjectUpdate {
 	static get Status() {
 		return Object.freeze({
 			draft: 'draft',
+			readyToPublish: 'ready-to-publish',
 			published: 'published',
 			unpublished: 'unpublished',
 			archived: 'archived'
