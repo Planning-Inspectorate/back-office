@@ -12,6 +12,7 @@ import {
 } from './project-updates.mapper.js';
 import { NSIP_PROJECT_UPDATE } from '../../../infrastructure/topics.js';
 import logger from '../../../utils/logger.js';
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
 /**
  * Create a new project update, and send the Create event
@@ -53,13 +54,18 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 	const update = await updateProjectUpdate(projectUpdateId, updateReq);
 
 	if (update.case && update.case.reference) {
-		await eventClient.sendEvents(
-			NSIP_PROJECT_UPDATE,
-			[buildProjectUpdatePayload(update, update.case.reference)],
-			EventType.Update
-		);
+		const events = [buildProjectUpdatePayload(update, update.case.reference)];
+		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Update);
+
+		if (update.status === ProjectUpdate.Status.published) {
+			await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
+		} else if (update.status === ProjectUpdate.Status.unpublished) {
+			await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Unpublish);
+		}
 	} else {
-		logger.warn('updateProjectUpdateService: project update case has no reference. No event sent.');
+		logger.warn(
+			'updateProjectUpdateService: project update case has no reference. No event(s) sent.'
+		);
 	}
 
 	return mapProjectUpdate(update);

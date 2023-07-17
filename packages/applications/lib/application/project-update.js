@@ -7,6 +7,7 @@
 export class ProjectUpdate {
 	/**
 	 * Project update status options
+	 * @type {Object<string, import("@pins/applications/types/project-update.js").ProjectUpdateStatus>}
 	 */
 	static get Status() {
 		return Object.freeze({
@@ -23,5 +24,19 @@ export class ProjectUpdate {
 	 */
 	static get StatusList() {
 		return Object.freeze(Object.values(ProjectUpdate.Status));
+	}
+
+	/**
+	 * A map of status to allowed statuses
+	 */
+	static get AllowedStatuses() {
+		const status = ProjectUpdate.Status;
+		return Object.freeze({
+			[status.draft]: [status.readyToPublish],
+			[status.readyToPublish]: [status.draft, status.published],
+			[status.published]: [status.unpublished],
+			[status.archived]: [],
+			[status.unpublished]: [status.archived]
+		});
 	}
 }

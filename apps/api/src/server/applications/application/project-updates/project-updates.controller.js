@@ -9,6 +9,7 @@ import {
 	updateProjectUpdateService
 } from './project-updates.service.js';
 import { NotFound } from '#utils/api-errors.js';
+import { ProjectUpdateStatusError } from '#repositories/project-update.respository.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -66,6 +67,15 @@ export async function patchProjectUpdate(req, res) {
 	const caseId = parseInt(req.params.id);
 	const projectUpdateId = parseInt(req.params.projectUpdateId);
 	logger.debug({ body: req.body, caseId, projectUpdateId }, 'patchProjectUpdate');
-	const update = await updateProjectUpdateService(req.body, projectUpdateId);
-	res.send(update);
+	try {
+		const update = await updateProjectUpdateService(req.body, projectUpdateId);
+		res.send(update);
+	} catch (e) {
+		// handle status errors from the db transaction
+		if (e instanceof ProjectUpdateStatusError) {
+			res.status(400).send({ errors: { status: e.message } });
+		} else {
+			throw e;
+		}
+	}
 }

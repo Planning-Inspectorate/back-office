@@ -255,8 +255,15 @@ class MockPrismaClient {
 		findUnique: jest.fn()
 	};
 
+	// see https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api
 	$transaction(queries = []) {
-		return Promise.all(queries);
+		if (typeof queries === 'function') {
+			// transactions can be a function, run with an instance of the client
+			return queries(this);
+		} else {
+			// or just an array of queries to run
+			return Promise.all(queries);
+		}
 	}
 }
 
