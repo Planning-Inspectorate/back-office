@@ -69,10 +69,10 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
 	return {
 		// @ts-ignore
 		type: examinationTimetableItem.ExaminationTimetableType.name,
-		date: examinationTimetableItem.date.toISOString(),
+		date: examinationTimetableItem.date.toISOString().replace('Z', ''),
 		description,
 		eventTitle: examinationTimetableItem.name,
-		eventDeadlineStartDate: examinationTimetableItem.startDate?.toDateString(),
+		eventDeadlineStartDate: examinationTimetableItem.startDate?.toISOString().replace('Z', ''),
 		eventId: examinationTimetableItem.id,
 		eventLineItems
 	};
@@ -101,5 +101,5 @@ export async function publish(id) {
 		updatedExaminationTimetable
 	);
 
-	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Create);
+	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
 }

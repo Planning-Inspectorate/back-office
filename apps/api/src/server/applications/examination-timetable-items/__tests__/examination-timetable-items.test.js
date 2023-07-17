@@ -106,7 +106,7 @@ const publishExaminationTimetableItemsData = [
 		examinationTypeId: 1,
 		name: 'My timetable',
 		description:
-			'{"preText":"adsfsdfsd","bulletPoints":["Line item 1","Line item 2","Line item 3"]}',
+			'{"preText":"Some description","bulletPoints":["Line item 1","Line item 2","Line item 3"]}',
 		date: new Date('2022-01-01T00:00:00.000Z'),
 		startDate: null,
 		startTime: '13:00',
@@ -143,8 +143,8 @@ const publishExaminationTimetableItemsData = [
 
 const expectedPublishExaminationTimetableItemsPayload = [
 	{
-		date: '2022-01-01T00:00:00.000Z',
-		description: 'adsfsdfsd',
+		date: '2022-01-01T00:00:00.000',
+		description: 'Some description',
 		eventDeadlineStartDate: undefined,
 		eventId: 1,
 		eventLineItems: [
@@ -162,9 +162,9 @@ const expectedPublishExaminationTimetableItemsPayload = [
 		type: 'Accompanied Site Inspection'
 	},
 	{
-		date: '2023-06-20T00:00:00.000Z',
+		date: '2023-06-20T00:00:00.000',
 		description: 'Description',
-		eventDeadlineStartDate: 'Mon Dec 12 2022',
+		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 		eventId: 2,
 		eventLineItems: [
 			{
@@ -358,7 +358,7 @@ describe('Test examination timetable items API', () => {
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_EXAM_TIMETABLE,
 			expectedPublishExaminationTimetableItemsPayload,
-			'Create'
+			'Publish'
 		);
 
 		expect(resp.status).toEqual(200);
