@@ -429,6 +429,8 @@ export const publishNsipDocuments = async (documentVersionIds) => {
  * @returns {number}
  */
 export const getNextDocumentReferenceIndex = (documents) => {
+	if (documents.length === 0) return 1;
+
 	const references = documents.flatMap((d) => {
 		const match = d.documentReference.match(/-(\d+)/);
 		if (!match) return [];
