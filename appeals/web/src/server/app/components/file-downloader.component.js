@@ -18,8 +18,8 @@ const getDocumentDownload = async ({ params, session }, response) => {
 	const { guid: fileGuid, preview, caseId } = params;
 
 	const fileInfo = await get(`appeals/${caseId}/documents/${fileGuid}`);
-	const { blobStorageContainer, documentURI } = fileInfo.latestDocumentVersion;
-	if (!blobStorageContainer || !documentURI) {
+	const { blobStorageContainer, blobStoragePath } = fileInfo.latestDocumentVersion;
+	if (!blobStorageContainer || !blobStoragePath) {
 		throw new Error('Blob storage container or Blob storage path not found');
 	}
 
@@ -33,7 +33,7 @@ const getDocumentDownload = async ({ params, session }, response) => {
 	}
 
 	// Document URIs are persisted with a prepended slash, but this slash is treated as part of the key by blob storage so we need to remove it
-	const documentKey = documentURI.startsWith('/') ? documentURI.slice(1) : documentURI;
+	const documentKey = blobStoragePath.startsWith('/') ? blobStoragePath.slice(1) : blobStoragePath;
 	const fileName = `${documentKey}`.split(/\/+/).pop();
 
 	const blobProperties = await blobStorageClient.getBlobProperties(
