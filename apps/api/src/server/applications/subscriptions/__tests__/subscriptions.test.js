@@ -451,7 +451,6 @@ describe('subscriptions', () => {
 				}
 			}
 		];
-
 		it.each(tests)('$name', async ({ body, updated, existing, want }) => {
 			databaseConnector.subscription.findUnique.mockReset();
 			databaseConnector.subscription.update.mockReset();
