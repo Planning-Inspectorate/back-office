@@ -2,6 +2,7 @@ import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
@@ -409,6 +410,18 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 		publishedStatus: 'publishing',
 		publishedStatusPrev: 'ready_to_publish'
 	});
+
+	const activityLogs = documentVersionIds.map((documentVersionId) => {
+		return {
+			documentGuid: documentVersionId.documentGuid,
+			version: documentVersionId.version,
+			status: 'published',
+			user: ''
+		};
+	});
+
+	// @ts-ignore
+	await documentActivityLogRepository.createMany(activityLogs);
 
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
