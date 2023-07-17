@@ -38,10 +38,15 @@ const folderCaseStageMappings = {
  * @param {number |null} parentFolderId
  * @returns {Promise<Folder[]>}
  */
-export const getByCaseId = (caseId, parentFolderId = null) => {
+export const getByCaseId = async (caseId, parentFolderId = null) => {
 	// if no parentFolderId, null value in the call, to get the top level folders on the case
 
-	return databaseConnector.folder.findMany({ where: { caseId, parentFolderId } });
+	const result = await databaseConnector.folder.findMany({ where: { caseId, parentFolderId } });
+	if (!Array.isArray(result)) {
+		return [];
+	}
+
+	return result;
 };
 
 /**
