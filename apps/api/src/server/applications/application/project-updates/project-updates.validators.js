@@ -2,7 +2,7 @@ import { composeMiddleware } from '@pins/express';
 import { body, param } from 'express-validator';
 import { validationErrorHandler } from '../../../middleware/error-handler.js';
 import sanitizeHtml from 'sanitize-html';
-import { ProjectUpdate } from '@pins/applications/src/application/project-update.js';
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
 export const allowedTags = ['a', 'br', 'strong', 'ul', 'li', 'p'];
 export const allowedTagsList = allowedTags.map((t) => `<${t}>`).join(' ');

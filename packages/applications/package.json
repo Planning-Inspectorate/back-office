@@ -8,6 +8,10 @@
     "engines": {
       "node": ">=16.14.0"
     },
+    "exports": {
+      ".": "./index.d.ts",
+      "./lib/*": "./lib/*"
+    },
     "scripts": {
     },
     "dependencies": {
