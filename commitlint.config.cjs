@@ -2,27 +2,27 @@ const { isRegExp } = require('lodash');
 
 const scopes = [
 	'appeals',
-	'appeals/web',
 	'appeals/api',
+	'appeals/web',
+	'applications',
+	'applications/api',
+	'applications/web',
+	'test/api',
+	'test/e2e',
+	'functions',
+	/functions\/(.*)/,
+	/packages\/(.*)/,
+	'tooling',
+
+	// to phase out
 	'api',
 	'api/appeals',
 	'api/applications',
-	'api-testing',
 	'web',
 	'web/appeals',
 	'web/applications',
-	'functions',
-	/functions\/(.*)/,
-	'document-storage',
-	'document-check-function',
-	'odw-integration',
-	'document-publish-function',
-	'publish-document-function',
-	'e2e',
-	'express',
-	'platform',
-	'storage',
-	'tooling'
+	'api-testing',
+	'e2e'
 ];
 
 /** @type {import('@commitlint/types').UserConfig} */
@@ -35,7 +35,7 @@ module.exports = {
 			'always',
 			{
 				build: [null, 'deps'], // allow dependabot commits
-				chore: scopes,
+				chore: [...scopes, 'deps'], // allow dependabot commits
 				ci: [],
 				docs: [null, ...scopes],
 				feat: scopes,
