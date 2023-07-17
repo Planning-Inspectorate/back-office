@@ -1,3 +1,5 @@
+import { ProjectUpdateStatus } from '@pins/applications';
+
 /**
  * nsip-project-update schema for use in code
  */
@@ -10,5 +12,3 @@ export interface NSIPProjectUpdate {
 	updateContentWelsh?: string;
 	updateStatus: ProjectUpdateStatus;
 }
-
-export type ProjectUpdateStatus = 'draft' | 'published' | 'unpublished' | 'archived' | string;

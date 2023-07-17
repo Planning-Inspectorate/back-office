@@ -10,7 +10,7 @@ import {
 import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../../infrastructure/event-client.js';
-import { htmlContentError } from '../project-updates.validators.js';
+import { htmlContentError, statusError } from '../project-updates.validators.js';
 import { NotFound } from '#utils/api-errors.js';
 
 describe('project-updates', () => {
@@ -245,7 +245,7 @@ describe('project-updates', () => {
 					body: {
 						errors: {
 							emailSubscribers: 'emailSubscribers must be a boolean',
-							status: `status must be one of 'draft', 'published', 'unpublished', 'archived'`,
+							status: statusError,
 							htmlContent: 'htmlContent must be a string'
 						}
 					}
@@ -506,7 +506,7 @@ describe('project-updates', () => {
 						body: {
 							errors: {
 								emailSubscribers: 'emailSubscribers must be a boolean',
-								status: `status must be one of 'draft', 'published', 'unpublished', 'archived'`,
+								status: statusError,
 								htmlContent: 'htmlContent must be a string'
 							}
 						}
