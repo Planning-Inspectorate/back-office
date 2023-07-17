@@ -1,5 +1,7 @@
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { databaseConnector } from '../utils/database-connector.js';
 import { getSkipValue } from '../utils/database-pagination.js';
+import BackOfficeAppError from '#utils/app-error.js';
 
 /**
  * @typedef {import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>} ProjectUpdateWithCase
@@ -68,14 +70,15 @@ export async function getProjectUpdate(id) {
 }
 
 /**
- * Update a project update
+ * Update a project update. Verifies the status change is allowed in a transaction.
  *
  * @param {number} id
  * @param {import('@prisma/client').Prisma.ProjectUpdateUpdateInput} req
  * @returns {Promise<ProjectUpdateWithCase>}
+ * @throws {BackOfficeAppError}
  */
 export async function updateProjectUpdate(id, req) {
-	return databaseConnector.projectUpdate.update({
+	const updateReq = {
 		data: req,
 		include: {
 			// return the related case too
@@ -84,5 +87,30 @@ export async function updateProjectUpdate(id, req) {
 		where: {
 			id
 		}
-	});
+	};
+	if (req.status && typeof req.status === 'string') {
+		// run in a transaction to ensure the status change is allowed
+		return databaseConnector.$transaction(async (tx) => {
+			// read first to get status
+			const existing = await tx.projectUpdate.findUnique({ where: { id } });
+			const status = existing?.status || ProjectUpdate.Status.draft;
+
+			const allowedStatuses = ProjectUpdate.AllowedStatuses[status];
+			// check if new status is allowed
+			if (status !== req.status && !allowedStatuses.includes(String(req.status))) {
+				throw new ProjectUpdateStatusError(
+					`this project update can't be set to ${
+						req.status
+					}, allowed statuses: ${allowedStatuses.join(', ')}`,
+					400
+				);
+			}
+
+			return await tx.projectUpdate.update(updateReq);
+		});
+	}
+	// if no status change, a simple update will do:
+	return databaseConnector.projectUpdate.update(updateReq);
 }
+
+export class ProjectUpdateStatusError extends BackOfficeAppError {}

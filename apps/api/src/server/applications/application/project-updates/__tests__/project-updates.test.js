@@ -12,6 +12,7 @@ import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../../infrastructure/event-client.js';
 import { htmlContentError, statusError } from '../project-updates.validators.js';
 import { NotFound } from '#utils/api-errors.js';
+import { jest } from '@jest/globals';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -479,6 +480,14 @@ describe('project-updates', () => {
 		});
 
 		describe('patch', () => {
+			const fakeNow = new Date();
+			beforeAll(() => {
+				jest.useFakeTimers();
+				jest.setSystemTime(fakeNow);
+			});
+			afterAll(() => {
+				jest.useRealTimers();
+			});
 			const tests = [
 				{
 					name: 'should check for numerical IDs',
@@ -582,6 +591,7 @@ describe('project-updates', () => {
 						sentToSubscribers: false
 					},
 					want: {
+						events: [EventType.Update],
 						status: 200,
 						body: {
 							id: 5,
@@ -594,6 +604,76 @@ describe('project-updates', () => {
 								'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 						}
 					}
+				},
+				{
+					name: 'should send a publish event',
+					body: {
+						emailSubscribers: true,
+						status: 'published',
+						htmlContent:
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+					},
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						status: 'ready-to-publish',
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false,
+						datePublished: fakeNow
+					},
+					want: {
+						events: [EventType.Update, EventType.Publish],
+						status: 200,
+						body: {
+							id: 5,
+							caseId: 1,
+							dateCreated: '2023-07-04T10:00:00.000Z',
+							emailSubscribers: true,
+							sentToSubscribers: false,
+							status: 'published',
+							datePublished: fakeNow.toISOString(),
+							htmlContent:
+								'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+						}
+					}
+				},
+				{
+					name: 'should send an unpublish event',
+					body: {
+						status: 'unpublished'
+					},
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						status: 'published',
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false,
+						datePublished: new Date('2023-07-11T10:00:00.000Z'),
+						emailSubscribers: true,
+						htmlContent: 'hello'
+					},
+					want: {
+						events: [EventType.Update, EventType.Unpublish],
+						status: 200,
+						body: {
+							id: 5,
+							caseId: 1,
+							dateCreated: '2023-07-04T10:00:00.000Z',
+							emailSubscribers: true,
+							sentToSubscribers: false,
+							status: 'unpublished',
+							datePublished: '2023-07-11T10:00:00.000Z',
+							htmlContent: 'hello'
+						}
+					}
 				}
 			];
 
@@ -604,10 +684,12 @@ describe('project-updates', () => {
 				databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
 
 				databaseConnector.projectUpdate.update.mockReset();
+				databaseConnector.projectUpdate.findUnique.mockReset();
 
 				let projectUpdate;
 
 				if (updated) {
+					databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(updated);
 					databaseConnector.projectUpdate.update.mockImplementationOnce((req) => {
 						projectUpdate = {
 							...updated,
@@ -626,14 +708,16 @@ describe('project-updates', () => {
 				// checks
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
-				if (updated) {
-					// this is OK because we always run some checks
-					// eslint-disable-next-line jest/no-conditional-expect
-					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-						NSIP_PROJECT_UPDATE,
-						[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
-						EventType.Update
-					);
+				if (updated && want.events) {
+					for (const type of want.events) {
+						// this is OK because we always run some checks
+						// eslint-disable-next-line jest/no-conditional-expect
+						expect(eventClient.sendEvents).toHaveBeenCalledWith(
+							NSIP_PROJECT_UPDATE,
+							[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
+							type
+						);
+					}
 				}
 			});
 		});

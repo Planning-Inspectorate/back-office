@@ -1,3 +1,5 @@
+import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
+
 /**
  * Map a project update from the database to the type returned by the API
  *
@@ -103,6 +105,9 @@ export function projectUpdateUpdateReq(body) {
 	}
 	if (body.status) {
 		updateReq.status = body.status;
+		if (updateReq.status === ProjectUpdate.Status.published) {
+			updateReq.datePublished = new Date();
+		}
 	}
 	if (body.title) {
 		updateReq.title = body.title;
