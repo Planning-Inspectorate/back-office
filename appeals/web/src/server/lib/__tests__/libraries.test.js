@@ -79,14 +79,16 @@ describe('Libraries', () => {
 								value: 'Yes',
 								valueType: 'text',
 								actionText: 'Change',
-								actionLink: '#'
+								actionLink: '#',
+								attributes: null
 							},
 							{
 								title: 'Row 2',
 								value: ['Option One', 'Option two'],
 								valueType: 'text',
 								actionText: 'Change',
-								actionLink: '#'
+								actionLink: '#',
+								attributes: null
 							}
 						]
 					},
@@ -99,14 +101,16 @@ describe('Libraries', () => {
 								value: ['http://testURLOne.com/file.txt', 'http://testURLTwo.com/filetwo.pdf'],
 								valueType: 'link',
 								actionText: 'Details',
-								actionLink: '#'
+								actionLink: '#',
+								attributes: null
 							},
 							{
 								title: 'Row 4',
 								value: 'http://testURLOne.com/file.txt',
 								valueType: 'link',
 								actionText: 'Details',
-								actionLink: '#'
+								actionLink: '#',
+								attributes: null
 							}
 						]
 					}
