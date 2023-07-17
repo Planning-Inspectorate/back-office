@@ -23,8 +23,9 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		const { blobStorageContainer, folderId, caseId } = uploadForm.dataset;
+		const { blobStorageHost, blobStorageContainer, folderId, caseId } = uploadForm.dataset;
 		const payload = {
+			blobStorageHost: sanitiseStorageHost(blobStorageHost || ''),
 			blobStorageContainer,
 			documents: [...fileList].map((file) => ({
 				documentName: file.name,
@@ -48,7 +49,7 @@ const serverActions = (uploadForm) => {
 				for (const documentUploadInfo of uploadsInfos.documents) {
 					if (documentUploadInfo.failedReason) {
 						failedUploads.push({
-							message: 'GENERIC_SINGLE_FILE',
+							message: documentUploadInfo.failedReason,
 							fileRowId: documentUploadInfo.fileRowId,
 							name: documentUploadInfo.documentName
 						});
@@ -65,8 +66,10 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getVersionUploadInfoFromInternalDB = async (file) => {
-		const { blobStorageContainer, folderId, caseId, documentId } = uploadForm.dataset;
+		const { blobStorageHost, blobStorageContainer, folderId, caseId, documentId } =
+			uploadForm.dataset;
 		const payload = {
+			blobStorageHost: sanitiseStorageHost(blobStorageHost || ''),
 			blobStorageContainer,
 			document: {
 				documentName: file.name,
@@ -89,7 +92,7 @@ const serverActions = (uploadForm) => {
 			.then((documentUploadInfo) => {
 				if (documentUploadInfo.failedReason) {
 					failedUploads.push({
-						message: 'GENERIC_SINGLE_FILE',
+						message: documentUploadInfo.failedReason,
 						fileRowId: documentUploadInfo.fileRowId,
 						name: documentUploadInfo.documentName
 					});
@@ -172,6 +175,18 @@ const serverActions = (uploadForm) => {
 		}
 
 		return response;
+	};
+
+	/**
+	 * @type {(host:string)  => string}
+	 */
+	const sanitiseStorageHost = (host) => {
+		if (host.indexOf('?') > 0) {
+			const urlParts = host.split('?');
+			return urlParts[0];
+		}
+
+		return host;
 	};
 
 	return { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB };

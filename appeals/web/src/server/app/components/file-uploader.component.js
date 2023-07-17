@@ -45,9 +45,7 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	}
 
 	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.documents.find(
-			(file) => documentName(file.documentName) === document.documentName
-		);
+		const fileToUpload = body.documents.find((file) => file.documentName === document.documentName);
 		const documentWithRowId = { ...document };
 
 		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
@@ -88,19 +86,3 @@ export async function postUploadDocumentVersion({ params, body, session }, respo
 
 	return response.send({ ...uploadInfo, accessToken });
 }
-
-/**
- * Remove extension from document name
- *
- * @param {string} documentNameWithExtension
- * @returns {string}
- */
-export const documentName = (documentNameWithExtension) => {
-	if (!documentNameWithExtension.includes('.')) return documentNameWithExtension;
-
-	const documentNameSplit = documentNameWithExtension.split('.');
-
-	documentNameSplit.pop();
-
-	return documentNameSplit.join('.');
-};

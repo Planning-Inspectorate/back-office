@@ -2,19 +2,25 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { getAppealValidator } from '#endpoints/appeals/appeals.validators.js';
 import { checkAppealExistsAndAddToRequest } from '#endpoints/appeals/appeals.service.js';
-import { ensureCaseFolders, validateDocumentAndAddToRequest } from './documents.middleware.js';
+import { validateDocumentAndAddToRequest } from './documents.middleware.js';
+import {
+	getFolderIdValidator,
+	getDocumentIdValidator,
+	getDocumentValidator,
+	getDocumentsValidator
+} from './documents.validators.js';
 import * as controller from './documents.controller.js';
 
 const router = createRouter();
 
 router.get(
-	'/:appealId/document-locations',
+	'/:appealId/document-location/:folderId',
 	/*
 		#swagger.tags = ['Appeal Documents']
-		#swagger.path = '/appeals/{appealId}/document-locations'
-		#swagger.description = Returns the contents of the appeal folders
+		#swagger.path = '/appeals/{appealId}/document-location/{folderId}'
+		#swagger.description = Returns the contents of a single appeal folder, by id
 		#swagger.responses[200] = {
-			description: 'Gets all the documents for a specific appeal by id',
+			description: 'Returns the contents of a single appeal folder, by id',
 			schema: { $ref: '#/definitions/Folder' }
 		}
 		#swagger.responses[400] = {}
@@ -22,7 +28,8 @@ router.get(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	asyncHandler(controller.getDocumentLocations)
+	getFolderIdValidator,
+	asyncHandler(controller.getDocumentsByFolderId)
 );
 
 router.get(
@@ -40,7 +47,7 @@ router.get(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	ensureCaseFolders,
+	getDocumentIdValidator,
 	validateDocumentAndAddToRequest,
 	asyncHandler(controller.getDocument)
 );
@@ -58,7 +65,7 @@ router.post(
 			required: true
 		}
 		#swagger.responses[200] = {
-			description: 'Gets all the documents for a specific appeal by id',
+			description: 'Document metadata successfully added',
 			schema: { $ref: '#/definitions/DocumentDetails' }
 		}
 		#swagger.responses[400] = {}
@@ -66,7 +73,7 @@ router.post(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	ensureCaseFolders,
+	getDocumentsValidator,
 	asyncHandler(controller.addDocuments)
 );
 
@@ -83,7 +90,7 @@ router.post(
 			required: true
 		}
 		#swagger.responses[200] = {
-			description: 'Gets all the documents for a specific appeal by id',
+			description: 'Document metadata successfully added',
 			schema: { $ref: '#/definitions/DocumentDetails' }
 		}
 		#swagger.responses[400] = {}
@@ -91,8 +98,9 @@ router.post(
 	 */
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
-	ensureCaseFolders,
+	getDocumentIdValidator,
 	validateDocumentAndAddToRequest,
+	getDocumentValidator,
 	asyncHandler(controller.addDocumentVersion)
 );
 

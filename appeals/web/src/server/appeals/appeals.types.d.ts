@@ -14,7 +14,7 @@ export interface CheckboxItemParameter {
 declare global {
 	namespace Express {
 		interface Request {
-			caseFolders: Schema.Folder[];
+			currentFolder: Schema.Folder;
 		}
 	}
 }

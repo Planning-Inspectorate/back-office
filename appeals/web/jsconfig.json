@@ -1,6 +1,10 @@
 {
 	"extends": "../../jsconfig.json",
-	"include": ["**/*.js", "src/server/appeals/validation/validation.types.d.ts"],
+	"include": [
+		"**/*.js",
+		"src/server/appeals/validation/validation.types.d.ts",
+		"src/server/appeals/appeal-documents/appeal-documents.types.d.ts"
+	],
 	"exclude": ["src/server/static", "scripts", "coverage"],
 	"files": ["typings.d.ts"]
 }

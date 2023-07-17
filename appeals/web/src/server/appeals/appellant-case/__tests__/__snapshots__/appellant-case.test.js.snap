@@ -107,40 +107,34 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <div class=\\"govuk-summary-card__content\\">
                 <dl class=\\"govuk-summary-list\\">
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"application-form.pdf\\" class=\\"govuk-link\\">application-form.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/2/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"decision-letter.pdf\\" class=\\"govuk-link\\">decision-letter.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/3/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"appeal-statement.pdf\\" class=\\"govuk-link\\">appeal-statement.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/1/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
                             </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-1.pdf\\" class=\\"govuk-link\\">new-supporting-documents-1.pdf</a>
+                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                             </dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/4/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
                             </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"></dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-2.pdf\\" class=\\"govuk-link\\">new-supporting-documents-2.pdf</a>
-                        </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change</a>
-                        </dd>
                     </div>
                 </dl>
             </div>
@@ -402,40 +396,34 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <div class=\\"govuk-summary-card__content\\">
                 <dl class=\\"govuk-summary-list\\">
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"application-form.pdf\\" class=\\"govuk-link\\">application-form.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/2/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"decision-letter.pdf\\" class=\\"govuk-link\\">decision-letter.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/3/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"appeal-statement.pdf\\" class=\\"govuk-link\\">appeal-statement.pdf</a>
+                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/1/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
                         </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
                             </dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
                             </dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-1.pdf\\" class=\\"govuk-link\\">new-supporting-documents-1.pdf</a>
+                        <dd                         class=\\"govuk-summary-list__value\\"><a href=\\"\\" class=\\"govuk-link\\"></a>
                             </dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/4/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
                             </dd>
-                    </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"></dt>
-                        <dd class=\\"govuk-summary-list__value\\"><a href=\\"new-supporting-documents-2.pdf\\" class=\\"govuk-link\\">new-supporting-documents-2.pdf</a>
-                        </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change</a>
-                        </dd>
                     </div>
                 </dl>
             </div>

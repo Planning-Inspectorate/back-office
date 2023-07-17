@@ -1,5 +1,6 @@
 import { addressToString } from '../../lib/address-formatter.js';
 import { convertFromBooleanToYesNo } from '../../lib/boolean-formatter.js';
+import { mapDocumentsForDisplay } from '../appeal-documents/appeal-documents.mapper.js';
 import { capitalize } from 'lodash-es';
 
 /**
@@ -249,30 +250,31 @@ function mapData(appellantCaseData) {
 	};
 
 	mappedData.applicationForm = {
-		title: 'Application form known',
-		value: appellantCaseData.documents.applicationForm,
-		valueType: 'link',
-		actionText: 'Change',
-		actionLink: '#'
+		...mapDocumentsForDisplay(
+			appellantCaseData.appealId,
+			appellantCaseData.documents.applicationForm
+		),
+		title: 'Application form known'
 	};
 
 	mappedData.decisionLetter = {
-		title: 'Decision letter',
-		value: appellantCaseData.documents.decisionLetter,
-		valueType: 'link',
-		actionText: 'Change',
-		actionLink: '#'
+		...mapDocumentsForDisplay(
+			appellantCaseData.appealId,
+			appellantCaseData.documents.decisionLetter
+		),
+		title: 'Decision letter'
 	};
 
 	mappedData.appealStatement = {
-		title: 'Appeal statement',
-		value: appellantCaseData.documents.appealStatement,
-		valueType: 'link',
-		actionText: 'Change',
-		actionLink: '#'
+		...mapDocumentsForDisplay(
+			appellantCaseData.appealId,
+			appellantCaseData.documents.appealStatement
+		),
+		title: 'Appeal statement'
 	};
 
-	const hasNewSupportingDocuments = appellantCaseData.documents.newSupportingDocuments.length > 0;
+	const hasNewSupportingDocuments =
+		appellantCaseData.documents.newSupportingDocuments.documents.length > 0;
 
 	mappedData.addNewSupportingDocuments = {
 		title: 'Add new supporting documents',
@@ -283,23 +285,22 @@ function mapData(appellantCaseData) {
 	};
 
 	if (hasNewSupportingDocuments) {
-		mappedData.newSupportingDocuments = appellantCaseData.documents.newSupportingDocuments.map(
-			(document, index) => ({
-				title: index === 0 ? 'New supporting documents' : '',
-				value: document,
-				valueType: 'link',
-				actionText: 'Change',
-				actionLink: '#'
-			})
-		);
+		mappedData.newSupportingDocuments =
+			appellantCaseData.documents.newSupportingDocuments.documents.map((document, index) => ({
+				...mapDocumentsForDisplay(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.newSupportingDocuments
+				),
+				title: index === 0 ? 'New supporting documents' : ''
+			}));
 	} else {
 		mappedData.newSupportingDocuments = [
 			{
-				title: 'New supporting documents',
-				value: 'N/A',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
+				...mapDocumentsForDisplay(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.newSupportingDocuments
+				),
+				title: 'New supporting documents'
 			}
 		];
 	}

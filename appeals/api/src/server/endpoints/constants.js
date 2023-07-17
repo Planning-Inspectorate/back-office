@@ -35,6 +35,8 @@ export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = `Must be a valid time and in th
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_MUST_BE_STRING = 'Must be a string';
+export const ERROR_MUST_BE_GUID = 'Must be a guid';
+export const ERROR_MUST_BE_VALID_FILEINFO = 'Must be a valid file';
 export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'Must contain at least one value';
 export const ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS =
 	'Must not be included when invalidReasons or incompleteReasons does not contain Other';

@@ -1,6 +1,7 @@
 import formatAddress from '../../utils/address-block-formtter.js';
 import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
 import { isFPA, isOutcomeIncomplete } from './appeals.service.js';
+import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -13,6 +14,9 @@ import { isFPA, isOutcomeIncomplete } from './appeals.service.js';
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
 /** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 
 /**
  * @param {boolean} affectsListedBuilding
@@ -218,9 +222,10 @@ const appealFormatter = {
 	},
 	/**
 	 * @param {RepositoryGetByIdResultItem} appeal
+	 * @param {Folder[]|null} folders
 	 * @returns {SingleAppellantCaseResponse | void}}
 	 */
-	formatAppellantCase(appeal) {
+	formatAppellantCase(appeal, folders = null) {
 		const { appellantCase, siteVisit } = appeal;
 
 		if (appellantCase) {
@@ -252,27 +257,7 @@ const appealFormatter = {
 						details: appellantCase.newDevelopmentDescription
 					}
 				}),
-				documents: {
-					appealStatement: 'appeal-statement.pdf',
-					applicationForm: 'application-form.pdf',
-					decisionLetter: 'decision-letter.pdf',
-					...(isFPA(appeal.appealType) && {
-						designAndAccessStatement: 'design-and-access-statement.pdf',
-						newPlansOrDrawings: ['new-plans-or-drawings-1.pdf', 'new-plans-or-drawings-2.pdf']
-					}),
-					newSupportingDocuments: [
-						'new-supporting-documents-1.pdf',
-						'new-supporting-documents-2.pdf'
-					],
-					...(isFPA(appeal.appealType) && {
-						planningObligation: 'planning-obligation.pdf',
-						plansDrawingsSupportingDocuments: [
-							'plans-drawings-supporting-documents-1.pdf',
-							'plans-drawings-supporting-documents-2.pdf'
-						],
-						separateOwnershipCertificate: 'separate-ownership-certificate.pdf'
-					})
-				},
+				...formatFoldersAndDocuments(appeal, folders),
 				hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
 				...(isFPA(appeal.appealType) && {
 					hasDesignAndAccessStatement: appellantCase.hasDesignAndAccessStatement,
@@ -314,6 +299,34 @@ const appealFormatter = {
 			};
 		}
 	}
+};
+
+/**
+ * @param {RepositoryGetByIdResultItem} appeal
+ * @param {Folder[]|null} folders
+ */
+const formatFoldersAndDocuments = (appeal, folders) => {
+	const folderLayout = {
+		appealStatement: {},
+		applicationForm: {},
+		decisionLetter: {},
+		...(isFPA(appeal.appealType) && {
+			designAndAccessStatement: {},
+			newPlansOrDrawings: {}
+		}),
+		newSupportingDocuments: {},
+		...(isFPA(appeal.appealType) && {
+			planningObligation: {},
+			plansDrawingsSupportingDocuments: {},
+			separateOwnershipCertificate: {}
+		})
+	};
+
+	if (folders) {
+		mapFoldersLayoutForAppealSection('appellantCase', folderLayout, folders);
+	}
+
+	return { documents: folderLayout };
 };
 
 export default appealFormatter;

@@ -1,8 +1,8 @@
 import { get } from '../../lib/request.js';
 
-export const getFolderLayout = async (/** @type {string} */ caseId) => {
+export const getFolder = async (/** @type {string} */ caseId, /** @type {string} */ folderId) => {
 	try {
-		const locationInfo = await get(`appeals/${caseId}/document-locations`);
+		const locationInfo = await get(`appeals/${caseId}/document-location/${folderId}`);
 		return locationInfo;
 	} catch {
 		return undefined;

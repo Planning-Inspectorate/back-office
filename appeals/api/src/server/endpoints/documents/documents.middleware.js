@@ -1,5 +1,4 @@
 import { getDocumentById } from '#repositories/document.repository.js';
-import { upsertCaseFolders } from '#repositories/folder.repository.js';
 import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
 
 /**
@@ -15,16 +14,5 @@ export const validateDocumentAndAddToRequest = async (req, res, next) => {
 	}
 
 	req.document = document;
-	next();
-};
-
-/**
- * @type {import("express").RequestHandler}
- * @returns {Promise<object | void>}
- */
-export const ensureCaseFolders = async (req, res, next) => {
-	const { appeal } = req;
-
-	await upsertCaseFolders(appeal.id);
 	next();
 };

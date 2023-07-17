@@ -217,11 +217,11 @@ interface SingleAppellantCaseResponse {
 		details: string | null;
 	};
 	documents: {
-		appealStatement: string;
-		applicationForm: string;
-		decisionLetter: string;
-		designAndAccessStatement?: string;
-		newSupportingDocuments: string[];
+		appealStatement: FolderInfo;
+		applicationForm: FolderInfo;
+		decisionLetter: FolderInfo;
+		designAndAccessStatement?: FolderInfo;
+		newSupportingDocuments: FolderInfo;
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;
@@ -283,6 +283,19 @@ interface DocumentationSummary {
 	lpaQuestionnaire?: DocumentationSummaryEntry;
 }
 
+interface FolderInfo {
+	folderId: number;
+	path: string;
+	documents: DocumentInfo[];
+}
+
+interface DocumentInfo {
+	id: string;
+	name: string;
+	folderId: number;
+	caseId: number;
+}
+
 interface CaseFolder {}
 
 interface SingleSiteVisitDetailsResponse {
@@ -307,6 +320,8 @@ export {
 	BankHolidayFeedDivisions,
 	BankHolidayFeedEvents,
 	DocumentationSummary,
+	DocumentInfo,
+	FolderInfo,
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
