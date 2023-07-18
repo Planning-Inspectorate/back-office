@@ -12,6 +12,7 @@ projectUpdatesRouter.route('/').get(asyncRoute(controller.projectUpdatesTable));
 
 export const projectUpdateRoutes = Object.freeze({
 	create: 'create',
+	content: 'content',
 	status: 'status',
 	checkAnswers: 'check-answers',
 	review: 'review',
@@ -24,6 +25,14 @@ projectUpdatesRouter
 	.post(
 		[validators.validateProjectUpdatesContent],
 		asyncRoute(controller.projectUpdatesCreatePost)
+	);
+
+projectUpdatesRouter
+	.route(`/:projectUpdateId/${projectUpdateRoutes.content}`)
+	.get(asyncRoute(controller.projectUpdatesContentGet))
+	.post(
+		[validators.validateProjectUpdatesContent],
+		asyncRoute(controller.projectUpdatesContentPost)
 	);
 
 projectUpdatesRouter
