@@ -197,6 +197,7 @@ model Folder {
 /// versions and can store shared metadata.
 model Document {
   guid                     String                    @id @default(uuid())
+  reference                String                    @unique
   name                     String
   folderId                 Int
   createdAt                DateTime                  @default(now())
