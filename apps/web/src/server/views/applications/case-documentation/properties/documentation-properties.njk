@@ -28,7 +28,7 @@
                 <ul class="govuk-list">
                     <li class="govuk-!-margin-top-4"><strong>Description:</strong> {{ documentationFile.description }}</li>
                     <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> {{ case.reference }}</li>
-                    <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong></li>
+                    <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong> {{ documentationFile.documentRef }}</li>
                     <li class="govuk-!-margin-top-4"><strong>File type and size:</strong>
                         {{ documentationFile.mime|fileType }},
                         {{ documentationFile.size|fileSize }}
