@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import { getPaginationInfo } from '../../common/components/pagination/pagination.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
-import { bodyToCreateRequest } from './project-updates.mapper.js';
+import { bodyToCreateRequest, bodyToUpdateRequest } from './project-updates.mapper.js';
 import { projectUpdateRoutes } from './project-updates.router.js';
 import {
 	createProjectUpdate,
@@ -12,7 +12,7 @@ import {
 } from './project-updates.service.js';
 import {
 	createDetailsView,
-	createFormView,
+	createContentFormView,
 	projectUpdatesRows,
 	statusRadioOption
 } from './project-updates.view-model.js';
@@ -60,7 +60,14 @@ export async function projectUpdatesTable({ params, query }, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCreateGet(req, res) {
-	return res.render(formView, createFormView(res.locals.case, req.errors, req.body));
+	return res.render(
+		formView,
+		createContentFormView({
+			caseInfo: res.locals.case,
+			errors: req.errors,
+			values: req.body
+		})
+	);
 }
 
 /**
@@ -79,6 +86,48 @@ export async function projectUpdatesCreatePost(req, res) {
 		caseId: parseInt(caseId),
 		step: projectUpdateRoutes.status,
 		projectUpdateId
+	});
+	res.redirect(nextUrl);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesContentGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	const values = {
+		content: projectUpdate.htmlContent,
+		emailSubscribers: projectUpdate.emailSubscribers,
+		...req.body
+	};
+	return res.render(
+		formView,
+		createContentFormView({
+			title: 'Change project update',
+			caseInfo: res.locals.case,
+			errors: req.errors,
+			values
+		})
+	);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesContentPost(req, res) {
+	if (req.errors) {
+		return projectUpdatesContentGet(req, res);
+	}
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = bodyToUpdateRequest(req.body);
+	await patchProjectUpdate(caseId, projectUpdateId, projectUpdate);
+	const nextUrl = url('project-updates-step', {
+		caseId: parseInt(caseId),
+		step: projectUpdateRoutes.checkAnswers,
+		projectUpdateId: parseInt(projectUpdateId)
 	});
 	res.redirect(nextUrl);
 }

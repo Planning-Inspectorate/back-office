@@ -1,6 +1,8 @@
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { booleanAnswer } from '../../../lib/nunjucks-filters/boolean-answer.js';
 import { displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { url } from '../../../lib/nunjucks-filters/url.js';
+import { projectUpdateRoutes } from './project-updates.router.js';
 
 /**
  * @typedef {Object} projectUpdatesRow
@@ -38,21 +40,26 @@ export function projectUpdatesRows(projectUpdates) {
 }
 
 /**
- * The form view for the create page
+ * The form view for the create/content page
  *
- * @param {any} caseInfo
- * @param {import('@pins/express').ValidationErrors | undefined} errors
- * @param {Record<string, any>} values
+ * @param {Object} opts
+ * @param {any} opts.caseInfo
+ * @param {import('@pins/express').ValidationErrors | undefined} opts.errors
+ * @param {Record<string, any>} opts.values
+ * @param {string} [opts.title]
  * @returns {import('./project-updates-views').ProjectUpdatesFormView}
  */
-export function createFormView(caseInfo, errors, values) {
+export function createContentFormView({ caseInfo, errors, values, title }) {
 	let emailSubscribers = true;
 	if (Object.prototype.hasOwnProperty.call(values, 'emailSubscribers')) {
 		emailSubscribers = values.emailSubscribers;
 	}
+	if (!title) {
+		title = 'Create a project update';
+	}
 	return {
 		case: caseInfo,
-		title: 'Create a project update',
+		title,
 		buttonText: 'Save and continue',
 		errors, // for error summary
 		form: {
@@ -106,6 +113,16 @@ export function createFormView(caseInfo, errors, values) {
  * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
  */
 export function createDetailsView({ caseInfo, title, buttonText, form, projectUpdate }) {
+	const contentChangeLink = url('project-updates-step', {
+		caseId: parseInt(caseInfo.id),
+		step: projectUpdateRoutes.content,
+		projectUpdateId: projectUpdate.id
+	});
+	const statusChangeLink = url('project-updates-step', {
+		caseId: parseInt(caseInfo.id),
+		step: projectUpdateRoutes.status,
+		projectUpdateId: projectUpdate.id
+	});
 	return {
 		case: caseInfo,
 		title,
@@ -121,7 +138,7 @@ export function createDetailsView({ caseInfo, title, buttonText, form, projectUp
 					actions: {
 						items: [
 							{
-								href: '#',
+								href: contentChangeLink,
 								text: 'Change',
 								visuallyHiddenText: 'content'
 							}
@@ -142,7 +159,7 @@ export function createDetailsView({ caseInfo, title, buttonText, form, projectUp
 					actions: {
 						items: [
 							{
-								href: '#',
+								href: statusChangeLink,
 								text: 'Change',
 								visuallyHiddenText: 'content'
 							}
