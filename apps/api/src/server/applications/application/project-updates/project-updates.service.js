@@ -54,14 +54,9 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 	const update = await updateProjectUpdate(projectUpdateId, updateReq);
 
 	if (update.case && update.case.reference) {
+		const eventType = statusToEventType(update.status);
 		const events = [buildProjectUpdatePayload(update, update.case.reference)];
-		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Update);
-
-		if (update.status === ProjectUpdate.Status.published) {
-			await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
-		} else if (update.status === ProjectUpdate.Status.unpublished) {
-			await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Unpublish);
-		}
+		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, eventType);
 	} else {
 		logger.warn(
 			'updateProjectUpdateService: project update case has no reference. No event(s) sent.'
@@ -69,4 +64,20 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 	}
 
 	return mapProjectUpdate(update);
+}
+
+/**
+ * Returns the EventType that should be emitted for the given status.
+ *
+ * @param {string} status
+ * @returns {string}
+ */
+function statusToEventType(status) {
+	switch (status) {
+		case ProjectUpdate.Status.published:
+			return EventType.Publish;
+		case ProjectUpdate.Status.unpublished:
+			return EventType.Unpublish;
+	}
+	return EventType.Update;
 }
