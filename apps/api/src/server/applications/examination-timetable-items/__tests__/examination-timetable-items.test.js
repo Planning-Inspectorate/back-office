@@ -459,6 +459,10 @@ describe('Test examination timetable items API', () => {
 
 	test('unpublish examination timetable item unpublishes examination items for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
+		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
+		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(
+			publishExaminationTimetableItemsData
+		);
 		const resp = await request
 			.patch('/applications/examination-timetable-items/unpublish/123')
 			.send({});
@@ -468,6 +472,12 @@ describe('Test examination timetable items API', () => {
 			},
 			data: { published: false, updatedAt: expect.any(Date) }
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_EXAM_TIMETABLE,
+			expectedPublishExaminationTimetableItemsPayload,
+			EventType.Unpublish
+		);
 
 		expect(resp.status).toEqual(200);
 	});
