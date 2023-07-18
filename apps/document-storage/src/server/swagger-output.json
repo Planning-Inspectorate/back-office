@@ -179,6 +179,10 @@
 					"GUID": {
 						"type": "string",
 						"example": "D987654321"
+					},
+					"version": {
+						"type": "integer",
+						"example": 1
 					}
 				}
 			}

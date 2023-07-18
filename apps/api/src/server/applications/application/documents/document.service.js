@@ -144,7 +144,7 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 /**
  * @param {import('@pins/applications.api').Schema.Document[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string}[]}
+ * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
@@ -153,7 +153,8 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 			caseReference,
 			GUID: document.guid,
 			documentName: document.name,
-			documentReference: document.reference
+			documentReference: document?.reference,
+			version: 1
 		};
 	});
 };
@@ -336,7 +337,8 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			caseType: 'application',
 			caseReference: caseForDocuments.reference,
 			GUID: documentFromDatabase.guid,
-			documentName: documentFromDatabase.name
+			documentName: documentFromDatabase.name,
+			version
 		}
 	];
 
