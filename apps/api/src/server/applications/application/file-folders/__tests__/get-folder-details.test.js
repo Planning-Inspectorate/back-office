@@ -273,6 +273,7 @@ describe('Get folder details', () => {
 				{
 					documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
 					documentId: null,
+					documentRef: null,
 					caseRef: null,
 					folderId: 1,
 					sourceSystem: 'back-office',
