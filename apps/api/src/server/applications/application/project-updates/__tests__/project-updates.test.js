@@ -591,7 +591,7 @@ describe('project-updates', () => {
 						sentToSubscribers: false
 					},
 					want: {
-						events: [EventType.Update],
+						event: EventType.Update,
 						status: 200,
 						body: {
 							id: 5,
@@ -626,7 +626,7 @@ describe('project-updates', () => {
 						datePublished: fakeNow
 					},
 					want: {
-						events: [EventType.Update, EventType.Publish],
+						event: EventType.Publish,
 						status: 200,
 						body: {
 							id: 5,
@@ -661,7 +661,7 @@ describe('project-updates', () => {
 						htmlContent: 'hello'
 					},
 					want: {
-						events: [EventType.Update, EventType.Unpublish],
+						event: EventType.Unpublish,
 						status: 200,
 						body: {
 							id: 5,
@@ -708,16 +708,14 @@ describe('project-updates', () => {
 				// checks
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
-				if (updated && want.events) {
-					for (const type of want.events) {
-						// this is OK because we always run some checks
-						// eslint-disable-next-line jest/no-conditional-expect
-						expect(eventClient.sendEvents).toHaveBeenCalledWith(
-							NSIP_PROJECT_UPDATE,
-							[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
-							type
-						);
-					}
+				if (updated && want.event) {
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+						NSIP_PROJECT_UPDATE,
+						[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
+						want.event
+					);
 				}
 			});
 		});
