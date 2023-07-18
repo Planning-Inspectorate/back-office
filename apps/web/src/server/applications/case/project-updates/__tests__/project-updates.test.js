@@ -227,21 +227,31 @@ describe('project-updates', () => {
 				body: {
 					status: 'published'
 				},
-				redirectTo: baseUrl
+				expectContains: ['project update', 'published']
 			},
 			{
 				name: 'should render the next step (draft status)',
 				body: {},
-				redirectTo: baseUrl
+				expectContains: ['draft project update', 'created']
 			}
 		];
 
-		it.each(tests)(`$name`, async ({ body, redirectTo }) => {
+		it.each(tests)(`$name`, async ({ body, expectContains }) => {
 			const response = await request
 				.post(baseUrl + '/1/' + projectUpdateRoutes.checkAnswers)
 				.send(body);
-			expect(response.statusCode).toEqual(302);
-			expect(response.get('location')).toEqual(redirectTo);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - success banner + table header
+			expect(element.innerHTML).toContain('Success');
+			expect(element.innerHTML).toContain('Project updates');
+			for (const str of expectContains) {
+				expect(element.innerHTML).toContain(str);
+			}
 		});
 	});
 });
