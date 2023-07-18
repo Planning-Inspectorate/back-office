@@ -3,6 +3,7 @@ import { buildQueryString } from '../../common/components/build-query-string.js'
 import { getPaginationInfo } from '../../common/components/pagination/pagination.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
 import { bodyToCreateRequest } from './project-updates.mapper.js';
+import { projectUpdateRoutes } from './project-updates.router.js';
 import {
 	createProjectUpdate,
 	getProjectUpdate,
@@ -10,6 +11,7 @@ import {
 	patchProjectUpdate
 } from './project-updates.service.js';
 import {
+	createDetailsView,
 	createFormView,
 	projectUpdatesRows,
 	statusRadioOption
@@ -18,6 +20,7 @@ import { ProjectUpdate } from '@pins/applications/lib/application/project-update
 
 const view = 'applications/case/project-updates.njk';
 const formView = 'applications/case/project-updates/project-updates-form.njk';
+const detailsView = 'applications/case/project-updates/project-updates-details.njk';
 
 /**
  * @param {import('express').Request} req
@@ -74,7 +77,7 @@ export async function projectUpdatesCreatePost(req, res) {
 	const projectUpdateId = created.id;
 	const nextUrl = url('project-updates-step', {
 		caseId: parseInt(caseId),
-		step: 'status',
+		step: projectUpdateRoutes.status,
 		projectUpdateId
 	});
 	res.redirect(nextUrl);
@@ -122,10 +125,53 @@ export async function projectUpdatesStatusPost(req, res) {
 	await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
 	const nextUrl = url('project-updates-step', {
 		caseId: parseInt(caseId),
-		step: 'preview',
+		step: projectUpdateRoutes.checkAnswers,
 		projectUpdateId: parseInt(projectUpdateId)
 	});
 	res.redirect(nextUrl);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesCheckAnswersGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	let buttonText = 'Save and continue';
+	let form;
+	if (projectUpdate.status === ProjectUpdate.Status.readyToPublish) {
+		buttonText = 'Publish';
+		form = {
+			name: 'status',
+			value: ProjectUpdate.Status.published
+		};
+	}
+	return res.render(
+		detailsView,
+		createDetailsView({
+			caseInfo: res.locals.case,
+			title: 'Check your project update',
+			buttonText,
+			form,
+			projectUpdate
+		})
+	);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesCheckAnswersPost(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	if (req.body.status) {
+		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
+	}
+	const nextUrl = url('project-updates', {
+		caseId: parseInt(caseId)
+	});
+	return res.redirect(nextUrl);
 }
 
 /**

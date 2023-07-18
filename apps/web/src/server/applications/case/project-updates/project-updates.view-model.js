@@ -27,7 +27,7 @@ export function projectUpdatesRows(projectUpdates) {
 			emailed: booleanAnswer(update.emailSubscribers),
 			status: {
 				color: statusColor(update.status),
-				label: update.status.replaceAll('_', ' ')
+				label: statusLabel(update.status)
 			}
 		};
 		if (update.datePublished) {
@@ -43,7 +43,7 @@ export function projectUpdatesRows(projectUpdates) {
  * @param {any} caseInfo
  * @param {import('@pins/express').ValidationErrors | undefined} errors
  * @param {Record<string, any>} values
- * @returns {import('./project-updates-form').ProjectUpdatesFormView}
+ * @returns {import('./project-updates-views').ProjectUpdatesFormView}
  */
 export function createFormView(caseInfo, errors, values) {
 	let emailSubscribers = true;
@@ -95,6 +95,66 @@ export function createFormView(caseInfo, errors, values) {
 }
 
 /**
+ * The details view for the check-answers and review pages
+ *
+ * @param {Object} options
+ * @param {any} options.caseInfo
+ * @param {string} options.title
+ * @param {string} options.buttonText
+ * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} options.form
+ * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
+ * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
+ */
+export function createDetailsView({ caseInfo, title, buttonText, form, projectUpdate }) {
+	return {
+		case: caseInfo,
+		title,
+		buttonText,
+		preview: { html: projectUpdate.htmlContent },
+		form,
+		summary: {
+			rows: [
+				{
+					key: {
+						html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
+					},
+					actions: {
+						items: [
+							{
+								href: '#',
+								text: 'Change',
+								visuallyHiddenText: 'content'
+							}
+						]
+					}
+				},
+				{
+					key: { text: 'Email to subscribers' },
+					value: { text: booleanAnswer(projectUpdate.emailSubscribers) }
+				},
+				{
+					key: { text: 'English' },
+					value: { html: projectUpdate.htmlContent }
+				},
+				{
+					key: { text: 'Status' },
+					value: { html: statusTag(projectUpdate.status) },
+					actions: {
+						items: [
+							{
+								href: '#',
+								text: 'Change',
+								visuallyHiddenText: 'content'
+							}
+						]
+					}
+				}
+			]
+		}
+	};
+}
+
+/**
  * Return the govukRadio options for the given status
  *
  * @param {string} status
@@ -126,6 +186,30 @@ export function statusRadioOption(status) {
 }
 
 /**
+ * Returns an HTML string for a govuk tag
+ *
+ * @param {string} status
+ * @returns {string}
+ */
+export function statusTag(status) {
+	const color = statusColor(status);
+	const label = statusLabel(status);
+
+	return `<strong class="govuk-tag govuk-tag--${color} single-line">${label}</strong>`;
+}
+
+/**
+ * Label for the given status
+ *
+ * @param {string} status
+ * @returns {string}
+ */
+function statusLabel(status) {
+	return status.replaceAll('_', ' ').replaceAll('-', ' ');
+}
+
+/**
+ * Tag color for the given status
  *
  * @param {string} status
  * @returns {string}
