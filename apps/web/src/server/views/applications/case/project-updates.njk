@@ -1,6 +1,7 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "applications/case/project-updates/project-updates-table.njk" import projectUpdatesTable %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 
@@ -16,6 +17,15 @@
 {% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
+			{% if banner %}
+				{% set bannerHtml %}
+				<h3 class="govuk-notification-banner__heading">{{ banner }}</h3>
+				<p class="govuk-body">
+					<a class="govuk-notification-banner__link" href="{{ "project-updates" | url({caseId: caseId}) }}">Clear notification</a> 
+				</p>
+				{% endset %}
+				{{ govukNotificationBanner({type: 'success', html: bannerHtml}) }}
+			{% endif %}
 			<h2 class="govuk-heading-m">Project updates</h2>
 
 			{{ govukButton({

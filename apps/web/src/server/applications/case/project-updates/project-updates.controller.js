@@ -47,6 +47,7 @@ export async function projectUpdatesTable({ params, query }, res) {
 	const updatesUrl = url('project-updates', { caseId: parseInt(caseId) });
 
 	return res.render(view, {
+		banner: res.locals.banner,
 		projectUpdatesRows: projectUpdatesRows(projectUpdatesRes.items),
 		caseId,
 		tableHeaders: tableHeaders(query, updatesUrl),
@@ -214,13 +215,15 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
  */
 export async function projectUpdatesCheckAnswersPost(req, res) {
 	const { caseId, projectUpdateId } = req.params;
+	let banner = 'You have successfully created a draft project update';
 	if (req.body.status) {
 		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
+		if (req.body.status === ProjectUpdate.Status.published) {
+			banner = 'You have successfully published a project update';
+		}
 	}
-	const nextUrl = url('project-updates', {
-		caseId: parseInt(caseId)
-	});
-	return res.redirect(nextUrl);
+	res.locals.banner = banner;
+	return projectUpdatesTable(req, res);
 }
 
 /**
