@@ -1,4 +1,5 @@
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
+import { contentIsSafe } from './project-updates.validators.js';
 
 /**
  * Map a project update from the database to the type returned by the API
@@ -32,6 +33,7 @@ export function mapProjectUpdate(projectUpdate) {
  * @param {import('@prisma/client').ProjectUpdate} update
  * @param {string} caseReference
  * @returns {NSIPProjectUpdate}
+ * @throws {Error} if the HTML content isn't safe
  */
 export function buildProjectUpdatePayload(update, caseReference) {
 	/** @type {NSIPProjectUpdate} */
@@ -42,8 +44,17 @@ export function buildProjectUpdatePayload(update, caseReference) {
 		updateStatus: update.status
 	};
 
+	// check HTML content is safe
+	if (!contentIsSafe(payload.updateContentEnglish)) {
+		throw new Error(`unsafe English HTML content for update: ${update.id}`);
+	}
+
 	if (update.htmlContentWelsh) {
 		payload.updateContentWelsh = update.htmlContentWelsh;
+		// check HTML content is safe
+		if (!contentIsSafe(payload.updateContentWelsh)) {
+			throw new Error(`unsafe Welsh HTML content for update: ${update.id}`);
+		}
 	}
 	if (update.datePublished) {
 		payload.updateDate = update.datePublished.toISOString();
