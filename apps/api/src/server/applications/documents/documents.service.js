@@ -21,7 +21,8 @@ export const updateStatus = async (guid, status) => {
 
 	if (
 		updatedDocument.publishedStatus === 'published' ||
-		updatedDocument.publishedStatus === 'unpublished'
+		updatedDocument.publishedStatus === 'unpublished' ||
+		updatedDocument.publishedStatus === 'checked'
 	) {
 		// @ts-ignore
 		await documentActivityLogRepository.create({
