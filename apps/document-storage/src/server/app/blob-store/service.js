@@ -102,7 +102,8 @@ export async function documentsCreateUrl(documents) {
 			document.blobStoreUrl = buildApplicationURL(
 				document.caseReference,
 				document.GUID,
-				document.documentName
+				document.documentName,
+				document.version
 			);
 		}
 		return document;
@@ -114,10 +115,11 @@ export async function documentsCreateUrl(documents) {
  * @param {string} caseReference
  * @param {string} GUID
  * @param {string} documentName
+ * @param {number} version
  * @returns {string}
  */
-function buildApplicationURL(caseReference, GUID, documentName) {
-	return `/application/${caseReference}/${GUID}/${documentName}`;
+function buildApplicationURL(caseReference, GUID, documentName, version = 1) {
+	return `/application/${caseReference}/${GUID}/${version}/${documentName}`;
 }
 
 /**
