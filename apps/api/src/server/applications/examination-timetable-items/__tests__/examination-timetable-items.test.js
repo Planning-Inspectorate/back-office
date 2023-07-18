@@ -2,6 +2,7 @@ import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
@@ -442,7 +443,7 @@ describe('Test examination timetable items API', () => {
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_EXAM_TIMETABLE,
 			expectedPublishExaminationTimetableItemsPayload,
-			'Publish'
+			EventType.Publish
 		);
 
 		expect(resp.status).toEqual(200);
