@@ -138,6 +138,46 @@ const publishExaminationTimetableItemsData = [
 			displayNameEn: 'Deadline',
 			displayNameCy: 'Deadline'
 		}
+	},
+	{
+		id: 3,
+		examinationTimetableId: 1,
+		examinationTypeId: 3,
+		name: 'Deadline For Close Of Examination',
+		description:
+			'{"preText":"Description","bulletPoints":["Line item 1","Line item 2", "Line item 3","Line item 4"]}',
+		date: new Date('2023-06-20T00:00:00.000Z'),
+		startDate: new Date('2022-12-12T00:00:00.000Z'),
+		startTime: '13:00',
+		endTime: '13:00',
+		folderId: 5168,
+		ExaminationTimetableType: {
+			id: 4,
+			name: 'Deadline For Close Of Examination',
+			templateType: 'deadline',
+			displayNameEn: 'Deadline for close of examination',
+			displayNameCy: 'Deadline for close of examination'
+		}
+	},
+	{
+		id: 4,
+		examinationTimetableId: 1,
+		examinationTypeId: 3,
+		name: 'Preliminary Meeting',
+		description:
+			'{"preText":"Description","bulletPoints":["Line item 1","Line item 2", "Line item 3","Line item 4"]}',
+		date: new Date('2023-06-20T00:00:00.000Z'),
+		startDate: new Date('2022-12-12T00:00:00.000Z'),
+		startTime: '13:00',
+		endTime: '13:00',
+		folderId: 5168,
+		ExaminationTimetableType: {
+			id: 9,
+			name: 'Preliminary Meeting',
+			templateType: 'starttime-mandatory',
+			displayNameEn: 'Preliminary meeting',
+			displayNameCy: 'Preliminary meeting'
+		}
 	}
 ];
 
@@ -176,6 +216,50 @@ const expectedPublishExaminationTimetableItemsPayload = [
 		],
 		eventTitle: 'Test deadline',
 		type: 'Deadline'
+	},
+	{
+		date: '2023-06-20T00:00:00.000',
+		description: 'Description',
+		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+		eventId: 3,
+		eventLineItems: [
+			{
+				eventLineItemDescription: 'Line item 1'
+			},
+			{
+				eventLineItemDescription: 'Line item 2'
+			},
+			{
+				eventLineItemDescription: 'Line item 3'
+			},
+			{
+				eventLineItemDescription: 'Line item 4'
+			}
+		],
+		eventTitle: 'Deadline For Close Of Examination',
+		type: 'Deadline For Close Of Examination'
+	},
+	{
+		date: '2023-06-20T00:00:00.000',
+		description: 'Description',
+		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+		eventId: 4,
+		eventLineItems: [
+			{
+				eventLineItemDescription: 'Line item 1'
+			},
+			{
+				eventLineItemDescription: 'Line item 2'
+			},
+			{
+				eventLineItemDescription: 'Line item 3'
+			},
+			{
+				eventLineItemDescription: 'Line item 4'
+			}
+		],
+		eventTitle: 'Preliminary Meeting',
+		type: 'Preliminary Meeting'
 	}
 ];
 
