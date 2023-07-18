@@ -92,6 +92,57 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
 </main>"
 `;
 
+exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
+    <h1 class=\\"govuk-heading-l\\">Check your project update</h1>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
+            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+            data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\"></div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-form-group\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"></dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
+                        <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
+                        <dd class=\\"govuk-summary-list__value\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-one-half\\">
+                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/status should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
@@ -136,74 +187,6 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <input type=\\"hidden\\" name=\\"content\\" value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"content\\"></div>
-                        <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"content\\" rows=\\"5\\"></textarea>
-                            </div>
-                        </noscript>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
-                                </div>
-                    </div>
-                    </fieldset>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/status should render the next step 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#content\\">The project update needs to be at least 12 characters long</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create a project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                        </p>
                         <input type=\\"hidden\\" name=\\"content\\" value=\\"\\">
                         <div class=\\"html-content-editor\\" id=\\"content\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>

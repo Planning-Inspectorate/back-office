@@ -12,7 +12,7 @@ export async function getProjectUpdates(caseId, queryString) {
 /**
  * @param {string} caseId
  * @param {string} id
- * @returns {Promise<any>}
+ * @returns {Promise<import('@pins/applications').ProjectUpdate>}
  */
 export async function getProjectUpdate(caseId, id) {
 	return get(`applications/${caseId}/project-updates/${id}`);
