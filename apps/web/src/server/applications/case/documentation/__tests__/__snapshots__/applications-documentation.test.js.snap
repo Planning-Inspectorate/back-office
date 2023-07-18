@@ -6910,7 +6910,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023, John Doe</p>
                                         <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023, John Doe</p>
                                     </td>
@@ -6925,7 +6925,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">Unredacted</td>
@@ -7070,7 +7070,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023, John Doe</p>
                                         <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023, John Doe</p>
                                     </td>
@@ -7085,7 +7085,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">Unredacted</td>
@@ -7228,7 +7228,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023, John Doe</p>
                                         <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023, John Doe</p>
                                     </td>
@@ -7243,7 +7243,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">Unredacted</td>
@@ -7388,7 +7388,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> 03/07/2023, John Doe</p>
                                         <p class='govuk-!-margin-top-2'><strong>Unpublished:</strong> 03/07/2023, John Doe</p>
                                     </td>
@@ -7403,7 +7403,7 @@ exports[`applications documentation Document properties page If the user is not 
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong>Uploaded:</strong> 03/07/2023, Jane Doe</p>
+                                        <p><strong>Uploaded:</strong> ,</p>
                                         <p class='govuk-!-margin-top-2'><strong>Published:</strong> Unpublished</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">Unredacted</td>
