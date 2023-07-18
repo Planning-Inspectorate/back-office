@@ -230,6 +230,7 @@ const document = {
 			createdAt: '2023-02-27T10:00:00Z',
 			lastModified: '2023-02-27T12:00:00Z',
 			documentType: 'PDF',
+			documentReference: 'B123-000001',
 			published: false,
 			sourceSystem: 'Salesforce',
 			origin: 'Email',

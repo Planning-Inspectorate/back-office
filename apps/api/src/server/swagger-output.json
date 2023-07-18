@@ -3144,6 +3144,10 @@
 					"type": "string",
 					"example": "PDF"
 				},
+				"documentReference": {
+					"type": "string",
+					"example": "B123-000001"
+				},
 				"published": {
 					"type": "boolean",
 					"example": false
