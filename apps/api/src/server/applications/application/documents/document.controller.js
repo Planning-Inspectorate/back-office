@@ -243,6 +243,28 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 };
 
 /**
+ *
+ * @param {*} activityLogs
+ * @returns {Object}
+ */
+const mapHistory = (activityLogs) => {
+	const history = {};
+
+	// @ts-ignore
+	activityLogs.forEach((activityLog) => {
+		// @ts-ignore
+		history[activityLog.status] = {
+			date: activityLog?.createdAt
+				? mapDateStringToUnixTimestamp(activityLog?.createdAt?.toString())
+				: null,
+			name: activityLog.user
+		};
+	});
+
+	return history;
+};
+
+/**
  * Gets the properties/metadata for a single document
  *
  * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
@@ -264,10 +286,16 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 				: null,
 			datePublished: documentVersion?.datePublished
 				? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
-				: null
+				: null,
+			history:
+				documentVersion?.DocumentActivityLog?.length > 0
+					? mapHistory(documentVersion.DocumentActivityLog)
+					: null
 			// TODO: add unpublished date
 		})
 	);
+
+	console.log(mappedDocumentVersions);
 
 	response.status(200).send(mappedDocumentVersions);
 };

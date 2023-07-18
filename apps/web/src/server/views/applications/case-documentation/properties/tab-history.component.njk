@@ -24,8 +24,8 @@
 		{% set activity %}
 		<p>
 			<strong>Uploaded:</strong>
-			{{ documentVersion.history.created.date|datestamp({format: 'dd/MM/yyyy'}) }},
-			{{ documentVersion.history.created.name }}
+			{{ documentVersion.history.checked.date|datestamp({format: 'dd/MM/yyyy'}) }},
+			{{ documentVersion.history.checked.name }}
 		</p>
 
 		<p class='govuk-!-margin-top-2'>
