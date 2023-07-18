@@ -120,6 +120,7 @@ describe('Ready-to-publish-documents', () => {
 				{
 					documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
 					documentId: null,
+					documentRef: null,
 					folderId: 1,
 					caseRef: null,
 					sourceSystem: 'back-office',
