@@ -237,6 +237,8 @@ export const publishExaminationTimetable = async (_request, response) => {
 };
 
 /**
+ * Unpublishes an exam timetable on a case
+ *
  * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
@@ -244,15 +246,8 @@ export const publishExaminationTimetable = async (_request, response) => {
 export const unpublishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		const now = new Date();
-		await examinationTimetableRepository.updateByCaseId(
-			+id,
-			// @ts-ignore
-			{
-				published: false,
-				updatedAt: now
-			}
-		);
+		await examinationTimetableItemsService.unPublish(id);
+
 		response.send({
 			success: true
 		});

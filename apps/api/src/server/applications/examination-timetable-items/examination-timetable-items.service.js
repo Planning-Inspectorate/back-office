@@ -102,3 +102,28 @@ export async function publish(id) {
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
 }
+
+/**
+ * Unpublishes an examination timetable. Does so by updating the examination timetable to be unpublished and
+ * sending the examination timetable items to the event queue to be unpublished on the front office.
+ *
+ * @param { String } id
+ * @returns {Promise<void>}
+ */
+export async function unPublish(id) {
+	const now = new Date();
+	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(
+		+id,
+		// @ts-ignore
+		{
+			published: false,
+			updatedAt: now
+		}
+	);
+
+	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(
+		updatedExaminationTimetable
+	);
+
+	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
+}
