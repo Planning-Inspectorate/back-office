@@ -2,8 +2,7 @@ import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
 import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
-// @ts-ignore
-import { EventType } from '@pins/event-client';
+import { EventType } from '@pins/event-client/src/event-type';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetableItem} NSIPExamTimetableItem
