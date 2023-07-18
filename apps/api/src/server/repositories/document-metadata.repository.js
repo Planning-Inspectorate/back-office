@@ -121,6 +121,7 @@ export const getAll = () => {
 
 export const getAllByDocumentGuid = (guid) => {
 	return databaseConnector.documentVersion.findMany({
+		include: { DocumentActivityLog: true },
 		where: { documentGuid: guid },
 		orderBy: { version: 'desc' }
 	});
