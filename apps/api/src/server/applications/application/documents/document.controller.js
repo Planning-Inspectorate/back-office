@@ -46,7 +46,10 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		gridReference: true
 	});
 
-	let nextReferenceIndex = getNextDocumentReferenceIndex(currentDocuments);
+	let nextReferenceIndex = Array.isArray(currentDocuments)
+		? getNextDocumentReferenceIndex(currentDocuments)
+		: 1;
+
 	for (const doc of documentsToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
