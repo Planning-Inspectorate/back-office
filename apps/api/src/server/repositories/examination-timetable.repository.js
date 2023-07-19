@@ -23,7 +23,7 @@ export const create = (examinationTimetable) => {
 /**
  *
  * @param {number} caseId
- * @param {import('@pins/applications.api').Schema.ExaminationTimetable} examinationTimetable
+ * @param {import('@prisma/client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetable>}
  */
 export const updateByCaseId = (caseId, examinationTimetable) => {
@@ -36,7 +36,7 @@ export const updateByCaseId = (caseId, examinationTimetable) => {
 /**
  *
  * @param {number} id
- * @param {import('@pins/applications.api').Schema.ExaminationTimetable} examinationTimetable
+ * @param {import('@prisma/client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetable>}
  */
 export const update = (id, examinationTimetable) => {
