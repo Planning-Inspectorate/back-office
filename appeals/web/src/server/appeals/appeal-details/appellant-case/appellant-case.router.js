@@ -1,6 +1,8 @@
 import { Router as createRouter } from 'express';
 import * as controller from './appellant-case.controller.js';
 import * as validators from './appellant-case.validators.js';
+import outcomeInvalidRouter from './outcome-invalid/outcome-invalid.router.js';
+import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -9,10 +11,8 @@ router
 	.get(controller.getAppellantCase)
 	.post(validators.validateReviewOutcome, controller.postAppellantCase);
 
-router
-	.route('/invalid')
-	.get(controller.getInvalidReason)
-	.post(validators.validateInvalidReason, controller.postInvalidReason);
+router.use('/invalid', outcomeInvalidRouter);
+router.use('/incomplete', outcomeIncompleteRouter);
 
 router
 	.route('/check-your-answers')

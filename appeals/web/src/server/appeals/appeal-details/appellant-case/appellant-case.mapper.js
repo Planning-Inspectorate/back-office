@@ -1,11 +1,13 @@
-import { addressToString } from '../../lib/address-formatter.js';
-import { convertFromBooleanToYesNo } from '../../lib/boolean-formatter.js';
-import { mapDocumentsForDisplay } from '../appeal-documents/appeal-documents.mapper.js';
+import { addressToString } from '../../../lib/address-formatter.js';
+import { convertFromBooleanToYesNo } from '../../../lib/boolean-formatter.js';
+import { dayMonthYearToApiDateString } from '../../../lib/dates.js';
 import { capitalize } from 'lodash-es';
+import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
+import { mapDocumentsForDisplay } from '../../appeal-documents/appeal-documents.mapper.js';
 
 /**
  *
- * @param {import('appeals/web/src/server/appeals/appellant-case/appellant-case.types').SingleAppellantCaseResponse} appellantCaseData
+ * @param {import('./appellant-case.types.js').SingleAppellantCaseResponse} appellantCaseData
  * @returns {SummaryListBuilderParameters[]}
  */
 export function mapResponseToSummaryListBuilderParameters(appellantCaseData) {
@@ -19,70 +21,147 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData) {
 
 /**
  *
- * @param {import('./appellant-case.service.js').AppellantCaseReviewOutcome} reviewOutcome
- * @param {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason[]} invalidReasonOptions
+ * @param {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
+ * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {string} [otherNotValidReasons]
+ * @returns {string[]}
+ */
+function mapInvalidOrIncompleteReasonsToReasonsList(
+	invalidOrIncompleteReasonOptions,
+	invalidOrIncompleteReasons,
+	otherNotValidReasons
+) {
+	const reasons = Array.isArray(invalidOrIncompleteReasons)
+		? invalidOrIncompleteReasons
+		: [invalidOrIncompleteReasons];
+
+	return (
+		reasons
+			?.map((reason) =>
+				invalidOrIncompleteReasonOptions.find((option) => option.id === parseInt(reason || '', 10))
+			)
+			.map((option) => {
+				if (!option) {
+					throw new Error('invalid or incomplete reason ID was not recognised');
+				}
+				const name = option.name;
+				return name.toLowerCase() === 'other' ? `${name}: ${otherNotValidReasons || ''}` : name;
+			}) || ['']
+	);
+}
+
+/**
+ *
+ * @param {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
+ * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {string} [otherNotValidReasons]
+ * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */
 export function mapReviewOutcomeToSummaryListBuilderParameters(
-	reviewOutcome,
-	invalidReasonOptions
+	invalidOrIncompleteReasonOptions,
+	validationOutcome,
+	invalidOrIncompleteReasons,
+	otherNotValidReasons,
+	updatedDueDate
 ) {
-	const reasonsContent = [];
-
-	switch (reviewOutcome.validationOutcome) {
-		case 'invalid':
-			if (!reviewOutcome.invalidReasons) {
-				throw new Error('validationOutcome is "invalid" but invalidReasons was not found');
-			}
-			reviewOutcome.invalidReasons.forEach((reason) => {
-				for (const possibleReason of invalidReasonOptions) {
-					if (reason === possibleReason.id) {
-						const reasonText =
-							possibleReason.name.toLowerCase() === 'other'
-								? `${possibleReason.name}: ${reviewOutcome.otherNotValidReasons || ''}`
-								: possibleReason.name;
-						reasonsContent.push(reasonText);
-					}
-				}
-			});
-			break;
-		case 'incomplete':
-			// TODO: BOAT-235
-			reasonsContent.push('');
-			break;
-		default:
-			break;
+	if (
+		(validationOutcome === appellantCaseReviewOutcomes.invalid ||
+			validationOutcome === appellantCaseReviewOutcomes.incomplete) &&
+		!invalidOrIncompleteReasons
+	) {
+		throw new Error(`validationOutcome "${validationOutcome}" requires invalidOrIncompleteReasons`);
 	}
 
-	/** @type {import('../../lib/nunjucks-template-builders/summary-list-builder').Row[]} */
+	const reasonsList = mapInvalidOrIncompleteReasonsToReasonsList(
+		invalidOrIncompleteReasonOptions,
+		invalidOrIncompleteReasons,
+		otherNotValidReasons
+	);
+
+	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
 	const sectionData = [
 		{
 			title: 'Review outcome',
-			value: reviewOutcome.validationOutcome,
+			value: String(validationOutcome),
 			valueType: 'text',
 			actionText: 'Change',
 			actionLink: '#'
 		},
 		{
-			title: `${capitalize(reviewOutcome.validationOutcome)} reasons`,
-			value: reasonsContent,
+			title: `${capitalize(String(validationOutcome))} reasons`,
+			value: reasonsList,
 			valueType: 'unorderedList',
 			actionText: 'Change',
 			actionLink: '#'
 		}
 	];
 
+	if (updatedDueDate) {
+		sectionData.push({
+			title: `Updated due date`,
+			value: `${updatedDueDate.day}/${updatedDueDate.month}/${updatedDueDate.year}`,
+			valueType: 'text',
+			actionText: 'Change',
+			actionLink: '#'
+		});
+	}
+
 	return { rows: sectionData };
 }
 
 /**
- *
- * @param {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason[]} invalidReasonOptions
- * @param {string[]|number[]} [checkedOptionValues]
- * @returns {import('../appeals.types').CheckboxItemParameter[]}
+ * @typedef {Object} NotificationBannerComponentParameters
+ * @property {string} [html]
+ * @property {string} [text]
+ * @property {string} [type]
+ * @property {string} [role]
+ * @property {string} [titleHtml]
+ * @property {string} [titleText]
+ * @property {string} [titleId]
+ * @property {string|number} [titleHeadingLevel]
+ * @property {string} [classes]
+ * @property {Object.<string, string>|string[][]} [attributes]
+ * @property {string} [disableAutoFocus] - templated into value of data-disable-auto-focus attribute
  */
-export function mapInvalidReasonsToCheckboxItemParameters(
-	invalidReasonOptions,
+
+/**
+ *
+ * @param {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
+ * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {string} [otherNotValidReasons]
+ * @returns {NotificationBannerComponentParameters}
+ */
+export function mapReviewOutcomeToNotificationBannerComponentParameters(
+	invalidOrIncompleteReasonOptions,
+	validationOutcome,
+	invalidOrIncompleteReasons,
+	otherNotValidReasons
+) {
+	const reasonsList = mapInvalidOrIncompleteReasonsToReasonsList(
+		invalidOrIncompleteReasonOptions,
+		invalidOrIncompleteReasons,
+		otherNotValidReasons
+	);
+
+	return {
+		titleText: `Appeal is ${String(validationOutcome)}`,
+		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${reasonsList
+			.map((reason) => `<li>${reason}</li>`)
+			.join('')}</ul>`
+	};
+}
+
+/**
+ *
+ * @param {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]} invalidOrIncompleteReasonOptions
+ * @param {string[]|number[]} [checkedOptionValues]
+ * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
+ */
+export function mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
+	invalidOrIncompleteReasonOptions,
 	checkedOptionValues
 ) {
 	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
@@ -93,7 +172,7 @@ export function mapInvalidReasonsToCheckboxItemParameters(
 		typeof value === 'string' ? parseInt(value, 10) : value
 	);
 
-	return invalidReasonOptions.map((reason) => ({
+	return invalidOrIncompleteReasonOptions.map((reason) => ({
 		value: `${reason.id}`,
 		text: reason.name,
 		...(checkedOptions && {
@@ -104,37 +183,45 @@ export function mapInvalidReasonsToCheckboxItemParameters(
 
 /**
  *
- * @param {'valid'|'invalid'|'incomplete'} validationOutcome
- * @param {string|string[]} [invalidReasons]
+ * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {string|string[]} [invalidOrIncompleteReasons]
  * @param {string} [otherNotValidReasons]
+ * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {import('./appellant-case.service.js').AppellantCaseReviewOutcome}
  */
-export function mapPostedReviewOutcomeToApiReviewOutcome(
+export function mapWebReviewOutcomeToApiReviewOutcome(
 	validationOutcome,
-	invalidReasons,
-	otherNotValidReasons
+	invalidOrIncompleteReasons,
+	otherNotValidReasons,
+	updatedDueDate
 ) {
-	let parsedInvalidReasons;
+	let parsedReasons;
 
-	if (invalidReasons) {
-		if (!Array.isArray(invalidReasons)) {
-			invalidReasons = [invalidReasons];
+	if (invalidOrIncompleteReasons) {
+		if (!Array.isArray(invalidOrIncompleteReasons)) {
+			invalidOrIncompleteReasons = [invalidOrIncompleteReasons];
 		}
-		parsedInvalidReasons = invalidReasons.map((reason) => parseInt(reason, 10));
-		if (!parsedInvalidReasons.every((value) => !Number.isNaN(value))) {
+		parsedReasons = invalidOrIncompleteReasons.map((reason) => parseInt(reason, 10));
+		if (!parsedReasons.every((value) => !Number.isNaN(value))) {
 			throw new Error('failed to parse one or more invalid reason IDs to integer');
 		}
 	}
 
 	return {
-		validationOutcome,
-		...(invalidReasons && { invalidReasons: parsedInvalidReasons }),
-		...(otherNotValidReasons && { otherNotValidReasons })
+		validationOutcome: String(validationOutcome),
+		...(validationOutcome === appellantCaseReviewOutcomes.invalid &&
+			invalidOrIncompleteReasons && { invalidReasons: parsedReasons }),
+		...(validationOutcome === appellantCaseReviewOutcomes.incomplete &&
+			invalidOrIncompleteReasons && { incompleteReasons: parsedReasons }),
+		...(otherNotValidReasons && { otherNotValidReasons }),
+		...(updatedDueDate && {
+			appealDueDate: dayMonthYearToApiDateString(updatedDueDate)
+		})
 	};
 }
 
 /**
- * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder").Row} SummaryListBuilderRowArray
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").Row} SummaryListBuilderRowArray
  */
 
 /**
@@ -142,12 +229,12 @@ export function mapPostedReviewOutcomeToApiReviewOutcome(
  */
 
 /**
- * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder").BuilderParameters} SummaryListBuilderParameters
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
  */
 
 /**
  *
- * @param {import("./appellant-case.types").SingleAppellantCaseResponse} appellantCaseData
+ * @param {import("./appellant-case.types.js").SingleAppellantCaseResponse} appellantCaseData
  * @returns {MappedAppellantCaseData}
  */
 function mapData(appellantCaseData) {
@@ -250,27 +337,27 @@ function mapData(appellantCaseData) {
 	};
 
 	mappedData.applicationForm = {
+		title: 'Application form known',
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.applicationForm
-		),
-		title: 'Application form known'
+		)
 	};
 
 	mappedData.decisionLetter = {
+		title: 'Decision letter',
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.decisionLetter
-		),
-		title: 'Decision letter'
+		)
 	};
 
 	mappedData.appealStatement = {
+		title: 'Appeal statement',
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.appealStatement
-		),
-		title: 'Appeal statement'
+		)
 	};
 
 	const hasNewSupportingDocuments =
@@ -284,23 +371,23 @@ function mapData(appellantCaseData) {
 		actionLink: '#'
 	};
 
-	if (hasNewSupportingDocuments) {
+	if (appellantCaseData.hasNewSupportingDocuments) {
 		mappedData.newSupportingDocuments =
 			appellantCaseData.documents.newSupportingDocuments.documents.map((document, index) => ({
+				title: index === 0 ? 'New supporting documents' : '',
 				...mapDocumentsForDisplay(
 					appellantCaseData.appealId,
 					appellantCaseData.documents.newSupportingDocuments
-				),
-				title: index === 0 ? 'New supporting documents' : ''
+				)
 			}));
 	} else {
 		mappedData.newSupportingDocuments = [
 			{
-				...mapDocumentsForDisplay(
-					appellantCaseData.appealId,
-					appellantCaseData.documents.newSupportingDocuments
-				),
-				title: 'New supporting documents'
+				title: 'New supporting documents',
+				value: 'none',
+				valueType: 'text',
+				actionText: 'Add',
+				actionLink: '#'
 			}
 		];
 	}

@@ -1,7 +1,20 @@
 import { AppealSite } from '@pins/appeals';
-import { FolderInfo, DocumentInfo } from '../appeal-documents/appeal-documents.types.js';
 
 // TODO: BOAT-245
+
+interface DocumentInfo {
+	id: string;
+	name: string;
+	folderId: number;
+	caseId: number;
+}
+
+interface FolderInfo {
+	folderId: number;
+	path: string;
+	documents: DocumentInfo[];
+}
+
 export interface SingleAppellantCaseResponse {
 	agriculturalHolding?: {
 		isAgriculturalHolding: boolean | null;
