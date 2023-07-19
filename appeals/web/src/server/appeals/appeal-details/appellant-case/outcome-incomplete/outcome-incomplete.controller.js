@@ -21,16 +21,30 @@ const renderIncompleteReason = async (request, response) => {
 		// @ts-ignore
 		appealId,
 		// @ts-ignore
-		appealReference,
-		// @ts-ignore
-		appellantCaseReviewOutcome
+		appealReference
 	} = request.session;
+
+	// @ts-ignore
+	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
+
+	if (
+		existingWebAppellantCaseReviewOutcome &&
+		(existingWebAppellantCaseReviewOutcome.appealId !== appealId ||
+			existingWebAppellantCaseReviewOutcome.validationOutcome !==
+				appellantCaseReviewOutcomes.incomplete)
+	) {
+		// @ts-ignore
+		delete request.session.webAppellantCaseReviewOutcome;
+	}
+
+	// @ts-ignore
+	const { webAppellantCaseReviewOutcome } = request.session;
 	const incompleteReasonOptions = await appellantCaseService.getAppellantCaseIncompleteReasons();
 
 	if (incompleteReasonOptions) {
 		const incompleteReasons =
-			body.incompleteReason || appellantCaseReviewOutcome?.incompleteReasons;
-		const otherReason = body.otherReason || appellantCaseReviewOutcome?.otherNotValidReasons;
+			body.incompleteReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
+		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
 		const mappedIncompleteReasonOptions = mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
 			incompleteReasonOptions,
 			incompleteReasons
@@ -141,8 +155,16 @@ export const postIncompleteReason = async (request, response) => {
 	}
 
 	try {
+		if (!objectContainsAllKeys(request.session, 'appealId')) {
+			return response.render('app/500.njk');
+		}
+
+		// @ts-ignore
+		const { appealId } = request.session;
+
 		// @ts-ignore
 		request.session.webAppellantCaseReviewOutcome = {
+			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.incomplete,
 			invalidOrIncompleteReasons: request.body.incompleteReason,
 			otherNotValidReasons: request.body.otherReason
@@ -150,7 +172,7 @@ export const postIncompleteReason = async (request, response) => {
 
 		return response.redirect(
 			// @ts-ignore
-			`/appeals-service/appeal-details/${request.session.appealId}/appellant-case/incomplete/date`
+			`/appeals-service/appeal-details/${appealId}/appellant-case/incomplete/date`
 		);
 	} catch (error) {
 		logger.error(

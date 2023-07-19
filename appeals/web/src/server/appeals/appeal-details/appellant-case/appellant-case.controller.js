@@ -222,11 +222,14 @@ export const postCheckAndConfirm = async (request, response) => {
 			)
 		);
 
-		if (webAppellantCaseReviewOutcome.validationOutcome === appellantCaseReviewOutcomes.invalid) {
+		const validationOutcome = webAppellantCaseReviewOutcome.validationOutcome;
+
+		// @ts-ignore
+		delete request.session.webAppellantCaseReviewOutcome;
+
+		if (validationOutcome === appellantCaseReviewOutcomes.invalid) {
 			return renderDecisionInvalidConfirmationPage(response, appealReference, appealId);
-		} else if (
-			webAppellantCaseReviewOutcome.validationOutcome === appellantCaseReviewOutcomes.incomplete
-		) {
+		} else if (validationOutcome === appellantCaseReviewOutcomes.incomplete) {
 			return renderDecisionIncompleteConfirmationPage(response, appealReference, appealId);
 		} else {
 			return response.render('app/500.njk');
