@@ -17,3 +17,16 @@ export interface FormComponent {
 	// any other value for the specific (govuk or otherwise) component
 	[key: string]: any;
 }
+
+export interface ProjectUpdatesDetailsView {
+	case: any;
+	title?: string;
+	buttonText?: string;
+	preview: { html: string };
+	form?: {
+		name: string;
+		value: string;
+	};
+	// govuk summary list options here
+	summary: { rows: any[] };
+}

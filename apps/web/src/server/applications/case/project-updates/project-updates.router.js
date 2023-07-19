@@ -10,8 +10,17 @@ projectUpdatesRouter.use(registerCase);
 
 projectUpdatesRouter.route('/').get(asyncRoute(controller.projectUpdatesTable));
 
+export const projectUpdateRoutes = Object.freeze({
+	create: 'create',
+	content: 'content',
+	status: 'status',
+	checkAnswers: 'check-answers',
+	review: 'review',
+	delete: 'delete'
+});
+
 projectUpdatesRouter
-	.route('/create')
+	.route(`/${projectUpdateRoutes.create}`)
 	.get(asyncRoute(controller.projectUpdatesCreateGet))
 	.post(
 		[validators.validateProjectUpdatesContent],
@@ -19,20 +28,29 @@ projectUpdatesRouter
 	);
 
 projectUpdatesRouter
-	.route('/:projectUpdateId/status')
+	.route(`/:projectUpdateId/${projectUpdateRoutes.content}`)
+	.get(asyncRoute(controller.projectUpdatesContentGet))
+	.post(
+		[validators.validateProjectUpdatesContent],
+		asyncRoute(controller.projectUpdatesContentPost)
+	);
+
+projectUpdatesRouter
+	.route(`/:projectUpdateId/${projectUpdateRoutes.status}`)
 	.get(asyncRoute(controller.projectUpdatesStatusGet))
 	.post(asyncRoute(controller.projectUpdatesStatusPost));
 
 projectUpdatesRouter
-	.route('/:projectUpdateId/preview')
+	.route(`/:projectUpdateId/${projectUpdateRoutes.checkAnswers}`)
+	.get(asyncRoute(controller.projectUpdatesCheckAnswersGet))
+	.post(asyncRoute(controller.projectUpdatesCheckAnswersPost));
+
+projectUpdatesRouter
+	.route(`/:projectUpdateId/${projectUpdateRoutes.review}`)
 	.get(asyncRoute(controller.projectUpdatesTable));
 
 projectUpdatesRouter
-	.route('/:projectUpdateId/review')
-	.get(asyncRoute(controller.projectUpdatesTable));
-
-projectUpdatesRouter
-	.route('/:projectUpdateId/delete')
+	.route(`/:projectUpdateId/${projectUpdateRoutes.delete}`)
 	.get(asyncRoute(controller.projectUpdatesTable));
 
 export default projectUpdatesRouter;
