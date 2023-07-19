@@ -1,7 +1,7 @@
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
 import * as repository from '../../../repositories/project-update.respository.js';
 import { getPageCount } from '../../../utils/database-pagination.js';
-import { mapProjectUpdate } from './project-updates.mapper.js';
+import { UnsafeContentError, mapProjectUpdate } from './project-updates.mapper.js';
 import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
 import {
@@ -74,6 +74,8 @@ export async function patchProjectUpdate(req, res) {
 		// handle status errors from the db transaction
 		if (e instanceof ProjectUpdateStatusError) {
 			res.status(400).send({ errors: { status: e.message } });
+		} else if (e instanceof UnsafeContentError) {
+			res.status(500).send({ errors: { content: e.message } });
 		} else {
 			throw e;
 		}

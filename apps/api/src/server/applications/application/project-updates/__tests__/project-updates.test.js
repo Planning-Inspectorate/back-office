@@ -451,6 +451,20 @@ describe('project-updates', () => {
 						status: 200,
 						body: mapProjectUpdate(dummyProjectUpdate(1))
 					}
+				},
+				{
+					name: 'checks update content from the db',
+					id: 1,
+					caseEntry: { id: 1 },
+					projectUpdateId: 1,
+					projectUpdate: {
+						...dummyProjectUpdate(1),
+						htmlContent: '<script>function notSafe(){}</script>'
+					},
+					want: {
+						status: 500,
+						body: { errors: 'unsafe English HTML content for update: 1' }
+					}
 				}
 			];
 
@@ -673,6 +687,30 @@ describe('project-updates', () => {
 							datePublished: '2023-07-11T10:00:00.000Z',
 							htmlContent: 'hello'
 						}
+					}
+				},
+				{
+					name: 'should check HTML content is safe before sending an event',
+					body: {
+						status: 'published'
+					},
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						status: 'ready-to-publish',
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false,
+						datePublished: fakeNow,
+						emailSubscribers: true,
+						htmlContent: `<script>function myMaliciousFunc(){window.location='https://my-bad-site.com';}</script>Something happened`
+					},
+					want: {
+						status: 500,
+						body: { errors: { content: 'unsafe English HTML content for update: 5' } }
 					}
 				}
 			];

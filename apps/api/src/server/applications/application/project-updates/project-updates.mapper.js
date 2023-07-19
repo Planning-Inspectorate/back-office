@@ -1,5 +1,6 @@
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { contentIsSafe } from './project-updates.validators.js';
+import BackOfficeAppError from '#utils/app-error.js';
 
 /**
  * Map a project update from the database to the type returned by the API
@@ -8,6 +9,14 @@ import { contentIsSafe } from './project-updates.validators.js';
  * @returns {import('@pins/applications').ProjectUpdate}
  */
 export function mapProjectUpdate(projectUpdate) {
+	// check HTML content is safe
+	if (projectUpdate.htmlContent && !contentIsSafe(projectUpdate.htmlContent)) {
+		throw newContentUnsafeError(projectUpdate.id);
+	}
+	if (projectUpdate.htmlContentWelsh && !contentIsSafe(projectUpdate.htmlContentWelsh)) {
+		throw newContentUnsafeError(projectUpdate.id, 'Welsh');
+	}
+
 	return {
 		id: projectUpdate.id,
 		caseId: projectUpdate.caseId,
@@ -46,14 +55,14 @@ export function buildProjectUpdatePayload(update, caseReference) {
 
 	// check HTML content is safe
 	if (!contentIsSafe(payload.updateContentEnglish)) {
-		throw new Error(`unsafe English HTML content for update: ${update.id}`);
+		throw newContentUnsafeError(update.id);
 	}
 
 	if (update.htmlContentWelsh) {
 		payload.updateContentWelsh = update.htmlContentWelsh;
 		// check HTML content is safe
 		if (!contentIsSafe(payload.updateContentWelsh)) {
-			throw new Error(`unsafe Welsh HTML content for update: ${update.id}`);
+			throw newContentUnsafeError(update.id, 'Welsh');
 		}
 	}
 	if (update.datePublished) {
@@ -132,3 +141,15 @@ export function projectUpdateUpdateReq(body) {
 
 	return updateReq;
 }
+
+/**
+ *
+ * @param {number} id
+ * @param {string} language
+ * @returns {UnsafeContentError}
+ */
+function newContentUnsafeError(id, language = 'English') {
+	return new UnsafeContentError(`unsafe ${language} HTML content for update: ${id}`);
+}
+
+export class UnsafeContentError extends BackOfficeAppError {}
