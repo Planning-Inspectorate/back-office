@@ -227,6 +227,36 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
 }
 
 /**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesReviewGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	let buttonText;
+	let buttonWarning = false;
+	let form;
+	if (projectUpdate.status === ProjectUpdate.Status.draft) {
+		buttonText = 'Delete';
+		buttonWarning = true;
+		form = {
+			name: 'action',
+			value: 'delete'
+		};
+	}
+	return res.render(
+		detailsView,
+		createDetailsView({
+			caseInfo: res.locals.case,
+			buttonText,
+			buttonWarning,
+			projectUpdate,
+			form
+		})
+	);
+}
+
+/**
  *
  * @param {object} query
  * @param {string} baseUrl

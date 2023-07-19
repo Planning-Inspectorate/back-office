@@ -47,7 +47,7 @@ projectUpdatesRouter
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.review}`)
-	.get(asyncRoute(controller.projectUpdatesTable));
+	.get(asyncRoute(controller.projectUpdatesReviewGet));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.delete}`)

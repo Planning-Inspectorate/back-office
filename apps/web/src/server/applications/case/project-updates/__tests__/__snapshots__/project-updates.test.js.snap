@@ -117,7 +117,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
                             </dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
                         <dd class=\\"govuk-summary-list__value\\">No</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
@@ -137,6 +137,57 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-one-half\\">
                 <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/review should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
+            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+            data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\"></div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-form-group\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"></dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
+                        <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
+                        <dd class=\\"govuk-summary-list__value\\"></dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+        <input type=\\"hidden\\" name=\\"action\\" value=\\"delete\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-one-half\\">
+                <button type=\\"submit\\" class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
             </div>
         </div>
     </form>
