@@ -3,6 +3,7 @@
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
 {%- from "govuk/components/radios/macro.njk" import govukRadios -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
 {%- from "../components/appeal-details-summary.njk" import appealDetailsSummary %}
 
 {%- set pageTitle = "Appellant case - GOV.UK" -%}
@@ -12,6 +13,13 @@
 {%- endset -%}
 
 {%- block pageHeading -%}
+	{%- if notificationBannerParameters -%}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full">
+				{{ govukNotificationBanner(notificationBannerParameters) }}
+			</div>
+		</div>
+	{%- endif -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>

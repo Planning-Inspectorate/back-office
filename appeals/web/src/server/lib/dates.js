@@ -30,3 +30,14 @@ export const isDateInstance = (date) => {
 		!Number.isNaN(date.getFullYear())
 	);
 };
+
+/**
+ * @param {import("../appeals/appeal-details/appellant-case/appellant-case.service.js").DayMonthYear} dayMonthYear
+ * @returns {string} - date in format YYYY-MM-DD
+ */
+export const dayMonthYearToApiDateString = (dayMonthYear) => {
+	const dayString = dayMonthYear.day < 10 ? `0${dayMonthYear.day}` : dayMonthYear.day;
+	const monthString = dayMonthYear.month < 10 ? `0${dayMonthYear.month}` : dayMonthYear.month;
+
+	return `${dayMonthYear.year}-${monthString}-${dayString}`;
+};

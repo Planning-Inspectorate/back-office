@@ -4,9 +4,19 @@
  */
 
 /**
+ * @typedef {Object} MappedDocumentForDisplay
+ * @property {(string[] | string)} value
+ * @property {string} actionText
+ * @property {string} actionLink
+ * @property {import('../../lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} valueType
+ * @property {{[key: string]: string} | null} [attributes]
+ */
+
+/**
  *
  * @param {Number} caseId
  * @param {FolderInfo} folder
+ * @returns {MappedDocumentForDisplay}
  */
 export const mapDocumentsForDisplay = (caseId, folder) => {
 	const { documents } = folder;
@@ -24,10 +34,10 @@ export const mapDocumentsForDisplay = (caseId, folder) => {
 		};
 	}
 	return {
-		value: '',
+		value: 'none',
 		actionText: 'Add',
 		actionLink: mapDocumentUploadUrl(caseId, folder),
-		valueType: 'link'
+		valueType: 'text'
 	};
 };
 

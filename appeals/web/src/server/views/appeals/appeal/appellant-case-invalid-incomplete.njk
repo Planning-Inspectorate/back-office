@@ -4,7 +4,7 @@
 {%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
-{%- set pageTitle = "Why is the appeal invalid? - GOV.UK" -%}
+{%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
 	/appeals-service/appeal-details/{{ appeal.id }}/appellant-case
@@ -28,8 +28,8 @@
 {%- block pageHeading -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
-			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal invalid?</h1>
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal {{ notValidStatus }}?</h1>
 		</div>
 	</div>
 {%- endblock -%}
@@ -37,8 +37,8 @@
 {%- block pageContent -%}
 	<form method="post" novalidate="novalidate">
 		{{ govukCheckboxes({
-			name: "invalidReason",
-			items: invalidReasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
+			name: notValidStatus + "Reason",
+			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
 		}) }}
 		{{ govukButton({
 			text: "Continue",
