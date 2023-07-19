@@ -1,8 +1,8 @@
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 
 import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS,
+	APPEAL_TYPE_SHORTHAND_FPA,
+	APPEAL_TYPE_SHORTHAND_HAS,
 	VALIDATION_OUTCOME_COMPLETE,
 	VALIDATION_OUTCOME_INCOMPLETE,
 	VALIDATION_OUTCOME_INVALID,
@@ -46,7 +46,7 @@ const householdAppeal = {
 	},
 	appealType: {
 		id: 2,
-		shorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		shorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		type: 'household'
 	},
 	appellantCase: {
@@ -194,7 +194,7 @@ const fullPlanningAppeal = {
 	appealType: {
 		id: 1,
 		type: 'full planning',
-		shorthand: APPEAL_TYPE_SHORTCODE_FPA
+		shorthand: APPEAL_TYPE_SHORTHAND_FPA
 	},
 	appellantCase: {
 		...householdAppeal.appellantCase,

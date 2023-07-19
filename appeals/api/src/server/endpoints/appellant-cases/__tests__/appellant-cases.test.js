@@ -29,7 +29,8 @@ import {
 	householdAppeal
 } from '../../../tests/data.js';
 import { folder } from '#tests/documents/mocks.js';
-import { calculateTimetable, joinDateAndTime } from '../appeals.service.js';
+import joinDateAndTime from '#utils/join-date-and-time.js';
+import { calculateTimetable } from '../../../utils/business-days.js';
 import config from '../../../config/config.js';
 import { NotifyClient } from 'notifications-node-client';
 

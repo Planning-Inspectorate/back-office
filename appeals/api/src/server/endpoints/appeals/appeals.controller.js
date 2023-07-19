@@ -12,14 +12,13 @@ import {
 	ERROR_FAILED_TO_SAVE_DATA
 } from '../constants.js';
 import appealFormatter from './appeals.formatter.js';
+import { calculateTimetable, recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
 import {
-	calculateTimetable,
 	isOutcomeIncomplete,
 	isOutcomeInvalid,
-	isOutcomeValid,
-	joinDateAndTime,
-	recalculateDateIfNotBusinessDay
-} from './appeals.service.js';
+	isOutcomeValid
+} from '#utils/check-validation-outcome.js';
+import joinDateAndTime from '#utils/join-date-and-time.js';
 import transitionState from '../../state/transition-state.js';
 import config from '../../config/config.js';
 

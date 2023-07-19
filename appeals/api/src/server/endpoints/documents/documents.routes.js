@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { getAppealValidator } from '#endpoints/appeals/appeals.validators.js';
-import { checkAppealExistsAndAddToRequest } from '#endpoints/appeals/appeals.service.js';
+import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { validateDocumentAndAddToRequest } from './documents.middleware.js';
 import {
 	getFolderIdValidator,
@@ -16,7 +16,7 @@ const router = createRouter();
 router.get(
 	'/:appealId/document-folders/:folderId',
 	/*
-		#swagger.tags = ['Appeal Documents']
+		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/document-folders/{folderId}'
 		#swagger.description = Returns the contents of a single appeal folder, by id
 		#swagger.responses[200] = {
@@ -35,7 +35,7 @@ router.get(
 router.get(
 	'/:appealId/documents/:documentId',
 	/*
-		#swagger.tags = ['Appeal Documents']
+		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
 		#swagger.description = Returns the contents of the appeal folders
 		#swagger.responses[200] = {
@@ -55,7 +55,7 @@ router.get(
 router.post(
 	'/:appealId/documents',
 	/*
-		#swagger.tags = ['Appeal Documents']
+		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents'
 		#swagger.description = Upload documents to a case
 		#swagger.requestBody = {
@@ -80,8 +80,8 @@ router.post(
 router.post(
 	'/:appealId/documents/:documentId',
 	/*
-		#swagger.tags = ['Appeal Documents']
-		#swagger.path = '/appeals/{appealId}/documents/:documentId'
+		#swagger.tags = ['Documents']
+		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
 		#swagger.description = Add a new version of a document
 		#swagger.requestBody = {
 			in: 'body',

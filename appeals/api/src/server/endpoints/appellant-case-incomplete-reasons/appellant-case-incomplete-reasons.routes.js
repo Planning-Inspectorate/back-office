@@ -5,9 +5,9 @@ import { getLookupData } from '../../common/controllers/lookup-data.controller.j
 const router = createRouter();
 
 router.get(
-	'/',
+	'/appellant-case-incomplete-reasons',
 	/*
-		#swagger.tags = ['Appeals']
+		#swagger.tags = ['Appellant Case Incomplete Reasons']
 		#swagger.path = '/appeals/appellant-case-incomplete-reasons'
 		#swagger.description = 'Gets appellant case incomplete reasons'
 		#swagger.responses[200] = {

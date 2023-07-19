@@ -3,8 +3,8 @@
  */
 
 import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS
+	APPEAL_TYPE_SHORTHAND_FPA,
+	APPEAL_TYPE_SHORTHAND_HAS
 } from '../../server/endpoints/constants.js';
 import config from '../../../src/server/config/config.js';
 
@@ -240,7 +240,7 @@ export const addressesList = [
  * >}}
  */
 export const lpaQuestionnaireList = {
-	[APPEAL_TYPE_SHORTCODE_FPA]: {
+	[APPEAL_TYPE_SHORTHAND_FPA]: {
 		communityInfrastructureLevyAdoptionDate: new Date('2023-05-09T01:00:00.000Z'),
 		developmentDescription: '',
 		doesAffectAListedBuilding: true,
@@ -282,7 +282,7 @@ export const lpaQuestionnaireList = {
 		siteWithinGreenBelt: true,
 		statutoryConsulteesDetails: 'Some other people need to be consulted'
 	},
-	[APPEAL_TYPE_SHORTCODE_HAS]: {
+	[APPEAL_TYPE_SHORTHAND_HAS]: {
 		communityInfrastructureLevyAdoptionDate: new Date('2023-05-09T01:00:00.000Z'),
 		developmentDescription: '',
 		doesAffectAListedBuilding: true,
@@ -392,7 +392,7 @@ export const incompleteReviewQuestionnaireSample = {
  * >}}
  */
 export const appellantCaseList = {
-	[APPEAL_TYPE_SHORTCODE_FPA]: {
+	[APPEAL_TYPE_SHORTHAND_FPA]: {
 		applicantFirstName: 'Fiona',
 		applicantSurname: 'Burgess',
 		areAllOwnersKnown: true,
@@ -416,7 +416,7 @@ export const appellantCaseList = {
 		newDevelopmentDescription: 'A new extension has been added at the back',
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
-	[APPEAL_TYPE_SHORTCODE_HAS]: {
+	[APPEAL_TYPE_SHORTHAND_HAS]: {
 		applicantFirstName: null,
 		applicantSurname: null,
 		areAllOwnersKnown: null,

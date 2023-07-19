@@ -6,7 +6,6 @@
 /** @typedef {import("../appeals.js").FolderInfo} FolderInfo */
 
 /**
- *
  * @param {number} caseId
  * @param {string} blobStorageHost,
  * @param {string} blobStorageContainer,
@@ -56,7 +55,11 @@ export const mapDocumentsForBlobStorage = (documents, caseReference, versionId =
 };
 
 /**
- * @type {(guid: string, caseReference: string, name: string, versionId: number) => string}
+ * @param {string} guid
+ * @param {string} caseReference
+ * @param {string} name
+ * @param {number} versionId
+ * @returns {string}
  */
 export const mapBlobPath = (guid, caseReference, name, versionId = 1) => {
 	return `appeal/${mapCaseReferenceForStorageUrl(caseReference)}/${guid}/v${versionId}/${name}`;
@@ -70,7 +73,10 @@ export const mapCaseReferenceForStorageUrl = (caseReference) => {
 };
 
 /**
- * @type {(sectionName: string, folderLayout: Object<string, Object>, folders: Folder[]) => void}
+ * @param {string} sectionName
+ * @param {Object<string, Object>} folderLayout
+ * @param {Folder[]} folders
+ * @returns {void}
  */
 export const mapFoldersLayoutForAppealSection = (sectionName, folderLayout, folders) => {
 	for (const folderName of Object.keys(folderLayout)) {
@@ -80,7 +86,9 @@ export const mapFoldersLayoutForAppealSection = (sectionName, folderLayout, fold
 };
 
 /**
- * @type {(folders: Folder[], path: string) => FolderInfo | void}
+ * @param {Folder[]} folders
+ * @param {string} path
+ * @returns {FolderInfo | void}
  */
 const mapFoldersLayoutForAppealFolder = (folders, path) => {
 	const folder = folders.find((f) => f.path === path);
