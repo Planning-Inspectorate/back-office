@@ -86,15 +86,11 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
  */
 export async function publish(id) {
 	const now = new Date();
-	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(
-		+id,
-		// @ts-ignore
-		{
-			published: true,
-			publishedAt: now,
-			updatedAt: now
-		}
-	);
+	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(+id, {
+		published: true,
+		publishedAt: now,
+		updatedAt: now
+	});
 
 	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(
 		updatedExaminationTimetable
@@ -112,14 +108,10 @@ export async function publish(id) {
  */
 export async function unPublish(id) {
 	const now = new Date();
-	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(
-		+id,
-		// @ts-ignore
-		{
-			published: false,
-			updatedAt: now
-		}
-	);
+	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(+id, {
+		published: false,
+		updatedAt: now
+	});
 
 	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(
 		updatedExaminationTimetable
