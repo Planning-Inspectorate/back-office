@@ -50,7 +50,7 @@
 		{% if buttonText %}
 			<div class="govuk-grid-row">
 				<div class="govuk-grid-column-one-half">
-					{{ govukButton({ text: buttonText, type: "submit" }) }}
+					{{ govukButton({ text: buttonText, type: "submit", classes: buttonClasses }) }}
 				</div>
 			</div>
 		{% endif %}

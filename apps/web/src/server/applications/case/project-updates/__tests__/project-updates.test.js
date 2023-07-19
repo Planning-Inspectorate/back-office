@@ -254,4 +254,25 @@ describe('project-updates', () => {
 			}
 		});
 	});
+
+	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/review', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl + '/1/' + projectUpdateRoutes.review);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - project updates details present
+			expect(element.innerHTML).toContain('Project update preview');
+			expect(element.innerHTML).toContain('Content');
+			expect(element.innerHTML).toContain('Status');
+		});
+	});
 });

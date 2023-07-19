@@ -106,13 +106,21 @@ export function createContentFormView({ caseInfo, errors, values, title }) {
  *
  * @param {Object} options
  * @param {any} options.caseInfo
- * @param {string} options.title
- * @param {string} options.buttonText
- * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} options.form
+ * @param {string} [options.title]
+ * @param {string} [options.buttonText]
+ * @param {boolean} [options.buttonWarning]
+ * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
  * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
  */
-export function createDetailsView({ caseInfo, title, buttonText, form, projectUpdate }) {
+export function createDetailsView({
+	caseInfo,
+	title,
+	buttonText,
+	buttonWarning,
+	form,
+	projectUpdate
+}) {
 	const contentChangeLink = url('project-updates-step', {
 		caseId: parseInt(caseInfo.id),
 		step: projectUpdateRoutes.content,
@@ -123,14 +131,24 @@ export function createDetailsView({ caseInfo, title, buttonText, form, projectUp
 		step: projectUpdateRoutes.status,
 		projectUpdateId: projectUpdate.id
 	});
+	const rows = [];
+	if (projectUpdate.status === ProjectUpdate.Status.published && projectUpdate.datePublished) {
+		console.log(projectUpdate.datePublished);
+		rows.push({
+			key: { text: 'Date published' },
+			value: { text: displayDate(projectUpdate.datePublished, { condensed: true }) }
+		});
+	}
 	return {
 		case: caseInfo,
 		title,
 		buttonText,
+		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
 		preview: { html: projectUpdate.htmlContent },
 		form,
 		summary: {
 			rows: [
+				...rows,
 				{
 					key: {
 						html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
@@ -146,6 +164,7 @@ export function createDetailsView({ caseInfo, title, buttonText, form, projectUp
 					}
 				},
 				{
+					classes: 'no-border',
 					key: { text: 'Email to subscribers' },
 					value: { text: booleanAnswer(projectUpdate.emailSubscribers) }
 				},
