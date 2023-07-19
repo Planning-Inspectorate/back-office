@@ -302,3 +302,38 @@ export const appellantCaseInvalidReasons = [
 		name: 'Other'
 	}
 ];
+
+export const appellantCaseIncompleteReasons = [
+	{
+		id: 2025,
+		name: 'Appellant name is not the same on the application form and appeal form'
+	},
+	{
+		id: 2026,
+		name: 'Attachments and/or appendices have not been included to the full statement of case'
+	},
+	{
+		id: 2027,
+		name: "LPA's decision notice is incorrect or incomplete"
+	},
+	{
+		id: 2028,
+		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing'
+	},
+	{
+		id: 2029,
+		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form'
+	},
+	{
+		id: 2030,
+		name: 'The original application form is incomplete or missing'
+	},
+	{
+		id: 2031,
+		name: 'Statement of case and ground of appeal are missing'
+	},
+	{
+		id: 2032,
+		name: 'Other'
+	}
+];

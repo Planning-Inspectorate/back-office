@@ -30,6 +30,18 @@ export const getById = (documentGuid) => {
 };
 
 /**
+ * Get a document by caseid
+ *
+ * @param {number} caseId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
+ */
+export const getByCaseId = (caseId) => {
+	return databaseConnector.document.findMany({
+		where: { caseId }
+	});
+};
+
+/**
  * Get a document by documentGuid
  *
  * @param {string} documentGuid

@@ -30,7 +30,7 @@ describe('Document location', () => {
 					caseReference: '1',
 					documentName: 'PINS1.pdf',
 					GUID: 'D987654321',
-					blobStoreUrl: '/application/1/D987654321/PINS1.pdf'
+					blobStoreUrl: '/application/1/D987654321/1/PINS1.pdf'
 				},
 				{
 					caseType: 'appeal',

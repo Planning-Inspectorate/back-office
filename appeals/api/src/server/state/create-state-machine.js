@@ -1,6 +1,6 @@
 import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS,
+	APPEAL_TYPE_SHORTHAND_FPA,
+	APPEAL_TYPE_SHORTHAND_HAS,
 	ERROR_INVALID_APPEAL_TYPE
 } from '../endpoints/constants.js';
 import hasStateMachine from './state-machines/has.js';
@@ -12,9 +12,9 @@ import fpaStateMachine from './state-machines/fpa.js';
  */
 const createStateMachine = (appealType, currentState) => {
 	switch (appealType) {
-		case APPEAL_TYPE_SHORTCODE_HAS:
+		case APPEAL_TYPE_SHORTHAND_HAS:
 			return hasStateMachine(currentState);
-		case APPEAL_TYPE_SHORTCODE_FPA:
+		case APPEAL_TYPE_SHORTHAND_FPA:
 			return fpaStateMachine(currentState);
 		default:
 			throw new Error(ERROR_INVALID_APPEAL_TYPE);

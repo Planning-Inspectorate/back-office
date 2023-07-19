@@ -87,7 +87,7 @@ const serverActions = (uploadForm) => {
 					});
 				}
 
-				return documentUploadInfo;
+				return [documentUploadInfo];
 			});
 	};
 

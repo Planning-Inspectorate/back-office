@@ -217,11 +217,11 @@ interface SingleAppellantCaseResponse {
 		details: string | null;
 	};
 	documents: {
-		appealStatement: FolderInfo;
-		applicationForm: FolderInfo;
-		decisionLetter: FolderInfo;
-		designAndAccessStatement?: FolderInfo;
-		newSupportingDocuments: FolderInfo;
+		appealStatement: FolderInfo | {};
+		applicationForm: FolderInfo | {};
+		decisionLetter: FolderInfo | {};
+		designAndAccessStatement?: FolderInfo | {};
+		newSupportingDocuments: FolderInfo | {};
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;

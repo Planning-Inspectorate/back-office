@@ -1,13 +1,14 @@
 import { addressToString } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
-import { dateIsValid, isDateInstance } from '../dates.js';
+import { dateIsValid, isDateInstance, dayMonthYearToApiDateString } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
 import { objectContainsAllKeys } from '../object-utilities.js';
 import { checkboxItemParameterAddConditionalHtml } from '../nunjucks-filters/checkbox-item-parameter-add-conditional-html.js';
+import { getIdByNameFromIdNamePairs } from '../id-name-pairs.js';
 import { cloneDeep } from 'lodash-es';
 
 describe('Libraries', () => {
@@ -303,6 +304,28 @@ describe('Libraries', () => {
 			});
 		});
 
+		describe('dayMonthYearToApiDateString', () => {
+			it('should return the correct date as a string in the format YYYY-MM-DD when provided a DayMonthYear with single-digit day and month values', () => {
+				const convertedDate = dayMonthYearToApiDateString({
+					day: 1,
+					month: 2,
+					year: 2023
+				});
+
+				expect(convertedDate).toBe('2023-02-01');
+			});
+
+			it('should return the correct date as a string in the format YYYY-MM-DD when provided a DayMonthYear with double-digit day and month values', () => {
+				const convertedDate = dayMonthYearToApiDateString({
+					day: 10,
+					month: 10,
+					year: 2023
+				});
+
+				expect(convertedDate).toBe('2023-10-10');
+			});
+		});
+
 		describe('datestamp', () => {
 			it('should return BST date if date between March-October', () => {
 				// 05/02/2023 @ 8:54am
@@ -431,6 +454,33 @@ describe('Libraries', () => {
 			expect(resultForTextProperty[0].conditional).toBe(undefined);
 			expect(resultForTextProperty[1].conditional).toEqual(expectedResult);
 			expect(resultForTextProperty[2].conditional).toEqual(expectedResult);
+		});
+	});
+
+	describe('getIdByNameFromIdNamePairs', () => {
+		it('should return the id of the IdNamePair with the provided name, if a matching IdNamePair is present in the provided array', () => {
+			const matchingId = getIdByNameFromIdNamePairs(
+				[
+					{ id: 0, name: 'a' },
+					{ id: 1, name: 'b' },
+					{ id: 2, name: 'c' }
+				],
+				'b'
+			);
+
+			expect(matchingId).toBe(1);
+		});
+		it('should return undefined, if an IdNamePair with the provided name is not present in the provided array', () => {
+			const matchingId = getIdByNameFromIdNamePairs(
+				[
+					{ id: 0, name: 'a' },
+					{ id: 1, name: 'b' },
+					{ id: 2, name: 'c' }
+				],
+				'd'
+			);
+
+			expect(matchingId).toBe(undefined);
 		});
 	});
 });

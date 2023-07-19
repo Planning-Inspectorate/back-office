@@ -24,7 +24,8 @@ const document = {
 				caseType: 'application',
 				caseReference: '1',
 				documentName: 'PINS1',
-				GUID: 'D987654321'
+				GUID: 'D987654321',
+				version: 1
 			}
 		],
 		Documents: [

@@ -75,7 +75,6 @@ export const addDocumentsToAppeal = async (upload, appeal) => {
 };
 
 /**
- *
  * @param {number} caseId
  * @param {string} reference
  * @param {DocumentMetadata[]} documents

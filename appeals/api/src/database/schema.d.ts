@@ -1,8 +1,8 @@
 import * as schema from '../../src/server/utils/db-client';
 import { string_to_uuid } from 'rhea/typings/util';
 import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS
+	APPEAL_TYPE_SHORTHAND_FPA,
+	APPEAL_TYPE_SHORTHAND_HAS
 } from '../server/endpoints/constants';
 
 export {
@@ -94,7 +94,7 @@ export interface AppealTimetable extends schema.AppealTimetable {
 	statementReviewDate: Date | null;
 }
 
-export type AppealTypeCode = APPEAL_TYPE_SHORTCODE_FPA | APPEAL_TYPE_SHORTCODE_HAS;
+export type AppealTypeCode = APPEAL_TYPE_SHORTHAND_FPA | APPEAL_TYPE_SHORTHAND_HAS;
 
 export type AppealStatusMachineType =
 	| 'lpaQuestionnaireAndInspectorPickup'
@@ -251,11 +251,11 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	listedBuildingDetails: ListedBuildingDetails[] | null;
 	lpaNotificationMethods: LPANotificationMethod[] | null;
 	lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire:
-		| schema.LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
+		| LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
 		| null;
 	lpaQuestionnaireValidationOutcome: LPAQuestionnaireValidationOutcome | null;
 	meetsOrExceedsThresholdOrCriteriaInColumn2: boolean | null;
-	neighbouringSiteContact: schema.NeighbouringSiteContact[] | null;
+	neighbouringSiteContact: NeighbouringSiteContact[] | null;
 	procedureType: ProcedureType | null;
 	scheduleType: ScheduleType | null;
 	sensitiveAreaDetails: string | null;
@@ -297,4 +297,8 @@ export interface ListedBuildingDetails extends schema.ListedBuildingDetails {
 export interface LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire
 	extends schema.LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
 	lpaQuestionnaireIncompleteReason: schema.LPAQuestionnaireIncompleteReason | null;
+}
+
+export interface NeighbouringSiteContact extends schema.NeighbouringSiteContact {
+	address: AppealSite;
 }

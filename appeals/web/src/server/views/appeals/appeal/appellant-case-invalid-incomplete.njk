@@ -1,0 +1,49 @@
+{%- extends "app/layouts/app.layout.njk" -%}
+
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}/appellant-case
+{%- endset -%}
+
+{%- set otherReasonTextareaHtml -%}
+	{{ govukTextarea({
+		name: "otherReason",
+		label: {
+			text: "List any other reasons",
+			classes: "govuk-label--s",
+			isPageHeading: false
+		},
+		hint: {
+			text: "Try to organise your list"
+		},
+		value: otherReason if otherReason else ''
+	}) }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal {{ notValidStatus }}?</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate">
+		{{ govukCheckboxes({
+			name: notValidStatus + "Reason",
+			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
+		}) }}
+		{{ govukButton({
+			text: "Continue",
+			type: "submit"
+		}) }}
+		<input type="hidden" id="otherReasonId" name="otherReasonId" value="{{ otherReasonId }}" />
+	</form>
+{%- endblock -%}

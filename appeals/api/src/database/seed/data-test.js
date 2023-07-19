@@ -14,10 +14,11 @@ import {
 	lpaQuestionnaireList,
 	neighbouringSiteContactsList
 } from './data-samples.js';
-import { calculateTimetable, isFPA } from '../../server/endpoints/appeals/appeals.service.js';
+import isFPA from '#utils/is-fpa.js';
+import { calculateTimetable } from '../../server/utils/business-days.js';
 import {
-	APPEAL_TYPE_SHORTCODE_FPA,
-	APPEAL_TYPE_SHORTCODE_HAS,
+	APPEAL_TYPE_SHORTHAND_FPA,
+	APPEAL_TYPE_SHORTHAND_HAS,
 	STATE_TARGET_COMPLETE,
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../server/endpoints/constants.js';
@@ -146,51 +147,51 @@ const appealFactory = ({
 };
 
 const newAppeals = [
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTCODE_FPA })
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA })
 ];
 
 const appealsLpaQuestionnaireDue = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: buildCompoundState(
 			'lpa_questionnaire_due',
 			'available_for_statements',
@@ -201,7 +202,7 @@ const appealsLpaQuestionnaireDue = [
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: buildCompoundState(
 			'lpa_questionnaire_due',
 			'available_for_statements',
@@ -212,7 +213,7 @@ const appealsLpaQuestionnaireDue = [
 		startedAt: new Date()
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: buildCompoundState(
 			'lpa_questionnaire_due',
 			'available_for_statements',
@@ -226,12 +227,12 @@ const appealsLpaQuestionnaireDue = [
 
 const appealsStatementReview = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'statement_review' },
 		invalidValidationDecision: true
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'statement_review' },
 		invalidValidationDecision: true
 	})
@@ -239,12 +240,12 @@ const appealsStatementReview = [
 
 const appealsFinalCommentReview = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'final_comment_review' },
 		incompleteValidationDecision: true
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'final_comment_review' },
 		incompleteValidationDecision: true
 	})
@@ -252,7 +253,7 @@ const appealsFinalCommentReview = [
 
 const appealsArrangeSiteVisit = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'arrange_site_visit' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
@@ -261,7 +262,7 @@ const appealsArrangeSiteVisit = [
 		connectToUser: true
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'arrange_site_visit' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
@@ -270,7 +271,7 @@ const appealsArrangeSiteVisit = [
 		connectToUser: true
 	}),
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_FPA,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'arrange_site_visit' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
@@ -282,7 +283,7 @@ const appealsArrangeSiteVisit = [
 
 const appealsIssueDetermination = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'issue_determination' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
@@ -294,7 +295,7 @@ const appealsIssueDetermination = [
 
 const appealsComplete = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTCODE_HAS,
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'complete' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,

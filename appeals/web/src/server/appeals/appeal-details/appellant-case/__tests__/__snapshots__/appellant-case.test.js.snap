@@ -1,0 +1,1688 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`appellant-case GET /appellant-case should render the appellant case page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Appellant case</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
+            </div>
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
+                <dd                 class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
+            </div>
+        </dl>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">1. The appellant</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Name</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Another individual</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Another individual</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application reference</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>undefined</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application reference</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">2. The appeal site</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>92 Huntsmoor Road, , Tadley, RG26 4BX</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site address</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site fully owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site fully owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site partially owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site partially owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> All owners known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> All owners known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Attempted to identify owners</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Attempted to identify owners</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advertised appeal</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Advertised appeal</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Visibility</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Visibility</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site health and safety issues</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site health and safety issues</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">3. The appeal</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/2/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/3/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/1/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>none</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Add<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">What is the outcome of your review?</legend>
+                <div class=\\"govuk-radios\\"
+                data-module=\\"govuk-radios\\">
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"valid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome\\">Valid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-2\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"invalid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-2\\">Invalid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-3\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"incomplete\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-3\\">Incomplete</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/check-your-answers should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/check-your-answers should render the check your answers page with the expected content if outcome is "incomplete" and required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\">Check your answers before confirming your review</h1>
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Review outcome</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>incomplete</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Review outcome</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Incomplete reasons</dt>
+                        <dd class=\\"govuk-summary-list__value\\">
+                            <ul class=\\"govuk-!-margin-top-0 govuk-!-padding-left-0\\">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                                <li>Attachments and/or appendices have not been included to the full statement
+                                    of case</li>
+                                <li>LPA's decision notice is incorrect or incomplete</li>
+                                <li>Documents and plans referred in the application form, decision notice
+                                    and appeal covering letter are missing</li>
+                                <li>Site ownership certificate, agricultural holding certificate and declaration
+                                    have not been completed on the appeal form</li>
+                                <li>The original application form is incomplete or missing</li>
+                                <li>Statement of case and ground of appeal are missing</li>
+                            </ul>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Incomplete reasons</span></a>
+                        </dd>
+                    </div>
+                </dl>
+                <div class=\\"govuk-inset-text\\">Confirming this review will inform the appellant of the outcome</div>
+                <form                 method=\\"post\\" novalidate=\\"novalidate\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm</button>
+                    </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/check-your-answers should render the check your answers page with the expected content if outcome is "invalid" and required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-xl govuk-!-margin-bottom-3\\">Check your answers before confirming your review</h1>
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Review outcome</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>invalid</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Review outcome</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Invalid reasons</dt>
+                        <dd class=\\"govuk-summary-list__value\\">
+                            <ul class=\\"govuk-!-margin-top-0 govuk-!-padding-left-0\\">
+                                <li>Appeal has not been submitted on time</li>
+                                <li>Documents have not been submitted on time</li>
+                                <li>The appellant doesn't have the right to appeal</li>
+                            </ul>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Invalid reasons</span></a>
+                        </dd>
+                    </div>
+                </dl>
+                <div class=\\"govuk-inset-text\\">Confirming this review will inform the appellant of the outcome</div>
+                <form                 method=\\"post\\" novalidate=\\"novalidate\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm</button>
+                    </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/incomplete should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/incomplete should render the incomplete reason page if required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal incomplete?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2025\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason\\">Appellant name is not the same on the application form and appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-2\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2026\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-2\\">Attachments and/or appendices have not been included to the full statement
+                        of case</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-3\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2027\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-3\\">LPA&#39;s decision notice is incorrect or incomplete</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-4\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2028\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-4\\">Documents and plans referred in the application form, decision notice
+                        and appeal covering letter are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-5\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2029\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-5\\">Site ownership certificate, agricultural holding certificate and declaration
+                        have not been completed on the appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-6\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2030\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-6\\">The original application form is incomplete or missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-7\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2031\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-7\\">Statement of case and ground of appeal are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-8\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2032\\" data-aria-controls=\\"conditional-incompleteReason-8\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-8\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-incompleteReason-8\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"2032\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/incomplete/date should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/incomplete/date should render the update due date page if required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid should render the 500 error page if required data is not present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid should render the invalid reason page if required data is present in the session 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case should re-render the appellant case page with the expected error message if no review outcome was selected 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#reviewOutcome\\">Please select an outcome</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Appellant case</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                <dd class=\\"govuk-summary-list__value\\">21 The Pavement, Wandsworth, SW4 0HY</dd>
+            </div>
+            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Local planning authority</dt>
+                <dd                 class=\\"govuk-summary-list__value\\">Wiltshire Council</dd>
+            </div>
+        </dl>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">1. The appellant</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Name</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Name</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Another individual</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Eva Sharma</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Another individual</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application reference</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>undefined</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Application reference</span></a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">2. The appeal site</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site address</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>92 Huntsmoor Road, , Tadley, RG26 4BX</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site address</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site fully owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site fully owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site partially owned</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site partially owned</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> All owners known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> All owners known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Attempted to identify owners</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Attempted to identify owners</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advertised appeal</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>No</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Advertised appeal</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Visibility</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>Yes</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Visibility</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Site health and safety issues</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Site health and safety issues</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-summary-card\\">
+            <div class=\\"govuk-summary-card__title-wrapper\\">
+                <h2 class=\\"govuk-summary-card__title\\">3. The appeal</h2>
+            </div>
+            <div class=\\"govuk-summary-card__content\\">
+                <dl class=\\"govuk-summary-list\\">
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Application form known</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/2/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Application form known</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Decision letter</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/3/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Decision letter</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Appeal statement</dt>
+                        <dd class=\\"govuk-summary-list__value\\"><span>none</span>
+                        </dd>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/170/documents/1/upload/\\"> Add<span class=\\"govuk-visually-hidden\\"> Appeal statement</span></a>
+                        </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Add new supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>No</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Change<span class=\\"govuk-visually-hidden\\"> Add new supporting documents</span></a>
+                            </dd>
+                    </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> New supporting documents</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\"><span>none</span>
+                            </dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"#\\"> Add<span class=\\"govuk-visually-hidden\\"> New supporting documents</span></a>
+                            </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--m\\">What is the outcome of your review?</legend>
+                <div class=\\"govuk-radios\\"
+                data-module=\\"govuk-radios\\">
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"valid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome\\">Valid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-2\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"invalid\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-2\\">Invalid</label>
+                    </div>
+                    <div class=\\"govuk-radios__item\\">
+                        <input class=\\"govuk-radios__input\\" id=\\"reviewOutcome-3\\" name=\\"reviewOutcome\\"
+                        type=\\"radio\\" value=\\"incomplete\\">
+                        <label class=\\"govuk-label govuk-radios__label\\" for=\\"reviewOutcome-3\\">Incomplete</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> Appeal valid</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The appeal has been marked as valid.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent the start letter email to the appellant and LPA.</p>
+                <p                 class=\\"govuk-body\\">The case has been published on the Appeals Casework Portal.</p>
+                    <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
+                    </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> Appeal incomplete</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The appeal has been reviewed.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We’ve sent an email to the appellant and LPA to inform the case is incomplete,
+                    and let them know what to do next.</p>
+                <p class=\\"govuk-body\\">We also sent them a reminder about the appeal’s due date.</p>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision invalid confirmation page, if posted outcome was "invalid" 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-width-container\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                    <h1 class=\\"govuk-panel__title\\"> Appeal invalid</h1>
+                    <div class=\\"govuk-panel__body\\">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full govuk-!-padding-top-2\\">
+                <p class=\\"govuk-body\\">The appeal has been closed.</p>
+                <h2 class=\\"govuk-heading-m\\">What happens next</h2>
+                <p class=\\"govuk-body\\">We&#39;ve sent an email to the appellant and LPA to inform them the case
+                    is invalid.</p>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete should re-render the incomplete reason page with the expected error message if "other" reason was selected but no "otherReason" was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#otherReason\\">If selecting &quot;Other&quot;, you must provide details in the text box</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal incomplete?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2025\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason\\">Appellant name is not the same on the application form and appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-2\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2026\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-2\\">Attachments and/or appendices have not been included to the full statement
+                        of case</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-3\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2027\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-3\\">LPA&#39;s decision notice is incorrect or incomplete</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-4\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2028\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-4\\">Documents and plans referred in the application form, decision notice
+                        and appeal covering letter are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-5\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2029\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-5\\">Site ownership certificate, agricultural holding certificate and declaration
+                        have not been completed on the appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-6\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2030\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-6\\">The original application form is incomplete or missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-7\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2031\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-7\\">Statement of case and ground of appeal are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-8\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2032\\" data-aria-controls=\\"conditional-incompleteReason-8\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-8\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-incompleteReason-8\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"2032\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete should re-render the incomplete reason page with the expected error message if no incomplete reason was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#incompleteReason\\">Please select one or more reasons why the appeal is incomplete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal incomplete?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2025\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason\\">Appellant name is not the same on the application form and appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-2\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2026\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-2\\">Attachments and/or appendices have not been included to the full statement
+                        of case</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-3\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2027\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-3\\">LPA&#39;s decision notice is incorrect or incomplete</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-4\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2028\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-4\\">Documents and plans referred in the application form, decision notice
+                        and appeal covering letter are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-5\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2029\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-5\\">Site ownership certificate, agricultural holding certificate and declaration
+                        have not been completed on the appeal form</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-6\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2030\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-6\\">The original application form is incomplete or missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-7\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2031\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-7\\">Statement of case and ground of appeal are missing</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"incompleteReason-8\\" name=\\"incompleteReason\\"
+                    type=\\"checkbox\\" value=\\"2032\\" data-aria-controls=\\"conditional-incompleteReason-8\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"incompleteReason-8\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-incompleteReason-8\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"2032\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid date was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid day was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-day\\">Day must be between 1 and 31</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid day was provided 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-day\\">Day must be between 1 and 31</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid day was provided 3`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-day\\">Day must be a number</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid month was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-month\\">Month must be between 1 and 12</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid month was provided 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-month\\">Month must be between 1 and 12</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid month was provided 3`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-month\\">Month must be a number</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid year was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-year\\">Year must be 4 digits</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if an invalid year was provided 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-year\\">Year must be a number</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if no date was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#due-date-day\\">Day cannot be empty</a>
+                            </li>
+                            <li><a href=\\"#due-date-month\\">Month cannot be empty</a>
+                            </li>
+                            <li><a href=\\"#due-date-year\\">Year cannot be empty</a>
+                            </li>
+                            <li><a href=\\"#\\">Please enter a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-xl govuk-!-margin-bottom-1\\">Appeal 351062</span>
+                </div>
+            </div>
+            <form method=\\"post\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <fieldset class=\\"govuk-fieldset\\" role=\\"group\\" aria-describedby=\\"due-date-hint\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9\\">
+                            <h1 class=\\"govuk-fieldset__heading\\"> Update appeal due date</h1>
+                        </legend>
+                        <div id=\\"due-date-hint\\" class=\\"govuk-hint\\">For example, 27 3 2007</div>
+                        <div class=\\"govuk-date-input\\" id=\\"due-date\\">
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-day\\">Day</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-day\\" name=\\"due-date-day\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-month\\">Month</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-2\\"
+                                    id=\\"due-date-month\\" name=\\"due-date-month\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                            <div class=\\"govuk-date-input__item\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-date-input__label\\" for=\\"due-date-year\\">Year</label>
+                                    <input class=\\"govuk-input govuk-date-input__input govuk-input--width-4\\"
+                                    id=\\"due-date-year\\" name=\\"due-date-year\\" type=\\"text\\" inputmode=\\"numeric\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class=\\"govuk-body\\">If the existing due date still applies, please skip to the confirmation
+                    screen.</p>
+                <div class=\\"govuk-button-group\\">
+                    <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button><a href=\\"/appeals-service/appeal-details/1/appellant-case/check-your-answers\\"
+                    role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
+                    data-module=\\"govuk-button\\"> Skip</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if "other" reason was selected but no "otherReason" was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#otherReason\\">If selecting &quot;Other&quot;, you must provide details in the text box</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" checked data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional\\" id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if no invalid reason was provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#invalidReason\\">Please select one or more reasons why the appeal is invalid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\"><span class=\\"govuk-caption-l govuk-!-margin-bottom-3\\">Appeal 351062</span>
+            <h1             class=\\"govuk-heading-l govuk-!-margin-bottom-3\\">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method=\\"post\\" novalidate=\\"novalidate\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"21\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason\\">Appeal has not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-2\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"22\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-2\\">Documents have not been submitted on time</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-3\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"23\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-3\\">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class=\\"govuk-checkboxes__item\\">
+                    <input class=\\"govuk-checkboxes__input\\" id=\\"invalidReason-4\\" name=\\"invalidReason\\"
+                    type=\\"checkbox\\" value=\\"24\\" data-aria-controls=\\"conditional-invalidReason-4\\">
+                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"invalidReason-4\\">Other</label>
+                </div>
+                <div class=\\"govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden\\"
+                id=\\"conditional-invalidReason-4\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-label--s\\">List any other reasons</label>
+                        <div id=\\"undefined-hint\\" class=\\"govuk-hint\\">Try to organise your list</div>
+                        <textarea class=\\"govuk-textarea\\" id=\\"\\"
+                        name=\\"otherReason\\" rows=\\"5\\" aria-describedby=\\"undefined-hint\\"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Continue</button>
+        <input type=\\"hidden\\" id=\\"otherReasonId\\" name=\\"otherReasonId\\"
+        value=\\"24\\">
+    </form>
+</main>"
+`;

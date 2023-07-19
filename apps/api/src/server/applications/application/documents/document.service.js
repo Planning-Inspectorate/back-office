@@ -143,7 +143,7 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 /**
  * @param {import('@pins/applications.api').Schema.Document[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string}[]}
+ * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
@@ -152,7 +152,8 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 			caseReference,
 			GUID: document.guid,
 			documentName: document.name,
-			documentReference: document.reference
+			documentReference: document?.reference,
+			version: 1
 		};
 	});
 };
@@ -335,7 +336,8 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			caseType: 'application',
 			caseReference: caseForDocuments.reference,
 			GUID: documentFromDatabase.guid,
-			documentName: documentFromDatabase.name
+			documentName: documentFromDatabase.name,
+			version
 		}
 	];
 
@@ -429,17 +431,17 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 };
 
 /**
- * @param {{documentReference: string}[]} documents
+ * @param {{reference: string}[]} documents
  * @returns {number}
  */
 export const getNextDocumentReferenceIndex = (documents) => {
 	if (documents.length === 0) return 1;
 
 	const references = documents.flatMap((d) => {
-		const match = d.documentReference.match(/-(\d+)/);
+		const match = d.reference.match(/-(\d+)/);
 		if (!match) return [];
 
-		const index = Number(match);
+		const index = Number(match[1]);
 		if (isNaN(index)) return [];
 
 		return index;

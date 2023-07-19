@@ -4,7 +4,7 @@
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
-{%- set pageTitle = "Check answers - GOV.UK" -%}
+{%- set pageTitle = (page.title if page.title else "Check your answers") + " - GOV.UK" -%}
 {%- set serviceName = 'Planning inspectorate' -%}
 {%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-full' -%}
 {%- set titleHeadingLevel = title.headingLevel if title.headingLevel else 1 -%}

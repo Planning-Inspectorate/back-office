@@ -5,9 +5,9 @@ import { getLookupData } from '../../common/controllers/lookup-data.controller.j
 const router = createRouter();
 
 router.get(
-	'/',
+	'/lpa-questionnaire-incomplete-reasons',
 	/*
-		#swagger.tags = ['Appeals']
+		#swagger.tags = ['LPA Questionnaire Incomplete Reasons']
 		#swagger.path = '/appeals/lpa-questionnaire-incomplete-reasons'
 		#swagger.description = 'Gets LPA questionnaire incomplete reasons'
 		#swagger.responses[200] = {

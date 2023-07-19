@@ -10,7 +10,6 @@ import {
 	mapSingleDocumentDetailsFromVersion
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
-import { getByCaseId } from '../../documents/documents.service.js';
 import {
 	formatDocumentUpdateResponseBody,
 	getNextDocumentReferenceIndex,
@@ -41,10 +40,16 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
-	const currentDocuments = await getByCaseId(params.id);
-  const theCase = await caseRepository.getById(params.id, { applicationDetails: true, gridReference: true });
+	const currentDocuments = await documentRepository.getByCaseId(params.id);
+	const theCase = await caseRepository.getById(params.id, {
+		applicationDetails: true,
+		gridReference: true
+	});
 
-	let nextReferenceIndex = getNextDocumentReferenceIndex(currentDocuments);
+	let nextReferenceIndex = Array.isArray(currentDocuments)
+		? getNextDocumentReferenceIndex(currentDocuments)
+		: 1;
+
 	for (const doc of documentsToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
@@ -238,6 +243,28 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 };
 
 /**
+ *
+ * @param {*} activityLogs
+ * @returns {Object}
+ */
+const mapHistory = (activityLogs) => {
+	const history = {};
+
+	// @ts-ignore
+	activityLogs.forEach((activityLog) => {
+		// @ts-ignore
+		history[activityLog.status] = {
+			date: activityLog?.createdAt
+				? mapDateStringToUnixTimestamp(activityLog?.createdAt?.toString())
+				: null,
+			name: activityLog.user
+		};
+	});
+
+	return history;
+};
+
+/**
  * Gets the properties/metadata for a single document
  *
  * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
@@ -259,10 +286,16 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 				: null,
 			datePublished: documentVersion?.datePublished
 				? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
-				: null
+				: null,
+			history:
+				documentVersion?.DocumentActivityLog?.length > 0
+					? mapHistory(documentVersion.DocumentActivityLog)
+					: null
 			// TODO: add unpublished date
 		})
 	);
+
+	console.log(mappedDocumentVersions);
 
 	response.status(200).send(mappedDocumentVersions);
 };

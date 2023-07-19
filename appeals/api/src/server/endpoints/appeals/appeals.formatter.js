@@ -1,6 +1,7 @@
-import formatAddress from '../../utils/address-block-formtter.js';
+import formatAddress from '#utils/address-block-formtter.js';
 import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
-import { isFPA, isOutcomeIncomplete } from './appeals.service.js';
+import isFPA from '#utils/is-fpa.js';
+import { isOutcomeIncomplete } from '#utils/check-validation-outcome.js';
 import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
@@ -170,7 +171,7 @@ const appealFormatter = {
 				incompleteReasons:
 					lpaQuestionnaire?.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire?.map(
 						({ lpaQuestionnaireIncompleteReason }) => ({
-							name: lpaQuestionnaireIncompleteReason.name
+							name: lpaQuestionnaireIncompleteReason?.name
 						})
 					) || null
 			}),
@@ -222,7 +223,7 @@ const appealFormatter = {
 	},
 	/**
 	 * @param {RepositoryGetByIdResultItem} appeal
-	 * @param {Folder[]|null} folders
+	 * @param {Folder[] | null} folders
 	 * @returns {SingleAppellantCaseResponse | void}}
 	 */
 	formatAppellantCase(appeal, folders = null) {
@@ -303,7 +304,7 @@ const appealFormatter = {
 
 /**
  * @param {RepositoryGetByIdResultItem} appeal
- * @param {Folder[]|null} folders
+ * @param {Folder[] | null} folders
  */
 const formatFoldersAndDocuments = (appeal, folders) => {
 	const folderLayout = {
