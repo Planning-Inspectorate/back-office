@@ -10,7 +10,6 @@ import {
 	mapSingleDocumentDetailsFromVersion
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
-import { getByCaseId } from '../../documents/documents.service.js';
 import {
 	formatDocumentUpdateResponseBody,
 	getNextDocumentReferenceIndex,
@@ -41,8 +40,11 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
-	const currentDocuments = await getByCaseId(params.id);
-  const theCase = await caseRepository.getById(params.id, { applicationDetails: true, gridReference: true });
+	const currentDocuments = await documentRepository.getByCaseId(params.id);
+	const theCase = await caseRepository.getById(params.id, {
+		applicationDetails: true,
+		gridReference: true
+	});
 
 	let nextReferenceIndex = getNextDocumentReferenceIndex(currentDocuments);
 	for (const doc of documentsToUpload) {
