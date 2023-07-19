@@ -1,24 +1,22 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
-import { createSiteVisit, getSiteVisitById, updateSiteVisit } from './site-visit.controller.js';
-import {
-	checkAppealExistsAndAddToRequest,
-	checkLookupValueIsValidAndAddToRequest
-} from './../appeals/appeals.service.js';
+import { createSiteVisit, getSiteVisitById, updateSiteVisit } from './site-visits.controller.js';
+import checkLookupValueIsValidAndAddToRequest from '#middleware/check-lookup-value-is-valid-and-add-to-request.js';
+import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	getSiteVisitValidator,
 	patchSiteVisitValidator,
 	postSiteVisitValidator
-} from './site-visit.validators.js';
+} from './site-visits.validators.js';
 import { ERROR_INVALID_SITE_VISIT_TYPE } from '#endpoints/constants.js';
-import { checkSiteVisitExists } from './site-visit.service.js';
+import { checkSiteVisitExists } from './site-visits.service.js';
 
 const router = createRouter();
 
 router.post(
 	'/:appealId/site-visits',
 	/*
-		#swagger.tags = ['Appeals']
+		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits'
 		#swagger.description = 'Creates a single site visit'
 		#swagger.requestBody = {
@@ -47,7 +45,7 @@ router.post(
 router.get(
 	'/:appealId/site-visits/:siteVisitId',
 	/*
-		#swagger.tags = ['Appeals']
+		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits/{siteVisitId}'
 		#swagger.description = 'Gets a single site visit by id'
 		#swagger.responses[200] = {
@@ -66,7 +64,7 @@ router.get(
 router.patch(
 	'/:appealId/site-visits/:siteVisitId',
 	/*
-		#swagger.tags = ['Appeals']
+		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits/{siteVisitId}'
 		#swagger.description = 'Updates a single site visit by id'
 		#swagger.requestBody = {

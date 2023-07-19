@@ -27,9 +27,9 @@ import {
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals
 } from '../../../tests/data.js';
-import { createManyToManyRelationData } from '../appeals.service.js';
+import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
 
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('lpa questionnaires routes', () => {
 	afterEach(() => {

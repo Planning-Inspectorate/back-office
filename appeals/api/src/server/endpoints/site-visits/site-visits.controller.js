@@ -5,7 +5,7 @@ import {
 import appealRepository from '#repositories/appeal.repository.js';
 import logger from '#utils/logger.js';
 import transitionState from '../../state/transition-state.js';
-import siteVisitFormatter from './site-visit.formatter.js';
+import { formatSiteVisit } from './site-visits.formatter.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -15,7 +15,7 @@ import siteVisitFormatter from './site-visit.formatter.js';
  */
 const getSiteVisitById = (req, res) => {
 	const { appeal } = req;
-	const formattedAppeal = siteVisitFormatter.formatSiteVisit(appeal);
+	const formattedAppeal = formatSiteVisit(appeal);
 
 	return res.send(formattedAppeal);
 };

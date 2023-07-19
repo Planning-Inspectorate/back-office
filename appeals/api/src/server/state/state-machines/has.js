@@ -1,6 +1,6 @@
 import { createMachine } from 'xstate';
 import {
-	APPEAL_TYPE_SHORTCODE_HAS,
+	APPEAL_TYPE_SHORTHAND_HAS,
 	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_COMPLETE,
 	STATE_TARGET_INVALID,
@@ -19,7 +19,7 @@ import {
  */
 const stateMachine = (currentState) =>
 	createMachine({
-		id: APPEAL_TYPE_SHORTCODE_HAS,
+		id: APPEAL_TYPE_SHORTHAND_HAS,
 		initial: currentState || STATE_TARGET_READY_TO_START,
 		states: {
 			[STATE_TARGET_READY_TO_START]: {

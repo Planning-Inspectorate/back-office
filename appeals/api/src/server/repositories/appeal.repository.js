@@ -1,6 +1,6 @@
-import { databaseConnector } from '../utils/database-connector.js';
-import { getSkipValue } from '../utils/database-pagination.js';
-import { createManyToManyRelationData } from '../endpoints/appeals/appeals.service.js';
+import { databaseConnector } from '#utils/database-connector.js';
+import { getSkipValue } from '#utils/database-pagination.js';
+import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
