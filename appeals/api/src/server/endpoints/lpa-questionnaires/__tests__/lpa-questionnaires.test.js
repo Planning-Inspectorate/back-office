@@ -21,8 +21,8 @@ import {
 	baseExpectedLPAQuestionnaireResponse,
 	fullPlanningAppeal,
 	householdAppeal,
-	householdAppealWithCompleteLPAQuestionnaire,
-	householdAppealWithIncompleteLPAQuestionnaire,
+	householdAppealLPAQuestionnaireComplete,
+	householdAppealLPAQuestionnaireIncomplete,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals
@@ -50,54 +50,45 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire));
+				expect(response.body).toEqual(baseExpectedLPAQuestionnaireResponse(householdAppeal));
 			});
 
 			test('gets a single lpa questionnaire with an outcome of Complete', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(
-					householdAppealWithCompleteLPAQuestionnaire
+					householdAppealLPAQuestionnaireComplete
 				);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
-				const { lpaQuestionnaire } = householdAppealWithCompleteLPAQuestionnaire;
+				const { lpaQuestionnaire } = householdAppealLPAQuestionnaireComplete;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
 				);
 
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire),
-					validationOutcome: lpaQuestionnaire.lpaQuestionnaireValidationOutcome.name
-				});
+				expect(response.body).toEqual(
+					baseExpectedLPAQuestionnaireResponse(householdAppealLPAQuestionnaireComplete)
+				);
 			});
 
 			test('gets a single lpa questionnaire with an outcome of Incomplete', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(
-					householdAppealWithIncompleteLPAQuestionnaire
+					householdAppealLPAQuestionnaireIncomplete
 				);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
-				const { lpaQuestionnaire } = householdAppealWithIncompleteLPAQuestionnaire;
+				const { lpaQuestionnaire } = householdAppealLPAQuestionnaireIncomplete;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/lpa-questionnaires/${lpaQuestionnaire.id}`
 				);
 
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...baseExpectedLPAQuestionnaireResponse(lpaQuestionnaire),
-					incompleteReasons:
-						lpaQuestionnaire.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire.map(
-							({ lpaQuestionnaireIncompleteReason }) => ({
-								name: lpaQuestionnaireIncompleteReason.name
-							})
-						),
-					otherNotValidReasons: lpaQuestionnaire.otherNotValidReasons,
-					validationOutcome: lpaQuestionnaire.lpaQuestionnaireValidationOutcome.name
-				});
+				expect(response.body).toEqual(
+					baseExpectedLPAQuestionnaireResponse(householdAppealLPAQuestionnaireIncomplete)
+				);
 			});
 
 			test('returns an error if appealId is not numeric', async () => {

@@ -1450,6 +1450,30 @@
 							}
 						}
 					},
+					"validation": {
+						"type": "object",
+						"properties": {
+							"outcome": {
+								"type": "string",
+								"example": "Incomplete"
+							},
+							"incompleteReasons": {
+								"type": "array",
+								"example": [
+									"Appellant name is not the same on the application form and appeal form",
+									"Attachments and/or appendices have not been included to the full statement of case",
+									"Other"
+								],
+								"items": {
+									"type": "string"
+								}
+							},
+							"otherNotValidReasons": {
+								"type": "string",
+								"example": "The site address is missing"
+							}
+						}
+					},
 					"visibility": {
 						"type": "object",
 						"properties": {
@@ -1891,6 +1915,30 @@
 					"statutoryConsulteesDetails": {
 						"type": "string",
 						"example": "Some other people need to be consulted"
+					},
+					"validation": {
+						"type": "object",
+						"properties": {
+							"outcome": {
+								"type": "string",
+								"example": "Incomplete"
+							},
+							"incompleteReasons": {
+								"type": "array",
+								"example": [
+									"Documents or information are missing",
+									"Policies are missing",
+									"Other"
+								],
+								"items": {
+									"type": "string"
+								}
+							},
+							"otherNotValidReasons": {
+								"type": "string",
+								"example": "The site address is missing"
+							}
+						}
 					}
 				},
 				"xml": {

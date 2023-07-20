@@ -100,6 +100,17 @@ const appealRepository = (function () {
 					address: true,
 					appellantCase: {
 						include: {
+							appellantCaseIncompleteReasonsOnAppellantCases: {
+								include: {
+									appellantCaseIncompleteReason: true
+								}
+							},
+							appellantCaseInvalidReasonsOnAppellantCases: {
+								include: {
+									appellantCaseInvalidReason: true
+								}
+							},
+							appellantCaseValidationOutcome: true,
 							knowledgeOfOtherLandowners: true,
 							planningObligationStatus: true
 						}

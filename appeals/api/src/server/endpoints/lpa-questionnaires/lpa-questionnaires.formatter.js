@@ -1,5 +1,5 @@
 import formatAddress from '#utils/address-block-formtter.js';
-import { isOutcomeIncomplete } from '#utils/check-validation-outcome.js';
+import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
@@ -92,14 +92,6 @@ const formatLpaQuestionnaire = (appeal) => {
 		healthAndSafetyDetails: lpaQuestionnaire?.healthAndSafetyDetails,
 		inCAOrrelatesToCA: lpaQuestionnaire?.inCAOrrelatesToCA,
 		includesScreeningOption: lpaQuestionnaire?.includesScreeningOption,
-		...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
-			incompleteReasons:
-				lpaQuestionnaire?.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire?.map(
-					({ lpaQuestionnaireIncompleteReason }) => ({
-						name: lpaQuestionnaireIncompleteReason?.name
-					})
-				) || null
-		}),
 		inquiryDays: lpaQuestionnaire?.inquiryDays,
 		inspectorAccessDetails: lpaQuestionnaire?.inspectorAccessDetails,
 		isAffectingNeighbouringSites: lpaQuestionnaire?.isAffectingNeighbouringSites,
@@ -133,17 +125,16 @@ const formatLpaQuestionnaire = (appeal) => {
 			  }))
 			: null,
 		otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
-		...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
-			...(isOutcomeIncomplete(lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || '') && {
-				otherNotValidReasons: lpaQuestionnaire?.otherNotValidReasons || null
-			})
-		}),
 		procedureType: lpaQuestionnaire?.procedureType?.name,
 		scheduleType: lpaQuestionnaire?.scheduleType?.name,
 		sensitiveAreaDetails: lpaQuestionnaire?.sensitiveAreaDetails,
 		siteWithinGreenBelt: lpaQuestionnaire?.siteWithinGreenBelt,
 		statutoryConsulteesDetails: lpaQuestionnaire?.statutoryConsulteesDetails,
-		validationOutcome: lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || null
+		validation: createValidationOutcomeResponse(
+			lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name,
+			lpaQuestionnaire?.otherNotValidReasons,
+			lpaQuestionnaire?.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire
+		)
 	};
 };
 
