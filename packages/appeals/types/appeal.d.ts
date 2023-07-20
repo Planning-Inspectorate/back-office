@@ -72,3 +72,10 @@ export interface AppealSite {
 	county?: string;
 	postCode?: string | null;
 }
+
+export interface SearchInputFieldObject {
+	id: string;
+	name: string;
+	value?: string;
+	errorMessage?: object | null;
+}

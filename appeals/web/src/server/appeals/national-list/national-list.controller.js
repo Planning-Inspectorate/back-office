@@ -2,12 +2,14 @@ import { paginationDefaultSettings } from '../appeal.constants.js';
 import * as nationalListService from './national-list.service.js';
 
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
+/** @typedef {import('@pins/appeals').SearchInputFieldObject} SearchInputFieldObject */
 
 /**
  * @typedef {object} ViewNationalListRenderOptions
  * @property {object[]} appeals
  * @property {string} userRole
  * @property {Pagination} pagination
+ * @property {object} searchObject
  * @property {string} searchTerm
  * @property {string} nationalListHeading
  */
@@ -25,7 +27,23 @@ export const viewNationalList = async (request, response) => {
 		? Number.parseInt(String(query.pageSize), 10)
 		: paginationDefaultSettings.pageSize;
 
-	const searchTerm = query?.searchTerm ? String(query.searchTerm) : '';
+	let searchTerm = query?.searchTerm ? String(query.searchTerm) : '';
+
+	/** @type {SearchInputFieldObject} */
+	const searchObject = {
+		id: 'searchTerm',
+		name: 'searchTerm'
+	};
+
+	if (searchTerm.length === 1 || searchTerm.length >= 81) {
+		searchTerm = '';
+		searchObject.errorMessage = {
+			text: 'Search query must be between 2 and 80 characters'
+		};
+	} else {
+		searchObject.value = searchTerm;
+	}
+
 	const searchParam = searchTerm ? `&searchTerm=${searchTerm}` : '';
 	const nationalListHeading = searchTerm ? 'Search results' : 'All cases';
 
@@ -124,6 +142,7 @@ export const viewNationalList = async (request, response) => {
 		userRole: 'Case officer',
 		appeals,
 		pagination,
+		searchObject,
 		searchTerm,
 		nationalListHeading
 	});
