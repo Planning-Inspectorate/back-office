@@ -1,6 +1,7 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import { createDateInputValidator } from '../../../../lib/validators/date-input.validator.js';
+import { createTextareaValidator } from '../../../../lib/validators/textarea-validator.js';
 
 export const validateIncompleteReason = createValidator(
 	body('incompleteReason')
@@ -26,4 +27,8 @@ export const validateIncompleteReason = createValidator(
 		.withMessage('something went wrong')
 );
 
+export const validateTextArea = createTextareaValidator(
+	'otherReason',
+	'Text in "List any other reasons" must not exceed {{maximumCharacters}} characters'
+);
 export const validateUpdateDueDate = createDateInputValidator('due-date');

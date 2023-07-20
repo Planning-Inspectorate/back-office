@@ -7,7 +7,11 @@ const router = createRouter({ mergeParams: true });
 router
 	.route('/')
 	.get(controller.getIncompleteReason)
-	.post(validators.validateIncompleteReason, controller.postIncompleteReason);
+	.post(
+		validators.validateIncompleteReason,
+		validators.validateTextArea,
+		controller.postIncompleteReason
+	);
 
 router
 	.route('/date')
