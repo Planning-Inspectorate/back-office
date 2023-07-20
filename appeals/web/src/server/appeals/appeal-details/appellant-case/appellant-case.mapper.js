@@ -128,28 +128,28 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 
 /**
  *
- * @param {import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
- * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {string|string[]} invalidOrIncompleteReasons
  * @param {string} [otherNotValidReasons]
  * @returns {NotificationBannerComponentParameters}
  */
 export function mapReviewOutcomeToNotificationBannerComponentParameters(
-	invalidOrIncompleteReasonOptions,
 	validationOutcome,
 	invalidOrIncompleteReasons,
 	otherNotValidReasons
 ) {
-	const reasonsList = mapInvalidOrIncompleteReasonsToReasonsList(
-		invalidOrIncompleteReasonOptions,
-		invalidOrIncompleteReasons,
-		otherNotValidReasons
-	);
+	if (!Array.isArray(invalidOrIncompleteReasons)) {
+		invalidOrIncompleteReasons = [invalidOrIncompleteReasons];
+	}
 
 	return {
 		titleText: `Appeal is ${String(validationOutcome)}`,
-		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${reasonsList
-			.map((reason) => `<li>${reason}</li>`)
+		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${invalidOrIncompleteReasons
+			.map((reason) =>
+				reason.toLowerCase() === 'other'
+					? `<li>${reason}: ${otherNotValidReasons}</li>`
+					: `<li>${reason}</li>`
+			)
 			.join('')}</ul>`
 	};
 }
