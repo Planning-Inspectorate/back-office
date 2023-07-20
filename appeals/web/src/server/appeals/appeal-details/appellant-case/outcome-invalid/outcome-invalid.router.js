@@ -7,6 +7,10 @@ const router = createRouter({ mergeParams: true });
 router
 	.route('/')
 	.get(controller.getInvalidReason)
-	.post(validators.validateInvalidReason, controller.postInvalidReason);
+	.post(
+		validators.validateInvalidReason,
+		validators.validateTextArea,
+		controller.postInvalidReason
+	);
 
 export default router;

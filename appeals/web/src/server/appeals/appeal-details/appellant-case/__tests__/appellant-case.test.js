@@ -8,6 +8,7 @@ import {
 	appellantCaseIncompleteReasons
 } from '../../../../../../testing/app/fixtures/referencedata.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
+import { TEXTAREA_MAXIMUM_CHARACTERS } from '../../../../lib/validators/textarea-validator.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -185,6 +186,25 @@ describe('appellant-case', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the invalid reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.send({
+					invalidReason: otherReasonId,
+					otherReason: otherReasonTextOverCharacterLimit,
+					otherReasonId: otherReasonId
+				});
+
+			expect(response.statusCode).toBe(200);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should redirect to the check and confirm page if a single invalid reason was provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
@@ -202,11 +222,12 @@ describe('appellant-case', () => {
 		it('should redirect to the check and confirm page if multiple invalid reasons were provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
+			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
 				.send({
 					invalidReason: appellantCaseInvalidReasons.map((reason) => reason.id),
-					otherReason: 'test other reason',
+					otherReason: otherReasonTextWithinCharacterLimit,
 					otherReasonId: otherReasonId
 				});
 
@@ -307,6 +328,25 @@ describe('appellant-case', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the incomplete reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.send({
+					incompleteReason: otherReasonId,
+					otherReason: otherReasonTextOverCharacterLimit,
+					otherReasonId: otherReasonId
+				});
+
+			expect(response.statusCode).toBe(200);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should redirect to the check and confirm page if a single incomplete reason was provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
@@ -324,11 +364,12 @@ describe('appellant-case', () => {
 		it('should redirect to the check and confirm page if multiple incomplete reasons were provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
+			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
 				.send({
 					incompleteReason: appellantCaseIncompleteReasons.map((reason) => reason.id),
-					otherReason: 'test other reason',
+					otherReason: otherReasonTextWithinCharacterLimit,
 					otherReasonId: otherReasonId
 				});
 

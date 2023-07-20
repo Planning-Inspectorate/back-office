@@ -1,5 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
+import { createTextareaValidator } from '../../../../lib/validators/textarea-validator.js';
 
 export const validateInvalidReason = createValidator(
 	body('invalidReason')
@@ -23,4 +24,9 @@ export const validateInvalidReason = createValidator(
 		.bail()
 		.isString()
 		.withMessage('something went wrong')
+);
+
+export const validateTextArea = createTextareaValidator(
+	'otherReason',
+	'Text in "List any other reasons" must not exceed {{maximumCharacters}} characters'
 );
