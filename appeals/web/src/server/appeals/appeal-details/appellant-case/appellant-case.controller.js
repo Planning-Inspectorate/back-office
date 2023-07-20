@@ -4,7 +4,8 @@ import * as appellantCaseService from './appellant-case.service.js';
 import {
 	mapResponseToSummaryListBuilderParameters,
 	mapWebReviewOutcomeToApiReviewOutcome,
-	mapReviewOutcomeToSummaryListBuilderParameters
+	mapReviewOutcomeToSummaryListBuilderParameters,
+	mapReviewOutcomeToNotificationBannerComponentParameters
 } from './appellant-case.mapper.js';
 import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '../../../lib/object-utilities.js';
@@ -42,8 +43,21 @@ const renderAppellantCase = async (request, response) => {
 			formattedSections.push(generateSummaryList(section.rows, section.header));
 		}
 
-		// TODO: generate banner parameters using appellant case outcome data from API, once it becomes available
 		let notificationBannerParameters;
+		const existingValidationOutcome = appellantCaseResponse.validation?.outcome?.toLowerCase();
+
+		if (
+			existingValidationOutcome === appellantCaseReviewOutcomes.invalid ||
+			existingValidationOutcome === appellantCaseReviewOutcomes.incomplete
+		) {
+			notificationBannerParameters = mapReviewOutcomeToNotificationBannerComponentParameters(
+				existingValidationOutcome,
+				existingValidationOutcome === appellantCaseReviewOutcomes.invalid
+					? appellantCaseResponse.validation?.invalidReasons
+					: appellantCaseResponse.validation?.incompleteReasons,
+				appellantCaseResponse.validation?.otherNotValidReasons
+			);
+		}
 
 		return response.render('appeals/appeal/appellant-case.njk', {
 			appeal: {
