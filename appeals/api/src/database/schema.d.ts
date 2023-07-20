@@ -53,6 +53,9 @@ export interface Appeal extends schema.Appeal {
 export interface AppellantCase extends schema.AppellantCase {
 	knowledgeOfOtherLandowners?: PlanningObligationStatus | null;
 	planningObligationStatus?: PlanningObligationStatus | null;
+	appellantCaseValidationOutcome: AppellantCaseValidationOutcome | null;
+	appellantCaseIncompleteReasonsOnAppellantCases: AppellantCaseIncompleteReasonOnAppellantCase[];
+	appellantCaseInvalidReasonsOnAppellantCases: AppellantCaseInvalidReasonOnAppellantCase[];
 }
 
 export interface FolderTemplate {
@@ -297,4 +300,14 @@ export interface LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire
 
 export interface NeighbouringSiteContact extends schema.NeighbouringSiteContact {
 	address: AppealSite;
+}
+
+export interface AppellantCaseIncompleteReasonOnAppellantCase
+	extends schema.AppellantCaseIncompleteReasonOnAppellantCase {
+	appellantCaseIncompleteReason: AppellantCaseIncompleteReason;
+}
+
+export interface AppellantCaseInvalidReasonOnAppellantCase
+	extends schema.AppellantCaseInvalidReasonOnAppellantCase {
+	appellantCaseInvalidReason: AppellantCaseInvalidReason;
 }

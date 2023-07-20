@@ -202,6 +202,15 @@ const document = {
 				isPartiallyOwned: true,
 				knowsOtherLandowners: 'Some'
 			},
+			validation: {
+				outcome: 'Incomplete',
+				incompleteReasons: [
+					'Appellant name is not the same on the application form and appeal form',
+					'Attachments and/or appendices have not been included to the full statement of case',
+					'Other'
+				],
+				otherNotValidReasons: 'The site address is missing'
+			},
 			visibility: {
 				details: 'The site is behind a tall hedge',
 				isVisible: false
@@ -322,7 +331,16 @@ const document = {
 			scheduleType: 'Schedule 1',
 			sensitiveAreaDetails: 'The area is prone to flooding',
 			siteWithinGreenBelt: true,
-			statutoryConsulteesDetails: 'Some other people need to be consulted'
+			statutoryConsulteesDetails: 'Some other people need to be consulted',
+			validation: {
+				outcome: 'Incomplete',
+				incompleteReasons: [
+					'Documents or information are missing',
+					'Policies are missing',
+					'Other'
+				],
+				otherNotValidReasons: 'The site address is missing'
+			}
 		},
 		UpdateAppellantCaseRequest: {
 			appealDueDate: '2023-12-13',

@@ -157,7 +157,7 @@ interface SingleLPAQuestionnaireResponse {
 	sensitiveAreaDetails?: string | null;
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string | null;
-	validationOutcome: string | null;
+	validation: ValidationOutcomeResponse | null;
 }
 
 interface NeighbouringSiteContactsResponse {
@@ -251,10 +251,18 @@ interface SingleAppellantCaseResponse {
 		siteVisitId: number | null;
 		visitType: string | null;
 	};
+	validation: ValidationOutcomeResponse | null;
 	visibility: {
 		details: string | null;
 		isVisible: boolean | null;
 	};
+}
+
+interface ValidationOutcomeResponse {
+	outcome: string | null;
+	incompleteReasons?: string[];
+	invalidReasons?: string[];
+	otherNotValidReasons?: string;
 }
 
 interface AppealListResponse {
@@ -332,5 +340,6 @@ export {
 	SingleAppellantCaseResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,
-	TimetableDeadlineDate
+	TimetableDeadlineDate,
+	ValidationOutcomeResponse
 };

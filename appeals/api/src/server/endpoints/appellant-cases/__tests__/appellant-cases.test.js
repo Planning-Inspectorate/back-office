@@ -25,8 +25,14 @@ import {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
 	appellantCaseValidationOutcomes,
+	baseExpectedAppellantCaseResponse,
 	fullPlanningAppeal,
-	householdAppeal
+	fullPlanningAppealAppellantCaseIncomplete,
+	fullPlanningAppealAppellantCaseInvalid,
+	householdAppeal,
+	householdAppealAppellantCaseIncomplete,
+	householdAppealAppellantCaseInvalid,
+	householdAppealAppellantCaseValid
 } from '../../../tests/data.js';
 import { folder } from '#tests/documents/mocks.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
@@ -48,160 +54,118 @@ describe('appellant cases routes', () => {
 
 	describe('/appeals/:appealId/appellant-cases/:appellantCaseId', () => {
 		describe('GET', () => {
-			test('gets a single appellant case for a household appeal', async () => {
+			test('gets a single appellant case for a household appeal with no validation outcome', async () => {
 				// @ts-ignore
 				databaseConnector.folder.findMany.mockResolvedValue([folder]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const { appellantCase, siteVisit } = householdAppeal;
+				const { appellantCase } = householdAppeal;
 				const response = await request.get(
 					`/appeals/${householdAppeal.id}/appellant-cases/${appellantCase.id}`
 				);
 
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					appealId: householdAppeal.id,
-					appealReference: householdAppeal.reference,
-					appealSite: {
-						addressLine1: householdAppeal.address.addressLine1,
-						town: householdAppeal.address.town,
-						county: householdAppeal.address.county,
-						postCode: householdAppeal.address.postcode
-					},
-					appellantCaseId: appellantCase.id,
-					appellant: {
-						name: householdAppeal.appellant.name,
-						company: householdAppeal.appellant.company
-					},
-					applicant: {
-						firstName: appellantCase.applicantFirstName,
-						surname: appellantCase.applicantSurname
-					},
-					documents: {
-						appealStatement: {
-							documents: [],
-							path: folder.path
-						},
-						applicationForm: {},
-						decisionLetter: {},
-						newSupportingDocuments: {}
-					},
-					hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
-					hasNewSupportingDocuments: appellantCase.hasNewSupportingDocuments,
-					healthAndSafety: {
-						details: appellantCase.healthAndSafetyIssues,
-						hasIssues: appellantCase.hasHealthAndSafetyIssues
-					},
-					isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
-					localPlanningDepartment: householdAppeal.localPlanningDepartment,
-					planningApplicationReference: '48269/APP/2021/1482',
-					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
-					siteOwnership: {
-						areAllOwnersKnown: appellantCase.areAllOwnersKnown,
-						hasAttemptedToIdentifyOwners: appellantCase.hasAttemptedToIdentifyOwners,
-						hasToldOwners: appellantCase.hasToldOwners,
-						isFullyOwned: appellantCase.isSiteFullyOwned,
-						isPartiallyOwned: appellantCase.isSitePartiallyOwned,
-						knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners.name
-					},
-					siteVisit: {
-						siteVisitId: siteVisit.id,
-						visitType: siteVisit.siteVisitType.name
-					},
-					visibility: {
-						details: appellantCase.visibilityRestrictions,
-						isVisible: appellantCase.isSiteVisibleFromPublicRoad
-					}
-				});
+				expect(response.body).toEqual(baseExpectedAppellantCaseResponse(householdAppeal));
 			});
 
-			test('gets a single appellant case for a full planning appeal', async () => {
+			test('gets a single appellant case for a valid household appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseValid);
+
+				const { appellantCase } = householdAppealAppellantCaseValid;
+				const response = await request.get(
+					`/appeals/${householdAppealAppellantCaseValid.id}/appellant-cases/${appellantCase.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(
+					baseExpectedAppellantCaseResponse(householdAppealAppellantCaseValid)
+				);
+			});
+
+			test('gets a single appellant case for an incomplete household appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.appeal.findUnique.mockResolvedValue(
+					householdAppealAppellantCaseIncomplete
+				);
+
+				const { appellantCase } = householdAppealAppellantCaseIncomplete;
+				const response = await request.get(
+					`/appeals/${householdAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(
+					baseExpectedAppellantCaseResponse(householdAppealAppellantCaseIncomplete)
+				);
+			});
+
+			test('gets a single appellant case for an invalid household appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseInvalid);
+
+				const { appellantCase } = householdAppealAppellantCaseInvalid;
+				const response = await request.get(
+					`/appeals/${householdAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(
+					baseExpectedAppellantCaseResponse(householdAppealAppellantCaseInvalid)
+				);
+			});
+
+			test('gets a single appellant case for a valid full planning appeal', async () => {
 				// @ts-ignore
 				databaseConnector.folder.findMany.mockResolvedValue([folder]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
-				const { appellantCase, siteVisit } = fullPlanningAppeal;
+				const { appellantCase } = fullPlanningAppeal;
 				const response = await request.get(
 					`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`
 				);
 
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					agriculturalHolding: {
-						isAgriculturalHolding: appellantCase.isAgriculturalHolding,
-						isTenant: appellantCase.isAgriculturalHoldingTenant,
-						hasToldTenants: appellantCase.hasToldTenants,
-						hasOtherTenants: appellantCase.hasOtherTenants
-					},
-					appealId: fullPlanningAppeal.id,
-					appealReference: fullPlanningAppeal.reference,
-					appealSite: {
-						addressLine1: fullPlanningAppeal.address.addressLine1,
-						town: fullPlanningAppeal.address.town,
-						county: fullPlanningAppeal.address.county,
-						postCode: fullPlanningAppeal.address.postcode
-					},
-					appellantCaseId: appellantCase.id,
-					appellant: {
-						name: fullPlanningAppeal.appellant.name,
-						company: fullPlanningAppeal.appellant.company
-					},
-					applicant: {
-						firstName: appellantCase.applicantFirstName,
-						surname: appellantCase.applicantSurname
-					},
-					developmentDescription: {
-						isCorrect: appellantCase.isDevelopmentDescriptionStillCorrect,
-						details: appellantCase.newDevelopmentDescription
-					},
-					documents: {
-						appealStatement: {
-							documents: [],
-							path: folder.path
-						},
-						applicationForm: {},
-						designAndAccessStatement: {},
-						decisionLetter: {},
-						newPlansOrDrawings: {},
-						newSupportingDocuments: {},
-						planningObligation: {},
-						plansDrawingsSupportingDocuments: {},
-						separateOwnershipCertificate: {}
-					},
-					hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
-					hasDesignAndAccessStatement: appellantCase.hasDesignAndAccessStatement,
-					hasNewPlansOrDrawings: appellantCase.hasNewPlansOrDrawings,
-					hasNewSupportingDocuments: appellantCase.hasNewSupportingDocuments,
-					hasSeparateOwnershipCertificate: appellantCase.hasSeparateOwnershipCertificate,
-					healthAndSafety: {
-						details: appellantCase.healthAndSafetyIssues,
-						hasIssues: appellantCase.hasHealthAndSafetyIssues
-					},
-					isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
-					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
-					planningApplicationReference: '48269/APP/2021/1482',
-					planningObligation: {
-						hasObligation: appellantCase.hasPlanningObligation,
-						status: appellantCase.planningObligationStatus.name
-					},
-					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
-					siteOwnership: {
-						areAllOwnersKnown: appellantCase.areAllOwnersKnown,
-						hasAttemptedToIdentifyOwners: appellantCase.hasAttemptedToIdentifyOwners,
-						hasToldOwners: appellantCase.hasToldOwners,
-						isFullyOwned: appellantCase.isSiteFullyOwned,
-						isPartiallyOwned: appellantCase.isSitePartiallyOwned,
-						knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners.name
-					},
-					siteVisit: {
-						siteVisitId: siteVisit.id,
-						visitType: siteVisit.siteVisitType.name
-					},
-					visibility: {
-						details: appellantCase.visibilityRestrictions,
-						isVisible: appellantCase.isSiteVisibleFromPublicRoad
-					}
-				});
+				expect(response.body).toEqual(baseExpectedAppellantCaseResponse(fullPlanningAppeal));
+			});
+
+			test('gets a single appellant case for an incomplete full planning appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.appeal.findUnique.mockResolvedValue(
+					fullPlanningAppealAppellantCaseIncomplete
+				);
+
+				const { appellantCase } = fullPlanningAppealAppellantCaseIncomplete;
+				const response = await request.get(
+					`/appeals/${fullPlanningAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(
+					baseExpectedAppellantCaseResponse(fullPlanningAppealAppellantCaseIncomplete)
+				);
+			});
+
+			test('gets a single appellant case for an invalid full planning appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.appeal.findUnique.mockResolvedValue(
+					fullPlanningAppealAppellantCaseInvalid
+				);
+
+				const { appellantCase } = fullPlanningAppealAppellantCaseInvalid;
+				const response = await request.get(
+					`/appeals/${fullPlanningAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual(
+					baseExpectedAppellantCaseResponse(fullPlanningAppealAppellantCaseInvalid)
+				);
 			});
 
 			test('returns an error if appealId is not numeric', async () => {

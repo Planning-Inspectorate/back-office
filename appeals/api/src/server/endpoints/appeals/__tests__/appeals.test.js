@@ -11,7 +11,7 @@ import {
 import {
 	fullPlanningAppeal,
 	householdAppeal,
-	householdAppealTwo,
+	householdAppealAppellantCaseIncomplete,
 	linkedAppeals,
 	otherAppeals
 } from '../../../tests/data.js';
@@ -431,8 +431,8 @@ describe('appeals routes', () => {
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					otherAppeals: [
 						{
-							appealId: householdAppealTwo.id,
-							appealReference: householdAppealTwo.reference
+							appealId: householdAppealAppellantCaseIncomplete.id,
+							appealReference: householdAppealAppellantCaseIncomplete.reference
 						}
 					],
 					planningApplicationReference: householdAppeal.planningApplicationReference,
