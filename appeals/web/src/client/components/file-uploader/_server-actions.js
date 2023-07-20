@@ -1,8 +1,7 @@
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
-/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
+/** @typedef {import('@pins/appeals/index.js').UploadRequest} UploadRequest */
 /** @typedef {{folderId: string, documentId: string, caseId: string, blobStorageHost: string, blobStorageContainer: string, useBlobEmulator: string}} UploadForm */
 
 import { BlobServiceClient } from '@azure/storage-blob';
@@ -105,7 +104,7 @@ const serverActions = (uploadForm) => {
 	/**
 	 *
 	 * @param {FileWithRowId[]} fileList
-	 * @param {UploadInfo} uploadInfo
+	 * @param {UploadRequest} uploadInfo
 	 * @returns {Promise<AnError[]>}>}
 	 */
 	const uploadFiles = async (fileList, uploadInfo) => {

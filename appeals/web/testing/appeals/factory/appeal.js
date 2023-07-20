@@ -7,7 +7,7 @@ import { createAddress } from './address.js';
 import { createAppealStatus } from './appeal-status.js';
 import { createAppealType } from './appeal-type.js';
 import { createAppellant } from './appellant.js';
-import { createDocument } from './document.js';
+//import { createDocument } from './document.js';
 import {
 	createAppealReference,
 	createPlanningApplicationReference,
@@ -36,7 +36,7 @@ export function createAppeal({
 	reference = createAppealReference({ prefix: appealTypeCode }),
 	appellant = createAppellant(),
 	userId = null,
-	documents = [createDocument({ type: 'planning application form' })],
+	//documents = [createDocument({ type: 'planning application form' })],
 	validationDecision = [],
 	...other
 } = {}) {
@@ -58,7 +58,7 @@ export function createAppeal({
 		startedAt,
 		updatedAt,
 		userId,
-		documents,
+		//documents,
 		validationDecision,
 		...other
 	};
