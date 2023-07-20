@@ -4,7 +4,6 @@ import config from '@pins/appeals.web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */

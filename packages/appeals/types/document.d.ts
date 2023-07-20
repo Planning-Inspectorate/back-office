@@ -36,18 +36,8 @@ export interface UploadRequest {
 	accessToken: AccessToken;
 	blobStorageContainer: string;
 	blobStorageHost: string;
-	documents: {
-		documentName: string;
-		failedReason?: string;
-		fileRowId: string;
-	}[];
-}
-
-export interface DocumentUploadInfo {
-	documentName: string;
-	documentType: string;
-	documentSize: number;
-	folderId: number;
+	blobStoreUrl: string;
+	documents: BlobInfo[];
 }
 
 export interface DocumentMetadata {
