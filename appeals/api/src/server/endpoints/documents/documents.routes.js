@@ -29,7 +29,7 @@ router.get(
 	getAppealValidator,
 	checkAppealExistsAndAddToRequest,
 	getFolderIdValidator,
-	asyncHandler(controller.getDocumentsByFolderId)
+	asyncHandler(controller.getFolder)
 );
 
 router.get(

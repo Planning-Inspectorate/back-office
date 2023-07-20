@@ -1,104 +1,68 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
-/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
  */
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersions} DocumentVersions */
 
 /**
- * Get a document by its guid
- *
- * @param {string} documentGuid
- * @returns {PrismaPromise<Document | null>}
+ * @param {string} guid
+ * @returns {PrismaPromise<Document|null>}
  */
-export const getDocumentById = (documentGuid) => {
+export const getDocumentById = (guid) => {
 	return databaseConnector.document.findUnique({
-		include: {
-			latestDocumentVersion: true
-		},
-		where: {
-			guid: documentGuid
-		}
+		where: { guid },
+		include: { latestDocumentVersion: true }
 	});
 };
 
 /**
- * Get a document by its guid
- *
- * @param {string} documentGuid
- * @returns {PrismaPromise<Document | null>}
+ * @param {string} guid
+ * @returns {PrismaPromise<DocumentVersions|null>}
  */
-export const getDocumentWithAllVersionsById = (documentGuid) => {
+export const getDocumentWithAllVersionsById = (guid) => {
 	return databaseConnector.document.findUnique({
-		include: {
-			documentVersion: true,
-			latestDocumentVersion: true
-		},
-		where: {
-			guid: documentGuid
-		}
+		where: { guid },
+		include: { documentVersion: true }
 	});
 };
 
 /**
- * Get all the documents for a caseId
- *
  * @param {number} caseId
  * @returns {PrismaPromise<Document[]>}
  */
 export const getDocumentsByAppealId = (caseId) => {
 	return databaseConnector.document.findMany({
-		include: { latestDocumentVersion: true },
 		where: {
 			isDeleted: false,
-			folder: {
-				caseId
-			}
-		}
+			caseId
+		},
+		include: { latestDocumentVersion: true }
 	});
 };
 
 /**
- *  Deletes a document from the database based on its `guid`
- *
- * @async
- * @param {string} documentGuid
+ * @param {string} guid
  * @returns {PrismaPromise<Document>}
  */
-export const deleteDocument = (documentGuid) => {
+export const deleteDocument = (guid) => {
 	return databaseConnector.document.delete({
-		where: {
-			guid: documentGuid
-		}
+		where: { guid }
 	});
 };
 
 /**
- *
  * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
  * @returns {PrismaPromise<Document[]>}
  */
-export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
+export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
-		include: {
-			documentVersion: true,
-			folder: true
-		},
+		where: { folderId },
+		orderBy: [{ createdAt: 'desc' }],
 		skip: skipValue,
 		take: pageSize,
-		orderBy: [
-			{
-				createdAt: 'desc'
-			}
-		],
-		where: {
-			folderId,
-			documentVersion: {
-				some: {
-					version: documentVersion
-				}
-			}
-		}
+		include: { latestDocumentVersion: true }
 	});
 };

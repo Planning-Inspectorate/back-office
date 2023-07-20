@@ -1,15 +1,15 @@
-/** @typedef {import('@pins/appeals/index.js').FileUploadInfo} FileUploadInfo */
+/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
-/** @typedef {import("../appeals.js").FolderInfo} FolderInfo */
+/** @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo */
 
 /**
  * @param {number} caseId
  * @param {string} blobStorageHost,
  * @param {string} blobStorageContainer,
- * @param {FileUploadInfo[]} documents
+ * @param {DocumentUploadInfo[]} documents
  * @returns {DocumentMetadata[]}
  */
 export const mapDocumentsForDatabase = (

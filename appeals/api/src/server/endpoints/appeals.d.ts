@@ -296,8 +296,6 @@ interface DocumentInfo {
 	caseId: number;
 }
 
-interface CaseFolder {}
-
 interface SingleSiteVisitDetailsResponse {
 	appealId: number;
 	visitDate: Date | null;

@@ -8,20 +8,17 @@ import { addDocument, addDocumentVersion } from '#repositories/document-metadata
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
-/** @typedef {import('@pins/appeals.api').Schema.FolderTemplate} FolderTemplate */
-/** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
-/** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
-/** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 
 /**
- * Returns all folder for the current Appeal
  * @param {RepositoryResult} appeal
  * @param {string} folderId
  * @returns {Promise<Folder|null>}
  */
 export const getFolderForAppeal = async (appeal, folderId) => {
-	//if (!folderId)
 	const folder = await getById(Number(folderId));
 	if (folder && folder.caseId === appeal.id) {
 		return folder;
@@ -31,7 +28,6 @@ export const getFolderForAppeal = async (appeal, folderId) => {
 };
 
 /**
- * Returns all folder for the current Appeal
  * @param {RepositoryResult} appeal
  * @param {string?} path
  * @returns {Promise<Folder[]>}
@@ -45,10 +41,9 @@ export const getFoldersForAppeal = async (appeal, path = null) => {
 };
 
 /**
- * Adds multiple documents (and their version) for an Appeal
- * @param {DocumentApiRequest} upload
+ * @param {AddDocumentsRequest} upload
  * @param {RepositoryResult} appeal
- * @returns {Promise<{documents: (BlobInfo|null)[]}>}}
+ * @returns {Promise<AddDocumentsResponse>}}
  */
 export const addDocumentsToAppeal = async (upload, appeal) => {
 	const { blobStorageHost, blobStorageContainer, documents } = upload;
@@ -94,7 +89,6 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
 					mime: d.documentType,
 					size: d.documentSize,
 					version: 1,
-					blobStoragePath: '',
 					blobStorageContainer: d.blobStorageContainer
 				},
 				{
@@ -122,10 +116,10 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
 };
 
 /**
- * @param {DocumentVersionApiRequest} upload
+ * @param {AddDocumentVersionRequest} upload
  * @param {RepositoryResult} appeal
  * @param {Document} document
- * @returns {Promise<{documents: (BlobInfo|null)[]}>}}
+ * @returns {Promise<AddDocumentsResponse>}}
  */
 export const addVersionToDocument = async (upload, appeal, document) => {
 	if (!document) {
@@ -150,7 +144,6 @@ export const addVersionToDocument = async (upload, appeal, document) => {
 		mime: documentToSendToDatabase.documentType,
 		size: documentToSendToDatabase.documentSize,
 		version: 1,
-		blobStoragePath: '',
 		blobStorageContainer: documentToSendToDatabase.blobStorageContainer
 	});
 

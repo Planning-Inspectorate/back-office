@@ -3,7 +3,7 @@ import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
 
 /**
  * @type {import("express").RequestHandler}
- * @returns {Promise<object | void>}
+ * @returns {Promise<object|void>}
  */
 export const validateDocumentAndAddToRequest = async (req, res, next) => {
 	const { documentId } = req.params;

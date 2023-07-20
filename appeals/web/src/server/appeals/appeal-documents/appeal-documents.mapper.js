@@ -1,6 +1,6 @@
 /**
- * @typedef {import('./appeal-documents.types.js').FolderInfo} FolderInfo
- * @typedef {import('./appeal-documents.types.js').DocumentInfo} DocumentInfo
+ * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
+ * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  */
 
 /**

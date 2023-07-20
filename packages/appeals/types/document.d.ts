@@ -1,4 +1,49 @@
-export interface FileUploadInfo {
+export interface AddDocumentsRequest {
+	blobStorageHost: string;
+	blobStorageContainer: string;
+	documents: MappedDocument[];
+}
+
+export interface AddDocumentVersionRequest {
+	blobStorageHost: string;
+	blobStorageContainer: string;
+	document: MappedDocument;
+}
+
+export interface MappedDocument {
+	caseId: number;
+	documentName: string;
+	documentType: string;
+	documentSize: number;
+	fileRowId: string;
+	folderId: number;
+}
+
+export interface AddDocumentsResponse {
+	documents: (BlobInfo | null)[];
+}
+
+export interface BlobInfo {
+	documentName: string;
+	GUID: string;
+	blobStoreUrl: string;
+	caseType?: string | undefined;
+	caseReference?: string | undefined;
+	fileRowId?: string | undefined;
+}
+
+export interface UploadRequest {
+	accessToken: AccessToken;
+	blobStorageContainer: string;
+	blobStorageHost: string;
+	documents: {
+		documentName: string;
+		failedReason?: string;
+		fileRowId: string;
+	}[];
+}
+
+export interface DocumentUploadInfo {
 	documentName: string;
 	documentType: string;
 	documentSize: number;
@@ -13,47 +58,4 @@ export interface DocumentMetadata {
 	documentSize: number;
 	folderId: number;
 	name: string;
-}
-
-export interface DocumentUploadInfo {
-	blobStoreUrl?: string;
-	documentName: string;
-	failedReason?: string;
-	fileRowId: string;
-}
-
-export interface UploadInfo {
-	accessToken: AccessToken;
-	blobStorageContainer: string;
-	blobStorageHost: string;
-	documents: DocumentUploadInfo[];
-}
-
-export interface BlobInfo {
-	blobStoreUrl: string;
-	caseType: string;
-	caseReference: string;
-	documentName?: string;
-	GUID: string;
-}
-
-export interface DocumentApiRequest {
-	blobStorageHost: string;
-	blobStorageContainer: string;
-	documents: MappedDocument[];
-}
-
-export interface DocumentVersionApiRequest {
-	blobStorageHost: string;
-	blobStorageContainer: string;
-	document: MappedDocument;
-}
-
-export interface MappedDocument {
-	caseId: number;
-	documentName: string;
-	documentType: string;
-	documentSize: number;
-	fileRowId: string;
-	folderId: number;
 }
