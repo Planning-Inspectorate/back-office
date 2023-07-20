@@ -2,7 +2,7 @@ import { getFolder, getFileInfo } from './appeal.documents.service.js';
 
 /**
  * @type {import("express").RequestHandler}
- * @returns {Promise<object | void>}
+ * @returns {Promise<void>}
  */
 export const validateCaseFolderId = async (req, res, next) => {
 	const { appealId, folderId } = req.params;
@@ -18,7 +18,7 @@ export const validateCaseFolderId = async (req, res, next) => {
 
 /**
  * @type {import("express").RequestHandler}
- * @returns {Promise<object | void>}
+ * @returns {Promise<void>}
  */
 export const validateCaseDocumentId = async (req, res, next) => {
 	const { appealId, documentId } = req.params;

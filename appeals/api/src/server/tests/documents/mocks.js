@@ -1,11 +1,3 @@
-/** @typedef {import('@pins/appeals/index.js').FileUploadInfo} FileUploadInfo */
-/** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
-/** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
-/** @typedef {import('@pins/appeals/index.js').MappedDocument} MappedDocument */
-/** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
-/**
- * @returns {DocumentApiRequest}
- */
 const guid = '27d0fda4-8a9a-4f5a-a158-68eaea676158';
 const version = 1;
 const originalFileName = 'mydoc.pdf';
@@ -24,7 +16,7 @@ export const folder = {
 	documents: []
 };
 
-export const newDocRequest = {
+export const addDocumentsRequest = {
 	blobStorageHost: 'host',
 	blobStorageContainer: 'document-service-uploads',
 	documents: [
@@ -39,7 +31,7 @@ export const newDocRequest = {
 	]
 };
 
-export const newDocVersionRequest = {
+export const addDocumentVersionRequest = {
 	blobStorageHost: 'host',
 	blobStorageContainer: 'document-service-uploads',
 	document: {

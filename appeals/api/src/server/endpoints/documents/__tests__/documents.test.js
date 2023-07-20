@@ -5,8 +5,8 @@ import { defaultCaseFolders } from '#repositories/folder.layout.repository.js';
 import {
 	appeal,
 	folder,
-	newDocRequest,
-	newDocVersionRequest,
+	addDocumentsRequest,
+	addDocumentVersionRequest,
 	blobInfo,
 	documentCreated,
 	documentUpdated,
@@ -73,13 +73,13 @@ describe('appeals documents', () => {
 		test('post single document', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
 				appeal.id,
-				newDocRequest.blobStorageHost,
-				newDocRequest.blobStorageContainer,
-				newDocRequest.documents
+				addDocumentsRequest.blobStorageHost,
+				addDocumentsRequest.blobStorageContainer,
+				addDocumentsRequest.documents
 			);
 			mappedReq.forEach((m) => {
-				expect(m.blobStorageHost).toEqual(newDocRequest.blobStorageHost);
-				expect(m.blobStorageContainer).toEqual(newDocRequest.blobStorageContainer);
+				expect(m.blobStorageHost).toEqual(addDocumentsRequest.blobStorageHost);
+				expect(m.blobStorageContainer).toEqual(addDocumentsRequest.blobStorageContainer);
 			});
 
 			const prismaMock = {
@@ -96,20 +96,20 @@ describe('appeals documents', () => {
 			databaseConnector.$transaction = jest
 				.fn()
 				.mockImplementation((callback) => callback(prismaMock));
-			const response = await service.addDocumentsToAppeal(newDocRequest, appeal);
+			const response = await service.addDocumentsToAppeal(addDocumentsRequest, appeal);
 			expect(response).toEqual({ documents: [blobInfo] });
 		});
 
 		test('post new document version', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
 				appeal.id,
-				newDocVersionRequest.blobStorageHost,
-				newDocVersionRequest.blobStorageContainer,
-				[newDocVersionRequest.document]
+				addDocumentVersionRequest.blobStorageHost,
+				addDocumentVersionRequest.blobStorageContainer,
+				[addDocumentVersionRequest.document]
 			);
 			mappedReq.forEach((m) => {
-				expect(m.blobStorageHost).toEqual(newDocVersionRequest.blobStorageHost);
-				expect(m.blobStorageContainer).toEqual(newDocVersionRequest.blobStorageContainer);
+				expect(m.blobStorageHost).toEqual(addDocumentVersionRequest.blobStorageHost);
+				expect(m.blobStorageContainer).toEqual(addDocumentVersionRequest.blobStorageContainer);
 			});
 
 			const prismaMock = {
@@ -128,7 +128,7 @@ describe('appeals documents', () => {
 				.mockImplementation((callback) => callback(prismaMock));
 
 			const response = await service.addVersionToDocument(
-				newDocVersionRequest,
+				addDocumentVersionRequest,
 				appeal,
 				documentCreated.guid
 			);

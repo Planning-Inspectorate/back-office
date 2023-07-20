@@ -23,8 +23,9 @@ export const addDocument = async (metadata, context) => {
 
 		metadata.fileName = name;
 		metadata.blobStoragePath = mapBlobPath(guid, context.reference, name, newVersionId);
-
-		metadata.documentURI = `${context.blobStorageHost}/${metadata.blobStorageContainer}/${metadata.blobStoragePath}`;
+		metadata.documentURI = `${context.blobStorageHost.replace(/\/$/, '')}/${
+			metadata.blobStorageContainer
+		}/${metadata.blobStoragePath}`;
 
 		const documentVersion = await tx.documentVersion.upsert({
 			create: { ...metadata, version: newVersionId, parentDocument: { connect: { guid } } },

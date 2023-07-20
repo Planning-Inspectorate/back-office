@@ -13,7 +13,6 @@ export {
 	AppellantCaseInvalidReason,
 	AppellantCaseIncompleteReasonOnAppellantCase,
 	AppellantCaseInvalidReasonOnAppellantCase,
-	Document,
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,
@@ -26,11 +25,6 @@ export {
 	SiteVisitType
 } from '../../src/server/utils/db-client';
 
-export interface ServiceCustomer extends schema.ServiceCustomer {
-	address?: schema.Address;
-	case?: schema.Case;
-}
-
 export interface Appeal extends schema.Appeal {
 	address?: schema.Address;
 	appellantCase?: schema.AppellantCase;
@@ -39,7 +33,8 @@ export interface Appeal extends schema.Appeal {
 	appealType: AppealType;
 	appellant?: schema.Appellant;
 	createdAt: Date;
-	documents?: AppealDocument[];
+	documents?: Document[];
+	folders?: Folder[];
 	dueDate?: Date;
 	id: number;
 	inspectorDecision?: InspectorDecision;
@@ -60,21 +55,22 @@ export interface AppellantCase extends schema.AppellantCase {
 	planningObligationStatus?: PlanningObligationStatus | null;
 }
 
-export interface AppealDocument {
-	id: number;
-	type: AppealDocumentType;
-	filename: string;
-	url: string;
-}
-
 export interface FolderTemplate {
 	path: string;
-	displayName?: string;
+	displayName?: string | null;
 	caseId: number;
 }
 
 export interface Folder extends schema.Folder {
-	documents: schema.Document[];
+	documents?: schema.Document[] | null;
+}
+
+export interface Document extends schema.Document {
+	latestDocumentVersion?: schema.DocumentVersion | null;
+}
+
+export interface DocumentVersions extends schema.Document {
+	documentVersions?: schema.DocumentVersion[] | null;
 }
 
 export interface AppealStatus extends schema.AppealStatus {

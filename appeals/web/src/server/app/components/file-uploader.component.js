@@ -5,13 +5,13 @@ import config from '@pins/appeals.web/environment/config.js';
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
-/** @typedef {import('@pins/appeals/index.js').UploadInfo} UploadInfo */
-/** @typedef {import('@pins/appeals/index.js').DocumentApiRequest} DocumentApiRequest */
-/** @typedef {import('@pins/appeals/index.js').DocumentVersionApiRequest} DocumentVersionApiRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
+/** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */
 /**
  * @param {string} caseId
- * @param {DocumentApiRequest} payload
- * @returns {Promise<UploadInfo>}
+ * @param {AddDocumentsRequest} payload
+ * @returns {Promise<AddDocumentsResponse>}
  */
 export const createNewDocument = async (caseId, payload) => {
 	return post(`appeals/${caseId}/documents`, { json: payload });
@@ -20,8 +20,8 @@ export const createNewDocument = async (caseId, payload) => {
 /**
  * @param {string} caseId
  * @param {string} documentId
- * @param {DocumentVersionApiRequest} payload
- * @returns {Promise<UploadInfo>}
+ * @param {AddDocumentVersionRequest} payload
+ * @returns {Promise<AddDocumentsResponse>}
  */
 export const createNewDocumentVersion = async (caseId, documentId, payload) => {
 	return post(`appeals/${caseId}/documents/${documentId}`, { json: payload });
@@ -30,7 +30,7 @@ export const createNewDocumentVersion = async (caseId, documentId, payload) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentApiRequest}} request
+ * @param {{params: {caseId: string}, session: SessionWithAuth, body: AddDocumentsRequest}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
@@ -44,22 +44,25 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 		accessToken = await getActiveDirectoryAccessToken(session);
 	}
 
-	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.documents.find((file) => file.documentName === document.documentName);
-		const documentWithRowId = { ...document };
+	const documentsWithRowId = documents.map((document) => {
+		if (document) {
+			const fileToUpload = body.documents.find(
+				(file) => file.documentName === document.documentName
+			);
+			const documentWithRowId = { ...document };
+			documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
 
-		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
-
-		return documentWithRowId;
+			return documentWithRowId;
+		}
 	});
 
-	return response.send({ ...uploadInfo, accessToken });
+	return response.send({ ...uploadInfo, documents: documentsWithRowId, accessToken });
 }
 
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentVersionApiRequest}} request
+ * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: AddDocumentVersionRequest}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
@@ -73,7 +76,7 @@ export async function postUploadDocumentVersion({ params, body, session }, respo
 		accessToken = await getActiveDirectoryAccessToken(session);
 	}
 
-	uploadInfo.documents = documents.map((document) => {
+	const documentsWithRowId = documents.map((document) => {
 		const fileToUpload = body.document;
 		const documentWithRowId = { ...document };
 
@@ -81,7 +84,7 @@ export async function postUploadDocumentVersion({ params, body, session }, respo
 
 		return documentWithRowId;
 	});
-	const document = uploadInfo.documents[0];
+	const document = documentsWithRowId[0];
 	document.fileRowId = body?.document.fileRowId || '';
 
 	return response.send({ ...uploadInfo, accessToken });
