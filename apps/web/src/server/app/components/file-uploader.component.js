@@ -1,3 +1,4 @@
+import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
 
@@ -50,7 +51,18 @@ export const documentName = (documentNameWithExtension) => {
  */
 export async function postDocumentsUpload({ params, body, session }, response) {
 	const { caseId } = params;
-	const uploadInfo = await createNewDocument(caseId, body);
+
+	let uploadInfo;
+	try {
+		uploadInfo = await createNewDocument(caseId, body);
+	} catch (err) {
+		if (!(err instanceof got.HTTPError) || err.response.statusCode !== 409) {
+			throw err;
+		}
+
+		return response.status(409).send(err.response.body);
+	}
+
 	const { documents } = uploadInfo;
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
