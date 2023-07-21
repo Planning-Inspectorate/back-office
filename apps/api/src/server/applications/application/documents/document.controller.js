@@ -34,17 +34,22 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
  */
 
 /**
- *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
 	const currentDocuments = await documentRepository.getByCaseId(params.id);
+
 	const theCase = await caseRepository.getById(params.id, {
 		applicationDetails: true,
 		gridReference: true
 	});
+
+	if (!theCase?.reference) {
+		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
+	}
 
 	let nextReferenceIndex = Array.isArray(currentDocuments)
 		? getNextDocumentReferenceIndex(currentDocuments)
