@@ -22,7 +22,7 @@ const mapIsInfectedToMachineAction = (isInfected) => {
 const getBlobCaseReferenceAndGuid = (blobUri) => {
 	const uriParts = blobUri.split('/');
 
-	if (uriParts.length !== 8 || uriParts[4] !== 'application') {
+	if (uriParts.length !== 9 || uriParts[4] !== 'application') {
 		throw new Error(`Unexpected blob URI ${blobUri}`);
 	}
 
