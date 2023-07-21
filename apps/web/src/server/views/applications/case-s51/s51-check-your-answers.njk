@@ -1,0 +1,98 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	{% set rows = [] %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'title'}) %}
+	{% set row = row | concat({ text: 'S51 title', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['title'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="title" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'enquirer'}) %}
+	{% set row = row | concat({ text: 'Enquirer', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquirer'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="enquirer" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'method'}) %}
+	{% set row = row | concat({ text: 'Enquiry method', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquiryMethod'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="enquiryMethod" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'enquiry-details'}) %}
+	{% set row = row | concat({ text: 'Enquiry date', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquiryDate'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="enquiryDate" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'enquiry-details'}) %}
+	{% set row = row | concat({ text: 'Enquiry details', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquiryDetails'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="enquiryDetails" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'person'}) %}
+	{% set row = row | concat({ text: 'Advise given by (internal use only)', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['adviser'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="adviser" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'advice-details'}) %}
+	{% set row = row | concat({ text: 'Date advice given', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['adviseDate'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="adviseDate" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	{% set row = [] %}
+	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'advice-details'}) %}
+	{% set row = row | concat({ text: 'Advice given', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['adviceDetails'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="adviceDetails" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set rows = rows | concat([row]) %}
+
+	<h1 class="govuk-heading-l">
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full">
+				Check your answers before creating a new item
+			</div>
+		</div>
+	</h1>
+	<form method="post" action="">
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full">
+				{{ govukTable({
+					rows: rows
+				}) }}
+			</div>
+		</div>
+
+		{{ govukInsetText({
+			text: "Creating S51 advice will default them to 'Unredacted' and 'Not checked'"
+		}) }}
+
+		<div class="govuk-grid-row">
+			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+				{{ govukButton({ text: 'Create S51 advice item' }) }}
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+
+

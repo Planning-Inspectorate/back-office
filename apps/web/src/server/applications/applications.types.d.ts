@@ -143,14 +143,18 @@ export interface DocumentVersion {
 }
 
 export interface S51Advice {
-	title: string;
+	title?: string;
 	enquirerFirstName: string;
 	enquirerLastName: string;
 	enquirerOrganisation: string;
 	enquiryMethod: string;
-	enquiryDate: number;
+	'enquiryDate.day'?: string;
+	'enquiryDate.month'?: string;
+	'enquiryDate.year'?: string;
 	enquiryDetails: string;
 	adviser: string;
-	adviceDate: number;
+	'adviceDate.day'?: string;
+	'adviceDate.month'?: string;
+	'adviceDate.year'?: string;
 	adviceDetails: string;
 }
