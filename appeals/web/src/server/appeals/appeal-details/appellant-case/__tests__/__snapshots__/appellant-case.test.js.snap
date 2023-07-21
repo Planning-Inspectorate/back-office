@@ -194,7 +194,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Incomplete reasons</dt>
                         <dd class="govuk-summary-list__value">
-                            <ul class="govuk-!-margin-top-0 govuk-!-padding-left-0">
+                            <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
                                 <li>Appellant name is not the same on the application form and appeal form</li>
                                 <li>Attachments and/or appendices have not been included to the full statement
                                     of case</li>
@@ -234,7 +234,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Invalid reasons</dt>
                         <dd class="govuk-summary-list__value">
-                            <ul class="govuk-!-margin-top-0 govuk-!-padding-left-0">
+                            <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
                                 <li>Appeal has not been submitted on time</li>
                                 <li>Documents have not been submitted on time</li>
                                 <li>The appellant doesn't have the right to appeal</li>
