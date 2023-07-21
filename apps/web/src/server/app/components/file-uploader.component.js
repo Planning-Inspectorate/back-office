@@ -4,7 +4,7 @@ import { post } from '../../lib/request.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
+/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string}} DocumentUploadInfo */
 /** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
 
 /**

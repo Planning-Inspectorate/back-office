@@ -229,6 +229,10 @@ const clientActions = (uploadForm) => {
 				errors = await uploadFile(fileList, uploadInfo);
 			} else {
 				uploadInfo = await getUploadInfoFromInternalDB(fileList);
+				errors = uploadInfo.errors;
+			}
+
+			if (uploadInfo.documents) {
 				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
 				errors = await uploadFiles(fileList, uploadInfo);
 			}
