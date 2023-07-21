@@ -16,6 +16,16 @@ export const upsert = (document) => {
 };
 
 /**
+ * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
+ */
+export const create = (document) => {
+	return databaseConnector.document.create({
+		data: document
+	});
+};
+
+/**
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
