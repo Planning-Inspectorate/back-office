@@ -295,8 +295,6 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 		})
 	);
 
-	console.log(mappedDocumentVersions);
-
 	response.status(200).send(mappedDocumentVersions);
 };
 
