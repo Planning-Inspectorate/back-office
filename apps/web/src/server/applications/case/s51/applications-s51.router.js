@@ -15,7 +15,7 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/create/check-your-answers')
-	.post(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers));
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers));
 
 applicationsS51Router
 	.route('/create/:step')
