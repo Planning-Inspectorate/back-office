@@ -1,11 +1,11 @@
-import formatAddress from '#utils/address-block-formtter.js';
+import formatAddress from '#utils/format-address.js';
 import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
+import formatLinkedAppeals from '#utils/format-linked-appeals.js';
+import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
-/** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
-/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
 
 /**
@@ -19,17 +19,6 @@ const formatListedBuildingDetails = (affectsListedBuilding, values) =>
 			.filter((value) => value.affectsListedBuilding === affectsListedBuilding)
 			.map(({ grade, description }) => ({ grade, description }))) ||
 	null;
-
-/**
- * @param {Appeal[]} linkedAppeals
- * @param {number} appealId
- * @returns {LinkedAppeal[]}
- */
-const formatLinkedAppeals = (linkedAppeals, appealId) => {
-	return linkedAppeals
-		.filter((appeal) => appeal.id !== appealId)
-		.map(({ id, reference }) => ({ appealId: id, appealReference: reference }));
-};
 
 /**
  * @param {RepositoryGetByIdResultItem} appeal
@@ -115,15 +104,8 @@ const formatLpaQuestionnaire = (appeal) => {
 		lpaQuestionnaireId: lpaQuestionnaire?.id,
 		meetsOrExceedsThresholdOrCriteriaInColumn2:
 			lpaQuestionnaire?.meetsOrExceedsThresholdOrCriteriaInColumn2,
-		neighbouringSiteContacts: lpaQuestionnaire?.neighbouringSiteContact?.length
-			? lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
-					address: formatAddress(contact.address),
-					email: contact.email,
-					firstName: contact.firstName,
-					lastName: contact.lastName,
-					telephone: contact.telephone
-			  }))
-			: null,
+		neighbouringSiteContacts:
+			formatNeighbouringSiteContacts(lpaQuestionnaire?.neighbouringSiteContact) || null,
 		otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
 		procedureType: lpaQuestionnaire?.procedureType?.name,
 		scheduleType: lpaQuestionnaire?.scheduleType?.name,

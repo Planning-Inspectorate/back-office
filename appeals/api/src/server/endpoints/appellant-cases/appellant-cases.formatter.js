@@ -1,4 +1,4 @@
-import formatAddress from '#utils/address-block-formtter.js';
+import formatAddress from '#utils/format-address.js';
 import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
 import isFPA from '#utils/is-fpa.js';
 import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';

@@ -14,9 +14,10 @@ import {
 	householdAppealAppellantCaseIncomplete,
 	linkedAppeals,
 	otherAppeals
-} from '../../../tests/data.js';
+} from '#tests/data.js';
+import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('appeals routes', () => {
 	describe('/appeals', () => {
@@ -410,13 +411,6 @@ describe('appeals routes', () => {
 					appellantCaseId: 1,
 					appellantName: householdAppeal.appellant.name,
 					decision: householdAppeal.inspectorDecision.outcome,
-					isParentAppeal: true,
-					linkedAppeals: [
-						{
-							appealId: fullPlanningAppeal.id,
-							appealReference: fullPlanningAppeal.reference
-						}
-					],
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
@@ -427,8 +421,41 @@ describe('appeals routes', () => {
 							status: 'received'
 						}
 					},
+					healthAndSafety: {
+						appellantCase: {
+							details: householdAppeal.appellantCase.healthAndSafetyIssues,
+							hasIssues: householdAppeal.appellantCase.hasHealthAndSafetyIssues
+						},
+						lpaQuestionnaire: {
+							details: householdAppeal.lpaQuestionnaire.healthAndSafetyDetails,
+							hasIssues: householdAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
+						}
+					},
+					inspectorAccess: {
+						appellantCase: {
+							details: householdAppeal.appellantCase.visibilityRestrictions,
+							isRequired: !householdAppeal.appellantCase.isSiteVisibleFromPublicRoad
+						},
+						lpaQuestionnaire: {
+							details: householdAppeal.lpaQuestionnaire.inspectorAccessDetails,
+							isRequired: householdAppeal.lpaQuestionnaire.doesSiteRequireInspectorAccess
+						}
+					},
+					isParentAppeal: true,
+					linkedAppeals: [
+						{
+							appealId: fullPlanningAppeal.id,
+							appealReference: fullPlanningAppeal.reference
+						}
+					],
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
+					neighbouringSite: {
+						contacts: formatNeighbouringSiteContacts(
+							householdAppeal.lpaQuestionnaire.neighbouringSiteContact
+						),
+						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
+					},
 					otherAppeals: [
 						{
 							appealId: householdAppealAppellantCaseIncomplete.id,
@@ -438,7 +465,8 @@ describe('appeals routes', () => {
 					planningApplicationReference: householdAppeal.planningApplicationReference,
 					procedureType: householdAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
-						visitDate: householdAppeal.siteVisit.visitDate
+						visitDate: householdAppeal.siteVisit.visitDate,
+						visitType: householdAppeal.siteVisit.siteVisitType.name
 					},
 					startedAt: householdAppeal.startedAt.toISOString()
 				});
@@ -477,13 +505,6 @@ describe('appeals routes', () => {
 					appellantCaseId: 1,
 					appellantName: fullPlanningAppeal.appellant.name,
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
-					isParentAppeal: false,
-					linkedAppeals: [
-						{
-							appealId: householdAppeal.id,
-							appealReference: householdAppeal.reference
-						}
-					],
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
@@ -494,13 +515,47 @@ describe('appeals routes', () => {
 							status: 'received'
 						}
 					},
+					healthAndSafety: {
+						appellantCase: {
+							details: fullPlanningAppeal.appellantCase.healthAndSafetyIssues,
+							hasIssues: fullPlanningAppeal.appellantCase.hasHealthAndSafetyIssues
+						},
+						lpaQuestionnaire: {
+							details: fullPlanningAppeal.lpaQuestionnaire.healthAndSafetyDetails,
+							hasIssues: fullPlanningAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
+						}
+					},
+					inspectorAccess: {
+						appellantCase: {
+							details: fullPlanningAppeal.appellantCase.visibilityRestrictions,
+							isRequired: !fullPlanningAppeal.appellantCase.isSiteVisibleFromPublicRoad
+						},
+						lpaQuestionnaire: {
+							details: fullPlanningAppeal.lpaQuestionnaire.inspectorAccessDetails,
+							isRequired: fullPlanningAppeal.lpaQuestionnaire.doesSiteRequireInspectorAccess
+						}
+					},
+					isParentAppeal: false,
+					linkedAppeals: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference
+						}
+					],
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
+					neighbouringSite: {
+						contacts: formatNeighbouringSiteContacts(
+							fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact
+						),
+						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
+					},
 					otherAppeals: [],
 					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
 					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
-						visitDate: fullPlanningAppeal.siteVisit.visitDate
+						visitDate: fullPlanningAppeal.siteVisit.visitDate,
+						visitType: fullPlanningAppeal.siteVisit.siteVisitType.name
 					},
 					startedAt: fullPlanningAppeal.startedAt.toISOString()
 				});

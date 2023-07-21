@@ -105,6 +105,26 @@ const document = {
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
 			decision: 'Not issued yet',
+			healthAndSafety: {
+				appellantCase: {
+					details: 'There is no mobile reception at the site',
+					hasIssues: true
+				},
+				lpaQuestionnaire: {
+					details: 'There may be no mobile reception at the site',
+					hasIssues: true
+				}
+			},
+			inspectorAccess: {
+				appellantCase: {
+					details: 'There is a tall hedge around the site which obstructs the view of the site',
+					isRequired: true
+				},
+				lpaQuestionnaire: {
+					details: 'There may be a tall hedge around the site',
+					isRequired: true
+				}
+			},
 			isParentAppeal: true,
 			linkedAppeals: [
 				{
@@ -114,6 +134,24 @@ const document = {
 			],
 			localPlanningDepartment: 'Wiltshire Council',
 			lpaQuestionnaireId: 1,
+			neighbouringSite: {
+				contacts: [
+					{
+						address: {
+							addressLine1: '1 Grove Cottage',
+							addressLine2: 'Shotesham Road',
+							postCode: 'NR35 2ND',
+							town: 'Woodton'
+						},
+						contactId: 1,
+						email: 'appellant@example.com',
+						firstName: 'Lee',
+						lastName: 'Thornton',
+						telephone: '01234567891'
+					}
+				],
+				isAffected: true
+			},
 			otherAppeals: [
 				{
 					appealId: 1,
@@ -123,7 +161,8 @@ const document = {
 			planningApplicationReference: '48269/APP/2021/1482',
 			procedureType: 'Written',
 			siteVisit: {
-				visitDate: '2022-03-31T12:00:00.000Z'
+				visitDate: '2022-03-31T12:00:00.000Z',
+				visitType: 'Accompanied'
 			},
 			startedAt: '2022-05-17T23:00:00.000Z',
 			documentationSummary: {
@@ -201,6 +240,10 @@ const document = {
 				isFullyOwned: false,
 				isPartiallyOwned: true,
 				knowsOtherLandowners: 'Some'
+			},
+			siteVisit: {
+				siteVisitId: 1,
+				visitType: 'Accompanied'
 			},
 			validation: {
 				outcome: 'Incomplete',

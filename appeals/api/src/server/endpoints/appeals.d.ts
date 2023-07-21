@@ -162,6 +162,7 @@ interface SingleLPAQuestionnaireResponse {
 
 interface NeighbouringSiteContactsResponse {
 	address: AppealSite;
+	contactId: Schema.NeighbouringSiteContact.id;
 	email: Schema.NeighbouringSiteContact.email;
 	firstName: Schema.NeighbouringSiteContact.firstName;
 	lastName: Schema.NeighbouringSiteContact.lastName;
@@ -181,14 +182,41 @@ interface SingleAppealDetailsResponse {
 	appellantName?: string;
 	decision?: string;
 	documentationSummary: DocumentationSummary;
+	healthAndSafety: {
+		appellantCase: {
+			details: string | null;
+			hasIssues: boolean | null;
+		};
+		lpaQuestionnaire: {
+			details: string | null;
+			hasIssues: boolean | null;
+		};
+	};
+	inspectorAccess: {
+		appellantCase: {
+			details: string | null;
+			isRequired: boolean | null;
+		};
+		lpaQuestionnaire: {
+			details: string | null;
+			isRequired: boolean | null;
+		};
+	};
 	isParentAppeal: boolean | null;
 	linkedAppeals: LinkedAppeal[];
 	localPlanningDepartment: string;
 	lpaQuestionnaireId: number | null;
+	neighbouringSite: {
+		contacts: NeighbouringSiteContactsResponse[] | null;
+		isAffected: boolean | null;
+	};
 	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;
 	procedureType: string | null;
-	siteVisit: { visitDate?: Date | null };
+	siteVisit: {
+		visitDate: Date | null;
+		visitType: string | null;
+	};
 	startedAt: Date | null;
 }
 
@@ -331,6 +359,7 @@ export {
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
+	NeighbouringSiteContactsResponse,
 	NotifyClient,
 	NotifyTemplate,
 	NotValidReasons,
