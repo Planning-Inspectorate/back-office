@@ -22,7 +22,7 @@ const mapIsInfectedToMachineAction = (isInfected) => {
 const getBlobCaseReferenceAndGuid = (blobUri) => {
 	const uriParts = blobUri.split('/');
 
-	if (uriParts.length !== 8 || uriParts[4] !== 'application') {
+	if (uriParts.length !== 9 || uriParts[4] !== 'application') {
 		throw new Error(`Unexpected blob URI ${blobUri}`);
 	}
 
@@ -50,7 +50,7 @@ const errorIsDueToDocumentMissing = (error) => {
  * @param {import('@azure/functions').Logger} log
  */
 const deleteDocument = async (documentUri, log) => {
-	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
+	const documentPath = `/${documentUri.split('/').slice(-5).join('/')}`;
 
 	try {
 		await got

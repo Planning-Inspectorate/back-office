@@ -80,16 +80,14 @@ describe('Libraries', () => {
 								value: 'Yes',
 								valueType: 'text',
 								actionText: 'Change',
-								actionLink: '#',
-								attributes: null
+								actionLink: '#'
 							},
 							{
 								title: 'Row 2',
 								value: ['Option One', 'Option two'],
 								valueType: 'text',
 								actionText: 'Change',
-								actionLink: '#',
-								attributes: null
+								actionLink: '#'
 							}
 						]
 					},
@@ -99,19 +97,20 @@ describe('Libraries', () => {
 						rows: [
 							{
 								title: 'Row 3',
-								value: ['http://testURLOne.com/file.txt', 'http://testURLTwo.com/filetwo.pdf'],
+								value: [
+									{ href: 'link', title: 'link', target: '_new' },
+									{ href: 'link', title: 'link', target: '_self' }
+								],
 								valueType: 'link',
 								actionText: 'Details',
-								actionLink: '#',
-								attributes: null
+								actionLink: '#'
 							},
 							{
 								title: 'Row 4',
-								value: 'http://testURLOne.com/file.txt',
+								value: { href: 'link', title: 'link', target: '_new' },
 								valueType: 'link',
 								actionText: 'Details',
-								actionLink: '#',
-								attributes: null
+								actionLink: '#'
 							}
 						]
 					}
@@ -172,7 +171,7 @@ describe('Libraries', () => {
 									text: 'Row 3'
 								},
 								value: {
-									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a><br><a href="http://testURLTwo.com/filetwo.pdf" class="govuk-link">http://testURLTwo.com/filetwo.pdf</a>'
+									html: '<a href="link" target="_new" class="govuk-link">link</a><br><a href="link" target="_self" class="govuk-link">link</a>'
 								},
 								actions: {
 									items: [
@@ -189,7 +188,7 @@ describe('Libraries', () => {
 									text: 'Row 4'
 								},
 								value: {
-									html: '<a href="http://testURLOne.com/file.txt" class="govuk-link">http://testURLOne.com/file.txt</a>'
+									html: '<a href="link" target="_new" class="govuk-link">link</a>'
 								},
 								actions: {
 									items: [

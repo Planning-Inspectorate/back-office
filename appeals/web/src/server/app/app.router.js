@@ -1,6 +1,7 @@
-import config from '@pins/appeals.web/environment/config.js';
+import config from '#environment/config.js';
+import { assertGroupAccess } from './auth/auth.guards.js';
 import { Router as createRouter } from 'express';
-import { installAuthMock } from '../../../testing/app/mocks/auth.js';
+import { installAuthMock } from '#testing/app/mocks/auth.js';
 import appealsRouter from '../appeals/appeals.router.js';
 import asyncRoute from '../lib/async-route.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
@@ -37,8 +38,15 @@ if (!config.authDisabled) {
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncRoute(handleSignout));
 
-router.route('/documents/:caseId/upload').post(postDocumentsUpload);
-router.route('/documents/:caseId/upload/:documentId').post(postUploadDocumentVersion);
+router
+	.route('/documents/:caseId/upload')
+	.post(assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId), postDocumentsUpload);
+router
+	.route('/documents/:caseId/upload/:documentId')
+	.post(
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		postUploadDocumentVersion
+	);
 router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentDownload));
 
 router.use('/appeals-service', appealsRouter);

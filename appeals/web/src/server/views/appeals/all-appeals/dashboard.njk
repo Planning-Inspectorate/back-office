@@ -11,45 +11,44 @@
 {%- set pageTitle = 'National List' -%}
 
 {%- block pageContent -%}
-	<span class="govuk-caption-xl">{{userRole}}</span>
-	<h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-	<div class="govuk-caption-m govuk-!-margin-bottom-3">
-		Enter appeal ID or postcode
-	</div>
+
 	<div class="govuk-grid-row">
-		<form action="" method="GET" novalidate>
-			<div class="govuk-grid-column-two-thirds">
-				{{
-					govukInput({
-						id: "searchTerm",
-						name: "searchTerm",
-						value: searchTerm
-					})
-				}}
+		<div class="govuk-grid-column-two-thirds">
+			<h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+			<div class="govuk-caption-m govuk-!-margin-bottom-3">
+				Enter appeal ID or postcode
 			</div>
-			<div class="govuk-grid-column-one-third">
+			<form action="" method="GET" novalidate>
+				{{
+					govukInput(searchObject)
+				}}
 				{{
 					govukButton({
 						text: "Search"
 					})
 				}}
-			</div>
-		</form>
+			</form>
+			<div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
+		</div>
 	</div>
 	{% if searchTerm %}
-		<div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-3">Back to all cases</a></div>
+		<div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a></div>
 	{% endif %}
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-3">{{ nationalListHeading }}</h2>
-	{{
-		appealsTable({
-			appeals: appeals
-		})
-	}}
-	{% if pagination.items|length %}
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-3">{{ nationalListHeading }}</h2>
+	{% if (searchTerm.length == 0 or (searchTerm.length > 0 and appeals.length > 0)) %}
 		{{
-			govukPagination(
-				pagination
-			)
+			appealsTable({
+				appeals: appeals
+			})
 		}}
+		{% if pagination.items|length %}
+			{{
+				govukPagination(
+					pagination
+				)
+			}}
+		{% endif %}
+	{% else %}
+		<div class="govuk-caption-m govuk-!-margin-bottom-3">Your search query did not return any results.</div>
 	{% endif %}
 {%- endblock -%}

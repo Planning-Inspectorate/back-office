@@ -1,8 +1,8 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { appealsNationalList } from '../../../../../testing/app/fixtures/referencedata.js';
-import { createTestEnvironment } from '../../../../../testing/index.js';
+import { appealsNationalList } from '#testing/app/fixtures/referencedata.js';
+import { createTestEnvironment } from '#testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -24,10 +24,27 @@ describe('national-list', () => {
 
 		it('should render national list - search term', async () => {
 			nock('http://test/')
-				.get('/appeals?pageNumber=1&pageSize=30&searchTerm=1')
+				.get('/appeals?pageNumber=1&pageSize=30&searchTerm=BS7%208LQ')
 				.reply(200, appealsNationalList);
 
-			const response = await request.get(`${baseUrl}?&searchTerm=1`);
+			const response = await request.get(`${baseUrl}?&searchTerm=BS7%208LQ`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render national list - search term - no result', async () => {
+			nock('http://test/')
+				.get('/appeals?pageNumber=1&pageSize=30&searchTerm=NO%20RESULT')
+				.reply(200, {
+					itemCount: 0,
+					items: [],
+					page: 1,
+					pageCount: 0,
+					pageSize: 30
+				});
+
+			const response = await request.get(`${baseUrl}?&searchTerm=NO%20RESULT`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

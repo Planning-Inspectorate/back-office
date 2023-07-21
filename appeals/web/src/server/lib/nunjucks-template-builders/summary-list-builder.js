@@ -1,13 +1,14 @@
+import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builders.js';
 /**
  * @typedef {'text' | 'link' | 'unorderedList'} HtmlTagType
+ * @typedef {import('./tag-builders.js').HtmlLink} HtmlLink
  */
 
 /**
  * @typedef Row
  * @type {object}
  * @property {string} title - key column
- * @property {(string[] | string)} value - value column
- * @property {{[key: string]: string} | null} [attributes] - custom attributes
+ * @property {(string[] | string | HtmlLink[] | HtmlLink)} value - value column
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
  * @property {HtmlTagType} valueType - determines html tags
@@ -75,75 +76,20 @@ export function generateSummaryList(rows, header) {
  * @returns {string}
  */
 function formatRowValue(row) {
-	let rowValueAsHtml = '';
-	let htmlTags;
+	const rowValues = Array.isArray(row.value) ? row.value : [row.value];
 
-	if (Array.isArray(row.value)) {
-		for (let i = 0; i < row.value.length; i++) {
-			const value = row.value[i];
-			htmlTags = getHtmlTags(row.valueType, value);
-			rowValueAsHtml += `${htmlTags.startTag}${value}${htmlTags.endTag}${
-				i < row.value.length - 1 && row.valueType !== 'unorderedList' ? '<br>' : ''
-			}`;
+	switch (row.valueType) {
+		case 'unorderedList': {
+			// @ts-ignore
+			return buildHtmUnorderedList(rowValues);
 		}
-	} else if (row.attributes) {
-		// @ts-ignore
-		htmlTags = getHtmlAnchorWithAttributes(row.attributes);
-		rowValueAsHtml = `${htmlTags.startTag}${row.value}${htmlTags.endTag}`;
-	} else {
-		htmlTags = getHtmlTags(row.valueType, row.value);
-		rowValueAsHtml = `${htmlTags.startTag}${row.value}${htmlTags.endTag}`;
-	}
-
-	if (htmlTags?.wrappingStartTag && htmlTags?.wrappingEndTag) {
-		rowValueAsHtml = `${htmlTags.wrappingStartTag}${rowValueAsHtml}${htmlTags.wrappingEndTag}`;
-	}
-
-	return rowValueAsHtml;
-}
-
-/**
- * @typedef {Object} HtmlTagsEntry
- * @property {string} startTag
- * @property {string} endTag
- * @property {string} [wrappingStartTag]
- * @property {string} [wrappingEndTag]
- */
-
-/**
- * @param {HtmlTagType} type
- * @param {string} [href] optional: if type is link
- * @returns {HtmlTagsEntry}
- */
-function getHtmlTags(type, href) {
-	/**
-	 * @type {Object<string, HtmlTagsEntry>}
-	 */
-	let determineHtmlTag = {
-		text: { startTag: '<span>', endTag: '</span>' },
-		link: { startTag: `<a href="${href}" class="govuk-link">`, endTag: `</a>` },
-		unorderedList: {
-			startTag: '<li>',
-			endTag: '</li>',
-			wrappingStartTag: '<ul class="govuk-!-margin-top-0 govuk-!-padding-left-0">',
-			wrappingEndTag: '</ul>'
+		case 'link': {
+			// @ts-ignore
+			return rowValues.map((v) => buildHtmlLink(v)).join('<br>');
 		}
-	};
-
-	return determineHtmlTag[type];
-}
-
-/**
- * @param {Object<string, string>} attributes
- * @returns {HtmlTagsEntry}
- */
-function getHtmlAnchorWithAttributes(attributes) {
-	const attrs = Object.keys(attributes)
-		.map((a) => `${a}="${attributes[a]}"`)
-		.join(' ');
-
-	return {
-		startTag: `<a ${attrs} class="govuk-link">`,
-		endTag: `</a>`
-	};
+		default: {
+			// @ts-ignore
+			return rowValues.map((v) => buildHtmSpan(v)).join('<br>');
+		}
+	}
 }
