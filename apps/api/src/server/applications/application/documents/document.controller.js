@@ -61,10 +61,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	}
 
 	// Obtain URLs for documents from blob storage
-	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
+	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
 		documentsToUpload,
 		params.id
 	);
+
+	const { blobStorageHost, blobStorageContainer, documents } = dbResponse;
 
 	// Map the obtained URLs with documentName
 	const documentsWithUrls = documents.map((document) => {
@@ -75,7 +77,8 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	response.send({
 		blobStorageHost,
 		blobStorageContainer,
-		documents: documentsWithUrls
+		documents: documentsWithUrls,
+		failedDocuments
 	});
 };
 

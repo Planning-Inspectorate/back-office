@@ -90,11 +90,10 @@ const attemptInsertDocuments = async (caseId, documents) => {
 
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
-		.handleError((error, doc) => {
+		.handleError((_, doc) => {
 			failed.push(doc.name);
 
-			logger.error(`Error while inserting documents to database: ${error}`);
-			throw error;
+			logger.error(`Failed to upload file: ${doc.name}`);
 		})
 		.process(async (documentToDB) => {
 			const fileName = documentName(documentToDB.name);
@@ -199,7 +198,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 /**
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documentsToUpload
  * @param {number} caseId
- * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
+ * @returns {Promise<{response: {blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}, failedDocuments: string[]}>}}
  */
 export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
@@ -236,7 +235,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	logger.info(`Mapping documents to blob storage format...`);
 
 	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
-		documentsFromDatabase,
+		documentsFromDatabase.successful,
 		caseForDocuments.reference
 	);
 
@@ -260,7 +259,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
 	logger.info(`Returning response from blob storage service...`);
-	return responseFromDocumentStorage;
+	return { response: responseFromDocumentStorage, failedDocuments: documentsFromDatabase.failed };
 };
 
 /**
