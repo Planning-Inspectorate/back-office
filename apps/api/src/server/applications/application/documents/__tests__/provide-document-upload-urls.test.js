@@ -21,7 +21,7 @@ describe('Provide document upload URLs', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
-		databaseConnector.document.upsert.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
@@ -35,7 +35,8 @@ describe('Provide document upload URLs', () => {
 						GUID: 'some-guid',
 						documentName: 'test doc'
 					}
-				]
+				],
+				failedDocuments: []
 			})
 		});
 
@@ -60,7 +61,8 @@ describe('Provide document upload URLs', () => {
 					blobStoreUrl: '/some/path/test doc',
 					GUID: 'some-guid'
 				}
-			]
+			],
+			failedDocuments: []
 		});
 
 		const metadata = {

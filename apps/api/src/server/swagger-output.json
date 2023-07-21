@@ -2631,6 +2631,18 @@
 				}
 			}
 		},
+		"documentsUploadFailed": {
+			"type": "object",
+			"properties": {
+				"failedDocuments": {
+					"type": "array",
+					"example": ["example.pdf"],
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
 		"documentsPublished": {
 			"type": "array",
 			"items": {
