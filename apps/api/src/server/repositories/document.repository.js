@@ -1,6 +1,6 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
-/** @typedef {import('apps/api/src/database/schema.js').Document} Document */
+/** @typedef {import('@prisma/client').Document} Document */
 
 /**
  *
@@ -43,7 +43,7 @@ export const getById = (documentGuid) => {
  * Get a document by caseid
  *
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[] |null>}
  */
 export const getByCaseId = (caseId) => {
 	return databaseConnector.document.findMany({
