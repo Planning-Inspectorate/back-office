@@ -84,28 +84,33 @@ const attemptInsertDocuments = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	/**
-	 * @type {string[]}
+	 * @type {Set<string>}
 	 * */
-	let failed = [];
+	let failed = new Set();
 
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
-		.handleError((_, doc) => {
-			failed.push(doc.name);
-
-			logger.error(`Failed to upload file: ${doc.name}`);
+		.handleError((error, doc) => {
+			logger.error(`An error occurred while creating document: ${doc.name}: ${error}`);
+			throw error;
 		})
 		.process(async (documentToDB) => {
 			const fileName = documentName(documentToDB.name);
 
 			logger.info(`Inserting document to database: ${documentToDB}`);
 
-			const document = await documentRepository.create({
-				name: fileName,
-				caseId,
-				folderId: documentToDB.folderId,
-				reference: documentToDB.documentReference
-			});
+			let document;
+			try {
+				document = await documentRepository.create({
+					name: fileName,
+					caseId,
+					folderId: documentToDB.folderId,
+					reference: documentToDB.documentReference
+				});
+			} catch (err) {
+				failed.add(documentToDB.name);
+				return;
+			}
 
 			logger.info(`Inserted document with guid: ${document.guid}`);
 
@@ -135,7 +140,11 @@ const attemptInsertDocuments = async (caseId, documents) => {
 
 	logger.info(`Upserted ${results.length} documents to database`);
 
-	return { successful: results, failed };
+	const successful = /** @type {import('@pins/applications.api').Schema.Document[]} */ (
+		results.filter(Boolean)
+	);
+
+	return { successful, failed: Array.from(failed) };
 };
 
 /**
@@ -198,7 +207,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 /**
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documentsToUpload
  * @param {number} caseId
- * @returns {Promise<{response: {blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}, failedDocuments: string[]}>}}
+ * @returns {Promise<{response: {blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]} | null, failedDocuments: string[]}>}}
  */
 export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
@@ -227,15 +236,19 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);
 
-	const documentsFromDatabase = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
+	const { successful, failed } = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
+	if (successful.length === 0) {
+		logger.info(`Return early because all files failed to upload.`);
+		return { response: null, failedDocuments: failed };
+	}
 
-	logger.info(`Documents inserted: ${JSON.stringify(documentsFromDatabase)}`);
+	logger.info(`Documents inserted: ${JSON.stringify(successful)}`);
 
 	// Step 5: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
 
 	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
-		documentsFromDatabase.successful,
+		successful,
 		caseForDocuments.reference
 	);
 
@@ -259,7 +272,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
 	logger.info(`Returning response from blob storage service...`);
-	return { response: responseFromDocumentStorage, failedDocuments: documentsFromDatabase.failed };
+	return { response: responseFromDocumentStorage, failedDocuments: failed };
 };
 
 /**
@@ -429,13 +442,15 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 };
 
 /**
- * @param {{reference: string}[]} documents
+ * @param {{reference: string | null}[]} documents
  * @returns {number}
  */
 export const getNextDocumentReferenceIndex = (documents) => {
 	if (documents.length === 0) return 1;
 
 	const references = documents.flatMap((d) => {
+		if (!d.reference) return [];
+
 		const match = d.reference.match(/-(\d+)/);
 		if (!match) return [];
 

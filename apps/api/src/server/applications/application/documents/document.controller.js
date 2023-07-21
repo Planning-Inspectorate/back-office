@@ -66,6 +66,11 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		params.id
 	);
 
+	if (dbResponse === null) {
+		response.status(409).send({ failedDocuments });
+		return;
+	}
+
 	const { blobStorageHost, blobStorageContainer, documents } = dbResponse;
 
 	// Map the obtained URLs with documentName
@@ -74,12 +79,14 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
-	response.send({
-		blobStorageHost,
-		blobStorageContainer,
-		documents: documentsWithUrls,
-		failedDocuments
-	});
+	response
+		.status(failedDocuments.length > 0 ? 206 : 200)
+		.send({
+			blobStorageHost,
+			blobStorageContainer,
+			documents: documentsWithUrls,
+			failedDocuments
+		});
 };
 
 /**

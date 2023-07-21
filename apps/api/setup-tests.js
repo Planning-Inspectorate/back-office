@@ -18,6 +18,7 @@ const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
 const mockDocumentFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentUpdate = jest.fn().mockResolvedValue({});
 const mockDocumentUpsert = jest.fn().mockResolvedValue({});
+const mockDocumentCreate = jest.fn().mockResolvedValue({});
 const mockDocumentFindFirst = jest.fn().mockResolvedValue({});
 const mockDocumentFindMany = jest.fn().mockResolvedValue({});
 const mockDocumentCount = jest.fn().mockResolvedValue({});
@@ -116,7 +117,8 @@ class MockPrismaClient {
 			findUnique: mockDocumentFindUnique,
 			findMany: mockDocumentFindMany,
 			update: mockDocumentUpdate,
-			upsert: mockDocumentUpsert
+			upsert: mockDocumentUpsert,
+			create: mockDocumentCreate
 		};
 	}
 

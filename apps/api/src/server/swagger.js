@@ -77,6 +77,9 @@ const document = {
 			],
 			failedDocuments: ['example.pdf']
 		},
+		documentsUploadFailed: {
+			failedDocuments: ['example.pdf']
+		},
 		documentsPublished: [
 			{
 				guid: '0084b156-006b-48b1-a47f-e7176414db29',

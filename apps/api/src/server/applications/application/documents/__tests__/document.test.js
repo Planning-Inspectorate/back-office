@@ -21,7 +21,7 @@ describe('Provide document upload URLs', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
-		databaseConnector.document.upsert.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
@@ -60,7 +60,8 @@ describe('Provide document upload URLs', () => {
 					blobStoreUrl: '/some/path/test doc',
 					GUID: 'some-guid'
 				}
-			]
+			],
+			failedDocuments: []
 		});
 
 		const metadata = {
@@ -123,6 +124,31 @@ describe('Provide document upload URLs', () => {
 				}
 			}
 		});
+	});
+
+	test('returns file names which failed to upload', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.document.create.mockImplementation(() => {
+			throw new Error();
+		});
+		databaseConnector.documentVersion.upsert.mockResolvedValue({});
+
+		// WHEN
+		const response = await request.post('/applications/1/documents').send([
+			{
+				folderId: 1,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
+			}
+		]);
+
+		// THEN
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({ failedDocuments: ['test doc'] });
 	});
 
 	test('throws error if folder id does not belong to case', async () => {
