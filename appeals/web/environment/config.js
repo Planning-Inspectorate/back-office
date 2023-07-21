@@ -34,11 +34,6 @@ const { value: validatedConfig, error } = schema.validate({
 			caseOfficerGroupId: environment.APPEALS_CASE_OFFICER_GROUP_ID,
 			inspectorGroupId: environment.APPEALS_INSPECTOR_GROUP_ID,
 			validationOfficerGroupId: environment.APPEALS_VALIDATION_OFFICER_GROUP_ID
-		},
-		applications: {
-			caseAdminOfficerGroupId: environment.APPLICATIONS_CASE_ADMIN_OFFICER_GROUP_ID,
-			caseTeamGroupId: environment.APPLICATIONS_CASETEAM_GROUP_ID,
-			inspectorGroupId: environment.APPLICATIONS_INSPECTOR_GROUP_ID
 		}
 	},
 	// flag name convention: featureFlag[ jira number ][ferature shoret description]

@@ -4,40 +4,38 @@
  */
 
 /**
- * @typedef {Object} MappedDocumentForDisplay
- * @property {(string[] | string)} value
- * @property {string} actionText
- * @property {string} actionLink
- * @property {import('../../lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} valueType
- * @property {{[key: string]: string} | null} [attributes]
+ * @typedef {Object} MappedFolderForListBuilder
+ * @property {string} addDocumentUrl
+ * @property {MappedDocumentForListBuilder[]} documents
+ */
+
+/**
+ * @typedef {Object} MappedDocumentForListBuilder
+ * @property {string} title
+ * @property {string} href
+ * @property {string} addVersionUrl
  */
 
 /**
  *
  * @param {Number} caseId
  * @param {FolderInfo} folder
- * @returns {MappedDocumentForDisplay}
+ * @param {boolean?} [singleDocument]
+ * @returns {MappedFolderForListBuilder}
  */
-export const mapDocumentsForDisplay = (caseId, folder) => {
+export const mapFolder = (caseId, folder, singleDocument = true) => {
 	const { documents } = folder;
-	if (documents?.length) {
-		const document = documents[0];
+	const documentMap = documents.map((document) => {
 		return {
-			value: document.name,
-			actionText: 'Change',
-			actionLink: mapDocumentUploadUrl(caseId, folder, document),
-			valueType: 'link',
-			attributes: {
-				href: mapDocumentDownloadUrl(document),
-				target: '_docpreview'
-			}
+			title: document.name,
+			href: mapDocumentDownloadUrl(document),
+			addVersionUrl: mapDocumentUploadUrl(caseId, folder, document)
 		};
-	}
+	});
+
 	return {
-		value: 'none',
-		actionText: 'Add',
-		actionLink: mapDocumentUploadUrl(caseId, folder),
-		valueType: 'text'
+		addDocumentUrl: mapDocumentUploadUrl(caseId, folder),
+		documents: singleDocument ? (documentMap.length ? [documentMap[0]] : []) : documentMap
 	};
 };
 

@@ -1,217 +1,217 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`national-list GET / should render national list - 10 pages - all page indexes in one row 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l\\">National List</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">National List</h1>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search cases</h3>
-            <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Enter appeal ID or postcode</div>
-            <form action=\\"\\" method=\\"GET\\" novalidate>
-                <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
+            <form action="" method="GET" novalidate>
+                <div class="govuk-form-group">
+                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
-            <div class=\\"govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6\\"></div>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">All cases</h2>
-    <table class=\\"govuk-table\\">
-        <thead class=\\"govuk-table__head\\">
-            <tr class=\\"govuk-table__row\\">
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal ID</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Site address</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal type</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Local planning authority</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
-        <tbody class=\\"govuk-table__body\\">
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\"> 943245</a>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Wiltshire Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/2\\"> 129285</a>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Dorset Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
         </tbody>
     </table>
-    <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
-        <ul class=\\"govuk-pagination__list\\">
-            <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=1\\"
-                aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=1"
+                aria-label="Page 1" aria-current="page"> 1</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2\\"
-                aria-label=\\"Page 2\\"> 2</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2"
+                aria-label="Page 2"> 2</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=3\\"
-                aria-label=\\"Page 3\\"> 3</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=3"
+                aria-label="Page 3"> 3</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=4\\"
-                aria-label=\\"Page 4\\"> 4</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=4"
+                aria-label="Page 4"> 4</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=5\\"
-                aria-label=\\"Page 5\\"> 5</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=5"
+                aria-label="Page 5"> 5</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=6\\"
-                aria-label=\\"Page 6\\"> 6</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=6"
+                aria-label="Page 6"> 6</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=7\\"
-                aria-label=\\"Page 7\\"> 7</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=7"
+                aria-label="Page 7"> 7</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=8\\"
-                aria-label=\\"Page 8\\"> 8</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=8"
+                aria-label="Page 8"> 8</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=9\\"
-                aria-label=\\"Page 9\\"> 9</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=9"
+                aria-label="Page 9"> 9</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=10\\"
-                aria-label=\\"Page 10\\"> 10</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=10"
+                aria-label="Page 10"> 10</a>
             </li>
         </ul>
-        <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2\\"
-            rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2"
+            rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
         </div>
     </nav>
 </main>"
 `;
 
 exports[`national-list GET / should render national list - 15 pages - pagination with ellipsis logic 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l\\">National List</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">National List</h1>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search cases</h3>
-            <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Enter appeal ID or postcode</div>
-            <form action=\\"\\" method=\\"GET\\" novalidate>
-                <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
+            <form action="" method="GET" novalidate>
+                <div class="govuk-form-group">
+                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
-            <div class=\\"govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6\\"></div>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">All cases</h2>
-    <table class=\\"govuk-table\\">
-        <thead class=\\"govuk-table__head\\">
-            <tr class=\\"govuk-table__row\\">
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal ID</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Site address</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal type</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Local planning authority</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
-        <tbody class=\\"govuk-table__body\\">
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\"> 943245</a>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Wiltshire Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/2\\"> 129285</a>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Dorset Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
         </tbody>
     </table>
-    <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
-        <ul class=\\"govuk-pagination__list\\">
-            <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=1\\"
-                aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=1"
+                aria-label="Page 1" aria-current="page"> 1</a>
             </li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2\\"
-                aria-label=\\"Page 2\\"> 2</a>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2"
+                aria-label="Page 2"> 2</a>
             </li>
-            <li class=\\"govuk-pagination__item govuk-pagination__item--ellipses\\">&ctdot;</li>
-            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=15\\"
-                aria-label=\\"Page 15\\"> 15</a>
+            <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=15"
+                aria-label="Page 15"> 15</a>
             </li>
         </ul>
-        <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2\\"
-            rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="/appeals-service/appeals-list?pageSize=30&amp;pageNumber=2"
+            rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
         </div>
     </nav>
 </main>"
 `;
 
 exports[`national-list GET / should render national list - no pagination 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l\\">National List</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">National List</h1>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search cases</h3>
-            <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Enter appeal ID or postcode</div>
-            <form action=\\"\\" method=\\"GET\\" novalidate>
-                <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
+            <form action="" method="GET" novalidate>
+                <div class="govuk-form-group">
+                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
-            <div class=\\"govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6\\"></div>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">All cases</h2>
-    <table class=\\"govuk-table\\">
-        <thead class=\\"govuk-table__head\\">
-            <tr class=\\"govuk-table__row\\">
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal ID</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Site address</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal type</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Local planning authority</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
-        <tbody class=\\"govuk-table__body\\">
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\"> 943245</a>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Wiltshire Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/2\\"> 129285</a>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Dorset Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
         </tbody>
@@ -220,84 +220,84 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
 `;
 
 exports[`national-list GET / should render national list - search term - no result 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l\\">National List</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">National List</h1>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search cases</h3>
-            <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Enter appeal ID or postcode</div>
-            <form action=\\"\\" method=\\"GET\\" novalidate>
-                <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\"
-                    value=\\"NO RESULT\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
+            <form action="" method="GET" novalidate>
+                <div class="govuk-form-group">
+                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text"
+                    value="NO RESULT">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
-            <div class=\\"govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6\\"></div>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <div><a href=\\"/appeals-service/appeals-list\\" class=\\"govuk-caption-m govuk-!-margin-bottom-8\\">Clear search results</a>
+    <div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a>
     </div>
-    <h2 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search results</h2>
-    <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Your search query did not return any results.</div>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Search results</h2>
+    <div class="govuk-caption-m govuk-!-margin-bottom-3">Your search query did not return any results.</div>
 </main>"
 `;
 
 exports[`national-list GET / should render national list - search term 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-l\\">National List</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l">National List</h1>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search cases</h3>
-            <div class=\\"govuk-caption-m govuk-!-margin-bottom-3\\">Enter appeal ID or postcode</div>
-            <form action=\\"\\" method=\\"GET\\" novalidate>
-                <div class=\\"govuk-form-group\\">
-                    <input class=\\"govuk-input\\" id=\\"searchTerm\\" name=\\"searchTerm\\" type=\\"text\\"
-                    value=\\"BS7 8LQ\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
+            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
+            <form action="" method="GET" novalidate>
+                <div class="govuk-form-group">
+                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text"
+                    value="BS7 8LQ">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
-            <div class=\\"govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6\\"></div>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <div><a href=\\"/appeals-service/appeals-list\\" class=\\"govuk-caption-m govuk-!-margin-bottom-8\\">Clear search results</a>
+    <div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a>
     </div>
-    <h2 class=\\"govuk-heading-m govuk-!-margin-bottom-3\\">Search results</h2>
-    <table class=\\"govuk-table\\">
-        <thead class=\\"govuk-table__head\\">
-            <tr class=\\"govuk-table__row\\">
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal ID</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Site address</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Appeal type</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Local planning authority</th>
-                <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Search results</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
-        <tbody class=\\"govuk-table__body\\">
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/1\\"> 943245</a>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Wiltshire Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
-            <tr class=\\"govuk-table__row\\">
-                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/appeals-service/appeal-details/2\\"> 129285</a>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
-                <td class=\\"govuk-table__cell\\">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class=\\"govuk-table__cell\\">household</td>
-                <td class=\\"govuk-table__cell\\">Dorset Council</td>
-                <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">received appeal</strong>
+                <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
+                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
         </tbody>

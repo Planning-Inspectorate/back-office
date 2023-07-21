@@ -3,6 +3,8 @@ import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 
 /**
  * @typedef {import('./appellant-case.types.js').SingleAppellantCaseResponse} AppellantCaseResponse
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason
+ * @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
  */
 
 /**
@@ -42,14 +44,14 @@ export async function setReviewOutcomeForAppellantCase(appealId, appellantCaseId
 }
 
 /**
- * @returns {Promise<import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]>}
+ * @returns {Promise<AppellantCaseInvalidReason[]>}
  */
 export async function getAppellantCaseInvalidReasons() {
 	return get(`appeals/appellant-case-invalid-reasons`);
 }
 
 /**
- * @returns {Promise<import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]>}
+ * @returns {Promise<AppellantCaseIncompleteReason[]>}
  */
 export async function getAppellantCaseIncompleteReasons() {
 	return get(`appeals/appellant-case-incomplete-reasons`);
@@ -57,7 +59,7 @@ export async function getAppellantCaseIncompleteReasons() {
 
 /**
  * @param {string} validationOutcome
- * @returns {Promise<import('appeals/api/src/database/schema.js').AppellantCaseInvalidReason[]|import('appeals/api/src/database/schema.js').AppellantCaseIncompleteReason[]>}
+ * @returns {Promise<AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]>}
  */
 export async function getAppellantCaseNotValidReasonsForOutcome(validationOutcome) {
 	switch (validationOutcome) {
