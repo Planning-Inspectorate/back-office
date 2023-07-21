@@ -19,7 +19,7 @@ const serverActions = (uploadForm) => {
 	/**
 	 *
 	 * @param {FileWithRowId[]} fileList
-	 * @returns {Promise<AnError[]>}
+	 * @returns {Promise<{response: UploadInfo, errors: AnError[]}>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
 		const { folderId, caseId } = uploadForm.dataset;
@@ -41,17 +41,19 @@ const serverActions = (uploadForm) => {
 		})
 			.then((response) => response.json())
 			.then((uploadsInfos) => {
-				for (const documentUploadInfo of uploadsInfos.documents) {
-					if (documentUploadInfo.failedReason) {
-						failedUploads.push({
-							message: 'GENERIC_SINGLE_FILE',
-							fileRowId: documentUploadInfo.fileRowId,
-							name: documentUploadInfo.documentName
-						});
-					}
+				if (uploadsInfos.failedDocuments) {
+					const failedDocuments = /** @type {string[]} */ (uploadsInfos.failedDocuments);
+
+					failedUploads.push(
+						...failedDocuments.map((name, idx) => ({
+							message: 'CONFLICT',
+							name,
+							fileRowId: `failedUpload${idx}`
+						}))
+					);
 				}
 
-				return uploadsInfos;
+				return { response: uploadsInfos, errors: failedUploads };
 			});
 	};
 

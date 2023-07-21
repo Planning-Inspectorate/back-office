@@ -16,7 +16,8 @@ export const errorMessage = (type, replaceValue) => {
 		NO_FILE: 'Select a file',
 		GENERIC_SINGLE_FILE: `{REPLACE_VALUE} could not be added, try again`,
 		NAME_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
-		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`
+		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`,
+		CONFLICT: '{REPLACE_VALUE} could not be added because this file name is already taken.'
 	};
 
 	return index[type] ? index[type].replace('{REPLACE_VALUE}', replaceValue || '') : index.GENERIC;
