@@ -36,8 +36,10 @@ const renderAppellantCase = async (request, response) => {
 			.getAppellantCaseFromAppealId(appealDetails?.appealId, appealDetails?.appellantCaseId)
 			.catch((error) => logger.error(error));
 
-		const mappedAppellantCaseSections =
-			mapResponseToSummaryListBuilderParameters(appellantCaseResponse);
+		const mappedAppellantCaseSections = mapResponseToSummaryListBuilderParameters(
+			appellantCaseResponse,
+			response.locals.permissions
+		);
 		const formattedSections = [];
 		for (const section of mappedAppellantCaseSections) {
 			formattedSections.push(generateSummaryList(section.rows, section.header));

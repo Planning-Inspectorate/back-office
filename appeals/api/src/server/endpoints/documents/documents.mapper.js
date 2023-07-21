@@ -1,4 +1,4 @@
-/** @typedef {import('@pins/appeals/index.js').DocumentUploadInfo} DocumentUploadInfo */
+/** @typedef {import('@pins/appeals/index.js').MappedDocument} MappedDocument */
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -9,7 +9,7 @@
  * @param {number} caseId
  * @param {string} blobStorageHost,
  * @param {string} blobStorageContainer,
- * @param {DocumentUploadInfo[]} documents
+ * @param {MappedDocument[]} documents
  * @returns {DocumentMetadata[]}
  */
 export const mapDocumentsForDatabase = (

@@ -3,8 +3,19 @@
 	"include": [
 		"**/*.js",
 		"src/server/appeals/validation/validation.types.d.ts",
-		"src/server/appeals/appeal-documents/appeal-documents.types.d.ts"
+		"src/server/appeals/appeal-documents/appeal-documents.types.d.ts",
+		"src/server/app/auth/auth.permissions.d.ts"
 	],
 	"exclude": ["src/server/static", "scripts", "coverage"],
-	"files": ["typings.d.ts"]
+	"files": ["typings.d.ts"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"#environment/*": ["./environment/*"],
+			"#app/*": ["./src/server/app/*"],
+			"#appeals/*": ["./src/server/appeals/*"],
+			"#lib/*": ["./src/server/lib/*"],
+			"#testing/*": ["./testing/*"]
+		}
+	}
 }

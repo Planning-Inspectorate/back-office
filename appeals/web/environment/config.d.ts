@@ -42,11 +42,6 @@ export interface EnvironmentConfig {
 			inspectorGroupId: string;
 			validationOfficerGroupId: string;
 		};
-		applications: {
-			caseAdminOfficerGroupId: string;
-			caseTeamGroupId: string;
-			inspectorGroupId: string;
-		};
 	};
 	featureFlags: {
 		[key: string]: boolean;

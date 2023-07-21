@@ -198,24 +198,32 @@ export const lpaQuestionnaireData = {
 	],
 	developmentDescription: '',
 	documents: {
-		definitiveMapAndStatement: 'right-of-way.pdf',
-		treePreservationOrder: 'tree-preservation-order.pdf',
-		communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-		conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-		consultationResponses: 'consultation-responses.pdf',
-		emergingPlans: ['emerging-plan-1.pdf'],
-		environmentalStatementResponses: 'environment-statement-responses.pdf',
-		issuedScreeningOption: 'issued-screening-opinion.pdf',
-		lettersToNeighbours: 'letters-to-neighbours.pdf',
-		otherRelevantPolicies: ['policy-1.pdf'],
-		planningOfficersReport: 'planning-officers-report.pdf',
-		policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-		pressAdvert: 'press-advert.pdf',
-		representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-		responsesOrAdvice: ['responses-or-advice.pdf'],
-		screeningDirection: 'screening-direction.pdf',
-		siteNotice: 'site-notice.pdf',
-		supplementaryPlanningDocuments: ['supplementary-1.pdf']
+		definitiveMapAndStatement: { href: 'right-of-way.pdf', title: 'filename' },
+		treePreservationOrder: { href: 'tree-preservation-order.pdf', title: 'filename' },
+		communityInfrastructureLevy: { href: 'community-infrastructure-levy.pdf', title: 'filename' },
+		conservationAreaMapAndGuidance: {
+			href: 'conservation-area-map-and-guidance.pdf',
+			title: 'filename'
+		},
+		consultationResponses: { href: 'consultation-responses.pdf', title: 'filename' },
+		emergingPlans: [{ href: 'emerging-plan-1.pdf', title: 'filename' }],
+		environmentalStatementResponses: {
+			href: 'environment-statement-responses.pdf',
+			title: 'filename'
+		},
+		issuedScreeningOption: { href: 'issued-screening-opinion.pdf', title: 'filename' },
+		lettersToNeighbours: { href: 'letters-to-neighbours.pdf', title: 'filename' },
+		otherRelevantPolicies: [{ href: 'policy-1.pdf', title: 'filename' }],
+		planningOfficersReport: { href: 'planning-officers-report.pdf', title: 'filename' },
+		policiesFromStatutoryDevelopment: [{ href: 'policy-a.pdf', title: 'filename' }],
+		pressAdvert: { href: 'press-advert.pdf', title: 'filename' },
+		representationsFromOtherParties: [
+			{ href: 'representations-from-other-parties-1.pdf', title: 'filename' }
+		],
+		responsesOrAdvice: [{ href: 'responses-or-advice.pdf', title: 'filename' }],
+		screeningDirection: { href: 'screening-direction.pdf', title: 'filename' },
+		siteNotice: { href: 'site-notice.pdf', title: 'filename' },
+		supplementaryPlanningDocuments: [{ href: 'supplementary-1.pdf', title: 'filename' }]
 	},
 	doesAffectAListedBuilding: true,
 	doesAffectAScheduledMonument: true,
