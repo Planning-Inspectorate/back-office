@@ -199,13 +199,9 @@ const clientActions = (uploadForm) => {
 			let uploadInfo;
 
 			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
-				console.log('-----inside--inf');
 				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
-				console.log(uploadInfo);
-				console.log('-----');
 			} else {
 				console.log(uploadInfo);
-				console.log('-----inside-else ----');
 				uploadInfo = await getUploadInfoFromInternalDB(fileList);
 			}
 
