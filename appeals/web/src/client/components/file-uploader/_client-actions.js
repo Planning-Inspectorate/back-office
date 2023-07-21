@@ -201,15 +201,10 @@ const clientActions = (uploadForm) => {
 			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
 				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
 			} else {
-				console.log(uploadInfo);
 				uploadInfo = await getUploadInfoFromInternalDB(fileList);
 			}
 
-			console.log(uploadInfo);
-			console.log(123);
 			errors = await uploadFiles(fileList, uploadInfo);
-
-			console.log(errors);
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
