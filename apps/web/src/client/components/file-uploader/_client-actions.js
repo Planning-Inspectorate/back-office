@@ -208,8 +208,12 @@ const clientActions = (uploadForm) => {
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
 
-		const { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB } =
-			serverActions(uploadForm);
+		const {
+			getUploadInfoFromInternalDB,
+			uploadFiles,
+			getVersionUploadInfoFromInternalDB,
+			uploadFile
+		} = serverActions(uploadForm);
 
 		try {
 			const fileList = await onSubmitValidation();
@@ -221,12 +225,13 @@ const clientActions = (uploadForm) => {
 
 			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
 				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
+				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
+				errors = await uploadFile(fileList, uploadInfo);
 			} else {
 				uploadInfo = await getUploadInfoFromInternalDB(fileList);
+				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
+				errors = await uploadFiles(fileList, uploadInfo);
 			}
-
-			await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
-			errors = await uploadFiles(fileList, uploadInfo);
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
