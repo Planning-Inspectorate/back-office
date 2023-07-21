@@ -65,6 +65,18 @@ const document = {
 				}
 			]
 		},
+		partialDocumentsAndBlobStorageURLs: {
+			blobStorageHost: 'blob-storage-host',
+			blobStorageContainer: 'blob-storage-container',
+			documents: [
+				{
+					documentName: 'document.pdf',
+					documentReference: 'docRef',
+					blobStoreUrl: '/some/path/document.pdf'
+				}
+			],
+			failedDocuments: ['example.pdf']
+		},
 		documentsPublished: [
 			{
 				guid: '0084b156-006b-48b1-a47f-e7176414db29',

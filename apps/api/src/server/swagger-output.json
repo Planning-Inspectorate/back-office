@@ -2591,6 +2591,46 @@
 				}
 			}
 		},
+		"partialDocumentsAndBlobStorageURLs": {
+			"type": "object",
+			"properties": {
+				"blobStorageHost": {
+					"type": "string",
+					"example": "blob-storage-host"
+				},
+				"blobStorageContainer": {
+					"type": "string",
+					"example": "blob-storage-container"
+				},
+				"documents": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"documentName": {
+								"type": "string",
+								"example": "document.pdf"
+							},
+							"documentReference": {
+								"type": "string",
+								"example": "docRef"
+							},
+							"blobStoreUrl": {
+								"type": "string",
+								"example": "/some/path/document.pdf"
+							}
+						}
+					}
+				},
+				"failedDocuments": {
+					"type": "array",
+					"example": ["example.pdf"],
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
 		"documentsPublished": {
 			"type": "array",
 			"items": {
