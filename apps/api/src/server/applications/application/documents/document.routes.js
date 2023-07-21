@@ -77,6 +77,10 @@ router.post(
             description: 'Documents that have been saved',
             schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
         }
+	#swagger.responses[206] = {
+	    description: 'Some documents failed to save while others succeeded'
+	    schema: { $ref: '#/definitions/partialDocumentsAndBlobStorageURLs' }
+	}
 	 */
 	validateApplicationId,
 	validateDocumentsToUploadProvided,
