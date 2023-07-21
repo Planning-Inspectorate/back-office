@@ -86,17 +86,14 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
 		.handleError((error) => {
-			// Log any errors that occur during the upsert process and re-throw the error.
 			logger.error(`Error while upserting documents to database: ${error}`);
 			throw error;
 		})
 		.process(async (documentToDB) => {
 			const fileName = documentName(documentToDB.name);
-			// Log that the function is upserting the document to the database.
 
 			logger.info(`Upserting document to database: ${documentToDB}`);
 
-			// Call the documentRepository.upsert function to upsert the document to the database.
 			const document = await documentRepository.upsert({
 				name: fileName,
 				caseId,
@@ -104,13 +101,11 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 				reference: documentToDB.documentReference
 			});
 
-			// Log that the document has been upserted and its GUID.
 			logger.info(`Upserted document with guid: ${document.guid}`);
 
 			// Get the cases stage to be applied to the document based on the folder
 			const stage = await getCaseStageMapping(documentToDB.folderId);
 
-			// Call the documentVersionRepository.upsert function to upsert metadata for the document to the database.
 			await documentVersionRepository.upsert({
 				documentGuid: document.guid,
 				fileName,
@@ -125,17 +120,12 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 				latestVersionId: 1
 			});
 
-			// Log that the metadata for the document has been upserted and its GUID.
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
 			return document;
 		});
 
-	// Log the total number of documents that were upserted to the database.
-
 	logger.info(`Upserted ${results.length} documents to database`);
-
-	// Return the array of upserted documents.
 
 	return results;
 };
