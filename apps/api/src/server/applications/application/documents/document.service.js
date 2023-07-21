@@ -78,33 +78,42 @@ const getCaseStageMapping = async (folderId) => {
  *
  * @param {number} caseId
  * @param {{name: string, folderId: number; documentType: string, documentSize: number, documentReference: string}[]} documents
- * @returns {Promise<import('@pins/applications.api').Schema.Document[]>}
+ * @returns {Promise<{successful: import('@pins/applications.api').Schema.Document[], failed: string[]}>}
  */
-const upsertDocumentsToDatabase = async (caseId, documents) => {
+const attemptInsertDocuments = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
+
+	/**
+	 * @type {string[]}
+	 * */
+	let failed = [];
 
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
-		.handleError((error) => {
-			logger.error(`Error while upserting documents to database: ${error}`);
+		.handleError((error, doc) => {
+			failed.push(doc.name);
+
+			logger.error(`Error while inserting documents to database: ${error}`);
 			throw error;
 		})
 		.process(async (documentToDB) => {
 			const fileName = documentName(documentToDB.name);
 
-			logger.info(`Upserting document to database: ${documentToDB}`);
+			logger.info(`Inserting document to database: ${documentToDB}`);
 
-			const document = await documentRepository.upsert({
+			const document = await documentRepository.create({
 				name: fileName,
 				caseId,
 				folderId: documentToDB.folderId,
 				reference: documentToDB.documentReference
 			});
 
-			logger.info(`Upserted document with guid: ${document.guid}`);
+			logger.info(`Inserted document with guid: ${document.guid}`);
 
 			// Get the cases stage to be applied to the document based on the folder
 			const stage = await getCaseStageMapping(documentToDB.folderId);
+
+			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
 
 			await documentVersionRepository.upsert({
 				documentGuid: document.guid,
@@ -127,7 +136,7 @@ const upsertDocumentsToDatabase = async (caseId, documents) => {
 
 	logger.info(`Upserted ${results.length} documents to database`);
 
-	return results;
+	return { successful: results, failed };
 };
 
 /**
@@ -216,12 +225,12 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
-	// Step 4: Upsert the documents to the database
-	logger.info(`Upserting documents to database...`);
+	// Step 4: Add documents to the database if all are new
+	logger.info(`Attempting to insert documents to database...`);
 
-	const documentsFromDatabase = await upsertDocumentsToDatabase(caseId, documentsToSendToDatabase);
+	const documentsFromDatabase = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
 
-	logger.info(`Documents upserted: ${JSON.stringify(documentsFromDatabase)}`);
+	logger.info(`Documents inserted: ${JSON.stringify(documentsFromDatabase)}`);
 
 	// Step 5: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
