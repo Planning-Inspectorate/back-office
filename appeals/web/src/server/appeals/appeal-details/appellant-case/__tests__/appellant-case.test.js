@@ -1,14 +1,14 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { createTestEnvironment } from '#testing/index.js';
 import {
 	appellantCaseData,
 	appellantCaseInvalidReasons,
 	appellantCaseIncompleteReasons
-} from '../../../../../../testing/app/fixtures/referencedata.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
-import { TEXTAREA_MAXIMUM_CHARACTERS } from '../../../../lib/validators/textarea-validator.js';
+} from '#testing/app/fixtures/referencedata.js';
+import { appellantCaseReviewOutcomes } from '#appeals/appeal.constants.js';
+import { TEXTAREA_MAXIMUM_CHARACTERS } from '#lib/validators/textarea-validator.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
