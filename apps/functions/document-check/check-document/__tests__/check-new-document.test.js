@@ -64,7 +64,7 @@ describe('document passes AV checks', () => {
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 		// WHEN
-		await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
+		await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/1/test.pdf`, stream);
 
 		// THEN
 		expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -92,7 +92,11 @@ describe('document passes AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
-			await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
+			await checkMyBlob(
+				logger,
+				`${blobHostUrl}/application/ABC/${documentGuid}/1/test.pdf`,
+				stream
+			);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -121,7 +125,11 @@ describe('document passes AV checks', () => {
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: false });
 
 			// WHEN
-			await checkMyBlob(logger, `${blobHostUrl}/application/ABC/${documentGuid}/test.pdf`, stream);
+			await checkMyBlob(
+				logger,
+				`${blobHostUrl}/application/ABC/${documentGuid}/1/test.pdf`,
+				stream
+			);
 
 			// THEN
 			expect(mockGotPatch).toHaveBeenCalledTimes(2);
@@ -144,7 +152,7 @@ describe('document fails AV checks', () => {
 	test("sends 'failed' machine action to back office API and deleted blob from blob storage", async () => {
 		// GIVEN
 		const documentGuid = randomUUID();
-		const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
+		const documentPath = `/application/ABC/${documentGuid}/1/test.pdf`;
 
 		mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
 		mockGotDelete.mockReturnValueOnce(mock200Response);
@@ -176,7 +184,7 @@ describe('document fails AV checks', () => {
 		test("still sends 'failed' machine action to back office API and deletes blob from blob storage", async () => {
 			// GIVEN
 			const documentGuid = randomUUID();
-			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
+			const documentPath = `/application/ABC/${documentGuid}/1/test.pdf`;
 
 			mockGotPatch
 				.mockReturnValueOnce(backOfficeFailedToMarkAsUploadedError)
@@ -215,7 +223,7 @@ describe('document fails AV checks', () => {
 		test("still sends 'failed' machine action to back office API", async () => {
 			// GIVEN
 			const documentGuid = randomUUID();
-			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
+			const documentPath = `/application/ABC/${documentGuid}/1/test.pdf`;
 
 			mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
 			mockGotDelete.mockReturnValueOnce(documentStorageFailedToDeleteError);
@@ -252,7 +260,7 @@ describe('document fails AV checks', () => {
 		test('still deletes blob from blob storage', async () => {
 			// GIVEN
 			const documentGuid = randomUUID();
-			const documentPath = `/application/ABC/${documentGuid}/test.pdf`;
+			const documentPath = `/application/ABC/${documentGuid}/1/test.pdf`;
 
 			mockGotPatch
 				.mockReturnValueOnce(mock200Response)

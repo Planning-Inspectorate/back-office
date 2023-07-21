@@ -50,7 +50,7 @@ const errorIsDueToDocumentMissing = (error) => {
  * @param {import('@azure/functions').Logger} log
  */
 const deleteDocument = async (documentUri, log) => {
-	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
+	const documentPath = `/${documentUri.split('/').slice(-5).join('/')}`;
 
 	try {
 		await got
