@@ -23,16 +23,16 @@ export const clearAuthenticationData = ({ session }, _, next) => {
  */
 const permissions = (currentUserGroups) => {
 	return {
-		setSiteVisit: currentUserGroups.indexOf(config.referenceData.appeals.inspectorGroupId) >= 0,
-		setAppealStatus:
-			currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0,
-		setAppellantCaseStatus:
-			currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0,
-		setLpaQStatus: currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0,
-		setAppealCaseData:
-			currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0,
-		setAppellantCaseData:
-			currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0,
-		setLpaQCaseData: currentUserGroups.indexOf(config.referenceData.appeals.caseOfficerGroupId) >= 0
+		setSiteVisit: currentUserGroups.includes(config.referenceData.appeals.inspectorGroupId),
+		setAppealStatus: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
+		setAppellantCaseStatus: currentUserGroups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		setLpaQStatus: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
+		setAppealCaseData: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
+		setAppellantCaseData: currentUserGroups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		setLpaQCaseData: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId)
 	};
 };

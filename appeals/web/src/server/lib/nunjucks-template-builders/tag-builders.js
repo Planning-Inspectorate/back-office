@@ -26,7 +26,7 @@ export const buildHtmlLink = (link) => {
  */
 export const buildHtmUnorderedList = (items) => {
 	const listItems = items.map((i) => `<li>${i}</li>`).join('');
-	return `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-0">${listItems}</ul>`;
+	return `<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">${listItems}</ul>`;
 };
 
 /**
