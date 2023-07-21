@@ -1120,6 +1120,68 @@
 						"type": "string",
 						"example": "Not issued yet"
 					},
+					"healthAndSafety": {
+						"type": "object",
+						"properties": {
+							"appellantCase": {
+								"type": "object",
+								"properties": {
+									"details": {
+										"type": "string",
+										"example": "There is no mobile reception at the site"
+									},
+									"hasIssues": {
+										"type": "boolean",
+										"example": true
+									}
+								}
+							},
+							"lpaQuestionnaire": {
+								"type": "object",
+								"properties": {
+									"details": {
+										"type": "string",
+										"example": "There may be no mobile reception at the site"
+									},
+									"hasIssues": {
+										"type": "boolean",
+										"example": true
+									}
+								}
+							}
+						}
+					},
+					"inspectorAccess": {
+						"type": "object",
+						"properties": {
+							"appellantCase": {
+								"type": "object",
+								"properties": {
+									"details": {
+										"type": "string",
+										"example": "There is a tall hedge around the site which obstructs the view of the site"
+									},
+									"isRequired": {
+										"type": "boolean",
+										"example": true
+									}
+								}
+							},
+							"lpaQuestionnaire": {
+								"type": "object",
+								"properties": {
+									"details": {
+										"type": "string",
+										"example": "There may be a tall hedge around the site"
+									},
+									"isRequired": {
+										"type": "boolean",
+										"example": true
+									}
+								}
+							}
+						}
+					},
 					"isParentAppeal": {
 						"type": "boolean",
 						"example": true
@@ -1147,6 +1209,64 @@
 					"lpaQuestionnaireId": {
 						"type": "number",
 						"example": 1
+					},
+					"neighbouringSite": {
+						"type": "object",
+						"properties": {
+							"contacts": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"address": {
+											"type": "object",
+											"properties": {
+												"addressLine1": {
+													"type": "string",
+													"example": "1 Grove Cottage"
+												},
+												"addressLine2": {
+													"type": "string",
+													"example": "Shotesham Road"
+												},
+												"postCode": {
+													"type": "string",
+													"example": "NR35 2ND"
+												},
+												"town": {
+													"type": "string",
+													"example": "Woodton"
+												}
+											}
+										},
+										"contactId": {
+											"type": "number",
+											"example": 1
+										},
+										"email": {
+											"type": "string",
+											"example": "appellant@example.com"
+										},
+										"firstName": {
+											"type": "string",
+											"example": "Lee"
+										},
+										"lastName": {
+											"type": "string",
+											"example": "Thornton"
+										},
+										"telephone": {
+											"type": "string",
+											"example": "01234567891"
+										}
+									}
+								}
+							},
+							"isAffected": {
+								"type": "boolean",
+								"example": true
+							}
+						}
 					},
 					"otherAppeals": {
 						"type": "array",
@@ -1178,6 +1298,10 @@
 							"visitDate": {
 								"type": "string",
 								"example": "2022-03-31T12:00:00.000Z"
+							},
+							"visitType": {
+								"type": "string",
+								"example": "Accompanied"
 							}
 						}
 					},
@@ -1447,6 +1571,19 @@
 							"knowsOtherLandowners": {
 								"type": "string",
 								"example": "Some"
+							}
+						}
+					},
+					"siteVisit": {
+						"type": "object",
+						"properties": {
+							"siteVisitId": {
+								"type": "number",
+								"example": 1
+							},
+							"visitType": {
+								"type": "string",
+								"example": "Accompanied"
 							}
 						}
 					},

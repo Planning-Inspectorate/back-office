@@ -6,13 +6,13 @@ import {
 	VALIDATION_OUTCOME_INCOMPLETE,
 	VALIDATION_OUTCOME_INVALID,
 	VALIDATION_OUTCOME_VALID
-} from '../endpoints/constants.js';
-import formatAddress from '#utils/address-block-formtter.js';
+} from '#endpoints/constants.js';
 import { folder } from '#tests/documents/mocks.js';
 import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
+import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
 const householdAppeal = {
 	id: 1,
@@ -109,8 +109,8 @@ const householdAppeal = {
 		developmentDescription: null,
 		doesAffectAListedBuilding: null,
 		doesAffectAScheduledMonument: null,
-		doesSiteHaveHealthAndSafetyIssues: null,
-		doesSiteRequireInspectorAccess: null,
+		doesSiteHaveHealthAndSafetyIssues: true,
+		doesSiteRequireInspectorAccess: true,
 		extraConditions: null,
 		hasCommunityInfrastructureLevy: null,
 		hasCompletedAnEnvironmentalStatement: null,
@@ -123,8 +123,11 @@ const householdAppeal = {
 		hasStatutoryConsultees: null,
 		hasSupplementaryPlanningDocuments: null,
 		hasTreePreservationOrder: null,
+		healthAndSafetyDetails: 'There may be no mobile reception at the site',
 		inCAOrrelatesToCA: null,
 		includesScreeningOption: null,
+		inspectorAccessDetails:
+			'There is a tall hedge around the site which obstructs the view of the site',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: null,
 		isDevelopmentInOrNearDesignatedSites: null,
@@ -157,8 +160,11 @@ const householdAppeal = {
 		meetsOrExceedsThresholdOrCriteriaInColumn2: null,
 		neighbouringSiteContact: [
 			{
+				addressId: 1,
 				firstName: 'Eva',
+				id: 1,
 				lastName: 'Sharma',
+				lpaQuestionnaireId: 1,
 				telephone: '01234567891',
 				email: 'eva.sharma@example.com',
 				address: {
@@ -521,8 +527,10 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	hasStatutoryConsultees: appeal.lpaQuestionnaire?.hasStatutoryConsultees,
 	hasSupplementaryPlanningDocuments: appeal.lpaQuestionnaire?.hasSupplementaryPlanningDocuments,
 	hasTreePreservationOrder: appeal.lpaQuestionnaire?.hasTreePreservationOrder,
+	healthAndSafetyDetails: appeal.lpaQuestionnaire?.healthAndSafetyDetails,
 	inCAOrrelatesToCA: appeal.lpaQuestionnaire?.inCAOrrelatesToCA,
 	includesScreeningOption: appeal.lpaQuestionnaire?.includesScreeningOption,
+	inspectorAccessDetails: appeal.lpaQuestionnaire?.inspectorAccessDetails,
 	isAffectingNeighbouringSites: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites,
 	isCommunityInfrastructureLevyFormallyAdopted:
 		appeal.lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
@@ -548,14 +556,9 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	lpaQuestionnaireId: appeal.lpaQuestionnaire?.id,
 	meetsOrExceedsThresholdOrCriteriaInColumn2:
 		appeal.lpaQuestionnaire?.meetsOrExceedsThresholdOrCriteriaInColumn2,
-	neighbouringSiteContacts: appeal.lpaQuestionnaire?.neighbouringSiteContact
-		? [
-				{
-					...appeal.lpaQuestionnaire?.neighbouringSiteContact[0],
-					address: formatAddress(appeal.lpaQuestionnaire?.neighbouringSiteContact[0].address)
-				}
-		  ]
-		: null,
+	neighbouringSiteContacts: formatNeighbouringSiteContacts(
+		appeal.lpaQuestionnaire?.neighbouringSiteContact
+	),
 	otherAppeals: otherAppeals
 		.filter((a) => a.id !== appeal.id)
 		.map(({ id, reference }) => ({ appealId: id, appealReference: reference })),
