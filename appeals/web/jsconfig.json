@@ -7,7 +7,7 @@
 		"src/server/app/auth/auth.permissions.d.ts"
 	],
 	"exclude": ["src/server/static", "scripts", "coverage"],
-	"files": ["typings.d.ts"],
+	"files": ["typings.d.ts", "types-session.d.ts"],
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
