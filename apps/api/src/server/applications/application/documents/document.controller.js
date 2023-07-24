@@ -12,7 +12,7 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	formatDocumentUpdateResponseBody,
-	getNextDocumentReferenceIndex,
+	getIndexFromReference,
 	makeDocumentReference,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
@@ -40,7 +40,12 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
-	const currentDocuments = await documentRepository.getByCaseId(params.id);
+	const lastDocumentsInCase = await documentRepository.getByCaseId({
+		caseId: /** @type {number} */ (params.id),
+		skipValue: 0,
+		pageSize: 1
+	});
+	const lastDocument = lastDocumentsInCase?.[0];
 
 	const theCase = await caseRepository.getById(params.id, {
 		applicationDetails: true,
@@ -51,9 +56,10 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
 	}
 
-	let nextReferenceIndex = Array.isArray(currentDocuments)
-		? getNextDocumentReferenceIndex(currentDocuments)
+	const lastReferenceIndex = lastDocument?.reference
+		? getIndexFromReference(lastDocument.reference)
 		: 1;
+	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	for (const doc of documentsToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);

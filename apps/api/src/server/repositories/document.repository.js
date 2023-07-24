@@ -42,12 +42,19 @@ export const getById = (documentGuid) => {
 /**
  * Get a document by caseid
  *
- * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[] |null>}
+ * @param {{ caseId: number, skipValue?: number, pageSize?: number }} _
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
  */
-export const getByCaseId = (caseId) => {
+export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
-		where: { caseId }
+		where: { caseId },
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		]
 	});
 };
 
