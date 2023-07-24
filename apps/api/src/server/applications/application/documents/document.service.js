@@ -464,6 +464,19 @@ export const getNextDocumentReferenceIndex = (documents) => {
 };
 
 /**
+ * @param {string} reference
+ * @returns {number | null}
+ * */
+export const getIndexFromReference = (reference) => {
+	const match = reference.match(/-(\d+)/);
+	if (!match) {
+		return null;
+	}
+
+	return Number(match[1]);
+};
+
+/**
  * @param {string} caseId
  * @param {number} index
  * @returns {string}
