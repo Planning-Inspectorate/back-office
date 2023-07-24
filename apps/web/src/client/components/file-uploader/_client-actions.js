@@ -233,8 +233,8 @@ const clientActions = (uploadForm) => {
 			}
 
 			if (uploadInfo?.response?.documents) {
-				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
-				errors = await uploadFiles(fileList, uploadInfo);
+				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
+				errors = await uploadFiles(fileList, uploadInfo?.response);
 			}
 
 			finalizeUpload(errors);
