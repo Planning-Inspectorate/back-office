@@ -113,7 +113,6 @@ router.patch(
 	validateApplicationId,
 	validateApplicantId,
 	validateCreateUpdateApplication,
-	trimUnexpectedRequestParameters,
 	asyncHandler(updateApplication)
 );
 
