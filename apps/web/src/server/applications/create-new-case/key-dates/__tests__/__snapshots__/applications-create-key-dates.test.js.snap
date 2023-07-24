@@ -5,7 +5,7 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
     <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.submissionDatePublished-hint\\"
             class=\\"govuk-hint\\">for example, Q4 2023</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
@@ -13,7 +13,7 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
             type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
         <div class=\\"govuk-form-group \\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal (optional)</label>
             <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <div class=\\"govuk-grid-column-one-third\\">
@@ -65,7 +65,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
     <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.submissionDatePublished-hint\\"
             class=\\"govuk-hint\\">for example, Q4 2023</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
@@ -73,7 +73,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal (optional)</label>
             <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
@@ -133,7 +133,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
     <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.submissionDatePublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.submissionDatePublished-hint\\"
             class=\\"govuk-hint\\">for example, Q4 2023</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
@@ -141,7 +141,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             type=\\"text\\" aria-describedby=\\"keyDates.submissionDatePublished-hint\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal</label>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionDateInternal\\">Anticipated submission date internal (optional)</label>
             <div id=\\"submissionDateInternal-hint\\"
             class=\\"govuk-hint\\">for example, 27 03 2023</div>
             <p id=\\"submissionDateInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The anticipated submission
