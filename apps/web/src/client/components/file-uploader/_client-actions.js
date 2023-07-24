@@ -225,7 +225,7 @@ const clientActions = (uploadForm) => {
 
 			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
 				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
-				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
+				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
 				errors = await uploadFile(fileList, uploadInfo);
 			} else {
 				uploadInfo = await getUploadInfoFromInternalDB(fileList);

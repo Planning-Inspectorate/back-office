@@ -60,7 +60,7 @@ const serverActions = (uploadForm) => {
 	/**
 	 *
 	 * @param {FileWithRowId} file
-	 * @returns {Promise<AnError[]>}
+	 * @returns {Promise<{ response: DocumentUploadInfo[] }>}
 	 */
 	const getVersionUploadInfoFromInternalDB = async (file) => {
 		const { folderId, caseId, documentId } = uploadForm.dataset;
