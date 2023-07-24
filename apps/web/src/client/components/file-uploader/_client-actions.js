@@ -232,7 +232,7 @@ const clientActions = (uploadForm) => {
 				errors = uploadInfo.errors;
 			}
 
-			if (uploadInfo.documents) {
+			if (uploadInfo?.response?.documents) {
 				await relevantRepresentationsAttachmentUpload(uploadInfo, uploadForm);
 				errors = await uploadFiles(fileList, uploadInfo);
 			}
