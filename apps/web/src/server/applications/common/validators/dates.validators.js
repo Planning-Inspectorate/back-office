@@ -105,26 +105,34 @@ export const validationDateStartBeforeEnd = (data) => {
  * @param {{fieldName: string, extendedFieldName: string}} field
  * @param {Record<string, string>} data
  * @param {boolean} mustBeFuture
+ * @param {boolean} allowBlank
  * @returns {import("express-validator").ValidationChain}
  */
-export const validationDateFuture = (field, data, mustBeFuture) => {
+export const validationDateFuture = (field, data, mustBeFuture, allowBlank) => {
 	const { fieldName, extendedFieldName } = field;
 
 	const day = data[`${fieldName}.day`] || '';
 	const month = data[`${fieldName}.month`] || '';
 	const year = data[`${fieldName}.year`] || '';
 
-	return body(fieldName)
-		.custom(() => {
-			const date = new Date(
-				Number.parseInt(year, 10),
-				Number.parseInt(month, 10) - 1,
-				Number.parseInt(day, 10)
-			);
+	const allEmpty = day === '' && month === '' && year === '';
 
-			const isFuture = date > new Date();
+	if (allowBlank && allEmpty) {
+		return body(fieldName).custom(() => {
+			return true;
+		});
+	} else {
+		return body(fieldName)
+			.custom(() => {
+				const date = new Date(
+					Number.parseInt(year, 10),
+					Number.parseInt(month, 10) - 1,
+					Number.parseInt(day, 10)
+				);
 
-			return isFuture === mustBeFuture;
-		})
-		.withMessage(`The ${extendedFieldName} ${mustBeFuture ? 'must' : 'cannot'} be in the future`);
+				const isFuture = date > new Date();
+				return isFuture === mustBeFuture;
+			})
+			.withMessage(`The ${extendedFieldName} ${mustBeFuture ? 'must' : 'cannot'} be in the future`);
+	}
 };

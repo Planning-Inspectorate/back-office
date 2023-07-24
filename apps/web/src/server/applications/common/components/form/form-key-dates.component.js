@@ -54,7 +54,7 @@ export async function keyDatesDataUpdate({ body, errors: validationErrors }, loc
 	const payload = {
 		keyDates: {
 			submissionDatePublished,
-			...(submissionDateInternal ? { submissionDateInternal } : {})
+			submissionDateInternal: submissionDateInternal === '' ? null : submissionDateInternal
 		}
 	};
 

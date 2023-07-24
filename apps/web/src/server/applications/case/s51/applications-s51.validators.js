@@ -123,6 +123,7 @@ export const validateS51Details =
 		const checkPastDate = validationDateFuture(
 			{ fieldName: dateFieldName, extendedFieldName: 'date' },
 			request.body,
+			false,
 			false
 		);
 

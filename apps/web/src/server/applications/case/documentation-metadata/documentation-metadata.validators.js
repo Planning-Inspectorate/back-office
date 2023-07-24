@@ -101,7 +101,12 @@ export const validateDocumentationMetaDateCreated = (request, response, next) =>
 
 	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
 
-	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+	const checkPastDate = validationDateFuture(
+		{ fieldName, extendedFieldName },
+		request.body,
+		false,
+		false
+	);
 
 	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
 		request,
@@ -126,7 +131,12 @@ export const validateDocumentationMetaDatePublished = (request, response, next) 
 
 	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);
 
-	const checkPastDate = validationDateFuture({ fieldName, extendedFieldName }, request.body, false);
+	const checkPastDate = validationDateFuture(
+		{ fieldName, extendedFieldName },
+		request.body,
+		false,
+		false
+	);
 
 	return createValidator([checkMandatoryDate, checkValidDate, checkPastDate])(
 		request,
