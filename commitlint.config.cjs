@@ -25,6 +25,12 @@ const scopes = [
 	'e2e'
 ];
 
+// dependabot commit scopes
+const dependabotScopes = [
+	'deps',
+	'deps-dev'
+];
+
 /** @type {import('@commitlint/types').UserConfig} */
 module.exports = {
 	extends: ['@commitlint/config-conventional'],
@@ -34,8 +40,8 @@ module.exports = {
 			2,
 			'always',
 			{
-				build: [null, 'deps'], // allow dependabot commits
-				chore: [...scopes, 'deps'], // allow dependabot commits
+				build: [null, ...dependabotScopes],
+				chore: [...scopes, ...dependabotScopes],
 				ci: [],
 				docs: [null, ...scopes],
 				feat: scopes,
