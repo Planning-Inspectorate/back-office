@@ -7,9 +7,9 @@ export function oneDatePerMonth() {
 	const year = new Date().getFullYear();
 	const days = Array.from({ length: 28 }, (_, i) => i + 1);
 	const dates = [];
-	for (let i = 0; i < 12; i++) {
+	for (let i = 1; i < 13; i++) {
 		const month = i.toString().padStart(2, '0');
-		const day = pickRandom(days);
+		const day = pickRandom(days).toString().padStart(2, '0');
 		dates.push(new Date(`${year}-${month}-${day}T09:00:00Z`));
 	}
 	return dates;
