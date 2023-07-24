@@ -27,3 +27,32 @@ export const relevantRepresentationsAttachmentUpload = async (uploadInfo, upload
 		}
 	}
 };
+
+/**
+ * Adds the document id to a relevant representations attachment to link a document to a representation
+ * @param {*} uploadInfo
+ * @param {*} uploadForm
+ * @return {Promise<void>}
+ */
+export const relevantRepresentationsAttachmentUploadVersionFile = async (
+	uploadInfo,
+	uploadForm
+) => {
+	if (window.location.href.includes('relevant-representations')) {
+		const { caseId } = uploadForm.dataset;
+		const urlParams = new URLSearchParams(window.location.search);
+		const repId = urlParams.get('repId');
+
+		const document = uploadInfo.document;
+
+		const url = `/applications-service/case/${caseId}/relevant-representations/${repId}/api/upload`;
+		await fetch(url, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ documentId: document.GUID })
+		});
+	}
+};

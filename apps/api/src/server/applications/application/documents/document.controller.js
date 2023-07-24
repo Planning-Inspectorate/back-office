@@ -90,14 +90,14 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
 
 	// Map the obtained URLs with documentName
 	const documentsWithUrls = documents.map((document) => {
-		return pick(document, ['documentName', 'blobStoreUrl']);
+		return pick(document, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID']);
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
 	response.send({
 		blobStorageHost,
 		blobStorageContainer,
-		documents: documentsWithUrls
+		document: documentsWithUrls[0]
 	});
 };
 
@@ -294,8 +294,6 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 			// TODO: add unpublished date
 		})
 	);
-
-	console.log(mappedDocumentVersions);
 
 	response.status(200).send(mappedDocumentVersions);
 };

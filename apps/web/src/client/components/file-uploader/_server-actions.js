@@ -3,6 +3,7 @@
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
+/** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadFileInfo */
 
 import { BlobStorageClient } from '@pins/blob-storage-client';
 
@@ -87,7 +88,7 @@ const serverActions = (uploadForm) => {
 					});
 				}
 
-				return [documentUploadInfo];
+				return documentUploadInfo;
 			});
 	};
 
@@ -119,6 +120,37 @@ const serverActions = (uploadForm) => {
 				if (errorOutcome) {
 					failedUploads.push(errorOutcome);
 				}
+			}
+		}
+
+		return failedUploads;
+	};
+
+	/**
+	 *
+	 * @param {FileWithRowId[]} fileList
+	 * @param {UploadFileInfo} uploadInfo
+	 * @returns {Promise<AnError[]>}>}
+	 */
+	const uploadFile = async (fileList, uploadInfo) => {
+		const { fileRowId, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
+
+		const { blobStoreUrl } = uploadInfo.document;
+
+		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
+
+		const fileToUpload = [...fileList].find((file) => file.fileRowId === fileRowId);
+
+		if (fileToUpload && blobStoreUrl) {
+			const errorOutcome = await uploadOnBlobStorage(
+				fileToUpload,
+				blobStoreUrl,
+				blobStorageClient,
+				blobStorageContainer
+			);
+
+			if (errorOutcome) {
+				failedUploads.push(errorOutcome);
 			}
 		}
 
@@ -160,7 +192,12 @@ const serverActions = (uploadForm) => {
 		return response;
 	};
 
-	return { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB };
+	return {
+		getUploadInfoFromInternalDB,
+		uploadFiles,
+		uploadFile,
+		getVersionUploadInfoFromInternalDB
+	};
 };
 
 export default serverActions;
