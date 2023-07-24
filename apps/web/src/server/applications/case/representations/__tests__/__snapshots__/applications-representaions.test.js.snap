@@ -83,6 +83,9 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
+                    download> Download all representations (CSV)</a>
+                </p>
             </div>
         </div>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>
@@ -245,6 +248,9 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
+                <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
+                    download> Download all representations (CSV)</a>
+                </p>
             </div>
         </div>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>

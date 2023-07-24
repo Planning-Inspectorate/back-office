@@ -39,7 +39,15 @@ function pickRandom(list) {
 function createRepresentation(caseReference, index) {
 	const { contacts, ...rep } = pickRandom(represenations);
 
-	const statuses = ['AWAITING_REVIEW', 'REFERRED', 'INVALID', 'PUBLISHED', 'WITHDRAWN', 'ARCHIVED'];
+	const statuses = [
+		'AWAITING_REVIEW',
+		'REFERRED',
+		'INVALID',
+		'PUBLISHED',
+		'WITHDRAWN',
+		'ARCHIVED',
+		'VALID'
+	];
 
 	return {
 		reference: `${caseReference}-${index}`,
@@ -117,7 +125,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 
 	if (caseStatus !== 'draft') {
 		if (subSector.name === 'office_use' && index === 1) {
-			for (let loopIndex = 0; loopIndex < 101; loopIndex += 1) {
+			for (let loopIndex = 0; loopIndex < 3000; loopIndex += 1) {
 				representations.push(createRepresentation(reference, loopIndex));
 			}
 		} else {

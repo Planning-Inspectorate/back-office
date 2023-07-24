@@ -17,6 +17,7 @@ import { representationPatchValidator } from './representation.validators.js';
 import { representationsContactsRouter } from './contacts/contacts.route.js';
 import { representationsAttachmentRouter } from './attachment/attachment.route.js';
 import { representationsStatusRouter } from './status/status.route.js';
+import { getRepDownloadRouter } from './download/rep-download.router.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -101,6 +102,8 @@ router.get(
 	validateGetRepresentationsQuery,
 	asyncHandler(getRepresentations)
 );
+
+router.use('/download', getRepDownloadRouter);
 
 router.get(
 	'/:repId',

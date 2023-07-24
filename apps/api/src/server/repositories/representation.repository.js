@@ -512,6 +512,44 @@ export const updateApplicationRepresentationStatus = async (repId, action) => {
 
 /**
  *
+ * @param {number} caseId
+ * @param {number} skip
+ * @param {number} batchSize
+ * @returns {any}
+ */
+export const getApplicationRepresentationForDownload = async (caseId, skip, batchSize) => {
+	return databaseConnector.representation.findMany({
+		take: batchSize,
+		skip,
+		where: { caseId, status: 'VALID' },
+		select: {
+			reference: true,
+			contacts: {
+				select: {
+					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					contactMethod: true,
+					email: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			}
+		}
+	});
+};
+
+/**
+ *
  * @param {string} field
  * @param {string} searchTerm
  * @returns {any}
