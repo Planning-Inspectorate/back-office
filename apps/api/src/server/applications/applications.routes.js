@@ -17,6 +17,7 @@ import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
 import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 import { subscriptionRoutes } from './subscriptions/subscriptions.routes.js';
+import { s51AdviceRoutes } from './s51advice/s51-advice.routes.js';
 
 const router = createRouter();
 
@@ -34,6 +35,7 @@ router.use('/sector', sectorRoutes);
 router.use('/zoom-level', zoomLevelRoutes);
 router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
 router.use('/examination-timetable-items', examinationTimetableItemRoutes);
+router.use('/s51-advice', s51AdviceRoutes);
 
 router.use('/subscriptions', subscriptionRoutes);
 

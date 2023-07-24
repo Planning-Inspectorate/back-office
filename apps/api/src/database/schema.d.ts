@@ -109,3 +109,5 @@ export interface DocumentVersionInput extends DocumentVersion {
 export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
+
+export interface S51Advice extends schema.S51Advice {}
