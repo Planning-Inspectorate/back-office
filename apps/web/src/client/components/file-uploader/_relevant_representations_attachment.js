@@ -1,7 +1,11 @@
 /**
+ * @typedef {{ GUID: string }} UploadInfo
+ * */
+
+/**
  * Adds the document id to a relevant representations attachment to link a document to a representation
- * @param {*} uploadInfo
- * @param {*} uploadForm
+ * @param {{ documents: UploadInfo[] }} uploadInfo
+ * @param {HTMLElement} uploadForm
  * @return {Promise<void>}
  */
 export const relevantRepresentationsAttachmentUpload = async (uploadInfo, uploadForm) => {
@@ -30,8 +34,8 @@ export const relevantRepresentationsAttachmentUpload = async (uploadInfo, upload
 
 /**
  * Adds the document id to a relevant representations attachment to link a document to a representation
- * @param {*} uploadInfo
- * @param {*} uploadForm
+ * @param {{ documents: UploadInfo[] }} uploadInfo
+ * @param {HTMLElement} uploadForm
  * @return {Promise<void>}
  */
 export const relevantRepresentationsAttachmentUploadVersionFile = async (
@@ -43,16 +47,21 @@ export const relevantRepresentationsAttachmentUploadVersionFile = async (
 		const urlParams = new URLSearchParams(window.location.search);
 		const repId = urlParams.get('repId');
 
-		const document = uploadInfo.document;
+		const listOfDocuments = Array.isArray(uploadInfo.documents)
+			? uploadInfo.documents
+			: [uploadInfo.documents];
 
 		const url = `/applications-service/case/${caseId}/relevant-representations/${repId}/api/upload`;
-		await fetch(url, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ documentId: document.GUID })
-		});
+
+		for (const document of listOfDocuments) {
+			await fetch(url, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ documentId: document.GUID })
+			});
+		}
 	}
 };
