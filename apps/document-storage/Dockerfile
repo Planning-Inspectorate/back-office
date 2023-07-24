@@ -7,7 +7,7 @@ COPY packages ./packages
 COPY apps/document-storage apps/document-storage
 ENV NODE_ENV=production
 RUN npm ci
-COPY apps/document-storage/.env.development ./.env
+COPY apps/document-storage/.env.development apps/document-storage/.env
 
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
