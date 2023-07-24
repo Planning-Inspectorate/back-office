@@ -77,6 +77,11 @@ const mockExaminationTimetableCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableUpdate = jest.fn().mockResolvedValue({});
 
 const mockAddressDelete = jest.fn().mockResolvedValue({});
+const mockS51AdviceFindUnique = jest.fn().mockResolvedValue({});
+const mockS51AdviceFindMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceCreate = jest.fn().mockResolvedValue({});
+const mockS51AdviceUpdateMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceDelete = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -167,6 +172,16 @@ class MockPrismaClient {
 			update: mockExaminationTimetableItemUpdate,
 			updateMany: mockExaminationTimetableItemUpdateMany,
 			delete: mockExaminationTimetableItemDelete
+		};
+	}
+
+	get s51Advice() {
+		return {
+			findMany: mockS51AdviceFindMany,
+			findUnique: mockS51AdviceFindUnique,
+			create: mockS51AdviceCreate,
+			updateMany: mockS51AdviceUpdateMany,
+			delete: mockS51AdviceDelete
 		};
 	}
 

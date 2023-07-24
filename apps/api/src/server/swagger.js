@@ -240,6 +240,9 @@ const document = {
 			endTime: '12:20',
 			submissions: true
 		},
+		S51AdviceRequestBody: {
+			// TODO: Add properties
+		},
 		documentsPropertiesRequestBody: {
 			version: 1,
 			createdAt: '2023-02-27T10:00:00Z',
