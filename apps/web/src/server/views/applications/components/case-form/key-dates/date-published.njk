@@ -1,9 +1,9 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
-{% macro datePublished(values, erros) %}
+{% macro datePublished(values, errors) %}
 	{{ govukInput({
 		label: {
-			text: "Anticipated submission date published",
+			text: "Anticipated submission date published (optional)",
 			classes: 'font-weight--700'
 		},
 		id: "keyDates.submissionDatePublished",

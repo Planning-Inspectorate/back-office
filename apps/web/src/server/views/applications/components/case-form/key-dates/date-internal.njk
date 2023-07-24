@@ -3,7 +3,7 @@
 {% macro dateInternal(values, errors) %}
 <div class="govuk-form-group {{ 'govuk-form-group--error' if (errors['keyDates.submissionDateInternal'] !== undefined and errors['keyDates.submissionDateInternal'] !== false) else '' }}">
 	<label class="govuk-label font-weight--700" for="submissionDateInternal">
-		Anticipated submission date internal
+		Anticipated submission date internal (optional)
 	</label>
 	<div id="submissionDateInternal-hint" class="govuk-hint">
 		for example, 27 03 2023
