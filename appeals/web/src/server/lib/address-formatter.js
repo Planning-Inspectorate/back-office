@@ -10,7 +10,7 @@ export const addressToString = (address) => {
 	return join(
 		map(pick(address, ['addressLine1', 'addressLine2', 'town', 'postCode']), (value) => {
 			return value?.trim();
-		}),
+		}).filter((value) => value.length),
 		', '
 	);
 };

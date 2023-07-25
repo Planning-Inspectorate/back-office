@@ -23,8 +23,8 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
 
 /**
  * @typedef {Object} BuilderParameters
- * @property {string} [header]
  * @property {Row[]} rows
+ * @property {string} [header]
  */
 
 /**
@@ -33,6 +33,7 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @property {Card} [card]
  */
 
+// TODO - refactor generateSummaryList to accept single parameter of type BuilderParameters, then update callers as required
 /**
  * @param {Row[]} rows
  * @param {string} [header]
