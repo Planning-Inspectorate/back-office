@@ -3182,6 +3182,51 @@
 				}
 			}
 		},
+		"S51AdviceResponseBody": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
+				"title": {
+					"type": "string",
+					"example": "Advice Title"
+				},
+				"enquirer": {
+					"type": "string",
+					"example": "Enquirer Name"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"example": "email"
+				},
+				"enquiryDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"example": "Enquiry details here"
+				},
+				"adviser": {
+					"type": "string",
+					"example": "Adviser name here"
+				},
+				"adviceDate": {
+					"type": "string",
+					"example": "2023-02-27T10:00:00Z"
+				},
+				"adviceDetails": {
+					"type": "string",
+					"example": "Advice text here"
+				}
+			}
+		},
 		"ExaminationTimetableItemResponseBody": {
 			"type": "object",
 			"properties": {
