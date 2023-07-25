@@ -81,16 +81,16 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
  * Publishes an examination timetable. Does so by updating the examination timetable to be published and
  * sending the examination timetable items to the event queue to be published on the front office.
  *
- * @param { String } id
+ * @param { Number } id
  * @returns {Promise<void>}
  */
 export async function publish(id) {
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(+id);
+	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(id);
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
 
 	const now = new Date();
-	await examinationTimetableRepository.updateByCaseId(+id, {
+	await examinationTimetableRepository.updateByCaseId(id, {
 		published: true,
 		publishedAt: now,
 		updatedAt: now
@@ -101,20 +101,16 @@ export async function publish(id) {
  * Unpublishes an examination timetable. Does so by updating the examination timetable to be unpublished and
  * sending the examination timetable items to the event queue to be unpublished on the front office.
  *
- * @param { String } id
+ * @param { Number } id
  * @returns {Promise<void>}
  */
 export async function unPublish(id) {
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(+id);
-
-	await examinationTimetableRepository.updateByCaseId(+id, {
-		published: false
-	});
+	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(id);
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
 
 	const now = new Date();
-	await examinationTimetableRepository.updateByCaseId(+id, {
+	await examinationTimetableRepository.updateByCaseId(id, {
 		published: false,
 		updatedAt: now
 	});
