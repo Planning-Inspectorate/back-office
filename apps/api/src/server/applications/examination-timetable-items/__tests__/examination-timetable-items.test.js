@@ -470,7 +470,7 @@ describe('Test examination timetable items API', () => {
 			where: {
 				caseId: 123
 			},
-			data: { published: false, updatedAt: expect.any(Date) }
+			data: { published: false }
 		});
 
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
