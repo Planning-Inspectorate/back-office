@@ -432,24 +432,6 @@ model DocumentActivityLog {
   DocumentVersion DocumentVersion @relation(fields: [documentGuid, version], references: [documentGuid, version])
 }
 
-// return {
-// 		title: data.title,
-// 		enquirer: data.enquirerOrganisation,
-// 		enquiryMethod: data.enquiryMethod,
-// 		enquiryDate: dateString(
-// 			data['enquiryDate.year'],
-// 			data['enquiryDate.month'],
-// 			data['enquiryDate.day']
-// 		),
-// 		enquiryDetails: data.enquiryDetails,
-// 		adviser: data.adviser,
-// 		adviseDate: dateString(
-// 			data['adviceDate.year'],
-// 			data['adviceDate.month'],
-// 			data['adviceDate.day']
-// 		),
-// 		adviceDetails: data.adviceDetails
-// 	};
 model S51Advice {
   id             Int      @id @default(autoincrement())
   caseId         Int
