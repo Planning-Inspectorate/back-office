@@ -42,12 +42,12 @@ function extractDescriptionAndLineItems(examinationTimetableItem) {
 /**
  * Returns the payload containing all the examination timetable items.
  *
- * @param {import('@prisma/client').ExaminationTimetable} examinationTimetable
+ * @param {number} examinationTimetableId
  * @returns { Promise<NSIPExamTimetableItem[]> }
  */
-async function buildExamTimetableItemsPayload(examinationTimetable) {
+async function buildExamTimetableItemsPayload(examinationTimetableId) {
 	const examinationTimetableItems =
-		await examinationTimetableItemsRepository.getByExaminationTimetableId(examinationTimetable.id);
+		await examinationTimetableItemsRepository.getByExaminationTimetableId(examinationTimetableId);
 
 	if (!examinationTimetableItems) {
 		return [];
@@ -85,16 +85,11 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
  * @returns {Promise<void>}
  */
 export async function publish(id) {
-	const now = new Date();
-	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(+id, {
-		published: true,
-		publishedAt: now,
-		updatedAt: now
-	});
+	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(+id);
 
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(
-		updatedExaminationTimetable
-	);
+	await examinationTimetableRepository.updateByCaseId(+id, {
+		published: true
+	});
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
 }
@@ -107,15 +102,11 @@ export async function publish(id) {
  * @returns {Promise<void>}
  */
 export async function unPublish(id) {
-	const now = new Date();
-	const updatedExaminationTimetable = await examinationTimetableRepository.updateByCaseId(+id, {
-		published: false,
-		updatedAt: now
-	});
+	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(+id);
 
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(
-		updatedExaminationTimetable
-	);
+	await examinationTimetableRepository.updateByCaseId(+id, {
+		published: false
+	});
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
 }
