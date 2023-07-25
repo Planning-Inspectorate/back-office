@@ -85,4 +85,15 @@ export function deleteRequest(url, options) {
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.delete(url, options));
 }
 
+/**
+ * Type-safe implementation of a stream request using the got instance.
+ *
+ * @template T
+ * @param {string | URL} url
+ * @returns {*}
+ */
+export function stream(url) {
+	return instance.stream(url);
+}
+
 export default instance;

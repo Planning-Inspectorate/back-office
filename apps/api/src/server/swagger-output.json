@@ -797,6 +797,23 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/download": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Downloads VALID representations on an application",
+				"produces": ["text/csv"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {}
+			}
+		},
 		"/applications/{id}/representations/{repId}/redact": {
 			"patch": {
 				"tags": ["Applications"],
