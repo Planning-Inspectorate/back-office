@@ -108,10 +108,7 @@ export async function unPublish(id) {
 	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(id);
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
-
-	const now = new Date();
 	await examinationTimetableRepository.updateByCaseId(id, {
-		published: false,
-		updatedAt: now
+		published: false
 	});
 }
