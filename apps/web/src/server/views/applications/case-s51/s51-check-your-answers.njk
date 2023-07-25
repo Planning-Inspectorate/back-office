@@ -7,6 +7,17 @@
 
 {% block pageHeading %}{% endblock %}
 
+{% macro formValues() %}
+	<input class="govuk-input" value='{{ values.title }}' id="title-value" name="title" type="hidden" >
+	<input class="govuk-input" value='{{ values.enquirer }}' id="enquirer-value" name="enquirer" type="hidden" >
+	<input class="govuk-input" value='{{ values.enquiryMethod }}' id="enquiryMethodValue" name="enquiryMethod" type="hidden" >
+	<input class="govuk-input" value='{{ values.enquiryDate }}' id="enquiryDateValue" name="enquiryDate" type="hidden" >
+	<input class="govuk-input" value='{{ values.enquiryDetails }}' id="enquiryDetailsValue" name="enquiryDetails" type="hidden" >
+	<input class="govuk-input" value='{{ values.adviser }}' id="adviserValue" name="adviser" type="hidden" >
+	<input class="govuk-input" value='{{ values.adviceDate }}' id="adviceDateValue" name="adviceDate" type="hidden" >
+	<input class="govuk-input" value='{{ values.adviceDetails }}' id="adviceDetailsValue" name="adviceDetails" type="hidden" >
+{% endmacro %}
+
 {% block pageContent %}
 	{% set rows = [] %}
 
@@ -34,7 +45,7 @@
 	{% set row = [] %}
 	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'enquiry-details'}) %}
 	{% set row = row | concat({ text: 'Enquiry date', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['enquiryDate'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquiryDateDisplay'], classes: 'pins-table__cell--s' }) %}
 	{% set row = row | concat({ html: '<a id="enquiryDate" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
 
@@ -55,8 +66,8 @@
 	{% set row = [] %}
 	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'advice-details'}) %}
 	{% set row = row | concat({ text: 'Date advice given', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['adviseDate'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="adviseDate" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['adviceDateDisplay'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ html: '<a id="adviceDate" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
 
 	{% set row = [] %}
@@ -74,6 +85,8 @@
 		</div>
 	</h1>
 	<form method="post" action="">
+		{% include 'app/includes/csrf.njk' %}
+
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-full">
 				{{ govukTable({
@@ -85,6 +98,8 @@
 		{{ govukInsetText({
 			text: "Creating S51 advice will default them to 'Unredacted' and 'Not checked'"
 		}) }}
+
+		{{ formValues() }}
 
 		<div class="govuk-grid-row">
 			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
