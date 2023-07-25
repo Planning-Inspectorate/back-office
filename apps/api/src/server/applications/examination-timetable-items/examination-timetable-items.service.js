@@ -87,11 +87,14 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
 export async function publish(id) {
 	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(+id);
 
-	await examinationTimetableRepository.updateByCaseId(+id, {
-		published: true
-	});
-
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
+
+	const now = new Date();
+	await examinationTimetableRepository.updateByCaseId(+id, {
+		published: true,
+		publishedAt: now,
+		updatedAt: now
+	});
 }
 
 /**
@@ -109,4 +112,10 @@ export async function unPublish(id) {
 	});
 
 	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
+
+	const now = new Date();
+	await examinationTimetableRepository.updateByCaseId(+id, {
+		published: false,
+		updatedAt: now
+	});
 }
