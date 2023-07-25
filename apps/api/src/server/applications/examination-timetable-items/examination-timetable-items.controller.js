@@ -225,7 +225,7 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableItemsService.publish(id);
+		await examinationTimetableItemsService.publish(Number(id));
 
 		response.send({
 			success: true
@@ -246,7 +246,7 @@ export const publishExaminationTimetable = async (_request, response) => {
 export const unpublishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableItemsService.unPublish(id);
+		await examinationTimetableItemsService.unPublish(Number(id));
 
 		response.send({
 			success: true
