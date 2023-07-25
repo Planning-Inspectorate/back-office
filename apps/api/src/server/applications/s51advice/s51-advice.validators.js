@@ -10,8 +10,8 @@ export const validateCreateS51Advice = composeMiddleware(
 	body('enquiryMethod').notEmpty().withMessage('Enquirer method must not be empty'),
 	body('enquiryDate').toDate(),
 	body('enquiryDetails').notEmpty().withMessage('Enquiry details must not be empty'),
-	body('adviser').notEmpty().withMessage('Enquiry details must not be empty'),
+	body('adviser').notEmpty().withMessage('Adviser must not be empty'),
 	body('adviceDate').toDate(),
-	body('adviceDetails').notEmpty().withMessage('Enquirer method must not be empty'),
+	body('adviceDetails').notEmpty().withMessage('Advice details must not be empty'),
 	validationErrorHandler
 );
