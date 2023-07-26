@@ -35,10 +35,10 @@ export const viewNationalList = async (request, response) => {
 		name: 'searchTerm'
 	};
 
-	if (searchTerm.length === 1 || searchTerm.length >= 81) {
+	if (searchTerm.length === 1 || searchTerm.length >= 9) {
 		searchTerm = '';
 		searchObject.errorMessage = {
-			text: 'Search query must be between 2 and 80 characters'
+			text: 'Search query must be between 2 and 8 characters'
 		};
 	} else {
 		searchObject.value = searchTerm;
