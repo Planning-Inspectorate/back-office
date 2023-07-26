@@ -89,11 +89,14 @@ function formatRowValue(row) {
 			return rowValues.map((value) => buildHtmlLink(value)).join('<br>');
 		}
 		default: {
-			// @ts-ignore
-			return rowValues
-				.filter((value) => value?.length)
-				.map((value) => buildHtmSpan(value))
-				.join('<br>');
+			return (
+				rowValues
+					// @ts-ignore
+					.filter((value) => value?.length)
+					// @ts-ignore
+					.map((value) => buildHtmSpan(value))
+					.join('<br>')
+			);
 		}
 	}
 }
