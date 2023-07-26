@@ -4,6 +4,7 @@ import isFPA from '#utils/is-fpa.js';
 import formatLinkedAppeals from '#utils/format-linked-appeals.js';
 import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
+/** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -31,7 +32,13 @@ const formatAppeal = (appeal) => {
 	if (appeal) {
 		return {
 			agentName: appeal.appellant?.agentName,
-			allocationDetails: 'F / General Allocation',
+			allocationDetails: appeal.allocation
+				? {
+						level: appeal.allocation.level,
+						band: appeal.allocation.band,
+						specialisms: appeal.specialisms?.map((s) => s.specialism?.name) || []
+				  }
+				: null,
 			appealId: appeal.id,
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),

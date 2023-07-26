@@ -32,6 +32,8 @@ export interface Appeal extends schema.Appeal {
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
 	appellant?: schema.Appellant;
+	allocation?: schema.AppealAllocation;
+	specialisms: AppealSpecialism[];
 	createdAt: Date;
 	documents?: Document[];
 	folders?: Folder[];
@@ -260,6 +262,14 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	sensitiveAreaDetails: string | null;
 	siteWithinGreenBelt: boolean | null;
 	statutoryConsulteesDetails?: string | null;
+}
+
+export interface Specialism {
+	name: string;
+}
+
+export interface AppealSpecialism {
+	specialism: Specialism;
 }
 
 export interface ProcedureType {

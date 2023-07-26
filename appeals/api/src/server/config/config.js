@@ -61,7 +61,17 @@ const { value, error } = schema.validate({
 	},
 	bankHolidayFeed: {
 		hostname: 'https://www.gov.uk/bank-holidays.json'
-	}
+	},
+	appealAllocationLevels: [
+		{ level: 'A', band: 3 },
+		{ level: 'B', band: 3 },
+		{ level: 'C', band: 2 },
+		{ level: 'D', band: 2 },
+		{ level: 'E', band: 3 },
+		{ level: 'F', band: 3 },
+		{ level: 'G', band: 3 },
+		{ level: 'H', band: 3 }
+	]
 });
 
 if (error) {

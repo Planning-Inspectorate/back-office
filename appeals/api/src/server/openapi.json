@@ -390,6 +390,113 @@
 				}
 			}
 		},
+		"/appeals/appeal-allocation-specialisms": {
+			"get": {
+				"tags": ["Appeal Allocation"],
+				"description": "Gets the list of specialisms used for allocation",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of allocation specialisms",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/appeal-allocation-levels": {
+			"get": {
+				"tags": ["Appeal Allocation"],
+				"description": "Gets the list of levels and associated bands used for allocation",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of allocation levels",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationLevelsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationLevelsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/appeal-allocation": {
+			"patch": {
+				"tags": ["Appeal Allocation"],
+				"description": "Adds or changes allocation for an appeal",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Patch appeal allocation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealAllocation"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealAllocation"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal allocation",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealAllocation"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealAllocation"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/lpa-questionnaire-incomplete-reasons": {
 			"get": {
 				"tags": ["LPA Questionnaire Incomplete Reasons"],
@@ -1051,8 +1158,24 @@
 				"properties": {
 					"agentName": {},
 					"allocationDetails": {
-						"type": "string",
-						"example": "F / General Allocation"
+						"type": "object",
+						"properties": {
+							"level": {
+								"type": "string",
+								"example": "A"
+							},
+							"band": {
+								"type": "number",
+								"example": 3
+							},
+							"specialisms": {
+								"type": "array",
+								"example": ["Historic heritage", "Architecture design"],
+								"items": {
+									"type": "string"
+								}
+							}
+						}
 					},
 					"appealId": {
 						"type": "number",
@@ -1438,52 +1561,60 @@
 						"type": "object",
 						"properties": {
 							"appealStatement": {
-								"type": "string",
-								"example": "appeal-statement.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 4562
+									},
+									"documents": {
+										"type": "array",
+										"example": [],
+										"items": {}
+									}
+								}
 							},
 							"applicationForm": {
-								"type": "string",
-								"example": "application-form.pdf"
-							},
-							"designAndAccessStatement": {
-								"type": "string",
-								"example": "design-and-access-statement.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 4563
+									},
+									"documents": {
+										"type": "array",
+										"example": [],
+										"items": {}
+									}
+								}
 							},
 							"decisionLetter": {
-								"type": "string",
-								"example": "decision-letter.pdf"
-							},
-							"newPlansOrDrawings": {
-								"type": "array",
-								"example": ["new-plans-or-drawings-1.pdf", "new-plans-or-drawings-2.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 4564
+									},
+									"documents": {
+										"type": "array",
+										"example": [],
+										"items": {}
+									}
 								}
 							},
 							"newSupportingDocuments": {
-								"type": "array",
-								"example": ["newsupporting-doc-1.pdf", "newsupporting-doc-2.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 4569
+									},
+									"documents": {
+										"type": "array",
+										"example": [],
+										"items": {}
+									}
 								}
-							},
-							"planningObligation": {
-								"type": "string",
-								"example": "planning-obligation.pdf"
-							},
-							"plansDrawingsSupportingDocuments": {
-								"type": "array",
-								"example": [
-									"plans-drawings-supporting-documents-1.pdf",
-									"plans-drawings-supporting-documents-2.pdf"
-								],
-								"items": {
-									"type": "string"
-								}
-							},
-							"separateOwnershipCertificate": {
-								"type": "string",
-								"example": "separate-ownership-certificate.pdf"
 							}
 						}
 					},
@@ -2340,6 +2471,63 @@
 				},
 				"xml": {
 					"name": "AllLPAQuestionnaireIncompleteReasonsResponse"
+				}
+			},
+			"AllocationSpecialismsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"name": {
+							"type": "string",
+							"example": "Specialism"
+						}
+					}
+				},
+				"xml": {
+					"name": "AllocationSpecialismsResponse"
+				}
+			},
+			"AllocationLevelsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"level": {
+							"type": "string",
+							"example": "B"
+						},
+						"band": {
+							"type": "number",
+							"example": 3
+						}
+					}
+				},
+				"xml": {
+					"name": "AllocationLevelsResponse"
+				}
+			},
+			"AppealAllocation": {
+				"type": "object",
+				"properties": {
+					"level": {
+						"type": "string",
+						"example": "A"
+					},
+					"specialisms": {
+						"type": "array",
+						"example": [70, 71, 72],
+						"items": {
+							"type": "number"
+						}
+					}
+				},
+				"xml": {
+					"name": "AppealAllocation"
 				}
 			}
 		}

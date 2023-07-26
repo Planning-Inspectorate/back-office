@@ -394,7 +394,7 @@ describe('appeals routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					agentName: householdAppeal.appellant.agentName,
-					allocationDetails: 'F / General Allocation',
+					allocationDetails: null,
 					appealId: householdAppeal.id,
 					appealReference: householdAppeal.reference,
 					appealSite: {
@@ -486,7 +486,7 @@ describe('appeals routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					agentName: fullPlanningAppeal.appellant.agentName,
-					allocationDetails: 'F / General Allocation',
+					allocationDetails: null,
 					appealId: fullPlanningAppeal.id,
 					appealReference: fullPlanningAppeal.reference,
 					appealSite: {
