@@ -46,7 +46,7 @@ export function generateTable(builderParameters) {
 			}))
 		),
 		...(builderParameters.firstCellIsHeader && {
-			firstCellIsHeader: builderParameters.firstCellIsHeader
+			firstCellIsHeader: true
 		})
 	};
 

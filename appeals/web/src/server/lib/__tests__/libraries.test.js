@@ -18,7 +18,8 @@ describe('Libraries', () => {
 				postCode: 'postcode',
 				addressLine1: 'address 1',
 				addressLine2: 'address 2',
-				town: 'town'
+				town: 'town',
+				county: 'county'
 			};
 
 			const adressFormatted = addressToString(address);

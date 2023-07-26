@@ -28,8 +28,9 @@ export function mapAppealDetailsToAppealDetailsSummaryParameters(appealData) {
 			? addressToString({
 					addressLine1: appealData.appealSite.addressLine1 || '',
 					addressLine2: appealData.appealSite.addressLine2 || '',
-					postCode: appealData.appealSite.postCode || '',
-					town: appealData.appealSite.town || ''
+					town: appealData.appealSite.town || '',
+					county: appealData.appealSite.county || '',
+					postCode: appealData.appealSite.postCode || ''
 			  })
 			: 'Address not known',
 		localPlanningAuthority: appealData.localPlanningDepartment
@@ -213,15 +214,20 @@ function mapCaseDocumentation(appealDetails) {
 				'Appellant case',
 				mapDocumentStatus(appealDetails.documentationSummary?.appellantCase?.status),
 				dateToDisplayDate(appealDetails.documentationSummary?.appellantCase?.dueDate),
-				`<a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review</a>`
+				appealDetails.documentationSummary?.appellantCase?.status === 'received'
+					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review</a>`
+					: '<a href="#" class="govuk-link">Add</a>'
 			],
 			[
 				'LPA Questionnaire',
 				mapDocumentStatus(appealDetails.documentationSummary?.lpaQuestionnaire?.status),
 				dateToDisplayDate(appealDetails.documentationSummary?.lpaQuestionnaire?.dueDate),
-				`<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire-review/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
+				appealDetails.documentationSummary?.lpaQuestionnaire?.status === 'received'
+					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire-review/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
+					: '<a href="#" class="govuk-link">Add</a>'
 			]
-		]
+		],
+		firstCellIsHeader: true
 	};
 }
 

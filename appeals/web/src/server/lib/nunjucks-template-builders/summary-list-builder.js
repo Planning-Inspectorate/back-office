@@ -86,11 +86,14 @@ function formatRowValue(row) {
 		}
 		case 'link': {
 			// @ts-ignore
-			return rowValues.map((v) => buildHtmlLink(v)).join('<br>');
+			return rowValues.map((value) => buildHtmlLink(value)).join('<br>');
 		}
 		default: {
 			// @ts-ignore
-			return rowValues.map((v) => buildHtmSpan(v)).join('<br>');
+			return rowValues
+				.filter((value) => value?.length)
+				.map((value) => buildHtmSpan(value))
+				.join('<br>');
 		}
 	}
 }
