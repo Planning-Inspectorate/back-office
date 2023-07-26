@@ -41,6 +41,92 @@ exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-do
 </main>"
 `;
 
+exports[`S51 Advice S51 creation journey Check your answers GET /case/123/project-documentation/21/s51-advice/create/check-your-answers should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new item</div></div></h1>
+    <form method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <table class=\\"govuk-table\\">
+                    <tbody class=\\"govuk-table__body\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">S51 title</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"title\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/title\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquirer</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquirer\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/enquirer\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry method</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryMethod\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/method\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry date</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/enquiry-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry details</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryDetails\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/enquiry-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Advise given by (internal use only)</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviser\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/person\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Date advice given</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviceDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/advice-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Advice given</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviceDetails\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/advice-details\\">Change</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class=\\"govuk-inset-text\\">Creating S51 advice will default them to &#39;Unredacted&#39; and &#39;Not
+            checked&#39;</div>
+        <input class=\\"govuk-input\\" value='' id=\\"title-value\\"
+        name=\\"title\\" type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquirer-value\\" name=\\"enquirer\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryMethodValue\\" name=\\"enquiryMethod\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryDateValue\\" name=\\"enquiryDate\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryDetailsValue\\" name=\\"enquiryDetails\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviserValue\\" name=\\"adviser\\" type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviceDateValue\\" name=\\"adviceDate\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviceDetailsValue\\" name=\\"adviceDetails\\"
+        type=\\"hidden\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Create S51 advice item</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`S51 Advice S51 creation journey Enquirer GET /case/123/project-documentation/21/s51-advice/create/enquirer should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"> Enter who the enquiry was from</h1>

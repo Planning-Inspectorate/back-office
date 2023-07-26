@@ -1,0 +1,38 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% set serviceName = ["S51 advice successfully ", action]|join  %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'check-your-answers' })
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+
+			<div class="govuk-body">
+                {% set html %}
+                    <h3 class="govuk-notification-banner__heading">
+                        New S51 advice item created
+                    </h3>
+                {% endset %}
+
+                {{ govukNotificationBanner({
+                    html: html,
+                    type: 'success'
+                }) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -29,6 +29,7 @@ model Case {
   Subscriptions        Subscription[]
   ExaminationTimetable ExaminationTimetable?
   ProjectUpdate        ProjectUpdate[]
+  S51Advice            S51Advice[]
 }
 
 /// ServiceCustomer model
@@ -429,4 +430,20 @@ model DocumentActivityLog {
   status          String
   createdAt       DateTime        @default(now())
   DocumentVersion DocumentVersion @relation(fields: [documentGuid, version], references: [documentGuid, version])
+}
+
+model S51Advice {
+  id             Int      @id @default(autoincrement())
+  caseId         Int
+  title          String
+  enquirer       String
+  enquiryMethod  String
+  enquiryDate    DateTime
+  enquiryDetails String
+  adviser        String
+  adviceDate     DateTime
+  adviceDetails  String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
+  case           Case     @relation(fields: [caseId], references: [id])
 }

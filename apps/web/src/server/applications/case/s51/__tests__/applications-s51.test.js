@@ -395,5 +395,21 @@ describe('S51 Advice', () => {
 				});
 			});
 		});
+
+		describe('Check your answers', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/case-team');
+			});
+
+			describe('GET /case/123/project-documentation/21/s51-advice/create/check-your-answers', () => {
+				it('should render the page', async () => {
+					const response = await request.get(`${baseUrl}/create/check-your-answers`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Check your answers');
+				});
+			});
+		});
 	});
 });

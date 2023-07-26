@@ -2301,6 +2301,31 @@
 				}
 			}
 		},
+		"/applications/s51-advice": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Create an S51 advice for the case",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Payload to create S51 advice",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Created S51 advice",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceResponseBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],

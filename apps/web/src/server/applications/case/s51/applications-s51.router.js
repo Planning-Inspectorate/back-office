@@ -15,11 +15,16 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/create/check-your-answers')
-	.post(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers));
+	.get(asyncRoute(controller.viewApplicationsCaseS51CheckYourAnswers))
+	.post(asyncRoute(controller.postApplicationsCaseS51CheckYourAnswersSave));
 
 applicationsS51Router
 	.route('/create/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CreatePage))
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
+
+applicationsS51Router
+	.route('/:action/success')
+	.get(locals.registerFolder, asyncRoute(controller.viewSuccessfullyS51Created));
 
 export default applicationsS51Router;

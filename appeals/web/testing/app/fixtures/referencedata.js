@@ -75,6 +75,7 @@ export const appealData = {
 		}
 	],
 	localPlanningDepartment: 'Wiltshire Council',
+	lpaQuestionnaireId: null,
 	otherAppeals: [
 		{
 			appealId: 3,
