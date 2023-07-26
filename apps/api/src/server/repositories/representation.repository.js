@@ -521,7 +521,7 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 	return databaseConnector.representation.findMany({
 		take: batchSize,
 		skip,
-		where: { caseId, status: 'VALID' },
+		where: { caseId, status: { in: ['VALID', 'PUBLISHED'] } },
 		select: {
 			reference: true,
 			contacts: {
