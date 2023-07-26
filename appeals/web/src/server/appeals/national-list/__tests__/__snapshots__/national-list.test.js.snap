@@ -233,7 +233,7 @@ exports[`national-list GET / should render national list - search term - no resu
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <input class="govuk-input" id="searchTerm" name="searchTerm" type="text"
-                    value="NO RESULT">
+                    value="NORESULT">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>

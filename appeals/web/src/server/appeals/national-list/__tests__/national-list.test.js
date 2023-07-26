@@ -34,17 +34,15 @@ describe('national-list', () => {
 		});
 
 		it('should render national list - search term - no result', async () => {
-			nock('http://test/')
-				.get('/appeals?pageNumber=1&pageSize=30&searchTerm=NO%20RESULT')
-				.reply(200, {
-					itemCount: 0,
-					items: [],
-					page: 1,
-					pageCount: 0,
-					pageSize: 30
-				});
+			nock('http://test/').get('/appeals?pageNumber=1&pageSize=30&searchTerm=NORESULT').reply(200, {
+				itemCount: 0,
+				items: [],
+				page: 1,
+				pageCount: 0,
+				pageSize: 30
+			});
 
-			const response = await request.get(`${baseUrl}?&searchTerm=NO%20RESULT`);
+			const response = await request.get(`${baseUrl}?&searchTerm=NORESULT`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
