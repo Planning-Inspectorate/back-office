@@ -23,4 +23,8 @@ applicationsS51Router
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CreatePage))
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
 
+applicationsS51Router
+	.route('/:action/success')
+	.get(locals.registerFolder, asyncRoute(controller.viewSuccessfullyS51Created));
+
 export default applicationsS51Router;
