@@ -67,10 +67,10 @@ const { value, error } = schema.validate({
 		{ level: 'B', band: 3 },
 		{ level: 'C', band: 2 },
 		{ level: 'D', band: 2 },
-		{ level: 'E', band: 3 },
-		{ level: 'F', band: 3 },
-		{ level: 'G', band: 3 },
-		{ level: 'H', band: 3 }
+		{ level: 'E', band: 1 },
+		{ level: 'F', band: 1 },
+		{ level: 'G', band: 1 },
+		{ level: 'H', band: 1 }
 	]
 });
 
