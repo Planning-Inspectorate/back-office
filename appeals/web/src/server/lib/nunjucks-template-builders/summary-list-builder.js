@@ -23,8 +23,8 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
 
 /**
  * @typedef {Object} BuilderParameters
- * @property {string} [header]
  * @property {Row[]} rows
+ * @property {string} [header]
  */
 
 /**
@@ -34,14 +34,13 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  */
 
 /**
- * @param {Row[]} rows
- * @param {string} [header]
+ * @param {BuilderParameters} params
  * @returns {SummaryListComponentParameters}
  */
-export function generateSummaryList(rows, header) {
+export function generateSummaryList(params) {
 	/** @type {SummaryListComponentParameters} */
 	const componentParameters = {
-		rows: rows.map((row) => ({
+		rows: params.rows.map((row) => ({
 			key: {
 				text: row.title
 			},
@@ -60,10 +59,10 @@ export function generateSummaryList(rows, header) {
 		}))
 	};
 
-	if (header) {
+	if (params.header) {
 		componentParameters.card = {
 			title: {
-				text: header
+				text: params.header
 			}
 		};
 	}
@@ -85,11 +84,17 @@ function formatRowValue(row) {
 		}
 		case 'link': {
 			// @ts-ignore
-			return rowValues.map((v) => buildHtmlLink(v)).join('<br>');
+			return rowValues.map((value) => buildHtmlLink(value)).join('<br>');
 		}
 		default: {
-			// @ts-ignore
-			return rowValues.map((v) => buildHtmSpan(v)).join('<br>');
+			return (
+				rowValues
+					// @ts-ignore
+					.filter((value) => value?.length)
+					// @ts-ignore
+					.map((value) => buildHtmSpan(value))
+					.join('<br>')
+			);
 		}
 	}
 }

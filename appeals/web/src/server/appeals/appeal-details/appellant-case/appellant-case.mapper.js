@@ -287,7 +287,8 @@ function mapData(appellantCaseData, permissions) {
 			addressLine1: appellantCaseData.appealSite.addressLine1 || '',
 			addressLine2: appellantCaseData.appealSite.addressLine2 || '',
 			postCode: appellantCaseData.appealSite.postCode || '',
-			town: appellantCaseData.appealSite.town || ''
+			town: appellantCaseData.appealSite.town || '',
+			county: appellantCaseData.appealSite.county || ''
 		}),
 		valueType: 'text',
 		actionText: 'Change',

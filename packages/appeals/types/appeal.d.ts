@@ -1,9 +1,9 @@
 export interface Address {
-	AddressLine1: string;
-	AddressLine2?: string;
-	Town: string;
-	County?: string;
-	PostCode: string;
+	addressLine1: string;
+	addressLine2?: string;
+	town: string;
+	county?: string;
+	postCode: string;
 }
 
 export interface AppealDocument {
