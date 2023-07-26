@@ -169,5 +169,18 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 	}
 
 	// TODO: Success screen
-	response.redirect(`../../created/success`);
+	response.redirect(`../../s51-advice/created/success`);
+}
+
+/**
+ * Success banner after creating S41 advice
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {action: string}>}
+ */
+export async function viewSuccessfullyS51Created(request, response) {
+	// action can be 'edited', 'published', 'created'
+
+	response.render('applications/case-s51/s51-successfully-created.njk', {
+		action: request.params.action
+	});
 }
