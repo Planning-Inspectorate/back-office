@@ -40,7 +40,7 @@ const infoTypesLayout = {
 	components: ['info-types']
 };
 const organisationNameLayout = {
-	pageTitle: 'Enter the Applicant’s organisation',
+	pageTitle: 'Enter the Applicant’s organisation (optional)',
 	components: ['organisation-name']
 };
 const fullNameLayout = {
@@ -48,12 +48,12 @@ const fullNameLayout = {
 	components: ['full-name']
 };
 const telephoneNumberLayout = {
-	pageTitle: 'Enter the Applicant’s phone number',
+	pageTitle: 'Enter the Applicant’s phone number (optional)',
 	components: ['telephone-number']
 };
-const websiteLayout = { pageTitle: 'Enter the Applicant’s website', components: ['website'] };
+const websiteLayout = { pageTitle: 'Enter the Applicant’s website (optional)', components: ['website'] };
 const applicantEmailLayout = {
-	pageTitle: 'Enter the applicant’s email address',
+	pageTitle: 'Enter the applicant’s email address (optional)',
 	components: ['applicant-email']
 };
 const addressLayout = { pageTitle: 'Enter the Applicant’s address', components: ['address'] };
@@ -212,13 +212,16 @@ export async function viewApplicationsCreateApplicantAddress(request, response) 
 export async function updateApplicationsCreateApplicantAddress(request, response) {
 	const { path, session } = request;
 	const { caseId } = response.locals;
-	const { properties, shouldShowErrors } = await applicantAddressDataUpdate(
-		request,
-		response.locals
-	);
+	console.log('address update:', request.body);
+	if(request.body.postcode !== '') {
+		const { properties, shouldShowErrors } = await applicantAddressDataUpdate(
+			request,
+			response.locals
+		);
 
-	if (shouldShowErrors) {
-		return handleErrors(properties, addressLayout, response);
+		if (shouldShowErrors) {
+			return handleErrors(properties, addressLayout, response);
+		}
 	}
 
 	goToNextStep(caseId, path, session, response);

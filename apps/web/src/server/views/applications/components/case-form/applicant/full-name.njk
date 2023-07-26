@@ -3,7 +3,7 @@
 {% macro fullName(values, errors) %}
 	{{ govukInput({
 		label: {
-			text: "First name",
+			text: "First name (optional)",
 			classes: 'font-weight--700'
 		},
 		id: "applicant.firstName",
@@ -13,7 +13,7 @@
 	}) }}
 	{{ govukInput({
 		label: {
-			text: "Last name",
+			text: "Last name (optional)",
 			classes: 'font-weight--700'
 		},
 		id: "applicant.lastName",

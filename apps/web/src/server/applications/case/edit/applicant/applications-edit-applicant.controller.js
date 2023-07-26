@@ -31,7 +31,7 @@ import {
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
 
 const organisationNameLayout = {
-	pageTitle: 'Enter the Applicant’s organisation',
+	pageTitle: 'Enter the Applicant’s organisation (optional)',
 	components: ['organisation-name'],
 	isEdit: true
 };
@@ -41,17 +41,17 @@ const fullNameLayout = {
 	isEdit: true
 };
 const telephoneNumberLayout = {
-	pageTitle: 'Enter the Applicant’s phone number',
+	pageTitle: 'Enter the Applicant’s phone number (optional)',
 	components: ['telephone-number'],
 	isEdit: true
 };
 const websiteLayout = {
-	pageTitle: 'Enter the Applicant’s website',
+	pageTitle: 'Enter the Applicant’s website (optional)',
 	components: ['website'],
 	isEdit: true
 };
 const applicantEmailLayout = {
-	pageTitle: 'Enter the Applicant’s email address',
+	pageTitle: 'Enter the Applicant’s email address (optional)',
 	components: ['applicant-email'],
 	isEdit: true
 };

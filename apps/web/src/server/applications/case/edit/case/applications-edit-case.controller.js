@@ -25,7 +25,7 @@ const descriptionLayout = {
 };
 
 const teamEmailLayout = {
-	pageTitle: 'Enter the project email ',
+	pageTitle: 'Enter the project email (optional)',
 	components: ['team-email'],
 	isEdit: true
 };
