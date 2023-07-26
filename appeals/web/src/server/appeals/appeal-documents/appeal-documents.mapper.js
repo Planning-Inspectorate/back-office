@@ -25,7 +25,7 @@
  */
 export const mapFolder = (caseId, folder, singleDocument = true) => {
 	const { documents } = folder;
-	const documentMap = documents.map((document) => {
+	const documentMap = (documents || []).map((document) => {
 		return {
 			title: document.name,
 			href: mapDocumentDownloadUrl(document),

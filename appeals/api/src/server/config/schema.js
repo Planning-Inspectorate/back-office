@@ -52,5 +52,11 @@ export default joi.object({
 	}),
 	bankHolidayFeed: joi.object({
 		hostname: joi.string()
-	})
+	}),
+	appealAllocationLevels: joi.array().items(
+		joi.object({
+			level: joi.string(),
+			band: joi.number()
+		})
+	)
 });

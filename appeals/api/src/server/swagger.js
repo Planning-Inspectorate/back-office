@@ -86,7 +86,11 @@ const document = {
 		},
 		SingleAppealResponse: {
 			agentName: null,
-			allocationDetails: 'F / General Allocation',
+			allocationDetails: {
+				level: 'A',
+				band: 3,
+				specialisms: ['Historic heritage', 'Architecture design']
+			},
 			appealId: 1,
 			appealReference: 'APP/Q9999/D/21/235348',
 			appealSite: {
@@ -204,18 +208,22 @@ const document = {
 				details: 'A new extension has been added at the back'
 			},
 			documents: {
-				appealStatement: 'appeal-statement.pdf',
-				applicationForm: 'application-form.pdf',
-				designAndAccessStatement: 'design-and-access-statement.pdf',
-				decisionLetter: 'decision-letter.pdf',
-				newPlansOrDrawings: ['new-plans-or-drawings-1.pdf', 'new-plans-or-drawings-2.pdf'],
-				newSupportingDocuments: ['newsupporting-doc-1.pdf', 'newsupporting-doc-2.pdf'],
-				planningObligation: 'planning-obligation.pdf',
-				plansDrawingsSupportingDocuments: [
-					'plans-drawings-supporting-documents-1.pdf',
-					'plans-drawings-supporting-documents-2.pdf'
-				],
-				separateOwnershipCertificate: 'separate-ownership-certificate.pdf'
+				appealStatement: {
+					folderId: 4562,
+					documents: []
+				},
+				applicationForm: {
+					folderId: 4563,
+					documents: []
+				},
+				decisionLetter: {
+					folderId: 4564,
+					documents: []
+				},
+				newSupportingDocuments: {
+					folderId: 4569,
+					documents: []
+				}
 			},
 			hasAdvertisedAppeal: true,
 			hasDesignAndAccessStatement: true,
@@ -449,7 +457,23 @@ const document = {
 				id: 1,
 				name: 'Incomplete reason'
 			}
-		]
+		],
+		AllocationSpecialismsResponse: [
+			{
+				id: 1,
+				name: 'Specialism'
+			}
+		],
+		AllocationLevelsResponse: [
+			{
+				level: 'B',
+				band: 3
+			}
+		],
+		AppealAllocation: {
+			level: 'A',
+			specialisms: [70, 71, 72]
+		}
 	},
 	components: {}
 };

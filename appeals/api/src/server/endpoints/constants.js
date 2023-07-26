@@ -70,3 +70,6 @@ export const STATE_TARGET_READY_TO_START = 'ready_to_start';
 export const STATE_TARGET_STATEMENT_REVIEW = 'statement_review';
 
 export const STATE_TYPE_FINAL = 'final';
+
+export const ERROR_APPEAL_ALLOCATION_LEVELS = 'Invalid allocation level';
+export const ERROR_APPEAL_ALLOCATION_SPECIALISMS = 'Invalid allocation specialism';

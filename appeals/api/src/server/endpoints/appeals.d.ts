@@ -64,6 +64,8 @@ interface RepositoryGetByIdResultItem {
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
 	appellantCase?: Schema.AppellantCase | null;
+	allocation?: Schema.AppealAllocation | null;
+	specialisms: Schema.AppealSpecialism[];
 	createdAt: Date;
 	id: number;
 	inspectorDecision?: { outcome: string } | null;
@@ -171,7 +173,7 @@ interface NeighbouringSiteContactsResponse {
 
 interface SingleAppealDetailsResponse {
 	agentName?: string | null;
-	allocationDetails: string;
+	allocationDetails: AppealAllocation | null;
 	appealId: number;
 	appealReference: string;
 	appealSite: AppealSite;
@@ -218,6 +220,12 @@ interface SingleAppealDetailsResponse {
 		visitType: string | null;
 	};
 	startedAt: Date | null;
+}
+
+interface AppealAllocation {
+	level: string;
+	band: number;
+	specialisms: string[];
 }
 
 interface SingleAppellantCaseResponse {

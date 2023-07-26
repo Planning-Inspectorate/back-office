@@ -48,6 +48,9 @@ export async function deleteAllRecords(databaseConnector) {
 		databaseConnector.appellantCaseValidationOutcome.deleteMany();
 	const deleteLPAQuestionnaireValidationOutcome =
 		databaseConnector.lPAQuestionnaireValidationOutcome.deleteMany();
+	const deleteAppealAllocationLevels = databaseConnector.appealAllocation.deleteMany();
+	const deleteAppealSpecialisms = databaseConnector.appealSpecialism.deleteMany();
+	const deleteSpecialisms = databaseConnector.specialism.deleteMany();
 
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
@@ -61,6 +64,8 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteDocuments;
 
 	await databaseConnector.$transaction([
+		deleteAppealAllocationLevels,
+		deleteAppealSpecialisms,
 		deleteServiceCustomers,
 		deleteAppellantCaseIncompleteReasonOnAppellantCase,
 		deleteAppellantCaseInvalidReasonOnAppellantCase,
@@ -94,4 +99,5 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteAppellantCaseInvalidReason;
 	await deleteAppellantCaseValidationOutcome;
 	await deleteLPAQuestionnaireValidationOutcome;
+	await deleteSpecialisms;
 }

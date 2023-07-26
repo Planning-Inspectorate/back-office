@@ -98,6 +98,12 @@ const appealRepository = (function () {
 				},
 				include: {
 					address: true,
+					allocation: true,
+					specialisms: {
+						include: {
+							specialism: true
+						}
+					},
 					appellantCase: {
 						include: {
 							appellantCaseIncompleteReasonsOnAppellantCases: {
@@ -427,6 +433,34 @@ const appealRepository = (function () {
 				})
 			]);
 		},
+
+		/**
+		 * @param {number} appealId
+		 * @param {{level: string; band: number; }} allocation
+		 * @param {number[]} specialisms
+		 * @returns {Promise<object>}
+		 */
+		updateAppealAllocation(appealId, allocation, specialisms) {
+			return databaseConnector.$transaction([
+				databaseConnector.appealAllocation.upsert({
+					where: { appealId },
+					create: { appealId, ...allocation },
+					update: allocation
+				}),
+				databaseConnector.appealSpecialism.deleteMany({
+					where: { appealId }
+				}),
+				databaseConnector.appealSpecialism.createMany({
+					data: specialisms.map((specialismId) => {
+						return {
+							appealId,
+							specialismId
+						};
+					})
+				})
+			]);
+		},
+
 		/**
 		 * @param {{
 		 *  appealId: number;

@@ -93,6 +93,10 @@ const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate = jest
 const mockSiteVisitCreate = jest.fn().mockResolvedValue({});
 const mockSiteVisitUpdate = jest.fn().mockResolvedValue({});
 const mockSiteVisitTypeFindUnique = jest.fn().mockResolvedValue({});
+const mockSpecialismsFindUnique = jest.fn().mockResolvedValue({});
+const mockAppealAllocationUpsert = jest.fn().mockResolvedValue({});
+const mockAppealSpecialismDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppealSpecialismCreateMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -351,6 +355,25 @@ class MockPrismaClient {
 	get siteVisitType() {
 		return {
 			findUnique: mockSiteVisitTypeFindUnique
+		};
+	}
+
+	get specialism() {
+		return {
+			findMany: mockSpecialismsFindUnique
+		};
+	}
+
+	get appealSpecialism() {
+		return {
+			deleteMany: mockAppealSpecialismDeleteMany,
+			createMany: mockAppealSpecialismCreateMany
+		};
+	}
+
+	get appealAllocation() {
+		return {
+			upsert: mockAppealAllocationUpsert
 		};
 	}
 

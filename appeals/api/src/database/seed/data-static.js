@@ -15,6 +15,7 @@
  * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
  * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
  * @typedef {import('@pins/appeals.api').Schema.SiteVisitType} SiteVisitType
+ * @typedef {import('@pins/appeals.api').Schema.Specialism} Specialism
  */
 
 /**
@@ -253,6 +254,38 @@ export const siteVisitTypes = [
 ];
 
 /**
+ * An array of specialisms.
+ *
+ * @type {Pick<Specialism, 'name'>[]}
+ */
+
+export const specialisms = [
+	{ name: 'Schedule 1' },
+	{ name: 'Schedule 2' },
+	{ name: 'Enforcement' },
+	{ name: 'General allocation' },
+	{ name: 'Housing orders' },
+	{ name: 'Rights of way' },
+	{ name: 'Shopping' },
+	{ name: 'Gypsy' },
+	{ name: 'Housing' },
+	{ name: 'Access' },
+	{ name: 'Advertisements' },
+	{ name: 'Appearance design' },
+	{ name: 'Architecture design' },
+	{ name: 'High hedges' },
+	{ name: 'Historic heritage' },
+	{ name: 'Listed building and enforcement' },
+	{ name: 'Natural heritage' },
+	{ name: 'Renewable energy/wind farms' },
+	{ name: 'Roads and traffics' },
+	{ name: 'Transport' },
+	{ name: 'Tree preservation order' },
+	{ name: 'Waste' },
+	{ name: 'Water' }
+];
+
+/**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
@@ -346,6 +379,13 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.siteVisitType.upsert({
 			create: { name: siteVisitType.name },
 			where: { name: siteVisitType.name },
+			update: {}
+		});
+	}
+	for (const specialism of specialisms) {
+		await databaseConnector.specialism.upsert({
+			create: { name: specialism.name },
+			where: { name: specialism.name },
 			update: {}
 		});
 	}

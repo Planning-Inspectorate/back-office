@@ -26,10 +26,13 @@ model Appeal {
   linkedAppealId               Int?
   otherAppealId                Int?
   dueDate                      DateTime?
+  allocationId                 Int?
   address                      Address?              @relation(fields: [addressId], references: [id])
   appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
   appellant                    Appellant?            @relation(fields: [appellantId], references: [id])
   user                         User?                 @relation(fields: [userId], references: [id])
+  allocation                   AppealAllocation?
+  specialisms                  AppealSpecialism[]
   appellantCase                AppellantCase?
   appealStatus                 AppealStatus[]
   inspectorDecision            InspectorDecision?
@@ -81,6 +84,26 @@ model AppealStatus {
   subStateMachineName String?
   compoundStateName   String?
   appeal              Appeal   @relation(fields: [appealId], references: [id])
+}
+
+/// AppealAllocation model
+/// Stores the current allocation and specialisms for a single appeal
+model AppealAllocation {
+  id       Int     @id @default(autoincrement())
+  appealId Int     @unique
+  level    String
+  band     Int
+  appeal   Appeal? @relation(fields: [appealId], references: [id])
+}
+
+/// AppealAllocation model
+/// Stores the current allocation and specialisms for a single appeal
+model AppealSpecialism {
+  id           Int        @id @default(autoincrement())
+  specialismId Int
+  appealId     Int
+  appeal       Appeal     @relation(fields: [appealId], references: [id])
+  specialism   Specialism @relation(fields: [specialismId], references: [id])
 }
 
 /// Appellant model
@@ -611,4 +634,10 @@ model SiteVisitType {
   id        Int         @id @default(autoincrement())
   name      String      @unique
   siteVisit SiteVisit[]
+}
+
+model Specialism {
+  id                Int                @id @default(autoincrement())
+  name              String             @unique
+  appealSpecialisms AppealSpecialism[]
 }
