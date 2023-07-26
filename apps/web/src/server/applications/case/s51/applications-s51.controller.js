@@ -6,11 +6,6 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import {
-	getSessionApplicationsReferBackTo,
-	setSessionApplicationsReferBackTo,
-	destroySessionApplicationsReferBackTo
-} from '../../applications-session.service.js';
 import { createS51Advice } from './applications-s51.service.js';
 
 /** @type {Record<any, {nextPage: string}>} */
@@ -29,8 +24,6 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null}, {}, {}, {}, {step: string}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
-	destroySessionApplicationsReferBackTo(request.session);
-
 	response.render(`applications/case-documentation/folder/documentation-folder`);
 }
 
@@ -106,14 +99,8 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	}
 
 	setSessionS51(session, body);
-	const redirectBackTo = getSessionApplicationsReferBackTo(session);
-
-	if (redirectBackTo) {
-		response.redirect(redirectBackTo);
-	} else {
-		const { nextPage } = createS51Journey[params.step];
-		response.redirect(`../create/${nextPage}`);
-	}
+	const { nextPage } = createS51Journey[params.step];
+	response.redirect(`../create/${nextPage}`);
 }
 
 /**
@@ -125,7 +112,6 @@ export async function viewApplicationsCaseS51CheckYourAnswers(request, response)
 	const { session, params } = request;
 
 	const s51Data = getSessionS51(session);
-	setSessionApplicationsReferBackTo(session, 'check-your-answers');
 
 	response.render(`applications/case-s51/s51-check-your-answers`, {
 		values: getCheckYourAnswersRows(s51Data),
@@ -161,7 +147,6 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 
 	if (errors) {
 		const s51Data = getSessionS51(session);
-		setSessionApplicationsReferBackTo(session, 'check-your-answers');
 		return response.render(`applications/case-s51/s51-check-your-answers`, {
 			values: getCheckYourAnswersRows(s51Data),
 			errors

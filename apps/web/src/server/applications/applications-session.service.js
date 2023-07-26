@@ -23,33 +23,3 @@ export const setSessionApplicationsDomainType = (session, domainType) => {
 export const getSessionApplicationsDomainType = (session) => {
 	return session.applicationsDomainType ?? null;
 };
-
-/**
- * Set the redirectBackTo for the session.
- *
- * @param {BOASession} session
- * @param {string} redirectBackTo
- * @returns {void}
- */
-export const setSessionApplicationsReferBackTo = (session, redirectBackTo) => {
-	session.redirectBackTo = redirectBackTo;
-};
-
-/**
- * Get the redirectBackTo from the session.
- *
- * @param {BOASession} session
- * @returns {string|null}
- */
-export const getSessionApplicationsReferBackTo = (session) => {
-	return session.redirectBackTo ?? null;
-};
-
-/**
- * Deletes the redirectBackTo from the session.
- *
- * @param {BOASession} session
- */
-export const destroySessionApplicationsReferBackTo = (session) => {
-	delete session.redirectBackTo;
-};
