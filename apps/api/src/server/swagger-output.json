@@ -2301,6 +2301,31 @@
 				}
 			}
 		},
+		"/applications/s51-advice": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Create an S51 advice for the case",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Payload to create S51 advice",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Created S51 advice",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceResponseBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],
@@ -3138,92 +3163,6 @@
 				"endTime": {
 					"type": "string",
 					"example": "12:20"
-				}
-			}
-		},
-		"S51AdviceRequestBody": {
-			"type": "object",
-			"properties": {
-				"caseId": {
-					"type": "number",
-					"example": 1
-				},
-				"title": {
-					"type": "string",
-					"example": "Advice Title"
-				},
-				"enquirer": {
-					"type": "string",
-					"example": "Enquirer Name"
-				},
-				"enquiryMethod": {
-					"type": "string",
-					"example": "email"
-				},
-				"enquiryDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"enquiryDetails": {
-					"type": "string",
-					"example": "Enquiry details here"
-				},
-				"adviser": {
-					"type": "string",
-					"example": "Adviser name here"
-				},
-				"adviceDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"adviceDetails": {
-					"type": "string",
-					"example": "Advice text here"
-				}
-			}
-		},
-		"S51AdviceResponseBody": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "number",
-					"example": 1
-				},
-				"caseId": {
-					"type": "number",
-					"example": 1
-				},
-				"title": {
-					"type": "string",
-					"example": "Advice Title"
-				},
-				"enquirer": {
-					"type": "string",
-					"example": "Enquirer Name"
-				},
-				"enquiryMethod": {
-					"type": "string",
-					"example": "email"
-				},
-				"enquiryDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"enquiryDetails": {
-					"type": "string",
-					"example": "Enquiry details here"
-				},
-				"adviser": {
-					"type": "string",
-					"example": "Adviser name here"
-				},
-				"adviceDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"adviceDetails": {
-					"type": "string",
-					"example": "Advice text here"
 				}
 			}
 		},
