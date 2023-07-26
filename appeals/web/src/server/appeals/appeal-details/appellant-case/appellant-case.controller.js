@@ -42,7 +42,7 @@ const renderAppellantCase = async (request, response) => {
 		);
 		const formattedSections = [];
 		for (const section of mappedAppellantCaseSections) {
-			formattedSections.push(generateSummaryList(section.rows, section.header));
+			formattedSections.push(generateSummaryList(section));
 		}
 
 		let notificationBannerParameters;
@@ -120,7 +120,7 @@ const renderCheckAndConfirm = async (request, response) => {
 			webAppellantCaseReviewOutcome.otherNotValidReasons,
 			webAppellantCaseReviewOutcome.updatedDueDate
 		);
-		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection.rows)];
+		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
 
 		return response.render('app/check-and-confirm.njk', {
 			appeal: {

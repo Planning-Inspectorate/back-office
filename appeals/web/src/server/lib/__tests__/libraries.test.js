@@ -206,7 +206,7 @@ describe('Libraries', () => {
 				];
 				const formattedSections = [];
 				for (const section of testMappedSections) {
-					formattedSections.push(generateSummaryList(section.rows, section.header));
+					formattedSections.push(generateSummaryList(section));
 				}
 				expect(formattedSections).toEqual(expectedReturn);
 			});

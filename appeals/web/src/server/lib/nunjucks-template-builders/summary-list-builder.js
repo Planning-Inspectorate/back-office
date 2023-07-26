@@ -33,16 +33,14 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @property {Card} [card]
  */
 
-// TODO - refactor generateSummaryList to accept single parameter of type BuilderParameters, then update callers as required
 /**
- * @param {Row[]} rows
- * @param {string} [header]
+ * @param {BuilderParameters} params
  * @returns {SummaryListComponentParameters}
  */
-export function generateSummaryList(rows, header) {
+export function generateSummaryList(params) {
 	/** @type {SummaryListComponentParameters} */
 	const componentParameters = {
-		rows: rows.map((row) => ({
+		rows: params.rows.map((row) => ({
 			key: {
 				text: row.title
 			},
@@ -61,10 +59,10 @@ export function generateSummaryList(rows, header) {
 		}))
 	};
 
-	if (header) {
+	if (params.header) {
 		componentParameters.card = {
 			title: {
-				text: header
+				text: params.header
 			}
 		};
 	}

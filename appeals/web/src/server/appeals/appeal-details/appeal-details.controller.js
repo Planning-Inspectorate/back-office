@@ -40,14 +40,12 @@ export const viewAppealDetails = async (request, response) => {
 			appealDetailsSummaryParameters: mappedAppealDetailsSummary,
 			summaryLists: {
 				caseOverview: generateSummaryList(
-					mappedAppealDetailsSummaryListBuilderParameters.caseOverview.rows
+					mappedAppealDetailsSummaryListBuilderParameters.caseOverview
 				),
-				caseTeam: generateSummaryList(
-					mappedAppealDetailsSummaryListBuilderParameters.caseTeam.rows
-				),
+				caseTeam: generateSummaryList(mappedAppealDetailsSummaryListBuilderParameters.caseTeam),
 				...(mappedAppealDetailsSummaryListBuilderParameters.caseTimetable && {
 					caseTimetable: generateSummaryList(
-						mappedAppealDetailsSummaryListBuilderParameters.caseTimetable.rows
+						mappedAppealDetailsSummaryListBuilderParameters.caseTimetable
 					)
 				})
 			},
