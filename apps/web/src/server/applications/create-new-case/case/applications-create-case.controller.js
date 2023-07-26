@@ -65,7 +65,7 @@ const zoomLevelLayout = {
 	backLink: 'regions'
 };
 const teamEmailLayout = {
-	pageTitle: 'Enter the project email',
+	pageTitle: 'Enter the project email (optional)',
 	components: ['team-email'],
 	backLink: 'zoom-level'
 };
