@@ -35,8 +35,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
-                        <dd class="govuk-summary-list__value"><span>undefined</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                         </dd>
                     </div>
@@ -50,7 +49,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, , Tadley, RG26 4BX</span>
+                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                         </dd>
@@ -514,8 +513,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
-                        <dd class="govuk-summary-list__value"><span>undefined</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                         </dd>
                     </div>
@@ -529,7 +527,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, , Tadley, RG26 4BX</span>
+                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                         </dd>

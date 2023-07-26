@@ -21,7 +21,7 @@ export interface Appeal {
 	localPlanningDepartment: string;
 	otherAppeals: AppealLink[] | [];
 	planningApplicationReference: string;
-	documentationSummary?: object;
+	documentationSummary?: AppealDocumentationSummary;
 	startedAt: string | null;
 	appealTimetable: AppealTimetable;
 	siteVisit: AppealSiteVisit;
@@ -46,6 +46,18 @@ export type AppealTimetable = {
 
 export type AppealSiteVisit = {
 	visitDate: string;
+};
+
+export type DocumentStatus = 'received' | 'not_received';
+
+export type AppealDocumentationSummaryItem = {
+	status: DocumentStatus;
+	dueDate: string | null;
+};
+
+export type AppealDocumentationSummary = {
+	appellantCase: AppealDocumentationSummaryItem;
+	lpaQuestionnaire: AppealDocumentationSummaryItem;
 };
 
 export interface LpaQuestionnaire {

@@ -3,7 +3,7 @@
  * @type {object}
  * @property {string} title
  * @property {string} href
- * @property {string?} target
+ * @property {string} [target]
  */
 
 /**

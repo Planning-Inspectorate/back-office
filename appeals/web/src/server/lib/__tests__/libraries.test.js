@@ -18,7 +18,8 @@ describe('Libraries', () => {
 				postCode: 'postcode',
 				addressLine1: 'address 1',
 				addressLine2: 'address 2',
-				town: 'town'
+				town: 'town',
+				county: 'county'
 			};
 
 			const adressFormatted = addressToString(address);
@@ -205,7 +206,7 @@ describe('Libraries', () => {
 				];
 				const formattedSections = [];
 				for (const section of testMappedSections) {
-					formattedSections.push(generateSummaryList(section.rows, section.header));
+					formattedSections.push(generateSummaryList(section));
 				}
 				expect(formattedSections).toEqual(expectedReturn);
 			});
