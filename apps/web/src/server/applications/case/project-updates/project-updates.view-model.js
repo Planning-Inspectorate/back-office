@@ -199,6 +199,30 @@ export function createDetailsView({
 }
 
 /**
+ * Re-order a list of statuses to the order they should be shown on the UI
+ *
+ * @param {string[]} statuses
+ * @returns {string[]}
+ */
+export function sortStatuses(statuses) {
+	// the order that statuses should show on radio buttons
+	const viewOrder = [
+		ProjectUpdate.Status.draft,
+		ProjectUpdate.Status.readyToPublish,
+		ProjectUpdate.Status.published,
+		ProjectUpdate.Status.unpublished,
+		ProjectUpdate.Status.archived
+	];
+	const sorted = [];
+	for (const status of viewOrder) {
+		if (statuses.includes(status)) {
+			sorted.push(status);
+		}
+	}
+	return sorted;
+}
+
+/**
  * Return the govukRadio options for the given status
  *
  * @param {string} status
