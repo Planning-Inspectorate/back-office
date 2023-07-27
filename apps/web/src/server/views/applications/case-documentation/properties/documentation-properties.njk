@@ -54,7 +54,9 @@
                 <nav class="govuk-grid-row govuk-!-margin-top-0">
 					<h4 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">Document actions</h4>
 					<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
-						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="/open">Open</a>
+						{% set isNotDisabled = documentationFile.publishedStatus !== 'awaiting_upload' and documentationFile.publishedStatus !== 'awaiting_virus_check' and documentationFile.publishedStatus !== 'failed_virus_check' %}
+						{% set isPreviewActive = isNotDisabled and(documentationFile.mime === 'application/pdf' or documentationFile.mime === 'image/jpeg' or documentationFile.mime === 'image/png') %}
+						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}) }}">Open</a>
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}) }}">Download</a>
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="/move">Move</a>
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'delete'}) }}">Delete</a>
