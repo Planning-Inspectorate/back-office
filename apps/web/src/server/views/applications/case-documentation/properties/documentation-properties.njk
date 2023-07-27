@@ -5,6 +5,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "./tab-details.component.njk" import documentationDetailsTab %}
 {% from "./tab-history.component.njk" import documentationHistoryTab %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block beforeContent %}
     {{ govukBackLink({
@@ -20,6 +21,16 @@
                 {{ govukBreadcrumbs({
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
+				}) }}
+				{% set html %}
+					<h3 class="govuk-notification-banner__heading">
+						New version uploaded
+					</h3>
+				{% endset %}
+
+				{{ govukNotificationBanner({
+					html: html,
+					type: 'success'
 				}) }}
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
                     <span class="govuk-caption-xl">Document properties</span>
