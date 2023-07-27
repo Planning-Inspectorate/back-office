@@ -42,6 +42,6 @@ export async function relevantRepsApplications({ params, query }, res) {
 			pageSize,
 			page
 		},
-		filters: getFilterViewModel(filters)
+		filters: getFilterViewModel(filters, representations.filters)
 	});
 }

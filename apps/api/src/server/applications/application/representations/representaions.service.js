@@ -37,3 +37,12 @@ export const updateCaseRepresentation = async (representation, caseId, represent
 		representationId
 	);
 };
+
+/**
+ *
+ * @param {number} caseId
+ * @returns {Promise<*>}
+ */
+export const getCaseRepresentationsStatusCount = async (caseId) => {
+	return representationsRepository.getStatusCountByCaseId(caseId);
+};

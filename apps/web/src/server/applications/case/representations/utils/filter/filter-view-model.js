@@ -1,11 +1,15 @@
-/**
- *
- * @param {string} text
- * @param {string} value
- * @param {Array<string>|string|undefined}filters
- * @returns {{checked: boolean | undefined, text: string, value: string}}
- */
-const buildStatus = (text, value, filters) => ({ text, value, checked: filters?.includes(value) });
+// /**
+//  *
+//  * @param {string} text
+//  * @param {string} value
+//  * @param {Array<string>|string|undefined}filters
+//  * @returns {{checked: boolean | undefined, text: string, value: string}}
+//  */
+// const buildStatus = (text, value, filters, count = 0) => ({
+// 	text: `${text} (${count})`,
+// 	value,
+// 	checked: filters?.includes(value)
+// });
 
 /**
  *
@@ -20,24 +24,42 @@ const ensureArray = (stringOrArray) => {
 };
 
 /**
+ * @typedef {any} repFilter
+ * @property {string} repFilter.name
+ * @property {number} repFilter.count
+ *
+ */
+
+/**
  *
  * @param {any} filters
+ * @param {repFilter[]} repFilters
  * @returns {{checked: boolean | undefined, text: string, value: string}[]}}
  */
-export const getFilterViewModel = (filters) => {
+export const getFilterViewModel = (filters = [], repFilters = []) => {
 	const filtersArray = ensureArray(filters);
 
-	return [
-		buildStatus('Awaiting review', 'AWAITING_REVIEW', filtersArray),
-		buildStatus('Valid', 'VALID', filtersArray),
-		buildStatus('Draft', 'DRAFT', filtersArray),
-		buildStatus('Published', 'PUBLISHED', filtersArray),
-		buildStatus('Referred', 'REFERRED', filtersArray),
-		buildStatus('Withdrawn', 'WITHDRAWN', filtersArray),
-		buildStatus('Invalid', 'INVALID', filtersArray),
-		buildStatus('Archived', 'ARCHIVED', filtersArray),
-		buildStatus('Under 18', 'UNDER_18', filtersArray)
+	const arr = [
+		{ text: 'Awaiting review', value: 'AWAITING_REVIEW' },
+		{ text: 'Valid', value: 'VALID' },
+		{ text: 'Draft', value: 'DRAFT' },
+		{ text: 'Published', value: 'PUBLISHED' },
+		{ text: 'Referred', value: 'REFERRED' },
+		{ text: 'Withdrawn', value: 'WITHDRAWN' },
+		{ text: 'Invalid', value: 'INVALID' },
+		{ text: 'Archived', value: 'ARCHIVED' },
+		{ text: 'Under 18', value: 'UNDER_18' }
 	];
+
+	return arr.map((el) => {
+		const count = repFilters.find((rep) => rep.name === el.value)?.count | 0;
+
+		return {
+			text: `${el.text} (${count})`,
+			value: el.value,
+			checked: filtersArray?.includes(el.value)
+		};
+	});
 };
 
 /**

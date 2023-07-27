@@ -53,6 +53,7 @@ const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
 
 const mockRepresentationCount = jest.fn().mockResolvedValue({});
+const mockRepresentationGroupBy = jest.fn().mockResolvedValue({});
 const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
@@ -238,6 +239,7 @@ class MockPrismaClient {
 	get representation() {
 		return {
 			count: mockRepresentationCount,
+			groupBy: mockRepresentationGroupBy,
 			findMany: mockRepresentationFindMany,
 			findFirst: mockRepresentationFindFirst,
 			create: mockRepresentationCreate,

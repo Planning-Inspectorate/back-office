@@ -102,3 +102,24 @@ export const mapDocumentRepresentationAttachments = (attachments) =>
 			filename: attachment.Document?.name
 		};
 	});
+
+/**
+ *
+ * @param {object} statusWithCount
+ * @param {string} statusWithCount.status
+ * @param {string} statusWithCount._count._all
+ * @return {*}
+ */
+export const mapCaseRepresentationsStatusCount = (statusWithCount) =>
+	statusWithCount.map((el) => ({
+		count: el._count._all,
+		name: el.status
+	}));
+
+export const mapCaseRepresentationsUnderCount = (under18Data) => {
+	let ticker = 0;
+	under18Data.forEach((el) => {
+		ticker += el._count.contacts;
+	});
+	return { count: ticker, name: 'UNDER_18' };
+};
