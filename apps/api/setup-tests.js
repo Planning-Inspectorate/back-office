@@ -29,6 +29,8 @@ const mockDocumentMetdataFindUnique = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpsert = jest.fn().mockResolvedValue({});
 const mockDocumentMetdataUpdate = jest.fn().mockResolvedValue({});
 
+const mockDocumentActivityLog = jest.fn().mockResolvedValue({});
+
 const mockFolderCreate = jest.fn().mockResolvedValue({});
 const mockFolderUpdate = jest.fn().mockResolvedValue({});
 const mockFolderUpdateMany = jest.fn().mockResolvedValue({});
@@ -134,6 +136,12 @@ class MockPrismaClient {
 			findUnique: mockDocumentMetdataFindUnique,
 			upsert: mockDocumentMetdataUpsert,
 			update: mockDocumentMetdataUpdate
+		};
+	}
+
+	get documentActivityLog() {
+		return {
+			create: mockDocumentActivityLog
 		};
 	}
 
