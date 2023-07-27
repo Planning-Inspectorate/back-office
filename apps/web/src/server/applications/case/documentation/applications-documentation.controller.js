@@ -244,9 +244,11 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		return container;
 	});
 
+	const username = session.account?.username;
+
 	const { errors: apiErrors, documents: publishedItems = null } = validationErrors
 		? { errors: validationErrors }
-		: await publishCaseDocumentationFiles(caseId, items);
+		: await publishCaseDocumentationFiles(caseId, items, username);
 
 	const backLinkFolder = getSessionFolderPage(session) ?? '';
 	const backLink = backLinkFolder ?? url('document-category', { caseId });

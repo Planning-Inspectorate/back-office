@@ -193,14 +193,19 @@ export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => 
  *
  * @param {number} caseId
  * @param {{guid: string}[]} documents
+ * @param {string} username
  * @returns {Promise<{documents?: Array<{guid: string}>, errors?: any}>}
  */
-export const publishCaseDocumentationFiles = async (caseId, documents) => {
+export const publishCaseDocumentationFiles = async (caseId, documents, username) => {
 	try {
+		const payload = {
+			documents,
+			username
+		};
+
+		console.log(payload);
 		const publishedDocuments = await patch(`applications/${caseId}/documents/publish`, {
-			json: {
-				documents
-			}
+			json: payload
 		});
 
 		return { documents: publishedDocuments };
