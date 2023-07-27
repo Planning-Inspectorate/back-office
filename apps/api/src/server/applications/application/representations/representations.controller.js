@@ -3,10 +3,13 @@ import {
 	createCaseRepresentation,
 	getCaseRepresentation,
 	getCaseRepresentations,
+	getCaseRepresentationsStatusCount,
 	updateCaseRepresentation
 } from './representaions.service.js';
 import {
 	getLatestRedaction,
+	mapCaseRepresentationsStatusCount,
+	mapCaseRepresentationsUnderCount,
 	mapCreateOrUpdateRepRequestToRepository,
 	mapDocumentRepresentationAttachments
 } from './representation.mapper.js';
@@ -69,9 +72,19 @@ export const getRepresentations = async ({ params, query }, response) => {
 		}
 	);
 
+	const [representationCountStatus, under18Data] = await getCaseRepresentationsStatusCount(
+		params.id
+	);
+
+	console.log('UNDER', under18Data);
+
 	response.send({
 		page,
 		pageSize,
+		filters: [
+			mapCaseRepresentationsUnderCount(under18Data),
+			...mapCaseRepresentationsStatusCount(representationCountStatus)
+		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),
 		itemCount: count,
 		items: items.map((item) => {

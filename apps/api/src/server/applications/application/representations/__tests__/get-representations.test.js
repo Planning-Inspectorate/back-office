@@ -40,14 +40,31 @@ const existingRepresentations = [
 ];
 
 describe('Get Application Representations', () => {
-	it('gets all reps for a case, defaulting pagination', async () => {
+	beforeEach(() => {
 		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+		databaseConnector.representation.groupBy.mockReturnValueOnce([
+			{ _count: { _all: 444 }, status: 'WITHDRAWN' }
+		]);
+		databaseConnector.representation.findMany
+			.mockReturnValueOnce(existingRepresentations)
+			.mockReturnValueOnce([{ _count: { contacts: 2 } }, { _count: { contacts: 1 } }]);
+	});
 
+	it('gets all reps for a case, defaulting pagination', async () => {
 		const response = await request.get('/applications/1/representations');
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
@@ -64,6 +81,16 @@ describe('Get Application Representations', () => {
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 2,
 			pageSize: 3,
 			pageCount: 2,
@@ -87,13 +114,20 @@ describe('Get Application Representations', () => {
 	});
 
 	it('supports a search term', async () => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
 		const response = await request.get('/applications/1/representations?searchTerm=hello%20world');
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
@@ -103,15 +137,22 @@ describe('Get Application Representations', () => {
 	});
 
 	it('supports filters', async () => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
 		const response = await request.get(
 			'/applications/1/representations?under18=true&status=VALID&status=PUBLISHED'
 		);
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
@@ -121,13 +162,20 @@ describe('Get Application Representations', () => {
 	});
 
 	it('supports filters - single status', async () => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
 		const response = await request.get('/applications/1/representations?status=VALID');
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
@@ -137,13 +185,20 @@ describe('Get Application Representations', () => {
 	});
 
 	it('supports sorting', async () => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
 		const response = await request.get('/applications/1/representations?sortBy=reference');
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
@@ -153,13 +208,20 @@ describe('Get Application Representations', () => {
 	});
 
 	it('supports sorting - desc', async () => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
-		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
 		const response = await request.get('/applications/1/representations?sortBy=-reference');
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
+			filters: [
+				{
+					count: 3,
+					name: 'UNDER_18'
+				},
+				{
+					count: 444,
+					name: 'WITHDRAWN'
+				}
+			],
 			page: 1,
 			pageSize: 25,
 			pageCount: 1,
