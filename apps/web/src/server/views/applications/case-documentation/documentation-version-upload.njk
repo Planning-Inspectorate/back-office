@@ -28,7 +28,7 @@
         documentId: documentationFile.documentGuid,
 		folderId: currentFolder.id,
 		formTitle: serviceName,
-		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
+		nextPageUrl: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 		disclaimerText: "Uploading a new version changes the document status to ‘Not checked’. If there’s a previous version in the publishing queue, it will be removed"
 	}) }}
