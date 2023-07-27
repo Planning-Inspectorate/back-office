@@ -10,7 +10,9 @@ export const createTextareaValidator = (
 	createValidator(
 		body(fieldName)
 			.trim()
-			.isLength({ max: TEXTAREA_MAXIMUM_CHARACTERS })
+			.custom((value) => {
+				return value.replace(/[\0\r\n\f]/g, '').length <= TEXTAREA_MAXIMUM_CHARACTERS;
+			})
 			.withMessage(
 				maxCharactersErrorMessage.replace(
 					'{{maximumCharacters}}',
