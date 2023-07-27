@@ -6798,6 +6798,15 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
+                </div>
+            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -6813,7 +6822,7 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
@@ -6956,6 +6965,15 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
+                </div>
+            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
@@ -6971,7 +6989,7 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
@@ -7116,6 +7134,15 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
+                </div>
+            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -7131,7 +7158,7 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
@@ -7274,6 +7301,15 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
+            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
+            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
+                </div>
+            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
@@ -7289,7 +7325,7 @@ exports[`applications documentation Document properties page If the user is not 
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/open\\">Open</a>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
@@ -21568,7 +21604,7 @@ exports[`applications documentation Document publishing queue If the user is not
 
 exports[`applications documentation Document upload new version page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
+    <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/document/11/properties\\"
     data-case-id=\\"123\\" data-multiple=\\"\\" data-folder-id=\\"21\\" data-document-id=\\"11\\"
     data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
         <div class=\\"top-errors-hook\\"></div>

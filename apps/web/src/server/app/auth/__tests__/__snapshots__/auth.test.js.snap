@@ -279,17 +279,12 @@ data-module=\\"govuk-header\\">
 
 exports[`auth authorization should display the services page when a user belongs to more than one group 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-width-container govuk-width-container\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <h2 class=\\"govuk-heading-m\\">Applications</h2>
-                <ul class=\\"govuk-list\\">
-                    <li><a href=\\"/applications-service/case-team\\" class=\\"govuk-link\\">Case team</a>
-                    </li>
-                    <li><a href=\\"/applications-service/case-admin-officer\\" class=\\"govuk-link\\">Case admin officer</a>
-                    </li>
-                </ul>
-            </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
         </div>
     </div>
 </main>"
