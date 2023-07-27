@@ -76,8 +76,6 @@ export const getRepresentations = async ({ params, query }, response) => {
 		params.id
 	);
 
-	console.log('UNDER', under18Data);
-
 	response.send({
 		page,
 		pageSize,

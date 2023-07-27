@@ -159,7 +159,7 @@ export const getById = async (id, caseId) => {
 };
 
 export const getStatusCountByCaseId = async (caseId) => {
-	const thing = databaseConnector.representation.groupBy({
+	const groupRepStatusWithCount = databaseConnector.representation.groupBy({
 		where: { caseId },
 		by: ['status'],
 		_count: {
@@ -167,55 +167,7 @@ export const getStatusCountByCaseId = async (caseId) => {
 		}
 	});
 
-	// let skip = 0;
-	// const batchSize = 2000;
-	// let hasMore = true;
-	// let under18Counter = 0;
-
-	// while (hasMore) {
-	// 	const items = await databaseConnector.representation.findMany({
-	// 		take: batchSize,
-	// 		skip,
-	// 		where: {
-	// 			caseId
-	// 		},
-	// 		select: {
-	// 			id: true
-	// 		}
-	// 	});
-	//
-	// 	const [reepsonse] = await databaseConnector.representationContact.groupBy({
-	// 		where: {
-	// 			AND: [
-	// 				{
-	// 					representationId: {
-	// 						in: items.map((el) => el.id)
-	// 					}
-	// 				},
-	// 				{
-	// 					under18: true
-	// 				}
-	// 			]
-	// 		},
-	// 		by: ['under18'],
-	// 		_count: {
-	// 			_all: true
-	// 		}
-	// 	});
-	//
-	// 	console.log('Resp', reepsonse);
-	//
-	// 	skip += batchSize;
-	// 	hasMore = items.length === batchSize;
-	//
-	// 	if (items.length > 0) {
-	// 		under18Counter += reepsonse?._count._all ? reepsonse?._count._all : 0;
-	// 	}
-	// }
-
-	// console.log('under18Counter', under18Counter);
-
-	const thing2 = databaseConnector.representation.findMany({
+	const repFindManyWithContactsCountUnder18 = databaseConnector.representation.findMany({
 		where: {
 			caseId
 		},
@@ -224,14 +176,20 @@ export const getStatusCountByCaseId = async (caseId) => {
 				select: {
 					contacts: {
 						where: {
-							under18: true
+							under18: true,
+							NOT: {
+								type: 'AGENT'
+							}
 						}
 					}
 				}
 			}
 		}
 	});
-	return databaseConnector.$transaction([thing, thing2]);
+	return databaseConnector.$transaction([
+		groupRepStatusWithCount,
+		repFindManyWithContactsCountUnder18
+	]);
 };
 
 /**

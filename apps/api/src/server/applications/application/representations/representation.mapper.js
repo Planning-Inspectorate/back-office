@@ -116,9 +116,21 @@ export const mapCaseRepresentationsStatusCount = (statusWithCount) =>
 		name: el.status
 	}));
 
-export const mapCaseRepresentationsUnderCount = (under18Data) => {
+/**
+ * @typedef {object} under18Data
+ * @property {object} under18Data._count
+ * @property {number} under18Data._count.contacts
+ *
+ */
+
+/**
+ *
+ * @param {under18Data[]} under18Counts
+ * @return {{count: number, name: string}}
+ */
+export const mapCaseRepresentationsUnderCount = (under18Counts) => {
 	let ticker = 0;
-	under18Data.forEach((el) => {
+	under18Counts.forEach((el) => {
 		ticker += el._count.contacts;
 	});
 	return { count: ticker, name: 'UNDER_18' };

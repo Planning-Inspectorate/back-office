@@ -1,15 +1,9 @@
-// /**
-//  *
-//  * @param {string} text
-//  * @param {string} value
-//  * @param {Array<string>|string|undefined}filters
-//  * @returns {{checked: boolean | undefined, text: string, value: string}}
-//  */
-// const buildStatus = (text, value, filters, count = 0) => ({
-// 	text: `${text} (${count})`,
-// 	value,
-// 	checked: filters?.includes(value)
-// });
+/**
+ * @typedef {any} representationsFilter
+ * @property {string} repFilter.name
+ * @property {number} repFilter.count
+ *
+ */
 
 /**
  *
@@ -24,22 +18,29 @@ const ensureArray = (stringOrArray) => {
 };
 
 /**
- * @typedef {any} repFilter
- * @property {string} repFilter.name
- * @property {number} repFilter.count
  *
+ * @param {representationsFilter[]} representationsFilters
+ * @param {string} value
+ * @return {number}
  */
+const findCounterOrZero = (representationsFilters, value) =>
+	representationsFilters.find((rep) => rep.name === value)?.count | 0;
 
 /**
  *
  * @param {any} filters
- * @param {repFilter[]} repFilters
+ * @param {string} value
+ * @return {boolean}
+ */
+const filterValueIsChecked = (filters = [], value) => ensureArray(filters).includes(value);
+/**
+ *
+ * @param {any} filters
+ * @param {representationsFilter[]} representationsFilters
  * @returns {{checked: boolean | undefined, text: string, value: string}[]}}
  */
-export const getFilterViewModel = (filters = [], repFilters = []) => {
-	const filtersArray = ensureArray(filters);
-
-	const arr = [
+export const getFilterViewModel = (filters = [], representationsFilters = []) =>
+	[
 		{ text: 'Awaiting review', value: 'AWAITING_REVIEW' },
 		{ text: 'Valid', value: 'VALID' },
 		{ text: 'Draft', value: 'DRAFT' },
@@ -49,18 +50,11 @@ export const getFilterViewModel = (filters = [], repFilters = []) => {
 		{ text: 'Invalid', value: 'INVALID' },
 		{ text: 'Archived', value: 'ARCHIVED' },
 		{ text: 'Under 18', value: 'UNDER_18' }
-	];
-
-	return arr.map((el) => {
-		const count = repFilters.find((rep) => rep.name === el.value)?.count | 0;
-
-		return {
-			text: `${el.text} (${count})`,
-			value: el.value,
-			checked: filtersArray?.includes(el.value)
-		};
-	});
-};
+	].map((el) => ({
+		text: `${el.text} (${findCounterOrZero(representationsFilters, el.value)})`,
+		value: el.value,
+		checked: filterValueIsChecked(filters, el.value)
+	}));
 
 /**
  *
