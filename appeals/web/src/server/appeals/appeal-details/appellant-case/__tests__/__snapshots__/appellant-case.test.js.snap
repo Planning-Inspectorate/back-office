@@ -659,9 +659,9 @@ exports[`appellant-case POST /appellant-case should send a patch request to the 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-full govuk-!-padding-top-2">
-                <p class="govuk-body">The appeal has been marked as valid.</p>
+                <p class="govuk-body">The timetable is now created and published.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent the start letter email to the appellant and LPA.</p>
+                <p class="govuk-body">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
                 <p                 class="govuk-body">The case has been published on the Appeals Casework Portal.</p>
                     <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
                     </p>
