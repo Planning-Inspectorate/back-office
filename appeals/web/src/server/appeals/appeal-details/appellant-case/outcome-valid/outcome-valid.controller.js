@@ -18,13 +18,13 @@ export const renderDecisionValidConfirmationPage = async (
 			}
 		},
 		body: {
-			preTitle: 'The appeal has been marked as valid.',
+			preTitle: 'The timetable is now created and published.',
 			title: {
 				text: 'What happens next'
 			},
 			rows: [
 				{
-					text: "We've sent the start letter email to the appellant and LPA."
+					text: "We've sent the start letter email to the Appellant and LPA."
 				},
 				{
 					text: 'The case has been published on the Appeals Casework Portal.'
