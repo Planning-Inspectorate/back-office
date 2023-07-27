@@ -47,7 +47,7 @@
 		{% endif %}
 		{% endset %}
 
-		{% set redacted = 'Redacted' if documentVersion.redacted else 'Unredacted'%}
+		{% set redacted = 'Redacted' if documentVersion.redactedStatus else 'Unredacted'%}
 
 		{% set download %}
 		<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
