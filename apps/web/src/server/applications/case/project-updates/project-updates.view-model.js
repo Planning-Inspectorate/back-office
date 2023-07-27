@@ -47,9 +47,16 @@ export function projectUpdatesRows(projectUpdates) {
  * @param {import('@pins/express').ValidationErrors | undefined} opts.errors
  * @param {Record<string, any>} opts.values
  * @param {string} [opts.title]
+ * @param {boolean} [opts.emailSubscribersEditable]
  * @returns {import('./project-updates-views').ProjectUpdatesFormView}
  */
-export function createContentFormView({ caseInfo, errors, values, title }) {
+export function createContentFormView({
+	caseInfo,
+	errors,
+	values,
+	title,
+	emailSubscribersEditable = true
+}) {
 	let emailSubscribers = true;
 	if (Object.prototype.hasOwnProperty.call(values, 'emailSubscribers')) {
 		emailSubscribers = values.emailSubscribers;
@@ -91,7 +98,8 @@ export function createContentFormView({ caseInfo, errors, values, title }) {
 						{
 							value: true,
 							text: 'Send to subscribers',
-							checked: emailSubscribers
+							checked: emailSubscribers,
+							disabled: !emailSubscribersEditable
 						}
 					],
 					errorMessage: errors?.emailSubscribers

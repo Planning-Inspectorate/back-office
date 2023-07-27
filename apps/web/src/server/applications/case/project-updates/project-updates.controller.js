@@ -103,13 +103,15 @@ export async function projectUpdatesContentGet(req, res) {
 		emailSubscribers: projectUpdate.emailSubscribers,
 		...req.body
 	};
+	const emailSubscribersEditable = projectUpdate.status !== ProjectUpdate.Status.published;
 	return res.render(
 		formView,
 		createContentFormView({
 			title: 'Change project update',
 			caseInfo: res.locals.case,
 			errors: req.errors,
-			values
+			values,
+			emailSubscribersEditable
 		})
 	);
 }
