@@ -5,7 +5,7 @@ import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
-	ERROR_MAX_LENGTH_300_CHARACTERS,
+	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
@@ -15,7 +15,8 @@ import {
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	STATE_TARGET_ARRANGE_SITE_VISIT,
-	STATE_TARGET_STATEMENT_REVIEW
+	STATE_TARGET_STATEMENT_REVIEW,
+	TEXTAREA_MAXIMUM_CHARACTERS
 } from '../../constants.js';
 import {
 	baseExpectedLPAQuestionnaireResponse,
@@ -666,7 +667,7 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
-			test('returns an error if otherNotValidReasons is more than 300 characters', async () => {
+			test(`returns an error if otherNotValidReasons is more than ${TEXTAREA_MAXIMUM_CHARACTERS} characters`, async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -676,14 +677,17 @@ describe('lpa questionnaires routes', () => {
 					)
 					.send({
 						incompleteReasons: [1, 3],
-						otherNotValidReasons: 'A'.repeat(301),
+						otherNotValidReasons: 'A'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1),
 						validationOutcome: 'Incomplete'
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						otherNotValidReasons: ERROR_MAX_LENGTH_300_CHARACTERS
+						otherNotValidReasons: ERROR_MAX_LENGTH_CHARACTERS.replace(
+							'{{maximumCharacters}}',
+							String(TEXTAREA_MAXIMUM_CHARACTERS)
+						)
 					}
 				});
 			});

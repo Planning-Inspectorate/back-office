@@ -28,7 +28,7 @@ export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Must be one o
 export const ERROR_INVALID_SITE_VISIT_TYPE =
 	'Must be one of access required, accompanied, unaccompanied';
 export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
-export const ERROR_MAX_LENGTH_300_CHARACTERS = 'Must be 300 characters or less';
+export const ERROR_MAX_LENGTH_CHARACTERS = 'Must be {{maximumCharacters}} characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in the format ${DEFAULT_DATE_FORMAT_DATABASE}`;
 export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = `Must be a valid time and in the format hh:mm`;
@@ -73,3 +73,5 @@ export const STATE_TYPE_FINAL = 'final';
 
 export const ERROR_APPEAL_ALLOCATION_LEVELS = 'Invalid allocation level';
 export const ERROR_APPEAL_ALLOCATION_SPECIALISMS = 'Invalid allocation specialism';
+
+export const TEXTAREA_MAXIMUM_CHARACTERS = 88000;

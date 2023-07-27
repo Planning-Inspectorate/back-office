@@ -4,7 +4,7 @@ import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
-	ERROR_MAX_LENGTH_300_CHARACTERS,
+	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_ARRAY_OF_IDS,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
@@ -14,7 +14,8 @@ import {
 	ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
-	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
+	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
+	TEXTAREA_MAXIMUM_CHARACTERS
 } from '../constants.js';
 import { isOutcomeIncomplete, isOutcomeInvalid } from '#utils/check-validation-outcome.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
@@ -138,8 +139,13 @@ const patchAppellantCaseValidator = composeMiddleware(
 		.optional()
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
-		.isLength({ min: 0, max: 300 })
-		.withMessage(ERROR_MAX_LENGTH_300_CHARACTERS)
+		.isLength({ min: 0, max: TEXTAREA_MAXIMUM_CHARACTERS })
+		.withMessage(
+			ERROR_MAX_LENGTH_CHARACTERS.replace(
+				'{{maximumCharacters}}',
+				String(TEXTAREA_MAXIMUM_CHARACTERS)
+			)
+		)
 		.custom((value, { req }) => {
 			if (
 				value &&
@@ -182,8 +188,13 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 		.optional()
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
-		.isLength({ min: 0, max: 300 })
-		.withMessage(ERROR_MAX_LENGTH_300_CHARACTERS)
+		.isLength({ min: 0, max: TEXTAREA_MAXIMUM_CHARACTERS })
+		.withMessage(
+			ERROR_MAX_LENGTH_CHARACTERS.replace(
+				'{{maximumCharacters}}',
+				String(TEXTAREA_MAXIMUM_CHARACTERS)
+			)
+		)
 		.custom((value, { req }) => {
 			if (
 				value &&

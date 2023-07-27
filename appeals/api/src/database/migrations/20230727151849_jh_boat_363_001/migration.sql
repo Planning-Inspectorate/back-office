@@ -1,0 +1,22 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[AppellantCase] ALTER COLUMN [otherNotValidReasons] NVARCHAR(max) NULL;
+
+-- AlterTable
+ALTER TABLE [dbo].[LPAQuestionnaire] ALTER COLUMN [otherNotValidReasons] NVARCHAR(max) NULL;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
