@@ -184,8 +184,19 @@ const clientActions = (uploadForm) => {
 		updateButtonText();
 
 		if (errors.length > 0) {
-			console.log(uploadForm.dataset.nextPageUrl);
-			window.location.href = uploadForm.dataset.nextPageUrl || '';
+			const failedRowIds = new Set(errors.map((error) => error.fileRowId));
+			const allRowsId = [...filesRows.children].map((row) => row.id);
+
+			for (const rowId of allRowsId) {
+				const fileRow = uploadForm.querySelector(`#${rowId}`);
+
+				if (!failedRowIds.has(rowId) && fileRow) {
+					fileRow.remove();
+				}
+			}
+
+			// eslint-disable-next-line no-throw-literal
+			throw { message: 'FILE_SPECIFIC_ERRORS', details: errors };
 		} else {
 			window.location.href = uploadForm.dataset.nextPageUrl || '';
 		}
@@ -228,7 +239,7 @@ const clientActions = (uploadForm) => {
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
-			finalizeUpload([]);
+			showErrors(error, uploadForm);
 		}
 	};
 
