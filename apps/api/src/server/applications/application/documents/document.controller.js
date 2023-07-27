@@ -2,6 +2,7 @@ import { pick } from 'lodash-es';
 import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
 import logger from '../../../utils/logger.js';
@@ -85,14 +86,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
-	response
-		.status(failedDocuments.length > 0 ? 206 : 200)
-		.send({
-			blobStorageHost,
-			blobStorageContainer,
-			documents: documentsWithUrls,
-			failedDocuments
-		});
+	response.status(failedDocuments.length > 0 ? 206 : 200).send({
+		blobStorageHost,
+		blobStorageContainer,
+		documents: documentsWithUrls,
+		failedDocuments
+	});
 };
 
 /**
@@ -456,13 +455,31 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
  * @type {import('express').RequestHandler}
  */
 export const publishDocuments = async ({ body }, response) => {
-	const { documents } = body;
+	const { documents, username } = body;
 
 	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
 	const publishableDocumentVersionIds = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
 		documentIds
 	);
+
+	/**
+	 * @type {any[]}
+	 */
+	const activityLogs = [];
+	publishableDocumentVersionIds.forEach((document) => {
+		activityLogs.push(
+			documentActivityLogRepository.create({
+				documentGuid: document.documentGuid,
+				version: document.version,
+				user: username,
+				status: 'published'
+			})
+		);
+	});
+
+	// @ts-ignore
+	await Promise.all(activityLogs);
 
 	const publishedDocuments = await publishNsipDocuments(publishableDocumentVersionIds);
 

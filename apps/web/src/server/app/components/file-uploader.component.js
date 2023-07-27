@@ -4,7 +4,7 @@ import { post } from '../../lib/request.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string}} DocumentUploadInfo */
+/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
 /** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
 
 /**
@@ -52,9 +52,15 @@ export const documentName = (documentNameWithExtension) => {
 export async function postDocumentsUpload({ params, body, session }, response) {
 	const { caseId } = params;
 
+	const payload = body.map((uploadInfo) => {
+		uploadInfo.name = session.account?.name;
+		uploadInfo.username = session.account?.username;
+	});
+
 	let uploadInfo;
 	try {
-		uploadInfo = await createNewDocument(caseId, body);
+		// @ts-ignore
+		uploadInfo = await createNewDocument(caseId, payload);
 	} catch (err) {
 		if (!(err instanceof got.HTTPError) || err.response.statusCode !== 409) {
 			throw err;
@@ -91,9 +97,12 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 export async function postUploadDocumentVersion({ params, body, session }, response) {
 	const { caseId, documentId } = params;
 
+	body.username = session.account?.username;
+	body.name = session.account?.name;
+
 	const document = await createNewDocumentVersion(caseId, documentId, body);
 
-	const accessToken = await getActiveDirectoryAccessToken(session);
+	const accessToken = 123;
 
 	document.fileRowId = body?.fileRowId || '';
 

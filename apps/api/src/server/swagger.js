@@ -52,7 +52,8 @@ const document = {
 			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
 		},
 		documentsToPublishRequestBody: {
-			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
+			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }],
+			username: 'testuser'
 		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
