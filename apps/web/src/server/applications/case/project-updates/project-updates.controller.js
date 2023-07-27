@@ -14,7 +14,8 @@ import {
 	createDetailsView,
 	createContentFormView,
 	projectUpdatesRows,
-	statusRadioOption
+	statusRadioOption,
+	sortStatuses
 } from './project-updates.view-model.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
@@ -143,9 +144,25 @@ export async function projectUpdatesStatusGet(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const errors = req.errors;
+
+	// which statuses options should be shown, given the current status
+	const statusOptions = sortStatuses([
+		// you can always chose the current status option
+		projectUpdate.status,
+		// and any other allowed statuses
+		...ProjectUpdate.AllowedStatuses[projectUpdate.status]
+			// you can't change an update to published from the status page
+			// that happens on the check answers page
+			// instead it'd be set to Ready to Publish
+			.filter((status) => status !== ProjectUpdate.Status.published)
+	]);
+
+	const title =
+		projectUpdate.status === ProjectUpdate.Status.draft ? 'Set status' : 'Change status';
+
 	return res.render(formView, {
 		case: res.locals.case,
-		title: 'Set status',
+		title,
 		buttonText: 'Save and continue',
 		errors, // for error summary
 		form: {
@@ -154,10 +171,7 @@ export async function projectUpdatesStatusGet(req, res) {
 					type: 'radios',
 					name: 'status',
 					value: projectUpdate.status,
-					items: [
-						statusRadioOption(ProjectUpdate.Status.draft),
-						statusRadioOption(ProjectUpdate.Status.readyToPublish)
-					],
+					items: statusOptions.map(statusRadioOption),
 					errorMessage: errors?.status
 				}
 			]
