@@ -88,7 +88,19 @@ Run `sqlcmd`:
 sqlcmd -S pins_sql_server -U SA -P "<YourStrong@Passw0rd>"
 ```
 
+##### Azure Data Studio
+
 Another alternative is to use [Azure Data Studio](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio) as a database client, to create and monitor the database contents.
+
+Install Azure Data Studio, and after setting up the database in Docker as described above, connect to it by using the credentials specified in the connection string in your API .env file. It should be like this:
+
+**Server:** localhost, 1433
+**Authentication type:** SQL Login
+**User name:** sa
+**Password:** <YourStrong@Password>
+**Database:** pins_development
+**Trust server certificate:** True
+
 
 #### Environment Setup
 
