@@ -14,9 +14,10 @@ export const representationDetailsFixture = {
 	redactedRepresentation:
 		'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 	user: null,
-	type: 'mock type',
+	type: 'Local authorities',
 	contacts: [
 		{
+			id: 1,
 			type: 'PERSON',
 			firstName: 'Mrs',
 			lastName: 'Sue',
@@ -25,7 +26,7 @@ export const representationDetailsFixture = {
 			under18: false,
 			email: 'test@example.com',
 			phoneNumber: '01234 567890',
-			contactMethod: '',
+			contactMethod: 'email',
 			address: {
 				addressLine1: '44 Rivervale',
 				addressLine2: null,
@@ -35,6 +36,7 @@ export const representationDetailsFixture = {
 			}
 		},
 		{
+			id: 2,
 			type: 'AGENT',
 			firstName: 'James',
 			lastName: 'Bond',
@@ -43,7 +45,7 @@ export const representationDetailsFixture = {
 			under18: false,
 			email: 'test-agent@example.com',
 			phoneNumber: '01234 567890',
-			contactMethod: '',
+			contactMethod: 'post',
 			address: {
 				addressLine1: '8 The Chase',
 				addressLine2: null,

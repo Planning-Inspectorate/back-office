@@ -10,7 +10,6 @@ export const getRepresentationDetails = async (caseId, representationId) => {
 	return get(`applications/${caseId}/representations/${representationId}`);
 };
 
-
 /**
  *
  * @param {string} caseId
@@ -30,5 +29,4 @@ export const getRelevantRepFolder = async (caseId) => {
 export const patchRepresentation = async (caseId, representationId, body) =>
 	patch(`applications/${caseId}/representations/${representationId}`, {
 		json: body
-});
-
+	});

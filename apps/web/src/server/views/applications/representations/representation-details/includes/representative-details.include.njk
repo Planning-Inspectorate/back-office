@@ -1,11 +1,11 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% from "../components/representation-address.njk" import representationAddress %}
-{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+{% from "../components/representation-address.component.njk" import representationAddress %}
+{% from "../components/representation-summary-list.component.njk" import representationSummaryList %}
 
 {% set representative = representation.representative %}
 
-<h3 class="govuk-heading-m">Agent details</h3>
+<h3 class="govuk-heading-m">Agent contact details</h3>
 
 {{ representationSummaryList([
   {
@@ -32,7 +32,7 @@
       }
     ],
     error: errors['representative.firstName'],
-    link: checkLinks.agentContactDetails,
+    link: repModePageURLs.agentContactDetails,
     linkText: "Change contact details"
   },
   {
@@ -43,18 +43,18 @@
       }
     ],
     error: errors['representative.address.postcode'],
-    link: checkLinks.agentAddressDetails,
+    link: repModePageURLs.agentAddressDetails,
     linkText: "Change address details"
   },
   {
     items: [
       {
         key: 'Preferred contact method',
-        value: selectedContactMethodOptionText.representative
+        value: selectedOptionsText.selectedContactMethodOptionText.representative
       }
     ],
     error: errors['representative.contactMethod'],
-    link: checkLinks.agentContactMethod,
+    link: repModePageURLs.agentContactMethod,
     linkText: "Change preferred contact method"
   }
 ]) }}

@@ -1,0 +1,23 @@
+<h3 class="govuk-heading-m">Attachments</h3>
+
+<a class="govuk-button govuk-button--secondary" href="{{ repModePageURLs.attachmentUpload }}">
+	Upload files
+</a>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+{% for attachment in representation.attachments %}
+	<div class="govuk-summary-list__row">
+		<dt class="govuk-summary-list__key">
+			{{ attachment.filename }}
+		</dt>
+
+		<dd class="govuk-summary-list__value"></dd>
+
+		<dd class="govuk-summary-list__actions">
+			<a class="govuk-link" href="/applications-service/case/{{ caseId }}/project-documentation/{{ relevantRepDocumentFolder.id }}/document/{{ attachment.documentId }}/properties">
+				View/edit properties
+			</a>
+		</dd>
+	</div>
+{% endfor %}
+</dl>

@@ -7,7 +7,7 @@ export const repRoutes = {
 	representationEntity: '/representation-entity',
 	addRepresentation: '/add-representation',
 	attachmentUpload: '/attachment-upload',
-	checkAnswers: '/check-answers'
+	representationDetails: '/representation-details'
 };
 
 /**
@@ -40,7 +40,7 @@ export const getRepresentationBaseUrl = (caseId) =>
  * @returns {string}
  */
 export const getRepresentaionDetailsPageUrl = (caseId, repId) =>
-	`${getRepresentationBaseUrl(caseId)}/${repId}/representation-details`;
+	`${getRepresentationBaseUrl(caseId)}/${repId}${repRoutes.representationDetails}`;
 
 /**
  * @typedef {object} PageURLs
@@ -55,7 +55,6 @@ export const getRepresentaionDetailsPageUrl = (caseId, repId) =>
  * @property {string} representationEntity
  * @property {string} addRepresentation
  * @property {string} attachmentUpload
- * @property {string} checkAnswers
  */
 
 /**
@@ -119,6 +118,5 @@ export const getRepresentationPageURLs = (caseId, repId) => ({
 		caseId,
 		repId,
 		'represented'
-	),
-	checkAnswers: buildRepresentationPageURL(repRoutes.checkAnswers, caseId, repId, null)
+	)
 });

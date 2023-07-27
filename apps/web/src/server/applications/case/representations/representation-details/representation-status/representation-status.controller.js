@@ -1,12 +1,12 @@
 import { getRepresentationDetails } from '../applications-relevant-rep-details.service.js';
 import { getRepresentationStatusViewModel } from './representation-status.view-model.js';
-import { getFormattedErrorSummary } from '../representation-details.utilities.js';
 import * as authSession from '../../../../../app/auth/auth-session.service.js';
 import {
 	getRepresentationDetailsPageUrl,
 	getStatusResultPageUrl
 } from './representation-status.utils.js';
 import { patchRepresentationStatus } from './representation-status.service.js';
+import { getFormattedErrorSummary } from '../../representation/representation.utilities.js';
 
 const view =
 	'applications/representations/representation-details/representation-status/representation-status.njk';

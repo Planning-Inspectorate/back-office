@@ -1,39 +1,40 @@
-import { getCaseReferenceViewModel } from '../application-representations.view-model.js';
-import { getCase } from '../applications-relevant-reps.service.js';
-import { getSelectedOptionsText } from '../representation/utils/get-selected-options-text.js';
-import { getRepModeLinks, repModeLinkOptions } from '../utils/get-rep-mode-links.js';
-import { getRepresentationDetailsViewModel } from './application-representation-details.view-model.js';
-import {
-	getRelevantRepFolder,
-	getRepresentationDetails
-} from './applications-relevant-rep-details.service.js';
-import { getWorkflowValues } from './utils/get-workflow-values.js';
+import { patchRepresentationNoMap } from '../representation/representation.service.js';
+import { getFormattedErrorSummary } from '../representation/representation.utilities.js';
+import { getRepresentationBaseUrl } from '../representation/utils/get-representation-page-urls.js';
+import { getRepresentationDetailsViewModel } from './applications-relevant-rep-details.view-model.js';
+import { getCheckAnswerErrors } from './utils/get-check-answer-errors.js';
 
-const view = 'applications/representations/representation-details/representation-details.njk';
+const view = 'applications/representations/representation-details/index.njk';
 
 /**
- * @param {import('express').Request} req
- * @param {import('express').Response} res
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
  */
-export async function relevantRepDetails(req, res) {
-	const { caseId, representationId } = req.params;
+export const getRepresentationDetailsController = async (req, res) =>
+	res.render(view, await getRepresentationDetailsViewModel(req.params, req.query, res.locals));
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ */
+export const postRepresentationDetailsController = async (req, res) => {
+	const { errors, params, query } = req;
 	const { locals } = res;
+	const { caseId, representationId } = params;
 
-	const caseReference = await getCase(caseId);
-	const representationDetails = await getRepresentationDetails(caseId, representationId);
-	const relevantRepDocumentFolder = await getRelevantRepFolder(caseId);
+	const checkAnswersErrors = errors ? getCheckAnswerErrors(locals, errors) : null;
 
-	const caseReferenceViewModel = getCaseReferenceViewModel(caseReference);
-	const representationDetailsViewModel = getRepresentationDetailsViewModel(representationDetails);
+	if (checkAnswersErrors) {
+		return res.render(view, {
+			...(await getRepresentationDetailsViewModel(params, query, locals)),
+			errors: checkAnswersErrors,
+			errorSummary: getFormattedErrorSummary(checkAnswersErrors)
+		});
+	}
 
-	return res.render(view, {
-		caseId,
-		representationId,
-		caseReference: caseReferenceViewModel,
-		representationDetails: representationDetailsViewModel,
-		changeLinks: getRepModeLinks(locals.representation.pageURLs, repModeLinkOptions.change),
-		selectedOptionsText: getSelectedOptionsText(locals.representation),
-		relevantRepDocumentFolder,
-		workflow: getWorkflowValues(locals.representation)
+	await patchRepresentationNoMap(caseId, String(representationId), '', {
+		status: 'AWAITING_REVIEW'
 	});
-}
+
+	return res.redirect(getRepresentationBaseUrl(caseId));
+};

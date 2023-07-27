@@ -1,9 +1,11 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% from "../components/representation-address.njk" import representationAddress %}
-{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+{% from "../components/representation-address.component.njk" import representationAddress %}
+{% from "../components/representation-summary-list.component.njk" import representationSummaryList %}
 
 {% set represented = representation.represented %}
+
+<h3 class="govuk-heading-m">Contact details</h3>
 
 {{
   representationSummaryList([
@@ -31,7 +33,7 @@
         }
       ],
       error: null,
-      link: checkLinks.contactDetails,
+      link: repModePageURLs.contactDetails,
       linkText: "Change contact details"
     },
     {
@@ -42,18 +44,18 @@
         }
       ],
       error: errors['represented.address.postcode'],
-      link: checkLinks.addressDetails,
+      link: repModePageURLs.addressDetails,
       linkText: "Change address details"
     },
     {
       items: [
         {
           key: 'Preferred contact method',
-          value: selectedContactMethodOptionText.represented
+          value: selectedOptionsText.selectedContactMethodOptionText.represented
         }
       ],
       error: errors['represented.contactMethod'],
-      link: checkLinks.contactMethod,
+      link: repModePageURLs.contactMethod,
       linkText: "Change preferred contact method"
     },
     {
@@ -64,29 +66,29 @@
         }
       ],
       error: errors.type,
-      link: checkLinks.representationType,
+      link: repModePageURLs.representationType,
       linkText: "Change type"
     },
     {
       items: [
         {
           key: 'Under 18',
-          value: selectedUnder18OptionText
+          value: selectedOptionsText.selectedUnder18OptionText
         }
       ],
       error: errors['represented.under18'],
-      link: checkLinks.under18,
+      link: repModePageURLs.under18,
       linkText: "Change under 18"
     },
     {
       items: [
         {
           key: 'Representation on behalf of',
-          value: selectedEntityOptionText
+          value: selectedOptionsText.selectedEntityOptionText
         }
       ],
       error: errors.onBehalfOf,
-      link: checkLinks.representationEntity,
+      link: repModePageURLs.representationEntity,
       linkText: "Change representation on behalf of"
     }
   ])
