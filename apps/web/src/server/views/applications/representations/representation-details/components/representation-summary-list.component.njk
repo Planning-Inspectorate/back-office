@@ -1,6 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% macro summaryListKeyValueLayout(rows, error) %}
+
   {% set listClasses = "display--block govuk-!-margin-0" %}
   {% set listRows = [] %}
 
@@ -41,9 +42,11 @@
     classes: listClasses,
     rows: listRows
   }) }}
+
 {% endmacro %}
 
 {% macro representationSummaryList(rows) %}
+
   {% set rowItems = [] %}
 
   {% for row in rows %}
@@ -71,4 +74,5 @@
     classes: 'govuk-!-margin-bottom-9',
     rows: rowItems
   }) }}
+
 {% endmacro %}

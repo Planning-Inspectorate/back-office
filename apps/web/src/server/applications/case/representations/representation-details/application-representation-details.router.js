@@ -1,6 +1,15 @@
 import { Router as createRouter } from 'express';
 import asyncRoute from '../../../../lib/async-route.js';
-import * as repsDetailsController from './applications-relevant-rep-details.controller.js';
+
+import {
+	getRepresentationDetailsController,
+	postRepresentationDetailsController
+} from './applications-relevant-rep-details.controller.js';
+
+import { addRepresentationToLocals } from '../representation/representation.middleware.js';
+import { addRepresentationValuesToBody } from './applications-relevant-rep-details.middleware.js';
+import { representationDetailsValidation } from './applications-relevant-rep-details.validators.js';
+
 import {
 	getRedactRepresentationController,
 	postRedactRepresentationController
@@ -10,7 +19,6 @@ import {
 	postRepresentationDetailsChangeRedactionController
 } from './change-redaction/change-redaction.controller.js';
 import { representationChangeRedactionValidation } from './change-redaction/change-redaction.validator.js';
-import { addRepresentationToLocals } from '../representation/representation.middleware.js';
 import { getRepresentationDetailsTaskLogController } from './task-log/task-log.controller.js';
 import {
 	getRepresentationStatusController,
@@ -27,7 +35,13 @@ const representationDetailsRouter = createRouter({ mergeParams: true });
 
 representationDetailsRouter
 	.route('/')
-	.get(addRepresentationToLocals, asyncRoute(repsDetailsController.relevantRepDetails));
+	.get(addRepresentationToLocals, asyncRoute(getRepresentationDetailsController))
+	.post(
+		addRepresentationToLocals,
+		addRepresentationValuesToBody,
+		representationDetailsValidation,
+		asyncRoute(postRepresentationDetailsController)
+	);
 
 representationDetailsRouter
 	.route('/redact-representation')

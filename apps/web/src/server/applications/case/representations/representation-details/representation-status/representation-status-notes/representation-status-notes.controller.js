@@ -2,7 +2,7 @@ import * as authSession from '../../../../../../app/auth/auth-session.service.js
 import { patchRepresentationStatus } from '../representation-status.service.js';
 import { getRepresentationDetails } from '../../applications-relevant-rep-details.service.js';
 import { getRepresentationStatusNotesViewModel } from './representation-status-notes.view-model.js';
-import { getFormattedErrorSummary } from '../../representation-details.utilities.js';
+import { getFormattedErrorSummary } from '../../../representation/representation.utilities.js';
 import {
 	mapStatusPayload,
 	getRepresentationDetailsPageUrl

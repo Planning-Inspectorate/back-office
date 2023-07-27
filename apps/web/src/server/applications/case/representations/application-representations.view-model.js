@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { getFinalRepPageUrl } from './utils/get-final-rep-page-url.js';
+import { getRepresentaionDetailsPageUrl } from './representation/utils/get-representation-page-urls.js';
 import { repModeLinkOptions } from './utils/get-rep-mode-links.js';
 
 /**
@@ -70,7 +70,7 @@ export function getRepresentationsViewModel({ items }, caseId) {
 		redacted: getRedacted(rep),
 		status: getStatus(rep),
 		id: rep.id,
-		link: getFinalRepPageUrl(rep, caseId, repModeLinkOptions.summary)
+		link: `${getRepresentaionDetailsPageUrl(caseId, rep.id)}?repMode=${repModeLinkOptions.summary}`
 	}));
 }
 

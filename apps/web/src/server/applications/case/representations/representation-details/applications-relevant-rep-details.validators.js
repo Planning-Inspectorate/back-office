@@ -12,7 +12,7 @@ const validateOnBehalfOf = () => {
 	];
 };
 
-export const checkAnswersValidation = [
+export const representationDetailsValidation = [
 	createValidator(
 		body('represented.address.postcode').notEmpty().withMessage('Enter address details')
 	),

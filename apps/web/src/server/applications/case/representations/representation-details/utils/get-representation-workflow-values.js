@@ -37,7 +37,7 @@ const getLatestWorkflowAction = (representationActions) =>
  * @param {Representation} representation
  * @returns {{redacted: string, notes: string, referredTo: string, invalidReason: string, sectionsToDisplay: object}}
  */
-export const getWorkflowValues = ({ status, redacted, representationActions }) => {
+export const getRepresentationWorkflowValues = ({ status, redacted, representationActions }) => {
 	const latestWorkflowAction = getLatestWorkflowAction(representationActions) || {};
 
 	const { notes, referredTo, invalidReason } = latestWorkflowAction;

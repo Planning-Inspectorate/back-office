@@ -1,5 +1,4 @@
 import { getCaseFolders } from '../../../documentation/applications-documentation.service.js';
-import { getFinalRepPageUrl } from '../../utils/get-final-rep-page-url.js';
 
 const view = 'applications/representations/representation/attachment-upload.njk';
 
@@ -14,7 +13,7 @@ export const getRepresentationAttachmentUpload = async ({ params }, res) => {
 
 	return res.render(view, {
 		backLinkUrl: locals.representation.pageLinks.backLinkUrl,
-		link: getFinalRepPageUrl(locals.representation, caseId),
+		link: locals.representation.pageLinks.redirectUrl,
 		caseId,
 		folderId: folder?.id
 	});

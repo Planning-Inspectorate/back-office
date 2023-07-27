@@ -17,7 +17,7 @@ describe('application representations view-model', () => {
 					},
 					title: 'org name 1',
 					id: '1',
-					link: '/applications-service/case/1/relevant-representations/1/representation-details'
+					link: '/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary'
 				},
 				{
 					received: '01 Jan 2022',
@@ -29,7 +29,7 @@ describe('application representations view-model', () => {
 					},
 					title: 'first lastName',
 					id: '2',
-					link: '/applications-service/case/1/relevant-representations/2/representation-details'
+					link: '/applications-service/case/1/relevant-representations/2/representation-details?repMode=summary'
 				}
 			]);
 		});

@@ -18,7 +18,6 @@ import {
  * @property {string} representationEntity
  * @property {string} addRepresentation
  * @property {string} attachmentUpload
- * @property {string} checkAnswers
  */
 
 /**
@@ -32,7 +31,7 @@ import {
  * @param {string|null} redirectUrl
  * @returns {MappedPageLinks}
  */
-const mappedPageLinks = (backLinkUrl, redirectUrl) => ({
+export const mappedPageLinks = (backLinkUrl, redirectUrl) => ({
 	backLinkUrl,
 	redirectUrl
 });
@@ -59,9 +58,10 @@ const getRepresentativePageLinks = (path, pageURLs) => {
  * @param {string} path
  * @param {PageURLs} pageURLs
  * @param {string} caseId
+ * @param {string} repId
  * @returns {MappedPageLinks}
  */
-const getRepresentedPageLinks = (path, pageURLs, caseId) => {
+const getRepresentedPageLinks = (path, pageURLs, caseId, repId) => {
 	switch (path) {
 		case repRoutes.contactDetails:
 			return mappedPageLinks(getRepresentationBaseUrl(caseId), pageURLs.addressDetails);
@@ -78,7 +78,10 @@ const getRepresentedPageLinks = (path, pageURLs, caseId) => {
 		case repRoutes.addRepresentation:
 			return mappedPageLinks(pageURLs.representationEntity, pageURLs.attachmentUpload);
 		case repRoutes.attachmentUpload:
-			return mappedPageLinks(pageURLs.addRepresentation, null);
+			return mappedPageLinks(
+				pageURLs.addRepresentation,
+				getRepresentaionDetailsPageUrl(caseId, repId)
+			);
 		default:
 			return mappedPageLinks(null, null);
 	}
@@ -96,14 +99,11 @@ const getRepresentedPageLinks = (path, pageURLs, caseId) => {
 export const getPageLinks = (repMode, path, caseId, repId, repType, pageURLs) => {
 	let pageLinks = mappedPageLinks(null, null);
 
-	if (repMode === repModeLinkOptions.change) {
+	if (repMode === repModeLinkOptions.change || repMode === repModeLinkOptions.check) {
 		const representaionDetailsPageUrl = getRepresentaionDetailsPageUrl(caseId, repId);
 		pageLinks = mappedPageLinks(representaionDetailsPageUrl, representaionDetailsPageUrl);
-	} else if (repMode === repModeLinkOptions.check)
-		pageLinks = mappedPageLinks(pageURLs.checkAnswers, pageURLs.checkAnswers);
-	else if (path === repRoutes.checkAnswers)
-		pageLinks = mappedPageLinks(pageURLs.attachmentUpload, getRepresentationBaseUrl(caseId));
-	else if (repType === 'represented') pageLinks = getRepresentedPageLinks(path, pageURLs, caseId);
+	} else if (repType === 'represented')
+		pageLinks = getRepresentedPageLinks(path, pageURLs, caseId, repId);
 	else if (repType === 'representative') pageLinks = getRepresentativePageLinks(path, pageURLs);
 
 	return pageLinks;

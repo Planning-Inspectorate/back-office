@@ -1,0 +1,17 @@
+{% from "applications/representations/representation-details/components/representation-status-tag.njk" import representationStatusTag %}
+
+{% macro representationDetailsHeading(title, status, projectName) %}
+
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-2">
+    {{ title }}
+  </h1>
+
+  <div class="govuk-!-margin-bottom-4">
+    {{ representationStatusTag(status) }}
+  </div>
+
+  <p class="govuk-body-s govuk-!-margin-bottom-6">
+    <strong>Project name:</strong> {{ projectName }}
+  </p>
+
+{% endmacro %}

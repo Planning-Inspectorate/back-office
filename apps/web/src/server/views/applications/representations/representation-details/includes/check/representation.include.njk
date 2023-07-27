@@ -1,6 +1,4 @@
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
-{% from "../components/representation-summary-list.njk" import representationSummaryList %}
+{% from "../../components/representation-summary-list.component.njk" import representationSummaryList %}
 
 <h3 class="govuk-heading-m">Representation</h3>
 
@@ -18,7 +16,7 @@
         }
       ],
       error: errors['originalRepresentation'],
-      link: checkLinks.addRepresentation,
+      link: repModePageURLs.addRepresentation,
       linkText: "Change representation"
     }
   ])

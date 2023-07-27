@@ -1,6 +1,6 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% from "../components/representation-status-tag.njk" import representationStatusTag %}
+{% from "../../components/representation-status-tag.njk" import representationStatusTag %}
 
 {%
   set workflowRows = [
@@ -18,7 +18,7 @@
         text: "Redaction"
       },
       value: {
-        text: workflow.redacted
+        text: representationWorkflowValues.redacted
       }
     },
     {
@@ -41,40 +41,40 @@
   ]
 %}
 
-{% if workflow.sectionsToDisplay.notes and workflow.notes %}
+{% if representationWorkflowValues.sectionsToDisplay.notes and representationWorkflowValues.notes %}
   {% set workflowRows = (workflowRows.push(
     {
       key: {
         text: "Notes"
       },
       value: {
-        text: workflow.notes
+        text: representationWorkflowValues.notes
       }
     }
   ), workflowRows) %}
 {% endif %}
 
-{% if workflow.sectionsToDisplay.referredTo and workflow.referredTo %}
+{% if representationWorkflowValues.sectionsToDisplay.referredTo and representationWorkflowValues.referredTo %}
   {% set workflowRows = (workflowRows.push(
     {
       key: {
         text: "Referred to"
       },
       value: {
-        text: workflow.referredTo
+        text: representationWorkflowValues.referredTo
       }
     }
   ), workflowRows) %}
 {% endif %}
 
-{% if workflow.sectionsToDisplay.invalidReason and workflow.invalidReason %}
+{% if representationWorkflowValues.sectionsToDisplay.invalidReason and representationWorkflowValues.invalidReason %}
   {% set workflowRows = (workflowRows.push(
     {
       key: {
         text: "Reason invalid"
       },
       value: {
-        text: workflow.invalidReason
+        text: representationWorkflowValues.invalidReason
       }
     }
   ), workflowRows) %}
@@ -88,4 +88,4 @@
   rows: workflowRows
 }) }}
 
-<a class="govuk-button govuk-button--secondary" href="representation-details/task-log">View task log</a>
+<a class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" href="representation-details/task-log">View task log</a>
