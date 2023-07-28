@@ -52,9 +52,9 @@ export const documentName = (documentNameWithExtension) => {
 export async function postDocumentsUpload({ params, body, session }, response) {
 	const { caseId } = params;
 
-	const payload = body.map((uploadInfo) => {
-		uploadInfo.name = session.account?.name;
-		uploadInfo.username = session.account?.username;
+	const payload = body.map((document) => {
+		document.username = session.account?.username;
+		return document;
 	});
 
 	let uploadInfo;

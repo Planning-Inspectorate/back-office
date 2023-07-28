@@ -271,6 +271,24 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 		responseFromDocumentStorage.blobStorageContainer
 	);
 
+	// @ts-ignore
+	/**
+	 * @type {any[]}
+	 */
+	const documentActivityLogs = [];
+	requestToDocumentStorage.forEach((document) => {
+		documentActivityLogs.push(
+			documentActivityLogRepository.create({
+				documentGuid: document.GUID,
+				version: document.version,
+				user: documentsToUpload[0].username,
+				status: 'uploaded'
+			})
+		);
+	});
+
+	await Promise.all(documentActivityLogs);
+
 	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
 	logger.info(`Returning response from blob storage service...`);
 	return { response: responseFromDocumentStorage, failedDocuments: failed };
