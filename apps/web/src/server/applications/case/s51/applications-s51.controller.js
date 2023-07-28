@@ -64,6 +64,8 @@ const getCheckYourAnswersRows = (data) => {
 	return {
 		title: data.title,
 		enquirer: data.enquirerOrganisation,
+		firstName: data.enquirerFirstName,
+		lastName: data.enquirerLastName,
 		enquiryMethod: data.enquiryMethod,
 		enquiryDateDisplay: dateString(
 			data['enquiryDate.year'],
@@ -132,6 +134,8 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 		caseId: response.locals.caseId,
 		title: body.title,
 		enquirer: body.enquirer,
+		firstName: body.enquirerFirstName,
+		lastName: body.enquirerLastName,
 		enquiryMethod: body.enquiryMethod,
 		enquiryDate: new Date(body.enquiryDate),
 		enquiryDetails: body.enquiryDetails,

@@ -436,7 +436,9 @@ model S51Advice {
   id             Int      @id @default(autoincrement())
   caseId         Int
   title          String
-  enquirer       String
+  firstName      String?
+  lastName       String?
+  enquirer       String?
   enquiryMethod  String
   enquiryDate    DateTime
   enquiryDetails String
