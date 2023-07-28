@@ -6798,15 +6798,6 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
-                </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
-                </div>
-            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -6964,15 +6955,6 @@ exports[`applications documentation Document properties page If the user is not 
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
-                </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
-                </div>
             </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
@@ -7134,15 +7116,6 @@ exports[`applications documentation Document properties page If the user is not 
                     </li>
                 </ol>
             </div>
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
-                </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
-                </div>
-            </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 12 Ullamco laboris nisi ut aliquip ex</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -7300,15 +7273,6 @@ exports[`applications documentation Document properties page If the user is not 
                     <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
-                </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\"> New version uploaded</h3>
-                </div>
             </div>
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">Document properties</span> 4 Elit sed do</h1>
             <ul class=\\"govuk-list\\">
