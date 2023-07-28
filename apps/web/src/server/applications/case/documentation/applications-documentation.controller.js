@@ -2,7 +2,9 @@ import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
 	getSessionFilesNumberOnList,
-	setSessionFilesNumberOnList
+	setSessionFilesNumberOnList,
+	getSuccessBanner,
+	destroySuccessBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -134,18 +136,21 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[]}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
  */
-export async function viewApplicationsCaseDocumentationProperties({ params }, response) {
+export async function viewApplicationsCaseDocumentationProperties({ params, session }, response) {
 	const { documentGuid } = params;
 	const { caseId } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
+	const showSuccessBanner = getSuccessBanner(session);
+	destroySuccessBanner(session);
 
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
-		documentVersions
+		documentVersions,
+		showSuccessBanner
 	});
 }
 
