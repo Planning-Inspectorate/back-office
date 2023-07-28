@@ -1,7 +1,7 @@
 import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
-
+import { setSuccessBanner } from '../../applications/common/services/session.service.js';
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
@@ -96,7 +96,6 @@ export async function postDocumentsUpload({ params, body, session }, response) {
  */
 export async function postUploadDocumentVersion({ params, body, session }, response) {
 	const { caseId, documentId } = params;
-
 	body.username = session.account?.username;
 	body.name = session.account?.name;
 
@@ -105,6 +104,8 @@ export async function postUploadDocumentVersion({ params, body, session }, respo
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	document.fileRowId = body?.fileRowId || '';
+
+	setSuccessBanner(session);
 
 	return response.send({ ...document, accessToken });
 }
