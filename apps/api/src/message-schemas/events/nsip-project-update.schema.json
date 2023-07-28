@@ -33,7 +33,14 @@
 		},
 		"updateStatus": {
 			"type": "string",
-			"enum": ["draft", "published", "unpublished", "archived"],
+			"enum": [
+				"draft",
+				"ready-to-publish",
+				"published",
+				"ready-to-unpublish",
+				"unpublished",
+				"archived"
+			],
 			"description": "The current status of this update"
 		}
 	}
