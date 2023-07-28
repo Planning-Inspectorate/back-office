@@ -48,7 +48,7 @@ export type AppealSiteVisit = {
 	visitDate: string;
 };
 
-export type DocumentStatus = 'received' | 'not_received';
+export type DocumentStatus = 'received' | 'not_received' | 'incomplete' | 'invalid' | 'valid';
 
 export type AppealDocumentationSummaryItem = {
 	status: DocumentStatus;

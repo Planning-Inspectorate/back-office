@@ -25,7 +25,7 @@ const renderLpaQuestionnaire = async (appealId, lpaQId, response, errors = null)
 
 	return response.render('appeals/appeal/lpa-questionnaire-view.njk', {
 		summaryList: { formattedSections },
-		errors
+		errors: errors ? [errors] : null
 	});
 };
 

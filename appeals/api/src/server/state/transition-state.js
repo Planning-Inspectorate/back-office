@@ -3,8 +3,8 @@ import createStateMachine from './create-state-machine.js';
 import logger from '../utils/logger.js';
 import appealRepository from '../repositories/appeal.repository.js';
 
-/** @typedef {import('@prisma/client').AppealType} AppealType */
-/** @typedef {import('@prisma/client').AppealStatus} AppealStatus */
+/** @typedef {import('#db-client').AppealType} AppealType */
+/** @typedef {import('#db-client').AppealStatus} AppealStatus */
 /** @typedef {import('xstate').StateValue} StateValue */
 
 /**

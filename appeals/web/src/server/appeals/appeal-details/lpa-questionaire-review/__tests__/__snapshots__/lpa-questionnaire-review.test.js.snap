@@ -253,7 +253,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#review-outcome">Review outcome must be provided</a>
+                            <li><a href="#0"></a>
                             </li>
                         </ul>
                     </div>

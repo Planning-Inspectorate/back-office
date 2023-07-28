@@ -41,10 +41,8 @@ export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'Must contain at least one va
 export const ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS =
 	'Must not be included when invalidReasons or incompleteReasons does not contain Other';
 export const ERROR_NOT_FOUND = 'Not found';
-export const ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME =
-	'Should only be given if the validation outcome is Incomplete';
-export const ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME =
-	'Should only be given if the validation outcome is Invalid';
+export const ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INCOMPLETE}`;
+export const ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INVALID}`;
 export const ERROR_OTHER_NOT_VALID_REASONS_REQUIRED =
 	'Required when invalidReasons or incompleteReasons contains Other';
 export const ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED =

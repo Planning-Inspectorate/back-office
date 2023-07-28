@@ -1,8 +1,11 @@
 import formatAddress from '#utils/format-address.js';
-import { DOCUMENT_STATUS_NOT_RECEIVED, DOCUMENT_STATUS_RECEIVED } from '../constants.js';
 import isFPA from '#utils/is-fpa.js';
 import formatLinkedAppeals from '#utils/format-linked-appeals.js';
 import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
+import {
+	formatAppellantCaseDocumentationStatus,
+	formatLpaQuestionnaireDocumentationStatus
+} from '#utils/format-documentation-status.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
@@ -93,11 +96,11 @@ const formatAppeal = (appeal) => {
 			startedAt: appeal.startedAt,
 			documentationSummary: {
 				appellantCase: {
-					status: appeal.appellantCase ? DOCUMENT_STATUS_RECEIVED : DOCUMENT_STATUS_NOT_RECEIVED,
+					status: formatAppellantCaseDocumentationStatus(appeal),
 					dueDate: null
 				},
 				lpaQuestionnaire: {
-					status: appeal.lpaQuestionnaire ? DOCUMENT_STATUS_RECEIVED : DOCUMENT_STATUS_NOT_RECEIVED,
+					status: formatLpaQuestionnaireDocumentationStatus(appeal),
 					dueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null
 				}
 			}
