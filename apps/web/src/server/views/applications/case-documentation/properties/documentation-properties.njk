@@ -28,10 +28,13 @@
 					</h3>
 				{% endset %}
 
-				{{ govukNotificationBanner({
-					html: html,
-					type: 'success'
-				}) }}
+				{% if showSuccessBanner %}
+					{{ govukNotificationBanner({
+						html: html,
+						type: 'success'
+					}) }}
+				{% endif %}
+
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
                     <span class="govuk-caption-xl">Document properties</span>
                     {{ documentationFile.fileName }}
