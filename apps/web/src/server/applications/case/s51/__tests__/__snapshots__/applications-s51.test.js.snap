@@ -105,6 +105,10 @@ exports[`S51 Advice S51 creation journey Check your answers GET /case/123/projec
             checked&#39;</div>
         <input class=\\"govuk-input\\" value='' id=\\"title-value\\"
         name=\\"title\\" type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"firstname-value\\" name=\\"enquirerFirstName\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"lastname-alue\\" name=\\"enquirerLastName\\"
+        type=\\"hidden\\">
         <input class=\\"govuk-input\\" value='' id=\\"enquirer-value\\" name=\\"enquirer\\"
         type=\\"hidden\\">
         <input class=\\"govuk-input\\" value='' id=\\"enquiryMethodValue\\" name=\\"enquiryMethod\\"
