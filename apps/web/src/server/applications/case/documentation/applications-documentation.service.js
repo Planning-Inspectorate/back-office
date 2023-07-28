@@ -203,7 +203,6 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 			username
 		};
 
-		console.log(payload);
 		const publishedDocuments = await patch(`applications/${caseId}/documents/publish`, {
 			json: payload
 		});

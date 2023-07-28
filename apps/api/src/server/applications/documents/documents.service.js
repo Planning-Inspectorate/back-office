@@ -3,7 +3,6 @@ import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
 import { buildNsipDocumentPayload } from '../application/documents/document.js';
 import * as documentRepository from '../../repositories/document.repository.js';
-import * as documentActivityLogRepository from '../../repositories/document-activity-log.repository.js';
 import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
 
 /**
@@ -18,20 +17,6 @@ export const updateStatus = async (guid, status) => {
 		status,
 		version: document.latestVersionId
 	});
-
-	if (
-		updatedDocument.publishedStatus === 'published' ||
-		updatedDocument.publishedStatus === 'unpublished' ||
-		updatedDocument.publishedStatus === 'checked'
-	) {
-		// @ts-ignore
-		await documentActivityLogRepository.create({
-			documentGuid: updatedDocument.documentGuid,
-			version: updatedDocument.version,
-			user: updatedDocument.author,
-			status: updatedDocument.publishedStatus
-		});
-	}
 
 	const eventType =
 		updatedDocument.publishedStatus === 'published' ? EventType.Publish : EventType.Update;
