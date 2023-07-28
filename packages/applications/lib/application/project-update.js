@@ -39,4 +39,24 @@ export class ProjectUpdate {
 			[status.unpublished]: [status.archived]
 		});
 	}
+
+	/**
+	 * Can a project update with the given status be edited?
+	 *
+	 * @param {string} status
+	 * @returns {boolean}
+	 */
+	static isEditable(status) {
+		return status !== ProjectUpdate.Status.archived;
+	}
+
+	/**
+	 * Can a project update with the given status be deleted?
+	 *
+	 * @param {string} status
+	 * @returns {boolean}
+	 */
+	static isDeleteable(status) {
+		return status === ProjectUpdate.Status.draft;
+	}
 }

@@ -119,6 +119,7 @@ export function createContentFormView({
  * @param {boolean} [options.buttonWarning]
  * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
+ * @param {boolean} [options.editable]
  * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
  */
 export function createDetailsView({
@@ -127,7 +128,8 @@ export function createDetailsView({
 	buttonText,
 	buttonWarning,
 	form,
-	projectUpdate
+	projectUpdate,
+	editable = true
 }) {
 	const contentChangeLink = url('project-updates-step', {
 		caseId: parseInt(caseInfo.id),
@@ -139,6 +141,24 @@ export function createDetailsView({
 		step: projectUpdateRoutes.status,
 		projectUpdateId: projectUpdate.id
 	});
+	const contentActions = {};
+	const statusActions = {};
+	if (editable) {
+		contentActions.items = [
+			{
+				href: contentChangeLink,
+				text: 'Change',
+				visuallyHiddenText: 'content'
+			}
+		];
+		statusActions.items = [
+			{
+				href: statusChangeLink,
+				text: 'Change',
+				visuallyHiddenText: 'status'
+			}
+		];
+	}
 	const rows = [];
 	if (projectUpdate.status === ProjectUpdate.Status.published && projectUpdate.datePublished) {
 		console.log(projectUpdate.datePublished);
@@ -161,15 +181,7 @@ export function createDetailsView({
 					key: {
 						html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
 					},
-					actions: {
-						items: [
-							{
-								href: contentChangeLink,
-								text: 'Change',
-								visuallyHiddenText: 'content'
-							}
-						]
-					}
+					actions: contentActions
 				},
 				{
 					classes: 'no-border',
@@ -183,15 +195,7 @@ export function createDetailsView({
 				{
 					key: { text: 'Status' },
 					value: { html: statusTag(projectUpdate.status) },
-					actions: {
-						items: [
-							{
-								href: statusChangeLink,
-								text: 'Change',
-								visuallyHiddenText: 'content'
-							}
-						]
-					}
+					actions: statusActions
 				}
 			]
 		}

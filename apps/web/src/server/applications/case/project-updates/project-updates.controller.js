@@ -252,7 +252,8 @@ export async function projectUpdatesReviewGet(req, res) {
 	let buttonText;
 	let buttonWarning = false;
 	let form;
-	if (projectUpdate.status === ProjectUpdate.Status.draft) {
+	const editable = ProjectUpdate.isEditable(projectUpdate.status);
+	if (ProjectUpdate.isDeleteable(projectUpdate.status)) {
 		buttonText = 'Delete';
 		buttonWarning = true;
 		form = {
@@ -267,7 +268,8 @@ export async function projectUpdatesReviewGet(req, res) {
 			buttonText,
 			buttonWarning,
 			projectUpdate,
-			form
+			form,
+			editable
 		})
 	);
 }
