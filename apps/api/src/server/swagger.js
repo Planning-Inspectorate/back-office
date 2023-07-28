@@ -37,14 +37,16 @@ const document = {
 				documentName: 'document.pdf',
 				folderId: 123,
 				documentType: 'application/pdf',
-				documentSize: 1024
+				documentSize: 1024,
+				username: 'test-user@email.com'
 			}
 		],
 		documentToSave: {
 			documentName: 'document.pdf',
 			folderId: 123,
 			documentType: 'application/pdf',
-			documentSize: 1024
+			documentSize: 1024,
+			username: 'test-user@email.com'
 		},
 		documentsToUpdateRequestBody: {
 			status: 'not_checked',
@@ -53,7 +55,7 @@ const document = {
 		},
 		documentsToPublishRequestBody: {
 			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }],
-			username: 'testuser'
+			username: 'test-user@email.com'
 		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
