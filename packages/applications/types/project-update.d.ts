@@ -19,6 +19,7 @@ export type ProjectUpdateStatus =
 	| 'draft'
 	| 'ready-to-publish'
 	| 'published'
+	| 'ready-to-unpublish'
 	| 'unpublished'
 	| 'archived'
 	| string;

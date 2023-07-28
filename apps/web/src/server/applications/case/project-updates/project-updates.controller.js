@@ -206,12 +206,21 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	let buttonText = 'Save and continue';
 	let form;
-	if (projectUpdate.status === ProjectUpdate.Status.readyToPublish) {
-		buttonText = 'Publish';
-		form = {
-			name: 'status',
-			value: ProjectUpdate.Status.published
-		};
+	switch (projectUpdate.status) {
+		case ProjectUpdate.Status.readyToPublish:
+			buttonText = 'Publish';
+			form = {
+				name: 'status',
+				value: ProjectUpdate.Status.published
+			};
+			break;
+		case ProjectUpdate.Status.readyToUnpublish:
+			buttonText = 'Unpublish';
+			form = {
+				name: 'status',
+				value: ProjectUpdate.Status.unpublished
+			};
+			break;
 	}
 	return res.render(
 		detailsView,
@@ -231,14 +240,23 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
  */
 export async function projectUpdatesCheckAnswersPost(req, res) {
 	const { caseId, projectUpdateId } = req.params;
-	let banner = 'You have successfully created a draft project update';
 	if (req.body.status) {
 		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
-		if (req.body.status === ProjectUpdate.Status.published) {
-			banner = 'You have successfully published a project update';
-		}
 	}
-	res.locals.banner = banner;
+	let action = 'created a draft';
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	switch (projectUpdate.status) {
+		case ProjectUpdate.Status.archived:
+			action = 'archived a';
+			break;
+		case ProjectUpdate.Status.published:
+			action = 'published a';
+			break;
+		case ProjectUpdate.Status.unpublished:
+			action = 'unpublished a';
+			break;
+	}
+	res.locals.banner = `You have successfully ${action} project update`;
 	return projectUpdatesTable(req, res);
 }
 

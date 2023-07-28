@@ -214,6 +214,7 @@ export function sortStatuses(statuses) {
 		ProjectUpdate.Status.draft,
 		ProjectUpdate.Status.readyToPublish,
 		ProjectUpdate.Status.published,
+		ProjectUpdate.Status.readyToUnpublish,
 		ProjectUpdate.Status.unpublished,
 		ProjectUpdate.Status.archived
 	];
@@ -246,6 +247,9 @@ export function statusRadioOption(status) {
 			break;
 		case ProjectUpdate.Status.archived:
 			text = 'Archived';
+			break;
+		case ProjectUpdate.Status.readyToUnpublish:
+			text = 'Unpublish';
 			break;
 		case ProjectUpdate.Status.unpublished:
 			text = 'Unpublished';

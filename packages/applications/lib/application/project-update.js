@@ -14,6 +14,7 @@ export class ProjectUpdate {
 			draft: 'draft',
 			readyToPublish: 'ready-to-publish',
 			published: 'published',
+			readyToUnpublish: 'ready-to-unpublish',
 			unpublished: 'unpublished',
 			archived: 'archived'
 		});
@@ -34,8 +35,9 @@ export class ProjectUpdate {
 		return Object.freeze({
 			[status.draft]: [status.readyToPublish],
 			[status.readyToPublish]: [status.draft, status.published],
-			[status.published]: [status.unpublished],
+			[status.published]: [status.readyToUnpublish],
 			[status.archived]: [],
+			[status.readyToUnpublish]: [status.unpublished, status.published],
 			[status.unpublished]: [status.archived]
 		});
 	}
