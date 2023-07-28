@@ -214,17 +214,17 @@ function mapCaseDocumentation(appealDetails) {
 				'Appellant case',
 				mapDocumentStatus(appealDetails.documentationSummary?.appellantCase?.status),
 				dateToDisplayDate(appealDetails.documentationSummary?.appellantCase?.dueDate),
-				appealDetails.documentationSummary?.appellantCase?.status === 'received'
+				appealDetails.documentationSummary?.appellantCase?.status !== 'not_received'
 					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review</a>`
-					: '<a href="#" class="govuk-link">Add</a>'
+					: ''
 			],
 			[
 				'LPA Questionnaire',
 				mapDocumentStatus(appealDetails.documentationSummary?.lpaQuestionnaire?.status),
 				dateToDisplayDate(appealDetails.documentationSummary?.lpaQuestionnaire?.dueDate),
-				appealDetails.documentationSummary?.lpaQuestionnaire?.status === 'received'
+				appealDetails.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
 					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire-review/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
-					: '<a href="#" class="govuk-link">Add</a>'
+					: ''
 			]
 		],
 		firstCellIsHeader: true
@@ -236,11 +236,19 @@ function mapCaseDocumentation(appealDetails) {
  * @returns {string}
  */
 function mapDocumentStatus(status) {
-	switch (status) {
+	switch (status?.toLowerCase()) {
 		case 'received':
 			return 'Received';
 		case 'not_received':
 			return 'Not received';
+		case 'invalid':
+			return 'Invalid';
+		case 'incomplete':
+			return 'Incomplete';
+		case 'valid':
+			return 'Valid';
+		case 'complete':
+			return 'Complete';
 		default:
 			return '';
 	}
