@@ -15,19 +15,14 @@ import * as authSession from './auth/auth-session.service.js';
  *
  * @type {import('@pins/express').RenderHandler<ViewHomepageRenderOptions>}
  */
-export function viewHomepage(request, response) {
+export const viewHomepage = async (request, response) => {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
 	const userGroups = account?.idTokenClaims?.groups ?? [];
-
-	// Determine those group ids the user belongs to for the appeals domain
 	const appealGroupIds = intersection(Object.values(config.referenceData.appeals), userGroups);
 
-	// TODO: confirm every login will have read-only access
-	// if (appealGroupIds.length === 0) {
-	// 	return response.render('app/403');
-	// }
-
-	// The user belongs to a single group in the appeals service only
+	if (appealGroupIds.length === 0) {
+		return response.render('app/403');
+	}
 
 	if (appealGroupIds.length === 1) {
 		switch (appealGroupIds[0]) {
@@ -40,11 +35,8 @@ export function viewHomepage(request, response) {
 		}
 	}
 
-	response.render('app/dashboard', {
-		referenceData: config.referenceData,
-		appealGroupIds
-	});
-}
+	response.render('app/dashboard');
+};
 
 /** @type {import('express').RequestHandler} */
 export function handleHeathCheck(_, response) {

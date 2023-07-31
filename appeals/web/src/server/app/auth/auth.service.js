@@ -36,6 +36,9 @@ export const acquireTokenByCode = async (code) => {
  * @returns {Promise<AuthenticationResult | null>}
  */
 export const acquireTokenSilent = async (account, customScopes = scopes) => {
+	if (config.authDisabled) {
+		return null;
+	}
 	return transformAuthenticationResult(
 		await msalClient.acquireTokenSilent({
 			account,
