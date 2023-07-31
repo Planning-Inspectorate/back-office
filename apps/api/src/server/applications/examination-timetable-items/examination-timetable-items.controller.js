@@ -225,7 +225,15 @@ const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 export const publishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableItemsService.publish(Number(id));
+		const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
+		if (!examinationTimetable) {
+			// @ts-ignore
+			return response
+				.status(404)
+				.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+		}
+
+		await examinationTimetableItemsService.publish(examinationTimetable.id);
 
 		response.send({
 			success: true
@@ -246,7 +254,14 @@ export const publishExaminationTimetable = async (_request, response) => {
 export const unpublishExaminationTimetable = async (_request, response) => {
 	const { id } = _request.params;
 	try {
-		await examinationTimetableItemsService.unPublish(Number(id));
+		const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
+		if (!examinationTimetable) {
+			// @ts-ignore
+			return response
+				.status(404)
+				.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+		}
+		await examinationTimetableItemsService.unPublish(examinationTimetable.id);
 
 		response.send({
 			success: true
