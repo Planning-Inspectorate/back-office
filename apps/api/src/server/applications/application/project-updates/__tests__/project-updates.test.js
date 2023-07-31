@@ -667,7 +667,7 @@ describe('project-updates', () => {
 					updated: {
 						id: 5,
 						caseId: 1,
-						status: 'published',
+						status: 'ready-to-unpublish',
 						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
 						sentToSubscribers: false,
 						datePublished: new Date('2023-07-11T10:00:00.000Z'),
