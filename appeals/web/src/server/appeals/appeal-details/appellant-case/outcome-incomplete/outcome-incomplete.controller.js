@@ -17,14 +17,8 @@ const renderIncompleteReason = async (request, response) => {
 		return response.render('app/500.njk');
 	}
 
-	const {
-		// @ts-ignore
-		appealId,
-		// @ts-ignore
-		appealReference
-	} = request.session;
+	const { appealId, appealReference } = request.session;
 
-	// @ts-ignore
 	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
 
 	if (
@@ -33,11 +27,9 @@ const renderIncompleteReason = async (request, response) => {
 			existingWebAppellantCaseReviewOutcome.validationOutcome !==
 				appellantCaseReviewOutcomes.incomplete)
 	) {
-		// @ts-ignore
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
 
-	// @ts-ignore
 	const { webAppellantCaseReviewOutcome } = request.session;
 	const incompleteReasonOptions = await appellantCaseService.getAppellantCaseIncompleteReasons();
 
@@ -80,12 +72,7 @@ const renderUpdateDueDate = async (request, response) => {
 		return response.render('app/500.njk');
 	}
 
-	const {
-		// @ts-ignore
-		appealId,
-		// @ts-ignore
-		appealReference
-	} = request.session;
+	const { appealId, appealReference } = request.session;
 	const appealReferenceFragments = appealReference.split('/');
 
 	return response.render('appeals/appeal/update-due-date.njk', {
@@ -159,10 +146,8 @@ export const postIncompleteReason = async (request, response) => {
 			return response.render('app/500.njk');
 		}
 
-		// @ts-ignore
 		const { appealId } = request.session;
 
-		// @ts-ignore
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.incomplete,
@@ -171,7 +156,6 @@ export const postIncompleteReason = async (request, response) => {
 		};
 
 		return response.redirect(
-			// @ts-ignore
 			`/appeals-service/appeal-details/${appealId}/appellant-case/incomplete/date`
 		);
 	} catch (error) {
@@ -220,7 +204,6 @@ export const postUpdateDueDate = async (request, response) => {
 			return response.render('app/500.njk');
 		}
 
-		// @ts-ignore
 		request.session.webAppellantCaseReviewOutcome.updatedDueDate = {
 			day: updatedDueDateDay,
 			month: updatedDueDateMonth,
@@ -228,7 +211,6 @@ export const postUpdateDueDate = async (request, response) => {
 		};
 
 		return response.redirect(
-			// @ts-ignore
 			`/appeals-service/appeal-details/${request.session.appealId}/appellant-case/check-your-answers`
 		);
 	} catch (error) {
