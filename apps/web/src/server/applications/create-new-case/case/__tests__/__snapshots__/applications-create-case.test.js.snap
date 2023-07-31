@@ -1159,7 +1159,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
@@ -1178,7 +1178,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
@@ -1212,7 +1212,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
@@ -1245,7 +1245,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
@@ -1279,7 +1279,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
