@@ -268,6 +268,7 @@ describe('applications create applicant', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Find address');
+				expect(element.innerHTML).toContain('Save and continue');
 			});
 
 			it('should render the page with the manual inputs for address', async () => {
@@ -305,6 +306,7 @@ describe('applications create applicant', () => {
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('govuk-error-summary');
 					expect(element.innerHTML).toContain('Enter a valid postcode');
+					expect(element.innerHTML).toContain('Save and continue');
 				});
 			});
 		});

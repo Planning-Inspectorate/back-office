@@ -10,7 +10,10 @@ exports[`applications create applicant Applicant address GET /applicant-address 
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\"
             name=\\"postcode\\" type=\\"text\\" value=\\"ABC123\\">
         </div>
-        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
+        <button value=\\"skip-address-search\\" name=\\"skipButton\\" class=\\"govuk-button\\"
+        data-module=\\"govuk-button\\">Save and continue</button>
+        <button class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2\\"
+        data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
         </div>
@@ -93,7 +96,10 @@ exports[`applications create applicant Applicant address POST /applicant-address
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\"
             name=\\"postcode\\" type=\\"text\\" value=\\"abc\\">
         </div>
-        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Find address</button>
+        <button value=\\"skip-address-search\\" name=\\"skipButton\\" class=\\"govuk-button\\"
+        data-module=\\"govuk-button\\">Save and continue</button>
+        <button class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2\\"
+        data-module=\\"govuk-button\\">Find address</button>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
         </div>
@@ -103,7 +109,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
 
 exports[`applications create applicant Applicant email GET /applicant-email should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.email\\">Applicant mail address</label>
@@ -138,7 +144,7 @@ exports[`applications create applicant Applicant email POST /application-email W
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s email address (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.email\\">Applicant mail address</label>
@@ -159,7 +165,7 @@ exports[`applications create applicant Applicant email POST /application-email W
 
 exports[`applications create applicant Applicant telephone number GET /applicant-telephone-number should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.phoneNumber\\">Applicant telephone number</label>
@@ -195,7 +201,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s phone number (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.phoneNumber\\">Applicant telephone number</label>
@@ -216,7 +222,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
 
 exports[`applications create applicant Applicant website GET /applicant-website should render the page when resumed or if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.website\\">Applicant website</label>
@@ -251,7 +257,7 @@ exports[`applications create applicant Applicant website POST /application-websi
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s website (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.website\\">Applicant website</label>
@@ -275,14 +281,14 @@ exports[`applications create applicant GET /applicant-full-name should render th
     <h1 class=\\"govuk-heading-l\\"> Enter the applicant’s contact name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name</label>
-            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.firstName\\"
-            name=\\"applicant.firstName\\" type=\\"text\\" value=\\"John\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.firstName\\">First name (optional)</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.firstName\\" name=\\"applicant.firstName\\" type=\\"text\\" value=\\"John\\">
         </div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name</label>
-            <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"applicant.lastName\\"
-            name=\\"applicant.lastName\\" type=\\"text\\" value=\\"Smith\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"applicant.lastName\\">Last name (optional)</label>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"applicant.lastName\\" name=\\"applicant.lastName\\" type=\\"text\\" value=\\"Smith\\">
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -342,7 +348,7 @@ exports[`applications create applicant GET /applicant-information-types should r
 
 exports[`applications create applicant GET /applicant-organisation-name should render the page when resumed or when there is session data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s organisation (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"applicant.organisationName\\">Applicant organisation name</label>

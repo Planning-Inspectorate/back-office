@@ -9,7 +9,8 @@
 				</label>
 				<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text" value="{{ postcode }}">
 			</div>
-			{{ govukButton({ text: "Find address" }) }}
+			{{ govukButton({ text: "Save and continue", value:"skip-address-search", name:'skipButton' }) }}
+			{{ govukButton({ text: "Find address", classes: "govuk-button--secondary govuk-!-margin-left-2" }) }}
 		{% else %}
 			<input type="hidden" name="postcode" value="{{ postcode }}"/>
 			<div class="govuk-form-group">

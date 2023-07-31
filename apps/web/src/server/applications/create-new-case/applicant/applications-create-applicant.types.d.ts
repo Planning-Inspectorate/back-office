@@ -71,4 +71,5 @@ export type ApplicationsCreateApplicantAddressBody = {
 	'applicant.address.addressLine1'?: string;
 	'applicant.address.addressLine2'?: string;
 	'applicant.address.town'?: string;
+	skipButton?: object;
 };
