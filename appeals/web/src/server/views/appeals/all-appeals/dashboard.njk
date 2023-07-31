@@ -38,7 +38,8 @@
 	{% if (searchTerm.length == 0 or (searchTerm.length > 0 and appeals.length > 0)) %}
 		{{
 			appealsTable({
-				appeals: appeals
+				appeals: appeals,
+				labels: labels
 			})
 		}}
 		{% if pagination.items|length %}

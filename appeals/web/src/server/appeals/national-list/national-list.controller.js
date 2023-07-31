@@ -1,3 +1,4 @@
+import { APPEAL_TYPE } from '#appeals/appeals.labels.js';
 import { paginationDefaultSettings } from '../appeal.constants.js';
 import * as nationalListService from './national-list.service.js';
 
@@ -12,6 +13,7 @@ import * as nationalListService from './national-list.service.js';
  * @property {object} searchObject
  * @property {string} searchTerm
  * @property {string} nationalListHeading
+ * @property {Object<string, string|object>} labels
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewNationalListRenderOptions>}  */
@@ -144,6 +146,9 @@ export const viewNationalList = async (request, response) => {
 		pagination,
 		searchObject,
 		searchTerm,
-		nationalListHeading
+		nationalListHeading,
+		labels: {
+			appealType: APPEAL_TYPE
+		}
 	});
 };

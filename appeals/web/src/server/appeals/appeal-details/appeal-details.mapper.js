@@ -1,3 +1,4 @@
+import { APPEAL_TYPE } from '#appeals/appeals.labels.js';
 import { addressToString } from '../../lib/address-formatter.js';
 import { dateToDisplayDate } from '../../lib/dates.js';
 
@@ -78,7 +79,7 @@ function mapCaseOverview(appealDetails) {
 	return {
 		rows: [
 			{
-				title: 'Appeal type',
+				title: APPEAL_TYPE,
 				value: appealDetails.appealType || '',
 				valueType: 'text',
 				actionText: 'Change',
