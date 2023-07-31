@@ -135,6 +135,7 @@ describe('applications create applicant', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Find address');
+			expect(element.innerHTML).toContain('Save changes');
 		});
 
 		it('should render the form page', async () => {

@@ -203,7 +203,6 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 	if (shouldShowErrors) {
 		return handleErrors(properties, addressLayout, response);
 	}
-
 	response.redirect(`/applications-service/case/${caseId}/project-information`);
 }
 

@@ -51,7 +51,10 @@ const telephoneNumberLayout = {
 	pageTitle: 'Enter the Applicant’s phone number (optional)',
 	components: ['telephone-number']
 };
-const websiteLayout = { pageTitle: 'Enter the Applicant’s website (optional)', components: ['website'] };
+const websiteLayout = {
+	pageTitle: 'Enter the Applicant’s website (optional)',
+	components: ['website']
+};
 const applicantEmailLayout = {
 	pageTitle: 'Enter the applicant’s email address (optional)',
 	components: ['applicant-email']
@@ -212,8 +215,8 @@ export async function viewApplicationsCreateApplicantAddress(request, response) 
 export async function updateApplicationsCreateApplicantAddress(request, response) {
 	const { path, session } = request;
 	const { caseId } = response.locals;
-	console.log('address update:', request.body);
-	if(request.body.postcode !== '') {
+
+	if (!request.body.skipButton) {
 		const { properties, shouldShowErrors } = await applicantAddressDataUpdate(
 			request,
 			response.locals

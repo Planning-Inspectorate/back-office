@@ -10,7 +10,8 @@
 			<input class="govuk-input govuk-!-width-one-third" id="postcode" name="postcode" type="text"
 				   value="{{ postcode }}">
 		</div>
-		{{ govukButton({ text: "Find address" }) }}
+		{{ govukButton({ text: "Save changes", href: "/applications-service/case/" + caseId + "/project-information" }) }}
+		{{ govukButton({ classes: "govuk-button--secondary govuk-!-margin-left-2", text: "Find address" }) }}
 	{% else %}
 		<div class="govuk-form-group">
 			<p class="govuk-body">{{ applicantAddress }}</p>
@@ -33,7 +34,7 @@
 		</div>
 
 		{% block stepButton %}
-			{{ govukButton({ text: 'Save changes' }) }}
+			{{ govukButton({ text: 'Save changes', href: "/applications-service/case/" + caseId + "/project-information" }) }}
 		{% endblock %}
 	{% endif %}
 {% endmacro %}
