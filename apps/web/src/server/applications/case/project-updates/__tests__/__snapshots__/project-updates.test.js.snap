@@ -126,7 +126,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                         <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -176,7 +176,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                         <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -405,7 +405,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
                 </div>
                 <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\">You have successfully published a project update</h3>
+                    <h3 class=\\"govuk-notification-banner__heading\\">You have successfully created a draft project update</h3>
                     <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/project-updates\\">Clear notification</a>
                     </p>
                 </div>
