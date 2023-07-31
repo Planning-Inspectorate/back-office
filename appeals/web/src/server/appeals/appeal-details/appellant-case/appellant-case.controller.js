@@ -96,14 +96,7 @@ const renderCheckAndConfirm = async (request, response) => {
 			return response.render('app/500.njk');
 		}
 
-		const {
-			// @ts-ignore
-			appealId,
-			// @ts-ignore
-			appealReference,
-			// @ts-ignore
-			webAppellantCaseReviewOutcome
-		} = request.session;
+		const { appealId, appealReference, webAppellantCaseReviewOutcome } = request.session;
 
 		const reasonOptions = await appellantCaseService.getAppellantCaseNotValidReasonsForOutcome(
 			webAppellantCaseReviewOutcome.validationOutcome
@@ -173,11 +166,8 @@ export const postAppellantCase = async (request, response) => {
 		if (appealDetails) {
 			const { appealId, appellantCaseId, appealReference } = appealDetails;
 
-			// @ts-ignore
 			request.session.appealId = appealId;
-			// @ts-ignore
 			request.session.appellantCaseId = appellantCaseId;
-			// @ts-ignore
 			request.session.appealReference = appealReference;
 
 			if (reviewOutcome === appellantCaseReviewOutcomes.valid) {
@@ -216,16 +206,8 @@ export const getCheckAndConfirm = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postCheckAndConfirm = async (request, response) => {
 	try {
-		const {
-			// @ts-ignore
-			appealId,
-			// @ts-ignore
-			appealReference,
-			// @ts-ignore
-			appellantCaseId,
-			// @ts-ignore
-			webAppellantCaseReviewOutcome
-		} = request.session;
+		const { appealId, appealReference, appellantCaseId, webAppellantCaseReviewOutcome } =
+			request.session;
 
 		await appellantCaseService.setReviewOutcomeForAppellantCase(
 			appealId,
@@ -240,7 +222,6 @@ export const postCheckAndConfirm = async (request, response) => {
 
 		const validationOutcome = webAppellantCaseReviewOutcome.validationOutcome;
 
-		// @ts-ignore
 		delete request.session.webAppellantCaseReviewOutcome;
 
 		if (validationOutcome === appellantCaseReviewOutcomes.invalid) {

@@ -17,14 +17,8 @@ const renderInvalidReason = async (request, response) => {
 		return response.render('app/500.njk');
 	}
 
-	const {
-		// @ts-ignore
-		appealId,
-		// @ts-ignore
-		appealReference
-	} = request.session;
+	const { appealId, appealReference } = request.session;
 
-	// @ts-ignore
 	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
 
 	if (
@@ -33,11 +27,9 @@ const renderInvalidReason = async (request, response) => {
 			existingWebAppellantCaseReviewOutcome.validationOutcome !==
 				appellantCaseReviewOutcomes.invalid)
 	) {
-		// @ts-ignore
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
 
-	// @ts-ignore
 	const { webAppellantCaseReviewOutcome } = request.session;
 	const invalidReasonOptions = await appellantCaseService.getAppellantCaseInvalidReasons();
 
@@ -123,10 +115,8 @@ export const postInvalidReason = async (request, response) => {
 			return response.render('app/500.njk');
 		}
 
-		// @ts-ignore
 		const { appealId } = request.session;
 
-		// @ts-ignore
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.invalid,
@@ -135,7 +125,6 @@ export const postInvalidReason = async (request, response) => {
 		};
 
 		return response.redirect(
-			// @ts-ignore
 			`/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`
 		);
 	} catch (error) {
