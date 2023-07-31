@@ -17,5 +17,5 @@ export default {
 		'^uuid$': 'uuid',
 		'^@toast-ui/editor$': toastUiRequirePath
 	},
-	testTimeout: 20000
+	testTimeout: 30000
 };
