@@ -422,6 +422,7 @@ describe('Test examination timetable items API', () => {
 
 	test('publish examination timetable item publishes examination items for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValueOnce({ id: 123 });
 
 		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
 
@@ -435,7 +436,7 @@ describe('Test examination timetable items API', () => {
 
 		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
-				caseId: 123
+				id: 123
 			},
 			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
 		});
@@ -460,6 +461,7 @@ describe('Test examination timetable items API', () => {
 	test('unpublish examination timetable item unpublishes examination items for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
 		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValueOnce({ id: 123 });
 		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(
 			publishExaminationTimetableItemsData
 		);
@@ -468,7 +470,7 @@ describe('Test examination timetable items API', () => {
 			.send({});
 		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
-				caseId: 123
+				id: 123
 			},
 			data: { published: false }
 		});
