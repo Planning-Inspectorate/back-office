@@ -24,24 +24,24 @@
 		{% set activity %}
 		<p>
 			<strong>Uploaded:</strong>
-			{{ documentVersion.history.uploaded.date|datestamp({format: 'dd/MM/yyyy'}) }},
+			{{ documentVersion.history.uploaded.date|datestamp({format: 'H:m, dd MMM yyyy'}) }},
 			{{ documentVersion.history.uploaded.name }}
 		</p>
 
 		<p class='govuk-!-margin-top-2'>
 			<strong>Published:</strong>
 			{% if documentVersion.history.published %}
-				{{ documentVersion.history.published.date|datestamp({format: 'dd/MM/yyyy'}) }},
+				{{ documentVersion.history.published.date|datestamp({format: 'H:m, dd MMM yyyy'}) }},
 				{{ documentVersion.history.published.name }}
 			{% else %}
-				Unpublished
+				Not published
 			{% endif %}
 		</p>
 
 		{% if documentVersion.history.unpublished %}
 			<p class='govuk-!-margin-top-2'>
 				<strong>Unpublished:</strong>
-				{{ documentVersion.history.unpublished.date|datestamp({format: 'dd/MM/yyyy'}) }},
+				{{ documentVersion.history.unpublished.date|datestamp({format: 'H:m, dd MMM yyyy'}) }},
 				{{ documentVersion.history.unpublished.name }}
 			</p>
 		{% endif %}
