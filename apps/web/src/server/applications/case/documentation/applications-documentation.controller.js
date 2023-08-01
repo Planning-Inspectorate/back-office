@@ -249,7 +249,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		return container;
 	});
 
-	const username = session.account?.username;
+	const username = session.account?.name;
 
 	const { errors: apiErrors, documents: publishedItems = null } = validationErrors
 		? { errors: validationErrors }
