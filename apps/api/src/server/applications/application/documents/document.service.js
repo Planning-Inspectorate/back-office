@@ -295,7 +295,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 };
 
 /**
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}} documentToUpload
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
  * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
@@ -342,6 +342,10 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 
 	const { documentVersion } = documentFromDatabase;
 
+	const currentDocumentVersion = documentVersion.filter(
+		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
+	);
+
 	await documentVersionRepository.upsert({
 		documentGuid: documentId,
 		fileName,
@@ -349,21 +353,34 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		mime: documentToSendToDatabase.documentType,
 		size: documentToSendToDatabase.documentSize,
 		version,
-		description: documentVersion?.description,
-		representative: documentVersion?.representative,
-		owner: documentVersion?.owner,
-		securityClassification: documentVersion?.securityClassification,
-		filter1: documentVersion?.filter1,
-		filter2: documentVersion?.filter2,
-		documentType: documentVersion?.documentType
+		description: currentDocumentVersion[0]?.description,
+		representative: currentDocumentVersion[0]?.representative,
+		owner: currentDocumentVersion[0]?.owner,
+		securityClassification: currentDocumentVersion[0]?.securityClassification,
+		filter1: currentDocumentVersion[0]?.filter1,
+		filter2: currentDocumentVersion[0]?.filter2,
+		documentType: currentDocumentVersion[0]?.documentType
 	});
 
-	await documentActivityLogRepository.create({
-		documentGuid: documentId,
-		version,
-		user: documentToUpload.username,
-		status: 'uploaded'
-	});
+	const activityLogs = [];
+	// @ts-ignore
+	activityLogs.push(
+		documentActivityLogRepository.create({
+			documentGuid: documentId,
+			version,
+			user: documentToUpload.username,
+			status: 'uploaded'
+		})
+	);
+	// @ts-ignore
+	activityLogs.push(
+		documentActivityLogRepository.create({
+			documentGuid: documentId,
+			version: documentFromDatabase.latestVersionId,
+			user: documentToUpload.username,
+			status: 'unpublished'
+		})
+	);
 
 	// Step 6: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
