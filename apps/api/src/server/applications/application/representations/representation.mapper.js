@@ -84,7 +84,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
  * @return { actionBy: string, notes: string }
  */
 export const getLatestRedaction = ({ representationActions }) =>
-	representationActions.filter(({ type }) => type === 'REDACTION').pop();
+	representationActions.filter(({ type }) => type === 'REDACTION').shift();
 
 /**
  *
