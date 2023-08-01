@@ -116,6 +116,7 @@ export function createContentFormView({
  * @param {any} options.caseInfo
  * @param {string} [options.title]
  * @param {string} [options.buttonText]
+ * @param {string} [options.buttonLink]
  * @param {boolean} [options.buttonWarning]
  * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
@@ -126,6 +127,7 @@ export function createDetailsView({
 	caseInfo,
 	title,
 	buttonText,
+	buttonLink,
 	buttonWarning,
 	form,
 	projectUpdate,
@@ -171,6 +173,7 @@ export function createDetailsView({
 		case: caseInfo,
 		title,
 		buttonText,
+		buttonLink,
 		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
 		preview: { html: projectUpdate.htmlContent },
 		form,

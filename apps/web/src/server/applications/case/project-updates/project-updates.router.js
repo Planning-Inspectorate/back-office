@@ -51,6 +51,7 @@ projectUpdatesRouter
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.delete}`)
-	.get(asyncRoute(controller.projectUpdatesTable));
+	.get(asyncRoute(controller.projectUpdatesDeleteGet))
+	.post(asyncRoute(controller.projectUpdatesDeletePost));
 
 export default projectUpdatesRouter;

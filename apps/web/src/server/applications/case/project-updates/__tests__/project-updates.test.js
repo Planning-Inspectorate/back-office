@@ -15,7 +15,8 @@ const mockCaseReference = {
 };
 const mockProjectUpdate = {
 	id: 1,
-	status: 'draft'
+	status: 'draft',
+	htmlContent: 'Hello, world!'
 };
 /**
  * @returns {import('@pins/applications').ProjectUpdate}
@@ -273,6 +274,50 @@ describe('project-updates', () => {
 			expect(element.innerHTML).toContain('Project update preview');
 			expect(element.innerHTML).toContain('Content');
 			expect(element.innerHTML).toContain('Status');
+		});
+	});
+
+	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/delete', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl + '/1/' + projectUpdateRoutes.delete);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - project updates details present
+			expect(element.innerHTML).toContain('Delete project update');
+			expect(element.innerHTML).toContain('Content');
+		});
+	});
+
+	describe('POST /applications-service/:caseId/project-updates/:projectUpdateId/delete', () => {
+		beforeEach(async () => {
+			nocks();
+			nock('http://test/')
+				.delete(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
+				.reply(204)
+				.persist();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.post(baseUrl + '/1/' + projectUpdateRoutes.delete);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - success banner + table header
+			expect(element.innerHTML).toContain('Success');
+			expect(element.innerHTML).toContain('Project updates');
 		});
 	});
 });

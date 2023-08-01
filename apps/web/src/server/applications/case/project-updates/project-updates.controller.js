@@ -6,6 +6,7 @@ import { bodyToCreateRequest, bodyToUpdateRequest } from './project-updates.mapp
 import { projectUpdateRoutes } from './project-updates.router.js';
 import {
 	createProjectUpdate,
+	deleteProjectUpdate,
 	getProjectUpdate,
 	getProjectUpdates,
 	patchProjectUpdate
@@ -268,16 +269,17 @@ export async function projectUpdatesReviewGet(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	let buttonText;
+	let buttonLink;
 	let buttonWarning = false;
-	let form;
 	const editable = ProjectUpdate.isEditable(projectUpdate.status);
 	if (ProjectUpdate.isDeleteable(projectUpdate.status)) {
 		buttonText = 'Delete';
 		buttonWarning = true;
-		form = {
-			name: 'action',
-			value: 'delete'
-		};
+		buttonLink = url('project-updates-step', {
+			caseId: parseInt(caseId),
+			projectUpdateId: parseInt(projectUpdateId),
+			step: projectUpdateRoutes.delete
+		});
 	}
 	return res.render(
 		detailsView,
@@ -285,11 +287,51 @@ export async function projectUpdatesReviewGet(req, res) {
 			caseInfo: res.locals.case,
 			buttonText,
 			buttonWarning,
+			buttonLink,
 			projectUpdate,
-			form,
 			editable
 		})
 	);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesDeleteGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	return res.render(formView, {
+		errors: res.locals.error,
+		caseInfo: res.locals.case,
+		title: 'Delete project update',
+		buttonText: 'Confirm delete',
+		form: {
+			components: [
+				{
+					type: 'html',
+					title: 'Content',
+					html: projectUpdate.htmlContent
+				}
+			]
+		}
+	});
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesDeletePost(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	try {
+		await deleteProjectUpdate(caseId, projectUpdateId);
+		res.locals.banner = `You have successfully deleted a project update`;
+	} catch (e) {
+		res.locals.error = { error: 'The project update could not be deleted' };
+		return projectUpdatesDeleteGet(req, res);
+	}
+	return projectUpdatesTable(req, res);
 }
 
 /**
