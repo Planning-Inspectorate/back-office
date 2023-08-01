@@ -113,4 +113,37 @@ export async function updateProjectUpdate(id, req) {
 	return databaseConnector.projectUpdate.update(updateReq);
 }
 
+/**
+ * Update a project update. Verifies the status change is allowed in a transaction.
+ *
+ * @param {number} id
+ * @returns {Promise<ProjectUpdateWithCase>}
+ * @throws {BackOfficeAppError}
+ */
+export async function deleteProjectUpdate(id) {
+	const deleteReq = {
+		include: {
+			case: true
+		},
+		where: {
+			id
+		}
+	};
+	// run in a transaction to ensure the update can be deleted
+	return databaseConnector.$transaction(async (tx) => {
+		// read first to get status
+		const existing = await tx.projectUpdate.findUnique({ where: { id } });
+		const status = existing?.status || ProjectUpdate.Status.draft;
+
+		const canBeDeleted = ProjectUpdate.isDeleteable(status);
+		// check if new status is allowed
+		if (!canBeDeleted) {
+			throw new ProjectUpdateDeleteError(`this project update can't be deleted`, 400);
+		}
+
+		return await tx.projectUpdate.delete(deleteReq);
+	});
+}
+
+export class ProjectUpdateDeleteError extends BackOfficeAppError {}
 export class ProjectUpdateStatusError extends BackOfficeAppError {}

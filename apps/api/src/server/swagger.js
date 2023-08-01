@@ -1470,6 +1470,20 @@ const document = {
 				}
 			}
 		},
+		GeneralError: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						message: {
+							type: 'string',
+							example: 'something went wrong'
+						}
+					}
+				}
+			}
+		},
 		InternalError: {
 			type: 'object',
 			properties: {
