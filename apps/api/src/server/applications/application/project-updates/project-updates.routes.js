@@ -174,4 +174,39 @@ router.patch(
 	asyncHandler(controller.patchProjectUpdate)
 );
 
+router.delete(
+	'/:id/project-updates/:projectUpdateId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/project-updates/{projectUpdateId}'
+        #swagger.description = 'Delete a project update'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[204] = {
+            description: 'Successfully deleted'
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+            schema: { $ref: '#/definitions/GeneralError' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateApplicationId,
+	validateProjectUpdateId,
+	asyncHandler(controller.deleteProjectUpdate)
+);
+
 export { router as projectUpdateRoutes };

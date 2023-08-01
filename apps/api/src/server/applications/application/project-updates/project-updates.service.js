@@ -2,8 +2,9 @@ import { EventType } from '@pins/event-client';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import {
 	createProjectUpdate,
+	deleteProjectUpdate,
 	updateProjectUpdate
-} from '../../../repositories/project-update.respository.js';
+} from '#repositories/project-update.respository.js';
 import {
 	buildProjectUpdatePayload,
 	mapProjectUpdate,
@@ -64,6 +65,25 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 	}
 
 	return mapProjectUpdate(update);
+}
+
+/**
+ * Delete a project update, and send the Delete event
+ *
+ * @param {number} projectUpdateId
+ * @returns {Promise<void>}
+ */
+export async function deleteProjectUpdateService(projectUpdateId) {
+	const deleted = await deleteProjectUpdate(projectUpdateId);
+
+	if (deleted.case && deleted.case.reference) {
+		const events = [buildProjectUpdatePayload(deleted, deleted.case.reference)];
+		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Delete);
+	} else {
+		logger.warn(
+			'deleteProjectUpdateService: project update case has no reference. No event(s) sent.'
+		);
+	}
 }
 
 /**
