@@ -33,7 +33,7 @@
 	{% set row = [] %}
 	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'enquirer'}) %}
 	{% set row = row | concat({ text: 'Enquirer', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['enquirer'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquirerLabel'], classes: 'pins-table__cell--s' }) %}
 	{% set row = row | concat({ html: '<a id="enquirer" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
 
