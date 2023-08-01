@@ -21,7 +21,27 @@ const documentWithVersions = {
 	documentVersion: [
 		{
 			version: 1,
+			author: 'test',
+			status: 'published'
+		},
+		{
+			version: 2,
 			author: 'test'
+		}
+	]
+};
+
+const documentWithVersionsUnpublished = {
+	documentName: 'test',
+	folderId: 1111,
+	documentSize: 1111,
+	documentType: 'test',
+	latestVersionId: 1,
+	documentVersion: [
+		{
+			version: 1,
+			author: 'test',
+			status: 'awaiting_check'
 		},
 		{
 			version: 2,
@@ -79,5 +99,28 @@ describe('Document service test', () => {
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.document.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(2);
+	});
+
+	test('obtainURLForDocumentVersion uploads new version of document and does not unblish the document', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersionsUnpublished);
+		got.post.mockReturnValue({
+			json: jest.fn().mockResolvedValue({
+				blobStorageHost: 'blob-store-host',
+				blobStorageContainer: 'blob-store-container',
+				documents: [document]
+			})
+		});
+
+		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
+
+		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
+		expect(ressponse.blobStorageContainer).toEqual('blob-store-container');
+		expect(ressponse.documents).toEqual([document]);
+		expect(databaseConnector.document.findUnique).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.document.update).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(1);
 	});
 });

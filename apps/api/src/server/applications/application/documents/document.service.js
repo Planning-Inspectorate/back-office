@@ -346,6 +346,8 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
 	);
 
+	const isPublishedOldVersion = currentDocumentVersion[0].publishedStatus === 'published';
+
 	// copy all meta data from previous version except below properties.
 	currentDocumentVersion[0].version = version;
 	currentDocumentVersion[0].fileName = fileName;
@@ -365,15 +367,20 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			version,
 			user: documentToUpload.username,
 			status: 'uploaded'
-		}),
-		// @ts-ignore
-		documentActivityLogRepository.create({
-			documentGuid: documentId,
-			version: documentFromDatabase.latestVersionId,
-			user: documentToUpload.username,
-			status: 'unpublished'
 		})
 	);
+
+	if (isPublishedOldVersion) {
+		activityLogs.push(
+			// @ts-ignore
+			documentActivityLogRepository.create({
+				documentGuid: documentId,
+				version: documentFromDatabase.latestVersionId,
+				user: documentToUpload.username,
+				status: 'unpublished'
+			})
+		);
+	}
 
 	await Promise.all(activityLogs);
 
