@@ -148,7 +148,7 @@ export async function projectUpdatesStatusGet(req, res) {
 
 	// which statuses options should be shown, given the current status
 	const statusOptions = sortStatuses([
-		// you can always chose the current status option
+		// you can always choose the current status option
 		projectUpdate.status,
 		// and any other allowed statuses
 		...ProjectUpdate.AllowedStatuses[projectUpdate.status]
