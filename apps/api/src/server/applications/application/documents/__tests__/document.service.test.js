@@ -22,7 +22,7 @@ const documentWithVersions = {
 		{
 			version: 1,
 			author: 'test',
-			status: 'published'
+			publishedStatus: 'published'
 		},
 		{
 			version: 2,
@@ -41,7 +41,7 @@ const documentWithVersionsUnpublished = {
 		{
 			version: 1,
 			author: 'test',
-			status: 'awaiting_check'
+			publishedStatus: 'awaiting_check'
 		},
 		{
 			version: 2,
