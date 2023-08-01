@@ -60,10 +60,14 @@ const getCheckYourAnswersRows = (data) => {
 		data['adviceDate.day']
 	].join('-');
 	const adviceDate = new Date(adviceDateString).toISOString();
+	const enquirerLabel = `${data?.enquirerFirstName} ${data?.enquirerLastName}${
+		(data?.enquirerFirstName || data?.enquirerLastName) && data?.enquirerOrganisation ? ', ' : ''
+	}${data?.enquirerOrganisation}`;
 
 	return {
 		title: data.title,
 		enquirer: data.enquirerOrganisation,
+		enquirerLabel,
 		firstName: data.enquirerFirstName,
 		lastName: data.enquirerLastName,
 		enquiryMethod: data.enquiryMethod,
