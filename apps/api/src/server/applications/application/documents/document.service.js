@@ -346,34 +346,27 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
 	);
 
-	await documentVersionRepository.upsert({
-		documentGuid: documentId,
-		fileName,
-		originalFilename: fileName,
-		mime: documentToSendToDatabase.documentType,
-		size: documentToSendToDatabase.documentSize,
-		version,
-		description: currentDocumentVersion[0]?.description,
-		representative: currentDocumentVersion[0]?.representative,
-		owner: currentDocumentVersion[0]?.owner,
-		securityClassification: currentDocumentVersion[0]?.securityClassification,
-		filter1: currentDocumentVersion[0]?.filter1,
-		filter2: currentDocumentVersion[0]?.filter2,
-		documentType: currentDocumentVersion[0]?.documentType
-	});
+	// copy all meta data from previous version except below properties.
+	currentDocumentVersion[0].version = version;
+	currentDocumentVersion[0].fileName = fileName;
+	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
+	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
+	currentDocumentVersion[0].publishedStatus = 'awaiting_upload';
+	currentDocumentVersion[0].redacted = false;
+	currentDocumentVersion[0].redactedStatus = '';
+
+	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
 	const activityLogs = [];
-	// @ts-ignore
 	activityLogs.push(
+		// @ts-ignore
 		documentActivityLogRepository.create({
 			documentGuid: documentId,
 			version,
 			user: documentToUpload.username,
 			status: 'uploaded'
-		})
-	);
-	// @ts-ignore
-	activityLogs.push(
+		}),
+		// @ts-ignore
 		documentActivityLogRepository.create({
 			documentGuid: documentId,
 			version: documentFromDatabase.latestVersionId,
@@ -381,6 +374,8 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			status: 'unpublished'
 		})
 	);
+
+	await Promise.all(activityLogs);
 
 	// Step 6: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);

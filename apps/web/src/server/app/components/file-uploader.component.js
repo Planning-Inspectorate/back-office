@@ -53,7 +53,7 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const { caseId } = params;
 
 	const payload = body.map((document) => {
-		document.username = session.account?.username;
+		document.username = session.account?.name;
 		return document;
 	});
 
@@ -96,8 +96,7 @@ export async function postDocumentsUpload({ params, body, session }, response) {
  */
 export async function postUploadDocumentVersion({ params, body, session }, response) {
 	const { caseId, documentId } = params;
-	body.username = session.account?.username;
-	body.name = session.account?.name;
+	body.username = session.account?.name;
 
 	const document = await createNewDocumentVersion(caseId, documentId, body);
 
