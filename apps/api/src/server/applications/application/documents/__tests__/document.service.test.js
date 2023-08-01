@@ -8,7 +8,26 @@ const document = {
 	documentName: 'test',
 	folderId: 1111,
 	documentSize: 1111,
-	documentType: 'test'
+	documentType: 'test',
+	latestVersionId: 1
+};
+
+const documentWithVersions = {
+	documentName: 'test',
+	folderId: 1111,
+	documentSize: 1111,
+	documentType: 'test',
+	latestVersionId: 1,
+	documentVersion: [
+		{
+			version: 1,
+			author: 'test'
+		},
+		{
+			version: 2,
+			author: 'test'
+		}
+	]
 };
 
 const application = {
@@ -41,7 +60,7 @@ describe('Document service test', () => {
 
 	test('obtainURLForDocumentVersion uploads new version of document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
-		databaseConnector.document.findUnique.mockResolvedValue(document);
+		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
 				blobStorageHost: 'blob-store-host',
@@ -59,6 +78,6 @@ describe('Document service test', () => {
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.document.update).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(2);
 	});
 });
