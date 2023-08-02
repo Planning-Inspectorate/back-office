@@ -444,7 +444,7 @@ model S51Advice {
   adviceDate      DateTime
   adviceDetails   String
   referenceNumber Int      @default(00001)
-  redactedStatus  String   @default("not_redacted")
+  redactedStatus  String?
   publishedStatus String   @default("not_checked")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now())
