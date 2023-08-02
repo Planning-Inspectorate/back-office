@@ -16,7 +16,8 @@ describe('project-updates.view-model', () => {
 				htmlContentWelsh: null,
 				title: null,
 				id: 3,
-				status: 'draft'
+				status: 'draft',
+				type: 'general'
 			};
 		}
 		/**

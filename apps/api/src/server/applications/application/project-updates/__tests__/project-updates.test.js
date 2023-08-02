@@ -33,7 +33,8 @@ describe('project-updates', () => {
 				htmlContent: 'content',
 				htmlContentWelsh: null,
 				title: null,
-				datePublished: null
+				datePublished: null,
+				type: 'general'
 			};
 		};
 		const tests = [
@@ -315,7 +316,8 @@ describe('project-updates', () => {
 					id: 5,
 					caseId: 1,
 					dateCreated: new Date('2023-07-04T10:00:00.000Z'),
-					sentToSubscribers: false
+					sentToSubscribers: false,
+					type: 'general'
 				},
 				want: {
 					status: 200,
@@ -326,6 +328,7 @@ describe('project-updates', () => {
 						emailSubscribers: true,
 						sentToSubscribers: false,
 						status: 'draft',
+						type: 'general',
 						htmlContent:
 							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 					}
@@ -391,7 +394,8 @@ describe('project-updates', () => {
 					htmlContent: 'content',
 					htmlContentWelsh: null,
 					title: null,
-					datePublished: null
+					datePublished: null,
+					type: 'general'
 				};
 			};
 			const tests = [

@@ -28,7 +28,8 @@ export function mapProjectUpdate(projectUpdate) {
 		datePublished: projectUpdate.datePublished?.toISOString(),
 		title: projectUpdate.title,
 		htmlContent: projectUpdate.htmlContent,
-		htmlContentWelsh: projectUpdate.htmlContentWelsh
+		htmlContentWelsh: projectUpdate.htmlContentWelsh,
+		type: projectUpdate.type
 	};
 }
 
@@ -137,6 +138,9 @@ export function projectUpdateUpdateReq(body) {
 	}
 	if (body.htmlContentWelsh) {
 		updateReq.htmlContentWelsh = body.htmlContentWelsh;
+	}
+	if (body.type) {
+		updateReq.type = body.type;
 	}
 
 	return updateReq;

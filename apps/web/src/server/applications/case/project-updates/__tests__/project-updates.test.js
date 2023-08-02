@@ -32,7 +32,8 @@ function testUpdate() {
 		htmlContentWelsh: null,
 		title: null,
 		id: 3,
-		status: 'draft'
+		status: 'draft',
+		type: 'general'
 	};
 }
 const nocks = () => {
