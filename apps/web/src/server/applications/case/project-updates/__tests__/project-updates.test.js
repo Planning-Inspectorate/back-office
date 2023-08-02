@@ -16,7 +16,8 @@ const mockCaseReference = {
 const mockProjectUpdate = {
 	id: 1,
 	status: 'draft',
-	htmlContent: 'Hello, world!'
+	htmlContent: 'Hello, world!',
+	type: 'general'
 };
 /**
  * @returns {import('@pins/applications').ProjectUpdate}

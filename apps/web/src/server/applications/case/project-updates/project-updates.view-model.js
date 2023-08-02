@@ -138,17 +138,30 @@ export function createDetailsView({
 		step: projectUpdateRoutes.content,
 		projectUpdateId: projectUpdate.id
 	});
+	const typeChangeLink = url('project-updates-step', {
+		caseId: parseInt(caseInfo.id),
+		step: projectUpdateRoutes.type,
+		projectUpdateId: projectUpdate.id
+	});
 	const statusChangeLink = url('project-updates-step', {
 		caseId: parseInt(caseInfo.id),
 		step: projectUpdateRoutes.status,
 		projectUpdateId: projectUpdate.id
 	});
 	const contentActions = {};
+	const typeActions = {};
 	const statusActions = {};
 	if (editable) {
 		contentActions.items = [
 			{
 				href: contentChangeLink,
+				text: 'Change',
+				visuallyHiddenText: 'content'
+			}
+		];
+		typeActions.items = [
+			{
+				href: typeChangeLink,
 				text: 'Change',
 				visuallyHiddenText: 'content'
 			}
@@ -194,6 +207,11 @@ export function createDetailsView({
 				{
 					key: { text: 'English' },
 					value: { html: projectUpdate.htmlContent }
+				},
+				{
+					key: { text: 'What information does the update contain?' },
+					value: { text: typeRadioOption(projectUpdate.type).text },
+					actions: typeActions
 				},
 				{
 					key: { text: 'Status' },

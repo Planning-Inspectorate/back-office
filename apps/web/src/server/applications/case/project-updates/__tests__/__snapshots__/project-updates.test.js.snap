@@ -123,6 +123,11 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                     <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
                         <dd class=\\"govuk-summary-list__value\\">Hello, world!</dd>
                     </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\">General</dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/type\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                            </dd>
+                    </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                         <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                         </dd>
@@ -193,6 +198,11 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                     <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
                         <dd class=\\"govuk-summary-list__value\\">Hello, world!</dd>
                     </div>
+                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
+                        <dd                         class=\\"govuk-summary-list__value\\">General</dd>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/type\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                            </dd>
+                    </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                         <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                         </dd>
@@ -259,7 +269,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                         <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"general\\">
+                                value=\\"general\\" checked>
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">General</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">
