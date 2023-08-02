@@ -9,13 +9,11 @@ describe('Document location', () => {
 			{
 				caseType: 'application',
 				caseReference: '1',
-				documentName: 'PINS1.pdf',
 				GUID: 'D987654321'
 			},
 			{
 				caseType: 'appeal',
 				caseReference: '2',
-				documentName: 'PINS2.pdf',
 				GUID: 'DF98765421'
 			}
 		]);
@@ -23,19 +21,17 @@ describe('Document location', () => {
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual({
 			blobStorageHost: 'https://localhost:10000',
-			blobStorageContainer: 'document-service-uploads',
+			privateBlobContainer: 'document-service-uploads',
 			documents: [
 				{
 					caseType: 'application',
 					caseReference: '1',
-					documentName: 'PINS1.pdf',
 					GUID: 'D987654321',
-					blobStoreUrl: '/application/1/D987654321/1/PINS1.pdf'
+					blobStoreUrl: '/application/1/D987654321/1'
 				},
 				{
 					caseType: 'appeal',
 					caseReference: '2',
-					documentName: 'PINS2.pdf',
 					GUID: 'DF98765421'
 				}
 			]
@@ -52,7 +48,6 @@ describe('Document location', () => {
 					'Please provide a valid caseType. caseType must be either "appeal" or "application"',
 				'[0].caseReference':
 					'Please provide a valid caseReference. caseReference is not the same as ID',
-				'[0].documentName': 'Please provide a valid documentName',
 				'[0].GUID': 'Please provide a valid GUID'
 			}
 		});

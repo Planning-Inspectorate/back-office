@@ -1,4 +1,4 @@
-import { get, post, patch } from '../../../lib/request.js';
+import { get, post, patch, deleteRequest } from '../../../lib/request.js';
 
 /**
  * @param {string} caseId
@@ -39,4 +39,13 @@ export async function patchProjectUpdate(caseId, id, update) {
 	return patch(`applications/${caseId}/project-updates/${id}`, {
 		json: update
 	});
+}
+
+/**
+ * @param {string} caseId
+ * @param {string} id
+ * @returns {Promise<void>}
+ */
+export async function deleteProjectUpdate(caseId, id) {
+	return deleteRequest(`applications/${caseId}/project-updates/${id}`);
 }

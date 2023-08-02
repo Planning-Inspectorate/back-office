@@ -199,7 +199,6 @@ model Folder {
 model Document {
   guid                     String                    @id @default(uuid())
   reference                String?
-  name                     String
   folderId                 Int
   createdAt                DateTime                  @default(now())
   isDeleted                Boolean                   @default(false)
@@ -211,7 +210,6 @@ model Document {
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
   case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
-  @@unique([name, folderId])
   @@unique([guid, latestVersionId])
 }
 
@@ -237,13 +235,14 @@ model DocumentVersion {
   mime                   String?
   horizonDataID          String?
   fileMD5                String?
-  path                   String?
   virusCheckStatus       String?
   size                   Int?
   stage                  String?
   filter1                String?
-  blobStorageContainer   String?
-  blobStoragePath        String?
+  privateBlobContainer   String?
+  privateBlobPath        String?
+  publishedBlobContainer String?
+  publishedBlobPath      String?
   dateCreated            DateTime?             @default(now())
   datePublished          DateTime?
   isDeleted              Boolean               @default(false)
@@ -253,7 +252,6 @@ model DocumentVersion {
   publishedStatusPrev    String?
   redactedStatus         String?
   redacted               Boolean               @default(false)
-  documentURI            String?
   Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
   latestVersionDocument  Document?             @relation("LatestVersion")
   DocumentActivityLog    DocumentActivityLog[]
@@ -433,19 +431,22 @@ model DocumentActivityLog {
 }
 
 model S51Advice {
-  id             Int      @id @default(autoincrement())
-  caseId         Int
-  title          String
-  firstName      String?
-  lastName       String?
-  enquirer       String?
-  enquiryMethod  String
-  enquiryDate    DateTime
-  enquiryDetails String
-  adviser        String
-  adviceDate     DateTime
-  adviceDetails  String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
-  case           Case     @relation(fields: [caseId], references: [id])
+  id              Int      @id @default(autoincrement())
+  caseId          Int
+  title           String
+  firstName       String?
+  lastName        String?
+  enquirer        String?
+  enquiryMethod   String
+  enquiryDate     DateTime
+  enquiryDetails  String
+  adviser         String
+  adviceDate      DateTime
+  adviceDetails   String
+  referenceNumber Int      @default(00001)
+  redactedStatus  String?
+  publishedStatus String   @default("not_checked")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+  case            Case     @relation(fields: [caseId], references: [id])
 }

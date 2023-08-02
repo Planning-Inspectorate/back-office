@@ -757,5 +757,117 @@ describe('project-updates', () => {
 				}
 			});
 		});
+
+		describe('delete', () => {
+			const fakeNow = new Date();
+			beforeAll(() => {
+				jest.useFakeTimers();
+				jest.setSystemTime(fakeNow);
+			});
+			afterAll(() => {
+				jest.useRealTimers();
+			});
+			const tests = [
+				{
+					name: 'should check for numerical IDs',
+					projectUpdateId: 'hello',
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								projectUpdateId: 'project update id must be a number'
+							}
+						}
+					}
+				},
+				{
+					name: 'should check update is delete-able',
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					existingProjectUpdate: {
+						id: 5,
+						status: 'published',
+						caseId: 1,
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false
+					},
+					want: {
+						status: 400,
+						body: {
+							errors: {
+								message: `this project update can't be deleted`
+							}
+						}
+					}
+				},
+				{
+					name: 'should allow a valid request',
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					existingProjectUpdate: {
+						id: 5,
+						status: 'draft',
+						htmlContent: 'My Important Update',
+						caseId: 1,
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false
+					},
+					want: {
+						event: EventType.Delete,
+						status: 204,
+						body: {}
+					}
+				}
+			];
+
+			it.each(tests)(
+				'$name',
+				async ({ projectUpdateId, existingProjectUpdate, existingCase, want }) => {
+					// setup
+					// mock case
+					databaseConnector.case.findUnique.mockReset();
+					databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+
+					databaseConnector.projectUpdate.delete.mockReset();
+					databaseConnector.projectUpdate.findUnique.mockReset();
+
+					let projectUpdate;
+
+					if (existingProjectUpdate) {
+						databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(existingProjectUpdate);
+						databaseConnector.projectUpdate.delete.mockImplementationOnce(() => {
+							console.log('delete!');
+							projectUpdate = {
+								...existingProjectUpdate,
+								case: existingCase
+							};
+							return projectUpdate;
+						});
+					}
+
+					// action
+					const response = await request.delete(
+						`/applications/1/project-updates/${projectUpdateId}`
+					);
+
+					// checks
+					expect(response.status).toEqual(want.status);
+					expect(response.body).toEqual(want.body);
+					if (existingProjectUpdate && want.event) {
+						// this is OK because we always run some checks
+						// eslint-disable-next-line jest/no-conditional-expect
+						expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+							NSIP_PROJECT_UPDATE,
+							[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
+							want.event
+						);
+					}
+				}
+			);
+		});
 	});
 });

@@ -7,11 +7,11 @@ import { blobClient } from './blob-client.js';
  */
 export const index = async (
 	context,
-	{ documentId, documentURI, documentReference, filename, originalFilename }
+	{ documentId, privateBlobPath, documentReference, filename, originalFilename }
 ) => {
-	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
+	context.log(`Publishing document ID ${documentId} at URI ${privateBlobPath}`);
 
-	if (!documentId || !documentURI || !filename || !originalFilename) {
+	if (!documentId || !privateBlobPath || !filename || !originalFilename) {
 		// TODO: Once we sort out documentReference, validate that too
 		throw Error('One or more required properties are missing.');
 	}
@@ -26,7 +26,7 @@ export const index = async (
 
 	await blobClient.copyFile({
 		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
-		sourceBlobName: documentURI.replace(/^\/+/, ''),
+		sourceBlobName: privateBlobPath.replace(/^\/+/, ''),
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
 		destinationBlobName: publishFileName
 	});

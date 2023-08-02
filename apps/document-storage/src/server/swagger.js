@@ -38,7 +38,7 @@ const document = {
 		],
 		createBlobUrlResponse: {
 			blobStorageHost: 'Blob-Storage-Host',
-			blobStorageContainer: 'Blob-Storage-Container',
+			privateBlobContainer: 'Blob-Storage-Container',
 			documents: [
 				{
 					blobStoreUrl: '/some/path/to/document/PINS1',

@@ -1,7 +1,7 @@
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
 {%- from "applications/components/excerpt.component.njk" import excerpt -%}
 
-{%- macro projectUpdatesTable(tableHeaders, projectUpdatesRows) -%}
+{%- macro projectUpdatesTable(tableHeaders, projectUpdatesRows, caseId) -%}
 	{%- set headers = [] -%}
 	{%- for header in tableHeaders -%}
 		{%- set headers = headers | concat([{ html: headerLink(header) }]) -%}
@@ -14,7 +14,7 @@
 			{ html: excerpt(projectUpdate.content, linkText = 'full update') },
 			{ text: projectUpdate.emailed },
 			{ html: statusTag(projectUpdate.status) },
-			{ html: reviewLink(projectUpdate.id) }
+			{ html: reviewLink(projectUpdate.id, caseId) }
 		] -%}
 		{%- set rows = rows | concat([row]) -%}
 	{%- endfor -%}
@@ -30,8 +30,8 @@
 	<strong class="govuk-tag govuk-tag--{{status.color}} single-line">{{ status.label }}</strong>
 {%- endmacro -%}
 
-{%- macro reviewLink(id) -%}
-	<a href="project-updates/{{id}}/review">Review</a>
+{%- macro reviewLink(id, caseId) -%}
+	<a href="{{"project-updates-step" | url({caseId: caseId, projectUpdateId: id, step: "review"}) }}">Review</a>
 {%- endmacro -%}
 
 {%- macro headerLink(header) -%}

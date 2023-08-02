@@ -2,8 +2,8 @@
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
-/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadInfo */
-/** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, blobStorageContainer: string, accessToken: AccessToken}} UploadFileInfo */
+/** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadInfo */
+/** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadFileInfo */
 
 import { BlobStorageClient } from '@pins/blob-storage-client';
 
@@ -101,7 +101,7 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}>}
 	 */
 	const uploadFiles = async (fileList, uploadInfo) => {
-		const { documents, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
+		const { documents, blobStorageHost, privateBlobContainer, accessToken } = uploadInfo;
 
 		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
@@ -116,7 +116,7 @@ const serverActions = (uploadForm) => {
 					fileToUpload,
 					blobStoreUrl,
 					blobStorageClient,
-					blobStorageContainer
+					privateBlobContainer
 				);
 
 				if (errorOutcome) {
@@ -135,7 +135,7 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}>}
 	 */
 	const uploadFile = async (fileList, uploadInfo) => {
-		const { fileRowId, blobStorageHost, blobStorageContainer, accessToken } = uploadInfo;
+		const { fileRowId, blobStorageHost, privateBlobContainer, accessToken } = uploadInfo;
 
 		const { blobStoreUrl } = uploadInfo.document;
 
@@ -148,7 +148,7 @@ const serverActions = (uploadForm) => {
 				fileToUpload,
 				blobStoreUrl,
 				blobStorageClient,
-				blobStorageContainer
+				privateBlobContainer
 			);
 
 			if (errorOutcome) {
@@ -164,21 +164,21 @@ const serverActions = (uploadForm) => {
 	 * @param {FileWithRowId} fileToUpload
 	 * @param {string} blobStoreUrl
 	 * @param {import('@pins/blob-storage-client').BlobStorageClient} blobStorageClient
-	 * @param {string} blobStorageContainer
+	 * @param {string} privateBlobContainer
 	 * @returns {Promise<AnError | undefined>}
 	 */
 	const uploadOnBlobStorage = async (
 		fileToUpload,
 		blobStoreUrl,
 		blobStorageClient,
-		blobStorageContainer
+		privateBlobContainer
 	) => {
 		let response;
 
 		try {
 			// todo: remove the initial / from backend
 			await blobStorageClient.uploadFile(
-				blobStorageContainer,
+				privateBlobContainer,
 				fileToUpload,
 				blobStoreUrl.slice(1),
 				fileToUpload.type

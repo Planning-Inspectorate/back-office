@@ -3,10 +3,9 @@ const { databaseConnector } = await import('../../../../utils/database-connector
 
 const document1 = {
 	guid: 'D1234',
-	name: 'Tom',
 	folderId: 2,
-	blobStorageContainer: 'Container',
-	blobStoragePath: 'Container',
+	privateBlobContainer: 'Container',
+	privateBlobPath: 'Container',
 	caseId: 1,
 	latestVersionNo: 1
 };
@@ -21,7 +20,6 @@ const documentVersion1 = {
 const documentToUpdate1 = {
 	caseId: 1,
 	documentGuid: 'documenttoupdate_1_guid',
-	name: 'doc to update 1',
 	description: 'doc with all required fields for publishing',
 	publishedStatus: 'not_checked',
 	filter1: 'Filter Category 1',
@@ -35,10 +33,10 @@ describe('Update document status when awaiting_virus_check', () => {
 		// GIVEN
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'D1234',
-			name: 'Tom',
+
 			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
+			privateBlobContainer: 'Container',
+			privateBlobPath: 'Container',
 			caseId: 1,
 			latestVersionNo: 1,
 			documentVersion: [
@@ -82,10 +80,10 @@ describe('Update document statuses and redacted statuses', () => {
 		// GIVEN
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'documenttoupdate_1_guid',
-			name: 'davids doc xxxx',
+
 			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
+			privateBlobContainer: 'Container',
+			privateBlobPath: 'Container',
 			documentVersion: [
 				{
 					documentGuid: 'documenttoupdate_1_guid',
@@ -133,7 +131,7 @@ describe('Update document statuses and redacted statuses', () => {
 		const documentResponseReadyToPublish = {
 			caseId: 1,
 			documentGuid: 'documenttoupdate_1a_guid',
-			name: 'doc to update 2',
+
 			description: 'doc with all required fields for publishing',
 			publishedStatus: 'ready_to_publish',
 			filter1: 'Filter Category 1',
@@ -153,10 +151,10 @@ describe('Update document statuses and redacted statuses', () => {
 			[
 				{
 					guid: 'documenttoupdate_1a_guid',
-					name: 'davids doc xxxx',
+
 					folderId: 2,
-					blobStorageContainer: 'Container',
-					blobStoragePath: 'Container',
+					privateBlobContainer: 'Container',
+					privateBlobPath: 'Container',
 					documentVersion: [
 						{
 							documentGuid: 'documenttoupdate_1a_guid',
@@ -205,7 +203,7 @@ describe('Update document statuses and redacted statuses', () => {
 		const documentResponseUnredacted = {
 			caseId: 1,
 			documentGuid: 'documenttoupdate_2_guid',
-			name: 'doc to update 2',
+
 			description: 'doc with all required fields for publishing',
 			publishedStatus: 'not_checked',
 			filter1: 'Filter Category 1',
@@ -215,10 +213,10 @@ describe('Update document statuses and redacted statuses', () => {
 
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'documenttoupdate_2_guid',
-			name: 'davids doc xxxx',
+
 			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
+			privateBlobContainer: 'Container',
+			privateBlobPath: 'Container',
 			documentVersion: [
 				{
 					documentGuid: 'documenttoupdate_2_guid',
@@ -264,7 +262,7 @@ describe('Update document statuses and redacted statuses', () => {
 		const documentResponseStatusUnchanged = {
 			caseId: 1,
 			documentGuid: 'documenttoupdate_3_guid',
-			name: 'doc to update 3',
+
 			description: 'doc with all required fields for publishing',
 			publishedStatus: 'awaiting_upload',
 			redactedStatus: 'redacted'
@@ -272,10 +270,10 @@ describe('Update document statuses and redacted statuses', () => {
 
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'documenttoupdate_3_guid',
-			name: 'davids doc xxxx',
+
 			folderId: 2,
-			blobStorageContainer: 'Container',
-			blobStoragePath: 'Container',
+			privateBlobContainer: 'Container',
+			privateBlobPath: 'Container',
 			documentVersion: [
 				{
 					documentGuid: 'documenttoupdate_3_guid',
@@ -317,7 +315,7 @@ describe('Update document statuses and redacted statuses', () => {
 		const updatedDocument = {
 			caseId: 1,
 			documentGuid: 'documenttoupdate_1a_guid',
-			name: 'doc to update 2',
+
 			description: 'doc with all required fields for publishing',
 			publishedStatus: 'ready_to_publish',
 			filter1: 'Filter Category 1',
@@ -371,7 +369,6 @@ describe('Update document statuses and redacted statuses', () => {
 	describe('revert document published status', () => {
 		const tests = [
 			{
-				name: 'invalid guid',
 				guid: 'not-a-document-guid',
 				want: {
 					status: 404,
@@ -382,7 +379,6 @@ describe('Update document statuses and redacted statuses', () => {
 				}
 			},
 			{
-				name: 'no document version',
 				guid: 'document-guid',
 				document: {},
 				documentVersion: null,
@@ -395,7 +391,6 @@ describe('Update document statuses and redacted statuses', () => {
 				}
 			},
 			{
-				name: 'no previous status',
 				guid: 'document-guid',
 				document: {},
 				documentVersion: {},
@@ -408,7 +403,6 @@ describe('Update document statuses and redacted statuses', () => {
 				}
 			},
 			{
-				name: 'reverts to previous status',
 				guid: 'document-guid',
 				document: {},
 				documentVersion: {

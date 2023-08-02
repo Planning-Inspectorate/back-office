@@ -28,7 +28,8 @@ describe('validateNsipDocument', () => {
 			securityClassification: 'public',
 			mime: 'application/pdf',
 			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
-			path: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
+			privateBlobPath:
+				'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
 			virusCheckStatus: 'scanned',
 			size: 23452,
 			stage: 'examination',
@@ -40,7 +41,7 @@ describe('validateNsipDocument', () => {
 			examinationRefNo: 'XXX-0000',
 			publishedStatus: 'published',
 			redactedStatus: 'not_redacted',
-			documentURI: 'https://published/en010120/filename.pdf'
+			blobStoragePath: 'https://published/en010120/filename.pdf'
 		};
 		// 2. Act
 		// @ts-ignore
@@ -58,8 +59,8 @@ describe('validateNsipDocument', () => {
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
 			mime: 'application/pdf',
-			documentURI: 'https://published/en010120/filename.pdf',
-			path: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
+			documentURI: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
+			path: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF', // TODO: Remove
 			virusCheckStatus: 'scanned',
 			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
 			dateCreated: '2023-03-26T00:00:00.000Z',

@@ -59,7 +59,7 @@ const document = {
 		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
-			blobStorageContainer: 'blob-storage-container',
+			privateBlobContainer: 'blob-storage-container',
 			documents: [
 				{
 					documentName: 'document.pdf',
@@ -70,7 +70,7 @@ const document = {
 		},
 		partialDocumentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
-			blobStorageContainer: 'blob-storage-container',
+			privateBlobContainer: 'blob-storage-container',
 			documents: [
 				{
 					documentName: 'document.pdf',
@@ -275,8 +275,8 @@ const document = {
 			datePublished: '',
 			caseRef: 'BC0210002',
 			documentName: '5',
-			blobStorageContainer: 'document-service-uploads',
-			documentURI: '/application/BC010001/1111-2222-3333/my doc.pdf',
+			privateBlobContainer: 'document-service-uploads',
+			privateBlobPath: '/application/BC010001/1111-2222-3333/my doc.pdf',
 			from: 'joe blogs',
 			dateCreated: 1_677_585_578,
 			size: 0,
@@ -381,8 +381,8 @@ const document = {
 			documentGuid: '456',
 			fileName: 'document.pdf',
 			datePublished: '2022-12-21T12:42:40.885Z',
-			documentURI: '/documents/123.pdf',
-			blobStorageContainer: 'my-blob-storage',
+			privateBlobPath: '/documents/123.pdf',
+			privateBlobContainer: 'my-blob-storage',
 			author: 'John Smith',
 			dateCreated: '2022-12-21T12:42:40.885Z',
 			publishedStatus: 'published',
@@ -404,8 +404,8 @@ const document = {
 			documentGuid: '456',
 			fileName: 'document.pdf',
 			datePublished: 1_646_822_400,
-			documentURI: '/documents/123.pdf',
-			blobStorageContainer: 'my-blob-storage',
+			privateBlobPath: '/documents/123.pdf',
+			privateBlobContainer: 'my-blob-storage',
 			author: 'John Smith',
 			dateCreated: 1_646_822_400,
 			publishedStatus: 'published',
@@ -436,8 +436,8 @@ const document = {
 						fileName: 'document.pdf',
 						originalFilename: 'original_document.pdf',
 						datePublished: 1_646_822_400,
-						documentURI: '/documents/123.pdf',
-						blobStorageContainer: 'my-blob-storage',
+						privateBlobPath: '/documents/123.pdf',
+						privateBlobContainer: 'my-blob-storage',
 						author: 'John Smith',
 						dateCreated: 1_646_822_400,
 						publishedStatus: 'published',
@@ -1467,6 +1467,20 @@ const document = {
 					type: 'string',
 					enum: ['English', 'Welsh'],
 					default: 'English'
+				}
+			}
+		},
+		GeneralError: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						message: {
+							type: 'string',
+							example: 'something went wrong'
+						}
+					}
 				}
 			}
 		},

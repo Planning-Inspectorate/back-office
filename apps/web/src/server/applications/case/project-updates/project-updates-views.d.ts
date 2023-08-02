@@ -22,6 +22,7 @@ export interface ProjectUpdatesDetailsView {
 	case: any;
 	title?: string;
 	buttonText?: string;
+	buttonLink?: string;
 	buttonClasses?: string;
 	preview: { html: string };
 	form?: {

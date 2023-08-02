@@ -24,7 +24,7 @@ export const updateStatus = async (guid, status) => {
 
 	if (status === 'published') {
 		// @ts-ignore
-		updatePayload.publishedStatus = new Date();
+		updatePayload.datePublished = new Date();
 	}
 
 	const updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);

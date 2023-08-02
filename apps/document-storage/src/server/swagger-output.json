@@ -215,7 +215,7 @@
 					"type": "string",
 					"example": "Blob-Storage-Host"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "Blob-Storage-Container"
 				},

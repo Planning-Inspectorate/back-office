@@ -1904,6 +1904,43 @@
 						}
 					}
 				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Delete a project update",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Successfully deleted"
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/GeneralError"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
 			}
 		},
 		"/applications/documents/{documentGUID}/status": {
@@ -2619,7 +2656,7 @@
 					"type": "string",
 					"example": "blob-storage-host"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "blob-storage-container"
 				},
@@ -2652,7 +2689,7 @@
 					"type": "string",
 					"example": "blob-storage-host"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "blob-storage-container"
 				},
@@ -3355,11 +3392,11 @@
 					"type": "string",
 					"example": "5"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "document-service-uploads"
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/application/BC010001/1111-2222-3333/my doc.pdf"
 				},
@@ -3714,11 +3751,11 @@
 					"type": "string",
 					"example": "2022-12-21T12:42:40.885Z"
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/documents/123.pdf"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "my-blob-storage"
 				},
@@ -3803,11 +3840,11 @@
 					"type": "number",
 					"example": 1646822400
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/documents/123.pdf"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "my-blob-storage"
 				},
@@ -3923,11 +3960,11 @@
 									"type": "number",
 									"example": 1646822400
 								},
-								"documentURI": {
+								"privateBlobPath": {
 									"type": "string",
 									"example": "/documents/123.pdf"
 								},
-								"blobStorageContainer": {
+								"privateBlobContainer": {
 									"type": "string",
 									"example": "my-blob-storage"
 								},
@@ -6633,6 +6670,20 @@
 					"type": "string",
 					"enum": ["English", "Welsh"],
 					"default": "English"
+				}
+			}
+		},
+		"GeneralError": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"message": {
+							"type": "string",
+							"example": "something went wrong"
+						}
+					}
 				}
 			}
 		},

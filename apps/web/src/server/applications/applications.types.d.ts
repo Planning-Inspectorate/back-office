@@ -105,9 +105,8 @@ export interface DocumentationFile {
 	mime: string;
 	publishedStatus: string;
 	redactedStatus: string;
-	blobStorageContainer?: string;
-	blobStoragePath?: string;
-	documentURI?: string;
+	privateBlobContainer?: string;
+	privateBlobPath?: string;
 	filter1: string;
 	author: string;
 	representative: string;
