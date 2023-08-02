@@ -56,8 +56,8 @@ const documents = [
 		guid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
 		name: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 		folderId: 1,
-		blobStorageContainer: null,
-		blobStoragePath: null,
+		privateBlobContainer: null,
+		privateBlobPath: null,
 		status: 'awaiting_upload',
 		createdAt: '2023-03-13T16:54:09.282Z',
 		redacted: false,
@@ -90,7 +90,7 @@ const documents = [
 				virusCheckStatus: null,
 				size: 4375,
 				filter1: null,
-				blobStorageContainer: null,
+				privateBlobContainer: null,
 				dateCreated: '2023-03-13T16:54:09.398Z',
 				datePublished: null,
 				isDeleted: false,
@@ -99,7 +99,7 @@ const documents = [
 				publishedStatus: 'awaiting_upload',
 				redactedStatus: null,
 				redacted: false,
-				documentURI: null
+				privateBlobPath: null
 			}
 		],
 		folder: {
@@ -278,9 +278,8 @@ describe('Get folder details', () => {
 					folderId: 1,
 					sourceSystem: 'back-office',
 					stage: null,
-					blobStorageContainer: '',
-					blobStoragePath: '',
-					documentURI: '',
+					privateBlobContainer: '',
+					privateBlobPath: '',
 					author: '',
 					fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 					originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',

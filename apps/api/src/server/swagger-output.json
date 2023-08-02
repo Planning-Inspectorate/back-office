@@ -2656,7 +2656,7 @@
 					"type": "string",
 					"example": "blob-storage-host"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "blob-storage-container"
 				},
@@ -2689,7 +2689,7 @@
 					"type": "string",
 					"example": "blob-storage-host"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "blob-storage-container"
 				},
@@ -3392,11 +3392,11 @@
 					"type": "string",
 					"example": "5"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "document-service-uploads"
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/application/BC010001/1111-2222-3333/my doc.pdf"
 				},
@@ -3751,11 +3751,11 @@
 					"type": "string",
 					"example": "2022-12-21T12:42:40.885Z"
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/documents/123.pdf"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "my-blob-storage"
 				},
@@ -3840,11 +3840,11 @@
 					"type": "number",
 					"example": 1646822400
 				},
-				"documentURI": {
+				"privateBlobPath": {
 					"type": "string",
 					"example": "/documents/123.pdf"
 				},
-				"blobStorageContainer": {
+				"privateBlobContainer": {
 					"type": "string",
 					"example": "my-blob-storage"
 				},
@@ -3960,11 +3960,11 @@
 									"type": "number",
 									"example": 1646822400
 								},
-								"documentURI": {
+								"privateBlobPath": {
 									"type": "string",
 									"example": "/documents/123.pdf"
 								},
-								"blobStorageContainer": {
+								"privateBlobContainer": {
 									"type": "string",
 									"example": "my-blob-storage"
 								},

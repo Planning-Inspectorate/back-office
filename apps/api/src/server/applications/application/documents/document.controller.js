@@ -35,7 +35,7 @@ import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-st
  */
 
 /**
- * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
@@ -78,7 +78,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		return;
 	}
 
-	const { blobStorageHost, blobStorageContainer, documents } = dbResponse;
+	const { blobStorageHost, privateBlobContainer, documents } = dbResponse;
 
 	// Map the obtained URLs with documentName
 	const documentsWithUrls = documents.map((document) => {
@@ -88,7 +88,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	// Send response with blob storage host, container, and documents with URLs
 	response.status(failedDocuments.length > 0 ? 206 : 200).send({
 		blobStorageHost,
-		blobStorageContainer,
+		privateBlobContainer,
 		documents: documentsWithUrls,
 		failedDocuments
 	});
@@ -96,13 +96,13 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, blobStorageContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
 	const documentToUpload = body;
 
 	// Obtain URL of document from blob storage
-	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLForDocumentVersion(
+	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
 		params.id,
 		params.guid
@@ -116,7 +116,7 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
 	// Send response with blob storage host, container, and documents with URLs
 	response.send({
 		blobStorageHost,
-		blobStorageContainer,
+		privateBlobContainer,
 		document: documentsWithUrls[0]
 	});
 };

@@ -26,7 +26,7 @@ describe('Provide document upload URLs', () => {
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
 				blobStorageHost: 'blob-store-host',
-				blobStorageContainer: 'blob-store-container',
+				privateBlobContainer: 'blob-store-container',
 				documents: [
 					{
 						caseType: 'application',
@@ -53,7 +53,7 @@ describe('Provide document upload URLs', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			blobStorageHost: 'blob-store-host',
-			blobStorageContainer: 'blob-store-container',
+			privateBlobContainer: 'blob-store-container',
 			documents: [
 				{
 					documentName: 'test doc',
@@ -67,7 +67,7 @@ describe('Provide document upload URLs', () => {
 		const metadata = {
 			documentGuid: guid,
 			originalFilename: 'test doc',
-			documentURI: '/some/path/test doc'
+			privateBlobPath: '/some/path/test doc'
 		};
 
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
@@ -97,15 +97,15 @@ describe('Provide document upload URLs', () => {
 
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
 			create: {
-				blobStorageContainer: 'blob-store-container',
-				documentURI: '/some/path/test doc',
+				privateBlobContainer: 'blob-store-container',
+				privateBlobPath: '/some/path/test doc',
 				version: 1,
 				Document: { connect: { guid: metadata?.documentGuid } }
 			},
 			where: { documentGuid_version: { documentGuid: metadata.documentGuid, version: 1 } },
 			update: {
-				blobStorageContainer: 'blob-store-container',
-				documentURI: '/some/path/test doc',
+				privateBlobContainer: 'blob-store-container',
+				privateBlobPath: '/some/path/test doc',
 				version: 1
 			},
 			include: {

@@ -9,7 +9,7 @@ import { updateStatus } from './documents.service.js';
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
-	const { blobStorageHost, blobStorageContainer, documents } = await obtainURLsForDocuments(
+	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLsForDocuments(
 		documentsToUpload,
 		params.id
 	);
@@ -21,7 +21,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 
 	response.send({
 		blobStorageHost,
-		blobStorageContainer,
+		privateBlobContainer,
 		documents: documentsWithUrls
 	});
 };

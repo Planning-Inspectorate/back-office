@@ -36,13 +36,13 @@ export const documentName = (documentNameWithExtension) => {
  *
  * @param {number} caseId
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documents
- * @returns {{name: string, caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string}[]}
+ * @returns {{caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string}[]}
  */
 const mapDocumentsToSendToDatabase = (caseId, documents) => {
 	return documents?.map((document) => {
 		return {
-			name: document.documentName,
 			caseId,
+			documentName: document.documentName,
 			folderId: document.folderId,
 			documentType: document.documentType,
 			documentSize: document.documentSize,
@@ -54,11 +54,12 @@ const mapDocumentsToSendToDatabase = (caseId, documents) => {
 /**
  *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}} document
- * @returns {{name: string, folderId: number; documentType: string, documentSize: number, reference: string}}
+ * @returns {{documentName: string, folderId: number; documentType: string, documentSize: number, reference: string}}
  */
 const mapDocumentToSendToDatabase = (document) => {
+	// TODO: Why are we duplicating this, why are the parameters different and why aren't we setting the caseId??
 	return {
-		name: document.documentName,
+		documentName: document.documentName,
 		folderId: document.folderId,
 		documentType: document.documentType,
 		documentSize: document.documentSize,
@@ -78,7 +79,7 @@ const getCaseStageMapping = async (folderId) => {
 /**
  *
  * @param {number} caseId
- * @param {{name: string, folderId: number; documentType: string, documentSize: number, documentReference: string}[]} documents
+ * @param {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string}[]} documents
  * @returns {Promise<{successful: import('@pins/applications.api').Schema.Document[], failed: string[]}>}
  */
 const attemptInsertDocuments = async (caseId, documents) => {
@@ -92,24 +93,23 @@ const attemptInsertDocuments = async (caseId, documents) => {
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
 		.handleError((error, doc) => {
-			logger.error(`An error occurred while creating document: ${doc.name}: ${error}`);
+			logger.error(`An error occurred while creating document: ${doc.documentName}: ${error}`);
 			throw error;
 		})
 		.process(async (documentToDB) => {
-			const fileName = documentName(documentToDB.name);
+			const fileName = documentName(documentToDB.documentName);
 
 			logger.info(`Inserting document to database: ${documentToDB}`);
 
 			let document;
 			try {
 				document = await documentRepository.create({
-					name: fileName,
 					caseId,
 					folderId: documentToDB.folderId,
 					reference: documentToDB.documentReference
 				});
 			} catch (err) {
-				failed.add(documentToDB.name);
+				failed.add(documentToDB.documentName);
 				return;
 			}
 
@@ -123,7 +123,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 			await documentVersionRepository.upsert({
 				documentGuid: document.guid,
 				fileName,
-				originalFilename: fileName,
+				originalFilename: documentToDB.documentName,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				stage: stage,
@@ -151,7 +151,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 /**
  * @param {import('@pins/applications.api').Schema.Document[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
+ * @returns {{caseType: string, caseReference: string, GUID: string, version: number}[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
@@ -159,7 +159,6 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 			caseType: 'application',
 			caseReference,
 			GUID: document.guid,
-			documentName: document.name,
 			documentReference: document?.reference,
 			version: 1
 		};
@@ -171,20 +170,20 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
  *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload - Array of documents to upload metadata for.
  * @param {{blobStoreUrl: string;caseType: string;documentName: string;GUID: string;}[]} blobStorageDocuments - Array of documents containing metadata to upsert.
- * @param {string} blobStorageContainer - Name of the blob storage container where documents are stored.
+ * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
  * @returns {Promise<void>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
-	blobStorageContainer
+	privateBlobContainer
 ) => {
 	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
 		// Create an object containing the metadata to upsert for the current document
 		return {
-			blobStorageContainer,
+			privateBlobContainer,
 			documentGuid: documentToUpload.GUID,
-			documentURI: documentToUpload.blobStoreUrl
+			privateBlobPath: documentToUpload.blobStoreUrl
 		};
 	});
 
@@ -208,7 +207,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 /**
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documentsToUpload
  * @param {number} caseId
- * @returns {Promise<{response: {blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]} | null, failedDocuments: string[]}>}}
+ * @returns {Promise<{response: {blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]} | null, failedDocuments: string[]}>}}
  */
 export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
@@ -231,6 +230,8 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	logger.info(`Mapping documents to database format...`);
 
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
+
+	//throw Error(JSON.stringify(documentsToSendToDatabase));
 
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
@@ -268,7 +269,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	await upsertDocumentVersionsMetadataToDatabase(
 		responseFromDocumentStorage.documents,
-		responseFromDocumentStorage.blobStorageContainer
+		responseFromDocumentStorage.privateBlobContainer
 	);
 
 	// @ts-ignore
@@ -298,7 +299,7 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
- * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
+ * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
  */
 export const obtainURLForDocumentVersion = async (documentToUpload, caseId, documentId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
@@ -337,7 +338,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 
 	logger.info(`Document found from database: ${JSON.stringify(documentFromDatabase)}`);
 
-	const fileName = documentName(documentToSendToDatabase.name);
+	const fileName = documentName(documentToSendToDatabase.documentName);
 	const version = documentFromDatabase.latestVersionId + 1;
 
 	const { documentVersion } = documentFromDatabase;
@@ -392,7 +393,6 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			caseType: 'application',
 			caseReference: caseForDocuments.reference,
 			GUID: documentFromDatabase.guid,
-			documentName: documentFromDatabase.name,
 			version
 		}
 	];
@@ -411,9 +411,9 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	logger.info(`Upserting document versions metadata to database...`);
 
 	await documentVersionRepository.update(documentId, {
-		blobStorageContainer: responseFromDocumentStorage.blobStorageContainer,
+		privateBlobContainer: responseFromDocumentStorage.privateBlobContainer,
 		version,
-		documentURI: responseFromDocumentStorage.documents[0].blobStoreUrl
+		privateBlobPath: responseFromDocumentStorage.documents[0].blobStoreUrl
 	});
 
 	await documentRepository.update(documentId, {

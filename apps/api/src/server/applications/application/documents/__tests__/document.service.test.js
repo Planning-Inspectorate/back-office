@@ -107,7 +107,7 @@ describe('Document service test', () => {
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
 				blobStorageHost: 'blob-store-host',
-				blobStorageContainer: 'blob-store-container',
+				privateBlobContainer: 'blob-store-container',
 				documents: [document]
 			})
 		});
@@ -115,7 +115,7 @@ describe('Document service test', () => {
 		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
 
 		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
-		expect(ressponse.blobStorageContainer).toEqual('blob-store-container');
+		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');
 		expect(ressponse.documents).toEqual([document]);
 		expect(databaseConnector.document.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);

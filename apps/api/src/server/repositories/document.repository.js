@@ -3,20 +3,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 /** @typedef {import('@prisma/client').Document} Document */
 
 /**
- *
- * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
- */
-export const upsert = (document) => {
-	return databaseConnector.document.upsert({
-		create: document,
-		where: { name_folderId: { name: document.name, folderId: document.folderId } },
-		update: {}
-	});
-};
-
-/**
- * @param {{name: string, caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
+ * @param {{caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const create = (document) => {

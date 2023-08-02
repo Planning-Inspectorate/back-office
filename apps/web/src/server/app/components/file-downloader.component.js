@@ -19,24 +19,24 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { blobStorageContainer, documentURI } = await getCaseDocumentationVersionFileInfo(
+	const { privateBlobContainer, privateBlobPath } = await getCaseDocumentationVersionFileInfo(
 		caseId,
 		fileGuid,
 		version
 	);
 
-	if (!blobStorageContainer || !documentURI) {
+	if (!privateBlobContainer || !privateBlobPath) {
 		throw new Error('Blob storage container or Document UR not found');
 	}
 
 	// Document URIs are persisted with a prepended slash, but this slash is treated as part of the key by blob storage so we need to remove it
-	const documentKey = documentURI.startsWith('/') ? documentURI.slice(1) : documentURI;
+	const documentKey = privateBlobPath.startsWith('/') ? privateBlobPath.slice(1) : privateBlobPath;
 
 	const fileName = `${documentKey}`.split(/\/+/).pop();
 
 	const client = BlobStorageClient.fromUrlAndToken(blobStorageUrl, accessToken);
 
-	const blobProperties = await client.getBlobProperties(blobStorageContainer, documentKey);
+	const blobProperties = await client.getBlobProperties(privateBlobContainer, documentKey);
 
 	if (!blobProperties) {
 		return response.status(404);
@@ -48,7 +48,7 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		response.setHeader('content-disposition', `attachment; filename=${fileName}`);
 	}
 
-	const blobStream = await client.downloadStream(blobStorageContainer, documentKey);
+	const blobStream = await client.downloadStream(privateBlobContainer, documentKey);
 
 	if (!blobStream?.readableStreamBody) {
 		throw new Error(`Document ${documentKey} missing stream body`);

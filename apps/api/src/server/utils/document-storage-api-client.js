@@ -6,8 +6,8 @@ const documentStorageApiHost = () => {
 };
 
 /**
- * @param {{caseType: string, caseReference: string, documentName: string, GUID: string}[]} documentsToSave
- * @returns {Promise<{blobStorageHost: string, blobStorageContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}
+ * @param {{caseType: string, caseReference: string, GUID: string}[]} documentsToSave
+ * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}
  */
 export const getStorageLocation = async (documentsToSave) => {
 	return got
