@@ -1,3 +1,10 @@
-export const NSIP_PROJECT = 'nsip-project';
+export const producers = {
+	boCaseData: 'appeal-bo-case',
+	boDocument: 'appeal-bo-document'
+};
 
-export const NSIP_DOCUMENT = 'nsip-document';
+export const consumers = {
+	foCaseData: 'appeals-case-data',
+	odwCaseData: '',
+	odwDocuments: ''
+};
