@@ -12,11 +12,22 @@ import * as documentVersionRepository from '../../repositories/document-metadata
 export const updateStatus = async (guid, status) => {
 	const document = await documentRepository.getByDocumentGUID(guid);
 
-	const updatedDocument = await documentVersionRepository.updateDocumentStatus({
+	if (!document) {
+		return;
+	}
+
+	const updatePayload = {
 		guid,
 		status,
-		version: document.latestVersionId
-	});
+		version: document?.latestVersionId || 1
+	};
+
+	if (status === 'published') {
+		// @ts-ignore
+		updatePayload.publishedStatus = new Date();
+	}
+
+	const updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);
 
 	const eventType =
 		updatedDocument.publishedStatus === 'published' ? EventType.Publish : EventType.Update;
@@ -28,7 +39,7 @@ export const updateStatus = async (guid, status) => {
 	);
 
 	return {
-		caseId: updatedDocument.caseId,
+		caseId: document.caseId,
 		guid: updatedDocument.documentGuid,
 		status: updatedDocument.publishedStatus
 	};
