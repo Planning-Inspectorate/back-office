@@ -10,6 +10,8 @@ export const htmlContentError = `htmlContent can only contain ${allowedTagsList}
 export const htmlContentWelshError = `htmlContentWelsh can only contain ${allowedTagsList} tags`;
 const statusList = ProjectUpdate.StatusList.map((s) => `'${s}'`).join(', ');
 export const statusError = `status must be one of ${statusList}`;
+const typesList = ProjectUpdate.TypesList.map((t) => `'${t}'`).join(', ');
+export const typesError = `type must be one of ${typesList}`;
 
 export const validateCreateProjectUpdate = composeMiddleware(
 	body('emailSubscribers')
@@ -60,6 +62,12 @@ export const validateUpdateProjectUpdate = composeMiddleware(
 		.withMessage('htmlContentWelsh must be a string')
 		.custom(contentIsSafe)
 		.withMessage(htmlContentWelshError),
+	body('type')
+		.optional()
+		.isString()
+		.withMessage('type must be a string')
+		.isIn(ProjectUpdate.TypesList)
+		.withMessage(typesError),
 	validationErrorHandler
 );
 

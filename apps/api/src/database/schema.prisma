@@ -418,6 +418,9 @@ model ProjectUpdate {
   htmlContent       String
   // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
   htmlContentWelsh  String?
+  // the type of update - which determines which subscribers will recieve the notification emails
+  // of type SubscriptionType
+  type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
 }
 
 model DocumentActivityLog {

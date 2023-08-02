@@ -1154,6 +1154,12 @@ const document = {
 							format: 'date-time',
 							description: "The date this update's status was set to published",
 							example: '2022-12-21T12:42:40.885Z'
+						},
+						type: {
+							type: 'string',
+							enum: ['general', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'],
+							description:
+								'the type of update - which determines which subscribers will recieve the notification emails'
 						}
 					}
 				}
@@ -1194,7 +1200,7 @@ const document = {
 				}
 			}
 		},
-		// same as create, but no required properties
+		// similar to create, but no required properties
 		ApplicationProjectUpdateUpdateRequest: {
 			type: 'object',
 			properties: {
@@ -1222,6 +1228,12 @@ const document = {
 					description:
 						'The HTML content of this update in Welsh, it can only include `<p> <a> <strong> <ul> <li> <br>` tags',
 					example: '<strong>Diweddariad Pwysig</strong> Digwyddodd rhywbeth.'
+				},
+				type: {
+					type: 'string',
+					enum: ['general', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'],
+					description:
+						'the type of update - which determines which subscribers will recieve the notification emails'
 				}
 			}
 		},
@@ -1250,6 +1262,10 @@ const document = {
 						htmlContentWelsh: {
 							type: 'string',
 							example: 'title must be a string'
+						},
+						type: {
+							type: 'string',
+							example: 'type must be a string'
 						}
 					}
 				}

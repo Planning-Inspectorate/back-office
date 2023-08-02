@@ -13,6 +13,7 @@ export interface ProjectUpdate {
 	title: string | null;
 	htmlContent: string;
 	htmlContentWelsh: string | null;
+	type: ProjectUpdateType;
 }
 
 export type ProjectUpdateStatus =
@@ -22,4 +23,11 @@ export type ProjectUpdateStatus =
 	| 'ready-to-unpublish'
 	| 'unpublished'
 	| 'archived'
+	| string;
+
+export type ProjectUpdateType =
+	| 'general'
+	| 'applicationSubmitted'
+	| 'applicationDecided'
+	| 'registrationOpen'
 	| string;

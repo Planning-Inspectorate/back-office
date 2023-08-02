@@ -43,6 +43,18 @@ export class ProjectUpdate {
 	}
 
 	/**
+	 * A list of allowed types for a project update
+	 */
+	static get TypesList() {
+		return Object.freeze([
+			'general',
+			'applicationSubmitted',
+			'applicationDecided',
+			'registrationOpen'
+		]);
+	}
+
+	/**
 	 * Can a project update with the given status be edited?
 	 *
 	 * @param {string} status
