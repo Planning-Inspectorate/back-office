@@ -311,3 +311,31 @@ function statusColor(status) {
 	}
 	return 'grey';
 }
+
+/**
+ * Return the govukRadio options for the given type
+ *
+ * @param {string} type
+ * @returns {{text: string, value: string}}
+ */
+export function typeRadioOption(type) {
+	let text = type;
+	switch (type) {
+		case ProjectUpdate.Type.general:
+			text = 'General';
+			break;
+		case ProjectUpdate.Type.applicationSubmitted:
+			text = 'The application has been submitted';
+			break;
+		case ProjectUpdate.Type.applicationDecided:
+			text = 'Register to have your say has opened';
+			break;
+		case ProjectUpdate.Type.registrationOpen:
+			text = 'The final decision has been issued';
+			break;
+	}
+	return {
+		text,
+		value: type
+	};
+}

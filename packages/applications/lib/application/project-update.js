@@ -43,15 +43,23 @@ export class ProjectUpdate {
 	}
 
 	/**
+	 * Project update type options
+	 * @type {Object<string, import("@pins/applications/types/project-update.js").ProjectUpdateType>}
+	 */
+	static get Type() {
+		return Object.freeze({
+			general: 'general',
+			applicationSubmitted: 'applicationSubmitted',
+			applicationDecided: 'applicationDecided',
+			registrationOpen: 'registrationOpen'
+		});
+	}
+
+	/**
 	 * A list of allowed types for a project update
 	 */
 	static get TypesList() {
-		return Object.freeze([
-			'general',
-			'applicationSubmitted',
-			'applicationDecided',
-			'registrationOpen'
-		]);
+		return Object.freeze(Object.values(ProjectUpdate.Type));
 	}
 
 	/**
