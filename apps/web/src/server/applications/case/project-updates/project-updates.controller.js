@@ -12,6 +12,11 @@ import {
 	patchProjectUpdate
 } from './project-updates.service.js';
 import {
+	deleteSessionBanner,
+	getSessionBanner,
+	setSessionBanner
+} from './project-updates.session.js';
+import {
 	createDetailsView,
 	createContentFormView,
 	projectUpdatesRows,
@@ -28,7 +33,7 @@ const detailsView = 'applications/case/project-updates/project-updates-details.n
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function projectUpdatesTable({ params, query }, res) {
+export async function projectUpdatesTable({ params, query, session }, res) {
 	const { caseId } = params;
 
 	const { sortBy, pageSize = 25, page = 1 } = query;
@@ -48,8 +53,11 @@ export async function projectUpdatesTable({ params, query }, res) {
 	const projectUpdatesRes = await getProjectUpdates(caseId, buildQueryString(queryOptions));
 	const updatesUrl = url('project-updates', { caseId: parseInt(caseId) });
 
+	const banner = getSessionBanner(session);
+	// banner only applies once, so clear it
+	deleteSessionBanner(session);
 	return res.render(view, {
-		banner: res.locals.banner,
+		banner,
 		projectUpdatesRows: projectUpdatesRows(projectUpdatesRes.items),
 		caseId,
 		tableHeaders: tableHeaders(query, updatesUrl),
@@ -257,8 +265,11 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
 			action = 'unpublished a';
 			break;
 	}
-	res.locals.banner = `You have successfully ${action} project update`;
-	return projectUpdatesTable(req, res);
+	setSessionBanner(req.session, `You have successfully ${action} project update`);
+	const nextUrl = url('project-updates', {
+		caseId: parseInt(caseId)
+	});
+	res.redirect(nextUrl);
 }
 
 /**
@@ -326,12 +337,15 @@ export async function projectUpdatesDeletePost(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	try {
 		await deleteProjectUpdate(caseId, projectUpdateId);
-		res.locals.banner = `You have successfully deleted a project update`;
+		setSessionBanner(req.session, `You have successfully deleted a project update`);
 	} catch (e) {
 		res.locals.error = { error: 'The project update could not be deleted' };
 		return projectUpdatesDeleteGet(req, res);
 	}
-	return projectUpdatesTable(req, res);
+	const nextUrl = url('project-updates', {
+		caseId: parseInt(caseId)
+	});
+	res.redirect(nextUrl);
 }
 
 /**
