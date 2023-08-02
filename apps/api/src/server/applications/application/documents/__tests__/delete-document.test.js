@@ -13,10 +13,9 @@ describe('delete Document', () => {
 		// GIVEN
 		databaseConnector.document.findFirst.mockResolvedValue({
 			guid: '1111-2222-3333',
-			name: 'my_doc.doc',
 			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my_doc.doc',
+			privateBlobContainer: 'document-service-uploads',
+			privateBlobPath: '/application/BC010001/1111-2222-3333/my_doc.doc',
 			status: applicationStates.draft,
 			createdAt: '2022-12-12 17:12:25.9610000',
 			redacted: true
@@ -52,10 +51,9 @@ describe('delete Document', () => {
 		// GIVEN
 		databaseConnector.document.findFirst.mockResolvedValue({
 			guid: '1111-2222-3333',
-			name: 'my_doc.doc',
 			folderId: 1,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: '/application/BC010001/1111-2222-3333/my_doc.doc',
+			privateBlobContainer: 'document-service-uploads',
+			privateBlobPath: '/application/BC010001/1111-2222-3333/my_doc.doc',
 			status: applicationStates.published,
 			createdAt: '2022-12-12 17:12:25.9610000',
 			redacted: true

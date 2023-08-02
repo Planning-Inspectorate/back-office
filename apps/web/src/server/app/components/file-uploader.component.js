@@ -5,7 +5,7 @@ import { setSuccessBanner } from '../../applications/common/services/session.ser
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
-/** @typedef {{accessToken: AccessToken, blobStorageHost: string, blobStorageContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
+/** @typedef {{accessToken: AccessToken, blobStorageHost: string, privateBlobContainer: string, documents: DocumentUploadInfo[]}} UploadInfo */
 
 /**
  * @param {string} caseId

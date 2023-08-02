@@ -50,7 +50,7 @@ export async function documentLocation(request, response) {
 
 	response.send({
 		blobStorageHost: config.blobStore.host,
-		blobStorageContainer: config.blobStore.container,
+		privateBlobContainer: config.blobStore.container,
 		documents: documentsFindUrl
 	});
 }

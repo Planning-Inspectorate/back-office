@@ -17,10 +17,9 @@ const { eventClient } = await import('../../../../infrastructure/event-client.js
 const documents = [
 	{
 		guid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-		name: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 		folderId: 1,
-		blobStorageContainer: null,
-		blobStoragePath: null,
+		privateBlobContainer: null,
+		privateBlobPath: null,
 		status: 'awaiting_upload',
 		createdAt: '2023-03-13T16:54:09.282Z',
 		redacted: false,
@@ -48,11 +47,11 @@ const documents = [
 				mime: 'image/png',
 				horizonDataID: null,
 				fileMD5: null,
-				path: null,
+				privateBlobPath: null,
 				virusCheckStatus: null,
 				size: 4375,
 				filter1: null,
-				blobStorageContainer: null,
+				privateBlobContainer: null,
 				dateCreated: '2023-03-13T16:54:09.398Z',
 				datePublished: null,
 				isDeleted: false,
@@ -60,8 +59,7 @@ const documents = [
 				filter2: null,
 				publishedStatus: 'awaiting_upload',
 				redactedStatus: null,
-				redacted: false,
-				documentURI: null
+				redacted: false
 			}
 		],
 		folder: {
@@ -125,9 +123,8 @@ describe('Ready-to-publish-documents', () => {
 					caseRef: null,
 					sourceSystem: 'back-office',
 					stage: null,
-					blobStorageContainer: '',
-					blobStoragePath: '',
-					documentURI: '',
+					privateBlobContainer: '',
+					privateBlobPath: '',
 					author: '',
 					fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 					originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
@@ -162,7 +159,7 @@ describe('Publish documents', () => {
 			fileName: 'filename.pdf',
 			size: 23452,
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
-			documentURI: 'https://published/en010120/filename.pdf'
+			privateBlobPath: 'https://published/en010120/filename.pdf'
 		};
 
 		databaseConnector.document.findMany.mockResolvedValue([
@@ -189,6 +186,7 @@ describe('Publish documents', () => {
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
+			path: 'https://published/en010120/filename.pdf',
 			documentURI: 'https://published/en010120/filename.pdf',
 			dateCreated: '2023-03-26T00:00:00.000Z'
 		};

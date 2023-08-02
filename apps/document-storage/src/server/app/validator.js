@@ -68,7 +68,6 @@ export const validateDocumentInfo = composeMiddleware(
 	body('*.caseReference')
 		.exists()
 		.withMessage('Please provide a valid caseReference. caseReference is not the same as ID'),
-	body('*.documentName').exists().withMessage('Please provide a valid documentName'),
 	body('*.GUID').exists().withMessage('Please provide a valid GUID'),
 	body('[]')
 		.notEmpty()

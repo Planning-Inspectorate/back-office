@@ -55,8 +55,8 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		mime: version.mime,
-		documentURI: version.documentURI,
-		path: version.path,
+		documentURI: version.privateBlobPath,
+		path: version.privateBlobPath, // TODO: Duplicated
 		// @ts-ignore
 		virusCheckStatus: version.virusCheckStatus,
 		fileMD5: version.fileMD5,

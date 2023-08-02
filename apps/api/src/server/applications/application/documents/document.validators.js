@@ -31,7 +31,7 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
  * @param {string} guid - The document's globally unique identifier.
  * @param {number} caseId - The case's identifier the document is related to.
  * @throws {BackOfficeAppError} - If the document is not found with the specified `guid` and related to the specified `caseId`.
- * @returns {Promise<{blobStorageContainer?: string; blobStoragePath?: string;status?: string; guid: string;}>} - The document object with properties `blobStorageContainer`, `blobStoragePath`, and `status`.
+ * @returns {Promise<{privateBlobContainer?: string; privateBlobPath?: string;status?: string; guid: string;}>} - The document object with properties `privateBlobContainer`, `privateBlobPath`, and `status`.
  */
 export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
@@ -48,8 +48,8 @@ export const fetchDocumentByGuidAndCaseId = async (
 	}
 
 	return {
-		blobStorageContainer: document?.blobStorageContainer || '',
-		blobStoragePath: document?.blobStoragePath || '',
+		privateBlobContainer: document?.privateBlobContainer || '',
+		privateBlobPath: document?.privateBlobPath || '',
 		status: document?.status,
 		guid: document.guid
 	};

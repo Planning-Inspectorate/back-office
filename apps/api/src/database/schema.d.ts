@@ -70,8 +70,8 @@ export interface DocumentDetails {
 	originalFilename: string;
 	version;
 	datePublished: number | null;
-	documentURI: string | null;
-	blobStorageContainer: string;
+	privateBlobPath: string | null;
+	privateBlobContainer: string;
 	author: string;
 	dateCreated: number | null;
 	publishedStatus: string;
