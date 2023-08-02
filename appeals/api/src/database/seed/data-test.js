@@ -23,7 +23,7 @@ import {
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../server/endpoints/constants.js';
 
-import { defaultCaseFolders } from '#repositories/folder.layout.repository.js';
+import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 
 /**
  * @returns {Date} date two weeks ago
@@ -324,7 +324,7 @@ export async function seedTestData(databaseConnector) {
 	for (const appealData of appealsData) {
 		// @ts-ignore
 		const appeal = await databaseConnector.appeal.create({ data: appealData });
-		await databaseConnector.folder.createMany({ data: defaultCaseFolders(appeal.id) });
+		await databaseConnector.folder.createMany({ data: mapDefaultCaseFolders(appeal.id) });
 		appeals.push(appeal);
 	}
 

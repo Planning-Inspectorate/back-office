@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
 import * as folderRepository from '#repositories/folder.repository.js';
-import { defaultCaseFolders } from '#repositories/folder.layout.repository.js';
 import {
 	appeal,
 	folder,
@@ -24,15 +23,15 @@ describe('appeals documents', () => {
 	describe('appeals folders', () => {
 		test('all document folders are linked to the correct appeal', async () => {
 			const appealId = 2000;
-			const foldersForCase = defaultCaseFolders(appealId);
+			const foldersForCase = mappers.mapDefaultCaseFolders(appealId);
 			expect(foldersForCase.length).toBeGreaterThan(0);
 			foldersForCase.forEach((f) => expect(f.caseId).toEqual(appealId));
 		});
 
 		test('finds all top level folders when case has folders attached', async () => {
-			databaseConnector.folder.findMany.mockResolvedValue(defaultCaseFolders(10));
+			databaseConnector.folder.findMany.mockResolvedValue(mappers.mapDefaultCaseFolders(10));
 			const folders = await folderRepository.getByCaseId(10);
-			expect(folders).toEqual(defaultCaseFolders(10));
+			expect(folders).toEqual(mappers.mapDefaultCaseFolders(10));
 		});
 	});
 
