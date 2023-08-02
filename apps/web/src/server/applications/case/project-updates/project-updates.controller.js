@@ -21,7 +21,8 @@ import {
 	createContentFormView,
 	projectUpdatesRows,
 	statusRadioOption,
-	sortStatuses
+	sortStatuses,
+	typeRadioOption
 } from './project-updates.view-model.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
@@ -95,7 +96,7 @@ export async function projectUpdatesCreatePost(req, res) {
 	const projectUpdateId = created.id;
 	const nextUrl = url('project-updates-step', {
 		caseId: parseInt(caseId),
-		step: projectUpdateRoutes.status,
+		step: projectUpdateRoutes.type,
 		projectUpdateId
 	});
 	res.redirect(nextUrl);
@@ -140,6 +141,52 @@ export async function projectUpdatesContentPost(req, res) {
 	const nextUrl = url('project-updates-step', {
 		caseId: parseInt(caseId),
 		step: projectUpdateRoutes.checkAnswers,
+		projectUpdateId: parseInt(projectUpdateId)
+	});
+	res.redirect(nextUrl);
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesTypeGet(req, res) {
+	const { caseId, projectUpdateId } = req.params;
+	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	const errors = req.errors;
+
+	return res.render(formView, {
+		case: res.locals.case,
+		title: 'What information does the update contain?',
+		buttonText: 'Save and continue',
+		errors, // for error summary
+		form: {
+			components: [
+				{
+					type: 'radios',
+					name: 'type',
+					value: projectUpdate.type,
+					items: ProjectUpdate.TypesList.map(typeRadioOption),
+					errorMessage: errors?.type
+				}
+			]
+		}
+	});
+}
+
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export async function projectUpdatesTypePost(req, res) {
+	if (req.errors) {
+		return projectUpdatesTypeGet(req, res);
+	}
+	const { caseId, projectUpdateId } = req.params;
+	await patchProjectUpdate(caseId, projectUpdateId, { type: req.body.type });
+	const nextUrl = url('project-updates-step', {
+		caseId: parseInt(caseId),
+		step: projectUpdateRoutes.status,
 		projectUpdateId: parseInt(projectUpdateId)
 	});
 	res.redirect(nextUrl);

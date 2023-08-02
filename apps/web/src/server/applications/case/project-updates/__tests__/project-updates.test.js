@@ -144,6 +144,53 @@ describe('project-updates', () => {
 		});
 	});
 
+	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/type', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
+
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl + '/1/' + projectUpdateRoutes.type);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			// check - case ref data is present
+			expect(element.innerHTML).toContain(mockCaseReference.title);
+
+			// check - project updates form present
+			expect(element.innerHTML).toContain('What information does the update contain?');
+			expect(element.innerHTML).toContain('General');
+		});
+	});
+
+	describe('POST /applications-service/:caseId/project-updates/:projectUpdateId/type', () => {
+		beforeEach(async () => {
+			nocks();
+			nock('http://test/')
+				.patch(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
+				.reply(200)
+				.persist();
+			await request.get('/applications-service/case-team');
+		});
+
+		const tests = [
+			{
+				name: 'should render the next step',
+				body: {
+					type: 'general'
+				},
+				redirectTo: `${baseUrl}/1/${projectUpdateRoutes.status}`
+			}
+		];
+
+		it.each(tests)(`$name`, async ({ body, redirectTo }) => {
+			const response = await request.post(baseUrl + '/1/' + projectUpdateRoutes.type).send(body);
+			expect(response.statusCode).toEqual(302);
+			expect(response.get('location')).toEqual(redirectTo);
+		});
+	});
+
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/status', () => {
 		beforeEach(async () => {
 			nocks();
