@@ -240,7 +240,8 @@ describe('project-updates', () => {
 		it.each(tests)(`$name`, async ({ body, expectContains }) => {
 			const response = await request
 				.post(baseUrl + '/1/' + projectUpdateRoutes.checkAnswers)
-				.send(body);
+				.send(body)
+				.redirects(1);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -308,7 +309,9 @@ describe('project-updates', () => {
 		});
 
 		it('should render the page', async () => {
-			const response = await request.post(baseUrl + '/1/' + projectUpdateRoutes.delete);
+			const response = await request
+				.post(baseUrl + '/1/' + projectUpdateRoutes.delete)
+				.redirects(1);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
