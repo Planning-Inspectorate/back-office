@@ -431,19 +431,22 @@ model DocumentActivityLog {
 }
 
 model S51Advice {
-  id             Int      @id @default(autoincrement())
-  caseId         Int
-  title          String
-  firstName      String?
-  lastName       String?
-  enquirer       String?
-  enquiryMethod  String
-  enquiryDate    DateTime
-  enquiryDetails String
-  adviser        String
-  adviceDate     DateTime
-  adviceDetails  String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
-  case           Case     @relation(fields: [caseId], references: [id])
+  id              Int      @id @default(autoincrement())
+  caseId          Int
+  title           String
+  firstName       String?
+  lastName        String?
+  enquirer        String?
+  enquiryMethod   String
+  enquiryDate     DateTime
+  enquiryDetails  String
+  adviser         String
+  adviceDate      DateTime
+  adviceDetails   String
+  referenceNumber Int      @default(00001)
+  redactedStatus  String   @default("not_redacted")
+  publishedStatus String   @default("not_checked")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+  case            Case     @relation(fields: [caseId], references: [id])
 }
