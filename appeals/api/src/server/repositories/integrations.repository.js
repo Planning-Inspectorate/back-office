@@ -1,4 +1,5 @@
 // @ts-nocheck
+// TODO: data and document types schema (PINS data model)
 import { databaseConnector } from '#utils/database-connector.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 import config from '#config/config.js';
