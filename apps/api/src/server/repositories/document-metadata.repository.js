@@ -35,14 +35,15 @@ export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 
 /**
 
- * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
+ * @param {{guid: string, status: string, version?: number, datePublished?: Date }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion>}
  */
 
-export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
+// @ts-ignore
+export const updateDocumentStatus = ({ guid, status, version = 1, datePublished = null }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid: guid, version } },
-		data: { publishedStatus: status },
+		data: { publishedStatus: status, datePublished },
 		include: {
 			Document: {
 				include: {
