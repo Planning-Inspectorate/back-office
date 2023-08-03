@@ -9,11 +9,13 @@ describe('Document location', () => {
 			{
 				caseType: 'application',
 				caseReference: '1',
+				documentName: 'PINS1.pdf',
 				GUID: 'D987654321'
 			},
 			{
 				caseType: 'appeal',
 				caseReference: '2',
+				documentName: 'PINS2.pdf',
 				GUID: 'DF98765421'
 			}
 		]);
@@ -26,12 +28,14 @@ describe('Document location', () => {
 				{
 					caseType: 'application',
 					caseReference: '1',
+					documentName: 'PINS1.pdf',
 					GUID: 'D987654321',
 					blobStoreUrl: '/application/1/D987654321/1'
 				},
 				{
 					caseType: 'appeal',
 					caseReference: '2',
+					documentName: 'PINS2.pdf',
 					GUID: 'DF98765421'
 				}
 			]
@@ -48,7 +52,8 @@ describe('Document location', () => {
 					'Please provide a valid caseType. caseType must be either "appeal" or "application"',
 				'[0].caseReference':
 					'Please provide a valid caseReference. caseReference is not the same as ID',
-				'[0].GUID': 'Please provide a valid GUID'
+				'[0].GUID': 'Please provide a valid GUID',
+				'[0].documentName': 'Please provide a valid documentName'
 			}
 		});
 	});
