@@ -74,9 +74,7 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.find(
-			(file) => documentName(file.documentName) === document.documentName
-		);
+		const fileToUpload = body.find((file) => file.documentName === document.documentName);
 		const documentWithRowId = { ...document };
 
 		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';

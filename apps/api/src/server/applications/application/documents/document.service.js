@@ -136,7 +136,10 @@ const attemptInsertDocuments = async (caseId, documents) => {
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
-			return document;
+			return {
+				...document,
+				documentName: documentToDB.documentName
+			};
 		});
 
 	logger.info(`Upserted ${results.length} documents to database`);
@@ -149,7 +152,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 };
 
 /**
- * @param {import('@pins/applications.api').Schema.Document[]} documents
+ * @param {{guid: string, documentName: string, reference: string}[]} documents
  * @param {string} caseReference
  * @returns {{caseType: string, caseReference: string, GUID: string, version: number}[]}
  */
@@ -159,6 +162,7 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 			caseType: 'application',
 			caseReference,
 			GUID: document.guid,
+			documentName: document.documentName,
 			documentReference: document?.reference,
 			version: 1
 		};
@@ -393,6 +397,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 			caseType: 'application',
 			caseReference: caseForDocuments.reference,
 			GUID: documentFromDatabase.guid,
+			documentName: documentToSendToDatabase.documentName,
 			version
 		}
 	];
