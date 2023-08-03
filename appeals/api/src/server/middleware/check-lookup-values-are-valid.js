@@ -3,7 +3,7 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED
 } from '#endpoints/constants.js';
-import appealRepository from '#repositories/appeal.repository.js';
+import commonRepository from '#repositories/common.repository.js';
 
 /** @typedef {import('express').NextFunction} NextFunction */
 /** @typedef {import('express').Response} Response */
@@ -30,7 +30,7 @@ const checkLookupValuesAreValid = (fieldName, databaseTable) => async (req, res,
 	if (valuesToCheck) {
 		valuesToCheck = typeof valuesToCheck !== 'object' ? [valuesToCheck] : valuesToCheck;
 
-		const lookupValues = await appealRepository.getLookupList(databaseTable);
+		const lookupValues = await commonRepository.getLookupList(databaseTable);
 		const lookupValueOtherId = lookupValues.find(({ name }) => name === 'Other')?.id;
 
 		if (

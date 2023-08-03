@@ -1,11 +1,11 @@
-import appealRepository from '#repositories/appeal.repository.js';
+import commonRepository from '#repositories/common.repository.js';
 
 /** @typedef {import('express').NextFunction} NextFunction */
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @param {string} fieldName
+ * @param {'validationOutcome' | 'visitType'} fieldName
  * @param {string} databaseTable
  * @param {string} errorMessage
  * @returns {(req: Request, res: Response, next: NextFunction) => Promise<object | void>}
@@ -15,7 +15,7 @@ const checkLookupValueIsValidAndAddToRequest =
 		const { [fieldName]: lookupField } = req.body;
 
 		if (lookupField) {
-			const validationOutcomeMatch = await appealRepository.getLookupListValueByName(
+			const validationOutcomeMatch = await commonRepository.getLookupListValueByName(
 				databaseTable,
 				lookupField
 			);
@@ -28,7 +28,6 @@ const checkLookupValueIsValidAndAddToRequest =
 				});
 			}
 
-			// @ts-ignore
 			req[fieldName] = validationOutcomeMatch;
 		}
 

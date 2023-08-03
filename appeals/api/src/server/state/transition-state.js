@@ -1,17 +1,18 @@
 import { interpret } from 'xstate';
 import createStateMachine from './create-state-machine.js';
-import logger from '../utils/logger.js';
-import appealRepository from '../repositories/appeal.repository.js';
+import logger from '#utils/logger.js';
+import appealStatusRepository from '#repositories/appeal-status.repository.js';
 
 /** @typedef {import('#db-client').AppealType} AppealType */
 /** @typedef {import('#db-client').AppealStatus} AppealStatus */
 /** @typedef {import('xstate').StateValue} StateValue */
 
 /**
- *  @param {number} appealId
- *  @param {AppealType | null} appealType
- *  @param {AppealStatus[]} currentState
- *  @param {string} trigger
+ * @param {number} appealId
+ * @param {AppealType | null} appealType
+ * @param {AppealStatus[]} currentState
+ * @param {string} trigger
+ * @returns {Promise<void>}
  */
 const transitionState = async (appealId, appealType, currentState, trigger) => {
 	const currentStatus = currentState[0].status;
@@ -27,7 +28,7 @@ const transitionState = async (appealId, appealType, currentState, trigger) => {
 	const newState = String(stateMachineService.state.value);
 
 	if (newState !== currentStatus) {
-		await appealRepository.updateAppealStatus(appealId, newState);
+		await appealStatusRepository.updateAppealStatusByAppealId(appealId, newState);
 	}
 
 	stateMachineService.stop();

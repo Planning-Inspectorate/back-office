@@ -8,6 +8,8 @@ export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
 
+export const DATABASE_ORDER_BY_ASC = 'asc';
+
 export const DEFAULT_DATE_FORMAT_DATABASE = 'yyyy-MM-dd';
 export const DEFAULT_DATE_FORMAT_DISPLAY = 'dd LLL yyyy';
 export const DEFAULT_PAGE_NUMBER = 1;
