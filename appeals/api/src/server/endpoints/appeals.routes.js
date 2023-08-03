@@ -8,12 +8,14 @@ import { appellantCasesRoutes } from './appellant-cases/appellant-cases.routes.j
 import { lpaQuestionnairesRoutes } from './lpa-questionnaires/lpa-questionnaires.routes.js';
 import { appealAllocationRouter } from './appeal-allocation/appeal-allocation-routes.js';
 import { documentsRoutes } from './documents/documents.routes.js';
+import { integrationsRoutes } from './integrations/integrations.routes.js';
 import initNotifyClientAndAddToRequest from '../middleware/init-notify-client-and-add-to-request.js';
 
 const router = createRouter();
 
 router.use('/', initNotifyClientAndAddToRequest);
 
+router.use(integrationsRoutes);
 router.use(appellantCaseIncompleteReasonsRoutes);
 router.use(appellantCaseInvalidReasonsRoutes);
 router.use(appellantCasesRoutes);

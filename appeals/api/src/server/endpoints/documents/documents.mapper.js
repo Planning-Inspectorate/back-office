@@ -1,4 +1,4 @@
-import config from '#endpoints/../config/config.js';
+import config from '#config/config.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.FolderTemplate} FolderTemplate */

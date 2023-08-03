@@ -49,3 +49,5 @@ router.post(
 	//TODO: validators
 	asyncHandler(controller.postDocumentSubmission)
 );
+
+export { router as integrationsRoutes };

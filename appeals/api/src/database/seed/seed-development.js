@@ -1,7 +1,7 @@
 import { databaseConnector } from '../../server/utils/database-connector.js';
 import logger from '../../server/utils/logger.js';
 import { seedStaticData } from './data-static.js';
-import { seedTestData } from './data-test.js';
+//import { seedTestData } from './data-test.js';
 import { deleteAllRecords } from './seed-clear.js';
 
 /**
@@ -14,7 +14,7 @@ const seedDevelopment = async () => {
 	try {
 		await deleteAllRecords(databaseConnector);
 		await seedStaticData(databaseConnector);
-		await seedTestData(databaseConnector);
+		//await seedTestData(databaseConnector);
 	} catch (error) {
 		logger.error(error);
 		throw error;
