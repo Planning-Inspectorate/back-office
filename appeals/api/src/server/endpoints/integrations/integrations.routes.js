@@ -23,7 +23,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	//TODO: validators
+	//TODO: validators (integrations.middleware.js)
 	asyncHandler(controller.postAppealSubmission)
 );
 
@@ -46,7 +46,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	//TODO: validators
+	//TODO: validators (integrations.middleware.js)
 	asyncHandler(controller.postDocumentSubmission)
 );
 

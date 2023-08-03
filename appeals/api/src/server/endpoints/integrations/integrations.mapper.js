@@ -1,4 +1,5 @@
 // @ts-nocheck
+// TODO: data and document types schema (PINS data model)
 import { APPEAL_TYPE_SHORTHAND_HAS } from '#endpoints/constants.js';
 import { randomUUID } from 'node:crypto';
 
@@ -33,18 +34,18 @@ export const mapAppealFromTopic = (data) => {
 export const mapDocumentFromTopic = (doc) => {
 	const { filename, ...metadata } = doc;
 	return {
+		...metadata,
 		documentGuid: doc.documentGuid ? doc.documentGuid : randomUUID(),
 		fileName: filename || doc.fileName,
-		dateCreated: doc.dateCreated ? new Date(doc.dateCreated) : new Date(),
-		lastModified: doc.lastModified ? new Date(doc.lastModified) : new Date(),
-		...metadata
+		dateCreated: (doc.dateCreated ? new Date(doc.dateCreated) : new Date()).toISOString(),
+		lastModified: (doc.lastModified ? new Date(doc.lastModified) : new Date()).toISOString()
 	};
 };
 
 export const mapAppealForTopic = (appeal) => {
 	const lpa = {
-		LPACode: appeal.localPlanningDepartment.replace('[{.*}] {.*}', '$1'),
-		LPAName: appeal.localPlanningDepartment.replace('[{.*}] {.*}', '$2')
+		LPACode: appeal.localPlanningDepartment.replace(/\[(.*)\] (.*)/gm, '$1'),
+		LPAName: appeal.localPlanningDepartment.replace(/\[(.*)\] (.*)/gm, '$2')
 	};
 
 	const address = {
@@ -66,7 +67,7 @@ export const mapAppealForTopic = (appeal) => {
 };
 
 export const mapDocumentForTopic = (doc) => {
-	//TODO: mapping
+	//TODO: mapping, may not be needed
 	return doc;
 };
 

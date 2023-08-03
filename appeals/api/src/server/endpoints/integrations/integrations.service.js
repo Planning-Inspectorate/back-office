@@ -3,7 +3,7 @@ import { eventClient } from '#infrastructure/event-client.js';
 import { mapAppealForTopic, mapDocumentForTopic } from './integrations.mapper.js';
 
 export const produceAppealUpdate = async (
-	/** @type {any} */ appeal,
+	/** @type {any} */ appeal, // TODO: data and document types schema (PINS data model)
 	/** @type {string} */ updateType
 ) => {
 	const topic = producers.boCaseData;
@@ -17,7 +17,7 @@ export const produceAppealUpdate = async (
 };
 
 export const produceDocumentUpdate = async (
-	/** @type {any} */ document,
+	/** @type {any} */ document, // TODO: data and document types schema (PINS data model)
 	/** @type {string} */ updateType
 ) => {
 	const topic = producers.boDocument;
