@@ -16,6 +16,7 @@ const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
+const { applications: applicationsUsers } = users;
 
 const fileName = () => faker.lorem.word();
 const description = () => faker.lorem.sentence();
@@ -36,12 +37,12 @@ describe('Document Properties', () => {
 
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	it('Case Team Admin user should be able to upload a document to a case', () => {
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -67,7 +68,7 @@ describe('Document Properties', () => {
 	});
 
 	it('Inspector user should not be able to upload a document to a case', () => {
-		cy.login(users.inspector);
+		cy.login(applicationsUsers.inspector);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

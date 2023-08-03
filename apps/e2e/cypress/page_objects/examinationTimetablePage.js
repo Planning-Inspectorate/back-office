@@ -19,18 +19,8 @@ export class ExaminationTimetablePage extends Page {
 		endTimeHoursInput: () => cy.get('#endTime\\.hours'),
 		endTimeMinutesInput: () => cy.get('#endTime\\.minutes'),
 		description: () => cy.get('#description'),
-		timetableSelectInput: () => cy.get('#timetable-type'),
-		answerCell: (question) =>
-			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next()
+		timetableSelectInput: () => cy.get('#timetable-type')
 	};
-
-	checkAnswer(question, answer) {
-		this.elements.answerCell(question).then(($elem) => {
-			cy.wrap($elem)
-				.invoke('text')
-				.then((text) => expect(text.trim()).to.equal(answer));
-		});
-	}
 
 	fillItemDetails(options) {
 		this.elements.itemNameInput().clear().type(options.itemName);
@@ -77,5 +67,25 @@ export class ExaminationTimetablePage extends Page {
 
 	selectTimetableItem(itemType) {
 		this.elements.timetableSelectInput().select(itemType);
+	}
+
+	toggleExaminationTimetableItem(itemName, hide = true) {
+		const actionText = hide ? 'Hide' : 'Show';
+		cy.contains(itemName).within(() => {
+			cy.get(this.selectors.accordionToggleText).then(($elem) => {
+				const text = $elem.text().trim();
+				if (text === actionText) {
+					cy.wrap($elem).click();
+				}
+			});
+		});
+	}
+
+	hideAllItems() {
+		cy.get(this.selectors.accordionToggleText).each(($elem) => {
+			if ($elem.text() === 'Hide') {
+				cy.wrap($elem).click();
+			}
+		});
 	}
 }

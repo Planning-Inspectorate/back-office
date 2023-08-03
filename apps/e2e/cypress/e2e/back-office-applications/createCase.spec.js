@@ -4,17 +4,17 @@
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
-import { faker } from '@faker-js/faker';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const projectInfo = projectInformation();
+const { applications: applicationsUsers } = users;
 
 describe('Create A Case', () => {
 	context('As Inspector', () => {
 		beforeEach(() => {
-			cy.login(users.inspector);
+			cy.login(applicationsUsers.inspector);
 		});
 
 		it('Should not be able to create a case - button is not available', () => {
@@ -34,26 +34,15 @@ describe('Create A Case', () => {
 
 	context('As a Case Team Admin User', () => {
 		it('Should successfully create a case as an admin', () => {
-			cy.login(users.caseAdmin);
+			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			createCasePage.verifyCaseAdminIsSignedIn();
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
-	});
 
-	context('As a Case Team User', () => {
-		it('Should successfully create a case when the logged in user is a case team user', () => {
-			cy.login(users.caseTeam);
-			cy.visit('/');
-			createCasePage.verifyCaseTeamIsSignedIn();
-			const projectInfo = projectInformation();
-			createCasePage.createCase(projectInfo);
-		});
-	});
-
-	context.skip('Validation', () => {
 		it('Should validate that all input validation errors in the create case flow', () => {
+			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			applicationsHomePage.clickCreateNewCaseButton();
 			createCasePage.clickSaveAndContinue();
@@ -102,29 +91,19 @@ describe('Create A Case', () => {
 			createCasePage.clickSaveAndContinue();
 			createCasePage.clickSaveAndContinue();
 			createCasePage.clickSaveAndContinue();
-			createCasePage.validateErrorMessageCountOnPage(4);
-			createCasePage.validateErrorMessage(
-				'You must enter the anticipated submission date internal'
-			);
-
-			createCasePage.sections.keyDates.fillInternalAnticipatedDay('10');
-			createCasePage.sections.keyDates.fillInternalAnticipatedMonth('10');
-			createCasePage.sections.keyDates.fillInternalAnticipatedYear('2022');
-
-			createCasePage.clickSaveAndContinue();
-			createCasePage.validateErrorMessageCountOnPage(4);
-			createCasePage.validateErrorMessage(
-				'The anticipated submission date internal must be in the future'
-			);
-
-			createCasePage.sections.keyDates.fillSumbissionPublishedDate(projectInfo.publishedDate);
-			createCasePage.sections.keyDates.fillInternalAnticipatedDay(projectInfo.internalDateDay);
-			createCasePage.sections.keyDates.fillInternalAnticipatedMonth(projectInfo.internalDateMonth);
-			createCasePage.sections.keyDates.fillInternalAnticipatedYear(projectInfo.internalDateYear);
-			createCasePage.clickSaveAndContinue();
 			createCasePage.sections.checkYourAnswers.checkAllAnswers(projectInfo, true);
 			createCasePage.clickButtonByText('I accept - confirm creation of a new case');
 			createCasePage.sections.caseCreated.validateCaseCreated();
+		});
+	});
+
+	context('As a Case Team User', () => {
+		it('Should successfully create a case when the logged in user is a case team user', () => {
+			cy.login(applicationsUsers.caseTeam);
+			cy.visit('/');
+			createCasePage.verifyCaseTeamIsSignedIn();
+			const projectInfo = projectInformation();
+			createCasePage.createCase(projectInfo);
 		});
 	});
 });

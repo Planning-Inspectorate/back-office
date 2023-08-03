@@ -4,25 +4,25 @@
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
-import { faker } from '@faker-js/faker';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
+const { applications: applicationsUsers } = users;
 
 describe('Search', () => {
 	let projectInfo;
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	context('As Inspector', () => {
 		beforeEach(() => {
-			cy.login(users.inspector);
+			cy.login(applicationsUsers.inspector);
 			cy.visit('/');
 		});
 
@@ -48,7 +48,7 @@ describe('Search', () => {
 
 	context('As Case Team Admin', () => {
 		beforeEach(() => {
-			cy.login(users.caseAdmin);
+			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 		});
 
@@ -79,7 +79,7 @@ describe('Search', () => {
 
 	context('As Case Team', () => {
 		beforeEach(() => {
-			cy.login(users.caseTeam);
+			cy.login(applicationsUsers.caseTeam);
 			cy.visit('/');
 		});
 
@@ -114,10 +114,10 @@ describe('Search', () => {
 	});
 });
 
-Object.keys(users).forEach((user) => {
+Object.keys(applicationsUsers).forEach((user) => {
 	describe(`Search - Error/General - ${user}`, () => {
 		beforeEach(() => {
-			cy.login(users[user]);
+			cy.login(applicationsUsers[user]);
 			cy.visit('/');
 		});
 		it(`${user} user should see an error when nothing is entered`, () => {
