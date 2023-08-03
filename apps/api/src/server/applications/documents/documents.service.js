@@ -22,12 +22,15 @@ export const updateStatus = async (guid, status) => {
 		version: document?.latestVersionId || 1
 	};
 
+	let updatedDocument;
+
 	if (status === 'published') {
 		// @ts-ignore
 		updatePayload.datePublished = new Date();
+		updatedDocument = await documentVersionRepository.updateDocumentPublishedStatus(updatePayload);
+	} else {
+		updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);
 	}
-
-	const updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);
 
 	const eventType =
 		updatedDocument.publishedStatus === 'published' ? EventType.Publish : EventType.Update;
