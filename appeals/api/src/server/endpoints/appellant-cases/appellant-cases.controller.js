@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import appealRepository from '#repositories/appeal.repository.js';
+import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import logger from '#utils/logger.js';
 import {
@@ -19,10 +20,11 @@ import transitionState from '../../state/transition-state.js';
 import config from '../../config/config.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const getAppellantCaseById = async (req, res) => {
 	const { appeal } = req;
@@ -34,7 +36,7 @@ const getAppellantCaseById = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const updateAppellantCaseById = async (req, res) => {
 	const {
@@ -66,7 +68,7 @@ const updateAppellantCaseById = async (req, res) => {
 			);
 		}
 
-		await appealRepository.updateAppellantCaseValidationOutcome({
+		await appellantCaseRepository.updateAppellantCaseValidationOutcome({
 			appellantCaseId: Number(appellantCaseId),
 			validationOutcomeId: validationOutcome.id,
 			otherNotValidReasons,

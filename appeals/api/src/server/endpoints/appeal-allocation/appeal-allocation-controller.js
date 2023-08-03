@@ -1,11 +1,12 @@
 import config from '../../config/config.js';
-import appealRepository from '#repositories/appeal.repository.js';
+import appealAllocationRepository from '#repositories/appeal-allocation.repository.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<any>}
+ * @returns {Promise<Response>}
  */
 export const getAllocationLevels = async (req, res) => {
 	return res.send(config.appealAllocationLevels);
@@ -13,7 +14,7 @@ export const getAllocationLevels = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<any>}
+ * @returns {Promise<Response>}
  */
 export const saveAllocation = async (req, res) => {
 	const { appeal } = req;
@@ -23,7 +24,11 @@ export const saveAllocation = async (req, res) => {
 			(/** @type {{ level: string; }} */ l) => l.level === level
 		) || null;
 	if (selectedLevel) {
-		appealRepository.updateAppealAllocation(appeal.id, selectedLevel, specialisms);
+		appealAllocationRepository.updateAppealAllocationByAppealId(
+			appeal.id,
+			selectedLevel,
+			specialisms
+		);
 	}
 
 	return res.send(req.body);

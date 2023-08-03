@@ -2,16 +2,17 @@ import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '#endpoints/constants.js';
-import appealRepository from '#repositories/appeal.repository.js';
+import siteVisitRepository from '#repositories/site-visit.repository.js';
 import logger from '#utils/logger.js';
 import transitionState from '../../state/transition-state.js';
 import { formatSiteVisit } from './site-visits.formatter.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {object}
+ * @returns {Response}
  */
 const getSiteVisitById = (req, res) => {
 	const { appeal } = req;
@@ -22,7 +23,7 @@ const getSiteVisitById = (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const createSiteVisit = async (req, res) => {
 	const {
@@ -35,7 +36,7 @@ const createSiteVisit = async (req, res) => {
 	const appealId = Number(params.appealId);
 
 	try {
-		await appealRepository.createSiteVisitById({
+		await siteVisitRepository.createSiteVisitById({
 			appealId,
 			visitDate,
 			visitEndTime,
@@ -56,7 +57,7 @@ const createSiteVisit = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const updateSiteVisit = async (req, res) => {
 	const {
@@ -68,16 +69,12 @@ const updateSiteVisit = async (req, res) => {
 	} = req;
 
 	try {
-		await appealRepository.updateById(
-			Number(siteVisitId),
-			{
-				...(visitDate && { visitDate }),
-				...(visitEndTime && { visitEndTime }),
-				...(visitStartTime && { visitStartTime }),
-				...(visitType && { siteVisitTypeId: visitType?.id })
-			},
-			'siteVisit'
-		);
+		await siteVisitRepository.updateSiteVisitById(Number(siteVisitId), {
+			...(visitDate && { visitDate }),
+			...(visitEndTime && { visitEndTime }),
+			...(visitStartTime && { visitStartTime }),
+			...(visitType && { siteVisitTypeId: visitType?.id })
+		});
 
 		if (visitType && visitDate) {
 			await transitionState(

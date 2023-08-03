@@ -22,14 +22,19 @@ const getLPAQuestionnaireValidator = composeMiddleware(
 const patchLPAQuestionnaireValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validateIdParameter('lpaQuestionnaireId'),
-	// @ts-ignore
-	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
-		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
-			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
-		}
+	validateValidationOutcomeReasons(
+		'incompleteReasons',
+		(
+			/** @type {any} */ value,
+			/** @type {{req: {body: { validationOutcome: string}}}} */ { req }
+		) => {
+			if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+				throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+			}
 
-		return value;
-	}),
+			return value;
+		}
+	),
 	body('otherNotValidReasons')
 		.optional()
 		.isString()

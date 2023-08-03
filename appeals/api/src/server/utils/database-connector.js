@@ -8,7 +8,6 @@ let prismaClient;
  * @returns {PrismaClient}
  */
 function createPrismaClient() {
-	// @ts-ignore
 	if (!prismaClient) {
 		prismaClient = new PrismaClient();
 	}

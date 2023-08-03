@@ -6,10 +6,11 @@ import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } fro
 import { formatAppeal, formatAppeals } from './appeals.formatter.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const getAppeals = async (req, res) => {
 	const { query } = req;
@@ -17,7 +18,11 @@ const getAppeals = async (req, res) => {
 	const pageSize = Number(query.pageSize) || DEFAULT_PAGE_SIZE;
 	const searchTerm = String(query.searchTerm);
 
-	const [itemCount, appeals = []] = await appealRepository.getAll(pageNumber, pageSize, searchTerm);
+	const [itemCount, appeals = []] = await appealRepository.getAllAppeals(
+		pageNumber,
+		pageSize,
+		searchTerm
+	);
 	const formattedAppeals = appeals.map((appeal) => formatAppeals(appeal));
 
 	return res.send({
@@ -31,7 +36,7 @@ const getAppeals = async (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {object}
+ * @returns {Response}
  */
 const getAppealById = (req, res) => {
 	const { appeal } = req;
@@ -42,7 +47,7 @@ const getAppealById = (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const updateAppealById = async (req, res) => {
 	const { body, params } = req;
