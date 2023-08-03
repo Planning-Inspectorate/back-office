@@ -24,7 +24,18 @@ function initHtmlContentEditor() {
 			initialEditType: 'wysiwyg',
 			usageStatistics: false,
 			hideModeSwitch: true,
-			toolbarItems: [['bold', 'link', 'ul']]
+			toolbarItems: [['bold', 'link', 'ul']],
+			events: {
+				keydown(_, ev) {
+					// there is no option not to handle tab, but this is an accessibility issue
+					// we want tab to move to the next tab element, not insert spaces
+					if (ev.key === 'Tab') {
+						// by throwing an error, the other handlers don't run and
+						// tab get handled by the browser
+						throw new Error('no error: override tab handler');
+					}
+				}
+			}
 		});
 
 		if (input.value) {
