@@ -1,57 +1,51 @@
 import * as service from './documents.service.js';
 
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
-/** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<Folder|null>}
+ * @returns {Promise<Response>}
  */
 const getFolder = async (req, res) => {
 	const { appeal } = req;
 	const { folderId } = req.params;
 	const folder = await service.getFolderForAppeal(appeal, folderId);
 
-	// @ts-ignore
 	return res.send(folder);
 };
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<Document|null>}
+ * @returns {Promise<Response>}
  */
 const getDocument = async (req, res) => {
 	const { document } = req;
 
-	// @ts-ignore
 	return res.send(document);
 };
 
 /**
- *
  * @type {RequestHandler}
- * @returns {Promise<AddDocumentsResponse>}
+ * @returns {Promise<Response>}
  */
 const addDocuments = async (req, res) => {
 	const { appeal } = req;
 	const documentInfo = await service.addDocumentsToAppeal(req.body, appeal);
 
-	// @ts-ignore
 	return res.send(getStorageInfo(documentInfo.documents));
 };
 
 /**
- *
  * @type {RequestHandler}
- * @returns {Promise<AddDocumentsResponse>}
+ * @returns {Promise<Response>}
  */
 const addDocumentVersion = async (req, res) => {
 	const { appeal, body, document } = req;
 	const documentInfo = await service.addVersionToDocument(body, appeal, document);
 
-	// @ts-ignore
 	return res.send(getStorageInfo(documentInfo.documents));
 };
 

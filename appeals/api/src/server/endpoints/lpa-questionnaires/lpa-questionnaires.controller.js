@@ -1,4 +1,4 @@
-import appealRepository from '#repositories/appeal.repository.js';
+import lpaQuestionnaireRepository from '#repositories/lpa-questionnaire.repository.js';
 import logger from '#utils/logger.js';
 import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatLpaQuestionnaire } from './lpa-questionnaires.formatter.js';
@@ -7,10 +7,11 @@ import { recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
 import transitionState from '../../state/transition-state.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Response} Response */
 
 /**
  * @type {RequestHandler}
- * @returns {object}
+ * @returns {Response}
  */
 const getLpaQuestionnaireById = (req, res) => {
 	const { appeal } = req;
@@ -21,7 +22,7 @@ const getLpaQuestionnaireById = (req, res) => {
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object>}
+ * @returns {Promise<Response>}
  */
 const updateLPAQuestionnaireById = async (req, res) => {
 	const {
@@ -41,7 +42,7 @@ const updateLPAQuestionnaireById = async (req, res) => {
 			};
 		}
 
-		await appealRepository.updateLPAQuestionnaireValidationOutcome({
+		await lpaQuestionnaireRepository.updateLPAQuestionnaireValidationOutcome({
 			lpaQuestionnaireId: Number(lpaQuestionnaireId),
 			validationOutcomeId: validationOutcome.id,
 			otherNotValidReasons,

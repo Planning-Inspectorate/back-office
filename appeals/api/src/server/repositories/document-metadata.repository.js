@@ -54,7 +54,6 @@ export const addDocument = async (metadata, context) => {
  * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocumentVersion = async ({ context, documentGuid, ...metadata }) => {
-	// @ts-ignore
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const document = await tx.document.findFirst({
 			include: { case: true },
@@ -68,8 +67,7 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 		const { reference } = document.case;
 		const { name, latestVersionId } = document;
 
-		// @ts-ignore
-		const newVersionId = latestVersionId + 1;
+		const newVersionId = (latestVersionId || 0) + 1;
 
 		metadata.fileName = name;
 		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);

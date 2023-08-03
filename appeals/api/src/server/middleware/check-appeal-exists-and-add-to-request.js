@@ -11,7 +11,7 @@ const checkAppealExistsAndAddToRequest = async (req, res, next) => {
 	const {
 		params: { appealId }
 	} = req;
-	const appeal = await appealRepository.getById(Number(appealId));
+	const appeal = await appealRepository.getAppealById(Number(appealId));
 
 	if (!appeal) {
 		return res.status(404).send({ errors: { appealId: ERROR_NOT_FOUND } });

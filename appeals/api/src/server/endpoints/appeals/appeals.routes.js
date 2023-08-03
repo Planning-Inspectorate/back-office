@@ -1,6 +1,5 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { documentsRoutes } from '../documents/documents.routes.js';
 import { getAppealById, getAppeals, updateAppealById } from './appeals.controller.js';
 import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
@@ -41,8 +40,6 @@ router.get(
 	getAppealsValidator,
 	asyncHandler(getAppeals)
 );
-
-router.use(documentsRoutes);
 
 router.get(
 	'/:appealId',

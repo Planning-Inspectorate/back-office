@@ -14,6 +14,8 @@ import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateValidationOutcomeReasons from '#common/validators/validation-outcome-reasons.js';
 
+/** @typedef {import('express').RequestHandler} RequestHandler */
+
 const getAppellantCaseValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validateIdParameter('appellantCaseId'),
@@ -22,31 +24,46 @@ const getAppellantCaseValidator = composeMiddleware(
 
 const patchAppellantCaseValidator = composeMiddleware(
 	validateIdParameter('appealId'),
-	// @ts-ignore
-	validateDateParameter('appealDueDate', (value, { req }) => {
-		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
-			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
-		}
+	validateDateParameter(
+		'appealDueDate',
+		(
+			/** @type {any} */ value,
+			/** @type {{ req: { body: { validationOutcome: string } } }} */ { req }
+		) => {
+			if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+				throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+			}
 
-		return value;
-	}),
+			return value;
+		}
+	),
 	validateIdParameter('appellantCaseId'),
-	// @ts-ignore
-	validateValidationOutcomeReasons('incompleteReasons', (value, { req }) => {
-		if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
-			throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
-		}
+	validateValidationOutcomeReasons(
+		'incompleteReasons',
+		(
+			/** @type {any} */ value,
+			/** @type {{ req: { body: { validationOutcome: string } } }} */ { req }
+		) => {
+			if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+				throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+			}
 
-		return value;
-	}),
-	// @ts-ignore
-	validateValidationOutcomeReasons('invalidReasons', (value, { req }) => {
-		if (value && !isOutcomeInvalid(req.body.validationOutcome)) {
-			throw new Error(ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME);
+			return value;
 		}
+	),
+	validateValidationOutcomeReasons(
+		'invalidReasons',
+		(
+			/** @type {any} */ value,
+			/** @type {{ req: { body: { validationOutcome: string } } }} */ { req }
+		) => {
+			if (value && !isOutcomeInvalid(req.body.validationOutcome)) {
+				throw new Error(ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME);
+			}
 
-		return value;
-	}),
+			return value;
+		}
+	),
 	body('otherNotValidReasons')
 		.optional()
 		.isString()
