@@ -164,9 +164,16 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 };
 
+const getShortMonthName = (monthNumber) => {
+	const date = new Date();
+	date.setMonth(monthNumber - 1);
+	return date.toLocaleString('default', { month: 'short' });
+};
+
 module.exports = {
 	validateSummaryPage,
 	validateSummaryPageInfo,
 	validateProjectInformation,
-	updateProjectInformation
+	updateProjectInformation,
+	getShortMonthName
 };

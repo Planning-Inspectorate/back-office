@@ -17,18 +17,19 @@ const applicationsHomePage = new ApplicationsHomePage();
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 const searchResultsPage = new SearchResultsPage();
+const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
 	context('As Inspector', () => {
 		let projectInfo = projectInformation();
 
 		before(() => {
-			cy.login(users.caseAdmin);
+			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo);
 		});
 
 		it('Should not be able to update the case information', () => {
-			cy.login(users.inspector);
+			cy.login(applicationsUsers.inspector);
 			cy.visit('/');
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
@@ -45,12 +46,12 @@ describe('Update Project Information', () => {
 		let projectInfoNew = projectInformation();
 
 		before(() => {
-			cy.login(users.caseTeam);
+			cy.login(applicationsUsers.caseTeam);
 			createCasePage.createCase(projectInfo, true);
 		});
 
 		it('Should be able to update the case information', () => {
-			cy.login(users.caseTeam);
+			cy.login(applicationsUsers.caseTeam);
 			cy.visit('/');
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
@@ -73,12 +74,12 @@ describe('Update Project Information', () => {
 		let projectInfoNew = projectInformation();
 
 		before(() => {
-			cy.login(users.caseAdmin);
+			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});
 
 		it('Should be able to update the case information', () => {
-			cy.login(users.caseAdmin);
+			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);

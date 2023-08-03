@@ -13,6 +13,7 @@ const applicationsHomePage = new ApplicationsHomePage();
 const createCasePage = new CreateCasePage();
 const searchResultsPage = new SearchResultsPage();
 const examTimetablePage = new ExaminationTimetablePage();
+const { applications: applicationsUsers } = users;
 
 const itemOptions = [
 	'Accompanied Site Inspection',
@@ -35,12 +36,12 @@ const texts = {
 	successMessageText: 'Timetable item successfully created'
 };
 
-describe('Examination Timetable', () => {
+describe('Examination Timetable Errors', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
 	before(() => {
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
@@ -91,8 +92,24 @@ describe('Examination Timetable', () => {
 		createCasePage.validateErrorMessageCountOnPage(4);
 		createCasePage.validateErrorMessage('The item end date must be after the item start date');
 	});
+});
+
+describe('Examination Timetable', () => {
+	let projectInfo = projectInformation();
+	let caseRef;
+
+	beforeEach(() => {
+		cy.login(applicationsUsers.caseAdmin);
+		createCasePage.createCase(projectInfo);
+	});
 
 	it('Should create timetable item - only start dates (StartTime Mandatory Template)', () => {
+		cy.visit('/');
+		caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const itemType = itemOptions[0];
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem(itemType);
@@ -109,9 +126,24 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
+		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
+		examTimetablePage.checkAnswer('Item type', itemType);
+		examTimetablePage.checkAnswer('Item name', options.itemName);
+		examTimetablePage.checkAnswer('Date', options.startDateFull);
+		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
+		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
+		examTimetablePage.checkAnswer('Description', options.description);
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
 	it('Should create timetable item - start and end dates (Deadline Template)', () => {
+		cy.visit('/');
+		caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const itemType = itemOptions[2];
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem(itemType);
@@ -129,9 +161,25 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
+		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
+		examTimetablePage.checkAnswer('Item type', itemType);
+		examTimetablePage.checkAnswer('Item name', options.itemName);
+		examTimetablePage.checkAnswer('Start date', options.startDateFull);
+		examTimetablePage.checkAnswer('End date', options.endDateFull);
+		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
+		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
+		examTimetablePage.checkAnswer('Description', options.description);
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
 	it('Should create timetable item - (NoTimes Template)', () => {
+		cy.visit('/');
+		caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const itemType = itemOptions[4];
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem(itemType);
@@ -146,9 +194,22 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
+		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
+		examTimetablePage.checkAnswer('Item type', itemType);
+		examTimetablePage.checkAnswer('Item name', options.itemName);
+		examTimetablePage.checkAnswer('Date', options.startDateFull);
+		examTimetablePage.checkAnswer('Description', options.description);
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
 	it('Should create timetable item - (Deadline StartDate Template)', () => {
+		cy.visit('/');
+		caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const itemType = itemOptions[9];
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem(itemType);
@@ -166,5 +227,13 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
 		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
+		examTimetablePage.checkAnswer('Item type', itemType);
+		examTimetablePage.checkAnswer('Item name', options.itemName);
+		examTimetablePage.checkAnswer('Date', options.startDateFull);
+		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
+		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
+		examTimetablePage.checkAnswer('Description', options.description);
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 });

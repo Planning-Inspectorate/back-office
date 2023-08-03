@@ -13,13 +13,14 @@ const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 const fileUploadPage = new FileUploadPage();
+const { applications: applicationsUsers } = users;
 let projectInfo;
 
 describe('Document Download', () => {
 	beforeEach(() => {
 		cy.deleteDownloads();
 		projectInfo = projectInformation();
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
@@ -28,7 +29,7 @@ describe('Document Download', () => {
 	});
 
 	it('Case Team Admin user should be able to download a document', () => {
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -47,7 +48,7 @@ describe('Document Download', () => {
 	});
 
 	it('Case Team user should be able to download a document', () => {
-		cy.login(users.caseTeam);
+		cy.login(applicationsUsers.caseTeam);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

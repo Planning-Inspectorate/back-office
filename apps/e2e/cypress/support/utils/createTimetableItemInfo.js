@@ -1,11 +1,6 @@
 // @ts-nocheck
 import { faker } from '@faker-js/faker';
-
-const getShortMonthName = (monthNumber) => {
-	const date = new Date();
-	date.setMonth(monthNumber - 1);
-	return date.toLocaleString('default', { month: 'short' });
-};
+import { getShortMonthName } from './utils.js';
 
 export const timetableItem = () => {
 	const now = Date.now();
@@ -16,7 +11,7 @@ export const timetableItem = () => {
 
 	const day = faker.datatype
 		.number({
-			min: 1,
+			min: 10,
 			max: 28
 		})
 		.toString()
@@ -44,7 +39,7 @@ export const timetableItem = () => {
 	const startHour = faker.datatype
 		.number({
 			min: 1,
-			max: 24
+			max: 23
 		})
 		.toString()
 		.padStart(2, '0');

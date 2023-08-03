@@ -8,6 +8,7 @@ export class Page {
 
 	selectors = {
 		accordion: '.govuk-accordion',
+		accordionToggleText: '.govuk-accordion__section-toggle-text',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
 		button: '.govuk-button',
@@ -47,6 +48,8 @@ export class Page {
 	basePageElements = {
 		accordion: (text) =>
 			cy.get(this.selectors.accordion).contains('span', text, { matchCase: false }),
+		answerCell: (question) =>
+			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
 		bannerHeader: () => cy.get(this.selectors.bannerHeader),
@@ -54,6 +57,8 @@ export class Page {
 		buttonByLabelText: (buttonText) =>
 			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
+		changeLink: (question) =>
+			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
 		errorMessage: () => cy.get(this.selectors.errorMessage),
 		summaryErrorMessages: () => cy.get(this.selectors.summaryErrorMessages),
 		goToDashboardLink: () =>
@@ -86,6 +91,18 @@ export class Page {
 		this.basePageElements.checkbox().eq(indexNumber).check();
 	}
 
+	checkAnswer(question, answer) {
+		this.basePageElements.answerCell(question).then(($elem) => {
+			cy.wrap($elem)
+				.invoke('text')
+				.then((text) => expect(text.trim()).to.equal(answer));
+		});
+	}
+
+	clickChangeLink(question) {
+		this.basePageElements.changeLink(question).click();
+	}
+
 	clearAllCheckboxes() {
 		this.basePageElements
 			.checkbox()
@@ -104,8 +121,12 @@ export class Page {
 		this.basePageElements.buttonByLabelText(buttonText).click();
 	}
 
+	clickContinue() {
+		this.clickButtonByText('Continue');
+	}
+
 	clickSaveAndContinue() {
-		this.basePageElements.buttonByLabelText('Save And Continue').click();
+		this.clickButtonByText('Save And Continue');
 	}
 
 	clickLinkByText(linkText) {
@@ -164,15 +185,15 @@ export class Page {
 	}
 
 	verifyCaseAdminIsSignedIn() {
-		this.basePageElements.loggedInUser().should('have.text', users.caseAdmin.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.applications.caseAdmin.typeName);
 	}
 
 	verifyCaseTeamIsSignedIn() {
-		this.basePageElements.loggedInUser().should('have.text', users.caseTeam.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.applications.caseTeam.typeName);
 	}
 
 	verifyInspectorIsSignedIn() {
-		this.basePageElements.loggedInUser().should('have.text', users.inspector.typeName);
+		this.basePageElements.loggedInUser().should('have.text', users.applications.inspector.typeName);
 	}
 
 	verifyFolderDocuments(fileCount) {
@@ -209,5 +230,9 @@ export class Page {
 
 	navigateToAppealsService() {
 		cy.visit('/appeals-service/appeals-list');
+	}
+
+	goToDashboard() {
+		this.basePageElements.goToDashboardLink().click();
 	}
 }

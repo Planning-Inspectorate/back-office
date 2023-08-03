@@ -18,6 +18,7 @@ const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
 const folderPage = new FolderDocumentsPage();
 const publishingQueuePage = new PublishingQueuePage();
+const { applications: applicationsUsers } = users;
 
 describe('Document Properties', () => {
 	let projectInfo;
@@ -25,12 +26,12 @@ describe('Document Properties', () => {
 
 	before(() => {
 		projectInfo = projectInformation();
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	beforeEach(() => {
-		cy.login(users.caseAdmin);
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

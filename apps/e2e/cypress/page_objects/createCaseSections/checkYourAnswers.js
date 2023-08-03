@@ -30,9 +30,6 @@ export class CheckYourAnswersSection extends SectionBase {
 		this.checkAnswer('Region(s)', projectInfo.regions.sort().join(','));
 		this.checkAnswer('Map zoom level', mandatoryOnly ? 'None' : projectInfo.zoomLevel);
 
-		// K E Y  D A T E S
-		this.checkAnswer('Anticipated submission date internal', projectInfo.internalDateFull);
-
 		if (!mandatoryOnly) {
 			// A P P L I C A N T  I N F O R M A T I O N
 			this.checkAnswer('Organisation name', projectInfo.orgName);
@@ -41,8 +38,8 @@ export class CheckYourAnswersSection extends SectionBase {
 			this.checkAnswer('Website', projectInfo.applicantWebsite);
 			this.checkAnswer('Email address', projectInfo.applicantEmail);
 			this.checkAnswer('Telephone number', projectInfo.applicantPhoneNumber);
-
 			// K E Y  D A T E S
+			this.checkAnswer('Anticipated submission date internal', projectInfo.internalDateFull);
 			this.checkAnswer('Anticipated submission date published', projectInfo.publishedDate);
 		}
 	}
