@@ -1300,6 +1300,120 @@ const document = {
 				}
 			}
 		},
+		S51AdvicePaginatedRequestBody: {
+			type: 'object',
+			properties: {
+				pageNumber: {
+					type: 'integer',
+					description: 'The page number required',
+					example: 1
+				},
+				pageSize: {
+					type: 'integer',
+					description: 'The number of items per page',
+					example: 50
+				}
+			}
+		},
+		S51AdviceDetails: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'The page number required', example: 1 },
+				referenceNumber: {
+					type: 'string',
+					description: 'Advice reference number',
+					example: 'EN010001-Advice-00001'
+				},
+				title: {
+					type: 'string',
+					description: 'Advice title',
+					example: 'Advice regarding right to roam'
+				},
+				enquirer: {
+					type: 'string',
+					description: 'Name of enquiring company / organisation ',
+					example: 'New Power Plc'
+				},
+				firstName: { type: 'string', description: 'First name of enquirer', example: 'David' },
+				lastName: { type: 'string', description: 'Last name of enquirer', example: 'White' },
+				enquiryMethod: {
+					type: 'string',
+					enum: ['post', 'email', 'phone', 'person'],
+					description: 'Enquiry method',
+					example: 'email'
+				},
+				enquiryDate: { type: 'number', description: 'Date of enquiry', example: 1_646_822_400 },
+				enquiryDetails: {
+					type: 'string',
+					description: 'Details of the enquiry',
+					example: 'details of the advice sought'
+				},
+				adviser: {
+					type: 'string',
+					description: 'Name of who gave the advice ',
+					example: 'John Smith (staff)'
+				},
+				adviceDate: { type: 'number', description: 'Date advice given', example: 1_646_822_400 },
+				adviceDetails: {
+					type: 'string',
+					description: 'Details of the advive given',
+					example: 'details of the advice provided'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				},
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				dateCreated: {
+					type: 'number',
+					description: 'Date advice record was created',
+					example: 1_646_822_400
+				},
+				dateUpdated: {
+					type: 'number',
+					description: 'Date advice record was last updated',
+					example: 1_646_822_400
+				}
+			}
+		},
+		S51AdvicePaginatedResponse: [
+			{
+				type: 'object',
+				properties: {
+					page: {
+						type: 'integer',
+						description: 'The page number required',
+						example: 1
+					},
+					pageDefaultSize: {
+						type: 'integer',
+						description: 'The default number of items per page',
+						example: 50
+					},
+					pageCount: {
+						type: 'integer',
+						description: 'The total number of pages',
+						example: 1
+					},
+					itemCount: {
+						type: 'integer',
+						description: 'The total number of items on the case',
+						example: 1
+					},
+					items: {
+						type: 'array',
+						items: { $ref: '#/definitions/S51AdviceDetails' }
+					}
+				}
+			}
+		],
 		SubscriptionGetBadRequest: {
 			type: 'object',
 			properties: {
