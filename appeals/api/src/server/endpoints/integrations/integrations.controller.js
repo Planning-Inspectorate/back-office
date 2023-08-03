@@ -1,5 +1,10 @@
 import { createAppeal, createDocument } from '#repositories/integrations.repository.js';
-import { mapAppealFromTopic, mapDocumentFromTopic } from './integrations.mapper.js';
+import {
+	mapAppealFromTopic,
+	mapDocumentFromTopic,
+	mapAppealForTopic,
+	mapDocumentForTopic
+} from './integrations.mapper.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('express').Response} Response */
@@ -9,10 +14,11 @@ import { mapAppealFromTopic, mapDocumentFromTopic } from './integrations.mapper.
  * @returns {Promise<Response>}
  */
 export const postAppealSubmission = async (req, res) => {
-	const data = mapAppealFromTopic(req.body);
-	const result = await createAppeal(data);
+	const { appeal, documents } = mapAppealFromTopic(req.body);
+	const result = await createAppeal(appeal, documents);
+	const formattedResult = mapAppealForTopic(result);
 
-	return res.send(result);
+	return res.send(formattedResult);
 };
 
 /**
@@ -22,6 +28,7 @@ export const postAppealSubmission = async (req, res) => {
 export const postDocumentSubmission = async (req, res) => {
 	const data = mapDocumentFromTopic(req.body);
 	const result = await createDocument(data);
+	const formattedResult = mapDocumentForTopic(result);
 
-	return res.send(result);
+	return res.send(formattedResult);
 };

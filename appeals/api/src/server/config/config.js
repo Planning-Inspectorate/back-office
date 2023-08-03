@@ -73,13 +73,14 @@ const { value, error } = schema.validate({
 		{ level: 'H', band: 1 }
 	],
 	appealFolderLayout: [
-		{ path: 'appellantCase/applicationForm', allowedTypes: [] },
-		{ path: 'appellantCase/decisionLetter', allowedTypes: [] },
-		{ path: 'appellantCase/designAndAccessStatement', allowedTypes: [] },
-		{ path: 'appellantCase/planningObligation', allowedTypes: [] },
+		{ path: 'appellantCase/applicationForm', allowedTypes: ['applicationForm'] },
+		{ path: 'appellantCase/decisionLetter', allowedTypes: ['decisionLetter'] },
+		{ path: 'appellantCase/designAndAccessStatement', allowedTypes: ['designAndAccessStatement'] },
+		{ path: 'appellantCase/planningObligation', allowedTypes: ['planningObligation'] },
 		{ path: 'appellantCase/plansDrawingsSupportingDocuments', allowedTypes: [] },
 		{ path: 'appellantCase/separateOwnershipCertificate', allowedTypes: [] },
-		{ path: 'appellantCase/newSupportingDocuments', allowedTypes: [] }
+		{ path: 'appellantCase/newSupportingDocuments', allowedTypes: [] },
+		{ path: 'appellantCase/dropbox', allowedTypes: ['*'] }
 	]
 });
 
