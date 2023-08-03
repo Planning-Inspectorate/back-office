@@ -22,8 +22,6 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	const { privateBlobContainer, privateBlobPath, fileName, originalFilename } =
 		await getCaseDocumentationVersionFileInfo(caseId, fileGuid, version);
 
-	console.error({ fileName, originalFilename });
-
 	if (!privateBlobContainer || !privateBlobPath) {
 		throw new Error('Blob storage container or Document UR not found');
 	}
