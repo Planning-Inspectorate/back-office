@@ -24,7 +24,7 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil',
 				originalFilename: 'olive oil.jpeg',
-				privateBlobPath: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
 			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
@@ -36,7 +36,7 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.jpeg',
-				privateBlobPath: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
 			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
@@ -48,7 +48,7 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.png',
-				privateBlobPath: '//application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI: '//application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
 			},
 			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg.png'
