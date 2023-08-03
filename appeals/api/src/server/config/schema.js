@@ -58,5 +58,12 @@ export default joi.object({
 			level: joi.string(),
 			band: joi.number()
 		})
+	),
+	appealFolderLayout: joi.array().items(
+		joi.object({
+			displayName: joi.string().optional(),
+			path: joi.string(),
+			allowedTypes: joi.array().items(joi.string())
+		})
 	)
 });

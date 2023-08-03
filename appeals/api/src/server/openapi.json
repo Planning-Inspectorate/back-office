@@ -951,6 +951,100 @@
 					}
 				}
 			}
+		},
+		"/appeals/case-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Request the creation of a new case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appeal successfully created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Case data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CaseData"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/CaseData"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/document-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Imports a new document",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Document successfully created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Document",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {

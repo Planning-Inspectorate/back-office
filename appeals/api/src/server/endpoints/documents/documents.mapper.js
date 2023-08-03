@@ -1,7 +1,10 @@
+import config from '#config/config.js';
+
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Schema.FolderTemplate} FolderTemplate */
 /** @typedef {import('@pins/appeals/index.js').MappedDocument} MappedDocument */
 /** @typedef {import('@pins/appeals/index.js').DocumentMetadata} DocumentMetadata */
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
-/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo */
 
@@ -70,6 +73,21 @@ export const mapBlobPath = (guid, caseReference, name, versionId = 1) => {
  */
 export const mapCaseReferenceForStorageUrl = (caseReference) => {
 	return caseReference.replace(/\//g, '-');
+};
+
+/**
+ * Returns a list of document paths available for the current Appeal
+ * @param {number} caseId
+ * @returns {FolderTemplate[]}
+ */
+export const mapDefaultCaseFolders = (caseId) => {
+	return config.appealFolderLayout.map((/** @type {{ displayName: any; path: any; }} */ folder) => {
+		return {
+			caseId,
+			displayName: folder.displayName,
+			path: folder.path
+		};
+	});
 };
 
 /**

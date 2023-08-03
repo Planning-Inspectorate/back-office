@@ -90,6 +90,7 @@
     "#middleware/*": "./src/server/middleware/*",
     "#endpoints/*": "./src/server/endpoints/*",
     "#tests/*": "./src/server/tests/*",
-    "#common/*": "./src/server/common/*"
+    "#common/*": "./src/server/common/*",
+    "#config/*": "./src/server/config/*"
   }
 }
