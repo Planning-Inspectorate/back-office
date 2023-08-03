@@ -19,11 +19,10 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { privateBlobContainer, privateBlobPath } = await getCaseDocumentationVersionFileInfo(
-		caseId,
-		fileGuid,
-		version
-	);
+	const { privateBlobContainer, privateBlobPath, fileName, originalFilename } =
+		await getCaseDocumentationVersionFileInfo(caseId, fileGuid, version);
+
+	console.error({ fileName, originalFilename });
 
 	if (!privateBlobContainer || !privateBlobPath) {
 		throw new Error('Blob storage container or Document UR not found');
@@ -31,8 +30,6 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	// Document URIs are persisted with a prepended slash, but this slash is treated as part of the key by blob storage so we need to remove it
 	const documentKey = privateBlobPath.startsWith('/') ? privateBlobPath.slice(1) : privateBlobPath;
-
-	const fileName = `${documentKey}`.split(/\/+/).pop();
 
 	const client = BlobStorageClient.fromUrlAndToken(blobStorageUrl, accessToken);
 
@@ -45,7 +42,8 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	if (preview && blobProperties?.contentType) {
 		response.setHeader('content-type', blobProperties.contentType);
 	} else {
-		response.setHeader('content-disposition', `attachment; filename=${fileName}`);
+		const downloadFileName = buildFileName({ fileName, originalFilename });
+		response.setHeader('content-disposition', `attachment; filename=${downloadFileName}`);
 	}
 
 	const blobStream = await client.downloadStream(privateBlobContainer, documentKey);
@@ -57,6 +55,19 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	blobStream.readableStreamBody?.pipe(response);
 
 	return response.status(200);
+};
+
+const fileExtensionRegex = /\.[0-9a-z]+$/i;
+
+/**
+ *
+ * @param {{fileName: string, originalFilename: string}} params
+ */
+const buildFileName = ({ fileName, originalFilename }) => {
+	const originalExtension = originalFilename.match(fileExtensionRegex)?.[0];
+	const newExtension = fileName.match(fileExtensionRegex)?.[0];
+
+	return originalExtension === newExtension ? fileName : `${fileName}${originalExtension}`;
 };
 
 export default getDocumentsDownload;

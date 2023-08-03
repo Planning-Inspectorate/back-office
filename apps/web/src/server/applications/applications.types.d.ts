@@ -98,6 +98,7 @@ export interface CaseCreateProps<BodyValues> {
 export interface DocumentationFile {
 	documentGuid: string;
 	fileName: string;
+	originalFilename: string;
 	description: string;
 	dateCreated: number;
 	datePublished?: number;

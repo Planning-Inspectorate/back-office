@@ -80,6 +80,7 @@ export function createDocumentationFile(options = {}) {
 		folderId: 11,
 		documentGuid,
 		filter1,
+		originalFilename: fileName,
 		fileName,
 		author,
 		representative,
