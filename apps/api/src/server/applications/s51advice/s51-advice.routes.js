@@ -55,10 +55,10 @@ router.get(
 );
 
 router.post(
-	'/:id/s51-advices',
+	'/:id/s51-advice',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/s51-advices'
+        #swagger.path = '/applications/{id}/s51-advice'
         #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
         #swagger.parameters['id'] = {
             in: 'path',
