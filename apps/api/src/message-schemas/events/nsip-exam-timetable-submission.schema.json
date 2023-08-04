@@ -1,0 +1,23 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "nsip-exam-timetable-submission.schema.json",
+	"title": "nsip-exam-timetable-submission",
+	"description": "Result of processing a new exam timetable submission",
+	"type": "object",
+	"required": ["status", "deadline", "submissionType", "blobKey"],
+	"properties": {
+		"status": {
+			"type": "string",
+			"enum": ["SUCCESS", "VIRUS_DETECTED", "FAILURE"]
+		},
+		"deadline": {
+			"type": "string"
+		},
+		"submissionType": {
+			"type": "string"
+		},
+		"blobKey": {
+			"type": "string"
+		}
+	}
+}
