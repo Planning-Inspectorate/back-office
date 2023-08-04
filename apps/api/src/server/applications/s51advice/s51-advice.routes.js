@@ -76,6 +76,10 @@ router.post(
             description: 'A paginated data set of S51 Advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
         }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
     */
 	validateApplicationId,
 	asyncHandler(getManyS51Advices)
