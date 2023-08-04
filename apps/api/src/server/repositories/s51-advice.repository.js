@@ -32,7 +32,7 @@ export const getS51AdviceCountOnCase = (caseId, getAllS51Advice = false) => {
 	const where = { caseId };
 
 	if (getAllS51Advice) {
-		where.isDeleted = true;
+		// where.isDeleted = true; // TODO: no isDeleted field yet
 	}
 
 	return databaseConnector.s51Advice.count({
