@@ -16,9 +16,9 @@ router.get(
 							required: true,
 							type: 'integer'
 				}
-				#swagger.responses[200] = {
 				#swagger.produces = ['text/csv']
-					 description: 'Representations'
+				#swagger.responses[200] = {
+					description: 'Representations CSV'
 				}
 
 	*/

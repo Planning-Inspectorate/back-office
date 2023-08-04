@@ -811,7 +811,11 @@
 						"description": "Application ID"
 					}
 				],
-				"responses": {}
+				"responses": {
+					"200": {
+						"description": "Representations CSV"
+					}
+				}
 			}
 		},
 		"/applications/{id}/representations/{repId}/redact": {
@@ -1166,6 +1170,18 @@
 						"description": "Documents that have been saved",
 						"schema": {
 							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					},
+					"206": {
+						"description": "Some documents failed to save while others succeeded",
+						"schema": {
+							"$ref": "#/definitions/partialDocumentsAndBlobStorageURLs"
+						}
+					},
+					"409": {
+						"description": "All documents failed to upload",
+						"schema": {
+							"$ref": "#/definitions/documentsUploadFailed"
 						}
 					}
 				}
@@ -4034,33 +4050,6 @@
 				}
 			}
 		},
-		"ApplicationProjectUpdates": {
-			"type": "object",
-			"properties": {
-				"page": {
-					"type": "integer",
-					"minimum": 0
-				},
-				"pageCount": {
-					"type": "integer",
-					"minimum": 0
-				},
-				"pageSize": {
-					"type": "integer",
-					"minimum": 0
-				},
-				"itemCount": {
-					"type": "integer",
-					"minimum": 0
-				},
-				"items": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/ApplicationProjectUpdate"
-					}
-				}
-			}
-		},
 		"AppealToValidate": {
 			"type": "object",
 			"properties": {
@@ -6481,6 +6470,33 @@
 							"type": "string",
 							"example": "type must be a string"
 						}
+					}
+				}
+			}
+		},
+		"ApplicationProjectUpdates": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageSize": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"itemCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ApplicationProjectUpdate"
 					}
 				}
 			}
