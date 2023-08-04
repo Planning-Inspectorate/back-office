@@ -361,6 +361,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	currentDocumentVersion[0].publishedStatus = 'awaiting_upload';
 	currentDocumentVersion[0].redacted = false;
 	currentDocumentVersion[0].redactedStatus = '';
+	currentDocumentVersion[0].datePublished = null;
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
