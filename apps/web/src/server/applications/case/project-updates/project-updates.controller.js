@@ -134,7 +134,7 @@ export async function projectUpdatesContentPost(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = bodyToUpdateRequest(req.body);
 	await patchProjectUpdate(caseId, projectUpdateId, projectUpdate);
-	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.checkAnswers);
+	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.type);
 	res.redirect(nextUrl);
 }
 
@@ -151,6 +151,7 @@ export async function projectUpdatesTypeGet(req, res) {
 		case: res.locals.case,
 		title: 'What information does the update contain?',
 		buttonText: 'Save and continue',
+		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.content),
 		errors, // for error summary
 		form: {
 			components: [
@@ -208,6 +209,7 @@ export async function projectUpdatesStatusGet(req, res) {
 		case: res.locals.case,
 		title,
 		buttonText: 'Save and continue',
+		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.type),
 		errors, // for error summary
 		form: {
 			components: [
@@ -267,6 +269,7 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 		createDetailsView({
 			caseInfo: res.locals.case,
 			title: 'Check your project update',
+			backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.status),
 			buttonText,
 			form,
 			projectUpdate
