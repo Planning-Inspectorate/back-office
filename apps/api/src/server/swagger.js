@@ -1300,6 +1300,132 @@ const document = {
 				}
 			}
 		},
+		S51AdviceCreateRequestBody: {
+			type: 'object',
+			properties: {
+				caseId: { type: 'integer', description: 'The application id', example: 1 },
+				title: {
+					type: 'string',
+					description: 'Advice title',
+					example: 'Advice regarding right to roam'
+				},
+				enquirer: {
+					type: 'string',
+					description: 'Name of enquiring company / organisation ',
+					example: 'New Power Plc'
+				},
+				firstName: { type: 'string', description: 'First name of enquirer', example: 'John' },
+				lastName: { type: 'string', description: 'Last name of enquirer', example: 'Keats' },
+				enquiryMethod: {
+					type: 'string',
+					enum: ['phone', 'email', 'meeting', 'post'],
+					description: 'Enquiry method',
+					example: 'email'
+				},
+				enquiryDate: {
+					type: 'string',
+					description: 'Date of enquiry yyyy-mm-dd',
+					example: '2023-03-01'
+				},
+				enquiryDetails: {
+					type: 'string',
+					description: 'Details of the enquiry',
+					example: 'details of the advice sought'
+				},
+				adviser: {
+					type: 'string',
+					description: 'Name of who gave the advice',
+					example: 'John Caseworker-Smith'
+				},
+				adviceDate: {
+					type: 'string',
+					description: 'Date advice given yyyy-mm-dd',
+					example: '2023-03-01'
+				},
+				adviceDetails: {
+					type: 'string',
+					description: 'Details of the advive given',
+					example: 'details of the advice provided'
+				}
+			}
+		},
+		S51AdviceCreateResponseBody: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
+				caseId: { type: 'integer', description: 'The application id', example: 1 },
+				title: {
+					type: 'string',
+					description: 'Advice title',
+					example: 'Advice regarding right to roam'
+				},
+				firstName: { type: 'string', description: 'First name of enquirer', example: 'John' },
+				lastName: { type: 'string', description: 'Last name of enquirer', example: 'Keats' },
+				enquirer: {
+					type: 'string',
+					description: 'Name of enquiring company / organisation',
+					example: 'New Power Plc'
+				},
+				enquiryMethod: {
+					type: 'string',
+					enum: ['phone', 'email', 'meeting', 'post'],
+					description: 'Enquiry method',
+					example: 'email'
+				},
+				enquiryDate: {
+					type: 'date-time',
+					description: 'Date of enquiry',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				enquiryDetails: {
+					type: 'string',
+					description: 'Details of the enquiry',
+					example: 'details of the advice sought'
+				},
+				adviser: {
+					type: 'string',
+					description: 'Name of who gave the advice',
+					example: 'John Caseworker-Smith'
+				},
+				adviceDate: {
+					type: 'date-time',
+					description: 'Date advice given',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				adviceDetails: {
+					type: 'string',
+					description: 'Details of the advive given',
+					example: 'details of the advice provided'
+				},
+				referenceNumber: {
+					type: 'integer',
+					description: 'Advice reference number',
+					example: '1'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				},
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				createdAt: {
+					type: 'date-time',
+					description: 'Date advice record was created',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				updatedAt: {
+					type: 'date-time',
+					description: 'Date advice record was last updated',
+					example: '2023-02-01T00:00:00.000Z'
+				}
+			}
+		},
 		S51AdvicePaginatedRequestBody: {
 			type: 'object',
 			properties: {
@@ -1318,7 +1444,7 @@ const document = {
 		S51AdviceDetails: {
 			type: 'object',
 			properties: {
-				id: { type: 'integer', description: 'The page number required', example: 1 },
+				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
 				referenceNumber: {
 					type: 'string',
 					description: 'Advice reference number',
@@ -1331,14 +1457,14 @@ const document = {
 				},
 				enquirer: {
 					type: 'string',
-					description: 'Name of enquiring company / organisation ',
+					description: 'Name of enquiring company / organisation',
 					example: 'New Power Plc'
 				},
-				firstName: { type: 'string', description: 'First name of enquirer', example: 'David' },
-				lastName: { type: 'string', description: 'Last name of enquirer', example: 'White' },
+				firstName: { type: 'string', description: 'First name of enquirer', example: 'John' },
+				lastName: { type: 'string', description: 'Last name of enquirer', example: 'Keats' },
 				enquiryMethod: {
 					type: 'string',
-					enum: ['post', 'email', 'phone', 'person'],
+					enum: ['phone', 'email', 'meeting', 'post'],
 					description: 'Enquiry method',
 					example: 'email'
 				},
@@ -1350,8 +1476,8 @@ const document = {
 				},
 				adviser: {
 					type: 'string',
-					description: 'Name of who gave the advice ',
-					example: 'John Smith (staff)'
+					description: 'Name of who gave the advice',
+					example: 'John Caseworker-Smith'
 				},
 				adviceDate: { type: 'number', description: 'Date advice given', example: 1_646_822_400 },
 				adviceDetails: {
@@ -1393,7 +1519,7 @@ const document = {
 				},
 				pageDefaultSize: {
 					type: 'integer',
-					description: 'The default number of items per page',
+					description: 'The default number of S51 Advice per page',
 					example: 50
 				},
 				pageCount: {
@@ -1403,7 +1529,7 @@ const document = {
 				},
 				itemCount: {
 					type: 'integer',
-					description: 'The total number of items on the case',
+					description: 'The total number of s51 Advice records on the case',
 					example: 1
 				},
 				items: {
