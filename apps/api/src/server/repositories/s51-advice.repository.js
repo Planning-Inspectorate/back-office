@@ -52,7 +52,7 @@ export const getManyS51AdviceOnCase = ({ caseId, skipValue, pageSize }) => {
 		take: pageSize,
 		orderBy: [
 			{
-				createdAt: 'desc' // TODO: make this the ref id
+				referenceNumber: 'desc'
 			}
 		],
 		where: {

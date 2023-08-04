@@ -24,7 +24,7 @@ const formatS51AdviceReferenceNumber = (caseRef, adviceRef) => {
 export const mapS51Advice = (caseRef, s51Advice) => {
 	return {
 		id: s51Advice.id,
-		referenceNumber: formatS51AdviceReferenceNumber(caseRef, 1), // TODO: after DB update use real field data
+		referenceNumber: formatS51AdviceReferenceNumber(caseRef, s51Advice.referenceNumber),
 		title: s51Advice.title,
 		enquirer: s51Advice.enquirer ?? '',
 		firstName: s51Advice.firstName ?? '',
@@ -35,8 +35,8 @@ export const mapS51Advice = (caseRef, s51Advice) => {
 		adviser: s51Advice.adviser,
 		adviceDate: mapDateStringToUnixTimestamp(s51Advice.adviceDate.toString()),
 		adviceDetails: s51Advice.adviceDetails,
-		publishedStatus: 'not_checked', // TODO: s51Advice.publishedStatus ?? '',
-		redactedStatus: 'not_redacted', // TODO: s51Advice.redactedStatus ?? '',
+		publishedStatus: s51Advice.publishedStatus ?? '',
+		redactedStatus: s51Advice.redactedStatus ?? '',
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
 		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString())
 	};
