@@ -1383,37 +1383,35 @@ const document = {
 				}
 			}
 		},
-		S51AdvicePaginatedResponse: [
-			{
-				type: 'object',
-				properties: {
-					page: {
-						type: 'integer',
-						description: 'The page number required',
-						example: 1
-					},
-					pageDefaultSize: {
-						type: 'integer',
-						description: 'The default number of items per page',
-						example: 50
-					},
-					pageCount: {
-						type: 'integer',
-						description: 'The total number of pages',
-						example: 1
-					},
-					itemCount: {
-						type: 'integer',
-						description: 'The total number of items on the case',
-						example: 1
-					},
-					items: {
-						type: 'array',
-						items: { $ref: '#/definitions/S51AdviceDetails' }
-					}
+		S51AdvicePaginatedResponse: {
+			type: 'object',
+			properties: {
+				page: {
+					type: 'integer',
+					description: 'The page number required',
+					example: 1
+				},
+				pageDefaultSize: {
+					type: 'integer',
+					description: 'The default number of items per page',
+					example: 50
+				},
+				pageCount: {
+					type: 'integer',
+					description: 'The total number of pages',
+					example: 1
+				},
+				itemCount: {
+					type: 'integer',
+					description: 'The total number of items on the case',
+					example: 1
+				},
+				items: {
+					type: 'array',
+					items: { $ref: '#/definitions/S51AdviceDetails' }
 				}
 			}
-		],
+		},
 		SubscriptionGetBadRequest: {
 			type: 'object',
 			properties: {
