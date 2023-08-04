@@ -15,12 +15,12 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Payload to create S51 advice',
-            schema: { $ref: '#/definitions/S51AdviceRequestBody' },
+            schema: { $ref: '#/definitions/S51AdviceCreateRequestBody' },
             required: true
         }
         #swagger.responses[200] = {
             description: 'Created S51 advice',
-            schema: { $ref: '#/definitions/S51AdviceResponseBody' }
+            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
         }
     */
 	validateCreateS51Advice,
