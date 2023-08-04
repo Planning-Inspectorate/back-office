@@ -2405,6 +2405,26 @@
 						"schema": {
 							"$ref": "#/definitions/S51AdviceResponseBody"
 						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -6776,39 +6796,37 @@
 				}
 			}
 		},
-		"S51AdvicePaginatedResponse": [
-			{
-				"type": "object",
-				"properties": {
-					"page": {
-						"type": "integer",
-						"description": "The page number required",
-						"example": 1
-					},
-					"pageDefaultSize": {
-						"type": "integer",
-						"description": "The default number of items per page",
-						"example": 50
-					},
-					"pageCount": {
-						"type": "integer",
-						"description": "The total number of pages",
-						"example": 1
-					},
-					"itemCount": {
-						"type": "integer",
-						"description": "The total number of items on the case",
-						"example": 1
-					},
+		"S51AdvicePaginatedResponse": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"description": "The page number required",
+					"example": 1
+				},
+				"pageDefaultSize": {
+					"type": "integer",
+					"description": "The default number of items per page",
+					"example": 50
+				},
+				"pageCount": {
+					"type": "integer",
+					"description": "The total number of pages",
+					"example": 1
+				},
+				"itemCount": {
+					"type": "integer",
+					"description": "The total number of items on the case",
+					"example": 1
+				},
+				"items": {
+					"type": "array",
 					"items": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/S51AdviceDetails"
-						}
+						"$ref": "#/definitions/S51AdviceDetails"
 					}
 				}
 			}
-		],
+		},
 		"SubscriptionGetBadRequest": {
 			"type": "object",
 			"properties": {
