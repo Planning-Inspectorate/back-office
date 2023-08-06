@@ -2379,6 +2379,29 @@
 				}
 			}
 		},
+		"/applications/s51-advice/{id}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "S51 advice ID",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable items",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceResponseBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],
