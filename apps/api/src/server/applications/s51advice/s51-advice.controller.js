@@ -14,3 +14,23 @@ export const createS51Advice = async (_request, response) => {
 
 	response.send(s51Advice);
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export const getS51Advice = async (_request, response) => {
+	const { id } = _request.params;
+
+	const s51Advice = await s51AdviceRepository.get(Number(id));
+
+	if (!s51Advice) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `S51 advice with id: ${id} not found.` } });
+	}
+
+	response.send(s51Advice);
+};
