@@ -27,7 +27,7 @@ router.post(
 );
 
 router.get(
-	'/id',
+	'/:id',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/s51-advice/{id}'
