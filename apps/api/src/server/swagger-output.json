@@ -2379,24 +2379,24 @@
 				}
 			}
 		},
-		"/applications/s51-advice/{id}": {
+		"/applications/{caseId}/s51-advice/{id}": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Application case ID",
 				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
 					{
 						"name": "id",
 						"in": "path",
 						"required": true,
 						"type": "integer",
 						"description": "S51 advice ID"
-					},
-					{
-						"name": "caseId",
-						"in": "path",
-						"description": "Application case ID",
-						"required": true,
-						"type": "integer"
 					}
 				],
 				"responses": {

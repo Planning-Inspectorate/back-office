@@ -30,7 +30,7 @@ router.get(
 	'/:caseId/s51-advice/:id',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/s51-advice/{id}'
+        #swagger.path = '/applications/{caseId}/s51-advice/{id}'
         #swagger.description = 'Application case ID'
         #swagger.parameters['caseId'] = {
             in: 'path',
