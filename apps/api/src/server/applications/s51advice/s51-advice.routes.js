@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { createS51Advice, getS51Advice, getManyS51Advices } from './s51-advice.controller.js';
-import { validateCreateS51Advice } from './s51-advice.validators.js';
+import { validateCreateS51Advice, validatePaginationCriteria } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 
 const router = createRouter();
@@ -76,12 +76,17 @@ router.post(
             description: 'A paginated data set of S51 Advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
         }
+		#swagger.responses[400] = {
+            description: 'Error: Bad Request',
+            schema: { $ref: '#/definitions/S51AdvicePaginatedBadRequest' }
+        }
 		#swagger.responses[404] = {
             description: 'Error: Not Found',
 			schema: { errors: { id: "Must be an existing application" } }
         }
     */
 	validateApplicationId,
+	validatePaginationCriteria,
 	asyncHandler(getManyS51Advices)
 );
 
