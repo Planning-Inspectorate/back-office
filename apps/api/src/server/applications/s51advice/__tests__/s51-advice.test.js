@@ -60,14 +60,14 @@ describe('Test S51 advice API', () => {
 
 	test('get by id throws 404 when there is no s51 advice for the provided id', async () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(null);
-		const resp = await request.get('/applications/s51-advice/132').send({});
+		const resp = await request.get('/applications/21/s51-advice/132').send({});
 		expect(resp.status).toEqual(404);
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 	});
 
 	test('get by id returns s51 advice by id', async () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeSaved);
-		const resp = await request.get('/applications/s51-advice/132').send({});
+		const resp = await request.get('/applications/21/s51-advice/132').send({});
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 	});
