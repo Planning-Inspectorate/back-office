@@ -35,7 +35,7 @@ router.use('/sector', sectorRoutes);
 router.use('/zoom-level', zoomLevelRoutes);
 router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
 router.use('/examination-timetable-items', examinationTimetableItemRoutes);
-router.use('/s51-advice', s51AdviceRoutes);
+router.use('/', s51AdviceRoutes);
 
 router.use('/subscriptions', subscriptionRoutes);
 
