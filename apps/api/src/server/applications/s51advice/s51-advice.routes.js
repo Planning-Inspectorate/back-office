@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { createS51Advice, getS51Advice } from './s51-advice.controller.js';
 import { validateCreateS51Advice } from './s51-advice.validators.js';
+import { validateApplicationId } from '../application/application.validators.js';
 
 const router = createRouter();
 
@@ -27,18 +28,18 @@ router.post(
 );
 
 router.get(
-	'/:caseId/s51-advice/:id',
+	'/:id/s51-advice/:adviceId',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{caseId}/s51-advice/{id}'
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
         #swagger.description = 'Application case ID'
-        #swagger.parameters['caseId'] = {
+        #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application case ID',
 			required: true,
 			type: 'integer'
         }
-        #swagger.parameters['id'] = {
+        #swagger.parameters['adviceId'] = {
             in: 'path',
 			description: 'S51 advice ID',
 			required: true,
@@ -49,6 +50,7 @@ router.get(
             schema: { $ref: '#/definitions/S51AdviceResponseBody' }
         }
     */
+	validateApplicationId,
 	asyncHandler(getS51Advice)
 );
 
