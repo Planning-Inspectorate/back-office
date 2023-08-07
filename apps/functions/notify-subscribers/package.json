@@ -1,0 +1,21 @@
+{
+  "name": "@pins/applications.functions-notify-subscribers",
+  "version": "1.0.0",
+  "description": "Azure Function to notify email subscribers",
+  "type": "module",
+  "scripts": {
+    "start": "func start",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "dependencies": {
+    "@pins/platform": "^0.0.0",
+    "dotenv": "*",
+    "got": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x",
+    "cross-env": "*",
+    "jest": "*"
+  }
+}
