@@ -2379,20 +2379,20 @@
 				}
 			}
 		},
-		"/applications/{caseId}/s51-advice/{id}": {
+		"/applications/{id}/s51-advice/{adviceId}": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Application case ID",
 				"parameters": [
 					{
-						"name": "caseId",
+						"name": "id",
 						"in": "path",
 						"required": true,
 						"type": "integer",
 						"description": "Application case ID"
 					},
 					{
-						"name": "id",
+						"name": "adviceId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
@@ -2404,6 +2404,38 @@
 						"description": "List of examination timetable items",
 						"schema": {
 							"$ref": "#/definitions/S51AdviceResponseBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/s51-advice": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets paginated array of S51 Advice(s) on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "S51 Advice pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/S51AdvicePaginatedRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A paginated data set of S51 Advices and their properties",
+						"schema": {
+							"$ref": "#/definitions/S51AdvicePaginatedResponse"
 						}
 					},
 					"400": {
