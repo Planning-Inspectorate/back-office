@@ -1538,6 +1538,27 @@ const document = {
 				}
 			}
 		},
+		S51AdvicePaginatedBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						pageNumber: {
+							type: 'string',
+							example: 'Page Number is not valid'
+						},
+						pageSize: {
+							type: 'string',
+							example: 'Page Size is not valid'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
 		SubscriptionGetBadRequest: {
 			type: 'object',
 			properties: {

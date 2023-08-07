@@ -26,3 +26,17 @@ export const validateCreateS51Advice = composeMiddleware(
 	body('adviceDetails').notEmpty().withMessage('Advice details must not be empty'),
 	validationErrorHandler
 );
+
+export const validatePaginationCriteria = composeMiddleware(
+	body('pageNumber')
+		.isInt({ min: 1 })
+		.toInt()
+		.withMessage('Page Number is not valid')
+		.optional({ nullable: true }),
+	body('pageSize')
+		.isInt({ min: 1 })
+		.toInt()
+		.withMessage('Page Size is not valid')
+		.optional({ nullable: true }),
+	validationErrorHandler
+);

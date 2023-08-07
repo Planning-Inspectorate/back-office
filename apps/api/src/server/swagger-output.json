@@ -2406,6 +2406,12 @@
 							"$ref": "#/definitions/S51AdviceResponseBody"
 						}
 					},
+					"400": {
+						"description": "Error: Bad Request",
+						"schema": {
+							"$ref": "#/definitions/S51AdvicePaginatedBadRequest"
+						}
+					},
 					"404": {
 						"description": "Error: Not Found",
 						"schema": {
@@ -6977,6 +6983,27 @@
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/S51AdviceDetails"
+					}
+				}
+			}
+		},
+		"S51AdvicePaginatedBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"pageNumber": {
+							"type": "string",
+							"example": "Page Number is not valid"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "Page Size is not valid"
+						},
+						"unknown": {
+							"type": "string"
+						}
 					}
 				}
 			}
