@@ -54,6 +54,44 @@
 						}
 					}
 				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "Returns the application by its string reference",
+				"parameters": [
+					{
+						"name": "reference",
+						"in": "query",
+						"description": "Application reference",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Application Details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"reference": {
+									"type": "string",
+									"example": "AB0110203"
+								},
+								"status": {
+									"type": "string",
+									"example": "Pre-Application"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/start": {
