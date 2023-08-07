@@ -1,5 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import config from './config';
+import { getCaseID, getFolderID, submitDocument } from './back-office-api-client';
 
 const { submissionsBlobStore, uploadsBlobStore } = config.blobStore;
 
@@ -27,6 +28,20 @@ export default async function (context, msg) {
 		// TODO: Publish failure message to service bus
 		context.log('Copying blob failed', result);
 	}
+
+	const properties = await destBlob.getProperties();
+
+	const caseID = await getCaseID(msg.caseReference);
+	const folderID = await getFolderID(caseID, msg.deadline, msg.submissionType);
+
+	await submitDocument({
+		caseID,
+		documentName: msg.documentName,
+		documentType: properties.contentType ?? 'application/octet-stream',
+		documentSize: properties.contentLength ?? 0,
+		folderID,
+		userEmail: msg.email
+	});
 
 	context.log('Copied blob', result);
 }
