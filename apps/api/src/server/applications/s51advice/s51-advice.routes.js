@@ -6,7 +6,7 @@ import { validateCreateS51Advice } from './s51-advice.validators.js';
 const router = createRouter();
 
 router.post(
-	'/',
+	'/s51-advice',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/s51-advice'
@@ -27,11 +27,17 @@ router.post(
 );
 
 router.get(
-	'/:id',
+	'/:caseId/s51-advice/:id',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/s51-advice/{id}'
-        #swagger.description = 'S51 advice ID'
+        #swagger.description = 'Application case ID'
+        #swagger.parameters['caseId'] = {
+            in: 'path',
+			description: 'Application case ID',
+			required: true,
+			type: 'integer'
+        }
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'S51 advice ID',
