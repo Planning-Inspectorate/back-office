@@ -1,0 +1,21 @@
+{
+  "name": "@pins/functions-deadline-submissions",
+  "version": "1.0.0",
+  "description": "Azure function to consume deadline submissions from service bus",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@pins/event-client": "^0.0.0",
+    "@pins/platform": "^0.0.0",
+    "dotenv": "*",
+    "got": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+    "cross-env": "*",
+    "jest": "*"
+  },
+  "type": "module"
+}
