@@ -21,15 +21,15 @@ export const createS51Advice = async (_request, response) => {
  * @returns {Promise<void>}
  */
 export const getS51Advice = async (_request, response) => {
-	const { id } = _request.params;
+	const { adviceId } = _request.params;
 
-	const s51Advice = await s51AdviceRepository.get(Number(id));
+	const s51Advice = await s51AdviceRepository.get(Number(adviceId));
 
 	if (!s51Advice) {
 		// @ts-ignore
 		return response
 			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${id} not found.` } });
+			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
 	response.send(s51Advice);
