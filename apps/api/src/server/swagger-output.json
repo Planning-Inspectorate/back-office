@@ -2379,6 +2379,36 @@
 				}
 			}
 		},
+		"/applications/{caseId}/s51-advice/{id}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Application case ID",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of examination timetable items",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceResponseBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],
@@ -3281,6 +3311,148 @@
 				"submissions": {
 					"type": "boolean",
 					"example": true
+				}
+			}
+		},
+		"S51AdviceRequestBody": {
+			"type": "object",
+			"properties": {
+				"caseId": {
+					"type": "number",
+					"example": 29
+				},
+				"title": {
+					"type": "string",
+					"example": "title"
+				},
+				"firstName": {
+					"type": "string",
+					"example": "first name"
+				},
+				"lastName": {
+					"type": "string",
+					"example": "last name"
+				},
+				"enquirer": {
+					"type": "string",
+					"example": "organisation"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"example": "meeting"
+				},
+				"enquiryDate": {
+					"type": "string",
+					"example": "2023-01-11T00:00:00.000Z"
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"example": "title"
+				},
+				"adviser": {
+					"type": "string",
+					"example": "person"
+				},
+				"adviceDate": {
+					"type": "string",
+					"example": "2023-02-11T00:00:00.000Z"
+				},
+				"adviceDetails": {
+					"type": "string",
+					"example": "title"
+				},
+				"referenceNumber": {
+					"type": "number",
+					"example": 1
+				},
+				"redactedStatus": {
+					"type": "string",
+					"example": "redacted"
+				},
+				"publishedStatus": {
+					"type": "string",
+					"example": "not_checked"
+				},
+				"createdAt": {
+					"type": "string",
+					"example": "2023-08-07T09:13:15.593Z"
+				},
+				"updatedAt": {
+					"type": "string",
+					"example": "2023-08-07T09:13:15.593Z"
+				}
+			}
+		},
+		"S51AdviceResponseBody": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"caseId": {
+					"type": "number",
+					"example": 29
+				},
+				"title": {
+					"type": "string",
+					"example": "title"
+				},
+				"firstName": {
+					"type": "string",
+					"example": "first name"
+				},
+				"lastName": {
+					"type": "string",
+					"example": "last name"
+				},
+				"enquirer": {
+					"type": "string",
+					"example": "organisation"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"example": "meeting"
+				},
+				"enquiryDate": {
+					"type": "string",
+					"example": "2023-01-11T00:00:00.000Z"
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"example": "title"
+				},
+				"adviser": {
+					"type": "string",
+					"example": "person"
+				},
+				"adviceDate": {
+					"type": "string",
+					"example": "2023-02-11T00:00:00.000Z"
+				},
+				"adviceDetails": {
+					"type": "string",
+					"example": "title"
+				},
+				"referenceNumber": {
+					"type": "number",
+					"example": 1
+				},
+				"redactedStatus": {
+					"type": "string",
+					"example": "redacted"
+				},
+				"publishedStatus": {
+					"type": "string",
+					"example": "not_checked"
+				},
+				"createdAt": {
+					"type": "string",
+					"example": "2023-08-07T09:13:15.593Z"
+				},
+				"updatedAt": {
+					"type": "string",
+					"example": "2023-08-07T09:13:15.593Z"
 				}
 			}
 		},
