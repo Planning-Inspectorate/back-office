@@ -35,7 +35,7 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile();
+		fileUploadPage.uploadFile('sample-doc.pdf');
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyDocumentUploaded('sample-doc');

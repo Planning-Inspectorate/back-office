@@ -11,10 +11,10 @@ export class FileUploadPage extends Page {
 	}
 
 	// U S E R  A C T I O N S
-	uploadFile() {
+	uploadFile(fileName) {
 		this.clickButtonByText(this.uploadFileBtnText);
-		cy.fixture('sample-doc.pdf').as('pdf');
-		this.elements.chooseFileInput().selectFile('@pdf', { force: true });
+		cy.fixture(fileName).as('file');
+		this.elements.chooseFileInput().selectFile('@file', { force: true });
 	}
 
 	verifyUploadButtonIsVisible(reverse = false) {
