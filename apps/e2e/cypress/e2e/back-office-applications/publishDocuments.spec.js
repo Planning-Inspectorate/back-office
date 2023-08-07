@@ -43,7 +43,7 @@ describe('Document Properties', () => {
 
 	it('Case admin should not be able to set "Ready to publish" before setting all mandatory properties for document', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile();
+		fileUploadPage.uploadFile('sample-doc.pdf');
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();

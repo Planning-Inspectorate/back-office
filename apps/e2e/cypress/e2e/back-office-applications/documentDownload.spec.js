@@ -5,7 +5,7 @@ import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
-import { validateSummaryPage, validateSummaryPageInfo } from '../../support/utils/utils';
+import { validateSummaryPageInfo } from '../../support/utils/utils';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 
@@ -29,7 +29,7 @@ describe('Document Download', () => {
 	});
 
 	it('Case Team Admin user should be able to download a document', () => {
-		cy.login(applicationsUsers.caseAdmin);
+		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -39,16 +39,16 @@ describe('Document Download', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile();
+		fileUploadPage.uploadFile(fileName);
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.downloadFile(1);
-		cy.validateDownloadedFile('sample-doc');
+		cy.validateDownloadedFile(fileName);
 	});
 
-	it('Case Team user should be able to download a document', () => {
-		cy.login(applicationsUsers.caseTeam);
+	it('Case Team Admin user should be able to download a document from document properties page', () => {
+		const fileName = 'sample-file.doc';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -58,13 +58,13 @@ describe('Document Download', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile();
+		fileUploadPage.uploadFile(fileName);
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		const useButton = true;
 		fileUploadPage.downloadFile(1, useButton);
-		cy.validateDownloadedFile('sample-doc');
+		cy.validateDownloadedFile(fileName);
 	});
 });
