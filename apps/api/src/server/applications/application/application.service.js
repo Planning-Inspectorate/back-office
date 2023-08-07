@@ -216,6 +216,19 @@ export const getCaseDetails = async (id, query) => {
 };
 
 /**
+ * @param {string} ref
+ * @returns {Promise<object | null>}
+ * */
+export const getCaseByRef = async (ref) => {
+	const caseDetails = await caseRepository.getByRef(ref);
+  if (!caseDetails) {
+    return null;
+  }
+
+  return mapApplicationDetails(caseDetails);
+};
+
+/**
  *
  * @param {number | any} caseId
  * @param {string} guid

@@ -8,7 +8,7 @@ import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
-import { getCaseDetails, startApplication } from './application.service.js';
+import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
 
 /**
  *
@@ -88,6 +88,24 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 	const applicationDetails = await getCaseDetails(params.id, query);
 
 	response.send(applicationDetails);
+};
+
+/**
+ * @type {import("express").RequestHandler}
+ * */
+export const queryApplications = async ({ query }, response) => {
+	if (!query.reference) {
+		response.end(404);
+    return;
+	}
+
+	const application = await getCaseByRef(String(query.reference));
+  if (!application) {
+    response.end(404);
+    return;
+  }
+
+	response.send(application);
 };
 
 /**
