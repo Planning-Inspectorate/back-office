@@ -534,3 +534,39 @@ export const getIndexFromReference = (reference) => {
  */
 export const makeDocumentReference = (caseId, index) =>
 	`${caseId}-${index.toString().padStart(6, '0')}`;
+
+/**
+ *
+ * @param {{guid: string, version: number, publishedBlobPath: string, publishedBlobContainer: string, publishedDate: Date}} documents
+ * @returns {Promise<DocumentVersion>}
+ */
+export const markDocumentVersionAsPublished = async ({
+	guid,
+	version,
+	publishedBlobPath,
+	publishedBlobContainer,
+	publishedDate
+}) => {
+	const publishedDocument = await documentVersionRepository.update(guid, {
+		version,
+		publishedBlobPath,
+		publishedBlobContainer,
+		datePublished: publishedDate,
+		publishedStatus: 'published',
+		publishedStatusPrev: 'publishing'
+	});
+
+	await eventClient.sendEvents(
+		NSIP_DOCUMENT,
+		[buildNsipDocumentPayload(publishedDocument)],
+		EventType.Update,
+		// This is an additional flag which triggers the Azure Function that publishes documents.
+		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
+		// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
+		{
+			publishing: 'true'
+		}
+	);
+
+	return publishedDocument;
+};

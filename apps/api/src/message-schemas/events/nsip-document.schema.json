@@ -18,6 +18,11 @@
 			"examples": ["ID23343453"],
 			"description": "The unique identifier for the file. This will be different to documentReference"
 		},
+		"caseId": {
+			"type": "number",
+			"examples": [1],
+			"description": "Internal case identifier"
+		},
 		"caseRef": {
 			"type": "string",
 			"examples": ["EN010120"]
@@ -28,8 +33,8 @@
 			"description": "Reference used throughout ODT <CaseRef>-<SequenceNo>"
 		},
 		"version": {
-			"type": "string",
-			"examples": ["1.1"]
+			"type": "number",
+			"examples": [1]
 		},
 		"examinationRefNo": {
 			"type": "string",
