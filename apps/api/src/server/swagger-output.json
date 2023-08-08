@@ -1895,6 +1895,12 @@
 							"$ref": "#/definitions/ApplicationProjectUpdates"
 						}
 					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdatesListBadRequest"
+						}
+					},
 					"500": {
 						"description": "Internal server error",
 						"schema": {
@@ -1943,6 +1949,12 @@
 						"description": "List of project updates",
 						"schema": {
 							"$ref": "#/definitions/ApplicationProjectUpdates"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdatesListBadRequest"
 						}
 					},
 					"500": {
@@ -6924,6 +6936,36 @@
 						"type": {
 							"type": "string",
 							"example": "type must be a string"
+						}
+					}
+				}
+			}
+		},
+		"ApplicationProjectUpdatesListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"status": {
+							"type": "string",
+							"example": "status must be one of ..."
+						},
+						"sentToSubscribers": {
+							"type": "string",
+							"example": "sentToSubscribers must be a boolean"
+						},
+						"publishedBefore": {
+							"type": "string",
+							"example": "publishedBefore must be a valid date"
+						},
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
 						}
 					}
 				}

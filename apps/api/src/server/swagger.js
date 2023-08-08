@@ -1,5 +1,35 @@
 import swaggerAutogen from 'swagger-autogen';
 
+/**
+ * Return the properties for a paged response, with an array of items
+ *
+ * @param {string} itemTypeRef
+ * @returns {Object<string,any>}
+ */
+function pagedResponseProperties(itemTypeRef) {
+	return {
+		page: { type: 'integer', minimum: 0 },
+		pageCount: { type: 'integer', minimum: 0 },
+		pageSize: { type: 'integer', minimum: 0 },
+		itemCount: { type: 'integer', minimum: 0 },
+		items: {
+			type: 'array',
+			items: { $ref: itemTypeRef }
+		}
+	};
+}
+
+const paginationErrors = {
+	page: {
+		type: 'string',
+		example: 'page must be a number'
+	},
+	pageSize: {
+		type: 'string',
+		example: 'pageSize must be a number'
+	}
+};
+
 const document = {
 	info: {
 		// by default: '1.0.0'
@@ -1288,18 +1318,32 @@ const document = {
 				}
 			}
 		},
-		ApplicationProjectUpdates: {
+		ApplicationProjectUpdatesListBadRequest: {
 			type: 'object',
 			properties: {
-				page: { type: 'integer', minimum: 0 },
-				pageCount: { type: 'integer', minimum: 0 },
-				pageSize: { type: 'integer', minimum: 0 },
-				itemCount: { type: 'integer', minimum: 0 },
-				items: {
-					type: 'array',
-					items: { $ref: '#/definitions/ApplicationProjectUpdate' }
+				errors: {
+					type: 'object',
+					properties: {
+						status: {
+							type: 'string',
+							example: 'status must be one of ...'
+						},
+						sentToSubscribers: {
+							type: 'string',
+							example: 'sentToSubscribers must be a boolean'
+						},
+						publishedBefore: {
+							type: 'string',
+							example: 'publishedBefore must be a valid date'
+						},
+						...paginationErrors
+					}
 				}
 			}
+		},
+		ApplicationProjectUpdates: {
+			type: 'object',
+			properties: pagedResponseProperties('#/definitions/ApplicationProjectUpdate')
 		},
 		S51AdviceCreateRequestBody: {
 			type: 'object',

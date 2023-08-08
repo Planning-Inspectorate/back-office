@@ -52,6 +52,10 @@ router.get(
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
         }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdatesListBadRequest' },
+        }
         #swagger.responses[500] = {
             description: 'Internal server error',
             schema: { $ref: '#/definitions/InternalError' }
@@ -93,6 +97,10 @@ router.get(
         #swagger.responses[200] = {
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
+        }
+         #swagger.responses[400] = {
+            description: 'Bad request',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdatesListBadRequest' },
         }
         #swagger.responses[500] = {
             description: 'Internal server error',
