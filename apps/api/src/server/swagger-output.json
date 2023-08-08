@@ -1846,6 +1846,64 @@
 				}
 			}
 		},
+		"/applications/project-updates": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get project updates across applications",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "Filter by status",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "publishedBefore",
+						"in": "query",
+						"description": "Filter by published date",
+						"required": false,
+						"type": "string",
+						"format": "date-time"
+					},
+					{
+						"name": "sentToSubscribers",
+						"in": "query",
+						"description": "Filter by sent to subscribers",
+						"required": false,
+						"type": "boolean"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of project updates",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdates"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/project-updates": {
 			"get": {
 				"tags": ["Applications"],

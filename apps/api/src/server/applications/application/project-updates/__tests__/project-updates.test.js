@@ -39,6 +39,175 @@ describe('project-updates', () => {
 		};
 		const tests = [
 			{
+				name: 'no updates',
+				updates: [],
+				totalUpdates: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: DEFAULT_PAGE_NUMBER,
+						pageCount: 0,
+						pageSize: DEFAULT_PAGE_SIZE
+					}
+				}
+			},
+			{
+				name: 'defaults to first page of updates',
+				updates: Array(25).fill(dummyProjectUpdate(1)),
+				totalUpdates: 50,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 50,
+						items: Array(25).fill(mapProjectUpdate(dummyProjectUpdate(1))),
+						page: DEFAULT_PAGE_NUMBER,
+						pageCount: 2,
+						pageSize: DEFAULT_PAGE_SIZE
+					}
+				}
+			},
+			{
+				name: 'validates pageSize params',
+				query: 'pageSize=a',
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							pageSize: ERROR_MUST_BE_NUMBER
+						}
+					}
+				}
+			},
+			{
+				name: 'validates page params',
+				query: 'page=abc',
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							page: ERROR_MUST_BE_NUMBER
+						}
+					}
+				}
+			},
+			{
+				name: 'validates pagination params',
+				query: 'page=2&pageSize=23',
+				updates: [],
+				totalUpdates: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: 2,
+						pageCount: 0,
+						pageSize: 23
+					}
+				}
+			},
+			{
+				name: 'only allows valid status field',
+				query: 'status=random-status',
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							status: statusError
+						}
+					}
+				}
+			},
+			{
+				name: 'only allows valid sentBySubscribers field',
+				query: 'sentToSubscribers=not-bool',
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							sentToSubscribers: 'sentToSubscribers must be a boolean'
+						}
+					}
+				}
+			},
+			{
+				name: 'only allows valid publishedBefore field',
+				query: 'publishedBefore=not-a-date',
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							publishedBefore: 'publishedBefore must be a valid date'
+						}
+					}
+				}
+			},
+			{
+				name: 'allows valid filter fields',
+				query: 'status=draft&publishedBefore=2023-08-08T00:00Z&sentBySubscribers=false',
+				updates: [],
+				totalUpdates: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: 1,
+						pageCount: 0,
+						pageSize: 25
+					}
+				}
+			}
+		];
+
+		for (const { name, query, updates, totalUpdates, want } of tests) {
+			test('' + name, async () => {
+				// setup
+				databaseConnector.projectUpdate.findMany.mockReset();
+
+				if (updates) {
+					databaseConnector.projectUpdate.count.mockResolvedValueOnce(totalUpdates);
+					databaseConnector.projectUpdate.findMany.mockResolvedValueOnce(updates);
+				}
+
+				// action
+				let url = `/applications/project-updates`;
+				if (query) {
+					url += '?' + query;
+				}
+				const response = await request.get(url);
+				// checks
+				expect(response.status).toEqual(want.status);
+				expect(response.body).toEqual(want.body);
+			});
+		}
+	});
+	describe('get by case', () => {
+		const now = new Date();
+		/**
+		 * @param {number} caseId
+		 * @returns {import('@prisma/client').ProjectUpdate}
+		 */
+		const dummyProjectUpdate = (caseId) => {
+			return {
+				id: 1,
+				caseId,
+				dateCreated: now,
+				status: 'draft',
+				emailSubscribers: true,
+				sentToSubscribers: true,
+				authorId: 1,
+				htmlContent: 'content',
+				htmlContentWelsh: null,
+				title: null,
+				datePublished: null,
+				type: 'general'
+			};
+		};
+		const tests = [
+			{
 				name: 'invalid caseId',
 				id: '5463',
 				want: {
@@ -844,7 +1013,6 @@ describe('project-updates', () => {
 					if (existingProjectUpdate) {
 						databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(existingProjectUpdate);
 						databaseConnector.projectUpdate.delete.mockImplementationOnce(() => {
-							console.log('delete!');
 							projectUpdate = {
 								...existingProjectUpdate,
 								case: existingCase
