@@ -25,6 +25,9 @@ export interface Appeal {
 	startedAt: string | null;
 	appealTimetable: AppealTimetable;
 	siteVisit: AppealSiteVisit;
+	inspectorAccess: AppealInspectorAccess;
+	neighbouringSite: AppealNeighbouringSite;
+	healthAndSafety: AppealHealthAndSafety;
 }
 
 export type Contact = {
@@ -46,6 +49,7 @@ export type AppealTimetable = {
 
 export type AppealSiteVisit = {
 	visitDate: string;
+	visitType: string;
 };
 
 export type DocumentStatus = 'received' | 'not_received' | 'incomplete' | 'invalid' | 'valid';
@@ -58,6 +62,40 @@ export type AppealDocumentationSummaryItem = {
 export type AppealDocumentationSummary = {
 	appellantCase: AppealDocumentationSummaryItem;
 	lpaQuestionnaire: AppealDocumentationSummaryItem;
+};
+
+export type AppealInspectorAccessEntry = {
+	details: string | null;
+	isRequired: boolean | null;
+};
+
+export type AppealInspectorAccess = {
+	appellantCase: AppealInspectorAccessEntry;
+	lpaQuestionnaire: AppealInspectorAccessEntry;
+};
+
+export type AppealHealthAndSafetyEntry = {
+	details: string | null;
+	hasIssues: boolean | null;
+};
+
+export type AppealHealthAndSafety = {
+	appellantCase: AppealHealthAndSafetyEntry;
+	lpaQuestionnaire: AppealHealthAndSafetyEntry;
+};
+
+export type AppealNeighbouringSiteContact = {
+	address: Address;
+	contactId: number;
+	email: string;
+	firstName: string;
+	lastName: string;
+	telephone: string;
+};
+
+export type AppealNeighbouringSite = {
+	contacts: AppealNeighbouringSiteContact[];
+	isAffected: boolean;
 };
 
 export interface LpaQuestionnaire {

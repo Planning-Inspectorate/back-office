@@ -42,6 +42,9 @@ export const viewAppealDetails = async (request, response) => {
 				caseOverview: generateSummaryList(
 					mappedAppealDetailsSummaryListBuilderParameters.caseOverview
 				),
+				siteDetails: generateSummaryList(
+					mappedAppealDetailsSummaryListBuilderParameters.siteDetails
+				),
 				caseTeam: generateSummaryList(mappedAppealDetailsSummaryListBuilderParameters.caseTeam),
 				...(mappedAppealDetailsSummaryListBuilderParameters.caseTimetable && {
 					caseTimetable: generateSummaryList(
