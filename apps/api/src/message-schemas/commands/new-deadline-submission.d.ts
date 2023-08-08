@@ -8,5 +8,6 @@ export interface DeadlineSubmission {
 	sensitiveData?: boolean;
 	lateSubmission?: boolean;
 	submissionId?: string;
-	blobName: string;
+	blobGuid: string;
+	documentName: string;
 }

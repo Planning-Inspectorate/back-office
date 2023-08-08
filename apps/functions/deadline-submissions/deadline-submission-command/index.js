@@ -1,8 +1,8 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import config from './config';
-import { getCaseID, getFolderID, submitDocument } from './back-office-api-client';
+import api from './back-office-api-client';
 
-const { submissionsBlobStore, uploadsBlobStore } = config.blobStore;
+const { submissionsBlobStore, uploadsBlobStore } = config;
 
 /**
  *
@@ -31,10 +31,10 @@ export default async function (context, msg) {
 
 	const properties = await destBlob.getProperties();
 
-	const caseID = await getCaseID(msg.caseReference);
-	const folderID = await getFolderID(caseID, msg.deadline, msg.submissionType);
+	const caseID = await api.getCaseID(msg.caseReference);
+	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
 
-	await submitDocument({
+	await api.submitDocument({
 		caseID,
 		documentName: msg.documentName,
 		documentType: properties.contentType ?? 'application/octet-stream',

@@ -7,7 +7,7 @@ import config from './config';
  * @param {string} caseReference
  * @returns {Promise<number>}
  * */
-export async function getCaseID(caseReference) {
+async function getCaseID(caseReference) {
 	const caseDetails = await got
 		.get(`https://${config.API_HOST}/applications?=${caseReference}`)
 		.json();
@@ -18,7 +18,7 @@ export async function getCaseID(caseReference) {
  *
  * @param {{ caseID: number, documentName: string, documentType: string, documentSize: number, folderID: number, userEmail: string }} _
  * */
-export async function submitDocument({
+async function submitDocument({
 	caseID,
 	documentName,
 	documentType,
@@ -46,7 +46,7 @@ export async function submitDocument({
  * @param {string} lineItem
  * @returns {Promise<number>}
  * */
-export async function getFolderID(caseID, caseName, lineItem) {
+async function getFolderID(caseID, caseName, lineItem) {
 	/** @type {FolderJSON[]} */
 	const folders = await got.get(`https://${config.API_HOST}/applications/${caseID}/folders`).json();
 
@@ -66,3 +66,9 @@ export async function getFolderID(caseID, caseName, lineItem) {
 
 	return subfolder.id;
 }
+
+export default {
+	getCaseID,
+	getFolderID,
+	submitDocument
+};
