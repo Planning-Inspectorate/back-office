@@ -10,6 +10,7 @@ import { appealAllocationRouter } from './appeal-allocation/appeal-allocation-ro
 import { documentsRoutes } from './documents/documents.routes.js';
 import { integrationsRoutes } from './integrations/integrations.routes.js';
 import initNotifyClientAndAddToRequest from '../middleware/init-notify-client-and-add-to-request.js';
+import { designatedSitesRoutes } from './designated-sites/designated-sites.routes.js';
 
 const router = createRouter();
 
@@ -19,6 +20,7 @@ router.use(integrationsRoutes);
 router.use(appellantCaseIncompleteReasonsRoutes);
 router.use(appellantCaseInvalidReasonsRoutes);
 router.use(appellantCasesRoutes);
+router.use(designatedSitesRoutes);
 router.use(documentsRoutes);
 router.use(appealAllocationRouter);
 router.use(lpaQuestionnaireIncompleteReasonsRoutes);

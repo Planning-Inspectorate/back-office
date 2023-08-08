@@ -421,6 +421,19 @@ const appellantCaseInvalidReasons = [
 	}
 ];
 
+const designatedSites = [
+	{
+		description: 'Site 1',
+		id: 1,
+		name: 'Site 1'
+	},
+	{
+		description: 'Site 2',
+		id: 2,
+		name: 'Site 2'
+	}
+];
+
 const appellantCaseValidationOutcomes = [
 	{
 		id: 1,
@@ -688,6 +701,7 @@ export {
 	appellantCaseValidationOutcomes,
 	baseExpectedAppellantCaseResponse,
 	baseExpectedLPAQuestionnaireResponse,
+	designatedSites,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,
