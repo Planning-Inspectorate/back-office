@@ -1,3 +1,4 @@
+import { Subscription } from '@pins/applications/lib/application/subscription.js';
 import { EventType } from '@pins/event-client';
 
 /**
@@ -69,13 +70,6 @@ export function buildSubscriptionBasePayload(subscription) {
 	return payload;
 }
 
-export const SubscriptionTypes = {
-	AllUpdates: 'allUpdates',
-	ApplicationSubmitted: 'applicationSubmitted',
-	ApplicationDecided: 'applicationDecided',
-	RegistrationOpen: 'registrationOpen'
-};
-
 /**
  * @param {import('@prisma/client').Subscription} subscription
  * @returns {SubscriptionType[]}
@@ -85,16 +79,16 @@ export function subscriptionToTypes(subscription) {
 	const types = [];
 
 	if (subscription.subscribedToAllUpdates) {
-		types.push(SubscriptionTypes.AllUpdates);
+		types.push(Subscription.Type.allUpdates);
 	} else {
 		if (subscription.subscribedToApplicationDecided) {
-			types.push(SubscriptionTypes.ApplicationDecided);
+			types.push(Subscription.Type.applicationDecided);
 		}
 		if (subscription.subscribedToApplicationSubmitted) {
-			types.push(SubscriptionTypes.ApplicationSubmitted);
+			types.push(Subscription.Type.applicationSubmitted);
 		}
 		if (subscription.subscribedToRegistrationOpen) {
-			types.push(SubscriptionTypes.RegistrationOpen);
+			types.push(Subscription.Type.registrationOpen);
 		}
 	}
 	return types;
@@ -112,18 +106,18 @@ export function typesToSubscription(types, subscription) {
 	subscription.subscribedToApplicationSubmitted = false;
 	subscription.subscribedToRegistrationOpen = false;
 
-	if (types.includes(SubscriptionTypes.AllUpdates)) {
+	if (types.includes(Subscription.Type.allUpdates)) {
 		subscription.subscribedToAllUpdates = true;
 	} else {
 		for (const type of types) {
 			switch (type) {
-				case SubscriptionTypes.ApplicationSubmitted:
+				case Subscription.Type.applicationSubmitted:
 					subscription.subscribedToApplicationSubmitted = true;
 					break;
-				case SubscriptionTypes.ApplicationDecided:
+				case Subscription.Type.applicationDecided:
 					subscription.subscribedToApplicationDecided = true;
 					break;
-				case SubscriptionTypes.RegistrationOpen:
+				case Subscription.Type.registrationOpen:
 					subscription.subscribedToRegistrationOpen = true;
 					break;
 			}
