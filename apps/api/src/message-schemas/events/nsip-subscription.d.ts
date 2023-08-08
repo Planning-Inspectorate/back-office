@@ -1,3 +1,5 @@
+import { SubscriptionType } from '@pins/applications';
+
 /**
  * nsip-subscription schema for use in code
  */
@@ -10,10 +12,3 @@ export interface NSIPSubscription {
 	endDate?: string;
 	language?: 'English' | 'Welsh' | string;
 }
-
-export type SubscriptionType =
-	| 'allUpdates'
-	| 'applicationSubmitted'
-	| 'applicationDecided'
-	| 'registrationOpen'
-	| string;

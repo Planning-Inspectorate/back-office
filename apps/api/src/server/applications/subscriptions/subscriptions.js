@@ -2,14 +2,14 @@ import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
- * @typedef {import('../../../message-schemas/events/nsip-subscription.d.js').SubscriptionType} SubscriptionType
+ * @typedef {import('@pins/applications').SubscriptionType} SubscriptionType
  */
 
 /**
  * Convert from the subscription database type to the subscription response type
  *
  * @param {import('@prisma/client').Subscription} subscription
- * @returns {import('./subscription.d.ts').Subscription}
+ * @returns {import('@pins/applications').Subscription}
  */
 export function subscriptionToResponse(subscription) {
 	/** @type {any} */
