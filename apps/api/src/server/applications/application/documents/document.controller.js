@@ -15,6 +15,7 @@ import {
 	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
 	makeDocumentReference,
+	markDocumentVersionAsPublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishNsipDocuments,
@@ -490,4 +491,24 @@ export const publishDocuments = async ({ body }, response) => {
 			publishedStatus
 		}))
 	);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const markAsPublished = async (
+	{ params, body: { publishedBlobPath, publishedBlobContainer, publishedDate } },
+	response
+) => {
+	const { guid, version } = params;
+
+	const updateResponse = await markDocumentVersionAsPublished({
+		guid,
+		version: +version,
+		publishedBlobPath,
+		publishedBlobContainer,
+		publishedDate: new Date(publishedDate)
+	});
+
+	response.send(updateResponse);
 };

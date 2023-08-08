@@ -119,6 +119,13 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1_guid', version: 1 } },
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
+			},
 			data: {
 				publishedStatus: 'not_checked',
 				redactedStatus: 'redacted'
@@ -192,6 +199,13 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1a_guid', version: 1 } },
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
+			},
 			data: {
 				publishedStatus: 'ready_to_publish'
 			}
@@ -251,6 +265,13 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_2_guid', version: 1 } },
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
+			},
 			data: {
 				publishedStatus: 'not_checked'
 			}
@@ -304,6 +325,13 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_3_guid', version: 1 } },
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
+			},
 			data: {
 				redactedStatus: 'redacted'
 			}
@@ -359,6 +387,13 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: 'documenttoupdate_1a_guid', version: 1 } },
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
+			},
 			data: {
 				publishedStatus: 'ready_to_publish',
 				publishedStatusPrev: 'checked'
@@ -447,6 +482,13 @@ describe('Update document statuses and redacted statuses', () => {
 					// eslint-disable-next-line jest/no-conditional-expect
 					expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 						where: { documentGuid_version: { documentGuid: guid, version: 1 } },
+						include: {
+							Document: {
+								include: {
+									case: true
+								}
+							}
+						},
 						data: want.update
 					});
 				}

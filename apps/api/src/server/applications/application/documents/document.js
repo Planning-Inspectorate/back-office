@@ -4,8 +4,9 @@
  * @typedef {Object} NsipDocumentPayload
  * @property {string} documentId - The unique identifier for the file. This will be different to documentReference
  * @property {string | undefined} caseRef
+ * @property {number} caseId The unique identifier within the Back Office. This is not the same as the case reference
  * @property {string | null | undefined} documentReference - Reference used throughout ODT <CaseRef>-<SequenceNo>
- * @property {string | null} version
+ * @property {number | null} version
  * @property {string | null} examinationRefNo
  * @property {string | null} filename - Current stored filename of the file
  * @property {string | null} originalFilename - Original filename of file
@@ -48,8 +49,9 @@ export const buildNsipDocumentPayload = (version) => {
 	return {
 		documentId: document.guid,
 		caseRef: document.case?.reference?.toString(),
+		caseId: document.case?.id,
 		// documentReference: TODO: generate document reference
-		version: version.version?.toString(),
+		version: version.version,
 		examinationRefNo: version.examinationRefNo,
 		filename: version.fileName,
 		originalFilename: version.originalFilename,

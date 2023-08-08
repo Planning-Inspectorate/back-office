@@ -7,11 +7,11 @@ import { blobClient } from './blob-client.js';
  */
 export const index = async (
 	context,
-	{ documentId, documentURI, documentReference, filename, originalFilename }
+	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename }
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
-	if (!documentId || !documentURI || !filename || !originalFilename) {
+	if (!caseId || !documentId || !version || !documentURI || !filename || !originalFilename) {
 		// TODO: Once we sort out documentReference, validate that too
 		throw Error('One or more required properties are missing.');
 	}
@@ -32,11 +32,16 @@ export const index = async (
 	});
 
 	await got
-		.patch(`https://${config.API_HOST}/applications/documents/${documentId}/status`, {
-			json: {
-				machineAction: 'published'
+		.patch(
+			`https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`,
+			{
+				json: {
+					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: publishFileName,
+					publishedDate: new Date()
+				}
 			}
-		})
+		)
 		.json();
 };
 

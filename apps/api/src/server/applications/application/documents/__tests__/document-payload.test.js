@@ -53,7 +53,7 @@ describe('validateNsipDocument', () => {
 		const expectedResult = {
 			documentId: 'document1',
 			caseRef: 'EN010120',
-			version: '1',
+			version: 1,
 			examinationRefNo: 'XXX-0000',
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',

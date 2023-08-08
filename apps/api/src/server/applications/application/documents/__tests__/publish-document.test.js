@@ -182,7 +182,7 @@ describe('Publish documents', () => {
 		// THEN
 		const expectedEventPayload = {
 			documentId: 'document_to_publish_guid',
-			version: '1',
+			version: 1,
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
 			size: 23452,

@@ -14,13 +14,15 @@ import {
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
 	updateDocuments,
-	getDocumentVersionProperties
+	getDocumentVersionProperties,
+	markAsPublished
 } from './document.controller.js';
 import {
 	validateDocumentIds,
 	validateDocumentsToUpdateProvided,
 	validateDocumentsToUploadProvided,
-	validateDocumentToUploadProvided
+	validateDocumentToUploadProvided,
+	validateMarkDocumentAsPublished
 } from './document.validators.js';
 
 const router = createRouter();
@@ -159,6 +161,50 @@ router.patch(
 	validateDocumentIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocuments)
+);
+
+router.post(
+	'/:id/documents/:guid/version/:version/mark-as-published',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-published'
+        #swagger.description = 'Marks as published '
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'Document GUID',
+			required: true,
+			type: 'string'
+        }
+		#swagger.parameters['version'] = {
+            in: 'path',
+			description: 'Version',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Mark as Published Request',
+            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Updated document response',
+            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing application" } }
+        }
+	 */
+	validateApplicationId,
+	validateMarkDocumentAsPublished,
+	asyncHandler(markAsPublished)
 );
 
 router.get(
