@@ -274,7 +274,9 @@ class MockPrismaClient {
 	subscription = {
 		create: jest.fn(),
 		update: jest.fn(),
-		findUnique: jest.fn()
+		count: jest.fn().mockResolvedValue(0),
+		findUnique: jest.fn(),
+		findMany: jest.fn().mockResolvedValue([])
 	};
 
 	projectUpdate = {

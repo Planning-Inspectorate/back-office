@@ -2,14 +2,17 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import {
 	getSubscription,
+	listSubscriptions,
 	putSubscription,
 	updateSubscription
 } from './subscriptions.controller.js';
 import {
 	validateCreateSubscription,
 	validateGetSubscription,
+	validateSubscriptionFilters,
 	validateUpdateSubscription
 } from './subscriptions.validators.js';
+import { validatePaginationParameters } from '#middleware/pagination-validation.js';
 
 const router = createRouter();
 
@@ -50,6 +53,52 @@ router.get(
     */
 	validateGetSubscription,
 	asyncHandler(getSubscription)
+);
+
+router.get(
+	'/list',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/subscriptions/list'
+        #swagger.description = 'List subscriptions based on criteria'
+        #swagger.parameters['caseReference'] = {
+            in: 'query',
+            description: 'subscription caseReference',
+            schema: { type: 'string' },
+            required: true
+        }
+        #swagger.parameters['type'] = {
+            in: 'query',
+            description: 'subscription type',
+            schema: { type: 'string' },
+            required: true
+        }
+        #swagger.parameters['page'] = {
+			in: 'query',
+			description: 'The page number to return, defaults to 1',
+			example: 1,
+		}
+		#swagger.parameters['pageSize'] = {
+			in: 'query',
+			description: 'The number of results per page, defaults to 25',
+			example: 25,
+		}
+        #swagger.responses[200] = {
+            description: 'Subscription',
+            schema: { $ref: '#/definitions/Subscriptions' }
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+            schema: { $ref: '#/definitions/SubscriptionsListBadRequest' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validatePaginationParameters(),
+	validateSubscriptionFilters,
+	asyncHandler(listSubscriptions)
 );
 
 router.put(

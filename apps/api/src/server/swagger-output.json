@@ -2821,6 +2821,66 @@
 				}
 			}
 		},
+		"/applications/subscriptions/list": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "List subscriptions based on criteria",
+				"parameters": [
+					{
+						"name": "caseReference",
+						"in": "query",
+						"description": "subscription caseReference",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "query",
+						"description": "subscription type",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Subscription",
+						"schema": {
+							"$ref": "#/definitions/Subscriptions"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/SubscriptionsListBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions/{id}": {
 			"patch": {
 				"tags": ["Applications"],
@@ -7307,6 +7367,59 @@
 						},
 						"unknown": {
 							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"Subscriptions": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageSize": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"itemCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Subscription"
+					}
+				}
+			}
+		},
+		"SubscriptionsListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"example": "type must be one of ..."
+						},
+						"caseReference": {
+							"type": "string",
+							"example": "must be a string"
+						},
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
 						}
 					}
 				}
