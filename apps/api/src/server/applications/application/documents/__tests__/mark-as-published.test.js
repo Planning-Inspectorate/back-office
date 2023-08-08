@@ -15,6 +15,7 @@ describe('Mark-as-published', () => {
 			fileName: 'filename.pdf',
 			size: 23452,
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
+			privateBlobContainer: 'document-uploads',
 			privateBlobPath: 'published/en010120-filename.pdf'
 		};
 
@@ -68,8 +69,7 @@ describe('Mark-as-published', () => {
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
-			path: 'published/en010120-filename.pdf',
-			documentURI: 'published/en010120-filename.pdf',
+			documentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
 			dateCreated: '2023-03-26T00:00:00.000Z'
 		};
 
