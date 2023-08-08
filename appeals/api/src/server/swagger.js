@@ -473,7 +473,14 @@ const document = {
 		AppealAllocation: {
 			level: 'A',
 			specialisms: [70, 71, 72]
-		}
+		},
+		AllDesignatedSitesResponse: [
+			{
+				name: 'cSAC',
+				description: 'candidate special area of conservation',
+				id: 1
+			}
+		]
 	},
 	components: {}
 };
