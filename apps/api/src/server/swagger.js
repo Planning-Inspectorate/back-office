@@ -1609,6 +1609,29 @@ const document = {
 				}
 			}
 		},
+		Subscriptions: {
+			type: 'object',
+			properties: pagedResponseProperties('#/definitions/Subscription')
+		},
+		SubscriptionsListBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						type: {
+							type: 'string',
+							example: 'type must be one of ...'
+						},
+						caseReference: {
+							type: 'string',
+							example: 'must be a string'
+						},
+						...paginationErrors
+					}
+				}
+			}
+		},
 		SubscriptionGetBadRequest: {
 			type: 'object',
 			properties: {

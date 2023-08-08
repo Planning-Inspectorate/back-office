@@ -2,6 +2,10 @@ import { request } from '#app-test';
 import { databaseConnector } from '#utils/database-connector.js';
 import { prepareInput } from '../subscriptions.service.js';
 import { eventClient } from '#infrastructure/event-client.js';
+import { subscriptionToResponse } from '../subscriptions.js';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
+import { ERROR_MUST_BE_NUMBER } from '#middleware/errors.js';
+import { typesError } from '../subscriptions.validators.js';
 
 /**
  * @typedef {import('../../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
@@ -70,6 +74,159 @@ describe('subscriptions', () => {
 				queryStr += `${k}=${encodeURIComponent(v)}&`;
 			}
 			const response = await request.get(`/applications/subscriptions?${queryStr}`);
+
+			// checks
+			expect(response.body).toEqual(want.body);
+			expect(response.status).toEqual(want.status);
+		});
+	});
+
+	describe('get (list)', () => {
+		/**
+		 *
+		 * @returns {import('@prisma/client').Subscription}
+		 */
+		const dummySubscription = () => {
+			return {
+				id: 123,
+				caseReference: '1234',
+				emailAddress: 'hello.world@example.com',
+				subscribedToAllUpdates: true,
+				caseId: 1,
+				startDate: null,
+				endDate: null,
+				language: null,
+				subscribedToApplicationDecided: false,
+				subscribedToApplicationSubmitted: false,
+				subscribedToRegistrationOpen: false
+			};
+		};
+		const tests = [
+			{
+				name: 'no subscriptions',
+				subscriptions: [],
+				totalSubscriptions: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: DEFAULT_PAGE_NUMBER,
+						pageCount: 0,
+						pageSize: DEFAULT_PAGE_SIZE
+					}
+				}
+			},
+			{
+				name: 'defaults to first page of subscriptions',
+				subscriptions: Array(25).fill(dummySubscription()),
+				totalSubscriptions: 50,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 50,
+						items: Array(25).fill(subscriptionToResponse(dummySubscription())),
+						page: DEFAULT_PAGE_NUMBER,
+						pageCount: 2,
+						pageSize: DEFAULT_PAGE_SIZE
+					}
+				}
+			},
+			{
+				name: 'validates pageSize params',
+				query: {
+					pageSize: 'a'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							pageSize: ERROR_MUST_BE_NUMBER
+						}
+					}
+				}
+			},
+			{
+				name: 'validates page params',
+				query: {
+					page: 'abc'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							page: ERROR_MUST_BE_NUMBER
+						}
+					}
+				}
+			},
+			{
+				name: 'validates pagination params',
+				query: {
+					page: 2,
+					pageSize: 23
+				},
+				subscriptions: [],
+				totalSubscriptions: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: 2,
+						pageCount: 0,
+						pageSize: 23
+					}
+				}
+			},
+			{
+				name: 'only allows valid type field',
+				query: {
+					type: 'random-status'
+				},
+				want: {
+					status: 400,
+					body: {
+						errors: {
+							type: typesError
+						}
+					}
+				}
+			},
+			{
+				name: 'allows valid filter fields',
+				query: {
+					type: 'allUpdates',
+					caseReference: 'abc-123'
+				},
+				subscriptions: [],
+				totalSubscriptions: 0,
+				want: {
+					status: 200,
+					body: {
+						itemCount: 0,
+						items: [],
+						page: 1,
+						pageCount: 0,
+						pageSize: 25
+					}
+				}
+			}
+		];
+
+		it.each(tests)('$name', async ({ query, subscriptions, totalSubscriptions, want }) => {
+			databaseConnector.subscription.findMany.mockReset();
+			databaseConnector.subscription.count.mockReset();
+			if (subscriptions !== undefined) {
+				databaseConnector.subscription.findMany.mockResolvedValueOnce(subscriptions);
+				databaseConnector.subscription.count.mockResolvedValueOnce(totalSubscriptions);
+			}
+			// action
+			let queryStr = '';
+			for (const [k, v] of Object.entries(query || {})) {
+				queryStr += `${k}=${encodeURIComponent(v)}&`;
+			}
+			const response = await request.get(`/applications/subscriptions/list?${queryStr}`);
 
 			// checks
 			expect(response.body).toEqual(want.body);
