@@ -5,6 +5,7 @@ export default joi.object({
 	PORT: joi.number(),
 	SWAGGER_JSON_DIR: joi.string(),
 	DATABASE_URL: joi.string(),
+	blobStorageUrl: joi.string(),
 	defaultApiVersion: joi.string(),
 	documentStorageApi: joi.object({
 		host: joi.string(),

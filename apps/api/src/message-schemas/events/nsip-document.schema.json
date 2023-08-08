@@ -60,7 +60,17 @@
 		},
 		"documentURI": {
 			"type": "string",
-			"examples": ["blob:https://published/en010120/filename.pdf"]
+			"examples": [
+				"https://pinsstdocsboprodukw001.blob.core.windows.net/document-service-uploads/application/BC0110001/01adeade-791a-483a-a51d-99df2122b5cc/1"
+			],
+			"description": "The internal location of the document"
+		},
+		"publishedDocumentURI": {
+			"type": "string",
+			"examples": [
+				"https://pinsstdocsboprodukw001.blob.core.windows.net/published-documents/BC0110003-001-olive-oil.pdf"
+			],
+			"description": "The location of the published document. Only applicable to documents which are published."
 		},
 		"path": {
 			"type": "string",

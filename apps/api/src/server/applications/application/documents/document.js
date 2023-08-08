@@ -1,3 +1,4 @@
+import config from '../../../config/config.js';
 /**
  * NSIP Document
  *
@@ -12,8 +13,8 @@
  * @property {string | null} originalFilename - Original filename of file
  * @property {number | null} size
  * @property {string | null} mime
- * @property {string | null} documentURI
- * @property {string | null} path
+ * @property {string | undefined} documentURI
+ * @property {string | undefined} publishedDocumentURI
  * @property {"not_scanned" | "scanned" | "affected | null"} virusCheckStatus
  * @property {string | null} fileMD5
  * @property {string | null} dateCreated - Date format: date-time
@@ -57,8 +58,8 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		mime: version.mime,
-		documentURI: version.privateBlobPath,
-		path: version.privateBlobPath, // TODO: Duplicated
+		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
+		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
 		// @ts-ignore
 		virusCheckStatus: version.virusCheckStatus,
 		fileMD5: version.fileMD5,
@@ -87,4 +88,18 @@ export const buildNsipDocumentPayload = (version) => {
 		filter1: version.filter1,
 		filter2: version.filter2
 	};
+};
+
+/**
+ * @param {string} containerName
+ * @param {string} path
+ *
+ * @returns {string | undefined}
+ */
+const buildBlobUri = (containerName, path) => {
+	if (containerName && path) {
+		return `${config.blobStorageUrl}${containerName}/${path}`;
+	}
+
+	return undefined;
 };
