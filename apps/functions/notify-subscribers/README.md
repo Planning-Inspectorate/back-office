@@ -4,46 +4,45 @@ Some actions in the Back Office require a notification to be sent to subscribers
 
 ## Process Outline
 
+When a Project Update is published, a scheduled message is sent 
+
 Note: "log" here doesn't mean a log message, but a log of notification sending activity.
 
 ```mermaid
 flowchart TB
-    trigger([Timer Trigger])
-    get(Get Project Updates<br/>that have been published >1hr ago)
-    subgraph foreachUpdate [For each Project Update]
-        direction TB
-        format(Sanitise and Format Update)
-        isOk{Update is valid}
-        terminate([end with error])
-        getSubs(Get Subscriptions)
-        format-->isOk
-        isOk-->|Yes|getSubs
-        isOk-->|No|terminate
-        subgraph foreachSub [For each Subscription]
-            direction TB
+    trigger([Project Update Published])
+    get(Get Project Update)
+    check{Is still published?}
+    end1([end])
+    format(Sanitise and Format Update)
+    isOk{Update is valid?}
+    terminate([end with error])
+    getSubs(Get Subscriptions)
+    finish([end])
 
-            addRecord(Record Sub+Update in log table)
-            trySend(Send email notification)
-            sent{Success?}
-            subTermError([Record error in log table])
-            subTermSuccess([Record success in log table])
+    trigger-->get
+    get-->check
+    check-->|Yes|format
+    check-->|No|end1
+    format-->isOk
+    isOk-->|Yes|getSubs
+    isOk-->|No|terminate
 
-            addRecord-->trySend-->sent
-            sent-->|Yes|subTermSuccess
-            sent-->|No|subTermError
-        end
-    end
-    subgraph checks [Check log records]
+    subgraph foreachSub [For each Subscription]
         direction TB
 
-        getLogs(Get log records for unsent messages)
-        getLogs-->trySend
+        addRecord(Record Sub+Update in log table)
+        trySend(Send email notification)
+        sent{Success?}
+        subTermError([Record error in log table])
+        subTermSuccess([Record success in log table])
+
+        addRecord-->trySend-->sent
+        sent-->|Yes|subTermSuccess
+        sent-->|No|subTermError
     end
-    trigger-->|every X mins|get
-    trigger-->|every X mins|checks
-    get-->foreachUpdate
     getSubs-->foreachSub
+    foreachSub-->finish
 
-    style foreachUpdate fill:#6c71c4   
-    style foreachSub fill:#268bd2  
+    style foreachSub fill:#eee8d5    
 ```

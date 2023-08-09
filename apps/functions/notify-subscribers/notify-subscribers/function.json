@@ -1,10 +1,12 @@
 {
 	"bindings": [
 		{
-			"name": "myTimer",
-			"type": "timerTrigger",
+			"name": "notifySubscribers",
+			"type": "serviceBusTrigger",
 			"direction": "in",
-			"schedule": "0 */5 * * * *"
+			"topicName": "nsip-project-update",
+			"subscriptionName": "nsip-project-update-notify-subscribers",
+			"connection": "ServiceBusConnection"
 		}
 	]
 }
