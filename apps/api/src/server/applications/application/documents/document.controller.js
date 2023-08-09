@@ -153,6 +153,12 @@ export const updateDocuments = async ({ body }, response) => {
 				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
 			);
 
+			// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
+			// This is fine from a requirements perspective, but opens us up to race conditions
+			// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
+			// @ts-ignore
+			const { documentVersion } = await documentRepository.getByDocumentGUID(document.guid);
+
 			/**
 			 * @typedef {object} Updates
 			 * @property {string} [publishedStatus]
@@ -170,7 +176,6 @@ export const updateDocuments = async ({ body }, response) => {
 				delete documentVersionUpdates.publishedStatus;
 			} else {
 				// when setting publishedStatus, save previous publishedStatus
-				const documentVersion = await documentVersionRepository.getById(document.guid);
 
 				// do we have a previous doc version, does it have a published status, and is that status different
 				if (
@@ -182,10 +187,10 @@ export const updateDocuments = async ({ body }, response) => {
 				}
 			}
 
-			const updateResponseInTable = await documentVersionRepository.update(
-				document.guid,
-				documentVersionUpdates
-			);
+			const updateResponseInTable = await documentVersionRepository.update(document.guid, {
+				version: documentVersion.version,
+				...documentVersionUpdates
+			});
 			const formattedResponse = formatDocumentUpdateResponseBody(
 				updateResponseInTable.documentGuid ?? '',
 				updateResponseInTable.publishedStatus ?? '',
