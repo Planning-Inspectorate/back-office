@@ -15,6 +15,113 @@
 	],
 	"securityDefinitions": {},
 	"paths": {
+		"/appeals/appeal-allocation-specialisms": {
+			"get": {
+				"tags": ["Appeal Allocation"],
+				"description": "Gets the list of specialisms used for allocation",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of allocation specialisms",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/appeal-allocation-levels": {
+			"get": {
+				"tags": ["Appeal Allocation"],
+				"description": "Gets the list of levels and associated bands used for allocation",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of allocation levels",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationLevelsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllocationLevelsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/appeal-allocation": {
+			"patch": {
+				"tags": ["Appeal Allocation"],
+				"description": "Adds or changes allocation for an appeal",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Patch appeal allocation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealAllocation"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealAllocation"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal allocation",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealAllocation"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealAllocation"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/appellant-case-incomplete-reasons": {
 			"get": {
 				"tags": ["Appellant Case Incomplete Reasons"],
@@ -174,6 +281,33 @@
 								"$ref": "#/components/schemas/UpdateAppellantCaseRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/designated-sites": {
+			"get": {
+				"tags": ["Designated Sites"],
+				"description": "Gets designated sites",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Designated sites",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllDesignatedSitesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllDesignatedSitesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -390,109 +524,150 @@
 				}
 			}
 		},
-		"/appeals/appeal-allocation-specialisms": {
-			"get": {
-				"tags": ["Appeal Allocation"],
-				"description": "Gets the list of specialisms used for allocation",
+		"/appeals/case-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Request the creation of a new case",
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "List of allocation specialisms",
+						"description": "Appeal successfully created",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+									"$ref": "#/components/schemas/Appeal"
 								}
 							},
 							"application/xml": {
 								"schema": {
-									"$ref": "#/components/schemas/AllocationSpecialismsResponse"
+									"$ref": "#/components/schemas/Appeal"
 								}
 							}
 						}
 					},
 					"400": {
 						"description": "Bad Request"
-					}
-				}
-			}
-		},
-		"/appeals/appeal-allocation-levels": {
-			"get": {
-				"tags": ["Appeal Allocation"],
-				"description": "Gets the list of levels and associated bands used for allocation",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of allocation levels",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AllocationLevelsResponse"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/AllocationLevelsResponse"
-								}
-							}
-						}
 					},
-					"400": {
-						"description": "Bad Request"
-					}
-				}
-			}
-		},
-		"/appeals/{appealId}/appeal-allocation": {
-			"patch": {
-				"tags": ["Appeal Allocation"],
-				"description": "Adds or changes allocation for an appeal",
-				"parameters": [
-					{
-						"name": "appealId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Patch appeal allocation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AppealAllocation"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/AppealAllocation"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
+					"404": {
+						"description": "Not Found"
 					}
 				},
 				"requestBody": {
 					"in": "body",
-					"description": "Appeal allocation",
+					"description": "Case data",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/AppealAllocation"
+								"$ref": "#/components/schemas/CaseData"
 							}
 						},
 						"application/xml": {
 							"schema": {
-								"$ref": "#/components/schemas/AppealAllocation"
+								"$ref": "#/components/schemas/CaseData"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/document-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Imports a new document",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Document successfully created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Document",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/knowledge-of-other-landowners": {
+			"get": {
+				"tags": ["Knowledge Of Other Landowners"],
+				"description": "Gets knowledge of other landowners values",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Knowledge of other landowners values",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllKnowledgeOfOtherLandownersResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllKnowledgeOfOtherLandownersResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/lpa-notification-methods": {
+			"get": {
+				"tags": ["LPA Notification Methods"],
+				"description": "Gets LPA notification methods",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA notification methods",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPANotificationMethodsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPANotificationMethodsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -946,100 +1121,6 @@
 						"application/xml": {
 							"schema": {
 								"$ref": "#/components/schemas/UpdateAppealRequest"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/appeals/case-submission": {
-			"post": {
-				"tags": ["Integration"],
-				"description": "Request the creation of a new case",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeal successfully created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Case data",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CaseData"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/CaseData"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/appeals/document-submission": {
-			"post": {
-				"tags": ["Integration"],
-				"description": "Imports a new document",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Document successfully created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Document",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
 							}
 						}
 					}
@@ -2622,6 +2703,67 @@
 				},
 				"xml": {
 					"name": "AppealAllocation"
+				}
+			},
+			"AllDesignatedSitesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "cSAC"
+						},
+						"description": {
+							"type": "string",
+							"example": "candidate special area of conservation"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllDesignatedSitesResponse"
+				}
+			},
+			"AllKnowledgeOfOtherLandownersResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Yes"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllKnowledgeOfOtherLandownersResponse"
+				}
+			},
+			"AllLPANotificationMethodsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "A site notice"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPANotificationMethodsResponse"
 				}
 			}
 		}

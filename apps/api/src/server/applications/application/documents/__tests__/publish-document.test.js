@@ -159,7 +159,8 @@ describe('Publish documents', () => {
 			fileName: 'filename.pdf',
 			size: 23452,
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
-			privateBlobPath: 'https://published/en010120/filename.pdf'
+			privateBlobContainer: 'document-uploads',
+			privateBlobPath: 'en010120/filename.pdf'
 		};
 
 		databaseConnector.document.findMany.mockResolvedValue([
@@ -182,12 +183,11 @@ describe('Publish documents', () => {
 		// THEN
 		const expectedEventPayload = {
 			documentId: 'document_to_publish_guid',
-			version: '1',
+			version: 1,
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
-			path: 'https://published/en010120/filename.pdf',
-			documentURI: 'https://published/en010120/filename.pdf',
+			documentURI: 'https://127.0.0.1:10000/document-uploads/en010120/filename.pdf',
 			dateCreated: '2023-03-26T00:00:00.000Z'
 		};
 

@@ -421,6 +421,19 @@ const appellantCaseInvalidReasons = [
 	}
 ];
 
+const designatedSites = [
+	{
+		description: 'Site 1',
+		id: 1,
+		name: 'Site 1'
+	},
+	{
+		description: 'Site 2',
+		id: 2,
+		name: 'Site 2'
+	}
+];
+
 const appellantCaseValidationOutcomes = [
 	{
 		id: 1,
@@ -459,6 +472,28 @@ const lpaQuestionnaireIncompleteReasons = [
 	{
 		id: 3,
 		name: 'Other'
+	}
+];
+
+const knowledgeOfOtherLandowners = [
+	{
+		id: 1,
+		name: 'Value 1'
+	},
+	{
+		id: 2,
+		name: 'Value 2'
+	}
+];
+
+const lpaNotificationMethods = [
+	{
+		id: 1,
+		name: 'Method 1'
+	},
+	{
+		id: 2,
+		name: 'Method 2'
 	}
 ];
 
@@ -688,17 +723,20 @@ export {
 	appellantCaseValidationOutcomes,
 	baseExpectedAppellantCaseResponse,
 	baseExpectedLPAQuestionnaireResponse,
+	designatedSites,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,
-	householdAppealLPAQuestionnaireComplete,
 	fullPlanningAppealLPAQuestionnaireIncomplete,
+	householdAppealLPAQuestionnaireComplete,
 	householdAppeal,
 	householdAppealAppellantCaseIncomplete,
 	householdAppealAppellantCaseInvalid,
 	householdAppealAppellantCaseValid,
 	householdAppealLPAQuestionnaireIncomplete,
+	knowledgeOfOtherLandowners,
 	linkedAppeals,
+	lpaNotificationMethods,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals

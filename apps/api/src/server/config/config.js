@@ -10,6 +10,7 @@ const { value, error } = schema.validate({
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
 	DATABASE_URL: environment.DATABASE_URL,
 	defaultApiVersion: environment.DEFAULT_API_VERSION || '1',
+	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
 	documentStorageApi: {
 		host: environment.DOCUMENT_STORAGE_API_HOST
 	},

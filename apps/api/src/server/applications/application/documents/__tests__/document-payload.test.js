@@ -28,6 +28,7 @@ describe('validateNsipDocument', () => {
 			securityClassification: 'public',
 			mime: 'application/pdf',
 			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
+			privateBlobContainer: 'document-uploads',
 			privateBlobPath:
 				'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
 			virusCheckStatus: 'scanned',
@@ -40,8 +41,7 @@ describe('validateNsipDocument', () => {
 			isDeleted: false,
 			examinationRefNo: 'XXX-0000',
 			publishedStatus: 'published',
-			redactedStatus: 'not_redacted',
-			blobStoragePath: 'https://published/en010120/filename.pdf'
+			redactedStatus: 'not_redacted'
 		};
 		// 2. Act
 		// @ts-ignore
@@ -53,14 +53,14 @@ describe('validateNsipDocument', () => {
 		const expectedResult = {
 			documentId: 'document1',
 			caseRef: 'EN010120',
-			version: '1',
+			version: 1,
 			examinationRefNo: 'XXX-0000',
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
 			mime: 'application/pdf',
-			documentURI: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
-			path: 'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF', // TODO: Remove
+			documentURI:
+				'https://127.0.0.1:10000/document-uploads/EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
 			virusCheckStatus: 'scanned',
 			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
 			dateCreated: '2023-03-26T00:00:00.000Z',
@@ -82,7 +82,7 @@ describe('validateNsipDocument', () => {
 			filter2: 'Scoping Option Report'
 		};
 
-		expect(expectedResult).toEqual(result);
+		expect(result).toEqual(expectedResult);
 		expect(validateNsipDocument(result)).toEqual(true);
 	});
 });

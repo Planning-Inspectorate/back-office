@@ -7,13 +7,19 @@ import { blobClient } from './blob-client.js';
  */
 export const index = async (
 	context,
-	{ documentId, documentURI, documentReference, filename, originalFilename }
+	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename }
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
-	if (!documentId || !documentURI || !filename || !originalFilename) {
+	if (!caseId || !documentId || !version || !documentURI || !filename || !originalFilename) {
 		// TODO: Once we sort out documentReference, validate that too
 		throw Error('One or more required properties are missing.');
+	}
+
+	const sourceBlobName = parseBlobName(documentURI);
+
+	if (!sourceBlobName) {
+		throw Error('No blob name present in the documentURI');
 	}
 
 	const publishFileName = buildPublishedFileName({
@@ -22,22 +28,43 @@ export const index = async (
 		originalFilename
 	});
 
-	context.log(`Deploying to file name ${publishFileName}`);
+	context.log(`Deploying source blob ${sourceBlobName} to destination ${publishFileName}`);
 
 	await blobClient.copyFile({
 		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
-		sourceBlobName: documentURI.replace(/^\/+/, ''),
+		sourceBlobName,
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
 		destinationBlobName: publishFileName
 	});
 
+	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;
+
+	context.log(`Making POST request to ${requestUri}`);
+
 	await got
-		.patch(`https://${config.API_HOST}/applications/documents/${documentId}/status`, {
+		.post(requestUri, {
 			json: {
-				machineAction: 'published'
+				publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+				publishedBlobPath: publishFileName,
+				publishedDate: new Date()
 			}
 		})
 		.json();
+};
+
+/**
+ *
+ * @param {string} documentURI
+ * @returns {string | undefined}
+ */
+const parseBlobName = (documentURI) => {
+	const [storageAccountHost, blobName] = documentURI.split(config.BLOB_SOURCE_CONTAINER);
+
+	if (trimSlashes(storageAccountHost) != trimSlashes(config.BLOB_STORAGE_ACCOUNT_HOST)) {
+		throw Error(`Attempting to copy from unknown storage account host ${storageAccountHost}`);
+	}
+
+	return trimSlashes(blobName);
 };
 
 const fileExtensionRegex = /\.[0-9a-z]+$/i;
@@ -45,6 +72,7 @@ const fileExtensionRegex = /\.[0-9a-z]+$/i;
 /**
  *
  * @param {{documentReference: string, filename: string, originalFilename: string}} params
+ * @returns {string}
  */
 const buildPublishedFileName = ({ documentReference, filename, originalFilename }) => {
 	const originalExtension = originalFilename.match(fileExtensionRegex)?.[0];
@@ -55,3 +83,10 @@ const buildPublishedFileName = ({ documentReference, filename, originalFilename 
 
 	return `${documentReference}-${publishedFileName}`;
 };
+
+/**
+ *
+ * @param {string} uri
+ * @returns {string | undefined}
+ */
+const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');

@@ -97,6 +97,9 @@ const mockSpecialismsFindUnique = jest.fn().mockResolvedValue({});
 const mockAppealAllocationUpsert = jest.fn().mockResolvedValue({});
 const mockAppealSpecialismDeleteMany = jest.fn().mockResolvedValue({});
 const mockAppealSpecialismCreateMany = jest.fn().mockResolvedValue({});
+const mockDesignatedSiteFindMany = jest.fn().mockResolvedValue({});
+const mockKnowledgeOfOtherLandownersFindMany = jest.fn().mockResolvedValue({});
+const mockLPANotificationMethodsFindMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -374,6 +377,24 @@ class MockPrismaClient {
 	get appealAllocation() {
 		return {
 			upsert: mockAppealAllocationUpsert
+		};
+	}
+
+	get designatedSite() {
+		return {
+			findMany: mockDesignatedSiteFindMany
+		};
+	}
+
+	get knowledgeOfOtherLandowners() {
+		return {
+			findMany: mockKnowledgeOfOtherLandownersFindMany
+		};
+	}
+
+	get lPANotificationMethods() {
+		return {
+			findMany: mockLPANotificationMethodsFindMany
 		};
 	}
 

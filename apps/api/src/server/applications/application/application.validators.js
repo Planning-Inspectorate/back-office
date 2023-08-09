@@ -205,6 +205,15 @@ export const validateApplicationId = composeMiddleware(
 	validationErrorHandlerMissing
 );
 
+export const validateDocumentGuid = composeMiddleware(
+	param('guid')
+		.isString()
+		.withMessage('Document GUID must be a valid GUID')
+		.custom(validateExistingApplication)
+		.withMessage('Must be an existing application'),
+	validationErrorHandlerMissing
+);
+
 export const validateApplicantId = composeMiddleware(
 	body('applicants.*.id')
 		.toInt()

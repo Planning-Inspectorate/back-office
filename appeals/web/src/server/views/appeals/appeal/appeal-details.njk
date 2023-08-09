@@ -26,6 +26,10 @@
 	{{ govukSummaryList(summaryLists.caseOverview) }}
 {%- endset -%}
 
+{%- set siteDetailsHtml -%}
+	{{ govukSummaryList(summaryLists.siteDetails) }}
+{%- endset -%}
+
 {%- set caseTimetableHtml -%}
 	{%- if summaryLists.caseTimetable -%}
 		{{ govukSummaryList(summaryLists.caseTimetable) }}
@@ -77,6 +81,13 @@
 				},
 				content: {
 					html: caseOverviewHtml
+				}
+			},{
+				heading: {
+					text: "Site details"
+				},
+				content: {
+					html: siteDetailsHtml
 				}
 			}, {
 				heading: {

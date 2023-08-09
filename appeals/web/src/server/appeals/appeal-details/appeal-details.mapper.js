@@ -46,13 +46,15 @@ export function mapAppealDetailsToSummaryListBuilderParameters(appealData) {
 	const mappedCaseOverview = mapCaseOverview(appealData);
 	const mappedCaseTimetable = mapCaseTimetable(appealData);
 	const mappedCaseTeam = mapCaseTeam(appealData);
+	const mappedSiteDetails = mapSiteDetails(appealData);
 
 	return {
 		caseOverview: mappedCaseOverview,
-		caseTeam: mappedCaseTeam,
+		siteDetails: mappedSiteDetails,
 		...(mappedCaseTimetable && {
 			caseTimetable: mappedCaseTimetable
-		})
+		}),
+		caseTeam: mappedCaseTeam
 	};
 }
 
@@ -286,6 +288,96 @@ function mapCaseTeam(appealDetails) {
 					: 'No project members have been added yet',
 				valueType: 'text',
 				actionText: appealDetails.inspector ? 'Change' : 'Add',
+				actionLink: '#'
+			}
+		]
+	};
+}
+
+/**
+ *
+ * @param {import('./appeal-details.types').Appeal} appealDetails
+ * @returns {SummaryListBuilderParameters}
+ */
+function mapSiteDetails(appealDetails) {
+	/**
+	 * @type {import('../../lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType}
+	 */
+	const valueTypeText = 'text';
+
+	const neighbourAddressRows = appealDetails.neighbouringSite?.contacts?.map((contact, index) => ({
+		title: `Neighbour address ${index + 1}`,
+		value: addressToString({
+			addressLine1: contact.address?.addressLine1 || '',
+			addressLine2: contact.address?.addressLine2 || '',
+			town: contact.address?.town || '',
+			county: contact.address?.county || '',
+			postCode: contact.address?.postCode || ''
+		}),
+		valueType: valueTypeText,
+		actionText: 'Change',
+		actionLink: '#'
+	}));
+
+	return {
+		rows: [
+			{
+				title: `Inspector access (LPA's answer)`,
+				value: appealDetails.inspectorAccess?.lpaQuestionnaire?.isRequired
+					? [
+							'Yes',
+							appealDetails.inspectorAccess?.lpaQuestionnaire?.details || 'No details provided'
+					  ]
+					: 'No',
+				valueType: valueTypeText,
+				actionText: 'Change',
+				actionLink: '#'
+			},
+			{
+				title: `Inspector access (appellant's answer)`,
+				value: appealDetails.inspectorAccess?.appellantCase?.isRequired
+					? ['Yes', appealDetails.inspectorAccess?.appellantCase?.details || 'No details provided']
+					: 'No',
+				valueType: valueTypeText,
+				actionText: 'Change',
+				actionLink: '#'
+			},
+			{
+				title: 'Could a neighbouring site be affected?',
+				value: appealDetails.neighbouringSite.isAffected ? 'Yes' : 'No',
+				valueType: valueTypeText,
+				actionText: 'Change',
+				actionLink: '#'
+			},
+			...(neighbourAddressRows || []),
+			{
+				title: `Potential safety risks (LPA's answer)`,
+				value: appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues
+					? [
+							'Yes',
+							appealDetails.healthAndSafety?.lpaQuestionnaire?.details || 'No details provided'
+					  ]
+					: 'No',
+				valueType: valueTypeText,
+				actionText: 'Change',
+				actionLink: '#'
+			},
+			{
+				title: `Potential safety risks (appellant's answer)`,
+				value: appealDetails.healthAndSafety?.appellantCase?.hasIssues
+					? ['Yes', appealDetails.healthAndSafety?.appellantCase?.details || 'No details provided']
+					: 'No',
+				valueType: valueTypeText,
+				actionText: 'Change',
+				actionLink: '#'
+			},
+			{
+				title: 'Visit type',
+				value: appealDetails.siteVisit?.visitType
+					? appealDetails.siteVisit?.visitType
+					: 'Not selected',
+				valueType: valueTypeText,
+				actionText: 'Change',
 				actionLink: '#'
 			}
 		]

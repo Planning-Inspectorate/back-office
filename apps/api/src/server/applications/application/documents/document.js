@@ -1,18 +1,20 @@
+import config from '../../../config/config.js';
 /**
  * NSIP Document
  *
  * @typedef {Object} NsipDocumentPayload
  * @property {string} documentId - The unique identifier for the file. This will be different to documentReference
  * @property {string | undefined} caseRef
+ * @property {number} caseId The unique identifier within the Back Office. This is not the same as the case reference
  * @property {string | null | undefined} documentReference - Reference used throughout ODT <CaseRef>-<SequenceNo>
- * @property {string | null} version
+ * @property {number | null} version
  * @property {string | null} examinationRefNo
  * @property {string | null} filename - Current stored filename of the file
  * @property {string | null} originalFilename - Original filename of file
  * @property {number | null} size
  * @property {string | null} mime
- * @property {string | null} documentURI
- * @property {string | null} path
+ * @property {string | undefined} documentURI
+ * @property {string | undefined} publishedDocumentURI
  * @property {"not_scanned" | "scanned" | "affected | null"} virusCheckStatus
  * @property {string | null} fileMD5
  * @property {string | null} dateCreated - Date format: date-time
@@ -48,15 +50,16 @@ export const buildNsipDocumentPayload = (version) => {
 	return {
 		documentId: document.guid,
 		caseRef: document.case?.reference?.toString(),
-		// documentReference: TODO: generate document reference
-		version: version.version?.toString(),
+		caseId: document.case?.id,
+		documentReference: document.reference,
+		version: version.version,
 		examinationRefNo: version.examinationRefNo,
 		filename: version.fileName,
 		originalFilename: version.originalFilename,
 		size: version.size,
 		mime: version.mime,
-		documentURI: version.privateBlobPath,
-		path: version.privateBlobPath, // TODO: Duplicated
+		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
+		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
 		// @ts-ignore
 		virusCheckStatus: version.virusCheckStatus,
 		fileMD5: version.fileMD5,
@@ -86,3 +89,26 @@ export const buildNsipDocumentPayload = (version) => {
 		filter2: version.filter2
 	};
 };
+
+/**
+ * @param {string} containerName
+ * @param {string} path
+ *
+ * @returns {string | undefined}
+ */
+const buildBlobUri = (containerName, path) => {
+	if (containerName && path) {
+		return `${trimSlashes(config.blobStorageUrl)}/${trimSlashes(containerName)}/${trimSlashes(
+			path
+		)}`;
+	}
+
+	return undefined;
+};
+
+/**
+ *
+ * @param {string} uri
+ * @returns {string | undefined}
+ */
+const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');

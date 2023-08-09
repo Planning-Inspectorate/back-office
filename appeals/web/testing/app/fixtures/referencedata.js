@@ -76,6 +76,35 @@ export const appealData = {
 	],
 	localPlanningDepartment: 'Wiltshire Council',
 	lpaQuestionnaireId: null,
+	neighbouringSite: {
+		contacts: [
+			{
+				address: {
+					addressLine1: '21 The Pavement',
+					county: 'Wandsworth',
+					postCode: 'SW4 0HY'
+				},
+				contactId: 1016,
+				email: 'appellant@example.com',
+				firstName: 'Haley',
+				lastName: 'Eland',
+				telephone: '01234567891'
+			},
+			{
+				address: {
+					addressLine1: '92 Huntsmoor Road',
+					town: 'Tadley',
+					postCode: 'RG26 4BX'
+				},
+				contactId: 1017,
+				email: 'appellant@example.com',
+				firstName: 'Fiona',
+				lastName: 'Burgess',
+				telephone: '01234567891'
+			}
+		],
+		isAffected: true
+	},
 	otherAppeals: [
 		{
 			appealId: 3,

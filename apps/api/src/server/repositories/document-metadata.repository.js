@@ -159,7 +159,13 @@ export const getAllByDocumentGuid = (guid) => {
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid, version } },
-
+		include: {
+			Document: {
+				include: {
+					case: true
+				}
+			}
+		},
 		data: documentDetails
 	});
 };
