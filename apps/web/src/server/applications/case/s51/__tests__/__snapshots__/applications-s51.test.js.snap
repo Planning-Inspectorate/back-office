@@ -569,7 +569,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             href='?number=1&size=100'>100</a>
                         </div>
                     </div>
-                    <p><span id=\\"selectedfilesnumber\\">0</span> item(s) selected</p>
+                    <p><span id=\\"selectedFilesNumber\\">0</span> item(s) selected</p>
                 </div>
                 <table class=\\"govuk-table pins-files-list__table pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
