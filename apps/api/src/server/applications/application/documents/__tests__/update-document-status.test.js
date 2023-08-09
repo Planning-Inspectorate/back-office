@@ -28,6 +28,7 @@ const documentToUpdate1 = {
 };
 
 // --------------------------------------------------------------------------------------------------
+
 describe('Update document status when awaiting_virus_check', () => {
 	test('updates document status when awaiting_virus_check', async () => {
 		// GIVEN
@@ -359,13 +360,13 @@ describe('Update document statuses and redacted statuses', () => {
 			publishedStatus: 'checked',
 			redactedStatus: 'unredacted'
 		};
+		const document = {
+			...updatedDocument,
+			documentVersion
+		};
 
-		databaseConnector.document.findMany.mockResolvedValue([
-			{
-				...updatedDocument,
-				documentVersion
-			}
-		]);
+		databaseConnector.document.findMany.mockResolvedValue([document]);
+		databaseConnector.document.findUnique.mockResolvedValue(document);
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(documentVersion);
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
