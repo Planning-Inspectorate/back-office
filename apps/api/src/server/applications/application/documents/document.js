@@ -98,8 +98,17 @@ export const buildNsipDocumentPayload = (version) => {
  */
 const buildBlobUri = (containerName, path) => {
 	if (containerName && path) {
-		return `${config.blobStorageUrl}${containerName}/${path}`;
+		return `${trimSlashes(config.blobStorageUrl)}/${trimSlashes(containerName)}/${trimSlashes(
+			path
+		)}`;
 	}
 
 	return undefined;
 };
+
+/**
+ *
+ * @param {string} uri
+ * @returns {string | undefined}
+ */
+const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
