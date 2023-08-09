@@ -12,6 +12,21 @@ const { storageUrl, submissionsContainer, uploadsContainer } = config;
 export default async function (context, msg) {
 	context.log('Handle new deadline submission', msg);
 
+	const caseID = await api.getCaseID(msg.caseReference);
+	if (!caseID) {
+		// TODO: Publish failure message to service bus
+		context.log.error(`No case found with reference: ${msg.caseReference}`);
+		return;
+	}
+
+	const entitiesExist = await api.lineItemExists(caseID, msg.deadline, msg.submissionType);
+	if (!entitiesExist) {
+		context.log.error(
+			`Timetable item "${msg.deadline}" or line item "${msg.msg.submissionType}" could not be found`
+		);
+		return;
+	}
+
 	const client = BlobStorageClient.fromUrl(storageUrl);
 
 	const destinationBlobName = `${msg.deadline}/${msg.submissionType}/${msg.blobGuid}/${msg.documentName}`;
@@ -30,7 +45,6 @@ export default async function (context, msg) {
 
 	const properties = await client.getBlobProperties(uploadsContainer, destinationBlobName);
 
-	const caseID = await api.getCaseID(msg.caseReference);
 	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
 
 	await api.submitDocument({
