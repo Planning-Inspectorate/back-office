@@ -51,7 +51,7 @@ export const buildNsipDocumentPayload = (version) => {
 		documentId: document.guid,
 		caseRef: document.case?.reference?.toString(),
 		caseId: document.case?.id,
-		// documentReference: TODO: generate document reference
+		documentReference: document.reference,
 		version: version.version,
 		examinationRefNo: version.examinationRefNo,
 		filename: version.fileName,

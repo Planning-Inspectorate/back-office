@@ -28,7 +28,7 @@ export const index = async (
 		originalFilename
 	});
 
-	context.log(`Deploying to file name ${publishFileName}`);
+	context.log(`Deploying source blob ${sourceBlobName} to destination ${publishFileName}`);
 
 	await blobClient.copyFile({
 		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
@@ -37,17 +37,18 @@ export const index = async (
 		destinationBlobName: publishFileName
 	});
 
+	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;
+
+	context.log(`Making POST request to ${requestUri}`);
+
 	await got
-		.patch(
-			`https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`,
-			{
-				json: {
-					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-					publishedBlobPath: publishFileName,
-					publishedDate: new Date()
-				}
+		.post(requestUri, {
+			json: {
+				publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+				publishedBlobPath: publishFileName,
+				publishedDate: new Date()
 			}
-		)
+		})
 		.json();
 };
 
