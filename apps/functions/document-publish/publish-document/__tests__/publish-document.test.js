@@ -35,9 +35,10 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil',
 				originalFilename: 'olive oil.jpeg',
-				documentURI: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI:
+					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
@@ -49,9 +50,10 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.jpeg',
-				documentURI: '/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI:
+					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
@@ -63,9 +65,10 @@ describe('Publishing document', () => {
 				documentReference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.png',
-				documentURI: '//application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil'
+				documentURI:
+					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/olive oil',
+			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg.png'
 		}
 	];
@@ -85,9 +88,9 @@ describe('Publishing document', () => {
 
 		// Assert
 		expect(mockCopyFile).toHaveBeenNthCalledWith(1, {
-			sourceContainerName: 'source-container',
+			sourceContainerName: 'document-service-uploads',
 			sourceBlobName: expectedSourceName,
-			destinationContainerName: 'publish-container',
+			destinationContainerName: 'published-documents',
 			destinationBlobName: expectedDestinationName
 		});
 
@@ -97,7 +100,7 @@ describe('Publishing document', () => {
 			{
 				json: {
 					publishedBlobPath: expectedDestinationName,
-					publishedBlobContainer: 'publish-container',
+					publishedBlobContainer: 'published-documents',
 					publishedDate: new Date('2023-01-01T00:00:00Z')
 				}
 			}

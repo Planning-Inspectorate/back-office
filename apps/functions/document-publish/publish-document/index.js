@@ -16,6 +16,12 @@ export const index = async (
 		throw Error('One or more required properties are missing.');
 	}
 
+	const sourceBlobName = parseBlobName(documentURI);
+
+	if (!sourceBlobName) {
+		throw Error('No blob name present in the documentURI');
+	}
+
 	const publishFileName = buildPublishedFileName({
 		documentReference,
 		filename,
@@ -26,7 +32,7 @@ export const index = async (
 
 	await blobClient.copyFile({
 		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
-		sourceBlobName: documentURI.replace(/^\/+/, ''),
+		sourceBlobName,
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
 		destinationBlobName: publishFileName
 	});
@@ -45,11 +51,27 @@ export const index = async (
 		.json();
 };
 
+/**
+ *
+ * @param {string} documentURI
+ * @returns {string | undefined}
+ */
+const parseBlobName = (documentURI) => {
+	const [storageAccountHost, blobName] = documentURI.split(config.BLOB_SOURCE_CONTAINER);
+
+	if (trimSlashes(storageAccountHost) != trimSlashes(config.BLOB_STORAGE_ACCOUNT_HOST)) {
+		throw Error(`Attempting to copy from unknown storage account host ${storageAccountHost}`);
+	}
+
+	return trimSlashes(blobName);
+};
+
 const fileExtensionRegex = /\.[0-9a-z]+$/i;
 
 /**
  *
  * @param {{documentReference: string, filename: string, originalFilename: string}} params
+ * @returns {string}
  */
 const buildPublishedFileName = ({ documentReference, filename, originalFilename }) => {
 	const originalExtension = originalFilename.match(fileExtensionRegex)?.[0];
@@ -60,3 +82,10 @@ const buildPublishedFileName = ({ documentReference, filename, originalFilename 
 
 	return `${documentReference}-${publishedFileName}`;
 };
+
+/**
+ *
+ * @param {string} uri
+ * @returns {string | undefined}
+ */
+const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
