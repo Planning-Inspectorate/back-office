@@ -486,6 +486,17 @@ const knowledgeOfOtherLandowners = [
 	}
 ];
 
+const lpaNotificationMethods = [
+	{
+		id: 1,
+		name: 'Method 1'
+	},
+	{
+		id: 2,
+		name: 'Method 2'
+	}
+];
+
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @returns {SingleLPAQuestionnaireResponse}
@@ -725,6 +736,7 @@ export {
 	householdAppealLPAQuestionnaireIncomplete,
 	knowledgeOfOtherLandowners,
 	linkedAppeals,
+	lpaNotificationMethods,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals

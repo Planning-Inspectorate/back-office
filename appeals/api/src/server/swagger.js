@@ -486,6 +486,12 @@ const document = {
 				name: 'Yes',
 				id: 1
 			}
+		],
+		AllLPANotificationMethodsResponse: [
+			{
+				name: 'A site notice',
+				id: 1
+			}
 		]
 	},
 	components: {}
