@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { BlobServiceClient } from '@azure/storage-blob';
+import { BlobStorageClient } from '@pins/blob-storage-client';
 import run from '../';
 import api from '../back-office-api-client';
 import { jest } from '@jest/globals';
@@ -8,22 +8,6 @@ describe('deadline-submission-command', () => {
 	beforeAll(() => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
-
-		BlobServiceClient.fromConnectionString = jest.fn().mockReturnValue({
-			getContainerClient: () => ({
-				getBlobClient: () => ({
-					beginCopyFromURL: () => ({
-						pollUntilDone: () => ({
-							copyStatus: 'success'
-						})
-					}),
-					getProperties: () => ({
-						contentType: 'application/octet-stream',
-						contentLength: 1
-					})
-				})
-			})
-		});
 	});
 
 	const mockContext = { log: jest.fn() };
@@ -39,6 +23,14 @@ describe('deadline-submission-command', () => {
 	test('Happy path', async () => {
 		const mockSubmitDocument = jest.fn();
 		api.submitDocument = mockSubmitDocument;
+
+		BlobStorageClient.fromUrl = jest.fn().mockReturnValue({
+			copyFile: () => 'success',
+			getBlobProperties: () => ({
+				contentType: 'application/octet-stream',
+				contentLength: 1
+			})
+		});
 
 		await run(mockContext, mockMsg);
 
