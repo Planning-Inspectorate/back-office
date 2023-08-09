@@ -4,7 +4,7 @@ import api from './back-office-api-client.js';
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('@pins/api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} msg
+ * @param {import('@pins/applications.api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} msg
  */
 export default async function (context, msg) {
 	context.log('Handle subscription message', msg);
