@@ -28,13 +28,22 @@ export async function list({ page, pageSize, caseReference, type }) {
 				where.subscribedToAllUpdates = true;
 				break;
 			case Subscription.Type.ApplicationSubmitted:
-				where.subscribedToApplicationSubmitted = true;
+				where.OR = {
+					subscribedToAllUpdates: true,
+					subscribedToApplicationSubmitted: true
+				};
 				break;
 			case Subscription.Type.ApplicationDecided:
-				where.subscribedToApplicationDecided = true;
+				where.OR = {
+					subscribedToAllUpdates: true,
+					subscribedToApplicationDecided: true
+				};
 				break;
 			case Subscription.Type.RegistrationOpen:
-				where.subscribedToRegistrationOpen = true;
+				where.OR = {
+					subscribedToAllUpdates: true,
+					subscribedToRegistrationOpen: true
+				};
 				break;
 		}
 	}
