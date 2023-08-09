@@ -645,6 +645,33 @@
 				}
 			}
 		},
+		"/appeals/lpa-notification-methods": {
+			"get": {
+				"tags": ["LPA Notification Methods"],
+				"description": "Gets LPA notification methods",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA notification methods",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPANotificationMethodsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPANotificationMethodsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/lpa-questionnaire-incomplete-reasons": {
 			"get": {
 				"tags": ["LPA Questionnaire Incomplete Reasons"],
@@ -2718,6 +2745,25 @@
 				},
 				"xml": {
 					"name": "AllKnowledgeOfOtherLandownersResponse"
+				}
+			},
+			"AllLPANotificationMethodsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "A site notice"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPANotificationMethodsResponse"
 				}
 			}
 		}

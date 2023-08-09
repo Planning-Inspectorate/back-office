@@ -12,6 +12,7 @@ import { integrationsRoutes } from './integrations/integrations.routes.js';
 import initNotifyClientAndAddToRequest from '../middleware/init-notify-client-and-add-to-request.js';
 import { designatedSitesRoutes } from './designated-sites/designated-sites.routes.js';
 import { knowledgeOfOtherLandownersRoutes } from './knowledge-of-other-landowners/knowledge-of-other-landowners.routes.js';
+import { lpaNotificationMethodsRoutes } from './lpa-notification-methods/lpa-notification-methods.routes.js';
 
 const router = createRouter();
 
@@ -25,6 +26,7 @@ router.use(designatedSitesRoutes);
 router.use(documentsRoutes);
 router.use(integrationsRoutes);
 router.use(knowledgeOfOtherLandownersRoutes);
+router.use(lpaNotificationMethodsRoutes);
 router.use(lpaQuestionnaireIncompleteReasonsRoutes);
 router.use(lpaQuestionnairesRoutes);
 router.use(siteVisitRoutes);
