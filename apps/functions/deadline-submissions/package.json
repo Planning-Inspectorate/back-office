@@ -9,7 +9,7 @@
   "dependencies": {
     "@pins/event-client": "^0.0.0",
     "@pins/platform": "^0.0.0",
-    "@azure/storage-blob": "*",
+    "@pins/blob-storage-client": "*",
     "dotenv": "*",
     "got": "*",
     "joi": "*"

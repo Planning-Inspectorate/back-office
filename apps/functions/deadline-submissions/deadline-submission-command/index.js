@@ -1,8 +1,8 @@
-import { BlobServiceClient } from '@azure/storage-blob';
+import { BlobStorageClient } from '@pins/blob-storage-client';
 import config from './config';
 import api from './back-office-api-client';
 
-const { submissionsBlobStore, uploadsBlobStore } = config;
+const { storageUrl, submissionsContainer, uploadsContainer } = config;
 
 /**
  *
@@ -12,24 +12,23 @@ const { submissionsBlobStore, uploadsBlobStore } = config;
 export default async function (context, msg) {
 	context.log('Handle new deadline submission', msg);
 
-	const client = BlobServiceClient.fromConnectionString(submissionsBlobStore.connectionString);
+	const client = BlobStorageClient.fromUrl(storageUrl);
 
-	const sourceContainer = client.getContainerClient(submissionsBlobStore.container);
-	const destContainer = client.getContainerClient(uploadsBlobStore.container);
+	const destinationBlobName = `${msg.deadline}/${msg.submissionType}/${msg.blobGuid}/${msg.documentName}`;
 
-	const sourceBlob = sourceContainer.getBlobClient(`${msg.blobGuid}/${msg.documentName}`);
-	const destBlob = destContainer.getBlobClient(
-		`${msg.deadline}/${msg.submissionType}/${msg.blobGuid}/${msg.documentName}`
-	);
+	const result = await client.copyFile({
+		sourceContainerName: submissionsContainer,
+		sourceBlobName: `${msg.blobGuid}/${msg.documentName}`,
+		destinationContainerName: uploadsContainer,
+		destinationBlobName
+	});
 
-	const response = await destBlob.beginCopyFromURL(sourceBlob.url);
-	const result = await response.pollUntilDone();
-	if (result.copyStatus !== 'success') {
+	if (result !== 'success') {
 		// TODO: Publish failure message to service bus
 		context.log('Copying blob failed', result);
 	}
 
-	const properties = await destBlob.getProperties();
+	const properties = await client.getBlobProperties(uploadsContainer, destinationBlobName);
 
 	const caseID = await api.getCaseID(msg.caseReference);
 	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
