@@ -75,10 +75,10 @@ describe('Publishing document', () => {
 
 	it.each(testCases)('$name', async ({ document, expectedSourceName, expectedDestinationName }) => {
 		// Arrange
-		const mockGotPatch = jest.spyOn(got, 'patch');
+		const mockGotPost = jest.spyOn(got, 'post');
 		const mockCopyFile = jest.spyOn(blobClient, 'copyFile');
 
-		mockGotPatch.mockReturnValue(mock200Response);
+		mockGotPost.mockReturnValue(mock200Response);
 		mockCopyFile.mockImplementation();
 
 		jest.spyOn(Date, 'now').mockReturnValueOnce(1000);
@@ -94,7 +94,7 @@ describe('Publishing document', () => {
 			destinationBlobName: expectedDestinationName
 		});
 
-		expect(mockGotPatch).toHaveBeenNthCalledWith(
+		expect(mockGotPost).toHaveBeenNthCalledWith(
 			1,
 			`https://test-api-host:3000/applications/${document.caseId}/documents/${document.documentId}/version/${document.version}/mark-as-published`,
 			{
