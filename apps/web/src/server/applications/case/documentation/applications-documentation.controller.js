@@ -23,6 +23,7 @@ import {
 	getSessionFolderPage,
 	setSessionFolderPage
 } from './applications-documentation.session.js';
+import { paginationParams } from '../../../lib/pagination-params.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -90,13 +91,13 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 			: { msg: 'Something went wrong. Please, try again later.' };
 
 		/** @type {DocumentationFile[]} */
-		const allItems = properties.documentationFiles.items;
+		const allItems = properties.items.items;
 		const failedItems = allItems.map((file) => ({
 			...file,
 			failed: !!(apiErrors || []).some((failedItem) => failedItem.guid === file.documentGuid)
 		}));
 
-		properties.documentationFiles.items = failedItems;
+		properties.items.items = failedItems;
 
 		return response.render(`applications/case-documentation/folder/documentation-folder`, {
 			...properties,
@@ -317,12 +318,10 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 const documentationFolderData = async (request, response) => {
 	const { caseId, folderId } = response.locals;
 	const { folderName } = request.params;
-	const number = Number.parseInt(request.query.number || '1', 10);
+	const number = +(request.query.number || '1');
 	const sizeInSession = getSessionFilesNumberOnList(request.session);
 	const sizeInQuery =
-		request.query?.size && !Number.isNaN(Number.parseInt(request.query.size, 10))
-			? Number.parseInt(request.query.size, 10)
-			: null;
+		request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : null;
 	const size = sizeInQuery || sizeInSession || 50;
 
 	setSessionFilesNumberOnList(request.session, size);
@@ -348,30 +347,12 @@ const documentationFolderData = async (request, response) => {
 		number
 	);
 
-	const paginationDropdownItems = [...Array.from({ length: 5 }).keys()].map((index) => ({
-		value: (1 + index) * 25,
-		text: (1 + index) * 25,
-		selected: (1 + index) * 25 === size
-	}));
-	const paginationButtons = {
-		...(number === 1 ? {} : { previous: { href: `?number=${number - 1}&size=${size}` } }),
-		...(number === documentationFiles.pageCount
-			? {}
-			: { next: { href: `?number=${number + 1}&size=${size}` } }),
-		items: [...Array.from({ length: documentationFiles.pageCount }).keys()].map((index) => ({
-			number: index + 1,
-			href: `?number=${index + 1}&size=${size}`,
-			current: index + 1 === number
-		}))
-	};
+	const pagination = paginationParams(size, number, documentationFiles.pageCount);
 
 	return {
 		subFolders,
-		documentationFiles,
-		pagination: {
-			dropdownItems: paginationDropdownItems,
-			buttons: paginationButtons
-		}
+		items: documentationFiles,
+		pagination
 	};
 };
 

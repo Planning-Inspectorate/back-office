@@ -1,13 +1,13 @@
 /**
- * @typedef {import('../../applications.types').S51Advice} S51Advice
- * @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51
+ * @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm
+ * @typedef {import('express-session').Session & { s51?: Partial<S51AdviceForm> }} SessionWithS51
  */
 
 /**
  * Get the data for the S51 advice that is being created
  *
  * @param {SessionWithS51} session
- * @returns {Partial<S51Advice> | null}
+ * @returns {Partial<S51AdviceForm> | null}
  */
 export const getSessionS51 = (session) => session.s51 || null;
 
@@ -23,7 +23,7 @@ export const destroySessionS51 = (session) => {
  * Set the data for the S51 advice that is being created
  *
  * @param {SessionWithS51} session
- * @param {Partial<S51Advice>} newS51Data
+ * @param {Partial<S51AdviceForm>} newS51Data
  * @returns {void}
  */
 export const setSessionS51 = (session, newS51Data) => {

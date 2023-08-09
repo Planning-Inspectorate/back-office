@@ -1,0 +1,157 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
+{% macro folderDocumentsTable(items, pagination, caseId, folderId) %}
+
+
+
+
+	<div class="pins-files-list__info govuk-body">
+		<h3 class="govuk-heading-s">Select documents to make changes to statuses</h3>
+		<div class="pagination-info">
+			<p>This folder contains {{ items.itemCount }}
+				document(s).
+										Showing {{ ((items.page - 1) * items.pageDefaultSize) + 1 }}
+										- {{ ((items.page - 1) * items.pageDefaultSize) +  items.items.length }}
+				document(s).</p>
+			<div>
+				{{ govukSelect({
+											id: "pageSize",
+											name: "pageSize",
+											label: {
+												text: "View"
+											},
+											items: pagination.dropdownItems
+										}) }}
+			</div>
+		</div>
+		<p>
+			<span id="selectedfilesnumber">0</span>
+			document(s) selected
+								</p>
+	</div>
+
+	<table class="govuk-table pins-files-list__table pins-table">
+		<thead class="govuk-table__head govuk-body-s">
+			<tr class="govuk-table__row">
+				<th scope="col" class="govuk-table__header">Select</th>
+				<th scope="col" class="govuk-table__header">Document information</th>
+				<th scope="col" class="govuk-table__header">Date received</th>
+				<th scope="col" class="govuk-table__header">Redaction</th>
+				<th scope="col" class="govuk-table__header">Status</th>
+				<th scope="col" class="govuk-table__header">Actions</th>
+			</tr>
+		</thead>
+		<tbody class="govuk-table__body govuk-body-s">
+			<tr class="govuk-table__row">
+				<td class="govuk-table__cell">
+					{{ govukCheckboxes({
+											name: "selectAll",
+											items: [
+												{
+													value: true,
+													text: 'Select all'
+												}]
+										}) }}
+				</td>
+				<td class="govuk-table__cell" colspan="5">
+					<p>Select all documents on page</p>
+				</td>
+			</tr>
+			{% for item in items.items %}
+				{% set isNotDisabled = item.publishedStatus !== 'awaiting_upload' and item.publishedStatus !== 'awaiting_virus_check' and item.publishedStatus !== 'failed_virus_check' %}
+
+				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.failed else "" }}">
+					<td class="govuk-table__cell">
+						{% if isNotDisabled %}
+							{{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + item.documentGuid,
+															value: item.documentGuid,
+															text: item.fileName,
+															label: 'select ' + item.fileName
+														}]
+												}) }}
+						{% endif %}
+					</td>
+					<td class="govuk-table__cell">
+						{% if item.failed %}
+							<span class='govuk-body-s govuk-!-font-weight-bold colour--red'> You must fill in all mandatory document properties to publish a document </span>{% endif %}
+						{% set isPreviewActive = isNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
+						{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s govuk-!-font-weight-bold',
+													href: 'document-download'|url({caseId: caseId, documentGuid: item.documentGuid, version: item.version, isPreviewActive: isPreviewActive}),
+													text:item.fileName
+												},
+												isPreviewActive
+											) }}
+
+						<p class="file-info colour--secondary">
+												From: {{ item.author }}
+						</p>
+						<p class="file-info colour--secondary">
+												File type and size: {{ item.mime|fileType }},
+												{{ item.size|fileSize }}
+						</p>
+					</td>
+					<td class="govuk-table__cell">{{ item.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}</td>
+					<td class="govuk-table__cell">{{ 'Redacted' if  item.redactedStatus === 'redacted' else 'Unredacted' }}</td>
+					<td class="govuk-table__cell">
+						{% set avWaiting = item.publishedStatus === 'awaiting_virus_check'%}
+						{% set avFailed = item.publishedStatus === 'failed_virus_check' %}
+						{% if isNotDisabled %}
+							{{ item.publishedStatus|statusName }}
+						{% else %}
+							{% if avWaiting %}
+								<strong class="govuk-tag govuk-tag--yellow">
+								{% elif avFailed %}
+									<strong class="govuk-tag govuk-tag--red">
+									{% else %}
+										<strong class="govuk-tag">
+										{% endif %}
+										{{ item.publishedStatus|statusName }}
+									</strong>
+								{% endif %}
+							</td>
+							<td class="govuk-table__cell">
+								{% if isNotDisabled %}
+									{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s',
+													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: item.documentGuid, step: 'properties'}),
+													text:'View/Edit properties'
+												},
+												isNotDisabled
+											) }}
+
+									{{ createOptionalLink(
+												{
+													classes: 'govuk-body-s',
+													data: ['download-', item.documentGuid]|join,
+													href: 'document-download'|url({caseId: caseId, documentGuid: item.documentGuid, version: item.version}),
+													text:'Download'
+												},
+												isNotDisabled
+											) }}
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		{% endmacro %}
+
+		{% macro createOptionalLink(params, isLink) %}
+			{% if isLink %}
+				{% set dataAction = ["data-action=", params.data]|join if params.data else "" %}
+				<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+			{% else %}
+				<p class="{{ params.classes }}">{{ params.text }}
+				</p>
+			{% endif %}
+		{% endmacro %}

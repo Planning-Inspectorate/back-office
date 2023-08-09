@@ -2,14 +2,15 @@
 
 {% from "./folder-header.component.njk" import folderHeader %}
 {% from "./folder-status.component.njk" import folderStatus %}
+{% from "./folder-actions.component.njk" import folderActions %}
+{% from "./folder-documents-table.component.njk" import folderDocumentsTable %}
+{% from "./folder-s51-table.component.njk" import folderS51Table %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% set isS51folder = currentFolder.displayNameEn === 'S51 advice' %}
 
 {% block errorSummary %}
 	{% if errors %}
@@ -40,235 +41,31 @@
 					items: breadcrumbItems
 				}) }}
 
-				{{ folderHeader(currentFolder, subFolders, caseId) }}
+				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder) }}
 
-				{{ folderStatus(currentFolder, documentationFiles, caseId, userIsInspector) }}
+				{{ folderStatus(currentFolder, items, caseId, userIsInspector, isS51folder) }}
 
 				{% if not userIsInspector %}
-					{% if documentationFiles.itemCount %}
+					{% if items.itemCount %}
 						<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 						<form class="pins-files-list" method="post">
 							<caption>
-								<span class="display--sr-only">Manage Documents in this location</span></caption>
-							<div class="govuk-grid-row display--flex">
-								<div class="govuk-grid-column-two-thirds">
-									<div class="pins-files-list__statuses">
-										<h3 class="govuk-heading-s">Statuses</h3>
-										<div class="govuk-grid-row">
-											<div>{{ govukRadios({
-													name: "isRedacted",
-													fieldset: {
-														legend: {
-															text: "Redaction"
-														}
-													},
-													items: [
-														{
-															value: '0',
-															text: "Unredacted"
-														},
-														{
-															value: '1',
-															text: "Redacted"
-														}
-													]
-												}) }}</div>
-											<div>{{ govukRadios({
-													name: "status",
-													fieldset: {
-														legend: {
-															text: "Status"
-														}
-													},
-													items: [
-														{
-															value: 'not_checked',
-															text: "Not checked"
-														},
-														{
-															value: 'checked',
-															text: "Checked"
-														},
-														{
-															value: 'ready_to_publish',
-															text: "Ready to publish"
-														},
-														{
-															value: 'do_not_publish',
-															text: "Do not publish"
-														}
-													]
-												}) }}</div>
-											<div>
-												{{ govukButton({ text: 'Apply changes' }) }}
-												<a href="." class="govuk-link govuk-link--no-visited-state">
-													Clear selected
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="govuk-grid-column-one-third">
-									<div class="pins-files-list__actions">
-										<p class="govuk-heading-s">Document actions</p>
-										<button type="button" class="govuk-link pins-files-list__button-link"
-												id="bulkDownload">Download selected
-										</button>
-										<a href="4" class="govuk-link">Unpublish selected</a>
-										<a href="5" class="govuk-link">Move selected</a>
-									</div>
-								</div>
-							</div>
+								<span class="display--sr-only">Manage Documents in this location</span>
+							</caption>
 
-							<div class="pins-files-list__info govuk-body">
-								<h3 class="govuk-heading-s">Select documents to make changes to statuses</h3>
-								<div class="pagination-info">
-									<p>This folder contains {{ documentationFiles.itemCount }} document(s).
-										Showing {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) + 1 }}
-										- {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) +  documentationFiles.items.length }}
-										document(s).</p>
-									<div>
-										{{ govukSelect({
-											id: "pageSize",
-											name: "pageSize",
-											label: {
-												text: "View"
-											},
-											items: pagination.dropdownItems
-										}) }}
-									</div>
-								</div>
-								<p>
-									<span id="selectedFilesNumber">0</span> document(s) selected
-								</p>
-							</div>
+							{{ folderActions(isS51folder) }}
 
-							<table class="govuk-table pins-files-list__table pins-table">
-								<thead class="govuk-table__head govuk-body-s">
-									<tr class="govuk-table__row">
-										<th scope="col" class="govuk-table__header">Select</th>
-										<th scope="col" class="govuk-table__header">Document information</th>
-										<th scope="col" class="govuk-table__header">Date received</th>
-										<th scope="col" class="govuk-table__header">Redaction</th>
-										<th scope="col" class="govuk-table__header">Status</th>
-										<th scope="col" class="govuk-table__header">Actions</th>
-									</tr>
-								</thead>
-								<tbody class="govuk-table__body govuk-body-s">
-									<tr class="govuk-table__row">
-										<td class="govuk-table__cell">
-											{{ govukCheckboxes({
-											name: "selectAll",
-											items: [
-												{
-													value: true,
-													text: 'Select all'
-												}]
-										}) }}
-										</td>
-										<td class="govuk-table__cell" colspan="5">
-											<p>Select all documents on page</p>
-										</td>
-									</tr>
-									{% for documentationFile in documentationFiles.items %}
-										{% set isNotDisabled = documentationFile.publishedStatus !== 'awaiting_upload' and documentationFile.publishedStatus !== 'awaiting_virus_check' and documentationFile.publishedStatus !== 'failed_virus_check' %}
-
-										<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if documentationFile.failed else "" }}">
-											<td class="govuk-table__cell">
-												{% if isNotDisabled %}
-													{{ govukCheckboxes({
-													name: "selectedFilesIds[]",
-													items: [
-														{
-															id: 'checkbox-id-' + documentationFile.documentGuid,
-															value: documentationFile.documentGuid,
-															text: documentationFile.fileName,
-															label: 'select ' + documentationFile.fileName
-														}]
-												}) }}
-												{% endif %}
-											</td>
-											<td class="govuk-table__cell">
-												{% if documentationFile.failed %}
-													<span class='govuk-body-s govuk-!-font-weight-bold colour--red'> You must fill in all mandatory document properties to publish a document </span>{% endif %}
-												{% set isPreviewActive = isNotDisabled and(documentationFile.mime === 'application/pdf' or documentationFile.mime === 'image/jpeg' or documentationFile.mime === 'image/png') %}
-												{{ createOptionalLink(
-												{
-													classes: 'govuk-body-s govuk-!-font-weight-bold',
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}),
-													text:documentationFile.fileName
-												},
-												isPreviewActive
-											) }}
-
-												<p class="file-info colour--secondary">
-												From: {{ documentationFile.author }}
-												</p>
-												<p class="file-info colour--secondary">
-												File type and size: {{ documentationFile.mime|fileType }},
-												{{ documentationFile.size|fileSize }}
-												</p>
-											</td>
-											<td class="govuk-table__cell">{{ documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}</td>
-											<td class="govuk-table__cell">{{ 'Redacted' if  documentationFile.redactedStatus === 'redacted' else 'Unredacted' }}</td>
-											<td class="govuk-table__cell">
-												{% set avWaiting = documentationFile.publishedStatus === 'awaiting_virus_check'%}
-												{% set avFailed = documentationFile.publishedStatus === 'failed_virus_check' %}
-												{% if isNotDisabled %}
-													{{ documentationFile.publishedStatus|statusName }}
-												{% else %}
-													{% if avWaiting %}
-														<strong class="govuk-tag govuk-tag--yellow">
-														{% elif avFailed %}
-															<strong class="govuk-tag govuk-tag--red">
-															{% else %}
-																<strong class="govuk-tag">
-																{% endif %}
-																{{ documentationFile.publishedStatus|statusName }}
-															</strong>
-														{% endif %}
-													</td>
-													<td class="govuk-table__cell">
-														{% if isNotDisabled %}
-															{{ createOptionalLink(
-												{
-													classes: 'govuk-body-s',
-													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}),
-													text:'View/Edit properties'
-												},
-												isNotDisabled
-											) }}
-
-															{{ createOptionalLink(
-												{
-													classes: 'govuk-body-s',
-													data: ['download-', documentationFile.documentGuid]|join,
-													href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}),
-													text:'Download'
-												},
-												isNotDisabled
-											) }}
-														{% endif %}
-													</td>
-												</tr>
-											{% endfor %}
-										</tbody>
-									</table>
-									{{ govukPagination(pagination.buttons) }}
-								</form>
+							{% if isS51folder %}
+								{{ folderS51Table(items, pagination) }}
+							{% else %}
+								{{ folderDocumentsTable(items, pagination, caseId, folderId) }}
 							{% endif %}
-						{% endif %}
-					{% endblock %}
-				</div>
-			</div>
-		{% endblock %}
 
-		{% macro createOptionalLink(params, isLink) %}
-			{% if isLink %}
-				{% set dataAction = ["data-action=", params.data]|join if params.data else "" %}
-				<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
-			{% else %}
-				<p class="{{ params.classes }}">{{ params.text }}
-				</p>
-			{% endif %}
-		{% endmacro %}
+							{{ govukPagination(pagination.buttons) }}
+						</form>
+					{% endif %}
+				{% endif %}
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

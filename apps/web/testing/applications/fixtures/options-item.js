@@ -61,7 +61,7 @@ export const fixtureDocumentationSingleFolder = {
 
 export const fixtureS51Folder = {
 	id: 21,
-	displayNameEn: 'S51 advice folder',
+	displayNameEn: 'S51 advice',
 	displayOrder: 100,
 	parentFolderId: 1,
 	caseId: 123
