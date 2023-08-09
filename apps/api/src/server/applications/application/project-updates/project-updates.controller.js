@@ -89,8 +89,8 @@ export async function getProjectUpdate(req, res) {
 	logger.debug({ caseId, projectUpdateId }, 'getProjectUpdate');
 
 	const result = await repository.getProjectUpdate(projectUpdateId);
-	// don't allow invalid requests where the project update is for another case
-	if (result === null || result.caseId !== caseId) {
+	// don't allow invalid requests where the project update is for another case, if specified
+	if (result === null || (!isNaN(caseId) && result.caseId !== caseId)) {
 		res.status(404).send(NotFound);
 	} else {
 		res.send(mapProjectUpdate(result));
