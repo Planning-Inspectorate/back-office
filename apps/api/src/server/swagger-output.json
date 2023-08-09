@@ -1910,6 +1910,41 @@
 				}
 			}
 		},
+		"/applications/project-updates/{projectUpdateId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get a project update by ID",
+				"parameters": [
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"schema": {
+							"$ref": "#/definitions/NotFound"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/project-updates": {
 			"get": {
 				"tags": ["Applications"],

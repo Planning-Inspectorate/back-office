@@ -67,6 +67,35 @@ router.get(
 );
 
 router.get(
+	'/project-updates/:projectUpdateId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/project-updates/{projectUpdateId}'
+        #swagger.description = 'Get a project update by ID'
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'The project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[404] = {
+            description: 'Not found',
+            schema: { $ref: '#/definitions/NotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateProjectUpdateId,
+	asyncHandler(controller.getProjectUpdate)
+);
+
+router.get(
 	'/:id/project-updates',
 	/*
         #swagger.tags = ['Applications']
