@@ -5,9 +5,10 @@ import api from '../back-office-api-client';
 import { jest } from '@jest/globals';
 
 describe('deadline-submission-command', () => {
-	beforeAll(() => {
+	beforeEach(() => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
+    api.lineItemExists = jest.fn().mockResolvedValue(true);
 	});
 
 	const mockContext = { log: jest.fn() };
