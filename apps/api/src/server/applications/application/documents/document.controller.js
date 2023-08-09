@@ -157,7 +157,9 @@ export const updateDocuments = async ({ body }, response) => {
 			// This is fine from a requirements perspective, but opens us up to race conditions
 			// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
 			// @ts-ignore
-			const { documentVersion } = await documentRepository.getByDocumentGUID(document.guid);
+			const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
+				document.guid
+			);
 
 			/**
 			 * @typedef {object} Updates
