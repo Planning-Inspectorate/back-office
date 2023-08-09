@@ -475,6 +475,17 @@ const lpaQuestionnaireIncompleteReasons = [
 	}
 ];
 
+const knowledgeOfOtherLandowners = [
+	{
+		id: 1,
+		name: 'Value 1'
+	},
+	{
+		id: 2,
+		name: 'Value 2'
+	}
+];
+
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @returns {SingleLPAQuestionnaireResponse}
@@ -705,13 +716,14 @@ export {
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,
-	householdAppealLPAQuestionnaireComplete,
 	fullPlanningAppealLPAQuestionnaireIncomplete,
+	householdAppealLPAQuestionnaireComplete,
 	householdAppeal,
 	householdAppealAppellantCaseIncomplete,
 	householdAppealAppellantCaseInvalid,
 	householdAppealAppellantCaseValid,
 	householdAppealLPAQuestionnaireIncomplete,
+	knowledgeOfOtherLandowners,
 	linkedAppeals,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,

@@ -480,6 +480,12 @@ const document = {
 				description: 'candidate special area of conservation',
 				id: 1
 			}
+		],
+		AllKnowledgeOfOtherLandownersResponse: [
+			{
+				name: 'Yes',
+				id: 1
+			}
 		]
 	},
 	components: {}
