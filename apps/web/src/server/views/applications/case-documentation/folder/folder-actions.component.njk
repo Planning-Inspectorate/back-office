@@ -1,0 +1,77 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro folderActions(isS51folder) %}
+
+	<div class="govuk-grid-row display--flex">
+		<div class="govuk-grid-column-two-thirds">
+			<div class="pins-files-list__statuses">
+				<h3 class="govuk-heading-s">Statuses</h3>
+				<div class="govuk-grid-row">
+					<div>{{ govukRadios({
+													name: "isRedacted",
+													fieldset: {
+														legend: {
+															text: "Redaction"
+														}
+													},
+													items: [
+														{
+															value: '0',
+															text: "Unredacted"
+														},
+														{
+															value: '1',
+															text: "Redacted"
+														}
+													]
+												}) }}</div>
+					<div>{{ govukRadios({
+													name: "status",
+													fieldset: {
+														legend: {
+															text: "Status"
+														}
+													},
+													items: [
+														{
+															value: 'not_checked',
+															text: "Not checked"
+														},
+														{
+															value: 'checked',
+															text: "Checked"
+														},
+														{
+															value: 'ready_to_publish',
+															text: "Ready to publish"
+														},
+														{
+															value: 'do_not_publish',
+															text: "Do not publish"
+														}
+													]
+												}) }}</div>
+					<div>
+						{{ govukButton({ text: 'Apply changes' }) }}
+						<a href="." class="govuk-link govuk-link--no-visited-state">
+													Clear selected
+												</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if not isS51folder %}
+			<div class="govuk-grid-column-one-third">
+				<div class="pins-files-list__actions">
+					<p class="govuk-heading-s">Document actions</p>
+					<button type="button" class="govuk-link pins-files-list__button-link"
+												id="bulkdownload">Download selected
+										</button>
+					<a href="4" class="govuk-link">Unpublish selected</a>
+					<a href="5" class="govuk-link">Move selected</a>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endmacro %}

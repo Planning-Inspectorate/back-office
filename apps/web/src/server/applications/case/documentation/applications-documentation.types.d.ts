@@ -13,7 +13,7 @@ export interface PaginationButtons {
 
 export interface CaseDocumentationProps {
 	subFolders: DocumentationCategory[] | null;
-	documentationFiles: PaginatedResponse<DocumentationFile>;
+	items: PaginatedResponse<DocumentationFile>;
 	pagination: {
 		dropdownItems: { value: number; text: number; selected: boolean }[];
 		buttons: PaginationButtons;

@@ -1,12 +1,15 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('./applications-s51.session.js').S51Advice} S51Advice */
+/** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
+/** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
+/** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
 /** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice } from './applications-s51.service.js';
+import { createS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import { paginationParams } from '../../../lib/pagination-params.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -21,16 +24,26 @@ const createS51Journey = {
 /**
  * Show pages for creating/editing s51 advice
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null}, {}, {}, {}, {step: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
-	response.render(`applications/case-documentation/folder/documentation-folder`);
+	const number = +(request.query.number || '1');
+	const size = request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : 50;
+
+	const s51Files = await getS51FilesInFolder(response.locals.caseId, number, size);
+
+	const pagination = paginationParams(size, number, s51Files.pageCount);
+
+	response.render(`applications/case-documentation/folder/documentation-folder`, {
+		items: s51Files,
+		pagination
+	});
 }
 
 /**
  * Show pages for creating/editing s51 advice
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null}, {}, {}, {}, {step: string}>}
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null}, {}, {}, {}, {step: string}>}
  */
 export async function viewApplicationsCaseS51CreatePage(request, response) {
 	const { session, params } = request;
@@ -42,7 +55,7 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
 /**
  * Refines the S51Advice data to display on the check your answers page
  *
- * @param { Partial<S51Advice> | null } data
+ * @param { Partial<S51AdviceForm> | null } data
  */
 const getCheckYourAnswersRows = (data) => {
 	if (!data) return {};
@@ -92,7 +105,7 @@ const getCheckYourAnswersRows = (data) => {
 /**
  * Save data for creating/editing s51 advice
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null, errors: ValidationErrors}, {}, Partial<S51Advice>, {}, {step: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {}>}
  */
 export async function updateApplicationsCaseS51CreatePage(request, response) {
 	const { errors, body, session, params } = request;
@@ -112,7 +125,7 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 /**
  * S51 advice - check your answers page
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51Advice> | null, documentationCategory: {id: string, displayNameEn: string}}, {}, {}, {}, {folderId: string}>}
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, documentationCategory: {id: string, displayNameEn: string}}, {}, {}, {}, {folderId: string}>}
  */
 export async function viewApplicationsCaseS51CheckYourAnswers(request, response) {
 	const { session, params } = request;
