@@ -40,7 +40,8 @@ export class Page {
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
-		xlHeader: '.govuk-heading-xl'
+		xlHeader: '.govuk-heading-xl',
+		caption: '.govuk-caption-m'
 	};
 
 	// E L E M E N T S
@@ -79,6 +80,7 @@ export class Page {
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Sign Out', {
 				matchCase: false
 			}),
+		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
 		tableCell: () => cy.get(this.selectors.tableCell),
@@ -147,6 +149,10 @@ export class Page {
 
 	fillTextArea(text, index = 0) {
 		this.basePageElements.textArea().eq(index).clear().type(text);
+	}
+
+	clearSearchResults() {
+		this.basePageElements.clearSearchResultsButton().click();
 	}
 
 	// A S S E R T I O N S

@@ -7,7 +7,7 @@ import { AppealsListPage } from '../../page_objects/appealsListPage';
 const page = new AppealsListPage();
 describe('Appeals feature', () => {
 	beforeEach(() => {
-		cy.login(users.inspector);
+		cy.login(users.appeals.caseAdmin);
 	});
 
 	it('Validate appellant case', () => {
