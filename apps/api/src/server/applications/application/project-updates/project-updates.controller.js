@@ -6,6 +6,7 @@ import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
 import {
 	createProjectUpdateService,
+	deleteProjectUpdateService,
 	updateProjectUpdateService
 } from './project-updates.service.js';
 import { NotFound } from '#utils/api-errors.js';
@@ -76,6 +77,26 @@ export async function patchProjectUpdate(req, res) {
 			res.status(400).send({ errors: { status: e.message } });
 		} else if (e instanceof UnsafeContentError) {
 			res.status(500).send({ errors: { content: e.message } });
+		} else {
+			throw e;
+		}
+	}
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export async function deleteProjectUpdate(req, res) {
+	const caseId = parseInt(req.params.id);
+	const projectUpdateId = parseInt(req.params.projectUpdateId);
+	logger.debug({ body: req.body, caseId, projectUpdateId }, 'deleteProjectUpdate');
+	try {
+		const update = await deleteProjectUpdateService(projectUpdateId);
+		res.status(204).send(update);
+	} catch (e) {
+		// handle status errors from the db transaction
+		if (e instanceof repository.ProjectUpdateDeleteError) {
+			res.status(400).send({ errors: { message: e.message } });
 		} else {
 			throw e;
 		}
