@@ -2,7 +2,7 @@ import { BlobStorageClient } from '@pins/blob-storage-client';
 import config from './config';
 import api from './back-office-api-client';
 
-const { storageUrl, submissionsContainer, uploadsContainer } = config;
+const { storageUrl, submissionsContainer } = config;
 
 /**
  *
@@ -29,25 +29,12 @@ export default async function (context, msg) {
 
 	const client = BlobStorageClient.fromUrl(storageUrl);
 
-	const destinationBlobName = `${msg.deadline}/${msg.submissionType}/${msg.blobGuid}/${msg.documentName}`;
+	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
-	const result = await client.copyFile({
-		sourceContainerName: submissionsContainer,
-		sourceBlobName: `${msg.blobGuid}/${msg.documentName}`,
-		destinationContainerName: uploadsContainer,
-		destinationBlobName
-	});
-
-	if (result !== 'success') {
-		// TODO: Publish failure message to service bus
-		context.log('Copying blob failed', result);
-	}
-
-	const properties = await client.getBlobProperties(uploadsContainer, destinationBlobName);
-
+	const properties = await client.getBlobProperties(submissionsContainer, sourceBlobName);
 	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
 
-	await api.submitDocument({
+	const { privateBlobContainer, documents } = await api.submitDocument({
 		caseID,
 		documentName: msg.documentName,
 		documentType: properties.contentType ?? 'application/octet-stream',
@@ -55,6 +42,23 @@ export default async function (context, msg) {
 		folderID,
 		userEmail: msg.email
 	});
+
+	if (documents.length === 0) {
+		context.log.error('No documents to process in response from API');
+		return;
+	}
+
+	const result = await client.copyFile({
+		sourceContainerName: submissionsContainer,
+		sourceBlobName,
+		destinationContainerName: privateBlobContainer,
+		destinationBlobName: documents[0].blobStoreUrl
+	});
+
+	if (result !== 'success') {
+		// TODO: Publish failure message to service bus
+		context.log('Copying blob failed', result);
+	}
 
 	context.log('Copied blob', result);
 }

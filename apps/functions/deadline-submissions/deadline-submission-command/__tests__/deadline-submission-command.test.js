@@ -8,7 +8,7 @@ describe('deadline-submission-command', () => {
 	beforeEach(() => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
-    api.lineItemExists = jest.fn().mockResolvedValue(true);
+		api.lineItemExists = jest.fn().mockResolvedValue(true);
 	});
 
 	const mockContext = { log: jest.fn() };
@@ -22,11 +22,15 @@ describe('deadline-submission-command', () => {
 	};
 
 	test('Happy path', async () => {
-		const mockSubmitDocument = jest.fn();
+		const mockSubmitDocument = jest.fn().mockResolvedValue({
+			privateBlobContainer: 'test-container',
+			documents: [{ blobStoreUrl: '/test/blob/url' }]
+		});
 		api.submitDocument = mockSubmitDocument;
 
+		const mockCopyFile = jest.fn();
 		BlobStorageClient.fromUrl = jest.fn().mockReturnValue({
-			copyFile: () => 'success',
+			copyFile: mockCopyFile,
 			getBlobProperties: () => ({
 				contentType: 'application/octet-stream',
 				contentLength: 1
@@ -43,6 +47,14 @@ describe('deadline-submission-command', () => {
 				documentSize: 1,
 				folderID: 1,
 				userEmail: mockMsg.email
+			})
+		);
+
+		expect(mockCopyFile).toHaveBeenCalledWith(
+			expect.objectContaining({
+				sourceBlobName: 'test-guid/test-name',
+				destinationContainerName: 'test-container',
+				destinationBlobName: '/test/blob/url'
 			})
 		);
 	});
