@@ -10,7 +10,6 @@ import {
 	validateProjectUpdateId,
 	validateUpdateProjectUpdate
 } from './project-updates.validators.js';
-import { notificationLogsRoutes } from './notification-logs/notification-logs.routes.js';
 
 const router = createRouter();
 
@@ -296,7 +295,5 @@ router.delete(
 	validateProjectUpdateId,
 	asyncHandler(controller.deleteProjectUpdate)
 );
-
-router.use('/', notificationLogsRoutes);
 
 export { router as projectUpdateRoutes };
