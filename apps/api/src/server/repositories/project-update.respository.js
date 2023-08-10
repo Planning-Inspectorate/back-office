@@ -50,7 +50,7 @@ export async function listProjectUpdates({
 	if (publishedBefore) {
 		where.datePublished = { lt: publishedBefore };
 	}
-	if (sentToSubscribers) {
+	if (typeof sentToSubscribers !== 'undefined') {
 		where.sentToSubscribers = sentToSubscribers;
 	}
 
