@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { body, param, query } from 'express-validator';
-import { validationErrorHandler } from '../../../middleware/error-handler.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 import sanitizeHtml from 'sanitize-html';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 

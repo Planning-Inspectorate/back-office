@@ -1846,6 +1846,108 @@
 				}
 			}
 		},
+		"/applications/{id}/project-updates/{projectUpdateId}/notification-logs": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "List notification logs",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Notification logs",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogList"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogListBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Add notification logs",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Logs to create",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogCreateRequest"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Created"
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/project-updates": {
 			"get": {
 				"tags": ["Applications"],
@@ -7412,6 +7514,125 @@
 							"type": "string"
 						}
 					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogList": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageSize": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"itemCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ProjectUpdateNotificationLog"
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
+						}
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogCreateRequest": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ProjectUpdateNotificationLog"
+			}
+		},
+		"ProjectUpdateNotificationLogCreateBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"[*].projectUpdateId": {
+							"type": "string",
+							"example": "projectUpdateId is required"
+						},
+						"[*].subscriptionId": {
+							"type": "string",
+							"example": "subscriptionId is required"
+						},
+						"[*].entryDate": {
+							"type": "string",
+							"example": "entryDate is required"
+						},
+						"[*].emailSent": {
+							"type": "string",
+							"example": "emailSent must be a boolean"
+						},
+						"[*].functionInvocationId": {
+							"type": "string",
+							"example": "functionInvocationId must be a string"
+						}
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLog": {
+			"type": "object",
+			"requiredProperties": [
+				"projectUpdateId",
+				"subscriptionId",
+				"entryDate",
+				"emailSent",
+				"functionInvocationId"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"projectUpdateId": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"subscriptionId": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"entryDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "the date this notification was handled",
+					"example": "2022-12-21T12:42:40.885Z"
+				},
+				"emailSent": {
+					"type": "boolean",
+					"description": "whether an email was successfully sent"
+				},
+				"functionInvocationId": {
+					"type": "string",
+					"description": "the ID of the Azure function run that handled this entry"
 				}
 			}
 		},
