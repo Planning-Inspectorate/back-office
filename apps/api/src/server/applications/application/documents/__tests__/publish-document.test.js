@@ -27,41 +27,39 @@ const documents = [
 		fileType: null,
 		isDeleted: false,
 		versionId: null,
-		documentVersion: [
-			{
-				documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-				version: 1,
-				lastModified: null,
-				documentType: '',
-				published: false,
-				sourceSystem: 'back-office',
-				stage: null,
-				origin: null,
-				originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-				fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-				representative: null,
-				description: null,
-				owner: null,
-				author: null,
-				securityClassification: null,
-				mime: 'image/png',
-				horizonDataID: null,
-				fileMD5: null,
-				privateBlobPath: null,
-				virusCheckStatus: null,
-				size: 4375,
-				filter1: null,
-				privateBlobContainer: null,
-				dateCreated: '2023-03-13T16:54:09.398Z',
-				datePublished: null,
-				isDeleted: false,
-				examinationRefNo: null,
-				filter2: null,
-				publishedStatus: 'awaiting_upload',
-				redactedStatus: null,
-				redacted: false
-			}
-		],
+		latestDocumentVersion: {
+			documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
+			version: 1,
+			lastModified: null,
+			documentType: '',
+			published: false,
+			sourceSystem: 'back-office',
+			stage: null,
+			origin: null,
+			originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
+			fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
+			representative: null,
+			description: null,
+			owner: null,
+			author: null,
+			securityClassification: null,
+			mime: 'image/png',
+			horizonDataID: null,
+			fileMD5: null,
+			privateBlobPath: null,
+			virusCheckStatus: null,
+			size: 4375,
+			filter1: null,
+			privateBlobContainer: null,
+			dateCreated: '2023-03-13T16:54:09.398Z',
+			datePublished: null,
+			isDeleted: false,
+			examinationRefNo: null,
+			filter2: null,
+			publishedStatus: 'awaiting_upload',
+			redactedStatus: null,
+			redacted: false
+		},
 		folder: {
 			id: 1,
 			displayNameEn: 'Project management',
@@ -89,7 +87,7 @@ describe('Ready-to-publish-documents', () => {
 		expect(response.status).toEqual(200);
 		expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 			include: {
-				documentVersion: true,
+				latestDocumentVersion: true,
 				folder: true
 			},
 			skip: 0,
@@ -101,11 +99,8 @@ describe('Ready-to-publish-documents', () => {
 			],
 			where: {
 				caseId: 1,
-				documentVersion: {
-					some: {
-						version: 1,
-						publishedStatus: 'ready_to_publish'
-					}
+				latestDocumentVersion: {
+					publishedStatus: 'ready_to_publish'
 				}
 			}
 		});
