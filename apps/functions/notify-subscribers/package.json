@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "start": "func start",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "run-local": "node notify-subscribers/run-local.js"
   },
   "dependencies": {
     "@pins/applications": "^0.0.0",
     "@pins/platform": "^0.0.0",
+    "docopt": "^0.6.2",
     "dotenv": "*",
     "got": "*",
     "joi": "*",
