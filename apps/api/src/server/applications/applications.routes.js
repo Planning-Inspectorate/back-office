@@ -22,11 +22,6 @@ import { projectUpdateNotificationLogsRoutes } from './application/project-updat
 
 const router = createRouter();
 
-router.use((req, res, next) => {
-	console.log('apps router', req.path);
-	next();
-});
-
 router.use('/case-team', caseTeamRoutes);
 
 router.use('/case-admin-officer', caseAdminOfficerRoutes);
