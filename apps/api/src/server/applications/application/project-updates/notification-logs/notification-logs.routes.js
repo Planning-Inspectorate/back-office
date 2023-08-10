@@ -98,4 +98,4 @@ router.post(
 	asyncHandler(controller.postNotificationLogs)
 );
 
-export { router as notificationLogsRoutes };
+export { router as projectUpdateNotificationLogsRoutes };
