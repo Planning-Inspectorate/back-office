@@ -39,6 +39,28 @@ export function mapAppealDetailsToAppealDetailsSummaryParameters(appealData) {
 
 /**
  *
+ * @param {import('@pins/express').Session} session
+ * @returns {import('./appellant-case/appellant-case.mapper.js').NotificationBannerComponentParameters[]}
+ */
+export function mapSessionDataToNotificationBannerParameters(session) {
+	const notificationBanners = [];
+
+	if (session.siteVisitTypeSelected) {
+		notificationBanners.push({
+			titleText: 'Success',
+			titleHeadingLevel: 3,
+			type: 'success',
+			text: 'Site visit type has been selected'
+		});
+
+		delete session.siteVisitTypeSelected;
+	}
+
+	return notificationBanners;
+}
+
+/**
+ *
  * @param {import('./appeal-details.types').Appeal} appealData
  * @returns {Object<string, SummaryListBuilderParameters>}
  */
@@ -194,10 +216,12 @@ function mapCaseTimetable(appealDetails) {
 			},
 			{
 				title: 'Site visit',
-				value: dateToDisplayDate(appealDetails.siteVisit?.visitDate),
+				value: appealDetails.siteVisit?.visitDate
+					? dateToDisplayDate(appealDetails.siteVisit?.visitDate)
+					: 'Not scheduled',
 				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
+				actionText: appealDetails.siteVisit?.visitDate ? 'Change' : 'Schedule',
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/schedule-visit`
 			}
 		]
 	};

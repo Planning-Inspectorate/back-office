@@ -18,17 +18,6 @@ exports[`appeal-details GET /:appealId should render the received appeal details
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-            data-module="govuk-notification-banner">
-                <div class="govuk-notification-banner__header">
-                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-                </div>
-                <div class="govuk-notification-banner__content">
-                    <p class="govuk-notification-banner__heading">LPA questionnaire is ready for review
-                        <br><a class="govuk-notification-banner__link" href="#">Review project documentation</a>
-                    </p>
-                </div>
-            </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
                     <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
@@ -196,8 +185,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                                    <dd class="govuk-summary-list__value"></dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site visit</span></a>
+                                    <dd class="govuk-summary-list__value"><span>Not scheduled</span>
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> Site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -268,17 +258,6 @@ exports[`appeal-details GET /:appealId should render the received appeal details
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-            data-module="govuk-notification-banner">
-                <div class="govuk-notification-banner__header">
-                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-                </div>
-                <div class="govuk-notification-banner__content">
-                    <p class="govuk-notification-banner__heading">LPA questionnaire is ready for review
-                        <br><a class="govuk-notification-banner__link" href="#">Review project documentation</a>
-                    </p>
-                </div>
-            </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
                     <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
@@ -442,8 +421,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                                    <dd class="govuk-summary-list__value"></dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site visit</span></a>
+                                    <dd class="govuk-summary-list__value"><span>Not scheduled</span>
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> Site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -514,17 +494,6 @@ exports[`appeal-details GET /:appealId should render the received appeal details
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-            data-module="govuk-notification-banner">
-                <div class="govuk-notification-banner__header">
-                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-                </div>
-                <div class="govuk-notification-banner__content">
-                    <p class="govuk-notification-banner__heading">LPA questionnaire is ready for review
-                        <br><a class="govuk-notification-banner__link" href="#">Review project documentation</a>
-                    </p>
-                </div>
-            </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
                     <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
@@ -690,8 +659,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                                    <dd class="govuk-summary-list__value"></dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site visit</span></a>
+                                    <dd class="govuk-summary-list__value"><span>Not scheduled</span>
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> Site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -762,17 +732,6 @@ exports[`appeal-details GET /:appealId should render the received appeal details
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-            data-module="govuk-notification-banner">
-                <div class="govuk-notification-banner__header">
-                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-                </div>
-                <div class="govuk-notification-banner__content">
-                    <p class="govuk-notification-banner__heading">LPA questionnaire is ready for review
-                        <br><a class="govuk-notification-banner__link" href="#">Review project documentation</a>
-                    </p>
-                </div>
-            </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
                     <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>

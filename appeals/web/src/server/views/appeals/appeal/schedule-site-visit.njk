@@ -1,0 +1,163 @@
+{%- extends "app/layouts/app.layout.njk" -%}
+
+{%- from "govuk/components/details/macro.njk" import govukDetails -%}
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
+{%- from "../../app/components/time-input.njk" import govukTimeInput -%}}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = "Schedule site visit - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- set siteDetailsHtml -%}
+	{{ appeal.appellantName }}<br>
+	{{ appeal.siteAddress}}<br>
+{%- endset -%}
+
+{%- set detailsHtml -%}
+	{{ govukSummaryList({
+		classes: 'govuk-summary-list--no-border',
+		rows: [
+			{
+				key: {
+					text: "Site address"
+				},
+				value: {
+					text: appeal.siteAddress
+				}
+			},
+			{
+				key: {
+					text: "Potential safety risks"
+				},
+				value: {
+					text: appeal.potentialSafetyRisks
+				}
+			},
+			{
+				key: {
+					text: "Site details 1"
+				},
+				value: {
+					html: siteDetailsHtml
+				}
+			}
+		]
+	}) }}
+{%- endset -%}
+
+{%- set selectTimeHtml -%}
+	<h2>Select a time</h2>
+	<p class="govuk-body">Time is optional for unaccompanied site visits</p>
+	<p class="govuk-body">Enter a time, for example 9:00 or 16:30</p>
+	<fieldset class="govuk-fieldset govuk-!-margin-top-4">
+		<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
+		<div class="govuk-form-group govuk-!-margin-bottom-4">
+			{{ govukTimeInput({
+				id: 'visit-start-time',
+				hour: {
+					value: siteVisit.visitStartTimeHour
+				},
+				minute: {
+					value: siteVisit.visitStartTimeMinute
+				}
+			}) }}
+		</div>
+		<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>
+		<div class="govuk-form-group">
+			{{ govukTimeInput({
+				id: 'visit-end-time',
+				hour: {
+					value: siteVisit.visitEndTimeHour
+				},
+				minute: {
+					value: siteVisit.visitEndTimeMinute
+				}
+			}) }}
+		</div>
+	</fieldset>
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Schedule site visit</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate">
+		{{ govukDetails({
+			summaryText: "Relevant information",
+			html: detailsHtml
+		}) }}
+		{{ govukRadios({
+			name: "visit-type",
+			fieldset: {
+				legend: {
+					text: "Select visit type",
+					classes: "govuk-fieldset__legend--m"
+				}
+			},
+			items: [
+				{
+					value: "unaccompanied",
+					text: "Unaccompanied",
+					checked: siteVisit.visitType === "unaccompanied"
+				},
+				{
+					value: "accessRequired",
+					text: "Access required",
+					checked: siteVisit.visitType === "accessRequired"
+				},
+				{
+					value: "accompanied",
+					text: "Accompanied",
+					checked: siteVisit.visitType === "accompanied"
+				}
+			]
+		}) }}
+		{{ govukDateInput({
+			id: "visit-date",
+			namePrefix: "visit-date",
+			fieldset: {
+				legend: {
+					text: "Select a date",
+					classes: "govuk-fieldset__legend--m"
+				}
+			},
+			hint: {
+				text: "For example, 27 3 2023"
+			},
+			items: [
+				{
+					classes: "govuk-input govuk-date-input__input govuk-input--width-2",
+					name: "day",
+					value: siteVisit.visitDateDay if siteVisit.visitDateDay else ''
+				},
+				{
+					classes: "govuk-input govuk-date-input__input govuk-input--width-2",
+					name: "month",
+					value: siteVisit.visitDateMonth if siteVisit.visitDateMonth else ''
+				},
+				{
+					classes: "govuk-input govuk-date-input__input govuk-input--width-4",
+					name: "year",
+					value: siteVisit.visitDateYear if siteVisit.visitDateYear else ''
+				}
+			]
+		}) }}
+		{{ selectTimeHtml | safe }}
+		{{ govukButton({
+			text: "Schedule site visit",
+			type: "submit",
+			classes: "govuk-!-margin-top-3"
+		}) }}
+	</form>
+{%- endblock -%}
