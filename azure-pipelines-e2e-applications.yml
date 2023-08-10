@@ -5,16 +5,10 @@ parameters:
     values:
       - 'dev'
       - 'test'
-  - name: APP
-    type: string
-    default: 'applications'
-    values:
-      - 'applications'
-      - 'appeals'
 
 variables:
   - name: APP
-    value: ${{ parameters.APP }}
+    value: 'applications'
   - group: e2e-${{ parameters.Environment }}
 
 pr:
@@ -23,11 +17,11 @@ pr:
       - main
   paths:
     include:
-      - apps/e2e
+      - apps/e2e/cypress/e2e/back-office-applications
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests
+  - job: Run_Cypress_Tests_For_Applications
     pool:
       vmImage: "ubuntu-latest"
 
