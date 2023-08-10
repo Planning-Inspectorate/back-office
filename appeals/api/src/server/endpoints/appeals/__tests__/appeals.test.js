@@ -414,7 +414,7 @@ describe('appeals routes', () => {
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
-							dueDate: null
+							dueDate: householdAppeal.dueDate
 						},
 						lpaQuestionnaire: {
 							dueDate: '2023-05-16T01:00:00.000Z',
@@ -508,7 +508,7 @@ describe('appeals routes', () => {
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
-							dueDate: null
+							dueDate: fullPlanningAppeal.dueDate
 						},
 						lpaQuestionnaire: {
 							dueDate: '2023-05-16T01:00:00.000Z',
