@@ -46,3 +46,13 @@ flowchart TB
 
     style foreachSub fill:#eee8d5    
 ```
+
+## Dev Setup
+
+Testing Azure Functions that are triggered by Service Bus locally is tricky, generally involving connecting to a real Service Bus instance. To get around this, there is a script to run locally (against a running API) to emulate the function trigger. Run this with:
+
+`npm run run-local <update-id> <case-reference>`
+
+The `<update-id>` should exist int he running API/DB, and should be `published` status. There should also be some subscribers for that update for it to actually try and send an emails.
+
+See `notify-subscribers/src/config.js` to see which configure variables are required in the `.env` file to run too (which should be in the project root, same level as this README).
