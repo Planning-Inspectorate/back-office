@@ -67,8 +67,14 @@ export class NotifySubscribers {
 		if (!this.messageIsValid()) {
 			return;
 		}
-		// get the update from the API, so we can check the type
-		this.update = await this.getUpdate();
+		const update = await this.getUpdate();
+
+		if (update === null) {
+			this.logger.error(`update doesn't exist with ID '${this.msg.id}'`);
+			return;
+		}
+
+		this.update = update;
 
 		if (!this.update.emailSubscribers) {
 			this.logger.warn('emailSubscribers == false');

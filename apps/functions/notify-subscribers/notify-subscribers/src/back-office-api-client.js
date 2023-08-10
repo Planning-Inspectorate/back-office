@@ -1,4 +1,4 @@
-import got from 'got';
+import got, { HTTPError } from 'got';
 import querystring from 'querystring';
 
 /**
@@ -9,17 +9,26 @@ export class BackOfficeApiClient {
 	 * @param {string} apiHost
 	 */
 	constructor(apiHost) {
-		this.baseUrl = `https://${apiHost}`;
+		this.baseUrl = apiHost;
 	}
 
 	/**
-	 * Get project updates from the API
+	 * Get project updates from the API, or null if not found
 	 *
 	 * @param {number} id
-	 * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+	 * @returns {Promise<import('@pins/applications').ProjectUpdate|null>}
 	 */
-	getProjectUpdate(id) {
-		return got.get(`${this.baseUrl}/applications/project-updates/${id}`).json();
+	async getProjectUpdate(id) {
+		try {
+			return await got.get(`${this.baseUrl}/applications/project-updates/${id}`).json();
+		} catch (e) {
+			if (e instanceof HTTPError) {
+				if (e.response.statusCode === 404) {
+					return null;
+				}
+			}
+			throw e;
+		}
 	}
 
 	/**
