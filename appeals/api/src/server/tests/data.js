@@ -392,14 +392,14 @@ const otherAppeals = [
 	}
 ];
 
-const appellantCaseIncompleteReasons = [
+const lookupListData = [
 	{
 		id: 1,
-		name: 'Reason 1'
+		name: 'Value 1'
 	},
 	{
 		id: 2,
-		name: 'Reason 2'
+		name: 'Value 2'
 	},
 	{
 		id: 3,
@@ -407,20 +407,13 @@ const appellantCaseIncompleteReasons = [
 	}
 ];
 
-const appellantCaseInvalidReasons = [
-	{
-		id: 1,
-		name: 'Reason 1'
-	},
-	{
-		id: 2,
-		name: 'Reason 2'
-	},
-	{
-		id: 3,
-		name: 'Other'
-	}
-];
+const appellantCaseIncompleteReasons = lookupListData;
+const appellantCaseInvalidReasons = lookupListData;
+const lpaQuestionnaireIncompleteReasons = lookupListData;
+const knowledgeOfOtherLandowners = lookupListData;
+const lpaNotificationMethods = lookupListData;
+const planningObligationStatuses = lookupListData;
+const procedureTypes = lookupListData;
 
 const designatedSites = [
 	{
@@ -458,54 +451,6 @@ const lpaQuestionnaireValidationOutcomes = [
 	{
 		id: 2,
 		name: VALIDATION_OUTCOME_INCOMPLETE
-	}
-];
-
-const lpaQuestionnaireIncompleteReasons = [
-	{
-		id: 1,
-		name: 'Reason 1'
-	},
-	{
-		id: 2,
-		name: 'Reason 2'
-	},
-	{
-		id: 3,
-		name: 'Other'
-	}
-];
-
-const knowledgeOfOtherLandowners = [
-	{
-		id: 1,
-		name: 'Value 1'
-	},
-	{
-		id: 2,
-		name: 'Value 2'
-	}
-];
-
-const lpaNotificationMethods = [
-	{
-		id: 1,
-		name: 'Method 1'
-	},
-	{
-		id: 2,
-		name: 'Method 2'
-	}
-];
-
-const planningObligationStatuses = [
-	{
-		id: 1,
-		name: 'Status 1'
-	},
-	{
-		id: 2,
-		name: 'Status 2'
 	}
 ];
 
@@ -752,5 +697,6 @@ export {
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals,
-	planningObligationStatuses
+	planningObligationStatuses,
+	procedureTypes
 };
