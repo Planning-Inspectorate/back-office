@@ -1931,7 +1931,19 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Created"
+						"description": "Created",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"count": {
+									"type": "number",
+									"example": 1
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					},
 					"400": {
 						"description": "Bad request",

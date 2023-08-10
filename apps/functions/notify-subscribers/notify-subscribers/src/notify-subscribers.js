@@ -19,8 +19,8 @@ export class NotifySubscribers {
 	msg;
 	/** @type {import('@azure/functions').Logger}  */
 	logger;
-	/** @type {import('@pins/applications').ProjectUpdate|undefined} */
-	update;
+	/** @type {string}  */
+	invocationId;
 	/** @type {number} */
 	perPage;
 	/** @type {number} */
@@ -35,6 +35,7 @@ export class NotifySubscribers {
 	 * @param {string} opts.templateId
 	 * @param {NSIPProjectUpdate} opts.msg
 	 * @param {import('@azure/functions').Logger} opts.logger
+	 * @param {string} opts.invocationId
 	 * @param {number} opts.perPage
 	 * @param {number} opts.waitPerPage
 	 * @param {import('./types.js').GenerateUnsubscribeLink} opts.generateUnsubscribeLink
@@ -45,6 +46,7 @@ export class NotifySubscribers {
 		templateId,
 		msg,
 		logger,
+		invocationId,
 		perPage,
 		waitPerPage,
 		generateUnsubscribeLink
@@ -54,6 +56,7 @@ export class NotifySubscribers {
 		this.templateId = templateId;
 		this.msg = msg;
 		this.logger = logger;
+		this.invocationId = invocationId;
 		this.perPage = perPage;
 		this.waitPerPage = waitPerPage;
 		this.generateUnsubscribeLink = generateUnsubscribeLink;
@@ -74,28 +77,27 @@ export class NotifySubscribers {
 			return;
 		}
 
-		this.update = update;
-
-		if (!this.update.emailSubscribers) {
-			this.logger.info('update (id ${this.update.id}) emailSubscribers == false');
+		if (!update.emailSubscribers) {
+			this.logger.info(`update (id ${update.id}) emailSubscribers == false`);
 			return;
 		}
 
-		if (this.update.sentToSubscribers) {
-			this.logger.info('update (id ${this.update.id}) already sent to subscribers');
+		if (update.sentToSubscribers) {
+			this.logger.info(`update (id ${update.id}) already sent to subscribers`);
 			return;
 		}
 
 		// just to be sure
-		if (this.update.status !== ProjectUpdate.Status.published) {
-			throw new Error(`update (id ${this.update.id}) is no longer published`);
+		if (update.status !== ProjectUpdate.Status.published) {
+			throw new Error(`update (id ${update.id}) is no longer published`);
 		}
 		// update sentToSubscribers early, to reduce changes of handling notify twice
-		await this.apiClient.patchProjectUpdate(this.update.id, this.update.caseId, true);
+		await this.apiClient.patchProjectUpdate(update.id, update.caseId, true);
 
-		const content = NotifySubscribers.htmlToMarkdown(this.update.htmlContent);
-		const subscriptionType = NotifySubscribers.subscriptionType(this.update.type);
+		const content = NotifySubscribers.htmlToMarkdown(update.htmlContent);
+		const subscriptionType = NotifySubscribers.subscriptionType(update.type);
 		await this.notifySubscribers({
+			update,
 			content,
 			subscriptionType,
 			caseReference: this.msg.caseReference
@@ -106,11 +108,12 @@ export class NotifySubscribers {
 	 * Fetch all subscribers (a page at a time) and send an email to each one
 	 *
 	 * @param {Object} opts
+	 * @param {import('@pins/applications').ProjectUpdate} opts.update
 	 * @param {string} opts.content
 	 * @param {string} opts.subscriptionType
 	 * @param {string} opts.caseReference
 	 */
-	async notifySubscribers({ content, subscriptionType, caseReference }) {
+	async notifySubscribers({ update, content, subscriptionType, caseReference }) {
 		const subscriptions = new PagedRequest(this.perPage, (page, pageSize) => {
 			return this.apiClient.getSubscriptions(page, pageSize, {
 				caseReference,
@@ -118,17 +121,25 @@ export class NotifySubscribers {
 			});
 		});
 		let total = 0;
+		let pageCount = 0;
 
 		// do one page at a time
 		for await (const page of subscriptions) {
-			// notify all subscribers (per page) in parrallel
 			total += page.items.length;
-			this.logger.info(`processing ${page.items.length} subscribers (running total: ${total})`);
-			await Promise.all(
+			pageCount++;
+			this.logger.info(
+				`processing ${page.items.length} subscribers (running total: ${total}, page ${pageCount})`
+			);
+
+			// notify all subscribers (per page) in parrallel
+			const logs = await Promise.all(
 				page.items.map((subscription) =>
-					this.notifySubscriber(subscription, content, caseReference)
+					this.notifySubscriber(update, subscription, content, caseReference)
 				)
 			);
+
+			// save the logs for this page
+			await this.apiClient.postNotificationLogs(update.id, update.caseId, logs);
 
 			// wait between pages
 			// see https://docs.notifications.service.gov.uk/rest-api.html#rate-limits
@@ -140,13 +151,25 @@ export class NotifySubscribers {
 	/**
 	 * Send an email individual subscriber
 	 *
+	 * @param {import('@pins/applications').ProjectUpdate} update
 	 * @param {import('@pins/applications').Subscription} subscription
 	 * @param {string} content
 	 * @param {string} caseReference
+	 * @returns {Promise<import('@pins/applications').ProjectUpdateNotificationLogCreateReq>}
 	 */
-	async notifySubscriber(subscription, content, caseReference) {
+	async notifySubscriber(update, subscription, content, caseReference) {
+		if (!subscription.id) {
+			throw new Error(`no subscription ID`);
+		}
+		const logEntry = {
+			emailSent: false,
+			entryDate: new Date().toISOString(),
+			functionInvocationId: this.invocationId,
+			projectUpdateId: update.id,
+			subscriptionId: subscription.id
+		};
 		try {
-			const reference = [caseReference, this.update?.id, subscription.id].join('-');
+			const reference = [caseReference, update.id, subscription.id].join('-');
 			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
@@ -160,10 +183,11 @@ export class NotifySubscribers {
 				},
 				reference
 			});
+			logEntry.emailSent = true;
 		} catch (e) {
 			this.logger.warn(`notify error: ${e.message}`, { error: e });
 		}
-		// TODO: record send/fail in DB
+		return logEntry;
 	}
 
 	/**

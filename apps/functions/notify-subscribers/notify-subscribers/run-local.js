@@ -24,7 +24,10 @@ async function run() {
 	log.verbose = console.log;
 
 	await runFunc(
-		{ log },
+		{
+			log,
+			invocationId: 'invoc-1'
+		},
 		{
 			caseReference,
 			id: updateId,
