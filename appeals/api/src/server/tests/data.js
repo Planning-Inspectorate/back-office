@@ -497,6 +497,17 @@ const lpaNotificationMethods = [
 	}
 ];
 
+const planningObligationStatuses = [
+	{
+		id: 1,
+		name: 'Status 1'
+	},
+	{
+		id: 2,
+		name: 'Status 2'
+	}
+];
+
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @returns {SingleLPAQuestionnaireResponse}
@@ -739,5 +750,6 @@ export {
 	lpaNotificationMethods,
 	lpaQuestionnaireIncompleteReasons,
 	lpaQuestionnaireValidationOutcomes,
-	otherAppeals
+	otherAppeals,
+	planningObligationStatuses
 };
