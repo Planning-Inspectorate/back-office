@@ -70,21 +70,28 @@ export class NotifySubscribers {
 		const update = await this.getUpdate();
 
 		if (update === null) {
-			this.logger.error(`update doesn't exist with ID '${this.msg.id}'`);
+			this.logger.error(`update (id ${this.msg.id}) doesn't exist with`);
 			return;
 		}
 
 		this.update = update;
 
 		if (!this.update.emailSubscribers) {
-			this.logger.warn('emailSubscribers == false');
+			this.logger.info('update (id ${this.update.id}) emailSubscribers == false');
+			return;
+		}
+
+		if (this.update.sentToSubscribers) {
+			this.logger.info('update (id ${this.update.id}) already sent to subscribers');
 			return;
 		}
 
 		// just to be sure
 		if (this.update.status !== ProjectUpdate.Status.published) {
-			throw new Error(`update is no longer published`);
+			throw new Error(`update (id ${this.update.id}) is no longer published`);
 		}
+		// update sentToSubscribers early, to reduce changes of handling notify twice
+		await this.apiClient.patchProjectUpdate(this.update.id, this.update.caseId, true);
 
 		const content = NotifySubscribers.htmlToMarkdown(this.update.htmlContent);
 		const subscriptionType = NotifySubscribers.subscriptionType(this.update.type);
@@ -186,7 +193,7 @@ export class NotifySubscribers {
 	}
 
 	/**
-	 * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+	 * @returns {Promise<import('@pins/applications').ProjectUpdate|null>}
 	 */
 	getUpdate() {
 		return this.apiClient.getProjectUpdate(this.msg.id);

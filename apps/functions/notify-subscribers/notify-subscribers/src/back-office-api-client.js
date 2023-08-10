@@ -32,6 +32,22 @@ export class BackOfficeApiClient {
 	}
 
 	/**
+	 * Patch a project update, to update sentToSubscribers
+	 *
+	 * @param {number} id
+	 * @param {number} caseId
+	 * @param {boolean} sentToSubscribers
+	 * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+	 */
+	async patchProjectUpdate(id, caseId, sentToSubscribers) {
+		return got
+			.patch(`${this.baseUrl}/applications/${caseId}/project-updates/${id}`, {
+				json: { sentToSubscribers }
+			})
+			.json();
+	}
+
+	/**
 	 * Get project updates from the API
 	 *
 	 * @param {number} page
