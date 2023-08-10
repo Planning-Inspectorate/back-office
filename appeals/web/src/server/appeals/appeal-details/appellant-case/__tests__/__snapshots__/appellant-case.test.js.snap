@@ -188,7 +188,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
                         <dd class="govuk-summary-list__value"><span>incomplete</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Incomplete reasons</dt>
@@ -206,7 +206,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                                 <li>Statement of case and ground of appeal are missing</li>
                             </ul>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/incomplete"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -228,7 +228,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
                         <dd class="govuk-summary-list__value"><span>invalid</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Invalid reasons</dt>
@@ -239,7 +239,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                                 <li>The appellant doesn't have the right to appeal</li>
                             </ul>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Invalid reasons</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/invalid"> Change<span class="govuk-visually-hidden"> Invalid reasons</span></a>
                         </dd>
                     </div>
                 </dl>
