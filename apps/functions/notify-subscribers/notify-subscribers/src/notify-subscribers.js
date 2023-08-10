@@ -140,12 +140,16 @@ export class NotifySubscribers {
 	async notifySubscriber(subscription, content, caseReference) {
 		try {
 			const reference = [caseReference, this.update?.id, subscription.id].join('-');
-			const unsubscribe = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
+			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
+					// todo: project name & link ?
+					projectName: caseReference,
+					// todo: what should these be?
+					title: 'Project Update Notification',
+					subject: 'Project Update Notification',
 					content,
-					unsubscribe
-					// todo: project link
+					unsubscribeUrl
 				},
 				reference
 			});
