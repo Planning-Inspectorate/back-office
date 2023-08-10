@@ -504,6 +504,12 @@ const document = {
 				name: 'Finalised',
 				id: 1
 			}
+		],
+		AllProcedureTypesResponse: [
+			{
+				name: 'Hearing',
+				id: 1
+			}
 		]
 	},
 	components: {}
