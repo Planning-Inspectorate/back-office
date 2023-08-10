@@ -16,6 +16,7 @@ import { lpaNotificationMethodsRoutes } from './lpa-notification-methods/lpa-not
 import { lpaQuestionnaireValidationOutcomesRoutes } from './lpa-questionnaire-validation-outcomes/lpa-questionnaire-validation-outcomes.routes.js';
 import { planningObligationStatusesRoutes } from './planning-obligation-statuses/planning-obligation-statuses.routes.js';
 import { procedureTypesRoutes } from './procedure-types/procedure-types.routes.js';
+import { scheduleTypesRoutes } from './schedule-types/schedule-types.routes.js';
 
 const router = createRouter();
 
@@ -35,6 +36,7 @@ router.use(lpaQuestionnairesRoutes);
 router.use(lpaQuestionnaireValidationOutcomesRoutes);
 router.use(planningObligationStatusesRoutes);
 router.use(procedureTypesRoutes);
+router.use(scheduleTypesRoutes);
 router.use(siteVisitRoutes);
 router.use(appealsRoutes);
 

@@ -414,6 +414,7 @@ const knowledgeOfOtherLandowners = lookupListData;
 const lpaNotificationMethods = lookupListData;
 const planningObligationStatuses = lookupListData;
 const procedureTypes = lookupListData;
+const scheduleTypes = lookupListData;
 
 const designatedSites = [
 	{
@@ -698,5 +699,6 @@ export {
 	lpaQuestionnaireValidationOutcomes,
 	otherAppeals,
 	planningObligationStatuses,
-	procedureTypes
+	procedureTypes,
+	scheduleTypes
 };

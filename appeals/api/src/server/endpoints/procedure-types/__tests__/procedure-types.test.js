@@ -10,13 +10,10 @@ describe('procedure types routes', () => {
 	describe('/appeals/procedure-types', () => {
 		describe('GET', () => {
 			test('gets procedure types', async () => {
-				console.log({ procedureTypes });
 				// @ts-ignore
 				databaseConnector.procedureType.findMany.mockResolvedValue(procedureTypes);
 
 				const response = await request.get('/appeals/procedure-types');
-
-				console.log(response.body);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(procedureTypes);
