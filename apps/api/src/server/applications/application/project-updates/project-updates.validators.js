@@ -81,6 +81,10 @@ export const validateUpdateProjectUpdate = composeMiddleware(
 		.withMessage('type must be a string')
 		.isIn(ProjectUpdate.TypesList)
 		.withMessage(typesError),
+	body('sentToSubscribers')
+		.optional()
+		.isBoolean()
+		.withMessage('sentToSubscribers must be a boolean'),
 	validationErrorHandler
 );
 

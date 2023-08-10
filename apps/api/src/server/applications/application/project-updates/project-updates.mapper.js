@@ -142,6 +142,9 @@ export function projectUpdateUpdateReq(body) {
 	if (body.type) {
 		updateReq.type = body.type;
 	}
+	if (body.sentToSubscribers) {
+		updateReq.sentToSubscribers = Boolean(body.sentToSubscribers);
+	}
 
 	return updateReq;
 }
