@@ -14,14 +14,6 @@
 {% set backLinkUrl = '/appeals-service/appeals-list' %}
 {% set backLinkText = 'Back to National list' %}
 
-{%- set notificationBannerHtml -%}
-	<p class="govuk-notification-banner__heading">
-		LPA questionnaire is ready for review
-		<br />
-		<a class="govuk-notification-banner__link" href="#">Review project documentation</a>
-	</p>
-{%- endset -%}
-
 {%- set caseOverviewHtml -%}
 	{{ govukSummaryList(summaryLists.caseOverview) }}
 {%- endset -%}
@@ -54,13 +46,9 @@
 {%- endset -%}
 
 {%- block pageHeading -%}
-	{{
-		govukNotificationBanner({
-			titleText: "Important",
-			titleHeadingLevel: 3,
-			html: notificationBannerHtml
-		})
-	}}
+	{%- for notificationBanner in notificationBanners -%}
+		{{ govukNotificationBanner(notificationBanner) }}
+	{%- endfor -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{appeal.shortReference}}</span>

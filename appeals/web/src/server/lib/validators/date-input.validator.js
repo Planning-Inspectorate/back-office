@@ -1,45 +1,101 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import { dateIsValid } from '../dates.js';
+import { capitalize } from 'lodash-es';
 
-export const createDateInputValidator = (fieldNamePrefix = 'date') =>
+export const createDateInputValidator = (
+	fieldNamePrefix = 'date',
+	messageFieldNamePrefix = 'date'
+) =>
 	createValidator(
 		body(`${fieldNamePrefix}-day`)
 			.trim()
 			.notEmpty()
-			.withMessage('Day cannot be empty')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}day cannot be empty`
+				)
+			)
 			.bail()
 			.isInt()
-			.withMessage('Day must be a number')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}day must be a number`
+				)
+			)
 			.bail()
 			.isLength({ min: 1, max: 2 })
-			.withMessage('Day must be 1 or 2 digits')
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}day must be 1 or 2 digits`
+				)
+			)
 			.bail()
 			.matches(/^0?[1-9]$|^1\d$|^2\d$|^3[01]$/)
-			.withMessage('Day must be between 1 and 31'),
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}day must be between 1 and 31`
+				)
+			),
 		body(`${fieldNamePrefix}-month`)
 			.trim()
 			.notEmpty()
-			.withMessage('Month cannot be empty')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}month cannot be empty`
+				)
+			)
 			.bail()
 			.isInt()
-			.withMessage('Month must be a number')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}month must be a number`
+				)
+			)
 			.bail()
 			.isLength({ min: 1, max: 2 })
-			.withMessage('Month must be 1 or 2 digits')
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}month must be 1 or 2 digits`
+				)
+			)
 			.bail()
 			.matches(/^0?[1-9]$|^1[0-2]$/)
-			.withMessage('Month must be between 1 and 12'),
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}month must be between 1 and 12`
+				)
+			),
 		body(`${fieldNamePrefix}-year`)
 			.trim()
 			.notEmpty()
-			.withMessage('Year cannot be empty')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}year cannot be empty`
+				)
+			)
 			.bail()
 			.isInt()
-			.withMessage('Year must be a number')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}year must be a number`
+				)
+			)
 			.bail()
 			.isLength({ min: 4, max: 4 })
-			.withMessage('Year must be 4 digits'),
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}year must be 4 digits`
+				)
+			),
 		body()
 			.custom((bodyFields) => {
 				const day = bodyFields[`${fieldNamePrefix}-day`];
@@ -56,5 +112,9 @@ export const createDateInputValidator = (fieldNamePrefix = 'date') =>
 
 				return dateIsValid(yearNumber, monthNumber, dayNumber);
 			})
-			.withMessage('Please enter a valid date')
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}must be a valid date`
+				)
+			)
 	);
