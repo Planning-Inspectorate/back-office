@@ -25,6 +25,8 @@ export class NotifySubscribers {
 	perPage;
 	/** @type {number} */
 	waitPerPage;
+	/** @type {import('./types.js').GenerateProjectLink} */
+	generateProjectLink;
 	/** @type {import('./types.js').GenerateUnsubscribeLink} */
 	generateUnsubscribeLink;
 	/**
@@ -38,6 +40,7 @@ export class NotifySubscribers {
 	 * @param {string} opts.invocationId
 	 * @param {number} opts.perPage
 	 * @param {number} opts.waitPerPage
+	 * @param {import('./types.js').GenerateProjectLink} opts.generateProjectLink
 	 * @param {import('./types.js').GenerateUnsubscribeLink} opts.generateUnsubscribeLink
 	 */
 	constructor({
@@ -49,6 +52,7 @@ export class NotifySubscribers {
 		invocationId,
 		perPage,
 		waitPerPage,
+		generateProjectLink,
 		generateUnsubscribeLink
 	}) {
 		this.apiClient = apiClient;
@@ -59,6 +63,7 @@ export class NotifySubscribers {
 		this.invocationId = invocationId;
 		this.perPage = perPage;
 		this.waitPerPage = waitPerPage;
+		this.generateProjectLink = generateProjectLink;
 		this.generateUnsubscribeLink = generateUnsubscribeLink;
 	}
 
@@ -170,14 +175,16 @@ export class NotifySubscribers {
 		};
 		try {
 			const reference = [caseReference, update.id, subscription.id].join('-');
+			const projectLink = this.generateProjectLink(caseReference);
 			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
 					// todo: project name & link ?
 					projectName: caseReference,
+					projectLink,
 					// todo: what should these be?
-					title: 'Project Update Notification',
-					subject: 'Project Update Notification',
+					title: `${caseReference} - Project Update`,
+					subject: `${caseReference} - Project Update Notification`,
 					content,
 					unsubscribeUrl
 				},

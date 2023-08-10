@@ -60,8 +60,14 @@ describe('notify-subscribers', () => {
 							type: 'general'
 						};
 					},
+					patchProjectUpdate(id) {
+						return this.getProjectUpdate(id);
+					},
 					async getSubscriptions(page, pageSize) {
 						return { page, pageSize, pageCount: 1, items: subs, itemCount: subs.length };
+					},
+					async postNotificationLogs() {
+						return { count: 1 };
 					}
 				},
 				logger: contextLog(),
@@ -70,6 +76,9 @@ describe('notify-subscribers', () => {
 				perPage: 100,
 				templateId: '',
 				waitPerPage: 0,
+				generateProjectLink() {
+					return 'link';
+				},
 				generateUnsubscribeLink() {
 					return 'link';
 				}
@@ -88,7 +97,7 @@ describe('notify-subscribers', () => {
 			},
 			{
 				name: 'emails a subscriber',
-				notify: newNotify([{ emailAddress: 'hello@example.com' }], {
+				notify: newNotify([{ id: 1, emailAddress: 'hello@example.com' }], {
 					updateStatus: 'published',
 					updateContentEnglish: 'My Update',
 					caseReference: 'abc-123'
@@ -97,7 +106,7 @@ describe('notify-subscribers', () => {
 			},
 			{
 				name: 'emails each subscriber',
-				notify: newNotify(new Array(20).fill({ emailAddress: 'hello@example.com' }), {
+				notify: newNotify(new Array(20).fill({ id: 1, emailAddress: 'hello@example.com' }), {
 					updateStatus: 'published',
 					updateContentEnglish: 'My Update',
 					caseReference: 'abc-123'

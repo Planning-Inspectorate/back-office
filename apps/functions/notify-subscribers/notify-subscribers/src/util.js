@@ -12,6 +12,17 @@ export function sleep(ms) {
 }
 
 /**
+ * Get a project link - for the front office
+ *
+ * @param {string} caseReference
+ * @returns {string}
+ */
+export function projectLink(caseReference) {
+	const config = loadConfig();
+	return `${config.FRONT_OFFICE_URL}/projects/${caseReference}`;
+}
+
+/**
  * Generate an unsubscribe link for the case reference + email address - this links to the front office
  *
  * @param {string} caseReference
