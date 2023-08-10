@@ -110,10 +110,13 @@ export class NotifySubscribers {
 				type: subscriptionType
 			});
 		});
+		let total = 0;
 
 		// do one page at a time
 		for await (const page of subscriptions) {
 			// notify all subscribers (per page) in parrallel
+			total += page.items.length;
+			this.logger.info(`processing ${page.items.length} subscribers (running total: ${total})`);
 			await Promise.all(
 				page.items.map((subscription) =>
 					this.notifySubscriber(subscription, content, caseReference)
@@ -124,6 +127,7 @@ export class NotifySubscribers {
 			// see https://docs.notifications.service.gov.uk/rest-api.html#rate-limits
 			await sleep(1000 * this.waitPerPage);
 		}
+		this.logger.info(`processed all subscribers, total ${total}`);
 	}
 
 	/**
