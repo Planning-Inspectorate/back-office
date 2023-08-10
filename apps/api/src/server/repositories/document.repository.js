@@ -261,15 +261,10 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
  */
-export const getDocumentsReadyPublishStatus = ({
-	skipValue,
-	pageSize,
-	caseId,
-	documentVersion = 1
-}) => {
+export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) => {
 	return databaseConnector.document.findMany({
 		include: {
-			documentVersion: true,
+			latestDocumentVersion: true,
 			folder: true
 		},
 		skip: skipValue,
@@ -281,11 +276,8 @@ export const getDocumentsReadyPublishStatus = ({
 		],
 		where: {
 			caseId,
-			documentVersion: {
-				some: {
-					version: documentVersion,
-					publishedStatus: 'ready_to_publish'
-				}
+			latestDocumentVersion: {
+				publishedStatus: 'ready_to_publish'
 			}
 		}
 	});
@@ -294,18 +286,15 @@ export const getDocumentsReadyPublishStatus = ({
 /**
  * Returns total number of documents by published status (ready-to-publish)
  *
- * @param {number} documentVersion
+ * @param {number} caseId
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
-export const getDocumentsCountInByPublishStatus = (documentVersion = 1) => {
+export const getDocumentsCountInByPublishStatus = (caseId) => {
 	return databaseConnector.document.count({
 		where: {
-			isDeleted: true,
-			documentVersion: {
-				some: {
-					version: documentVersion,
-					publishedStatus: 'ready_to_publish'
-				}
+			caseId,
+			latestDocumentVersion: {
+				publishedStatus: 'ready_to_publish'
 			}
 		}
 	});
