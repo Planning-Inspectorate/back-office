@@ -31,4 +31,9 @@ export class AppealsListPage extends Page {
 			.find(this.selectors.link)
 			.click();
 	}
+
+	nationalListSearch(text) {
+		page.fillInput(text);
+		page.clickButtonByText('Search');
+	}
 }
