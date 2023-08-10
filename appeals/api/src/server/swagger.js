@@ -522,6 +522,12 @@ const document = {
 				name: 'Access required',
 				id: 1
 			}
+		],
+		AllAppellantCaseValidationOutcomesResponse: [
+			{
+				name: 'Valid',
+				id: 1
+			}
 		]
 	},
 	components: {}

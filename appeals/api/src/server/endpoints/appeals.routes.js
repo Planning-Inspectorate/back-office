@@ -18,6 +18,7 @@ import { planningObligationStatusesRoutes } from './planning-obligation-statuses
 import { procedureTypesRoutes } from './procedure-types/procedure-types.routes.js';
 import { scheduleTypesRoutes } from './schedule-types/schedule-types.routes.js';
 import { siteVisitTypesRoutes } from './site-visit-types/site-visit-types.routes.js';
+import { appellantCaseValidationOutcomesRoutes } from './appellant-case-validation-outcomes/appellant-case-validation-outcomes.routes.js';
 
 const router = createRouter();
 
@@ -27,6 +28,7 @@ router.use(appealAllocationRouter);
 router.use(appellantCaseIncompleteReasonsRoutes);
 router.use(appellantCaseInvalidReasonsRoutes);
 router.use(appellantCasesRoutes);
+router.use(appellantCaseValidationOutcomesRoutes);
 router.use(designatedSitesRoutes);
 router.use(documentsRoutes);
 router.use(integrationsRoutes);
