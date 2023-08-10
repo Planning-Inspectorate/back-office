@@ -80,6 +80,7 @@ const householdAppeal = {
 		otherNotValidReasons: null,
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
+	dueDate: '2023-08-10T01:00:00.000Z',
 	inspectorDecision: {
 		outcome: 'Not issued yet'
 	},

@@ -59,14 +59,14 @@ interface RepositoryGetAllResultItem {
 
 interface RepositoryGetByIdResultItem {
 	address?: Schema.Address | null;
+	allocation?: Schema.AppealAllocation | null;
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
 	appellantCase?: Schema.AppellantCase | null;
-	allocation?: Schema.AppealAllocation | null;
-	specialisms: Schema.AppealSpecialism[];
 	createdAt: Date;
+	dueDate: Date | null;
 	id: number;
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
@@ -77,6 +77,7 @@ interface RepositoryGetByIdResultItem {
 	planningApplicationReference: string;
 	reference: string;
 	siteVisit: Schema.SiteVisit | null;
+	specialisms: Schema.AppealSpecialism[];
 	startedAt: Date | null;
 }
 
