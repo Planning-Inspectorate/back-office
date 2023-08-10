@@ -1281,6 +1281,10 @@ const document = {
 					enum: ['general', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'],
 					description:
 						'the type of update - which determines which subscribers will recieve the notification emails'
+				},
+				sentToSubscribers: {
+					type: 'boolean',
+					description: 'Has this update been emailed to subscribers?'
 				}
 			}
 		},
@@ -1313,6 +1317,10 @@ const document = {
 						type: {
 							type: 'string',
 							example: 'type must be a string'
+						},
+						sentToSubscribers: {
+							type: 'string',
+							example: 'sentToSubscribers must be a boolean'
 						}
 					}
 				}
