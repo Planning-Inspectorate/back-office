@@ -498,6 +498,12 @@ const document = {
 				name: 'Complete',
 				id: 1
 			}
+		],
+		AllPlanningObligationStatusesResponse: [
+			{
+				name: 'Finalised',
+				id: 1
+			}
 		]
 	},
 	components: {}
