@@ -516,6 +516,12 @@ const document = {
 				name: 'Schedule 1',
 				id: 1
 			}
+		],
+		AllSiteVisitTypesResponse: [
+			{
+				name: 'Access required',
+				id: 1
+			}
 		]
 	},
 	components: {}

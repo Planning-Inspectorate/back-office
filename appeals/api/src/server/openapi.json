@@ -1087,6 +1087,33 @@
 				}
 			}
 		},
+		"/appeals/site-visit-types": {
+			"get": {
+				"tags": ["Site Visit Types"],
+				"description": "Gets site visit types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Site visit types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -2948,6 +2975,25 @@
 				},
 				"xml": {
 					"name": "AllScheduleTypesResponse"
+				}
+			},
+			"AllSiteVisitTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Access required"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllSiteVisitTypesResponse"
 				}
 			}
 		}

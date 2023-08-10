@@ -415,6 +415,7 @@ const lpaNotificationMethods = lookupListData;
 const planningObligationStatuses = lookupListData;
 const procedureTypes = lookupListData;
 const scheduleTypes = lookupListData;
+const siteVisitTypes = lookupListData;
 
 const designatedSites = [
 	{
@@ -700,5 +701,6 @@ export {
 	otherAppeals,
 	planningObligationStatuses,
 	procedureTypes,
-	scheduleTypes
+	scheduleTypes,
+	siteVisitTypes
 };

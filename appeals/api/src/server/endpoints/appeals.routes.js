@@ -17,6 +17,7 @@ import { lpaQuestionnaireValidationOutcomesRoutes } from './lpa-questionnaire-va
 import { planningObligationStatusesRoutes } from './planning-obligation-statuses/planning-obligation-statuses.routes.js';
 import { procedureTypesRoutes } from './procedure-types/procedure-types.routes.js';
 import { scheduleTypesRoutes } from './schedule-types/schedule-types.routes.js';
+import { siteVisitTypesRoutes } from './site-visit-types/site-visit-types.routes.js';
 
 const router = createRouter();
 
@@ -38,6 +39,7 @@ router.use(planningObligationStatusesRoutes);
 router.use(procedureTypesRoutes);
 router.use(scheduleTypesRoutes);
 router.use(siteVisitRoutes);
+router.use(siteVisitTypesRoutes);
 router.use(appealsRoutes);
 
 export { router as appealsRoutes };
