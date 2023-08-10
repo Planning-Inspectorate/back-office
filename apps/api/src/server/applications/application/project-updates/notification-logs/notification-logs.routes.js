@@ -81,6 +81,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'Created',
+            schema: {count: 1}
         }
         #swagger.responses[400] = {
             description: 'Bad request',

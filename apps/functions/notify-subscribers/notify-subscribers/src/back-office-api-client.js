@@ -72,4 +72,23 @@ export class BackOfficeApiClient {
 		const query = querystring.stringify(queryInput);
 		return got.get(`${this.baseUrl}/applications/subscriptions/list/?${query}`).json();
 	}
+
+	/**
+	 * Add notifications logs
+	 *
+	 * @param {number} projectUpdateId
+	 * @param {number} caseId
+	 * @param {import('@pins/applications').ProjectUpdateNotificationLogCreateReq[]} logs
+	 * @returns {Promise<{count: number}>}
+	 */
+	postNotificationLogs(projectUpdateId, caseId, logs) {
+		return got
+			.post(
+				`${this.baseUrl}/applications/${caseId}/project-updates/${projectUpdateId}/notification-logs`,
+				{
+					json: logs
+				}
+			)
+			.json();
+	}
 }

@@ -21,6 +21,7 @@ export default async function (context, msg) {
 		templateId: config.GOV_NOTIFY_TEMPLATE_ID,
 		msg,
 		logger: context.log,
+		invocationId: context.invocationId,
 		generateUnsubscribeLink: unsubscribeLink
 	});
 

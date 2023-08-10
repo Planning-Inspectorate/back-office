@@ -43,3 +43,10 @@ export interface ProjectUpdateNotificationLog {
 	emailSent: boolean;
 	functionInvocationId: string;
 }
+
+/**
+ * Type used for notification log create requests
+ */
+export interface ProjectUpdateNotificationLogCreateReq extends ProjectUpdateNotificationLog {
+	id?: number;
+}
