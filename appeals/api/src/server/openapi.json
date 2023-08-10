@@ -808,6 +808,33 @@
 				}
 			}
 		},
+		"/appeals/lpa-questionnaire-validation-outcomes": {
+			"get": {
+				"tags": ["LPA Questionnaire Validation Outcomes"],
+				"description": "Gets LPA questionnaire validation outcomes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA questionnaire validation outcomes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireValidationOutcomesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireValidationOutcomesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/site-visits": {
 			"post": {
 				"tags": ["Site Visits"],
@@ -2764,6 +2791,25 @@
 				},
 				"xml": {
 					"name": "AllLPANotificationMethodsResponse"
+				}
+			},
+			"AllLPAQuestionnaireValidationOutcomesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Complete"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPAQuestionnaireValidationOutcomesResponse"
 				}
 			}
 		}
