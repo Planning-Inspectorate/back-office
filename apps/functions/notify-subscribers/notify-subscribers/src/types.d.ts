@@ -10,4 +10,5 @@ export interface PageResponse<T> {
 	items: T[];
 }
 
+export type GenerateProjectLink = (caseReference: string) => string;
 export type GenerateUnsubscribeLink = (caseReference: string, emailAddress: string) => string;

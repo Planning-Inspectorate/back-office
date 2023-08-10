@@ -2,7 +2,7 @@ import govNotify from 'notifications-node-client';
 import { BackOfficeApiClient } from './src/back-office-api-client.js';
 import { loadConfig } from './src/config.js';
 import { NotifySubscribers } from './src/notify-subscribers.js';
-import { unsubscribeLink } from './src/util.js';
+import { projectLink, unsubscribeLink } from './src/util.js';
 
 /**
  * @param {import('@azure/functions').Context} context
@@ -22,6 +22,7 @@ export default async function (context, msg) {
 		msg,
 		logger: context.log,
 		invocationId: context.invocationId,
+		generateProjectLink: projectLink,
 		generateUnsubscribeLink: unsubscribeLink
 	});
 
