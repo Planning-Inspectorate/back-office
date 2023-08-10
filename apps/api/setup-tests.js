@@ -288,6 +288,12 @@ class MockPrismaClient {
 		findUnique: jest.fn()
 	};
 
+	projectUpdateNotificationLog = {
+		createMany: jest.fn(),
+		count: jest.fn().mockResolvedValue(0),
+		findMany: jest.fn().mockResolvedValue([])
+	};
+
 	// see https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api
 	$transaction(queries = []) {
 		if (typeof queries === 'function') {

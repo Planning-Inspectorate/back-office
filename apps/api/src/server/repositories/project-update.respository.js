@@ -8,6 +8,12 @@ import BackOfficeAppError from '#utils/app-error.js';
  */
 
 /**
+ * @typedef {Object} PaginationOptions
+ * @property {number} page
+ * @property {number} pageSize
+ */
+
+/**
  * @typedef {Object} ListProjectUpdatesOptions
  * @property {number} page
  * @property {number} pageSize
@@ -169,6 +175,47 @@ export async function deleteProjectUpdate(id) {
 		}
 
 		return await tx.projectUpdate.delete(deleteReq);
+	});
+}
+
+/**
+ * List notification logs
+ *
+ * @param {PaginationOptions & {projectUpdateId:number}} opts
+ * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdateNotificationLog[]}>}
+ */
+export async function listNotificationLogs({ projectUpdateId, page, pageSize }) {
+	/** @type {import('@prisma/client').Prisma.ProjectUpdateNotificationLogWhereInput} */
+	const where = {
+		projectUpdateId
+	};
+
+	const result = await databaseConnector.$transaction([
+		databaseConnector.projectUpdateNotificationLog.count({
+			where
+		}),
+		databaseConnector.projectUpdateNotificationLog.findMany({
+			where,
+			skip: getSkipValue(page, pageSize),
+			take: pageSize
+		})
+	]);
+
+	return {
+		count: result[0],
+		items: result[1]
+	};
+}
+
+/**
+ * Create notification logs
+ *
+ * @param {import('@prisma/client').Prisma.ProjectUpdateNotificationLogCreateManyInput} logs
+ * @returns {Promise<import('@prisma/client').Prisma.BatchPayload>}
+ */
+export async function createNotificationLogs(logs) {
+	return databaseConnector.projectUpdateNotificationLog.createMany({
+		data: logs
 	});
 }
 

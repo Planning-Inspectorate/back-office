@@ -1617,6 +1617,82 @@ const document = {
 				}
 			}
 		},
+		ProjectUpdateNotificationLogList: {
+			type: 'object',
+			properties: pagedResponseProperties('#/definitions/ProjectUpdateNotificationLog')
+		},
+		ProjectUpdateNotificationLogListBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: paginationErrors
+				}
+			}
+		},
+		ProjectUpdateNotificationLogCreateRequest: {
+			type: 'array',
+			items: { $ref: '#/definitions/ProjectUpdateNotificationLog' }
+		},
+		ProjectUpdateNotificationLogCreateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						'[*].projectUpdateId': {
+							type: 'string',
+							example: 'projectUpdateId is required'
+						},
+						'[*].subscriptionId': {
+							type: 'string',
+							example: 'subscriptionId is required'
+						},
+						'[*].entryDate': {
+							type: 'string',
+							example: 'entryDate is required'
+						},
+						'[*].emailSent': {
+							type: 'string',
+							example: 'emailSent must be a boolean'
+						},
+						'[*].functionInvocationId': {
+							type: 'string',
+							example: 'functionInvocationId must be a string'
+						}
+					}
+				}
+			}
+		},
+		ProjectUpdateNotificationLog: {
+			type: 'object',
+			requiredProperties: [
+				'projectUpdateId',
+				'subscriptionId',
+				'entryDate',
+				'emailSent',
+				'functionInvocationId'
+			],
+			properties: {
+				id: { type: 'integer', minimum: 0 },
+				projectUpdateId: { type: 'integer', minimum: 0 },
+				subscriptionId: { type: 'integer', minimum: 0 },
+				entryDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'the date this notification was handled',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				emailSent: {
+					type: 'boolean',
+					description: 'whether an email was successfully sent'
+				},
+				functionInvocationId: {
+					type: 'string',
+					description: 'the ID of the Azure function run that handled this entry'
+				}
+			}
+		},
 		Subscriptions: {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/Subscription')
