@@ -1,0 +1,3 @@
+{% macro govukTimeInput(params) %}
+	<input class="govuk-input govuk-input--width-2" id="{{ params.id }}-hour" name="{{ params.id }}-hour" type="number" value="{{ params.hour.value if params.hour and params.hour.value else '' }}">&nbsp;:&nbsp;<input class="govuk-input govuk-input--width-2" id="{{ params.id }}-minute" name="{{ params.id }}-minute" type="number" value="{{ params.minute.value if params.minute and params.minute.value else '' }}">
+{% endmacro %}

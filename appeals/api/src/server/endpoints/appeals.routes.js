@@ -13,6 +13,9 @@ import initNotifyClientAndAddToRequest from '../middleware/init-notify-client-an
 import { designatedSitesRoutes } from './designated-sites/designated-sites.routes.js';
 import { knowledgeOfOtherLandownersRoutes } from './knowledge-of-other-landowners/knowledge-of-other-landowners.routes.js';
 import { lpaNotificationMethodsRoutes } from './lpa-notification-methods/lpa-notification-methods.routes.js';
+import { lpaQuestionnaireValidationOutcomesRoutes } from './lpa-questionnaire-validation-outcomes/lpa-questionnaire-validation-outcomes.routes.js';
+import { planningObligationStatusesRoutes } from './planning-obligation-statuses/planning-obligation-statuses.routes.js';
+import { procedureTypesRoutes } from './procedure-types/procedure-types.routes.js';
 
 const router = createRouter();
 
@@ -29,6 +32,9 @@ router.use(knowledgeOfOtherLandownersRoutes);
 router.use(lpaNotificationMethodsRoutes);
 router.use(lpaQuestionnaireIncompleteReasonsRoutes);
 router.use(lpaQuestionnairesRoutes);
+router.use(lpaQuestionnaireValidationOutcomesRoutes);
+router.use(planningObligationStatusesRoutes);
+router.use(procedureTypesRoutes);
 router.use(siteVisitRoutes);
 router.use(appealsRoutes);
 

@@ -492,6 +492,24 @@ const document = {
 				name: 'A site notice',
 				id: 1
 			}
+		],
+		AllLPAQuestionnaireValidationOutcomesResponse: [
+			{
+				name: 'Complete',
+				id: 1
+			}
+		],
+		AllPlanningObligationStatusesResponse: [
+			{
+				name: 'Finalised',
+				id: 1
+			}
+		],
+		AllProcedureTypesResponse: [
+			{
+				name: 'Hearing',
+				id: 1
+			}
 		]
 	},
 	components: {}

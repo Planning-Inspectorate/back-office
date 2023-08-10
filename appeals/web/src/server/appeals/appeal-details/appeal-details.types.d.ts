@@ -1,5 +1,15 @@
 import { Address, AppealSite } from '@pins/appeals';
 
+export interface AppealHealthAndSafetyEntry {
+	details: string | null;
+	hasIssues: boolean | null;
+}
+
+export interface AppealHealthAndSafety {
+	appellantCase: AppealHealthAndSafetyEntry;
+	lpaQuestionnaire: AppealHealthAndSafetyEntry;
+}
+
 export interface Appeal {
 	agentName: string;
 	allocationDetails: string;
@@ -10,6 +20,7 @@ export interface Appeal {
 	appealType: string;
 	appellantName: string;
 	appellantCaseId: number;
+	healthAndSafety: AppealHealthAndSafety;
 	procedureType: string;
 	caseOfficer?: Contact;
 	inspector?: Contact;
@@ -48,8 +59,8 @@ export type AppealTimetable = {
 };
 
 export type AppealSiteVisit = {
-	visitDate: string;
-	visitType: string;
+	visitType: string | null;
+	visitDate: string | null;
 };
 
 export type DocumentStatus = 'received' | 'not_received' | 'incomplete' | 'invalid' | 'valid';

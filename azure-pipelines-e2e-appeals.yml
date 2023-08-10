@@ -5,16 +5,10 @@ parameters:
     values:
       - 'dev'
       - 'test'
-  - name: APP
-    type: string
-    default: 'applications'
-    values:
-      - 'applications'
-      - 'appeals'
 
 variables:
   - name: APP
-    value: ${{ parameters.APP }}
+    value: 'appeals'
   - group: e2e-${{ parameters.Environment }}
 
 pr:
@@ -23,11 +17,11 @@ pr:
       - main
   paths:
     include:
-      - apps/e2e
+      - apps/e2e/cypress/e2e/back-office-appeals
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests
+  - job: Run_Cypress_Tests_For_Appeals
     pool:
       vmImage: "ubuntu-latest"
 
@@ -57,6 +51,7 @@ jobs:
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          VALIDATION_OFFICER_EMAIL: $(VALIDATION_OFFICER_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
         displayName: "Run Cypress Tests"
 

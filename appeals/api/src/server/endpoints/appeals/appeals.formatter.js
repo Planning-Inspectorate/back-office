@@ -97,7 +97,7 @@ const formatAppeal = (appeal) => {
 			documentationSummary: {
 				appellantCase: {
 					status: formatAppellantCaseDocumentationStatus(appeal),
-					dueDate: null
+					dueDate: appeal.dueDate
 				},
 				lpaQuestionnaire: {
 					status: formatLpaQuestionnaireDocumentationStatus(appeal),

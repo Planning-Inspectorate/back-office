@@ -808,6 +808,87 @@
 				}
 			}
 		},
+		"/appeals/lpa-questionnaire-validation-outcomes": {
+			"get": {
+				"tags": ["LPA Questionnaire Validation Outcomes"],
+				"description": "Gets LPA questionnaire validation outcomes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "LPA questionnaire validation outcomes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireValidationOutcomesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllLPAQuestionnaireValidationOutcomesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/planning-obligation-statuses": {
+			"get": {
+				"tags": ["Planning Obligation Statuses"],
+				"description": "Gets planning obligation statuses",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Planning obligation statuses",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllPlanningObligationStatusesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllPlanningObligationStatusesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/procedure-types": {
+			"get": {
+				"tags": ["Procedure Types"],
+				"description": "Gets procedure types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Procedure types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllProcedureTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllProcedureTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/site-visits": {
 			"post": {
 				"tags": ["Site Visits"],
@@ -2764,6 +2845,63 @@
 				},
 				"xml": {
 					"name": "AllLPANotificationMethodsResponse"
+				}
+			},
+			"AllLPAQuestionnaireValidationOutcomesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Complete"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllLPAQuestionnaireValidationOutcomesResponse"
+				}
+			},
+			"AllPlanningObligationStatusesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Finalised"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllPlanningObligationStatusesResponse"
+				}
+			},
+			"AllProcedureTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Hearing"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllProcedureTypesResponse"
 				}
 			}
 		}
