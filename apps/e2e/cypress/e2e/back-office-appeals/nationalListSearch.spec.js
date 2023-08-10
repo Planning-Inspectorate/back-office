@@ -20,7 +20,7 @@ describe('Appeals feature', () => {
 
 	it('Case admin user should be able to use search using postcode with spaces', () => {
 		cy.visit('/appeals-service/appeals-list');
-		page.nationalListSearch('BS9 7AL');
+		page.nationalListSearch('BS7 8LQ');
 		page.clearSearchResults();
 	});
 
