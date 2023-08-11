@@ -129,7 +129,7 @@ extends:
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-deadline-submissions-deadline-submissions-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-deadline-subs-deadline-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - ODW Integration
             artifact:
