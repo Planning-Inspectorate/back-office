@@ -6,7 +6,7 @@ import { getFolder, getFileInfo } from './appeal.documents.service.js';
  */
 export const validateCaseFolderId = async (req, res, next) => {
 	const { appealId, folderId } = req.params;
-	const folder = await getFolder(appealId, folderId);
+	const folder = await getFolder(req.apiClient, appealId, folderId);
 
 	if (!folder) {
 		return res.status(404).render('app/404');
@@ -23,7 +23,7 @@ export const validateCaseFolderId = async (req, res, next) => {
 export const validateCaseDocumentId = async (req, res, next) => {
 	const { appealId, documentId } = req.params;
 	if (documentId) {
-		const document = await getFileInfo(appealId, documentId);
+		const document = await getFileInfo(req.apiClient, appealId, documentId);
 		if (!document || !document.latestDocumentVersion) {
 			return res.status(404).render('app/404');
 		}

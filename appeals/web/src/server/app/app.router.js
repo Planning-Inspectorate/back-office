@@ -12,6 +12,7 @@ import {
 	postDocumentsUpload,
 	postUploadDocumentVersion
 } from './components/file-uploader.component.js';
+import { addApiClientToRequest } from '../lib/middleware/add-apiclient-to-request.js';
 import authRouter from './auth/auth.router.js';
 
 const router = createRouter();
@@ -40,15 +41,20 @@ router.route('/auth/signout').get(asyncRoute(handleSignout));
 
 router
 	.route('/documents/:caseId/upload')
-	.post(assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId), postDocumentsUpload);
+	.post(
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		addApiClientToRequest,
+		postDocumentsUpload
+	);
 router
 	.route('/documents/:caseId/upload/:documentId')
 	.post(
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		addApiClientToRequest,
 		postUploadDocumentVersion
 	);
-router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentDownload));
 
-router.use('/appeals-service', appealsRouter);
+router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentDownload));
+router.use('/appeals-service', addApiClientToRequest, appealsRouter);
 
 export default router;

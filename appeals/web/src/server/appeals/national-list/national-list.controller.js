@@ -47,7 +47,12 @@ export const viewNationalList = async (request, response) => {
 	const searchParam = searchTerm ? `&searchTerm=${searchTerm}` : '';
 	const nationalListHeading = searchTerm ? 'Search results' : 'All cases';
 
-	const appealsData = await nationalListService.getAppealsByPage(pageNumber, pageSize, searchParam);
+	const appealsData = await nationalListService.getAppealsByPage(
+		request.apiClient,
+		pageNumber,
+		pageSize,
+		searchParam
+	);
 
 	const { items: appeals, page: currentPage, pageCount: totalPages } = appealsData;
 
