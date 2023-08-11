@@ -281,7 +281,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-deadline-submissions
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) --only=prod --workspace=@pins/functions-deadline-submissions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
