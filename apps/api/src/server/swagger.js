@@ -38,7 +38,8 @@ const document = {
 				folderId: 123,
 				documentType: 'application/pdf',
 				documentSize: 1024,
-				username: 'test-user@email.com'
+				username: 'test-user@email.com',
+				fromFrontOffice: false
 			}
 		],
 		documentToSave: {

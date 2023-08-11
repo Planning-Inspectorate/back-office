@@ -3,7 +3,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 /** @typedef {import('@prisma/client').Document} Document */
 
 /**
- * @param {{caseId: number, folderId: number, latestVersionId?: number, reference: string}} document
+ * @param {{caseId: number, folderId: number, latestVersionId?: number, reference: string, fromFrontOffice?: boolean}} document
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
 export const create = (document) => {
