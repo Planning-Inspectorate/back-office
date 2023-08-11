@@ -439,7 +439,7 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 		caseId: +id
 	});
 
-	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus();
+	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(+id);
 
 	const mapDocument = paginatedReadyToPublishDocuments.map(
 		// @ts-ignore
