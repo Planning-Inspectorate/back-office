@@ -5,7 +5,7 @@
 			"type": "serviceBusTrigger",
 			"direction": "in",
 			"topicName": "nsip-project-update",
-			"subscriptionName": "nsip-project-update-notify-subscribers",
+			"subscriptionName": "nsip-project-update-notify-subscribers-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]
