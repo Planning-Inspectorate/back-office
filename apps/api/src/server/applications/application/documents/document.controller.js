@@ -441,11 +441,13 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 
 	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus();
 
-	// @ts-ignore
-	const mapDocument = paginatedReadyToPublishDocuments.map(({ documentVersion, ...Document }) => ({
-		Document,
-		...documentVersion[0]
-	}));
+	const mapDocument = paginatedReadyToPublishDocuments.map(
+		// @ts-ignore
+		({ latestDocumentVersion, ...Document }) => ({
+			Document,
+			...latestDocumentVersion
+		})
+	);
 
 	response.send({
 		page: pageNumber,

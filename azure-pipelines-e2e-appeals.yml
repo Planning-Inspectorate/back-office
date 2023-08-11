@@ -17,7 +17,7 @@ pr:
       - main
   paths:
     include:
-      - apps/e2e/cypress/e2e/back-office-applications
+      - apps/e2e/cypress/e2e/back-office-appeals
 trigger: none
 
 jobs:

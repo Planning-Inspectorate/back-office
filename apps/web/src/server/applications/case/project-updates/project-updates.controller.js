@@ -94,11 +94,7 @@ export async function projectUpdatesCreatePost(req, res) {
 	const projectUpdate = bodyToCreateRequest(req.body);
 	const created = await createProjectUpdate(caseId, projectUpdate);
 	const projectUpdateId = created.id;
-	const nextUrl = url('project-updates-step', {
-		caseId: parseInt(caseId),
-		step: projectUpdateRoutes.type,
-		projectUpdateId
-	});
+	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.type);
 	res.redirect(nextUrl);
 }
 
@@ -110,7 +106,7 @@ export async function projectUpdatesContentGet(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const values = {
-		content: projectUpdate.htmlContent,
+		backOfficeProjectUpdateContent: projectUpdate.htmlContent,
 		emailSubscribers: projectUpdate.emailSubscribers,
 		...req.body
 	};
@@ -138,11 +134,7 @@ export async function projectUpdatesContentPost(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = bodyToUpdateRequest(req.body);
 	await patchProjectUpdate(caseId, projectUpdateId, projectUpdate);
-	const nextUrl = url('project-updates-step', {
-		caseId: parseInt(caseId),
-		step: projectUpdateRoutes.checkAnswers,
-		projectUpdateId: parseInt(projectUpdateId)
-	});
+	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.type);
 	res.redirect(nextUrl);
 }
 
@@ -159,6 +151,7 @@ export async function projectUpdatesTypeGet(req, res) {
 		case: res.locals.case,
 		title: 'What information does the update contain?',
 		buttonText: 'Save and continue',
+		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.content),
 		errors, // for error summary
 		form: {
 			components: [
@@ -184,11 +177,7 @@ export async function projectUpdatesTypePost(req, res) {
 	}
 	const { caseId, projectUpdateId } = req.params;
 	await patchProjectUpdate(caseId, projectUpdateId, { type: req.body.type });
-	const nextUrl = url('project-updates-step', {
-		caseId: parseInt(caseId),
-		step: projectUpdateRoutes.status,
-		projectUpdateId: parseInt(projectUpdateId)
-	});
+	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.status);
 	res.redirect(nextUrl);
 }
 
@@ -220,6 +209,7 @@ export async function projectUpdatesStatusGet(req, res) {
 		case: res.locals.case,
 		title,
 		buttonText: 'Save and continue',
+		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.type),
 		errors, // for error summary
 		form: {
 			components: [
@@ -245,11 +235,7 @@ export async function projectUpdatesStatusPost(req, res) {
 	}
 	const { caseId, projectUpdateId } = req.params;
 	await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
-	const nextUrl = url('project-updates-step', {
-		caseId: parseInt(caseId),
-		step: projectUpdateRoutes.checkAnswers,
-		projectUpdateId: parseInt(projectUpdateId)
-	});
+	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.checkAnswers);
 	res.redirect(nextUrl);
 }
 
@@ -283,6 +269,7 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 		createDetailsView({
 			caseInfo: res.locals.case,
 			title: 'Check your project update',
+			backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.status),
 			buttonText,
 			form,
 			projectUpdate
@@ -333,11 +320,7 @@ export async function projectUpdatesReviewGet(req, res) {
 	if (ProjectUpdate.isDeleteable(projectUpdate.status)) {
 		buttonText = 'Delete';
 		buttonWarning = true;
-		buttonLink = url('project-updates-step', {
-			caseId: parseInt(caseId),
-			projectUpdateId: parseInt(projectUpdateId),
-			step: projectUpdateRoutes.delete
-		});
+		buttonLink = stepLink(caseId, projectUpdateId, projectUpdateRoutes.delete);
 	}
 	return res.render(
 		detailsView,
@@ -409,4 +392,20 @@ function tableHeaders(query, baseUrl) {
 		tableSortingHeaderLinks(query, 'Status', 'status', baseUrl),
 		tableSortingHeaderLinks(query, 'Action', '', baseUrl)
 	];
+}
+
+/**
+ * Return a URL for a project updates step
+ *
+ * @param {string} caseId
+ * @param {string} projectUpdateId
+ * @param {string} step
+ * @returns {string}
+ */
+function stepLink(caseId, projectUpdateId, step) {
+	return url('project-updates-step', {
+		caseId: parseInt(caseId),
+		step,
+		projectUpdateId: parseInt(projectUpdateId)
+	});
 }

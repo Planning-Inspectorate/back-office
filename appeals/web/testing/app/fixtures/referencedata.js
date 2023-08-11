@@ -194,6 +194,9 @@ export const appellantCaseData = {
 	visibility: {
 		details: null,
 		isVisible: true
+	},
+	siteVisit: {
+		siteVisitId: 0
 	}
 };
 
@@ -375,3 +378,12 @@ export const appellantCaseIncompleteReasons = [
 		name: 'Other'
 	}
 ];
+
+export const siteVisitData = {
+	appealId: 1,
+	visitDate: '2023-10-09T01:00:00.000Z',
+	siteVisitId: 0,
+	visitEndTime: '10:44',
+	visitStartTime: '09:38',
+	visitType: 'Accompanied'
+};

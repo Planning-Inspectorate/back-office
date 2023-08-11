@@ -107,6 +107,7 @@ const renderCheckAndConfirm = async (request, response) => {
 
 		const appealReferenceFragments = appealReference.split('/');
 		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
+			appealId,
 			reasonOptions,
 			webAppellantCaseReviewOutcome.validationOutcome,
 			webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,

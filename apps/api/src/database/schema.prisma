@@ -267,6 +267,7 @@ model Representation {
   reference              String
   caseId                 Int
   status                 String
+  unpublishedUpdates     Boolean                    @default(false)
   originalRepresentation String                     @db.NText
   redactedRepresentation String?                    @db.NText
   redacted               Boolean                    @default(false)

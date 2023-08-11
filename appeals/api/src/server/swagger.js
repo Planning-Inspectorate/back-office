@@ -504,6 +504,30 @@ const document = {
 				name: 'Finalised',
 				id: 1
 			}
+		],
+		AllProcedureTypesResponse: [
+			{
+				name: 'Hearing',
+				id: 1
+			}
+		],
+		AllScheduleTypesResponse: [
+			{
+				name: 'Schedule 1',
+				id: 1
+			}
+		],
+		AllSiteVisitTypesResponse: [
+			{
+				name: 'Access required',
+				id: 1
+			}
+		],
+		AllAppellantCaseValidationOutcomesResponse: [
+			{
+				name: 'Valid',
+				id: 1
+			}
 		]
 	},
 	components: {}

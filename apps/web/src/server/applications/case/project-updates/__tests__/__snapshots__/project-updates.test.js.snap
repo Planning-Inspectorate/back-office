@@ -311,13 +311,15 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <input type=\\"hidden\\" name=\\"content\\" value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"content\\"></div>
+                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
+                        value=\\"\\">
+                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"content\\" rows=\\"5\\"></textarea>
+                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                                rows=\\"5\\"></textarea>
                             </div>
                         </noscript>
                     </div>
@@ -670,7 +672,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#content\\">The project update needs to be at least 12 characters long</a>
+                            <li><a href=\\"#backOfficeProjectUpdateContent\\">The project update needs to be at least 12 characters long</a>
                             </li>
                         </ul>
                     </div>
@@ -688,13 +690,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input type=\\"hidden\\" name=\\"content\\" value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"content\\"></div>
+                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
+                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"content\\" rows=\\"5\\"></textarea>
+                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                                rows=\\"5\\"></textarea>
                             </div>
                         </noscript>
                     </div>
@@ -738,7 +741,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#content\\">The project update needs to be at least 12 characters long</a>
+                            <li><a href=\\"#backOfficeProjectUpdateContent\\">The project update needs to be at least 12 characters long</a>
                             </li>
                         </ul>
                     </div>
@@ -756,13 +759,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                         </p>
-                        <input type=\\"hidden\\" name=\\"content\\" value=\\"hello, world\\">
-                        <div class=\\"html-content-editor\\" id=\\"content\\">hello, world</div>
+                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
+                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"content\\" rows=\\"5\\">hello, world</textarea>
+                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                                rows=\\"5\\"></textarea>
                             </div>
                         </noscript>
                     </div>

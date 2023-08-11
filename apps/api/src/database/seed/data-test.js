@@ -3,7 +3,7 @@
  */
 
 import { createFolders } from '../../server/repositories/folder.repository.js';
-import { addressesList, caseStatusNames, represenations } from './data-samples.js';
+import { addressesList, caseStatusNames, representations } from './data-samples.js';
 import { regions, subSectors, zoomLevels } from './data-static.js';
 // import { calculateTimetable, isFPA } from '../../server/appeals/appeals/appeals.service.js';
 import { oneDatePerMonth, pseudoRandomInt } from './util.js';
@@ -37,7 +37,7 @@ function pickRandom(list) {
  * @returns {any}
  */
 function createRepresentation(caseReference, index) {
-	const { contacts, ...rep } = pickRandom(represenations);
+	const { contacts, ...rep } = pickRandom(representations);
 
 	const statuses = [
 		'AWAITING_REVIEW',
@@ -49,10 +49,14 @@ function createRepresentation(caseReference, index) {
 		'VALID'
 	];
 
+	const status = statuses[Math.floor(Math.random() * statuses.length)];
+	const unpublishedUpdates = status === 'PUBLISHED' ? Math.floor(Math.random() * 8) === 0 : false;
+
 	return {
 		reference: `${caseReference}-${index}`,
 		...rep,
-		status: statuses[Math.floor(Math.random() * statuses.length)],
+		status: status,
+		unpublishedUpdates: unpublishedUpdates,
 		contacts: {
 			create: contacts.create.map((contact) => ({
 				...contact,

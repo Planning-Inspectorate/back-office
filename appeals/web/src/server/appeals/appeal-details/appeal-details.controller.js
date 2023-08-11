@@ -3,7 +3,8 @@ import * as appealDetailsService from './appeal-details.service.js';
 import {
 	mapAppealDetailsToAppealDetailsSummaryParameters,
 	mapAppealDetailsToSummaryListBuilderParameters,
-	mapAppealDetailsToTableBuilderParameters
+	mapAppealDetailsToTableBuilderParameters,
+	mapSessionDataToNotificationBannerParameters
 } from './appeal-details.mapper.js';
 import { generateSummaryList } from '../../lib/nunjucks-template-builders/summary-list-builder.js';
 import { generateTable } from '../../lib/nunjucks-template-builders/table-builder.js';
@@ -11,6 +12,7 @@ import { generateTable } from '../../lib/nunjucks-template-builders/table-builde
 /**
  * @typedef {Object} ViewAppealDetailsRenderOptions
  * @property {Object} appeal
+ * @property {import('./appellant-case/appellant-case.mapper.js').NotificationBannerComponentParameters[]} notificationBanners
  * @property {import('./appeal-details.mapper.js').AppealDetailsSummaryParameters} appealDetailsSummaryParameters
  * @property {Object<string, import('../../lib/nunjucks-template-builders/summary-list-builder.js').SummaryListComponentParameters>} summaryLists
  * @property {Object<string, import('../../lib/nunjucks-template-builders/table-builder.js').TableComponentParameters>} tables
@@ -30,6 +32,9 @@ export const viewAppealDetails = async (request, response) => {
 		const mappedAppealDetailsTableBuilderParameters =
 			mapAppealDetailsToTableBuilderParameters(appealDetails);
 		const appealReferenceFragments = appealDetails?.appealReference.split('/');
+		const mappedNotificationBannerParameters = mapSessionDataToNotificationBannerParameters(
+			request.session
+		);
 
 		response.render('appeals/appeal/appeal-details.njk', {
 			appeal: {
@@ -37,6 +42,7 @@ export const viewAppealDetails = async (request, response) => {
 				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1],
 				status: appealDetails?.appealStatus
 			},
+			notificationBanners: mappedNotificationBannerParameters,
 			appealDetailsSummaryParameters: mappedAppealDetailsSummary,
 			summaryLists: {
 				caseOverview: generateSummaryList(

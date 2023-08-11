@@ -93,6 +93,7 @@ const mockLPAQuestionnaireIncompleteReasonOnLPAQuestionnaireUpdate = jest
 const mockSiteVisitCreate = jest.fn().mockResolvedValue({});
 const mockSiteVisitUpdate = jest.fn().mockResolvedValue({});
 const mockSiteVisitTypeFindUnique = jest.fn().mockResolvedValue({});
+const mockSiteVisitTypeFindMany = jest.fn().mockResolvedValue({});
 const mockSpecialismsFindUnique = jest.fn().mockResolvedValue({});
 const mockAppealAllocationUpsert = jest.fn().mockResolvedValue({});
 const mockAppealSpecialismDeleteMany = jest.fn().mockResolvedValue({});
@@ -101,6 +102,8 @@ const mockDesignatedSiteFindMany = jest.fn().mockResolvedValue({});
 const mockKnowledgeOfOtherLandownersFindMany = jest.fn().mockResolvedValue({});
 const mockLPANotificationMethodsFindMany = jest.fn().mockResolvedValue({});
 const mockPlanningObligationStatusFindMany = jest.fn().mockResolvedValue({});
+const mockProcedureTypeFindMany = jest.fn().mockResolvedValue({});
+const mockScheduleTypeFindMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -358,7 +361,8 @@ class MockPrismaClient {
 
 	get siteVisitType() {
 		return {
-			findUnique: mockSiteVisitTypeFindUnique
+			findUnique: mockSiteVisitTypeFindUnique,
+			findMany: mockSiteVisitTypeFindMany
 		};
 	}
 
@@ -402,6 +406,18 @@ class MockPrismaClient {
 	get planningObligationStatus() {
 		return {
 			findMany: mockPlanningObligationStatusFindMany
+		};
+	}
+
+	get procedureType() {
+		return {
+			findMany: mockProcedureTypeFindMany
+		};
+	}
+
+	get scheduleType() {
+		return {
+			findMany: mockScheduleTypeFindMany
 		};
 	}
 

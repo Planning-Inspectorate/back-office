@@ -285,6 +285,33 @@
 				}
 			}
 		},
+		"/appeals/appellant-case-validation-outcomes": {
+			"get": {
+				"tags": ["Appellant Case Validation Outcomes"],
+				"description": "Gets appellant case validation outcomes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case validation outcomes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseValidationOutcomesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseValidationOutcomesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/designated-sites": {
 			"get": {
 				"tags": ["Designated Sites"],
@@ -862,6 +889,60 @@
 				}
 			}
 		},
+		"/appeals/procedure-types": {
+			"get": {
+				"tags": ["Procedure Types"],
+				"description": "Gets procedure types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Procedure types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllProcedureTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllProcedureTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/schedule-types": {
+			"get": {
+				"tags": ["Schedule Types"],
+				"description": "Gets schedule types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Schedule types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllScheduleTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllScheduleTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/site-visits": {
 			"post": {
 				"tags": ["Site Visits"],
@@ -1029,6 +1110,33 @@
 								"$ref": "#/components/schemas/UpdateSiteVisitRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/site-visit-types": {
+			"get": {
+				"tags": ["Site Visit Types"],
+				"description": "Gets site visit types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Site visit types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -2856,6 +2964,82 @@
 				},
 				"xml": {
 					"name": "AllPlanningObligationStatusesResponse"
+				}
+			},
+			"AllProcedureTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Hearing"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllProcedureTypesResponse"
+				}
+			},
+			"AllScheduleTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Schedule 1"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllScheduleTypesResponse"
+				}
+			},
+			"AllSiteVisitTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Access required"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllSiteVisitTypesResponse"
+				}
+			},
+			"AllAppellantCaseValidationOutcomesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Valid"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseValidationOutcomesResponse"
 				}
 			}
 		}

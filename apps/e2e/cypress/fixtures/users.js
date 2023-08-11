@@ -21,6 +21,11 @@ export const users = {
 			email: Cypress.env('VALIDATION_OFFICER_EMAIL'),
 			id: 'validation-officer',
 			typeName: 'Validation officer'
+		},
+		caseAdmin: {
+			email: Cypress.env('CASE_ADMIN_EMAIL'),
+			id: 'case-admin',
+			typeName: 'Case admin'
 		}
 	}
 };

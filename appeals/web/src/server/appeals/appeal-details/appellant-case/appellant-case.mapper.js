@@ -65,6 +65,7 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
 
 /**
  *
+ * @param {number} appealId
  * @param {AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
@@ -73,6 +74,7 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
  * @returns {SummaryListBuilderParameters}
  */
 export function mapReviewOutcomeToSummaryListBuilderParameters(
+	appealId,
 	invalidOrIncompleteReasonOptions,
 	validationOutcome,
 	invalidOrIncompleteReasons,
@@ -93,21 +95,23 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 		otherNotValidReasons
 	);
 
+	const validationOutcomeAsString = String(validationOutcome);
+
 	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
 	const sectionData = [
 		{
 			title: 'Review outcome',
-			value: String(validationOutcome),
+			value: validationOutcomeAsString,
 			valueType: 'text',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case`
 		},
 		{
-			title: `${capitalize(String(validationOutcome))} reasons`,
+			title: `${capitalize(validationOutcomeAsString)} reasons`,
 			value: reasonsList,
 			valueType: 'unorderedList',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}`
 		}
 	];
 
@@ -117,7 +121,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			value: `${updatedDueDate.day}/${updatedDueDate.month}/${updatedDueDate.year}`,
 			valueType: 'text',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}/date`
 		});
 	}
 
