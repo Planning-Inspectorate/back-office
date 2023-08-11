@@ -73,14 +73,16 @@ export function createContentFormView({
 			components: [
 				{
 					type: 'html-content-editor',
-					name: 'content',
+					// specific field name to allow more specific WAF exception
+					// see ASB-1692
+					name: 'backOfficeProjectUpdateContent',
 					label: {
 						text: 'Content',
 						classes: 'govuk-!-font-weight-bold'
 					},
 					characterCount: true,
-					value: values.content,
-					errorMessage: errors?.content
+					value: values.backOfficeProjectUpdateContent,
+					errorMessage: errors?.backOfficeProjectUpdateContent
 				},
 				{
 					type: 'checkboxes',

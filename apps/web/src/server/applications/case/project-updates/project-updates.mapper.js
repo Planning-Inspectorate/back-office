@@ -18,7 +18,7 @@ export function bodyToCreateRequest(body) {
  * @returns {any} // todo: specific type
  */
 export function bodyToUpdateRequest(body) {
-	const content = decodeURI(body.content)
+	const content = decodeURI(body.backOfficeProjectUpdateContent)
 		.replaceAll('<p><br></p>', '<br>')
 		.replaceAll('<br>', '<br />');
 

@@ -106,7 +106,7 @@ export async function projectUpdatesContentGet(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const values = {
-		content: projectUpdate.htmlContent,
+		backOfficeProjectUpdateContent: projectUpdate.htmlContent,
 		emailSubscribers: projectUpdate.emailSubscribers,
 		...req.body
 	};

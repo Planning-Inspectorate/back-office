@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import sanitizeHtml from 'sanitize-html';
 
 export const validateProjectUpdatesContent = createValidator(
-	body('content')
+	body('backOfficeProjectUpdateContent')
 		.trim()
 		.custom((value) => htmlToText(decodeURI(value)).length > 12)
 		.withMessage('The project update needs to be at least 12 characters long')
