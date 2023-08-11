@@ -209,6 +209,7 @@ model Document {
   representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
   case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  fromFrontOffice          Boolean                   @default(false)
 
   @@unique([guid, latestVersionId])
 }
