@@ -120,6 +120,7 @@ export function createContentFormView({
  * @param {boolean} [options.buttonWarning]
  * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
+ * @param {string} [options.backLink]
  * @param {boolean} [options.editable]
  * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
  */
@@ -131,6 +132,7 @@ export function createDetailsView({
 	buttonWarning,
 	form,
 	projectUpdate,
+	backLink,
 	editable = true
 }) {
 	const contentChangeLink = url('project-updates-step', {
@@ -189,6 +191,7 @@ export function createDetailsView({
 		buttonLink,
 		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
 		preview: { html: projectUpdate.htmlContent },
+		backLink,
 		form,
 		summary: {
 			rows: [

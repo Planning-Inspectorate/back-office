@@ -4,6 +4,7 @@ export interface ProjectUpdatesFormView {
 	case: any;
 	title: string;
 	buttonText: string;
+	backLink?: string;
 	errors?: ValidationErrors;
 	form: {
 		components: FormComponent[];
@@ -25,6 +26,7 @@ export interface ProjectUpdatesDetailsView {
 	buttonLink?: string;
 	buttonClasses?: string;
 	preview: { html: string };
+	backLink?: string;
 	form?: {
 		name: string;
 		value: string;
