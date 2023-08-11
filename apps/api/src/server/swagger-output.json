@@ -2791,6 +2791,10 @@
 					"username": {
 						"type": "string",
 						"example": "test-user@email.com"
+					},
+					"fromFrontOffice": {
+						"type": "boolean",
+						"example": false
 					}
 				}
 			}

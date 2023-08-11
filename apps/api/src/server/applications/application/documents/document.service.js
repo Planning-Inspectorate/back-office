@@ -35,8 +35,8 @@ export const documentName = (documentNameWithExtension) => {
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documents
- * @returns {{caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string}[]}
+ * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string, fromFrontOffice?: boolean}[]} documents
+ * @returns {{caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string, fromFrontOffice: boolean}[]}
  */
 const mapDocumentsToSendToDatabase = (caseId, documents) => {
 	return documents?.map((document) => {
@@ -46,7 +46,8 @@ const mapDocumentsToSendToDatabase = (caseId, documents) => {
 			folderId: document.folderId,
 			documentType: document.documentType,
 			documentSize: document.documentSize,
-			documentReference: document.documentReference
+			documentReference: document.documentReference,
+			fromFrontOffice: document.fromFrontOffice ?? false
 		};
 	});
 };
@@ -79,7 +80,7 @@ const getCaseStageMapping = async (folderId) => {
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string}[]} documents
+ * @param {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string, fromFrontOffice?: boolean}[]} documents
  * @returns {Promise<{successful: import('@pins/applications.api').Schema.Document[], failed: string[]}>}
  */
 const attemptInsertDocuments = async (caseId, documents) => {
@@ -106,7 +107,8 @@ const attemptInsertDocuments = async (caseId, documents) => {
 				document = await documentRepository.create({
 					caseId,
 					folderId: documentToDB.folderId,
-					reference: documentToDB.documentReference
+					reference: documentToDB.documentReference,
+					fromFrontOffice: documentToDB.fromFrontOffice
 				});
 			} catch (err) {
 				failed.add(documentToDB.documentName);
