@@ -1,5 +1,4 @@
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
-import { post } from '../../lib/request.js';
 import config from '@pins/appeals.web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -7,35 +6,38 @@ import config from '@pins/appeals.web/environment/config.js';
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */
+
 /**
+ * @param {import('got').Got} apiClient
  * @param {string} caseId
  * @param {AddDocumentsRequest} payload
  * @returns {Promise<AddDocumentsResponse>}
  */
-export const createNewDocument = async (caseId, payload) => {
-	return post(`appeals/${caseId}/documents`, { json: payload });
+export const createNewDocument = async (apiClient, caseId, payload) => {
+	return apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
 };
 
 /**
+ * @param {import('got').Got} apiClient
  * @param {string} caseId
  * @param {string} documentId
  * @param {AddDocumentVersionRequest} payload
  * @returns {Promise<AddDocumentsResponse>}
  */
-export const createNewDocumentVersion = async (caseId, documentId, payload) => {
-	return post(`appeals/${caseId}/documents/${documentId}`, { json: payload });
+export const createNewDocumentVersion = async (apiClient, caseId, documentId, payload) => {
+	return apiClient.post(`appeals/${caseId}/documents/${documentId}`, { json: payload }).json();
 };
 
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, session: SessionWithAuth, body: AddDocumentsRequest}} request
+ * @param {{apiClient: import('got').Got, params: {caseId: string}, session: SessionWithAuth, body: AddDocumentsRequest}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postDocumentsUpload({ params, body, session }, response) {
+export async function postDocumentsUpload({ apiClient, params, body, session }, response) {
 	const { caseId } = params;
-	const uploadInfo = await createNewDocument(caseId, body);
+	const uploadInfo = await createNewDocument(apiClient, caseId, body);
 	const { documents } = uploadInfo;
 
 	let accessToken = undefined;
@@ -61,13 +63,13 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: AddDocumentVersionRequest}} request
+ * @param {{apiClient: import('got').Got, params: {caseId: string, documentId: string}, session: SessionWithAuth, body: AddDocumentVersionRequest}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postUploadDocumentVersion({ params, body, session }, response) {
+export async function postUploadDocumentVersion({ apiClient, params, body, session }, response) {
 	const { caseId, documentId } = params;
-	const uploadInfo = await createNewDocumentVersion(caseId, documentId, body);
+	const uploadInfo = await createNewDocumentVersion(apiClient, caseId, documentId, body);
 	const { documents } = uploadInfo;
 
 	let accessToken = undefined;

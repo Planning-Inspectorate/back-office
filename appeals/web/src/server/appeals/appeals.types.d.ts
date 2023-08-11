@@ -15,6 +15,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			currentFolder: Schema.Folder;
+			apiClient: import('got').Got;
 		}
 	}
 }
