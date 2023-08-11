@@ -31,6 +31,10 @@ parameters:
     displayName: Build Function - Deadline Submissions
     type: boolean
     default: true
+  - name: buildFunctionNotifySubscribers
+    displayName: Build Function - Notify Subscribers
+    type: boolean
+    default: true
 
 pr: none
 
@@ -92,6 +96,8 @@ extends:
                   path: apps/functions/handle-subscriptions
                 - name: function-deadline-submissions
                   path: apps/functions/deadline-submissions
+                - name: function-notify-subscribers
+                  path: apps/functions/notify-subscribers
               stepName: check_files
       - name: Build API
         condition: >-
@@ -228,6 +234,44 @@ extends:
             artifact: function-odw-integration
             displayName: Publish Functions Artifact
       - name: Build Function - Handle Subscriptions
+      - name: Build Function - Notify Subscribers
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildFunctionNotifySubscribers }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-notify-subscribers'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/applications.functions-notify-subscribers
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/notify-subscribers/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/notify-subscribers
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: function-notify-subscribers
+            displayName: Publish Functions Artifact
         condition: >-
           and(
             succeeded(),

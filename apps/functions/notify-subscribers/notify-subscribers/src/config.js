@@ -4,15 +4,15 @@ import joi from 'joi';
 /**
  * @typedef {Object} Config
  * @property {string} NODE_ENV
- * @property {string} API_HOST
- * @property {number} SUBSCRIPTIONS_PER_BATCH
- * @property {number} WAIT_PER_BATCH_SECONDS
+ * @property {string} API_HOST - Back Office API endpoint
+ * @property {number} SUBSCRIPTIONS_PER_BATCH - how many subscriptions to process per batch (page)
+ * @property {number} WAIT_PER_BATCH_SECONDS - how long to wait between subscription batches (for crude rate limiting)
  * @property {string} GOV_NOTIFY_API_KEY
  * @property {string} GOV_NOTIFY_TEMPLATE_ID
- * @property {string} ENCRYPT_ALGORITHM
- * @property {string} ENCRYPT_KEY
- * @property {number} ENCRYPT_IV_LENGTH
- * @property {string} FRONT_OFFICE_URL
+ * @property {string} ENCRYPT_ALGORITHM - must match front office who decrypt email field
+ * @property {string} ENCRYPT_KEY - must match front office who decrypt email field
+ * @property {number} ENCRYPT_IV_LENGTH - must match front office who decrypt email field
+ * @property {string} FRONT_OFFICE_URL - applications front office web URL
  */
 
 /** @type {Config|undefined} */

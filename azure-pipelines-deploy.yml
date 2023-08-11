@@ -31,6 +31,10 @@ parameters:
     displayName: Deploy Function - Deadline Submissions
     type: boolean
     default: true
+  - name: deployFunctionNotifySubscribers
+    displayName: Deploy Function - Notify Subscribers
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -160,6 +164,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-handle-subs-handle-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Notify Subscribers
+            artifact:
+              name: function-notify-subscribers
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionNotifySubscribers }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-notify-subs-notify-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
     globalVariables:
       - template: azure-pipelines-variables.yml@self
