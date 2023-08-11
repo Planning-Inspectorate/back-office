@@ -27,6 +27,10 @@ parameters:
     displayName: Build Function - Handle Subscriptions
     type: boolean
     default: true
+  - name: buildDeadlineSubmissionsFunction
+    displayName: Build Function - Deadline Submissions
+    type: boolean
+    default: true
 
 pr: none
 
