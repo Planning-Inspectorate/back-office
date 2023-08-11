@@ -510,6 +510,12 @@ const document = {
 				name: 'Hearing',
 				id: 1
 			}
+		],
+		AllScheduleTypesResponse: [
+			{
+				name: 'Schedule 1',
+				id: 1
+			}
 		]
 	},
 	components: {}

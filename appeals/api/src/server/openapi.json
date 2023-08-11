@@ -889,6 +889,33 @@
 				}
 			}
 		},
+		"/appeals/schedule-types": {
+			"get": {
+				"tags": ["Schedule Types"],
+				"description": "Gets schedule types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Schedule types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllScheduleTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllScheduleTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/site-visits": {
 			"post": {
 				"tags": ["Site Visits"],
@@ -2902,6 +2929,25 @@
 				},
 				"xml": {
 					"name": "AllProcedureTypesResponse"
+				}
+			},
+			"AllScheduleTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Schedule 1"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllScheduleTypesResponse"
 				}
 			}
 		}
