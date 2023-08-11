@@ -31,14 +31,16 @@ async function submitDocument({
 	userEmail
 }) {
 	return await got
-		.post(`https://${config.API_HOST}/applications/${caseID}`, {
-			json: {
-				documentName,
-				documentType,
-				documentSize,
-				folderId: folderID,
-				username: userEmail
-			}
+		.post(`https://${config.API_HOST}/applications/${caseID}/documents`, {
+			json: [
+				{
+					documentName,
+					documentType,
+					documentSize,
+					folderId: folderID,
+					username: userEmail
+				}
+			]
 		})
 		.json();
 }
