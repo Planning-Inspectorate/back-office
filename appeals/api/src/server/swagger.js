@@ -528,7 +528,20 @@ const document = {
 				name: 'Valid',
 				id: 1
 			}
-		]
+		],
+		SingleAppellantResponse: {
+			agentName: 'Fiona Burgess',
+			appellantId: 1,
+			company: 'Sophie Skinner Ltd',
+			email: 'sophie.skinner@example.com',
+			name: 'Sophie Skinner'
+		},
+		UpdateAppellantRequest: {
+			name: 'Eva Sharma'
+		},
+		UpdateAppellantResponse: {
+			name: 'Eva Sharma'
+		}
 	},
 	components: {}
 };
