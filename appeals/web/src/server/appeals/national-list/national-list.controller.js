@@ -32,7 +32,11 @@ export const viewNationalList = async (request, response) => {
 	/** @type {SearchInputFieldObject} */
 	const searchObject = {
 		id: 'searchTerm',
-		name: 'searchTerm'
+		name: 'searchTerm',
+		label: {
+			text: 'Enter appeal ID or postcode',
+			classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
+		}
 	};
 
 	if (searchTerm.length === 1 || searchTerm.length >= 9) {

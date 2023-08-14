@@ -11,13 +11,9 @@
 {%- set pageTitle = 'National List' -%}
 
 {%- block pageContent -%}
-
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
 			<h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-			<div class="govuk-caption-m govuk-!-margin-bottom-3">
-				Enter appeal ID or postcode
-			</div>
 			<form action="" method="GET" novalidate>
 				{{
 					govukInput(searchObject)
