@@ -18,7 +18,7 @@ const getInstance = (/** @type {string} */ userId) =>
 			beforeRequest: [
 				requestLogger,
 				async (options) => {
-					options.headers.userid = userId;
+					options.headers.azureAdUserId = userId;
 				}
 			],
 			afterResponse: [responseLogger]
