@@ -34,7 +34,13 @@ export const index = async (context, eventGridEvent) => {
 
 	const blobStream = await getBlobStream(storageUrl, container, blobPath);
 
-	await checkMyBlob(context.log, url, new Readable().wrap(blobStream));
+	const isInfected = await checkMyBlob(context.log, url, new Readable().wrap(blobStream));
 
-	context.log.info('Successfully scanned stream for blob', storageUrl, container, blobPath);
+	context.log.info(
+		'Successfully scanned stream for blob',
+		storageUrl,
+		container,
+		blobPath,
+		isInfected
+	);
 };

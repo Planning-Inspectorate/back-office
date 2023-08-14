@@ -18,6 +18,27 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 
 /**
  *
+ * @param {string} documentGuid
+ * @returns {Promise<boolean>}
+ * */
+export const isDocumentFromFrontOffice = async (documentGuid) => {
+	try {
+		const result = await got
+			.get(`https://${config.API_HOST}/applications/document/${documentGuid}`)
+			.json();
+
+		if (!result.ok) {
+			return false;
+		}
+
+		return result.fromFrontOffice;
+	} catch {
+		return false;
+	}
+};
+
+/**
+ *
  * @param {Error} error
  * @returns {boolean}
  */
