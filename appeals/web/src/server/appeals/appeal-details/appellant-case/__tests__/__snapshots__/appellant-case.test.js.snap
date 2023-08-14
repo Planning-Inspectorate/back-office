@@ -61,26 +61,22 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site partially owned</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site partially owned</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> All owners known</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> All owners known</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Attempted to identify owners</dt>
-                        <dd                         class="govuk-summary-list__value"><span>No</span>
-                            </dd>
+                        <dd                         class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Attempted to identify owners</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advertised appeal</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Advertised appeal</span></a>
                         </dd>
                     </div>
@@ -539,26 +535,22 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site partially owned</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site partially owned</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> All owners known</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> All owners known</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Attempted to identify owners</dt>
-                        <dd                         class="govuk-summary-list__value"><span>No</span>
-                            </dd>
+                        <dd                         class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Attempted to identify owners</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advertised appeal</dt>
-                        <dd class="govuk-summary-list__value"><span>No</span>
-                        </dd>
+                        <dd class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Advertised appeal</span></a>
                         </dd>
                     </div>

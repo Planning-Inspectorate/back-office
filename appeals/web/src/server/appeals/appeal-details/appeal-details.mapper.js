@@ -1,5 +1,6 @@
 import { addressToString } from '../../lib/address-formatter.js';
 import { dateToDisplayDate } from '../../lib/dates.js';
+import { convertFromBooleanToYesNoWithOptionalDetails } from '#lib/boolean-formatter.js';
 
 /**
  * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
@@ -347,28 +348,29 @@ function mapSiteDetails(appealDetails) {
 		rows: [
 			{
 				title: `Inspector access (LPA's answer)`,
-				value: appealDetails.inspectorAccess?.lpaQuestionnaire?.isRequired
-					? [
-							'Yes',
-							appealDetails.inspectorAccess?.lpaQuestionnaire?.details || 'No details provided'
-					  ]
-					: 'No',
+				value: convertFromBooleanToYesNoWithOptionalDetails(
+					appealDetails.inspectorAccess?.lpaQuestionnaire?.isRequired,
+					appealDetails.inspectorAccess?.lpaQuestionnaire?.details || 'No details provided'
+				),
 				valueType: valueTypeText,
 				actionText: 'Change',
 				actionLink: '#'
 			},
 			{
 				title: `Inspector access (appellant's answer)`,
-				value: appealDetails.inspectorAccess?.appellantCase?.isRequired
-					? ['Yes', appealDetails.inspectorAccess?.appellantCase?.details || 'No details provided']
-					: 'No',
+				value: convertFromBooleanToYesNoWithOptionalDetails(
+					appealDetails.inspectorAccess?.appellantCase?.isRequired,
+					appealDetails.inspectorAccess?.appellantCase?.details || 'No details provided'
+				),
 				valueType: valueTypeText,
 				actionText: 'Change',
 				actionLink: '#'
 			},
 			{
 				title: 'Could a neighbouring site be affected?',
-				value: appealDetails.neighbouringSite.isAffected ? 'Yes' : 'No',
+				value: convertFromBooleanToYesNoWithOptionalDetails(
+					appealDetails.neighbouringSite.isAffected
+				),
 				valueType: valueTypeText,
 				actionText: 'Change',
 				actionLink: '#'
@@ -376,21 +378,20 @@ function mapSiteDetails(appealDetails) {
 			...(neighbourAddressRows || []),
 			{
 				title: `Potential safety risks (LPA's answer)`,
-				value: appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues
-					? [
-							'Yes',
-							appealDetails.healthAndSafety?.lpaQuestionnaire?.details || 'No details provided'
-					  ]
-					: 'No',
+				value: convertFromBooleanToYesNoWithOptionalDetails(
+					appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues,
+					appealDetails.healthAndSafety?.lpaQuestionnaire?.details || 'No details provided'
+				),
 				valueType: valueTypeText,
 				actionText: 'Change',
 				actionLink: '#'
 			},
 			{
 				title: `Potential safety risks (appellant's answer)`,
-				value: appealDetails.healthAndSafety?.appellantCase?.hasIssues
-					? ['Yes', appealDetails.healthAndSafety?.appellantCase?.details || 'No details provided']
-					: 'No',
+				value: convertFromBooleanToYesNoWithOptionalDetails(
+					appealDetails.healthAndSafety?.appellantCase?.hasIssues,
+					appealDetails.healthAndSafety?.appellantCase?.details || 'No details provided'
+				),
 				valueType: valueTypeText,
 				actionText: 'Change',
 				actionLink: '#'

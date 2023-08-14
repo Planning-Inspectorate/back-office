@@ -133,6 +133,26 @@ export const appealData = {
 			status: 'not_received',
 			dueDate: '2024-05-23T10:27:06.626Z'
 		}
+	},
+	healthAndSafety: {
+		appellantCase: {
+			details: 'Dogs on site',
+			hasIssues: true
+		},
+		lpaQuestionnaire: {
+			details: null,
+			hasIssues: null
+		}
+	},
+	inspectorAccess: {
+		appellantCase: {
+			details: null,
+			isRequired: false
+		},
+		lpaQuestionnaire: {
+			details: null,
+			isRequired: null
+		}
 	}
 };
 

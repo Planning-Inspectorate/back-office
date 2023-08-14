@@ -106,8 +106,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         aria-labelledby="accordion-default-1-heading-2">
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Inspector access (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
@@ -136,13 +135,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
+                                    <dd                                     class="govuk-summary-list__value"><span>Yes</span>
+                                        <br><span>Dogs on site</span>
                                         </dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (appellant&#39;s answer)</span></a>
                                         </dd>
@@ -342,8 +341,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         aria-labelledby="accordion-default-3-heading-2">
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Inspector access (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
@@ -372,13 +370,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
+                                    <dd                                     class="govuk-summary-list__value"><span>Yes</span>
+                                        <br><span>Dogs on site</span>
                                         </dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (appellant&#39;s answer)</span></a>
                                         </dd>
@@ -580,8 +578,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         aria-labelledby="accordion-default-2-heading-2">
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Inspector access (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
@@ -610,13 +607,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
+                                    <dd                                     class="govuk-summary-list__value"><span>Yes</span>
+                                        <br><span>Dogs on site</span>
                                         </dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (appellant&#39;s answer)</span></a>
                                         </dd>
@@ -820,8 +817,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         aria-labelledby="accordion-default-1-heading-2">
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Inspector access (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
@@ -850,13 +846,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
-                                        </dd>
+                                    <dd                                     class="govuk-summary-list__value"></dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (LPA&#39;s answer)</span></a>
                                         </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant&#39;s answer)</dt>
-                                    <dd                                     class="govuk-summary-list__value"><span>No</span>
+                                    <dd                                     class="govuk-summary-list__value"><span>Yes</span>
+                                        <br><span>Dogs on site</span>
                                         </dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Potential safety risks (appellant&#39;s answer)</span></a>
                                         </dd>
