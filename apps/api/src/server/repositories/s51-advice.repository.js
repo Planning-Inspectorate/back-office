@@ -60,3 +60,17 @@ export const getManyS51AdviceOnCase = ({ caseId, skipValue, pageSize }) => {
 		}
 	});
 };
+
+/**
+ *
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/applications.api').Schema.S51Advice | null>}
+ */
+export const getLatestRecordByCaseId = (caseId) => {
+	return databaseConnector.s51Advice.findFirst({
+		where: { caseId },
+		orderBy: {
+			id: 'desc'
+		}
+	});
+};
