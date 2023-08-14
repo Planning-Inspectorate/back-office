@@ -274,7 +274,7 @@ extends:
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.functions-deadline-submissions'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-deadline-submissions'], 'true')
                 )
               )
             )
