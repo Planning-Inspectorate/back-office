@@ -20,6 +20,7 @@ const s51AdviceToBeSaved = {
 	caseId: 1,
 	title: 'A title',
 	enquirer: 'enquirer',
+	referenceNumber: 1,
 	enquiryMethod: 'email',
 	enquiryDate: new Date('2023-02-27T10:00'),
 	enquiryDetails: 'enquiryDetails',
@@ -77,6 +78,8 @@ describe('Test S51 advice API', () => {
 	});
 
 	test('post creates S51 advice when passed valid data', async () => {
+		databaseConnector.s51Advice.count.mockResolvedValue(0);
+
 		const resp = await request.post('/applications/s51-advice').send(validS51AdviceBody);
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.create).toHaveBeenCalledWith({
@@ -137,7 +140,8 @@ describe('Test S51 advice API', () => {
 			items: [
 				{
 					id: 1,
-					referenceNumber: 'BC0110001-Advice-00001',
+					referenceNumber: '00001',
+					referenceCode: 'BC0110001-Advice-00001',
 					title: 'Advice 1',
 					enquirer: 'New Power Company',
 					firstName: 'David',

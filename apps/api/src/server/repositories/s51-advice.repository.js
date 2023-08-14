@@ -18,7 +18,7 @@ export const get = (id) => {
 	return databaseConnector.s51Advice.findUnique({
 		where: { id }
 	});
-}
+};
 
 /**
  * Returns total number of S51 Advice on a case

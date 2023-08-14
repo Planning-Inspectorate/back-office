@@ -606,12 +606,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-0\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"0\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-0\\">1 Ut enim ad minim veniam</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-0\\">Ut enim ad minim veniam</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 1 Ut enim ad minim veniam</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00000 - Ut enim ad minim veniam</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -627,12 +627,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"1\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-1\\">2 Minim veniam quis nostrud exercitation</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-1\\">Minim veniam quis nostrud exercitation</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 2 Minim veniam quis nostrud exercitation</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00001 - Minim veniam quis nostrud exercitation</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -648,12 +648,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"2\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-2\\">3 Nostrud exercitation ullamco laboris nisi ut</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-2\\">Nostrud exercitation ullamco laboris nisi ut</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 3 Nostrud exercitation ullamco laboris nisi ut</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00002 - Nostrud exercitation ullamco laboris nisi ut</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -669,12 +669,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"3\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-3\\">4 Elit sed do</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-3\\">Elit sed do</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 4 Elit sed do</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00003 - Elit sed do</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -690,12 +690,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-4\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"4\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-4\\">5 Minim veniam quis nostrud exercitation</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-4\\">Minim veniam quis nostrud exercitation</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 5 Minim veniam quis nostrud exercitation</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00004 - Minim veniam quis nostrud exercitation</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -711,12 +711,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-5\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"5\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-5\\">6 Magna aliqua Ut enim</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-5\\">Magna aliqua Ut enim</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 6 Magna aliqua Ut enim</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00005 - Magna aliqua Ut enim</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -732,12 +732,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-6\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"6\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-6\\">7 Enim ad minim veniam quis</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-6\\">Enim ad minim veniam quis</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 7 Enim ad minim veniam quis</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00006 - Enim ad minim veniam quis</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -753,12 +753,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-7\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"7\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-7\\">8 Dolor sit</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-7\\">Dolor sit</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 8 Dolor sit</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00007 - Dolor sit</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -774,12 +774,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-8\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"8\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-8\\">9 Lorem ipsum</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-8\\">Lorem ipsum</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 9 Lorem ipsum</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00008 - Lorem ipsum</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -795,12 +795,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-9\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"9\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-9\\">10 Do eiusmod tempor</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-9\\">Do eiusmod tempor</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 10 Do eiusmod tempor</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00009 - Do eiusmod tempor</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -816,12 +816,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-10\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"10\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-10\\">11 Aliqua Ut enim ad minim</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-10\\">Aliqua Ut enim ad minim</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 11 Aliqua Ut enim ad minim</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00010 - Aliqua Ut enim ad minim</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -837,12 +837,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-11\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"11\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-11\\">12 Ullamco laboris nisi ut aliquip ex</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-11\\">Ullamco laboris nisi ut aliquip ex</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 12 Ullamco laboris nisi ut aliquip ex</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00011 - Ullamco laboris nisi ut aliquip ex</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -858,12 +858,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"12\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-12\\">13 Do eiusmod tempor</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-12\\">Do eiusmod tempor</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 13 Do eiusmod tempor</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00012 - Do eiusmod tempor</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -879,12 +879,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"13\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-13\\">14 Quis nostrud exercitation ullamco laboris nisi</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-13\\">Quis nostrud exercitation ullamco laboris nisi</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 14 Quis nostrud exercitation ullamco laboris nisi</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00013 - Quis nostrud exercitation ullamco laboris nisi</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -900,12 +900,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"14\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-14\\">15 Do eiusmod tempor</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-14\\">Do eiusmod tempor</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 15 Do eiusmod tempor</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00014 - Do eiusmod tempor</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -921,12 +921,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"15\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-15\\">16 Lorem ipsum</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-15\\">Lorem ipsum</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 16 Lorem ipsum</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00015 - Lorem ipsum</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -942,12 +942,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-16\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"16\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-16\\">17 Ad minim veniam quis nostrud</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-16\\">Ad minim veniam quis nostrud</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 17 Ad minim veniam quis nostrud</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00016 - Ad minim veniam quis nostrud</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -963,12 +963,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-17\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"17\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-17\\">18 Dolore magna aliqua Ut</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-17\\">Dolore magna aliqua Ut</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 18 Dolore magna aliqua Ut</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00017 - Dolore magna aliqua Ut</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -984,12 +984,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-18\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"18\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-18\\">19 Eiusmod tempor incididunt</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-18\\">Eiusmod tempor incididunt</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 19 Eiusmod tempor incididunt</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00018 - Eiusmod tempor incididunt</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1005,12 +1005,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-19\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"19\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-19\\">20 Eiusmod tempor incididunt</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-19\\">Eiusmod tempor incididunt</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 20 Eiusmod tempor incididunt</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00019 - Eiusmod tempor incididunt</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1026,12 +1026,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-20\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"20\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-20\\">21 Labore et dolore magna</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-20\\">Labore et dolore magna</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 21 Labore et dolore magna</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00020 - Labore et dolore magna</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1047,12 +1047,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-21\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"21\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-21\\">22 Enim ad minim veniam quis</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-21\\">Enim ad minim veniam quis</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 22 Enim ad minim veniam quis</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00021 - Enim ad minim veniam quis</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1068,12 +1068,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-22\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"22\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-22\\">23 Nisi ut aliquip ex ea commodo</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-22\\">Nisi ut aliquip ex ea commodo</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 23 Nisi ut aliquip ex ea commodo</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00022 - Nisi ut aliquip ex ea commodo</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1089,12 +1089,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-23\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"23\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-23\\">24 Incididunt ut labore et</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-23\\">Incididunt ut labore et</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 24 Incididunt ut labore et</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00023 - Incididunt ut labore et</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1110,12 +1110,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"24\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-24\\">25 Ullamco laboris nisi ut aliquip ex</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-24\\">Ullamco laboris nisi ut aliquip ex</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 25 Ullamco laboris nisi ut aliquip ex</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00024 - Ullamco laboris nisi ut aliquip ex</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1131,12 +1131,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"25\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-25\\">26 Ut enim ad minim veniam</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-25\\">Ut enim ad minim veniam</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 26 Ut enim ad minim veniam</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00025 - Ut enim ad minim veniam</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1152,12 +1152,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"26\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-26\\">27 Ut labore et dolore</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-26\\">Ut labore et dolore</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 27 Ut labore et dolore</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00026 - Ut labore et dolore</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1173,12 +1173,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-27\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"27\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-27\\">28 Labore et dolore magna</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-27\\">Labore et dolore magna</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 28 Labore et dolore magna</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00027 - Labore et dolore magna</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1194,12 +1194,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-28\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"28\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-28\\">29 Et dolore magna aliqua</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-28\\">Et dolore magna aliqua</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 29 Et dolore magna aliqua</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00028 - Et dolore magna aliqua</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1215,12 +1215,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-29\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"29\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-29\\">30 Ad minim veniam quis nostrud</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-29\\">Ad minim veniam quis nostrud</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 30 Ad minim veniam quis nostrud</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00029 - Ad minim veniam quis nostrud</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1236,12 +1236,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-30\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"30\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-30\\">31 Elit sed do</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-30\\">Elit sed do</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 31 Elit sed do</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00030 - Elit sed do</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1257,12 +1257,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-31\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"31\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-31\\">32 Veniam quis nostrud exercitation ullamco</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-31\\">Veniam quis nostrud exercitation ullamco</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 32 Veniam quis nostrud exercitation ullamco</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00031 - Veniam quis nostrud exercitation ullamco</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1278,12 +1278,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-32\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"32\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-32\\">33 Et dolore magna aliqua</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-32\\">Et dolore magna aliqua</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 33 Et dolore magna aliqua</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00032 - Et dolore magna aliqua</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1299,12 +1299,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-33\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"33\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-33\\">34 Ut labore et dolore</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-33\\">Ut labore et dolore</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 34 Ut labore et dolore</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00033 - Ut labore et dolore</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1320,12 +1320,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-34\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"34\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-34\\">35 Dolore magna aliqua Ut</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-34\\">Dolore magna aliqua Ut</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 35 Dolore magna aliqua Ut</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00034 - Dolore magna aliqua Ut</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1341,12 +1341,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"35\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-35\\">36 Veniam quis nostrud exercitation ullamco</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-35\\">Veniam quis nostrud exercitation ullamco</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 36 Veniam quis nostrud exercitation ullamco</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00035 - Veniam quis nostrud exercitation ullamco</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1362,12 +1362,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"36\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-36\\">37 Elit sed do</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-36\\">Elit sed do</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 37 Elit sed do</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00036 - Elit sed do</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1383,12 +1383,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"37\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-37\\">38 Nostrud exercitation ullamco laboris nisi ut</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-37\\">Nostrud exercitation ullamco laboris nisi ut</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 38 Nostrud exercitation ullamco laboris nisi ut</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00037 - Nostrud exercitation ullamco laboris nisi ut</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1404,12 +1404,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"38\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-38\\">39 Ad minim veniam quis nostrud</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-38\\">Ad minim veniam quis nostrud</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 39 Ad minim veniam quis nostrud</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00038 - Ad minim veniam quis nostrud</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1425,12 +1425,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-39\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"39\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-39\\">40 Minim veniam quis nostrud exercitation</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-39\\">Minim veniam quis nostrud exercitation</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 40 Minim veniam quis nostrud exercitation</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00039 - Minim veniam quis nostrud exercitation</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1446,12 +1446,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-40\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"40\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-40\\">41 Dolor sit</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-40\\">Dolor sit</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 41 Dolor sit</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00040 - Dolor sit</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1467,12 +1467,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-41\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"41\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-41\\">42 Ut labore et dolore</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-41\\">Ut labore et dolore</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 42 Ut labore et dolore</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00041 - Ut labore et dolore</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1488,12 +1488,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-42\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"42\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-42\\">43 Consectetur adipiscing</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-42\\">Consectetur adipiscing</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 43 Consectetur adipiscing</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00042 - Consectetur adipiscing</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1509,12 +1509,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-43\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"43\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-43\\">44 Ipsum dolor</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-43\\">Ipsum dolor</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 44 Ipsum dolor</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00043 - Ipsum dolor</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1530,12 +1530,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-44\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"44\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-44\\">45 Consectetur adipiscing</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-44\\">Consectetur adipiscing</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 45 Consectetur adipiscing</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00044 - Consectetur adipiscing</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1551,12 +1551,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-45\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"45\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-45\\">46 Dolore magna aliqua Ut</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-45\\">Dolore magna aliqua Ut</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 46 Dolore magna aliqua Ut</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00045 - Dolore magna aliqua Ut</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1572,12 +1572,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-46\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"46\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-46\\">47 Consectetur adipiscing</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-46\\">Consectetur adipiscing</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 47 Consectetur adipiscing</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00046 - Consectetur adipiscing</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1593,12 +1593,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-47\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"47\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-47\\">48 Et dolore magna aliqua</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-47\\">Et dolore magna aliqua</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 48 Et dolore magna aliqua</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00047 - Et dolore magna aliqua</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1614,12 +1614,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"48\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-48\\">49 Sit amet</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-48\\">Sit amet</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 49 Sit amet</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00048 - Sit amet</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>
@@ -1635,12 +1635,12 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                                         <div class=\\"govuk-checkboxes__item\\">
                                             <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
                                             type=\\"checkbox\\" value=\\"49\\">
-                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-49\\">50 Ad minim veniam quis nostrud</label>
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-49\\">Ad minim veniam quis nostrud</label>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 50 Ad minim veniam quis nostrud</span>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00049 - Ad minim veniam quis nostrud</span>
                             </td>
                             <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
                             </td>

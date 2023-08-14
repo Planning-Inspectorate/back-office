@@ -1,4 +1,4 @@
-import { createS51Advice } from '../factory/s52-advice.js';
+import { createS51Advice } from '../factory/s51-advice.js';
 
 /**
  * @typedef {import('../../../src/server/applications/applications.types.js').S51Advice} S51Advice

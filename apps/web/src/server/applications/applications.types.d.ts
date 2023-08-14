@@ -146,6 +146,7 @@ export interface S51Advice {
 	caseId: number;
 	id: number;
 	referenceNumber: string;
+	referenceCode: string;
 	title: string;
 	enquirer: string;
 	firstName: string;

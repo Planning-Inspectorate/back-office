@@ -9,8 +9,9 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  *
  * @param { string } caseRef
  * @param { number } adviceRef
+ * @returns {string}
  */
-const formatS51AdviceReferenceNumber = (caseRef, adviceRef) => {
+const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
 	return `${caseRef}-Advice-` + String(adviceRef).padStart(5, '0');
 };
 
@@ -24,7 +25,8 @@ const formatS51AdviceReferenceNumber = (caseRef, adviceRef) => {
 export const mapS51Advice = (caseRef, s51Advice) => {
 	return {
 		id: s51Advice.id,
-		referenceNumber: formatS51AdviceReferenceNumber(caseRef, s51Advice.referenceNumber),
+		referenceCode: formatS51AdviceReferenceCode(caseRef, s51Advice.referenceNumber),
+		referenceNumber: String(s51Advice.referenceNumber).padStart(5, '0'),
 		title: s51Advice.title,
 		enquirer: s51Advice.enquirer ?? '',
 		firstName: s51Advice.firstName ?? '',

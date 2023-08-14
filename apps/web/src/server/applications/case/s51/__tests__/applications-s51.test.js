@@ -7,6 +7,7 @@ import {
 	fixtureS51Folder
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
+import { fixturePaginatedS51Advice } from '../../../../../../testing/applications/fixtures/s51-advice.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -17,6 +18,10 @@ const nocks = () => {
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/folders/21').times(2).reply(200, fixtureS51Folder);
+	nock('http://test/')
+		.post('/applications/123/s51-advice')
+		.reply(200, fixturePaginatedS51Advice(1, 50));
+
 	nock('http://test/')
 		.get('/applications/123/folders/21/parent-folders')
 		.times(2)

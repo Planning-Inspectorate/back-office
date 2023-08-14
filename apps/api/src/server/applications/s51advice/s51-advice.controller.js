@@ -10,8 +10,13 @@ import { getManyS51AdviceOnCase } from './s51-advice.service.js';
  */
 export const createS51Advice = async (_request, response) => {
 	const { body } = _request;
+	const { caseId } = body;
 
-	const s51Advice = await s51AdviceRepository.create(body);
+	const latestReferenceNumber = await s51AdviceRepository.getS51AdviceCountOnCase(caseId);
+	const newReferenceNumber = latestReferenceNumber + 1;
+
+	const payload = { ...body, referenceNumber: newReferenceNumber };
+	const s51Advice = await s51AdviceRepository.create(payload);
 
 	response.send(s51Advice);
 };
