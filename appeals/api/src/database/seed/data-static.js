@@ -175,10 +175,10 @@ export const appellantCaseIncompleteReasons = [
 		name: "LPA's decision notice is incorrect or incomplete"
 	},
 	{
-		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing'
+		name: 'Documents and/or plans referred in the application form, decision notice and appeal covering letter are missing'
 	},
 	{
-		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form'
+		name: 'Agricultural holding certificate and declaration have not been completed on the appeal form'
 	},
 	{
 		name: 'The original application form is incomplete or missing'
