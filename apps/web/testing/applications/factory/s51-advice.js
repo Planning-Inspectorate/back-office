@@ -18,7 +18,7 @@ export function createS51Advice(options = {}) {
 		createUniqueRandomNumberFromSeed(0, 2, uniqueSeed)
 	];
 
-	const title = `${uniqueSeed + 1} ${createRandomDescription({
+	const title = `${createRandomDescription({
 		wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed),
 		startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed)
 	})}`;
@@ -70,13 +70,15 @@ export function createS51Advice(options = {}) {
 	const methods = ['meeting', 'phone', 'post', 'email'];
 	const enquiryMethod = methods[createUniqueRandomNumberFromSeed(0, 3, uniqueSeed)];
 
-	const referenceNumber = 'BC0110001-Advice-00001';
+	const referenceNumber = id.padStart(5, '0');
+	const referenceCode = `BC0110001-Advice-${referenceNumber}`;
 
 	return {
 		caseId: 11,
 		id: +id,
 		title,
 		referenceNumber,
+		referenceCode,
 		enquirer,
 		firstName,
 		lastName,

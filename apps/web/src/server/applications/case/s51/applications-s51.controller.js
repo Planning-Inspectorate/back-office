@@ -30,8 +30,7 @@ export async function viewApplicationsCaseS51Folder(request, response) {
 	const number = +(request.query.number || '1');
 	const size = request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : 50;
 
-	const s51Files = await getS51FilesInFolder(response.locals.caseId, number, size);
-
+	const s51Files = await getS51FilesInFolder(response.locals.caseId, size, number);
 	const pagination = paginationParams(size, number, s51Files.pageCount);
 
 	response.render(`applications/case-documentation/folder/documentation-folder`, {

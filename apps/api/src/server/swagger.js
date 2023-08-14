@@ -1447,7 +1447,12 @@ const document = {
 				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
 				referenceNumber: {
 					type: 'string',
-					description: 'Advice reference number',
+					description: 'Advice reference 5 digits number',
+					example: '00001'
+				},
+				referenceCode: {
+					type: 'string',
+					description: 'Advice reference number containing Case ref number',
 					example: 'EN010001-Advice-00001'
 				},
 				title: {

@@ -1,6 +1,7 @@
 export interface S51AdviceDetails {
 	id: number | null;
 	referenceNumber: string;
+	referenceCode: string;
 	title: String;
 	enquirer?: string;
 	firstName?: string;

@@ -1,6 +1,5 @@
 import { post, get } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
-import { fixturePaginatedS51Advice } from '../../../../../testing/applications/fixtures/s51-advice.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -65,7 +64,22 @@ export const getS51Advice = async (caseId, adviceId) => {
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
 export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) => {
-	// TODO: this is a mock
+	let response;
 
-	return fixturePaginatedS51Advice(pageSize, pageNumber);
+	try {
+		response = await post(`applications/${caseId}/s51-advice`, {
+			json: {
+				pageSize: pageSize,
+				pageNumber: pageNumber
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
 };
