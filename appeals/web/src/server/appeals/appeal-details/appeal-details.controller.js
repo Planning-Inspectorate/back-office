@@ -21,7 +21,7 @@ import { generateTable } from '../../lib/nunjucks-template-builders/table-builde
 /** @type {import('@pins/express').RenderHandler<ViewAppealDetailsRenderOptions>}  */
 export const viewAppealDetails = async (request, response) => {
 	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.params.appealId)
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {

@@ -3,19 +3,19 @@ import {
 	setReviewOutcomeForLpaQuestionnaire
 } from './lpa-questionnaire-review.service.js';
 import { mapLpaQuestionnaire } from './lpa-questionnaire-review.mapper.js';
-import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
-import logger from '../../../lib/logger.js';
+import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
+import logger from '#lib/logger.js';
 import * as appealDetailsService from '../../appeal-details/appeal-details.service.js';
 
 /**
- *
+ * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {string} lpaQId
- * @param {import("../../../../../../../packages/express/types/express.js").ValidationErrors | string | null} errors
+ * @param {import('@pins/express').ValidationErrors | string | null} errors
  * @param {*} response
  */
-const renderLpaQuestionnaire = async (appealId, lpaQId, response, errors = null) => {
-	const lpaQuestionnaireResponse = await getLpaQuestionnaireFromId(appealId, lpaQId);
+const renderLpaQuestionnaire = async (apiClient, appealId, lpaQId, response, errors = null) => {
+	const lpaQuestionnaireResponse = await getLpaQuestionnaireFromId(apiClient, appealId, lpaQId);
 
 	const mappedLpaQuestionnaireSections = mapLpaQuestionnaire(lpaQuestionnaireResponse);
 	const formattedSections = [];
@@ -34,23 +34,23 @@ const renderLpaQuestionnaire = async (appealId, lpaQId, response, errors = null)
  * @param {*} request
  * @param {*} response
  */
-export const getLpaQuestionnaire = async ({ params: { appealId, lpaQId } }, response) =>
-	renderLpaQuestionnaire(appealId, lpaQId, response);
+export const getLpaQuestionnaire = async ({ apiClient, params: { appealId, lpaQId } }, response) =>
+	renderLpaQuestionnaire(apiClient, appealId, lpaQId, response);
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postLpaQuestionnaire = async (
-	{ params: { appealId, lpaQId }, body, errors },
+	{ apiClient, params: { appealId, lpaQId }, body, errors },
 	response
 ) => {
 	// If it fails validations
 	if (errors) {
-		return renderLpaQuestionnaire(appealId, lpaQId, response, errors);
+		return renderLpaQuestionnaire(apiClient, appealId, lpaQId, response, errors);
 	}
 	// If it succeeds validation
 	try {
 		const reviewOutcome = body['review-outcome'];
-		await setReviewOutcomeForLpaQuestionnaire(appealId, lpaQId, reviewOutcome);
-		return renderLpaQuestionnaireReviewCompletePage(appealId, response);
+		await setReviewOutcomeForLpaQuestionnaire(apiClient, appealId, lpaQId, reviewOutcome);
+		return renderLpaQuestionnaireReviewCompletePage(apiClient, appealId, response);
 	} catch (error) {
 		let errorMessage = 'Something went wrong when completing LPA questionnaire review';
 		if (error instanceof Error) {
@@ -59,18 +59,18 @@ export const postLpaQuestionnaire = async (
 
 		logger.error(error, errorMessage);
 
-		return renderLpaQuestionnaire(appealId, lpaQId, response, errorMessage);
+		return renderLpaQuestionnaire(apiClient, appealId, lpaQId, response, errorMessage);
 	}
 };
 
 /**
- *
+ * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {*} response
  */
-export const renderLpaQuestionnaireReviewCompletePage = async (appealId, response) => {
+export const renderLpaQuestionnaireReviewCompletePage = async (apiClient, appealId, response) => {
 	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(appealId)
+		.getAppealDetailsFromId(apiClient, appealId)
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {

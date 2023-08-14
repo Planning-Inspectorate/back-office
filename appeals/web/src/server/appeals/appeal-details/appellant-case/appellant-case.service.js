@@ -1,4 +1,3 @@
-import { get, patch } from '../../../lib/request.js';
 import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 
 /**
@@ -8,11 +7,12 @@ import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
  */
 
 /**
+ * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {number} appellantCaseId
  */
-export function getAppellantCaseFromAppealId(appealId, appellantCaseId) {
-	return get(`appeals/${appealId}/appellant-cases/${appellantCaseId}`);
+export function getAppellantCaseFromAppealId(apiClient, appealId, appellantCaseId) {
+	return apiClient.get(`appeals/${appealId}/appellant-cases/${appellantCaseId}`).json();
 }
 
 /**
@@ -32,41 +32,52 @@ export function getAppellantCaseFromAppealId(appealId, appellantCaseId) {
  */
 
 /**
+ * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {number} appellantCaseId
  * @param {AppellantCaseReviewOutcome} reviewOutcome
  * @returns {Promise<AppellantCaseResponse>}
  */
-export async function setReviewOutcomeForAppellantCase(appealId, appellantCaseId, reviewOutcome) {
-	return patch(`appeals/${appealId}/appellant-cases/${appellantCaseId}`, {
-		json: reviewOutcome
-	});
+export async function setReviewOutcomeForAppellantCase(
+	apiClient,
+	appealId,
+	appellantCaseId,
+	reviewOutcome
+) {
+	return apiClient
+		.patch(`appeals/${appealId}/appellant-cases/${appellantCaseId}`, {
+			json: reviewOutcome
+		})
+		.json();
 }
 
 /**
+ * @param {import('got').Got} apiClient
  * @returns {Promise<AppellantCaseInvalidReason[]>}
  */
-export async function getAppellantCaseInvalidReasons() {
-	return get(`appeals/appellant-case-invalid-reasons`);
+export async function getAppellantCaseInvalidReasons(apiClient) {
+	return apiClient.get(`appeals/appellant-case-invalid-reasons`).json();
 }
 
 /**
+ * @param {import('got').Got} apiClient
  * @returns {Promise<AppellantCaseIncompleteReason[]>}
  */
-export async function getAppellantCaseIncompleteReasons() {
-	return get(`appeals/appellant-case-incomplete-reasons`);
+export async function getAppellantCaseIncompleteReasons(apiClient) {
+	return apiClient.get(`appeals/appellant-case-incomplete-reasons`).json();
 }
 
 /**
+ * @param {import('got').Got} apiClient
  * @param {string} validationOutcome
  * @returns {Promise<AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]>}
  */
-export async function getAppellantCaseNotValidReasonsForOutcome(validationOutcome) {
+export async function getAppellantCaseNotValidReasonsForOutcome(apiClient, validationOutcome) {
 	switch (validationOutcome) {
 		case appellantCaseReviewOutcomes.invalid:
-			return getAppellantCaseInvalidReasons();
+			return getAppellantCaseInvalidReasons(apiClient);
 		case appellantCaseReviewOutcomes.incomplete:
-			return getAppellantCaseIncompleteReasons();
+			return getAppellantCaseIncompleteReasons(apiClient);
 		default:
 			return [];
 	}

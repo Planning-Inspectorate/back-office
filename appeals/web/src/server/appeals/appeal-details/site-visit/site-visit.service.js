@@ -1,7 +1,5 @@
-import { get, post, patch } from '../../../lib/request.js';
-
 /**
- *
+ * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {import('@pins/appeals/types/inspector.js').SiteVisitType} visitType
  * @param {string} visitDate
@@ -9,24 +7,27 @@ import { get, post, patch } from '../../../lib/request.js';
  * @param {string} visitEndTime
  */
 export async function createSiteVisit(
+	apiClient,
 	appealId,
 	visitType,
 	visitDate,
 	visitStartTime,
 	visitEndTime
 ) {
-	return post(`appeals/${appealId}/site-visits`, {
-		json: {
-			visitDate,
-			visitStartTime,
-			visitEndTime,
-			visitType
-		}
-	});
+	return apiClient
+		.post(`appeals/${appealId}/site-visits`, {
+			json: {
+				visitDate,
+				visitStartTime,
+				visitEndTime,
+				visitType
+			}
+		})
+		.json();
 }
 
 /**
- *
+ * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {number} siteVisitId
  * @param {import('@pins/appeals/types/inspector.js').SiteVisitType} visitType
@@ -35,6 +36,7 @@ export async function createSiteVisit(
  * @param {string} visitEndTime
  */
 export async function updateSiteVisit(
+	apiClient,
 	appealId,
 	siteVisitId,
 	visitType,
@@ -42,22 +44,24 @@ export async function updateSiteVisit(
 	visitStartTime,
 	visitEndTime
 ) {
-	return patch(`appeals/${appealId}/site-visits/${siteVisitId}`, {
-		json: {
-			visitDate,
-			visitStartTime,
-			visitEndTime,
-			visitType
-		}
-	});
+	return apiClient
+		.patch(`appeals/${appealId}/site-visits/${siteVisitId}`, {
+			json: {
+				visitDate,
+				visitStartTime,
+				visitEndTime,
+				visitType
+			}
+		})
+		.json();
 }
 
 /**
- *
+ * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {number} siteVisitId
  * @returns {Promise<import('@pins/appeals.api/src/server/endpoints/appeals.js').SingleSiteVisitDetailsResponse>}
  */
-export async function getSiteVisit(appealId, siteVisitId) {
-	return get(`appeals/${appealId}/site-visits/${siteVisitId}`);
+export async function getSiteVisit(apiClient, appealId, siteVisitId) {
+	return apiClient.get(`appeals/${appealId}/site-visits/${siteVisitId}`).json();
 }
