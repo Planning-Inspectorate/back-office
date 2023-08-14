@@ -10,6 +10,10 @@ import { objectContainsAllKeys } from '../object-utilities.js';
 import { checkboxItemParameterAddConditionalHtml } from '../nunjucks-filters/checkbox-item-parameter-add-conditional-html.js';
 import { getIdByNameFromIdNamePairs } from '../id-name-pairs.js';
 import { cloneDeep } from 'lodash-es';
+import {
+	convertFromBooleanToYesNo,
+	convertFromBooleanToYesNoWithOptionalDetails
+} from '#lib/boolean-formatter.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -481,6 +485,43 @@ describe('Libraries', () => {
 			);
 
 			expect(matchingId).toBe(undefined);
+		});
+	});
+
+	describe('convertFromBooleanToYesNo', () => {
+		it('should return null if provided boolean is undefined', () => {
+			expect(convertFromBooleanToYesNo(undefined)).toBe(null);
+		});
+		it('should return null if provided boolean is null', () => {
+			expect(convertFromBooleanToYesNo(null)).toBe(null);
+		});
+		it('should return "Yes" if provided boolean is true', () => {
+			expect(convertFromBooleanToYesNo(true)).toBe('Yes');
+		});
+		it('should return "No" if provided boolean is false', () => {
+			expect(convertFromBooleanToYesNo(false)).toBe('No');
+		});
+	});
+
+	describe('convertFromBooleanToYesNoWithOptionalDetails', () => {
+		const testOptionalDetails = 'test optional details';
+		it('should return "Yes", if provided boolean is true and optionalDetailsIfYes is not provided', () => {
+			expect(convertFromBooleanToYesNoWithOptionalDetails(true)).toBe('Yes');
+		});
+		it('should return an array with "Yes" as the first item and optional details as the second item, if provided boolean is true and optionalDetailsIfYes is provided', () => {
+			expect(convertFromBooleanToYesNoWithOptionalDetails(true, testOptionalDetails)).toEqual([
+				'Yes',
+				testOptionalDetails
+			]);
+		});
+		it('should return "No" if provided boolean is false', () => {
+			expect(convertFromBooleanToYesNoWithOptionalDetails(false)).toBe('No');
+		});
+		it('should return an empty string if provided boolean is null', () => {
+			expect(convertFromBooleanToYesNoWithOptionalDetails(null)).toBe('');
+		});
+		it('should return an empty string if provided boolean is undefined', () => {
+			expect(convertFromBooleanToYesNoWithOptionalDetails(undefined)).toBe('');
 		});
 	});
 });
