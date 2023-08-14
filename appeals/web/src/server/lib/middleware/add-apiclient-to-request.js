@@ -32,8 +32,8 @@ const getInstance = (/** @type {string} */ userId) =>
 export const addApiClientToRequest = async (req, res, next) => {
 	const user = authSession.getAccount(req.session);
 	if (!user || !user.homeAccountId) {
-		pino.info(`Unauthenticated user redirected to sign in from '${req.originalUrl}'.`);
-		return res.redirect(`/auth/signin?redirect_to=${req.originalUrl}`);
+		pino.error(`Unauthenticated user should not get here...`);
+		return res.status(500).send('Unauthenticated user');
 	}
 
 	pino.info(`Creating API client for user '${user.homeAccountId}'`);
