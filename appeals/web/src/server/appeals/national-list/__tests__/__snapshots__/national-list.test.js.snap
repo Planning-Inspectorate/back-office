@@ -10,10 +10,12 @@ exports[`national-list GET / should render national list - 10 pages - all page i
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
-                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode</label>
+                    <input class="govuk-input" id="searchTerm"
+                    name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -102,10 +104,12 @@ exports[`national-list GET / should render national list - 15 pages - pagination
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
-                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode</label>
+                    <input class="govuk-input" id="searchTerm"
+                    name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -174,10 +178,12 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
-                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode</label>
+                    <input class="govuk-input" id="searchTerm"
+                    name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -229,11 +235,12 @@ exports[`national-list GET / should render national list - search term - no resu
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
-                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text"
-                    value="NORESULT">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode</label>
+                    <input class="govuk-input" id="searchTerm"
+                    name="searchTerm" type="text" value="NORESULT">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -257,11 +264,12 @@ exports[`national-list GET / should render national list - search term 1`] = `
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <div class="govuk-caption-m govuk-!-margin-bottom-3">Enter appeal ID or postcode</div>
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
-                    <input class="govuk-input" id="searchTerm" name="searchTerm" type="text"
-                    value="BS7 8LQ">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode</label>
+                    <input class="govuk-input" id="searchTerm"
+                    name="searchTerm" type="text" value="BS7 8LQ">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
