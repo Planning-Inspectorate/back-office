@@ -207,6 +207,7 @@ model Document {
   folder                   Folder                    @relation(fields: [folderId], references: [id])
   documentVersion          DocumentVersion[]         @relation("VersionHistory")
   representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+  s51AdviceDocument        S51AdviceDocument?        @relation("S51AdviceDocument")
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
   case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   fromFrontOffice          Boolean                   @default(false)
@@ -436,22 +437,31 @@ model DocumentActivityLog {
 }
 
 model S51Advice {
-  id              Int      @id @default(autoincrement())
-  caseId          Int
-  title           String
-  firstName       String?
-  lastName        String?
-  enquirer        String?
-  enquiryMethod   String
-  enquiryDate     DateTime
-  enquiryDetails  String
-  adviser         String
-  adviceDate      DateTime
-  adviceDetails   String
-  referenceNumber Int      @default(00001)
-  redactedStatus  String?
-  publishedStatus String   @default("not_checked")
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now())
-  case            Case     @relation(fields: [caseId], references: [id])
+  id                Int                 @id @default(autoincrement())
+  caseId            Int
+  title             String
+  firstName         String?
+  lastName          String?
+  enquirer          String?
+  enquiryMethod     String
+  enquiryDate       DateTime
+  enquiryDetails    String
+  adviser           String
+  adviceDate        DateTime
+  adviceDetails     String
+  referenceNumber   Int                 @default(00001)
+  redactedStatus    String?
+  publishedStatus   String              @default("not_checked")
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now())
+  case              Case                @relation(fields: [caseId], references: [id])
+  S51AdviceDocument S51AdviceDocument[]
+}
+
+model S51AdviceDocument {
+  id           Int       @id @default(autoincrement())
+  adviceId     Int
+  documentGuid String    @unique
+  S51Advice    S51Advice @relation(fields: [adviceId], references: [id], onUpdate: NoAction)
+  Document     Document  @relation("S51AdviceDocument", fields: [documentGuid], references: [guid])
 }

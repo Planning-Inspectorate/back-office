@@ -90,4 +90,60 @@ router.post(
 	asyncHandler(getManyS51Advices)
 );
 
+router.post(
+	'/:id/s51-advice',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice'
+        #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'S51 Advice pagination parameters',
+			schema: { $ref: '#/definitions/S51AdvicePaginatedRequestBody' },
+			required: true
+		}
+        #swagger.responses[200] = {
+            description: 'A paginated data set of S51 Advices and their properties',
+            schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
+        }
+		#swagger.responses[400] = {
+            description: 'Error: Bad Request',
+            schema: { $ref: '#/definitions/S51AdvicePaginatedBadRequest' }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validatePaginationCriteria,
+	asyncHandler(getManyS51Advices)
+);
+
+router.post(
+	'/:adviceId/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/s51-advice'
+        #swagger.description = 'Create an S51 advice for the case'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Payload to create S51 advice',
+            schema: { $ref: '#/definitions/S51AdviceRequestBody' },
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Created S51 advice',
+            schema: { $ref: '#/definitions/S51AdviceResponseBody' }
+        }
+    */
+	validateCreateS51Advice,
+	asyncHandler(createS51Advice)
+);
 export { router as s51AdviceRoutes };
