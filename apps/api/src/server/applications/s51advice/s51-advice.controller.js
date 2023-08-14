@@ -4,10 +4,8 @@ import * as s51AdviceRepository from '../../repositories/s51-advice.repository.j
 import { getCaseDetails } from '../application/application.service.js';
 import { getManyS51AdviceOnCase } from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import {
-	getIndexFromReference,
 	makeDocumentReference,
 	obtainURLsForDocuments
 } from './../application/documents/document.service.js';
@@ -27,6 +25,12 @@ export const createS51Advice = async (_request, response) => {
 	const newReferenceNumber = latestReferenceNumber + 1;
 
 	const payload = { ...body, referenceNumber: newReferenceNumber };
+	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(Number(body.caseId));
+
+	body.referenceNumber = existingS51ForCase?.referenceNumber
+		? existingS51ForCase?.referenceNumber + 1
+		: 1;
+
 	const s51Advice = await s51AdviceRepository.create(payload);
 
 	response.send(s51Advice);
@@ -91,27 +95,21 @@ export const addDocuments = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 	const caseId = Number(params.id);
 
-	const lastDocumentsInCase = await documentRepository.getByCaseId({
-		caseId,
-		skipValue: 0,
-		pageSize: 1
-	});
-	const lastDocument = lastDocumentsInCase?.[0];
+	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(Number(body.caseId));
 
 	const theCase = await caseRepository.getById(caseId, {
 		applicationDetails: true,
 		gridReference: true
 	});
 
-	if (!theCase) {
+	if (!theCase || !theCase.reference) {
 		// @ts-ignore
 		return response.status(404).json({ errors: { message: `Case with id: ${caseId} not found.` } });
 	}
 
-	const lastReferenceIndex = lastDocument?.reference
-		? getIndexFromReference(lastDocument.reference)
+	let nextReferenceIndex = existingS51ForCase?.referenceNumber
+		? existingS51ForCase?.referenceNumber + 1
 		: 1;
-	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	for (const doc of documentsToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
