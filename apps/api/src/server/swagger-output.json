@@ -1440,6 +1440,29 @@
 				}
 			}
 		},
+		"/document/{guid}/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of a single file",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/version/:version/properties": {
 			"get": {
 				"tags": ["Applications"],

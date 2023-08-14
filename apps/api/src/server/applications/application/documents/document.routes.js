@@ -234,6 +234,26 @@ router.get(
 );
 
 router.get(
+	'/document/:guid/properties',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/document/{guid}/properties'
+        #swagger.description = 'Gets the properties of a single file'
+        #swagger.parameters['guid'] = {
+                in: 'path',
+                description: 'guid of the required document here',
+                required: true,
+                type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+        }
+    */
+	asyncHandler(getDocumentProperties)
+);
+
+router.get(
 	'/:id/documents/:guid/version/:version/properties',
 	/*
         #swagger.tags = ['Applications']
