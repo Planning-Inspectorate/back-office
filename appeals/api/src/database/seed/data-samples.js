@@ -504,7 +504,7 @@ export const completeValidationDecisionSample = {
 	descriptionOfDevelopment: 'Some Description'
 };
 
-export const represenations = [
+export const representations = [
 	{
 		status: 'VALID',
 		originalRepresentation:

@@ -6,6 +6,7 @@ import {
 	getApplicationDetails,
 	publishCase,
 	startCase,
+	queryApplications,
 	updateApplication
 } from './application.controller.js';
 import {
@@ -37,6 +38,29 @@ router.post(
 	validateCreateUpdateApplication,
 	trimUnexpectedRequestParameters,
 	asyncHandler(createApplication)
+);
+
+router.get(
+	'/',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications'
+        #swagger.description = 'Returns the application by its string reference'
+        #swagger.parameters['reference'] = {
+            in: 'query',
+            description: 'Application reference',
+            required: false,
+            type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Application Details',
+            schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
+        }
+    */
+	validateApplicationId,
+	validateGetApplicationQuery,
+	trimUnexpectedRequestParameters,
+	asyncHandler(queryApplications)
 );
 
 router.post(

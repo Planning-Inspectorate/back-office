@@ -73,14 +73,16 @@ export function createContentFormView({
 			components: [
 				{
 					type: 'html-content-editor',
-					name: 'content',
+					// specific field name to allow more specific WAF exception
+					// see ASB-1692
+					name: 'backOfficeProjectUpdateContent',
 					label: {
 						text: 'Content',
 						classes: 'govuk-!-font-weight-bold'
 					},
 					characterCount: true,
-					value: values.content,
-					errorMessage: errors?.content
+					value: values.backOfficeProjectUpdateContent,
+					errorMessage: errors?.backOfficeProjectUpdateContent
 				},
 				{
 					type: 'checkboxes',
@@ -120,6 +122,7 @@ export function createContentFormView({
  * @param {boolean} [options.buttonWarning]
  * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
+ * @param {string} [options.backLink]
  * @param {boolean} [options.editable]
  * @returns {import('./project-updates-views').ProjectUpdatesDetailsView}
  */
@@ -131,6 +134,7 @@ export function createDetailsView({
 	buttonWarning,
 	form,
 	projectUpdate,
+	backLink,
 	editable = true
 }) {
 	const contentChangeLink = url('project-updates-step', {
@@ -189,6 +193,7 @@ export function createDetailsView({
 		buttonLink,
 		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
 		preview: { html: projectUpdate.htmlContent },
+		backLink,
 		form,
 		summary: {
 			rows: [

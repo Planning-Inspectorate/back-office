@@ -17,6 +17,9 @@ import { lpaQuestionnaireValidationOutcomesRoutes } from './lpa-questionnaire-va
 import { planningObligationStatusesRoutes } from './planning-obligation-statuses/planning-obligation-statuses.routes.js';
 import { procedureTypesRoutes } from './procedure-types/procedure-types.routes.js';
 import { scheduleTypesRoutes } from './schedule-types/schedule-types.routes.js';
+import { siteVisitTypesRoutes } from './site-visit-types/site-visit-types.routes.js';
+import { appellantCaseValidationOutcomesRoutes } from './appellant-case-validation-outcomes/appellant-case-validation-outcomes.routes.js';
+import { appellantsRoutes } from './appellants/appellants.routes.js';
 
 const router = createRouter();
 
@@ -26,6 +29,8 @@ router.use(appealAllocationRouter);
 router.use(appellantCaseIncompleteReasonsRoutes);
 router.use(appellantCaseInvalidReasonsRoutes);
 router.use(appellantCasesRoutes);
+router.use(appellantCaseValidationOutcomesRoutes);
+router.use(appellantsRoutes);
 router.use(designatedSitesRoutes);
 router.use(documentsRoutes);
 router.use(integrationsRoutes);
@@ -38,6 +43,7 @@ router.use(planningObligationStatusesRoutes);
 router.use(procedureTypesRoutes);
 router.use(scheduleTypesRoutes);
 router.use(siteVisitRoutes);
+router.use(siteVisitTypesRoutes);
 router.use(appealsRoutes);
 
 export { router as appealsRoutes };

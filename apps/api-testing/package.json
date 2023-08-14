@@ -7,7 +7,7 @@
 		"schemas:clean": "rm -rf ./schemas",
 		"api:test": "mocha 'tests/**/*.test.js' --timeout 5000; npm run schemas:clean",
 		"init-test": "node utils/generate-schema.js",
-		"test": "./api-test.sh"
+		"start:test": "./api-test.sh"
 	},
 	"license": "ISC",
 	"dependencies": {

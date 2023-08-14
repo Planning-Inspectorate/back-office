@@ -285,6 +285,142 @@
 				}
 			}
 		},
+		"/appeals/appellant-case-validation-outcomes": {
+			"get": {
+				"tags": ["Appellant Case Validation Outcomes"],
+				"description": "Gets appellant case validation outcomes",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appellant case validation outcomes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseValidationOutcomesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppellantCaseValidationOutcomesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/appellants/{appellantId}": {
+			"get": {
+				"tags": ["Appellants"],
+				"description": "Gets a single appellant by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "appellantId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single appellant by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAppellantResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAppellantResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Appellants"],
+				"description": "Updates a single appellant by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "appellantId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single appellant by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppellantResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppellantResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appellant details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppellantRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/designated-sites": {
 			"get": {
 				"tags": ["Designated Sites"],
@@ -1083,6 +1219,33 @@
 								"$ref": "#/components/schemas/UpdateSiteVisitRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/site-visit-types": {
+			"get": {
+				"tags": ["Site Visit Types"],
+				"description": "Gets site visit types",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Site visit types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllSiteVisitTypesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -2948,6 +3111,96 @@
 				},
 				"xml": {
 					"name": "AllScheduleTypesResponse"
+				}
+			},
+			"AllSiteVisitTypesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Access required"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllSiteVisitTypesResponse"
+				}
+			},
+			"AllAppellantCaseValidationOutcomesResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Valid"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AllAppellantCaseValidationOutcomesResponse"
+				}
+			},
+			"SingleAppellantResponse": {
+				"type": "object",
+				"properties": {
+					"agentName": {
+						"type": "string",
+						"example": "Fiona Burgess"
+					},
+					"appellantId": {
+						"type": "number",
+						"example": 1
+					},
+					"company": {
+						"type": "string",
+						"example": "Sophie Skinner Ltd"
+					},
+					"email": {
+						"type": "string",
+						"example": "sophie.skinner@example.com"
+					},
+					"name": {
+						"type": "string",
+						"example": "Sophie Skinner"
+					}
+				},
+				"xml": {
+					"name": "SingleAppellantResponse"
+				}
+			},
+			"UpdateAppellantRequest": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "Eva Sharma"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppellantRequest"
+				}
+			},
+			"UpdateAppellantResponse": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "Eva Sharma"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppellantResponse"
 				}
 			}
 		}

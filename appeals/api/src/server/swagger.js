@@ -516,7 +516,32 @@ const document = {
 				name: 'Schedule 1',
 				id: 1
 			}
-		]
+		],
+		AllSiteVisitTypesResponse: [
+			{
+				name: 'Access required',
+				id: 1
+			}
+		],
+		AllAppellantCaseValidationOutcomesResponse: [
+			{
+				name: 'Valid',
+				id: 1
+			}
+		],
+		SingleAppellantResponse: {
+			agentName: 'Fiona Burgess',
+			appellantId: 1,
+			company: 'Sophie Skinner Ltd',
+			email: 'sophie.skinner@example.com',
+			name: 'Sophie Skinner'
+		},
+		UpdateAppellantRequest: {
+			name: 'Eva Sharma'
+		},
+		UpdateAppellantResponse: {
+			name: 'Eva Sharma'
+		}
 	},
 	components: {}
 };

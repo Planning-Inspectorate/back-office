@@ -31,6 +31,7 @@ const householdAppeal = {
 		agentName: 'Mr Agent',
 		company: 'Lee Thornton Ltd',
 		email: 'l.thornton@example.com',
+		id: 1,
 		name: 'Lee Thornton'
 	},
 	startedAt: new Date(2022, 4, 18),
@@ -415,6 +416,7 @@ const lpaNotificationMethods = lookupListData;
 const planningObligationStatuses = lookupListData;
 const procedureTypes = lookupListData;
 const scheduleTypes = lookupListData;
+const siteVisitTypes = lookupListData;
 
 const designatedSites = [
 	{
@@ -700,5 +702,6 @@ export {
 	otherAppeals,
 	planningObligationStatuses,
 	procedureTypes,
-	scheduleTypes
+	scheduleTypes,
+	siteVisitTypes
 };

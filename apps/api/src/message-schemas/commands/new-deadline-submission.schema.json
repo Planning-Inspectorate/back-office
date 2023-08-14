@@ -4,47 +4,55 @@
 	"title": "new-deadline-submission",
 	"description": "A command to deliver metadata about a new document submission added to a deadline",
 	"type": "object",
-	"required": ["name", "email", "deadline", "submissionType", "blobKey"],
+	"required": ["name", "email", "deadline", "submissionType", "blobGuid", "documentName"],
 	"properties": {
+		"caseReference": {
+			"type": "string",
+			"description": "The unique reference of the case"
+		},
 		"name": {
 			"type": "string",
-      "description": "The name of the FO user who made the submission"
+			"description": "The name of the FO user who made the submission"
 		},
 		"email": {
 			"type": "string",
-      "format": "email",
-      "description": "The email address of the FO user who made the submission"
+			"format": "email",
+			"description": "The email address of the FO user who made the submission"
 		},
 		"interestedParty": {
 			"type": "boolean",
-      "description": "Was the submission made by an interested party on behalf of someone else?"
+			"description": "Was the submission made by an interested party on behalf of someone else?"
 		},
 		"interestedPartyReference": {
 			"type": "string",
-      "description": "Only necessary if `interestedParty` is true"
+			"description": "Only necessary if `interestedParty` is true"
 		},
 		"deadline": {
 			"type": "string",
-      "description": "The name of the deadline which the submission was made against"
+			"description": "The name of the deadline which the submission was made against"
 		},
 		"submissionType": {
 			"type": "string",
-      "description": "The name of the deadline line item the submission was made against"
+			"description": "The name of the deadline line item the submission was made against"
 		},
 		"sensitiveData": {
 			"type": "boolean",
-      "description": "Does the submission contain sensitive data?"
+			"description": "Does the submission contain sensitive data?"
 		},
 		"lateSubmission": {
-			"type": "boolean",
+			"type": "boolean"
 		},
 		"submissionId": {
 			"type": "string",
-      "description": "ID of the submission in the database"
+			"description": "ID of the submission in the database"
 		},
-		"blobKey": {
+		"blobGuid": {
 			"type": "string",
-      "description": "The identifier of the document in blob storage"
+			"description": "The GUID of the blob in storage"
+		},
+		"documentName": {
+			"type": "string",
+			"description": "The file name of the document in blob storage"
 		}
 	}
 }

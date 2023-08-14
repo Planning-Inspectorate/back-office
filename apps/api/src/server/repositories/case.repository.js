@@ -445,6 +445,16 @@ export const getById = (
 };
 
 /**
+ * @param {string} reference
+ * @returns {import('@prisma/client').PrismaPromise<import('@prisma/client').Case | null>}
+ * */
+export const getByRef = (reference) => {
+	return databaseConnector.case.findFirst({
+		where: { reference }
+	});
+};
+
+/**
  *
  * @param {number[]} ids
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload>}

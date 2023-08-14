@@ -27,6 +27,10 @@ parameters:
     displayName: Deploy Function - Handle Subscriptions
     type: boolean
     default: true
+  - name: deployFunctionDeadlineSubmissions
+    displayName: Deploy Function - Deadline Submissions
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -116,6 +120,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-doc-check-doc-check-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Deadline Submissions
+            artifact:
+              name: function-deadline-submissions
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployDeadlineSubmissionsFunction }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-deadline-subs-deadline-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - ODW Integration
             artifact:

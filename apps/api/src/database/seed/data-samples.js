@@ -90,7 +90,7 @@ export const caseStatusNames = [
 	{ name: 'withdrawn' }
 ];
 
-export const represenations = [
+export const representations = [
 	{
 		status: 'VALID',
 		originalRepresentation:

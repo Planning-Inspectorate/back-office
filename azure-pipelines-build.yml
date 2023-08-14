@@ -27,6 +27,10 @@ parameters:
     displayName: Build Function - Handle Subscriptions
     type: boolean
     default: true
+  - name: buildDeadlineSubmissionsFunction
+    displayName: Build Function - Deadline Submissions
+    type: boolean
+    default: true
 
 pr: none
 
@@ -86,6 +90,8 @@ extends:
                   path: apps/functions/document-publish
                 - name: function-handle-subscriptions
                   path: apps/functions/handle-subscriptions
+                - name: function-deadline-submissions
+                  path: apps/functions/deadline-submissions
               stepName: check_files
       - name: Build API
         condition: >-
@@ -254,6 +260,44 @@ extends:
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: function-handle-subscriptions
+            displayName: Publish Functions Artifact
+      - name: Build Function - Deadline Submissions
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildDeadlineSubmissionsFunction }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.functions-deadline-submissions'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 16
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) --only=prod --workspace=@pins/functions-deadline-submissions
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/deadline-submissions
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: functions-deadline-submissions
             displayName: Publish Functions Artifact
       - name: Build Document Publish Functions
         condition: >-

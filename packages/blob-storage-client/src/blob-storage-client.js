@@ -144,6 +144,7 @@ export class BlobStorageClient {
 	/**
 	 *
 	 * @param {{sourceContainerName: string, sourceBlobName: string, destinationContainerName: string, destinationBlobName: string}} blobStorageHost
+	 * @returns {Promise<import('@azure/storage-blob').CopyStatusType | undefined>}
 	 */
 	copyFile = async ({
 		sourceContainerName,
@@ -156,6 +157,8 @@ export class BlobStorageClient {
 
 		const copyJob = await destinationBlob.beginCopyFromURL(sourceBlob.url);
 
-		await copyJob.pollUntilDone();
+		const result = await copyJob.pollUntilDone();
+
+		return result.copyStatus;
 	};
 }

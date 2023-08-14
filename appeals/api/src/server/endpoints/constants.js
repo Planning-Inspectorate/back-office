@@ -20,6 +20,7 @@ export const DEFAULT_TIMESTAMP_TIME = '01:00:00.000';
 export const DOCUMENT_STATUS_NOT_RECEIVED = 'not_received';
 export const DOCUMENT_STATUS_RECEIVED = 'received';
 
+export const ERROR_CANNOT_BE_EMPTY_STRING = 'Cannot be an empty string';
 export const ERROR_FAILED_TO_GET_DATA = 'Failed to get data';
 export const ERROR_FAILED_TO_SAVE_DATA = 'Failed to save data';
 export const ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL = 'Failed to send notification email';

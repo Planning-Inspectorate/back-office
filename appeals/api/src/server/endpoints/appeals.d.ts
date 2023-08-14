@@ -63,7 +63,7 @@ interface RepositoryGetByIdResultItem {
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
 	appealType: Schema.AppealType | null;
-	appellant: Schema.Appellant | null;
+	appellant: Schema.Appellant;
 	appellantCase?: Schema.AppellantCase | null;
 	createdAt: Date;
 	dueDate: Date | null;
@@ -350,6 +350,18 @@ interface SingleSiteVisitDetailsResponse {
 	visitType: string;
 }
 
+interface SingleAppellantResponse {
+	agentName: string | null;
+	appellantId: number;
+	company: string | null;
+	email: string;
+	name: string;
+}
+
+interface UpdateAppellantRequest {
+	name?: string;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -376,8 +388,10 @@ export {
 	RepositoryGetByIdResultItem,
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
+	SingleAppellantResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
+	UpdateAppellantRequest,
 	ValidationOutcomeResponse
 };
