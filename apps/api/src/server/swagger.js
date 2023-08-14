@@ -335,7 +335,8 @@ const document = {
 			size: 1024,
 			stage: 3,
 			filter1: 'Marketing',
-			filter2: 'Brochure'
+			filter2: 'Brochure',
+			fromFrontOffice: true
 		},
 		documentsMetadataResponseBody: {
 			version: 1,

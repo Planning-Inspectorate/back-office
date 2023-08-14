@@ -4058,6 +4058,10 @@
 				"filter2": {
 					"type": "string",
 					"example": "Brochure"
+				},
+				"fromFrontOffice": {
+					"type": "boolean",
+					"example": true
 				}
 			}
 		},
