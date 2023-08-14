@@ -31,6 +31,7 @@ const householdAppeal = {
 		agentName: 'Mr Agent',
 		company: 'Lee Thornton Ltd',
 		email: 'l.thornton@example.com',
+		id: 1,
 		name: 'Lee Thornton'
 	},
 	startedAt: new Date(2022, 4, 18),
