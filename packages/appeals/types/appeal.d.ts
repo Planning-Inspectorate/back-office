@@ -73,9 +73,19 @@ export interface AppealSite {
 	postCode?: string | null;
 }
 
+export interface GovukInputLabel {
+	text?: string;
+	html?: string;
+	for?: string;
+	isPageHeading?: boolean;
+	classes?: string;
+	attributes?: Object;
+}
+
 export interface SearchInputFieldObject {
 	id: string;
 	name: string;
+	label: GovukInputLabel;
 	value?: string;
 	errorMessage?: object | null;
 }
