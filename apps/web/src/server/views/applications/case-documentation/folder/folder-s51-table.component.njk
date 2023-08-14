@@ -1,0 +1,96 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% macro folderS51Table(items, pagination) %}
+
+	<div class="pins-files-list__info govuk-body">
+		<h3 class="govuk-heading-s">Select items to make changes to statuses</h3>
+		<div class="pagination-info">
+			<p>This folder contains {{ items.itemCount }} item(s).
+				Showing
+				{{ ((items.page - 1) * items.pageDefaultSize) + 1 }} - {{ ((items.page - 1) * items.pageDefaultSize) +  items.items.length }}
+				item(s).
+			</p>
+
+			<div>
+				<span class='font-weight--700'>Results per page</span>
+				<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=25'>25</a> |
+				 <a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=50'>50</a> |
+				 <a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=75'>75</a> |
+				 <a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=100'>100</a>
+			</div>
+		</div>
+		<p>
+			<span id="selectedFilesNumber">0</span>
+			item(s) selected
+		</p>
+	</div>
+
+	<table class="govuk-table pins-files-list__table pins-table">
+		<thead class="govuk-table__head govuk-body-s">
+			<tr class="govuk-table__row">
+				<th scope="col" class="govuk-table__header">Select</th>
+				<th scope="col" class="govuk-table__header">S51 advice item</th>
+				<th scope="col" class="govuk-table__header">Dates</th>
+				<th scope="col" class="govuk-table__header">Redaction</th>
+				<th scope="col" class="govuk-table__header">Status</th>
+				<th scope="col" class="govuk-table__header">Actions</th>
+			</tr>
+		</thead>
+		<tbody class="govuk-table__body govuk-body-s">
+			<tr class="govuk-table__row">
+				<td class="govuk-table__cell">
+					{{ govukCheckboxes({
+											name: "selectAll",
+											items: [
+												{
+													value: true,
+													text: 'Select all'
+												}]
+										}) }}
+				</td>
+				<td class="govuk-table__cell" colspan="5">
+					<p>Select all items on page</p>
+				</td>
+			</tr>
+			{% for item in items.items %}
+
+				<tr class="govuk-table__row">
+					<td class="govuk-table__cell">
+						{{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + item.id,
+															value: item.id,
+															text: item.title,
+															label: 'select ' + item.title
+														}]
+												}) }}
+					</td>
+					<td class="govuk-table__cell">
+						<span class='font-weight--700'>
+							{{item.referenceNumber}} - {{item.title}}
+						</span>
+					</td>
+					<td class="govuk-table__cell">
+						<span class='display--block govuk-!-margin-bottom-2'>
+							<strong>Published:</strong> Not published
+						</span>
+						<span>
+							<strong>Enquiry date:</strong>
+							{{item.enquiryDate|datestamp({format: 'd MMM yyyy'})}}
+						</span>
+					</td>
+					<td class="govuk-table__cell">{{ 'Redacted' if  item.redactedStatus === 'redacted' else 'Unredacted' }}</td>
+					<td class="govuk-table__cell">
+						{{ item.publishedStatus|statusName }}
+					</td>
+					<td class="govuk-table__cell">
+						<a href='' class='govuk-link'>View/edit advice</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endmacro %}

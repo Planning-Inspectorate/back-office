@@ -143,18 +143,22 @@ export interface DocumentVersion {
 }
 
 export interface S51Advice {
-	title?: string;
-	enquirerFirstName: string;
-	enquirerLastName: string;
-	enquirerOrganisation: string;
-	enquiryMethod: string;
-	'enquiryDate.day'?: string;
-	'enquiryDate.month'?: string;
-	'enquiryDate.year'?: string;
+	caseId: number;
+	id: number;
+	referenceNumber: string;
+	referenceCode: string;
+	title: string;
+	enquirer: string;
+	firstName: string;
+	lastName: string;
+	enquiryMethod: 'phone' | 'email' | 'meeting' | 'post';
+	enquiryDate: number;
 	enquiryDetails: string;
 	adviser: string;
-	'adviceDate.day'?: string;
-	'adviceDate.month'?: string;
-	'adviceDate.year'?: string;
+	adviceDate: number;
 	adviceDetails: string;
+	publishedStatus: string;
+	redactedStatus: string;
+	dateCreated: number;
+	dateUpdated: number;
 }

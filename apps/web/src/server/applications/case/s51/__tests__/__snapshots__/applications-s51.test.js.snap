@@ -477,34 +477,1200 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                 </ol>
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
-                <h2 class=\\"govuk-heading-l\\">S51 advice folder folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
-                    <div class=\\"govuk-accordion__section\\">
-                        <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
-                        </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
-                            <table class=\\"govuk-table\\">
-                                <tbody class=\\"govuk-table__body\\"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <h2 class=\\"govuk-heading-l\\">S51 advice folder</h2>
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\"></div>
             </div>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
                         <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                        <p class=\\"govuk-body\\">This folder contains document(s).</p>
+                        <p class=\\"govuk-body\\">This folder contains 200 item(s) of S51 advice.</p>
                     </div>
                 </div>
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice-folder/upload\\"> Upload files</a>
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/title\\"> Create new S51 advice</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\"> View S51 publishing queue</a>
                     </div>
                 </div>
             </div>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <form class=\\"pins-files-list\\" method=\\"post\\">
+                <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
+                </caption>
+                <div class=\\"govuk-grid-row display--flex\\">
+                    <div class=\\"govuk-grid-column-two-thirds\\">
+                        <div class=\\"pins-files-list__statuses\\">
+                            <h3 class=\\"govuk-heading-s\\">Statuses</h3>
+                            <div class=\\"govuk-grid-row\\">
+                                <div>
+                                    <div class=\\"govuk-form-group\\">
+                                        <fieldset class=\\"govuk-fieldset\\">
+                                            <legend class=\\"govuk-fieldset__legend\\">Redaction</legend>
+                                            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted\\" name=\\"isRedacted\\" type=\\"radio\\"
+                                                    value=\\"0\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted\\">Unredacted</label>
+                                                </div>
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"isRedacted-2\\" name=\\"isRedacted\\"
+                                                    type=\\"radio\\" value=\\"1\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"isRedacted-2\\">Redacted</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class=\\"govuk-form-group\\">
+                                        <fieldset class=\\"govuk-fieldset\\">
+                                            <legend class=\\"govuk-fieldset__legend\\">Status</legend>
+                                            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"not_checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Not checked</label>
+                                                </div>
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"checked\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Checked</label>
+                                                </div>
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-3\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"ready_to_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-3\\">Ready to publish</label>
+                                                </div>
+                                                <div class=\\"govuk-radios__item\\">
+                                                    <input class=\\"govuk-radios__input\\" id=\\"status-4\\" name=\\"status\\" type=\\"radio\\"
+                                                    value=\\"do_not_publish\\">
+                                                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-4\\">Do not publish</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Apply changes</button><a href=\\".\\" class=\\"govuk-link govuk-link--no-visited-state\\"> Clear selected</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"pins-files-list__info govuk-body\\">
+                    <h3 class=\\"govuk-heading-s\\">Select items to make changes to statuses</h3>
+                    <div class=\\"pagination-info\\">
+                        <p>This folder contains 200 item(s). Showing 1 - 50 item(s).</p>
+                        <div><span class='font-weight--700'>Results per page</span><a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                            href='?number=1&size=25'>25</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                            href='?number=1&size=50'>50</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                            href='?number=1&size=75'>75</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                            href='?number=1&size=100'>100</a>
+                        </div>
+                    </div>
+                    <p><span id=\\"selectedFilesNumber\\">0</span> item(s) selected</p>
+                </div>
+                <table class=\\"govuk-table pins-files-list__table pins-table\\">
+                    <thead class=\\"govuk-table__head govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Select</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">S51 advice item</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Dates</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Redaction</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class=\\"govuk-table__body govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectAll\\" name=\\"selectAll\\"
+                                            type=\\"checkbox\\" value=\\"true\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectAll\\">Select all</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\" colspan=\\"5\\">
+                                <p>Select all items on page</p>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-0\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"0\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-0\\">Ut enim ad minim veniam</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00000 - Ut enim ad minim veniam</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"1\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-1\\">Minim veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00001 - Minim veniam quis nostrud exercitation</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"2\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-2\\">Nostrud exercitation ullamco laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00002 - Nostrud exercitation ullamco laboris nisi ut</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"3\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-3\\">Elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00003 - Elit sed do</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-4\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"4\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-4\\">Minim veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00004 - Minim veniam quis nostrud exercitation</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-5\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"5\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-5\\">Magna aliqua Ut enim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00005 - Magna aliqua Ut enim</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-6\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"6\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-6\\">Enim ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00006 - Enim ad minim veniam quis</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-7\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"7\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-7\\">Dolor sit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00007 - Dolor sit</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-8\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"8\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-8\\">Lorem ipsum</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00008 - Lorem ipsum</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-9\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"9\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-9\\">Do eiusmod tempor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00009 - Do eiusmod tempor</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-10\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"10\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-10\\">Aliqua Ut enim ad minim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00010 - Aliqua Ut enim ad minim</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-11\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"11\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-11\\">Ullamco laboris nisi ut aliquip ex</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00011 - Ullamco laboris nisi ut aliquip ex</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"12\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-12\\">Do eiusmod tempor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00012 - Do eiusmod tempor</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"13\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-13\\">Quis nostrud exercitation ullamco laboris nisi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00013 - Quis nostrud exercitation ullamco laboris nisi</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"14\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-14\\">Do eiusmod tempor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00014 - Do eiusmod tempor</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"15\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-15\\">Lorem ipsum</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00015 - Lorem ipsum</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-16\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"16\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-16\\">Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00016 - Ad minim veniam quis nostrud</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-17\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"17\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-17\\">Dolore magna aliqua Ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00017 - Dolore magna aliqua Ut</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-18\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"18\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-18\\">Eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00018 - Eiusmod tempor incididunt</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-19\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"19\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-19\\">Eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00019 - Eiusmod tempor incididunt</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-20\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"20\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-20\\">Labore et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00020 - Labore et dolore magna</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-21\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"21\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-21\\">Enim ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00021 - Enim ad minim veniam quis</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-22\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"22\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-22\\">Nisi ut aliquip ex ea commodo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00022 - Nisi ut aliquip ex ea commodo</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-23\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"23\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-23\\">Incididunt ut labore et</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00023 - Incididunt ut labore et</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"24\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-24\\">Ullamco laboris nisi ut aliquip ex</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00024 - Ullamco laboris nisi ut aliquip ex</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"25\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-25\\">Ut enim ad minim veniam</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00025 - Ut enim ad minim veniam</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"26\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-26\\">Ut labore et dolore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00026 - Ut labore et dolore</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-27\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"27\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-27\\">Labore et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00027 - Labore et dolore magna</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-28\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"28\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-28\\">Et dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00028 - Et dolore magna aliqua</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-29\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"29\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-29\\">Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00029 - Ad minim veniam quis nostrud</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-30\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"30\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-30\\">Elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00030 - Elit sed do</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-31\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"31\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-31\\">Veniam quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00031 - Veniam quis nostrud exercitation ullamco</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-32\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"32\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-32\\">Et dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00032 - Et dolore magna aliqua</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-33\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"33\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-33\\">Ut labore et dolore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00033 - Ut labore et dolore</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-34\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"34\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-34\\">Dolore magna aliqua Ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00034 - Dolore magna aliqua Ut</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"35\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-35\\">Veniam quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00035 - Veniam quis nostrud exercitation ullamco</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"36\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-36\\">Elit sed do</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00036 - Elit sed do</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"37\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-37\\">Nostrud exercitation ullamco laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00037 - Nostrud exercitation ullamco laboris nisi ut</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Unpublished</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"38\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-38\\">Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00038 - Ad minim veniam quis nostrud</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-39\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"39\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-39\\">Minim veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00039 - Minim veniam quis nostrud exercitation</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-40\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"40\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-40\\">Dolor sit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00040 - Dolor sit</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-41\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"41\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-41\\">Ut labore et dolore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00041 - Ut labore et dolore</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-42\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"42\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-42\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00042 - Consectetur adipiscing</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-43\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"43\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-43\\">Ipsum dolor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00043 - Ipsum dolor</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-44\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"44\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-44\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00044 - Consectetur adipiscing</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-45\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"45\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-45\\">Dolore magna aliqua Ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00045 - Dolore magna aliqua Ut</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-46\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"46\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-46\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00046 - Consectetur adipiscing</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-47\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"47\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-47\\">Et dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00047 - Et dolore magna aliqua</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Ready to publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"48\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-48\\">Sit amet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00048 - Sit amet</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Redacted</td>
+                            <td class=\\"govuk-table__cell\\">Checked</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"49\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-49\\">Ad minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='font-weight--700'> 00049 - Ad minim veniam quis nostrud</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><span class='display--block govuk-!-margin-bottom-2'><strong>Published:</strong> Not published</span><span><strong>Enquiry date:</strong> 7 Mar 2023</span>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">Unredacted</td>
+                            <td class=\\"govuk-table__cell\\">Do not publish</td>
+                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
+                    <ul class=\\"govuk-pagination__list\\">
+                        <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=1&amp;size=50\\"
+                            aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;size=50\\"
+                            aria-label=\\"Page 2\\"> 2</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=3&amp;size=50\\"
+                            aria-label=\\"Page 3\\"> 3</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=4&amp;size=50\\"
+                            aria-label=\\"Page 4\\"> 4</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;size=50\\"
+                        rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+                    </div>
+                </nav>
+            </form>
         </div>
     </div>
 </main>"

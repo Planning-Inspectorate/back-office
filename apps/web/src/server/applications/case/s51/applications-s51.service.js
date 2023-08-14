@@ -1,8 +1,10 @@
-import { post } from '../../../lib/request.js';
+import { post, get } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
+/** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
 
 /**
  * Save new S51 advice
@@ -18,6 +20,59 @@ export const createS51Advice = async (payload) => {
 			json: payload
 		});
 		response = { newS51Advice };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+
+/**
+ * Get S51 advice by id
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns {Promise<S51Advice>}
+ */
+export const getS51Advice = async (caseId, adviceId) => {
+	let response;
+
+	try {
+		response = await get(`applications/${caseId}/s51-advice/${adviceId}`);
+		// response = { s51Advice };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+
+/**
+ * Get the documents for the current folder
+ *
+ * @param {number} caseId
+ * @param {number} pageSize
+ * @param {number} pageNumber
+ * @returns {Promise<S51AdvicePaginatedResponse>}
+ */
+export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) => {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/s51-advice`, {
+			json: {
+				pageSize: pageSize,
+				pageNumber: pageNumber
+			}
+		});
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
