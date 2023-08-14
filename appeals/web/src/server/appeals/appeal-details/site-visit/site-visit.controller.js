@@ -1,9 +1,9 @@
-import logger from '../../../lib/logger.js';
+import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case/appellant-case.service.js';
 import * as siteVisitService from './site-visit.service.js';
 import { mapWebVisitTypeToApiVisitType } from './site-visit.mapper.js';
-import { dayMonthYearToApiDateString, dateToDisplayDate } from '../../../lib/dates.js';
+import { dayMonthYearToApiDateString, dateToDisplayDate } from '#lib/dates.js';
 
 /**
  *
@@ -14,7 +14,7 @@ const renderScheduleSiteVisit = async (request, response) => {
 	const { errors } = request;
 
 	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.params.appealId)
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
@@ -82,13 +82,17 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 	} = request;
 
 	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.params.appealId)
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
 		const appealReferenceFragments = appealDetails?.appealReference.split('/');
 		const appellantCaseResponse = await appellantCaseService
-			.getAppellantCaseFromAppealId(appealDetails?.appealId, appealDetails?.appellantCaseId)
+			.getAppellantCaseFromAppealId(
+				request.apiClient,
+				appealDetails?.appealId,
+				appealDetails?.appellantCaseId
+			)
 			.catch((error) => logger.error(error));
 
 		if (appellantCaseResponse) {
@@ -96,6 +100,7 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 			if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
 				const appealIdNumber = parseInt(appealId, 10);
 				const siteVisit = await siteVisitService.getSiteVisit(
+					request.apiClient,
 					appealIdNumber,
 					appellantCaseResponse.siteVisit?.siteVisitId
 				);
@@ -168,12 +173,16 @@ export const postScheduleSiteVisit = async (request, response) => {
 
 	try {
 		const appealDetails = await appealDetailsService
-			.getAppealDetailsFromId(appealId)
+			.getAppealDetailsFromId(request.apiClient, appealId)
 			.catch((error) => logger.error(error));
 
 		if (appealDetails) {
 			const appellantCaseResponse = await appellantCaseService
-				.getAppellantCaseFromAppealId(appealDetails?.appealId, appealDetails?.appellantCaseId)
+				.getAppellantCaseFromAppealId(
+					request.apiClient,
+					appealDetails?.appealId,
+					appealDetails?.appellantCaseId
+				)
 				.catch((error) => logger.error(error));
 
 			if (appellantCaseResponse) {
@@ -202,6 +211,7 @@ export const postScheduleSiteVisit = async (request, response) => {
 
 				if (appellantCaseResponse.siteVisit?.siteVisitId) {
 					await siteVisitService.updateSiteVisit(
+						request.apiClient,
 						appealIdNumber,
 						appellantCaseResponse.siteVisit?.siteVisitId,
 						apiVisitType,
@@ -211,6 +221,7 @@ export const postScheduleSiteVisit = async (request, response) => {
 					);
 				} else {
 					await siteVisitService.createSiteVisit(
+						request.apiClient,
 						appealIdNumber,
 						apiVisitType,
 						visitDate,

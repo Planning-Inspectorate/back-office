@@ -23,7 +23,7 @@ const renderAppellantCase = async (request, response) => {
 	const { errors } = request;
 
 	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.params.appealId)
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
@@ -33,7 +33,11 @@ const renderAppellantCase = async (request, response) => {
 			: 'Address not known';
 
 		const appellantCaseResponse = await appellantCaseService
-			.getAppellantCaseFromAppealId(appealDetails?.appealId, appealDetails?.appellantCaseId)
+			.getAppellantCaseFromAppealId(
+				request.apiClient,
+				appealDetails?.appealId,
+				appealDetails?.appellantCaseId
+			)
 			.catch((error) => logger.error(error));
 
 		const mappedAppellantCaseSections = mapResponseToSummaryListBuilderParameters(
@@ -99,6 +103,7 @@ const renderCheckAndConfirm = async (request, response) => {
 		const { appealId, appealReference, webAppellantCaseReviewOutcome } = request.session;
 
 		const reasonOptions = await appellantCaseService.getAppellantCaseNotValidReasonsForOutcome(
+			request.apiClient,
 			webAppellantCaseReviewOutcome.validationOutcome
 		);
 		if (!reasonOptions) {
@@ -161,7 +166,7 @@ export const postAppellantCase = async (request, response) => {
 
 	try {
 		const appealDetails = await appealDetailsService
-			.getAppealDetailsFromId(request.params.appealId)
+			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 			.catch((error) => logger.error(error));
 
 		if (appealDetails) {
@@ -173,6 +178,7 @@ export const postAppellantCase = async (request, response) => {
 
 			if (reviewOutcome === appellantCaseReviewOutcomes.valid) {
 				await appellantCaseService.setReviewOutcomeForAppellantCase(
+					request.apiClient,
 					appealId,
 					appellantCaseId,
 					mapWebReviewOutcomeToApiReviewOutcome(appellantCaseReviewOutcomes.valid)
@@ -211,6 +217,7 @@ export const postCheckAndConfirm = async (request, response) => {
 			request.session;
 
 		await appellantCaseService.setReviewOutcomeForAppellantCase(
+			request.apiClient,
 			appealId,
 			appellantCaseId,
 			mapWebReviewOutcomeToApiReviewOutcome(

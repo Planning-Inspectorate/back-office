@@ -1,7 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import { BlobStorageClient } from '@pins/blob-storage-client';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
-import { get } from '../../lib/request.js';
 import config from '@pins/appeals.web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -10,14 +9,14 @@ import config from '@pins/appeals.web/environment/config.js';
 /**
  * Download one document or redirects to its url if preview is active
  *
- * @param {{params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
+ * @param {{apiClient: import('got').Got, params: {caseId: number, guid: string, preview?: string}, session: SessionWithAuth}} request
  * @param {Response} response
  * @returns {Promise<Response>}
  */
-const getDocumentDownload = async ({ params, session }, response) => {
+const getDocumentDownload = async ({ apiClient, params, session }, response) => {
 	const { guid: fileGuid, preview, caseId } = params;
 
-	const fileInfo = await get(`appeals/${caseId}/documents/${fileGuid}`);
+	const fileInfo = await apiClient.get(`appeals/${caseId}/documents/${fileGuid}`).json();
 	const { blobStorageContainer, blobStoragePath } = fileInfo.latestDocumentVersion;
 	if (!blobStorageContainer || !blobStoragePath) {
 		throw new Error('Blob storage container or Blob storage path not found');

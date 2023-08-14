@@ -1,8 +1,8 @@
-import logger from '../../../../lib/logger.js';
+import logger from '#lib/logger.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { mapInvalidOrIncompleteReasonsToCheckboxItemParameters } from '../appellant-case.mapper.js';
-import { objectContainsAllKeys } from '../../../../lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '../../../../lib/id-name-pairs.js';
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
+import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 
 /**
@@ -31,7 +31,9 @@ const renderInvalidReason = async (request, response) => {
 	}
 
 	const { webAppellantCaseReviewOutcome } = request.session;
-	const invalidReasonOptions = await appellantCaseService.getAppellantCaseInvalidReasons();
+	const invalidReasonOptions = await appellantCaseService.getAppellantCaseInvalidReasons(
+		request.apiClient
+	);
 
 	if (invalidReasonOptions) {
 		const invalidReasons =

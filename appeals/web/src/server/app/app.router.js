@@ -46,6 +46,7 @@ router
 		addApiClientToRequest,
 		postDocumentsUpload
 	);
+
 router
 	.route('/documents/:caseId/upload/:documentId')
 	.post(
@@ -54,7 +55,10 @@ router
 		postUploadDocumentVersion
 	);
 
-router.route('/documents/:caseId/download/:guid/:preview?').get(asyncRoute(getDocumentDownload));
+router
+	.route('/documents/:caseId/download/:guid/:preview?')
+	.get(addApiClientToRequest, asyncRoute(getDocumentDownload));
+
 router.use('/appeals-service', addApiClientToRequest, appealsRouter);
 
 export default router;

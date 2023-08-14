@@ -36,6 +36,7 @@ export const addApiClientToRequest = async (req, res, next) => {
 		return res.redirect(`/auth/signin?redirect_to=${req.originalUrl}`);
 	}
 
+	pino.info(`Creating API client for user '${user.homeAccountId}'`);
 	req.apiClient = getInstance(user.homeAccountId);
 	next();
 };
