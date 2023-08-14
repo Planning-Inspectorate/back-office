@@ -2580,6 +2580,56 @@
 				}
 			}
 		},
+		"/applications/{id}/s51-advice/{adviceId}/documents": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Add S51 advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentsToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Documents that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
+						}
+					},
+					"206": {
+						"description": "Some documents failed to save while others succeeded",
+						"schema": {
+							"$ref": "#/definitions/partialDocumentsAndBlobStorageURLs"
+						}
+					},
+					"409": {
+						"description": "All documents failed to upload",
+						"schema": {
+							"$ref": "#/definitions/documentsUploadFailed"
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],
