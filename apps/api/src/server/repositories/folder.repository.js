@@ -73,6 +73,27 @@ const findFolder = (folders, id) => {
 };
 
 /**
+ * Returns the requested folder along with all of its parents
+ *
+ * @param {number} folderId
+ * @returns {Promise<Folder[]>}
+ * */
+export const getFolderWithParents = async (folderId) => {
+	const folder = await databaseConnector.folder.findUnique({ where: { id: folderId } });
+	if (!folder) {
+		return [];
+	}
+
+	if (!folder.parentFolderId) {
+		return [folder];
+	}
+
+	const parents = await getFolderWithParents(folder.parentFolderId);
+
+	return [folder, ...parents];
+};
+
+/**
  * Returns array of folder path (parent folders) from current folder upwards
  * used for breadcrumbs etc
  *
