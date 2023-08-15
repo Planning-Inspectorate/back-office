@@ -101,7 +101,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 	const sectionData = [
 		{
 			title: 'Review outcome',
-			value: validationOutcomeAsString,
+			value: capitalize(validationOutcomeAsString),
 			valueType: 'text',
 			actionText: 'Change',
 			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case`
