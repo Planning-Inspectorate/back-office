@@ -16,8 +16,8 @@ exports[`auth authentication should clear any pending authentication data if the
 exports[`auth authentication should display a logout link in the header when the user is authenticated 1`] = `
 "<header class="govuk-header" id="pins-applications-header" role="banner"
 data-module="govuk-header">
-    <div class="govuk-width-container">
-        <div class="pins-row--decentered">
+    <div class="pins-width-container">
+        <div class="pins-row">
             <div class="pins-column--left">
                 <svg width="39" height="32" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16.5239 5.22833C16.3525 5.57039 16.1811 5.77563 16.2153 6.01507C16.2496 6.28872 16.5239 6.45975 16.6267 6.7334C16.7295 6.42554 16.9352 6.1861 16.9009 5.94666C16.9352 5.70721 16.5924 5.39936 16.5239 5.22833Z"
@@ -135,7 +135,7 @@ data-module="govuk-header">
                 </svg><span>Planning Inspectorate</span>
             </div>
             <div class="pins-column--central">
-                <p>Planning Inspectorate</p>
+                <p>Appeals</p>
             </div>
             <div class="pins-column--right"><span class="font-weight--700"></span><a href="/" class="govuk-link">Go to Dashboard</a>
                 <a                 href="/auth/signout" class="govuk-link">Sign out</a>
@@ -148,8 +148,8 @@ data-module="govuk-header">
 exports[`auth authentication should display a logout link in the header when the user is authenticated 2`] = `
 "<header class="govuk-header" id="pins-applications-header" role="banner"
 data-module="govuk-header">
-    <div class="govuk-width-container">
-        <div class="pins-row--decentered">
+    <div class="pins-width-container">
+        <div class="pins-row">
             <div class="pins-column--left">
                 <svg width="39" height="32" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16.5239 5.22833C16.3525 5.57039 16.1811 5.77563 16.2153 6.01507C16.2496 6.28872 16.5239 6.45975 16.6267 6.7334C16.7295 6.42554 16.9352 6.1861 16.9009 5.94666C16.9352 5.70721 16.5924 5.39936 16.5239 5.22833Z"
@@ -267,7 +267,7 @@ data-module="govuk-header">
                 </svg><span>Planning Inspectorate</span>
             </div>
             <div class="pins-column--central">
-                <p>Planning Inspectorate</p>
+                <p>Appeals</p>
             </div>
             <div class="pins-column--right"><span class="font-weight--700"></span><a href="/" class="govuk-link">Go to Dashboard</a>
                 <a                 href="/auth/signout" class="govuk-link">Sign out</a>

@@ -382,9 +382,9 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 
 exports[`LPA Questionnaire review POST / should redirect to the complete page if no errors are present 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> LPA questionnaire complete</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -394,7 +394,7 @@ exports[`LPA Questionnaire review POST / should redirect to the complete page if
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The review of LPA questionnaire is finished.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
                 <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
@@ -637,9 +637,9 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
 
 exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers should send a patch request to the LPA questionnaire API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> LPA questionnaire incomplete</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -649,7 +649,7 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The review of LPA questionnaire is finished.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
                 <p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire

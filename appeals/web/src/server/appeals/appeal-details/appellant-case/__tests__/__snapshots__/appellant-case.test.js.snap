@@ -634,9 +634,9 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
 
 exports[`appellant-case POST /appellant-case should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Appeal valid</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -646,7 +646,7 @@ exports[`appellant-case POST /appellant-case should send a patch request to the 
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The timetable is now created and published.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
                 <p class="govuk-body">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
@@ -661,9 +661,9 @@ exports[`appellant-case POST /appellant-case should send a patch request to the 
 
 exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Appeal incomplete</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -673,7 +673,7 @@ exports[`appellant-case POST /appellant-case/check-your-answers should send a pa
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The appeal has been reviewed.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
                 <p class="govuk-body">We’ve sent an email to the appellant and LPA to inform the case is incomplete,
@@ -689,9 +689,9 @@ exports[`appellant-case POST /appellant-case/check-your-answers should send a pa
 
 exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision invalid confirmation page, if posted outcome was "invalid" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Appeal invalid</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -701,7 +701,7 @@ exports[`appellant-case POST /appellant-case/check-your-answers should send a pa
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The appeal has been closed.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>
                 <p class="govuk-body">We&#39;ve sent an email to the appellant and LPA to inform them the case

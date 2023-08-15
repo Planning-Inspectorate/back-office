@@ -12,16 +12,20 @@
   border-bottom: .5rem solid pins-colours.$pins-colours-green-200;
   margin-bottom: 1rem;
 
-  .pins-row--decentered {
-	width: calc(100% + 106px);
+  .pins-row {
+	width: 100%;
 	display: flex;
+
+	&--decentered {
+		width: calc(100% + 106px);
+	}
   }
 
   .pins-column {
 	&--left {
 	  height: 5.5rem;
-	  border-left: 1.85px solid pins-colours.$pins-colours-green-200;
-	  padding-left: 1.68rem;
+	  border-left: 2px solid pins-colours.$pins-colours-green-200;
+	  padding-left: 7px;
 	  width: 25%;
 
 	  span {
