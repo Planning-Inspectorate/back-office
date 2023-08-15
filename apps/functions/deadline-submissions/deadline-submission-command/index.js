@@ -1,8 +1,9 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
+import { getEventClient, EventType } from '@pins/event-client';
 import config from './config';
 import api from './back-office-api-client';
 
-const { storageUrl, submissionsContainer } = config;
+const { storageUrl, submissionsContainer, serviceBusHost, serviceBusTopic } = config;
 
 /**
  *
@@ -55,10 +56,25 @@ export default async function (context, msg) {
 		destinationBlobName: documents[0].blobStoreUrl
 	});
 
-	if (result !== 'success') {
-		// TODO: Publish failure message to service bus
-		context.log('Copying blob failed', result);
-	}
+	const eventClient = getEventClient(true, context.log, serviceBusHost);
 
-	context.log('Copied blob', result);
+	const event = {
+		status: result === 'success' ? 'SUCCESS' : 'FAILURE',
+		deadline: msg.deadline,
+		submissionType: msg.submissionType,
+		blobGuid: msg.blobGuid,
+		documentName: msg.documentName
+	};
+
+	eventClient.sendEvents(
+		serviceBusTopic,
+		[event],
+		result === 'success' ? EventType.Success : EventType.Failure
+	);
+
+	context.log(
+		result === 'success'
+			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store`
+			: `Failed to copy blob ${msg.blobGuid} from submissions to uploads store`
+	);
 }
