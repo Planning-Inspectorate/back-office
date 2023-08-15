@@ -132,7 +132,7 @@ const renderCheckAndConfirm = async (request, response) => {
 			title: {
 				text: 'Check your answers before confirming your review'
 			},
-			insetText: 'Confirming this review will inform the appellant of the outcome',
+			insetText: 'Confirming this review will inform the appellant and LPA of the outcome',
 			summaryList: { formattedSections },
 			backLinkUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}`
 		});
