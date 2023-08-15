@@ -290,6 +290,7 @@ export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) 
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
 export const getDocumentsCountInByPublishStatus = (caseId) => {
+	console.info('getDocumentsCountInByPublishStatus for case ' + caseId);
 	return databaseConnector.document.count({
 		where: {
 			caseId,

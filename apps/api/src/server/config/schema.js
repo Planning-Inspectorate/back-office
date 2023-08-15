@@ -6,6 +6,7 @@ export default joi.object({
 	SWAGGER_JSON_DIR: joi.string(),
 	DATABASE_URL: joi.string(),
 	blobStorageUrl: joi.string(),
+	virusScanningDisabled: joi.boolean().optional(),
 	defaultApiVersion: joi.string(),
 	documentStorageApi: joi.object({
 		host: joi.string(),

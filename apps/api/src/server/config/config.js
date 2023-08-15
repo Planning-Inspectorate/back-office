@@ -11,6 +11,7 @@ const { value, error } = schema.validate({
 	DATABASE_URL: environment.DATABASE_URL,
 	defaultApiVersion: environment.DEFAULT_API_VERSION || '1',
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
+	virusScanningDisabled: environment.VIRUS_SCANNING_DISABLED || false,
 	documentStorageApi: {
 		host: environment.DOCUMENT_STORAGE_API_HOST
 	},
