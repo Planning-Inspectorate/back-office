@@ -105,9 +105,9 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
 
 exports[`site-visit GET /site-visit/visit-scheduled should render the visit scheduled confirmation page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-width-container">
+    <div class="pins-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Site visit booked</h1>
                     <div class="govuk-panel__body">Appeal ID
@@ -117,7 +117,7 @@ exports[`site-visit GET /site-visit/visit-scheduled should render the visit sche
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-padding-top-2">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is
                     booked for 9 October 2023, starting at 09:38.</p>
                 <h2 class="govuk-heading-m">What happens next</h2>

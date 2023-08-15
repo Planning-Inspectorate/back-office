@@ -2,15 +2,13 @@
 
 {%- from "govuk/components/panel/macro.njk" import govukPanel -%}
 
-{%- set serviceName = 'Planning inspectorate' -%}
-
 {%- set panelHtml -%}
 	{%- if panel.appealReference -%}
 		{{ panel.appealReference.label }}<br><strong>{{ panel.appealReference.reference | appealShortReference }}</strong>
 	{%- endif -%}
 {%- endset -%}
 
-{%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-full' -%}
+{%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-two-thirds' -%}
 {%- set bodyContainerClasses = body.containerClasses if body.containerClasses else 'govuk-!-padding-top-2' -%}
 {%- set bodyTitleHeadingLevel = body.title.headingLevel if body.title.headingLevel else 2 -%}
 {%- set bodyTitleClasses = body.title.classes if body.title.classes else 'govuk-heading-m' -%}

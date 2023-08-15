@@ -4,7 +4,7 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from '../components/global-header.njk' import globalHeader %}
 
-{% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container' %}
+{% set containerClasses = 'govuk-width-container' if containerSize === 's' else 'pins-width-container' %}
 
 {% block head %}
   <link rel="stylesheet" href="{{ pathToCss | stripQueryParamsDev }}"/>
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block header %}
-	{% set domainName = 'Planning Inspectorate'%}
+	{% set domainName = 'Appeals'%}
   {{ globalHeader(domainType, domainName) }}
 {% endblock %}
 
