@@ -28,8 +28,8 @@ exports[`national-list GET / should render national list - 10 pages - all page i
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Appeal ID</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
-                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
@@ -38,8 +38,8 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -47,8 +47,8 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -122,8 +122,8 @@ exports[`national-list GET / should render national list - 15 pages - pagination
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Appeal ID</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
-                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
@@ -132,8 +132,8 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -141,8 +141,8 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -196,8 +196,8 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Appeal ID</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
-                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
@@ -206,8 +206,8 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -215,8 +215,8 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -284,8 +284,8 @@ exports[`national-list GET / should render national list - search term 1`] = `
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Appeal ID</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
-                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
                 <th scope="col" class="govuk-table__header">Status</th>
             </tr>
         </thead>
@@ -294,8 +294,8 @@ exports[`national-list GET / should render national list - search term 1`] = `
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1"> 943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -303,8 +303,8 @@ exports[`national-list GET / should render national list - search term 1`] = `
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2"> 129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
-                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell">Dorset Council</td>
+                <td class="govuk-table__cell">household</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
