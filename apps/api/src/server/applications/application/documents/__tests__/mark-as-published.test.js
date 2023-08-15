@@ -78,10 +78,7 @@ describe('Mark-as-published', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-document',
 			[expectedEventPayload],
-			'Update',
-			{
-				publishing: 'true'
-			}
+			'Publish'
 		);
 	});
 });

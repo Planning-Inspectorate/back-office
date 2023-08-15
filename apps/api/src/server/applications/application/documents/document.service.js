@@ -567,13 +567,7 @@ export const markDocumentVersionAsPublished = async ({
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
 		[buildNsipDocumentPayload(publishedDocument)],
-		EventType.Update,
-		// This is an additional flag which triggers the Azure Function that publishes documents.
-		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
-		// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
-		{
-			publishing: 'true'
-		}
+		EventType.Publish
 	);
 
 	return publishedDocument;
