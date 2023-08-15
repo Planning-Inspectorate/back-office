@@ -1,7 +1,9 @@
 import { convertFromBooleanToYesNo } from '../../../lib/boolean-formatter.js';
+import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 
 /**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").BuilderParameters} SummaryListBuilderParameters
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
+ * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
  */
 
 /**
@@ -19,7 +21,7 @@ export function mapLpaQuestionnaire(lpaQuestionnaireData) {
 }
 
 /**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder").Row} SummaryListBuilderRowArray
+ * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").Row} SummaryListBuilderRowArray
  */
 
 /**
@@ -326,5 +328,155 @@ function householderEnvironmentalLpaQuestionnaire(mappedData) {
 	return {
 		header: header,
 		rows: sectionData
+	};
+}
+
+/**
+ *
+ * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
+ * @param {string|string[]} [incompleteReasons]
+ * @param {string} [otherIncompleteReasons]
+ * @returns {string[]}
+ */
+function mapIncompleteReasonsToReasonsList(
+	incompleteReasonOptions,
+	incompleteReasons,
+	otherIncompleteReasons
+) {
+	const reasons = Array.isArray(incompleteReasons) ? incompleteReasons : [incompleteReasons];
+
+	return (
+		reasons
+			?.map((reason) =>
+				incompleteReasonOptions.find((option) => option.id === parseInt(reason || '', 10))
+			)
+			.map((option) => {
+				if (!option) {
+					throw new Error('invalid or incomplete reason ID was not recognised');
+				}
+				const name = option.name;
+				return name.toLowerCase() === 'other' ? `${name}: ${otherIncompleteReasons || ''}` : name;
+			}) || ['']
+	);
+}
+
+/**
+ *
+ * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
+ * @param {string[]|number[]} [checkedOptionValues]
+ * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
+ */
+export function mapIncompleteReasonsToCheckboxItemParameters(
+	incompleteReasonOptions,
+	checkedOptionValues
+) {
+	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
+		checkedOptionValues = [checkedOptionValues];
+	}
+
+	let checkedOptions = checkedOptionValues?.map((value) =>
+		typeof value === 'string' ? parseInt(value, 10) : value
+	);
+
+	return incompleteReasonOptions.map((reason) => ({
+		value: `${reason.id}`,
+		text: reason.name,
+		...(checkedOptions && {
+			checked: checkedOptions.includes(reason.id)
+		})
+	}));
+}
+
+/**
+ *
+ * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
+ * @param {keyof import('../../appeal.constants.js').lpaQuestionnaireOutcomes} validationOutcome
+ * @param {string|string[]} [incompleteReasons]
+ * @param {string} [otherIncompleteReasons]
+ * @param {import('./lpa-questionnaire.service.js').DayMonthYear} [updatedDueDate]
+ * @returns {SummaryListBuilderParameters}
+ */
+export function mapReviewOutcomeToSummaryListBuilderParameters(
+	incompleteReasonOptions,
+	validationOutcome,
+	incompleteReasons,
+	otherIncompleteReasons,
+	updatedDueDate
+) {
+	if (validationOutcome === 'incomplete' && !incompleteReasons) {
+		throw new Error(`validationOutcome requires incompleteReasons`);
+	}
+
+	const reasonsList = mapIncompleteReasonsToReasonsList(
+		incompleteReasonOptions,
+		incompleteReasons,
+		otherIncompleteReasons
+	);
+
+	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
+	const sectionData = [
+		{
+			title: 'Review outcome',
+			value: 'Incomplete',
+			valueType: 'text',
+			actionText: 'Change',
+			actionLink: '#'
+		},
+		{
+			title: 'Incomplete reasons',
+			value: reasonsList,
+			valueType: 'unorderedList',
+			actionText: 'Change',
+			actionLink: '#'
+		}
+	];
+
+	if (updatedDueDate) {
+		sectionData.push({
+			title: `Updated due date`,
+			value: webDateToDisplayDate(updatedDueDate),
+			valueType: 'text',
+			actionText: 'Change',
+			actionLink: '#'
+		});
+	}
+
+	return { rows: sectionData };
+}
+
+/**
+ *
+ * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {string|string[]} [incompleteReasons]
+ * @param {string} [otherReasons]
+ * @param {import('./lpa-questionnaire.service.js').DayMonthYear} [updatedDueDate]
+ * @returns {import('./lpa-questionnaire.service.js').LpaQuestionnaireReviewOutcome}
+ */
+export function mapWebReviewOutcomeToApiReviewOutcome(
+	validationOutcome,
+	incompleteReasons,
+	otherReasons,
+	updatedDueDate
+) {
+	let parsedReasons;
+
+	if (incompleteReasons) {
+		if (!Array.isArray(incompleteReasons)) {
+			incompleteReasons = [incompleteReasons];
+		}
+		parsedReasons = incompleteReasons.map((reason) => parseInt(reason, 10));
+		if (!parsedReasons.every((value) => !Number.isNaN(value))) {
+			throw new Error('failed to parse one or more invalid reason IDs to integer');
+		}
+	}
+
+	return {
+		validationOutcome: String(validationOutcome),
+		...(validationOutcome === 'incomplete' &&
+			incompleteReasons && { incompleteReasons: parsedReasons }),
+		...(otherReasons && { otherNotValidReasons: encodeURIComponent(otherReasons) }),
+		...(updatedDueDate && {
+			lpaQuestionnaireDueDate: dayMonthYearToApiDateString(updatedDueDate)
+		})
 	};
 }

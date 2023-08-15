@@ -1,7 +1,12 @@
 import { addressToString } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
-import { dateIsValid, isDateInstance, dayMonthYearToApiDateString } from '../dates.js';
+import {
+	dateIsValid,
+	isDateInstance,
+	dayMonthYearToApiDateString,
+	webDateToDisplayDate
+} from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
@@ -327,6 +332,18 @@ describe('Libraries', () => {
 				});
 
 				expect(convertedDate).toBe('2023-10-10');
+			});
+		});
+
+		describe('webDateToDisplayDate', () => {
+			it('should return the correct date as a string in the format of "1 January 2024" when provided a DayMonthYear with single-digit day and month values', () => {
+				const convertedDate = webDateToDisplayDate({
+					day: 1,
+					month: 1,
+					year: 2024
+				});
+
+				expect(convertedDate).toBe('1 January 2024');
 			});
 		});
 

@@ -250,7 +250,7 @@ function mapCaseDocumentation(appealDetails) {
 				mapDocumentStatus(appealDetails.documentationSummary?.lpaQuestionnaire?.status),
 				dateToDisplayDate(appealDetails.documentationSummary?.lpaQuestionnaire?.dueDate),
 				appealDetails.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
-					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire-review/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
+					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
 					: ''
 			]
 		],

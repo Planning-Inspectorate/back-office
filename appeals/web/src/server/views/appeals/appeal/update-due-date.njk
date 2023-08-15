@@ -1,4 +1,4 @@
-{%- extends "app/layouts/app-two-column.layout.njk" -%}
+{%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
@@ -6,7 +6,7 @@
 {%- set pageTitle = (page.title if page.title else "Update due date") + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
-	/appeals-service/appeal-details/{{ appeal.id }}
+	{{ backButtonUrl }}
 {%- endset -%}
 
 {%- block pageHeading -%}
@@ -24,7 +24,7 @@
 			namePrefix: "due-date",
 			fieldset: {
 				legend: {
-					text: "Update appeal due date",
+					text: page.text,
 					isPageHeading: true,
 					classes: "govuk-fieldset__legend--xl govuk-!-margin-bottom-9"
 				}
