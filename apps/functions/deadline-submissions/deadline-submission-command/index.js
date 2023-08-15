@@ -1,9 +1,9 @@
-import { BlobStorageClient } from '@pins/blob-storage-client';
-import { getEventClient, EventType } from '@pins/event-client';
 import config from './config';
 import api from './back-office-api-client';
+import blob from './blob-client';
+import events from './event-client';
 
-const { storageUrl, submissionsContainer, serviceBusHost, serviceBusTopic } = config;
+const { submissionsContainer } = config;
 
 /**
  *
@@ -28,18 +28,16 @@ export default async function (context, msg) {
 		return;
 	}
 
-	const client = BlobStorageClient.fromUrl(storageUrl);
-
 	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
-	const properties = await client.getBlobProperties(submissionsContainer, sourceBlobName);
+	const properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
 	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
 
 	const { privateBlobContainer, documents } = await api.submitDocument({
 		caseID,
 		documentName: msg.documentName,
-		documentType: properties.contentType ?? 'application/octet-stream',
-		documentSize: properties.contentLength ?? 0,
+		documentType: properties?.contentType ?? 'application/octet-stream',
+		documentSize: properties?.contentLength ?? 0,
 		folderID,
 		userEmail: msg.email
 	});
@@ -49,31 +47,20 @@ export default async function (context, msg) {
 		return;
 	}
 
-	const result = await client.copyFile({
-		sourceContainerName: submissionsContainer,
-		sourceBlobName,
-		destinationContainerName: privateBlobContainer,
-		destinationBlobName: documents[0].blobStoreUrl
-	});
+	const successful = await blob.copyFile(
+		{ containerName: submissionsContainer, blobName: sourceBlobName },
+		{ containerName: privateBlobContainer, blobName: documents[0].blobStoreUrl }
+	);
 
-	const eventClient = getEventClient(true, context.log, serviceBusHost);
-
-	const event = {
-		status: result === 'success' ? 'SUCCESS' : 'FAILURE',
+	await events.sendEvent(context, successful, {
 		deadline: msg.deadline,
 		submissionType: msg.submissionType,
 		blobGuid: msg.blobGuid,
 		documentName: msg.documentName
-	};
-
-	eventClient.sendEvents(
-		serviceBusTopic,
-		[event],
-		result === 'success' ? EventType.Success : EventType.Failure
-	);
+	});
 
 	context.log(
-		result === 'success'
+		successful
 			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store`
 			: `Failed to copy blob ${msg.blobGuid} from submissions to uploads store`
 	);
