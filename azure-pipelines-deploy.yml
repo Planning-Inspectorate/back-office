@@ -27,7 +27,7 @@ parameters:
     displayName: Deploy Function - Handle Subscriptions
     type: boolean
     default: true
-  - name: deployFunctionDeadlineSubmissions
+  - name: deployDeadlineSubmissionsFunction
     displayName: Deploy Function - Deadline Submissions
     type: boolean
     default: true
