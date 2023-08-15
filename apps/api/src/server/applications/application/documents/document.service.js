@@ -11,8 +11,7 @@ import { buildNsipDocumentPayload } from './document.js';
 import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
-
-/** @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails */
+import config from '../../../config/config.js';
 
 /**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
 
@@ -129,7 +128,10 @@ const attemptInsertDocuments = async (caseId, documents) => {
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				stage: stage,
-				version: 1
+				version: 1,
+				...(config.virusScanningDisabled && {
+					publishedStatus: 'not_checked'
+				})
 			});
 
 			await documentRepository.update(document.guid, {
@@ -364,6 +366,10 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	currentDocumentVersion[0].redacted = false;
 	currentDocumentVersion[0].redactedStatus = '';
 	currentDocumentVersion[0].datePublished = null;
+
+	if (config.virusScanningDisabled) {
+		currentDocumentVersion[0].publishedStatus = 'not_checked';
+	}
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 

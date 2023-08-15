@@ -441,6 +441,8 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 
 	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(+id);
 
+	console.log('documentsCount ' + documentsCount);
+
 	const mapDocument = paginatedReadyToPublishDocuments.map(
 		// @ts-ignore
 		({ latestDocumentVersion, ...Document }) => ({
