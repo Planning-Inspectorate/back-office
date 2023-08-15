@@ -7,8 +7,10 @@ const { serviceBus } = config;
  *
  * @param {import('@azure/functions').Context} context
  * @param {string} guid
+ * @param {string} eventStatus
+ * @param {EventType} eventType
  * */
-export const handleNotInfected = async (context, guid) => {
+const handlePublishResult = async (context, guid, eventStatus, eventType) => {
 	const document = await getDocumentProperties(guid);
 	if (!document) {
 		throw new Error(`No document found with guid ${guid}`);
@@ -26,7 +28,7 @@ export const handleNotInfected = async (context, guid) => {
 	}
 
 	const event = {
-		status: 'SUCCESS',
+		status: eventStatus,
 		deadline: folders[1].displayNameEn,
 		submissionType: folders[0].displayNameEn,
 		blobGuid: guid,
@@ -34,7 +36,7 @@ export const handleNotInfected = async (context, guid) => {
 	};
 
 	const eventClient = getEventClient(true, context.log, serviceBus.host);
-	await eventClient.sendEvents(serviceBus.topic, [event], EventType.Success);
+	await eventClient.sendEvents(serviceBus.topic, [event], eventType);
 };
 
 /**
@@ -42,31 +44,13 @@ export const handleNotInfected = async (context, guid) => {
  * @param {import('@azure/functions').Context} context
  * @param {string} guid
  * */
-export const handleInfected = async (context, guid) => {
-	const document = await getDocumentProperties(guid);
-	if (!document) {
-		throw new Error(`No document found with guid ${guid}`);
-	}
+export const handleNotInfected = async (context, guid) =>
+	handlePublishResult(context, guid, 'SUCCESS', EventType.Success);
 
-	if (!document.fromFrontOffice) {
-		return;
-	}
-
-	const folders = await getDocumentFolders(guid);
-	if (!folders || folders.length < 2) {
-		throw new Error(
-			`Returned ${folders} when fetching folders for document from front office: "${guid}"`
-		);
-	}
-
-	const event = {
-		status: 'VIRUS_DETECTED',
-		deadline: folders[1].displayNameEn,
-		submissionType: folders[0].displayNameEn,
-		blobGuid: guid,
-		documentName: document.documentName
-	};
-
-	const eventClient = getEventClient(true, context.log, serviceBus.host);
-	await eventClient.sendEvents(serviceBus.topic, [event], EventType.Failure);
-};
+/**
+ *
+ * @param {import('@azure/functions').Context} context
+ * @param {string} guid
+ * */
+export const handleInfected = async (context, guid) =>
+	handlePublishResult(context, guid, 'VIRUS_DETECTED', EventType.Failure);
