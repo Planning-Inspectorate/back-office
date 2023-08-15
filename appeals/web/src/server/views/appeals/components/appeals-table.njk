@@ -17,8 +17,8 @@
 		{%- set row = [
 			{ html: createReferenceCell(appeal) },
 			{ text: appeal.appealSite | collapse(', ') },
-			{ text: appeal.appealType},
 			{ text: appeal.localPlanningDepartment },
+			{ text: appeal.appealType},
 			{ html: statusHtml }
 		] -%}
 		{%- set rows = rows | concat([row]) -%}
@@ -30,8 +30,8 @@
 			head: [
 				{ text: "Appeal ID" },
 				{ text: "Site address" },
-				{ text: "Appeal type" },
 				{ text: "Local planning authority" },
+				{ text: "Appeal type" },
 				{ text: "Status" }
 			],
 			rows: rows
