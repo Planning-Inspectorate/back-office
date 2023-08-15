@@ -15,13 +15,14 @@ import {
 	neighbouringSiteContactsList
 } from './data-samples.js';
 import isFPA from '#utils/is-fpa.js';
-import { calculateTimetable } from '../../server/utils/business-days.js';
+import { calculateTimetable } from '#utils/business-days.js';
 import {
 	APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS,
 	STATE_TARGET_COMPLETE,
-	STATE_TARGET_ISSUE_DETERMINATION
-} from '../../server/endpoints/constants.js';
+	STATE_TARGET_ISSUE_DETERMINATION,
+	STATE_TARGET_READY_TO_START
+} from '#endpoints/constants.js';
 
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 
@@ -464,9 +465,12 @@ export async function seedTestData(databaseConnector) {
 
 	for (const appellantCase of appellantCases) {
 		const appeal = appeals.find(({ id }) => id === appellantCase.appealId);
+		const status = appealStatus.find(({ appealId }) => appealId === appellantCase.appealId);
 		const appealType = appealTypes.find(({ id }) => id === appeal?.appealTypeId);
 		const validationOutcome =
-			appellantCaseValidationOutcomes[pickRandom(appellantCaseValidationOutcomes)];
+			status?.status !== STATE_TARGET_READY_TO_START
+				? appellantCaseValidationOutcomes[pickRandom(appellantCaseValidationOutcomes)]
+				: null;
 
 		await databaseConnector.appellantCase.update({
 			where: { id: appellantCase.id },
@@ -478,16 +482,18 @@ export async function seedTestData(databaseConnector) {
 					hasAdvertisedAppeal: true,
 					knowledgeOfOtherLandownersId: knowledgeOfOtherLandowners[0].id
 				}),
-				appellantCaseValidationOutcomeId: validationOutcome.validationOutcomeId,
-				otherNotValidReasons:
-					(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
-					validationOutcome.otherNotValidReasons
+				...(validationOutcome && {
+					appellantCaseValidationOutcomeId: validationOutcome.validationOutcomeId,
+					otherNotValidReasons:
+						(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
+						validationOutcome.otherNotValidReasons
+				})
 			}
 		});
 
-		if (validationOutcome.incompleteReasons) {
+		if (validationOutcome?.incompleteReasons) {
 			await databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany({
-				data: validationOutcome.incompleteReasons.map((item) => ({
+				data: validationOutcome?.incompleteReasons.map((item) => ({
 					appellantCaseIncompleteReasonId: item,
 					appellantCaseId: appellantCase.id
 				}))
@@ -498,9 +504,9 @@ export async function seedTestData(databaseConnector) {
 			});
 		}
 
-		if (validationOutcome.invalidReasons) {
+		if (validationOutcome?.invalidReasons) {
 			await databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany({
-				data: validationOutcome.invalidReasons.map((item) => ({
+				data: validationOutcome?.invalidReasons.map((item) => ({
 					appellantCaseInvalidReasonId: item,
 					appellantCaseId: appellantCase.id
 				}))
