@@ -5,6 +5,7 @@ import { validateApplicationId } from '../../application/application.validators.
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
 	deleteDocumentSoftly,
+	getDocumentFolderPath,
 	getDocumentProperties,
 	getDocumentVersions,
 	getReadyToPublishDocuments,
@@ -289,7 +290,7 @@ router.get(
 	'/document/:guid/versions',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/documents/{guid}/properties'
+        #swagger.path = '/applications/document/{guid}/properties'
         #swagger.description = 'Gets the properties of a single file on a case'
 		#swagger.parameters['guid'] = {
             in: 'path',
@@ -303,6 +304,26 @@ router.get(
         }
     */
 	asyncHandler(getDocumentVersions)
+);
+
+router.get(
+	'/document/:guid/path',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/document/{guid}/path'
+        #swagger.description = 'Gets the array of folders containing a document'
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'guid of the required document here',
+			required: true,
+			type: 'string'
+		}
+        #swagger.responses[200] = {
+            description: 'Array of folders which consitute the path the document is located in',
+            schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 } ]
+        }
+    */
+	asyncHandler(getDocumentFolderPath)
 );
 
 router.post(
