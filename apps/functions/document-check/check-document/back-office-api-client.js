@@ -19,21 +19,34 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 /**
  *
  * @param {string} documentGuid
- * @returns {Promise<boolean>}
+ * @returns {Promise<{ guid: string, documentName: string, fromFrontOffice: boolean } | null>}
  * */
-export const isDocumentFromFrontOffice = async (documentGuid) => {
+export const getDocumentProperties = async (documentGuid) => {
 	try {
 		const result = await got
-			.get(`https://${config.API_HOST}/applications/document/${documentGuid}`)
+			.get(`https://${config.API_HOST}/applications/document/${documentGuid}/properties`)
 			.json();
 
-		if (!result.ok) {
-			return false;
-		}
-
-		return result.fromFrontOffice;
+		return result;
 	} catch {
-		return false;
+		return null;
+	}
+};
+
+/**
+ *
+ * @param {string} documentGuid
+ * @returns {Promise<{ id: number, displayNameEn: string }[] | null>}
+ * */
+export const getDocumentFolders = async (documentGuid) => {
+	try {
+		const result = await got
+			.get(`https://${config.API_HOST}/applications/document/${documentGuid}/path`)
+			.json();
+
+		return result;
+	} catch {
+		return null;
 	}
 };
 
