@@ -7,6 +7,10 @@ const schema = joi.object({
 	DOCUMENT_STORAGE_API_HOST: joi.string(),
 	CLAM_AV_HOST: joi.string(),
 	CLAM_AV_PORT: joi.number(),
+	serviceBus: {
+		host: joi.string(),
+		topic: joi.string()
+	},
 	log: joi.object({
 		levelStdOut: joi.string()
 	})
@@ -20,6 +24,10 @@ const { value, error } = schema.validate({
 	DOCUMENT_STORAGE_API_HOST: environment.DOCUMENT_STORAGE_API_HOST,
 	CLAM_AV_HOST: environment.CLAM_AV_HOST,
 	CLAM_AV_PORT: environment.CLAM_AV_PORT,
+	serviceBus: {
+		host: environment.SERVICE_BUS_HOST,
+		topic: environment.SERVICE_BUS_TOPIC
+	},
 	log: {
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	}
