@@ -182,7 +182,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check your answers before confirming your review</h1>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
-                        <dd class="govuk-summary-list__value"><span>incomplete</span>
+                        <dd class="govuk-summary-list__value"><span>Incomplete</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
                         </dd>
@@ -206,7 +206,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                         </dd>
                     </div>
                 </dl>
-                <div class="govuk-inset-text">Confirming this review will inform the appellant of the outcome</div>
+                <div class="govuk-inset-text">Confirming this review will inform the appellant and LPA of the outcome</div>
                 <form                 method="post" novalidate="novalidate">
                     <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
                     </form>
@@ -222,7 +222,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check your answers before confirming your review</h1>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
-                        <dd class="govuk-summary-list__value"><span>invalid</span>
+                        <dd class="govuk-summary-list__value"><span>Invalid</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
                         </dd>
@@ -239,7 +239,7 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                         </dd>
                     </div>
                 </dl>
-                <div class="govuk-inset-text">Confirming this review will inform the appellant of the outcome</div>
+                <div class="govuk-inset-text">Confirming this review will inform the appellant and LPA of the outcome</div>
                 <form                 method="post" novalidate="novalidate">
                     <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
                     </form>
