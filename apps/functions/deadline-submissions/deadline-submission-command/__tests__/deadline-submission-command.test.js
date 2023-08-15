@@ -1,14 +1,26 @@
 // @ts-nocheck
-import { BlobStorageClient } from '@pins/blob-storage-client';
 import run from '../';
+import blobClient from '../blob-client';
 import api from '../back-office-api-client';
+import eventClient from '../event-client';
 import { jest } from '@jest/globals';
 
 describe('deadline-submission-command', () => {
+	const mockSendEvents = jest.fn();
+
 	beforeEach(() => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
 		api.lineItemExists = jest.fn().mockResolvedValue(true);
+
+		eventClient.sendEvent = mockSendEvents;
+
+		blobClient.getBlobProperties = jest.fn().mockResolvedValue({
+			contentType: 'application/octet-stream',
+			contentLength: 1
+		});
+
+		blobClient.copyFile = jest.fn().mockResolvedValue(true);
 	});
 
 	const mockContext = { log: jest.fn() };
@@ -28,15 +40,6 @@ describe('deadline-submission-command', () => {
 		});
 		api.submitDocument = mockSubmitDocument;
 
-		const mockCopyFile = jest.fn();
-		BlobStorageClient.fromUrl = jest.fn().mockReturnValue({
-			copyFile: mockCopyFile,
-			getBlobProperties: () => ({
-				contentType: 'application/octet-stream',
-				contentLength: 1
-			})
-		});
-
 		await run(mockContext, mockMsg);
 
 		expect(mockSubmitDocument).toHaveBeenCalledWith(
@@ -50,11 +53,14 @@ describe('deadline-submission-command', () => {
 			})
 		);
 
-		expect(mockCopyFile).toHaveBeenCalledWith(
+		expect(mockSendEvents).toHaveBeenCalledWith(
+			expect.anything(),
+			true,
 			expect.objectContaining({
-				sourceBlobName: 'test-guid/test-name',
-				destinationContainerName: 'test-container',
-				destinationBlobName: '/test/blob/url'
+				deadline: mockMsg.deadline,
+				submissionType: mockMsg.submissionType,
+				blobGuid: mockMsg.blobGuid,
+				documentName: mockMsg.documentName
 			})
 		);
 	});
