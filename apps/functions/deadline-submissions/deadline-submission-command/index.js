@@ -52,12 +52,14 @@ export default async function (context, msg) {
 		{ containerName: privateBlobContainer, blobName: documents[0].blobStoreUrl }
 	);
 
-	await events.sendEvent(context, successful, {
-		deadline: msg.deadline,
-		submissionType: msg.submissionType,
-		blobGuid: msg.blobGuid,
-		documentName: msg.documentName
-	});
+	if (!successful) {
+		await events.sendEvent(context, {
+			deadline: msg.deadline,
+			submissionType: msg.submissionType,
+			blobGuid: msg.blobGuid,
+			documentName: msg.documentName
+		});
+	}
 
 	context.log(
 		successful
