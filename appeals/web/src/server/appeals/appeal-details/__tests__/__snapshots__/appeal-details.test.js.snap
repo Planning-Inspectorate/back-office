@@ -64,15 +64,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">APP/Q9999/D/21/725284</a>
-                                        <br><a href="/appeals-service/appeal-details/2" class="govuk-link">APP/Q9999/D/21/123456</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">725284</a>
+                                        <br><a href="/appeals-service/appeal-details/2" class="govuk-link">123456</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Linked appeals</span></a>
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Other appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">APP/Q9999/D/21/765413</a>
-                                        <br><a href="/appeals-service/appeal-details/4" class="govuk-link">APP/Q9999/D/21/523467</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">765413</a>
+                                        <br><a href="/appeals-service/appeal-details/4" class="govuk-link">523467</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Other appeals</span></a>
                                     </dd>
@@ -538,13 +538,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">APP/Q9999/D/21/725284</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">725284</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Linked appeals</span></a>
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Other appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">APP/Q9999/D/21/765413</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">765413</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Other appeals</span></a>
                                     </dd>
@@ -775,15 +775,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">APP/Q9999/D/21/725284</a>
-                                        <br><a href="/appeals-service/appeal-details/2" class="govuk-link">APP/Q9999/D/21/123456</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/1" class="govuk-link">725284</a>
+                                        <br><a href="/appeals-service/appeal-details/2" class="govuk-link">123456</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Linked appeals</span></a>
                                     </dd>
                                 </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Other appeals</dt>
-                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">APP/Q9999/D/21/765413</a>
-                                        <br><a href="/appeals-service/appeal-details/4" class="govuk-link">APP/Q9999/D/21/523467</a>
+                                    <dd class="govuk-summary-list__value"><a href="/appeals-service/appeal-details/3" class="govuk-link">765413</a>
+                                        <br><a href="/appeals-service/appeal-details/4" class="govuk-link">523467</a>
                                     </dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Other appeals</span></a>
                                     </dd>

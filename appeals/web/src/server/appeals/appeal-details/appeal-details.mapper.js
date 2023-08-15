@@ -132,20 +132,27 @@ function mapCaseOverview(appealDetails) {
 			},
 			{
 				title: 'Linked appeals',
-				value: appealDetails.linkedAppeals.map((linkedAppeal) => ({
-					title: linkedAppeal.appealReference,
-					href: `/appeals-service/appeal-details/${linkedAppeal.appealId}`
-				})),
+				value: appealDetails.linkedAppeals.map((linkedAppeal) => {
+					const linkedAppealReferenceFragments = linkedAppeal.appealReference.split('/');
+					return {
+						title:
+							linkedAppealReferenceFragments?.[linkedAppealReferenceFragments.length - 1] || '',
+						href: `/appeals-service/appeal-details/${linkedAppeal.appealId}`
+					};
+				}),
 				valueType: 'link',
 				actionText: 'Change',
 				actionLink: '#'
 			},
 			{
 				title: 'Other appeals',
-				value: appealDetails.otherAppeals.map((otherAppeal) => ({
-					title: otherAppeal.appealReference,
-					href: `/appeals-service/appeal-details/${otherAppeal.appealId}`
-				})),
+				value: appealDetails.otherAppeals.map((otherAppeal) => {
+					const otherAppealReferenceFragments = otherAppeal.appealReference.split('/');
+					return {
+						title: otherAppealReferenceFragments?.[otherAppealReferenceFragments.length - 1] || '',
+						href: `/appeals-service/appeal-details/${otherAppeal.appealId}`
+					};
+				}),
 				valueType: 'link',
 				actionText: 'Change',
 				actionLink: '#'
