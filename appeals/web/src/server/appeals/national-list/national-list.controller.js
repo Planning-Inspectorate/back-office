@@ -27,7 +27,7 @@ export const viewNationalList = async (request, response) => {
 		? Number.parseInt(String(query.pageSize), 10)
 		: paginationDefaultSettings.pageSize;
 
-	let searchTerm = query?.searchTerm ? String(query.searchTerm) : '';
+	let searchTerm = query?.searchTerm ? String(query.searchTerm).trim() : '';
 
 	/** @type {SearchInputFieldObject} */
 	const searchObject = {
