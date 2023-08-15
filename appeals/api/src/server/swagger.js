@@ -541,6 +541,31 @@ const document = {
 		},
 		UpdateAppellantResponse: {
 			name: 'Eva Sharma'
+		},
+		SingleAddressResponse: {
+			addressId: 1,
+			addressLine1: '1 Grove Cottage',
+			addressLine2: 'Shotesham Road',
+			country: 'United Kingdom',
+			county: 'Devon',
+			postcode: 'NR35 2ND',
+			town: 'Woodton'
+		},
+		UpdateAddressRequest: {
+			addressLine1: '1 Grove Cottage',
+			addressLine2: 'Shotesham Road',
+			country: 'United Kingdom',
+			county: 'Devon',
+			postcode: 'NR35 2ND',
+			town: 'Woodton'
+		},
+		UpdateAddressResponse: {
+			addressLine1: '1 Grove Cottage',
+			addressLine2: 'Shotesham Road',
+			country: 'United Kingdom',
+			county: 'Devon',
+			postcode: 'NR35 2ND',
+			town: 'Woodton'
 		}
 	},
 	components: {}

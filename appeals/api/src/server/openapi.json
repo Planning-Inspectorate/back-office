@@ -15,6 +15,115 @@
 	],
 	"securityDefinitions": {},
 	"paths": {
+		"/appeals/{appealId}/addresses/{addressId}": {
+			"get": {
+				"tags": ["Addresses"],
+				"description": "Gets a single address by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "addressId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single address by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAddressResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAddressResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Addresses"],
+				"description": "Updates a single address by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "addressId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single address by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAddressResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAddressResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Address details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAddressRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAddressRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/appeal-allocation-specialisms": {
 			"get": {
 				"tags": ["Appeal Allocation"],
@@ -3201,6 +3310,106 @@
 				},
 				"xml": {
 					"name": "UpdateAppellantResponse"
+				}
+			},
+			"SingleAddressResponse": {
+				"type": "object",
+				"properties": {
+					"addressId": {
+						"type": "number",
+						"example": 1
+					},
+					"addressLine1": {
+						"type": "string",
+						"example": "1 Grove Cottage"
+					},
+					"addressLine2": {
+						"type": "string",
+						"example": "Shotesham Road"
+					},
+					"country": {
+						"type": "string",
+						"example": "United Kingdom"
+					},
+					"county": {
+						"type": "string",
+						"example": "Devon"
+					},
+					"postcode": {
+						"type": "string",
+						"example": "NR35 2ND"
+					},
+					"town": {
+						"type": "string",
+						"example": "Woodton"
+					}
+				},
+				"xml": {
+					"name": "SingleAddressResponse"
+				}
+			},
+			"UpdateAddressRequest": {
+				"type": "object",
+				"properties": {
+					"addressLine1": {
+						"type": "string",
+						"example": "1 Grove Cottage"
+					},
+					"addressLine2": {
+						"type": "string",
+						"example": "Shotesham Road"
+					},
+					"country": {
+						"type": "string",
+						"example": "United Kingdom"
+					},
+					"county": {
+						"type": "string",
+						"example": "Devon"
+					},
+					"postcode": {
+						"type": "string",
+						"example": "NR35 2ND"
+					},
+					"town": {
+						"type": "string",
+						"example": "Woodton"
+					}
+				},
+				"xml": {
+					"name": "UpdateAddressRequest"
+				}
+			},
+			"UpdateAddressResponse": {
+				"type": "object",
+				"properties": {
+					"addressLine1": {
+						"type": "string",
+						"example": "1 Grove Cottage"
+					},
+					"addressLine2": {
+						"type": "string",
+						"example": "Shotesham Road"
+					},
+					"country": {
+						"type": "string",
+						"example": "United Kingdom"
+					},
+					"county": {
+						"type": "string",
+						"example": "Devon"
+					},
+					"postcode": {
+						"type": "string",
+						"example": "NR35 2ND"
+					},
+					"town": {
+						"type": "string",
+						"example": "Woodton"
+					}
+				},
+				"xml": {
+					"name": "UpdateAddressResponse"
 				}
 			}
 		}

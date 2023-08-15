@@ -2,17 +2,19 @@ import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
-	ERROR_MAX_LENGTH_300_CHARACTERS,
+	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_STRING,
 	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
 	ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
-	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED
+	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
+	MAX_LENGTH_300
 } from '../constants.js';
 import { isOutcomeIncomplete, isOutcomeInvalid } from '#utils/check-validation-outcome.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateValidationOutcomeReasons from '#common/validators/validation-outcome-reasons.js';
+import errorMessageReplacement from '#utils/error-message-replacement.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -68,8 +70,8 @@ const patchAppellantCaseValidator = composeMiddleware(
 		.optional()
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
-		.isLength({ min: 0, max: 300 })
-		.withMessage(ERROR_MAX_LENGTH_300_CHARACTERS)
+		.isLength({ min: 0, max: MAX_LENGTH_300 })
+		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300))
 		.custom((value, { req }) => {
 			if (
 				value &&

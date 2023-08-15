@@ -31,7 +31,7 @@ export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Must be one o
 export const ERROR_INVALID_SITE_VISIT_TYPE =
 	'Must be one of access required, accompanied, unaccompanied';
 export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
-export const ERROR_MAX_LENGTH_300_CHARACTERS = 'Must be 300 characters or less';
+export const ERROR_MAX_LENGTH_CHARACTERS = 'Must be {replacement} characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in the format ${DEFAULT_DATE_FORMAT_DATABASE}`;
 export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = `Must be a valid time and in the format hh:mm`;
@@ -60,6 +60,9 @@ export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete or Invalid';
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
+
+export const MAX_LENGTH_300 = 300;
+export const MAX_LENGTH_8 = 8;
 
 export const STATE_TARGET_ARRANGE_SITE_VISIT = 'arrange_site_visit';
 export const STATE_TARGET_COMPLETE = 'complete';

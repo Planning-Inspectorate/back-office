@@ -58,7 +58,7 @@ interface RepositoryGetAllResultItem {
 }
 
 interface RepositoryGetByIdResultItem {
-	address?: Schema.Address | null;
+	address: Schema.Address;
 	allocation?: Schema.AppealAllocation | null;
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
@@ -362,6 +362,25 @@ interface UpdateAppellantRequest {
 	name?: string;
 }
 
+interface SingleAddressResponse {
+	addressId: number;
+	addressLine1: string | null;
+	addressLine2: string | null;
+	country: string | null;
+	county: string | null;
+	postcode: string | null;
+	town: string | null;
+}
+
+interface UpdateAddressRequest {
+	addressLine1?: string;
+	addressLine2?: string;
+	country?: string;
+	county?: string;
+	postcode?: string;
+	town?: string;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -386,12 +405,14 @@ export {
 	NotValidReasons,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
+	SingleAddressResponse,
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleAppellantResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
+	UpdateAddressRequest,
 	UpdateAppellantRequest,
 	ValidationOutcomeResponse
 };
