@@ -2,12 +2,14 @@ import { request } from '../../../app-test.js';
 import {
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_FAILED_TO_SAVE_DATA,
-	ERROR_MAX_LENGTH_300_CHARACTERS,
+	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
-	ERROR_NOT_FOUND
+	ERROR_NOT_FOUND,
+	MAX_LENGTH_300
 } from '../../constants.js';
 import { householdAppeal } from '#tests/data.js';
+import errorMessageReplacement from '#utils/error-message-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -49,9 +51,7 @@ describe('appellants routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get(
-					`/appeals/3/lpa-questionnaires/${householdAppeal.appellant.id}`
-				);
+				const response = await request.get(`/appeals/3/appellants/${householdAppeal.appellant.id}`);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -211,13 +211,13 @@ describe('appellants routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
 					.send({
-						name: 'A'.repeat(301)
+						name: 'A'.repeat(MAX_LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						name: ERROR_MAX_LENGTH_300_CHARACTERS
+						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
 					}
 				});
 			});

@@ -5,7 +5,7 @@ import {
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME,
 	ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
-	ERROR_MAX_LENGTH_300_CHARACTERS,
+	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
@@ -14,6 +14,7 @@ import {
 	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
+	MAX_LENGTH_300,
 	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
@@ -28,6 +29,7 @@ import {
 	otherAppeals
 } from '../../../tests/data.js';
 import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
+import errorMessageReplacement from '#utils/error-message-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -676,14 +678,17 @@ describe('lpa questionnaires routes', () => {
 					)
 					.send({
 						incompleteReasons: [1, 3],
-						otherNotValidReasons: 'A'.repeat(301),
+						otherNotValidReasons: 'A'.repeat(MAX_LENGTH_300 + 1),
 						validationOutcome: 'Incomplete'
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						otherNotValidReasons: ERROR_MAX_LENGTH_300_CHARACTERS
+						otherNotValidReasons: errorMessageReplacement(
+							ERROR_MAX_LENGTH_CHARACTERS,
+							MAX_LENGTH_300
+						)
 					}
 				});
 			});
@@ -913,7 +918,7 @@ describe('lpa questionnaires routes', () => {
 				);
 				// @ts-ignore
 				databaseConnector.lPAQuestionnaire.update.mockImplementation(() => {
-					throw new Error('InternalServer Error');
+					throw new Error('Internal Server Error');
 				});
 
 				const body = {

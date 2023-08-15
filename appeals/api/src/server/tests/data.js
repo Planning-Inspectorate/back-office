@@ -37,7 +37,10 @@ const householdAppeal = {
 	startedAt: new Date(2022, 4, 18),
 	address: {
 		addressLine1: '96 The Avenue',
+		addressLine2: 'Leftfield',
+		country: 'United Kingdom',
 		county: 'Kent',
+		id: 1,
 		postcode: 'MD21 5XY',
 		town: 'Maidstone'
 	},
@@ -474,6 +477,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	appealReference: appeal.reference,
 	appealSite: {
 		addressLine1: '96 The Avenue',
+		addressLine2: 'Leftfield',
 		county: 'Kent',
 		postCode: 'MD21 5XY',
 		town: 'Maidstone'
@@ -585,6 +589,7 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appealReference: appeal.reference,
 	appealSite: {
 		addressLine1: appeal.address?.addressLine1,
+		addressLine2: appeal.address?.addressLine2,
 		town: appeal.address?.town,
 		county: appeal.address?.county,
 		postCode: appeal.address?.postcode

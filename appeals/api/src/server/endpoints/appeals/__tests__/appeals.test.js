@@ -45,6 +45,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference,
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
 								town: householdAppeal.address.town,
 								county: householdAppeal.address.county,
 								postCode: householdAppeal.address.postcode
@@ -59,6 +60,7 @@ describe('appeals routes', () => {
 							appealReference: fullPlanningAppeal.reference,
 							appealSite: {
 								addressLine1: fullPlanningAppeal.address.addressLine1,
+								addressLine2: fullPlanningAppeal.address.addressLine2,
 								town: fullPlanningAppeal.address.town,
 								county: fullPlanningAppeal.address.county,
 								postCode: fullPlanningAppeal.address.postcode
@@ -98,6 +100,7 @@ describe('appeals routes', () => {
 							appealReference: fullPlanningAppeal.reference,
 							appealSite: {
 								addressLine1: fullPlanningAppeal.address.addressLine1,
+								addressLine2: fullPlanningAppeal.address.addressLine2,
 								town: fullPlanningAppeal.address.town,
 								county: fullPlanningAppeal.address.county,
 								postCode: fullPlanningAppeal.address.postcode
@@ -156,6 +159,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference,
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
 								town: householdAppeal.address.town,
 								county: householdAppeal.address.county,
 								postCode: householdAppeal.address.postcode
@@ -214,6 +218,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference,
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
 								town: householdAppeal.address.town,
 								county: householdAppeal.address.county,
 								postCode: householdAppeal.address.postcode
@@ -272,6 +277,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference,
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
 								town: householdAppeal.address.town,
 								county: householdAppeal.address.county,
 								postCode: householdAppeal.address.postcode
@@ -399,6 +405,7 @@ describe('appeals routes', () => {
 					appealReference: householdAppeal.reference,
 					appealSite: {
 						addressLine1: householdAppeal.address.addressLine1,
+						addressLine2: householdAppeal.address.addressLine2,
 						town: householdAppeal.address.town,
 						county: householdAppeal.address.county,
 						postCode: householdAppeal.address.postcode
@@ -491,6 +498,7 @@ describe('appeals routes', () => {
 					appealReference: fullPlanningAppeal.reference,
 					appealSite: {
 						addressLine1: fullPlanningAppeal.address.addressLine1,
+						addressLine2: fullPlanningAppeal.address.addressLine2,
 						town: fullPlanningAppeal.address.town,
 						county: fullPlanningAppeal.address.county,
 						postCode: fullPlanningAppeal.address.postcode
