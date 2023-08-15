@@ -61,3 +61,28 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 		locale: enGB
 	});
 }
+
+/**
+ * @param {import("../appeals/appeal-details/appellant-case/appellant-case.service.js").DayMonthYear} dayMonthYear
+ * @returns {string}
+ */
+export function webDateToDisplayDate(dayMonthYear, { condensed = false } = {}) {
+	if (typeof dayMonthYear === 'undefined' || dayMonthYear === null) {
+		return '';
+	}
+
+	const { day, month, year } = dayMonthYear;
+
+	if (day && month && year) {
+		const date = new Date();
+		date.setDate(day);
+		date.setMonth(month - 1);
+		date.setFullYear(year);
+
+		return formatInTimeZone(date, timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
+			locale: enGB
+		});
+	} else {
+		return '';
+	}
+}

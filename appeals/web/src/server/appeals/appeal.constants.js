@@ -8,3 +8,8 @@ export const appellantCaseReviewOutcomes = {
 	invalid: 'invalid',
 	incomplete: 'incomplete'
 };
+
+export const lpaQuestionnaireOutcomes = {
+	complete: 'complete',
+	incomplete: 'incomplete'
+};

@@ -348,53 +348,49 @@ exports[`appellant-case GET /appellant-case/incomplete/date should render the 50
 exports[`appellant-case GET /appellant-case/incomplete/date should render the update due date page if required data is present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -991,52 +987,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1057,52 +1053,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1123,52 +1119,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1189,52 +1185,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1255,52 +1251,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1321,52 +1317,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1387,52 +1383,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1453,52 +1449,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1519,52 +1515,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 
@@ -1589,52 +1585,52 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-                </div>
-            </div>
-            <form method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                            <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
-                        </legend>
-                        <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                        <div class="govuk-date-input" id="due-date">
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                            <div class="govuk-date-input__item">
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-                    screen.</p>
-                <div class="govuk-button-group">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
-                    role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                    data-module="govuk-button"> Skip</a>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                    <h1 class="govuk-fieldset__heading"> Update appeal due date</h1>
+                </legend>
+                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+                <div class="govuk-date-input" id="due-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
 </main>"
 `;
 

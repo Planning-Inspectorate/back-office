@@ -399,6 +399,21 @@ export const appellantCaseIncompleteReasons = [
 	}
 ];
 
+export const lpaQuestionnaireIncompleteReasons = [
+	{
+		id: 1,
+		name: 'Documents or information are missing'
+	},
+	{
+		id: 2,
+		name: 'Policies are missing'
+	},
+	{
+		id: 3,
+		name: 'Other'
+	}
+];
+
 export const siteVisitData = {
 	appealId: 1,
 	visitDate: '2023-10-09T01:00:00.000Z',

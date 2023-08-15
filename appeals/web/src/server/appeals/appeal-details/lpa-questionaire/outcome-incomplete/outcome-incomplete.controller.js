@@ -1,9 +1,9 @@
-import logger from '#lib/logger.js';
-import { mapInvalidOrIncompleteReasonsToCheckboxItemParameters } from '../appellant-case.mapper.js';
-import * as appellantCaseService from '../appellant-case.service.js';
-import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
+import logger from '../../../../lib/logger.js';
+import { mapIncompleteReasonsToCheckboxItemParameters } from '../lpa-questionnaire.mapper.js';
+import { getLPAQuestionnaireIncompleteReasons } from '../lpa-questionnaire.service.js';
+import { objectContainsAllKeys } from '../../../../lib/object-utilities.js';
+import { getIdByNameFromIdNamePairs } from '../../../../lib/id-name-pairs.js';
+import { webDateToDisplayDate } from '../../../../lib/dates.js';
 
 /**
  *
@@ -13,45 +13,45 @@ import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 const renderIncompleteReason = async (request, response) => {
 	const { errors, body } = request;
 
-	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+	if (
+		!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
+	) {
 		return response.render('app/500.njk');
 	}
 
-	const { appealId, appealReference } = request.session;
+	const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
-	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
+	const existingWebLPAQuestionnaireReviewOutcome = request.session.webLPAQuestionnaireReviewOutcome;
 
 	if (
-		existingWebAppellantCaseReviewOutcome &&
-		(existingWebAppellantCaseReviewOutcome.appealId !== appealId ||
-			existingWebAppellantCaseReviewOutcome.validationOutcome !==
-				appellantCaseReviewOutcomes.incomplete)
+		existingWebLPAQuestionnaireReviewOutcome &&
+		(existingWebLPAQuestionnaireReviewOutcome.appealId !== appealId ||
+			existingWebLPAQuestionnaireReviewOutcome.lpaQuestionnaireId !== lpaQuestionnaireId ||
+			existingWebLPAQuestionnaireReviewOutcome.validationOutcome !== 'incomplete')
 	) {
-		delete request.session.webAppellantCaseReviewOutcome;
+		delete request.session.webLPAQuestionnaireReviewOutcome;
 	}
 
-	const { webAppellantCaseReviewOutcome } = request.session;
-	const incompleteReasonOptions = await appellantCaseService.getAppellantCaseIncompleteReasons(
-		request.apiClient
-	);
+	const { webLPAQuestionnaireReviewOutcome } = request.session;
+	const incompleteReasonOptions = await getLPAQuestionnaireIncompleteReasons(request.apiClient);
 
 	if (incompleteReasonOptions) {
 		const incompleteReasons =
-			body.incompleteReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
-		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
-		const mappedIncompleteReasonOptions = mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
+			body.incompleteReason || webLPAQuestionnaireReviewOutcome?.incompleteReasons;
+		const otherReason = body.otherReason || webLPAQuestionnaireReviewOutcome?.otherReason;
+		const mappedIncompleteReasonOptions = mapIncompleteReasonsToCheckboxItemParameters(
 			incompleteReasonOptions,
 			incompleteReasons
 		);
 
 		const appealReferenceFragments = appealReference.split('/');
 
-		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
+		return response.render('appeals/appeal/lpa-questionnaire-incomplete.njk', {
 			appeal: {
 				id: appealId,
 				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
 			},
-			notValidStatus: appellantCaseReviewOutcomes.incomplete,
+			lpaQuestionnaireId,
 			reasonOptions: mappedIncompleteReasonOptions,
 			otherReasonId: getIdByNameFromIdNamePairs(incompleteReasonOptions, 'other'),
 			otherReason,
@@ -70,11 +70,14 @@ const renderIncompleteReason = async (request, response) => {
 const renderUpdateDueDate = async (request, response) => {
 	const { errors } = request;
 
-	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+	if (
+		!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
+	) {
 		return response.render('app/500.njk');
 	}
 
-	const { appealId, appealReference } = request.session;
+	const { appealId, appealReference, lpaQuestionnaireId } = request.session;
+
 	const appealReferenceFragments = appealReference.split('/');
 
 	return response.render('appeals/appeal/update-due-date.njk', {
@@ -84,10 +87,10 @@ const renderUpdateDueDate = async (request, response) => {
 		},
 		page: {
 			title: 'Appellant case due date',
-			text: 'Update appeal due date'
+			text: 'Update LPA questionnaire due date'
 		},
-		backButtonUrl: `/appeals-service/appeal-details/${appealId}`,
-		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`,
+		backButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`,
+		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/check-your-answers`,
 		errors
 	});
 };
@@ -97,37 +100,48 @@ const renderUpdateDueDate = async (request, response) => {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {string} appealShortReference
  * @param {number} appealId
+ * @param {import("../../appellant-case/appellant-case.service.js").DayMonthYear} updatedDueDate
  */
 export const renderDecisionIncompleteConfirmationPage = async (
 	response,
 	appealShortReference,
-	appealId
+	appealId,
+	updatedDueDate
 ) => {
+	const rows = [
+		{
+			text: 'We’ve sent an email to the appellant and LPA to confirm their questionnaire is incomplete, and let them know what to do to complete it.'
+		}
+	];
+
+	if (updatedDueDate) {
+		rows.push({
+			text: `We also let them know the due date has changed to the ${webDateToDisplayDate(
+				updatedDueDate
+			)}.`
+		});
+	}
+
+	rows.push({
+		text: 'Go to case details',
+		// @ts-ignore
+		href: `/appeals-service/appeal-details/${appealId}`
+	});
+
 	response.render('app/confirmation.njk', {
 		panel: {
-			title: 'Appeal incomplete',
+			title: 'LPA questionnaire incomplete',
 			appealReference: {
 				label: 'Appeal ID',
 				reference: appealShortReference
 			}
 		},
 		body: {
-			preTitle: 'The appeal has been reviewed.',
+			preTitle: 'The review of LPA questionnaire is finished.',
 			title: {
 				text: 'What happens next'
 			},
-			rows: [
-				{
-					text: 'We’ve sent an email to the appellant and LPA to inform the case is incomplete, and let them know what to do next.'
-				},
-				{
-					text: 'We also sent them a reminder about the appeal’s due date.'
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
-				}
-			]
+			rows
 		}
 	});
 };
@@ -146,21 +160,25 @@ export const postIncompleteReason = async (request, response) => {
 	}
 
 	try {
-		if (!objectContainsAllKeys(request.session, 'appealId')) {
+		if (
+			!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
+		) {
 			return response.render('app/500.njk');
 		}
 
-		const { appealId } = request.session;
+		const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
-		request.session.webAppellantCaseReviewOutcome = {
+		request.session.webLPAQuestionnaireReviewOutcome = {
 			appealId,
-			validationOutcome: appellantCaseReviewOutcomes.incomplete,
-			invalidOrIncompleteReasons: request.body.incompleteReason,
-			otherNotValidReasons: request.body.otherReason
+			appealReference,
+			lpaQuestionnaireId,
+			validationOutcome: 'incomplete',
+			incompleteReasons: request.body.incompleteReason,
+			otherReason: request.body.otherReason
 		};
 
 		return response.redirect(
-			`/appeals-service/appeal-details/${appealId}/appellant-case/incomplete/date`
+			`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
 		);
 	} catch (error) {
 		logger.error(
@@ -185,9 +203,17 @@ export const postUpdateDueDate = async (request, response) => {
 		return renderUpdateDueDate(request, response);
 	}
 
-	if (!objectContainsAllKeys(request.session, 'webAppellantCaseReviewOutcome')) {
+	if (
+		!objectContainsAllKeys(request.session, [
+			'webLPAQuestionnaireReviewOutcome',
+			'appealId',
+			'lpaQuestionnaireId'
+		])
+	) {
 		return response.render('app/500.njk');
 	}
+
+	const { appealId, lpaQuestionnaireId } = request.session;
 
 	const { body } = request;
 
@@ -208,14 +234,14 @@ export const postUpdateDueDate = async (request, response) => {
 			return response.render('app/500.njk');
 		}
 
-		request.session.webAppellantCaseReviewOutcome.updatedDueDate = {
+		request.session.webLPAQuestionnaireReviewOutcome.updatedDueDate = {
 			day: updatedDueDateDay,
 			month: updatedDueDateMonth,
 			year: updatedDueDateYear
 		};
 
 		return response.redirect(
-			`/appeals-service/appeal-details/${request.session.appealId}/appellant-case/check-your-answers`
+			`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/check-your-answers`
 		);
 	} catch (error) {
 		logger.error(
