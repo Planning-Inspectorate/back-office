@@ -25,12 +25,6 @@ export const createS51Advice = async (_request, response) => {
 	const newReferenceNumber = latestReferenceNumber + 1;
 
 	const payload = { ...body, referenceNumber: newReferenceNumber };
-	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(Number(body.caseId));
-
-	body.referenceNumber = existingS51ForCase?.referenceNumber
-		? existingS51ForCase?.referenceNumber + 1
-		: 1;
-
 	const s51Advice = await s51AdviceRepository.create(payload);
 
 	response.send(s51Advice);
