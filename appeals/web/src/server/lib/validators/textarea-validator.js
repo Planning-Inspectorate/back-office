@@ -1,7 +1,7 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 
-export const TEXTAREA_MAXIMUM_CHARACTERS = 88000;
+export const TEXTAREA_MAXIMUM_CHARACTERS = 4000;
 
 export const createTextareaValidator = (
 	fieldName = 'textarea',

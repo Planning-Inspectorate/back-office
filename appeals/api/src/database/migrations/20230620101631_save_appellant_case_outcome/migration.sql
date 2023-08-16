@@ -5,7 +5,7 @@ BEGIN TRAN;
 -- AlterTable
 ALTER TABLE [dbo].[AppellantCase] ADD [appellantCaseIncompleteReasonId] INT,
 [appellantCaseInvalidReasonId] INT,
-[otherNotValidReasons] NVARCHAR(1000),
+[otherNotValidReasons] NVARCHAR(4000),
 [validationOutcomeId] INT;
 
 -- CreateTable

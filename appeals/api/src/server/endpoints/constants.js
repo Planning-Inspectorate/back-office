@@ -61,6 +61,7 @@ export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
 
+export const MAX_LENGTH_4000 = 4000;
 export const MAX_LENGTH_300 = 300;
 export const MAX_LENGTH_8 = 8;
 
