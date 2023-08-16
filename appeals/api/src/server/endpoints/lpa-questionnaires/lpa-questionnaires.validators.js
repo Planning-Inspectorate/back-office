@@ -42,7 +42,7 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
 		.isLength({ min: 0, max: MAX_LENGTH_300 })
-		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300))
+		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300]))
 		.custom((value, { req }) => {
 			if (
 				value &&

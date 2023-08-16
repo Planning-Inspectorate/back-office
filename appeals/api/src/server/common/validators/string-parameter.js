@@ -22,6 +22,6 @@ const validateStringParameter = (parameterName, maxLength = MAX_LENGTH_300) =>
 		.notEmpty()
 		.withMessage(ERROR_CANNOT_BE_EMPTY_STRING)
 		.isLength({ max: maxLength })
-		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, maxLength));
+		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [maxLength]));
 
 export default validateStringParameter;

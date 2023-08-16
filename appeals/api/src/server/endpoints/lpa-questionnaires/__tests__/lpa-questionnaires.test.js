@@ -685,10 +685,9 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						otherNotValidReasons: errorMessageReplacement(
-							ERROR_MAX_LENGTH_CHARACTERS,
+						otherNotValidReasons: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
 							MAX_LENGTH_300
-						)
+						])
 					}
 				});
 			});

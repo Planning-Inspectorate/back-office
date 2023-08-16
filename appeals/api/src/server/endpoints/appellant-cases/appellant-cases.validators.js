@@ -15,6 +15,9 @@ import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateValidationOutcomeReasons from '#common/validators/validation-outcome-reasons.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
+import validateStringParameter from '#common/validators/string-parameter.js';
+import validateBooleanParameter from '#common/validators/boolean-parameter.js';
+import validateBooleanWithConditionalStringParameters from '#common/validators/boolean-with-conditional-string-parameters.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -71,7 +74,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 		.isString()
 		.withMessage(ERROR_MUST_BE_STRING)
 		.isLength({ min: 0, max: MAX_LENGTH_300 })
-		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300))
+		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300]))
 		.custom((value, { req }) => {
 			if (
 				value &&
@@ -84,6 +87,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 			return value;
 		}),
 	body('validationOutcome')
+		.optional()
 		.isString()
 		.custom((value, { req }) => {
 			if (isOutcomeIncomplete(value) && !req.body.incompleteReasons) {
@@ -96,6 +100,23 @@ const patchAppellantCaseValidator = composeMiddleware(
 
 			return value;
 		}),
+	validateStringParameter('applicantFirstName'),
+	validateStringParameter('applicantSurname'),
+	validateBooleanParameter('isSiteFullyOwned'),
+	validateBooleanParameter('isSitePartiallyOwned'),
+	validateBooleanParameter('areAllOwnersKnown'),
+	validateBooleanParameter('hasAttemptedToIdentifyOwners'),
+	validateBooleanParameter('hasAdvertisedAppeal'),
+	validateBooleanWithConditionalStringParameters(
+		'isSiteVisibleFromPublicRoad',
+		'visibilityRestrictions',
+		false
+	),
+	validateBooleanWithConditionalStringParameters(
+		'hasHealthAndSafetyIssues',
+		'healthAndSafetyIssues',
+		true
+	),
 	validationErrorHandler
 );
 

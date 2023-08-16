@@ -217,7 +217,7 @@ describe('appellants routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
