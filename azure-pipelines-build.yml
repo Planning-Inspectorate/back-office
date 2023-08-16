@@ -175,8 +175,9 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/@pins
               mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -214,8 +215,9 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/@pins
               mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -253,8 +255,9 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
               mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -292,8 +295,8 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -331,8 +334,8 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
