@@ -89,6 +89,7 @@ export class Page {
 	};
 
 	// A C T I O N S
+
 	chooseCheckboxByIndex(indexNumber) {
 		this.basePageElements.checkbox().eq(indexNumber).check();
 	}
@@ -156,6 +157,21 @@ export class Page {
 	}
 
 	// A S S E R T I O N S
+
+	verifyTableCellText(options) {
+		this.basePageElements
+			.tableBody()
+			.find(this.selectors.tableRow)
+			.eq(options.rowIndex)
+			.find(this.selectors.tableCell)
+			.eq(options.cellIndex)
+			.then(($cell) => {
+				const text = $cell.text().trim();
+				options.strict
+					? expect(text).to.equal(options.textToMatch)
+					: expect(text).to.include(options.textToMatch);
+			});
+	}
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
 			expect($banner.text().trim()).to.equal(successMessage);
