@@ -16,6 +16,7 @@ import { generateTable } from '../../lib/nunjucks-template-builders/table-builde
  * @property {import('./appeal-details.mapper.js').AppealDetailsSummaryParameters} appealDetailsSummaryParameters
  * @property {Object<string, import('../../lib/nunjucks-template-builders/summary-list-builder.js').SummaryListComponentParameters>} summaryLists
  * @property {Object<string, import('../../lib/nunjucks-template-builders/table-builder.js').TableComponentParameters>} tables
+ * @property {Object<string, string>} urls
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewAppealDetailsRenderOptions>}  */
@@ -62,6 +63,9 @@ export const viewAppealDetails = async (request, response) => {
 				caseDocumentation: generateTable(
 					mappedAppealDetailsTableBuilderParameters.caseDocumentation
 				)
+			},
+			urls: {
+				appellantCase: `/appeals-service/appeal-details/${appealDetails?.appealId}/appellant-case`
 			}
 		});
 	} else {
