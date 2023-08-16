@@ -58,7 +58,7 @@ export async function viewApplicationsCaseDocumentationCategories(_, response) {
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const properties = await documentationFolderData(request, response);
 
-	response.render(`applications/case-documentation/folder/documentation-folder`, properties);
+	response.render(`applications/components/folder/folder`, properties);
 }
 
 /**
@@ -99,7 +99,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 		properties.items.items = failedItems;
 
-		return response.render(`applications/case-documentation/folder/documentation-folder`, {
+		return response.render(`applications/components/folder/folder`, {
 			...properties,
 			errors: validationErrors || apiErrorMessage,
 			failedItems: apiErrors

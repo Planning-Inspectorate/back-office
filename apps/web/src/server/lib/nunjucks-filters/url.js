@@ -58,6 +58,7 @@ export const url = (key, filterArguments = {}) => {
 	const folderId = getArgument('folderId', filterArguments);
 	const documentGuid = getArgument('documentGuid', filterArguments);
 	const timetableId = getArgument('timetableId', filterArguments);
+	const adviceId = getArgument('adviceId', filterArguments);
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
 	const representationId = getArgument('representationId', filterArguments);
@@ -98,6 +99,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 's51-create':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/create/${step}`;
+		case 's51-item':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/${step}`;
 		case 's51-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/s51-queue`;
 		case 'timetable':
