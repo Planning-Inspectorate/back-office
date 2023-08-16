@@ -31,18 +31,23 @@ export const ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME = `Must be one o
 export const ERROR_INVALID_SITE_VISIT_TYPE =
 	'Must be one of access required, accompanied, unaccompanied';
 export const ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS = 'Must be between 2 and 8 characters';
-export const ERROR_MAX_LENGTH_CHARACTERS = 'Must be {replacement} characters or less';
+export const ERROR_MAX_LENGTH_CHARACTERS = 'Must be {replacement0} characters or less';
 export const ERROR_MUST_BE_ARRAY_OF_IDS = 'Must be an array of ids';
+export const ERROR_MUST_BE_BOOLEAN = 'Must be a boolean';
 export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in the format ${DEFAULT_DATE_FORMAT_DATABASE}`;
-export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = `Must be a valid time and in the format hh:mm`;
+export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = 'Must be a valid time and in the format hh:mm';
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_MUST_BE_STRING = 'Must be a string';
 export const ERROR_MUST_BE_GUID = 'Must be a guid';
 export const ERROR_MUST_BE_VALID_FILEINFO = 'Must be a valid file';
 export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'Must contain at least one value';
+export const ERROR_MUST_HAVE_DETAILS =
+	'Must have {replacement0} when {replacement1} is {replacement2}';
 export const ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS =
 	'Must not be included when invalidReasons or incompleteReasons does not contain Other';
+export const ERROR_MUST_NOT_HAVE_DETAILS =
+	'Must not have {replacement0} when {replacement1} is {replacement2}';
 export const ERROR_NOT_FOUND = 'Not found';
 export const ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INCOMPLETE}`;
 export const ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INVALID}`;

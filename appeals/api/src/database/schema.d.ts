@@ -22,7 +22,8 @@ export {
 	LPAQuestionnaireValidationOutcome,
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
-	SiteVisitType
+	SiteVisitType,
+	ValidationOutcome
 } from '../../src/server/utils/db-client';
 
 export interface Appeal extends schema.Appeal {

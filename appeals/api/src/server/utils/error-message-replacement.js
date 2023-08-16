@@ -1,9 +1,15 @@
 /**
  * @param {string} errorMessage
- * @param {number} replacement
+ * @param {Array<string | number>} replacements
  * @returns {string}
  */
-const errorMessageReplacement = (errorMessage, replacement) =>
-	errorMessage.replace('{replacement}', String(replacement));
+const errorMessageReplacement = (errorMessage, replacements) =>
+	replacements
+		.map((replacement) => String(replacement))
+		.reduce(
+			(replacedErrorMessage, replacement, index) =>
+				replacedErrorMessage.replace(`{replacement${index}}`, replacement),
+			errorMessage
+		);
 
 export default errorMessageReplacement;

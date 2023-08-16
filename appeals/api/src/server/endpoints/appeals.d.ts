@@ -381,6 +381,33 @@ interface UpdateAddressRequest {
 	town?: string;
 }
 
+interface UpdateAppellantCaseRequest {
+	appellantCaseValidationOutcomeId?: number;
+	applicantFirstName?: string;
+	applicantSurname?: string;
+	areAllOwnersKnown?: boolean;
+	hasAdvertisedAppeal?: boolean;
+	hasAttemptedToIdentifyOwners?: boolean;
+	hasHealthAndSafetyIssues?: boolean;
+	healthAndSafetyIssues?: string;
+	isSiteFullyOwned?: boolean;
+	isSitePartiallyOwned?: boolean;
+	isSiteVisibleFromPublicRoad?: boolean;
+	otherNotValidReasons?: string;
+	visibilityRestrictions?: string;
+}
+
+interface UpdateAppellantCaseValidationOutcome {
+	appellantCaseId: number;
+	validationOutcomeId: number;
+	otherNotValidReasons: string;
+	incompleteReasons?: NotValidReasons;
+	invalidReasons?: NotValidReasons;
+	appealId?: number;
+	timetable?: TimetableDeadlineDate;
+	startedAt?: Date;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -413,6 +440,8 @@ export {
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
 	UpdateAddressRequest,
+	UpdateAppellantCaseRequest,
+	UpdateAppellantCaseValidationOutcome,
 	UpdateAppellantRequest,
 	ValidationOutcomeResponse
 };

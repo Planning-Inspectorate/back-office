@@ -5,6 +5,8 @@ import commonRepository from './common.repository.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
 /** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseRequest} UpdateAppellantCaseRequest */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcome} UpdateAppellantCaseValidationOutcome */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -12,10 +14,7 @@ import commonRepository from './common.repository.js';
 
 /**
  * @param {number} id
- * @param {{
- *  otherNotValidReasons?: string;
- *  appellantCaseValidationOutcomeId?: number;
- * }} data
+ * @param {UpdateAppellantCaseRequest} data
  * @returns {PrismaPromise<object>}
  */
 const updateAppellantCaseById = (id, data) =>
@@ -25,16 +24,7 @@ const updateAppellantCaseById = (id, data) =>
 	});
 
 /**
- * @param {{
- * 	appellantCaseId: number,
- *	validationOutcomeId: number,
- *	otherNotValidReasons: string,
- *	incompleteReasons?: NotValidReasons,
- *	invalidReasons?: NotValidReasons,
- *	appealId?: number,
- *	timetable?: TimetableDeadlineDate,
- *	startedAt?: Date
- * }} param0
+ * @param {UpdateAppellantCaseValidationOutcome} param0
  * @returns {Promise<object>}
  */
 const updateAppellantCaseValidationOutcome = ({
@@ -88,4 +78,4 @@ const updateAppellantCaseValidationOutcome = ({
 	return databaseConnector.$transaction(transaction);
 };
 
-export default { updateAppellantCaseValidationOutcome };
+export default { updateAppellantCaseById, updateAppellantCaseValidationOutcome };

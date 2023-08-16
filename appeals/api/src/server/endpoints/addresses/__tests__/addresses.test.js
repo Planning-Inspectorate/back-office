@@ -223,7 +223,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine1: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						addressLine1: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
@@ -277,7 +277,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine2: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						addressLine2: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
@@ -331,7 +331,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						country: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						country: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
@@ -385,7 +385,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						county: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						county: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
@@ -439,7 +439,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						postcode: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_8)
+						postcode: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_8])
 					}
 				});
 			});
@@ -493,7 +493,7 @@ describe('addresses routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						town: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, MAX_LENGTH_300)
+						town: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
 					}
 				});
 			});
