@@ -3,8 +3,8 @@
 {% from "./folder-header.component.njk" import folderHeader %}
 {% from "./folder-status.component.njk" import folderStatus %}
 {% from "./folder-actions.component.njk" import folderActions %}
-{% from "./folder-documents-table.component.njk" import folderDocumentsTable %}
-{% from "./folder-s51-table.component.njk" import folderS51Table %}
+{% from "../../case-documentation/documentation-table.njk" import folderDocumentsTable %}
+{% from "../../case-s51/s51-table.njk" import folderS51Table %}
 
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
@@ -56,7 +56,7 @@
 							{{ folderActions(isS51folder) }}
 
 							{% if isS51folder %}
-								{{ folderS51Table(items, pagination) }}
+								{{ folderS51Table(items, pagination, caseId, folderId) }}
 							{% else %}
 								{{ folderDocumentsTable(items, pagination, caseId, folderId) }}
 							{% endif %}

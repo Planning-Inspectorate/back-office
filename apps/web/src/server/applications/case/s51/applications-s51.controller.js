@@ -8,7 +8,7 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 
 /** @type {Record<any, {nextPage: string}>} */
@@ -33,9 +33,31 @@ export async function viewApplicationsCaseS51Folder(request, response) {
 	const s51Files = await getS51FilesInFolder(response.locals.caseId, size, number);
 	const pagination = paginationParams(size, number, s51Files.pageCount);
 
-	response.render(`applications/case-documentation/folder/documentation-folder`, {
+	response.render(`applications/components/folder/folder`, {
 		items: s51Files,
 		pagination
+	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
+ */
+export async function viewApplicationsCaseS51Item({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const s51Advice = await getS51Advice(caseId, +adviceId);
+
+	console.log(s51Advice);
+
+	//const showSuccessBanner = getSuccessBanner(session);
+	// destroySuccessBanner(session);
+
+	response.render(`applications/case-s51/properties/s51-properties`, {
+		s51Advice,
+		showSuccessBanner: false
 	});
 }
 

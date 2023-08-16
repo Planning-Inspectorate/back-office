@@ -1,6 +1,6 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro folderS51Table(items, pagination) %}
+{% macro folderS51Table(items, pagination, caseId, folderId) %}
 
 	<div class="pins-files-list__info govuk-body">
 		<h3 class="govuk-heading-s">Select items to make changes to statuses</h3>
@@ -86,7 +86,7 @@
 						{{ item.publishedStatus|statusName }}
 					</td>
 					<td class="govuk-table__cell">
-						<a href='' class='govuk-link'>View/edit advice</a>
+						<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: item.id, step: 'properties'})}}' class='govuk-link'>View/edit advice</a>
 					</td>
 				</tr>
 			{% endfor %}

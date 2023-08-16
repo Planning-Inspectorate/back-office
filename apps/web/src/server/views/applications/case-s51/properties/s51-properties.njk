@@ -1,0 +1,83 @@
+{% extends "../../layouts/applications.layout.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./tab-details.component.njk" import s51DetailsTab %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to S51 advice folder",
+		href: breadcrumbItems[breadcrumbItems.length - 1].href
+	}) }}
+{% endblock %}
+{% block pageHeading %}{% endblock %}
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full govuk-!-margin-top-0">
+			{% block sectionContent %}
+
+				{% set html %}
+				<h3 class="govuk-notification-banner__heading">
+						New S51 advice item created
+					</h3>
+				{% endset %}
+
+				{% if showSuccessBanner %}
+					{{ govukNotificationBanner({
+						html: html,
+						type: 'success'
+					}) }}
+				{% endif %}
+
+				<h1 class="govuk-heading-xl govuk-!-margin-top-4">
+					<span class="govuk-caption-xl">S51 advice properties</span>
+					{{ s51Advice.title }}
+				</h1>
+				<ul class="govuk-list">
+					<li class="govuk-!-margin-top-4">
+						<strong>Case reference:</strong>
+						{{ case.reference }}</li>
+					<li class="govuk-!-margin-top-4">
+						<strong>Document reference number:</strong>
+						{{ s51Advice.referenceCode }}</li>
+
+				</ul>
+				<div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
+					<a class="govuk-button govuk-!-margin-0" href="">
+                        Upload files
+                    </a>
+				</div>
+
+				<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+				<nav class="govuk-grid-row govuk-!-margin-top-0">
+					<h4 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">S51 advice actions</h4>
+					<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="">Delete</a>
+					</div>
+					<div class="govuk-grid-column-one-third govuk-!-text-align-right">
+						<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-queue'|url({caseId:caseId})}}">View S51 publishing queue</a>
+					</div>
+				</nav>
+				<div class="govuk-!-margin-top-7">
+					{{ govukTabs({
+						items: [
+							{
+								label: "S51 advice properties",
+								id: "advice-properties",
+								panel: { html: s51DetailsTab(s51Advice, caseId, folderId)}
+							},
+							{
+								label: "Attachments",
+								id: "s51-attachments",
+								panel: {html: "<span>in progress...</span>"}
+							}
+						]
+					}) }}
+				</div>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

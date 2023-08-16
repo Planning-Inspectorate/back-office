@@ -27,4 +27,8 @@ applicationsS51Router
 	.route('/:action/success')
 	.get(locals.registerFolder, asyncRoute(controller.viewSuccessfullyS51Created));
 
+applicationsS51Router
+	.route('/:adviceId/:step')
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
+
 export default applicationsS51Router;

@@ -1,4 +1,6 @@
+import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import { getCaseDetails } from '../application/application.service.js';
 import { getManyS51AdviceOnCase } from './s51-advice.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
@@ -28,8 +30,12 @@ export const createS51Advice = async (_request, response) => {
  * @returns {Promise<void>}
  */
 export const getS51Advice = async (_request, response) => {
-	const { adviceId } = _request.params;
+	const { adviceId, id } = _request.params;
 
+	//get the case Reference name - needed for the formatted advice ReferenceNumbers
+	const caseDetails = await getCaseDetails(+id, {});
+	// @ts-ignore
+	const caseRef = caseDetails.reference;
 	const s51Advice = await s51AdviceRepository.get(Number(adviceId));
 
 	if (!s51Advice) {
@@ -39,7 +45,9 @@ export const getS51Advice = async (_request, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	response.send(s51Advice);
+	const mappeds51Advice = mapS51Advice(caseRef, s51Advice);
+
+	response.send(mappeds51Advice);
 };
 
 /**
