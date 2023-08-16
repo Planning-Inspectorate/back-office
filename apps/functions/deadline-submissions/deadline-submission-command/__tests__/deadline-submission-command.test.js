@@ -19,8 +19,6 @@ describe('deadline-submission-command', () => {
 			contentType: 'application/octet-stream',
 			contentLength: 1
 		});
-
-		blobClient.copyFile = jest.fn().mockResolvedValue(true);
 	});
 
 	const mockContext = { log: jest.fn() };
@@ -33,12 +31,14 @@ describe('deadline-submission-command', () => {
 		documentName: 'test-name'
 	};
 
-	test('Happy path', async () => {
+	test('Success', async () => {
 		const mockSubmitDocument = jest.fn().mockResolvedValue({
 			privateBlobContainer: 'test-container',
 			documents: [{ blobStoreUrl: '/test/blob/url' }]
 		});
 		api.submitDocument = mockSubmitDocument;
+
+		blobClient.copyFile = jest.fn().mockResolvedValueOnce(true);
 
 		await run(mockContext, mockMsg);
 
@@ -53,9 +53,20 @@ describe('deadline-submission-command', () => {
 			})
 		);
 
+		expect(mockSendEvents).not.toHaveBeenCalled();
+	});
+
+	test('Failure', async () => {
+		api.submitDocument = jest.fn().mockResolvedValueOnce({
+			privateBlobContainer: 'test-container',
+			documents: [{ blobStoreUrl: '/test/blob/url' }]
+		});
+		blobClient.copyFile = jest.fn().mockResolvedValueOnce(false);
+
+		await run(mockContext, mockMsg);
+
 		expect(mockSendEvents).toHaveBeenCalledWith(
 			expect.anything(),
-			true,
 			expect.objectContaining({
 				deadline: mockMsg.deadline,
 				submissionType: mockMsg.submissionType,
