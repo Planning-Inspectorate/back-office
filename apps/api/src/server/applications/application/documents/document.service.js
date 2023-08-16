@@ -110,7 +110,6 @@ const attemptInsertDocuments = async (caseId, documents) => {
 					fromFrontOffice: documentToDB.fromFrontOffice
 				});
 			} catch (err) {
-				logger.info('error ');
 				logger.error(err);
 				failed.add(documentToDB.documentName);
 				return;
