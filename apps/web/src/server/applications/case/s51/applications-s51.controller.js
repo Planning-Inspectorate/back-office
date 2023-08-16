@@ -42,22 +42,18 @@ export async function viewApplicationsCaseS51Folder(request, response) {
 /**
  * Show s51 advice item
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
-export async function viewApplicationsCaseS51Item({ params }, response) {
+export async function viewApplicationsCaseS51Item({ params, query }, response) {
 	const { adviceId } = params;
+	const { success } = query;
 	const { caseId } = response.locals;
 
 	const s51Advice = await getS51Advice(caseId, +adviceId);
 
-	console.log(s51Advice);
-
-	//const showSuccessBanner = getSuccessBanner(session);
-	// destroySuccessBanner(session);
-
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
-		showSuccessBanner: false
+		showSuccessBanner: success === '1'
 	});
 }
 
@@ -182,12 +178,9 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 		adviceDetails: body.adviceDetails
 	};
 
-	let errors;
+	const { errors, newS51Advice } = await createS51Advice(payload);
 
-	const apiResponse = await createS51Advice(payload);
-	errors = apiResponse.errors;
-
-	if (errors) {
+	if (errors || !newS51Advice?.id) {
 		const s51Data = getSessionS51(session);
 		return response.render(`applications/case-s51/s51-check-your-answers`, {
 			values: getCheckYourAnswersRows(s51Data),
@@ -195,8 +188,7 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 		});
 	}
 
-	// TODO: Success screen
-	response.redirect(`../../s51-advice/created/success`);
+	response.redirect(`../../s51-advice/${newS51Advice.id}/properties?success=1`);
 }
 
 /**

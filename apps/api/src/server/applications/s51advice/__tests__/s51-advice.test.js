@@ -29,6 +29,21 @@ const s51AdviceToBeSaved = {
 	adviceDetails: 'adviceDetails'
 };
 
+const s51AdviceToBeReturned = {
+	caseId: 1,
+	title: 'A title',
+	enquirer: 'enquirer',
+	referenceNumber: 1,
+	enquiryMethod: 'email',
+	enquiryDate: new Date('2023-02-27T10:00'),
+	enquiryDetails: 'enquiryDetails',
+	adviser: 'adviser',
+	adviceDate: new Date('2023-02-27T10:00'),
+	adviceDetails: 'adviceDetails',
+	createdAt: '2023-01-01T00:00:00.000Z',
+	updatedAt: '2023-01-01T00:00:00.000Z'
+};
+
 const inValidS51AdviceBody = {
 	caseId: 1,
 	title: null,
@@ -110,8 +125,8 @@ describe('Test S51 advice API', () => {
 	});
 
 	test('get by id returns s51 advice by id', async () => {
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeSaved);
 		const resp = await request.get('/applications/21/s51-advice/132').send({});
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
