@@ -86,10 +86,10 @@ export const addDocuments = async ({ params, body }, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	const documentsToUpload = body[''];
+	const documentsToUpload = body;
 	const caseId = Number(params.id);
 
-	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(Number(body.caseId));
+	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(caseId);
 
 	const theCase = await caseRepository.getById(caseId, {
 		applicationDetails: true,
@@ -107,6 +107,7 @@ export const addDocuments = async ({ params, body }, response) => {
 
 	for (const doc of documentsToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
+		doc.folderId = Number(doc.folderId);
 		nextReferenceIndex++;
 	}
 
