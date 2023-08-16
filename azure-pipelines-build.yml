@@ -301,7 +301,7 @@ extends:
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: functions-deadline-submissions
+            artifact: function-deadline-submissions
             displayName: Publish Functions Artifact
       - name: Build Document Publish Functions
         condition: >-
