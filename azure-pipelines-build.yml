@@ -175,8 +175,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/
+              cp -r $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/document-check
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -214,8 +213,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
+              cp -r $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/odw-integration
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -253,8 +251,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+              cp -r $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -292,8 +289,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
+              cp -r $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/deadline-submissions
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
@@ -331,8 +327,7 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
+              cp -r $(Build.Repository.LocalPath)/node_modules $(Build.Repository.LocalPath)/apps/functions/document-publish
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
