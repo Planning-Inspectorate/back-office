@@ -13,14 +13,21 @@ describe('Appeals feature', () => {
 	});
 
 	it('Case admin user should be able to use search using appeal id', () => {
+		const id = '531786';
+		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: id, strict: true };
 		cy.visit('/appeals-service/appeals-list');
-		page.nationalListSearch('92623353');
+		page.nationalListSearch(id);
+		page.verifyTableCellText(testData);
+
 		page.clearSearchResults();
 	});
 
 	it('Case admin user should be able to use search using postcode with spaces', () => {
+		const postcode = 'RG26 4BX';
+		const testData = { rowIndex: 0, cellIndex: 1, textToMatch: postcode, strict: false };
 		cy.visit('/appeals-service/appeals-list');
-		page.nationalListSearch('BS9 7AL');
+		page.nationalListSearch(postcode);
+		page.verifyTableCellText(testData);
 		page.clearSearchResults();
 	});
 

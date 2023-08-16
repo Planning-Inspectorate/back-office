@@ -33,7 +33,7 @@ export class AppealsListPage extends Page {
 	}
 
 	nationalListSearch(text) {
-		page.fillInput(text);
-		page.clickButtonByText('Search');
+		this.fillInput(text);
+		this.clickButtonByText('Search');
 	}
 }
