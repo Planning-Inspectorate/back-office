@@ -1,5 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span></h1>
+            <ul class=\\"govuk-list\\">
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+            </ul>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"\\"> Upload files</a>
+            </div>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\">View S51 publishing queue</a>
+                </div>
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
+                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
+                    <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
+                    <ul class=\\"govuk-tabs__list\\">
+                        <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#advice-properties\\"> S51 advice properties</a>
+                        </li>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#s51-attachments\\"> Attachments</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-tabs__panel\\" id=\\"advice-properties\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">S51 advice properties</h4>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"s51-attachments\\"><span>in progress...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-documentation/21/s51-advice/create/advice-details should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Advice details</h1>
@@ -617,7 +710,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice//properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -638,7 +732,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/1/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -659,7 +754,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/2/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -680,7 +776,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/3/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -701,7 +798,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/4/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -722,7 +820,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/5/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -743,7 +842,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/6/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -764,7 +864,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/7/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -785,7 +886,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/8/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -806,7 +908,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/9/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -827,7 +930,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/10/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -848,7 +952,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/11/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -869,7 +974,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/12/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -890,7 +996,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/13/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -911,7 +1018,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/14/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -932,7 +1040,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/15/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -953,7 +1062,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/16/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -974,7 +1084,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/17/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -995,7 +1106,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/18/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1016,7 +1128,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/19/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1037,7 +1150,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/20/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1058,7 +1172,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/21/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1079,7 +1194,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/22/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1100,7 +1216,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/23/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1121,7 +1238,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/24/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1142,7 +1260,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/25/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1163,7 +1282,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/26/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1184,7 +1304,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/27/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1205,7 +1326,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/28/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1226,7 +1348,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/29/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1247,7 +1370,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/30/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1268,7 +1392,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/31/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1289,7 +1414,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/32/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1310,7 +1436,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/33/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1331,7 +1458,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/34/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1352,7 +1480,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/35/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1373,7 +1502,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Unchecked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/36/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1394,7 +1524,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Unpublished</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/37/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1415,7 +1546,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/38/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1436,7 +1568,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/39/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1457,7 +1590,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/40/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1478,7 +1612,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/41/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1499,7 +1634,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/42/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1520,7 +1656,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/43/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1541,7 +1678,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/44/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1562,7 +1700,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/45/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1583,7 +1722,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/46/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1604,7 +1744,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Ready to publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/47/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1625,7 +1766,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
                             <td class=\\"govuk-table__cell\\">Checked</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/48/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -1646,7 +1788,8 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                             </td>
                             <td class=\\"govuk-table__cell\\">Unredacted</td>
                             <td class=\\"govuk-table__cell\\">Do not publish</td>
-                            <td class=\\"govuk-table__cell\\"><a href='' class='govuk-link'>View/edit advice</a>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/49/properties'
+                                class='govuk-link'>View/edit advice</a>
                             </td>
                         </tr>
                     </tbody>

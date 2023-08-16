@@ -417,4 +417,20 @@ describe('S51 Advice', () => {
 			});
 		});
 	});
+
+	describe('S51 Properties', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/21/s51-advice/1/properties', () => {
+			it('should render the page', async () => {
+				const response = await request.get(`${baseUrl}/1/properties`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('S51 advice properties');
+			});
+		});
+	});
 });
