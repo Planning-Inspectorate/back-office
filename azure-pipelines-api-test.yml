@@ -39,7 +39,7 @@ jobs:
 
       - task: ShellScript@2
         inputs:
-          scriptPath: 'apps/api-testing/api-tests.sh'
+          scriptPath: 'apps/api-testing/api-test.sh'
         env:
           BASE_URL: $(API_BASE_URL)
         displayName: "Run API Tests"
