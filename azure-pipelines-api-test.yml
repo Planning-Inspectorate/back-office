@@ -1,0 +1,53 @@
+parameters:
+  - name: Environment
+    type: string
+    default: 'test'
+    values:
+      - 'dev'
+      - 'test'
+
+variables:
+  - name: APP
+    value: 'applications'
+  - group: e2e-${{ parameters.Environment }}
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - apps/e2e/cypress/e2e/back-office-applications
+trigger: none
+
+jobs:
+  - job: Run_API_Tests
+    pool:
+      vmImage: "ubuntu-latest"
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/api-testing
+        displayName: "Install Dependencies"
+
+      - task: Npm@1
+        inputs:
+          command: "start:test"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/api-testing
+        env:
+          BASE_URL: $(API_BASE_URL)
+        displayName: "Run API Tests"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
