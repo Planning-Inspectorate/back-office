@@ -474,7 +474,7 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 		validationOutcome: String(validationOutcome),
 		...(validationOutcome === 'incomplete' &&
 			incompleteReasons && { incompleteReasons: parsedReasons }),
-		...(otherReasons && { otherNotValidReasons: encodeURIComponent(otherReasons) }),
+		...(otherReasons && { otherNotValidReasons: otherReasons }),
 		...(updatedDueDate && {
 			lpaQuestionnaireDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})

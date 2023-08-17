@@ -152,7 +152,7 @@ model AppellantCase {
   isSitePartiallyOwned                           Boolean?
   isSiteVisibleFromPublicRoad                    Boolean?
   newDevelopmentDescription                      String?
-  otherNotValidReasons                           String?
+  otherNotValidReasons                           String?                                        @db.NVarChar(4000)
   visibilityRestrictions                         String?
   appeal                                         Appeal                                         @relation(fields: [appealId], references: [id])
   knowledgeOfOtherLandowners                     KnowledgeOfOtherLandowners?                    @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
@@ -264,7 +264,7 @@ model LPAQuestionnaire {
   isSiteVisible                                      Boolean?
   isTheSiteWithinAnAONB                              Boolean?
   meetsOrExceedsThresholdOrCriteriaInColumn2         Boolean?
-  otherNotValidReasons                               String?
+  otherNotValidReasons                               String?                                              @db.NVarChar(4000)
   receivedAt                                         DateTime?
   isEnvironmentalStatementRequired                   Boolean?
   sensitiveAreaDetails                               String?
