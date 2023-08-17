@@ -14,7 +14,7 @@ import {
 	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
 	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
-	MAX_LENGTH_300,
+	MAX_LENGTH_4000,
 	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
@@ -668,7 +668,7 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
-			test('returns an error if otherNotValidReasons is more than 300 characters', async () => {
+			test('returns an error if otherNotValidReasons is more than 4000 characters', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -678,7 +678,7 @@ describe('lpa questionnaires routes', () => {
 					)
 					.send({
 						incompleteReasons: [1, 3],
-						otherNotValidReasons: 'A'.repeat(MAX_LENGTH_300 + 1),
+						otherNotValidReasons: 'A'.repeat(MAX_LENGTH_4000 + 1),
 						validationOutcome: 'Incomplete'
 					});
 
@@ -686,7 +686,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						otherNotValidReasons: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
-							MAX_LENGTH_300
+							MAX_LENGTH_4000
 						])
 					}
 				});
