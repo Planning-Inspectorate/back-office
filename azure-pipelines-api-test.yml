@@ -34,7 +34,7 @@ jobs:
       - task: Npm@1
         inputs:
           command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/api-testing
+          workingDir: $(System.DefaultWorkingDirectory)
         displayName: "Install Dependencies"
 
       - task: ShellScript@2
