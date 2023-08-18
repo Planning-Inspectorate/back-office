@@ -27,8 +27,15 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
-	const number = +(request.query.number || '1');
-	const size = request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : 50;
+	const number = Number(request.query.number || '1');
+  const size = (() => {
+    const _size = Number(request.query?.size ?? NaN);
+    if (Number.isNaN(_size)) {
+      return 50;
+    }
+
+    return _size;
+  })();
 
 	const s51Files = await getS51FilesInFolder(response.locals.caseId, size, number);
 	const pagination = paginationParams(size, number, s51Files.pageCount);
@@ -49,11 +56,27 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 	const { success } = query;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
 		showSuccessBanner: success === '1'
+	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
+ */
+export async function viewApplicationsCaseS51Upload({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+
+	response.render(`applications/case-s51/properties/s51-upload`, {
+		s51Advice
 	});
 }
 
