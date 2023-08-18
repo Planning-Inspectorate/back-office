@@ -10,7 +10,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
                 </li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"\\"> Upload files</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice//upload\\"> Upload files</a>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
