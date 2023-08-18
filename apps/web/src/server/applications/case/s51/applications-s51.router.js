@@ -28,6 +28,10 @@ applicationsS51Router
 	.get(locals.registerFolder, asyncRoute(controller.viewSuccessfullyS51Created));
 
 applicationsS51Router
+	.route('/:adviceId/upload')
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Upload));
+
+applicationsS51Router
 	.route('/:adviceId/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
 
