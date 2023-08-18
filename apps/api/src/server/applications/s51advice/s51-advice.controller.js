@@ -94,7 +94,7 @@ export const addDocuments = async ({ params, body }, response) => {
 		gridReference: true
 	});
 
-	if (!theCase || !theCase.reference) {
+	if (!theCase?.reference) {
 		// @ts-ignore
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
@@ -122,27 +122,19 @@ export const addDocuments = async ({ params, body }, response) => {
 
 	const { blobStorageHost, privateBlobContainer, documents } = dbResponse;
 
-	/**
-	 * @type {import("../../../database/schema.js").CreateS51AdviceDocument[]}
-	 */
-	const s51Documents = [];
-	documents.forEach((doc) => {
-		s51Documents.push({
-			adviceId,
-			documentGuid: doc.GUID
-		});
-	});
+	const s51Documents = documents.map((doc) => ({
+		adviceId,
+		documentGuid: doc.GUID
+	}));
 
 	if (s51Documents.length > 0) {
 		await s51AdviceDocumentRepository.create(s51Documents);
 	}
 
-	// Map the obtained URLs with documentName
-	const documentsWithUrls = documents.map((document) => {
-		return pick(document, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID']);
-	});
+	const documentsWithUrls = documents.map((doc) =>
+		pick(doc, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID'])
+	);
 
-	// Send response with blob storage host, container, and documents with URLs
 	response.status(failedDocuments.length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
