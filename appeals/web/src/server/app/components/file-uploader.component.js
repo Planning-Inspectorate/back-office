@@ -1,4 +1,4 @@
-import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
+import getActiveDirectoryAccessToken from '#lib/active-directory-token.js';
 import config from '@pins/appeals.web/environment/config.js';
 
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
@@ -88,5 +88,5 @@ export async function postUploadDocumentVersion({ apiClient, params, body, sessi
 	const document = documentsWithRowId[0];
 	document.fileRowId = body?.document.fileRowId || '';
 
-	return response.send({ ...uploadInfo, accessToken });
+	return response.send({ ...uploadInfo, documents: documentsWithRowId, accessToken });
 }

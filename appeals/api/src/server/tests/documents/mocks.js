@@ -10,8 +10,7 @@ export const appeal = {
 
 export const folder = {
 	folderId: 23,
-	displayName: 'myfolder',
-	path: 'appellantCase/appealStatement',
+	path: 'appellant_case/appealStatement',
 	caseId: appeal.reference,
 	documents: []
 };

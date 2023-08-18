@@ -22,14 +22,17 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		const { blobStorageHost, blobStorageContainer, folderId, caseId } = uploadForm.dataset;
+		const { blobStorageHost, blobStorageContainer, folderId, caseId, documentType, documentStage } =
+			uploadForm.dataset;
 		const payload = {
 			blobStorageHost: sanitiseStorageHost(blobStorageHost || ''),
 			blobStorageContainer,
 			documents: [...fileList].map((file) => ({
 				documentName: file.name,
 				documentSize: file.size,
-				documentType: file.type,
+				mimeType: file.type,
+				documentType: documentType,
+				stage: documentStage,
 				caseId,
 				folderId,
 				fileRowId: file.fileRowId
@@ -65,15 +68,24 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<AnError[]>}
 	 */
 	const getVersionUploadInfoFromInternalDB = async (file) => {
-		const { blobStorageHost, blobStorageContainer, folderId, caseId, documentId } =
-			uploadForm.dataset;
+		const {
+			blobStorageHost,
+			blobStorageContainer,
+			folderId,
+			caseId,
+			documentId,
+			documentType,
+			documentStage
+		} = uploadForm.dataset;
 		const payload = {
 			blobStorageHost: sanitiseStorageHost(blobStorageHost || ''),
 			blobStorageContainer,
 			document: {
 				documentName: file.name,
 				documentSize: file.size,
-				documentType: file.type,
+				mimeType: file.type,
+				documentType: documentType,
+				stage: documentStage,
 				caseId,
 				folderId,
 				fileRowId: file.fileRowId

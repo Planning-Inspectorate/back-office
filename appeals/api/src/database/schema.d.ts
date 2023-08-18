@@ -61,12 +61,6 @@ export interface AppellantCase extends schema.AppellantCase {
 	appellantCaseInvalidReasonsOnAppellantCases: AppellantCaseInvalidReasonOnAppellantCase[];
 }
 
-export interface FolderTemplate {
-	path: string;
-	displayName?: string | null;
-	caseId: number;
-}
-
 export interface Folder extends schema.Folder {
 	documents?: schema.Document[] | null;
 }

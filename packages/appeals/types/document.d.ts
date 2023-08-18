@@ -14,7 +14,9 @@ export interface MappedDocument {
 	caseId: number;
 	documentName: string;
 	documentType: string;
+	mimeType: string;
 	documentSize: number;
+	stage: string;
 	fileRowId: string;
 	folderId: number;
 }
@@ -44,6 +46,8 @@ export interface DocumentMetadata {
 	blobStorageHost: string;
 	blobStorageContainer: string;
 	caseId: number;
+	mime: string;
+	stage: string;
 	documentType: string;
 	documentSize: number;
 	folderId: number;

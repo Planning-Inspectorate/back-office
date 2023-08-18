@@ -383,7 +383,7 @@ function mapData(appellantCaseData, permissions) {
 	};
 
 	const hasNewSupportingDocuments =
-		appellantCaseData.documents.newSupportingDocuments.documents.length > 0;
+		appellantCaseData.documents.newSupportingDocuments.documents?.length > 0;
 
 	mappedData.addNewSupportingDocuments = {
 		title: 'Add new supporting documents',
