@@ -9,6 +9,7 @@ import {
 	makeDocumentReference,
 	obtainURLsForDocuments
 } from './../application/documents/document.service.js';
+import BackOfficeAppError from '../../utils/app-error.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -80,10 +81,7 @@ export const addDocuments = async ({ params, body }, response) => {
 	const s51Advice = s51AdviceRepository.get(adviceId);
 
 	if (!s51Advice) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
 	const documentsToUpload = body;
@@ -98,11 +96,11 @@ export const addDocuments = async ({ params, body }, response) => {
 
 	if (!theCase || !theCase.reference) {
 		// @ts-ignore
-		return response.status(404).json({ errors: { message: `Case with id: ${caseId} not found.` } });
+		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
 	let nextReferenceIndex = existingS51ForCase?.referenceNumber
-		? existingS51ForCase?.referenceNumber + 1
+		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
 	for (const doc of documentsToUpload) {
