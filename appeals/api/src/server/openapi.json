@@ -1517,10 +1517,6 @@
 						"type": "number",
 						"example": 23
 					},
-					"displayName": {
-						"type": "string",
-						"example": "My files"
-					},
 					"path": {
 						"type": "string",
 						"example": "appellantCase/appealStatement"
@@ -1542,93 +1538,124 @@
 			"DocumentDetails": {
 				"type": "object",
 				"properties": {
-					"documentId": {
+					"guid": {
 						"type": "string",
-						"example": "123"
+						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
 					},
-					"version": {
+					"name": {
+						"type": "string",
+						"example": "appeal-statement.pdf"
+					},
+					"folderId": {
+						"type": "number",
+						"example": 3779
+					},
+					"createdAt": {
+						"type": "string",
+						"example": "2023-08-17T15:22:20.827Z"
+					},
+					"isDeleted": {
+						"type": "boolean",
+						"example": false
+					},
+					"latestVersionId": {
 						"type": "number",
 						"example": 1
 					},
-					"sourceSystem": {
-						"type": "string",
-						"example": "ABC"
-					},
-					"documentGuid": {
-						"type": "string",
-						"example": "456"
-					},
-					"fileName": {
-						"type": "string",
-						"example": "document.pdf"
-					},
-					"datePublished": {
+					"caseId": {
 						"type": "number",
-						"example": 1646822400
+						"example": 492
 					},
-					"documentURI": {
-						"type": "string",
-						"example": "/documents/123.pdf"
-					},
-					"blobStorageContainer": {
-						"type": "string",
-						"example": "my-blob-storage"
-					},
-					"author": {
-						"type": "string",
-						"example": "John Smith"
-					},
-					"dateCreated": {
-						"type": "number",
-						"example": 1646822400
-					},
-					"publishedStatus": {
-						"type": "string",
-						"example": "published"
-					},
-					"redactedStatus": {
-						"type": "string",
-						"example": "not redacted"
-					},
-					"size": {
-						"type": "number",
-						"example": 1024
-					},
-					"mime": {
-						"type": "string",
-						"example": "application/pdf"
-					},
-					"description": {
-						"type": "string",
-						"example": "This is a sample document."
-					},
-					"representative": {
-						"type": "string",
-						"example": "Jane Doe"
-					},
-					"stage": {
-						"type": "string",
-						"example": "draft"
-					},
-					"filter1": {
-						"type": "string",
-						"example": "some filter value"
-					},
-					"filter2": {
-						"type": "string",
-						"example": "some filter value"
-					},
-					"documentType": {
-						"type": "string",
-						"example": "contract"
-					},
-					"caseRef": {
-						"type": "string",
-						"example": "ABC-123"
-					},
-					"examinationRefNo": {
-						"type": "string",
-						"example": "EXM-456"
+					"latestDocumentVersion": {
+						"type": "object",
+						"properties": {
+							"documentGuid": {
+								"type": "string",
+								"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+							},
+							"version": {
+								"type": "number",
+								"example": 1
+							},
+							"lastModified": {},
+							"documentType": {
+								"type": "string",
+								"example": "applicationForm"
+							},
+							"published": {
+								"type": "boolean",
+								"example": false
+							},
+							"sourceSystem": {
+								"type": "string",
+								"example": "back-office"
+							},
+							"origin": {},
+							"originalFilename": {
+								"type": "string",
+								"example": "appeal-statement.pdf"
+							},
+							"fileName": {
+								"type": "string",
+								"example": "appeal-statement.pdf"
+							},
+							"representative": {},
+							"description": {},
+							"owner": {},
+							"author": {},
+							"securityClassification": {},
+							"mime": {
+								"type": "string",
+								"example": "application/pdf"
+							},
+							"horizonDataID": {},
+							"fileMD5": {},
+							"path": {},
+							"virusCheckStatus": {},
+							"size": {
+								"type": "number",
+								"example": 146995
+							},
+							"stage": {
+								"type": "string",
+								"example": "appellant_case"
+							},
+							"filter1": {},
+							"blobStorageContainer": {
+								"type": "string",
+								"example": "document-service-uploads"
+							},
+							"blobStoragePath": {
+								"type": "string",
+								"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+							},
+							"dateCreated": {
+								"type": "string",
+								"example": "2023-08-17T15:22:20.827Z"
+							},
+							"datePublished": {},
+							"isDeleted": {
+								"type": "boolean",
+								"example": false
+							},
+							"examinationRefNo": {},
+							"filter2": {},
+							"publishedStatus": {
+								"type": "string",
+								"example": "awaiting_upload"
+							},
+							"publishedStatusPrev": {},
+							"redactedStatus": {},
+							"redacted": {
+								"type": "boolean",
+								"example": false
+							},
+							"documentURI": {
+								"type": "string",
+								"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+							},
+							"dateReceived": {}
+						}
 					}
 				},
 				"xml": {

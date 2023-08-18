@@ -1,3 +1,4 @@
+import config from '#config/config.js';
 import formatAddress from '#utils/format-address.js';
 import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
 import isFPA from '#utils/is-fpa.js';
@@ -115,7 +116,7 @@ const formatFoldersAndDocuments = (appeal, folders) => {
 	};
 
 	if (folders) {
-		mapFoldersLayoutForAppealSection('appellantCase', folderLayout, folders);
+		mapFoldersLayoutForAppealSection(config.appealStages.appellantCase, folderLayout, folders);
 	}
 
 	return { documents: folderLayout };

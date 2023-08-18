@@ -59,11 +59,9 @@ export default joi.object({
 			band: joi.number()
 		})
 	),
-	appealFolderLayout: joi.array().items(
-		joi.object({
-			displayName: joi.string().optional(),
-			path: joi.string(),
-			allowedTypes: joi.array().items(joi.string())
-		})
-	)
+	appealFolderPaths: joi.array().items(joi.string()),
+	appealStages: joi.object({
+		appellantCase: joi.string(),
+		lpaQuestionnaire: joi.string()
+	})
 });

@@ -4,7 +4,7 @@ import { mapDocumentsForDatabase, mapDocumentsForBlobStorage } from './documents
 import { getByCaseId, getByCaseIdPath, getById } from '#repositories/folder.repository.js';
 import { addDocument, addDocumentVersion } from '#repositories/document-metadata.repository.js';
 
-/** @typedef {import("../appeals.js").RepositoryGetByIdResultItem} RepositoryResult */
+/** @typedef {import('../appeals.js').RepositoryGetByIdResultItem} RepositoryResult */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -86,7 +86,9 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
 			const document = await addDocument(
 				{
 					originalFilename: d.name,
-					mime: d.documentType,
+					mime: d.mime,
+					documentType: d.documentType,
+					stage: d.stage,
 					size: d.documentSize,
 					version: 1,
 					blobStorageContainer: d.blobStorageContainer
@@ -141,8 +143,10 @@ export const addVersionToDocument = async (upload, appeal, document) => {
 		documentGuid: document.guid,
 		fileName: document.name,
 		originalFilename: documentToSendToDatabase.name,
-		mime: documentToSendToDatabase.documentType,
+		mime: documentToSendToDatabase.mime,
 		size: documentToSendToDatabase.documentSize,
+		stage: documentToSendToDatabase.stage,
+		documentType: documentToSendToDatabase.documentType,
 		version: 1,
 		blobStorageContainer: documentToSendToDatabase.blobStorageContainer
 	});

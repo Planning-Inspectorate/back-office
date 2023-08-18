@@ -72,16 +72,22 @@ const { value, error } = schema.validate({
 		{ level: 'G', band: 1 },
 		{ level: 'H', band: 1 }
 	],
-	appealFolderLayout: [
-		{ path: 'appellantCase/applicationForm', allowedTypes: ['applicationForm'] },
-		{ path: 'appellantCase/decisionLetter', allowedTypes: ['decisionLetter'] },
-		{ path: 'appellantCase/designAndAccessStatement', allowedTypes: ['designAndAccessStatement'] },
-		{ path: 'appellantCase/planningObligation', allowedTypes: ['planningObligation'] },
-		{ path: 'appellantCase/plansDrawingsSupportingDocuments', allowedTypes: [] },
-		{ path: 'appellantCase/separateOwnershipCertificate', allowedTypes: [] },
-		{ path: 'appellantCase/newSupportingDocuments', allowedTypes: [] },
-		{ path: 'appellantCase/dropbox', allowedTypes: ['*'] }
-	]
+	appealFolderPaths: [
+		// path in the format of {stage}/{documentType}
+		'appellant_case/applicationForm',
+		'appellant_case/decisionLetter',
+		'appellant_case/designAndAccessStatement',
+		'appellant_case/planningObligation',
+		'appellant_case/plansDrawingsSupportingDocuments',
+		'appellant_case/separateOwnershipCertificate',
+		'appellant_case/newSupportingDocuments',
+		'appellant_case/appealStatement'
+	],
+	appealStages: {
+		// stage mapping for ODW
+		appellantCase: 'appellant_case',
+		lpaQuestionnaire: 'lpa_questionnaire'
+	}
 });
 
 if (error) {

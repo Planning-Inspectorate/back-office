@@ -22,17 +22,16 @@ export const clearAuthenticationData = ({ session }, _, next) => {
  * @returns {CurrentPermissionSet}
  */
 const permissions = (currentUserGroups) => {
+	const isInspector = currentUserGroups.includes(config.referenceData.appeals.inspectorGroupId);
+	const isCaseOfficer = currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId);
+
 	return {
-		setSiteVisit: currentUserGroups.includes(config.referenceData.appeals.inspectorGroupId),
-		setAppealStatus: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
-		setAppellantCaseStatus: currentUserGroups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		setLpaQStatus: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
-		setAppealCaseData: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId),
-		setAppellantCaseData: currentUserGroups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		setLpaQCaseData: currentUserGroups.includes(config.referenceData.appeals.caseOfficerGroupId)
+		setSiteVisit: isInspector || isCaseOfficer,
+		setAppealStatus: isCaseOfficer,
+		setAppellantCaseStatus: isCaseOfficer,
+		setLpaQStatus: isCaseOfficer,
+		setAppealCaseData: isCaseOfficer,
+		setAppellantCaseData: isCaseOfficer,
+		setLpaQCaseData: isCaseOfficer
 	};
 };

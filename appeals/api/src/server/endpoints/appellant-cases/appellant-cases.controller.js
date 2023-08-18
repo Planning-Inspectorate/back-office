@@ -1,6 +1,7 @@
 import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import logger from '#utils/logger.js';
+import config from '#config/config.js';
 import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppellantCase } from './appellant-cases.formatter.js';
 import { updateAppellantCaseValidationOutcome } from './appellant-cases.service.js';
@@ -14,7 +15,7 @@ import { updateAppellantCaseValidationOutcome } from './appellant-cases.service.
  */
 const getAppellantCaseById = async (req, res) => {
 	const { appeal } = req;
-	const folders = await getFoldersForAppeal(appeal, 'appellantCase');
+	const folders = await getFoldersForAppeal(appeal, config.appealStages.appellantCase);
 	const formattedAppeal = formatAppellantCase(appeal, folders);
 
 	return res.send(formattedAppeal);

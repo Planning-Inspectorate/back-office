@@ -4,23 +4,19 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 {% set serviceName = "Upload files"  %}
-{% set serviceDescription = folderName if folderName else folderPath  %}
 {% block pageTitle %}
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
 
-{% block pageHeading %}
-	{{ serviceDescription }}
-{% endblock %}
-
 {% block pageContent %}
-
 	{{ fileUploader({
 		text: 'Save and continue',
 		formId: 1,
 		caseId: caseId,
 		folderId: folderId,
 		documentId: documentId,
+		documentType: documentType,
+		documentStage: documentStage,
 		blobStorageHost: blobStorageHost,
 		useBlobEmulator: useBlobEmulator,
 		blobStorageContainer: blobStorageContainer,

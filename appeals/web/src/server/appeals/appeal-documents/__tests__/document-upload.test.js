@@ -10,7 +10,7 @@ const invalidAppealId = 2;
 const validFolderId = 1;
 const invalidFolderId = 2;
 const documentId = '0e4ce48f-2d67-4659-9082-e80a15182386';
-const validFolders = [{ id: validFolderId, path: '/' }];
+const validFolders = [{ id: validFolderId, path: 'appellantCase/docs' }];
 
 const getControllerEndpoint = (
 	/** @type {number} */ appealId,
@@ -50,7 +50,7 @@ describe('documents upload', () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 		nock('http://test/').get(`/appeals/${invalidAppealId}/documents/${documentId}`).reply(404);
 
 		const response = await request.get(
@@ -63,7 +63,7 @@ describe('documents upload', () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
 		expect(response.status).toBe(200);
@@ -76,7 +76,7 @@ describe('documents upload', () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/documents/${documentId}`)
 			.reply(200, { latestDocumentVersion: {} });
@@ -94,7 +94,7 @@ describe('documents upload', () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
 		const html = parseHtml(response.text);
@@ -110,11 +110,11 @@ describe('documents upload', () => {
 		expect(html.querySelector('#upload-file-1')?.attributes['multiple']).not.toBeUndefined();
 	});
 
-	it('should render appeal ID, folder ID and document ID as data attributes', async () => {
+	it('should render all necessary metadata attributes', async () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/documents/${documentId}`)
 			.reply(200, { latestDocumentVersion: {} });
@@ -132,7 +132,9 @@ describe('documents upload', () => {
 		// @ts-ignore
 		expect(dataAttributes['data-document-id']).toEqual(documentId);
 		// @ts-ignore
-		expect(html.querySelector('#upload-file-1')?.attributes['multiple']).toBeUndefined();
+		expect(dataAttributes['data-document-stage']).toEqual(validFolders[0].path.split('/')[0]);
+		// @ts-ignore
+		expect(dataAttributes['data-document-type']).toEqual(validFolders[0].path.split('/')[1]);
 	});
 
 	it('should render blob host and container', async () => {
