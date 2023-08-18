@@ -45,7 +45,8 @@
 
 				</ul>
 				<div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
-					<a class="govuk-button govuk-!-margin-0" href="">
+          {% set buttonHref = 's51-item' | url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'upload'}) %}
+          <a class="govuk-button govuk-!-margin-0" href="{{buttonHref}}">
                         Upload files
                     </a>
 				</div>
