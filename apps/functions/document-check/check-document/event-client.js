@@ -15,7 +15,7 @@ const { serviceBus } = config;
  * @param {EventType} eventType
  * */
 const handlePublishResult = async (context, guid, eventStatus, eventType) => {
-	const document = await getDocumentProperties(guid);
+	const document = await getDocumentProperties(guid, context.log);
 	if (!document) {
 		throw new Error(`No document found with guid ${guid}`);
 	}
@@ -24,7 +24,7 @@ const handlePublishResult = async (context, guid, eventStatus, eventType) => {
 		return;
 	}
 
-	const folders = await getDocumentFolders(guid);
+	const folders = await getDocumentFolders(guid, context.log);
 	if (!folders || folders.length < 2) {
 		throw new Error(
 			`Returned ${folders} when fetching folders for document from front office: "${guid}"`
