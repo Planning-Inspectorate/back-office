@@ -13,6 +13,7 @@ export class Page {
 		bannerHeader: '.govuk-notification-banner__heading',
 		button: '.govuk-button',
 		body: '.govuk-body',
+		caption: '.govuk-caption-m',
 		centralCol: '.pins-column--central',
 		checkbox: '.govuk-checkboxes__item',
 		errorMessage: '.govuk-error-message',
@@ -40,8 +41,7 @@ export class Page {
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
-		xlHeader: '.govuk-heading-xl',
-		caption: '.govuk-caption-m'
+		xlHeader: '.govuk-heading-xl'
 	};
 
 	// E L E M E N T S
@@ -60,6 +60,7 @@ export class Page {
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
+		enterDate: () => cy.get(this.selectors.dateInput),
 		errorMessage: () => cy.get(this.selectors.errorMessage),
 		summaryErrorMessages: () => cy.get(this.selectors.summaryErrorMessages),
 		goToDashboardLink: () =>
