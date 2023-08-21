@@ -13,7 +13,7 @@ describe('deadline-submission-command', () => {
 		api.getFolderID = jest.fn().mockResolvedValue(1);
 		api.lineItemExists = jest.fn().mockResolvedValue(true);
 
-		eventClient.sendEvent = mockSendEvents;
+		eventClient.publishFailureEvent = mockSendEvents;
 
 		blobClient.getBlobProperties = jest.fn().mockResolvedValue({
 			contentType: 'application/octet-stream',
