@@ -97,9 +97,9 @@ export const getS51Advice = async (_request, response) => {
  *
  * @type {import('express').RequestHandler<{ id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
-export const getManyS51Advices = async ({ params, body }, response) => {
+export const getManyS51Advices = async ({ params, query }, response) => {
 	const { id } = params;
-	const { pageNumber, pageSize } = body;
+	const { pageNumber, pageSize } = query;
 	const paginatedS51Advices = await getManyS51AdviceOnCase(id, pageNumber, pageSize);
 
 	response.send(paginatedS51Advices);
