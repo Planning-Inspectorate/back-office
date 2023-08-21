@@ -53,7 +53,7 @@ export default async function (context, msg) {
 	);
 
 	if (!successful) {
-		await events.sendEvent(context, {
+		await events.publishFailureEvent(context, {
 			deadline: msg.deadline,
 			submissionType: msg.submissionType,
 			blobGuid: msg.blobGuid,

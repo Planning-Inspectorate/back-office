@@ -8,7 +8,7 @@ const { serviceBusHost, serviceBusTopic } = config;
  * @param {import('@azure/functions').Context} context
  * @param {{ deadline: string, submissionType: string, blobGuid: string, documentName: string }} _
  * */
-async function sendEvent(context, { deadline, submissionType, blobGuid, documentName }) {
+async function publishFailureEvent(context, { deadline, submissionType, blobGuid, documentName }) {
 	const eventClient = getEventClient(true, context.log, serviceBusHost);
 
 	const event = {
@@ -22,4 +22,4 @@ async function sendEvent(context, { deadline, submissionType, blobGuid, document
 	await eventClient.sendEvents(serviceBusTopic, [event], EventType.Failure);
 }
 
-export default { sendEvent };
+export default { publishFailureEvent };
