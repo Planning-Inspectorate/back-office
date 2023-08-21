@@ -307,7 +307,7 @@ function mapCaseTeam(appealDetails) {
 					: 'No project members have been added yet',
 				valueType: 'text',
 				actionText: appealDetails.caseOfficer ? 'Change' : 'Add',
-				actionLink: '#'
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-team-members/case-officer`
 			},
 			{
 				title: 'Inspector',
@@ -320,7 +320,7 @@ function mapCaseTeam(appealDetails) {
 					: 'No project members have been added yet',
 				valueType: 'text',
 				actionText: appealDetails.inspector ? 'Change' : 'Add',
-				actionLink: '#'
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-team-members/inspector`
 			}
 		]
 	};
