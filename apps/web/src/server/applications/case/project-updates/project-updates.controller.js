@@ -347,6 +347,7 @@ export async function projectUpdatesDeleteGet(req, res) {
 		caseInfo: res.locals.case,
 		title: 'Delete project update',
 		buttonText: 'Confirm delete',
+		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.review),
 		form: {
 			components: [
 				{
