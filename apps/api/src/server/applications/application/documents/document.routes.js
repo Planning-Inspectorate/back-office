@@ -235,7 +235,7 @@ router.get(
 );
 
 router.get(
-	'/document/:guid/properties',
+	'/documents/:guid/properties',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/document/{guid}/properties'
@@ -307,7 +307,7 @@ router.get(
 );
 
 router.get(
-	'/document/:guid/path',
+	'/documents/:guid/path',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/document/{guid}/path'
