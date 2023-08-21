@@ -6,7 +6,5 @@ export const EventType = {
 	Update: 'Update',
 	Delete: 'Delete',
 	Publish: 'Publish',
-	Unpublish: 'Unpublish',
-	Success: 'Success',
-	Failure: 'Failure'
+	Unpublish: 'Unpublish'
 };
