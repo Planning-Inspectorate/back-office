@@ -1,4 +1,12 @@
-{% macro s51Attachments() %}
+{% macro s51Attachments(attachments) %}
   <h5 class="govuk-heading-m">Attachments</h5>
-  <p>There are no attachments on this item.</p>
+  {% if attachments.itemCount == 0 %}
+    <p>There are no attachments on this item.</p>
+  {% else %}
+    <ul>
+      {% for item in attachments.items %}
+        <li>{{ item.title }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endmacro %}
