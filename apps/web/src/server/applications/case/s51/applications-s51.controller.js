@@ -10,6 +10,7 @@ import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
+import pino from '../../../lib/logger.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -28,17 +29,26 @@ const createS51Journey = {
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
 	const number = Number(request.query.number || '1');
-  const size = (() => {
-    const _size = Number(request.query?.size ?? NaN);
-    if (Number.isNaN(_size)) {
-      return 50;
-    }
+	const size = (() => {
+		const _size = Number(request.query?.size ?? NaN);
+		if (Number.isNaN(_size)) {
+			return 50;
+		}
 
-    return _size;
-  })();
+		return _size;
+	})();
 
-	const s51Files = await getS51FilesInFolder(response.locals.caseId, size, number);
-	const pagination = paginationParams(size, number, s51Files.pageCount);
+	const s51Files = await (async () => {
+		try {
+			return await getS51FilesInFolder(response.locals.caseId, size, number);
+		} catch (/** @type {*} */ error) {
+			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+			return null;
+		}
+	})();
+
+	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
 
 	response.render(`applications/components/folder/folder`, {
 		items: s51Files,
@@ -58,9 +68,20 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 
 	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
+	const s51Files = await (async () => {
+		try {
+			return await getS51FilesInFolder(response.locals.caseId, 10, 1);
+		} catch (/** @type {*} */ error) {
+			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+			return null;
+		}
+	})();
+
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
-		showSuccessBanner: success === '1'
+		showSuccessBanner: success === '1',
+		attachments: s51Files
 	});
 }
 

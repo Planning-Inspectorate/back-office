@@ -63,23 +63,10 @@ export const getS51Advice = async (caseId, adviceId) => {
  * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) => {
-	let response;
-
-	try {
-		response = await post(`applications/${caseId}/s51-advice`, {
-			json: {
-				pageSize: pageSize,
-				pageNumber: pageNumber
-			}
-		});
-	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
-
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
-		});
-	}
-
-	return response;
-};
+export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
+	get(`applications/${caseId}/s51-advice`, {
+		searchParams: {
+			page: pageNumber,
+			pageSize
+		}
+	});
