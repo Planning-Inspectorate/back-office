@@ -234,6 +234,45 @@ extends:
             artifact: function-odw-integration
             displayName: Publish Functions Artifact
       - name: Build Function - Handle Subscriptions
+        condition: >-
+            and(
+              succeeded(),
+              or(
+                and(
+                  eq(variables['Build.Reason'], 'Manual'),
+                  eq(${{ parameters.buildFunctionHandleSubscriptions }}, 'true')
+                ),
+                and(
+                  ne(variables['Build.Reason'], 'Manual'),
+                  or(
+                    eq(variables['Build.SourceBranchName'], 'main'),
+                    eq(dependencies.run_linting_and_tests.outputs['check_files.function-handle-subscriptions'], 'true')
+                  )
+                )
+              )
+            )
+          dependsOn:
+            - Run Linting & Tests
+          steps:
+            - template: ../steps/node_script.yml
+              parameters:
+                nodeVersion: 16
+                script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
+                workingDirectory: $(Build.Repository.LocalPath)
+            - script: |
+                source ~/.bashrc
+                mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
+                mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
+                cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
+            - task: ArchiveFiles@2
+              displayName: Archive files
+              inputs:
+                rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
+                includeRootFolder: false
+                archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+            - publish: $(System.DefaultWorkingDirectory)/functions.zip
+              artifact: function-handle-subscriptions
+              displayName: Publish Functions Artifact
       - name: Build Function - Notify Subscribers
         condition: >-
           and(
@@ -273,45 +312,6 @@ extends:
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: function-notify-subscribers
-            displayName: Publish Functions Artifact
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionHandleSubscriptions }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-handle-subscriptions'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 16
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-handle-subscriptions
             displayName: Publish Functions Artifact
       - name: Build Function - Deadline Submissions
         condition: >-
