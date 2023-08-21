@@ -1,0 +1,134 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "appeal-submission.schema.json",
+	"title": "appeal-submission",
+	"description": "An event originating in the FO, representing the initial case data submitted by the appellant",
+	"type": "object",
+	"properties": {
+		"appeal": {
+			"$ref": "#/definitions/Appeal"
+		},
+		"documents": {
+			"type": "array",
+			"$ref": "document.schema.json"
+		}
+	},
+	"required": ["appeal"],
+	"definitions": {
+		"Appeal": {
+			"type": "object",
+			"properties": {
+				"LPACode": {
+					"type": "string"
+				},
+				"LPAName": {
+					"type": "string"
+				},
+				"appealType": {
+					"type": "string"
+				},
+				"isListedBuilding": {
+					"type": "boolean"
+				},
+				"decision": {
+					"type": "string"
+				},
+				"originalCaseDecisionDate": {
+					"type": "string"
+				},
+				"costsAppliedForIndicator": {
+					"type": "boolean"
+				},
+				"LPAApplicationReference": {
+					"type": "string"
+				},
+				"appellant": {
+					"type": "object",
+					"properties": {
+						"firstName": {
+							"type": "string"
+						},
+						"lastName": {
+							"type": "string"
+						},
+						"emailAddress": {
+							"type": "string"
+						}
+					},
+					"required": ["firstName", "lastName", "emailAddress"]
+				},
+				"agent": {
+					"type": "object",
+					"properties": {
+						"firstName": {
+							"type": "string"
+						},
+						"lastName": {
+							"type": "string"
+						},
+						"emailAddress": {
+							"type": "string"
+						}
+					},
+					"required": ["firstName", "lastName"]
+				},
+				"siteAddressLine1": {
+					"type": "string"
+				},
+				"siteAddressLine2": {
+					"type": "string"
+				},
+				"siteAddressTown": {
+					"type": "string"
+				},
+				"siteAddressCounty": {
+					"type": "string"
+				},
+				"siteAddressPostcode": {
+					"type": "string"
+				},
+				"isSiteFullyOwned": {
+					"type": "boolean"
+				},
+				"hasToldOwners": {
+					"type": "boolean"
+				},
+				"isSiteVisible": {
+					"type": "boolean"
+				},
+				"inspectorAccessDetails": {
+					"type": "string"
+				},
+				"doesSiteHaveHealthAndSafetyIssues": {
+					"type": "boolean"
+				},
+				"healthAndSafetyIssuesDetails": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"LPACode",
+				"LPAName",
+				"appealType",
+				"isListedBuilding",
+				"decision",
+				"originalCaseDecisionDate",
+				"costsAppliedForIndicator",
+				"LPAApplicationReference",
+				"appellant",
+				"agent",
+				"siteAddressLine1",
+				"siteAddressLine2",
+				"siteAddressTown",
+				"siteAddressCounty",
+				"siteAddressPostcode",
+				"isSiteFullyOwned",
+				"hasToldOwners",
+				"isSiteVisible",
+				"inspectorAccessDetails",
+				"doesSiteHaveHealthAndSafetyIssues",
+				"healthAndSafetyIssuesDetails"
+			]
+		}
+	}
+}

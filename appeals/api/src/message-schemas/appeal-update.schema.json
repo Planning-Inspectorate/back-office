@@ -1,0 +1,15 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "appeal-update.schema.json",
+	"title": "appeal-update",
+	"description": "A command originating in the BO, to deliver the current state of an appeal",
+	"type": "object",
+	"properties": {
+		"appeal": {
+			"allOf": [
+				{ "$ref": "appeal-submission-schema.json" },
+				{ "$ref": "questionnaire-submission-schema.json" }
+			]
+		}
+	}
+}

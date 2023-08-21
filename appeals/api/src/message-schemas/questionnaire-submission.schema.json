@@ -1,0 +1,106 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "questionnaire-submission.schema.json",
+	"title": "questionnaire-submission",
+	"description": "PINS Questionnaire Submission Data Model",
+	"type": "object",
+	"properties": {
+		"questionnaire": {
+			"$ref": "#/definitions/Questionnaire"
+		},
+		"documents": {
+			"type": "array",
+			"items": {
+				"$ref": "document.schema.json"
+			}
+		}
+	},
+	"required": ["questionnaire"],
+	"definitions": {
+		"Questionnaire": {
+			"type": "object",
+			"required": ["caseReference", "LPACode"],
+			"properties": {
+				"caseReference": {
+					"type": "string",
+					"examples": ["APP/Q9999/W/22/3221288"]
+				},
+				"LPACode": {
+					"type": "string",
+					"examples": ["Q9999"]
+				},
+				"isAppealTypeAppropriate": {
+					"type": "boolean"
+				},
+				"doesTheDevelopmentAffectTheSettingOfAListedBuilding": {
+					"type": "boolean"
+				},
+				"affectedListedBuildings": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/AffectedListedBuilding"
+					}
+				},
+				"inCAOrRelatesToCA": {
+					"type": "boolean"
+				},
+				"siteWithinGreenBelt": {
+					"type": "boolean"
+				},
+				"howYouNotifiedPeople": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"examples": [
+							"A public notice at the site",
+							"Letters to neighbours",
+							"Advert in the local press"
+						]
+					}
+				},
+				"hasRepresentationsFromOtherParties": {
+					"type": "boolean"
+				},
+				"doesSiteRequireInspectorAccess": {
+					"type": "boolean"
+				},
+				"doPlansAffectNeighbouringSite": {
+					"type": "boolean"
+				},
+				"doesSiteHaveHealthAndSafetyIssues": {
+					"type": "boolean"
+				},
+				"healthAndSafetyIssuesDetails": {
+					"type": "string",
+					"examples": ["There are bears. Lots of bears."]
+				},
+				"nearbyCaseReferences": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"examples": ["abc123456", "xyz987654"]
+					}
+				},
+				"hasExtraConditions": {
+					"type": "boolean"
+				},
+				"extraConditions": {
+					"type": "string"
+				}
+			}
+		},
+		"AffectedListedBuilding": {
+			"type": "object",
+			"properties": {
+				"listEntry": {
+					"type": "string",
+					"examples": ["1021477"]
+				}
+			}
+		},
+		"documents": {
+			"type": "array",
+			"$ref": "document.schema.json"
+		}
+	}
+}
