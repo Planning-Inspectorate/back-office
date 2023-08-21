@@ -1480,21 +1480,6 @@ const document = {
 				}
 			}
 		},
-		S51AdvicePaginatedRequestBody: {
-			type: 'object',
-			properties: {
-				pageNumber: {
-					type: 'integer',
-					description: 'The page number required',
-					example: 1
-				},
-				pageSize: {
-					type: 'integer',
-					description: 'The number of items per page',
-					example: 50
-				}
-			}
-		},
 		S51AdviceDetails: {
 			type: 'object',
 			properties: {
