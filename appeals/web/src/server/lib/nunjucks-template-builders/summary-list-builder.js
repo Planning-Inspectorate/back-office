@@ -12,6 +12,7 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
  * @property {HtmlTagType} valueType - determines html tags
+ * @property {string} [actionVisuallyHiddenText] - additional text for button for screen readers
  */
 
 /**
@@ -52,7 +53,7 @@ export function generateSummaryList(params) {
 					{
 						href: row.actionLink,
 						text: row.actionText,
-						visuallyHiddenText: row.title
+						visuallyHiddenText: row.actionVisuallyHiddenText || row.title
 					}
 				]
 			}

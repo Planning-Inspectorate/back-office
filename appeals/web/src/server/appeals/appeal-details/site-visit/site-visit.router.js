@@ -11,7 +11,7 @@ router
 	.get(controller.getScheduleSiteVisit)
 	.post(
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		validators.validateScheduleSiteVisit,
+		validators.validateSiteVisitType,
 		validators.validateVisitDate,
 		validators.validateVisitStartTime,
 		validators.validateVisitEndTime,
@@ -19,5 +19,14 @@ router
 	);
 
 router.route('/visit-scheduled').get(controller.getSiteVisitScheduled);
+
+router
+	.route('/set-visit-type')
+	.get(controller.getSetVisitType)
+	.post(
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		validators.validateSiteVisitType,
+		controller.postSetVisitType
+	);
 
 export default router;
