@@ -25,7 +25,7 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 export const getDocumentProperties = async (documentGuid, log) => {
 	try {
 		const result = await got
-			.get(`https://${config.API_HOST}/applications/document/${documentGuid}/properties`)
+			.get(`https://${config.API_HOST}/applications/documents/${documentGuid}/properties`)
 			.json();
 
 		return result;
@@ -44,7 +44,7 @@ export const getDocumentProperties = async (documentGuid, log) => {
 export const getDocumentFolders = async (documentGuid, log) => {
 	try {
 		const result = await got
-			.get(`https://${config.API_HOST}/applications/document/${documentGuid}/path`)
+			.get(`https://${config.API_HOST}/applications/documents/${documentGuid}/path`)
 			.json();
 
 		return result;
