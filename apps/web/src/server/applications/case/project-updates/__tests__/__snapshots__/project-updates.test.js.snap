@@ -315,16 +315,23 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
                         value=\\"\\">
                         <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                                rows=\\"5\\"></textarea>
+                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
+                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+                                    the recommended length for a project update. Consider reviewing the content
+                                    to make it shorter and easier to understand</strong>
                             </div>
-                        </noscript>
                     </div>
+                    <noscript>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
+                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                            rows=\\"5\\"></textarea>
+                        </div>
+                    </noscript>
                 </div>
             </div>
+        </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-two-thirds\\">
@@ -693,16 +700,23 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
                         <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                                rows=\\"5\\"></textarea>
+                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
+                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+                                    the recommended length for a project update. Consider reviewing the content
+                                    to make it shorter and easier to understand</strong>
                             </div>
-                        </noscript>
                     </div>
+                    <noscript>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
+                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                            rows=\\"5\\"></textarea>
+                        </div>
+                    </noscript>
                 </div>
             </div>
+        </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-two-thirds\\">
@@ -762,16 +776,23 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
                         <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
                         <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                                rows=\\"5\\"></textarea>
+                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
+                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+                                    the recommended length for a project update. Consider reviewing the content
+                                    to make it shorter and easier to understand</strong>
                             </div>
-                        </noscript>
                     </div>
+                    <noscript>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
+                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
+                            rows=\\"5\\"></textarea>
+                        </div>
+                    </noscript>
                 </div>
             </div>
+        </div>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-two-thirds\\">

@@ -43,6 +43,7 @@ function initHtmlContentEditor() {
 		}
 		const editBox = editor.getEditorElements().wwEditor;
 		const charCount = el.parentElement?.getElementsByClassName('character-count')[0];
+		const charCountWarning = el.parentElement?.getElementsByClassName('character-count-warning')[0];
 
 		function updateCharacterCount() {
 			if (!charCount) {
@@ -50,6 +51,16 @@ function initHtmlContentEditor() {
 			}
 			const text = editBox.innerText || editBox.textContent || '';
 			charCount.textContent = text.length.toString();
+			if (!charCountWarning || !(charCountWarning instanceof HTMLElement)) {
+				return;
+			}
+			const limit = charCountWarning.dataset.characterCountLimit;
+			if (!limit) {
+				return;
+			}
+			const showWarning = text.length > parseInt(limit);
+			console.log('showWanring', { showWarning, length: text.length, limit: parseInt(limit) });
+			charCountWarning.style.setProperty('display', showWarning ? 'block' : 'none', 'important');
 		}
 
 		// another option here is 'change', but that fires for every key press
