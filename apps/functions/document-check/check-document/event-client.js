@@ -49,7 +49,7 @@ const handlePublishResult = async (context, guid, eventStatus, eventType) => {
  * @param {string} guid
  * */
 export const handleNotInfected = async (context, guid) =>
-	handlePublishResult(context, guid, 'SUCCESS', EventType.Success);
+	handlePublishResult(context, guid, 'SUCCESS', EventType.Create);
 
 /**
  *
@@ -57,4 +57,4 @@ export const handleNotInfected = async (context, guid) =>
  * @param {string} guid
  * */
 export const handleInfected = async (context, guid) =>
-	handlePublishResult(context, guid, 'VIRUS_DETECTED', EventType.Failure);
+	handlePublishResult(context, guid, 'VIRUS_DETECTED', EventType.Create);

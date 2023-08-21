@@ -19,7 +19,7 @@ async function publishFailureEvent(context, { deadline, submissionType, blobGuid
 		documentName
 	};
 
-	await eventClient.sendEvents(serviceBusTopic, [event], EventType.Failure);
+	await eventClient.sendEvents(serviceBusTopic, [event], EventType.Create);
 }
 
 export default { publishFailureEvent };
