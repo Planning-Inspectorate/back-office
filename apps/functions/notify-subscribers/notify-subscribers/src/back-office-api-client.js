@@ -9,6 +9,10 @@ export class BackOfficeApiClient {
 	 * @param {string} apiHost
 	 */
 	constructor(apiHost) {
+		// if the api host is just the domain, append https://
+		if (!apiHost.startsWith('http')) {
+			apiHost = 'https://' + apiHost;
+		}
 		this.baseUrl = apiHost;
 	}
 
