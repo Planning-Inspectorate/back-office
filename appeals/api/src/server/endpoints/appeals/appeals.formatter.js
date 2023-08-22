@@ -1,7 +1,6 @@
 import formatAddress from '#utils/format-address.js';
 import isFPA from '#utils/is-fpa.js';
 import formatLinkedAppeals from '#utils/format-linked-appeals.js';
-import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 import {
 	formatAppellantCaseDocumentationStatus,
 	formatLpaQuestionnaireDocumentationStatus
@@ -83,7 +82,9 @@ const formatAppeal = (appeal) => {
 			lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 			neighbouringSite: {
 				contacts:
-					formatNeighbouringSiteContacts(appeal.lpaQuestionnaire?.neighbouringSiteContact) || null,
+					appeal.lpaQuestionnaire?.neighbouringSiteContact?.map((contact) => ({
+						address: formatAddress(contact.address)
+					})) || null,
 				isAffected: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites || null
 			},
 			otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),

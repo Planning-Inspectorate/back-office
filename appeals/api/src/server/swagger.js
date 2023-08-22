@@ -168,12 +168,7 @@ const document = {
 							addressLine2: 'Shotesham Road',
 							postCode: 'NR35 2ND',
 							town: 'Woodton'
-						},
-						contactId: 1,
-						email: 'appellant@example.com',
-						firstName: 'Lee',
-						lastName: 'Thornton',
-						telephone: '01234567891'
+						}
 					}
 				],
 				isAffected: true
