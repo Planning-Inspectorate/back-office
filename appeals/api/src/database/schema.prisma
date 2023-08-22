@@ -256,6 +256,7 @@ model LPAQuestionnaire {
   inspectorAccessDetails                             String?
   isAffectingNeighbouringSites                       Boolean?
   isCommunityInfrastructureLevyFormallyAdopted       Boolean?
+  isConservationArea                                 Boolean?
   isDevelopmentInOrNearDesignatedSites               Boolean?
   isGypsyOrTravellerSite                             Boolean?
   isListedBuilding                                   Boolean?

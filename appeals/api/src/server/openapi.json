@@ -2621,6 +2621,10 @@
 						"type": "boolean",
 						"example": true
 					},
+					"isConservationArea": {
+						"type": "boolean",
+						"example": true
+					},
 					"isEnvironmentalStatementRequired": {
 						"type": "boolean",
 						"example": true
@@ -2802,6 +2806,34 @@
 						"type": "string",
 						"example": "2023-12-13"
 					},
+					"applicantFirstName": {
+						"type": "string",
+						"example": "Fiona"
+					},
+					"applicantSurname": {
+						"type": "string",
+						"example": "Burgess"
+					},
+					"areAllOwnersKnown": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasAdvertisedAppeal": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasAttemptedToIdentifyOwners": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasHealthAndSafetyIssues": {
+						"type": "boolean",
+						"example": true
+					},
+					"healthAndSafetyIssues": {
+						"type": "string",
+						"example": "There is no mobile reception at the site"
+					},
 					"incompleteReasons": {
 						"type": "array",
 						"example": [1, 2, 3],
@@ -2816,6 +2848,18 @@
 							"type": "number"
 						}
 					},
+					"isSiteFullyOwned": {
+						"type": "boolean",
+						"example": false
+					},
+					"isSitePartiallyOwned": {
+						"type": "boolean",
+						"example": true
+					},
+					"isSiteVisibleFromPublicRoad": {
+						"type": "boolean",
+						"example": false
+					},
 					"otherNotValidReasons": {
 						"type": "string",
 						"example": "Another invalid reason"
@@ -2823,6 +2867,10 @@
 					"validationOutcome": {
 						"type": "string",
 						"example": "valid"
+					},
+					"visibilityRestrictions": {
+						"type": "string",
+						"example": "The site is behind a tall hedge"
 					}
 				},
 				"xml": {
@@ -2839,6 +2887,37 @@
 			"UpdateLPAQuestionnaireRequest": {
 				"type": "object",
 				"properties": {
+					"designatedSites": {
+						"type": "array",
+						"example": [1, 2, 3],
+						"items": {
+							"type": "number"
+						}
+					},
+					"doesAffectAListedBuilding": {
+						"type": "boolean",
+						"example": true
+					},
+					"doesAffectAScheduledMonument": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasCompletedAnEnvironmentalStatement": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasProtectedSpecies": {
+						"type": "boolean",
+						"example": true
+					},
+					"hasTreePreservationOrder": {
+						"type": "boolean",
+						"example": true
+					},
+					"includesScreeningOption": {
+						"type": "boolean",
+						"example": true
+					},
 					"incompleteReasons": {
 						"type": "array",
 						"example": [1, 2, 3],
@@ -2846,13 +2925,53 @@
 							"type": "number"
 						}
 					},
+					"isConservationArea": {
+						"type": "boolean",
+						"example": true
+					},
+					"isEnvironmentalStatementRequired": {
+						"type": "boolean",
+						"example": true
+					},
+					"isGypsyOrTravellerSite": {
+						"type": "boolean",
+						"example": true
+					},
+					"isListedBuilding": {
+						"type": "boolean",
+						"example": true
+					},
+					"isPublicRightOfWay": {
+						"type": "boolean",
+						"example": true
+					},
+					"isSensitiveArea": {
+						"type": "boolean",
+						"example": true
+					},
+					"isTheSiteWithinAnAONB": {
+						"type": "boolean",
+						"example": true
+					},
 					"lpaQuestionnaireDueDate": {
 						"type": "string",
 						"example": "2023-06-21"
 					},
+					"meetsOrExceedsThresholdOrCriteriaInColumn2": {
+						"type": "boolean",
+						"example": true
+					},
 					"otherNotValidReasons": {
 						"type": "string",
 						"example": "Another incomplete reason"
+					},
+					"scheduleType": {
+						"type": "number",
+						"example": 1
+					},
+					"sensitiveAreaDetails": {
+						"type": "string",
+						"example": "The area is liable to flooding"
 					},
 					"validationOutcome": {
 						"type": "string",

@@ -106,6 +106,8 @@ const mockPlanningObligationStatusFindMany = jest.fn().mockResolvedValue({});
 const mockProcedureTypeFindMany = jest.fn().mockResolvedValue({});
 const mockScheduleTypeFindMany = jest.fn().mockResolvedValue({});
 const mockAppellantUpdate = jest.fn().mockResolvedValue({});
+const mockDesignatedSitesOnLPAQuestionnairesCreateMany = jest.fn().mockResolvedValue({});
+const mockDesignatedSitesOnLPAQuestionnairesDeleteMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -427,6 +429,13 @@ class MockPrismaClient {
 	get appellant() {
 		return {
 			update: mockAppellantUpdate
+		};
+	}
+
+	get designatedSitesOnLPAQuestionnaires() {
+		return {
+			createMany: mockDesignatedSitesOnLPAQuestionnairesCreateMany,
+			deleteMany: mockDesignatedSitesOnLPAQuestionnairesDeleteMany
 		};
 	}
 
