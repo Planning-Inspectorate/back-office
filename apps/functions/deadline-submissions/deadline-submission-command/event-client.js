@@ -1,5 +1,5 @@
 import { getEventClient, EventType } from '@pins/event-client';
-import config from './config';
+import config from './config.js';
 
 const { serviceBusHost, serviceBusTopic } = config;
 

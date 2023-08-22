@@ -1,6 +1,6 @@
 import { getEventClient, EventType } from '@pins/event-client';
-import { getDocumentProperties, getDocumentFolders } from './back-office-api-client';
-import config from './config';
+import { getDocumentProperties, getDocumentFolders } from './back-office-api-client.js';
+import config from './config.js';
 const { serviceBus } = config;
 
 /**

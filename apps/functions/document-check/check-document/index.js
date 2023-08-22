@@ -1,7 +1,7 @@
 import { Readable } from 'node:stream';
 import { getBlobStream, parseBlobFromUrl } from './blob-utils.js';
 import { checkMyBlob } from './check-my-blob.js';
-import { handleInfected, handleNotInfected } from './event-client';
+import { handleInfected, handleNotInfected } from './event-client.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}

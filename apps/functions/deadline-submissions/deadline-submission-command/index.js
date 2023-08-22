@@ -1,7 +1,7 @@
-import config from './config';
-import api from './back-office-api-client';
-import blob from './blob-client';
-import events from './event-client';
+import config from './config.js';
+import api from './back-office-api-client.js';
+import blob from './blob-client.js';
+import events from './event-client.js';
 
 const { submissionsContainer } = config;
 
