@@ -166,11 +166,6 @@ interface SingleLPAQuestionnaireResponse {
 
 interface NeighbouringSiteContactsResponse {
 	address: AppealSite;
-	contactId: Schema.NeighbouringSiteContact.id;
-	email: Schema.NeighbouringSiteContact.email;
-	firstName: Schema.NeighbouringSiteContact.firstName;
-	lastName: Schema.NeighbouringSiteContact.lastName;
-	telephone: Schema.NeighbouringSiteContact.telephone;
 }
 
 interface SingleAppealDetailsResponse {
