@@ -14,7 +14,7 @@ export const create = (s51AdviceDocument) => {
  * @param {number} adviceId
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument[]>}
  */
-export const findByAdviceId = (adviceId) => {
+export const getForAdvice = (adviceId) => {
 	return databaseConnector.s51AdviceDocument.findMany({
 		where: { adviceId },
 		include: {
