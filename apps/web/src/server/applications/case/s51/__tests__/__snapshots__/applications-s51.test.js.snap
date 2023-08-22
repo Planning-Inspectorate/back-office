@@ -86,7 +86,16 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                     </div>
                     <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"s51-attachments\\">
                         <h5 class=\\"govuk-heading-m\\">Attachments</h5>
-                        <ul></ul>
+                        <table class=\\"govuk-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Date added</th>
+                                    <th class=\\"govuk-table__header\\" colspan=\\"5\\"></th>
+                                </tr>
+                            </thead>
+                            <tbody class=\\"govuk-table__body\\"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
