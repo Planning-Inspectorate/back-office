@@ -2,8 +2,13 @@
 
 {%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 
 {%- set pageTitle = (page.title if page.title else "Update due date") + " - GOV.UK" -%}
+
+{%- set headerMarginBottom -%}
+	{% if sideNote %}7{% else %}9{% endif %}
+{%- endset -%}
 
 {%- set backLinkUrl -%}
 	{{ backButtonUrl }}
@@ -18,17 +23,18 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
+	<div class="govuk-!-margin-bottom-{{ headerMarginBottom }}">
+		<h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">{{ page.text }}</h1>
+		{% if sideNote %}
+			{{ govukInsetText({
+				text: sideNote
+			}) }}
+		{% endif %}
+	</div>
 	<form method="post" novalidate="novalidate">
 		{{ govukDateInput({
 			id: "due-date",
 			namePrefix: "due-date",
-			fieldset: {
-				legend: {
-					text: page.text,
-					isPageHeading: true,
-					classes: "govuk-fieldset__legend--xl govuk-!-margin-bottom-9"
-				}
-			},
 			hint: {
 				text: "For example, 27 3 2007"
 			}
