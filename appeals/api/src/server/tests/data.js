@@ -135,6 +135,7 @@ const householdAppeal = {
 			'There is a tall hedge around the site which obstructs the view of the site',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: null,
+		isConservationArea: true,
 		isDevelopmentInOrNearDesignatedSites: null,
 		isEnvironmentalStatementRequired: null,
 		isGypsyOrTravellerSite: null,
@@ -533,6 +534,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	isAffectingNeighbouringSites: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites,
 	isCommunityInfrastructureLevyFormallyAdopted:
 		appeal.lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
+	isConservationArea: appeal.lpaQuestionnaire?.isConservationArea || null,
 	isEnvironmentalStatementRequired: appeal.lpaQuestionnaire?.isEnvironmentalStatementRequired,
 	isGypsyOrTravellerSite: appeal.lpaQuestionnaire?.isGypsyOrTravellerSite,
 	isListedBuilding: appeal.lpaQuestionnaire?.isListedBuilding,

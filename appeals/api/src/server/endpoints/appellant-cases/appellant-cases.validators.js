@@ -13,7 +13,7 @@ import {
 import { isOutcomeIncomplete, isOutcomeInvalid } from '#utils/check-validation-outcome.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
-import validateValidationOutcomeReasons from '#common/validators/validation-outcome-reasons.js';
+import validateNumberArrayParameter from '#common/validators/number-array-parameter.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
 import validateStringParameter from '#common/validators/string-parameter.js';
 import validateBooleanParameter from '#common/validators/boolean-parameter.js';
@@ -43,7 +43,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 		}
 	),
 	validateIdParameter('appellantCaseId'),
-	validateValidationOutcomeReasons(
+	validateNumberArrayParameter(
 		'incompleteReasons',
 		(
 			/** @type {any} */ value,
@@ -56,7 +56,7 @@ const patchAppellantCaseValidator = composeMiddleware(
 			return value;
 		}
 	),
-	validateValidationOutcomeReasons(
+	validateNumberArrayParameter(
 		'invalidReasons',
 		(
 			/** @type {any} */ value,

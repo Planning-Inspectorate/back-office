@@ -86,6 +86,7 @@ const formatLpaQuestionnaire = (appeal) => {
 		isAffectingNeighbouringSites: lpaQuestionnaire?.isAffectingNeighbouringSites,
 		isCommunityInfrastructureLevyFormallyAdopted:
 			lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
+		isConservationArea: lpaQuestionnaire?.isConservationArea || null,
 		isEnvironmentalStatementRequired: lpaQuestionnaire?.isEnvironmentalStatementRequired,
 		isGypsyOrTravellerSite: lpaQuestionnaire?.isGypsyOrTravellerSite,
 		isListedBuilding: lpaQuestionnaire?.isListedBuilding,
