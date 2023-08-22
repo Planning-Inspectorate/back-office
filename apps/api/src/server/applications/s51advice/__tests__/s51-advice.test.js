@@ -207,10 +207,9 @@ describe('Test S51 advice API', () => {
 		databaseConnector.s51Advice.count.mockResolvedValue(s51AdvicesInApplication1Count);
 
 		// WHEN
-		const response = await request.post('/applications/1/s51-advice').send({
-			pageNumber: 1,
-			pageSize: 50
-		});
+		const response = await request
+			.get('/applications/1/s51-advice')
+			.query({ page: 1, pageSize: 50 });
 
 		// THEN
 		expect(response.status).toEqual(200);
@@ -249,8 +248,8 @@ describe('Test S51 advice API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 
 		// WHEN
-		const response = await request.post('/applications/1000/s51-advice').send({
-			pageNumber: 1,
+		const response = await request.get('/applications/1000/s51-advice').query({
+			page: 1,
 			pageSize: 1
 		});
 
