@@ -78,10 +78,16 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 		}
 	})();
 
+	const attachments =
+		s51Files?.items.map((file) => ({
+			title: file.title,
+			dateAdded: new Date(file.dateCreated)
+		})) ?? [];
+
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
 		showSuccessBanner: success === '1',
-		attachments: s51Files
+		attachments
 	});
 }
 
