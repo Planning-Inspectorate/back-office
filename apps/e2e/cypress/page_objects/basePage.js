@@ -84,6 +84,7 @@ export class Page {
 		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
+		tableHeader: () => cy.get(this.selectors.tableHeader),
 		tableCell: () => cy.get(this.selectors.tableCell),
 		textArea: () => cy.get(this.selectors.textArea),
 		genericText: () => cy.get(this.selectors.body)
@@ -155,6 +156,10 @@ export class Page {
 
 	clearSearchResults() {
 		this.basePageElements.clearSearchResultsButton().click();
+	}
+
+	selectRadioButtonByValue(value) {
+		this.basePageElements.radioButton().contains(value).click();
 	}
 
 	// A S S E R T I O N S
