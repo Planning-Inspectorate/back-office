@@ -5,6 +5,7 @@ import pino from '../../../lib/logger.js';
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
+/** @typedef {import('./applications-s51.types.js').S51BlobResponse} S51BlobResponse */
 
 /**
  * Save new S51 advice
@@ -56,7 +57,7 @@ export const getS51Advice = async (caseId, adviceId) => {
 };
 
 /**
- * Get the documents for the current folder
+ * Get the advice items for the current case
  *
  * @param {number} caseId
  * @param {number} pageSize
@@ -70,3 +71,13 @@ export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
 			pageSize
 		}
 	});
+
+/**
+ * Get documents for the advice item
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns {Promise<S51BlobResponse>}
+ * */
+export const getS51Documents = async (caseId, adviceId) =>
+	get(`applications/${caseId}/s51-advice/${adviceId}/documents`);
