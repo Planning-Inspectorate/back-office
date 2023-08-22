@@ -4,7 +4,8 @@ import {
 	createS51Advice,
 	getS51Advice,
 	getManyS51Advices,
-	addDocuments
+	addDocuments,
+	getDocuments
 } from './s51-advice.controller.js';
 import { validateCreateS51Advice, validatePaginationCriteria } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
@@ -140,4 +141,32 @@ router.post(
 	validateApplicationId,
 	asyncHandler(addDocuments)
 );
+
+router.get(
+	'/:id/s51-advice/:adviceId/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}/documents'
+        #swagger.description = 'Get S51 advice documents'
+         #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application case ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+			description: 'S51 advice ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'S51 Documents',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getDocuments)
+);
+
 export { router as s51AdviceRoutes };

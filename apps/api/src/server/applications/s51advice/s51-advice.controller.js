@@ -2,7 +2,7 @@ import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
 import { getCaseDetails } from '../application/application.service.js';
-import { getManyS51AdviceOnCase } from './s51-advice.service.js';
+import { getManyS51AdviceOnCase, getS51AdviceDocuments } from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import {
@@ -54,9 +54,7 @@ export const getS51Advice = async (_request, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	const attachments = await s51AdviceDocumentRepository.findByAdviceId(Number(adviceId));
-
-	console.log(attachments);
+	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
 
 	/**
 	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[]}
@@ -103,6 +101,21 @@ export const getManyS51Advices = async ({ params, query }, response) => {
 	const paginatedS51Advices = await getManyS51AdviceOnCase(id, parseInt(page), parseInt(pageSize));
 
 	response.send(paginatedS51Advices);
+};
+
+/**
+ * Gets list of documents associated with an advice item
+ *
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * */
+export const getDocuments = async ({ params }, response) => {
+	const caseId = parseInt(params.id);
+	const adviceId = parseInt(params.adviceId);
+
+	const result = await getS51AdviceDocuments(caseId, adviceId);
+
+	response.send(result);
 };
 
 /**
