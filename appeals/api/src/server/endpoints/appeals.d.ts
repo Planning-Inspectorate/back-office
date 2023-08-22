@@ -141,6 +141,7 @@ interface SingleLPAQuestionnaireResponse {
 	inspectorAccessDetails?: string | null;
 	isAffectingNeighbouringSites?: boolean | null;
 	isCommunityInfrastructureLevyFormallyAdopted?: boolean | null;
+	isConservationArea: boolean | null;
 	isEnvironmentalStatementRequired?: boolean | null;
 	isGypsyOrTravellerSite?: boolean | null;
 	isListedBuilding?: boolean | null;
@@ -408,6 +409,66 @@ interface UpdateAppellantCaseValidationOutcome {
 	startedAt?: Date;
 }
 
+interface UpdateLPAQuestionnaireRequest {
+	appealId?: number;
+	designatedSites?: number[];
+	doesAffectAListedBuilding?: boolean;
+	doesAffectAScheduledMonument?: boolean;
+	hasCompletedAnEnvironmentalStatement?: boolean;
+	hasProtectedSpecies?: boolean;
+	hasTreePreservationOrder?: boolean;
+	includesScreeningOption?: boolean;
+	incompleteReasons?: NotValidReasons;
+	isConservationArea?: boolean;
+	isEnvironmentalStatementRequired?: boolean;
+	isGypsyOrTravellerSite?: boolean;
+	isListedBuilding?: boolean;
+	isPublicRightOfWay?: boolean;
+	isSensitiveArea?: boolean;
+	isTheSiteWithinAnAONB?: boolean;
+	lpaQuestionnaireValidationOutcomeId?: number;
+	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean;
+	otherNotValidReasons?: string;
+	scheduleTypeId?: number;
+	sensitiveAreaDetails?: string;
+	timetable?: TimetableDeadlineDate;
+	validationOutcomeId?: number;
+}
+
+interface UpdateLPAQuestionaireValidationOutcomeParams {
+	appeal: {
+		id: number;
+		appealStatus: AppealStatus[];
+		appealType: AppealType;
+	};
+	data: {
+		lpaQuestionnaireDueDate: string;
+		incompleteReasons: number[];
+		otherNotValidReasons: string;
+	};
+	lpaQuestionnaireId: number;
+	validationOutcome: ValidationOutcome;
+}
+
+interface UpdateAppellantCaseValidationOutcomeParams {
+	appeal: {
+		appealStatus: AppealStatus[];
+		appealType: AppealType;
+		appellant: Appellant;
+		id: number;
+		reference: string;
+	};
+	appellantCaseId: number;
+	data: {
+		appealDueDate: string;
+		incompleteReasons: number[];
+		invalidReasons: number[];
+		otherNotValidReasons: string;
+	};
+	notifyClient: NotifyClient;
+	validationOutcome: ValidationOutcome7;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -442,6 +503,9 @@ export {
 	UpdateAddressRequest,
 	UpdateAppellantCaseRequest,
 	UpdateAppellantCaseValidationOutcome,
+	UpdateAppellantCaseValidationOutcomeParams,
 	UpdateAppellantRequest,
+	UpdateLPAQuestionaireValidationOutcomeParams,
+	UpdateLPAQuestionnaireRequest,
 	ValidationOutcomeResponse
 };

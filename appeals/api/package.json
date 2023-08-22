@@ -91,6 +91,7 @@
     "#endpoints/*": "./src/server/endpoints/*",
     "#tests/*": "./src/server/tests/*",
     "#common/*": "./src/server/common/*",
-    "#config/*": "./src/server/config/*"
+    "#config/*": "./src/server/config/*",
+    "#state/*": "./src/server/state/*"
   }
 }
