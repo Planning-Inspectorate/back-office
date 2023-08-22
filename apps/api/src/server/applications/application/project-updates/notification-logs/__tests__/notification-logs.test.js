@@ -4,6 +4,8 @@ import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../../constants.js
 import { ERROR_MUST_BE_NUMBER } from '#middleware/errors.js';
 
 describe('notification-logs', () => {
+	const now = new Date();
+
 	describe('get', () => {
 		/**
 		 * @param {number} projectUpdateId
@@ -13,7 +15,7 @@ describe('notification-logs', () => {
 			return {
 				id: 1,
 				emailSent: true,
-				entryDate: new Date(),
+				entryDate: now,
 				functionInvocationId: 'id-1',
 				projectUpdateId,
 				subscriptionId: 1
@@ -202,7 +204,7 @@ describe('notification-logs', () => {
 					{
 						projectUpdateId: 1,
 						subscriptionId: 2,
-						entryDate: new Date().toISOString(),
+						entryDate: now.toISOString(),
 						emailSent: true,
 						functionInvocationId: 'some-id'
 					}
