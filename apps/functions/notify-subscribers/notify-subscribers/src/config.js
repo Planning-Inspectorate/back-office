@@ -4,7 +4,7 @@ import joi from 'joi';
 /**
  * @typedef {Object} Config
  * @property {string} NODE_ENV
- * @property {string} API_HOST - Back Office API endpoint
+ * @property {string} API_HOST - Back Office API endpoint (if http(s):// prefix is ommitted, https:// will be used)
  * @property {number} SUBSCRIPTIONS_PER_BATCH - how many subscriptions to process per batch (page)
  * @property {number} WAIT_PER_BATCH_SECONDS - how long to wait between subscription batches (for crude rate limiting)
  * @property {string} GOV_NOTIFY_API_KEY
