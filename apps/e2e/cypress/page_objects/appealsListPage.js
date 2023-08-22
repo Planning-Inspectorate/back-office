@@ -24,6 +24,8 @@ export class AppealsListPage extends Page {
 		cy.get(this.selectors.errorMessage).should('have.text', 'this is an error message');
 	}
 
+	//ACTIONS
+
 	clickAppealFromList(position) {
 		this.basePageElements
 			.tableRow()
@@ -35,5 +37,11 @@ export class AppealsListPage extends Page {
 	nationalListSearch(text) {
 		this.fillInput(text);
 		this.clickButtonByText('Search');
+	}
+
+	selectAppellantCaseOutcome(outcome) {
+		this.clickAccordionByText('case documentation');
+		this.clickLinkByText('Review');
+		this.selectRadioButtonByValue(outcome);
 	}
 }
