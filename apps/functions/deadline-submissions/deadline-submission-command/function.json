@@ -4,7 +4,7 @@
 			"name": "readDeadlineSubmission",
 			"type": "serviceBus",
 			"direction": "out",
-			"topicName": "deadline-submission",
+			"topicName": "deadline-submission-subscription",
 			"subscriptionName": "deadline-submission-subscription",
 			"connection": "ServiceBusConnection"
 		}
