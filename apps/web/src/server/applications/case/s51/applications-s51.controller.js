@@ -8,7 +8,12 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import {
+	createS51Advice,
+	getS51Advice,
+	getS51FilesInFolder,
+	getS51Documents
+} from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
 
@@ -70,7 +75,7 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 
 	const s51Files = await (async () => {
 		try {
-			return await getS51FilesInFolder(response.locals.caseId, 10, 1);
+			return await getS51Documents(parseInt(caseId), parseInt(adviceId));
 		} catch (/** @type {*} */ error) {
 			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
@@ -78,10 +83,23 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 		}
 	})();
 
+	const blobHost = (() => {
+		if (!s51Files) {
+			return;
+		}
+
+		if (s51Files.blobStorageHost.endsWith('/')) {
+			return s51Files.blobStorageHost.slice(0, -1);
+		}
+
+		return s51Files.blobStorageHost;
+	})();
+
 	const attachments =
-		s51Files?.items.map((file) => ({
-			title: file.title,
-			dateAdded: new Date(file.dateCreated)
+		s51Files?.documents.map((file) => ({
+			title: file.documentName,
+			dateAdded: new Date(),
+			url: blobHost + file.blobStoreUrl
 		})) ?? [];
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
