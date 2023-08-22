@@ -20,10 +20,10 @@ export const getUsersByRole = async (roleName, session) => {
 
 	const cacheName = `cache_users_${roleName}`;
 	let cache = await fetchFromCache(cacheName);
-	if (!cache) {
-		cache = (await fetchRolesAndUsersFromGraph(roleName, session)) || [];
-		await storeInCache(cacheName, cache);
-	}
+	//if (!cache) {
+	cache = (await fetchRolesAndUsersFromGraph(roleName, session)) || [];
+	await storeInCache(cacheName, cache);
+	//}
 	return cache;
 };
 
@@ -38,7 +38,8 @@ const fetchRolesAndUsersFromGraph = async (roleName, session) => {
 	const token = await getActiveDirectoryAccessToken(session, ['GroupMember.Read.All']);
 	if (token?.token) {
 		const data = await getData(
-			`groups/${roleName}/members?$select=id,displayName,userPrincipalName`,
+			//`groups/${roleName}/members?$select=id,displayName,userPrincipalName`,
+			`groups/${roleName}/members?$top=999`,
 			{
 				headers: { authorization: `Bearer ${token.token}` }
 			}
