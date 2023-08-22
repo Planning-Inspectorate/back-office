@@ -1,6 +1,5 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import { validatePaginationParameters } from '../../middleware/pagination-validation.js';
 import {
 	createS51Advice,
 	getS51Advice,
@@ -99,7 +98,6 @@ router.get(
     */
 	validateApplicationId,
 	validatePaginationCriteria,
-	validatePaginationParameters,
 	asyncHandler(getManyS51Advices)
 );
 
