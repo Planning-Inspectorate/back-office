@@ -1,5 +1,5 @@
 import got from 'got';
-import config from './config';
+import config from './config.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 

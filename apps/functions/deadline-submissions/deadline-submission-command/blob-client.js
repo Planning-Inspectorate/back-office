@@ -1,6 +1,6 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
 
-import config from './config';
+import config from './config.js';
 
 const { storageUrl } = config;
 
