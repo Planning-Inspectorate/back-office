@@ -5,6 +5,43 @@ import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import { buildSubscriptionPayloads, subscriptionToResponse } from './subscriptions.js';
 import logger from '#utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
+import { getPageCount } from '#utils/database-pagination.js';
+
+/**
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+export async function listSubscriptions(req, res) {
+	/**
+	 * @type {import('../../repositories/subscription.respository.js').ListSubscriptionOptions}
+	 */
+	const opts = {
+		page: Number(req.query.page) || DEFAULT_PAGE_NUMBER,
+		pageSize: Number(req.query.pageSize) || DEFAULT_PAGE_SIZE
+	};
+
+	// check filters
+	if (req.query.type) {
+		opts.type = String(req.query.type);
+	}
+	if (req.query.caseReference) {
+		opts.caseReference = String(req.query.caseReference);
+	}
+	logger.debug(opts, 'listSubscriptions');
+
+	const result = await subscriptionRepository.list(opts);
+	const formattedItems = result.items.map(subscriptionToResponse);
+
+	res.send({
+		itemCount: result.count,
+		items: formattedItems,
+		page: opts.page,
+		pageCount: getPageCount(result.count, opts.pageSize),
+		pageSize: opts.pageSize
+	});
+}
 
 /**
  * @type {import('express').RequestHandler}

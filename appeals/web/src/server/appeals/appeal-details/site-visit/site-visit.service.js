@@ -31,9 +31,9 @@ export async function createSiteVisit(
  * @param {number} appealId
  * @param {number} siteVisitId
  * @param {import('@pins/appeals/types/inspector.js').SiteVisitType} visitType
- * @param {string} visitDate
- * @param {string} visitStartTime
- * @param {string} visitEndTime
+ * @param {string} [visitDate]
+ * @param {string} [visitStartTime]
+ * @param {string} [visitEndTime]
  */
 export async function updateSiteVisit(
 	apiClient,
@@ -47,10 +47,10 @@ export async function updateSiteVisit(
 	return apiClient
 		.patch(`appeals/${appealId}/site-visits/${siteVisitId}`, {
 			json: {
-				visitDate,
-				visitStartTime,
-				visitEndTime,
-				visitType
+				visitType,
+				...(visitDate && { visitDate }),
+				...(visitStartTime && { visitStartTime }),
+				...(visitEndTime && { visitEndTime })
 			}
 		})
 		.json();

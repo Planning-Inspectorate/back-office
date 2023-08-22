@@ -409,8 +409,11 @@ function mapSiteDetails(appealDetails) {
 					? appealDetails.siteVisit?.visitType
 					: 'Not selected',
 				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
+				actionText: appealDetails.siteVisit?.visitType ? 'Change' : 'Schedule',
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/${
+					appealDetails.siteVisit?.visitType ? 'set-visit-type' : 'schedule-visit'
+				}`,
+				actionVisuallyHiddenText: appealDetails.siteVisit?.visitType ? 'visit type' : 'site visit'
 			}
 		]
 	};

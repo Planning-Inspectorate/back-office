@@ -8,18 +8,51 @@ import BackOfficeAppError from '#utils/app-error.js';
  */
 
 /**
- * List project updates for a particular case
+ * @typedef {Object} PaginationOptions
+ * @property {number} page
+ * @property {number} pageSize
+ */
+
+/**
+ * @typedef {Object} ListProjectUpdatesOptions
+ * @property {number} page
+ * @property {number} pageSize
+ * @property {import('@prisma/client').Prisma.ProjectUpdateOrderByWithRelationInput} [orderBy]
+ * @property {number} [caseId] - filter option
+ * @property {string} [status] - filter option
+ * @property {Date} [publishedBefore] - filter option (datePublished < publishedBefore)
+ * @property {boolean} [sentToSubscribers] - filter option
+ */
+
+/**
+ * List project updates for a particular case, with filter options such as by case
  *
- * @param {number} caseId
- * @param {number} pageNumber
- * @param {number} pageSize
- * @param {import('@prisma/client').Prisma.ProjectUpdateOrderByWithRelationInput} [orderBy]
+ * @param {ListProjectUpdatesOptions} opts
  * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdate[]}>}
  */
-export async function listProjectUpdates(caseId, pageNumber, pageSize, orderBy) {
-	const where = {
-		caseId
-	};
+export async function listProjectUpdates({
+	caseId,
+	page,
+	pageSize,
+	orderBy,
+	status,
+	publishedBefore,
+	sentToSubscribers
+}) {
+	/** @type {import('@prisma/client').Prisma.ProjectUpdateWhereInput} */
+	const where = {};
+	if (caseId) {
+		where.caseId = caseId;
+	}
+	if (status) {
+		where.status = status;
+	}
+	if (publishedBefore) {
+		where.datePublished = { lt: publishedBefore };
+	}
+	if (typeof sentToSubscribers !== 'undefined') {
+		where.sentToSubscribers = sentToSubscribers;
+	}
 
 	const result = await databaseConnector.$transaction([
 		databaseConnector.projectUpdate.count({
@@ -27,7 +60,7 @@ export async function listProjectUpdates(caseId, pageNumber, pageSize, orderBy) 
 		}),
 		databaseConnector.projectUpdate.findMany({
 			where,
-			skip: getSkipValue(pageNumber, pageSize),
+			skip: getSkipValue(page, pageSize),
 			take: pageSize,
 			orderBy
 		})
@@ -142,6 +175,47 @@ export async function deleteProjectUpdate(id) {
 		}
 
 		return await tx.projectUpdate.delete(deleteReq);
+	});
+}
+
+/**
+ * List notification logs
+ *
+ * @param {PaginationOptions & {projectUpdateId:number}} opts
+ * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdateNotificationLog[]}>}
+ */
+export async function listNotificationLogs({ projectUpdateId, page, pageSize }) {
+	/** @type {import('@prisma/client').Prisma.ProjectUpdateNotificationLogWhereInput} */
+	const where = {
+		projectUpdateId
+	};
+
+	const result = await databaseConnector.$transaction([
+		databaseConnector.projectUpdateNotificationLog.count({
+			where
+		}),
+		databaseConnector.projectUpdateNotificationLog.findMany({
+			where,
+			skip: getSkipValue(page, pageSize),
+			take: pageSize
+		})
+	]);
+
+	return {
+		count: result[0],
+		items: result[1]
+	};
+}
+
+/**
+ * Create notification logs
+ *
+ * @param {import('@prisma/client').Prisma.ProjectUpdateNotificationLogCreateManyInput} logs
+ * @returns {Promise<import('@prisma/client').Prisma.BatchPayload>}
+ */
+export async function createNotificationLogs(logs) {
+	return databaseConnector.projectUpdateNotificationLog.createMany({
+		data: logs
 	});
 }
 

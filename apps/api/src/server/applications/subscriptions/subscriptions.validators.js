@@ -1,10 +1,19 @@
 import { composeMiddleware } from '@pins/express';
 import { body, param, query } from 'express-validator';
 import { validationErrorHandler } from '#middleware/error-handler.js';
+import { Subscription } from '@pins/applications/lib/application/subscription.js';
+const typesList = Subscription.TypeList.map((t) => `'${t}'`).join(', ');
+export const typesError = `type must be one of ${typesList}`;
 
 export const validateGetSubscription = composeMiddleware(
 	query('caseReference').notEmpty().withMessage(`caseReference is required`),
 	query('emailAddress').notEmpty().withMessage(`emailAddress is required`),
+	validationErrorHandler
+);
+
+export const validateSubscriptionFilters = composeMiddleware(
+	query('type').optional().isIn(Subscription.TypeList).withMessage(typesError),
+	query('caseReference').optional().isString().withMessage('caseReference must be a string'),
 	validationErrorHandler
 );
 
@@ -78,16 +87,10 @@ function validateStartBeforeEnd(startDate, endDate) {
 	return start < end;
 }
 
-const subscriptionTypes = [
-	'allUpdates',
-	'applicationSubmitted',
-	'applicationDecided',
-	'registrationOpen'
-];
 /**
  * @param {string} v
  * @returns {boolean}
  */
 function validateSubscriptionType(v) {
-	return subscriptionTypes.includes(v);
+	return Subscription.TypeList.includes(v);
 }

@@ -6,11 +6,94 @@ import * as controller from './project-updates.controller.js';
 import { validateSortBy } from '../../../middleware/validate-sort-by.js';
 import {
 	validateCreateProjectUpdate,
+	validateProjectUpdateFilters,
 	validateProjectUpdateId,
 	validateUpdateProjectUpdate
 } from './project-updates.validators.js';
 
 const router = createRouter();
+
+router.get(
+	'/project-updates',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/project-updates'
+        #swagger.description = 'Get project updates across applications'
+		#swagger.parameters['page'] = {
+			in: 'query',
+			description: 'The page number to return, defaults to 1',
+			example: 1,
+		}
+		#swagger.parameters['pageSize'] = {
+			in: 'query',
+			description: 'The number of results per page, defaults to 25',
+			example: 25,
+		}
+		#swagger.parameters['status'] = {
+			in: 'query',
+			description: 'Filter by status',
+			required: false,
+			type: 'string'
+		}
+        #swagger.parameters['publishedBefore'] = {
+			in: 'query',
+			description: 'Filter by published date',
+			required: false,
+			type: 'string',
+            format: 'date-time'
+		}
+        #swagger.parameters['sentToSubscribers'] = {
+			in: 'query',
+			description: 'Filter by sent to subscribers',
+			required: false,
+			type: 'boolean'
+		}
+        #swagger.responses[200] = {
+            description: 'List of project updates',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdatesListBadRequest' },
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validatePaginationParameters(),
+	validateProjectUpdateFilters,
+	asyncHandler(controller.getProjectUpdates)
+);
+
+router.get(
+	'/project-updates/:projectUpdateId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/project-updates/{projectUpdateId}'
+        #swagger.description = 'Get a project update by ID'
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'The project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[404] = {
+            description: 'Not found',
+            schema: { $ref: '#/definitions/NotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateProjectUpdateId,
+	asyncHandler(controller.getProjectUpdate)
+);
 
 router.get(
 	'/:id/project-updates',
@@ -44,6 +127,10 @@ router.get(
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
         }
+         #swagger.responses[400] = {
+            description: 'Bad request',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdatesListBadRequest' },
+        }
         #swagger.responses[500] = {
             description: 'Internal server error',
             schema: { $ref: '#/definitions/InternalError' }
@@ -52,7 +139,7 @@ router.get(
 	validateApplicationId,
 	validatePaginationParameters(),
 	validateSortBy(['datePublished', 'emailSubscribers', 'status']),
-	asyncHandler(controller.getProjectUpdates)
+	asyncHandler(controller.getProjectUpdatesForCase)
 );
 
 router.post(

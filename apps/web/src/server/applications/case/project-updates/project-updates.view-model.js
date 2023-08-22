@@ -81,6 +81,10 @@ export function createContentFormView({
 						classes: 'govuk-!-font-weight-bold'
 					},
 					characterCount: true,
+					characterCountWarning: true,
+					characterCountWarningLimit: 500,
+					characterCountWarningMessage:
+						'You have exceeded the recommended length for a project update. Consider reviewing the content to make it shorter and easier to understand',
 					value: values.backOfficeProjectUpdateContent,
 					errorMessage: errors?.backOfficeProjectUpdateContent
 				},

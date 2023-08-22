@@ -3,7 +3,7 @@ import { mapIncompleteReasonsToCheckboxItemParameters } from '../lpa-questionnai
 import { getLPAQuestionnaireIncompleteReasons } from '../lpa-questionnaire.service.js';
 import { objectContainsAllKeys } from '../../../../lib/object-utilities.js';
 import { getIdByNameFromIdNamePairs } from '../../../../lib/id-name-pairs.js';
-import { webDateToDisplayDate } from '../../../../lib/dates.js';
+import { webDateToDisplayDate, dateToDisplayDate } from '../../../../lib/dates.js';
 
 /**
  *
@@ -69,6 +69,11 @@ const renderIncompleteReason = async (request, response) => {
  */
 const renderUpdateDueDate = async (request, response) => {
 	const { errors } = request;
+	const lpaQCurrentDueDateIso =
+		request.currentAppeal?.documentationSummary?.lpaQuestionnaire?.dueDate;
+	const lpaQCurrentDueDate = lpaQCurrentDueDateIso && dateToDisplayDate(lpaQCurrentDueDateIso);
+	const sideNote =
+		lpaQCurrentDueDate && `The current due date for the LPA questionnaire is ${lpaQCurrentDueDate}`;
 
 	if (
 		!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
@@ -85,8 +90,9 @@ const renderUpdateDueDate = async (request, response) => {
 			id: appealId,
 			shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
 		},
+		sideNote,
 		page: {
-			title: 'Appellant case due date',
+			title: 'LPA questionnaire due date',
 			text: 'Update LPA questionnaire due date'
 		},
 		backButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`,

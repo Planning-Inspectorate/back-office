@@ -16,13 +16,49 @@ import { ProjectUpdateStatusError } from '#repositories/project-update.resposito
  * @type {import('express').RequestHandler}
  */
 export async function getProjectUpdates(req, res) {
+	/**
+	 * @type {import('../../../repositories/project-update.respository.js').ListProjectUpdatesOptions}
+	 */
+	const opts = {
+		page: Number(req.query.page) || DEFAULT_PAGE_NUMBER,
+		pageSize: Number(req.query.pageSize) || DEFAULT_PAGE_SIZE
+	};
+
+	// check filters
+	if (req.query.status) {
+		opts.status = String(req.query.status);
+	}
+	if (req.query.publishedBefore && typeof req.query.publishedBefore === 'string') {
+		opts.publishedBefore = new Date(req.query.publishedBefore);
+	}
+	if (req.query.sentToSubscribers) {
+		opts.sentToSubscribers = Boolean(req.query.sentToSubscribers);
+	}
+	logger.debug(opts, 'getProjectUpdates');
+
+	const result = await repository.listProjectUpdates(opts);
+	const formattedItems = result.items.map(mapProjectUpdate);
+
+	res.send({
+		itemCount: result.count,
+		items: formattedItems,
+		page: opts.page,
+		pageCount: getPageCount(result.count, opts.pageSize),
+		pageSize: opts.pageSize
+	});
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export async function getProjectUpdatesForCase(req, res) {
 	const page = Number(req.query.page) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(req.query.pageSize) || DEFAULT_PAGE_SIZE;
 	const caseId = parseInt(req.params.id);
 	const orderBy = sortByFromQuery(req.query.sortBy);
-	logger.debug({ caseId, page, pageSize, orderBy }, 'getProjectUpdates');
+	logger.debug({ caseId, page, pageSize, orderBy }, 'getProjectUpdatesForCase');
 
-	const result = await repository.listProjectUpdates(caseId, page, pageSize, orderBy);
+	const result = await repository.listProjectUpdates({ caseId, page, pageSize, orderBy });
 	const formattedItems = result.items.map(mapProjectUpdate);
 
 	res.send({
@@ -53,8 +89,8 @@ export async function getProjectUpdate(req, res) {
 	logger.debug({ caseId, projectUpdateId }, 'getProjectUpdate');
 
 	const result = await repository.getProjectUpdate(projectUpdateId);
-	// don't allow invalid requests where the project update is for another case
-	if (result === null || result.caseId !== caseId) {
+	// don't allow invalid requests where the project update is for another case, if specified
+	if (result === null || (!isNaN(caseId) && result.caseId !== caseId)) {
 		res.status(404).send(NotFound);
 	} else {
 		res.send(mapProjectUpdate(result));

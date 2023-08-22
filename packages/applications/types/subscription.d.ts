@@ -1,5 +1,3 @@
-import { SubscriptionType } from '../../../message-schemas/events/nsip-subscription';
-
 /**
  * Subscription type used for the API responses and requests
  */
@@ -12,3 +10,10 @@ export interface Subscription {
 	endDate?: string;
 	language?: 'English' | 'Welsh' | string;
 }
+
+export type SubscriptionType =
+	| 'allUpdates'
+	| 'applicationSubmitted'
+	| 'applicationDecided'
+	| 'registrationOpen'
+	| string;

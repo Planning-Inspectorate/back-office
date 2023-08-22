@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "notifySubscribers",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "nsip-project-update",
+			"subscriptionName": "nsip-project-update-notify-subscribers-sub",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}

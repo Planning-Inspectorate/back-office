@@ -426,6 +426,22 @@ model ProjectUpdate {
   type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
 }
 
+// A log of notifications for project updates
+// this will include a line for each subscription that was notified of an update via email
+model ProjectUpdateNotificationLog {
+  id                   Int      @id @default(autoincrement())
+  // ID of the project update this entry relates to
+  projectUpdateId      Int
+  // ID of the subscription this entry relates to
+  subscriptionId       Int
+  // the date this notification was handled
+  entryDate            DateTime
+  // whether an email was successfully sent
+  emailSent            Boolean
+  // the ID of the Azure function run that handled this entry
+  functionInvocationId String
+}
+
 model DocumentActivityLog {
   id              Int             @id @default(autoincrement())
   documentGuid    String

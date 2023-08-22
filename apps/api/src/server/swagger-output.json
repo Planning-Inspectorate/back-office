@@ -1440,6 +1440,29 @@
 				}
 			}
 		},
+		"/document/{guid}/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of a single file",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/version/:version/properties": {
 			"get": {
 				"tags": ["Applications"],
@@ -1846,6 +1869,219 @@
 				}
 			}
 		},
+		"/applications/{id}/project-updates/{projectUpdateId}/notification-logs": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "List notification logs",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Notification logs",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogList"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogListBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Add notification logs",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Logs to create",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogCreateRequest"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Created",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"count": {
+									"type": "number",
+									"example": 1
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ProjectUpdateNotificationLogCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
+		"/applications/project-updates": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get project updates across applications",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "Filter by status",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "publishedBefore",
+						"in": "query",
+						"description": "Filter by published date",
+						"required": false,
+						"type": "string",
+						"format": "date-time"
+					},
+					{
+						"name": "sentToSubscribers",
+						"in": "query",
+						"description": "Filter by sent to subscribers",
+						"required": false,
+						"type": "boolean"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of project updates",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdates"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdatesListBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
+		"/applications/project-updates/{projectUpdateId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get a project update by ID",
+				"parameters": [
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"schema": {
+							"$ref": "#/definitions/NotFound"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/project-updates": {
 			"get": {
 				"tags": ["Applications"],
@@ -1885,6 +2121,12 @@
 						"description": "List of project updates",
 						"schema": {
 							"$ref": "#/definitions/ApplicationProjectUpdates"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdatesListBadRequest"
 						}
 					},
 					"500": {
@@ -2740,6 +2982,66 @@
 						"description": "Bad request",
 						"schema": {
 							"$ref": "#/definitions/SubscriptionCreateBadRequest"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
+		"/applications/subscriptions/list": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "List subscriptions based on criteria",
+				"parameters": [
+					{
+						"name": "caseReference",
+						"in": "query",
+						"description": "subscription caseReference",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "type",
+						"in": "query",
+						"description": "subscription type",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Subscription",
+						"schema": {
+							"$ref": "#/definitions/Subscriptions"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/SubscriptionsListBadRequest"
 						}
 					},
 					"500": {
@@ -3779,6 +4081,10 @@
 				"filter2": {
 					"type": "string",
 					"example": "Brochure"
+				},
+				"fromFrontOffice": {
+					"type": "boolean",
+					"example": true
 				}
 			}
 		},
@@ -6834,6 +7140,10 @@
 					"type": "string",
 					"enum": ["general", "applicationSubmitted", "applicationDecided", "registrationOpen"],
 					"description": "the type of update - which determines which subscribers will recieve the notification emails"
+				},
+				"sentToSubscribers": {
+					"type": "boolean",
+					"description": "Has this update been emailed to subscribers?"
 				}
 			}
 		},
@@ -6866,6 +7176,40 @@
 						"type": {
 							"type": "string",
 							"example": "type must be a string"
+						},
+						"sentToSubscribers": {
+							"type": "string",
+							"example": "sentToSubscribers must be a boolean"
+						}
+					}
+				}
+			}
+		},
+		"ApplicationProjectUpdatesListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"status": {
+							"type": "string",
+							"example": "status must be one of ..."
+						},
+						"sentToSubscribers": {
+							"type": "string",
+							"example": "sentToSubscribers must be a boolean"
+						},
+						"publishedBefore": {
+							"type": "string",
+							"example": "publishedBefore must be a valid date"
+						},
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
 						}
 					}
 				}
@@ -7207,6 +7551,178 @@
 						},
 						"unknown": {
 							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogList": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageSize": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"itemCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ProjectUpdateNotificationLog"
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
+						}
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLogCreateRequest": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ProjectUpdateNotificationLog"
+			}
+		},
+		"ProjectUpdateNotificationLogCreateBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"[*].projectUpdateId": {
+							"type": "string",
+							"example": "projectUpdateId is required"
+						},
+						"[*].subscriptionId": {
+							"type": "string",
+							"example": "subscriptionId is required"
+						},
+						"[*].entryDate": {
+							"type": "string",
+							"example": "entryDate is required"
+						},
+						"[*].emailSent": {
+							"type": "string",
+							"example": "emailSent must be a boolean"
+						},
+						"[*].functionInvocationId": {
+							"type": "string",
+							"example": "functionInvocationId must be a string"
+						}
+					}
+				}
+			}
+		},
+		"ProjectUpdateNotificationLog": {
+			"type": "object",
+			"requiredProperties": [
+				"projectUpdateId",
+				"subscriptionId",
+				"entryDate",
+				"emailSent",
+				"functionInvocationId"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"projectUpdateId": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"subscriptionId": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"entryDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "the date this notification was handled",
+					"example": "2022-12-21T12:42:40.885Z"
+				},
+				"emailSent": {
+					"type": "boolean",
+					"description": "whether an email was successfully sent"
+				},
+				"functionInvocationId": {
+					"type": "string",
+					"description": "the ID of the Azure function run that handled this entry"
+				}
+			}
+		},
+		"Subscriptions": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"pageSize": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"itemCount": {
+					"type": "integer",
+					"minimum": 0
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Subscription"
+					}
+				}
+			}
+		},
+		"SubscriptionsListBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"example": "type must be one of ..."
+						},
+						"caseReference": {
+							"type": "string",
+							"example": "must be a string"
+						},
+						"page": {
+							"type": "string",
+							"example": "page must be a number"
+						},
+						"pageSize": {
+							"type": "string",
+							"example": "pageSize must be a number"
 						}
 					}
 				}

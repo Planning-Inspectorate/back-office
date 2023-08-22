@@ -1,0 +1,26 @@
+{
+  "name": "@pins/applications.functions-notify-subscribers",
+  "version": "1.0.0",
+  "description": "Azure Function to notify email subscribers",
+  "type": "module",
+  "scripts": {
+    "start": "func start",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "run-local": "node notify-subscribers/run-local.js"
+  },
+  "dependencies": {
+    "@pins/applications": "^0.0.0",
+    "@pins/platform": "^0.0.0",
+    "docopt": "^0.6.2",
+    "dotenv": "*",
+    "got": "*",
+    "joi": "*",
+    "notifications-node-client": "^7.0.3",
+    "turndown": "^7.1.2"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x",
+    "cross-env": "*",
+    "jest": "*"
+  }
+}

@@ -149,7 +149,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                     <dd class="govuk-summary-list__value"><span>Not selected</span>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Visit type</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -384,7 +384,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                     <dd class="govuk-summary-list__value"><span>Not selected</span>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Visit type</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -621,7 +621,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                     <dd class="govuk-summary-list__value"><span>Not selected</span>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Visit type</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>
@@ -860,7 +860,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                     <dd class="govuk-summary-list__value"><span>Not selected</span>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Visit type</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Schedule<span class="govuk-visually-hidden"> site visit</span></a>
                                     </dd>
                                 </div>
                             </dl>

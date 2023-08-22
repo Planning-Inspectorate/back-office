@@ -295,7 +295,8 @@ describe('Get folder details', () => {
 					documentType: '',
 					filter1: null,
 					filter2: null,
-					examinationRefNo: ''
+					examinationRefNo: '',
+					fromFrontOffice: false
 				}
 			]
 		});

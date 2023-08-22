@@ -274,7 +274,9 @@ class MockPrismaClient {
 	subscription = {
 		create: jest.fn(),
 		update: jest.fn(),
-		findUnique: jest.fn()
+		count: jest.fn().mockResolvedValue(0),
+		findUnique: jest.fn(),
+		findMany: jest.fn().mockResolvedValue([])
 	};
 
 	projectUpdate = {
@@ -284,6 +286,12 @@ class MockPrismaClient {
 		count: jest.fn().mockResolvedValue(0),
 		findMany: jest.fn().mockResolvedValue([]),
 		findUnique: jest.fn()
+	};
+
+	projectUpdateNotificationLog = {
+		createMany: jest.fn(),
+		count: jest.fn().mockResolvedValue(0),
+		findMany: jest.fn().mockResolvedValue([])
 	};
 
 	// see https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api

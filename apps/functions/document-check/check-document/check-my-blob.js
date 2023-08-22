@@ -71,6 +71,7 @@ const deleteDocument = async (documentUri, log) => {
  * @param {import('@azure/functions').Logger} log
  * @param {string} blobUri
  * @param {import('node:stream').Readable} blobStream
+ * @returns {Promise<{ guid: string, isInfected: boolean }>}
  */
 export const checkMyBlob = async (log, blobUri, blobStream) => {
 	const { guid } = getBlobCaseReferenceAndGuid(blobUri);
@@ -92,4 +93,6 @@ export const checkMyBlob = async (log, blobUri, blobStream) => {
 
 	log.info('Sending AV result to back office');
 	await sendDocumentStateAction(guid, machineAction, log);
+
+	return { guid, isInfected };
 };

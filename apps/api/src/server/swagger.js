@@ -1,5 +1,35 @@
 import swaggerAutogen from 'swagger-autogen';
 
+/**
+ * Return the properties for a paged response, with an array of items
+ *
+ * @param {string} itemTypeRef
+ * @returns {Object<string,any>}
+ */
+function pagedResponseProperties(itemTypeRef) {
+	return {
+		page: { type: 'integer', minimum: 0 },
+		pageCount: { type: 'integer', minimum: 0 },
+		pageSize: { type: 'integer', minimum: 0 },
+		itemCount: { type: 'integer', minimum: 0 },
+		items: {
+			type: 'array',
+			items: { $ref: itemTypeRef }
+		}
+	};
+}
+
+const paginationErrors = {
+	page: {
+		type: 'string',
+		example: 'page must be a number'
+	},
+	pageSize: {
+		type: 'string',
+		example: 'pageSize must be a number'
+	}
+};
+
 const document = {
 	info: {
 		// by default: '1.0.0'
@@ -305,7 +335,8 @@ const document = {
 			size: 1024,
 			stage: 3,
 			filter1: 'Marketing',
-			filter2: 'Brochure'
+			filter2: 'Brochure',
+			fromFrontOffice: true
 		},
 		documentsMetadataResponseBody: {
 			version: 1,
@@ -1251,6 +1282,10 @@ const document = {
 					enum: ['general', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'],
 					description:
 						'the type of update - which determines which subscribers will recieve the notification emails'
+				},
+				sentToSubscribers: {
+					type: 'boolean',
+					description: 'Has this update been emailed to subscribers?'
 				}
 			}
 		},
@@ -1283,23 +1318,41 @@ const document = {
 						type: {
 							type: 'string',
 							example: 'type must be a string'
+						},
+						sentToSubscribers: {
+							type: 'string',
+							example: 'sentToSubscribers must be a boolean'
 						}
+					}
+				}
+			}
+		},
+		ApplicationProjectUpdatesListBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						status: {
+							type: 'string',
+							example: 'status must be one of ...'
+						},
+						sentToSubscribers: {
+							type: 'string',
+							example: 'sentToSubscribers must be a boolean'
+						},
+						publishedBefore: {
+							type: 'string',
+							example: 'publishedBefore must be a valid date'
+						},
+						...paginationErrors
 					}
 				}
 			}
 		},
 		ApplicationProjectUpdates: {
 			type: 'object',
-			properties: {
-				page: { type: 'integer', minimum: 0 },
-				pageCount: { type: 'integer', minimum: 0 },
-				pageSize: { type: 'integer', minimum: 0 },
-				itemCount: { type: 'integer', minimum: 0 },
-				items: {
-					type: 'array',
-					items: { $ref: '#/definitions/ApplicationProjectUpdate' }
-				}
-			}
+			properties: pagedResponseProperties('#/definitions/ApplicationProjectUpdate')
 		},
 		S51AdviceCreateRequestBody: {
 			type: 'object',
@@ -1561,6 +1614,105 @@ const document = {
 						unknown: {
 							type: 'string'
 						}
+					}
+				}
+			}
+		},
+		ProjectUpdateNotificationLogList: {
+			type: 'object',
+			properties: pagedResponseProperties('#/definitions/ProjectUpdateNotificationLog')
+		},
+		ProjectUpdateNotificationLogListBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: paginationErrors
+				}
+			}
+		},
+		ProjectUpdateNotificationLogCreateRequest: {
+			type: 'array',
+			items: { $ref: '#/definitions/ProjectUpdateNotificationLog' }
+		},
+		ProjectUpdateNotificationLogCreateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						'[*].projectUpdateId': {
+							type: 'string',
+							example: 'projectUpdateId is required'
+						},
+						'[*].subscriptionId': {
+							type: 'string',
+							example: 'subscriptionId is required'
+						},
+						'[*].entryDate': {
+							type: 'string',
+							example: 'entryDate is required'
+						},
+						'[*].emailSent': {
+							type: 'string',
+							example: 'emailSent must be a boolean'
+						},
+						'[*].functionInvocationId': {
+							type: 'string',
+							example: 'functionInvocationId must be a string'
+						}
+					}
+				}
+			}
+		},
+		ProjectUpdateNotificationLog: {
+			type: 'object',
+			requiredProperties: [
+				'projectUpdateId',
+				'subscriptionId',
+				'entryDate',
+				'emailSent',
+				'functionInvocationId'
+			],
+			properties: {
+				id: { type: 'integer', minimum: 0 },
+				projectUpdateId: { type: 'integer', minimum: 0 },
+				subscriptionId: { type: 'integer', minimum: 0 },
+				entryDate: {
+					type: 'string',
+					format: 'date-time',
+					description: 'the date this notification was handled',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				emailSent: {
+					type: 'boolean',
+					description: 'whether an email was successfully sent'
+				},
+				functionInvocationId: {
+					type: 'string',
+					description: 'the ID of the Azure function run that handled this entry'
+				}
+			}
+		},
+		Subscriptions: {
+			type: 'object',
+			properties: pagedResponseProperties('#/definitions/Subscription')
+		},
+		SubscriptionsListBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						type: {
+							type: 'string',
+							example: 'type must be one of ...'
+						},
+						caseReference: {
+							type: 'string',
+							example: 'must be a string'
+						},
+						...paginationErrors
 					}
 				}
 			}

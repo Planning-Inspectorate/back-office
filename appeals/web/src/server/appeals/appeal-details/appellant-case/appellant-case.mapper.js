@@ -129,7 +129,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 }
 
 /**
- * @typedef {Object} NotificationBannerComponentParameters
+ * @typedef {Object} NotificationBannerComponentParameters - TODO: replace with global GDS component parameter type when available
  * @property {string} [html]
  * @property {string} [text]
  * @property {string} [type]

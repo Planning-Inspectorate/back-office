@@ -1,4 +1,5 @@
 import { Folder } from '@pins/appeals/index.js';
+/** @typedef {import('./appeal-details.types').Appeal} Appeal */
 
 export interface CheckboxRadioConditionalHtmlParameter {
 	html?: string;
@@ -15,6 +16,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			currentFolder: Schema.Folder;
+			currentAppeal: Appeal;
 			apiClient: import('got').Got;
 		}
 	}

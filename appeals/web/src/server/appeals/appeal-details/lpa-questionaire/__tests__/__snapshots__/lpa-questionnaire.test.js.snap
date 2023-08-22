@@ -337,37 +337,36 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -855,37 +854,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -921,37 +919,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -987,37 +984,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1053,37 +1049,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1119,37 +1114,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1185,37 +1179,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1251,37 +1244,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1317,37 +1309,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1383,37 +1374,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1453,37 +1443,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>

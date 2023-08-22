@@ -18,6 +18,7 @@ import { sectorRoutes } from './sector/sector.routes.js';
 import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 import { subscriptionRoutes } from './subscriptions/subscriptions.routes.js';
 import { s51AdviceRoutes } from './s51advice/s51-advice.routes.js';
+import { projectUpdateNotificationLogsRoutes } from './application/project-updates/notification-logs/notification-logs.routes.js';
 
 const router = createRouter();
 
@@ -44,6 +45,10 @@ router.use('/', documentRoutes);
 router.use('/', fileFoldersRoutes);
 
 router.use('/', projectUpdateRoutes);
+// this would've been nested in the projectUpdateRoutes, but supertest didn't like that and would hang
+// even though the express app itself worked fine - the inner router would get unrelated requests, and they
+// wouldn't fallthrough to subsequent routers for handling/matching
+router.use('/', projectUpdateNotificationLogsRoutes);
 
 router.use('/', applicationRoutes);
 

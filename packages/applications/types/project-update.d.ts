@@ -31,3 +31,22 @@ export type ProjectUpdateType =
 	| 'applicationDecided'
 	| 'registrationOpen'
 	| string;
+
+/**
+ * Project update notificaiton log type returned by the API
+ */
+export interface ProjectUpdateNotificationLog {
+	id: number;
+	projectUpdateId: number;
+	subscriptionId: number;
+	entryDate: string;
+	emailSent: boolean;
+	functionInvocationId: string;
+}
+
+/**
+ * Type used for notification log create requests
+ */
+export interface ProjectUpdateNotificationLogCreateReq extends ProjectUpdateNotificationLog {
+	id?: number;
+}

@@ -3,6 +3,7 @@ import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
+import * as folderRepository from '../../../repositories/folder.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
 import logger from '../../../utils/logger.js';
@@ -205,6 +206,23 @@ export const updateDocuments = async ({ body }, response) => {
 
 	logger.info(`Updated ${documents.length} documents`);
 	response.send(formattedResponseList);
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ * */
+export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
+	const document = await documentRepository.getById(guid);
+	if (!document) {
+		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
+	}
+
+	const folders = await folderRepository.getFolderWithParents(document.folderId);
+
+	response.send(folders);
 };
 
 /**

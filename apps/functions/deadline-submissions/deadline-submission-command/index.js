@@ -1,8 +1,9 @@
-import { BlobStorageClient } from '@pins/blob-storage-client';
-import config from './config';
-import api from './back-office-api-client';
+import config from './config.js';
+import api from './back-office-api-client.js';
+import blob from './blob-client.js';
+import events from './event-client.js';
 
-const { storageUrl, submissionsContainer } = config;
+const { submissionsContainer } = config;
 
 /**
  *
@@ -27,18 +28,16 @@ export default async function (context, msg) {
 		return;
 	}
 
-	const client = BlobStorageClient.fromUrl(storageUrl);
-
 	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
-	const properties = await client.getBlobProperties(submissionsContainer, sourceBlobName);
+	const properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
 	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
 
 	const { privateBlobContainer, documents } = await api.submitDocument({
 		caseID,
 		documentName: msg.documentName,
-		documentType: properties.contentType ?? 'application/octet-stream',
-		documentSize: properties.contentLength ?? 0,
+		documentType: properties?.contentType ?? 'application/octet-stream',
+		documentSize: properties?.contentLength ?? 0,
 		folderID,
 		userEmail: msg.email
 	});
@@ -48,17 +47,23 @@ export default async function (context, msg) {
 		return;
 	}
 
-	const result = await client.copyFile({
-		sourceContainerName: submissionsContainer,
-		sourceBlobName,
-		destinationContainerName: privateBlobContainer,
-		destinationBlobName: documents[0].blobStoreUrl
-	});
+	const successful = await blob.copyFile(
+		{ containerName: submissionsContainer, blobName: sourceBlobName },
+		{ containerName: privateBlobContainer, blobName: documents[0].blobStoreUrl }
+	);
 
-	if (result !== 'success') {
-		// TODO: Publish failure message to service bus
-		context.log('Copying blob failed', result);
+	if (!successful) {
+		await events.publishFailureEvent(context, {
+			deadline: msg.deadline,
+			submissionType: msg.submissionType,
+			blobGuid: msg.blobGuid,
+			documentName: msg.documentName
+		});
 	}
 
-	context.log('Copied blob', result);
+	context.log(
+		successful
+			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store`
+			: `Failed to copy blob ${msg.blobGuid} from submissions to uploads store`
+	);
 }

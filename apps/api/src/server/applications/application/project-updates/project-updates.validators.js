@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
-import { body, param } from 'express-validator';
-import { validationErrorHandler } from '../../../middleware/error-handler.js';
+import { body, param, query } from 'express-validator';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 import sanitizeHtml from 'sanitize-html';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
@@ -12,6 +12,19 @@ const statusList = ProjectUpdate.StatusList.map((s) => `'${s}'`).join(', ');
 export const statusError = `status must be one of ${statusList}`;
 const typesList = ProjectUpdate.TypesList.map((t) => `'${t}'`).join(', ');
 export const typesError = `type must be one of ${typesList}`;
+
+export const validateProjectUpdateFilters = composeMiddleware(
+	query('status').optional().isIn(ProjectUpdate.StatusList).withMessage(statusError),
+	query('publishedBefore')
+		.optional()
+		.isISO8601({ strict: true, strictSeparator: true })
+		.withMessage(`publishedBefore must be a valid date`),
+	query('sentToSubscribers')
+		.optional()
+		.isBoolean()
+		.withMessage(`sentToSubscribers must be a boolean`),
+	validationErrorHandler
+);
 
 export const validateCreateProjectUpdate = composeMiddleware(
 	body('emailSubscribers')
@@ -68,6 +81,10 @@ export const validateUpdateProjectUpdate = composeMiddleware(
 		.withMessage('type must be a string')
 		.isIn(ProjectUpdate.TypesList)
 		.withMessage(typesError),
+	body('sentToSubscribers')
+		.optional()
+		.isBoolean()
+		.withMessage('sentToSubscribers must be a boolean'),
 	validationErrorHandler
 );
 
