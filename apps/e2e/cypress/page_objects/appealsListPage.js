@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { indexOf } from 'lodash';
 import { Page } from './basePage';
 
 export class AppealsListPage extends Page {
@@ -34,14 +35,40 @@ export class AppealsListPage extends Page {
 			.click();
 	}
 
+	clickReviewLpaq(position) {
+		this.clickAccordionByText('Case documentation');
+		this.basePageElements
+			.tableCell()
+			.eq(position - 2)
+			.find(this.selectors.link)
+			.click();
+	}
+
+	clickReviewAppellantCase(position) {
+		this.clickAccordionByText('Case documentation');
+		this.basePageElements
+			.tableCell()
+			.eq(position - 2)
+			.find(this.selectors.link)
+			.click();
+	}
+
 	nationalListSearch(text) {
 		this.fillInput(text);
 		this.clickButtonByText('Search');
 	}
 
-	selectAppellantCaseOutcome(outcome) {
-		this.clickAccordionByText('case documentation');
-		this.clickLinkByText('Review');
+	selectAppellantOutcome(outcome) {
+		this.clickAccordionByText('Case documentation');
+		cy.contains(this.selectors.tableHeader, 'Appellant case');
+		this.clickAppealFromList(2);
+		this.selectRadioButtonByValue(outcome);
+	}
+
+	selectLpaqOutcome(outcome) {
+		this.clickAccordionByText('Case documentation');
+		cy.contains(this.selectors.tableHeader, 'LPA Questionnaire');
+		this.clickAppealFromList(3);
 		this.selectRadioButtonByValue(outcome);
 	}
 }

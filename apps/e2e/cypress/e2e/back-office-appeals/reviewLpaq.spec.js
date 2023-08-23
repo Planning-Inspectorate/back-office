@@ -12,37 +12,22 @@ describe('Appeals feature', () => {
 		cy.login(users.appeals.caseAdmin);
 	});
 
-	it('Validate appellant case', () => {
+	it('Complete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(2);
-		appealsListPage.clickReviewAppellantCase(4);
-		appealsListPage.selectRadioButtonByValue('Valid');
+		appealsListPage.clickAppealFromList(15);
+		appealsListPage.clickReviewLpaq(7);
+		appealsListPage.selectRadioButtonByValue('Complete');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.clickLinkByText('Go to case details');
-		const status = 'Valid';
-		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
+		appealsListPage.clickLinkByText('Go back to case details');
+		const status = 'Complete';
+		const testData = { rowIndex: 1, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it('Invalidate appellant case', () => {
-		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(2);
-		appealsListPage.clickReviewAppellantCase(4);
-		appealsListPage.selectRadioButtonByValue('Invalid');
-		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(1);
-		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.clickButtonByText('Confirm');
-		appealsListPage.clickLinkByText('Go to case details');
-		const status = 'Invalid';
-		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
-		appealsListPage.verifyTableCellText(testData);
-	});
-
-	it('incomplete appellant case', () => {
+	it('incomplete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
-		appealsListPage.clickReviewAppellantCase(4);
+		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.chooseCheckboxByIndex(1);
@@ -54,17 +39,17 @@ describe('Appeals feature', () => {
 		appealsListPage.clickButtonByText('Confirm');
 		appealsListPage.clickLinkByText('Go to case details');
 		const status = 'Incomplete';
-		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
+		const testData = { rowIndex: 1, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it('incomplete appellant case reason: other', () => {
+	it('incomplete LPAQ reason: other', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
-		appealsListPage.clickReviewAppellantCase(4);
+		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(7);
+		appealsListPage.chooseCheckboxByIndex(2);
 		appealsListPage.fillTextArea('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		updateDueDatePage.enterDateDay('29');
@@ -74,14 +59,14 @@ describe('Appeals feature', () => {
 		appealsListPage.clickButtonByText('Confirm');
 		appealsListPage.clickLinkByText('Go to case details');
 		const status = 'Incomplete';
-		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
+		const testData = { rowIndex: 1, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it.only('incomplete appellant case skip due date', () => {
+	it('incomplete LPAQ skip due date', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
-		appealsListPage.clickReviewAppellantCase(4);
+		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.chooseCheckboxByIndex(1);
@@ -90,7 +75,7 @@ describe('Appeals feature', () => {
 		appealsListPage.clickButtonByText('Confirm');
 		appealsListPage.clickLinkByText('Go to case details');
 		const status = 'Incomplete';
-		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
+		const testData = { rowIndex: 1, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
 	});
 });
