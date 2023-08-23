@@ -1,0 +1,12 @@
+//@use "../../../../../node_modules/@toast-ui/editor/dist/toastui-editor.css";
+@use "../@toast-ui/editor/dist/toastui-editor.css";
+
+.toastui-editor-toolbar-icons {
+    // override inline base64 image - to satisfy CSP
+    background: url('/images/toastui-icons.png') no-repeat;
+}
+
+.toastui-editor-toolbar-icons {
+    // this is in the module, but get's overridden somehow
+    background-position-y: 3px;
+}

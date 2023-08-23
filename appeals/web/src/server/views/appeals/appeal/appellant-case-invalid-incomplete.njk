@@ -4,6 +4,9 @@
 {%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
+{# BOAT-452 #}
+{% from "applications/components/html-content-editor.njk" import htmlContentEditor %}
+
 {%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
@@ -11,7 +14,20 @@
 {%- endset -%}
 
 {%- set otherReasonTextareaHtml -%}
-	{{ govukTextarea({
+	{{ htmlContentEditor({
+		id: 'otherReason',
+		name: 'otherReason',
+		value: 'this is a test value for the html content editor',
+		characterCount: true,
+		characterCountWarning: true,
+		characterCountWarningLimit: 255,
+		characterCountWarningMessage: 'test character count warning message (above 255)',
+		label: {
+			text: 'label text'
+		},
+		errorMessage: 'error message'
+	}) }}
+	{# {{ govukTextarea({
 		name: "otherReason",
 		label: {
 			text: "List any other reasons",
@@ -22,7 +38,7 @@
 			text: "Try to organise your list"
 		},
 		value: otherReason if otherReason else ''
-	}) }}
+	}) }} #}
 {%- endset -%}
 
 {%- block pageHeading -%}

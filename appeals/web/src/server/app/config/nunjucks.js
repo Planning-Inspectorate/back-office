@@ -10,7 +10,11 @@ const require = createRequire(import.meta.url);
 const govukFrontendRoot = path.resolve(require.resolve('govuk-frontend'), '../..');
 
 const nunjucksEnvironments = nunjucks.configure(
-	[govukFrontendRoot, path.join(dirname, '../../views')],
+	[
+		govukFrontendRoot,
+		path.join(dirname, '../../views'),
+		path.join(dirname, '../../../../../../apps/web/src/server/views')
+	], // BOAT-452 - importing applications views requires applications views dir to be configured
 	{
 		// output with dangerous characters are escaped automatically
 		autoescape: true,

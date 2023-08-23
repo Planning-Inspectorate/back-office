@@ -8,12 +8,16 @@ import initFilesListModule from './components/files-list/files-list.module.js';
 import initSelectAllCheckbox from './components/select-all-checkbox/select-all-checkbox.js';
 import initFileUploaderModule from './components/file-uploader/file-uploader.module.js';
 
+// BOAT-452
+import initHtmlContentEditor from '../../../../apps/web/src/client/components/html-content-editor/html-content-editor.js';
+
 const initAll = () => {
 	initGovUKScripts();
 	initExcerpt();
 	initFilesListModule();
 	initSelectAllCheckbox();
 	initFileUploaderModule();
+	initHtmlContentEditor();
 };
 
 initAll();

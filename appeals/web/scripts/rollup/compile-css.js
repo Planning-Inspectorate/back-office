@@ -38,7 +38,9 @@ function compileCSS(input) {
 			// "../name_of_the_module/path-to-the-actual-scss
 			// there must be a way to get rid of the initial '../'
 			path.resolve(require.resolve('govuk-frontend'), '../..'),
-			path.resolve(require.resolve('accessible-autocomplete'), '../..')
+			path.resolve(require.resolve('accessible-autocomplete'), '../..'),
+			// BOAT-452
+			path.resolve(require.resolve('@toast-ui/editor'), '../..')
 		]
 	};
 

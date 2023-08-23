@@ -12,7 +12,7 @@
     "build:release": "cross-env NODE_ENV=production APP_RELEASE=true npm-run-all --silent sass rollup",
     "clean": "rimraf .tmp .turbo node_modules dist",
     "clean:dev": "rimraf dist src/server/static/scripts src/server/static/styles",
-		"dev": "cross-env NODE_ENV=local npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
+    "dev": "cross-env NODE_ENV=local npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
     "lint:js": "npx eslint .",
     "lint:js:fix": "npx eslint . --fix",
     "nodemon": "nodemon --config ./nodemon.json ./src/server/server.js",
@@ -34,6 +34,7 @@
     "@hapi/boom": "10.0.0",
     "@pins/blob-storage-client": "^0.0.0",
     "@planning-inspectorate/address-lookup": "^1.0.6",
+    "@toast-ui/editor": "^3.2.2",
     "accessible-autocomplete": "2.0.4",
     "body-parser": "1.20.0",
     "classnames": "^2.3.1",
@@ -123,12 +124,11 @@
     "supertest": "^6.2.3",
     "terser": "^5.13.1"
   },
-
-	"imports": {
+  "imports": {
     "#environment/*": "./environment/*",
     "#app/*": "./src/server/app/*",
     "#appeals/*": "./src/server/appeals/*",
-		"#lib/*": "./src/server/lib/*",
+    "#lib/*": "./src/server/lib/*",
     "#testing/*": "./testing/*"
   }
 }
