@@ -3,6 +3,7 @@
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "../../app/components/add-another.njk" import addAnother -%}
 
 {%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
 
@@ -11,7 +12,8 @@
 {%- endset -%}
 
 {%- set otherReasonTextareaHtml -%}
-	{{ govukTextarea({
+	{{ addAnother() }}
+	{# {{ govukTextarea({
 		name: "otherReason",
 		label: {
 			text: "List any other reasons",
@@ -22,7 +24,7 @@
 			text: "Try to organise your list"
 		},
 		value: otherReason if otherReason else ''
-	}) }}
+	}) }} #}
 {%- endset -%}
 
 {%- block pageHeading -%}

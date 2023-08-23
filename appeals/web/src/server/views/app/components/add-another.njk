@@ -1,0 +1,22 @@
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- macro addAnother(params) -%}
+	<div class="pins-add-another">
+		<p>Test "add another" component</p>
+		<div class="pins-add-another__item">
+			{{ govukInput({
+				label: {
+					text: 'item label'
+				},
+				classes: 'govuk-!-margin-bottom-3',
+				name: 'test-item-name'
+			}) }}
+		</div>
+		{{ govukButton({
+			type: 'button',
+			text: 'Add another item',
+			classes: 'pins-add-another__button govuk-!-margin-top-6'
+		}) }}
+	</div>
+{%- endmacro -%}
