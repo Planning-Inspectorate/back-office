@@ -520,11 +520,11 @@ export const deleteApplicationRepresentationAttachment = async (attachmentId) =>
  * @param {object}action
  * @returns {Promise<*>}
  */
-export const updateApplicationRepresentationStatus = async (repId, action) => {
+export const updateApplicationRepresentationStatusById = async (repId, action) => {
 	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
 
 	const updateRepStatus = databaseConnector.representation.update({
-		where: { id: repId },
+		where: { id: representation.id },
 		data: {
 			status: action.status
 		}
@@ -532,7 +532,7 @@ export const updateApplicationRepresentationStatus = async (repId, action) => {
 
 	const addAction = databaseConnector.representationAction.create({
 		data: {
-			representationId: repId,
+			representationId: representation.id,
 			previousStatus: representation.status,
 			...action,
 			actionDate: new Date()
@@ -542,6 +542,56 @@ export const updateApplicationRepresentationStatus = async (repId, action) => {
 	const [rep] = await databaseConnector.$transaction([updateRepStatus, addAction]);
 
 	return rep;
+};
+
+/**
+ * Sets representations as 'published' - set status to PUBLISHED for representations that are newly published,
+ * and for representations that have previously been PUBLISHED, set unpublishedUpdates to false
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing publish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsPublished = async (representations, actionBy) => {
+	const transactionItems = [];
+	representations
+		.filter((rep) => rep.status === 'VALID')
+		.forEach((representation) => {
+			transactionItems.push(
+				databaseConnector.representation.update({
+					where: { id: representation.id },
+					data: {
+						status: 'PUBLISHED'
+					}
+				})
+			);
+			transactionItems.push(
+				databaseConnector.representationAction.create({
+					data: {
+						representationId: representation.id,
+						previousStatus: representation.status,
+						type: 'STATUS',
+						status: 'PUBLISHED',
+						actionBy: actionBy,
+						actionDate: new Date()
+					}
+				})
+			);
+		});
+
+	transactionItems.push(
+		databaseConnector.representation.updateMany({
+			where: {
+				id: {
+					in: representations.filter((rep) => rep.status === 'PUBLISHED').map((rep) => rep.id)
+				}
+			},
+			data: {
+				unpublishedUpdates: false
+			}
+		})
+	);
+
+	await databaseConnector.$transaction(transactionItems);
 };
 
 /**
@@ -578,6 +628,29 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 					}
 				}
 			}
+		}
+	});
+};
+
+/**
+ * Returns 'publishable' representations - those where status is VALID, or status is PUBLISHED and unpublishedUpdates is true
+ * @param {number} caseId
+ * @param {number[]} representationIds
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getPublishableRepresentationsById = async (caseId, representationIds) => {
+	return databaseConnector.representation.findMany({
+		where: {
+			caseId,
+			id: { in: representationIds },
+			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+		},
+		include: {
+			user: true,
+			attachments: true,
+			case: true,
+			contacts: true,
+			representationActions: true
 		}
 	});
 };
