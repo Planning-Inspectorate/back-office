@@ -6,7 +6,7 @@
 	"required": ["representation", "interestedParty"],
 	"properties": {
 		"representation": {
-			"$ref": "representation.schema.json"
+			"$ref": "nsip-representation.schema.json"
 		},
 		"interestedParty": {
 			"$ref": "service-user.schema.json"
