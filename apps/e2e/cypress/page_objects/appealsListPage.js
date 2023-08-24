@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { indexOf } from 'lodash';
+
 import { Page } from './basePage';
 
 export class AppealsListPage extends Page {
