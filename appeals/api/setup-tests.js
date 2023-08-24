@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
+import config from '#config/config.js';
+import { NODE_ENV_PRODUCTION } from '#endpoints/constants.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
@@ -489,5 +491,19 @@ jest.unstable_mockModule('got', () => ({
 jest.unstable_mockModule('notifications-node-client', () => ({
 	NotifyClient: class {
 		sendEmail = mockSendEmail;
+	}
+}));
+
+jest.unstable_mockModule('./src/server/config/config.js', () => ({
+	default: {
+		...config,
+		NODE_ENV: NODE_ENV_PRODUCTION,
+		govNotify: {
+			...config.govNotify,
+			testMailbox: '',
+			api: {
+				key: 'gov-notify-api-key-123'
+			}
+		}
 	}
 }));
