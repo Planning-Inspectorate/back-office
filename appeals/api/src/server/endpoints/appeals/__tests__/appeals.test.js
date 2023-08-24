@@ -15,7 +15,7 @@ import {
 	linkedAppeals,
 	otherAppeals
 } from '#tests/data.js';
-import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
+import formatAddress from '#utils/format-address.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -458,9 +458,9 @@ describe('appeals routes', () => {
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
-						contacts: formatNeighbouringSiteContacts(
-							householdAppeal.lpaQuestionnaire.neighbouringSiteContact
-						),
+						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
+							address: formatAddress(contact.address)
+						})),
 						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
 					otherAppeals: [
@@ -553,8 +553,10 @@ describe('appeals routes', () => {
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
-						contacts: formatNeighbouringSiteContacts(
-							fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact
+						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(
+							(contact) => ({
+								address: formatAddress(contact.address)
+							})
 						),
 						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},

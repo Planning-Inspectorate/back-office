@@ -19,7 +19,7 @@ const { value, error } = schema.validate({
 	storageUrl: environment.BLOB_STORAGE_URL,
 	submissionsContainer: environment.SUBMISSIONS_BLOB_CONTAINER_NAME,
 	uploadsContainer: environment.UPLOADS_BLOB_CONTAINER_NAME,
-	serviceBusHost: environment.SERVICE_BUS_HOST,
+	serviceBusHost: environment.SERVICE_BUS_HOSTNAME,
 	serviceBusTopic: environment.SERVICE_BUS_TOPIC
 });
 

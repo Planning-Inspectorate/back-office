@@ -2,9 +2,9 @@
 	"bindings": [
 		{
 			"name": "readDeadlineSubmission",
-			"type": "serviceBus",
-			"direction": "out",
-			"topicName": "deadline-submission",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "deadline-submission-topic",
 			"subscriptionName": "deadline-submission-subscription",
 			"connection": "ServiceBusConnection"
 		}
