@@ -9,7 +9,7 @@ import config from './config.js';
  * */
 async function getCaseID(caseReference) {
 	const response = await got.get(
-		`https://${config.API_HOST}/applications?reference=${caseReference}`
+		`https://${config.apiHost}/applications?reference=${caseReference}`
 	);
 	if (!response.ok) {
 		return null;
@@ -31,7 +31,7 @@ async function submitDocument({
 	userEmail
 }) {
 	return await got
-		.post(`https://${config.API_HOST}/applications/${caseID}/documents`, {
+		.post(`https://${config.apiHost}/applications/${caseID}/documents`, {
 			json: [
 				{
 					documentName,
@@ -54,7 +54,7 @@ async function submitDocument({
  * */
 async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
-	const folders = await got.get(`https://${config.API_HOST}/applications/${caseID}/folders`).json();
+	const folders = await got.get(`https://${config.apiHost}/applications/${caseID}/folders`).json();
 
 	const folder = folders.find((f) => f.displayNameEn === timetableItemName);
 	if (!folder) {
@@ -63,7 +63,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 
 	/** @type {FolderJSON[]} */
 	const subfolders = await got
-		.get(`https://${config.API_HOST}/applications/${caseID}/folders/${folder.id}/sub-folders`)
+		.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
 		.json();
 	const subfolder = subfolders.find((f) => f.displayNameEn === lineItem);
 	if (!subfolder) {
@@ -82,7 +82,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
  * */
 async function lineItemExists(caseID, timetableItemName, lineItem) {
 	const response = await got.get(
-		`https://${config.API_HOST}/applications/examination-timetable-items/case/${caseID}`
+		`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`
 	);
 	if (!response.ok) {
 		return false;
