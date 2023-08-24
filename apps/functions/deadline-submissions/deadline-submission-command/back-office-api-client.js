@@ -13,7 +13,7 @@ async function getCaseID(caseReference) {
 			.get(`https://${config.apiHost}/applications?reference=${caseReference}`)
 			.json();
 
-    return result.id;
+		return result.id;
 	} catch (err) {
 		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`);
 	}
@@ -99,7 +99,8 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
  * @returns {Promise<boolean>}
  * */
 async function lineItemExists(caseID, timetableItemName, lineItem) {
-	const response = await (async () => {
+	/** @type {{ name: string, description: string }[]} */
+	const results = await (async () => {
 		try {
 			return await got
 				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
@@ -109,10 +110,7 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 		}
 	})();
 
-	/** @type {{ name: string, description: string }[]} */
-	const timetableItems = JSON.parse(response.body);
-
-	const timetableItem = timetableItems.find((item) => item.name === timetableItemName);
+	const timetableItem = results.find((item) => item.name === timetableItemName);
 	if (!timetableItem) {
 		return false;
 	}
