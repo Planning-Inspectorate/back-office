@@ -57,7 +57,7 @@ const { value, error } = schema.validate({
 				id: '3b4b74b4-b604-411b-9c98-5be2c6f3bdfd'
 			}
 		},
-		testMailbox: environment.TEST_MAILBOX || 'appellant@example.com'
+		testMailbox: environment.TEST_MAILBOX
 	},
 	bankHolidayFeed: {
 		hostname: 'https://www.gov.uk/bank-holidays.json'

@@ -72,6 +72,8 @@ export const MAX_LENGTH_8 = 8;
 export const MAX_LENGTH_300 = 300;
 export const MAX_LENGTH_4000 = 4000;
 
+export const NODE_ENV_PRODUCTION = 'production';
+
 export const STATE_TARGET_ARRANGE_SITE_VISIT = 'arrange_site_visit';
 export const STATE_TARGET_COMPLETE = 'complete';
 export const STATE_TARGET_FINAL_COMMENT_REVIEW = 'final_comment_review';

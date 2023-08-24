@@ -55,8 +55,6 @@ const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMA
 const notifyClient = new NotifyClient();
 
 describe('appellant cases routes', () => {
-	config.govNotify.api.key = 'gov-notify-api-key-123';
-
 	afterEach(() => {
 		jest.resetAllMocks();
 		jest.useRealTimers();
