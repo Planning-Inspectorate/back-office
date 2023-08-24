@@ -57,9 +57,7 @@ router.get(
             schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
         }
     */
-	validateApplicationId,
 	validateGetApplicationQuery,
-	trimUnexpectedRequestParameters,
 	asyncHandler(queryApplications)
 );
 

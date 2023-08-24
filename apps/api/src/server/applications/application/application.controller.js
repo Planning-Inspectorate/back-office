@@ -4,6 +4,7 @@ import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import logger from '../../utils/logger.js';
+import BackOfficeAppError from '../../utils/app-error.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 import { buildNsipProjectPayload } from './application.js';
@@ -95,15 +96,14 @@ export const getApplicationDetails = async ({ params, query }, response) => {
  * */
 export const queryApplications = async ({ query }, response) => {
 	if (!query.reference) {
-		response.end(404);
-    return;
+		throw new BackOfficeAppError('no `reference` query string was given', 400);
 	}
 
 	const application = await getCaseByRef(String(query.reference));
-  if (!application) {
-    response.end(404);
-    return;
-  }
+	if (!application) {
+		response.end(404);
+		return;
+	}
 
 	response.send(application);
 };
