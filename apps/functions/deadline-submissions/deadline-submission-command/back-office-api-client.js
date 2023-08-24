@@ -8,14 +8,15 @@ import config from './config.js';
  * @returns {Promise<number | null>}
  * */
 async function getCaseID(caseReference) {
-	const response = await got.get(
-		`https://${config.apiHost}/applications?reference=${caseReference}`
-	);
-	if (!response.ok) {
-		return null;
-	}
+	try {
+		const result = await got
+			.get(`https://${config.apiHost}/applications?reference=${caseReference}`)
+			.json();
 
-	return JSON.parse(response.body).id;
+    return result.id;
+	} catch (err) {
+		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`);
+	}
 }
 
 /**
@@ -30,19 +31,23 @@ async function submitDocument({
 	folderID,
 	userEmail
 }) {
-	return await got
-		.post(`https://${config.apiHost}/applications/${caseID}/documents`, {
-			json: [
-				{
-					documentName,
-					documentType,
-					documentSize,
-					folderId: folderID,
-					username: userEmail
-				}
-			]
-		})
-		.json();
+	try {
+		return await got
+			.post(`https://${config.apiHost}/applications/${caseID}/documents`, {
+				json: [
+					{
+						documentName,
+						documentType,
+						documentSize,
+						folderId: folderID,
+						username: userEmail
+					}
+				]
+			})
+			.json();
+	} catch (err) {
+		throw new Error(`submitDocument failed for case ID ${caseID} with error: ${err}`);
+	}
 }
 
 /**
@@ -54,7 +59,13 @@ async function submitDocument({
  * */
 async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
-	const folders = await got.get(`https://${config.apiHost}/applications/${caseID}/folders`).json();
+	const folders = await (async () => {
+		try {
+			return await got.get(`https://${config.apiHost}/applications/${caseID}/folders`).json();
+		} catch (err) {
+			throw new Error(`fetching folders failed for case ID ${caseID} with error: ${err}`);
+		}
+	})();
 
 	const folder = folders.find((f) => f.displayNameEn === timetableItemName);
 	if (!folder) {
@@ -62,9 +73,16 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 	}
 
 	/** @type {FolderJSON[]} */
-	const subfolders = await got
-		.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
-		.json();
+	const subfolders = await (async () => {
+		try {
+			return await got
+				.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
+				.json();
+		} catch (err) {
+			throw new Error(`fetching subfolders failed for folder ID ${folder.id} with error: ${err}`);
+		}
+	})();
+
 	const subfolder = subfolders.find((f) => f.displayNameEn === lineItem);
 	if (!subfolder) {
 		throw new Error(`No folder found with name '${lineItem}'`);
@@ -81,12 +99,15 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
  * @returns {Promise<boolean>}
  * */
 async function lineItemExists(caseID, timetableItemName, lineItem) {
-	const response = await got.get(
-		`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`
-	);
-	if (!response.ok) {
-		return false;
-	}
+	const response = await (async () => {
+		try {
+			return await got
+				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
+				.json();
+		} catch (err) {
+			throw new Error(`fetching examinatino timetable items failed for case ID ${caseID}: ${err}`);
+		}
+	})();
 
 	/** @type {{ name: string, description: string }[]} */
 	const timetableItems = JSON.parse(response.body);
