@@ -99,7 +99,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
  * @returns {Promise<boolean>}
  * */
 async function lineItemExists(caseID, timetableItemName, lineItem) {
-	/** @type {{ name: string, description: string }[]} */
+	/** @type {{ items: { name: string, description: string }[] }} */
 	const results = await (async () => {
 		try {
 			return await got
@@ -110,7 +110,7 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 		}
 	})();
 
-	const timetableItem = results.find((item) => item.name === timetableItemName);
+	const timetableItem = results.items.find((item) => item.name === timetableItemName);
 	if (!timetableItem) {
 		return false;
 	}
