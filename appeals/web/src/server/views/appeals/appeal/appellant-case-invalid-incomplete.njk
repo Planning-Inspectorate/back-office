@@ -3,6 +3,7 @@
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
 {%- from "../../app/components/add-another.njk" import addAnother -%}
 
 {%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
@@ -11,20 +12,25 @@
 	/appeals-service/appeal-details/{{ appeal.id }}/appellant-case
 {%- endset -%}
 
-{%- set otherReasonTextareaHtml -%}
-	{{ addAnother() }}
-	{# {{ govukTextarea({
-		name: "otherReason",
-		label: {
-			text: "List any other reasons",
-			classes: "govuk-label--s",
-			isPageHeading: false
-		},
-		hint: {
-			text: "Try to organise your list"
-		},
-		value: otherReason if otherReason else ''
-	}) }} #}
+{%- set otherReasonHtml -%}
+	{%- set otherReasonItems = [] -%}
+	{%- if otherReason -%}
+		{%- for reason in otherReason -%}
+			{%- set _ = otherReasonItems.push(govukInput({
+				classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input',
+				name: 'otherReason',
+				value: reason
+			})) -%}
+		{%- endfor -%}
+	{%- else -%}
+		{%- set _ = otherReasonItems.push(govukInput({
+			classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input',
+			name: 'otherReason'
+		})) -%}
+	{%- endif -%}
+	{{ addAnother({
+		items: otherReasonItems
+	}) }}
 {%- endset -%}
 
 {%- block pageHeading -%}
@@ -40,7 +46,7 @@
 	<form method="post" novalidate="novalidate">
 		{{ govukCheckboxes({
 			name: notValidStatus + "Reason",
-			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
+			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonHtml)
 		}) }}
 		{{ govukButton({
 			text: "Continue",

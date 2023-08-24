@@ -9,11 +9,11 @@ router
 	.get(controller.getInvalidReason)
 	.post(
 		(req, res, next) => {
-			//const sdkgflgj = 0;
+			console.log('req.body:');
+			console.log(JSON.stringify(req.body));
 			next();
 		},
 		validators.validateInvalidReason,
-		validators.validateTextArea,
 		controller.postInvalidReason
 	);
 

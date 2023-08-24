@@ -6,16 +6,25 @@ const CLASSES = {
 const SELECTORS = {
 	container: '.pins-add-another',
 	item: '.pins-add-another__item',
+	itemInput: '.pins-add-another__item-input',
 	addButton: '.pins-add-another__button',
 	removeButton: `.${CLASSES.removeButton}`
 };
 
-function resetItem(element) {
+function resetElement(element) {
 	if (element.type === 'checkbox' || element.type === 'radio') {
 		element.checked = false;
 	} else {
 		element.value = '';
 	}
+}
+
+function resetItem(element) {
+	resetElement(element);
+
+	element
+		.querySelectorAll(SELECTORS.itemInput)
+		.forEach((childElement) => resetElement(childElement));
 }
 
 function addRemoveButton(element) {
@@ -28,6 +37,10 @@ function addRemoveButton(element) {
 	removeButton.classList.add(CLASSES.removeButton);
 
 	element.appendChild(removeButton);
+}
+
+function removeRemoveButtons(element) {
+	element.querySelectorAll(SELECTORS.removeButton).forEach((button) => button.remove());
 }
 
 function bindItemEvents(item) {
@@ -49,14 +62,37 @@ function addAnotherItem(componentInstance) {
 
 	const newItem = items[0].cloneNode(true);
 
-	resetItem(newItem);
 	addRemoveButton(newItem);
+	resetItem(newItem);
 
 	items[items.length - 1].after(newItem);
 
 	items = getItems(componentInstance);
 
 	bindItemEvents(items[items.length - 1]);
+}
+
+function initItems(componentInstance) {
+	let items = getItems(componentInstance);
+	items.forEach((item, index) => {
+		if (index > 0) {
+			removeRemoveButtons(item);
+			addRemoveButton(item);
+			bindItemEvents(item);
+		}
+	});
+}
+
+function initEvents(componentInstance) {
+	const addButton = componentInstance.querySelector(SELECTORS.addButton);
+
+	if (!addButton) {
+		return;
+	}
+
+	addButton.addEventListener('click', () => {
+		addAnotherItem(componentInstance);
+	});
 }
 
 const initAddAnother = () => {
@@ -68,15 +104,8 @@ const initAddAnother = () => {
 	}
 
 	componentInstances.forEach((componentInstance) => {
-		const addButton = componentInstance.querySelector(SELECTORS.addButton);
-
-		if (!addButton) {
-			return;
-		}
-
-		addButton.addEventListener('click', () => {
-			addAnotherItem(componentInstance);
-		});
+		initItems(componentInstance);
+		initEvents(componentInstance);
 	});
 };
 

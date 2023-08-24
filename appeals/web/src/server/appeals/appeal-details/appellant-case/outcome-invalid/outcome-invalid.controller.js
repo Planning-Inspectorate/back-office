@@ -123,7 +123,9 @@ export const postInvalidReason = async (request, response) => {
 			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.invalid,
 			invalidOrIncompleteReasons: request.body.invalidReason,
-			otherNotValidReasons: request.body.otherReason
+			otherNotValidReasons: Array.isArray(request.body.otherReason)
+				? request.body.otherReason
+				: [request.body.otherReason]
 		};
 
 		return response.redirect(

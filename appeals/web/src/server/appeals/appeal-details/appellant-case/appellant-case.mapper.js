@@ -14,7 +14,6 @@ import { mapFolder } from '#appeals/appeal-documents/appeal-documents.mapper.js'
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
  * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} HtmlTagType
  * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
- * MappedFolderForListBuilder
  */
 
 /**
@@ -36,7 +35,7 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData, per
  *
  * @param {AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {string} [otherNotValidReasons]
+ * @param {string[]} [otherNotValidReasons]
  * @returns {string[]}
  */
 function mapInvalidOrIncompleteReasonsToReasonsList(
@@ -58,7 +57,9 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
 					throw new Error('invalid or incomplete reason ID was not recognised');
 				}
 				const name = option.name;
-				return name.toLowerCase() === 'other' ? `${name}: ${otherNotValidReasons || ''}` : name;
+				return name.toLowerCase() === 'other'
+					? `${name}: ${otherNotValidReasons?.join('; ') || ''}`
+					: name;
 			}) || ['']
 	);
 }
@@ -69,7 +70,7 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
  * @param {AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {string} [otherNotValidReasons]
+ * @param {string[]} [otherNotValidReasons]
  * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */

@@ -1,6 +1,5 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { createTextareaValidator } from '../../../../lib/validators/textarea-validator.js';
 
 export const validateInvalidReason = createValidator(
 	body('invalidReason')
@@ -22,11 +21,7 @@ export const validateInvalidReason = createValidator(
 		.notEmpty()
 		.withMessage('If selecting "Other", you must provide details in the text box')
 		.bail()
-		.isString()
-		.withMessage('something went wrong')
-);
-
-export const validateTextArea = createTextareaValidator(
-	'otherReason',
-	'Text in "List any other reasons" must not exceed {{maximumCharacters}} characters'
+	// BOAT-452: uncomment lines below to demonstrate addAnother component re-populating existing items and values from request.body on re-rendering page in error state
+	// .isString()
+	// .withMessage('otherReason is not a string')
 );
