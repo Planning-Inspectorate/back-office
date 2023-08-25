@@ -63,7 +63,7 @@ export default async function (context, msg) {
 
 	context.log(
 		successful
-			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store`
+			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store with name ${documents[0].blobStoreUrl}`
 			: `Failed to copy blob ${msg.blobGuid} from submissions to uploads store`
 	);
 }
