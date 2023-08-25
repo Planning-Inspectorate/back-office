@@ -1694,6 +1694,43 @@ const document = {
 				}
 			}
 		},
+		RepresentationSummary: {
+			type: 'object',
+			properties: {
+				id: {
+					type: 'number',
+					example: 1
+				},
+				reference: {
+					type: 'string',
+					example: 'BC0110001-2'
+				},
+				status: {
+					type: 'string',
+					example: 'VALID'
+				},
+				redacted: {
+					type: 'boolean',
+					example: true
+				},
+				received: {
+					type: 'string',
+					example: '2023-03-14T14:28:25.704Z'
+				},
+				firstName: {
+					type: 'string',
+					example: 'James'
+				},
+				lastName: {
+					type: 'string',
+					example: 'Bond'
+				},
+				organisationName: {
+					type: 'string',
+					example: 'MI6'
+				}
+			}
+		},
 		Subscriptions: {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/Subscription')
