@@ -47,9 +47,12 @@ export default async function (context, msg) {
 		return;
 	}
 
+	const { blobStoreUrl } = documents[0];
+	const destinationName = blobStoreUrl.startsWith('/') ? blobStoreUrl.slice(1) : blobStoreUrl;
+
 	const successful = await blob.copyFile(
 		{ containerName: submissionsContainer, blobName: sourceBlobName },
-		{ containerName: privateBlobContainer, blobName: documents[0].blobStoreUrl }
+		{ containerName: privateBlobContainer, blobName: destinationName }
 	);
 
 	if (!successful) {
