@@ -16,7 +16,6 @@
     "test:watch": "npm run test -- --watch",
     "coverage": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
     "dev": "npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
-    "dev:queue:listen": "nodemon --experimental-json-modules -e js ./src/server/utils/service-bus-receiver.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
