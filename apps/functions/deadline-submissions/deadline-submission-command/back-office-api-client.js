@@ -33,7 +33,7 @@ async function submitDocument({
 }) {
 	try {
 		return await got
-			.post(`https://${config.apiHost}/applications/${caseID}/documents`, {
+			.post(`https://${config.apiHost}/applications/${caseID}/documents?all=true`, {
 				json: [
 					{
 						documentName,
