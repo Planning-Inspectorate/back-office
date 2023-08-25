@@ -18,6 +18,7 @@ import { representationsContactsRouter } from './contacts/contacts.route.js';
 import { representationsAttachmentRouter } from './attachment/attachment.route.js';
 import { representationsStatusRouter } from './status/status.route.js';
 import { getRepDownloadRouter } from './download/rep-download.router.js';
+import { representationsPublishableRouter } from './publishable/publishable.route.js';
 import { representationsPublishRouter } from './publish/publish.route.js';
 
 const router = createRouter({ mergeParams: true });
@@ -86,14 +87,7 @@ router.get(
 							itemCount: 100,
 							items:  [
 									{
-											id: 1,
-											reference: 'BC0110001-2',
-											status: 'VALID',
-											redacted: true,
-											received: '2023-03-14T14:28:25.704Z',
-											firstName: 'James',
-											lastName: 'Bond',
-											organisationName: 'MI6'
+											"$ref": '#/definitions/RepresentationSummary'
 									}
 							]
 					}
@@ -105,6 +99,8 @@ router.get(
 );
 
 router.use('/download', getRepDownloadRouter);
+
+router.use('/publishable', representationsPublishableRouter);
 
 router.use('/publish', representationsPublishRouter);
 

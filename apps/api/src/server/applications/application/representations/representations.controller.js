@@ -11,7 +11,8 @@ import {
 	mapCaseRepresentationsStatusCount,
 	mapCaseRepresentationsUnderCount,
 	mapCreateOrUpdateRepRequestToRepository,
-	mapDocumentRepresentationAttachments
+	mapDocumentRepresentationAttachments,
+	mapRepresentationSummary
 } from './representation.mapper.js';
 
 /**
@@ -85,14 +86,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),
 		itemCount: count,
-		items: items.map((item) => {
-			const { contacts, ...rep } = item;
-
-			return {
-				...rep,
-				...contacts?.[0]
-			};
-		})
+		items: items.map(mapRepresentationSummary)
 	});
 };
 
