@@ -67,7 +67,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 		}
 	})();
 
-	const folder = folders.find((f) => f.displayNameEn === timetableItemName);
+	const folder = folders.find((f) => f.displayNameEn.endsWith(timetableItemName));
 	if (!folder) {
 		throw new Error(`No folder found with name '${timetableItemName}'`);
 	}
