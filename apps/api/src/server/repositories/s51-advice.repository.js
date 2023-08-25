@@ -74,3 +74,18 @@ export const getLatestRecordByCaseId = (caseId) => {
 		}
 	});
 };
+
+/**
+ * Updates an S51 Advice record
+ *
+ * @param {number} id
+ * @param {*} s51AdviceDetails
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice>}
+ */
+
+export const update = (id, s51AdviceDetails) => {
+	return databaseConnector.s51Advice.update({
+		where: { id },
+		data: s51AdviceDetails
+	});
+};

@@ -1,14 +1,21 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
+import { asyncHandler } from '#middleware/async-handler.js';
 import {
 	createS51Advice,
 	getS51Advice,
 	getManyS51Advices,
 	addDocuments,
-	getDocuments
+	getDocuments,
+	updateManyS51Advices
 } from './s51-advice.controller.js';
-import { validateCreateS51Advice, validatePaginationCriteria } from './s51-advice.validators.js';
+import {
+	validateCreateS51Advice,
+	validatePaginationCriteria,
+	validateS51AdviceIds,
+	validateS51AdviceToUpdateProvided
+} from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 
 const router = createRouter();
 
@@ -38,7 +45,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
-        #swagger.description = 'Application case ID'
+        #swagger.description = 'Gets an S51 Advice record'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application case ID',
@@ -167,6 +174,44 @@ router.get(
     */
 	validateApplicationId,
 	asyncHandler(getDocuments)
+);
+
+router.patch(
+	'/:id/s51-advice',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice'
+        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'S51 Advice update parameters',
+			schema: { $ref: '#/definitions/S51AdviceUpdateRequestBody' },
+			required: true
+		}
+        #swagger.responses[200] = {
+            description: 'S51 Advice(s) that have been updated',
+            schema: { $ref: '#/definitions/S51AdviceUpdateResponseBody' }
+        }
+		#swagger.responses[400] = {
+            description: 'Error: Bad Request',
+            schema: { $ref: '#/definitions/S51AdviceUpdateBadRequest' }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateManyS51Advices)
 );
 
 export { router as s51AdviceRoutes };
