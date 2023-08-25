@@ -79,3 +79,14 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 
 	return blobResponse;
 };
+
+/**
+ *
+ * @param {string} id
+ * @param {string} status
+ * @param {string} redactedStatus
+ * @returns {Record<string, any>} An object containing the formatted id, and status and redactedStatus.
+ */
+export const formatS51AdviceUpdateResponseBody = (id, status, redactedStatus) => {
+	return { id, status, redactedStatus };
+};

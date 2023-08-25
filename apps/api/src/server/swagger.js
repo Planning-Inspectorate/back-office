@@ -1603,6 +1603,74 @@ const document = {
 				}
 			}
 		},
+		S51AdviceUpdateRequestBody: {
+			type: 'object',
+			properties: {
+				redacted: {
+					type: 'boolean',
+					description: 'Redacted status',
+					example: true
+				},
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				items: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							id: { type: 'integer', description: 'The S51 Advice record id', example: 1 }
+						}
+					}
+				}
+			}
+		},
+		S51AdviceUpdateResponseItem: {
+			type: 'object',
+			properties: {
+				id: {
+					type: 'integer',
+					description: 'The S51 Advice record id',
+					example: 1
+				},
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				}
+			}
+		},
+		S51AdviceUpdateResponseBody: {
+			type: 'array',
+			items: { $ref: '#/definitions/S51AdviceUpdateResponseItem' }
+		},
+		S51AdviceUpdateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						items: {
+							type: 'string',
+							example: 'Unknown S51 Advice id 100'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
 		ProjectUpdateNotificationLogList: {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/ProjectUpdateNotificationLog')
