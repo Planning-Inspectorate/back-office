@@ -18,7 +18,16 @@ const client = () => BlobStorageClient.fromUrl(storageUrl);
  * @returns {Promise<{ contentType: string, contentLength: number } | null>}
  * */
 async function getBlobProperties(container, blobName) {
-	const properties = await client().getBlobProperties(container, blobName);
+	const properties = await (async () => {
+		try {
+			return await client().getBlobProperties(container, blobName);
+		} catch (err) {
+			throw new Error(
+				`getBlobProperties failed for blob ${blobName} in container ${container}: ${err}`
+			);
+		}
+	})();
+
 	if (!(properties?.contentType && properties.contentLength)) {
 		return null;
 	}
@@ -28,22 +37,23 @@ async function getBlobProperties(container, blobName) {
 
 /**
  *
- * @param {BlobLocation} _
- * @param {BlobLocation} _
+ * @param {BlobLocation} source
+ * @param {BlobLocation} destination
  * @returns {Promise<boolean>}
  * */
-const copyFile = async (
-	{ containerName: sourceContainer, blobName: sourceBlob },
-	{ containerName: destinationContainer, blobName: destinationBlob }
-) => {
-	const result = await client().copyFile({
-		sourceContainerName: sourceContainer,
-		sourceBlobName: sourceBlob,
-		destinationContainerName: destinationContainer,
-		destinationBlobName: destinationBlob
-	});
+const copyFile = async (source, destination) => {
+	try {
+		const result = await client().copyFile({
+			sourceContainerName: source.containerName,
+			sourceBlobName: source.blobName,
+			destinationContainerName: destination.containerName,
+			destinationBlobName: destination.blobName
+		});
 
-	return result === 'success';
+		return result === 'success';
+	} catch (err) {
+    throw new Error(`copyFile failed for source ${source} and destination ${destination}: ${err}`);
+	}
 };
 
 export default { copyFile, getBlobProperties };
