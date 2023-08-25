@@ -238,7 +238,7 @@ router.get(
 	'/documents/:guid/properties',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/document/{guid}/properties'
+        #swagger.path = '/documents/{guid}/properties'
         #swagger.description = 'Gets the properties of a single file'
         #swagger.parameters['guid'] = {
                 in: 'path',
@@ -310,7 +310,7 @@ router.get(
 	'/documents/:guid/path',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/document/{guid}/path'
+        #swagger.path = '/applications/documents/{guid}/path'
         #swagger.description = 'Gets the array of folders containing a document'
 		#swagger.parameters['guid'] = {
             in: 'path',

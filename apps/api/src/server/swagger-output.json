@@ -1501,7 +1501,7 @@
 				}
 			}
 		},
-		"/document/{guid}/properties": {
+		"/documents/{guid}/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of a single file",
@@ -1584,7 +1584,7 @@
 				}
 			}
 		},
-		"/applications/document/{guid}/path": {
+		"/applications/documents/{guid}/path": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the array of folders containing a document",
