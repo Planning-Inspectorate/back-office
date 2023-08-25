@@ -50,6 +50,21 @@ export const getByCaseId = async (caseId, parentFolderId = null) => {
 };
 
 /**
+ * Returns full array of folders in a case
+ *
+ * @param {number} caseId
+ * @returns {Promise<Folder[]>}
+ * */
+export const getAllByCaseId = async (caseId) => {
+	const result = await databaseConnector.folder.findMany({ where: { caseId } });
+	if (!Array.isArray(result)) {
+		return [];
+	}
+
+	return result;
+};
+
+/**
  * Returns a single folder on a case
  *
  * @param {number} folderId
