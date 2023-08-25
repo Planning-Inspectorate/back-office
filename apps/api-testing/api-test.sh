@@ -15,7 +15,7 @@ sleep 1
 
 cd ../api
 echo "Generating swagger..."
-npm run swagger-autogen
+npm run gen-api-spec
 
 echo "Creating schema files and starting test..."
 cd ../api-testing
