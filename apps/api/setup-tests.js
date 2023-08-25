@@ -58,6 +58,7 @@ const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
 const mockRepresentationUpdate = jest.fn().mockResolvedValue({});
+const mockRepresentationUpdateMany = jest.fn().mockResolvedValue({});
 const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationContactDelete = jest.fn().mockResolvedValue({});
@@ -246,7 +247,8 @@ class MockPrismaClient {
 			findMany: mockRepresentationFindMany,
 			findFirst: mockRepresentationFindFirst,
 			create: mockRepresentationCreate,
-			update: mockRepresentationUpdate
+			update: mockRepresentationUpdate,
+			updateMany: mockRepresentationUpdateMany
 		};
 	}
 

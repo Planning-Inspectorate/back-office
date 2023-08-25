@@ -856,6 +856,63 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Publishes representations on an application that are VALID or PUBLISHED with unpublishedUpdates",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation IDs to publish, and user performing action",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"representationIds": {
+									"type": "array",
+									"example": [123, 124, 125],
+									"items": {
+										"type": "number"
+									}
+								},
+								"actionBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedRepIds": {
+									"type": "array",
+									"example": [123, 134, 125],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations/{repId}/redact": {
 			"patch": {
 				"tags": ["Applications"],
