@@ -18,11 +18,17 @@ router.get(
         #swagger.path = '/applications/{id}/folders'
         #swagger.description = 'Gets list of top level folders on a case'
         #swagger.parameters['id'] = {
-            in: 'path',
-			description: 'Application ID',
-			required: true,
-			type: 'integer'
-		}
+          in: 'path',
+          description: 'Application ID',
+          required: true,
+          type: 'integer'
+        }
+        #swagger.parameters['all'] = {
+          in: 'query',
+          description: 'Should retrieve the full list of folders, not just root level ones',
+          required: false,
+          type: 'boolean'
+        }
         #swagger.responses[200] = {
             description: 'IDs of application',
             schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 } ]

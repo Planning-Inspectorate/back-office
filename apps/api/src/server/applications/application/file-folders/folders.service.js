@@ -16,15 +16,26 @@ import {
  */
 
 /**
- * Returns all the folders on a case
+ * Returns the root folders on a case, or subfolders if a folder ID is given
  *
  * @param {number} id
  * @param {number |null} folderId
  * @returns {Promise<FolderDetails[]>}
  */
 export const getFolders = async (id, folderId) => {
-	const allFolders = await folderRepository.getByCaseId(id, folderId);
+	const folders = await folderRepository.getByCaseId(id, folderId);
 
+	return mapFolderDetails(folders);
+};
+
+/**
+ * Returns all the folders on a case
+ *
+ * @param {number} id
+ * @returns {Promise<FolderDetails[]>}
+ */
+export const getAllFolders = async (id) => {
+	const allFolders = await folderRepository.getAllByCaseId(id);
 	return mapFolderDetails(allFolders);
 };
 
