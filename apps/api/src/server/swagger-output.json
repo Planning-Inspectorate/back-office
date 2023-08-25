@@ -1557,7 +1557,7 @@
 				}
 			}
 		},
-		"/applications/documents/{guid}/properties": {
+		"/applications/document/{guid}/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of a single file on a case",
@@ -1575,6 +1575,49 @@
 						"description": "Document properties",
 						"schema": {
 							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/document/{guid}/path": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the array of folders containing a document",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Array of folders which consitute the path the document is located in",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 1
+									},
+									"displayNameEn": {
+										"type": "string",
+										"example": "Post-decision"
+									},
+									"displayOrder": {
+										"type": "number",
+										"example": 1100
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -1758,6 +1801,13 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "all",
+						"in": "query",
+						"description": "Should retrieve the full list of folders, not just root level ones",
+						"required": false,
+						"type": "boolean"
 					}
 				],
 				"responses": {
