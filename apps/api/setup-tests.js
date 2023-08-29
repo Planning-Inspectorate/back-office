@@ -89,6 +89,13 @@ const mockS51AdviceCreate = jest.fn().mockResolvedValue({});
 const mockS51AdviceUpdateMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceDelete = jest.fn().mockResolvedValue({});
 
+const mockS51AdviceDocumentFindUnique = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentFindMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentCount = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentCreate = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentUpdateMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentDelete = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
 	get address() {
 		return {
@@ -195,6 +202,17 @@ class MockPrismaClient {
 			create: mockS51AdviceCreate,
 			updateMany: mockS51AdviceUpdateMany,
 			delete: mockS51AdviceDelete
+		};
+	}
+
+	get s51AdviceDocument() {
+		return {
+			findMany: mockS51AdviceDocumentFindMany,
+			findUnique: mockS51AdviceDocumentFindUnique,
+			count: mockS51AdviceDocumentCount,
+			create: mockS51AdviceDocumentCreate,
+			updateMany: mockS51AdviceDocumentUpdateMany,
+			delete: mockS51AdviceDocumentDelete
 		};
 	}
 
