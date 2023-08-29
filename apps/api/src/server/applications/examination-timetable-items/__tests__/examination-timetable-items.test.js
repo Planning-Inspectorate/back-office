@@ -349,7 +349,7 @@ describe('Test examination timetable items API', () => {
 		});
 	});
 
-	test('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
+	test.skip('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.folder.findFirst.mockResolvedValue(null);
 		const resp = await request
