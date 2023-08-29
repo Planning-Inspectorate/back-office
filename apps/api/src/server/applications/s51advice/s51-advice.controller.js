@@ -56,11 +56,9 @@ export const getS51Advice = async (_request, response) => {
 	const attachments = await s51AdviceDocumentRepository.findByAdviceId(Number(adviceId));
 
 	/**
-	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; }[]}
+	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; documentGuid: string, version: number }[]}
 	 */
 	const attachmentsWithVersion = [];
-	console.log(attachments?.length > 0);
-
 	if (attachments?.length > 0) {
 		attachments.forEach((attachment) => {
 			// @ts-ignore
@@ -78,7 +76,9 @@ export const getS51Advice = async (_request, response) => {
 				documentType: latestDocument[0]?.documentType,
 				documentSize: latestDocument[0]?.size,
 				dateAdded: latestDocument[0]?.dateCreated,
-				status: latestDocument[0]?.publishedStatus
+				status: latestDocument[0]?.publishedStatus,
+				documentGuid: latestDocument[0]?.documentGuid,
+				version: latestDocument[0]?.version
 			});
 		});
 	}
