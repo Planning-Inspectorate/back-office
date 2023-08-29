@@ -20,9 +20,10 @@ const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
  *
  * @param { string } caseRef
  * @param { S51Advice } s51Advice
+ * @param { Array<S51AdviceDetails> } attachments
  * @returns { S51AdviceDetails }
  */
-export const mapS51Advice = (caseRef, s51Advice) => {
+export const mapS51Advice = (caseRef, s51Advice, attachments) => {
 	return {
 		id: s51Advice.id,
 		referenceCode: formatS51AdviceReferenceCode(caseRef, s51Advice.referenceNumber),
@@ -40,7 +41,8 @@ export const mapS51Advice = (caseRef, s51Advice) => {
 		publishedStatus: s51Advice.publishedStatus ?? '',
 		redactedStatus: s51Advice.redactedStatus ?? '',
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
-		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString())
+		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString()),
+		attachments
 	};
 };
 
