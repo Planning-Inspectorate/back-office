@@ -175,7 +175,7 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit start time hour is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
 				'visit-date-year': '2023',
@@ -192,7 +192,7 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit start time minute is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
 				'visit-date-year': '2023',
@@ -209,7 +209,7 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit end time hour is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
 				'visit-date-year': '2023',
@@ -226,7 +226,7 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit end time minute is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
 				'visit-date-year': '2023',
@@ -243,7 +243,7 @@ describe('site-visit', () => {
 
 		it('should redirect to the site visit scheduled confirmation page if all required fields are populated and valid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
 				'visit-date-year': '2023',
@@ -251,6 +251,21 @@ describe('site-visit', () => {
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
 				'visit-end-time-minute': '30'
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the site visit scheduled confirmation page if visit type is unaccompanied and start and end times are not populated but all other required fields are populated and valid', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
+				'visit-type': 'unaccompanied',
+				'visit-date-day': '1',
+				'visit-date-month': '1',
+				'visit-date-year': '2023',
+				'visit-start-time-hour': '',
+				'visit-start-time-minute': '',
+				'visit-end-time-hour': '',
+				'visit-end-time-minute': ''
 			});
 
 			expect(response.statusCode).toBe(302);

@@ -4,10 +4,14 @@ import { capitalize } from 'lodash-es';
 
 export const createTimeInputValidator = (
 	fieldNamePrefix = 'time',
-	messageFieldNamePrefix = 'time'
+	messageFieldNamePrefix = 'time',
+	// @ts-ignore
+	// eslint-disable-next-line no-unused-vars
+	continueValidationCondition = (value) => true
 ) =>
 	createValidator(
 		body(`${fieldNamePrefix}-hour`)
+			.if(continueValidationCondition)
 			.trim()
 			.notEmpty()
 			.withMessage(
@@ -32,6 +36,7 @@ export const createTimeInputValidator = (
 				)
 			),
 		body(`${fieldNamePrefix}-minute`)
+			.if(continueValidationCondition)
 			.trim()
 			.notEmpty()
 			.withMessage(
