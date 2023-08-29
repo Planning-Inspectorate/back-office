@@ -70,7 +70,8 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 		return {
 			caseType: 'application',
 			caseReference: caseData.reference,
-			GUID: item.documentGuid
+			GUID: item.documentGuid,
+			documentName: item.Document.latestDocumentVersion.fileName
 		};
 	});
 
