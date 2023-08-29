@@ -16,4 +16,5 @@ export interface S51AdviceDetails {
 	publishedStatus: string;
 	dateCreated: number;
 	dateUpdated: number;
+	attachments: Array<S51AdviceDetails>;
 }

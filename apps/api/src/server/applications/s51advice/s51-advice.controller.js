@@ -53,7 +53,38 @@ export const getS51Advice = async (_request, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	const mappeds51Advice = mapS51Advice(caseRef, s51Advice);
+	const attachments = await s51AdviceDocumentRepository.findByAdviceId(Number(adviceId));
+
+	/**
+	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; }[]}
+	 */
+	const attachmentsWithVersion = [];
+	console.log(attachments?.length > 0);
+
+	if (attachments?.length > 0) {
+		attachments.forEach((attachment) => {
+			// @ts-ignore
+			const { Document } = attachment;
+			const { documentVersion } = Document;
+			const latestDocument = documentVersion?.filter(
+				(/** @type {{ version: any; }} */ document) => document.version === Document.latestVersionId
+			);
+			if (latestDocument?.length === 0) {
+				return;
+			}
+			// @ts-ignore
+			attachmentsWithVersion.push({
+				documentName: latestDocument[0]?.fileName,
+				documentType: latestDocument[0]?.documentType,
+				documentSize: latestDocument[0]?.size,
+				dateAdded: latestDocument[0]?.dateCreated,
+				status: latestDocument[0]?.publishedStatus
+			});
+		});
+	}
+
+	// @ts-ignore
+	const mappeds51Advice = mapS51Advice(caseRef, s51Advice, attachmentsWithVersion);
 
 	response.send(mappeds51Advice);
 };
