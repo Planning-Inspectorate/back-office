@@ -8,5 +8,19 @@ export const validateSiteVisitType = createValidator(
 );
 
 export const validateVisitDate = createDateInputValidator('visit-date', 'visit date');
-export const validateVisitStartTime = createTimeInputValidator('visit-start-time', 'start time');
-export const validateVisitEndTime = createTimeInputValidator('visit-end-time', 'end time');
+export const validateVisitStartTime = createTimeInputValidator(
+	'visit-start-time',
+	'start time',
+	// @ts-ignore
+	(value, { req }) => {
+		return req.body['visit-type'] !== 'unaccompanied';
+	}
+);
+export const validateVisitEndTime = createTimeInputValidator(
+	'visit-end-time',
+	'end time',
+	// @ts-ignore
+	(value, { req }) => {
+		return req.body['visit-type'] !== 'unaccompanied';
+	}
+);
