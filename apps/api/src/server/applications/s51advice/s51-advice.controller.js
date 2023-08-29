@@ -55,6 +55,8 @@ export const getS51Advice = async (_request, response) => {
 
 	const attachments = await s51AdviceDocumentRepository.findByAdviceId(Number(adviceId));
 
+	console.log(attachments);
+
 	/**
 	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; documentGuid: string, version: number }[]}
 	 */
