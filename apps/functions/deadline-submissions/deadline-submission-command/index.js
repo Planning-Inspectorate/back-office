@@ -49,13 +49,23 @@ export default async function (context, msg) {
 
 	const { blobStoreUrl } = documents[0];
 	const destinationName = blobStoreUrl.startsWith('/') ? blobStoreUrl.slice(1) : blobStoreUrl;
+	const match = blobStoreUrl.match(/^\/application\/.+\/(.+)\/1$/);
 
 	const successful = await blob.copyFile(
 		{ containerName: submissionsContainer, blobName: sourceBlobName },
 		{ containerName: privateBlobContainer, blobName: destinationName }
 	);
 
-	if (!successful) {
+	if (successful) {
+		await api.populateDocumentMetadata(caseID, {
+			documentGuid: match[1],
+			documentName: msg.documentName,
+			userName: msg.name,
+			deadline: msg.deadline,
+			submissionType: msg.submissionType,
+			representative: msg.interestedPartyReference
+		});
+	} else {
 		await events.publishFailureEvent(context, {
 			deadline: msg.deadline,
 			submissionType: msg.submissionType,
