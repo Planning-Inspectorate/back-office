@@ -431,6 +431,14 @@ describe('S51 Advice', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice properties');
 			});
+
+			it('should display the attachments list', async () => {
+				const response = await request.get(`${baseUrl}/1/properties#s51-attachments`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('File name');
+			});
 		});
 	});
 });

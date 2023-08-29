@@ -53,6 +53,7 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
+		s51Attachments: s51Advice.attachments,
 		showSuccessBanner: success === '1'
 	});
 }

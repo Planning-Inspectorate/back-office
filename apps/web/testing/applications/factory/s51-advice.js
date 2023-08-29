@@ -1,6 +1,41 @@
 import { createRandomDescription, createUniqueRandomNumberFromSeed } from './util.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types.js').S51Advice} S51Advice */
+/** @typedef {import('../../../src/server/applications/applications.types.js').S51Attachment} S51Attachment */
+
+/**
+ *
+ * @param {number} uniqueSeed
+ * @returns {S51Attachment[]}
+ */
+export function createS51Attachments(uniqueSeed) {
+	let attachments = [];
+
+	for (let i = 0; i < 20; i++) {
+		const documentName = `${createRandomDescription({
+			wordsNumber: createUniqueRandomNumberFromSeed(2, 5, uniqueSeed + i),
+			startOffset: createUniqueRandomNumberFromSeed(0, 30, uniqueSeed + i)
+		})}`;
+
+		const documentType = ['application/msword', 'application/pdf', 'image/jpeg', 'audio/mpeg'][
+			createUniqueRandomNumberFromSeed(0, 4, uniqueSeed + i)
+		];
+
+		const status = ['failed_virus_check', 'awaiting_upload', 'awaiting_virus_check'][
+			createUniqueRandomNumberFromSeed(0, 3, uniqueSeed + i)
+		];
+
+		attachments.push({
+			documentName,
+			documentType,
+			documentSize: createUniqueRandomNumberFromSeed(1000, 10000, uniqueSeed),
+			dateAdded: 1_678_199_858,
+			status
+		});
+	}
+
+	return attachments;
+}
 
 /**
  *
@@ -91,6 +126,7 @@ export function createS51Advice(options = {}) {
 		publishedStatus,
 		redactedStatus,
 		dateCreated,
-		dateUpdated
+		dateUpdated,
+		attachments: createS51Attachments(uniqueSeed)
 	};
 }
