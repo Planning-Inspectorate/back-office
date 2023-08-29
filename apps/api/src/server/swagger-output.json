@@ -2888,7 +2888,7 @@
 						"description": "Application ID"
 					},
 					{
-						"name": "pageNumber",
+						"name": "page",
 						"in": "query",
 						"description": "The page number required",
 						"required": true,
@@ -2983,6 +2983,34 @@
 						"description": "All documents failed to upload",
 						"schema": {
 							"$ref": "#/definitions/documentsUploadFailed"
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get S51 advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Documents",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
 						}
 					}
 				}
