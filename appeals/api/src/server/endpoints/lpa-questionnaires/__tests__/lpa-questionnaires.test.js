@@ -10,6 +10,7 @@ import {
 	ERROR_MUST_BE_ARRAY_OF_NUMBERS,
 	ERROR_MUST_BE_BOOLEAN,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
+	ERROR_MUST_BE_IN_FUTURE,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
@@ -273,7 +274,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: [1, 2, 3],
-					lpaQuestionnaireDueDate: '2023-06-21',
+					lpaQuestionnaireDueDate: '2099-06-22',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
@@ -305,7 +306,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
-					lpaQuestionnaireDueDate: '2023-06-21T01:00:00.000Z'
+					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
 				});
 			});
 
@@ -323,7 +324,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: [1, 2, 3],
-					lpaQuestionnaireDueDate: '2023-04-29',
+					lpaQuestionnaireDueDate: '2025-08-23',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
@@ -355,7 +356,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
-					lpaQuestionnaireDueDate: '2023-05-02T01:00:00.000Z'
+					lpaQuestionnaireDueDate: '2025-08-26T01:00:00.000Z'
 				});
 			});
 
@@ -373,7 +374,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: [1, 2, 3],
-					lpaQuestionnaireDueDate: '2023-04-07',
+					lpaQuestionnaireDueDate: '2025-04-18',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
@@ -405,7 +406,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
-					lpaQuestionnaireDueDate: '2023-04-11T01:00:00.000Z'
+					lpaQuestionnaireDueDate: '2025-04-22T01:00:00.000Z'
 				});
 			});
 
@@ -423,7 +424,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: [1, 2, 3],
-					lpaQuestionnaireDueDate: '2023-12-25',
+					lpaQuestionnaireDueDate: '2024-12-25',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
@@ -455,7 +456,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
-					lpaQuestionnaireDueDate: '2023-12-27T01:00:00.000Z'
+					lpaQuestionnaireDueDate: '2024-12-27T01:00:00.000Z'
 				});
 			});
 
@@ -473,7 +474,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: [1, 2, 3],
-					lpaQuestionnaireDueDate: '2023-06-21',
+					lpaQuestionnaireDueDate: '2099-06-22',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'Incomplete'
 				};
@@ -505,7 +506,7 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
-					lpaQuestionnaireDueDate: '2023-06-21T01:00:00.000Z'
+					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
 				});
 			});
 
@@ -581,7 +582,7 @@ describe('lpa questionnaires routes', () => {
 
 				const body = {
 					incompleteReasons: ['1', '2', '3'],
-					lpaQuestionnaireDueDate: '2023-06-21',
+					lpaQuestionnaireDueDate: '2099-06-22',
 					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
@@ -613,6 +614,26 @@ describe('lpa questionnaires routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						incompleteReasons: ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME
+					}
+				});
+			});
+
+			test('returns an error if validationOutcome is Complete and lpaQuestionnaireDueDate is given', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send({
+						lpaQuestionnaireDueDate: '2099-06-22',
+						validationOutcome: 'Complete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireDueDate: ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME
 					}
 				});
 			});
@@ -706,7 +727,7 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1],
-						lpaQuestionnaireDueDate: '05/05/2023',
+						lpaQuestionnaireDueDate: '05/05/2099',
 						validationOutcome: 'Incomplete'
 					});
 
@@ -724,7 +745,7 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1],
-						lpaQuestionnaireDueDate: '2023-5-5',
+						lpaQuestionnaireDueDate: '2099-5-5',
 						validationOutcome: 'Incomplete'
 					});
 
@@ -736,13 +757,33 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
+			test('returns an error if lpaQuestionnaireDueDate is in the past', async () => {
+				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send({
+						incompleteReasons: [1],
+						lpaQuestionnaireDueDate: '2023-06-04',
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						lpaQuestionnaireDueDate: ERROR_MUST_BE_IN_FUTURE
+					}
+				});
+			});
+
 			test('returns an error if lpaQuestionnaireDueDate is not a valid date', async () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1],
-						lpaQuestionnaireDueDate: '2023-02-30',
+						lpaQuestionnaireDueDate: '2099-02-30',
 						validationOutcome: 'Incomplete'
 					});
 
@@ -764,7 +805,6 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						lpaQuestionnaireDueDate: '2023-06-21',
 						validationOutcome: 'invalid'
 					});
 
@@ -793,7 +833,7 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1, 3],
-						lpaQuestionnaireDueDate: '2023-06-21',
+						lpaQuestionnaireDueDate: '2099-06-22',
 						validationOutcome: 'Incomplete'
 					});
 
@@ -822,7 +862,7 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1, 2],
-						lpaQuestionnaireDueDate: '2023-06-21',
+						lpaQuestionnaireDueDate: '2099-06-22',
 						otherNotValidReasons: 'Another incomplete reason',
 						validationOutcome: 'Incomplete'
 					});
@@ -852,7 +892,7 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						incompleteReasons: [1, 10],
-						lpaQuestionnaireDueDate: '2023-06-21',
+						lpaQuestionnaireDueDate: '2099-06-22',
 						validationOutcome: 'Incomplete'
 					});
 

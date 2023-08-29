@@ -6,6 +6,7 @@ import {
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
 	DEFAULT_TIMESTAMP_TIME,
+	ERROR_MUST_BE_IN_FUTURE,
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
@@ -251,7 +252,7 @@ describe('appellant cases routes', () => {
 				);
 
 				const body = {
-					appealDueDate: '2023-07-14',
+					appealDueDate: '2099-07-14',
 					incompleteReasons: [1, 2, 3],
 					validationOutcome: 'Incomplete',
 					otherNotValidReasons: 'Another reason'
@@ -696,6 +697,28 @@ describe('appellant cases routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						appealDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if appealDueDate is in the past', async () => {
+				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+
+				const { appellantCase, id } = householdAppeal;
+				const body = {
+					appealDueDate: '2023-06-04',
+					incompleteReasons: [1, 2, 3],
+					validationOutcome: 'Incomplete',
+					otherNotValidReasons: 'Another reason'
+				};
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealDueDate: ERROR_MUST_BE_IN_FUTURE
 					}
 				});
 			});

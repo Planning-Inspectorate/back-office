@@ -67,6 +67,7 @@ export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete or Invalid';
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
+export const ERROR_MUST_BE_IN_FUTURE = 'Must be in the future';
 
 export const MAX_LENGTH_8 = 8;
 export const MAX_LENGTH_300 = 300;
