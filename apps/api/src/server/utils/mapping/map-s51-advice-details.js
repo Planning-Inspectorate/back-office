@@ -20,7 +20,7 @@ const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
  *
  * @param { string } caseRef
  * @param { S51Advice } s51Advice
- * @param { Array<S51AdviceDetails> } attachments
+ * @param { { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; documentGuid: string, version: number }[] } attachments
  * @returns { S51AdviceDetails }
  */
 export const mapS51Advice = (caseRef, s51Advice, attachments) => {
