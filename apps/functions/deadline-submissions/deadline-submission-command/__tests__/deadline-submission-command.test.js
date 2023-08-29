@@ -12,6 +12,7 @@ describe('deadline-submission-command', () => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
 		api.lineItemExists = jest.fn().mockResolvedValue(true);
+		api.populateDocumentMetadata = jest.fn();
 
 		eventClient.publishFailureEvent = mockSendEvents;
 
@@ -34,7 +35,7 @@ describe('deadline-submission-command', () => {
 	test('Success', async () => {
 		const mockSubmitDocument = jest.fn().mockResolvedValue({
 			privateBlobContainer: 'test-container',
-			documents: [{ blobStoreUrl: '/test/blob/url' }]
+			documents: [{ blobStoreUrl: '/application/blob/url/1' }]
 		});
 		api.submitDocument = mockSubmitDocument;
 
