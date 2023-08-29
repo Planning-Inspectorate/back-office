@@ -89,3 +89,48 @@ export const update = (id, s51AdviceDetails) => {
 		data: s51AdviceDetails
 	});
 };
+
+/**
+ * From a given list of S51 advice ids, retrieve the ones which are publishable
+ *
+ * @param {number[]} s51AdviceIds
+ * @returns {Promise<{id: number}[]>}
+ */
+export const getPublishableS51Advice = (s51AdviceIds) => {
+	// most of the fields have a not null constraint in DB already, so dont need to check them
+	// need to check has title, and either (enquirer || (firsName + lastName) or all
+	return databaseConnector.s51Advice.findMany({
+		where: {
+			id: {
+				in: s51AdviceIds
+			},
+			NOT: {
+				OR: [
+					{
+						title: ''
+					},
+					{
+						AND: [
+							{
+								enquirer: ''
+							},
+							{
+								OR: [
+									{
+										firstName: ''
+									},
+									{
+										lastName: ''
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		select: {
+			id: true
+		}
+	});
+};

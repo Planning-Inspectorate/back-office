@@ -1,6 +1,7 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import { formatS51AdviceUpdateResponseBody, getManyS51AdviceOnCase, getS51AdviceDocuments } from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
@@ -208,6 +209,12 @@ export const updateManyS51Advices = async ({ body }, response) => {
 	// and the redaction status of each advice should remain unchanged.
 	if (typeof isRedacted !== 'undefined') {
 		redactedStatus = getRedactionStatus(isRedacted);
+	}
+
+	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
+	if (publishedStatus === 'ready_to_publish') {
+		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
+		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
 	}
 
 	if (items) {
