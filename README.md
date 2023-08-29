@@ -110,6 +110,14 @@ The `api` app needs to know how to connect to the database. Create a `.env` file
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
 ```
 
+##### Appeals API
+
+Add the following env var to the `.env` file in `appeals/api`
+
+```
+TEST_MAILBOX=test@example.com
+```
+
 #### Schema & Seed Data
 
 1. First setup the database schema
