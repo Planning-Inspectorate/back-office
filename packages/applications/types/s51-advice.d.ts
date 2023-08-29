@@ -20,7 +20,7 @@ export interface S51AdviceDetails {
 		documentName: any;
 		documentType: string;
 		documentSize: string;
-		dateAdded: string;
+		dateAdded: number;
 		status: string;
 		documentGuid: string;
 		version: number;

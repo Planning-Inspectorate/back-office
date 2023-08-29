@@ -10,6 +10,7 @@ import {
 	obtainURLsForDocuments
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '../../utils/app-error.js';
+import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -58,7 +59,7 @@ export const getS51Advice = async (_request, response) => {
 	console.log(attachments);
 
 	/**
-	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: string; status: string; documentGuid: string, version: number }[]}
+	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[]}
 	 */
 	const attachmentsWithVersion = [];
 	if (attachments?.length > 0) {
@@ -77,7 +78,7 @@ export const getS51Advice = async (_request, response) => {
 				documentName: latestDocument[0]?.fileName,
 				documentType: latestDocument[0]?.documentType,
 				documentSize: latestDocument[0]?.size,
-				dateAdded: latestDocument[0]?.dateCreated,
+				dateAdded: mapDateStringToUnixTimestamp(latestDocument[0]?.dateCreated),
 				status: latestDocument[0]?.publishedStatus,
 				documentGuid: latestDocument[0]?.documentGuid,
 				version: latestDocument[0]?.version
