@@ -122,9 +122,35 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 	return _lineItem !== null;
 }
 
+/**
+ *
+ * @param {number} caseID
+ * @param {{ documentGuid: string, documentName: string, userName: string, deadline: string, submissionType: string, representative?: string }} _
+ * */
+async function populateDocumentMetadata(
+	caseID,
+	{ documentGuid, documentName, userName, deadline, submissionType, representative }
+) {
+	await got.post(
+		`https://${config.apiHost}/applications/${caseID}/documents/${documentGuid}/metadata`,
+		{
+			json: {
+				version: 1,
+				documentGuid,
+				fileName: documentName,
+				author: userName,
+				representative,
+				filter1: deadline,
+				filter2: submissionType
+			}
+		}
+	);
+}
+
 export default {
 	getCaseID,
 	getFolderID,
 	lineItemExists,
-	submitDocument
+	submitDocument,
+	populateDocumentMetadata
 };
