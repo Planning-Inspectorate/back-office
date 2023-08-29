@@ -10,6 +10,7 @@ import {
 	obtainURLsForDocuments
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '../../utils/app-error.js';
+import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -53,7 +54,40 @@ export const getS51Advice = async (_request, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	const mappeds51Advice = mapS51Advice(caseRef, s51Advice);
+	const attachments = await s51AdviceDocumentRepository.findByAdviceId(Number(adviceId));
+
+	console.log(attachments);
+
+	/**
+	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[]}
+	 */
+	const attachmentsWithVersion = [];
+	if (attachments?.length > 0) {
+		attachments.forEach((attachment) => {
+			// @ts-ignore
+			const { Document } = attachment;
+			const { documentVersion } = Document;
+			const latestDocument = documentVersion?.filter(
+				(/** @type {{ version: any; }} */ document) => document.version === Document.latestVersionId
+			);
+			if (latestDocument?.length === 0) {
+				return;
+			}
+			// @ts-ignore
+			attachmentsWithVersion.push({
+				documentName: latestDocument[0]?.fileName,
+				documentType: latestDocument[0]?.documentType,
+				documentSize: latestDocument[0]?.size,
+				dateAdded: mapDateStringToUnixTimestamp(latestDocument[0]?.dateCreated),
+				status: latestDocument[0]?.publishedStatus,
+				documentGuid: latestDocument[0]?.documentGuid,
+				version: latestDocument[0]?.version
+			});
+		});
+	}
+
+	// @ts-ignore
+	const mappeds51Advice = mapS51Advice(caseRef, s51Advice, attachmentsWithVersion);
 
 	response.send(mappeds51Advice);
 };

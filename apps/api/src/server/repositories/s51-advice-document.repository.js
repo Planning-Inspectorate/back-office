@@ -8,3 +8,19 @@ import { databaseConnector } from '../utils/database-connector.js';
 export const create = (s51AdviceDocument) => {
 	return databaseConnector.s51AdviceDocument.createMany({ data: s51AdviceDocument });
 };
+
+/**
+ *
+ * @param {number} adviceId
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument[]>}
+ */
+export const findByAdviceId = (adviceId) => {
+	return databaseConnector.s51AdviceDocument.findMany({
+		where: { adviceId },
+		include: {
+			Document: {
+				include: { documentVersion: true }
+			}
+		}
+	});
+};
