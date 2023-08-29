@@ -8,9 +8,11 @@ import {
 	ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME,
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
+	ERROR_MUST_BE_IN_FUTURE,
 	MAX_LENGTH_4000
 } from '../constants.js';
 import { isOutcomeIncomplete, isOutcomeInvalid } from '#utils/check-validation-outcome.js';
+import { dateIsAfterDate } from '#utils/date-comparison.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateNumberArrayParameter from '#common/validators/number-array-parameter.js';
@@ -37,6 +39,10 @@ const patchAppellantCaseValidator = composeMiddleware(
 		) => {
 			if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
 				throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+			}
+
+			if (value && !dateIsAfterDate(new Date(value), new Date())) {
+				throw new Error(ERROR_MUST_BE_IN_FUTURE);
 			}
 
 			return value;
