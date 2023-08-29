@@ -16,5 +16,13 @@ export interface S51AdviceDetails {
 	publishedStatus: string;
 	dateCreated: number;
 	dateUpdated: number;
-	attachments: Array<S51AdviceDetails>;
+	attachments: {
+		documentName: any;
+		documentType: string;
+		documentSize: string;
+		dateAdded: string;
+		status: string;
+		documentGuid: string;
+		version: number;
+	}[];
 }
