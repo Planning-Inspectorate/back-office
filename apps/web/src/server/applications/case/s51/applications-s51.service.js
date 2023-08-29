@@ -1,5 +1,6 @@
 import { post, get } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
+import { createS51Attachments } from '../../../../../testing/applications/factory/s51-advice.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -53,7 +54,8 @@ export const getS51Advice = async (caseId, adviceId) => {
 		});
 	}
 
-	return response;
+	// TODO: this is a mock
+	return { ...response, attachments: createS51Attachments(234) };
 };
 
 /**

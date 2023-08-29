@@ -1,0 +1,83 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% macro s51AttachmentsTab(attachments, caseId) %}
+
+	{% set attachmentsRows = [] %}
+	{% for attachment in attachments %}
+
+		{% set name %}
+
+		{% set isPreviewPossible = (attachment.documentType === 'application/pdf' or attachment.documentType === 'image/jpeg' or attachment.documentType === 'image/png') %}
+		{% set isAttachmentSafe = (attachment.status === 'AWAITING_UPLOAD') %}
+
+		{% if isPreviewPossible and isAttachmentSafe %}
+			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.id}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
+		{% else %}
+			<p class="font-weight--700">
+				{{ attachment.documentName }}
+			</p>
+		{% endif %}
+
+		<p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>
+			{{ attachment.documentType|fileType }}, {{ attachment.documentSize|fileSize }}
+		</p>
+		{% endset %}
+
+		{% set activity %}
+		<p>
+			{{ attachment.dateAdded|datestamp({format: 'dd/MM/yyyy'}) }}
+		</p>
+
+		{% endset %}
+
+		{% set download %}
+		<a class='govuk-link' href='{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid}) }}'>
+				Download
+			</a>
+
+		{% endset %}
+
+		{% set delete %}
+		<a class='govuk-link' href='{{ 'document-download'|url({caseid: caseid, documentguid: attachment.documentguid}) }}'>
+				Delete
+			</a>
+
+		{% endset %}
+
+		{% set status %}
+		<p>
+			{{ '' if attachment.status === 'awaiting_upload' else attachment.status | statusName}}
+		</p>
+		{% endset %}
+		{% set row = [
+			{
+				html: name
+			}, {
+				html: activity
+			}, {
+				html: status
+			}, {
+				html: download
+			}, {
+				html: delete
+			}
+		] %}
+		{% set attachmentsRows = attachmentsRows.concat([row]) %}
+
+	{% endfor %}
+
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
+	{{ govukTable({
+			classes: 'pins-file-versions-table',
+            captionClasses: "govuk-table__caption--m",
+            head: [
+                { text: "File name" },
+                { text: "Date added" },
+                { text: "" },
+                { text: "" },
+                { text: "" }
+            ],
+            rows: attachmentsRows
+    }) }}
+
+{% endmacro %}
