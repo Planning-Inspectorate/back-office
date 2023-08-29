@@ -8,8 +8,4 @@ const router = createRouter({ mergeParams: true });
 router.route('/case-officer').get(controller.getAssignCaseOfficer);
 router.route('/inspector').get(controller.getAssignInspector);
 
-// router
-// 	.route('/inspector')
-// 	.get(controller.getAssignInspector);
-
 export default router;
