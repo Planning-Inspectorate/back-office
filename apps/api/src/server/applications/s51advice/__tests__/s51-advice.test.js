@@ -103,11 +103,11 @@ const s51AdviceDocuments = [
 			fromFrontOffice: false,
 			documentVersion: [
 				{
-					documentName: '2048px-Pittsburgh_Steelers_logo.svg',
-					documentType: null,
-					documentSize: 207364,
-					dateAdded: '2023-08-16T13:57:22.022Z',
-					status: 'awaiting_upload',
+					fileName: '2048px-Pittsburgh_Steelers_logo.svg',
+					documentType: 'pdf',
+					size: 207364,
+					dateCreated: '2023-08-16T13:57:22.022Z',
+					publishedStatus: 'awaiting_upload',
 					documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
 					version: 1
 				}
@@ -175,8 +175,12 @@ describe('Test S51 advice API', () => {
 			attachments: [
 				{
 					documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
-					documentType: null,
-					version: 1
+					documentType: 'pdf',
+					documentName: '2048px-Pittsburgh_Steelers_logo.svg',
+					version: 1,
+					dateAdded: 1692194242,
+					status: 'awaiting_upload',
+					documentSize: 207364
 				}
 			],
 			dateCreated: 1672531200,
