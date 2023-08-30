@@ -514,12 +514,34 @@ function buildSearch(rawSearchTerm) {
  * @returns {Promise<*>}
  */
 export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
-	return databaseConnector.representationAttachment.create({
-		data: {
-			documentGuid: documentId,
-			representationId
-		}
+	const representation = await databaseConnector.representation.findFirst({
+		where: { id: representationId }
 	});
+
+	const transactionItems = [
+		databaseConnector.representationAttachment.create({
+			data: {
+				documentGuid: documentId,
+				representationId
+			}
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [representationAttachmentCreateResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
+
+	return representationAttachmentCreateResult;
 };
 
 /**
@@ -530,7 +552,6 @@ export const addApplicationRepresentationAttachment = async (representationId, d
  */
 export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
 	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
-	console.log(representation);
 
 	const transactionItems = [
 		databaseConnector.representationAttachment.delete({
@@ -548,9 +569,11 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 			})
 		);
 
-	const [deleteResult] = await databaseConnector.$transaction(transactionItems);
+	const [representationAttachmentDeleteResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
 
-	return deleteResult;
+	return representationAttachmentDeleteResult;
 };
 
 /**
