@@ -2,6 +2,7 @@ import { addressToString } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import {
+	dateIsInTheFuture,
 	dateIsValid,
 	isDateInstance,
 	dayMonthYearToApiDateString,
@@ -297,6 +298,12 @@ describe('Libraries', () => {
 			it('should return false if month parameter is outside the valid range', () => {
 				expect(dateIsValid(2023, 0, 1)).toBe(false);
 				expect(dateIsValid(2023, 13, 1)).toBe(false);
+			});
+		});
+
+		describe('dateIsInTheFuture', () => {
+			it('should return true if day, month and year params form a date that is in the future', () => {
+				expect(dateIsInTheFuture(3000, 1, 1)).toBe(true);
 			});
 		});
 
