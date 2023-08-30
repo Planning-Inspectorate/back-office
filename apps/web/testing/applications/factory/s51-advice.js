@@ -30,7 +30,9 @@ export function createS51Attachments(uniqueSeed) {
 			documentType,
 			documentSize: createUniqueRandomNumberFromSeed(1000, 10000, uniqueSeed),
 			dateAdded: 1_678_199_858,
-			status
+			status,
+			documentGuid: `${uniqueSeed}`,
+			version: 1
 		});
 	}
 
