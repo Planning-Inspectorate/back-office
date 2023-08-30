@@ -11,6 +11,15 @@ const existingRepresentations = [
 		status: 'VALID',
 		redacted: true,
 		received: '2023-03-14T14:28:25.704Z'
+	},
+	{
+		id: 2,
+		representationId: 200,
+		reference: 'BC0110001-3',
+		status: 'PUBLISHED',
+		redacted: true,
+		received: '2023-03-14T14:28:25.704Z',
+		unpublishedUpdates: false
 	}
 ];
 
@@ -88,6 +97,7 @@ describe('Patch Application Representation Redact', () => {
 			}
 		});
 	});
+
 	it('Patch representation redact - invalid request - redactStatus', async () => {
 		const response = await request
 			.patch('/applications/1/representations/1/redact')
@@ -100,6 +110,35 @@ describe('Patch Application Representation Redact', () => {
 			errors: {
 				redactStatus: 'Invalid value'
 			}
+		});
+	});
+
+	it('Patch previously published representation', async () => {
+		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[1]);
+
+		const response = await request
+			.patch('/applications/1/representations/2/redact')
+			.send({
+				actionBy: 'a person',
+				redactedRepresentation: 'i have been redacted',
+				notes: 'This is a duplicate Rep.'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: {
+				redacted: true,
+				redactedRepresentation: 'i have been redacted',
+				unpublishedUpdates: true
+			},
+			where: { id: 2 }
+		});
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			repId: 2,
+			redacted: true
 		});
 	});
 });
