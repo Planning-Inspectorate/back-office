@@ -158,6 +158,29 @@ export const getById = async (id, caseId) => {
 	return representations[0];
 };
 
+/**
+ *
+ * @param {number} repId
+ * @param {number} [caseId]
+ * @returns {Promise<Prisma.RepresentationSelect>}
+ */
+export const getFirstById = async (repId, caseId) => {
+	let filter = {
+		id: repId
+	};
+
+	if (caseId) {
+		filter = {
+			...filter,
+			caseId
+		};
+	}
+
+	return databaseConnector.representation.findFirst({
+		where: filter
+	});
+};
+
 export const getStatusCountByCaseId = async (caseId) => {
 	const groupRepStatusWithCount = databaseConnector.representation.groupBy({
 		where: { caseId },
@@ -250,9 +273,7 @@ export const updateApplicationRepresentation = async (
 	representationId
 ) => {
 	//  Validate case rep id is on case id
-	const response = await databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	const response = await getFirstById(representationId, caseId);
 
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
@@ -373,9 +394,7 @@ export const updateApplicationRepresentation = async (
 		});
 	}
 
-	return databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	return getFirstById(representationId, caseId);
 };
 
 export const updateApplicationRepresentationRedaction = async (
@@ -384,9 +403,7 @@ export const updateApplicationRepresentationRedaction = async (
 	representationId
 ) => {
 	//  Validate case rep id is on case id
-	const response = await databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	const response = await getFirstById(representationId, caseId);
 
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
@@ -414,9 +431,7 @@ export const updateApplicationRepresentationRedaction = async (
 	}
 
 	//  returns updated redacted
-	return databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	return getFirstById(representationId, caseId);
 };
 
 /**
@@ -426,9 +441,7 @@ export const updateApplicationRepresentationRedaction = async (
  * @return {Prisma.Prisma__RepresentationContactClient<Prisma.RepresentationContactGetPayload<{where: {id}}>>}
  */
 export const deleteApplicationRepresentationContact = async (repId, contactId) => {
-	const representation = await databaseConnector.representation.findFirst({
-		where: { id: repId }
-	});
+	const representation = await getFirstById(repId);
 
 	const data = await databaseConnector.representationContact.findFirst({
 		where: { id: contactId }
@@ -516,9 +529,7 @@ function buildSearch(rawSearchTerm) {
  * @returns {Promise<*>}
  */
 export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
-	const representation = await databaseConnector.representation.findFirst({
-		where: { id: representationId }
-	});
+	const representation = await getFirstById(representationId);
 
 	const transactionItems = [
 		databaseConnector.representationAttachment.create({
@@ -553,7 +564,7 @@ export const addApplicationRepresentationAttachment = async (representationId, d
  * @returns {Promise<*>}
  */
 export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
-	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
+	const representation = await getFirstById(repId);
 
 	const transactionItems = [
 		databaseConnector.representationAttachment.delete({
@@ -580,17 +591,21 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 
 /**
  *
- * @param {number} repId
- * @param {object}action
+ * @param {Prisma.RepresentationSelect} representation
+ * @param {object} action
+ * @param {boolean} unpublished
  * @returns {Promise<*>}
  */
-export const updateApplicationRepresentationStatusById = async (repId, action) => {
-	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
-
+export const updateApplicationRepresentationStatusById = async (
+	representation,
+	action,
+	unpublished
+) => {
 	const updateRepStatus = databaseConnector.representation.update({
 		where: { id: representation.id },
 		data: {
-			status: action.status
+			status: action.status,
+			unpublishedUpdates: unpublished ? false : representation.unpublishedUpdates
 		}
 	});
 

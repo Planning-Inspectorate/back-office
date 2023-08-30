@@ -1,19 +1,32 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../../../app-test.js';
+import { eventClient } from '#infrastructure/event-client.js';
 
 const { databaseConnector } = await import('../../../../../utils/database-connector.js');
 
 const existingRepresentations = [
 	{
 		id: 1,
-		representationId: 1,
+		caseId: 1,
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
 		received: '2023-03-14T14:28:25.704Z'
+	},
+	{
+		id: 2,
+		caseId: 1,
+		reference: 'BC0110001-55',
+		status: 'PUBLISHED',
+		redacted: true,
+		received: '2023-08-11T10:52:56.516Z'
 	}
 ];
 
+const expectedUnpublishPayload = {
+	representationId: 2,
+	status: 'VALID'
+};
 const mockDate = new Date('2023-01-02');
 
 describe('Patch Application Representation Status', () => {
@@ -42,7 +55,6 @@ describe('Patch Application Representation Status', () => {
 			data: { status: 'INVALID' },
 			where: { id: 1 }
 		});
-
 		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
 			data: {
 				actionBy: 'jim bo',
@@ -55,6 +67,7 @@ describe('Patch Application Representation Status', () => {
 				type: 'STATUS'
 			}
 		});
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			repId: 1
@@ -131,6 +144,45 @@ describe('Patch Application Representation Status', () => {
 				invalidReason: 'Must be a valid: Duplicate,Merged,Not relevant,Resubmitted,Test',
 				referredTo: 'Must be a valid: Case Team,Inspector,Central Admin Team,Interested Party'
 			}
+		});
+	});
+
+	it('Patch representation status from PUBLISHED to VALID', async () => {
+		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[1]);
+
+		const response = await request
+			.patch('/applications/1/representations/2/status')
+			.send({
+				status: 'VALID',
+				notes: 'unpublishing rep',
+				updatedBy: 'jim bo'
+			})
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: { status: 'VALID', unpublishedUpdates: false },
+			where: { id: 2 }
+		});
+		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
+			data: {
+				actionBy: 'jim bo',
+				actionDate: mockDate,
+				notes: 'unpublishing rep',
+				previousStatus: 'PUBLISHED',
+				representationId: 2,
+				status: 'VALID',
+				type: 'STATUS'
+			}
+		});
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-representation',
+			expectedUnpublishPayload,
+			'Update'
+		);
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			repId: 2
 		});
 	});
 });

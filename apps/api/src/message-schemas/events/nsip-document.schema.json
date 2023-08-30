@@ -15,7 +15,7 @@
 	"properties": {
 		"documentId": {
 			"type": "string",
-			"examples": ["ID23343453"],
+			"examples": ["01c958f2-4e9f-4ce2-adf9-81038702cafa"],
 			"description": "The unique identifier for the file. This will be different to documentReference"
 		},
 		"caseId": {
@@ -29,7 +29,7 @@
 		},
 		"documentReference": {
 			"type": "string",
-			"examples": ["EN010120_1"],
+			"examples": ["WA0110015-000002"],
 			"description": "Reference used throughout ODT <CaseRef>-<SequenceNo>"
 		},
 		"version": {

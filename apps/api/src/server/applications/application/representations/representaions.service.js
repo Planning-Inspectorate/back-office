@@ -15,7 +15,7 @@ export const getCaseRepresentations = async (caseId, pagination, filterAndSort) 
  *
  * @param {number} caseId
  * @param {number} repId
- * @returns {Promise<object>}
+ * @returns {Promise<Prisma.RepresentationSelect>}
  */
 export const getCaseRepresentation = async (caseId, repId) => {
 	return representationsRepository.getById(Number(repId), Number(caseId));

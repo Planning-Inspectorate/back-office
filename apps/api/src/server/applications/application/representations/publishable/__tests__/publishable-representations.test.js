@@ -1,6 +1,6 @@
-import { request } from '../../../../app-test.js';
+import { request } from '#app-test';
 
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const representations = [
 	{

@@ -1,8 +1,8 @@
-import { request } from '../../../../app-test.js';
-import { eventClient } from '../../../../infrastructure/event-client.js';
+import { request } from '#app-test';
+import { eventClient } from '#infrastructure/event-client.js';
 import { jest } from '@jest/globals';
 
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const representations = [
 	{
@@ -132,6 +132,7 @@ const expectedEventPayload = [
 			}
 		],
 		caseRef: 'BC0110001',
+		caseId: 151,
 		dateReceived: '2023-08-11T10:52:56.516Z',
 		examinationLibraryRef: '',
 		originalRepresentation: 'some rep text secret stuff',
@@ -160,6 +161,7 @@ const expectedEventPayload = [
 	{
 		attachments: [],
 		caseRef: 'BC0110001',
+		caseId: 151,
 		dateReceived: '2023-08-11T10:52:56.516Z',
 		examinationLibraryRef: '',
 		originalRepresentation: 'some words',

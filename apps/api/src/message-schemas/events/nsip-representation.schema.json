@@ -12,7 +12,7 @@
 	],
 	"properties": {
 		"representationId": {
-			"type": "string"
+			"type": "number"
 		},
 		"referenceId": {
 			"examples": ["TR043003-000010"],
@@ -24,6 +24,11 @@
 		},
 		"caseRef": {
 			"type": "string"
+		},
+		"caseId": {
+			"type": "number",
+			"examples": [1242],
+			"description": "The unique identifier within the Back Office. This is not the same as the case reference"
 		},
 		"status": {
 			"type": "string",
