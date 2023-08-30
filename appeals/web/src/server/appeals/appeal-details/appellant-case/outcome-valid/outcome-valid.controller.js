@@ -1,20 +1,23 @@
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
+
 /**
  *
+ * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
- * @param {string} appealShortReference
- * @param {number} appealId
  */
-export const renderDecisionValidConfirmationPage = async (
-	response,
-	appealShortReference,
-	appealId
-) => {
+const renderDecisionValidConfirmationPage = async (request, response) => {
+	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+		return response.render('app/500.njk');
+	}
+
+	const { appealId, appealReference } = request.session;
+
 	response.render('app/confirmation.njk', {
 		panel: {
 			title: 'Appeal valid',
 			appealReference: {
 				label: 'Appeal ID',
-				reference: appealShortReference
+				reference: appealReference
 			}
 		},
 		body: {
@@ -36,4 +39,9 @@ export const renderDecisionValidConfirmationPage = async (
 			]
 		}
 	});
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getConfirmation = async (request, response) => {
+	renderDecisionValidConfirmationPage(request, response);
 };

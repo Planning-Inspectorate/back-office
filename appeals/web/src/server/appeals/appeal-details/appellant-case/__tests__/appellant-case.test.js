@@ -14,10 +14,12 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/appeal-details';
 const appellantCasePagePath = '/appellant-case';
-const invalidReasonPagePath = '/invalid';
-const incompleteReasonPagePath = '/incomplete';
+const validOutcomePagePath = '/valid';
+const invalidOutcomePagePath = '/invalid';
+const incompleteOutcomePagePath = '/incomplete';
 const updateDueDatePagePath = '/date';
 const checkYourAnswersPagePath = '/check-your-answers';
+const confirmationPagePath = '/confirmation';
 const otherReasonId = appellantCaseInvalidReasons.find(
 	(reason) => reason.name.toLowerCase() === 'other'
 )?.id;
@@ -74,10 +76,7 @@ describe('appellant-case', () => {
 			});
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(response.statusCode).toBe(302);
 		});
 
 		it('should redirect to the invalid reason page if selected review outcome value is "invalid"', async () => {
@@ -87,6 +86,18 @@ describe('appellant-case', () => {
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
 				reviewOutcome: appellantCaseReviewOutcomes.invalid
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the incomplete reason page if selected review outcome value is "incomplete"', async () => {
+			nock('http://test/')
+				.patch('/appeals/1/appellant-cases/0')
+				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+
+			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
+				reviewOutcome: appellantCaseReviewOutcomes.incomplete
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -106,7 +117,7 @@ describe('appellant-case', () => {
 
 		it('should render the 500 error page if required data is not present in the session', async () => {
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -124,7 +135,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -157,7 +168,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
 					otherReason: '',
 					otherReasonId: otherReasonId
@@ -172,7 +183,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: otherReasonId,
 					otherReason: '',
@@ -191,7 +202,7 @@ describe('appellant-case', () => {
 
 			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: otherReasonId,
 					otherReason: otherReasonTextOverCharacterLimit,
@@ -209,7 +220,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: invalidReasonsWithoutOther[0].id,
 					otherReason: '',
@@ -224,7 +235,7 @@ describe('appellant-case', () => {
 
 			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: appellantCaseInvalidReasons.map((reason) => reason.id),
 					otherReason: otherReasonTextWithinCharacterLimit,
@@ -248,7 +259,7 @@ describe('appellant-case', () => {
 
 		it('should render the 500 error page if required data is not present in the session', async () => {
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -266,7 +277,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -299,7 +310,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
 					otherReason: '',
 					otherReasonId: otherReasonId
@@ -314,7 +325,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: otherReasonId,
 					otherReason: '',
@@ -333,7 +344,7 @@ describe('appellant-case', () => {
 
 			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: otherReasonId,
 					otherReason: otherReasonTextOverCharacterLimit,
@@ -351,7 +362,7 @@ describe('appellant-case', () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: incompleteReasonsWithoutOther[0].id,
 					otherReason: '',
@@ -366,7 +377,7 @@ describe('appellant-case', () => {
 
 			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: appellantCaseIncompleteReasons.map((reason) => reason.id),
 					otherReason: otherReasonTextWithinCharacterLimit,
@@ -390,7 +401,7 @@ describe('appellant-case', () => {
 
 		it('should render the 500 error page if required data is not present in the session', async () => {
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -409,7 +420,7 @@ describe('appellant-case', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: incompleteReasonIdsWithoutOther,
 					otherReasonId
@@ -418,7 +429,7 @@ describe('appellant-case', () => {
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 			);
 			const element = parseHtml(response.text);
 
@@ -448,7 +459,7 @@ describe('appellant-case', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			incompleteReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: incompleteReasonIdsWithoutOther,
 					otherReasonId
@@ -465,7 +476,7 @@ describe('appellant-case', () => {
 
 			const response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '',
@@ -503,7 +514,7 @@ describe('appellant-case', () => {
 
 			let response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '0',
@@ -519,7 +530,7 @@ describe('appellant-case', () => {
 
 			response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '32',
@@ -535,7 +546,7 @@ describe('appellant-case', () => {
 
 			response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': 'first',
@@ -556,7 +567,7 @@ describe('appellant-case', () => {
 
 			let response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -572,7 +583,7 @@ describe('appellant-case', () => {
 
 			response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -588,7 +599,7 @@ describe('appellant-case', () => {
 
 			response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -609,7 +620,7 @@ describe('appellant-case', () => {
 
 			let response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -625,7 +636,7 @@ describe('appellant-case', () => {
 
 			response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -646,7 +657,7 @@ describe('appellant-case', () => {
 
 			const response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '29',
@@ -667,7 +678,7 @@ describe('appellant-case', () => {
 
 			const response = await request
 				.post(
-					`${baseUrl}/1${appellantCasePagePath}${incompleteReasonPagePath}${updateDueDatePagePath}`
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
 				)
 				.send({
 					'due-date-day': '1',
@@ -714,7 +725,7 @@ describe('appellant-case', () => {
 
 			// post to invalid reason page controller is necessary to set required data in the session
 			const invalidReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: invalidReasonIdsWithoutOther,
 					otherReasonId
@@ -742,7 +753,7 @@ describe('appellant-case', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: incompleteReasonIdsWithoutOther,
 					otherReasonId
@@ -770,7 +781,7 @@ describe('appellant-case', () => {
 			nock.cleanAll();
 		});
 
-		it('should send a patch request to the appellant-cases API endpoint and render the decision invalid confirmation page, if posted outcome was "invalid"', async () => {
+		it('should send a patch request to the appellant-cases API endpoint and redirect to the decision invalid confirmation page, if posted outcome was "invalid"', async () => {
 			// post to appellant case page controller is necessary to set required data in the session
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
@@ -782,7 +793,7 @@ describe('appellant-case', () => {
 
 			// post to invalid reason page controller is necessary to set required data in the session
 			const invalidReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
 					invalidReason: invalidReasonIdsWithoutOther,
 					otherReasonId
@@ -799,13 +810,10 @@ describe('appellant-case', () => {
 			);
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(response.statusCode).toBe(302);
 		});
 
-		it('should send a patch request to the appellant-cases API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete"', async () => {
+		it('should send a patch request to the appellant-cases API endpoint and redirect to the decision incomplete confirmation page, if posted outcome was "incomplete"', async () => {
 			// post to appellant case page controller is necessary to set required data in the session
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
@@ -817,7 +825,7 @@ describe('appellant-case', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request
-				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteReasonPagePath}`)
+				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
 					incompleteReason: incompleteReasonIdsWithoutOther,
 					otherReasonId
@@ -834,7 +842,96 @@ describe('appellant-case', () => {
 			);
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
+			expect(response.statusCode).toBe(302);
+		});
+	});
 
+	describe('GET /appellant-case/valid/confirmation', () => {
+		it('should render the 500 error page if required data is not present in the session', async () => {
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${validOutcomePagePath}${confirmationPagePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the outcome valid confirmation page if required data is present in the session', async () => {
+			const mockedAppellantCasesEndpoint = nock('http://test/')
+				.patch('/appeals/1/appellant-cases/0')
+				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+
+			// post to appellant case page controller is necessary to set required data in the session
+			const appellantCasePostResponse = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}`)
+				.send({
+					reviewOutcome: appellantCaseReviewOutcomes.valid
+				});
+
+			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${validOutcomePagePath}${confirmationPagePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/invalid/confirmation', () => {
+		it('should render the 500 error page if required data is not present in the session', async () => {
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}${confirmationPagePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the outcome invalid confirmation page if required data is present in the session', async () => {
+			// post to appellant case page controller is necessary to set required data in the session
+			const appellantCasePostResponse = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}`)
+				.send({
+					reviewOutcome: appellantCaseReviewOutcomes.invalid
+				});
+
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}${confirmationPagePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/incomplete/confirmation', () => {
+		it('should render the 500 error page if required data is not present in the session', async () => {
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${confirmationPagePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the outcome incomplete confirmation page if required data is present in the session', async () => {
+			// post to appellant case page controller is necessary to set required data in the session
+			const appellantCasePostResponse = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}`)
+				.send({
+					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				});
+
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${confirmationPagePath}`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

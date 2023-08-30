@@ -13,4 +13,6 @@ router
 		controller.postInvalidReason
 	);
 
+router.route('/confirmation').get(controller.getConfirmation);
+
 export default router;
