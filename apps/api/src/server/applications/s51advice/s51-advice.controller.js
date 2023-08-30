@@ -65,7 +65,6 @@ export const getS51Advice = async (_request, response) => {
 			// @ts-ignore
 			const { Document } = attachment;
 			const { latestDocumentVersion } = Document;
-			console.log(Document);
 			if (!latestDocumentVersion) {
 				return;
 			}
