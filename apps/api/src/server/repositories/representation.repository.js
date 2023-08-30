@@ -386,6 +386,8 @@ export const updateApplicationRepresentationRedaction = async (
 		where: { id: representationId, caseId }
 	});
 
+	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
+
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
