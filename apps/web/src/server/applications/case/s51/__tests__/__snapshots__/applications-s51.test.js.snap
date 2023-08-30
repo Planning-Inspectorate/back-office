@@ -96,6 +96,112 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                                 </tr>
                             </thead>
+                            <tbody class=\\"govuk-table__body\\"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span></h1>
+            <ul class=\\"govuk-list\\">
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
+                </li>
+            </ul>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice//upload\\"> Upload files</a>
+            </div>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
+                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
+                </div>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\">View S51 publishing queue</a>
+                </div>
+            </nav>
+            <div class=\\"govuk-!-margin-top-7\\">
+                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
+                    <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
+                    <ul class=\\"govuk-tabs__list\\">
+                        <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#advice-properties\\"> S51 advice properties</a>
+                        </li>
+                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#s51-attachments\\"> Attachments</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-tabs__panel\\" id=\\"advice-properties\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">S51 advice properties</h4>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"s51-attachments\\">
+                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Attachments</h4>
+                        <table class=\\"govuk-table pins-file-versions-table\\">
+                            <thead class=\\"govuk-table__head\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Date added</th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                                    <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                                </tr>
+                            </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">
@@ -419,99 +525,6 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span></h1>
-            <ul class=\\"govuk-list\\">
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
-                </li>
-            </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice//upload\\"> Upload files</a>
-            </div>
-            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
-            <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
-                </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\">View S51 publishing queue</a>
-                </div>
-            </nav>
-            <div class=\\"govuk-!-margin-top-7\\">
-                <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
-                    <h2 class=\\"govuk-tabs__title\\"> Contents</h2>
-                    <ul class=\\"govuk-tabs__list\\">
-                        <li class=\\"govuk-tabs__list-item govuk-tabs__list-item--selected\\"><a class=\\"govuk-tabs__tab\\" href=\\"#advice-properties\\"> S51 advice properties</a>
-                        </li>
-                        <li class=\\"govuk-tabs__list-item\\"><a class=\\"govuk-tabs__tab\\" href=\\"#s51-attachments\\"> Attachments</a>
-                        </li>
-                    </ul>
-                    <div class=\\"govuk-tabs__panel\\" id=\\"advice-properties\\">
-                        <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">S51 advice properties</h4>
-                        <dl class=\\"govuk-summary-list\\">
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
-                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
-                                    </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
-                                <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
-                                </dd>
-                            </div>
-                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
-                    <div class=\\"govuk-tabs__panel govuk-tabs__panel--hidden\\" id=\\"s51-attachments\\"><span>in progress...</span>
                     </div>
                 </div>
             </div>
