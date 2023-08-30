@@ -9,7 +9,7 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -190,7 +190,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -310,7 +310,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -430,7 +430,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -550,7 +550,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -670,7 +670,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -788,7 +788,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -906,7 +906,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1024,7 +1024,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1142,7 +1142,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1260,7 +1260,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1378,7 +1378,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1512,7 +1512,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">

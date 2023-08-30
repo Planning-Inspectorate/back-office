@@ -4,7 +4,7 @@
 
 	{% set properties = [
 						{label: 'S51 title', value: s51Advice.title, link: 'title'},
-						{label: 'Enquirer', value: s51Advice.enquirer, link: 'enquirer'},
+						{label: 'Enquirer', value: enquirerString(s51Advice.firstName, s51Advice.lastName, s51Advice.enquirer), link: 'enquirer'},
 						{label: 'Enquiry method', value: s51Advice.enquiryMethod, link: 'author'},
 						{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd/MM/yyyy'})), link: 'enquiry-date'},
 						{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-details'},
@@ -50,4 +50,8 @@
         	rows: propertiesRow
         }) }}
 
+{% endmacro %}
+
+{% macro enquirerString(firstName, lastName, orgName) %}
+  {{firstName}} {{lastName}}, {{orgName}}
 {% endmacro %}
