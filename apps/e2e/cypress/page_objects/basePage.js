@@ -36,6 +36,7 @@ export class Page {
 		tableCell: '.govuk-table__cell',
 		tableHeader: '.govuk-table__header',
 		tableRow: '.govuk-table__row',
+		tab: '.govuk-tabs__tab',
 		tag: '.govuk-tag',
 		textArea: '.govuk-textarea',
 		summaryListKey: '.govuk-summary-list__key',
@@ -82,6 +83,7 @@ export class Page {
 				matchCase: false
 			}),
 		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
+		tabByText: (tabText) => cy.contains(this.selectors.tab, tabText, { matchCase: false }),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
 		tableHeader: () => cy.get(this.selectors.tableHeader),
@@ -136,6 +138,10 @@ export class Page {
 
 	clickLinkByText(linkText) {
 		this.basePageElements.linkByText(linkText).click();
+	}
+
+	clickTabByText(tabText) {
+		this.basePageElements.tabByText(tabText).click();
 	}
 
 	chooseRadioBtnByIndex(indexNumber) {
