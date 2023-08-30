@@ -101,17 +101,15 @@ const s51AdviceDocuments = [
 			latestVersionId: 1,
 			caseId: 29,
 			fromFrontOffice: false,
-			documentVersion: [
-				{
-					fileName: '2048px-Pittsburgh_Steelers_logo.svg',
-					documentType: 'pdf',
-					size: 207364,
-					dateCreated: '2023-08-16T13:57:22.022Z',
-					publishedStatus: 'awaiting_upload',
-					documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
-					version: 1
-				}
-			]
+			latestDocumentVersion: {
+				fileName: '2048px-Pittsburgh_Steelers_logo.svg',
+				documentType: 'pdf',
+				size: 207364,
+				dateCreated: '2023-08-16T13:57:22.022Z',
+				publishedStatus: 'awaiting_upload',
+				documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+				version: 1
+			}
 		}
 	}
 ];

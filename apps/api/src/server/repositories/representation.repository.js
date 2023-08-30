@@ -386,6 +386,8 @@ export const updateApplicationRepresentationRedaction = async (
 		where: { id: representationId, caseId }
 	});
 
+	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
+
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
@@ -422,6 +424,10 @@ export const updateApplicationRepresentationRedaction = async (
  * @return {Prisma.Prisma__RepresentationContactClient<Prisma.RepresentationContactGetPayload<{where: {id}}>>}
  */
 export const deleteApplicationRepresentationContact = async (repId, contactId) => {
+	const representation = await databaseConnector.representation.findFirst({
+		where: { id: repId }
+	});
+
 	const data = await databaseConnector.representationContact.findFirst({
 		where: { id: contactId }
 	});
@@ -440,7 +446,20 @@ export const deleteApplicationRepresentationContact = async (repId, contactId) =
 		where: { id: contactId }
 	});
 
-	return databaseConnector.$transaction([...deleteAddressById, deleteRepresentationContactById]);
+	const transactionItems = [...deleteAddressById, deleteRepresentationContactById];
+
+	if (representation.status === 'PUBLISHED') {
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+	}
+
+	return databaseConnector.$transaction(transactionItems);
 };
 
 /**
