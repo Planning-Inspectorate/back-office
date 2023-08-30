@@ -105,4 +105,10 @@ export class DocumentPropertiesPage extends Page {
 		this.updateRedactionStatus(status);
 		this.clickBackLink();
 	}
+
+	validateVersionCount(count) {
+		cy.contains('li', `Version: ${count}`).should('be.visible');
+		this.clickTabByText('Document history');
+		cy.get(`${this.selectors.tableBody} > ${this.selectors.tableRow}`).should('have.length', count);
+	}
 }
