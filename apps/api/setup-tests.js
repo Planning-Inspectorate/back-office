@@ -86,6 +86,7 @@ const mockS51AdviceFindUnique = jest.fn().mockResolvedValue({});
 const mockS51AdviceFindMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceCount = jest.fn().mockResolvedValue({});
 const mockS51AdviceCreate = jest.fn().mockResolvedValue({});
+const mockS51AdviceUpdate = jest.fn().mockResolvedValue({});
 const mockS51AdviceUpdateMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceDelete = jest.fn().mockResolvedValue({});
 
@@ -200,6 +201,7 @@ class MockPrismaClient {
 			findUnique: mockS51AdviceFindUnique,
 			count: mockS51AdviceCount,
 			create: mockS51AdviceCreate,
+			update: mockS51AdviceUpdate,
 			updateMany: mockS51AdviceUpdateMany,
 			delete: mockS51AdviceDelete
 		};

@@ -98,7 +98,7 @@ export const update = (id, s51AdviceDetails) => {
  */
 export const getPublishableS51Advice = (s51AdviceIds) => {
 	// most of the fields have a not null constraint in DB already, so dont need to check them
-	// need to check has title, and either (enquirer || (firsName + lastName) or all
+	// need to check has title, and (either (enquirer || (firstName + lastName) or all))
 	return databaseConnector.s51Advice.findMany({
 		where: {
 			id: {
