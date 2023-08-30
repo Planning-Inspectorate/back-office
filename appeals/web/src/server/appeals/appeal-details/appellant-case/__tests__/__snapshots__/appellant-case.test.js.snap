@@ -1612,6 +1612,68 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
 </main>"
 `;
 
+exports[`appellant-case POST /appellant-case/incomplete/date should re-render the update date page with the expected error message if provided date is not in the future 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Date must be a date in the future</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <div class="govuk-!-margin-bottom-9">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update appeal due date</h1>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/appellant-case/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if "other" reason text exceeds the character limit 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
