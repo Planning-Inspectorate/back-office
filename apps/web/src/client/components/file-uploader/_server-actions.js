@@ -22,8 +22,6 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<{response: UploadInfo, errors: AnError[]}>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		console.log(uploadForm.dataset);
-		console.log(uploadForm);
 		const { folderId, caseId, adviceId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
