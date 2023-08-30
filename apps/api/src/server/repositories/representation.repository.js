@@ -257,6 +257,8 @@ export const updateApplicationRepresentation = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
+	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
+
 	const whereIsRepresented = {
 		OR: [
 			{
@@ -386,10 +388,10 @@ export const updateApplicationRepresentationRedaction = async (
 		where: { id: representationId, caseId }
 	});
 
-	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
-
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
