@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { Page } from './basePage';
 import { faker } from '@faker-js/faker';
+import { S51AdvicePropertiesPage } from './s51AdviceProperties.js';
+import { enquirerString } from '../support/utils/utils.js';
 
 export class S51AdvicePage extends Page {
 	elements = {
@@ -70,5 +72,44 @@ export class S51AdvicePage extends Page {
 	chooseEnquiryMethod(method) {
 		cy.contains(method).click();
 		this.clickContinue();
+	}
+
+	completeS51Advice(mainDetails, enquirerDetails) {
+		const {
+			title,
+			methodOfEnquiry,
+			day,
+			month,
+			year,
+			dateFullFormatted,
+			enquiryDetails,
+			adviserName,
+			adviceDetails
+		} = mainDetails;
+
+		this.fillTitle(title);
+		this.fillEnquirerDetails({ ...enquirerDetails });
+		this.chooseEnquiryMethod(methodOfEnquiry);
+		this.fillEnquiryDetails({ day, month, year, enquiryDetails });
+		this.fillAdviserDetails(adviserName);
+		this.fillAdviceDetails({ day, month, year, adviceDetails });
+		this.checkAnswer('S51 title', title);
+		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }));
+		this.checkAnswer('Enquiry method', methodOfEnquiry.toLowerCase());
+		this.checkAnswer('Enquiry date', dateFullFormatted);
+		this.checkAnswer('Enquiry details', enquiryDetails);
+		this.checkAnswer('Advise given by (internal use only)', adviserName);
+		this.checkAnswer('Date advice given', dateFullFormatted);
+		this.checkAnswer('Advice given', adviceDetails);
+		this.clickButtonByText('Create S51 advice item');
+		this.basePageElements.successBanner().then(($banner) => {
+			const text = $banner.text().trim();
+			expect(text).to.include('New S51 advice item created');
+		});
+		cy.reload();
+		this.basePageElements.successBanner().should('not.exist');
+
+		const propertiesPage = new S51AdvicePropertiesPage();
+		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
 	}
 }

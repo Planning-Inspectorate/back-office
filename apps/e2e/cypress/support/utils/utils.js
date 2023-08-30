@@ -170,10 +170,23 @@ const getShortMonthName = (monthNumber) => {
 	return date.toLocaleString('default', { month: 'short' });
 };
 
+const enquirerString = (details) => {
+	const hasName = details.firstName && details.lastName;
+	const hasOrg = details.organisation;
+	if (hasName && hasOrg) {
+		return `${details.firstName} ${details.lastName}, ${details.organisation}`;
+	}
+	if (hasName) {
+		return `${details.firstName} ${details.lastName}`;
+	}
+	return hasOrg ? details.organisation : '';
+};
+
 module.exports = {
 	validateSummaryPage,
 	validateSummaryPageInfo,
 	validateProjectInformation,
 	updateProjectInformation,
-	getShortMonthName
+	getShortMonthName,
+	enquirerString
 };
