@@ -2,7 +2,10 @@ import * as representationsRepository from '#repositories/representation.reposit
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_REPRESENTATION } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
-import { buildNsipRepresentationPayload } from './representation.js';
+import {
+	buildNsipRepresentationPayload,
+	buildNsipRepresentationStatusUpdatePayload
+} from './representation.js';
 import { setRepresentationsAsPublished } from '#repositories/representation.repository.js';
 
 export const publishCaseRepresentations = async (caseId, representationIds, actionBy) => {
@@ -18,3 +21,10 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 
 	return representations;
 };
+
+export const publishRepresentationStatusUpdate = async (representation, newStatus) =>
+	eventClient.sendEvents(
+		NSIP_REPRESENTATION,
+		buildNsipRepresentationStatusUpdatePayload(representation, newStatus),
+		EventType.Update
+	);
