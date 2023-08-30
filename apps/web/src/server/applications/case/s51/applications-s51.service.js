@@ -71,13 +71,3 @@ export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
 			pageSize
 		}
 	});
-
-/**
- * Get documents for the advice item
- *
- * @param {number} caseId
- * @param {number} adviceId
- * @returns {Promise<S51BlobResponse>}
- * */
-export const getS51Documents = async (caseId, adviceId) =>
-	get(`applications/${caseId}/s51-advice/${adviceId}/documents`);

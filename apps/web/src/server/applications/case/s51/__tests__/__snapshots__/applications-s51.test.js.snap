@@ -4,13 +4,12 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span></h1>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span> Minim veniam quis nostrud exercitation</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
-                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong> BC0110001-Advice-00001</li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice//upload\\"> Upload files</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/upload\\"> Upload files</a>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
@@ -33,42 +32,44 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">S51 advice properties</h4>
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
-                                <dd class=\\"govuk-summary-list__value\\">,</dd>
+                                <dd class=\\"govuk-summary-list__value\\">Tempor Incididunt, Tempor</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">post</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
-                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Tempor</dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
                                 </dd>
                             </div>
@@ -78,7 +79,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Do not publish</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
                                 </dd>
                             </div>
@@ -96,7 +97,322 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                                 </tr>
                             </thead>
-                            <tbody class=\\"govuk-table__body\\"></tbody>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud exercitation</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Nostrud exercitation ullamco laboris nisi ut</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Elit sed do</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud exercitation</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Magna aliqua Ut enim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Enim ad minim veniam quis</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Dolor sit</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Lorem ipsum</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Aliqua Ut enim ad minim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Ullamco laboris nisi ut aliquip ex</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Quis nostrud exercitation ullamco laboris nisi</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Lorem ipsum</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Ad minim veniam quis nostrud</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Dolore magna aliqua Ut</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Labore et dolore magna</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -110,13 +426,12 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span></h1>
+            <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span> Minim veniam quis nostrud exercitation</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong>
-                </li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong> BC0110001-Advice-00001</li>
             </ul>
-            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice//upload\\"> Upload files</a>
+            <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/upload\\"> Upload files</a>
             </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
@@ -139,42 +454,44 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <h4 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">S51 advice properties</h4>
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
-                                <dd class=\\"govuk-summary-list__value\\">,</dd>
+                                <dd class=\\"govuk-summary-list__value\\">Tempor Incididunt, Tempor</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">post</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
-                                <dd                                 class=\\"govuk-summary-list__value\\"></dd>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Tempor</dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
                                 </dd>
                             </div>
@@ -184,7 +501,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__value\\">Do not publish</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
                                 </dd>
                             </div>
@@ -202,7 +519,322 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
                                 </tr>
                             </thead>
-                            <tbody class=\\"govuk-table__body\\"></tbody>
+                            <tbody class=\\"govuk-table__body\\">
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud exercitation</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Nostrud exercitation ullamco laboris nisi ut</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Elit sed do</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud exercitation</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Magna aliqua Ut enim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Enim ad minim veniam quis</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Dolor sit</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Lorem ipsum</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Aliqua Ut enim ad minim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Ullamco laboris nisi ut aliquip ex</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Quis nostrud exercitation ullamco laboris nisi</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP3, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Do eiusmod tempor</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Lorem ipsum</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>DOC, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Failed virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p class=\\"font-weight--700\\">Ad minim veniam quis nostrud</p>
+                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>Awaiting virus check</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Dolore magna aliqua Ut</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Labore et dolore magna</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p>07/03/2023</p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\">
+                                        <p></p>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
+                                    </td>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='#'> Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -307,6 +939,111 @@ exports[`S51 Advice S51 creation journey Check your answers GET /case/123/projec
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Advice given</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviceDetails\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/advice-details\\">Change</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class=\\"govuk-inset-text\\">Creating S51 advice will default them to &#39;Unredacted&#39; and &#39;Not
+            checked&#39;</div>
+        <input class=\\"govuk-input\\" value='' id=\\"title-value\\"
+        name=\\"title\\" type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"firstname-value\\" name=\\"enquirerFirstName\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"lastname-alue\\" name=\\"enquirerLastName\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquirer-value\\" name=\\"enquirer\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryMethodValue\\" name=\\"enquiryMethod\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryDateValue\\" name=\\"enquiryDate\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"enquiryDetailsValue\\" name=\\"enquiryDetails\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviserValue\\" name=\\"adviser\\" type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviceDateValue\\" name=\\"adviceDate\\"
+        type=\\"hidden\\">
+        <input class=\\"govuk-input\\" value='' id=\\"adviceDetailsValue\\" name=\\"adviceDetails\\"
+        type=\\"hidden\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Create S51 advice item</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 creation journey Check your answers POST /case/123/project-documentation/21/s51-advice/create/check-your-answers should display an error if data is not complete 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l\\"><div class=\\"govuk-grid-row\\"><div class=\\"govuk-grid-column-full\\"> Check your answers before creating a new item</div></div></h1>
+    <form method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-grid-column-full\\">
+                <table class=\\"govuk-table\\">
+                    <tbody class=\\"govuk-table__body\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">S51 title</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"title\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/title\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquirer</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquirer\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/enquirer\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry method</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryMethod\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/method\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry date</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/enquiry-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Enquiry details</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"enquiryDetails\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/enquiry-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Advise given by (internal use only)</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviser\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/person\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Date advice given</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviceDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/advice-details\\">Change</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Advice given</td>
+                            <td class=\\"govuk-table__cell pins-table__cell--s\\"></td>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"adviceDetails\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation//create/advice-details\\">Change</a>
                             </td>
                         </tr>
                     </tbody>
