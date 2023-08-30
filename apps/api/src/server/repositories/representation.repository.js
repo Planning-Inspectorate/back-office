@@ -524,13 +524,33 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 
 /**
  *
+ * @param {number} repId
  * @param {number} attachmentId
  * @returns {Promise<*>}
  */
-export const deleteApplicationRepresentationAttachment = async (attachmentId) => {
-	return databaseConnector.representationAttachment.delete({
-		where: { id: attachmentId }
-	});
+export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
+	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
+	console.log(representation);
+
+	const transactionItems = [
+		databaseConnector.representationAttachment.delete({
+			where: { id: attachmentId }
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [deleteResult] = await databaseConnector.$transaction(transactionItems);
+
+	return deleteResult;
 };
 
 /**
