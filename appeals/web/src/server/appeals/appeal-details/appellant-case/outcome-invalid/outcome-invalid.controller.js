@@ -64,21 +64,22 @@ const renderInvalidReason = async (request, response) => {
 
 /**
  *
+ * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
- * @param {string} appealShortReference
- * @param {number} appealId
  */
-export const renderDecisionInvalidConfirmationPage = async (
-	response,
-	appealShortReference,
-	appealId
-) => {
+const renderDecisionInvalidConfirmationPage = async (request, response) => {
+	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+		return response.render('app/500.njk');
+	}
+
+	const { appealId, appealReference } = request.session;
+
 	response.render('app/confirmation.njk', {
 		panel: {
 			title: 'Appeal invalid',
 			appealReference: {
 				label: 'Appeal ID',
-				reference: appealShortReference
+				reference: appealReference
 			}
 		},
 		body: {
@@ -139,4 +140,9 @@ export const postInvalidReason = async (request, response) => {
 
 		return response.render('app/500.njk');
 	}
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getConfirmation = async (request, response) => {
+	renderDecisionInvalidConfirmationPage(request, response);
 };

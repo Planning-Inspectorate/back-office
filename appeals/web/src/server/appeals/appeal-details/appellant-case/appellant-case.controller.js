@@ -9,9 +9,6 @@ import {
 } from './appellant-case.mapper.js';
 import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '../../../lib/object-utilities.js';
-import { renderDecisionValidConfirmationPage } from './outcome-valid/outcome-valid.controller.js';
-import { renderDecisionInvalidConfirmationPage } from './outcome-invalid/outcome-invalid.controller.js';
-import { renderDecisionIncompleteConfirmationPage } from './outcome-incomplete/outcome-incomplete.controller.js';
 import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 
 /**
@@ -184,7 +181,9 @@ export const postAppellantCase = async (request, response) => {
 					mapWebReviewOutcomeToApiReviewOutcome(appellantCaseReviewOutcomes.valid)
 				);
 
-				return renderDecisionValidConfirmationPage(response, appealReference, appealId);
+				return response.redirect(
+					`/appeals-service/appeal-details/${appealId}/appellant-case/${reviewOutcome}/confirmation`
+				);
 			} else {
 				return response.redirect(
 					`/appeals-service/appeal-details/${appealId}/appellant-case/${reviewOutcome}`
@@ -213,8 +212,7 @@ export const getCheckAndConfirm = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postCheckAndConfirm = async (request, response) => {
 	try {
-		const { appealId, appealReference, appellantCaseId, webAppellantCaseReviewOutcome } =
-			request.session;
+		const { appealId, appellantCaseId, webAppellantCaseReviewOutcome } = request.session;
 
 		await appellantCaseService.setReviewOutcomeForAppellantCase(
 			request.apiClient,
@@ -232,10 +230,13 @@ export const postCheckAndConfirm = async (request, response) => {
 
 		delete request.session.webAppellantCaseReviewOutcome;
 
-		if (validationOutcome === appellantCaseReviewOutcomes.invalid) {
-			return renderDecisionInvalidConfirmationPage(response, appealReference, appealId);
-		} else if (validationOutcome === appellantCaseReviewOutcomes.incomplete) {
-			return renderDecisionIncompleteConfirmationPage(response, appealReference, appealId);
+		if (
+			validationOutcome === appellantCaseReviewOutcomes.invalid ||
+			validationOutcome === appellantCaseReviewOutcomes.incomplete
+		) {
+			response.redirect(
+				`/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/confirmation`
+			);
 		} else {
 			return response.render('app/500.njk');
 		}
