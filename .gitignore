@@ -51,6 +51,7 @@ pids
 **/*.swp
 
 # Env settings / local env files
+.env
 .env.local
 .env.*.local
 
