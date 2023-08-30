@@ -33,7 +33,7 @@ export const addRepresentationAttachment = async ({ params, body }, response) =>
 
 /**
  *
- * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").deleteRepresentationAttachment>}
+ * @type {import("express").RequestHandler<{repId: number, attachmentId: number}, ?, import("@pins/applications").deleteRepresentationAttachment>}
  */
 export const deleteRepresentationAttachment = async ({ params }, response) => {
 	const { repId, attachmentId } = params;
