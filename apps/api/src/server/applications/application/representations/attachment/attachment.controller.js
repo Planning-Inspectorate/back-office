@@ -36,10 +36,10 @@ export const addRepresentationAttachment = async ({ params, body }, response) =>
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").deleteRepresentationAttachment>}
  */
 export const deleteRepresentationAttachment = async ({ params }, response) => {
-	const { attachmentId } = params;
+	const { repId, attachmentId } = params;
 
 	try {
-		const { id } = await deleteAttachmentRepresentation(Number(attachmentId));
+		const { id } = await deleteAttachmentRepresentation(Number(repId), Number(attachmentId));
 		return response.send({ attachmentId: id });
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
