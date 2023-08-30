@@ -64,22 +64,20 @@ export const getS51Advice = async (_request, response) => {
 		attachments.forEach((attachment) => {
 			// @ts-ignore
 			const { Document } = attachment;
-			const { documentVersion } = Document;
-			const latestDocument = documentVersion?.filter(
-				(/** @type {{ version: any; }} */ document) => document.version === Document.latestVersionId
-			);
-			if (latestDocument?.length === 0) {
+			const { latestDocumentVersion } = Document;
+			console.log(Document);
+			if (!latestDocumentVersion) {
 				return;
 			}
 			// @ts-ignore
 			attachmentsWithVersion.push({
-				documentName: latestDocument[0]?.fileName,
-				documentType: latestDocument[0]?.documentType,
-				documentSize: latestDocument[0]?.size,
-				dateAdded: mapDateStringToUnixTimestamp(latestDocument[0]?.dateCreated),
-				status: latestDocument[0]?.publishedStatus,
-				documentGuid: latestDocument[0]?.documentGuid,
-				version: latestDocument[0]?.version
+				documentName: latestDocumentVersion.fileName,
+				documentType: latestDocumentVersion.documentType,
+				documentSize: latestDocumentVersion.size,
+				dateAdded: mapDateStringToUnixTimestamp(latestDocumentVersion.dateCreated),
+				status: latestDocumentVersion.publishedStatus,
+				documentGuid: latestDocumentVersion.documentGuid,
+				version: latestDocumentVersion.version
 			});
 		});
 	}
