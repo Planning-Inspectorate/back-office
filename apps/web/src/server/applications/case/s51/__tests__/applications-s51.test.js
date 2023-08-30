@@ -8,6 +8,7 @@ import {
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
 import { fixturePaginatedS51Advice } from '../../../../../../testing/applications/fixtures/s51-advice.js';
+import { createS51Advice } from '../../../../../../testing/applications/factory/s51-advice.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -21,6 +22,10 @@ const nocks = () => {
 	nock('http://test/')
 		.post('/applications/123/s51-advice')
 		.reply(200, fixturePaginatedS51Advice(1, 50));
+
+	nock('http://test/')
+		.get('/applications/123/s51-advice/1')
+		.reply(200, createS51Advice({ id: 1 }));
 
 	nock('http://test/')
 		.get('/applications/123/folders/21/parent-folders')
@@ -413,6 +418,40 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Check your answers');
+				});
+			});
+
+			describe('POST /case/123/project-documentation/21/s51-advice/create/check-your-answers', () => {
+				it('should display an error if data is not complete', async () => {
+					const response = await request.post(`${baseUrl}/create/check-your-answers`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('An error occurred, please try again later');
+				});
+
+				it('should go to properties page showing a display banner if data is complete', async () => {
+					nock('http://test/').post('/applications/s51-advice').reply(200, { id: 1 });
+
+					const response = await request.post(`${baseUrl}/create/check-your-answers`).send({
+						title: 'S51 title',
+						enquirer: 's51 enquirer',
+						firstName: 's51 first name',
+						lastName: 's51 lastname',
+						enquiryMethod: 'email',
+						enquiryDate: '2020-01-01',
+						enquiryDetails: 's51 enquiry details',
+						adviser: 's51 adviser',
+						adviceDate: '2021-01-01',
+						adviceDetails: 's51 advice details'
+					});
+
+					expect(response?.headers?.location).toEqual('../../s51-advice/1/properties');
+
+					const response2 = await request.get(`${baseUrl}/1/properties`);
+					const element = parseHtml(response2.text);
+
+					expect(element.innerHTML).toContain('New S51 advice item created');
 				});
 			});
 		});

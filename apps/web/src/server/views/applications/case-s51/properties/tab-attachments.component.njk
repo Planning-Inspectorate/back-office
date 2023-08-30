@@ -67,6 +67,9 @@
 	{% endfor %}
 
 	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
+
+	{% if attachmentsRows.length > 0%}
+
 		{{ govukTable({
 			classes: 'pins-file-versions-table',
             captionClasses: "govuk-table__caption--m",
@@ -79,5 +82,8 @@
             ],
             rows: attachmentsRows
     }) }}
+	{% else %}
+		<p>There are no attachments on this item.</p>
+	{% endif %}
 
-	{% endmacro %}
+{% endmacro %}

@@ -8,13 +8,14 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import {
-	createS51Advice,
-	getS51Advice,
-	getS51FilesInFolder,
-} from './applications-s51.service.js';
+import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
+import {
+	destroySuccessBanner,
+	getSuccessBanner,
+	setSuccessBanner
+} from '../../common/services/session.service.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -65,17 +66,18 @@ export async function viewApplicationsCaseS51Folder(request, response) {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
-export async function viewApplicationsCaseS51Item({ params, query }, response) {
+export async function viewApplicationsCaseS51Item({ params, session }, response) {
 	const { adviceId } = params;
-	const { success } = query;
 	const { caseId } = response.locals;
 
 	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
+	const showSuccessBanner = getSuccessBanner(session);
+	destroySuccessBanner(session);
+
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
-		showSuccessBanner: success === '1',
-		attachments: s51Advice.attachments
+		showSuccessBanner
 	});
 }
 
@@ -226,7 +228,9 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 		});
 	}
 
-	response.redirect(`../../s51-advice/${newS51Advice.id}/properties?success=1`);
+	setSuccessBanner(session);
+
+	response.redirect(`../../s51-advice/${newS51Advice.id}/properties`);
 }
 
 /**
