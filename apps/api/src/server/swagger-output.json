@@ -438,41 +438,7 @@
 								"items": {
 									"type": "array",
 									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 1
-											},
-											"reference": {
-												"type": "string",
-												"example": "BC0110001-2"
-											},
-											"status": {
-												"type": "string",
-												"example": "VALID"
-											},
-											"redacted": {
-												"type": "boolean",
-												"example": true
-											},
-											"received": {
-												"type": "string",
-												"example": "2023-03-14T14:28:25.704Z"
-											},
-											"firstName": {
-												"type": "string",
-												"example": "James"
-											},
-											"lastName": {
-												"type": "string",
-												"example": "Bond"
-											},
-											"organisationName": {
-												"type": "string",
-												"example": "MI6"
-											}
-										}
+										"$ref": "#/definitions/RepresentationSummary"
 									}
 								}
 							},
@@ -852,6 +818,44 @@
 				"responses": {
 					"200": {
 						"description": "Representations CSV"
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/publishable": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets publishable representations for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/RepresentationSummary"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -1497,7 +1501,7 @@
 				}
 			}
 		},
-		"/document/{guid}/properties": {
+		"/documents/{guid}/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of a single file",
@@ -1580,7 +1584,7 @@
 				}
 			}
 		},
-		"/applications/document/{guid}/path": {
+		"/applications/documents/{guid}/path": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the array of folders containing a document",
@@ -7779,6 +7783,43 @@
 				"functionInvocationId": {
 					"type": "string",
 					"description": "the ID of the Azure function run that handled this entry"
+				}
+			}
+		},
+		"RepresentationSummary": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"reference": {
+					"type": "string",
+					"example": "BC0110001-2"
+				},
+				"status": {
+					"type": "string",
+					"example": "VALID"
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": true
+				},
+				"received": {
+					"type": "string",
+					"example": "2023-03-14T14:28:25.704Z"
+				},
+				"firstName": {
+					"type": "string",
+					"example": "James"
+				},
+				"lastName": {
+					"type": "string",
+					"example": "Bond"
+				},
+				"organisationName": {
+					"type": "string",
+					"example": "MI6"
 				}
 			}
 		},

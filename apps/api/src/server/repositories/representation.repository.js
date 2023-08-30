@@ -633,7 +633,46 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 };
 
 /**
- * Returns 'publishable' representations - those where status is VALID, or status is PUBLISHED and unpublishedUpdates is true
+ * Returns representations for the given case id that are 'publishable' - those where status is VALID,
+ * or status is PUBLISHED and unpublishedUpdates is true
+ * @param {number} caseId
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getPublishableRepresentations = async (caseId) =>
+	databaseConnector.representation.findMany({
+		select: {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			contacts: {
+				select: {
+					firstName: true,
+					lastName: true,
+					organisationName: true
+				},
+				where: {
+					OR: [
+						{
+							NOT: { type: 'AGENT' }
+						},
+						{
+							type: null
+						}
+					]
+				}
+			}
+		},
+		where: {
+			caseId,
+			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+		}
+	});
+
+/**
+ * Returns representations with the given representation ids that are 'publishable' - those where status is VALID,
+ * or status is PUBLISHED and unpublishedUpdates is true
  * @param {number} caseId
  * @param {number[]} representationIds
  * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
