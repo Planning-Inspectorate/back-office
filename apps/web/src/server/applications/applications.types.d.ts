@@ -148,6 +148,8 @@ export interface S51Attachment {
 	documentSize: number;
 	dateAdded: number;
 	status: string;
+	version: number;
+	documentGuid: string;
 }
 export interface S51Advice {
 	caseId: number;

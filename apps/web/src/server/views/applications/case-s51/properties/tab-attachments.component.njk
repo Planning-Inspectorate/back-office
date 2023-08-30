@@ -11,7 +11,7 @@
 		{% set isAttachmentSafe = (attachment.status === 'awaiting_upload') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
-			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.id}) }}" class="govuk-link">{{ attachment.documentName }}</a>
+			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">{{ attachment.documentName }}</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ attachment.documentName }}
@@ -31,14 +31,14 @@
 		{% endset %}
 
 		{% set download %}
-		<a class='govuk-link' href='{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid}) }}'>
+		<a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
 				Download
 			</a>
 
 		{% endset %}
 
 		{% set delete %}
-		<a class='govuk-link' href='{{ 'document-download'|url({caseid: caseid, documentguid: attachment.documentguid}) }}'>
+		<a class='govuk-link' href='#'>
 				Delete
 			</a>
 
@@ -67,7 +67,7 @@
 	{% endfor %}
 
 	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
-	{{ govukTable({
+		{{ govukTable({
 			classes: 'pins-file-versions-table',
             captionClasses: "govuk-table__caption--m",
             head: [
@@ -80,4 +80,4 @@
             rows: attachmentsRows
     }) }}
 
-{% endmacro %}
+	{% endmacro %}
