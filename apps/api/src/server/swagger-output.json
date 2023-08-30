@@ -2876,7 +2876,7 @@
 			}
 		},
 		"/applications/{id}/s51-advice": {
-			"post": {
+			"get": {
 				"tags": ["Applications"],
 				"description": "Gets paginated array of S51 Advice(s) on a case",
 				"parameters": [
@@ -2888,13 +2888,18 @@
 						"description": "Application ID"
 					},
 					{
-						"name": "body",
-						"in": "body",
-						"description": "S51 Advice pagination parameters",
-						"schema": {
-							"$ref": "#/definitions/S51AdvicePaginatedRequestBody"
-						},
-						"required": true
+						"name": "page",
+						"in": "query",
+						"description": "The page number required",
+						"required": true,
+						"type": "number"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of items per page",
+						"required": true,
+						"type": "number"
 					}
 				],
 				"responses": {
@@ -2978,6 +2983,34 @@
 						"description": "All documents failed to upload",
 						"schema": {
 							"$ref": "#/definitions/documentsUploadFailed"
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get S51 advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Documents",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
 						}
 					}
 				}
@@ -7504,21 +7537,6 @@
 					"type": "date-time",
 					"description": "Date advice record was last updated",
 					"example": "2023-02-01T00:00:00.000Z"
-				}
-			}
-		},
-		"S51AdvicePaginatedRequestBody": {
-			"type": "object",
-			"properties": {
-				"pageNumber": {
-					"type": "integer",
-					"description": "The page number required",
-					"example": 1
-				},
-				"pageSize": {
-					"type": "integer",
-					"description": "The number of items per page",
-					"example": 50
 				}
 			}
 		},

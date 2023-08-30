@@ -45,3 +45,11 @@ export interface S51AdviceForm {
 	'adviceDate.year'?: string;
 	adviceDetails: string;
 }
+
+export interface S51BlobResponse {
+	blobStorageHost: string;
+	documents: {
+		documentName: string;
+		blobStoreUrl: string;
+	}[];
+}

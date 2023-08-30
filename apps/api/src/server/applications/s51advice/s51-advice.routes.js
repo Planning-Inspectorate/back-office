@@ -4,7 +4,8 @@ import {
 	createS51Advice,
 	getS51Advice,
 	getManyS51Advices,
-	addDocuments
+	addDocuments,
+	getDocuments
 } from './s51-advice.controller.js';
 import { validateCreateS51Advice, validatePaginationCriteria } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
@@ -59,7 +60,7 @@ router.get(
 	asyncHandler(getS51Advice)
 );
 
-router.post(
+router.get(
 	'/:id/s51-advice',
 	/*
         #swagger.tags = ['Applications']
@@ -67,16 +68,22 @@ router.post(
         #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID',
-			required: true,
-			type: 'integer'
-		}
-		#swagger.parameters['body'] = {
-			in: 'body',
-			description: 'S51 Advice pagination parameters',
-			schema: { $ref: '#/definitions/S51AdvicePaginatedRequestBody' },
-			required: true
-		}
+            description: 'Application ID',
+            required: true,
+            type: 'integer'
+        }
+        #swagger.parameters['page'] = {
+            in: 'query',
+            description: 'The page number required',
+            required: true,
+            type: 'number'
+        }
+        #swagger.parameters['pageSize'] = {
+            in: 'query',
+            description: 'The number of items per page',
+            required: true,
+            type: 'number'
+        }
         #swagger.responses[200] = {
             description: 'A paginated data set of S51 Advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
@@ -134,4 +141,32 @@ router.post(
 	validateApplicationId,
 	asyncHandler(addDocuments)
 );
+
+router.get(
+	'/:id/s51-advice/:adviceId/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}/documents'
+        #swagger.description = 'Get S51 advice documents'
+         #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application case ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+			description: 'S51 advice ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'S51 Documents',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getDocuments)
+);
+
 export { router as s51AdviceRoutes };

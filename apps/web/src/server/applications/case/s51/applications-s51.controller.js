@@ -8,8 +8,14 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import {
+	createS51Advice,
+	getS51Advice,
+	getS51FilesInFolder,
+	getS51Documents
+} from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
+import pino from '../../../lib/logger.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -27,11 +33,27 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
-	const number = +(request.query.number || '1');
-	const size = request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : 50;
+	const number = Number(request.query.number || '1');
+	const size = (() => {
+		const _size = Number(request.query?.size ?? NaN);
+		if (Number.isNaN(_size)) {
+			return 50;
+		}
 
-	const s51Files = await getS51FilesInFolder(response.locals.caseId, size, number);
-	const pagination = paginationParams(size, number, s51Files.pageCount);
+		return _size;
+	})();
+
+	const s51Files = await (async () => {
+		try {
+			return await getS51FilesInFolder(response.locals.caseId, size, number);
+		} catch (/** @type {*} */ error) {
+			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+			return null;
+		}
+	})();
+
+	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
 
 	response.render(`applications/components/folder/folder`, {
 		items: s51Files,
@@ -49,11 +71,57 @@ export async function viewApplicationsCaseS51Item({ params, query }, response) {
 	const { success } = query;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+
+	const s51Files = await (async () => {
+		try {
+			return await getS51Documents(parseInt(caseId), parseInt(adviceId));
+		} catch (/** @type {*} */ error) {
+			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+			return null;
+		}
+	})();
+
+	const blobHost = (() => {
+		if (!s51Files) {
+			return;
+		}
+
+		if (s51Files.blobStorageHost.endsWith('/')) {
+			return s51Files.blobStorageHost.slice(0, -1);
+		}
+
+		return s51Files.blobStorageHost;
+	})();
+
+	const attachments =
+		s51Files?.documents.map((file) => ({
+			title: file.documentName,
+			dateAdded: new Date(),
+			url: blobHost + file.blobStoreUrl
+		})) ?? [];
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
-		showSuccessBanner: success === '1'
+		showSuccessBanner: success === '1',
+		attachments
+	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
+ */
+export async function viewApplicationsCaseS51Upload({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+
+	response.render(`applications/case-s51/properties/s51-upload`, {
+		s51Advice
 	});
 }
 

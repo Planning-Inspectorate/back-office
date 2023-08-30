@@ -221,6 +221,20 @@ export const getByDocumentGUID = (documentGUID) => {
 };
 
 /**
+ *
+ * @param {string[]} guids
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[] | null>}
+ * */
+export const getDocumentsByGUID = (guids) =>
+	databaseConnector.document.findMany({
+		where: {
+			guid: {
+				in: guids
+			}
+		}
+	});
+
+/**
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */

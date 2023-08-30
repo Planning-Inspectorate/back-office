@@ -5,6 +5,7 @@ import pino from '../../../lib/logger.js';
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
+/** @typedef {import('./applications-s51.types.js').S51BlobResponse} S51BlobResponse */
 
 /**
  * Save new S51 advice
@@ -56,30 +57,27 @@ export const getS51Advice = async (caseId, adviceId) => {
 };
 
 /**
- * Get the documents for the current folder
+ * Get the advice items for the current case
  *
  * @param {number} caseId
  * @param {number} pageSize
  * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) => {
-	let response;
+export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
+	get(`applications/${caseId}/s51-advice`, {
+		searchParams: {
+			page: pageNumber,
+			pageSize
+		}
+	});
 
-	try {
-		response = await post(`applications/${caseId}/s51-advice`, {
-			json: {
-				pageSize: pageSize,
-				pageNumber: pageNumber
-			}
-		});
-	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
-
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
-		});
-	}
-
-	return response;
-};
+/**
+ * Get documents for the advice item
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns {Promise<S51BlobResponse>}
+ * */
+export const getS51Documents = async (caseId, adviceId) =>
+	get(`applications/${caseId}/s51-advice/${adviceId}/documents`);
