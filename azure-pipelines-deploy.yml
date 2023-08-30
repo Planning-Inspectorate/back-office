@@ -72,14 +72,15 @@ resources:
 extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
-    # automaticDeployments:
-    #   - name: Dev
-    #   - name: Test
-    #     dependsOn:
-    #       - Dev
-    #   - name: Prod
-    #     dependsOn:
-    #       - Test
+    automaticDeployments:
+      environments:
+        - name: Dev
+        - name: Test
+          dependsOn:
+            - Dev
+        - name: Prod
+          dependsOn:
+            - Test
     deploymentStages:
       - name: Deploy Applications
         deploymentJobs:
