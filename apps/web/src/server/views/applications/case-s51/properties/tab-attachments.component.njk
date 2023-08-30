@@ -8,10 +8,10 @@
 		{% set name %}
 
 		{% set isPreviewPossible = (attachment.documentType === 'application/pdf' or attachment.documentType === 'image/jpeg' or attachment.documentType === 'image/png') %}
-		{% set isAttachmentSafe = (attachment.status === 'AWAITING_UPLOAD') %}
+		{% set isAttachmentSafe = (attachment.status === 'awaiting_upload') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
-			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.id}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
+			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.id}) }}" class="govuk-link">{{ attachment.documentName }}</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ attachment.documentName }}
