@@ -22,7 +22,9 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<{response: UploadInfo, errors: AnError[]}>}
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
-		const { folderId, caseId } = uploadForm.dataset;
+		console.log(uploadForm.dataset);
+		console.log(uploadForm);
+		const { folderId, caseId, adviceId } = uploadForm.dataset;
 		const payload = [...fileList].map((file) => ({
 			documentName: file.name,
 			documentSize: file.size,
@@ -32,7 +34,12 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		}));
 
-		return fetch(`/documents/${caseId}/upload/`, {
+		let documentUploadUrl = `/documents/${caseId}/upload/`;
+		if (adviceId) {
+			documentUploadUrl = `/documents/${caseId}/s51-advice/${adviceId}/upload/`;
+		}
+
+		return fetch(documentUploadUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
