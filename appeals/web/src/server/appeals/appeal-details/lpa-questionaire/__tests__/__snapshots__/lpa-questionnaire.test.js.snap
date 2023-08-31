@@ -262,6 +262,46 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 </main>"
 `;
 
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> LPA questionnaire complete</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
+                    and the the review is finished.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should render the 500 error page if required data is not present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -315,6 +355,46 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
         <input type="hidden" id="otherReasonId" name="otherReasonId"
         value="3">
     </form>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> LPA questionnaire incomplete</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire
+                    is incomplete, and let them know what to do to complete it.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </main>"
 `;
 
@@ -376,33 +456,6 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
             data-module="govuk-button"> Skip</a>
         </div>
     </form>
-</main>"
-`;
-
-exports[`LPA Questionnaire review POST / should redirect to the complete page if no errors are present 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> LPA questionnaire complete</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
-                    and the the review is finished.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                </p>
-            </div>
-        </div>
-    </div>
 </main>"
 `;
 
@@ -628,33 +681,6 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         <button class="govuk-button" data-module="govuk-button">Continue</button>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers should send a patch request to the LPA questionnaire API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> LPA questionnaire incomplete</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire
-                    is incomplete, and let them know what to do to complete it.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
-                </p>
             </div>
         </div>
     </div>
