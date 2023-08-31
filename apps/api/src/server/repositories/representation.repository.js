@@ -257,6 +257,8 @@ export const updateApplicationRepresentation = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
+	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
+
 	const whereIsRepresented = {
 		OR: [
 			{
@@ -386,10 +388,10 @@ export const updateApplicationRepresentationRedaction = async (
 		where: { id: representationId, caseId }
 	});
 
-	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
-
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
@@ -514,23 +516,66 @@ function buildSearch(rawSearchTerm) {
  * @returns {Promise<*>}
  */
 export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
-	return databaseConnector.representationAttachment.create({
-		data: {
-			documentGuid: documentId,
-			representationId
-		}
+	const representation = await databaseConnector.representation.findFirst({
+		where: { id: representationId }
 	});
+
+	const transactionItems = [
+		databaseConnector.representationAttachment.create({
+			data: {
+				documentGuid: documentId,
+				representationId
+			}
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [representationAttachmentCreateResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
+
+	return representationAttachmentCreateResult;
 };
 
 /**
  *
+ * @param {number} repId
  * @param {number} attachmentId
  * @returns {Promise<*>}
  */
-export const deleteApplicationRepresentationAttachment = async (attachmentId) => {
-	return databaseConnector.representationAttachment.delete({
-		where: { id: attachmentId }
-	});
+export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
+	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
+
+	const transactionItems = [
+		databaseConnector.representationAttachment.delete({
+			where: { id: attachmentId }
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [representationAttachmentDeleteResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
+
+	return representationAttachmentDeleteResult;
 };
 
 /**

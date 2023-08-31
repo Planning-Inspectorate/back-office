@@ -279,6 +279,21 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the update date page with the expected error message if provided date is not in the future', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+			expect(incompleteReasonPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete/date`).send({
+				'due-date-day': '1',
+				'due-date-month': '1',
+				'due-date-year': '2000'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should re-render the update date page with the expected error message if an invalid day was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -286,7 +301,7 @@ describe('LPA Questionnaire review', () => {
 			let response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '0',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -298,7 +313,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '32',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -310,7 +325,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': 'first',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -327,7 +342,7 @@ describe('LPA Questionnaire review', () => {
 			let response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '0',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -339,7 +354,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '13',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -351,7 +366,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': 'dec',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -397,7 +412,7 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '29',
 				'due-date-month': '2',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -414,7 +429,7 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '12',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(302);
