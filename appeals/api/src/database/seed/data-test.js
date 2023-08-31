@@ -4,6 +4,7 @@
 
 import {
 	addressesList,
+	addressListForTrainers,
 	appellantCaseList,
 	appellantsList,
 	completeValidationDecisionSample,
@@ -25,6 +26,8 @@ import {
 } from '#endpoints/constants.js';
 
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
+
+/** @typedef {import('@pins/appeals.api').Appeals.AppealSite} AppealSite */
 
 /**
  * @returns {Date} date two weeks ago
@@ -93,7 +96,8 @@ const buildCompoundState = (
  *  startedAt?: Date | null,
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
- *  connectToUser?: boolean}} param0
+ *  connectToUser?: boolean,
+ *  siteAddressList?: AppealSite[]}} param0
  * @returns {object}
  */
 const appealFactory = ({
@@ -106,7 +110,8 @@ const appealFactory = ({
 	startedAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
-	connectToUser = false
+	connectToUser = false,
+	siteAddressList = addressesList
 }) => {
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
@@ -116,7 +121,7 @@ const appealFactory = ({
 		appellant: { create: appellantsList[pickRandom(appellantsList)] },
 		localPlanningDepartment: localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)],
 		planningApplicationReference: '48269/APP/2021/1482',
-		address: { create: addressesList[pickRandom(addressesList)] },
+		address: { create: siteAddressList[pickRandom(siteAddressList)] },
 		...(incompleteValidationDecision && {
 			validationDecision: { create: incompleteValidationDecisionSample }
 		}),
@@ -154,6 +159,22 @@ const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
@@ -190,6 +211,22 @@ const appealsLpaQuestionnaireDue = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
+		completeValidationDecision: true,
+		lpaQuestionnaire: true,
+		startedAt: new Date(),
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
+		completeValidationDecision: true,
+		lpaQuestionnaire: true,
+		startedAt: new Date(),
+		siteAddressList: addressListForTrainers
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,

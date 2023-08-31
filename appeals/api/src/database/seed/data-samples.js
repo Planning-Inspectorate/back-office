@@ -192,6 +192,12 @@ export const addressesList = [
 	}
 ];
 
+export const addressListForTrainers = addressesList.map((address) => ({
+	...address,
+	addressLine1: 'FOR TRAINERS ONLY',
+	addressLine2: address.addressLine1
+}));
+
 /**
  * An array of objects representing LPA questionnaire lists.
  *
