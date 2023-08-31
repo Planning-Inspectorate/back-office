@@ -5,14 +5,14 @@
 	{% set properties = [
 						{label: 'S51 title', value: s51Advice.title, link: 'title'},
 						{label: 'Enquirer', value: enquirerString(s51Advice.firstName, s51Advice.lastName, s51Advice.enquirer), link: 'enquirer'},
-						{label: 'Enquiry method', value: s51Advice.enquiryMethod, link: 'author'},
+						{label: 'Enquiry method', value: s51Advice.enquiryMethod, link: 'method'},
 						{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd/MM/yyyy'})), link: 'enquiry-date'},
 						{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-details'},
 						{label: 'Advice given by (internal use only)', value: s51Advice.adviser, link: 'adviser'},
 						{label: 'Date advice given', value: (s51Advice.adviceDate|datestamp({format: 'dd/MM/yyyy'})), link: 'advice-date'},
 						{label: 'Advise given', value: s51Advice.adviceDetails, link: 'advice-detail'},
 						{label: 'Redaction', value: ('Redacted' if s51Advice.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
-						{label: 'Status', value: s51Advice.publishedStatus|statusName, link: 'published-status'}
+						{label: 'Status', value: s51Advice.publishedStatus|statusName, link: 'status'}
 	] %}
 
 	{% set propertiesRow = [] %}

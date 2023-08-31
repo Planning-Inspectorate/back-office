@@ -1,0 +1,14 @@
+{% extends "../../../layouts/applications.layout.njk" %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to S51 advice folder",
+		href: breadcrumbItems[breadcrumbItems.length - 1].href
+	}) }}
+{% endblock %}
+{% block pageHeading %}{% endblock %}
+{% block pageContent %}
+  <div>
+    Edit redaction
+  </div>
+{% endblock %}
