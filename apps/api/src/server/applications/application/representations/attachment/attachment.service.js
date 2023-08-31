@@ -4,6 +4,6 @@ export const addAttachmentRepresentation = async (repId, documentId) => {
 	return representationsRepository.addApplicationRepresentationAttachment(repId, documentId);
 };
 
-export const deleteAttachmentRepresentation = async (attachmentId) => {
-	return representationsRepository.deleteApplicationRepresentationAttachment(attachmentId);
+export const deleteAttachmentRepresentation = async (repId, attachmentId) => {
+	return representationsRepository.deleteApplicationRepresentationAttachment(repId, attachmentId);
 };
