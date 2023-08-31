@@ -35,4 +35,8 @@ applicationsS51Router
 	.route('/:adviceId/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
 
+applicationsS51Router
+	.route('/:adviceId/edit/:step')
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseEditS51Item));
+
 export default applicationsS51Router;
