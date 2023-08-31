@@ -6,6 +6,7 @@ parameters:
     values:
       - Dev
       - Test
+      - Prod
 
 pool: pins-odt-agent-pool
 
