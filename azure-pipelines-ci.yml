@@ -44,3 +44,7 @@ extends:
             parameters:
               # check web build script works
               script: npm run build:release
+              environmentVariables:
+                TURBO_TEAM: $(TURBO_TEAM)
+                TURBO_API: $(TURBO_API)
+                TURBO_TOKEN: $(TURBO_TOKEN)
