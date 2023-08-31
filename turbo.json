@@ -28,7 +28,7 @@
 			"cache": false
 		},
 		"tscheck": {
-			"cache": false
+			"dependsOn": ["topo"]
 		},
 		"dev": {
 			"cache": false
