@@ -7,6 +7,4 @@ const app = buildApp();
 // init supertest once for all tests to use
 const request = supertest(app);
 
-console.log('Force cache re-run');
-
 export { app, request };
