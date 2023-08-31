@@ -101,6 +101,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/create/${step}`;
 		case 's51-item':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/${step}`;
+		case 's51-edit':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/edit/${step}`;
 		case 's51-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/s51-queue`;
 		case 'timetable':
