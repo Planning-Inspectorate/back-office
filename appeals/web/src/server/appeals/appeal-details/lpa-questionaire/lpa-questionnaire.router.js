@@ -26,4 +26,6 @@ router
 		lpaQuestionnaireController.postCheckAndConfirm
 	);
 
+router.route('/:lpaQId/confirmation').get(lpaQuestionnaireController.getConfirmation);
+
 export default router;
