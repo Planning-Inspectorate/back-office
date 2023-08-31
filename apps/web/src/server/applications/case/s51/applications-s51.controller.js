@@ -99,6 +99,22 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
 /**
  * Show s51 advice item
  *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function postApplicationsCaseEditS51Item({ params }, response) {
+	const { step } = params;
+
+	switch (step) {
+		case 'title':
+			return response.redirect('../properties');
+		default:
+			return response.redirect('/');
+	}
+}
+
+/**
+ * Show s51 advice item
+ *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
 export async function viewApplicationsCaseS51Upload({ params }, response) {
