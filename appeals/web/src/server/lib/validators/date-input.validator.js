@@ -1,6 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { dateIsValid } from '../dates.js';
+import { dateIsValid, dateIsInTheFuture } from '../dates.js';
 import { capitalize } from 'lodash-es';
 
 export const createDateInputValidator = (
@@ -115,6 +115,28 @@ export const createDateInputValidator = (
 			.withMessage(
 				capitalize(
 					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}must be a valid date`
+				)
+			)
+			.custom((bodyFields) => {
+				const day = bodyFields[`${fieldNamePrefix}-day`];
+				const month = bodyFields[`${fieldNamePrefix}-month`];
+				const year = bodyFields[`${fieldNamePrefix}-year`];
+
+				if (!day || !month || !year) {
+					return false;
+				}
+
+				const dayNumber = Number.parseInt(day, 10);
+				const monthNumber = Number.parseInt(month, 10);
+				const yearNumber = Number.parseInt(year, 10);
+
+				return dateIsInTheFuture(yearNumber, monthNumber, dayNumber);
+			})
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}must be a date in the future`
 				)
 			)
 	);

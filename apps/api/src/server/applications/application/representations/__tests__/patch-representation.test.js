@@ -5,10 +5,19 @@ const { databaseConnector } = await import('../../../../utils/database-connector
 const existingRepresentations = [
 	{
 		id: 1,
-		representationId: 200,
+		caseId: 200,
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
+		received: '2023-03-14T14:28:25.704Z'
+	},
+	{
+		id: 2,
+		caseId: 200,
+		reference: 'BC0110001-3',
+		status: 'PUBLISHED',
+		redacted: true,
+		unpublishedUpdates: false,
 		received: '2023-03-14T14:28:25.704Z'
 	}
 ];
@@ -139,6 +148,29 @@ describe('Patch Application Representation', () => {
 		expect(response.body).toEqual({
 			id: 1,
 			status: 'VALID'
+		});
+	});
+
+	it('Patch published representation - set unpublishedUpdates', async () => {
+		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[1]);
+
+		const response = await request
+			.patch('/applications/1/representations/2')
+			.send({ originalRepresentation: 'Updated original rep' })
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: {
+				originalRepresentation: 'Updated original rep',
+				unpublishedUpdates: true
+			},
+			where: { id: 2 }
+		});
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({
+			id: 2,
+			status: 'PUBLISHED'
 		});
 	});
 });

@@ -18,6 +18,16 @@ export const createNewDocument = async (caseId, payload) => {
 
 /**
  * @param {string} caseId
+ * @param {number} adviceId
+ * @param {DocumentUploadInfo[]} payload
+ * @returns {Promise<UploadInfo>}
+ */
+export const createS51AdviceDocuments = async (caseId, adviceId, payload) => {
+	return post(`applications/${caseId}/s51-advice/${adviceId}/documents`, { json: payload });
+};
+
+/**
+ * @param {string} caseId
  * @param {string} documentId
  * @param {DocumentUploadInfo} payload
  * @returns {Promise<DocumentUploadInfo>}
@@ -45,12 +55,12 @@ export const documentName = (documentNameWithExtension) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
+ * @param {{params: {caseId: string, adviceId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
 export async function postDocumentsUpload({ params, body, session }, response) {
-	const { caseId } = params;
+	const { caseId, adviceId } = params;
 
 	const payload = body.map((document) => {
 		document.username = session.account?.name;
@@ -60,7 +70,11 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 	let uploadInfo;
 	try {
 		// @ts-ignore
-		uploadInfo = await createNewDocument(caseId, payload);
+		if (adviceId) {
+			uploadInfo = await createS51AdviceDocuments(caseId, Number(adviceId), payload);
+		} else {
+			uploadInfo = await createNewDocument(caseId, payload);
+		}
 	} catch (err) {
 		if (!(err instanceof got.HTTPError) || err.response.statusCode !== 409) {
 			throw err;

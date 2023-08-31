@@ -172,7 +172,7 @@ export const appellantCaseIncompleteReasons = [
 		name: 'Attachments and/or appendices have not been included to the full statement of case'
 	},
 	{
-		name: "LPA's decision notice is incorrect or incomplete"
+		name: "LPA's decision notice is incorrect, incomplete or missing"
 	},
 	{
 		name: 'Documents and/or plans referred in the application form, decision notice and appeal covering letter are missing'
