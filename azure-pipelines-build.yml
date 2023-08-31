@@ -389,7 +389,7 @@ extends:
           - script: |
               source ~/.bashrc
               mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/@pins/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
               cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
