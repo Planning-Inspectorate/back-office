@@ -72,12 +72,9 @@ extends:
             parameters:
               script: npm run test
               environmentVariables:
-                - key: TURBO_TEAM
-                  value: $(TURBO_TEAM)
-                - key: TURBO_API
-                  value: $(TURBO_API)
-                - key: TURBO_TOKEN
-                  value: $(TURBO_TOKEN)
+                TURBO_TEAM: $(TURBO_TEAM)
+                TURBO_API: $(TURBO_API)
+                TURBO_TOKEN: $(TURBO_TOKEN)
           - template: ../steps/check_changed_files.yml
             parameters:
               pathFilters:
