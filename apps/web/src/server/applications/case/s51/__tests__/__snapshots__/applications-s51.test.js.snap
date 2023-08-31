@@ -107,7 +107,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -123,7 +124,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -139,7 +141,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -155,7 +158,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -170,7 +174,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -186,7 +191,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -202,7 +208,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -218,7 +225,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -234,7 +242,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -249,7 +258,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -265,7 +275,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -281,7 +292,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -297,7 +309,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -313,7 +326,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -329,7 +343,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -345,7 +360,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -360,7 +376,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -375,7 +392,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -390,7 +408,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -405,7 +424,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -529,7 +549,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -545,7 +566,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -561,7 +583,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -577,7 +600,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -592,7 +616,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -608,7 +633,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -624,7 +650,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -640,7 +667,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -656,7 +684,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -671,7 +700,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -687,7 +717,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -703,7 +734,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -719,7 +751,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -735,7 +768,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -751,7 +785,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Failed virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -767,7 +802,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p>Awaiting virus check</p>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -782,7 +818,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -797,7 +834,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -812,7 +850,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
@@ -827,7 +866,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p></p>
+                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>

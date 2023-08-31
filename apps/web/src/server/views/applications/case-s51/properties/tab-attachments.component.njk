@@ -45,8 +45,18 @@
 		{% endset %}
 
 		{% set status %}
+		{% set avWaiting = attachment.status === 'awaiting_virus_check'%}
+		{% set avFailed = attachment.status === 'failed_virus_check' %}
 		<p>
-			{{ '' if attachment.status === 'awaiting_upload' else attachment.status | statusName}}
+			{% if avWaiting %}
+				<strong class="govuk-tag govuk-tag--yellow">
+			{% elif avFailed %}
+				<strong class="govuk-tag govuk-tag--red">
+			{% else %}
+				<strong class="govuk-tag">
+			{% endif %}
+			{{ attachment.status|statusName }}
+			</strong>
 		</p>
 		{% endset %}
 		{% set row = [
