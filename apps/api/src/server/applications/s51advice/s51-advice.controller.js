@@ -1,8 +1,13 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
-import { getManyS51AdviceOnCase, getS51AdviceDocuments } from './s51-advice.service.js';
+import {
+	formatS51AdviceUpdateResponseBody,
+	getManyS51AdviceOnCase,
+	getS51AdviceDocuments
+} from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import {
@@ -11,6 +16,7 @@ import {
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
+import logger from '#utils/logger.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -185,4 +191,79 @@ export const addDocuments = async ({ params, body }, response) => {
 		documents: documentsWithUrls,
 		failedDocuments
 	});
+};
+
+export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
+	return redactedStatus ? 'redacted' : 'not_redacted';
+};
+
+/**
+ * Updates the status and / or redaction status of an array of S51 Advice on a case.
+ * There can be a status parameter, or a redacted parameter, or both
+ *
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ */
+export const updateManyS51Advices = async ({ body }, response) => {
+	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
+	const formattedResponseList = [];
+
+	let redactedStatus;
+
+	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
+	// and the redaction status of each advice should remain unchanged.
+	if (typeof isRedacted !== 'undefined') {
+		redactedStatus = getRedactionStatus(isRedacted);
+	}
+
+	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
+	if (publishedStatus === 'ready_to_publish') {
+		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
+		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
+	}
+
+	for (const advice of items ?? []) {
+		logger.info(
+			`Updating S51 Advice with id: ${advice.id} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+		);
+
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
+
+		/** @type {Updates} */
+		const adviceUpdates = {
+			publishedStatus,
+			redactedStatus
+		};
+
+		if (typeof publishedStatus === 'undefined') {
+			delete adviceUpdates.publishedStatus;
+		} else {
+			// when setting publishedStatus, save previous publishedStatus
+			// do we have a published status, and is that status different
+			const currentAdvice = await s51AdviceRepository.get(advice.id);
+			if (typeof currentAdvice !== 'undefined' && currentAdvice !== null) {
+				if (
+					typeof currentAdvice.publishedStatus !== 'undefined' &&
+					currentAdvice.publishedStatus !== publishedStatus
+				) {
+					adviceUpdates.publishedStatusPrev = currentAdvice.publishedStatus;
+				}
+			}
+		}
+
+		const updateResponseInTable = await s51AdviceRepository.update(advice.id, adviceUpdates);
+		const formattedResponse = formatS51AdviceUpdateResponseBody(
+			updateResponseInTable.id.toString() ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		formattedResponseList.push(formattedResponse);
+	}
+
+	response.send(formattedResponseList);
 };

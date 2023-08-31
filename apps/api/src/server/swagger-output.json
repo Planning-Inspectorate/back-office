@@ -2848,7 +2848,7 @@
 		"/applications/{id}/s51-advice/{adviceId}": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Application case ID",
+				"description": "Gets an S51 Advice record",
 				"parameters": [
 					{
 						"name": "id",
@@ -2913,6 +2913,62 @@
 						"description": "Error: Bad Request",
 						"schema": {
 							"$ref": "#/definitions/S51AdvicePaginatedBadRequest"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates redacted status and / or published status for an array of S51 Advice(s) on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "S51 Advice update parameters",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Advice(s) that have been updated",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateResponseBody"
+						}
+					},
+					"400": {
+						"description": "Error: Bad Request",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateBadRequest"
 						}
 					},
 					"404": {
@@ -7677,6 +7733,80 @@
 						"pageSize": {
 							"type": "string",
 							"example": "Page Size is not valid"
+						},
+						"unknown": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"S51AdviceUpdateRequestBody": {
+			"type": "object",
+			"properties": {
+				"redacted": {
+					"type": "boolean",
+					"description": "Redacted status",
+					"example": true
+				},
+				"status": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer",
+								"description": "The S51 Advice record id",
+								"example": 1
+							}
+						}
+					}
+				}
+			}
+		},
+		"S51AdviceUpdateResponseItem": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The S51 Advice record id",
+					"example": 1
+				},
+				"status": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Redacted status",
+					"example": "not_redacted"
+				}
+			}
+		},
+		"S51AdviceUpdateResponseBody": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/S51AdviceUpdateResponseItem"
+			}
+		},
+		"S51AdviceUpdateBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"items": {
+							"type": "string",
+							"example": "Unknown S51 Advice id 100"
 						},
 						"unknown": {
 							"type": "string"
