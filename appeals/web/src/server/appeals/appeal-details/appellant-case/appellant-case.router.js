@@ -1,6 +1,7 @@
 import { Router as createRouter } from 'express';
 import * as controller from './appellant-case.controller.js';
 import * as validators from './appellant-case.validators.js';
+import outcomeValidRouter from './outcome-valid/outcome-valid.router.js';
 import outcomeInvalidRouter from './outcome-invalid/outcome-invalid.router.js';
 import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
 
@@ -18,6 +19,7 @@ router
 		controller.postAppellantCase
 	);
 
+router.use('/valid', outcomeValidRouter);
 router.use('/invalid', outcomeInvalidRouter);
 router.use('/incomplete', outcomeIncompleteRouter);
 

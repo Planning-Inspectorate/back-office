@@ -94,21 +94,22 @@ const renderUpdateDueDate = async (request, response) => {
 
 /**
  *
+ * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
- * @param {string} appealShortReference
- * @param {number} appealId
  */
-export const renderDecisionIncompleteConfirmationPage = async (
-	response,
-	appealShortReference,
-	appealId
-) => {
+const renderDecisionIncompleteConfirmationPage = async (request, response) => {
+	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+		return response.render('app/500.njk');
+	}
+
+	const { appealId, appealReference } = request.session;
+
 	response.render('app/confirmation.njk', {
 		panel: {
 			title: 'Appeal incomplete',
 			appealReference: {
 				label: 'Appeal ID',
-				reference: appealShortReference
+				reference: appealReference
 			}
 		},
 		body: {
@@ -227,4 +228,9 @@ export const postUpdateDueDate = async (request, response) => {
 
 		return response.render('app/500.njk');
 	}
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getConfirmation = async (request, response) => {
+	renderDecisionIncompleteConfirmationPage(request, response);
 };
