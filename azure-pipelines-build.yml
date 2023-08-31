@@ -65,6 +65,9 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               script: npm run tscheck
+              environmentVariables:
+                TURBO_TEAM: $(TURBO_TEAM)
+                TURBO_API: $(TURBO_API)
           - template: ../steps/node_script.yml
             parameters:
               script: npm run lint:js
