@@ -332,6 +332,47 @@ exports[`appellant-case GET /appellant-case/incomplete should render the incompl
 </main>"
 `;
 
+exports[`appellant-case GET /appellant-case/incomplete/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/incomplete/confirmation should render the outcome incomplete confirmation page if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> Appeal incomplete</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The appeal has been reviewed.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We’ve sent an email to the appellant and LPA to inform the case is incomplete,
+                    and let them know what to do next.</p>
+                <p class="govuk-body">We also sent them a reminder about the appeal’s due date.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`appellant-case GET /appellant-case/incomplete/date should render the 500 error page if required data is not present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -450,6 +491,86 @@ exports[`appellant-case GET /appellant-case/invalid should render the invalid re
         <input type="hidden" id="otherReasonId" name="otherReasonId"
         value="24">
     </form>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/invalid/confirmation should render the outcome invalid confirmation page if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> Appeal invalid</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The appeal has been closed.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We&#39;ve sent an email to the appellant and LPA to inform them the case
+                    is invalid.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/valid/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/valid/confirmation should render the outcome valid confirmation page if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> Appeal valid</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The timetable is now created and published.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
+                <p                 class="govuk-body">The case has been published on the Appeals Casework Portal.</p>
+                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
+                    </p>
+            </div>
+        </div>
+    </div>
 </main>"
 `;
 
@@ -627,88 +748,6 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
-</main>"
-`;
-
-exports[`appellant-case POST /appellant-case should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> Appeal valid</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The timetable is now created and published.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent the start letter email to the Appellant and LPA.</p>
-                <p                 class="govuk-body">The case has been published on the Appeals Casework Portal.</p>
-                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
-                    </p>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> Appeal incomplete</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The appeal has been reviewed.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We’ve sent an email to the appellant and LPA to inform the case is incomplete,
-                    and let them know what to do next.</p>
-                <p class="govuk-body">We also sent them a reminder about the appeal’s due date.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`appellant-case POST /appellant-case/check-your-answers should send a patch request to the appellant-cases API endpoint and render the decision invalid confirmation page, if posted outcome was "invalid" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> Appeal invalid</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The appeal has been closed.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent an email to the appellant and LPA to inform them the case
-                    is invalid.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
-                </p>
-            </div>
-        </div>
-    </div>
 </main>"
 `;
 

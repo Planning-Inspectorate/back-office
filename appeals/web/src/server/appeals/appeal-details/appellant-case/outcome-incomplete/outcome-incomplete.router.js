@@ -18,4 +18,6 @@ router
 	.get(controller.getUpdateDueDate)
 	.post(validators.validateUpdateDueDate, controller.postUpdateDueDate);
 
+router.route('/confirmation').get(controller.getConfirmation);
+
 export default router;
