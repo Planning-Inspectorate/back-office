@@ -84,12 +84,16 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 /**
  * Show s51 advice item
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {step: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function viewApplicationsCaseEditS51Item({ params }, response) {
-	const { step } = params;
+	const { caseId, adviceId, step, folderId } = params;
 
-	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`);
+	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+		caseId,
+		adviceId,
+		folderId
+	});
 }
 
 /**

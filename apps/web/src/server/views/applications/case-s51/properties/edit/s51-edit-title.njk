@@ -2,8 +2,8 @@
 
 {% block beforeContent %}
 	{{ govukBackLink({
-		text: "Back to S51 advice folder",
-		href: breadcrumbItems[breadcrumbItems.length - 1].href
+		text: "Back to S51 advice",
+    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
 	}) }}
 {% endblock %}
 {% block pageHeading %}{% endblock %}
