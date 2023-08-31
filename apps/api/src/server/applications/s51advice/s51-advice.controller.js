@@ -3,7 +3,11 @@ import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
 import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
-import { formatS51AdviceUpdateResponseBody, getManyS51AdviceOnCase, getS51AdviceDocuments } from './s51-advice.service.js';
+import {
+	formatS51AdviceUpdateResponseBody,
+	getManyS51AdviceOnCase,
+	getS51AdviceDocuments
+} from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import {
@@ -217,50 +221,48 @@ export const updateManyS51Advices = async ({ body }, response) => {
 		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
 	}
 
-	if (items) {
-		for (const advice of items) {
-			logger.info(
-				`Updating S51 Advice with id: ${advice.id} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
-			);
+	for (const advice of items ?? []) {
+		logger.info(
+			`Updating S51 Advice with id: ${advice.id} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+		);
 
-			/**
-			 * @typedef {object} Updates
-			 * @property {string} [publishedStatus]
-			 * @property {string} [publishedStatusPrev]
-			 * @property {string} [redactedStatus]
-			 */
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
 
-			/** @type {Updates} */
-			const adviceUpdates = {
-				publishedStatus,
-				redactedStatus
-			};
+		/** @type {Updates} */
+		const adviceUpdates = {
+			publishedStatus,
+			redactedStatus
+		};
 
-			if (typeof publishedStatus === 'undefined') {
-				delete adviceUpdates.publishedStatus;
-			} else {
-				// when setting publishedStatus, save previous publishedStatus
-				// do we have a published status, and is that status different
-				const currentAdvice = await s51AdviceRepository.get(advice.id);
-				if (typeof currentAdvice !== 'undefined' && currentAdvice !== null) {
-					if (
-						typeof currentAdvice.publishedStatus !== 'undefined' &&
-						currentAdvice.publishedStatus !== publishedStatus
-					) {
-						adviceUpdates.publishedStatusPrev = currentAdvice.publishedStatus;
-					}
+		if (typeof publishedStatus === 'undefined') {
+			delete adviceUpdates.publishedStatus;
+		} else {
+			// when setting publishedStatus, save previous publishedStatus
+			// do we have a published status, and is that status different
+			const currentAdvice = await s51AdviceRepository.get(advice.id);
+			if (typeof currentAdvice !== 'undefined' && currentAdvice !== null) {
+				if (
+					typeof currentAdvice.publishedStatus !== 'undefined' &&
+					currentAdvice.publishedStatus !== publishedStatus
+				) {
+					adviceUpdates.publishedStatusPrev = currentAdvice.publishedStatus;
 				}
 			}
-
-			const updateResponseInTable = await s51AdviceRepository.update(advice.id, adviceUpdates);
-			const formattedResponse = formatS51AdviceUpdateResponseBody(
-				updateResponseInTable.id.toString() ?? '',
-				updateResponseInTable.publishedStatus ?? '',
-				updateResponseInTable.redactedStatus ?? ''
-			);
-
-			formattedResponseList.push(formattedResponse);
 		}
+
+		const updateResponseInTable = await s51AdviceRepository.update(advice.id, adviceUpdates);
+		const formattedResponse = formatS51AdviceUpdateResponseBody(
+			updateResponseInTable.id.toString() ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		formattedResponseList.push(formattedResponse);
 	}
 
 	response.send(formattedResponseList);
