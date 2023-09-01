@@ -3,6 +3,7 @@ import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
@@ -96,3 +97,43 @@ export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
 			pageSize
 		}
 	});
+
+/**
+ * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
+ *
+ * @param {ApplicationsS51UpdateBody} body
+ * @returns {ApplicationsS51UpdatePayload}
+ * */
+export const mapUpdateBodyToPayload = (body) => {
+	/** @type {ApplicationsS51UpdatePayload} */
+	let payload = {
+		title: body.title,
+		firstName: body.firstName,
+		lastName: body.lastName,
+		enquirer: body.enquirer,
+		enquiryMethod: body.enquiryMethod,
+		enquiryDetails: body.enquiryDetails,
+		adviser: body.adviser,
+		adviceDetails: body.adviceDetails,
+		redactedStatus: body.redactedStatus,
+		publishedStatus: body.publishedStatus
+	};
+
+	if (body['enquiryDate.day'] && body['enquiryDate.month'] && body['enquiryDate.year']) {
+		payload.enquiryDate = new Date(
+			parseInt(body['enquiryDate.year']),
+			parseInt(body['enquiryDate.month']) - 1,
+			parseInt(body['enquiryDate.day'])
+		);
+	}
+
+	if (body['adviceDate.day'] && body['adviceDate.month'] && body['adviceDate.year']) {
+		payload.adviceDate = new Date(
+			parseInt(body['adviceDate.year']),
+			parseInt(body['adviceDate.month']) - 1,
+			parseInt(body['adviceDate.day'])
+		);
+	}
+
+	return payload;
+};

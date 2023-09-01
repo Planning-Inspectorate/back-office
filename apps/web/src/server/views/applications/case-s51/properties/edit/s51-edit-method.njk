@@ -1,4 +1,6 @@
 {% extends "../../../layouts/applications.layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
 	{{ govukBackLink({
@@ -8,7 +10,36 @@
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
-  <div>
-    Edit method
-  </div>
+	{% set methodsItems = [
+		{
+			value: 'phone',
+			text: 'Phone'
+		}, {
+			value: 'email',
+			text: 'Email'
+		}, {
+			value: 'meeting',
+			text: 'Meeting'
+		}, {
+			value: 'post',
+			text: 'Post'
+		}
+	]
+ 	%}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    Edit enquiry method
+  </h1>
+  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+		{{ govukRadios({
+			name: 'enquiryMethod',
+			id: 'enquiryMethod',
+
+			items: methodsItems,
+			errorMessage: errors.enquiryMethod,
+			items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})
+
+		}) }}
+    {{ govukButton({ text: 'Continue'}) }}
+  </form>
 {% endblock %}
