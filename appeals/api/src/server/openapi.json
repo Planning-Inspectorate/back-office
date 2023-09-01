@@ -2129,6 +2129,10 @@
 					"appealSite": {
 						"type": "object",
 						"properties": {
+							"addressId": {
+								"type": "number",
+								"example": 1
+							},
 							"addressLine1": {
 								"type": "string",
 								"example": "21 The Pavement"
@@ -2150,13 +2154,17 @@
 					"appellant": {
 						"type": "object",
 						"properties": {
-							"name": {
-								"type": "string",
-								"example": "Roger Simmons"
+							"appellantId": {
+								"type": "number",
+								"example": 1
 							},
 							"company": {
 								"type": "string",
 								"example": "Roger Simmons Ltd"
+							},
+							"name": {
+								"type": "string",
+								"example": "Roger Simmons"
 							}
 						}
 					},
@@ -2176,13 +2184,13 @@
 					"developmentDescription": {
 						"type": "object",
 						"properties": {
-							"isCorrect": {
-								"type": "boolean",
-								"example": false
-							},
 							"details": {
 								"type": "string",
 								"example": "A new extension has been added at the back"
+							},
+							"isCorrect": {
+								"type": "boolean",
+								"example": false
 							}
 						}
 					},

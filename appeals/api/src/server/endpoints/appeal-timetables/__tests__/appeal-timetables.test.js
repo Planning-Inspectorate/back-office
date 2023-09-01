@@ -207,7 +207,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const body = {
-					finalCommentReviewDate: '2023-09-02'
+					finalCommentReviewDate: '2099-09-19'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -227,7 +227,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const body = {
-					finalCommentReviewDate: '2023-12-25'
+					finalCommentReviewDate: '2025-12-25'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -249,7 +249,7 @@ describe('appeal timetables routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
-						finalCommentReviewDate: '2023-02-30'
+						finalCommentReviewDate: '2099-02-30'
 					});
 
 				expect(response.status).toEqual(400);
@@ -346,7 +346,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = householdAppeal;
 				const body = {
-					issueDeterminationDate: '2023-09-02'
+					issueDeterminationDate: '2099-09-19'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -366,7 +366,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = householdAppeal;
 				const body = {
-					issueDeterminationDate: '2023-12-25'
+					issueDeterminationDate: '2025-12-25'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -388,7 +388,7 @@ describe('appeal timetables routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
-						issueDeterminationDate: '2023-02-30'
+						issueDeterminationDate: '2099-02-30'
 					});
 
 				expect(response.status).toEqual(400);
@@ -463,7 +463,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = householdAppeal;
 				const body = {
-					lpaQuestionnaireDueDate: '2023-09-02'
+					lpaQuestionnaireDueDate: '2099-09-19'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -483,7 +483,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = householdAppeal;
 				const body = {
-					lpaQuestionnaireDueDate: '2023-12-25'
+					lpaQuestionnaireDueDate: '2025-12-25'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -580,7 +580,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const body = {
-					statementReviewDate: '2023-09-02'
+					statementReviewDate: '2099-09-19'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
@@ -600,7 +600,7 @@ describe('appeal timetables routes', () => {
 
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const body = {
-					statementReviewDate: '2023-12-25'
+					statementReviewDate: '2025-12-25'
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
