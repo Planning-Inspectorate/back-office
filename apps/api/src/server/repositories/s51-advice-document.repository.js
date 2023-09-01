@@ -16,7 +16,12 @@ export const create = (s51AdviceDocument) => {
  * */
 export const getForAdvice = (adviceId) =>
 	databaseConnector.s51AdviceDocument.findMany({
-		where: { adviceId },
+		where: {
+			adviceId,
+			Document: {
+				isDeleted: false
+			}
+		},
 		include: {
 			Document: {
 				include: {
