@@ -1,5 +1,7 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').S51AdviceFolderProps} S51AdviceFolderProps */
+/** @typedef {import('./applications-s51.types.js').S51AdviceFolderPayload} S51AdviceFolderPayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -8,7 +10,12 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import {
+	createS51Advice,
+	getS51Advice,
+	getS51AdviceInFolder,
+	updateS51AdviceMany
+} from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
 import {
@@ -27,38 +34,65 @@ const createS51Journey = {
 	'advice-details': { nextPage: 'check-your-answers' }
 };
 
+const S51ADVICE_DEFAULT_ITEMS_PER_PAGE = 50;
+
 /**
- * Show pages for creating/editing s51 advice
+ * Show main S51 Advice page and all s51 Advices on case.  Page for creating/editing s51 advice
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
-	const number = Number(request.query.number || '1');
-	const size = (() => {
-		const _size = Number(request.query?.size ?? NaN);
-		if (Number.isNaN(_size)) {
-			return 50;
-		}
+	const pageProperties = await s51AdviceFolderData(request, response);
 
-		return _size;
-	})();
+	response.render(`applications/components/folder/folder`, pageProperties);
+}
 
-	const s51Files = await (async () => {
-		try {
-			return await getS51FilesInFolder(response.locals.caseId, size, number);
-		} catch (/** @type {*} */ error) {
-			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+/**
+ * Change properties for the selected multiple S51 Advice
+ *
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, S51AdviceFolderPayload, {size?: string, number?: string}>}
+ */
+export async function updateApplicationsCaseS51Folder(request, response) {
+	const { errors: validationErrors, body } = request;
+	const { caseId } = response.locals;
+	const { status, isRedacted, selectedS51AdviceIds } = body;
+	const redacted = typeof isRedacted === 'string' ? { redacted: isRedacted === '1' } : {};
 
-			return null;
-		}
-	})();
+	const properties = await s51AdviceFolderData(request, response);
+	const payload = {
+		status,
+		...redacted,
+		items: (selectedS51AdviceIds || []).map((id) => {
+			return { id: parseInt(id, 10) };
+		})
+	};
 
-	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
+	const { errors: apiErrors } = validationErrors
+		? { errors: [validationErrors] }
+		: await updateS51AdviceMany(caseId, payload);
 
-	response.render(`applications/components/folder/folder`, {
-		items: s51Files,
-		pagination
-	});
+	if (validationErrors || apiErrors) {
+		const apiErrorMessage = (apiErrors || [])[0]?.id
+			? { msg: 'You must fill in all mandatory advice properties to publish an advice' }
+			: { msg: 'Something went wrong. Please, try again later.' };
+
+		/** @type {S51Advice[]} */
+		const allItems = properties.items.items;
+		const failedItems = allItems.map((advice) => ({
+			...advice,
+			failed: !!(apiErrors || []).some((failedItem) => failedItem.id === advice.id)
+		}));
+
+		properties.items.items = failedItems;
+
+		return response.render(`applications/components/folder/folder`, {
+			...properties,
+			errors: validationErrors || apiErrorMessage,
+			failedItems: apiErrors
+		});
+	}
+	response.redirect('.');
 }
 
 /**
@@ -245,3 +279,39 @@ export async function viewSuccessfullyS51Created(request, response) {
 		action: request.params.action
 	});
 }
+
+// Data for controllers
+
+/**
+ * Get all the data for the displayed S51 advice page (used by POST and GET) to retrieve shared template properties
+ *
+ * @param {{query: {number?: string, size?: string}}} request
+ * @param {{locals: Record<string, any>}} response
+ * @returns {Promise<S51AdviceFolderProps>}
+ */
+const s51AdviceFolderData = async (request, response) => {
+	const number = Number(request.query.number || '1');
+	const size = (() => {
+		const _size = Number(request.query?.size ?? NaN);
+		if (Number.isNaN(_size)) {
+			return S51ADVICE_DEFAULT_ITEMS_PER_PAGE;
+		}
+		return _size;
+	})();
+
+	const s51Files = await (async () => {
+		try {
+			return await getS51AdviceInFolder(response.locals.caseId, size, number);
+		} catch (/** @type {*} */ error) {
+			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+			return null;
+		}
+	})();
+	const pagination = paginationParams(size, number, s51Files?.pageCount ?? 0);
+
+	return {
+		items: s51Files,
+		pagination
+	};
+};

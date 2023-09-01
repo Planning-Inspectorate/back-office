@@ -33,6 +33,18 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 	return next();
 };
 
+export const validateApplicationsS51AdviceHasIds = createValidator(
+	body('selectedS51AdviceIds')
+		.isArray({ min: 1 })
+		.withMessage('Select advice to make changes to statuses')
+);
+
+export const validateApplicationsS51AdviceActions = createValidator(
+	body('isRedacted')
+		.custom((value, { req }) => !!value || !!req?.body?.status)
+		.withMessage('Select a status to apply a change')
+);
+
 export const validateS51Title = createValidator(
 	body('title')
 		.trim()

@@ -1,4 +1,4 @@
-import { post, get } from '../../../lib/request.js';
+import { post, get, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -64,10 +64,37 @@ export const getS51Advice = async (caseId, adviceId) => {
  * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
+export const getS51AdviceInFolder = async (caseId, pageSize, pageNumber) =>
 	get(`applications/${caseId}/s51-advice`, {
 		searchParams: {
 			page: pageNumber,
 			pageSize
 		}
 	});
+
+/**
+ * Update the status and the redaction status of one or many S51 Advice records
+ *
+ * @param {number} caseId
+ * @param {{status: string, redacted?: boolean, items: Array<{id: number}>}} payload
+ * @returns {Promise<{items?: Array<{id: number}>, errors?: {id: number}[]}>}
+ */
+export const updateS51AdviceMany = async (caseId, { status, redacted, items }) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/s51-advice`, {
+			json: {
+				status,
+				redacted,
+				items
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		response = new Promise((resolve) => {
+			resolve({ errors: error?.response?.body?.errors || [] });
+		});
+	}
+
+	return response;
+};

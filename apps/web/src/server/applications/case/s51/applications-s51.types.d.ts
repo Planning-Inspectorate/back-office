@@ -1,3 +1,6 @@
+import { S51Advice, PaginatedResponse } from '../../../applications.types';
+import { ValidationErrors } from '@pins/express';
+
 export interface ApplicationsS51CreateBody {
 	caseId: number;
 	title: string;
@@ -52,4 +55,19 @@ export interface S51BlobResponse {
 		documentName: string;
 		blobStoreUrl: string;
 	}[];
+}
+
+export interface S51AdviceFolderPayload {
+	selectedS51AdviceIds: string[];
+	isRedacted: string;
+	status: string;
+}
+
+export interface S51AdviceFolderProps {
+	items: PaginatedResponse<S51Advice>;
+	pagination: {
+		dropdownItems: { value: number; text: number; selected: boolean }[];
+		buttons: PaginationButtons;
+	};
+	errors?: ValidationErrors;
 }

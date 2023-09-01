@@ -2,7 +2,11 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as controller from './applications-s51.controller.js';
 import * as locals from '../applications-case.locals.js';
-import { s51ValidatorsDispatcher } from './applications-s51.validators.js';
+import {
+	s51ValidatorsDispatcher,
+	validateApplicationsS51AdviceHasIds,
+	validateApplicationsS51AdviceActions
+} from './applications-s51.validators.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -11,7 +15,13 @@ applicationsS51Router.use(assertDomainTypeIsNotInspector);
 
 applicationsS51Router
 	.route('/')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Folder));
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Folder))
+	.post(
+		validateApplicationsS51AdviceHasIds,
+		validateApplicationsS51AdviceActions,
+		locals.registerFolder,
+		asyncRoute(controller.updateApplicationsCaseS51Folder)
+	);
 
 applicationsS51Router
 	.route('/create/check-your-answers')
