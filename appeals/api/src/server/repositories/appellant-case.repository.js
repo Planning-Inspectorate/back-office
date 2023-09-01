@@ -3,7 +3,6 @@ import appealRepositoryTemp from '#repositories/appeal.repository.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
-/** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
 /** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseRequest} UpdateAppellantCaseRequest */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcome} UpdateAppellantCaseValidationOutcome */

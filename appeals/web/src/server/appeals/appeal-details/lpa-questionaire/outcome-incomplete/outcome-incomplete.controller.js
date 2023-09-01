@@ -103,27 +103,26 @@ const renderUpdateDueDate = async (request, response) => {
 
 /**
  *
+ * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
- * @param {string} appealShortReference
- * @param {number} appealId
- * @param {import("../../appellant-case/appellant-case.service.js").DayMonthYear} updatedDueDate
  */
-export const renderDecisionIncompleteConfirmationPage = async (
-	response,
-	appealShortReference,
-	appealId,
-	updatedDueDate
-) => {
+export const renderDecisionIncompleteConfirmationPage = async (request, response) => {
+	if (!objectContainsAllKeys(request.session, ['appealId', 'appealReference'])) {
+		return response.render('app/500.njk');
+	}
+
+	const { appealId, appealReference } = request.session;
+
 	const rows = [
 		{
 			text: 'We’ve sent an email to the appellant and LPA to confirm their questionnaire is incomplete, and let them know what to do to complete it.'
 		}
 	];
 
-	if (updatedDueDate) {
+	if (request.session.lpaQuestionnaireUpdatedDueDate) {
 		rows.push({
 			text: `We also let them know the due date has changed to the ${webDateToDisplayDate(
-				updatedDueDate
+				request.session.lpaQuestionnaireUpdatedDueDate
 			)}.`
 		});
 	}
@@ -139,7 +138,7 @@ export const renderDecisionIncompleteConfirmationPage = async (
 			title: 'LPA questionnaire incomplete',
 			appealReference: {
 				label: 'Appeal ID',
-				reference: appealShortReference
+				reference: appealReference
 			}
 		},
 		body: {
@@ -259,4 +258,9 @@ export const postUpdateDueDate = async (request, response) => {
 
 		return response.render('app/500.njk');
 	}
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getConfirmation = async (request, response) => {
+	renderDecisionIncompleteConfirmationPage(request, response);
 };

@@ -19,4 +19,6 @@ router
 	.get(validateAppeal, controller.getUpdateDueDate)
 	.post(validators.validateUpdateDueDate, validateAppeal, controller.postUpdateDueDate);
 
+router.route('/confirmation').get(controller.getConfirmation);
+
 export default router;

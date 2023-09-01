@@ -612,6 +612,18 @@ const document = {
 			county: 'Devon',
 			postcode: 'NR35 2ND',
 			town: 'Woodton'
+		},
+		UpdateAppealTimetableRequest: {
+			finalCommentReviewDate: '2023-08-09',
+			issueDeterminationDate: '2023-08-10',
+			lpaQuestionnaireDueDate: '2023-08-11',
+			statementReviewDate: '2023-08-12'
+		},
+		UpdateAppealTimetableResponse: {
+			finalCommentReviewDate: '2023-08-09T01:00:00.000Z',
+			issueDeterminationDate: '2023-08-10T01:00:00.000Z',
+			lpaQuestionnaireDueDate: '2023-08-11T01:00:00.000Z',
+			statementReviewDate: '2023-08-12T01:00:00.000Z'
 		}
 	},
 	components: {}

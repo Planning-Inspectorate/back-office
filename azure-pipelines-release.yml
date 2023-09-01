@@ -20,7 +20,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.2.0
+      ref: refs/tags/release/3.4.0
 
 extends:
   template: stages/wrapper_cd.yml@templates
@@ -46,6 +46,7 @@ extends:
                         variable: DATABASE_URL
                 - template: ../steps/node_script.yml
                   parameters:
+                    nodeVersion: 18
                     environmentVariables:
                       DATABASE_URL: $(DATABASE_URL)
                     script: npm run db:migrate:prod
@@ -162,9 +163,11 @@ extends:
                 persistCredentials: true
               - template: ../steps/node_script.yml
                 parameters:
+                  nodeVersion: 18
                   script: npm ci
               - template: ../steps/node_script.yml
                 parameters:
+                  nodeVersion: 18
                   script: npm run release
                   environmentVariables:
                     GH_TOKEN: $(GH_TOKEN)
