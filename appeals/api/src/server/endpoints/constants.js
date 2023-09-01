@@ -47,7 +47,7 @@ export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'Must contain at least one va
 export const ERROR_MUST_HAVE_DETAILS =
 	'Must have {replacement0} when {replacement1} is {replacement2}';
 export const ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS =
-	'Must not be included when invalidReasons or incompleteReasons does not contain Other';
+	'Must not be given when invalidReasons or incompleteReasons does not contain Other';
 export const ERROR_MUST_NOT_HAVE_DETAILS =
 	'Must not have {replacement0} when {replacement1} is {replacement2}';
 export const ERROR_NOT_FOUND = 'Not found';
@@ -74,6 +74,8 @@ export const MAX_LENGTH_300 = 300;
 export const MAX_LENGTH_4000 = 4000;
 
 export const NODE_ENV_PRODUCTION = 'production';
+
+export const SITE_VISIT_TYPE_UNACCOMPANIED = 'Unaccompanied';
 
 export const STATE_TARGET_ARRANGE_SITE_VISIT = 'arrange_site_visit';
 export const STATE_TARGET_COMPLETE = 'complete';
