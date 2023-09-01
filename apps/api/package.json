@@ -4,7 +4,7 @@
   "private": true,
   "description": "PINS Back Office API App",
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=18.0.0 <19.0.0"
   },
   "prisma": {
     "schema": "src/database/schema.prisma",
