@@ -26,6 +26,21 @@ export interface ApplicationsS51CreatePayload {
 	lastName?: string;
 }
 
+export interface ApplicationsS51UpdatePayload {
+	title?: string;
+	enquirer?: string;
+	enquiryMethod?: string;
+	enquiryDate?: Date;
+	enquiryDetails?: string;
+	adviser?: string;
+	adviceDate?: Date;
+	adviceDetails?: string;
+	firstName?: string;
+	lastName?: string;
+	redactedStatus?: string;
+	publishedStatus?: string;
+}
+
 // S51 type for the creation journey
 // Object coming from API has a different structure defined in the general types files
 // applications.types.d.ts

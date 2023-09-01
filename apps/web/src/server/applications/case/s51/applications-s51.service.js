@@ -1,7 +1,8 @@
-import { post, get } from '../../../lib/request.js';
+import { post, get, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
@@ -21,6 +22,30 @@ export const createS51Advice = async (payload) => {
 			json: payload
 		});
 		response = { newS51Advice };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+
+/**
+ * Edit an S51 advice
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @param {ApplicationsS51UpdatePayload} payload
+ * @returns {Promise<S51Advice>}
+ * */
+export const updateS51Advice = async (caseId, adviceId, payload) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
