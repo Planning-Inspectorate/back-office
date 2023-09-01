@@ -4,7 +4,7 @@
   "private": true,
   "description": "PINS Back Office Appeals Web App",
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18.17.0"
   },
   "type": "module",
   "scripts": {
