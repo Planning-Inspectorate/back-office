@@ -61,6 +61,25 @@ export const dayMonthYearToApiDateString = (dayMonthYear) => {
 };
 
 /**
+ * @param {string | undefined} hour
+ * @param {string | undefined} minute
+ * @returns {string} - time in format HH:MM
+ */
+export const hourMinuteToApiDateString = (hour, minute) => {
+	if (!hour) {
+		return '';
+	}
+	if (!minute) {
+		minute = '0';
+	}
+
+	const hourString = Number(hour) < 10 ? `0${hour}` : hour;
+	const minuteString = Number(minute) < 10 ? `0${minute}` : minute;
+
+	return `${hourString}:${minuteString}`;
+};
+
+/**
  * @param {Date | number | string | null | undefined} date
  * @param {{ condensed?: boolean }} options
  * @returns {string}
