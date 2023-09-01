@@ -137,3 +137,24 @@ export const mapUpdateBodyToPayload = (body) => {
 
 	return payload;
 };
+
+/**
+ * Transform ApplicationsS51UpdatePayload to ApplicationsS51UpdateBody
+ *
+ * @param {S51Advice} payload
+ * @returns {ApplicationsS51UpdateBody}
+ * */
+export const mapS51AdviceToPage = (payload) => {
+	const enquiryDate = new Date(payload.enquiryDate);
+	const adviceDate = new Date(payload.adviceDate);
+
+	return {
+		...payload,
+		'enquiryDate.day': String(enquiryDate.getDate()),
+		'enquiryDate.month': String(enquiryDate.getMonth() + 1),
+		'enquiryDate.year': String(enquiryDate.getFullYear()),
+		'adviceDate.day': String(adviceDate.getDate()),
+		'adviceDate.month': String(adviceDate.getMonth() + 1),
+		'adviceDate.year': String(adviceDate.getFullYear())
+	};
+};
