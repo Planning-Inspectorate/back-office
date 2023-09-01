@@ -124,6 +124,73 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/appeal-timetables/{appealTimetableId}": {
+			"patch": {
+				"tags": ["Appeal Timetables"],
+				"description": "Updates a single appeal timetable by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "appealTimetableId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single appeal timetable by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppealTimetableResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppealTimetableResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal timetable details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealTimetableRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealTimetableRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/appeal-allocation-specialisms": {
 			"get": {
 				"tags": ["Appeal Allocation"],
@@ -3536,6 +3603,54 @@
 				},
 				"xml": {
 					"name": "UpdateAddressResponse"
+				}
+			},
+			"UpdateAppealTimetableRequest": {
+				"type": "object",
+				"properties": {
+					"finalCommentReviewDate": {
+						"type": "string",
+						"example": "2023-08-09"
+					},
+					"issueDeterminationDate": {
+						"type": "string",
+						"example": "2023-08-10"
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-08-11"
+					},
+					"statementReviewDate": {
+						"type": "string",
+						"example": "2023-08-12"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppealTimetableRequest"
+				}
+			},
+			"UpdateAppealTimetableResponse": {
+				"type": "object",
+				"properties": {
+					"finalCommentReviewDate": {
+						"type": "string",
+						"example": "2023-08-09T01:00:00.000Z"
+					},
+					"issueDeterminationDate": {
+						"type": "string",
+						"example": "2023-08-10T01:00:00.000Z"
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-08-11T01:00:00.000Z"
+					},
+					"statementReviewDate": {
+						"type": "string",
+						"example": "2023-08-12T01:00:00.000Z"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppealTimetableResponse"
 				}
 			}
 		}

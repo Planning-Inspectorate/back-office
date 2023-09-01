@@ -2,7 +2,6 @@ import { databaseConnector } from '#utils/database-connector.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
-/** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
 /** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateLPAQuestionnaireRequest} UpdateLPAQuestionnaireRequest */
 /**

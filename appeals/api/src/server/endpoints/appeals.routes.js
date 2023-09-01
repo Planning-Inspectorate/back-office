@@ -21,6 +21,7 @@ import { siteVisitTypesRoutes } from './site-visit-types/site-visit-types.routes
 import { appellantCaseValidationOutcomesRoutes } from './appellant-case-validation-outcomes/appellant-case-validation-outcomes.routes.js';
 import { appellantsRoutes } from './appellants/appellants.routes.js';
 import { addressesRoutes } from './addresses/addresses.routes.js';
+import { appealTimetablesRoutes } from './appeal-timetables/appeal-timetables.routes.js';
 
 const router = createRouter();
 
@@ -28,6 +29,7 @@ router.use('/', initNotifyClientAndAddToRequest);
 
 router.use(addressesRoutes);
 router.use(appealAllocationRouter);
+router.use(appealTimetablesRoutes);
 router.use(appellantCaseIncompleteReasonsRoutes);
 router.use(appellantCaseInvalidReasonsRoutes);
 router.use(appellantCasesRoutes);

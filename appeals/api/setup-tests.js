@@ -22,6 +22,7 @@ const mockAppealStatusCreateMany = jest.fn().mockResolvedValue({});
 const mockAppealFindMany = jest.fn().mockResolvedValue({});
 const mockAppealCount = jest.fn().mockResolvedValue(0);
 const mockAppealTimetableUpsert = jest.fn().mockResolvedValue(0);
+const mockAppealTimetableUpdate = jest.fn().mockResolvedValue(0);
 const mockReviewQuestionnaireCreate = jest.fn().mockResolvedValue({});
 const mockCaseCreate = jest.fn().mockResolvedValue({});
 const mockFolderCreate = jest.fn().mockResolvedValue({});
@@ -137,7 +138,8 @@ class MockPrismaClient {
 
 	get appealTimetable() {
 		return {
-			upsert: mockAppealTimetableUpsert
+			upsert: mockAppealTimetableUpsert,
+			update: mockAppealTimetableUpdate
 		};
 	}
 

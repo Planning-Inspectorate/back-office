@@ -45,13 +45,16 @@ const formatAppeal = (appeal) => {
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
 			appealStatus: appeal.appealStatus[0].status,
-			appealTimetable: {
-				lpaQuestionnaireDueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null,
-				...(isFPA(appeal.appealType) && {
-					finalCommentReviewDate: appeal.appealTimetable?.finalCommentReviewDate || null,
-					statementReviewDate: appeal.appealTimetable?.statementReviewDate || null
-				})
-			},
+			appealTimetable: appeal.appealTimetable
+				? {
+						appealTimetableId: appeal.appealTimetable.id,
+						lpaQuestionnaireDueDate: appeal.appealTimetable.lpaQuestionnaireDueDate || null,
+						...(isFPA(appeal.appealType) && {
+							finalCommentReviewDate: appeal.appealTimetable.finalCommentReviewDate || null,
+							statementReviewDate: appeal.appealTimetable.statementReviewDate || null
+						})
+				  }
+				: null,
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id,
 			appellantName: appeal.appellant?.name,
