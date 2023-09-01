@@ -42,6 +42,7 @@ interface AppealSite {
 }
 
 interface AppealTimetable {
+	appealTimetableId: number;
 	finalCommentReviewDate?: Date | null;
 	lpaQuestionnaireDueDate: Date | null;
 	statementReviewDate?: Date | null;
@@ -175,7 +176,7 @@ interface SingleAppealDetailsResponse {
 	appealReference: string;
 	appealSite: AppealSite;
 	appealStatus: string;
-	appealTimetable: AppealTimetable;
+	appealTimetable: AppealTimetable | null;
 	appealType?: string;
 	appellantCaseId?: number;
 	appellantName?: string;
@@ -464,6 +465,13 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 	validationOutcome: ValidationOutcome7;
 }
 
+interface UpdateTimetableRequest {
+	finalCommentReviewDate?: Date;
+	issueDeterminationDate?: Date;
+	lpaQuestionnaireDueDate?: Date;
+	statementReviewDate?: Date;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -502,5 +510,6 @@ export {
 	UpdateAppellantRequest,
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
+	UpdateTimetableRequest,
 	ValidationOutcomeResponse
 };

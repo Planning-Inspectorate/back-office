@@ -412,6 +412,7 @@ describe('appeals routes', () => {
 					},
 					appealStatus: householdAppeal.appealStatus[0].status,
 					appealTimetable: {
+						appealTimetableId: householdAppeal.appealTimetable.id,
 						lpaQuestionnaireDueDate: householdAppeal.appealTimetable.lpaQuestionnaireDueDate
 					},
 					appealType: householdAppeal.appealType.type,
@@ -505,6 +506,7 @@ describe('appeals routes', () => {
 					},
 					appealStatus: fullPlanningAppeal.appealStatus[0].status,
 					appealTimetable: {
+						appealTimetableId: fullPlanningAppeal.appealTimetable.id,
 						finalCommentReviewDate: fullPlanningAppeal.appealTimetable.finalCommentReviewDate,
 						lpaQuestionnaireDueDate: fullPlanningAppeal.appealTimetable.lpaQuestionnaireDueDate,
 						statementReviewDate: fullPlanningAppeal.appealTimetable.statementReviewDate
