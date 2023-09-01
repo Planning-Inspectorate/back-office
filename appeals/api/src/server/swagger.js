@@ -207,22 +207,24 @@ const document = {
 			appealId: 1,
 			appealReference: 'APP/Q9999/D/21/965625',
 			appealSite: {
+				addressId: 1,
 				addressLine1: '21 The Pavement',
 				county: 'Wandsworth',
 				postCode: 'SW4 0HY'
 			},
 			appellantCaseId: 1,
 			appellant: {
-				name: 'Roger Simmons',
-				company: 'Roger Simmons Ltd'
+				appellantId: 1,
+				company: 'Roger Simmons Ltd',
+				name: 'Roger Simmons'
 			},
 			applicant: {
 				firstName: 'Fiona',
 				surname: 'Burgess'
 			},
 			developmentDescription: {
-				isCorrect: false,
-				details: 'A new extension has been added at the back'
+				details: 'A new extension has been added at the back',
+				isCorrect: false
 			},
 			documents: {
 				appealStatement: {

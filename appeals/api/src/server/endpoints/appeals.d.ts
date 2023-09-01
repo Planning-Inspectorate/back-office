@@ -34,6 +34,7 @@ interface LinkedAppeal {
 }
 
 interface AppealSite {
+	addressId?: number;
 	addressLine1?: string;
 	addressLine2?: string;
 	town?: string;
@@ -238,8 +239,9 @@ interface SingleAppellantCaseResponse {
 	appealSite: AppealSite;
 	appellantCaseId: number;
 	appellant: {
-		name: string | null;
+		appellantId: number;
 		company: string | null;
+		name: string | null;
 	};
 	applicant: {
 		firstName: string | null;
@@ -247,8 +249,8 @@ interface SingleAppellantCaseResponse {
 	};
 	planningApplicationReference: string;
 	developmentDescription?: {
-		isCorrect: boolean | null;
 		details: string | null;
+		isCorrect: boolean | null;
 	};
 	documents: {
 		appealStatement: FolderInfo | {};
