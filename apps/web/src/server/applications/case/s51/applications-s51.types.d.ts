@@ -26,6 +26,25 @@ export interface ApplicationsS51CreatePayload {
 	lastName?: string;
 }
 
+export interface ApplicationsS51UpdateBody {
+	title?: string;
+	enquirer?: string;
+	enquiryMethod?: string;
+	'enquiryDate.day'?: string;
+	'enquiryDate.month'?: string;
+	'enquiryDate.year'?: string;
+	enquiryDetails?: string;
+	adviser?: string;
+	'adviceDate.day'?: string;
+	'adviceDate.month'?: string;
+	'adviceDate.year'?: string;
+	adviceDetails?: string;
+	firstName?: string;
+	lastName?: string;
+	redactedStatus?: string;
+	publishedStatus?: string;
+}
+
 export interface ApplicationsS51UpdatePayload {
 	title?: string;
 	enquirer?: string;

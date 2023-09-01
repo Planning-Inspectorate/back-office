@@ -1,4 +1,6 @@
 {% extends "../../../layouts/applications.layout.njk" %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
 	{{ govukBackLink({
@@ -8,7 +10,21 @@
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
-  <div>
-    Edit enquirer
-  </div>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    Edit the S51 enquirer
+  </h1>
+  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+    {{ govukInput({
+      label: {
+        text: "Enter who gave the advice",
+        classes: 'font-weight--700'
+      },
+      id: 'adviser',
+      name: 'adviser',
+      classes: 'govuk-!-width-one-third',
+      errorMessage: errors.adviser | errorMessage,
+      value: values.adviser
+    }) }}
+    {{ govukButton({ text: 'Continue'}) }}
+  </form>
 {% endblock %}

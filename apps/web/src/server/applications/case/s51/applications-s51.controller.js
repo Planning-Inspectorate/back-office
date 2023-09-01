@@ -1,6 +1,7 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -13,6 +14,7 @@ import {
 	createS51Advice,
 	getS51Advice,
 	getS51FilesInFolder,
+	mapUpdateBodyToPayload,
 	updateS51Advice
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -105,10 +107,12 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
 /**
  * Show s51 advice item
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdatePayload, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item({ body, params }, response) {
-	await updateS51Advice(Number(params.caseId), Number(params.adviceId), body);
+	const payload = mapUpdateBodyToPayload(body);
+
+	await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
 
 	response.redirect('../properties');
 }
