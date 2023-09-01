@@ -1,5 +1,5 @@
 # Stage 1/2 - Builder
-FROM node:16-alpine AS pins-web-builder
+FROM node:18-alpine AS pins-web-builder
 
 RUN apk update
 
@@ -27,7 +27,7 @@ RUN npm run build:release
 # --------------------------------
 
 # Stage 2/2 - App run
-FROM node:16-alpine
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
