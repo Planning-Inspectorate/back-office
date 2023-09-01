@@ -1,4 +1,6 @@
 {% extends "../../../layouts/applications.layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
 	{{ govukBackLink({
@@ -8,7 +10,29 @@
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
-  <div>
-    Edit redaction
-  </div>
+	{% set statusItems = [
+		{
+			value: 'unredacted',
+			text: 'Unredacted'
+		}, {
+			value: 'redacted',
+			text: 'Redactefd'
+    }
+  ]
+  %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    Edit redacted status
+  </h1>
+  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+		{{ govukRadios({
+			name: 'redactedStatus',
+			id: 'redactedStatus',
+			items: statusItems,
+			errorMessage: errors.redactedStatus,
+			items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.redactedStatus})
+
+		}) }}
+    {{ govukButton({ text: 'Continue'}) }}
+  </form>
 {% endblock %}
