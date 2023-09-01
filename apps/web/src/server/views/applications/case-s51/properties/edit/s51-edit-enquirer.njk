@@ -16,14 +16,36 @@
   <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
     {{ govukInput({
       label: {
-        text: "Enter who gave the advice",
+        text: "First name",
         classes: 'font-weight--700'
       },
-      id: 'adviser',
-      name: 'adviser',
+      id: 'firstName',
+      name: 'firstName',
       classes: 'govuk-!-width-one-third',
-      errorMessage: errors.adviser | errorMessage,
-      value: values.adviser
+      errorMessage: errors.firstName | errorMessage,
+      value: values.firstName
+    }) }}
+    {{ govukInput({
+      label: {
+        text: "Last name",
+        classes: 'font-weight--700'
+      },
+      id: 'lastName',
+      name: 'lastName',
+      classes: 'govuk-!-width-one-third',
+      errorMessage: errors.lastName | errorMessage,
+      value: values.lastName
+    }) }}
+    {{ govukInput({
+      label: {
+        text: "Organisation",
+        classes: 'font-weight--700'
+      },
+      id: 'enquirer',
+      name: 'enquirer',
+      classes: 'govuk-!-width-one-third',
+      errorMessage: errors.enquirer | errorMessage,
+      value: values.enquirer
     }) }}
     {{ govukButton({ text: 'Continue'}) }}
   </form>

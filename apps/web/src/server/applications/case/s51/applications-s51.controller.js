@@ -14,6 +14,7 @@ import {
 	createS51Advice,
 	getS51Advice,
 	getS51FilesInFolder,
+	mapS51AdviceToPage,
 	mapUpdateBodyToPayload,
 	updateS51Advice
 } from './applications-s51.service.js';
@@ -97,10 +98,14 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 export async function viewApplicationsCaseEditS51Item({ params }, response) {
 	const { caseId, adviceId, step, folderId } = params;
 
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const values = mapS51AdviceToPage(s51Advice);
+
 	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 		caseId,
 		adviceId,
-		folderId
+		folderId,
+		values
 	});
 }
 
