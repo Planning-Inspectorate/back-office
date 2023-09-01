@@ -33,54 +33,54 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Tempor Incididunt, Tempor</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
                                 <dd class=\\"govuk-summary-list__value\\">post</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
                                 <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                     ex ea commodo consequat</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-details\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">Tempor</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/adviser\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
                                 <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                     ex ea commodo consequat</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Do not publish</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
                                 </dd>
                             </div>
                         </dl>
@@ -475,54 +475,54 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> S51 title</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title\\"> Change<span class=\\"govuk-visually-hidden\\"> S51 title</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquirer</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Tempor Incididunt, Tempor</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquirer</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry method</dt>
                                 <dd class=\\"govuk-summary-list__value\\">post</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry method</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry date</dt>
                                 <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry date</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                     ex ea commodo consequat</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-details\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">Tempor</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/adviser\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
                                 <dd class=\\"govuk-summary-list__value\\">07/03/2023</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date advice given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advise given</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                     ex ea commodo consequat</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail\\"> Change<span class=\\"govuk-visually-hidden\\"> Advise given</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Unredacted</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction\\"> Change<span class=\\"govuk-visually-hidden\\"> Redaction</span></a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Do not publish</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"app/404\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status\\"> Change<span class=\\"govuk-visually-hidden\\"> Status</span></a>
                                 </dd>
                             </div>
                         </dl>
