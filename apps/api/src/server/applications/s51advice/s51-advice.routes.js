@@ -6,7 +6,8 @@ import {
 	getManyS51Advices,
 	addDocuments,
 	getDocuments,
-	updateManyS51Advices
+	updateManyS51Advices,
+	updateS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -243,7 +244,8 @@ router.patch(
     */
 	validateApplicationId,
 	validateS51AdviceToUpdateProvided,
-	trimUnexpectedRequestParameters
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateS51Advice)
 );
 
 export { router as s51AdviceRoutes };
