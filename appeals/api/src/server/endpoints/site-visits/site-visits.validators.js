@@ -7,10 +7,19 @@ import validateTimeParameter from '#common/validators/time-parameter.js';
 import validateTimeRangeParameters from '#common/validators/time-range-parameters.js';
 import {
 	ERROR_INVALID_SITE_VISIT_TYPE,
-	ERROR_SITE_VISIT_REQUIRED_FIELDS
+	ERROR_SITE_VISIT_REQUIRED_FIELDS,
+	SITE_VISIT_TYPE_UNACCOMPANIED
 } from '#endpoints/constants.js';
+import checkStringsMatch from '#utils/check-strings-match.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
+
+/**
+ * @param {string} visitType
+ * @returns {boolean}
+ */
+const isVisitUnaccompanied = (visitType) =>
+	checkStringsMatch(visitType, SITE_VISIT_TYPE_UNACCOMPANIED);
 
 /**
  * @param {boolean} isRequired
@@ -29,11 +38,13 @@ const validateSiteVisitType = (isRequired = false) => {
 };
 
 const validateSiteVisitRequiredDateTimeFields = param('appealId').custom((value, { req }) => {
-	const { visitDate, visitEndTime, visitStartTime } = req.body;
+	const { visitDate, visitEndTime, visitStartTime, visitType } = req.body;
 
-	if (visitDate || visitStartTime || visitEndTime) {
-		if (!visitDate || !visitStartTime || !visitEndTime) {
-			throw new Error(ERROR_SITE_VISIT_REQUIRED_FIELDS);
+	if (!isVisitUnaccompanied(visitType)) {
+		if (visitDate || visitStartTime || visitEndTime) {
+			if (!visitDate || !visitStartTime || !visitEndTime) {
+				throw new Error(ERROR_SITE_VISIT_REQUIRED_FIELDS);
+			}
 		}
 	}
 
