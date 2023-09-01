@@ -35,7 +35,10 @@ export const getUsersByRole = async (roleName, session) => {
  * @returns {Promise<{ id:string; name: string; email:string;}[]>}
  */
 const fetchRolesAndUsersFromGraph = async (roleName, session) => {
-	const token = await getActiveDirectoryAccessToken(session, ['GroupMember.Read.All']);
+	const token = await getActiveDirectoryAccessToken(session, [
+		'GroupMember.Read.All',
+		'User.ReadBasic.All'
+	]);
 	if (token?.token) {
 		const data = await getData(
 			`groups/${roleName}/members?$select=id,displayName,userPrincipalName`,
