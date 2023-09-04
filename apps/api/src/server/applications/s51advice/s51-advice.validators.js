@@ -84,7 +84,7 @@ export const validateS51AdviceIds = composeMiddleware(
  * @throws {Error}
  * @returns {Promise<{id: number}[]>}
  */
-export const verifyAllS5AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
+export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
 	const publishableS51Advice = await s51AdviceRepository.getPublishableS51Advice(s51AdviceIds);
 
 	if (s51AdviceIds.length !== publishableS51Advice.length) {
