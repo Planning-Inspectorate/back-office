@@ -126,10 +126,7 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 				caseId,
 				adviceId,
 				folderId,
-				errors: {
-					publishedStatus:
-						'All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.'
-				}
+				...err.response.body
 			});
 
 			return;
