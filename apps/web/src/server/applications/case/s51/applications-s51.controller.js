@@ -115,9 +115,26 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item({ body, params }, response) {
+	const { caseId, adviceId, step, folderId } = params;
 	const payload = mapUpdateBodyToPayload(body);
 
-	await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
+	try {
+		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
+	} catch (/** @type {any} */ err) {
+		if (err.response.statusCode === 409) {
+			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+				caseId,
+				adviceId,
+				folderId,
+				errors: {
+					publishedStatus:
+						'All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.'
+				}
+			});
+
+			return;
+		}
+	}
 
 	response.redirect('../properties');
 }
