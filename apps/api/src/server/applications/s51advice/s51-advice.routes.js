@@ -6,7 +6,8 @@ import {
 	getManyS51Advices,
 	addDocuments,
 	getDocuments,
-	updateManyS51Advices
+	updateManyS51Advices,
+	updateS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -191,7 +192,7 @@ router.patch(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'S51 Advice update parameters',
-			schema: { $ref: '#/definitions/S51AdviceUpdateRequestBody' },
+			schema: { $ref: '#/definitions/S51AdviceMultipleUpdateRequestBody' },
 			required: true
 		}
         #swagger.responses[200] = {
@@ -212,6 +213,39 @@ router.patch(
 	validateS51AdviceIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateManyS51Advices)
+);
+
+router.patch(
+	'/:id/s51-advice/:adviceId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice'
+        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'S51 Advice update parameters',
+			schema: { $ref: '#/definitions/S51AdviceUpdateRequestBody' },
+			required: true
+		}
+        #swagger.responses[200] = {
+            description: 'S51 Advice(s) that have been updated',
+            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+        }
+      #swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateS51Advice)
 );
 
 export { router as s51AdviceRoutes };

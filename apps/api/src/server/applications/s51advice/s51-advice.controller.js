@@ -198,6 +198,19 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
 };
 
 /**
+ * Updates properties of an S51 advice item
+ *
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ */
+export const updateS51Advice = async ({ body, params }, response) => {
+	const adviceId = params.id;
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, body['']);
+
+	response.send(updateResponseInTable);
+};
+
+/**
  * Updates the status and / or redaction status of an array of S51 Advice on a case.
  * There can be a status parameter, or a redacted parameter, or both
  *
