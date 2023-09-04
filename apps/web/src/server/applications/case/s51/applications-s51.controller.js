@@ -12,6 +12,7 @@ import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	createS51Advice,
+	deleteS51Attachment,
 	getS51Advice,
 	getS51FilesInFolder,
 	mapS51AdviceToPage,
@@ -289,14 +290,44 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 }
 
 /**
- * Success banner after creating S41 advice
+ * View page for deleting S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {action: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {folderId: string, adviceId: string, attachmentId: string}>}
  */
-export async function viewSuccessfullyS51Created(request, response) {
-	// action can be 'edited', 'published', 'created'
+export async function viewApplicationsCaseS51Delete({ params }, response) {
+	const { adviceId, attachmentId, folderId } = params;
+	const { caseId } = response.locals;
 
-	response.render('applications/case-s51/s51-successfully-created.njk', {
-		action: request.params.action
+	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const attachmentToDelete = s51Advice.attachments.find(
+		(attachment) => attachment.documentGuid === attachmentId
+	);
+
+	response.render('applications/case-s51/s51-delete.njk', {
+		attachment: attachmentToDelete,
+		adviceId: adviceId,
+		folderId: folderId
 	});
+}
+
+/**
+ * Delete the S51 attachment
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {folderId: string, adviceId: string, attachmentId: string}>}
+ */
+export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
+	const { adviceId, attachmentId, folderId } = params;
+
+	const { errors: apiErrors } = await deleteS51Attachment(+adviceId, attachmentId);
+
+	if (apiErrors) {
+		return response.render('applications/case-s51/s51-delete.njk', {
+			attachment: body,
+			adviceId: adviceId,
+			folderId: folderId,
+			errors: apiErrors
+		});
+	}
+
+	return response.render('applications/case-s51/s51-successfully-deleted');
 }

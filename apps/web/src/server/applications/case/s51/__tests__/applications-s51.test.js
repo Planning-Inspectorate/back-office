@@ -480,4 +480,36 @@ describe('S51 Advice', () => {
 			});
 		});
 	});
+
+	describe('S51 Attachment delete', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid', () => {
+			it('should render the page', async () => {
+				const documentGuid = createS51Advice({ id: 1 }).attachments[0].documentGuid;
+				const response = await request.get(`${baseUrl}/1/delete/${documentGuid}`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Delete selected attachment');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid', () => {
+			it('should render success banner if delete is successful', async () => {
+				const attachment = createS51Advice({ id: 1 }).attachments[0];
+				const response = await request.post(`${baseUrl}/1/delete/${attachment.documentGuid}`).send({
+					documentName: attachment.documentName,
+					dateAdded: attachment.dateAdded
+				});
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Attachmment deleted successfully');
+			});
+		});
+	});
 });

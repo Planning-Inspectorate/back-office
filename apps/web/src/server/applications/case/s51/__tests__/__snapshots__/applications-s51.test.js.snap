@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`S51 Advice S51 Attachment delete GET /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Delete selected attachment</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
+        <input type='hidden' value='Minim veniam quis nostrud exercitation' name='documentName'>
+        <input type='hidden' value='1678199858' name='dateAdded'>
+        <table class=\\"govuk-table\\">
+            <thead class=\\"govuk-table__head\\">
+                <tr class=\\"govuk-table__row\\">
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Date added</th>
+                </tr>
+            </thead>
+            <tbody class=\\"govuk-table__body\\">
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\">Minim veniam quis nostrud exercitation</td>
+                    <td class=\\"govuk-table__cell\\">07 Mar 2023</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class=\\"govuk-button govuk-!-margin-top-6 govuk-button--warning\\"
+        data-module=\\"govuk-button\\">Delete</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid should render success banner if delete is successful 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
+            <div class=\\"govuk-panel govuk-panel--confirmation\\">
+                <h1 class=\\"govuk-panel__title\\"> Attachmment deleted successfully </h1>
+                <div class=\\"govuk-panel__body\\">
+                    <p class='govuk-!-font-size-19'>Case: Title CASE/04
+                        <br>Reference: CASE/04</p>
+                </div>
+            </div>
+            <div class='govuk-!-font-size-19 display--flex'>
+                <p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>Return to folder:</p><a href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
+                class=\\"govuk-link\\"> Project documentation > <strong>S51 Advice</strong></a>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should display the attachments list 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
