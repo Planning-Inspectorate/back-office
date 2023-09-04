@@ -24,12 +24,13 @@ applicationsS51Router
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
 
 applicationsS51Router
-	.route('/:action/success')
-	.get(locals.registerFolder, asyncRoute(controller.viewSuccessfullyS51Created));
-
-applicationsS51Router
 	.route('/:adviceId/upload')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Upload));
+
+applicationsS51Router
+	.route('/:adviceId/delete/:attachmentId')
+	.get(asyncRoute(controller.viewApplicationsCaseS51Delete))
+	.post(locals.registerFolder, asyncRoute(controller.deleteApplicationsCaseS51Attachment));
 
 applicationsS51Router
 	.route('/:adviceId/:step')
