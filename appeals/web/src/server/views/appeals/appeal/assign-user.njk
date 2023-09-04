@@ -1,0 +1,115 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+
+{%- set pageTitle = "Assign " + userType + " - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search for a {{ userType }}</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
+		{{ govukInput({
+			id: 'searchTerm',
+			name: 'searchTerm',
+			label: {
+				text: 'Search by name or email address',
+				classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
+			}
+		}) }}
+		{{ govukButton({
+			text: "Search"
+		}) }}
+	</form>
+	{%- if search.results | length -%}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+				<h2 class="govuk-heading-m">Search results</h2>
+				<p class="govuk-body">Displaying results for <strong>{{ searchTerm }}</strong></p>
+				{{ govukSummaryList({
+					rows: [{
+						key: {
+							text: "John Smith"
+						},
+						value: {
+							text: "john.smith@planninginspectorate.gov.uk"
+						},
+						actions: {
+							items: [
+								{
+									href: "#",
+									text: "Assign"
+								}
+							]
+						}
+					}, {
+						key: {
+							text: "Johnny Smith"
+						},
+						value: {
+							text: "johnny.smith@planninginspectorate.gov.uk"
+						},
+						actions: {
+							items: [
+								{
+									href: "#",
+									text: "Assign"
+								}
+							]
+						}
+					}, {
+						key: {
+							text: "Jonjo Smith"
+						},
+						value: {
+							text: "johnjo.smith@planninginspectorate.gov.uk"
+						},
+						actions: {
+							items: [
+								{
+									href: "#",
+									text: "Assign"
+								}
+							]
+						}
+					}]
+				}) }}
+			</div>
+		</div>
+	{%- endif -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h2 class="govuk-heading-m">{{ userType }} that is currently assigned</h2>
+			{{ govukSummaryList({
+				rows: [{
+					key: {
+						text: "John Smith"
+					},
+					value: {
+						text: "john.smith@planninginspectorate.gov.uk"
+					},
+					actions: {
+						items: [
+							{
+								href: "#",
+								text: "Remove"
+							}
+						]
+					}
+				}]
+			}) }}
+		</div>
+	</div>
+{%- endblock -%}
