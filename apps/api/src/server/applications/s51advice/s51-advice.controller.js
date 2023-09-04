@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
+import { verifyAllS51AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
 	formatS51AdviceUpdateResponseBody,
@@ -204,8 +204,18 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
  */
 export const updateS51Advice = async ({ body, params }, response) => {
 	const adviceId = params.id;
+  const payload = body[''];
 
-	const updateResponseInTable = await s51AdviceRepository.update(adviceId, body['']);
+  if (payload.publishedStatus === 'ready_to_publish') {
+    try {
+      await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
+    } catch (err) {
+      logger.info(`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`);
+      throw new BackOfficeAppError(`error updating publishing status of S51 advice: S51 item with ID ${adviceId} has missing required fields.`, 409);
+    }
+  }
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
 
 	response.send(updateResponseInTable);
 };
@@ -231,7 +241,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
 		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
-		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
 	}
 
 	for (const advice of items ?? []) {
