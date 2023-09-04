@@ -92,30 +92,6 @@ export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
 	});
 
 /**
- * Delete the advice attachment by GUID
- *
- * @param {number} adviceId
- * @param {string} attachmentGuid
- * @returns {Promise<*>}
- */
-export const deleteS51Attachment = async (adviceId, attachmentGuid) => {
-	let response;
-
-	try {
-		// TODO: this a mock
-		response = Promise.resolve({ adviceId, attachmentGuid });
-	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
-
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'Your item could not be deleted, try again.' } });
-		});
-	}
-
-	return response;
-};
-
-/**
  * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
  *
  * @param {ApplicationsS51UpdateBody} body
