@@ -12,7 +12,6 @@ import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	createS51Advice,
-	deleteS51Attachment,
 	getS51Advice,
 	getS51FilesInFolder,
 	mapS51AdviceToPage,
@@ -26,6 +25,7 @@ import {
 	getSuccessBanner,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
+import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -317,8 +317,13 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
  */
 export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
 	const { adviceId, attachmentId, folderId } = params;
+	const { caseId } = response.locals;
 
-	const { errors: apiErrors } = await deleteS51Attachment(+adviceId, attachmentId);
+	const { errors: apiErrors } = await deleteCaseDocumentationFile(
+		caseId,
+		attachmentId,
+		'Your item'
+	);
 
 	if (apiErrors) {
 		return response.render('applications/case-s51/s51-delete.njk', {
