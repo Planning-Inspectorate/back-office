@@ -1,5 +1,7 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -8,7 +10,14 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import {
+	createS51Advice,
+	getS51Advice,
+	getS51FilesInFolder,
+	mapS51AdviceToPage,
+	mapUpdateBodyToPayload,
+	updateS51Advice
+} from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
 import {
@@ -79,6 +88,52 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 		s51Advice,
 		showSuccessBanner
 	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function viewApplicationsCaseEditS51Item({ params }, response) {
+	const { caseId, adviceId, step, folderId } = params;
+
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const values = mapS51AdviceToPage(s51Advice);
+
+	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+		caseId,
+		adviceId,
+		folderId,
+		values
+	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function postApplicationsCaseEditS51Item({ body, params }, response) {
+	const { caseId, adviceId, step, folderId } = params;
+	const payload = mapUpdateBodyToPayload(body);
+
+	try {
+		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
+	} catch (/** @type {any} */ err) {
+		if (err.response.statusCode === 409) {
+			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+				caseId,
+				adviceId,
+				folderId,
+				...err.response.body
+			});
+
+			return;
+		}
+	}
+
+	response.redirect('../properties');
 }
 
 /**

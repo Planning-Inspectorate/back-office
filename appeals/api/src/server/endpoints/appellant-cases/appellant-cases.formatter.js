@@ -28,11 +28,15 @@ const formatAppellantCase = (appeal, folders = null) => {
 			}),
 			appealId: appeal.id,
 			appealReference: appeal.reference,
-			appealSite: formatAddress(appeal.address),
+			appealSite: {
+				addressId: appeal.address.id,
+				...formatAddress(appeal.address)
+			},
 			appellantCaseId: appellantCase.id,
 			appellant: {
-				company: appeal.appellant?.company || null,
-				name: appeal.appellant?.name || null
+				appellantId: appeal.appellant.id,
+				company: appeal.appellant.company || null,
+				name: appeal.appellant.name || null
 			},
 			applicant: {
 				firstName: appellantCase.applicantFirstName,

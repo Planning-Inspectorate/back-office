@@ -171,6 +171,7 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
+			latestDocumentVersion: true,
 			folder: true
 		},
 		skip: skipValue,

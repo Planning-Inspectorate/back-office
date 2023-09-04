@@ -590,16 +590,18 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appealId: appeal.id,
 	appealReference: appeal.reference,
 	appealSite: {
-		addressLine1: appeal.address?.addressLine1,
-		addressLine2: appeal.address?.addressLine2,
-		town: appeal.address?.town,
-		county: appeal.address?.county,
-		postCode: appeal.address?.postcode
+		addressId: appeal.address.id,
+		addressLine1: appeal.address.addressLine1,
+		addressLine2: appeal.address.addressLine2,
+		town: appeal.address.town,
+		county: appeal.address.county,
+		postCode: appeal.address.postcode
 	},
 	appellantCaseId: appeal.appellantCase?.id,
 	appellant: {
-		name: appeal.appellant?.name,
-		company: appeal.appellant?.company
+		appellantId: appeal.appellant.id,
+		company: appeal.appellant?.company,
+		name: appeal.appellant?.name
 	},
 	applicant: {
 		firstName: appeal.appellantCase?.applicantFirstName,
@@ -607,8 +609,8 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	},
 	...(isFPA(appeal.appealType) && {
 		developmentDescription: {
-			isCorrect: appeal.appellantCase?.isDevelopmentDescriptionStillCorrect,
-			details: appeal.appellantCase?.newDevelopmentDescription
+			details: appeal.appellantCase?.newDevelopmentDescription,
+			isCorrect: appeal.appellantCase?.isDevelopmentDescriptionStillCorrect
 		}
 	}),
 	documents: {

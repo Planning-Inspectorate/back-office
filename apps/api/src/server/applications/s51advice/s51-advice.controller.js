@@ -1,7 +1,10 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
+import {
+	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
+	verifyAllS51DocumentsAreVirusChecked
+} from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
 	formatS51AdviceUpdateResponseBody,
@@ -198,6 +201,44 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
 };
 
 /**
+ * Updates properties of an S51 advice item
+ *
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ */
+export const updateS51Advice = async ({ body, params }, response) => {
+	const adviceId = params.id;
+	const payload = body[''];
+
+	if (payload.publishedStatus === 'ready_to_publish') {
+		try {
+			await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
+		} catch (err) {
+			logger.info(
+				`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`
+			);
+			throw new BackOfficeAppError(
+				`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
+				409
+			);
+		}
+
+		try {
+			await verifyAllS51DocumentsAreVirusChecked(adviceId);
+		} catch (err) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
+			throw new BackOfficeAppError(
+				`There are attachments which have failed the virus check.\nReturn to the S51 advice properties screen to delete files.`,
+				409
+			);
+		}
+	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
+
+	response.send(updateResponseInTable);
+};
+
+/**
  * Updates the status and / or redaction status of an array of S51 Advice on a case.
  * There can be a status parameter, or a redacted parameter, or both
  *
@@ -218,7 +259,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
 		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
-		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
 	}
 
 	for (const advice of items ?? []) {
