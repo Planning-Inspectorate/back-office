@@ -215,7 +215,7 @@ export function createDetailsView({
 				},
 				{
 					key: { text: 'English' },
-					value: { html: projectUpdate.htmlContent }
+					value: { html: projectUpdate.htmlContent, classes: 'project-update' }
 				},
 				{
 					key: { text: 'What information does the update contain?' },
