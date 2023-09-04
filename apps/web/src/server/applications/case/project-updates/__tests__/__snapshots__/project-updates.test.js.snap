@@ -59,7 +59,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -68,7 +68,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -77,7 +77,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -97,7 +97,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
     <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
     <h1 class=\\"govuk-heading-l\\">Check your project update</h1>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-two-thirds project-update\\">
             <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
             <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
             data-module=\\"govuk-notification-banner\\">
@@ -121,7 +121,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                         <dd class=\\"govuk-summary-list__value\\">No</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Hello, world!</dd>
+                        <dd class=\\"govuk-summary-list__value project-update\\">Hello, world!</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
                         <dd                         class=\\"govuk-summary-list__value\\">General</dd>
@@ -156,7 +156,9 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
-                    <h2 class=\\"govuk-heading-m\\">Content</h2> Hello, world!</div>
+                    <h2 class=\\"govuk-heading-m\\">Content</h2>
+                    <div class=\\"project-update\\">Hello, world!</div>
+                </div>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -172,7 +174,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-two-thirds project-update\\">
             <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
             <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
             data-module=\\"govuk-notification-banner\\">
@@ -196,7 +198,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                         <dd class=\\"govuk-summary-list__value\\">No</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
-                        <dd class=\\"govuk-summary-list__value\\">Hello, world!</dd>
+                        <dd class=\\"govuk-summary-list__value project-update\\">Hello, world!</dd>
                     </div>
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
                         <dd                         class=\\"govuk-summary-list__value\\">General</dd>
@@ -431,7 +433,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -440,7 +442,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -449,7 +451,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -534,7 +536,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -543,7 +545,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -552,7 +554,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -637,7 +639,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     <tbody class=\\"govuk-table__body\\">
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -646,7 +648,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>
@@ -655,7 +657,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell\\">My project update</td>
+                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
                             <td class=\\"govuk-table__cell\\">No</td>
                             <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
                             </td>

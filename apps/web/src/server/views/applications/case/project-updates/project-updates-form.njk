@@ -56,6 +56,6 @@
         {{ htmlContentEditor(component) }}
     {% elif component.type == 'html' %}
 		<h2 class="govuk-heading-m">{{ component.title }}</h2>
-        {{ component.html | safe }}
+        <div class="project-update">{{ component.html | safe }}</div>
 	{% endif %}
 {% endmacro %}
