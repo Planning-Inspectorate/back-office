@@ -1,7 +1,10 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import { verifyAllS51AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
+import {
+	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
+	verifyAllS51DocumentsAreVirusChecked
+} from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
 	formatS51AdviceUpdateResponseBody,
@@ -204,16 +207,31 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
  */
 export const updateS51Advice = async ({ body, params }, response) => {
 	const adviceId = params.id;
-  const payload = body[''];
+	const payload = body[''];
 
-  if (payload.publishedStatus === 'ready_to_publish') {
-    try {
-      await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
-    } catch (err) {
-      logger.info(`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`);
-      throw new BackOfficeAppError(`error updating publishing status of S51 advice: S51 item with ID ${adviceId} has missing required fields.`, 409);
-    }
-  }
+	if (payload.publishedStatus === 'ready_to_publish') {
+		try {
+			await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
+		} catch (err) {
+			logger.info(
+				`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`
+			);
+			throw new BackOfficeAppError(
+				`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
+				409
+			);
+		}
+
+		try {
+			await verifyAllS51DocumentsAreVirusChecked(adviceId);
+		} catch (err) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
+			throw new BackOfficeAppError(
+				`There are attachments which have failed the virus check.\nReturn to the S51 advice properties screen to delete files.`,
+				409
+			);
+		}
+	}
 
 	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
 
