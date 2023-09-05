@@ -156,20 +156,36 @@ export const addDocuments = async ({ params, body }, response) => {
 		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
+	const duplicates = [];
+	const successful = [];
+
 	for (const doc of documentsToUpload) {
-		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
-		doc.folderId = Number(doc.folderId);
+		const existing = await s51AdviceDocumentRepository.getDocumentInAdviceByName(
+			adviceId,
+			doc.documentName
+		);
+		if (existing) {
+			duplicates.push(doc.documentName);
+			continue;
+		}
+
+		successful.push({
+			...doc,
+			documentReference: makeDocumentReference(theCase.reference, nextReferenceIndex),
+			folderId: Number(doc.folderId)
+		});
+
 		nextReferenceIndex++;
 	}
 
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
-		documentsToUpload,
+		successful,
 		caseId
 	);
 
 	if (dbResponse === null) {
-		response.status(409).send({ failedDocuments });
+		response.status(409).send({ failedDocuments, duplicates });
 		return;
 	}
 
@@ -188,11 +204,12 @@ export const addDocuments = async ({ params, body }, response) => {
 		pick(doc, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID'])
 	);
 
-	response.status(failedDocuments.length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
-		failedDocuments
+		failedDocuments,
+		duplicates
 	});
 };
 

@@ -109,10 +109,12 @@ const document = {
 					blobStoreUrl: '/some/path/document.pdf'
 				}
 			],
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsUploadFailed: {
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsPublished: [
 			{
