@@ -7,7 +7,8 @@ import {
 	addDocuments,
 	getDocuments,
 	updateManyS51Advices,
-	updateS51Advice
+	updateS51Advice,
+    publishAdvices
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -246,6 +247,26 @@ router.patch(
 	validateS51AdviceToUpdateProvided,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
+);
+
+router.post(
+	'/s51-advice/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/s51-advice/publish'
+        #swagger.description = 'Create an S51 advice for the case'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Payload to create S51 advice',
+            schema: { $ref: '#/definitions/S51AdviceCreateRequestBody' },
+            required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Created S51 advice',
+            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+        }
+    */
+	asyncHandler(publishAdvices)
 );
 
 export { router as s51AdviceRoutes };

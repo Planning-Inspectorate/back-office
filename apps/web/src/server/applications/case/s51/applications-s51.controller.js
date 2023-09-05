@@ -136,6 +136,20 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	response.redirect('../properties');
 }
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {size?: string, number?: string}, {folderName: string}>}
+ */
+export async function publishAdvicesToQueue(request, response) {
+
+	const { errors: validationErrors, body } = request;
+
+	return response.render(`applications/components/folder/folder`, {
+		errors: validationErrors,
+	});
+	response.redirect('.');
+}
 
 /**
  * Show s51 advice item
