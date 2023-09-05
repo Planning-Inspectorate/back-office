@@ -80,7 +80,7 @@ export const getS51Advice = async (_request, response) => {
 			// @ts-ignore
 			attachmentsWithVersion.push({
 				documentName: latestDocumentVersion.fileName,
-				documentType: latestDocumentVersion.documentType,
+				documentType: latestDocumentVersion.mime,
 				documentSize: latestDocumentVersion.size,
 				dateAdded: mapDateStringToUnixTimestamp(latestDocumentVersion.dateCreated),
 				status: latestDocumentVersion.publishedStatus,
