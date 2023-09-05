@@ -11,7 +11,7 @@
 		{% set isAttachmentSafe = (attachment.status === 'awaiting_upload') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
-			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">{{ attachment.documentName }}</a>
+			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version, isPreviewActive: true}) }}">{{ attachment.documentName }}</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ attachment.documentName }}
