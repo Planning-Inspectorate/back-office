@@ -141,14 +141,15 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {size?: string, number?: string}, {folderName: string}>}
  */
-export async function publishAdvicesToQueue(request, response) {
+export async function changeAdviceStatus(request, response) {
 
 	const { errors: validationErrors, body } = request;
+
+	console.log(body);
 
 	return response.render(`applications/components/folder/folder`, {
 		errors: validationErrors,
 	});
-	response.redirect('.');
 }
 
 /**
