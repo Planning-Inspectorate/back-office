@@ -254,7 +254,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Magna aliqua Ut enim</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Magna aliqua Ut enim</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -338,7 +338,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Aliqua Ut enim ad minim</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Aliqua Ut enim ad minim</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -456,7 +456,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Dolore magna aliqua Ut</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Dolore magna aliqua Ut</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -472,7 +472,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -488,7 +488,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -504,7 +504,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Labore et dolore magna</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Labore et dolore magna</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -696,7 +696,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Magna aliqua Ut enim</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Magna aliqua Ut enim</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -780,7 +780,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Aliqua Ut enim ad minim</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Aliqua Ut enim ad minim</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -898,7 +898,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Dolore magna aliqua Ut</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Dolore magna aliqua Ut</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -914,7 +914,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -930,7 +930,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Eiusmod tempor incididunt</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
@@ -946,7 +946,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/\\">Labore et dolore magna</a>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Labore et dolore magna</a>
                                         <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 8.5 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
