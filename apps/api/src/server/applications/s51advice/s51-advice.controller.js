@@ -271,18 +271,28 @@ export const updateManyS51Advices = async ({ body }, response) => {
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
-		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
-		await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
-
-		/**
-		 * @type {any[]}
-		 */
-		const virusCheckPromise = []
-		adviceIds.forEach((/** @type {number} */ adviceId) => {
-			virusCheckPromise.push(verifyAllS51DocumentsAreVirusChecked(adviceId))
-		});
-
-		await Promise.all(virusCheckPromise);
+		try {
+			const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
+			await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
+	
+			/**
+			 * @type {any[]}
+			 */
+			const virusCheckPromise = []
+			adviceIds.forEach((/** @type {number} */ adviceId) => {
+				virusCheckPromise.push(verifyAllS51DocumentsAreVirusChecked(adviceId))
+			});
+	
+			await Promise.all(virusCheckPromise);
+		} catch (error) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${error}`);
+			throw new BackOfficeAppError(
+				// @ts-ignore
+				`Failed to publish S51 advices. ${error.message}`,
+				409
+			);
+		}
+		
 	}
 
 	for (const advice of items ?? []) {
