@@ -258,6 +258,29 @@ export function sortStatuses(statuses) {
 }
 
 /**
+ * Returns a filter function for UI status options
+ * This filters out statuses that shouldn't show on the UI
+ *
+ * @param {string} currentStatus
+ * @returns {function(string): boolean}
+ */
+export function statusFilter(currentStatus) {
+	// filter out any options that shouldn't be shown on the UI
+	if (currentStatus === ProjectUpdate.Status.readyToPublish) {
+		// you can't change an update to published from the status page
+		// that happens on the check answers page
+		// instead it'd be set to Ready to Publish
+		return (status) => status !== ProjectUpdate.Status.published;
+	} else if (currentStatus === ProjectUpdate.Status.readyToUnpublish) {
+		// you can't change an update to unpublished from the status page
+		// that happens on the check answers page
+		// instead it'd be set to Ready to Unpublish
+		return (status) => status !== ProjectUpdate.Status.unpublished;
+	}
+	return () => true;
+}
+
+/**
  * Return the govukRadio options for the given status
  *
  * @param {string} status
