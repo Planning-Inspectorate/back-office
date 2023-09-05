@@ -13,6 +13,7 @@ import {
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	extractDuplicates,
 	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
 	makeDocumentReference,
@@ -64,19 +65,24 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		: 1;
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
-	for (const doc of documentsToUpload) {
+	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
+	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
+		remainder.includes(doc.documentName)
+	);
+
+	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
 	}
 
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
-		documentsToUpload,
+		filteredToUpload,
 		params.id
 	);
 
 	if (dbResponse === null) {
-		response.status(409).send({ failedDocuments });
+		response.status(409).send({ failedDocuments, duplicates });
 		return;
 	}
 
@@ -88,11 +94,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
-	response.status(failedDocuments.length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
-		failedDocuments
+		failedDocuments,
+		duplicates
 	});
 };
 
