@@ -103,7 +103,7 @@ const s51AdviceDocuments = [
 			fromFrontOffice: false,
 			latestDocumentVersion: {
 				fileName: '2048px-Pittsburgh_Steelers_logo.svg',
-				documentType: 'pdf',
+				mime: 'application/pdf',
 				size: 207364,
 				dateCreated: '2023-08-16T13:57:22.022Z',
 				publishedStatus: 'awaiting_upload',
@@ -173,7 +173,7 @@ describe('Test S51 advice API', () => {
 			attachments: [
 				{
 					documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
-					documentType: 'pdf',
+					documentType: 'application/pdf',
 					documentName: '2048px-Pittsburgh_Steelers_logo.svg',
 					version: 1,
 					dateAdded: 1692194242,
