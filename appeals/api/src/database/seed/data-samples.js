@@ -228,6 +228,7 @@ export const addressListForTrainers = addressesList.map((address) => ({
  *	'inspectorAccessDetails' |
  *	'isAffectingNeighbouringSites' |
  *	'isCommunityInfrastructureLevyFormallyAdopted' |
+ *	'isCorrectAppealType' |
  *	'isEnvironmentalStatementRequired' |
  *	'isGypsyOrTravellerSite' |
  *	'isListedBuilding' |
@@ -272,6 +273,7 @@ export const lpaQuestionnaireList = {
 		inspectorAccessDetails: 'The entrance is at the back of the property',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
+		isCorrectAppealType: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
 		isListedBuilding: true,
@@ -314,6 +316,7 @@ export const lpaQuestionnaireList = {
 		inspectorAccessDetails: 'The entrance is at the back of the property',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
+		isCorrectAppealType: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
 		isListedBuilding: true,

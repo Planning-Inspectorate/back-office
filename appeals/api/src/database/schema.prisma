@@ -257,6 +257,7 @@ model LPAQuestionnaire {
   isAffectingNeighbouringSites                       Boolean?
   isCommunityInfrastructureLevyFormallyAdopted       Boolean?
   isConservationArea                                 Boolean?
+  isCorrectAppealType                                Boolean?
   isDevelopmentInOrNearDesignatedSites               Boolean?
   isGypsyOrTravellerSite                             Boolean?
   isListedBuilding                                   Boolean?
@@ -543,8 +544,7 @@ model LPANotificationMethodsOnLPAQuestionnaires {
 model ListedBuildingDetails {
   id                    Int               @id @default(autoincrement())
   lpaQuestionnaireId    Int?
-  grade                 String
-  description           String
+  listEntry             String?
   affectsListedBuilding Boolean           @default(false)
   lpaQuestionnaire      LPAQuestionnaire? @relation(fields: [lpaQuestionnaireId], references: [id])
 }
