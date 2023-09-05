@@ -6905,7 +6905,7 @@ exports[`applications documentation Document properties page If the user is not 
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/preview\\"
                                         class=\\"govuk-link\\">test-file-1.pdf</a>
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
@@ -7065,7 +7065,7 @@ exports[`applications documentation Document properties page If the user is not 
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/preview\\"
                                         class=\\"govuk-link\\">test-file-1.pdf</a>
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
@@ -7223,7 +7223,7 @@ exports[`applications documentation Document properties page If the user is not 
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/preview\\"
                                         class=\\"govuk-link\\">test-file-1.pdf</a>
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
@@ -7383,7 +7383,7 @@ exports[`applications documentation Document properties page If the user is not 
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
                                     <td class=\\"govuk-table__cell\\">1</td>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/\\"
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"font-weight--700\\" href=\\"/documents/123/download/123/version/1/preview\\"
                                         class=\\"govuk-link\\">test-file-1.pdf</a>
                                         <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                     </td>
