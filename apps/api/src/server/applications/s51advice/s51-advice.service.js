@@ -90,3 +90,38 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 export const formatS51AdviceUpdateResponseBody = (id, status, redactedStatus) => {
 	return { id, status, redactedStatus };
 };
+
+/**
+ * Given a list of file names, return two lists: one of pre-existing files with that name in the S51 case and another with the remainder
+ *
+ * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
+ * @param {number} adviceId
+ * @param {string[]} fileNames
+ * @returns {Promise<ExtractedDuplicates>}
+ * */
+export const extractDuplicates = async (adviceId, fileNames) => {
+	const results = await Promise.allSettled(
+		fileNames.map(
+			(name) =>
+				new Promise((resolve, reject) =>
+					s51AdviceDocumentRepository.getDocumentInAdviceByName(adviceId, name).then((existing) => {
+						if (existing) {
+							reject(name);
+						} else {
+							resolve(name);
+						}
+					})
+				)
+		)
+	);
+
+	return results.reduce((acc, result) => {
+		if (result.status === 'fulfilled') {
+			acc.remainder.push(result.value);
+		} else {
+			acc.duplicates.push(result.reason);
+		}
+
+		return acc;
+	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+};

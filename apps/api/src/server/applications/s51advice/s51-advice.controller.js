@@ -7,6 +7,7 @@ import {
 } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
+	extractDuplicates,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
 	getS51AdviceDocuments
@@ -22,6 +23,7 @@ import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-strin
 import logger from '#utils/logger.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
+/** @typedef {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, fromFrontOffice: boolean, documentReference: string}} Document */
 
 /**
  * @type {import('express').RequestHandler}
@@ -156,31 +158,25 @@ export const addDocuments = async ({ params, body }, response) => {
 		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
-	const duplicates = [];
-	const successful = [];
+	const { duplicates, remainder } = await extractDuplicates(
+		adviceId,
+		/** @type {Document[]} */ (documentsToUpload).map((doc) => doc.documentName)
+	);
 
-	for (const doc of documentsToUpload) {
-		const existing = await s51AdviceDocumentRepository.getDocumentInAdviceByName(
-			adviceId,
-			doc.documentName
-		);
-		if (existing) {
-			duplicates.push(doc.documentName);
-			continue;
-		}
+	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
+		remainder.includes(doc.documentName)
+	);
 
-		successful.push({
-			...doc,
-			documentReference: makeDocumentReference(theCase.reference, nextReferenceIndex),
-			folderId: Number(doc.folderId)
-		});
+	for (const doc of filteredToUpload) {
+		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
+		doc.folderId = Number(doc.folderId);
 
 		nextReferenceIndex++;
 	}
 
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
-		successful,
+		filteredToUpload,
 		caseId
 	);
 
