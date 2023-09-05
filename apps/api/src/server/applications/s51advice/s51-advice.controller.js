@@ -273,6 +273,16 @@ export const updateManyS51Advices = async ({ body }, response) => {
 	if (publishedStatus === 'ready_to_publish') {
 		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
 		await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
+
+		/**
+		 * @type {any[]}
+		 */
+		const virusCheckPromise = []
+		adviceIds.forEach((/** @type {number} */ adviceId) => {
+			virusCheckPromise.push(verifyAllS51DocumentsAreVirusChecked(adviceId))
+		});
+
+		await Promise.all(virusCheckPromise);
 	}
 
 	for (const advice of items ?? []) {

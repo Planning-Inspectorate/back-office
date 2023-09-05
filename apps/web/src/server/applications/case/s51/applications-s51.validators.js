@@ -141,3 +141,13 @@ export const validateS51Details =
 			checkEnquiryDetails
 		])(request, response, next);
 	};
+
+export const validateS51AdviceToChange = createValidator(
+	body('selectedFilesIds')
+		.isArray({ min: 1 })
+		.withMessage('Select advice to make changes to statuses.')
+);
+
+export const validateS51AdviceToPublish = createValidator(
+	body('selectedFilesIds').isArray({ min: 1 }).withMessage('You must select S51 advice to publish')
+);
