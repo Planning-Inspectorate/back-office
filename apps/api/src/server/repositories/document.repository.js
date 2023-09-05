@@ -315,3 +315,18 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
 		}
 	});
 };
+
+/**
+ * Returns the file with a given name in the given folder
+ *
+ * @param {number} folderId
+ * @param {string} fileName
+ * @returns {import('@prisma/client').PrismaPromise<Document | null>}
+ */
+export const getInFolderByName = (folderId, fileName) =>
+	databaseConnector.document.findFirst({
+		where: {
+			folderId,
+			latestDocumentVersion: { fileName }
+		}
+	});
