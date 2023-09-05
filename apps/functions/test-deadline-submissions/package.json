@@ -1,0 +1,18 @@
+{
+  "name": "@pins/functions-test-deadline-submissions",
+  "version": "1.0.0",
+  "description": "Azure function to simulate incoming message from Front Office (manually executed)",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@pins/event-client": "^0.0.0",
+    "@pins/platform": "^0.0.0",
+    "@pins/blob-storage-client": "*",
+    "dotenv": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+  },
+  "type": "module"
+}
