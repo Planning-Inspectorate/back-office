@@ -48,7 +48,11 @@
 				{% if not userIsInspector %}
 					{% if items.itemCount %}
 						<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-						<form class="pins-files-list" method="post" action="{{'s51-status'|url({caseId: caseId, folderId: folderId}) }}">
+						{% if isS51folder %}
+							<form class="pins-files-list" method="post" action="{{'s51-status'|url({caseId: caseId, folderId: folderId}) }}">
+						{% else %}
+							<form class="pins-files-list" method="post">
+						{% endif %}
 							<caption>
 								<span class="display--sr-only">Manage Documents in this location</span>
 							</caption>

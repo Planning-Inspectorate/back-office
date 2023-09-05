@@ -2,7 +2,7 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as controller from './applications-s51.controller.js';
 import * as locals from '../applications-case.locals.js';
-import { s51ValidatorsDispatcher, validateS51AdviceToChange, validateS51AdviceToPublish } from './applications-s51.validators.js';
+import { s51ValidatorsDispatcher, validateS51AdviceToChange } from './applications-s51.validators.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -14,11 +14,11 @@ applicationsS51Router
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Folder));
 
 applicationsS51Router
-	.route('/s51-publishing-queue')
+	.route('/change-status')
 	.post([
 		validateS51AdviceToChange,
 		locals.registerFolder
-	], asyncRoute(controller.publishAdvicesToQueue));
+	], asyncRoute(controller.changeAdviceStatus));
 
 applicationsS51Router
 	.route('/create/check-your-answers')
