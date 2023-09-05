@@ -1,3 +1,4 @@
+import { document as testDocument } from '#tests/data.js';
 import swaggerAutogen from 'swagger-autogen';
 
 const document = {
@@ -295,8 +296,7 @@ const document = {
 		SingleLPAQuestionnaireResponse: {
 			affectsListedBuildingDetails: [
 				{
-					grade: 'Grade I',
-					description: 'http://localhost:8080/affects-listed-building.pdf'
+					listEntry: '654321'
 				}
 			],
 			appealId: 1,
@@ -315,24 +315,25 @@ const document = {
 			],
 			developmentDescription: '',
 			documents: {
-				definitiveMapAndStatement: 'right-of-way.pdf',
-				treePreservationOrder: 'tree-preservation-order.pdf',
-				communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-				conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-				consultationResponses: 'consultation-responses.pdf',
-				emergingPlans: ['emerging-plan-1.pdf'],
-				environmentalStatementResponses: 'environment-statement-responses.pdf',
-				issuedScreeningOption: 'issued-screening-opinion.pdf',
-				lettersToNeighbours: 'letters-to-neighbours.pdf',
-				otherRelevantPolicies: ['policy-1.pdf'],
-				planningOfficersReport: 'planning-officers-report.pdf',
-				policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-				pressAdvert: 'press-advert.pdf',
-				representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-				responsesOrAdvice: ['responses-or-advice.pdf'],
-				screeningDirection: 'screening-direction.pdf',
-				siteNotice: 'site-notice.pdf',
-				supplementaryPlanningDocuments: ['supplementary-1.pdf']
+				communityInfrastructureLevy: testDocument,
+				conservationAreaMapAndGuidance: testDocument,
+				consultationResponses: testDocument,
+				definitiveMapAndStatement: testDocument,
+				emergingPlans: testDocument,
+				environmentalStatementResponses: testDocument,
+				issuedScreeningOption: testDocument,
+				lettersToNeighbours: testDocument,
+				otherRelevantPolicies: testDocument,
+				planningOfficersReport: testDocument,
+				policiesFromStatutoryDevelopment: testDocument,
+				pressAdvert: testDocument,
+				relevantPartiesNotification: testDocument,
+				representationsFromOtherParties: testDocument,
+				responsesOrAdvice: testDocument,
+				screeningDirection: testDocument,
+				siteNotice: testDocument,
+				supplementaryPlanningtestDocuments: testDocument,
+				treePreservationOrder: testDocument
 			},
 			doesAffectAListedBuilding: true,
 			doesAffectAScheduledMonument: true,
@@ -358,6 +359,7 @@ const document = {
 			isAffectingNeighbouringSites: true,
 			isCommunityInfrastructureLevyFormallyAdopted: true,
 			isConservationArea: true,
+			isCorrectAppealType: true,
 			isEnvironmentalStatementRequired: true,
 			isGypsyOrTravellerSite: true,
 			isListedBuilding: true,
@@ -367,8 +369,7 @@ const document = {
 			isTheSiteWithinAnAONB: true,
 			listedBuildingDetails: [
 				{
-					grade: 'Grade I',
-					description: 'http://localhost:8080/listed-building.pdf'
+					listEntry: '123456'
 				}
 			],
 			localPlanningDepartment: 'Wiltshire Council',

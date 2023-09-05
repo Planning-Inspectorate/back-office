@@ -380,10 +380,9 @@ export async function seedTestData(databaseConnector) {
 		});
 
 		await databaseConnector.listedBuildingDetails.createMany({
-			data: ['Grade I', 'Grade II', 'Grade III', 'Grade IV'].map((grade, index) => ({
+			data: ['123456', '654321', '789012', '210987'].map((listEntry, index) => ({
 				lpaQuestionnaireId: lpaQuestionnaire.id,
-				grade,
-				description: `http://localhost:8080/document-${index}.pdf`,
+				listEntry,
 				affectsListedBuilding: index > 1
 			}))
 		});

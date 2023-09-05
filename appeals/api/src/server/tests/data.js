@@ -136,6 +136,7 @@ const householdAppeal = {
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: null,
 		isConservationArea: true,
+		isCorrectAppealType: true,
 		isDevelopmentInOrNearDesignatedSites: null,
 		isEnvironmentalStatementRequired: null,
 		isGypsyOrTravellerSite: null,
@@ -469,8 +470,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	affectsListedBuildingDetails: appeal.lpaQuestionnaire?.listedBuildingDetails
 		? [
 				{
-					grade: appeal.lpaQuestionnaire?.listedBuildingDetails[1].grade,
-					description: appeal.lpaQuestionnaire?.listedBuildingDetails[1].description
+					listEntry: appeal.lpaQuestionnaire?.listedBuildingDetails[1].listEntry
 				}
 		  ]
 		: null,
@@ -490,24 +490,25 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	),
 	developmentDescription: appeal.lpaQuestionnaire?.developmentDescription,
 	documents: {
-		communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-		conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-		consultationResponses: 'consultation-responses.pdf',
-		definitiveMapAndStatement: 'right-of-way.pdf',
-		emergingPlans: ['emerging-plan-1.pdf'],
-		environmentalStatementResponses: 'environment-statement-responses.pdf',
-		issuedScreeningOption: 'issued-screening-opinion.pdf',
-		lettersToNeighbours: 'letters-to-neighbours.pdf',
-		otherRelevantPolicies: ['policy-1.pdf'],
-		planningOfficersReport: 'planning-officers-report.pdf',
-		policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-		pressAdvert: 'press-advert.pdf',
-		representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-		responsesOrAdvice: ['responses-or-advice.pdf'],
-		screeningDirection: 'screening-direction.pdf',
-		siteNotice: 'site-notice.pdf',
-		supplementaryPlanningDocuments: ['supplementary-1.pdf'],
-		treePreservationOrder: 'tree-preservation-order.pdf'
+		communityInfrastructureLevy: document,
+		conservationAreaMapAndGuidance: document,
+		consultationResponses: document,
+		definitiveMapAndStatement: document,
+		emergingPlans: document,
+		environmentalStatementResponses: document,
+		issuedScreeningOption: document,
+		lettersToNeighbours: document,
+		otherRelevantPolicies: document,
+		planningOfficersReport: document,
+		policiesFromStatutoryDevelopment: document,
+		pressAdvert: document,
+		relevantPartiesNotification: document,
+		representationsFromOtherParties: document,
+		responsesOrAdvice: document,
+		screeningDirection: document,
+		siteNotice: document,
+		supplementaryPlanningDocuments: document,
+		treePreservationOrder: document
 	},
 	doesAffectAListedBuilding: appeal.lpaQuestionnaire?.doesAffectAListedBuilding,
 	doesAffectAScheduledMonument: appeal.lpaQuestionnaire?.doesAffectAScheduledMonument,
@@ -535,6 +536,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	isCommunityInfrastructureLevyFormallyAdopted:
 		appeal.lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
 	isConservationArea: appeal.lpaQuestionnaire?.isConservationArea || null,
+	isCorrectAppealType: appeal.lpaQuestionnaire?.isCorrectAppealType || null,
 	isEnvironmentalStatementRequired: appeal.lpaQuestionnaire?.isEnvironmentalStatementRequired,
 	isGypsyOrTravellerSite: appeal.lpaQuestionnaire?.isGypsyOrTravellerSite,
 	isListedBuilding: appeal.lpaQuestionnaire?.isListedBuilding,
@@ -545,8 +547,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	listedBuildingDetails: appeal.lpaQuestionnaire?.listedBuildingDetails
 		? [
 				{
-					grade: appeal.lpaQuestionnaire?.listedBuildingDetails[0].grade,
-					description: appeal.lpaQuestionnaire?.listedBuildingDetails[0].description
+					listEntry: appeal.lpaQuestionnaire?.listedBuildingDetails[0].listEntry
 				}
 		  ]
 		: null,
@@ -686,6 +687,22 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	}
 });
 
+/**
+ * @param {string} path
+ */
+const document = {
+	folderId: 1,
+	path: 'path/to/document/folder',
+	documents: [
+		{
+			id: 'fdadc281-f686-40ee-97cf-9bafdd02b1cb',
+			name: 'an appeal related document.pdf',
+			folderId: 1,
+			caseId: 2
+		}
+	]
+};
+
 export {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
@@ -693,6 +710,7 @@ export {
 	baseExpectedAppellantCaseResponse,
 	baseExpectedLPAQuestionnaireResponse,
 	designatedSites,
+	document,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,

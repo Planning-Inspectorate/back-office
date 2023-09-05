@@ -100,24 +100,25 @@ interface SingleLPAQuestionnaireResponse {
 	designatedSites?: DesignatedSiteDetails[] | null;
 	developmentDescription?: string | null;
 	documents: {
-		communityInfrastructureLevy: string;
-		conservationAreaMapAndGuidance: string;
-		consultationResponses: string;
-		definitiveMapAndStatement: string;
-		emergingPlans: string[];
-		environmentalStatementResponses: string;
-		issuedScreeningOption: string;
-		lettersToNeighbours: string;
-		otherRelevantPolicies: string[];
-		planningOfficersReport: string;
-		policiesFromStatutoryDevelopment: string[];
-		pressAdvert: string;
-		representationsFromOtherParties: string[];
-		responsesOrAdvice: string[];
-		screeningDirection: string;
-		siteNotice: string;
-		supplementaryPlanningDocuments: string[];
-		treePreservationOrder: string;
+		communityInfrastructureLevy: FolderInfo;
+		conservationAreaMapAndGuidance: FolderInfo;
+		consultationResponses: FolderInfo;
+		definitiveMapAndStatement: FolderInfo;
+		emergingPlans: FolderInfo;
+		environmentalStatementResponses: FolderInfo;
+		issuedScreeningOption: FolderInfo;
+		lettersToNeighbours: FolderInfo;
+		otherRelevantPolicies: FolderInfo;
+		planningOfficersReport: FolderInfo;
+		policiesFromStatutoryDevelopment: FolderInfo;
+		pressAdvert: FolderInfo;
+		relevantPartiesNotification: FolderInfo;
+		representationsFromOtherParties: FolderInfo;
+		responsesOrAdvice: FolderInfo;
+		screeningDirection: FolderInfo;
+		siteNotice: FolderInfo;
+		supplementaryPlanningDocuments: FolderInfo;
+		treePreservationOrder: FolderInfo;
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;
@@ -144,6 +145,7 @@ interface SingleLPAQuestionnaireResponse {
 	isAffectingNeighbouringSites?: boolean | null;
 	isCommunityInfrastructureLevyFormallyAdopted?: boolean | null;
 	isConservationArea: boolean | null;
+	isCorrectAppealType: boolean | null;
 	isEnvironmentalStatementRequired?: boolean | null;
 	isGypsyOrTravellerSite?: boolean | null;
 	isListedBuilding?: boolean | null;
@@ -464,7 +466,7 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 		otherNotValidReasons: string;
 	};
 	notifyClient: NotifyClient;
-	validationOutcome: ValidationOutcome7;
+	validationOutcome: ValidationOutcome;
 }
 
 interface UpdateTimetableRequest {
@@ -474,7 +476,7 @@ interface UpdateTimetableRequest {
 	statementReviewDate?: Date;
 }
 
-type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'grade' | 'description'>[];
+type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
 
