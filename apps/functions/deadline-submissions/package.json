@@ -4,8 +4,7 @@
   "description": "Azure function to consume deadline submissions from service bus",
   "scripts": {
     "start": "func start",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "simulate-event": "node ./simulate-event"
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "dependencies": {
     "@pins/event-client": "^0.0.0",
