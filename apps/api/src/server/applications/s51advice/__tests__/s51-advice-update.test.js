@@ -261,9 +261,9 @@ describe('Test S51 advice update status and redacted status', () => {
 		const invalidS51AdviceBody = {
 			...validS51AdviceBody,
 			id: 3,
-			enquirer: 'e',
-			firstName: 'f',
-			lastName: 'l'
+			enquirer: '',
+			firstName: '',
+			lastName: ''
 		};
 
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });

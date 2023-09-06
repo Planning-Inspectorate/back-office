@@ -187,7 +187,6 @@ export async function changeAdviceStatus(request, response) {
 		items: items
 	}
 
-	console.log(payload, body);
 	// @ts-ignore
 	const { errors } = await updateS51AdviceStatus(request.params.caseId, payload);
 
