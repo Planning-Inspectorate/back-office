@@ -2,6 +2,7 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51ChangeStatusBody} ApplicationsS51ChangeStatusBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -16,7 +17,8 @@ import {
 	getS51FilesInFolder,
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload,
-	updateS51Advice
+	updateS51Advice,
+	updateS51AdviceStatus,
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -139,13 +141,27 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 /**
  * Show s51 advice item
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {size?: string, number?: string}, {folderName: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
  */
 export async function changeAdviceStatus(request, response) {
 
 	const { errors: validationErrors, body } = request;
 
-	console.log(body);
+	/**
+	 * @type {{ id: number; }[]}
+	 */
+	const items = []
+	body.selectedFilesIds.forEach((/** @type {number} */ selectField) => {
+		items.push({id:  Number(selectField)});
+	})
+
+	const payload = {
+		redacted: body.isRedacted,
+		status: body.status,
+		items: items
+	}
+	// @ts-ignore
+	await updateS51AdviceStatus(request.params.caseId, payload);
 
 	return response.render(`applications/components/folder/folder`, {
 		errors: validationErrors,
