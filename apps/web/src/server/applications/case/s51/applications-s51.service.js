@@ -66,7 +66,10 @@ export const updateS51AdviceStatus = async (caseId, payload) => {
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		throw error;
+		return new Promise((resolve) => {
+			// @ts-ignore
+			resolve({ errors: error?.response?.body?.errors || [] });
+		});
 	}
 }
 
