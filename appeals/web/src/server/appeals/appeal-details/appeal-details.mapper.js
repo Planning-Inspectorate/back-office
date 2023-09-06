@@ -1,6 +1,9 @@
 import { addressToString } from '../../lib/address-formatter.js';
 import { dateToDisplayDate } from '../../lib/dates.js';
 import { convertFromBooleanToYesNoWithOptionalDetails } from '#lib/boolean-formatter.js';
+import { getUserByRoleAndId } from '../appeal-users/users-service.js';
+import config from '#environment/config.js';
+import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 
 /**
  * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
@@ -39,6 +42,42 @@ export function mapAppealDetailsToAppealDetailsSummaryParameters(appealData) {
 }
 
 /**
+ * TODO: remove this in favour of globally-defined component properties definition when available
+ *
+ * @typedef NotificationBannerProperties
+ * @type {object}
+ * @prop {string} type
+ * @prop {number} titleHeadingLevel
+ * @prop {string} titleText
+ * @prop {string} text
+ */
+
+/**
+ *
+ * @param {string} type
+ * @param {string} titleText
+ * @param {string} text
+ * @returns {NotificationBannerProperties}
+ */
+function createNotificationBanner(type, titleText, text) {
+	return {
+		titleText,
+		titleHeadingLevel: 3,
+		type,
+		text
+	};
+}
+
+/**
+ *
+ * @param {string} text
+ * @returns {NotificationBannerProperties}
+ */
+function createSuccessNotificationBanner(text) {
+	return createNotificationBanner('success', 'Success', text);
+}
+
+/**
  *
  * @param {import('@pins/express').Session} session
  * @returns {import('./appellant-case/appellant-case.mapper.js').NotificationBannerComponentParameters[]}
@@ -47,28 +86,35 @@ export function mapSessionDataToNotificationBannerParameters(session) {
 	const notificationBanners = [];
 
 	if (session.siteVisitTypeSelected) {
-		notificationBanners.push({
-			titleText: 'Success',
-			titleHeadingLevel: 3,
-			type: 'success',
-			text: 'Site visit type has been selected'
-		});
-
+		notificationBanners.push(createSuccessNotificationBanner('Site visit type has been selected'));
 		delete session.siteVisitTypeSelected;
+	}
+
+	if (session.caseOfficerAssigned) {
+		notificationBanners.push(createSuccessNotificationBanner('Case officer has been assigned'));
+		delete session.caseOfficerAssigned;
+	}
+
+	if (session.inspectorAssigned) {
+		notificationBanners.push(createSuccessNotificationBanner('Inspector has been assigned'));
+		delete session.inspectorAssigned;
 	}
 
 	return notificationBanners;
 }
 
+/** @typedef {import('../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
+
 /**
  *
  * @param {import('./appeal-details.types').Appeal} appealData
- * @returns {Object<string, SummaryListBuilderParameters>}
+ * @param {SessionWithAuth} session
+ * @returns {Promise<Object<string, SummaryListBuilderParameters>>}
  */
-export function mapAppealDetailsToSummaryListBuilderParameters(appealData) {
+export async function mapAppealDetailsToSummaryListBuilderParameters(appealData, session) {
 	const mappedCaseOverview = mapCaseOverview(appealData);
 	const mappedCaseTimetable = mapCaseTimetable(appealData);
-	const mappedCaseTeam = mapCaseTeam(appealData);
+	const mappedCaseTeam = await mapCaseTeam(appealData, session);
 	const mappedSiteDetails = mapSiteDetails(appealData);
 
 	return {
@@ -291,36 +337,47 @@ function mapDocumentStatus(status) {
 /**
  *
  * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {SummaryListBuilderParameters}
+ * @param {SessionWithAuth} session
+ * @returns {Promise<SummaryListBuilderParameters>}
  */
-function mapCaseTeam(appealDetails) {
+async function mapCaseTeam(appealDetails, session) {
+	let assignedCaseOfficer;
+	if (appealDetails.caseOfficer?.length) {
+		assignedCaseOfficer = await getUserByRoleAndId(
+			config.referenceData.appeals.caseOfficerGroupId,
+			appealDetails.caseOfficer,
+			session
+		);
+	}
+
+	let assignedInspector;
+	if (appealDetails.inspector?.length) {
+		assignedInspector = await getUserByRoleAndId(
+			config.referenceData.appeals.inspectorGroupId,
+			appealDetails.inspector,
+			session
+		);
+	}
+
 	return {
 		rows: [
 			{
 				title: 'Case officer',
-				value: appealDetails.caseOfficer
-					? [
-							appealDetails.caseOfficer?.name,
-							appealDetails.caseOfficer?.email,
-							appealDetails.caseOfficer?.phone
-					  ]
-					: 'No project members have been added yet',
+				value: assignedCaseOfficer
+					? [surnameFirstToFullName(assignedCaseOfficer?.name), assignedCaseOfficer?.email]
+					: '',
 				valueType: 'text',
 				actionText: appealDetails.caseOfficer ? 'Change' : 'Add',
-				actionLink: '#'
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/case-officer`
 			},
 			{
 				title: 'Inspector',
-				value: appealDetails.inspector
-					? [
-							appealDetails.inspector?.name,
-							appealDetails.inspector?.email,
-							appealDetails.inspector?.phone
-					  ]
-					: 'No project members have been added yet',
+				value: assignedInspector
+					? [surnameFirstToFullName(assignedInspector?.name), assignedInspector?.email]
+					: '',
 				valueType: 'text',
 				actionText: appealDetails.inspector ? 'Change' : 'Add',
-				actionLink: '#'
+				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/inspector`
 			}
 		]
 	};

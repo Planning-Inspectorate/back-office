@@ -29,7 +29,7 @@ export const viewAppealDetails = async (request, response) => {
 		const mappedAppealDetailsSummary =
 			mapAppealDetailsToAppealDetailsSummaryParameters(appealDetails);
 		const mappedAppealDetailsSummaryListBuilderParameters =
-			mapAppealDetailsToSummaryListBuilderParameters(appealDetails);
+			await mapAppealDetailsToSummaryListBuilderParameters(appealDetails, request.session);
 		const mappedAppealDetailsTableBuilderParameters =
 			mapAppealDetailsToTableBuilderParameters(appealDetails);
 		const appealReferenceFragments = appealDetails?.appealReference.split('/');
