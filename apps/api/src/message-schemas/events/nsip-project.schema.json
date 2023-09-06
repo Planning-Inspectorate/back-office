@@ -162,21 +162,17 @@
 			"type": "string",
 			"description": "Relevant Government Department. [TODO]"
 		},
+
+		"_preApplicationDates": {},
+		"datePINSFirstNotifiedOfProject": {
+			"type": "string",
+			"description": "Date at which applicant notify PINS of a project (pre-publishing)",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
 		"dateProjectAppearsOnWebsite": {
 			"type": "string",
 			"description": "Date Project Appears On Website",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateOfDCOAcceptance": {
-			"type": "string",
-			"description": "Date Application is Formerly Accepted by PINS",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"anticipatedDateOfSubmission": {
-			"type": "string",
-			"description": "Anticipated Submission Date Of Application",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
@@ -185,87 +181,9 @@
 			"description": "Approximate Anticipated Submission Date Of Application, e.g. Q3 2023",
 			"examples": ["Q3 2023"]
 		},
-		"dateOfDCOSubmission": {
+		"anticipatedDateOfSubmission": {
 			"type": "string",
-			"description": "Date Applcation is submitted",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateOfRepresentationPeriodOpen": {
-			"type": "string",
-			"description": "Date at which point publish can submit relevant reps",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateOfRelevantRepresentationClose": {
-			"type": "string",
-			"description": "Date at which point publish can no longer submit relevant reps",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateRRepAppearOnWebsite": {
-			"type": "string",
-			"description": "Date at which relevant reps appear on the website",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"confirmedStartOfExamination": {
-			"type": "string",
-			"description": "ConfirmedStartOfExamination by panel",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateTimeExaminationEnds": {
-			"type": "string",
-			"description": "ConfirmedSEndOfExamination by panel",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"stage4ExtensionToExamCloseDate": {
-			"type": "string",
-			"description": "Examination Period extended to this date",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"stage5ExtensionToRecommendationDeadline": {
-			"type": "string",
-			"description": "Recommendation period extended to this date",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateOfRecommendations": {
-			"type": "string",
-			"description": "Date recomm report sent to SoS",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"confirmedDateOfDecision": {
-			"type": "string",
-			"description": "Decision by SoS",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"stage5ExtensionToDecisionDeadline": {
-			"type": "string",
-			"description": "Decision period extended to this date",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"dateProjectWithdrawn": {
-			"type": "string",
-			"description": "DateProjectWithdrawn by applicant",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"section46Notification": {
-			"type": "string",
-			"description": "Applicant must notify PINS of statutory consultation",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"datePINSFirstNotifiedOfProject": {
-			"type": "string",
-			"description": "Date at which applicant notify PINS of a project (pre-publishing)",
+			"description": "Anticipated Submission Date Of Application",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
@@ -293,45 +211,46 @@
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
+		"section46Notification": {
+			"type": "string",
+			"description": "Applicant must notify PINS of statutory consultation",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
+		"_acceptanceDates": {},
+		"dateOfDCOSubmission": {
+			"type": "string",
+			"description": "Date Applcation is submitted",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
 		"deadlineForAcceptanceDecision": {
 			"type": "string",
 			"description": "DeadlineForAcceptanceDecision",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
-		"dateSection58NoticeReceived": {
+		"dateOfDCOAcceptance": {
 			"type": "string",
-			"description": "Applicant has notified all parties of application",
+			"description": "Date Application is Formerly Accepted by PINS",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
-		"preliminaryMeetingStartDate": {
+		"dateOfNonAcceptance": {
+			"description": "MISSING"
+		},
+
+		"_preExaminationDates": {},
+		"dateOfRepresentationPeriodOpen": {
 			"type": "string",
-			"description": "Meeting between all parties inc public",
+			"description": "Date at which point publish can submit relevant reps",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
-		"deadlineForCloseOfExamination": {
+		"dateOfRelevantRepresentationClose": {
 			"type": "string",
-			"description": "DeadlineForCloseOfExamination",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"deadlineForSubmissionOfRecommendation": {
-			"type": "string",
-			"description": "DeadlineForSubmissionOfRecommendation",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"deadlineForDecision": {
-			"type": "string",
-			"description": "DeadlineForDecision",
-			"format": "date-time",
-			"examples": ["2023-03-26T00:00:00.000"]
-		},
-		"jRPeriodEndDate": {
-			"type": "string",
-			"description": "Judicial Review",
+			"description": "Date at which point publish can no longer submit relevant reps",
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
@@ -341,6 +260,122 @@
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
+		"dateRRepAppearOnWebsite": {
+			"type": "string",
+			"description": "Date at which relevant reps appear on the website",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateIAPIDue": {
+			"description": "MISSING"
+		},
+		"rule6LetterPublishDate": {
+			"description": "MISSING"
+		},
+		"preliminaryMeetingStartDate": {
+			"type": "string",
+			"description": "Meeting between all parties inc public",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"notificationDateForPMAndEventsDirectlyFollowingPM": {
+			"description": "MISSING"
+		},
+		"notificationDateForEventsDeveloper": {
+			"description": "MISSING"
+		},
+
+		"_examinationDates": {},
+		"dateSection58NoticeReceived": {
+			"type": "string",
+			"description": "Applicant has notified all parties of application",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"confirmedStartOfExamination": {
+			"type": "string",
+			"description": "ConfirmedStartOfExamination by panel",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"rule8LetterPublishDate": {
+			"description": "MISSING"
+		},
+		"deadlineForCloseOfExamination": {
+			"type": "string",
+			"description": "DeadlineForCloseOfExamination",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateTimeExaminationEnds": {
+			"type": "string",
+			"description": "ConfirmedSEndOfExamination by panel",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage4ExtensionToExamCloseDate": {
+			"type": "string",
+			"description": "Examination Period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
+		"_recommendationDates": {},
+		"deadlineForSubmissionOfRecommendation": {
+			"type": "string",
+			"description": "DeadlineForSubmissionOfRecommendation",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"dateOfRecommendations": {
+			"type": "string",
+			"description": "Date recomm report sent to SoS",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage5ExtensionToRecommendationDeadline": {
+			"type": "string",
+			"description": "Recommendation period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
+		"_decisionDates": {},
+		"deadlineForDecision": {
+			"type": "string",
+			"description": "DeadlineForDecision",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"confirmedDateOfDecision": {
+			"type": "string",
+			"description": "Decision by SoS",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+		"stage5ExtensionToDecisionDeadline": {
+			"type": "string",
+			"description": "Decision period extended to this date",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
+		"_postDecisionDates": {},
+		"jRPeriodEndDate": {
+			"type": "string",
+			"description": "Judicial Review",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
+		"_withdrawalDates": {},
+		"dateProjectWithdrawn": {
+			"type": "string",
+			"description": "DateProjectWithdrawn by applicant",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
+		},
+
 		"operationsLeadId": {
 			"type": "string",
 			"description": "Maps to [Employee].[EmployeeID]."
