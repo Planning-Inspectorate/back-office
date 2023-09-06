@@ -46,6 +46,8 @@ export function mapAppealDetailsToAppealDetailsSummaryParameters(appealData) {
 export function mapSessionDataToNotificationBannerParameters(session) {
 	const notificationBanners = [];
 
+	// TODO: refactor this to be less verbose
+
 	if (session.siteVisitTypeSelected) {
 		notificationBanners.push({
 			titleText: 'Success',
@@ -55,6 +57,28 @@ export function mapSessionDataToNotificationBannerParameters(session) {
 		});
 
 		delete session.siteVisitTypeSelected;
+	}
+
+	if (session.caseOfficerAssigned) {
+		notificationBanners.push({
+			titleText: 'Success',
+			titleHeadingLevel: 3,
+			type: 'success',
+			text: 'Case officer has been assigned'
+		});
+
+		delete session.caseOfficerAssigned;
+	}
+
+	if (session.inspectorAssigned) {
+		notificationBanners.push({
+			titleText: 'Success',
+			titleHeadingLevel: 3,
+			type: 'success',
+			text: 'Inspector has been assigned'
+		});
+
+		delete session.inspectorAssigned;
 	}
 
 	return notificationBanners;

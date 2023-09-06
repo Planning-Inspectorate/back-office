@@ -28,11 +28,6 @@ const renderAssignUser = async (
 	const appealReferenceFragments = appealDetails?.appealReference.split('/');
 
 	if (appealDetails) {
-		// scenarios:
-		// usersMatchingSearchTerm undefined (user has not searched - neither results nor "no results" message should be displayed)
-		// usersMatchingSearchTerm is empty array (user has searched, but there were no results - "no results" message should be displayed)
-		// usersMatchingSearchTerm is array with at least one item (user has searched and there were results - results should be displayed)
-
 		const results = (usersMatchingSearchTerm || []).map((user) => {
 			const nameFragments = user.name.split(',');
 
@@ -83,10 +78,13 @@ const renderAssignUserCheckAndConfirm = async (request, response, isInspector = 
 		} = request;
 
 		if (assigneeId) {
-			const userGroupId = isInspector
-				? config.referenceData.appeals.inspectorGroupId
-				: config.referenceData.appeals.caseOfficerGroupId;
-			const user = await getUserByRoleAndId(userGroupId, assigneeId, request.session);
+			const user = await getUserByRoleAndId(
+				isInspector
+					? config.referenceData.appeals.inspectorGroupId
+					: config.referenceData.appeals.caseOfficerGroupId,
+				assigneeId,
+				request.session
+			);
 
 			return response.render('appeals/appeal/confirm-assign-user.njk', {
 				appeal: {
@@ -158,6 +156,52 @@ export const postAssignInspector = async (request, response) => {
 	postAssignUser(request, response, true);
 };
 
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const postAssignUserCheckAndConfirm = async (request, response, isInspector = false) => {
+	const { errors } = request;
+
+	if (errors) {
+		return renderAssignUserCheckAndConfirm(request, response);
+	}
+
+	try {
+		const {
+			body: { confirm },
+			params: { appealId }
+		} = request;
+
+		const appealDetails = await appealDetailsService
+			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+			.catch((error) => logger.error(error));
+
+		if (appealDetails) {
+			if (confirm === 'yes') {
+				// TODO: hit API endpoint to set appeal assigned case officer / inspector
+
+				request.session[isInspector ? 'inspectorAssigned' : 'caseOfficerAssigned'] = true;
+
+				return response.redirect(`/appeals-service/appeal-details/${appealId}/`);
+			}
+
+			return response.redirect(
+				`/appeals-service/appeal-details/${appealId}/assign-user/${
+					isInspector ? 'inspector' : 'case-officer'
+				}`
+			);
+		}
+
+		return response.render('app/404.njk');
+	} catch (error) {
+		logger.error(error, error instanceof Error ? error.message : 'Something went wrong');
+
+		return response.render('app/500.njk');
+	}
+};
+
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getAssignCaseOfficerCheckAndConfirm = async (request, response) => {
 	renderAssignUserCheckAndConfirm(request, response);
@@ -166,4 +210,14 @@ export const getAssignCaseOfficerCheckAndConfirm = async (request, response) => 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getAssignInspectorCheckAndConfirm = async (request, response) => {
 	renderAssignUserCheckAndConfirm(request, response, true);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const postAssignCaseOfficerCheckAndConfirm = async (request, response) => {
+	postAssignUserCheckAndConfirm(request, response);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const postAssignInspectorCheckAndConfirm = async (request, response) => {
+	postAssignUserCheckAndConfirm(request, response, true);
 };

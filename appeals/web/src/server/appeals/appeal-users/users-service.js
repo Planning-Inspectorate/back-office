@@ -40,9 +40,6 @@ export const getUserByRoleAndId = async (roleName, id, session) => {
 		return [];
 	}
 
-	// TODO: can/should caching be added as in `getUsersByRole`?
-
-	// `groups/${roleName}/members?$select=id,displayName,userPrincipalName&$filter=id eq '${id}'`
 	const results = await fetchRolesAndUsersFromGraph(roleName, session, `$filter=id eq '${id}'`);
 
 	return results?.[0];
