@@ -1,8 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js'
 import { validateExistingApplication } from '../application/application.validators.js';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
