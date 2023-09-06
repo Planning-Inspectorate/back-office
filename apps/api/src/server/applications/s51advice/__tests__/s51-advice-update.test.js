@@ -75,6 +75,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceWithId);
+		databaseConnector.folder.findFirst.mockResolvedValue({ id: 1 });
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -114,6 +115,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoPerson);
 		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
+		databaseConnector.folder.findFirst.mockResolvedValue({ id: 1 });
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -153,6 +155,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoOrg);
 		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
+		databaseConnector.folder.findFirst.mockResolvedValue({ id: 1 });
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -185,6 +188,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(invalidS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValue([]);
 		databaseConnector.s51Advice.update.mockResolvedValue();
+		databaseConnector.folder.findFirst.mockResolvedValue({ id: 1 });
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -195,7 +199,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(500);
 		expect(response.body).toEqual({
-			errors: [{ id: 2 }]
+			errors: "Failed to publish S51 advices. [{\"id\":2}]"
 		});
 	});
 
@@ -223,7 +227,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(500);
 		expect(response.body).toEqual({
-			errors: [{ id: 3 }]
+			errors: "Failed to publish S51 advices. [{\"id\":3}]"
 		});
 	});
 

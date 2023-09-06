@@ -289,7 +289,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			throw new BackOfficeAppError(
 				// @ts-ignore
 				`Failed to publish S51 advices. ${error.message}`,
-				409
+				500
 			);
 		}
 		

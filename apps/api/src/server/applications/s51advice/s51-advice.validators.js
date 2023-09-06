@@ -131,6 +131,10 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 		pageSize: 100
 	});
 
+	if (!documents || documents.length === 0) {
+		return;
+	}
+
 	const failed = documents.filter(
 		(doc) => doc.latestDocumentVersion.virusCheckStatus !== 'scanned'
 	);
