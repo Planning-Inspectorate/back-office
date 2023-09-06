@@ -1,9 +1,15 @@
 {
 	"bindings": [
 		{
-			"name": "testDeadlineSubmission",
+			"name": "req",
 			"type": "httpTrigger",
-			"direction": "in"
+			"direction": "in",
+			"methods": ["get"]
+		},
+		{
+			"type": "http",
+			"name": "res",
+			"direction": "out"
 		}
 	]
 }
