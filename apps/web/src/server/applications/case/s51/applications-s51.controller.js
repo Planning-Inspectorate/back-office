@@ -45,6 +45,20 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
+	// @ts-ignore
+	const properties = await s51FolderData(request, response);
+
+	// @ts-ignore
+	response.render(`applications/components/folder/folder`, properties);
+}
+
+/**
+ * Show pages for creating/editing s51 advice
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
+ * @returns {Promise<any>}
+ */
+const s51FolderData = async (request, response) => {
 	const number = Number(request.query.number || '1');
 	const size = (() => {
 		const _size = Number(request.query?.size ?? NaN);
@@ -67,10 +81,10 @@ export async function viewApplicationsCaseS51Folder(request, response) {
 
 	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
 
-	response.render(`applications/components/folder/folder`, {
+	return {
 		items: s51Files,
 		pagination
-	});
+	}
 }
 
 /**
@@ -147,6 +161,17 @@ export async function changeAdviceStatus(request, response) {
 
 	const { errors: validationErrors, body } = request;
 
+	// @ts-ignore
+	const properties = await s51FolderData(request, response);
+
+	if (validationErrors) {
+		return response.render(`applications/components/folder/folder`, {
+			errors: validationErrors,
+			// @ts-ignore
+			...properties
+		});
+	}
+
 	/**
 	 * @type {{ id: number; }[]}
 	 */
@@ -156,16 +181,25 @@ export async function changeAdviceStatus(request, response) {
 	})
 
 	const payload = {
-		redacted: body.isRedacted,
+		// @ts-ignore
+		redacted: body.isRedacted === "undefind" ? body.isRedacted : body.isRedacted === '1',
 		status: body.status,
 		items: items
 	}
-	// @ts-ignore
-	await updateS51AdviceStatus(request.params.caseId, payload);
 
-	return response.render(`applications/components/folder/folder`, {
-		errors: validationErrors,
-	});
+	console.log(payload, body);
+	// @ts-ignore
+	const { errors } = await updateS51AdviceStatus(request.params.caseId, payload);
+
+	if (errors) {
+		return response.render(`applications/components/folder/folder`, {
+			errors,
+			// @ts-ignore
+			...properties
+		});
+	}
+
+	response.redirect('.');
 }
 
 /**

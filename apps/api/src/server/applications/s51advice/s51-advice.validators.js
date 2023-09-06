@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
+import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js'
 import { validateExistingApplication } from '../application/application.validators.js';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
 
@@ -120,25 +121,22 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 		throw new Error(`no S51 advice record found with ID ${adviceId}`);
 	}
 
-	const folder = await folderRepository.getFolderByNameAndCaseId(adviceRecord.caseId, 'S51 advice');
-	if (!folder) {
-		throw new Error(`no folder found for case with ID ${adviceRecord.caseId}`);
-	}
+	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
 
-	const documents = await documentRepository.getDocumentsInFolder({
-		folderId: folder.id,
-		skipValue: 0,
-		pageSize: 100
-	});
-
-	if (!documents || documents.length === 0) {
+	if (!attachments || attachments?.length === 0) {
 		return;
 	}
 
-	const failed = documents.filter(
-		(doc) => doc.latestDocumentVersion.virusCheckStatus !== 'scanned'
-	);
-	if (failed.length !== 0) {
-		throw new Error(`documents were not successfully virus scanned: ${failed}`);
-	}
+	attachments.forEach((attachment) => {
+		// @ts-ignore
+		const { Document } = attachment;
+		const { latestDocumentVersion } = Document;
+		if (!latestDocumentVersion) {
+			return;
+		}
+
+		if (latestDocumentVersion.virusCheckStatus !== 'scanned') {
+			throw new Error('Documents were not successfully virus scanned');
+		}
+	});
 };
