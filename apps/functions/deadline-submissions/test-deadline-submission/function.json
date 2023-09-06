@@ -1,0 +1,9 @@
+{
+	"bindings": [
+		{
+			"name": "testDeadlineSubmission",
+			"type": "httpTrigger",
+			"direction": "in"
+		}
+	]
+}
