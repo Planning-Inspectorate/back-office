@@ -3,6 +3,7 @@ import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51ChangeStatusBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -51,6 +52,23 @@ export const updateS51Advice = async (caseId, adviceId, payload) => {
 		throw error;
 	}
 };
+
+/**
+ * Edit an S51 advice
+ *
+ * @param {number} caseId
+ * @param {ApplicationsS51ChangeStatusBody} payload
+ * @returns {Promise<S51Advice>}
+ * */
+export const updateS51AdviceStatus = async (caseId, payload) => {
+	try {
+		return await patch(`applications/${caseId}/s51-advice/`, { json: payload });
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		throw error;
+	}
+}
 
 /**
  * Get S51 advice by id

@@ -87,3 +87,15 @@ export interface S51BlobResponse {
 		blobStoreUrl: string;
 	}[];
 }
+
+export interface ApplicationsS51ChangeStatusBodyPayload {
+	redacted?: boolean;
+	status?: string;
+	items?: Array<{id: number}>;
+}
+export interface ApplicationsS51ChangeStatusBody{
+	isRedacted?: boolean;
+	status?: string;
+	selectAll?: boolean;
+	selectedFilesIds?: any;
+  }
