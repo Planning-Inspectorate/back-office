@@ -220,7 +220,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 
 		// THEN
-		expect(response.status).toEqual(500);
+		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: 'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});
@@ -278,7 +278,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 
 		// THEN
-		expect(response.status).toEqual(500);
+		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: 'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});

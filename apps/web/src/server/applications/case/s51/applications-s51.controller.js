@@ -175,10 +175,8 @@ export async function changeAdviceStatus(request, response) {
 	/**
 	 * @type {{ id: number; }[]}
 	 */
-	const items = []
-	body.selectedFilesIds.forEach((/** @type {number} */ selectField) => {
-		items.push({id:  Number(selectField)});
-	})
+
+	const items = body.selectedFilesIds.map((/** @type {any} */ selectField) => ({ id: Number(selectField) }));
 
 	const payload = {
 		// @ts-ignore
