@@ -1,0 +1,10 @@
+{
+	"extends": "../../../jsconfig.json",
+	"include": ["**/*.js"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"#db-client": ["./database/db-client"]
+		}
+	}
+}

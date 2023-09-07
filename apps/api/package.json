@@ -38,7 +38,7 @@
     "@pins/event-client": "^0.0.0",
     "@pins/express": "^0.0.0",
     "@pins/platform": "^0.0.0",
-    "@prisma/client": "4.16.1",
+    "@prisma/client": "^4.16.1",
     "@supercharge/promise-pool": "^2.4.0",
     "body-parser": "1.20.0",
     "c8": "^7.11.3",
