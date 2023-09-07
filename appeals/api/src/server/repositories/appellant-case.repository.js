@@ -1,5 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
-import appealRepositoryTemp from '#repositories/appeal.repository.js';
+import appealRepository from '#repositories/appeal.repository.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
@@ -69,7 +69,7 @@ const updateAppellantCaseValidationOutcome = ({
 
 	if (appealId && startedAt && timetable) {
 		transaction.push(
-			appealRepositoryTemp.updateAppealById(appealId, { startedAt: startedAt.toISOString() }),
+			appealRepository.updateAppealById(appealId, { startedAt: startedAt.toISOString() }),
 			appealTimetablesRepository.upsertAppealTimetableById(appealId, timetable)
 		);
 	}

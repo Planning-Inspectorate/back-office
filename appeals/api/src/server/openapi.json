@@ -1888,6 +1888,10 @@
 						"type": "boolean",
 						"example": true
 					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
 					"decision": {
 						"type": "string",
 						"example": "Not issued yet"
@@ -1922,6 +1926,10 @@
 								}
 							}
 						}
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					},
 					"inspectorAccess": {
 						"type": "object",
@@ -2403,6 +2411,14 @@
 					"startedAt": {
 						"type": "string",
 						"example": "2023-05-09"
+					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					}
 				},
 				"xml": {
@@ -2415,6 +2431,14 @@
 					"startedAt": {
 						"type": "string",
 						"example": "2023-05-09T01:00:00.000Z"
+					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					}
 				},
 				"xml": {

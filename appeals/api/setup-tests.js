@@ -111,6 +111,7 @@ const mockScheduleTypeFindMany = jest.fn().mockResolvedValue({});
 const mockAppellantUpdate = jest.fn().mockResolvedValue({});
 const mockDesignatedSitesOnLPAQuestionnairesCreateMany = jest.fn().mockResolvedValue({});
 const mockDesignatedSitesOnLPAQuestionnairesDeleteMany = jest.fn().mockResolvedValue({});
+const mockUserUpsert = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -440,6 +441,12 @@ class MockPrismaClient {
 		return {
 			createMany: mockDesignatedSitesOnLPAQuestionnairesCreateMany,
 			deleteMany: mockDesignatedSitesOnLPAQuestionnairesDeleteMany
+		};
+	}
+
+	get user() {
+		return {
+			upsert: mockUserUpsert
 		};
 	}
 
