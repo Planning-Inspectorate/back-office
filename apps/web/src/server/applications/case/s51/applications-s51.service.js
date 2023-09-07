@@ -1,5 +1,6 @@
 import { post, get, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
+import { fixtureS51Advices } from '../../../../../testing/applications/fixtures/s51-advice.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
@@ -44,11 +45,15 @@ export const createS51Advice = async (payload) => {
  * @returns {Promise<S51Advice>}
  * */
 export const updateS51Advice = async (caseId, adviceId, payload) => {
+	// TODO: use the same structure of other APIs
+
 	try {
 		return await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
 	} catch (/** @type {*} */ error) {
+		// TODO: use usual generic error
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
+		// TODO: return a validation error
 		throw error;
 	}
 };
@@ -71,7 +76,30 @@ export const updateS51AdviceStatus = async (caseId, payload) => {
 			resolve({ errors: error?.response?.body?.errors || [] });
 		});
 	}
-}
+};
+
+/**
+ * Check that title of s51 advice doesnt exist already
+ *
+ * @param {number} caseId
+ * @param {string} title
+ * @returns {Promise<{validS51Advice?: S51Advice, errors?: ValidationErrors}>}
+ * */
+export const checkS51NameIsUnique = async (caseId, title) => {
+	let response;
+	try {
+		const validS51Advice = await Promise.resolve({ ...fixtureS51Advices[0], caseId, title });
+		response = { validS51Advice };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: 'That advice title already exists on this project.  Enter a new title.' });
+		});
+	}
+
+	return response;
+};
 
 /**
  * Get S51 advice by id
