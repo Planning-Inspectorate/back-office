@@ -162,7 +162,7 @@ export const getById = async (id, caseId) => {
  *
  * @param {number} repId
  * @param {number} [caseId]
- * @returns {Promise<Prisma.RepresentationSelect>}
+ * @returns {Promise<Representation>}
  */
 export const getFirstById = async (repId, caseId) => {
 	let filter = {
@@ -591,7 +591,7 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 
 /**
  *
- * @param {Prisma.RepresentationSelect} representation
+ * @param {Representation} representation
  * @param {object} action
  * @param {boolean} unpublished
  * @returns {Promise<*>}

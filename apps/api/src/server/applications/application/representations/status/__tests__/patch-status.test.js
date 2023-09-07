@@ -23,10 +23,12 @@ const existingRepresentations = [
 	}
 ];
 
-const expectedUnpublishPayload = {
-	representationId: 2,
-	status: 'VALID'
-};
+const expectedUnpublishPayload = [
+	{
+		representationId: 2,
+		status: 'VALID'
+	}
+];
 const mockDate = new Date('2023-01-02');
 
 describe('Patch Application Representation Status', () => {

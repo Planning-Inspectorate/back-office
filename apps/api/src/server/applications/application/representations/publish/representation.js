@@ -57,11 +57,13 @@ export const buildNsipRepresentationPayload = (representation) => {
  * @returns {{}|{representationId, status}}
  */
 export const buildNsipRepresentationStatusUpdatePayload = (representation, newStatus) => {
-	if (!representation) return {};
-	return {
-		representationId: representation.id,
-		status: newStatus
-	};
+	if (!representation) return [];
+	return [
+		{
+			representationId: representation.id,
+			status: newStatus
+		}
+	];
 };
 
 const buildNsipInterestedPartyPayload = (representationContact) => {
