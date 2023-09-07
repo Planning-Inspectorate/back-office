@@ -14,7 +14,7 @@ export const validateSearchTerm = createValidator(
 export const validatePostCheckAndConfirm = createValidator(
 	body('confirm')
 		.notEmpty()
-		.withMessage('Please confirm the assignee is correct')
+		.withMessage('Confirmation must be provided')
 		.bail()
 		.isIn(['yes', 'no'])
 		.withMessage('Something went wrong')

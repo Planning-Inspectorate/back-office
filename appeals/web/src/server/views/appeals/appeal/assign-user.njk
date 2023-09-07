@@ -5,7 +5,8 @@
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
 
 {%- set userType = 'inspector' if isInspector else 'case-officer' -%}
-{%- set userTypeText = 'an inspector' if isInspector else 'a case officer' -%}
+{%- set userTypeText = 'inspector' if isInspector else 'case officer' -%}
+{%- set userTypeTextWithArticle = 'an inspector' if isInspector else 'a case officer' -%}
 {%- set pageTitle = "Assign " + userTypeText + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
@@ -16,7 +17,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search for {{ userTypeText }}</h1>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search for {{ userTypeTextWithArticle }}</h1>
 		</div>
 	</div>
 {%- endblock -%}
@@ -36,6 +37,10 @@
 			text: "Search"
 		}) }}
 	</form>
+	{%- if currentAssignee -%}
+		<h2 class="govuk-heading-s">{{ userTypeText | capitalize }} that is currently assigned</h2>
+		{{ govukSummaryList(currentAssignee) }}
+	{%- endif -%}
 	{%- if search.performed -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-full govuk-!-margin-bottom-5">

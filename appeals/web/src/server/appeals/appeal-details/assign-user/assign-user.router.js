@@ -4,26 +4,38 @@ import { Router as createRouter } from 'express';
 import * as controller from './assign-user.controller.js';
 import * as validators from './assign-user.validator.js';
 
-const router = createRouter({ mergeParams: true });
+const assignUserRouter = createRouter({ mergeParams: true });
 
-router
+assignUserRouter
 	.route('/case-officer')
 	.get(controller.getAssignCaseOfficer)
 	.post(validators.validateSearchTerm, controller.postAssignCaseOfficer);
 
-router
+assignUserRouter
 	.route('/inspector')
 	.get(controller.getAssignInspector)
 	.post(validators.validateSearchTerm, controller.postAssignInspector);
 
-router
+assignUserRouter
 	.route('/case-officer/:assigneeId/confirm')
 	.get(controller.getAssignCaseOfficerCheckAndConfirm)
 	.post(validators.validatePostCheckAndConfirm, controller.postAssignCaseOfficerCheckAndConfirm);
 
-router
+assignUserRouter
 	.route('/inspector/:assigneeId/confirm')
 	.get(controller.getAssignInspectorCheckAndConfirm)
 	.post(validators.validatePostCheckAndConfirm, controller.postAssignInspectorCheckAndConfirm);
 
-export default router;
+const unassignUserRouter = createRouter({ mergeParams: true });
+
+unassignUserRouter
+	.route('/case-officer/:assigneeId/confirm')
+	.get(controller.getUnassignCaseOfficerCheckAndConfirm)
+	.post(validators.validatePostCheckAndConfirm, controller.postUnassignCaseOfficerCheckAndConfirm);
+
+unassignUserRouter
+	.route('/inspector/:assigneeId/confirm')
+	.get(controller.getUnassignInspectorCheckAndConfirm)
+	.post(validators.validatePostCheckAndConfirm, controller.postUnassignInspectorCheckAndConfirm);
+
+export { assignUserRouter, unassignUserRouter };

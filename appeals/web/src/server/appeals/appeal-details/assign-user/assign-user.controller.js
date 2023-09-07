@@ -3,6 +3,8 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import { getUsersByRole, getUserByRoleAndId } from '../../appeal-users/users-service.js';
 import config from '#environment/config.js';
 import { setAppealAssignee } from './assign-user.service.js';
+import { mapAssignedUserToSummaryListBuilderParameters } from './assign-user.mapper.js';
+import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 
 /**
  *
@@ -40,13 +42,28 @@ const renderAssignUser = async (
 			};
 		});
 
+		const currentlyAssignedUser = await mapAssignedUserToSummaryListBuilderParameters(
+			appealDetails[isInspector ? 'inspector' : 'caseOfficer'],
+			appealDetails.appealId,
+			isInspector
+				? config.referenceData.appeals.inspectorGroupId
+				: config.referenceData.appeals.caseOfficerGroupId,
+			request.session
+		);
+
+		let currentAssignee;
+		if (currentlyAssignedUser) {
+			currentAssignee = generateSummaryList(currentlyAssignedUser);
+		}
+
 		return response.render('appeals/appeal/assign-user.njk', {
 			appeal: {
-				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
+				id: appealDetails.appealId,
+				reference: appealDetails.appealReference,
 				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
 			},
 			isInspector,
+			currentAssignee,
 			search: {
 				term: searchTerm || '',
 				performed: Array.isArray(usersMatchingSearchTerm),
@@ -65,7 +82,12 @@ const renderAssignUser = async (
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {boolean} isInspector
  */
-const renderAssignUserCheckAndConfirm = async (request, response, isInspector = false) => {
+const renderAssignOrUnassignUserCheckAndConfirm = async (
+	request,
+	response,
+	isInspector = false,
+	isUnassign = false
+) => {
 	const appealDetails = await appealDetailsService
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
@@ -87,7 +109,7 @@ const renderAssignUserCheckAndConfirm = async (request, response, isInspector = 
 				request.session
 			);
 
-			return response.render('appeals/appeal/confirm-assign-user.njk', {
+			return response.render('appeals/appeal/confirm-assign-unassign-user.njk', {
 				appeal: {
 					id: appealDetails?.appealId,
 					reference: appealDetails?.appealReference,
@@ -95,7 +117,8 @@ const renderAssignUserCheckAndConfirm = async (request, response, isInspector = 
 				},
 				user,
 				isInspector,
-				errors
+				errors,
+				isUnassign
 			});
 		}
 	}
@@ -162,11 +185,16 @@ export const postAssignInspector = async (request, response) => {
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-export const postAssignUserCheckAndConfirm = async (request, response, isInspector = false) => {
+export const postAssignOrUnassignUserCheckAndConfirm = async (
+	request,
+	response,
+	isInspector = false,
+	isUnassign = false
+) => {
 	const { errors } = request;
 
 	if (errors) {
-		return renderAssignUserCheckAndConfirm(request, response);
+		return renderAssignOrUnassignUserCheckAndConfirm(request, response, isInspector, isUnassign);
 	}
 
 	try {
@@ -181,15 +209,20 @@ export const postAssignUserCheckAndConfirm = async (request, response, isInspect
 
 		if (appealDetails) {
 			if (confirm === 'yes') {
-				await setAppealAssignee(request.apiClient, appealId, assigneeId, isInspector);
+				await setAppealAssignee(
+					request.apiClient,
+					appealId,
+					isUnassign ? '' : assigneeId,
+					isInspector
+				);
 
-				request.session[isInspector ? 'inspectorAssigned' : 'caseOfficerAssigned'] = true;
+				request.session.assignedUserChanged = { isInspector, isUnassign };
 
 				return response.redirect(`/appeals-service/appeal-details/${appealId}/`);
 			}
 
 			return response.redirect(
-				`/appeals-service/appeal-details/${appealId}/assign-user/${
+				`/appeals-service/appeal-details/${appealId}/${isUnassign ? 'unassign' : 'assign'}-user/${
 					isInspector ? 'inspector' : 'case-officer'
 				}`
 			);
@@ -205,20 +238,40 @@ export const postAssignUserCheckAndConfirm = async (request, response, isInspect
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getAssignCaseOfficerCheckAndConfirm = async (request, response) => {
-	renderAssignUserCheckAndConfirm(request, response);
+	renderAssignOrUnassignUserCheckAndConfirm(request, response);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getAssignInspectorCheckAndConfirm = async (request, response) => {
-	renderAssignUserCheckAndConfirm(request, response, true);
+	renderAssignOrUnassignUserCheckAndConfirm(request, response, true);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const postAssignCaseOfficerCheckAndConfirm = async (request, response) => {
-	postAssignUserCheckAndConfirm(request, response);
+	postAssignOrUnassignUserCheckAndConfirm(request, response);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const postAssignInspectorCheckAndConfirm = async (request, response) => {
-	postAssignUserCheckAndConfirm(request, response, true);
+	postAssignOrUnassignUserCheckAndConfirm(request, response, true);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getUnassignCaseOfficerCheckAndConfirm = async (request, response) => {
+	renderAssignOrUnassignUserCheckAndConfirm(request, response, false, true);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getUnassignInspectorCheckAndConfirm = async (request, response) => {
+	renderAssignOrUnassignUserCheckAndConfirm(request, response, true, true);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const postUnassignCaseOfficerCheckAndConfirm = async (request, response) => {
+	postAssignOrUnassignUserCheckAndConfirm(request, response, false, true);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const postUnassignInspectorCheckAndConfirm = async (request, response) => {
+	postAssignOrUnassignUserCheckAndConfirm(request, response, true, true);
 };

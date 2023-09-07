@@ -90,14 +90,15 @@ export function mapSessionDataToNotificationBannerParameters(session) {
 		delete session.siteVisitTypeSelected;
 	}
 
-	if (session.caseOfficerAssigned) {
-		notificationBanners.push(createSuccessNotificationBanner('Case officer has been assigned'));
-		delete session.caseOfficerAssigned;
-	}
-
-	if (session.inspectorAssigned) {
-		notificationBanners.push(createSuccessNotificationBanner('Inspector has been assigned'));
-		delete session.inspectorAssigned;
+	if (session.assignedUserChanged) {
+		notificationBanners.push(
+			createSuccessNotificationBanner(
+				`${session.assignedUserChanged.isInspector ? 'Inspector' : 'Case officer'} has been ${
+					session.assignedUserChanged.isUnassign ? 'removed' : 'assigned'
+				}`
+			)
+		);
+		delete session.assignedUserChanged;
 	}
 
 	return notificationBanners;
@@ -367,7 +368,7 @@ async function mapCaseTeam(appealDetails, session) {
 					? [surnameFirstToFullName(assignedCaseOfficer?.name), assignedCaseOfficer?.email]
 					: '',
 				valueType: 'text',
-				actionText: appealDetails.caseOfficer ? 'Change' : 'Add',
+				actionText: appealDetails.caseOfficer ? 'Change' : 'Assign',
 				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/case-officer`
 			},
 			{
@@ -376,7 +377,7 @@ async function mapCaseTeam(appealDetails, session) {
 					? [surnameFirstToFullName(assignedInspector?.name), assignedInspector?.email]
 					: '',
 				valueType: 'text',
-				actionText: appealDetails.inspector ? 'Change' : 'Add',
+				actionText: appealDetails.inspector ? 'Change' : 'Assign',
 				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/inspector`
 			}
 		]

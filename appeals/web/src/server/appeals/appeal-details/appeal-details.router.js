@@ -3,7 +3,7 @@ import lpaQuestionnaireRouter from './lpa-questionaire/lpa-questionnaire.router.
 import appellantCaseRouter from './appellant-case/appellant-case.router.js';
 import appealDocumentsRouter from '../appeal-documents/appeal-documents.router.js';
 import siteVisitRouter from './site-visit/site-visit.router.js';
-import assignUserRouter from './assign-user/assign-user.router.js';
+import { assignUserRouter, unassignUserRouter } from './assign-user/assign-user.router.js';
 import * as controller from './appeal-details.controller.js';
 
 const router = createRouter();
@@ -14,5 +14,6 @@ router.use('/:appealId/lpa-questionnaire', lpaQuestionnaireRouter);
 router.use('/:appealId/appellant-case', appellantCaseRouter);
 router.use('/:appealId/site-visit', siteVisitRouter);
 router.use('/:appealId/assign-user', assignUserRouter);
+router.use('/:appealId/unassign-user', unassignUserRouter);
 
 export default router;
