@@ -279,7 +279,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			throw new BackOfficeAppError(
 				// @ts-ignore
 				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.',
-				500
+				400
 			);
 		}
 
@@ -287,10 +287,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			/**
 			 * @type {any[]}
 			 */
-			const virusCheckPromise = []
-			adviceIds.forEach((/** @type {number} */ adviceId) => {
-				virusCheckPromise.push(verifyAllS51DocumentsAreVirusChecked(adviceId))
-			});
+			const virusCheckPromise = adviceIds.map(verifyAllS51DocumentsAreVirusChecked);
 	
 			await Promise.all(virusCheckPromise);
 		} catch (error) {
@@ -298,7 +295,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			throw new BackOfficeAppError(
 				// @ts-ignore
 				'There are attachments which have failed the virus check. Return to the S51 advice properties screen to delete files.',
-				500
+				400
 			);
 		}
 		
