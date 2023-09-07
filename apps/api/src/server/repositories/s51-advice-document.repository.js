@@ -43,7 +43,7 @@ export const getDocumentInAdviceByName = (adviceId, documentName) =>
 			adviceId,
 			Document: {
 				latestDocumentVersion: {
-					fileName: documentName
+					originalFilename: documentName
 				}
 			}
 		}
