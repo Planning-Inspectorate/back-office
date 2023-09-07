@@ -2,7 +2,11 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as controller from './applications-s51.controller.js';
 import * as locals from '../applications-case.locals.js';
-import { s51ValidatorsDispatcher, validateS51AdviceToChange, validateS51AdviceActions } from './applications-s51.validators.js';
+import {
+	s51ValidatorsDispatcher,
+	validateS51AdviceToChange,
+	validateS51AdviceActions
+} from './applications-s51.validators.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -15,11 +19,10 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/change-status')
-	.post([
-		validateS51AdviceToChange,
-		validateS51AdviceActions,
-		locals.registerFolder
-	], asyncRoute(controller.changeAdviceStatus));
+	.post(
+		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
+		asyncRoute(controller.changeAdviceStatus)
+	);
 
 applicationsS51Router
 	.route('/create/check-your-answers')
@@ -41,12 +44,12 @@ applicationsS51Router
 	.post(locals.registerFolder, asyncRoute(controller.deleteApplicationsCaseS51Attachment));
 
 applicationsS51Router
-	.route('/:adviceId/:step')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
-
-applicationsS51Router
 	.route('/:adviceId/edit/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseEditS51Item))
 	.post(asyncRoute(controller.postApplicationsCaseEditS51Item));
+
+applicationsS51Router
+	.route('/:adviceId/:step')
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
 
 export default applicationsS51Router;

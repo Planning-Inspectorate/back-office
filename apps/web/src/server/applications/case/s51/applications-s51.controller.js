@@ -12,13 +12,14 @@
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
+	checkS51NameIsUnique,
 	createS51Advice,
 	getS51Advice,
 	getS51FilesInFolder,
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload,
 	updateS51Advice,
-	updateS51AdviceStatus,
+	updateS51AdviceStatus
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -84,8 +85,8 @@ const s51FolderData = async (request, response) => {
 	return {
 		items: s51Files,
 		pagination
-	}
-}
+	};
+};
 
 /**
  * Show s51 advice item
@@ -135,10 +136,15 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 	const { caseId, adviceId, step, folderId } = params;
 	const payload = mapUpdateBodyToPayload(body);
 
+	// TODO: add function to check whether title exists (checkS51NameIsUnique)
+
+	// TODO: express catches automatically all the errors of the services: no need to try/catch on the controller
 	try {
 		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
 	} catch (/** @type {any} */ err) {
+		// console.log(err);
 		if (err.response.statusCode === 409) {
+			// TODO: return errors property (it should come from the service)
 			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 				caseId,
 				adviceId,
@@ -158,7 +164,6 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
  */
 export async function changeAdviceStatus(request, response) {
-
 	const { errors: validationErrors, body } = request;
 
 	// @ts-ignore
@@ -176,14 +181,16 @@ export async function changeAdviceStatus(request, response) {
 	 * @type {{ id: number; }[]}
 	 */
 
-	const items = body.selectedFilesIds.map((/** @type {any} */ selectField) => ({ id: Number(selectField) }));
+	const items = body.selectedFilesIds.map((/** @type {any} */ selectField) => ({
+		id: Number(selectField)
+	}));
 
 	const payload = {
 		// @ts-ignore
-		redacted: body.isRedacted === "undefind" ? body.isRedacted : body.isRedacted === '1',
+		redacted: body.isRedacted === 'undefined' ? body.isRedacted : body.isRedacted === '1',
 		status: body.status,
 		items: items
-	}
+	};
 
 	// @ts-ignore
 	const { errors } = await updateS51AdviceStatus(request.params.caseId, payload);
@@ -280,15 +287,22 @@ const getCheckYourAnswersRows = (data) => {
 /**
  * Save data for creating/editing s51 advice
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {caseId: object}>}
  */
 export async function updateApplicationsCaseS51CreatePage(request, response) {
-	const { errors, body, session, params } = request;
+	const { errors: validationErrors, body, session, params } = request;
+	const { caseId } = response.locals;
 
-	if (errors) {
+	let apiErrors;
+	if (params.step === 'title' && body.title) {
+		const { errors } = await checkS51NameIsUnique(+caseId, body.title);
+		apiErrors = errors;
+	}
+
+	if (validationErrors || apiErrors) {
 		return response.render(`applications/case-s51/s51-${params.step}`, {
 			values: body,
-			errors
+			errors: validationErrors || apiErrors || {}
 		});
 	}
 
