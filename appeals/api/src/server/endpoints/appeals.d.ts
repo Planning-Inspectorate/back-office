@@ -67,9 +67,11 @@ interface RepositoryGetByIdResultItem {
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant;
 	appellantCase?: Schema.AppellantCase | null;
+	caseOfficer: User | null;
 	createdAt: Date;
 	dueDate: Date | null;
 	id: number;
+	inspector: User | null;
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
@@ -183,6 +185,7 @@ interface SingleAppealDetailsResponse {
 	appealType?: string;
 	appellantCaseId?: number;
 	appellantName?: string;
+	caseOfficer: string | null;
 	decision?: string;
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {
@@ -195,6 +198,7 @@ interface SingleAppealDetailsResponse {
 			hasIssues: boolean | null;
 		};
 	};
+	inspector: string | null;
 	inspectorAccess: {
 		appellantCase: {
 			details: string | null;

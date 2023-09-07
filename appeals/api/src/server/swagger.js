@@ -131,6 +131,7 @@ const document = {
 			appellantCaseId: 1,
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
 			decision: 'Not issued yet',
 			healthAndSafety: {
 				appellantCase: {
@@ -142,6 +143,7 @@ const document = {
 					hasIssues: true
 				}
 			},
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855',
 			inspectorAccess: {
 				appellantCase: {
 					details: 'There is a tall hedge around the site which obstructs the view of the site',
@@ -288,10 +290,14 @@ const document = {
 			}
 		},
 		UpdateAppealRequest: {
-			startedAt: '2023-05-09'
+			startedAt: '2023-05-09',
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855'
 		},
 		UpdateAppealResponse: {
-			startedAt: '2023-05-09T01:00:00.000Z'
+			startedAt: '2023-05-09T01:00:00.000Z',
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855'
 		},
 		SingleLPAQuestionnaireResponse: {
 			affectsListedBuildingDetails: [

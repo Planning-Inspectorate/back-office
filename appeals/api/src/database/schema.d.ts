@@ -23,6 +23,7 @@ export {
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
 	SiteVisitType,
+	User,
 	ValidationOutcome
 } from '../../src/server/utils/db-client';
 

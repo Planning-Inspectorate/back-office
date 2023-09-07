@@ -20,7 +20,6 @@ model Appeal {
   localPlanningDepartment      String
   planningApplicationReference String
   startedAt                    DateTime?
-  userId                       Int?
   appellantId                  Int?                  @unique
   appealTypeId                 Int?
   linkedAppealId               Int?
@@ -30,7 +29,6 @@ model Appeal {
   address                      Address?              @relation(fields: [addressId], references: [id])
   appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
   appellant                    Appellant?            @relation(fields: [appellantId], references: [id])
-  user                         User?                 @relation(fields: [userId], references: [id])
   allocation                   AppealAllocation?
   specialisms                  AppealSpecialism[]
   appellantCase                AppellantCase?
@@ -47,6 +45,10 @@ model Appeal {
   otherAppeals                 Appeal[]              @relation("OtherAppeals")
   folders                      Folder[]
   documents                    Document[]
+  caseOfficerUserId            Int?
+  caseOfficer                  User?                 @relation("caseOfficer", fields: [caseOfficerUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  inspectorUserId              Int?
+  inspector                    User?                 @relation("inspector", fields: [inspectorUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// AppealType model
@@ -344,9 +346,10 @@ model InspectorDecision {
 /// Contains information on Back Office users (PINS employees)
 model User {
   id             Int              @id @default(autoincrement())
-  azureReference Int?             @unique
-  appeal         Appeal[]
+  azureUserId    String?          @unique
   Representation Representation[]
+  caseOfficer    Appeal[]         @relation("caseOfficer")
+  inspector      Appeal[]         @relation("inspector")
 }
 
 /// Folder model

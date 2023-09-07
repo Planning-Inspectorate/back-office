@@ -84,7 +84,15 @@ const householdAppeal = {
 		otherNotValidReasons: null,
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
+	caseOfficer: {
+		id: 1,
+		azureUserId: 'a8973f33-4d2e-486b-87b0-d068343ad9eb'
+	},
 	dueDate: '2023-08-10T01:00:00.000Z',
+	inspector: {
+		id: 2,
+		azureUserId: 'e8f89175-d02c-4a60-870e-dc954d5b530a'
+	},
 	inspectorDecision: {
 		outcome: 'Not issued yet'
 	},
