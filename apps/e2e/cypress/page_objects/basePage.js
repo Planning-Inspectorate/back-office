@@ -40,6 +40,7 @@ export class Page {
 		tag: '.govuk-tag',
 		textArea: '.govuk-textarea',
 		successBanner: '.govuk-notification-banner--success',
+		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
@@ -80,6 +81,8 @@ export class Page {
 		selectElem: () => cy.get(this.selectors.select),
 		saveAndContinue: () => this.clickButtonByText('Save and Continue'),
 		successBanner: () => cy.get(this.selectors.successBanner),
+		summaryListActions: () => cy.get(this.selectors.summaryListActions),
+		summaryListValue: () => cy.get(this.selectors.summaryListValue),
 		signOutLink: () =>
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Sign Out', {
 				matchCase: false
@@ -188,7 +191,7 @@ export class Page {
 	}
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
-			expect($banner.text().trim()).to.equal(successMessage);
+			expect($banner.text().trim()).eq(successMessage);
 		});
 	}
 
