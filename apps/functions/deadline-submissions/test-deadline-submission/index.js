@@ -45,6 +45,7 @@ async function publishMessage(context, fileName) {
 		documentName: fileName
 	};
 
+	context.log(serviceBusHost, serviceBusTopic);
 	const client = getEventClient(true, context.log, serviceBusHost);
 
 	await client.sendEvents(serviceBusTopic, [msg], EventType.Create);
