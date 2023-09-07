@@ -327,6 +327,6 @@ export const getInFolderByName = (folderId, fileName) =>
 	databaseConnector.document.findFirst({
 		where: {
 			folderId,
-			latestDocumentVersion: { fileName }
+			latestDocumentVersion: { originalFilename: fileName }
 		}
 	});
