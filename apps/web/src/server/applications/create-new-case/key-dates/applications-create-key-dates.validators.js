@@ -11,7 +11,7 @@ import {
 }
  */
 export const validateApplicationsCreateKeyDates = (request, response, next) => {
-	const fieldName = 'keyDates.submissionDateInternal';
+	const fieldName = 'keyDates.preApplication.submissionAtInternal';
 	const extendedFieldName = 'anticipated submission date internal';
 
 	const checkValidDate = validationDateValid({ fieldName, extendedFieldName }, request.body);

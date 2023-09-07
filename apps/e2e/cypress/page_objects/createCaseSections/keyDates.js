@@ -3,10 +3,14 @@ import { SectionBase } from './sectionBase';
 
 export class KeyDatesSection extends SectionBase {
 	elements = {
-		submissionPublishedDateInput: () => cy.get('#keyDates\\.submissionDatePublished'),
-		internalAnticipatedDateDay: () => cy.get('#keyDates\\.submissionDateInternal\\.day'),
-		internalAnticipatedDateMonth: () => cy.get('#keyDates\\.submissionDateInternal\\.month'),
-		internalAnticipatedDateYear: () => cy.get('#keyDates\\.submissionDateInternal\\.year')
+		submissionPublishedDateInput: () =>
+			cy.get('#keyDates\\.preApplication\\.submissionAtPublished'),
+		internalAnticipatedDateDay: () =>
+			cy.get('#keyDates\\.preApplication\\.submissionAtInternal\\.day'),
+		internalAnticipatedDateMonth: () =>
+			cy.get('#keyDates\\.preApplication\\.submissionAtInternal\\.month'),
+		internalAnticipatedDateYear: () =>
+			cy.get('#keyDates\\.preApplication\\.submissionAtInternal\\.year')
 	};
 
 	fillSumbissionPublishedDate(date) {

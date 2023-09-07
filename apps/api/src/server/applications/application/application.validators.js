@@ -186,8 +186,8 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.isPostalCode('GB')
 		.withMessage('Postcode must be a valid UK postcode')
 		.optional({ nullable: true }),
-	body('keyDates.submissionDatePublished').optional({ nullable: true }),
-	body('keyDates.submissionDateInternal')
+	body('keyDates.preApplication.submissionAtPublished').optional({ nullable: true }),
+	body('keyDates.preApplication.submissionAtInternal')
 		.customSanitizer(timestampToDate)
 		.custom(validateFutureDate)
 		.withMessage('Submission date internal must be in the future')

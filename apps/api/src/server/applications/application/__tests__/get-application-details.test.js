@@ -126,8 +126,17 @@ describe('Get Application details', () => {
 				]
 			},
 			keyDates: {
-				submissionDatePublished: 'Q1 2023',
-				submissionDateInternal: 1_658_486_313
+				acceptance: {},
+				decision: {},
+				examination: {},
+				postDecision: {},
+				preApplication: {
+					submissionAtPublished: 'Q1 2023',
+					submissionAtInternal: 1_658_486_313
+				},
+				preExamination: {},
+				recommendation: {},
+				withdrawal: {}
 			}
 		});
 	});

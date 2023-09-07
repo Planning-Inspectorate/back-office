@@ -46,10 +46,12 @@ export const generateTestData = () => {
 		},
 		applicants: generateApplicant(),
 		keyDates: {
-			submissionDatePublished: `Q${getRandomInt(4) + 1} ${
-				futureDate.getFullYear() + getRandomInt(3)
-			}`,
-			submissionDateInternal: '01/02/2025'
+			preApplication: {
+				submissionAtPublished: `Q${getRandomInt(4) + 1} ${
+					futureDate.getFullYear() + getRandomInt(3)
+				}`,
+				submissionAtInternal: '01/02/2025'
+			}
 		}
 	};
 

@@ -45,7 +45,7 @@ describe('Applications create key dates', () => {
 		describe('Web-side validation:', () => {
 			it('should show validation errors if dates are not valid', async () => {
 				const response = await request.post(baseUrl).send({
-					'keyDates.submissionDateInternal.day': 32
+					'keyDates.preApplication.submissionAtInternal.day': 32
 				});
 				const element = parseHtml(response.text);
 
@@ -57,9 +57,9 @@ describe('Applications create key dates', () => {
 
 			it('should show validation errors if submission date is not in the future', async () => {
 				const response = await request.post(baseUrl).send({
-					'keyDates.submissionDateInternal.day': '14',
-					'keyDates.submissionDateInternal.month': '07',
-					'keyDates.submissionDateInternal.year': '1789'
+					'keyDates.preApplication.submissionAtInternal.day': '14',
+					'keyDates.preApplication.submissionAtInternal.month': '07',
+					'keyDates.preApplication.submissionAtInternal.year': '1789'
 				});
 				const element = parseHtml(response.text);
 
@@ -71,9 +71,9 @@ describe('Applications create key dates', () => {
 
 			it('should redirect to check-your-answers page if there is no error', async () => {
 				const response = await request.post(baseUrl).send({
-					'keyDates.submissionDateInternal.day': '14',
-					'keyDates.submissionDateInternal.month': '07',
-					'keyDates.submissionDateInternal.year': '2030'
+					'keyDates.preApplication.submissionAtInternal.day': '14',
+					'keyDates.preApplication.submissionAtInternal.month': '07',
+					'keyDates.preApplication.submissionAtInternal.year': '2030'
 				});
 
 				expect(response?.headers?.location).toEqual(

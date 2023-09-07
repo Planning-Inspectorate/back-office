@@ -9,7 +9,7 @@ import {
 	preExaminationDateNames,
 	recommendationDateNames,
 	withdrawalDateNames
-} from './key-dates.utils.js';
+} from '../../applications/key-dates/key-dates.utils.js';
 import { mapDateToUnixTimestamp } from '#utils/mapping/map-date-to-unix-timestamp.js';
 
 /**

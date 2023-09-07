@@ -39,8 +39,10 @@ export interface Case {
 	caseEmail?: string;
 	applicants?: Applicant[];
 	keyDates?: {
-		submissionDatePublished: string;
-		submissionDateInternal: string;
+		preApplication: {
+			submissionAtPublished: string;
+			submissionAtInternal: string;
+		};
 	};
 	geographicalInformation?: {
 		mapZoomLevel: ZoomLevel;

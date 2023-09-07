@@ -1,6 +1,6 @@
 import * as keyDatesRepository from '../../repositories/key-dates.repository.js';
 import BackOfficeAppError from '../../utils/app-error.js';
-import { mapRequestToKeyDates, mapKeyDatesToResponse } from './key-dates.mapper.js';
+import { mapRequestToKeyDates, mapKeyDatesToResponse } from '../../utils/mapping/map-key-dates.js';
 
 /**
  * Get key dates for a project

@@ -1,133 +1,110 @@
 {% extends "../layouts/applications.layout.njk" %}
-
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-
 {% block pageHeading %}{% endblock %}
-
 {% block pageContent %}
-	{% set baseUrl = 'case-create'|url({caseId: caseId}) %}
-	{% set rows = [] %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Project name', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.title'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="name" class="govuk-link" href="' + ('case-create'|url({caseId: caseId})) + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Project description', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.description'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="description" class="govuk-link" href="' + baseUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Sector', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.sector'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="sector" class="govuk-link" href="' + baseUrl + 'sector">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Subsector', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.subSector'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="subSector" class="govuk-link" href="' + baseUrl + 'sub-sector">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Project location', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.location'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="projectLocation" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Grid reference Easting', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.easting'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="gridReferenceEasting" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Grid reference Northing', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.northing'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="gridReferenceNorthing" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Region(s)', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.regions'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a id="regions" class="govuk-link" href="' + baseUrl + 'regions">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Map zoom level', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['case.zoomLevel'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'zoom-level">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	{% set row = [] %}
-	{% set row = row | concat({ text: 'Project email', classes: 'font-weight--700 pins-table__cell--s'}) %}
-	{% set row = row | concat({ text: values['case.teamEmail'], classes: 'pins-table__cell--s' }) %}
-	{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'team-email">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-	{% set rows = rows | concat([row]) %}
-
-	<h1 class="govuk-heading-l">
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-full">
-				Check your answers before creating a new project
-			</div>
-		</div>
-	</h1>
-	<form method="post" action="">
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-full">
-				{{ govukTable({
+    {% set baseUrl = 'case-create'|url({caseId: caseId}) %}
+    {% set rows = [] %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Project name', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.title'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="name" class="govuk-link" href="' + ('case-create'|url({caseId: caseId})) + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Project description', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.description'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="description" class="govuk-link" href="' + baseUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Sector', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.sector'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="sector" class="govuk-link" href="' + baseUrl + 'sector">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Subsector', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.subSector'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="subSector" class="govuk-link" href="' + baseUrl + 'sub-sector">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Project location', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.location'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="projectLocation" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Grid reference Easting', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.easting'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="gridReferenceEasting" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Grid reference Northing', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.northing'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="gridReferenceNorthing" class="govuk-link" href="' + baseUrl + 'geographical-information">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Region(s)', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.regions'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="regions" class="govuk-link" href="' + baseUrl + 'regions">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Map zoom level', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: values['case.zoomLevel'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'zoom-level">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    {% set row = [] %}
+    {% set row = row | concat({ text: 'Project email', classes: 'font-weight--700 pins-table__cell--s'}) %}
+    {% set row = row | concat({ text: values['case.teamEmail'], classes: 'pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'team-email">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set rows = rows | concat([row]) %}
+    <h1 class="govuk-heading-l">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                Check your answers before creating a new project
+            </div>
+        </div>
+    </h1>
+    <form method="post" action="">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                {{ govukTable({
 					head: [
 						{ text: "Project information", classes: 'govuk-table__caption--m pins-table__cell--l govuk-!-static-padding-bottom-6', colspan: '3'}
 					],
 					rows: rows
 				}) }}
-
-				{% set rows = [] %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Organisation name', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.organisationName'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-organisation-name">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Contact name', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.fullName'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-full-name">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Address', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.address'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-address">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Website', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.website'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-website">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Email address', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.email'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-email">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Telephone number', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['applicant.phoneNumber'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-telephone-number">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-
-				{{ govukTable({
+                {% set rows = [] %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Organisation name', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.organisationName'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-organisation-name">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Contact name', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.fullName'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-full-name">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Address', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.address'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-address">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Website', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.website'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-website">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Email address', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.email'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-email">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Telephone number', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['applicant.phoneNumber'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'applicant-telephone-number">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {{ govukTable({
 					caption: params.caption,
 					captionClasses: "govuk-table__caption--l",
 					head: [
@@ -135,21 +112,18 @@
 					],
 					rows: rows
 				}) }}
-
-				{% set rows = [] %}
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Anticipated submission date published', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['keyDates.submissionDatePublished'], classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'key-dates">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{% set row = [] %}
-				{% set row = row | concat({ text: 'Anticipated submission date internal', classes: 'font-weight--700 pins-table__cell--s' }) %}
-				{% set row = row | concat({ text: values['keyDates.submissionDateInternal'] |datestamp({format: 'dd/MM/yyyy'}), classes: 'pins-table__cell--s' }) %}
-				{% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'key-dates">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
-				{% set rows = rows | concat([row]) %}
-
-				{{ govukTable({
+                {% set rows = [] %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Anticipated submission date published', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['keyDates.preApplication.submissionAtPublished'], classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'key-dates">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {% set row = [] %}
+                {% set row = row | concat({ text: 'Anticipated submission date internal', classes: 'font-weight--700 pins-table__cell--s' }) %}
+                {% set row = row | concat({ text: values['keyDates.preApplication.submissionAtInternal'] |datestamp({format: 'dd/MM/yyyy'}), classes: 'pins-table__cell--s' }) %}
+                {% set row = row | concat({ html: '<a class="govuk-link" href="' + baseUrl + 'key-dates">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+                {% set rows = rows | concat([row]) %}
+                {{ govukTable({
 					caption: params.caption,
 					captionClasses: "govuk-table__caption--l",
 					head: [
@@ -157,22 +131,17 @@
 					],
 					rows: rows
 				}) }}
-			</div>
-		</div>
-
-		<br>
-		{{ govukWarningText({
+            </div>
+        </div>
+        <br>
+            {{ govukWarningText({
 			text: "Creating the project will not publish the page onto the NSIP website",
 			iconFallbackText: "Warning"
 		}) }}
-
-		<div class="govuk-grid-row">
-			<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-				{{ govukButton({ text: 'I accept - confirm creation of a new case' }) }}
-			</div>
-		</div>
-	</form>
-{% endblock %}
-
-
-
+            <div class="govuk-grid-row">
+                <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                    {{ govukButton({ text: 'I accept - confirm creation of a new case' }) }}
+                </div>
+            </div>
+        </form>
+    {% endblock %}

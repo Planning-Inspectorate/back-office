@@ -156,8 +156,10 @@ const document = {
 				}
 			],
 			keyDates: {
-				submissionDatePublished: 'Q1 2023',
-				submissionDateInternal: 123
+				preApplication: {
+					submissionAtPublished: 'Q1 2023',
+					submissionAtInternal: 123
+				}
 			}
 		},
 		CreateApplication: {
@@ -193,8 +195,10 @@ const document = {
 				}
 			],
 			keyDates: {
-				submissionDatePublished: 'Q1 2023',
-				submissionDateInternal: 123
+				preApplication: {
+					submissionAtPublished: 'Q1 2023',
+					submissionAtInternal: 123
+				}
 			}
 		},
 		Sectors: [
