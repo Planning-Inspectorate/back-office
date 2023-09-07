@@ -27,7 +27,9 @@ test('creates new application with just title and first notified date', async ()
 	const response = await request.post('/applications').send({
 		title: 'some title',
 		keyDates: {
-			submissionDateInternal: 1_649_319_344_000
+			preApplication: {
+				submissionAtInternal: 1_649_319_344_000
+			}
 		}
 	});
 
@@ -144,8 +146,10 @@ test('creates new application when all possible details provided', async () => {
 			}
 		},
 		keyDates: {
-			submissionDateInternal: 1_649_319_344_000,
-			submissionDatePublished: 'Q1 2023'
+			preApplication: {
+				submissionAtInternal: 1_649_319_344_000,
+				submissionAtPublished: 'Q1 2023'
+			}
 		}
 	});
 
@@ -288,7 +292,9 @@ test('returns error if any validated values are invalid', async () => {
 			}
 		],
 		keyDates: {
-			submissionDateInternal: 1_000_000
+			preApplication: {
+				submissionAtInternal: 1_000_000
+			}
 		},
 		subSectorName: 'some unknown subsector'
 	});
@@ -305,7 +311,8 @@ test('returns error if any validated values are invalid', async () => {
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 			'geographicalInformation.regionNames': 'Unknown region',
-			'keyDates.submissionDateInternal': 'Submission date internal must be in the future',
+			'keyDates.preApplication.submissionAtInternal':
+				'Submission date internal must be in the future',
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});

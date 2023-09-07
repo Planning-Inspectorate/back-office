@@ -1,5 +1,4 @@
 import { head, isEmpty, pick } from 'lodash-es';
-import { mapKeysUsingObject } from '../../utils/mapping/map-keys-using-object.js';
 import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-object.js';
 
 /**
@@ -18,10 +17,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		{
 			...applicationDetails,
 			...applicationDetails.geographicalInformation,
-			...mapKeysUsingObject(applicationDetails.keyDates, {
-				submissionDateInternal: 'submissionAtInternal',
-				submissionDatePublished: 'submissionAtPublished'
-			})
+			...applicationDetails.keyDates?.preApplication
 		},
 		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
 	);

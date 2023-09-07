@@ -26,8 +26,8 @@ export type ApplicationsCreateCheckYourAnswersProps = {
 		'applicant.email'?: string;
 		'applicant.phoneNumber'?: string;
 
-		'keyDates.submissionDatePublished': string;
-		'keyDates.submissionDateInternal': Date;
+		'keyDates.preApplication.submissionAtPublished': string;
+		'keyDates.preApplication.submissionAtInternal': Date;
 	};
 
 	errors?: Record<string, string>;

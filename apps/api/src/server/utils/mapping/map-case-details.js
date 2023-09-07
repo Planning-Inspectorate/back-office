@@ -8,6 +8,7 @@ import { mapRegion } from './map-region.js';
 import { mapServiceCustomer } from './map-service-customer.js';
 import { mapValuesUsingObject } from './map-values-using-object.js';
 import { mapZoomLevel } from './map-zoom-level.js';
+import { mapKeyDatesToResponse } from './map-key-dates.js';
 
 /**
  * @param {import('@pins/applications.api').Schema.Case} caseDetails
@@ -54,18 +55,10 @@ export const mapApplicationDetails = (caseDetails) => {
 
 	const gridReferenceFormatted = mapGridReference(caseDetails?.gridReference);
 
-	const keyDates = mapValuesUsingObject(
-		mapKeysUsingObject(
-			pick(caseDetails?.ApplicationDetails, ['submissionAtInternal', 'submissionAtPublished']),
-			{
-				submissionAtInternal: 'submissionDateInternal',
-				submissionAtPublished: 'submissionDatePublished'
-			}
-		),
-		{
-			submissionDateInternal: mapDateStringToUnixTimestamp
-		}
-	);
+	// @ts-ignore
+	const keyDates = caseDetails?.ApplicationDetails
+		? mapKeyDatesToResponse(caseDetails?.ApplicationDetails)
+		: {};
 
 	return {
 		...caseDetailsFormatted,

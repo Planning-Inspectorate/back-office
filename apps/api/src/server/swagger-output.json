@@ -3724,11 +3724,11 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionDatePublished": {
+						"submissionAtPublished": {
 							"type": "string",
 							"example": "Q1 2023"
 						},
-						"submissionDateInternal": {
+						"submissionAtInternal": {
 							"type": "number",
 							"example": 123
 						}
@@ -3852,11 +3852,11 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionDatePublished": {
+						"submissionAtPublished": {
 							"type": "string",
 							"example": "Q1 2023"
 						},
-						"submissionDateInternal": {
+						"submissionAtInternal": {
 							"type": "number",
 							"example": 123
 						}

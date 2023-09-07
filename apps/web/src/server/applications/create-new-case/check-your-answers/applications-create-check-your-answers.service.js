@@ -34,8 +34,10 @@ export const mapCaseData = (caseData) => {
 			'applicant.email': caseData?.applicants[0].email,
 			'applicant.phoneNumber': caseData?.applicants[0].phoneNumber,
 
-			'keyDates.submissionDatePublished': caseData?.keyDates?.submissionDatePublished,
-			'keyDates.submissionDateInternal': caseData?.keyDates?.submissionDateInternal
+			'keyDates.preApplication.submissionAtPublished':
+				caseData?.keyDates?.preApplication?.submissionAtPublished,
+			'keyDates.preApplication.submissionAtInternal':
+				caseData?.keyDates?.preApplication?.submissionAtInternal
 		}
 	};
 
