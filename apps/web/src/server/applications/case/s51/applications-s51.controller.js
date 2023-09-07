@@ -187,7 +187,7 @@ export async function changeAdviceStatus(request, response) {
 
 	const payload = {
 		// @ts-ignore
-		redacted: body.isRedacted === 'undefind' ? body.isRedacted : body.isRedacted === '1',
+		redacted: body.isRedacted === 'undefined' ? body.isRedacted : body.isRedacted === '1',
 		status: body.status,
 		items: items
 	};
