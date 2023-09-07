@@ -2066,6 +2066,230 @@ const document = {
 					}
 				}
 			}
+		},
+		ApplicationKeyDates: {
+			type: 'object',
+			properties: {
+				preApplication: {
+					type: 'object',
+					properties: {
+						datePINSFirstNotifiedOfProject: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateProjectAppearsOnWebsite: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						anticipatedSubmissionDateNonSpecific: {
+							type: 'string',
+							description: 'Quarter followed by year',
+							example: 'Q1 2023'
+						},
+						anticipatedDateOfSubmission: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						screeningOpinionSought: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						screeningOpinionIssued: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						scopingOpinionSought: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						scopingOpinionIssued: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						section46Notification: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				acceptance: {
+					type: 'object',
+					properties: {
+						dateOfDCOSubmission: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						deadlineForAcceptanceDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfDCOAcceptance: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfNonAcceptance: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				preExamination: {
+					type: 'object',
+					properties: {
+						dateOfRepresentationPeriodOpen: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfRelevantRepresentationClose: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						extensionToDateRelevantRepresentationsClose: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateRRepAppearOnWebsite: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateIAPIDue: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						rule6LetterPublishDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						preliminaryMeetingStartDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						notificationDateForPMAndEventsDirectlyFollowingPM: {
+							type: 'number',
+							example: 1_646_822_600
+						},
+						notificationDateForEventsDeveloper: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				examination: {
+					type: 'object',
+					properties: {
+						dateSection58NoticeReceived: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						confirmedStartOfExamination: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						rule8LetterPublishDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						deadlineForCloseOfExamination: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateTimeExaminationEnds: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage4ExtensionToExamCloseDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				recommendation: {
+					type: 'object',
+					properties: {
+						deadlineForSubmissionOfRecommendation: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfRecommendations: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage5ExtensionToRecommendationDeadline: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				decision: {
+					type: 'object',
+					properties: {
+						deadlineForDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						confirmedDateOfDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage5ExtensionToDecisionDeadline: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				postDecision: {
+					type: 'object',
+					properties: {
+						jRPeriodEndDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				withdrawal: {
+					type: 'object',
+					properties: {
+						dateProjectWithdrawn: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				}
+			}
 		}
 	},
 	components: {}

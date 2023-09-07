@@ -19,6 +19,7 @@ import { zoomLevelRoutes } from './zoom-level/zoom-level.routes.js';
 import { subscriptionRoutes } from './subscriptions/subscriptions.routes.js';
 import { s51AdviceRoutes } from './s51advice/s51-advice.routes.js';
 import { projectUpdateNotificationLogsRoutes } from './application/project-updates/notification-logs/notification-logs.routes.js';
+import { keyDatesRoutes } from './key-dates/key-dates.routes.js';
 
 const router = createRouter();
 
@@ -49,6 +50,8 @@ router.use('/', projectUpdateRoutes);
 // even though the express app itself worked fine - the inner router would get unrelated requests, and they
 // wouldn't fallthrough to subsequent routers for handling/matching
 router.use('/', projectUpdateNotificationLogsRoutes);
+
+router.use('/', keyDatesRoutes);
 
 router.use('/', applicationRoutes);
 
