@@ -1,4 +1,4 @@
-export const preApplicationDateKeys = [
+export const preApplicationDateNames = [
 	'datePINSFirstNotifiedOfProject',
 	'dateProjectAppearsOnWebsite',
 	'submissionAtPublished',
@@ -9,13 +9,13 @@ export const preApplicationDateKeys = [
 	'scopingOpinionIssued',
 	'section46Notification'
 ];
-export const acceptanceDateKeys = [
+export const acceptanceDateNames = [
 	'dateOfDCOSubmission',
 	'deadlineForAcceptanceDecision',
 	'dateOfDCOAcceptance',
 	'dateOfNonAcceptance'
 ];
-export const preExaminationDateKeys = [
+export const preExaminationDateNames = [
 	'dateOfRepresentationPeriodOpen',
 	'dateOfRelevantRepresentationClose',
 	'extensionToDateRelevantRepresentationsClose',
@@ -26,7 +26,7 @@ export const preExaminationDateKeys = [
 	'notificationDateForPMAndEventsDirectlyFollowingPM',
 	'notificationDateForEventsDeveloper'
 ];
-export const examinationDateKeys = [
+export const examinationDateNames = [
 	'dateSection58NoticeReceived',
 	'confirmedStartOfExamination',
 	'rule8LetterPublishDate',
@@ -34,25 +34,25 @@ export const examinationDateKeys = [
 	'dateTimeExaminationEnds',
 	'stage4ExtensionToExamCloseDate'
 ];
-export const recommendationDateKeys = [
+export const recommendationDateNames = [
 	'deadlineForSubmissionOfRecommendation',
 	'dateOfRecommendations',
 	'stage5ExtensionToRecommendationDeadline'
 ];
-export const decisionDateKeys = [
+export const decisionDateNames = [
 	'deadlineForDecision',
 	'confirmedDateOfDecision',
 	'stage5ExtensionToDecisionDeadline'
 ];
-export const postDecisionDateKeys = ['jRPeriodEndDate'];
-export const withdrawalDateKeys = ['dateProjectWithdrawn'];
+export const postDecisionDateNames = ['jRPeriodEndDate'];
+export const withdrawalDateNames = ['dateProjectWithdrawn'];
 
-export const allDateKeys = preApplicationDateKeys.concat(
-	acceptanceDateKeys,
-	preExaminationDateKeys,
-	examinationDateKeys,
-	recommendationDateKeys,
-	decisionDateKeys,
-	postDecisionDateKeys,
-	withdrawalDateKeys
+export const allKeyDateNames = preApplicationDateNames.concat(
+	acceptanceDateNames,
+	preExaminationDateNames,
+	examinationDateNames,
+	recommendationDateNames,
+	decisionDateNames,
+	postDecisionDateNames,
+	withdrawalDateNames
 );

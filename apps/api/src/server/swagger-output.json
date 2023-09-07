@@ -3310,6 +3310,79 @@
 					}
 				}
 			}
+		},
+		"/applications/{id}/key-dates": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the Key Dates for an NSIP Application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of Key Dates",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates the key dates for an NSIP Application. Only the provided sections will be updated.",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Key Dates update parameters",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "New updated Key Dates for the entire project",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -3486,6 +3559,13 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"duplicates": {
+					"type": "array",
+					"example": ["example2.pdf"],
+					"items": {
+						"type": "string"
+					}
 				}
 			}
 		},
@@ -3495,6 +3575,13 @@
 				"failedDocuments": {
 					"type": "array",
 					"example": ["example.pdf"],
+					"items": {
+						"type": "string"
+					}
+				},
+				"duplicates": {
+					"type": "array",
+					"example": ["example2.pdf"],
 					"items": {
 						"type": "string"
 					}
@@ -8271,6 +8358,230 @@
 						"notFound": {
 							"type": "string",
 							"example": "resource not found"
+						}
+					}
+				}
+			}
+		},
+		"ApplicationKeyDates": {
+			"type": "object",
+			"properties": {
+				"preApplication": {
+					"type": "object",
+					"properties": {
+						"datePINSFirstNotifiedOfProject": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateProjectAppearsOnWebsite": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"anticipatedSubmissionDateNonSpecific": {
+							"type": "string",
+							"description": "Quarter followed by year",
+							"example": "Q1 2023"
+						},
+						"anticipatedDateOfSubmission": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"screeningOpinionSought": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"screeningOpinionIssued": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"scopingOpinionSought": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"scopingOpinionIssued": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"section46Notification": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"acceptance": {
+					"type": "object",
+					"properties": {
+						"dateOfDCOSubmission": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"deadlineForAcceptanceDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfDCOAcceptance": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfNonAcceptance": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"preExamination": {
+					"type": "object",
+					"properties": {
+						"dateOfRepresentationPeriodOpen": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfRelevantRepresentationClose": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"extensionToDateRelevantRepresentationsClose": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateRRepAppearOnWebsite": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateIAPIDue": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"rule6LetterPublishDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"preliminaryMeetingStartDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"notificationDateForPMAndEventsDirectlyFollowingPM": {
+							"type": "number",
+							"example": 1646822600
+						},
+						"notificationDateForEventsDeveloper": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"examination": {
+					"type": "object",
+					"properties": {
+						"dateSection58NoticeReceived": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"confirmedStartOfExamination": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"rule8LetterPublishDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"deadlineForCloseOfExamination": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateTimeExaminationEnds": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage4ExtensionToExamCloseDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"recommendation": {
+					"type": "object",
+					"properties": {
+						"deadlineForSubmissionOfRecommendation": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfRecommendations": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage5ExtensionToRecommendationDeadline": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"decision": {
+					"type": "object",
+					"properties": {
+						"deadlineForDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"confirmedDateOfDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage5ExtensionToDecisionDeadline": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"postDecision": {
+					"type": "object",
+					"properties": {
+						"jRPeriodEndDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"withdrawal": {
+					"type": "object",
+					"properties": {
+						"dateProjectWithdrawn": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
 						}
 					}
 				}

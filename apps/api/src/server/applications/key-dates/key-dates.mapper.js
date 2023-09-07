@@ -1,21 +1,21 @@
 import { pick, mapValues } from 'lodash-es';
 import {
-	acceptanceDateKeys,
-	allDateKeys,
-	decisionDateKeys,
-	examinationDateKeys,
-	postDecisionDateKeys,
-	preApplicationDateKeys,
-	preExaminationDateKeys,
-	recommendationDateKeys,
-	withdrawalDateKeys
+	acceptanceDateNames,
+	allKeyDateNames,
+	decisionDateNames,
+	examinationDateNames,
+	postDecisionDateNames,
+	preApplicationDateNames,
+	preExaminationDateNames,
+	recommendationDateNames,
+	withdrawalDateNames
 } from './key-dates.utils.js';
 import { mapDateToUnixTimestamp } from '#utils/mapping/map-date-to-unix-timestamp.js';
 
 /**
- * @param {any} keyDates
+ * @param {Object<string,Object<string, any>>} keyDateRequest
  *
- * @returns {any} keyDates
+ * @returns {Object<string, any>} keyDates
  */
 export const mapRequestToKeyDates = ({
 	preApplication,
@@ -36,13 +36,13 @@ export const mapRequestToKeyDates = ({
 		...withdrawal
 	};
 
-	return pick(allKeyDates, allDateKeys);
+	return pick(allKeyDates, allKeyDateNames);
 };
 
 /**
  * @param {import('@pins/applications.api').Schema.ApplicationDetails} keyDates
  *
- * @returns {any} keyDates
+ * @returns {Object<string,Object<string, any>>} keyDateResponse
  */
 export const mapKeyDatesToResponse = (keyDates) => {
 	return {
@@ -51,18 +51,18 @@ export const mapKeyDatesToResponse = (keyDates) => {
 			...mapValues(
 				pick(
 					keyDates,
-					preApplicationDateKeys.filter((key) => key != 'submissionAtPublished')
+					preApplicationDateNames.filter((key) => key != 'submissionAtPublished')
 				),
 				mapDateToUnixTimestamp
 			),
 			submissionAtPublished: keyDates.submissionAtPublished
 		},
-		acceptance: mapValues(pick(keyDates, acceptanceDateKeys), mapDateToUnixTimestamp),
-		preExamination: mapValues(pick(keyDates, preExaminationDateKeys), mapDateToUnixTimestamp),
-		examination: mapValues(pick(keyDates, examinationDateKeys), mapDateToUnixTimestamp),
-		recommendation: mapValues(pick(keyDates, recommendationDateKeys), mapDateToUnixTimestamp),
-		decision: mapValues(pick(keyDates, decisionDateKeys), mapDateToUnixTimestamp),
-		postDecision: mapValues(pick(keyDates, postDecisionDateKeys), mapDateToUnixTimestamp),
-		withdrawal: mapValues(pick(keyDates, withdrawalDateKeys), mapDateToUnixTimestamp)
+		acceptance: mapValues(pick(keyDates, acceptanceDateNames), mapDateToUnixTimestamp),
+		preExamination: mapValues(pick(keyDates, preExaminationDateNames), mapDateToUnixTimestamp),
+		examination: mapValues(pick(keyDates, examinationDateNames), mapDateToUnixTimestamp),
+		recommendation: mapValues(pick(keyDates, recommendationDateNames), mapDateToUnixTimestamp),
+		decision: mapValues(pick(keyDates, decisionDateNames), mapDateToUnixTimestamp),
+		postDecision: mapValues(pick(keyDates, postDecisionDateNames), mapDateToUnixTimestamp),
+		withdrawal: mapValues(pick(keyDates, withdrawalDateNames), mapDateToUnixTimestamp)
 	};
 };
