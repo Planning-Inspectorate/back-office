@@ -3,7 +3,11 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case/appellant-case.service.js';
 import * as siteVisitService from './site-visit.service.js';
 import { mapWebVisitTypeToApiVisitType } from './site-visit.mapper.js';
-import { dayMonthYearToApiDateString, dateToDisplayDate } from '#lib/dates.js';
+import {
+	hourMinuteToApiDateString,
+	dayMonthYearToApiDateString,
+	dateToDisplayDate
+} from '#lib/dates.js';
 
 /**
  *
@@ -238,8 +242,9 @@ export const postScheduleSiteVisit = async (request, response) => {
 					month: parseInt(visitDateMonth, 10),
 					year: parseInt(visitDateYear, 10)
 				});
-				const visitStartTime = `${visitStartTimeHour}:${visitStartTimeMinute}`;
-				const visitEndTime = `${visitEndTimeHour}:${visitEndTimeMinute}`;
+
+				const visitStartTime = hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute);
+				const visitEndTime = hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute);
 				const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
 
 				if (appellantCaseResponse.siteVisit?.siteVisitId) {

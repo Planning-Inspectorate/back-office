@@ -109,10 +109,12 @@ const document = {
 					blobStoreUrl: '/some/path/document.pdf'
 				}
 			],
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsUploadFailed: {
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsPublished: [
 			{
@@ -1604,6 +1606,20 @@ const document = {
 			}
 		},
 		S51AdviceUpdateRequestBody: {
+			title: 'title',
+			firstName: 'first name',
+			lastName: 'last name',
+			enquirer: 'organisation',
+			enquiryMethod: 'meeting',
+			enquiryDate: '2023-01-11T00:00:00.000Z',
+			enquiryDetails: 'title',
+			adviser: 'person',
+			adviceDate: '2023-02-11T00:00:00.000Z',
+			adviceDetails: 'title',
+			redactedStatus: 'redacted',
+			publishedStatus: 'not_checked'
+		},
+		S51AdviceMultipleUpdateRequestBody: {
 			type: 'object',
 			properties: {
 				redacted: {
@@ -1650,7 +1666,7 @@ const document = {
 				}
 			}
 		},
-		S51AdviceUpdateResponseBody: {
+		S51AdviceMultipleUpdateResponseBody: {
 			type: 'array',
 			items: { $ref: '#/definitions/S51AdviceUpdateResponseItem' }
 		},

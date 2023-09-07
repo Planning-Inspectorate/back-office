@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% macro s51AttachmentsTab(attachments, caseId) %}
+{% macro s51AttachmentsTab(attachments, caseId, folderId, adviceId) %}
 
 	{% set attachmentsRows = [] %}
 	{% for attachment in attachments %}
@@ -11,7 +11,7 @@
 		{% set isAttachmentSafe = (attachment.status === 'awaiting_upload') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
-			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">{{ attachment.documentName }}</a>
+			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version, isPreviewActive: true}) }}">{{ attachment.documentName }}</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ attachment.documentName }}
@@ -38,8 +38,7 @@
 		{% endset %}
 
 		{% set delete %}
-		<a class='govuk-link' href='#'>
-				Delete
+		<a class='govuk-link'href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, step: ['delete/', attachment.documentGuid]|join})}}' >Delete
 			</a>
 
 		{% endset %}

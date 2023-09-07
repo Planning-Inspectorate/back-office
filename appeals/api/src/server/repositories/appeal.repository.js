@@ -3,6 +3,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/appeals.api').Schema.User} User */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -102,6 +103,8 @@ const getAppealById = async (id) => {
 			},
 			appealTimetable: true,
 			appealType: true,
+			caseOfficer: true,
+			inspector: true,
 			inspectorDecision: true,
 			lpaQuestionnaire: {
 				include: {
@@ -171,16 +174,22 @@ const getAppealById = async (id) => {
 /**
  * @param {number} id
  * @param {{
- *	startedAt?: string;
  *	dueDate?: string;
+ *	startedAt?: string;
+ *  caseOfficer?: string;
+ *  inspector?: string;
+ *  user?: User;
  * }} data
  * @returns {PrismaPromise<object>}
  */
-const updateAppealById = (id, data) =>
+const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector, user }) =>
 	databaseConnector.appeal.update({
 		where: { id },
 		data: {
-			...data,
+			...(dueDate && { dueDate }),
+			...(startedAt && { startedAt }),
+			...(caseOfficer && user && { caseOfficerUserId: user.id }),
+			...(inspector && user && { inspectorUserId: user.id }),
 			updatedAt: new Date()
 		}
 	});

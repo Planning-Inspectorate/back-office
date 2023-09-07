@@ -1,9 +1,13 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import { verifyAllS5AdviceHasRequiredPropertiesForPublishing } from './s51-advice.validators.js';
+import {
+	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
+	verifyAllS51DocumentsAreVirusChecked
+} from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
+	extractDuplicates,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
 	getS51AdviceDocuments
@@ -19,6 +23,7 @@ import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-strin
 import logger from '#utils/logger.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
+/** @typedef {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, fromFrontOffice: boolean, documentReference: string}} Document */
 
 /**
  * @type {import('express').RequestHandler}
@@ -77,7 +82,7 @@ export const getS51Advice = async (_request, response) => {
 			// @ts-ignore
 			attachmentsWithVersion.push({
 				documentName: latestDocumentVersion.fileName,
-				documentType: latestDocumentVersion.documentType,
+				documentType: latestDocumentVersion.mime,
 				documentSize: latestDocumentVersion.size,
 				dateAdded: mapDateStringToUnixTimestamp(latestDocumentVersion.dateCreated),
 				status: latestDocumentVersion.publishedStatus,
@@ -153,20 +158,30 @@ export const addDocuments = async ({ params, body }, response) => {
 		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
-	for (const doc of documentsToUpload) {
+	const { duplicates, remainder } = await extractDuplicates(
+		adviceId,
+		/** @type {Document[]} */ (documentsToUpload).map((doc) => doc.documentName)
+	);
+
+	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
+		remainder.includes(doc.documentName)
+	);
+
+	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		doc.folderId = Number(doc.folderId);
+
 		nextReferenceIndex++;
 	}
 
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
-		documentsToUpload,
+		filteredToUpload,
 		caseId
 	);
 
 	if (dbResponse === null) {
-		response.status(409).send({ failedDocuments });
+		response.status(409).send({ failedDocuments, duplicates });
 		return;
 	}
 
@@ -185,16 +200,55 @@ export const addDocuments = async ({ params, body }, response) => {
 		pick(doc, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID'])
 	);
 
-	response.status(failedDocuments.length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
-		failedDocuments
+		failedDocuments,
+		duplicates
 	});
 };
 
 export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
 	return redactedStatus ? 'redacted' : 'not_redacted';
+};
+
+/**
+ * Updates properties of an S51 advice item
+ *
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ */
+export const updateS51Advice = async ({ body, params }, response) => {
+	const adviceId = params.id;
+	const payload = body[''];
+
+	if (payload.publishedStatus === 'ready_to_publish') {
+		try {
+			await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
+		} catch (err) {
+			logger.info(
+				`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`
+			);
+			throw new BackOfficeAppError(
+				`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
+				409
+			);
+		}
+
+		try {
+			await verifyAllS51DocumentsAreVirusChecked(adviceId);
+		} catch (err) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
+			throw new BackOfficeAppError(
+				`There are attachments which have failed the virus check.\nReturn to the S51 advice properties screen to delete files.`,
+				409
+			);
+		}
+	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
+
+	response.send(updateResponseInTable);
 };
 
 /**
@@ -218,7 +272,33 @@ export const updateManyS51Advices = async ({ body }, response) => {
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
 		const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
-		await verifyAllS5AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		try {
+			await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		} catch (error) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${error}`);
+			throw new BackOfficeAppError(
+				// @ts-ignore
+				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.',
+				400
+			);
+		}
+
+		try {	
+			/**
+			 * @type {any[]}
+			 */
+			const virusCheckPromise = adviceIds.map(verifyAllS51DocumentsAreVirusChecked);
+	
+			await Promise.all(virusCheckPromise);
+		} catch (error) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${error}`);
+			throw new BackOfficeAppError(
+				// @ts-ignore
+				'There are attachments which have failed the virus check. Return to the S51 advice properties screen to delete files.',
+				400
+			);
+		}
+		
 	}
 
 	for (const advice of items ?? []) {

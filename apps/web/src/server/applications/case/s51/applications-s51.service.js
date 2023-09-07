@@ -1,7 +1,10 @@
-import { post, get } from '../../../lib/request.js';
+import { post, get, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51ChangeStatusBody */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
@@ -33,6 +36,44 @@ export const createS51Advice = async (payload) => {
 };
 
 /**
+ * Edit an S51 advice
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @param {ApplicationsS51UpdatePayload} payload
+ * @returns {Promise<S51Advice>}
+ * */
+export const updateS51Advice = async (caseId, adviceId, payload) => {
+	try {
+		return await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		throw error;
+	}
+};
+
+/**
+ * Edit an S51 advice
+ *
+ * @param {number} caseId
+ * @param {ApplicationsS51ChangeStatusBody} payload
+ * @returns {Promise<S51Advice>}
+ * */
+export const updateS51AdviceStatus = async (caseId, payload) => {
+	try {
+		return await patch(`applications/${caseId}/s51-advice/`, { json: payload });
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		return new Promise((resolve) => {
+			// @ts-ignore
+			resolve({ errors: error?.response?.body?.errors || [] });
+		});
+	}
+}
+
+/**
  * Get S51 advice by id
  *
  * @param {number} caseId
@@ -44,7 +85,6 @@ export const getS51Advice = async (caseId, adviceId) => {
 
 	try {
 		response = await get(`applications/${caseId}/s51-advice/${adviceId}`);
-		// response = { s51Advice };
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
@@ -71,3 +111,64 @@ export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
 			pageSize
 		}
 	});
+
+/**
+ * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
+ *
+ * @param {ApplicationsS51UpdateBody} body
+ * @returns {ApplicationsS51UpdatePayload}
+ * */
+export const mapUpdateBodyToPayload = (body) => {
+	/** @type {ApplicationsS51UpdatePayload} */
+	let payload = {
+		title: body.title,
+		firstName: body.firstName,
+		lastName: body.lastName,
+		enquirer: body.enquirer,
+		enquiryMethod: body.enquiryMethod,
+		enquiryDetails: body.enquiryDetails,
+		adviser: body.adviser,
+		adviceDetails: body.adviceDetails,
+		redactedStatus: body.redactedStatus,
+		publishedStatus: body.publishedStatus
+	};
+
+	if (body['enquiryDate.day'] && body['enquiryDate.month'] && body['enquiryDate.year']) {
+		payload.enquiryDate = new Date(
+			parseInt(body['enquiryDate.year']),
+			parseInt(body['enquiryDate.month']) - 1,
+			parseInt(body['enquiryDate.day'])
+		);
+	}
+
+	if (body['adviceDate.day'] && body['adviceDate.month'] && body['adviceDate.year']) {
+		payload.adviceDate = new Date(
+			parseInt(body['adviceDate.year']),
+			parseInt(body['adviceDate.month']) - 1,
+			parseInt(body['adviceDate.day'])
+		);
+	}
+
+	return payload;
+};
+
+/**
+ * Transform ApplicationsS51UpdatePayload to ApplicationsS51UpdateBody
+ *
+ * @param {S51Advice} payload
+ * @returns {ApplicationsS51UpdateBody}
+ * */
+export const mapS51AdviceToPage = (payload) => {
+	const enquiryDate = new Date(payload.enquiryDate);
+	const adviceDate = new Date(payload.adviceDate);
+
+	return {
+		...payload,
+		'enquiryDate.day': String(enquiryDate.getDate()),
+		'enquiryDate.month': String(enquiryDate.getMonth() + 1),
+		'enquiryDate.year': String(enquiryDate.getFullYear()),
+		'adviceDate.day': String(adviceDate.getDate()),
+		'adviceDate.month': String(adviceDate.getMonth() + 1),
+		'adviceDate.year': String(adviceDate.getFullYear())
+	};
+};

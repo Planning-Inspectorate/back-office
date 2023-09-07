@@ -1,6 +1,7 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js'
 import { validateExistingApplication } from '../application/application.validators.js';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
 
@@ -84,7 +85,7 @@ export const validateS51AdviceIds = composeMiddleware(
  * @throws {Error}
  * @returns {Promise<{id: number}[]>}
  */
-export const verifyAllS5AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
+export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
 	const publishableS51Advice = await s51AdviceRepository.getPublishableS51Advice(s51AdviceIds);
 
 	if (s51AdviceIds.length !== publishableS51Advice.length) {
@@ -104,4 +105,36 @@ export const verifyAllS5AdviceHasRequiredPropertiesForPublishing = async (s51Adv
 	return publishableS51Advice.map(({ id }) => ({
 		id: id
 	}));
+};
+
+/**
+ * Verifies if the attachments for the given S51 Advice have been virus scanned and found clean
+ *
+ * @param {number} adviceId
+ * @throws {Error}
+ */
+export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
+	const adviceRecord = await s51AdviceRepository.get(adviceId);
+	if (!adviceRecord) {
+		throw new Error(`no S51 advice record found with ID ${adviceId}`);
+	}
+
+	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
+
+	if (!attachments || attachments?.length === 0) {
+		return;
+	}
+
+	attachments.forEach((attachment) => {
+		// @ts-ignore
+		const { Document } = attachment;
+		const { latestDocumentVersion } = Document;
+		if (!latestDocumentVersion) {
+			return;
+		}
+
+		if (latestDocumentVersion.virusCheckStatus !== 'scanned') {
+			throw new Error('Documents were not successfully virus scanned');
+		}
+	});
 };

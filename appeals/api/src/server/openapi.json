@@ -124,6 +124,73 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/appeal-timetables/{appealTimetableId}": {
+			"patch": {
+				"tags": ["Appeal Timetables"],
+				"description": "Updates a single appeal timetable by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "appealTimetableId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updates a single appeal timetable by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppealTimetableResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateAppealTimetableResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal timetable details to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealTimetableRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAppealTimetableRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/appeal-allocation-specialisms": {
 			"get": {
 				"tags": ["Appeal Allocation"],
@@ -1821,6 +1888,10 @@
 						"type": "boolean",
 						"example": true
 					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
 					"decision": {
 						"type": "string",
 						"example": "Not issued yet"
@@ -1855,6 +1926,10 @@
 								}
 							}
 						}
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					},
 					"inspectorAccess": {
 						"type": "object",
@@ -2062,6 +2137,10 @@
 					"appealSite": {
 						"type": "object",
 						"properties": {
+							"addressId": {
+								"type": "number",
+								"example": 1
+							},
 							"addressLine1": {
 								"type": "string",
 								"example": "21 The Pavement"
@@ -2083,13 +2162,17 @@
 					"appellant": {
 						"type": "object",
 						"properties": {
-							"name": {
-								"type": "string",
-								"example": "Roger Simmons"
+							"appellantId": {
+								"type": "number",
+								"example": 1
 							},
 							"company": {
 								"type": "string",
 								"example": "Roger Simmons Ltd"
+							},
+							"name": {
+								"type": "string",
+								"example": "Roger Simmons"
 							}
 						}
 					},
@@ -2109,13 +2192,13 @@
 					"developmentDescription": {
 						"type": "object",
 						"properties": {
-							"isCorrect": {
-								"type": "boolean",
-								"example": false
-							},
 							"details": {
 								"type": "string",
 								"example": "A new extension has been added at the back"
+							},
+							"isCorrect": {
+								"type": "boolean",
+								"example": false
 							}
 						}
 					},
@@ -2328,6 +2411,14 @@
 					"startedAt": {
 						"type": "string",
 						"example": "2023-05-09"
+					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					}
 				},
 				"xml": {
@@ -2340,6 +2431,14 @@
 					"startedAt": {
 						"type": "string",
 						"example": "2023-05-09T01:00:00.000Z"
+					},
+					"caseOfficer": {
+						"type": "string",
+						"example": "13de469c-8de6-4908-97cd-330ea73df618"
+					},
+					"inspector": {
+						"type": "string",
+						"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
 					}
 				},
 				"xml": {
@@ -2354,13 +2453,9 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"grade": {
+								"listEntry": {
 									"type": "string",
-									"example": "Grade I"
-								},
-								"description": {
-									"type": "string",
-									"example": "http://localhost:8080/affects-listed-building.pdf"
+									"example": "654321"
 								}
 							}
 						}
@@ -2417,94 +2512,707 @@
 					"documents": {
 						"type": "object",
 						"properties": {
-							"definitiveMapAndStatement": {
-								"type": "string",
-								"example": "right-of-way.pdf"
-							},
-							"treePreservationOrder": {
-								"type": "string",
-								"example": "tree-preservation-order.pdf"
-							},
 							"communityInfrastructureLevy": {
-								"type": "string",
-								"example": "community-infrastructure-levy.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"conservationAreaMapAndGuidance": {
-								"type": "string",
-								"example": "conservation-area-map-and-guidance.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"consultationResponses": {
-								"type": "string",
-								"example": "consultation-responses.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
+							},
+							"definitiveMapAndStatement": {
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"emergingPlans": {
-								"type": "array",
-								"example": ["emerging-plan-1.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							},
 							"environmentalStatementResponses": {
-								"type": "string",
-								"example": "environment-statement-responses.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"issuedScreeningOption": {
-								"type": "string",
-								"example": "issued-screening-opinion.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"lettersToNeighbours": {
-								"type": "string",
-								"example": "letters-to-neighbours.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"otherRelevantPolicies": {
-								"type": "array",
-								"example": ["policy-1.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							},
 							"planningOfficersReport": {
-								"type": "string",
-								"example": "planning-officers-report.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"policiesFromStatutoryDevelopment": {
-								"type": "array",
-								"example": ["policy-a.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							},
 							"pressAdvert": {
-								"type": "string",
-								"example": "press-advert.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
+							},
+							"relevantPartiesNotification": {
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"representationsFromOtherParties": {
-								"type": "array",
-								"example": ["representations-from-other-parties-1.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							},
 							"responsesOrAdvice": {
-								"type": "array",
-								"example": ["responses-or-advice.pdf"],
-								"items": {
-									"type": "string"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							},
 							"screeningDirection": {
-								"type": "string",
-								"example": "screening-direction.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
 							"siteNotice": {
-								"type": "string",
-								"example": "site-notice.pdf"
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
 							},
-							"supplementaryPlanningDocuments": {
-								"type": "array",
-								"example": ["supplementary-1.pdf"],
-								"items": {
-									"type": "string"
+							"supplementaryPlanningtestDocuments": {
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
+								}
+							},
+							"treePreservationOrder": {
+								"type": "object",
+								"properties": {
+									"folderId": {
+										"type": "number",
+										"example": 1
+									},
+									"path": {
+										"type": "string",
+										"example": "path/to/document/folder"
+									},
+									"documents": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string",
+													"example": "fdadc281-f686-40ee-97cf-9bafdd02b1cb"
+												},
+												"name": {
+													"type": "string",
+													"example": "an appeal related document.pdf"
+												},
+												"folderId": {
+													"type": "number",
+													"example": 1
+												},
+												"caseId": {
+													"type": "number",
+													"example": 2
+												}
+											}
+										}
+									}
 								}
 							}
 						}
@@ -2605,6 +3313,10 @@
 						"type": "boolean",
 						"example": true
 					},
+					"isCorrectAppealType": {
+						"type": "boolean",
+						"example": true
+					},
 					"isEnvironmentalStatementRequired": {
 						"type": "boolean",
 						"example": true
@@ -2638,13 +3350,9 @@
 						"items": {
 							"type": "object",
 							"properties": {
-								"grade": {
+								"listEntry": {
 									"type": "string",
-									"example": "Grade I"
-								},
-								"description": {
-									"type": "string",
-									"example": "http://localhost:8080/listed-building.pdf"
+									"example": "123456"
 								}
 							}
 						}
@@ -3536,6 +4244,54 @@
 				},
 				"xml": {
 					"name": "UpdateAddressResponse"
+				}
+			},
+			"UpdateAppealTimetableRequest": {
+				"type": "object",
+				"properties": {
+					"finalCommentReviewDate": {
+						"type": "string",
+						"example": "2023-08-09"
+					},
+					"issueDeterminationDate": {
+						"type": "string",
+						"example": "2023-08-10"
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-08-11"
+					},
+					"statementReviewDate": {
+						"type": "string",
+						"example": "2023-08-12"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppealTimetableRequest"
+				}
+			},
+			"UpdateAppealTimetableResponse": {
+				"type": "object",
+				"properties": {
+					"finalCommentReviewDate": {
+						"type": "string",
+						"example": "2023-08-09T01:00:00.000Z"
+					},
+					"issueDeterminationDate": {
+						"type": "string",
+						"example": "2023-08-10T01:00:00.000Z"
+					},
+					"lpaQuestionnaireDueDate": {
+						"type": "string",
+						"example": "2023-08-11T01:00:00.000Z"
+					},
+					"statementReviewDate": {
+						"type": "string",
+						"example": "2023-08-12T01:00:00.000Z"
+					}
+				},
+				"xml": {
+					"name": "UpdateAppealTimetableResponse"
 				}
 			}
 		}

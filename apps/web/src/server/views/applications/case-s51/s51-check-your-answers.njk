@@ -40,7 +40,7 @@
 	{% set row = [] %}
 	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'method'}) %}
 	{% set row = row | concat({ text: 'Enquiry method', classes: 'font-weight--700 pins-table__cell--s' }) %}
-	{% set row = row | concat({ text: values['enquiryMethod'], classes: 'pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: values['enquiryMethod']|capitalize, classes: 'pins-table__cell--s' }) %}
 	{% set row = row | concat({ html: '<a id="enquiryMethod" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}
 
@@ -60,7 +60,7 @@
 
 	{% set row = [] %}
 	{% set changeUrl = 's51-create'|url({caseId: caseId, documentationCategory: documentationCategory, step: 'person'}) %}
-	{% set row = row | concat({ text: 'Advise given by (internal use only)', classes: 'font-weight--700 pins-table__cell--s' }) %}
+	{% set row = row | concat({ text: 'Advice given by (internal use only)', classes: 'font-weight--700 pins-table__cell--s' }) %}
 	{% set row = row | concat({ text: values['adviser'], classes: 'pins-table__cell--s' }) %}
 	{% set row = row | concat({ html: '<a id="adviser" class="govuk-link" href="' + changeUrl + '">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
 	{% set rows = rows | concat([row]) %}

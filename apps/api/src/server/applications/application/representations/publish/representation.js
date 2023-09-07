@@ -1,9 +1,15 @@
+/**
+ *
+ * @param {Representation} representation
+ * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, representationFrom: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), registerFor: *, status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
+ */
 export const buildNsipRepresentationPayload = (representation) => {
 	let nsipRepresentation = {
 		representationId: representation.id,
 		referenceId: representation.reference,
 		examinationLibraryRef: '',
 		caseRef: representation.case.reference,
+		caseId: representation.caseId,
 		status: representation.status,
 		originalRepresentation: representation.originalRepresentation,
 		representationType: representation.type,
@@ -42,6 +48,20 @@ export const buildNsipRepresentationPayload = (representation) => {
 	}
 
 	return nsipRepresentation;
+};
+
+/**
+ *
+ * @param {Prisma.RepresentationSelect} representation
+ * @param {string} newStatus
+ * @returns {{}|{representationId, status}}
+ */
+export const buildNsipRepresentationStatusUpdatePayload = (representation, newStatus) => {
+	if (!representation) return {};
+	return {
+		representationId: representation.id,
+		status: newStatus
+	};
 };
 
 const buildNsipInterestedPartyPayload = (representationContact) => {

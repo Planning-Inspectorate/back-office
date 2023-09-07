@@ -79,18 +79,54 @@ model CaseStatus {
 /// ApplicationDetails model
 /// Contains general information about a case that pertains only to Applications
 model ApplicationDetails {
-  id                    Int                           @id @default(autoincrement())
-  caseId                Int                           @unique
-  subSectorId           Int?
-  locationDescription   String?
-  zoomLevelId           Int?
-  caseEmail             String?
-  submissionAtInternal  DateTime?
-  submissionAtPublished String?
-  case                  Case                          @relation(fields: [caseId], references: [id])
-  subSector             SubSector?                    @relation(fields: [subSectorId], references: [id])
-  zoomLevel             ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
-  regions               RegionsOnApplicationDetails[]
+  id                                                Int       @id @default(autoincrement())
+  caseId                                            Int       @unique
+  subSectorId                                       Int?
+  locationDescription                               String?
+  zoomLevelId                                       Int?
+  caseEmail                                         String?
+  // Key Dates
+  datePINSFirstNotifiedOfProject                    DateTime?
+  dateProjectAppearsOnWebsite                       DateTime?
+  submissionAtPublished                             String?
+  submissionAtInternal                              DateTime?
+  screeningOpinionSought                            DateTime?
+  screeningOpinionIssued                            DateTime?
+  scopingOpinionSought                              DateTime?
+  scopingOpinionIssued                              DateTime?
+  section46Notification                             DateTime?
+  dateOfDCOSubmission                               DateTime?
+  deadlineForAcceptanceDecision                     DateTime?
+  dateOfDCOAcceptance                               DateTime?
+  dateOfNonAcceptance                               DateTime?
+  dateOfRepresentationPeriodOpen                    DateTime?
+  dateOfRelevantRepresentationClose                 DateTime?
+  extensionToDateRelevantRepresentationsClose       DateTime?
+  dateRRepAppearOnWebsite                           DateTime?
+  dateIAPIDue                                       DateTime?
+  rule6LetterPublishDate                            DateTime?
+  preliminaryMeetingStartDate                       DateTime?
+  notificationDateForPMAndEventsDirectlyFollowingPM DateTime?
+  notificationDateForEventsDeveloper                DateTime?
+  dateSection58NoticeReceived                       DateTime?
+  confirmedStartOfExamination                       DateTime?
+  rule8LetterPublishDate                            DateTime?
+  deadlineForCloseOfExamination                     DateTime?
+  dateTimeExaminationEnds                           DateTime?
+  stage4ExtensionToExamCloseDate                    DateTime?
+  deadlineForSubmissionOfRecommendation             DateTime?
+  dateOfRecommendations                             DateTime?
+  stage5ExtensionToRecommendationDeadline           DateTime?
+  deadlineForDecision                               DateTime?
+  confirmedDateOfDecision                           DateTime?
+  stage5ExtensionToDecisionDeadline                 DateTime?
+  jRPeriodEndDate                                   DateTime?
+  dateProjectWithdrawn                              DateTime?
+
+  case      Case                          @relation(fields: [caseId], references: [id])
+  subSector SubSector?                    @relation(fields: [subSectorId], references: [id])
+  zoomLevel ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+  regions   RegionsOnApplicationDetails[]
 }
 
 /// RegionsOnApplicationDetails model

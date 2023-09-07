@@ -14,12 +14,22 @@ export async function createSiteVisit(
 	visitStartTime,
 	visitEndTime
 ) {
+	if (visitStartTime !== '' && visitEndTime !== '') {
+		return apiClient
+			.post(`appeals/${appealId}/site-visits`, {
+				json: {
+					visitDate,
+					visitStartTime,
+					visitEndTime,
+					visitType
+				}
+			})
+			.json();
+	}
 	return apiClient
 		.post(`appeals/${appealId}/site-visits`, {
 			json: {
 				visitDate,
-				visitStartTime,
-				visitEndTime,
 				visitType
 			}
 		})

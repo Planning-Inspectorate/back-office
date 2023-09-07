@@ -23,6 +23,7 @@ export {
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
 	SiteVisitType,
+	User,
 	ValidationOutcome
 } from '../../src/server/utils/db-client';
 
@@ -237,6 +238,7 @@ export interface LPAQuestionnaire extends schema.LPAQuestionnaire {
 	inquiryDays: number | null;
 	inspectorAccessDetails: string | null;
 	isCommunityInfrastructureLevyFormallyAdopted: boolean | null;
+	isCorrectAppealType: boolean | null;
 	isEnvironmentalStatementRequired: boolean | null;
 	isGypsyOrTravellerSite: boolean | null;
 	isListedBuilding: boolean | null;
@@ -293,8 +295,7 @@ export interface LPANotificationMethod {
 }
 
 export interface ListedBuildingDetails extends schema.ListedBuildingDetails {
-	grade: string;
-	description: string;
+	listEntry: string;
 	affectsListedBuilding: boolean;
 }
 

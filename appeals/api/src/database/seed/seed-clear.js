@@ -79,12 +79,12 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteLPAQuestionnaire,
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,
-		deleteUsers,
 		deleteAppealTimetable,
 		deleteAddresses,
 		deleteInspectorDecision,
 		deleteFolders,
 		deleteAppeals,
+		deleteUsers,
 		deleteAppellant,
 		deleteListedBuildingDetails
 	]);

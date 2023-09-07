@@ -49,7 +49,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.2.0
+      ref: refs/tags/release/3.4.0
 
 extends:
   template: stages/wrapper_ci.yml@templates
@@ -61,18 +61,22 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
+              nodeVersion: 18
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
+              nodeVersion: 18
               script: npm run tscheck
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
           - template: ../steps/node_script.yml
             parameters:
+              nodeVersion: 18
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
+              nodeVersion: 18
               script: npm run test
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
@@ -183,7 +187,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-document-check
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
@@ -223,7 +227,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
@@ -263,7 +267,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
@@ -303,7 +307,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/applications.functions-notify-subscribers
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
@@ -343,7 +347,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) --only=prod --workspace=@pins/functions-deadline-submissions
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
@@ -383,7 +387,7 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 16
+              nodeVersion: 18
               script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/event-client) --only=prod --workspace=@pins/function-document-publish
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |

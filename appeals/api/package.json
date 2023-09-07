@@ -4,7 +4,7 @@
   "private": true,
   "description": "PINS Back Office Appeals API",
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18.0.0 <19.0.0"
   },
   "prisma": {
     "schema": "src/database/schema.prisma",
@@ -37,7 +37,7 @@
     "@pins/event-client": "^0.0.0",
     "@pins/express": "^0.0.0",
     "@pins/platform": "^0.0.0",
-    "@prisma/client": "^4.16.1",
+    "@prisma/client": "4.16.1",
     "@supercharge/promise-pool": "^2.4.0",
     "body-parser": "1.20.0",
     "c8": "^7.11.3",
@@ -76,7 +76,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-mock-extended": "^3.0.1",
     "nodemon": "^2.0.18",
-    "prisma": "^4.16.1",
+    "prisma": "4.16.1",
     "rimraf": "^3.0.2",
     "supertest": "6.2.3",
     "swagger-autogen": "^2.21.4"

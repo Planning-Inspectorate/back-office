@@ -11,7 +11,7 @@
 	{%- for projectUpdate in projectUpdatesRows -%}
 		{%- set row = [
 			{ text: projectUpdate.datePublished },
-			{ html: excerpt(projectUpdate.content, linkText = 'full update') },
+			{ html: excerpt(projectUpdate.content, linkText = 'full update'), classes: "project-update" },
 			{ text: projectUpdate.emailed },
 			{ html: statusTag(projectUpdate.status) },
 			{ html: reviewLink(projectUpdate.id, caseId) }

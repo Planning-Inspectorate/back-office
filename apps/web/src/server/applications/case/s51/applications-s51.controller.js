@@ -1,5 +1,8 @@
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51ChangeStatusBody} ApplicationsS51ChangeStatusBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
@@ -8,7 +11,15 @@
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
-import { createS51Advice, getS51Advice, getS51FilesInFolder } from './applications-s51.service.js';
+import {
+	createS51Advice,
+	getS51Advice,
+	getS51FilesInFolder,
+	mapS51AdviceToPage,
+	mapUpdateBodyToPayload,
+	updateS51Advice,
+	updateS51AdviceStatus,
+} from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
 import {
@@ -16,6 +27,7 @@ import {
 	getSuccessBanner,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
+import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -33,6 +45,20 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder(request, response) {
+	// @ts-ignore
+	const properties = await s51FolderData(request, response);
+
+	// @ts-ignore
+	response.render(`applications/components/folder/folder`, properties);
+}
+
+/**
+ * Show pages for creating/editing s51 advice
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
+ * @returns {Promise<any>}
+ */
+const s51FolderData = async (request, response) => {
 	const number = Number(request.query.number || '1');
 	const size = (() => {
 		const _size = Number(request.query?.size ?? NaN);
@@ -55,10 +81,10 @@ export async function viewApplicationsCaseS51Folder(request, response) {
 
 	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
 
-	response.render(`applications/components/folder/folder`, {
+	return {
 		items: s51Files,
 		pagination
-	});
+	}
 }
 
 /**
@@ -79,6 +105,98 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 		s51Advice,
 		showSuccessBanner
 	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function viewApplicationsCaseEditS51Item({ params }, response) {
+	const { caseId, adviceId, step, folderId } = params;
+
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const values = mapS51AdviceToPage(s51Advice);
+
+	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+		caseId,
+		adviceId,
+		folderId,
+		values
+	});
+}
+
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function postApplicationsCaseEditS51Item({ body, params }, response) {
+	const { caseId, adviceId, step, folderId } = params;
+	const payload = mapUpdateBodyToPayload(body);
+
+	try {
+		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
+	} catch (/** @type {any} */ err) {
+		if (err.response.statusCode === 409) {
+			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+				caseId,
+				adviceId,
+				folderId,
+				...err.response.body
+			});
+
+			return;
+		}
+	}
+
+	response.redirect('../properties');
+}
+/**
+ * Show s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
+ */
+export async function changeAdviceStatus(request, response) {
+
+	const { errors: validationErrors, body } = request;
+
+	// @ts-ignore
+	const properties = await s51FolderData(request, response);
+
+	if (validationErrors) {
+		return response.render(`applications/components/folder/folder`, {
+			errors: validationErrors,
+			// @ts-ignore
+			...properties
+		});
+	}
+
+	/**
+	 * @type {{ id: number; }[]}
+	 */
+
+	const items = body.selectedFilesIds.map((/** @type {any} */ selectField) => ({ id: Number(selectField) }));
+
+	const payload = {
+		// @ts-ignore
+		redacted: body.isRedacted === "undefind" ? body.isRedacted : body.isRedacted === '1',
+		status: body.status,
+		items: items
+	}
+
+	// @ts-ignore
+	const { errors } = await updateS51AdviceStatus(request.params.caseId, payload);
+
+	if (errors) {
+		return response.render(`applications/components/folder/folder`, {
+			errors,
+			// @ts-ignore
+			...properties
+		});
+	}
+
+	response.redirect('.');
 }
 
 /**
@@ -234,14 +352,49 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 }
 
 /**
- * Success banner after creating S41 advice
+ * View page for deleting S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {action: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {folderId: string, adviceId: string, attachmentId: string}>}
  */
-export async function viewSuccessfullyS51Created(request, response) {
-	// action can be 'edited', 'published', 'created'
+export async function viewApplicationsCaseS51Delete({ params }, response) {
+	const { adviceId, attachmentId, folderId } = params;
+	const { caseId } = response.locals;
 
-	response.render('applications/case-s51/s51-successfully-created.njk', {
-		action: request.params.action
+	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const attachmentToDelete = s51Advice.attachments.find(
+		(attachment) => attachment.documentGuid === attachmentId
+	);
+
+	response.render('applications/case-s51/s51-delete.njk', {
+		attachment: attachmentToDelete,
+		adviceId: adviceId,
+		folderId: folderId
 	});
+}
+
+/**
+ * Delete the S51 attachment
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {folderId: string, adviceId: string, attachmentId: string}>}
+ */
+export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
+	const { adviceId, attachmentId, folderId } = params;
+	const { caseId } = response.locals;
+
+	const { errors: apiErrors } = await deleteCaseDocumentationFile(
+		caseId,
+		attachmentId,
+		'Your item'
+	);
+
+	if (apiErrors) {
+		return response.render('applications/case-s51/s51-delete.njk', {
+			attachment: body,
+			adviceId: adviceId,
+			folderId: folderId,
+			errors: apiErrors
+		});
+	}
+
+	return response.render('applications/case-s51/s51-successfully-deleted');
 }

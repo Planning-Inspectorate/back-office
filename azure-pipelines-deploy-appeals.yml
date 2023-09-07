@@ -28,7 +28,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.2.0
+      ref: refs/tags/release/3.4.0
   pipelines:
     - pipeline: build
       source: Back Office Build
@@ -55,6 +55,7 @@ extends:
                           variable: DATABASE_URL
                   - template: ../steps/node_script.yml
                     parameters:
+                      nodeVersion: 18
                       environmentVariables:
                         DATABASE_URL: $(DATABASE_URL)
                       script: npm run db:migrate:prod

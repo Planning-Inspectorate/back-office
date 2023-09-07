@@ -30,3 +30,21 @@ export const getForAdvice = (adviceId) =>
 			}
 		}
 	});
+
+/**
+ *
+ * @param {number} adviceId
+ * @param {string} documentName
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument | null>}
+ * */
+export const getDocumentInAdviceByName = (adviceId, documentName) =>
+	databaseConnector.s51AdviceDocument.findFirst({
+		where: {
+			adviceId,
+			Document: {
+				latestDocumentVersion: {
+					originalFilename: documentName
+				}
+			}
+		}
+	});

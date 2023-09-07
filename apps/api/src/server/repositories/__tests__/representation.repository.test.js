@@ -433,6 +433,70 @@ describe('Representation repository', () => {
 	});
 
 	describe('getById', () => {
+		const expectedSelect = {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			originalRepresentation: true,
+			redactedRepresentation: true,
+			type: true,
+			user: {
+				select: {
+					azureReference: true
+				}
+			},
+			contacts: {
+				select: {
+					id: true,
+					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representationActions: {
+				select: {
+					actionBy: true,
+					actionDate: true,
+					invalidReason: true,
+					notes: true,
+					previousRedactStatus: true,
+					previousStatus: true,
+					redactStatus: true,
+					referredTo: true,
+					status: true,
+					type: true
+				},
+				orderBy: {
+					actionDate: 'desc'
+				}
+			},
+			attachments: {
+				select: {
+					Document: true,
+					documentGuid: true,
+					id: true
+				}
+			}
+		};
+
 		it('finds a representation by id', async () => {
 			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
 
@@ -440,69 +504,7 @@ describe('Representation repository', () => {
 
 			expect(representation).toEqual(existingRepresentations[0]);
 			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					originalRepresentation: true,
-					redactedRepresentation: true,
-					type: true,
-					user: {
-						select: {
-							azureReference: true
-						}
-					},
-					contacts: {
-						select: {
-							id: true,
-							type: true,
-							firstName: true,
-							lastName: true,
-							organisationName: true,
-							jobTitle: true,
-							under18: true,
-							email: true,
-							contactMethod: true,
-							phoneNumber: true,
-							address: {
-								select: {
-									addressLine1: true,
-									addressLine2: true,
-									town: true,
-									county: true,
-									postcode: true,
-									country: true
-								}
-							}
-						}
-					},
-					representationActions: {
-						select: {
-							actionBy: true,
-							actionDate: true,
-							invalidReason: true,
-							notes: true,
-							previousRedactStatus: true,
-							previousStatus: true,
-							redactStatus: true,
-							referredTo: true,
-							status: true,
-							type: true
-						},
-						orderBy: {
-							actionDate: 'desc'
-						}
-					},
-					attachments: {
-						select: {
-							Document: true,
-							documentGuid: true,
-							id: true
-						}
-					}
-				},
+				select: expectedSelect,
 				where: {
 					id: 1
 				}
@@ -516,74 +518,35 @@ describe('Representation repository', () => {
 
 			expect(representation).toEqual(existingRepresentations[0]);
 			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					originalRepresentation: true,
-					redactedRepresentation: true,
-					type: true,
-					user: {
-						select: {
-							azureReference: true
-						}
-					},
-					contacts: {
-						select: {
-							id: true,
-							type: true,
-							firstName: true,
-							lastName: true,
-							organisationName: true,
-							jobTitle: true,
-							under18: true,
-							email: true,
-							contactMethod: true,
-							phoneNumber: true,
-							address: {
-								select: {
-									addressLine1: true,
-									addressLine2: true,
-									town: true,
-									county: true,
-									postcode: true,
-									country: true
-								}
-							}
-						}
-					},
-					representationActions: {
-						select: {
-							actionBy: true,
-							actionDate: true,
-							invalidReason: true,
-							notes: true,
-							previousRedactStatus: true,
-							previousStatus: true,
-							redactStatus: true,
-							referredTo: true,
-							status: true,
-							type: true
-						},
-						orderBy: {
-							actionDate: 'desc'
-						}
-					},
-					attachments: {
-						select: {
-							Document: true,
-							documentGuid: true,
-							id: true
-						}
-					}
-				},
+				select: expectedSelect,
 				where: {
 					case: {
 						id: 2
 					},
 					id: 1
+				}
+			});
+		});
+	});
+
+	describe('getFirstById', () => {
+		it('finds first representation by id', async () => {
+			await representationRepository.getFirstById(1);
+
+			expect(databaseConnector.representation.findFirst).toHaveBeenCalledWith({
+				where: {
+					id: 1
+				}
+			});
+		});
+
+		it('finds first representation by id and caseId', async () => {
+			await representationRepository.getFirstById(1, 2);
+
+			expect(databaseConnector.representation.findFirst).toHaveBeenCalledWith({
+				where: {
+					id: 1,
+					caseId: 2
 				}
 			});
 		});

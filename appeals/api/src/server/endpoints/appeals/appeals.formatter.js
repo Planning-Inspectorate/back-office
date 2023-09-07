@@ -45,16 +45,20 @@ const formatAppeal = (appeal) => {
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
 			appealStatus: appeal.appealStatus[0].status,
-			appealTimetable: {
-				lpaQuestionnaireDueDate: appeal.appealTimetable?.lpaQuestionnaireDueDate || null,
-				...(isFPA(appeal.appealType) && {
-					finalCommentReviewDate: appeal.appealTimetable?.finalCommentReviewDate || null,
-					statementReviewDate: appeal.appealTimetable?.statementReviewDate || null
-				})
-			},
+			appealTimetable: appeal.appealTimetable
+				? {
+						appealTimetableId: appeal.appealTimetable.id,
+						lpaQuestionnaireDueDate: appeal.appealTimetable.lpaQuestionnaireDueDate || null,
+						...(isFPA(appeal.appealType) && {
+							finalCommentReviewDate: appeal.appealTimetable.finalCommentReviewDate || null,
+							statementReviewDate: appeal.appealTimetable.statementReviewDate || null
+						})
+				  }
+				: null,
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id,
 			appellantName: appeal.appellant?.name,
+			caseOfficer: appeal.caseOfficer?.azureUserId || null,
 			decision: appeal.inspectorDecision?.outcome,
 			healthAndSafety: {
 				appellantCase: {
@@ -66,6 +70,7 @@ const formatAppeal = (appeal) => {
 					hasIssues: appeal.lpaQuestionnaire?.doesSiteHaveHealthAndSafetyIssues || null
 				}
 			},
+			inspector: appeal.inspector?.azureUserId || null,
 			inspectorAccess: {
 				appellantCase: {
 					details: appeal.appellantCase?.visibilityRestrictions || null,

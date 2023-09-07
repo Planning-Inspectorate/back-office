@@ -1,5 +1,6 @@
 // Use the GDS Design System as a foundation
 @use "../govuk-frontend/govuk/all" with (
+	// see https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#if-you-have-your-own-folder-structure
 	$govuk-assets-path: "/",
 	$govuk-images-path: "/images/",
 	$govuk-fonts-path: "/fonts/"
@@ -55,6 +56,7 @@
 @use "7-components/results-per-page";
 @use "7-components/filter-box";
 @use "7-components/html-content-editor";
+@use "7-components/project-update";
 
 // 8 - UTILITIES
 

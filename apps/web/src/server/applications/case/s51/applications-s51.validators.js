@@ -141,3 +141,15 @@ export const validateS51Details =
 			checkEnquiryDetails
 		])(request, response, next);
 	};
+
+export const validateS51AdviceToChange = createValidator(
+	body('selectedFilesIds')
+		.isArray({ min: 1 })
+		.withMessage('Select advice to make changes to statuses')
+);
+
+export const validateS51AdviceActions = createValidator(
+	body('isRedacted')
+		.custom((value, { req }) => !!value || !!req?.body?.status)
+		.withMessage('Select a status to apply a change')
+);
