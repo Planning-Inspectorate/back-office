@@ -12,9 +12,9 @@ describe('Appeals feature', () => {
 		cy.login(users.appeals.caseAdmin);
 	});
 
-	it('Validate appellant case', () => {
+	it.only('Validate appellant case', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(2);
+		appealsListPage.clickAppealFromList(4);
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Valid');
 		appealsListPage.clickButtonByText('Continue');
@@ -78,7 +78,7 @@ describe('Appeals feature', () => {
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it.only('incomplete appellant case skip due date', () => {
+	it('incomplete appellant case skip due date', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
 		appealsListPage.clickReviewAppellantCase(4);

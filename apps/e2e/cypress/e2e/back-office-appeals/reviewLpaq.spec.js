@@ -14,7 +14,7 @@ describe('Appeals feature', () => {
 
 	it('Complete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(15);
+		appealsListPage.clickAppealFromList(21);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Complete');
 		appealsListPage.clickButtonByText('Continue');
@@ -26,7 +26,7 @@ describe('Appeals feature', () => {
 
 	it('incomplete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(21);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
@@ -45,7 +45,7 @@ describe('Appeals feature', () => {
 
 	it('incomplete LPAQ reason: other', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(21);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
@@ -65,7 +65,7 @@ describe('Appeals feature', () => {
 
 	it('incomplete LPAQ skip due date', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(21);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');

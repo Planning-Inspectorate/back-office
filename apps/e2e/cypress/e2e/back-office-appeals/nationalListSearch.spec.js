@@ -13,7 +13,7 @@ describe('Appeals feature', () => {
 	});
 
 	it('Case admin user should be able to use search using appeal id', () => {
-		const id = '531786';
+		const id = '328825';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: id, strict: true };
 		cy.visit('/appeals-service/appeals-list');
 		page.nationalListSearch(id);
