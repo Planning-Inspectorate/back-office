@@ -68,10 +68,12 @@ describe('Test Updating Key Dates', () => {
 			data: {
 				modifiedAt: new Date(2023, 1, 1),
 				ApplicationDetails: {
-					datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
-					dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
-					submissionAtPublished: 'Q3 2025',
-					submissionAtInternal: null
+					update: {
+						datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
+						dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
+						submissionAtPublished: 'Q3 2025',
+						submissionAtInternal: null
+					}
 				}
 			},
 			select: {
