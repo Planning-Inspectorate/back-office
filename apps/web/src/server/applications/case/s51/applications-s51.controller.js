@@ -154,6 +154,8 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 			return;
 		}
+
+		throw err;
 	}
 
 	response.redirect('../properties');
