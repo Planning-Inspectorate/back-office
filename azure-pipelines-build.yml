@@ -35,15 +35,15 @@ parameters:
     displayName: Build Function - Notify Subscribers
     type: boolean
     default: true
-	- name: buildFunctionAppealsCasedataImport
+  - name: buildFunctionAppealsCasedataImport
     displayName: Build Function - Appeals Casedata Import
     type: boolean
     default: true
-	- name: buildFunctionAppealsLPAQImport
+  - name: buildFunctionAppealsLPAQImport
     displayName: Build Function - Appeals LPAQ Import
     type: boolean
     default: true
-	- name: buildFunctionAppealsEmployeeImport
+  - name: buildFunctionAppealsEmployeeImport
     displayName: Build Function - Appeals Employee Import
     type: boolean
     default: true

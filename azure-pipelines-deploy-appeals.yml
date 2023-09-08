@@ -11,11 +11,11 @@ parameters:
     displayName: Deploy Function - Appeals Casedata Import
     type: boolean
     default: true
-	- name: deployFunctionAppealsLPAQImport
+  - name: deployFunctionAppealsLPAQImport
     displayName: Deploy Function - Appeals LPAQ Import
     type: boolean
     default: true
-	- name: deployFunctionAppealsEmployeeImport
+  - name: deployFunctionAppealsEmployeeImport
     displayName: Deploy Function - Appeals Employee Import
     type: boolean
     default: true
