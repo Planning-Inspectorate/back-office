@@ -227,6 +227,12 @@ router.patch(
 			required: true,
 			type: 'integer'
 		}
+    #swagger.parameters['adviceId'] = {
+      in: 'path',
+      description: 'Advice ID',
+      required: true,
+      type: 'integer'
+    }
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'S51 Advice update parameters',

@@ -218,10 +218,10 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
 /**
  * Updates properties of an S51 advice item
  *
- * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ * @type {import('express').RequestHandler<{adviceId: number}, any, any, any>}
  */
 export const updateS51Advice = async ({ body, params }, response) => {
-	const adviceId = params.id;
+	const adviceId = params.adviceId;
 	const payload = body[''];
 
 	if (payload.publishedStatus === 'ready_to_publish') {
@@ -303,12 +303,12 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			);
 		}
 
-		try {	
+		try {
 			/**
 			 * @type {any[]}
 			 */
 			const virusCheckPromise = adviceIds.map(verifyAllS51DocumentsAreVirusChecked);
-	
+
 			await Promise.all(virusCheckPromise);
 		} catch (error) {
 			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${error}`);
