@@ -121,11 +121,11 @@ extends:
                   path: apps/functions/deadline-submissions
                 - name: function-notify-subscribers
                   path: apps/functions/notify-subscribers
-								- name: function-appeals-casedate-import
+                - name: function-appeals-casedate-import
                   path: appeals/functions/casedata-import
-								- name: function-appeals-lpaq-import
+                - name: function-appeals-lpaq-import
                   path: appeals/functions/lpaq-import
-								- name: function-appeals-hrdata-import
+                - name: function-appeals-hrdata-import
                   path: appeals/functions/hrdata-import
               stepName: check_files
       - name: Build API
