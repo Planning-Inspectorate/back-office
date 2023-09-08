@@ -4,10 +4,10 @@ import pino from '../../../lib/logger.js';
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
- * Save the list of sectioned key dates for the case
+ * Retrieve the list of sectioned key dates for the case
  *
  * @param {number} caseId
- * @returns {Promise<Partial<{}> & ValidationErrors>}
+ * @returns {Promise<Record<string, Record<string, string|number>> & ValidationErrors>}
  */
 export const getAllCaseKeyDates = async (caseId) => {
 	let response;

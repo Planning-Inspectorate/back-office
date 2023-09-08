@@ -4,6 +4,7 @@ import {
 } from '../factory/util.js';
 
 let seed = 0;
+// Return a random date between 2023 and 2024 OR null with 50% of chance
 const randomDateOrNull = () => {
 	seed++;
 
@@ -22,13 +23,13 @@ const fixtureKeyDates = {
 		scopingOpinionSought: randomDateOrNull(),
 		scopingOpinionIssued: randomDateOrNull(),
 		section46Notification: randomDateOrNull(),
-		submissionAtPublished: null
+		submissionAtPublished: 'Q4 2023' // only field as string
 	},
 	acceptance: {
 		dateOfDCOSubmission: randomDateOrNull(),
 		deadlineForAcceptanceDecision: randomDateOrNull(),
 		dateOfDCOAcceptance: randomDateOrNull(),
-		dateOfNonAcceptance: null
+		dateOfNonAcceptance: randomDateOrNull()
 	},
 	preExamination: {
 		dateOfRepresentationPeriodOpen: randomDateOrNull(),
@@ -39,7 +40,7 @@ const fixtureKeyDates = {
 		rule6LetterPublishDate: randomDateOrNull(),
 		preliminaryMeetingStartDate: randomDateOrNull(),
 		notificationDateForPMAndEventsDirectlyFollowingPM: randomDateOrNull(),
-		notificationDateForEventsDeveloper: null
+		notificationDateForEventsDeveloper: randomDateOrNull()
 	},
 	examination: {
 		dateSection58NoticeReceived: randomDateOrNull(),
@@ -47,23 +48,23 @@ const fixtureKeyDates = {
 		rule8LetterPublishDate: randomDateOrNull(),
 		deadlineForCloseOfExamination: randomDateOrNull(),
 		dateTimeExaminationEnds: randomDateOrNull(),
-		stage4ExtensionToExamCloseDate: null
+		stage4ExtensionToExamCloseDate: randomDateOrNull()
 	},
 	recommendation: {
 		deadlineForSubmissionOfRecommendation: randomDateOrNull(),
 		dateOfRecommendations: randomDateOrNull(),
-		stage5ExtensionToRecommendationDeadline: null
+		stage5ExtensionToRecommendationDeadline: randomDateOrNull()
 	},
 	decision: {
 		deadlineForDecision: randomDateOrNull(),
 		confirmedDateOfDecision: randomDateOrNull(),
-		stage5ExtensionToDecisionDeadline: null
+		stage5ExtensionToDecisionDeadline: randomDateOrNull()
 	},
 	postDecision: {
-		jRPeriodEndDate: null
+		jRPeriodEndDate: randomDateOrNull()
 	},
 	withdrawal: {
-		dateProjectWithdrawn: null
+		dateProjectWithdrawn: randomDateOrNull()
 	}
 };
 

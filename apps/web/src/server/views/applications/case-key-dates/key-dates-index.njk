@@ -47,10 +47,14 @@
 	{% set rows = [] %}
 
 	{% for key, values in section %}
+		{# There is one field whose value is not a date #}
+		{% set dateValue = values if key === 'submissionAtPublished' else | datestamp({format: 'dd MMM yyyy'} %}
+
 		{% set rows = rows | concat([[
 			{text: key|keyDatesProperty},
-			{text: values|datestamp({format: 'dd MMM yyyy'})}
+			{text: dateValue
 		]])%}
+
 	{% endfor %}
 
 	{{ govukTable({
