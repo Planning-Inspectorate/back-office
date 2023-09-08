@@ -20,36 +20,36 @@
  * @property {boolean} [welshLanguage] Welsh Language translation required.
  * @property {string | null} [mapZoomLevel] Resolution of pinned map. Set when co-ordinates are created.
  * @property {string | null} [secretaryOfState] Relevant Government Department. [TODO]
- * @property {string | null} [dateProjectAppearsOnWebsite] Date Project Appears On Website
- * @property {string | null} [dateOfDCOAcceptance] Date Application is Formerly Accepted by PINS
+ * @property {Date | null} [dateProjectAppearsOnWebsite] Date Project Appears On Website
+ * @property {Date | null} [dateOfDCOAcceptance] Date Application is Formally Accepted by PINS
  * @property {Date | null} [anticipatedDateOfSubmission] Anticipated Submission Date Of Application
  * @property {string | null} [anticipatedSubmissionDateNonSpecific] Approximate Anticipated Submission Date Of Application, e.g. Q3 2023
- * @property {string | null} [dateOfDCOSubmission] Date Applcation is submitted
- * @property {string | null} [dateOfRepresentationPeriodOpen] Date at which point publish can submit relevant reps
- * @property {string | null} [dateOfRelevantRepresentationClose] Date at which point publish can no longer submit relevant reps
- * @property {string | null} [dateRRepAppearOnWebsite] Date at which relevant reps appear on the website
- * @property {string | null} [confirmedStartOfExamination] ConfirmedStartOfExamination by panel
- * @property {string | null} [dateTimeExaminationEnds] ConfirmedSEndOfExamination by panel
- * @property {string | null} [stage4ExtensionToExamCloseDate] Examination Period extended to this date
- * @property {string | null} [stage5ExtensionToRecommendationDeadline] Recommendation period extended to this date
- * @property {string | null} [dateOfRecommendations] Date recomm report sent to SoS
- * @property {string | null} [confirmedDateOfDecision] Decision by SoS
- * @property {string | null} [stage5ExtensionToDecisionDeadline] Decision period extended to this date
- * @property {string | null} [dateProjectWithdrawn] DateProjectWithdrawn by applicant
- * @property {string | null} [section46Notification] Applicant must notify PINS of statutory consultation
- * @property {string | null} [datePINSFirstNotifiedOfProject] Date at which applicant notify PINS of a project (pre-publishing)
- * @property {string | null} [screeningOpinionSought] (TBC by Env. Services Team)
- * @property {string | null} [screeningOpinionIssued] (TBC by Env. Services Team)
- * @property {string | null} [scopingOpinionSought] (TBC by Env. Services Team)
- * @property {string | null} [scopingOpinionIssued] (TBC by Env. Services Team)
- * @property {string | null} [deadlineForAcceptanceDecision] DeadlineForAcceptanceDecision
- * @property {string | null} [dateSection58NoticeReceived] Applicant has notified all parties of application
- * @property {string | null} [preliminaryMeetingStartDate] Meeting between all parties inc public
- * @property {string | null} [deadlineForCloseOfExamination] DeadlineForCloseOfExamination
- * @property {string | null} [deadlineForSubmissionOfRecommendation] DeadlineForSubmissionOfRecommendation
- * @property {string | null} [deadlineForDecision] DeadlineForDecision
- * @property {string | null} [jRPeriodEndDate] Judicial Review
- * @property {string | null} [extensionToDateRelevantRepresentationsClose] ExtensionToDateRelevantRepresentationsClose
+ * @property {Date | null} [dateOfDCOSubmission] Date Applcation is submitted
+ * @property {Date | null} [dateOfRepresentationPeriodOpen] Date at which point publish can submit relevant reps
+ * @property {Date | null} [dateOfRelevantRepresentationClose] Date at which point publish can no longer submit relevant reps
+ * @property {Date | null} [dateRRepAppearOnWebsite] Date at which relevant reps appear on the website
+ * @property {Date | null} [confirmedStartOfExamination] ConfirmedStartOfExamination by panel
+ * @property {Date | null} [dateTimeExaminationEnds] ConfirmedSEndOfExamination by panel
+ * @property {Date | null} [stage4ExtensionToExamCloseDate] Examination Period extended to this date
+ * @property {Date | null} [stage5ExtensionToRecommendationDeadline] Recommendation period extended to this date
+ * @property {Date | null} [dateOfRecommendations] Date recomm report sent to SoS
+ * @property {Date | null} [confirmedDateOfDecision] Decision by SoS
+ * @property {Date | null} [stage5ExtensionToDecisionDeadline] Decision period extended to this date
+ * @property {Date | null} [dateProjectWithdrawn] DateProjectWithdrawn by applicant
+ * @property {Date | null} [section46Notification] Applicant must notify PINS of statutory consultation
+ * @property {Date | null} [datePINSFirstNotifiedOfProject] Date at which applicant notify PINS of a project (pre-publishing)
+ * @property {Date | null} [screeningOpinionSought] (TBC by Env. Services Team)
+ * @property {Date | null} [screeningOpinionIssued] (TBC by Env. Services Team)
+ * @property {Date | null} [scopingOpinionSought] (TBC by Env. Services Team)
+ * @property {Date | null} [scopingOpinionIssued] (TBC by Env. Services Team)
+ * @property {Date | null} [deadlineForAcceptanceDecision] DeadlineForAcceptanceDecision
+ * @property {Date | null} [dateSection58NoticeReceived] Applicant has notified all parties of application
+ * @property {Date | null} [preliminaryMeetingStartDate] Meeting between all parties inc public
+ * @property {Date | null} [deadlineForCloseOfExamination] DeadlineForCloseOfExamination
+ * @property {Date | null} [deadlineForSubmissionOfRecommendation] DeadlineForSubmissionOfRecommendation
+ * @property {Date | null} [deadlineForDecision] DeadlineForDecision
+ * @property {Date | null} [jRPeriodEndDate] Judicial Review
+ * @property {Date | null} [extensionToDateRelevantRepresentationsClose] ExtensionToDateRelevantRepresentationsClose
  * @property {string | null} [operationsLeadId] Maps to [Employee].[EmployeeID].
  * @property {string | null} [operationsManagerId] New NSIP role, Maps to [Employee].[EmployeeID]
  * @property {string | null} [caseManagerId] Maps to [Employee].[EmployeeID]
@@ -64,6 +64,7 @@
  */
 
 import { pick } from 'lodash-es';
+import { allKeyDateNames } from '../key-dates/key-dates.utils.js';
 
 const sourceSystem = 'ODT';
 
@@ -99,6 +100,11 @@ export const buildNsipProjectPayload = (projectEntity) => {
 	};
 };
 
+// These two key dates have different names internally, as they were named before the PDM was defined
+const keyDateNames = allKeyDateNames.filter(
+	(name) => name !== 'submissionAtInternal' && name !== 'submissionAtPublished'
+);
+
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns {NsipProjectPayload | undefined}
@@ -132,7 +138,8 @@ const mapApplicationDetails = (projectEntity) => {
 		mapZoomLevel,
 		// TODO: secretaryOfState
 		anticipatedDateOfSubmission: appDetails.submissionAtInternal,
-		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished
+		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished,
+		...pick(appDetails, keyDateNames)
 	};
 };
 
