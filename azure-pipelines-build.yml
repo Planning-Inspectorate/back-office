@@ -516,7 +516,7 @@ extends:
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-casedate-import'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-casedata-import'], 'true')
                 )
               )
             )
@@ -541,7 +541,7 @@ extends:
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-appeals-casedate-import
+            artifact: function-appeals-casedata-import
             displayName: Publish Functions Artifact
       - name: Build Function - Appeal LPAQ Import
         condition: >-
