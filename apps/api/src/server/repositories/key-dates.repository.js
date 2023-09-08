@@ -13,7 +13,9 @@ export const update = async (caseId, keyDates) => {
 		where: { id: caseId },
 		data: {
 			modifiedAt: new Date(),
-			ApplicationDetails: keyDates
+			ApplicationDetails: {
+				update: keyDates
+			}
 		},
 		select: {
 			ApplicationDetails: true
