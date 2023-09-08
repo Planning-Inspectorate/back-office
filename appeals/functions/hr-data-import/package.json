@@ -1,0 +1,21 @@
+{
+  "name": "@pins/functions-bo-appeals-hrdata-import",
+  "version": "1.0.0",
+  "description": "Azure Function to handle ODW Employee data submitted on the Service Bus topic",
+  "scripts": {
+    "start": "func start",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "type": "module",
+  "dependencies": {
+    "@pins/event-client": "^0.0.0",
+    "@pins/platform": "^0.0.0",
+    "dotenv": "*",
+    "got": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+    "cross-env": "*",
+    "jest": "*"
+  }
+}

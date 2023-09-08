@@ -7,6 +7,18 @@ parameters:
     displayName: Deploy Appeals Web
     type: boolean
     default: true
+  - name: deployFunctionAppealsCasedataImport
+    displayName: Deploy Function - Appeals Casedata Import
+    type: boolean
+    default: true
+  - name: deployFunctionAppealsLPAQImport
+    displayName: Deploy Function - Appeals LPAQ Import
+    type: boolean
+    default: true
+  - name: deployFunctionAppealsEmployeeImport
+    displayName: Deploy Function - Appeals Employee Import
+    type: boolean
+    default: true
   - name: region
     displayName: Region
     type: string
@@ -75,5 +87,35 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/appeals-web
-    globalVariables:
+          - name: Deploy Function - Appeals Casedata Import
+            artifact:
+              name: function-appeals-casedata-import
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionAppealsCasedataImport }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-bo-appeals-appellant-case-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Appeals LPAQ Import
+            artifact:
+              name: function-appeals-lpaq-import
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionAppealsLPAQImport }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-bo-appeals-lpa-questionnaire-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Appeals Employee Import
+            artifact:
+              name: function-appeals-hrdata-import
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionAppealsEmployeeImport }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-bo-appeals-hr-data-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+		globalVariables:
       - template: azure-pipelines-variables.yml@self

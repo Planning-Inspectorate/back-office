@@ -4,7 +4,9 @@ export const producers = {
 };
 
 export const consumers = {
-	foCaseData: 'appeals-case-data',
+	foCaseData: 'appeal-fo-appellant-submission',
+	foLpaQuestionnaire: 'appeal-fo-lpa-response-submission',
+	odwEmployee: 'employee',
 	odwCaseData: '',
 	odwDocuments: ''
 };
