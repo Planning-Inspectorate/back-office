@@ -185,9 +185,14 @@ export async function changeAdviceStatus(request, response) {
 		id: Number(selectField)
 	}));
 
+	let redacted = body?.isRedacted;
+	// @ts-ignore
+	if (body?.isRedacted &&  body.isRedacted === '1') {
+		redacted = true;
+	}
+
 	const payload = {
-		// @ts-ignore
-		redacted: body.isRedacted === 'undefined' ? body.isRedacted : body.isRedacted === '1',
+		redacted,
 		status: body.status,
 		items: items
 	};
