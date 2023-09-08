@@ -138,3 +138,29 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 		}
 	});
 };
+
+/**
+ * 
+ * @param {number[]} adviceIds
+ * @returns {Promise<boolean>}
+ */
+export const hasPublishedAdvice = async (adviceIds) => {
+	const publishedAdvices = await s51AdviceRepository.getPublishedAdvicesByIds(adviceIds);
+	if (publishedAdvices && publishedAdvices?.length > 0) {
+		return true;
+	}
+	return false;
+}
+
+/**
+ * 
+ * @param {number[]} adviceIds
+ * @returns {Promise<boolean>}
+ */
+export const hasPublishedDocument = async (adviceIds) => {
+	const publishedAdvices = await s51AdviceDocumentRepository.getPublishedDocumentsByAdviceIds(adviceIds);
+	if (publishedAdvices && publishedAdvices?.length > 0) {
+		return true;
+	}
+	return false;
+}

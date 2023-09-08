@@ -60,8 +60,9 @@ describe('Test S51 advice update status and redacted status', () => {
 		};
 
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
-		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
+		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceWithId);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -100,8 +101,9 @@ describe('Test S51 advice update status and redacted status', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
-		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
+		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceWithId);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -139,9 +141,9 @@ describe('Test S51 advice update status and redacted status', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoPerson);
-		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
+		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
-
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
 			status: 'ready_to_publish',
@@ -178,8 +180,9 @@ describe('Test S51 advice update status and redacted status', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoOrg);
-		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
+		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -204,7 +207,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 	});
 
-	test('throws 500 error updating s51 advice missing required data: title', async () => {
+	test('throws 400 error updating s51 advice missing required data: title', async () => {
 		// GIVEN
 		const invalidS51AdviceBody = { ...validS51AdviceBody, id: 2, title: '' };
 
@@ -226,7 +229,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 	});
 
-	test('throws 500 error updating s51 advice when attachment is not scanned', async () => {
+	test('throws 400 error updating s51 advice when attachment is not scanned', async () => {
 		// GIVEN
 		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
 		const validS51AdviceUpdateResponse = {
@@ -256,7 +259,67 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 	});
 
-	test('throws 500 error updating s51 advice missing required data: enquirer AND firstName + lastName', async () => {
+	test('throws 400 error updating s51 advice when advice is already published', async () => {
+		// GIVEN
+		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceUpdateResponse = {
+			...validS51AdviceBodyNoPerson,
+			id: 1,
+			redactedStatus: 'redacted',
+			publishedStatus: 'ready_to_publish',
+			publishedStatusPrev: 'not_checked'
+		};
+
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceUpdateResponse);
+		databaseConnector.s51Advice.findMany.mockResolvedValue([1]);
+		databaseConnector.s51Advice.update.mockResolvedValue();
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValueOnce([]);
+
+		// WHEN
+		const response = await request.patch('/applications/1/s51-advice').send({
+			status: 'ready_to_publish',
+			items: [{ id: 4 }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: 'You must first unpublish S51 advice before changing the status.'
+		});
+	});
+
+	test('throws 400 error updating s51 advice when attachment is published', async () => {
+		// GIVEN
+		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceUpdateResponse = {
+			...validS51AdviceBodyNoPerson,
+			id: 1,
+			redactedStatus: 'redacted',
+			publishedStatus: 'ready_to_publish',
+			publishedStatusPrev: 'not_checked'
+		};
+
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceUpdateResponse);
+		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
+		databaseConnector.s51Advice.update.mockResolvedValue();
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce(s51AdviceDocuments);
+
+		// WHEN
+		const response = await request.patch('/applications/1/s51-advice').send({
+			status: 'ready_to_publish',
+			items: [{ id: 4 }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: 'You must first unpublish documents before changing the status.'
+		});
+	});
+
+	test('throws 400 error updating s51 advice missing required data: enquirer AND firstName + lastName', async () => {
 		// GIVEN
 		const invalidS51AdviceBody = {
 			...validS51AdviceBody,
@@ -284,7 +347,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		});
 	});
 
-	test('throws 500 error updating s51 advice with invalid advice id', async () => {
+	test('throws 400 error updating s51 advice with invalid advice id', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(null);
