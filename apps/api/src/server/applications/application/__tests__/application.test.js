@@ -50,6 +50,11 @@ describe('Application', () => {
 			}
 		});
 
+		// @ts-ignore
+		projectEntity.ApplicationDetails.datePINSFirstNotifiedOfProject = new Date(
+			'2022-07-22T10:38:33.000Z'
+		);
+
 		// 2. Act
 		const result = buildNsipProjectPayload(projectEntity);
 
@@ -72,6 +77,7 @@ describe('Application', () => {
 			northing: 654_321,
 			anticipatedDateOfSubmission: new Date('2022-07-22T10:38:33.000Z'),
 			anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+			datePINSFirstNotifiedOfProject: new Date('2022-07-22T10:38:33.000Z'),
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
 			applicantIds: ['1'],
