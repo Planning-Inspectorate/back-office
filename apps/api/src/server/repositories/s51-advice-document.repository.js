@@ -47,4 +47,25 @@ export const getDocumentInAdviceByName = (adviceId, documentName) =>
 				}
 			}
 		}
+});
+
+/**
+ * 
+ * @param {number[]} s51AdviceIds 
+ */
+export const getPublishedDocumentsByAdviceIds = (s51AdviceIds) => {
+	return databaseConnector.s51AdviceDocument.findMany({
+		where: {
+			adviceId: {
+				in: s51AdviceIds
+			},
+			Document: {
+				latestDocumentVersion: {
+					publishedStatus: {
+						equals: 'published'
+					}
+				}
+			}
+		}
 	});
+}

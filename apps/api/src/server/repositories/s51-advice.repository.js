@@ -134,3 +134,20 @@ export const getPublishableS51Advice = (s51AdviceIds) => {
 		}
 	});
 };
+
+/**
+ * 
+ * @param {number[]} s51AdviceIds 
+ */
+export const getPublishedAdvicesByIds = (s51AdviceIds) => {
+	return databaseConnector.s51Advice.findMany({
+		where: {
+			id: {
+				in: s51AdviceIds
+			},
+			publishedStatus: {
+				equals: 'published'
+			}
+		}
+	});
+}
