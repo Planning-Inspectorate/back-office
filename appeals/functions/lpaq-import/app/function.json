@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "registerSubscription",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "appeal-fo-lpa-response-submission",
+			"subscriptionName": "register-fo-lpaq-subscription",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
