@@ -9,6 +9,7 @@ import { Router as createRouter } from 'express';
 import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
 import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
 import projectUpdatesRouter from './project-updates/project-updates.router.js';
+import applicationsKeyDateRouter from './key-dates/applications-key-dates.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
@@ -23,6 +24,7 @@ applicationsCaseRouter.use(
 );
 applicationsCaseRouter.use('/:caseId/project-documentation', applicationsDocumentationRouter);
 applicationsCaseRouter.use('/:caseId/examination-timetable', applicationsTimetableRouter);
+applicationsCaseRouter.use('/:caseId/key-dates', applicationsKeyDateRouter);
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')

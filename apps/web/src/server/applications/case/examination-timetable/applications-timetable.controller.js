@@ -75,7 +75,7 @@ export const uniqueTimeTableTypes = {
 /**
  * View the list of examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, republishStatus: boolean}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, selectedPageType: string, republishStatus: boolean}>}
  */
 export async function viewApplicationsCaseTimetableList(_, response) {
 	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
@@ -87,6 +87,7 @@ export async function viewApplicationsCaseTimetableList(_, response) {
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
 		publishedStatus: examinationTimetable?.published,
+		selectedPageType: 'examination-timetable',
 		republishStatus:
 			examinationTimetable?.published &&
 			examinationTimetable.publishedAt != examinationTimetable.updatedAt

@@ -1,3 +1,6 @@
+
+
+
 // Use the GDS Design System as a foundation
 @use "../govuk-frontend/govuk/all" with (
 	// see https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#if-you-have-your-own-folder-structure
@@ -40,7 +43,7 @@
 // 7 - COMPONENTS
 @use "7-components/InfoBox/InfoBox" as InfoBox;
 @use "7-components/DashboardBox/DashboardBox" as DashboardBox;
-@use "7-components/ListMenu/ListMenu" as ListMenu;
+@use "7-components/list-menu";
 @use "7-components/app-header";
 @use "7-components/file-upload";
 @use "7-components/files-list";
@@ -57,6 +60,7 @@
 @use "7-components/filter-box";
 @use "7-components/html-content-editor";
 @use "7-components/project-update";
+@use "7-components/key-dates-section";
 
 // 8 - UTILITIES
 

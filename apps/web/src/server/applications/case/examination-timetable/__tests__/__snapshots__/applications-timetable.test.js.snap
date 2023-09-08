@@ -1328,33 +1328,33 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-one-third\\">
+    <div class=\\"govuk-grid-row display--flex\\">
+        <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
                 <nav>
                     <ul class=\\"gov-list pins-list-menu\\">
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-updates\\"> Project updates</a>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-updates\\"> Project updates</a>
                         </li>
-                        <li class=\\"govuk-heading-s\\"><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
+                        <li><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
                         </li>
                     </ul>
                 </nav>
             </aside>
         </div>
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div>
                 <div class='govuk-grid-row'>
                     <div class='govuk-grid-column-two-thirds'>
