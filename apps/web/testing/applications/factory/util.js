@@ -29,7 +29,7 @@ export const createUniqueRandomNumberFromSeed = (min, max, seed) => {
 	const randomFloat =
 		Number.parseInt([...date.getTime().toString()].reverse().slice(-3).join(''), 10) / 1000;
 
-	return Math.floor(randomFloat * max) + min;
+	return Math.floor(randomFloat * (max - min)) + min;
 };
 
 /**
@@ -41,6 +41,20 @@ export const createUniqueRandomBooleanFromSeed = (seed) => {
 	const randomNumber = createUniqueRandomNumberFromSeed(0, 100_000, seed);
 
 	return randomNumber % 2 === 0;
+};
+/**
+ *
+ * @param {number} seed
+ * @param {number} minYear
+ * @param {number} maxYear
+ * @returns {number}
+ */
+export const createUniqueRandomDateFromSeed = (seed, minYear, maxYear) => {
+	const randomYear = createUniqueRandomNumberFromSeed(minYear, maxYear, seed);
+	const randomMonth = createUniqueRandomNumberFromSeed(1, 11, seed);
+	const randomDay = createUniqueRandomNumberFromSeed(1, 27, seed);
+
+	return new Date(`${randomYear}-${randomMonth}-${randomDay}`).getTime() / 1000;
 };
 
 /**
