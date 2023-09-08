@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
+const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -30,7 +31,7 @@ describe('Test Updating Key Dates', () => {
 		jest.resetAllMocks();
 	});
 
-	test('Only the provided dates are updated', async () => {
+	test('Provided key dates are updated and event is broadcast', async () => {
 		// GIVEN
 		const updateKeyDates = {
 			preApplication: {
@@ -44,6 +45,16 @@ describe('Test Updating Key Dates', () => {
 
 		databaseConnector.case.update.mockResolvedValue({
 			ApplicationDetails: updatedDateFromDatabase
+		});
+
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			serviceCustomer: [{ id: 4 }],
+			ApplicationDetails: {
+				datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
+				dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
+				submissionAtPublished: 'Q3 2025'
+			}
 		});
 
 		// WHEN
@@ -67,5 +78,27 @@ describe('Test Updating Key Dates', () => {
 				ApplicationDetails: true
 			}
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-project',
+			[
+				{
+					caseId: 1,
+					datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
+					dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
+					anticipatedSubmissionDateNonSpecific: 'Q3 2025',
+					sourceSystem: 'ODT',
+					publishStatus: 'unpublished',
+					applicantIds: ['4'],
+					welshLanguage: false,
+					nsipOfficerIds: [],
+					regions: [],
+					nsipAdministrationOfficerIds: [],
+					inspectorIds: [],
+					interestedPartyIds: []
+				}
+			],
+			'Update'
+		);
 	});
 });
