@@ -40,23 +40,23 @@ export const mapRequestToKeyDates = ({
 };
 
 /**
+ * @param {Date} value
+ * @param {string} key
+ *
+ * @returns {string|number}
+ */
+const mapPreApplicationDates = (value, key) =>
+	// 'submissionAtPublished' is a string not a date, so we don't convert to a UNIX Timestamp
+	key === 'submissionAtPublished' ? `${value}` : mapDateToUnixTimestamp(value);
+
+/**
  * @param {import('@pins/applications.api').Schema.ApplicationDetails} keyDates
  *
  * @returns {Object<string,Object<string, any>>} keyDateResponse
  */
 export const mapKeyDatesToResponse = (keyDates) => {
 	return {
-		preApplication: {
-			// 'submissionAtPublished' is a string not a date, so we don't convert to a UNIX Timestamp
-			...mapValues(
-				pick(
-					keyDates,
-					preApplicationDateNames.filter((key) => key != 'submissionAtPublished')
-				),
-				mapDateToUnixTimestamp
-			),
-			submissionAtPublished: keyDates.submissionAtPublished
-		},
+		preApplication: mapValues(pick(keyDates, preApplicationDateNames), mapPreApplicationDates),
 		acceptance: mapValues(pick(keyDates, acceptanceDateNames), mapDateToUnixTimestamp),
 		preExamination: mapValues(pick(keyDates, preExaminationDateNames), mapDateToUnixTimestamp),
 		examination: mapValues(pick(keyDates, examinationDateNames), mapDateToUnixTimestamp),
