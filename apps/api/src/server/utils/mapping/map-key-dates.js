@@ -47,7 +47,7 @@ export const mapRequestToKeyDates = ({
  */
 const mapPreApplicationDates = (value, key) =>
 	// 'submissionAtPublished' is a string not a date, so we don't convert to a UNIX Timestamp
-	key === 'submissionAtPublished' ? `${value}` : mapDateToUnixTimestamp(value);
+	key === 'submissionAtPublished' ? `${value || ''}` : mapDateToUnixTimestamp(value);
 
 /**
  * @param {import('@pins/applications.api').Schema.ApplicationDetails} keyDates
