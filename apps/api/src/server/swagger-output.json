@@ -2949,6 +2949,13 @@
 						"description": "Application ID"
 					},
 					{
+						"name": "adviceId",
+						"in": "path",
+						"description": "Advice ID",
+						"required": true,
+						"type": "integer"
+					},
+					{
 						"name": "body",
 						"in": "body",
 						"description": "S51 Advice update parameters",
@@ -3724,13 +3731,18 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionAtPublished": {
-							"type": "string",
-							"example": "Q1 2023"
-						},
-						"submissionAtInternal": {
-							"type": "number",
-							"example": 123
+						"preApplication": {
+							"type": "object",
+							"properties": {
+								"submissionAtPublished": {
+									"type": "string",
+									"example": "Q1 2023"
+								},
+								"submissionAtInternal": {
+									"type": "number",
+									"example": 123
+								}
+							}
 						}
 					}
 				}
@@ -3852,13 +3864,18 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionAtPublished": {
-							"type": "string",
-							"example": "Q1 2023"
-						},
-						"submissionAtInternal": {
-							"type": "number",
-							"example": 123
+						"preApplication": {
+							"type": "object",
+							"properties": {
+								"submissionAtPublished": {
+									"type": "string",
+									"example": "Q1 2023"
+								},
+								"submissionAtInternal": {
+									"type": "number",
+									"example": 123
+								}
+							}
 						}
 					}
 				}
