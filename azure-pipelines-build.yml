@@ -121,7 +121,7 @@ extends:
                   path: apps/functions/deadline-submissions
                 - name: function-notify-subscribers
                   path: apps/functions/notify-subscribers
-                - name: function-appeals-casedate-import
+                - name: function-appeals-casedata-import
                   path: appeals/functions/casedata-import
                 - name: function-appeals-lpaq-import
                   path: appeals/functions/lpaq-import
