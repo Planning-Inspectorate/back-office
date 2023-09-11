@@ -5,7 +5,8 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 /** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
-/** @typedef {{caseId: number, folderId: number }} ResponseLocals */
+/** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
+/** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile}} ResponseLocals */
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
@@ -109,6 +110,13 @@ const layouts = {
  */
 export async function viewDocumentationMetaData({ params }, response) {
 	const layout = getLayoutParameters(params, response.locals);
+	if (
+		['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
+			response.locals.documentMetaData.publishedStatus
+		)
+	) {
+		layout.items = layout.items?.filter((item) => item.value !== 'ready_to_publish');
+	}
 
 	response.render(`applications/case-documentation/documentation-edit.njk`, { layout });
 }
