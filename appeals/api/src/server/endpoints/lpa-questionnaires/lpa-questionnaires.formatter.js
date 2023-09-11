@@ -8,7 +8,7 @@ import { document } from '#tests/data.js';
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
-
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /**
  * @param {boolean} affectsListedBuilding
  * @param {ListedBuildingDetails[] | null | undefined} values
@@ -45,7 +45,7 @@ const formatLpaQuestionnaire = (appeal) => {
 				developmentDescription: lpaQuestionnaire.developmentDescription,
 				documents: {
 					communityInfrastructureLevy: document,
-					conservationAreaMapAndGuidance: document,
+					conservationAreaMap: document,
 					consultationResponses: document,
 					definitiveMapAndStatement: document,
 					emergingPlans: document,
@@ -53,14 +53,14 @@ const formatLpaQuestionnaire = (appeal) => {
 					issuedScreeningOption: document,
 					lettersToNeighbours: document,
 					otherRelevantPolicies: document,
-					planningOfficersReport: document,
+					officersReport: document,
 					policiesFromStatutoryDevelopment: document,
 					pressAdvert: document,
-					relevantPartiesNotification: document,
-					representationsFromOtherParties: document,
+					notifyingParties: document,
+					representations: document,
 					responsesOrAdvice: document,
 					screeningDirection: document,
-					siteNotice: document,
+					siteNotices: document,
 					supplementaryPlanningDocuments: document,
 					treePreservationOrder: document
 				},

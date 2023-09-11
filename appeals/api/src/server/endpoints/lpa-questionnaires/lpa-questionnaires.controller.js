@@ -1,20 +1,23 @@
-import logger from '#utils/logger.js';
+import config from '#config/config.js';
 import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatLpaQuestionnaire } from './lpa-questionnaires.formatter.js';
 import { updateLPAQuestionaireValidationOutcome } from './lpa-questionnaires.service.js';
 import lpaQuestionnaireRepository from '#repositories/lpa-questionnaire.repository.js';
+import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
+import logger from '#utils/logger.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('express').Response} Response */
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 
 /**
  * @type {RequestHandler}
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getLpaQuestionnaireById = (req, res) => {
+const getLpaQuestionnaireById = async (req, res) => {
 	const { appeal } = req;
-	const formattedAppeal = formatLpaQuestionnaire(appeal);
-
+	const folders = await getFoldersForAppeal(appeal, config.appealStages.lpaQuestionnaire);
+	const formattedAppeal = formatLpaQuestionnaire(appeal, folders);
 	return res.send(formattedAppeal);
 };
 

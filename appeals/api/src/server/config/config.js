@@ -81,7 +81,15 @@ const { value, error } = schema.validate({
 		'appellant_case/plansDrawingsSupportingDocuments',
 		'appellant_case/separateOwnershipCertificate',
 		'appellant_case/newSupportingDocuments',
-		'appellant_case/appealStatement'
+		'appellant_case/appealStatement',
+		// LPA questionnaire folders
+		'lpa_questionnaire/conservationAreaMap',
+		'lpa_questionnaire/notifyingParties',
+		'lpa_questionnaire/siteNotices',
+		'lpa_questionnaire/lettersToNeighbours',
+		'lpa_questionnaire/pressAdvert',
+		'lpa_questionnaire/representations',
+		'lpa_questionnaire/officersReport'
 	],
 	appealStages: {
 		// stage mapping for ODW
