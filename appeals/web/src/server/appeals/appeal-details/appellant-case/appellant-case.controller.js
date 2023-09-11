@@ -131,7 +131,10 @@ const renderCheckAndConfirm = async (request, response) => {
 			},
 			insetText: 'Confirming this review will inform the appellant and LPA of the outcome',
 			summaryList: { formattedSections },
-			backLinkUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}`
+			backLinkUrl:
+				webAppellantCaseReviewOutcome.validationOutcome === 'incomplete'
+					? `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}/date`
+					: `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}`
 		});
 	} catch (error) {
 		logger.error(
