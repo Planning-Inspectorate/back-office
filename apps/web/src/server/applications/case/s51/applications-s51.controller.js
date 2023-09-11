@@ -21,7 +21,8 @@ import {
 	mapUpdateBodyToPayload,
 	updateS51Advice,
 	updateS51AdviceStatus,
-	getCaseAdviceReadyToPublish
+	getCaseAdviceReadyToPublish,
+	removePublishItem
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -432,6 +433,17 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
  * @type {import('@pins/express').RenderHandler<{}, any, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51PublishingQueue(request, response) {
+	const properties = await publishQueueData(request, response);
+	response.render(`applications/case-s51/s51-publish`, properties);
+}
+
+/**
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ * @returns 
+ */
+const publishQueueData = async (request, response) => {
 	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
 	const { caseId } = response.locals;
 	// @ts-ignore
@@ -443,12 +455,25 @@ export async function viewApplicationsCaseS51PublishingQueue(request, response) 
 		s51Advices.pageCount
 	);
 
-	response.render(`applications/case-s51/s51-publish`, {
+	return {
 		s51Advices,
 		paginationButtons,
 		backLink,
 		folderId,
-	});
+	};
+}
+
+/**
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ */
+export async function removeS51AdviceFromQueue(request, response) {
+	const { adviceId } = request.params;
+	const { caseId } = response.locals;
+	await removePublishItem(caseId, adviceId);
+	const properties = await publishQueueData(request, response);
+	response.render(`applications/case-s51/s51-publish`, properties);
 }
 
 /**

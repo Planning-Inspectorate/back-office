@@ -30,6 +30,13 @@ applicationsS51Router
 	.post(asyncRoute(controller.postApplicationsCaseS51CheckYourAnswersSave));
 
 applicationsS51Router
+	.route('/:adviceId/s51-remove-queue')
+	.get(
+		[assertDomainTypeIsNotInspector],
+		asyncRoute(controller.removeS51AdviceFromQueue)
+	);
+
+applicationsS51Router
 	.route('/create/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51CreatePage))
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
@@ -54,13 +61,6 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/s51-queue')
-	.get(
-		[assertDomainTypeIsNotInspector],
-		asyncRoute(controller.viewApplicationsCaseS51PublishingQueue)
-	);
-
-applicationsS51Router
-	.route('/s51-remove-queue')
 	.get(
 		[assertDomainTypeIsNotInspector],
 		asyncRoute(controller.viewApplicationsCaseS51PublishingQueue)

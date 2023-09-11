@@ -416,3 +416,25 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 		items
 	});
 };
+
+/**
+ * 
+ * @param {*} body 
+ * @param {*} response 
+ * @returns 
+ */
+export const removePublishItemFromQueue = async ({ body }, response) => {
+	const adviceId = Number(body.adviceId);
+
+	const s51Advice = await s51AdviceRepository.get(adviceId);
+	if (!s51Advice) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+	}
+
+	const updatedS51Advice = await s51AdviceRepository.update(adviceId, { publishedStatus: s51Advice.publishedStatusPrev });
+
+	response.send(updatedS51Advice);
+}

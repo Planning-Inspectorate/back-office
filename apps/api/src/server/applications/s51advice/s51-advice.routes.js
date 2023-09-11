@@ -8,7 +8,8 @@ import {
 	getDocuments,
 	updateManyS51Advices,
 	updateS51Advice,
-	getReadyToPublishAdvices
+	getReadyToPublishAdvices,
+    removePublishItemFromQueue
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -229,12 +230,12 @@ router.patch(
 			required: true,
 			type: 'integer'
 		}
-    #swagger.parameters['adviceId'] = {
-      in: 'path',
-      description: 'Advice ID',
-      required: true,
-      type: 'integer'
-    }
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+            description: 'Advice ID',
+            required: true,
+            type: 'integer'
+        }
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'S51 Advice update parameters',
@@ -281,6 +282,22 @@ router.post(
         }
     */
 	asyncHandler(getReadyToPublishAdvices)
+);
+
+router.post(
+	'/:id/s51-advice/remove-queue-item',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
+        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    */
+	asyncHandler(removePublishItemFromQueue)
 );
 
 export { router as s51AdviceRoutes };
