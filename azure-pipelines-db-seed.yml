@@ -47,14 +47,14 @@ jobs:
                     variable: DATABASE_URL
             - template: steps/node_script.yml@templates
               parameters:
-                condition: ne(${{ parameters.environment }}, 'prod')
+                condition: ne(${{ parameters.environment }}, 'Prod')
                 environmentVariables:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:seed
                 workingDirectory: $(Build.Repository.LocalPath)/apps/api
             - template: steps/node_script.yml@templates
               parameters:
-                condition: eq(${{ parameters.environment }}, 'prod')
+                condition: eq(${{ parameters.environment }}, 'Prod')
                 environmentVariables:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:seed:prod
