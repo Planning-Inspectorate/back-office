@@ -155,13 +155,11 @@ const householdAppeal = {
 		isTheSiteWithinAnAONB: null,
 		listedBuildingDetails: [
 			{
-				grade: 'Grade I',
-				description: 'http://localhost:8080',
+				listEntry: '1',
 				affectsListedBuilding: false
 			},
 			{
-				grade: 'Grade II',
-				description: 'http://localhost:8081',
+				listEntry: '2',
 				affectsListedBuilding: true
 			}
 		],
@@ -499,7 +497,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	developmentDescription: appeal.lpaQuestionnaire?.developmentDescription,
 	documents: {
 		communityInfrastructureLevy: document,
-		conservationAreaMapAndGuidance: document,
+		conservationAreaMap: document,
 		consultationResponses: document,
 		definitiveMapAndStatement: document,
 		emergingPlans: document,
@@ -507,14 +505,14 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 		issuedScreeningOption: document,
 		lettersToNeighbours: document,
 		otherRelevantPolicies: document,
-		planningOfficersReport: document,
+		officersReport: document,
 		policiesFromStatutoryDevelopment: document,
 		pressAdvert: document,
-		relevantPartiesNotification: document,
-		representationsFromOtherParties: document,
+		notifyingParties: document,
+		representations: document,
 		responsesOrAdvice: document,
 		screeningDirection: document,
-		siteNotice: document,
+		siteNotices: document,
 		supplementaryPlanningDocuments: document,
 		treePreservationOrder: document
 	},
