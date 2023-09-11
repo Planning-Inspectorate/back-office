@@ -7,7 +7,8 @@ import {
 	addDocuments,
 	getDocuments,
 	updateManyS51Advices,
-	updateS51Advice
+	updateS51Advice,
+	getReadyToPublishAdvices
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -254,6 +255,32 @@ router.patch(
 	validateS51AdviceId,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
+);
+
+router.post(
+	'/:id/s51-advice/ready-to-publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
+        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		},
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 's51 pagination parameters',
+            schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+            required: true
+        }
+		#swagger.responses[200] = {
+            description: 'An paginated data set of s51 advices and their properties',
+            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
+        }
+    */
+	asyncHandler(getReadyToPublishAdvices)
 );
 
 export { router as s51AdviceRoutes };
