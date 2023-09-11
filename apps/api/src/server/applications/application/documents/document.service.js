@@ -315,7 +315,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
 
-	const caseForDocuments = await caseRepository.getById(+caseId, {});
+	const caseForDocuments = await caseRepository.getById(caseId, {});
 
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 

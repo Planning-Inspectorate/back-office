@@ -113,7 +113,7 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
 	// Obtain URL of document from blob storage
 	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
-		params.id,
+		Number(params.id),
 		params.guid
 	);
 
