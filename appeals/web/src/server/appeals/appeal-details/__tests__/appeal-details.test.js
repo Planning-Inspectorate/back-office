@@ -16,7 +16,7 @@ describe('appeal-details', () => {
 		it('should render the received appeal details for a valid appealId with multiple linked/other appeals', async () => {
 			const appealId = appealData.appealId.toString();
 
-			nock('http://test/').get(`/appeals/${appealId}`).reply(200, appealData);
+			nock('http://test/').get(`/appeals/${appealId}`).reply(200, undefined);
 
 			const response = await request.get(`${baseUrl}/${appealId}`);
 			const element = parseHtml(response.text);

@@ -3,215 +3,42 @@
 exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal </span>
-                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
+                        </legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                                type="radio" value="complete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                                type="radio" value="incomplete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building details</dt>
-                            <dd class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building details</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building details</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a scheduled monument</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a scheduled monument</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="conservation-area-map-and-guidance.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Protected species</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Protected species</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Area of outstanding natural beauty</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Area of outstanding natural beauty</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Designated sites</dt>
-                            <dd class="govuk-summary-list__value"><span>potential special protection area (pSPA)</span>
-                                <br><span>special area of conservation (SAC)</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Designated sites</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Preservation Order</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Tree Preservation Order</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Presevation Order extent</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="tree-preservation-order.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Tree Presevation Order extent</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Gypsy of traveller</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Gypsy of traveller</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public right of way</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Public right of way</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Definitive map and statement extract</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="right-of-way.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Definitive map and statement extract</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">2. Environmental impact assessment</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Schedule Type</dt>
-                            <dd class="govuk-summary-list__value"><span>Schedule 2</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Schedule Type</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Needed</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Needed</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Complete</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Complete</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Responses</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="environment-statement-responses.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Environment Statement Responses</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Issued</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Screening Opinion Issued</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="issued-screening-opinion.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Opinion Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Direction Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="screening-direction.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Direction Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Notice</dt>
-                            <dd class="govuk-summary-list__value"><a href="site-notice.pdf" class="govuk-link">filename</a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Site Notice</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects sensitive area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects sensitive area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sensitive area details</dt>
-                            <dd class="govuk-summary-list__value"><span>The area is prone to flooding</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Sensitive area details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Meets or exceeds threshold or criteria in column 2</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                                    <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                                </legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                        type="radio" value="complete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                        type="radio" value="incomplete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <button class="govuk-button" data-module="govuk-button">Continue</button>
-                    </form>
-                </div>
-            </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -474,214 +301,45 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal </span>
-                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
+                        </legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                                type="radio" value="complete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                                type="radio" value="incomplete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building details</dt>
-                            <dd class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building details</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building details</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a scheduled monument</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a scheduled monument</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="conservation-area-map-and-guidance.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Protected species</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Protected species</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Area of outstanding natural beauty</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Area of outstanding natural beauty</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Designated sites</dt>
-                            <dd class="govuk-summary-list__value"><span>potential special protection area (pSPA)</span>
-                                <br><span>special area of conservation (SAC)</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Designated sites</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Preservation Order</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Tree Preservation Order</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Presevation Order extent</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="tree-preservation-order.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Tree Presevation Order extent</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Gypsy of traveller</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Gypsy of traveller</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public right of way</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Public right of way</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Definitive map and statement extract</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="right-of-way.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Definitive map and statement extract</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">2. Environmental impact assessment</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Schedule Type</dt>
-                            <dd class="govuk-summary-list__value"><span>Schedule 2</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Schedule Type</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Needed</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Needed</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Complete</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Complete</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Responses</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="environment-statement-responses.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Environment Statement Responses</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Issued</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Screening Opinion Issued</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="issued-screening-opinion.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Opinion Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Direction Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="screening-direction.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Direction Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Notice</dt>
-                            <dd class="govuk-summary-list__value"><a href="site-notice.pdf" class="govuk-link">filename</a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Site Notice</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects sensitive area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects sensitive area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sensitive area details</dt>
-                            <dd class="govuk-summary-list__value"><span>The area is prone to flooding</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Sensitive area details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Meets or exceeds threshold or criteria in column 2</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                                    <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                                </legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                        type="radio" value="complete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                        type="radio" value="incomplete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <button class="govuk-button" data-module="govuk-button">Continue</button>
-                    </form>
-                </div>
-            </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"
