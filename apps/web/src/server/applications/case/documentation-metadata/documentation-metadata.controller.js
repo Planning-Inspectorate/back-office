@@ -110,15 +110,15 @@ const layouts = {
  */
 export async function viewDocumentationMetaData({ params }, response) {
 	const layout = getLayoutParameters(params, response.locals);
-	if (
-		['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
-			response.locals.documentMetaData.publishedStatus
-		)
-	) {
+
+	const noPublish = ['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
+		response.locals.documentMetaData.publishedStatus
+	);
+	if (noPublish) {
 		layout.items = layout.items?.filter((item) => item.value !== 'ready_to_publish');
 	}
 
-	response.render(`applications/case-documentation/documentation-edit.njk`, { layout });
+	response.render(`applications/case-documentation/documentation-edit.njk`, { layout, noPublish });
 }
 
 /**

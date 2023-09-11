@@ -2,6 +2,7 @@
 
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "./edit/max-length-input.njk" import maxLengthInput %}
 {% from "../components/inputs/date-input.component.njk" import dateInput %}
 {% from "./edit/checkboxes-input.njk" import checkboxesInput %}
@@ -19,6 +20,11 @@
     <h1 class="govuk-heading-l">
         {{ layout.pageTitle }}
     </h1>
+    {% if noPublish %}
+      {{ govukInsetText({
+        text: "The file's current status is '" + (documentMetaData.publishedStatus | statusName) + "'. The file cannot be published or downloaded."
+      }) }}
+    {% endif %}
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         {% include 'app/includes/csrf.njk' %}
         {{ renderComponent(layout.metaDataName) }}
