@@ -1,3 +1,4 @@
+import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 
 export const backLink = {
@@ -35,7 +36,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 
 	let caseSummary = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		classes: 'govuk-summary-list--no-border',
 		rows: [
 			removeActions(mappedData.appeal.siteAddress.display.summaryListItem),
@@ -44,7 +47,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 	};
 	let caseOverview = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		rows: [
 			mappedData.appeal.appealType.display.summaryListItem,
 			mappedData.appeal?.caseProcedure?.display.summaryListItem,
@@ -68,7 +73,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 
 	let siteDetails = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		rows: [
 			mappedData.appeal.lpaInspectorAccess.display.summaryListItem,
 			mappedData.appeal.appellantInspectorAccess.display.summaryListItem,
@@ -106,7 +113,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 
 	let caseDocumentation = {
 		type: 'table',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		head: [{ text: 'Documentation' }, { text: 'Status' }, { text: 'Due date' }, { text: 'Action' }],
 		rows: [
 			mappedData.appeal.appellantCase.display.tableItem,
@@ -117,7 +126,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 
 	let caseTeam = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		rows: [
 			mappedData.appeal.caseOfficer.display.summaryListItem,
 			mappedData.appeal.inspector.display.summaryListItem

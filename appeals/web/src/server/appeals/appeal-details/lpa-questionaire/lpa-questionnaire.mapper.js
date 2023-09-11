@@ -1,3 +1,4 @@
+import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
@@ -28,7 +29,9 @@ export function lpaQuestionnairePage(lpaData, appealData, currentRoute, session)
 
 	let caseSummary = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		classes: 'govuk-summary-list--no-border',
 		rows: [
 			removeActions(mappedAppealData.appeal.siteAddress.display.summaryListItem),
@@ -43,7 +46,7 @@ export function lpaQuestionnairePage(lpaData, appealData, currentRoute, session)
 
 	switch (appealType) {
 		case 'Householder':
-			pageSections = householderLpaQuestionnairePage(lpaData, mappedLPAQData, session);
+			pageSections = householderLpaQuestionnairePage(mappedLPAQData, session);
 			break;
 		default:
 			break;
@@ -70,15 +73,16 @@ function removeActions(row) {
 }
 /**
  *
- * @param {{lpaQ: import('@pins/appeals.api/src/server/endpoints/appeals.js').SingleLPAQuestionnaireResponse}} lpaData
  * @param {import('#lib/mappers/lpaQuestionnaire.mapper.js').MappedLPAQInstructions} mappedLPAQData
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @returns
  */
-const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
+const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 	let sectionOne = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '1. Constraints, designations and other issues'
@@ -96,7 +100,9 @@ const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
 
 	let sectionTwo = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '2. Notifying relevant parties of the application'
@@ -113,7 +119,9 @@ const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
 
 	let sectionThree = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '3. Consultation responses and representations'
@@ -127,7 +135,9 @@ const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
 
 	let sectionFour = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '4. Planning officer’s report and supplementary documents'
@@ -145,7 +155,9 @@ const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
 
 	let sectionFive = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '5. Site access'
@@ -161,7 +173,9 @@ const householderLpaQuestionnairePage = (lpaData, mappedLPAQData, session) => {
 
 	let sectionSix = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes('appeals_case_officer'),
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		card: {
 			title: {
 				text: '6. Appeal process'
