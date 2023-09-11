@@ -52,4 +52,12 @@ applicationsS51Router
 	.route('/:adviceId/:step')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
 
+applicationsS51Router
+	.route('/s51-queue')
+	.get(
+		[assertDomainTypeIsNotInspector],
+		asyncRoute(controller.viewApplicationsCaseS51PublishingQueue)
+	);
+
+
 export default applicationsS51Router;

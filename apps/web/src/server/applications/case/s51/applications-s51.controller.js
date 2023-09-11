@@ -19,7 +19,8 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload,
 	updateS51Advice,
-	updateS51AdviceStatus
+	updateS51AdviceStatus,
+	getCaseAdviceReadyToPublish
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -422,4 +423,23 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 	}
 
 	return response.render('applications/case-s51/s51-successfully-deleted');
+}
+
+/**
+ * View a folder, showing files in the folder, and listing subfolders
+ *
+ * @type {import('@pins/express').RenderHandler<{}, ApplicationCaseLocals, {}, {size?: string, number?: string}, {}>}
+ */
+export async function viewApplicationsCaseS51PublishingQueue(request, response) {
+	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
+	const { caseId } = response.locals;
+	const documentationFiles = await getCaseAdviceReadyToPublish(caseId, currentPageNumber);
+	const backLink = '';
+	const paginationButtons = '';
+
+	response.render(`applications/case-documentation/documentation-publish`, {
+		documentationFiles,
+		paginationButtons,
+		backLink
+	});
 }

@@ -200,3 +200,19 @@ export const mapS51AdviceToPage = (payload) => {
 		'adviceDate.year': String(adviceDate.getFullYear())
 	};
 };
+
+/**
+ * Get the documents for the current folder
+ *
+ * @param {number} caseId
+ * @param {number} pageNumber
+ * @returns {Promise<PaginatedDocumentationFiles>}
+ */
+export const getCaseAdviceReadyToPublish = async (caseId, pageNumber) => {
+	return post(`applications/${caseId}/s51-advice/ready-to-publish`, {
+		json: {
+			pageSize: 125,
+			pageNumber
+		}
+	});
+};
