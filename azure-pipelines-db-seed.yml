@@ -6,6 +6,7 @@ parameters:
     values:
       - Dev
       - Test
+      - Prod
 
 pool: pins-odt-agent-pool
 
@@ -46,9 +47,17 @@ jobs:
                     variable: DATABASE_URL
             - template: steps/node_script.yml@templates
               parameters:
+                condition: ne(${{ parameters.environment }}, 'prod')
                 environmentVariables:
                   DATABASE_URL: $(DATABASE_URL)
                 script: npm run db:seed
+                workingDirectory: $(Build.Repository.LocalPath)/apps/api
+            - template: steps/node_script.yml@templates
+              parameters:
+                condition: eq(${{ parameters.environment }}, 'prod')
+                environmentVariables:
+                  DATABASE_URL: $(DATABASE_URL)
+                script: npm run db:seed:prod
                 workingDirectory: $(Build.Repository.LocalPath)/apps/api
     workspace:
       clean: all
