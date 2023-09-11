@@ -24,7 +24,8 @@ export const mapRequestToKeyDates = ({
 	recommendation,
 	decision,
 	postDecision,
-	withdrawal
+	withdrawal,
+	acceptance
 }) => {
 	const allKeyDates = {
 		...preApplication,
@@ -33,7 +34,8 @@ export const mapRequestToKeyDates = ({
 		...recommendation,
 		...decision,
 		...postDecision,
-		...withdrawal
+		...withdrawal,
+		...acceptance
 	};
 
 	return pick(allKeyDates, allKeyDateNames);
