@@ -61,7 +61,8 @@ export const createAppeal = async (data, documents) => {
 					}
 				},
 				lpaQuestionnaire: true,
-				user: true,
+				inspector: true,
+				caseOfficer: true,
 				appellant: true,
 				appealTimetable: true
 			}
@@ -83,19 +84,11 @@ const createAppealReference = (/** @type {number} */ id) => {
 };
 
 const getFolderIdFromDocumentType = (caseFolders, documentType, stage) => {
-	const folderLayout = config.appealFolderLayout;
-	let targetFolder = folderLayout.find(
-		(folder) => folder.path.indexOf(stage) === 0 && folder.allowedTypes.indexOf(documentType) > -1
-	);
-
-	if (!targetFolder) {
-		targetFolder = folderLayout.find(
-			(folder) => folder.path.indexOf(stage) === 0 && folder.allowedTypes.indexOf('*') === 0
-		);
-	}
+	const folderLayout = config.appealFolderPaths;
+	let targetFolder = folderLayout.find((folder) => folder.indexOf(stage) === 0);
 
 	if (targetFolder) {
-		const caseFolder = caseFolders.find((caseFolder) => caseFolder.path === targetFolder.path);
+		const caseFolder = caseFolders.find((caseFolder) => caseFolder.path === targetFolder);
 		return caseFolder.id;
 	}
 
