@@ -653,6 +653,31 @@ describe('appeals routes', () => {
 				});
 			});
 
+			test('removes a case officer from an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.caseOfficer);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					caseOfficer: null
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						caseOfficerUserId: null,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					caseOfficer: null
+				});
+			});
+
 			test('assigns an inspector to an appeal', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
@@ -675,6 +700,31 @@ describe('appeals routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					inspector: householdAppeal.inspector.azureUserId
+				});
+			});
+
+			test('removes an inspector from an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.inspector);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					inspector: null
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						inspectorUserId: null,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					inspector: null
 				});
 			});
 

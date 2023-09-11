@@ -3,7 +3,7 @@ import { getPageCount } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppeal, formatAppeals } from './appeals.formatter.js';
-import { assignUser } from './appeals.service.js';
+import { assignUser, assignedUserType } from './appeals.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('express').Response} Response */
@@ -58,7 +58,7 @@ const updateAppealById = async (req, res) => {
 	const appealId = Number(params.appealId);
 
 	try {
-		caseOfficer || inspector
+		assignedUserType({ caseOfficer, inspector })
 			? await assignUser(appealId, { caseOfficer, inspector })
 			: await appealRepository.updateAppealById(appealId, {
 					startedAt

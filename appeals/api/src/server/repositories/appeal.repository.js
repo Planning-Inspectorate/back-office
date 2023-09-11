@@ -1,8 +1,10 @@
 import { getSkipValue } from '#utils/database-pagination.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import { isStringOrNull } from '#endpoints/appeals/appeals.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateAppealRequest} UpdateAppealRequest */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
@@ -173,23 +175,17 @@ const getAppealById = async (id) => {
 
 /**
  * @param {number} id
- * @param {{
- *	dueDate?: string;
- *	startedAt?: string;
- *  caseOfficer?: string;
- *  inspector?: string;
- *  user?: User;
- * }} data
+ * @param {UpdateAppealRequest} data
  * @returns {PrismaPromise<object>}
  */
-const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector, user }) =>
+const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector }) =>
 	databaseConnector.appeal.update({
 		where: { id },
 		data: {
 			...(dueDate && { dueDate }),
 			...(startedAt && { startedAt }),
-			...(caseOfficer && user && { caseOfficerUserId: user.id }),
-			...(inspector && user && { inspectorUserId: user.id }),
+			...(isStringOrNull(caseOfficer) && { caseOfficerUserId: caseOfficer }),
+			...(isStringOrNull(inspector) && { inspectorUserId: inspector }),
 			updatedAt: new Date()
 		}
 	});
