@@ -216,3 +216,17 @@ export const getCaseAdviceReadyToPublish = async (caseId, pageNumber) => {
 		}
 	});
 };
+
+/**
+ * 
+ * @param {number} caseId 
+ * @param {number} adviceId 
+ * @returns 
+ */
+export const removePublishItem = async (caseId, adviceId) => {
+	return post(`applications/${caseId}/s51-advice/remove-queue-item`, {
+		json: {
+			adviceId
+		}
+	});
+} 
