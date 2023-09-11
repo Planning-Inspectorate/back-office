@@ -3,4 +3,5 @@
 /apps/api-testing/**/*.test.js
 /apps/web/src/server/static/scripts/*
 /apps/web/src/server/static/styles/*
+/apps/functions/migration/database/db-client/*
 /appeals/api/src/server/utils/db-client/*
