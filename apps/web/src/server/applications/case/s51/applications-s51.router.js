@@ -59,5 +59,11 @@ applicationsS51Router
 		asyncRoute(controller.viewApplicationsCaseS51PublishingQueue)
 	);
 
+applicationsS51Router
+	.route('/s51-remove-queue')
+	.get(
+		[assertDomainTypeIsNotInspector],
+		asyncRoute(controller.viewApplicationsCaseS51PublishingQueue)
+	);
 
 export default applicationsS51Router;

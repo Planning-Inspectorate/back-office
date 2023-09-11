@@ -1,0 +1,123 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% block beforeContent %}
+    {{ govukBackLink({
+		text: "Back",
+		href: backLink
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            {% block sectionContent %}
+                <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">
+                    <span class="govuk-caption-m">S51 advice publishing queue</span>
+                    Select items for publishing
+                </h1>
+                <ul class="govuk-list">
+                    <li>
+                        <span class='font-weight--700'>Case name:</span>
+                        {{ case.title }}
+                    </li>
+                    <li>
+                        <span class='font-weight--700'>Case reference:</span>
+                        {{ case.reference }}
+                    </li>
+                </ul>
+                <p class='govuk-body govuk-!-margin-top-6'>
+                    The queue contains {{ s51Advices.itemCount }} item(s).
+										Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
+										- {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
+										item(s).
+                </p>
+                <p class='govuk-body font-weight--700'>
+                    <span id="selectedFilesNumber">0</span> item(s) on this page are selected.
+                </p>
+                <form class="pins-files-list" method="post">
+                    <table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+                        <thead class="govuk-table__head govuk-body-s">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Select</th>
+                                <th scope="col" class="govuk-table__header">S51 advice item</th>
+                                <th scope="col" class="govuk-table__header">Properties</th>
+                                <th scope="col" class="govuk-table__header">Actions</th>
+                                <th scope="col" class="govuk-table__header">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body govuk-body-s">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">
+                                    {{ govukCheckboxes({
+											name: "selectAll",
+											items: [
+												{
+													value: true,
+													text: 'Select all'
+												}]
+										}) }}
+                                </td>
+                                <td class="govuk-table__cell" colspan="5">
+                                    <p>Select all items on page</p>
+                                </td>
+                            </tr>
+                            {% for s51Advice in s51Advices.items %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        {{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + s51Advice.id,
+															value: s51Advice.id,
+															text: s51Advice.title,
+															label: 'select ' + s51Advice.title
+														}]
+												}) }}
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <p class='font-weight--700 govuk-body-m'>{{ s51Advice.referenceNumber }} - {{ s51Advice.title }}</p>
+                                        {% if s51Advice.enquirer %}
+                                            <p class="file-info">
+                                                Enquirer: {{ s51Advice.enquirer }}
+                                            </p>
+                                        {% endif %}
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <p class="file-info ">
+                                            Enquiry date: {{s51Advice.enquiryDate|datestamp({format: 'd MMM yyyy'})}}
+                                        </p>
+                                        <p class="file-info ">
+                                            No of attachments: {{ s51Advice.totalAttachments }}
+                                        </p>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties'})}}' class='govuk-link'>
+                                            View/edit details
+                                        </a>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <a href='{{'s51-remove-queue'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties'})}}' class='govuk-link'>
+                                            Remove
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ govukButton({ text: 'Publish S51 advice' }) }}
+
+					{% if s51Advices.itemCount > 125 %}
+                    	{{ govukPagination(paginationButtons) }}
+					{% endif %}
+                </form>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

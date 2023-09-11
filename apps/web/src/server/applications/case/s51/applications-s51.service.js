@@ -206,7 +206,7 @@ export const mapS51AdviceToPage = (payload) => {
  *
  * @param {number} caseId
  * @param {number} pageNumber
- * @returns {Promise<PaginatedDocumentationFiles>}
+ * @returns {Promise<S51AdvicePaginatedResponse>}
  */
 export const getCaseAdviceReadyToPublish = async (caseId, pageNumber) => {
 	return post(`applications/${caseId}/s51-advice/ready-to-publish`, {

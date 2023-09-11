@@ -107,8 +107,12 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/change-status`;
 		case 's51-publishing-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/s51-publishing-queue`;
+		case 's51-list':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice`;
+		case 's51-remove-queue':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/s51-remove-queue`;
 		case 's51-queue':
-			return `${domainUrl}/case/${caseId}/project-documentation/s51-queue`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/s51-queue`;
 		case 'timetable':
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		case 'timetable-item':

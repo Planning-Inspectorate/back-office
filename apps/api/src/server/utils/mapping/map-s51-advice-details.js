@@ -42,7 +42,8 @@ export const mapS51Advice = (caseRef, s51Advice, attachments) => {
 		redactedStatus: s51Advice.redactedStatus ?? '',
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
 		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString()),
-		attachments
+		attachments,
+		totalAttachments: attachments?.length
 	};
 };
 

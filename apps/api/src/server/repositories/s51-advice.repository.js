@@ -170,6 +170,9 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 		where: {
 			caseId,
 			publishedStatus: 'ready_to_publish'
+		},
+		include: {
+			S51AdviceDocument: true
 		}
 	});
 };
