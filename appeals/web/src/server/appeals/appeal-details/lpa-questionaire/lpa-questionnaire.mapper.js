@@ -27,7 +27,7 @@ export function lpaQuestionnairePage(lpaData, appealData, currentRoute, session)
 	const mappedAppealData = initialiseAndMapAppealData(appealData, currentRoute);
 	const appealType = appealData.appeal.appealType;
 
-	let caseSummary = {
+	const caseSummary = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -52,13 +52,11 @@ export function lpaQuestionnairePage(lpaData, appealData, currentRoute, session)
 			break;
 	}
 
-	let reviewOutcome = mappedLPAQData.lpaQ.reviewOutcome.input?.filter(
+	const reviewOutcome = mappedLPAQData.lpaQ.reviewOutcome.input?.filter(
 		(/** @type {{ type: string; }} */ inputOption) => inputOption.type === 'radio'
 	);
 
-	let pageItems = [caseSummary, pageSections, reviewOutcome].flat();
-
-	return pageItems;
+	return [caseSummary, pageSections, reviewOutcome].flat();
 }
 
 /**
@@ -78,7 +76,7 @@ function removeActions(row) {
  * @returns
  */
 const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
-	let sectionOne = {
+	const sectionOne = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -98,7 +96,7 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		]
 	};
 
-	let sectionTwo = {
+	const sectionTwo = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -117,7 +115,7 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		]
 	};
 
-	let sectionThree = {
+	const sectionThree = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -133,7 +131,7 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		]
 	};
 
-	let sectionFour = {
+	const sectionFour = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -146,14 +144,14 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		rows: [mappedLPAQData.lpaQ?.officersReport?.display.summaryListItem]
 	};
 
-	let neighbouringSitesSummaryLists = [];
+	const neighbouringSitesSummaryLists = [];
 	if (mappedLPAQData.lpaQ.neighbouringSite && mappedLPAQData.lpaQ.neighbouringSite.length > 0) {
 		for (const site of mappedLPAQData.lpaQ.neighbouringSite) {
 			neighbouringSitesSummaryLists.push(site.display.summaryListItem);
 		}
 	}
 
-	let sectionFive = {
+	const sectionFive = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -171,7 +169,7 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		].flat()
 	};
 
-	let sectionSix = {
+	const sectionSix = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -187,9 +185,14 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 		]
 	};
 
-	let allSections = [sectionOne, sectionTwo, sectionThree, sectionFour, sectionFive, sectionSix];
-
-	allSections.filter((item) => item !== undefined);
+	let allSections = [
+		sectionOne,
+		sectionTwo,
+		sectionThree,
+		sectionFour,
+		sectionFive,
+		sectionSix
+	].filter((item) => item !== undefined);
 
 	allSections.forEach((item) => {
 		if ('noActions' in item && item.noActions && 'rows' in item) {

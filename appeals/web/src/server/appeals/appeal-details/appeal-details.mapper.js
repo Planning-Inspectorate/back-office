@@ -16,7 +16,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 	const mappedData = initialiseAndMapAppealData(data, currentRoute);
 
 	/** @type {{type: string, bannerProperties: any[]}} */
-	let notificationBanners = {
+	const notificationBanners = {
 		type: 'notification-banner',
 		bannerProperties: []
 	};
@@ -32,9 +32,9 @@ export function appealsDetailPage(data, currentRoute, session) {
 		delete session.siteVisitTypeSelected;
 	}
 
-	let statusTag = { type: 'status-tag', ...mappedData.appeal.appealStatus.display.statusTag };
+	const statusTag = { type: 'status-tag', ...mappedData.appeal.appealStatus.display.statusTag };
 
-	let caseSummary = {
+	const caseSummary = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -45,7 +45,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 			removeActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
 		]
 	};
-	let caseOverview = {
+	const caseOverview = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -71,7 +71,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 		}
 	}
 
-	let siteDetails = {
+	const siteDetails = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -105,13 +105,13 @@ export function appealsDetailPage(data, currentRoute, session) {
 			data.appeal.finalCommentReviewDate
 				? mappedData.appeal.siteVisitDate.display.summaryListItem
 				: undefined
-		];
+		].filter((item) => item !== undefined);
 	} else {
 		caseTimetable.type = 'inset-text';
 		caseTimetable.html = `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${data.appeal.appealId}/appellant-case" class="govuk-link">Review appeal</a>`;
 	}
 
-	let caseDocumentation = {
+	const caseDocumentation = {
 		type: 'table',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -124,7 +124,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 		firstCellIsHeader: true
 	};
 
-	let caseTeam = {
+	const caseTeam = {
 		type: 'summary-list',
 		noActions: !session.account.idTokenClaims.groups.includes(
 			config.referenceData.appeals.caseOfficerGroupId
@@ -135,7 +135,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 		]
 	};
 
-	let appealDetailsAccordion = {
+	const appealDetailsAccordion = {
 		id: 'accordion-default' + data.appeal.appealId,
 		type: 'accordion',
 		items: [
@@ -178,13 +178,7 @@ export function appealsDetailPage(data, currentRoute, session) {
 
 	components.forEach((item) => {
 		if ('noActions' in item && item.noActions && 'rows' in item) {
-			item.rows.forEach((row) => {
-				if (row) {
-					Reflect.deleteProperty(row, 'actions');
-					return row;
-				}
-				return;
-			});
+			item.rows.forEach((row) => removeActions(row));
 		}
 	});
 	let pageItems = [notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
