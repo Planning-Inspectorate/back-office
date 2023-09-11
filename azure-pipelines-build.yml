@@ -527,7 +527,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-casedata-import
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
@@ -567,7 +567,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-lpaq-import
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
@@ -607,7 +607,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-hrdata-import
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
