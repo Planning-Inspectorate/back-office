@@ -81,6 +81,10 @@ export function createContentFormView({
 						classes: 'govuk-!-font-weight-bold'
 					},
 					characterCount: true,
+					characterCountWarning: true,
+					characterCountWarningLimit: 500,
+					characterCountWarningMessage:
+						'You have exceeded the recommended length for a project update. Consider reviewing the content to make it shorter and easier to understand',
 					value: values.backOfficeProjectUpdateContent,
 					errorMessage: errors?.backOfficeProjectUpdateContent
 				},
@@ -211,7 +215,7 @@ export function createDetailsView({
 				},
 				{
 					key: { text: 'English' },
-					value: { html: projectUpdate.htmlContent }
+					value: { html: projectUpdate.htmlContent, classes: 'project-update' }
 				},
 				{
 					key: { text: 'What information does the update contain?' },
@@ -251,6 +255,29 @@ export function sortStatuses(statuses) {
 		}
 	}
 	return sorted;
+}
+
+/**
+ * Returns a filter function for UI status options
+ * This filters out statuses that shouldn't show on the UI
+ *
+ * @param {string} currentStatus
+ * @returns {function(string): boolean}
+ */
+export function statusFilter(currentStatus) {
+	// filter out any options that shouldn't be shown on the UI
+	if (currentStatus === ProjectUpdate.Status.readyToPublish) {
+		// you can't change an update to published from the status page
+		// that happens on the check answers page
+		// instead it'd be set to Ready to Publish
+		return (status) => status !== ProjectUpdate.Status.published;
+	} else if (currentStatus === ProjectUpdate.Status.readyToUnpublish) {
+		// you can't change an update to unpublished from the status page
+		// that happens on the check answers page
+		// instead it'd be set to Ready to Unpublish
+		return (status) => status !== ProjectUpdate.Status.unpublished;
+	}
+	return () => true;
 }
 
 /**

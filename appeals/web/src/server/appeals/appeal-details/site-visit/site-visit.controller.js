@@ -3,7 +3,11 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case/appellant-case.service.js';
 import * as siteVisitService from './site-visit.service.js';
 import { mapWebVisitTypeToApiVisitType } from './site-visit.mapper.js';
-import { dayMonthYearToApiDateString, dateToDisplayDate } from '#lib/dates.js';
+import {
+	hourMinuteToApiDateString,
+	dayMonthYearToApiDateString,
+	dateToDisplayDate
+} from '#lib/dates.js';
 
 /**
  *
@@ -112,8 +116,6 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 						: 'Address not known';
 					const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
 
-					request.session.siteVisitTypeSelected = true;
-
 					return response.render('app/confirmation.njk', {
 						panel: {
 							title: 'Site visit booked',
@@ -149,6 +151,41 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 				}
 			}
 		}
+	}
+
+	return response.render('app/404.njk');
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+const renderSetVisitType = async (request, response) => {
+	const { errors } = request;
+
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (appealDetails) {
+		const {
+			body: { 'visit-type': visitType }
+		} = request;
+
+		const appealReferenceFragments = appealDetails?.appealReference.split('/');
+
+		return response.render('appeals/appeal/set-site-visit-type.njk', {
+			appeal: {
+				id: appealDetails?.appealId,
+				reference: appealDetails?.appealReference,
+				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+			},
+			siteVisit: {
+				visitType
+			},
+			errors
+		});
 	}
 
 	return response.render('app/404.njk');
@@ -205,8 +242,9 @@ export const postScheduleSiteVisit = async (request, response) => {
 					month: parseInt(visitDateMonth, 10),
 					year: parseInt(visitDateYear, 10)
 				});
-				const visitStartTime = `${visitStartTimeHour}:${visitStartTimeMinute}`;
-				const visitEndTime = `${visitEndTimeHour}:${visitEndTimeMinute}`;
+
+				const visitStartTime = hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute);
+				const visitEndTime = hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute);
 				const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
 
 				if (appellantCaseResponse.siteVisit?.siteVisitId) {
@@ -250,4 +288,74 @@ export const postScheduleSiteVisit = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getSiteVisitScheduled = async (request, response) => {
 	renderScheduleSiteVisitConfirmation(request, response);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getSetVisitType = async (request, response) => {
+	renderSetVisitType(request, response);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postSetVisitType = async (request, response) => {
+	const { errors } = request;
+
+	if (errors) {
+		return renderSetVisitType(request, response);
+	}
+
+	const {
+		params: { appealId }
+	} = request;
+
+	try {
+		const appealDetails = await appealDetailsService
+			.getAppealDetailsFromId(request.apiClient, appealId)
+			.catch((error) => logger.error(error));
+
+		if (appealDetails) {
+			const appellantCaseResponse = await appellantCaseService
+				.getAppellantCaseFromAppealId(
+					request.apiClient,
+					appealDetails?.appealId,
+					appealDetails?.appellantCaseId
+				)
+				.catch((error) => logger.error(error));
+
+			if (appellantCaseResponse) {
+				const {
+					body: { 'visit-type': visitType }
+				} = request;
+
+				const appealIdNumber = parseInt(appealId, 10);
+				const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
+
+				if (
+					Number.isInteger(appellantCaseResponse.siteVisit?.siteVisitId) &&
+					appellantCaseResponse.siteVisit?.siteVisitId > -1
+				) {
+					await siteVisitService.updateSiteVisit(
+						request.apiClient,
+						appealIdNumber,
+						appellantCaseResponse.siteVisit?.siteVisitId,
+						apiVisitType
+					);
+
+					request.session.siteVisitTypeSelected = true;
+
+					return response.redirect(`/appeals-service/appeal-details/${appealDetails.appealId}`);
+				}
+			}
+		}
+
+		return response.render('app/404.njk');
+	} catch (error) {
+		logger.error(
+			error,
+			error instanceof Error
+				? error.message
+				: 'Something went wrong when setting the site visit type'
+		);
+
+		return response.render('app/500.njk');
+	}
 };

@@ -1,15 +1,14 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
-
 {% macro datePublished(values, errors) %}
-	{{ govukInput({
+    {{ govukInput({
 		label: {
 			text: "Anticipated submission date published (optional)",
 			classes: 'font-weight--700'
 		},
-		id: "keyDates.submissionDatePublished",
-		name: "keyDates.submissionDatePublished",
-		value: values['keyDates.submissionDatePublished'],
-		errorMessage: errors['keyDates.submissionDatePublished'],
+		id: "keyDates.preApplication.submissionAtPublished",
+		name: "keyDates.preApplication.submissionAtPublished",
+		value: values['keyDates.preApplication.submissionAtPublished'],
+		errorMessage: errors['keyDates.preApplication.submissionAtPublished'],
 		classes: "govuk-!-width-one-third",
 		hint: {
 			text: "for example, Q4 2023"

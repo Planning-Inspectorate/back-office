@@ -1,0 +1,30 @@
+{
+  "name": "@pins/functions-migration",
+  "version": "1.0.0",
+  "description": "Azure functions related to migration",
+  "type": "module",
+  "scripts": {
+    "copy-schema": "node database/copy-schema.js",
+    "prisma-generate": "node database/copy-schema.js && npx prisma generate",
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@pins/platform": "^0.0.0",
+    "@prisma/client": "^4.16.1",
+    "dotenv": "*",
+    "joi": "*"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x",
+    "cross-env": "*",
+    "jest": "*",
+    "prisma": "4.16.1"
+  },
+  "prisma": {
+    "schema": "database/schema.prisma"
+  },
+  "imports": {
+    "#db-client": "./database/db-client"
+  }
+}

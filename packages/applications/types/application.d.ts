@@ -38,6 +38,10 @@ export interface Applicant {
 }
 
 export interface KeyApplicationDates {
+	preApplication?: PreApplicationDates;
+}
+
+export interface PreApplicationDates {
 	firstNotifiedDate?: Date;
 	submissionDate?: Date;
 }

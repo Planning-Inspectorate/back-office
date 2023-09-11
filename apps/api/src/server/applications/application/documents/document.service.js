@@ -14,6 +14,7 @@ import { getFolder } from '../file-folders/folders.service.js';
 import config from '../../../config/config.js';
 
 /**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
+/**  @typedef {import('apps/api/src/database/schema.js').Document} Document */
 
 /**
  * Remove extension from document name
@@ -314,7 +315,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
 
-	const caseForDocuments = await caseRepository.getById(+caseId, {});
+	const caseForDocuments = await caseRepository.getById(caseId, {});
 
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 
@@ -364,8 +365,6 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
 	currentDocumentVersion[0].publishedStatus = 'awaiting_upload';
-	currentDocumentVersion[0].redacted = false;
-	currentDocumentVersion[0].redactedStatus = '';
 	currentDocumentVersion[0].datePublished = null;
 
 	if (config.virusScanningDisabled) {
@@ -572,4 +571,38 @@ export const markDocumentVersionAsPublished = async ({
 	);
 
 	return publishedDocument;
+};
+
+/**
+ * Given a list of file names, return two lists: one of pre-existing files with that name in the S51 case and another with the remainder
+ *
+ * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
+ * @param {Document[]} documents
+ * @returns {Promise<ExtractedDuplicates>}
+ * */
+export const extractDuplicates = async (documents) => {
+	const results = await Promise.allSettled(
+		documents.map(
+			(doc) =>
+				new Promise((resolve, reject) =>
+					documentRepository.getInFolderByName(doc.folderId, doc.documentName).then((existing) => {
+						if (existing) {
+							reject(doc.documentName);
+						} else {
+							resolve(doc.documentName);
+						}
+					})
+				)
+		)
+	);
+
+	return results.reduce((acc, result) => {
+		if (result.status === 'fulfilled') {
+			acc.remainder.push(result.value);
+		} else {
+			acc.duplicates.push(result.reason);
+		}
+
+		return acc;
+	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
 };

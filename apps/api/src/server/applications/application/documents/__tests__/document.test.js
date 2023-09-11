@@ -22,6 +22,7 @@ describe('Provide document upload URLs', () => {
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});
 		got.post.mockReturnValue({
 			json: jest.fn().mockResolvedValue({
@@ -61,7 +62,8 @@ describe('Provide document upload URLs', () => {
 					GUID: 'some-guid'
 				}
 			],
-			failedDocuments: []
+			failedDocuments: [],
+			duplicates: []
 		});
 
 		const metadata = {
@@ -148,7 +150,7 @@ describe('Provide document upload URLs', () => {
 
 		// THEN
 		expect(response.status).toEqual(409);
-		expect(response.body).toEqual({ failedDocuments: ['test doc'] });
+		expect(response.body).toEqual({ failedDocuments: [], duplicates: ['test doc'] });
 	});
 
 	test('throws error if folder id does not belong to case', async () => {

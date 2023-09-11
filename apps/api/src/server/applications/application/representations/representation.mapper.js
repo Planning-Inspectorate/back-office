@@ -135,3 +135,27 @@ export const mapCaseRepresentationsUnderCount = (under18Counts) => {
 	});
 	return { count: ticker, name: 'UNDER_18' };
 };
+
+/**
+ * Return subset of Representation properties
+ * @param {Prisma.RepresentationSelect} representation
+ * @return {{id: string, reference: string, status: string, redacted: boolean, received: boolean, firstName: string, lastName: string, organisationName: string}}
+ */
+export const mapRepresentationSummary = (representation) => {
+	const representationSummary = pick(representation, [
+		'id',
+		'reference',
+		'status',
+		'redacted',
+		'received'
+	]);
+
+	const contact = representation.contacts?.[0];
+
+	return {
+		...representationSummary,
+		firstName: contact?.firstName,
+		lastName: contact?.lastName,
+		organisationName: contact?.organisationName
+	};
+};

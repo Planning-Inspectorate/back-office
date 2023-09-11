@@ -1,0 +1,47 @@
+//@use "../1-settings/_settings.global.scss" as pins-colours;
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "../../1-settings/_settings.global.scss" as pins-colours;
+
+.pins-list-menu-container {
+	width: 18rem;
+	margin-right: 1rem;
+}
+
+.pins-list-menu {
+	text-align: left;
+	padding-left: 0;
+	margin-left: 0;
+	margin-top: 0;
+
+	.govuk-heading-s {
+		margin-bottom: 0;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	a {
+		width: 100%;
+		display: flex;
+		text-decoration: none;
+		padding: 0.5em;
+		font-size: 16;
+		height: 3.5rem;
+		align-items: center;
+		&:visited {
+			color: pins-colours.$pins-colours-blue-500;
+		}
+	}
+	a:focus,
+	a:active,
+	a.pins-selected-item {
+		background-color: pins-colours.$pins-colours-grey-100;
+		box-shadow: -4px 0px 0px pins-colours.$pins-colours-blue-500;
+	}
+
+	a.pins-selected-item{
+		color: colors.govuk-colour("black");
+		font-weight: 800;
+	}
+}

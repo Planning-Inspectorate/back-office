@@ -109,10 +109,12 @@ const document = {
 					blobStoreUrl: '/some/path/document.pdf'
 				}
 			],
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsUploadFailed: {
-			failedDocuments: ['example.pdf']
+			failedDocuments: ['example.pdf'],
+			duplicates: ['example2.pdf']
 		},
 		documentsPublished: [
 			{
@@ -154,8 +156,10 @@ const document = {
 				}
 			],
 			keyDates: {
-				submissionDatePublished: 'Q1 2023',
-				submissionDateInternal: 123
+				preApplication: {
+					submissionAtPublished: 'Q1 2023',
+					submissionAtInternal: 123
+				}
 			}
 		},
 		CreateApplication: {
@@ -191,8 +195,10 @@ const document = {
 				}
 			],
 			keyDates: {
-				submissionDatePublished: 'Q1 2023',
-				submissionDateInternal: 123
+				preApplication: {
+					submissionAtPublished: 'Q1 2023',
+					submissionAtInternal: 123
+				}
 			}
 		},
 		Sectors: [
@@ -335,7 +341,8 @@ const document = {
 			size: 1024,
 			stage: 3,
 			filter1: 'Marketing',
-			filter2: 'Brochure'
+			filter2: 'Brochure',
+			fromFrontOffice: true
 		},
 		documentsMetadataResponseBody: {
 			version: 1,
@@ -1479,21 +1486,6 @@ const document = {
 				}
 			}
 		},
-		S51AdvicePaginatedRequestBody: {
-			type: 'object',
-			properties: {
-				pageNumber: {
-					type: 'integer',
-					description: 'The page number required',
-					example: 1
-				},
-				pageSize: {
-					type: 'integer',
-					description: 'The number of items per page',
-					example: 50
-				}
-			}
-		},
 		S51AdviceDetails: {
 			type: 'object',
 			properties: {
@@ -1617,6 +1609,88 @@ const document = {
 				}
 			}
 		},
+		S51AdviceUpdateRequestBody: {
+			title: 'title',
+			firstName: 'first name',
+			lastName: 'last name',
+			enquirer: 'organisation',
+			enquiryMethod: 'meeting',
+			enquiryDate: '2023-01-11T00:00:00.000Z',
+			enquiryDetails: 'title',
+			adviser: 'person',
+			adviceDate: '2023-02-11T00:00:00.000Z',
+			adviceDetails: 'title',
+			redactedStatus: 'redacted',
+			publishedStatus: 'not_checked'
+		},
+		S51AdviceMultipleUpdateRequestBody: {
+			type: 'object',
+			properties: {
+				redacted: {
+					type: 'boolean',
+					description: 'Redacted status',
+					example: true
+				},
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				items: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							id: { type: 'integer', description: 'The S51 Advice record id', example: 1 }
+						}
+					}
+				}
+			}
+		},
+		S51AdviceUpdateResponseItem: {
+			type: 'object',
+			properties: {
+				id: {
+					type: 'integer',
+					description: 'The S51 Advice record id',
+					example: 1
+				},
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				}
+			}
+		},
+		S51AdviceMultipleUpdateResponseBody: {
+			type: 'array',
+			items: { $ref: '#/definitions/S51AdviceUpdateResponseItem' }
+		},
+		S51AdviceUpdateBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						items: {
+							type: 'string',
+							example: 'Unknown S51 Advice id 100'
+						},
+						unknown: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
 		ProjectUpdateNotificationLogList: {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/ProjectUpdateNotificationLog')
@@ -1690,6 +1764,43 @@ const document = {
 				functionInvocationId: {
 					type: 'string',
 					description: 'the ID of the Azure function run that handled this entry'
+				}
+			}
+		},
+		RepresentationSummary: {
+			type: 'object',
+			properties: {
+				id: {
+					type: 'number',
+					example: 1
+				},
+				reference: {
+					type: 'string',
+					example: 'BC0110001-2'
+				},
+				status: {
+					type: 'string',
+					example: 'VALID'
+				},
+				redacted: {
+					type: 'boolean',
+					example: true
+				},
+				received: {
+					type: 'string',
+					example: '2023-03-14T14:28:25.704Z'
+				},
+				firstName: {
+					type: 'string',
+					example: 'James'
+				},
+				lastName: {
+					type: 'string',
+					example: 'Bond'
+				},
+				organisationName: {
+					type: 'string',
+					example: 'MI6'
 				}
 			}
 		},
@@ -1955,6 +2066,230 @@ const document = {
 						notFound: {
 							type: 'string',
 							example: 'resource not found'
+						}
+					}
+				}
+			}
+		},
+		ApplicationKeyDates: {
+			type: 'object',
+			properties: {
+				preApplication: {
+					type: 'object',
+					properties: {
+						datePINSFirstNotifiedOfProject: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateProjectAppearsOnWebsite: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						anticipatedSubmissionDateNonSpecific: {
+							type: 'string',
+							description: 'Quarter followed by year',
+							example: 'Q1 2023'
+						},
+						anticipatedDateOfSubmission: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						screeningOpinionSought: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						screeningOpinionIssued: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						scopingOpinionSought: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						scopingOpinionIssued: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						section46Notification: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				acceptance: {
+					type: 'object',
+					properties: {
+						dateOfDCOSubmission: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						deadlineForAcceptanceDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfDCOAcceptance: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfNonAcceptance: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				preExamination: {
+					type: 'object',
+					properties: {
+						dateOfRepresentationPeriodOpen: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfRelevantRepresentationClose: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						extensionToDateRelevantRepresentationsClose: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateRRepAppearOnWebsite: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateIAPIDue: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						rule6LetterPublishDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						preliminaryMeetingStartDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						notificationDateForPMAndEventsDirectlyFollowingPM: {
+							type: 'number',
+							example: 1_646_822_600
+						},
+						notificationDateForEventsDeveloper: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				examination: {
+					type: 'object',
+					properties: {
+						dateSection58NoticeReceived: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						confirmedStartOfExamination: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						rule8LetterPublishDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						deadlineForCloseOfExamination: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateTimeExaminationEnds: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage4ExtensionToExamCloseDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				recommendation: {
+					type: 'object',
+					properties: {
+						deadlineForSubmissionOfRecommendation: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfRecommendations: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage5ExtensionToRecommendationDeadline: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				decision: {
+					type: 'object',
+					properties: {
+						deadlineForDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						confirmedDateOfDecision: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						stage5ExtensionToDecisionDeadline: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				postDecision: {
+					type: 'object',
+					properties: {
+						jRPeriodEndDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						}
+					}
+				},
+				withdrawal: {
+					type: 'object',
+					properties: {
+						dateProjectWithdrawn: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
 						}
 					}
 				}

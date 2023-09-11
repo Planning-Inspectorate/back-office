@@ -87,6 +87,33 @@ const s51AdvicesOnCase1 = [
 	}
 ];
 
+const s51AdviceDocuments = [
+	{
+		id: 1,
+		adviceId: 5,
+		documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+		Document: {
+			guid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+			reference: 'EN0110002-000003',
+			folderId: 1734,
+			createdAt: '2023-08-16T13:57:21.992Z',
+			isDeleted: false,
+			latestVersionId: 1,
+			caseId: 29,
+			fromFrontOffice: false,
+			latestDocumentVersion: {
+				fileName: '2048px-Pittsburgh_Steelers_logo.svg',
+				mime: 'application/pdf',
+				size: 207364,
+				dateCreated: '2023-08-16T13:57:22.022Z',
+				publishedStatus: 'awaiting_upload',
+				documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+				version: 1
+			}
+		}
+	}
+];
+
 describe('Test S51 advice API', () => {
 	afterEach(() => {
 		jest.resetAllMocks();
@@ -126,9 +153,48 @@ describe('Test S51 advice API', () => {
 
 	test('get by id returns s51 advice by id', async () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue(null);
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		const resp = await request.get('/applications/21/s51-advice/132').send({});
 		expect(resp.status).toEqual(200);
+		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
+	});
+
+	test('get by id returns s51 advice by id with attachments', async () => {
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue(s51AdviceDocuments);
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		const resp = await request.get('/applications/21/s51-advice/132').send({});
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toEqual({
+			adviceDate: 1677492000,
+			adviceDetails: 'adviceDetails',
+			adviser: 'adviser',
+			attachments: [
+				{
+					documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+					documentType: 'application/pdf',
+					documentName: '2048px-Pittsburgh_Steelers_logo.svg',
+					version: 1,
+					dateAdded: 1692194242,
+					status: 'awaiting_upload',
+					documentSize: 207364
+				}
+			],
+			dateCreated: 1672531200,
+			dateUpdated: 1672531200,
+			enquirer: 'enquirer',
+			enquiryDate: 1677492000,
+			enquiryDetails: 'enquiryDetails',
+			enquiryMethod: 'email',
+			firstName: '',
+			lastName: '',
+			publishedStatus: '',
+			redactedStatus: '',
+			referenceCode: 'undefined-Advice-00001',
+			referenceNumber: '00001',
+			title: 'A title'
+		});
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 	});
 
@@ -139,10 +205,9 @@ describe('Test S51 advice API', () => {
 		databaseConnector.s51Advice.count.mockResolvedValue(s51AdvicesInApplication1Count);
 
 		// WHEN
-		const response = await request.post('/applications/1/s51-advice').send({
-			pageNumber: 1,
-			pageSize: 50
-		});
+		const response = await request
+			.get('/applications/1/s51-advice')
+			.query({ page: 1, pageSize: 50 });
 
 		// THEN
 		expect(response.status).toEqual(200);
@@ -181,8 +246,8 @@ describe('Test S51 advice API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 
 		// WHEN
-		const response = await request.post('/applications/1000/s51-advice').send({
-			pageNumber: 1,
+		const response = await request.get('/applications/1000/s51-advice').query({
+			page: 1,
 			pageSize: 1
 		});
 

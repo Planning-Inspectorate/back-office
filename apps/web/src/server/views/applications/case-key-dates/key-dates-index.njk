@@ -1,0 +1,67 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block sectionContent %}
+
+	<h3 class="govuk-heading-m">Key dates</h3>
+
+	<p class="govuk-body">Provide details on dates and deadlines in this project. </p>
+
+	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+	{% set items = [] %}
+
+	{% for key, values in sections %}
+
+		{% set heading %}
+		<p class='govuk-heading-s'>{{key|keyDatesProperty}}</p>
+		{% endset %}
+
+		{% set content %}
+		<div class='pins-key-dates-section'>
+			<a class='govuk-link offset-link' href='#'>Manage dates</a>
+			{{createSectionTable(values) }}
+		</div>
+		{% endset %}
+
+		{% set items = items | concat({
+			heading: {
+				html: heading
+			},
+			content: {
+				html: content
+			}
+		}) %}
+
+	{% endfor %}
+	{{ govukAccordion({
+  id: "accordion-key-dates",
+  items: items
+}) }}
+
+{% endblock %}
+
+{% macro createSectionTable(section)%}
+
+	{% set rows = [] %}
+
+	{% for key, values in section %}
+		{# There is one field whose value is not a date #}
+		{% set dateValue = values if key === 'submissionAtPublished' else
+			values | datestamp({format: 'dd MMM yyyy'}) %}
+
+		{% set rows = rows | concat([[
+			{text: key|keyDatesProperty},
+			{text: dateValue}
+		]])%}
+
+	{% endfor %}
+
+	{{ govukTable({
+  		captionClasses: "govuk-table__caption--m",
+  		firstCellIsHeader: true,
+		rows: rows
+	}) }}
+
+{% endmacro %}

@@ -1,6 +1,9 @@
+import { mapDateToUnixTimestamp } from './map-date-to-unix-timestamp.js';
+
 /**
- * 
- * @param {string} dateString 
+ *
+ * @param {string} dateString
  * @returns {number}
  */
-export const mapDateStringToUnixTimestamp = (dateString) => Math.floor((new Date(dateString)).getTime() / 1000);
+export const mapDateStringToUnixTimestamp = (dateString) =>
+	mapDateToUnixTimestamp(new Date(dateString));

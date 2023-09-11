@@ -3,215 +3,42 @@
 exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal </span>
-                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
+                        </legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                                type="radio" value="complete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                                type="radio" value="incomplete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building details</dt>
-                            <dd class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building details</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building details</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a scheduled monument</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a scheduled monument</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="conservation-area-map-and-guidance.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Protected species</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Protected species</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Area of outstanding natural beauty</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Area of outstanding natural beauty</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Designated sites</dt>
-                            <dd class="govuk-summary-list__value"><span>potential special protection area (pSPA)</span>
-                                <br><span>special area of conservation (SAC)</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Designated sites</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Preservation Order</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Tree Preservation Order</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Presevation Order extent</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="tree-preservation-order.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Tree Presevation Order extent</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Gypsy of traveller</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Gypsy of traveller</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public right of way</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Public right of way</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Definitive map and statement extract</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="right-of-way.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Definitive map and statement extract</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">2. Environmental impact assessment</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Schedule Type</dt>
-                            <dd class="govuk-summary-list__value"><span>Schedule 2</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Schedule Type</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Needed</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Needed</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Complete</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Complete</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Responses</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="environment-statement-responses.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Environment Statement Responses</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Issued</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Screening Opinion Issued</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="issued-screening-opinion.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Opinion Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Direction Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="screening-direction.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Direction Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Notice</dt>
-                            <dd class="govuk-summary-list__value"><a href="site-notice.pdf" class="govuk-link">filename</a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Site Notice</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects sensitive area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects sensitive area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sensitive area details</dt>
-                            <dd class="govuk-summary-list__value"><span>The area is prone to flooding</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Sensitive area details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Meets or exceeds threshold or criteria in column 2</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                                    <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                                </legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                        type="radio" value="complete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                        type="radio" value="incomplete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <button class="govuk-button" data-module="govuk-button">Continue</button>
-                    </form>
-                </div>
-            </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -257,6 +84,46 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
                 <form                 method="post" novalidate="novalidate">
                     <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
                     </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="pins-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title"> LPA questionnaire complete</h1>
+                    <div class="govuk-panel__body">Appeal ID
+                        <br><strong>351062</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
+                <h2 class="govuk-heading-m">What happens next</h2>
+                <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
+                    and the the review is finished.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                </p>
+            </div>
         </div>
     </div>
 </main>"
@@ -318,7 +185,7 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 </main>"
 `;
 
-exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/date should render the 500 error page if required data is not present in the session 1`] = `
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation should render the 500 error page if required data is not present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -331,311 +198,7 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 </main>"
 `;
 
-exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/date should render the update due date page if required data is present in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-        </div>
-    </div>
-    <form method="post" novalidate="novalidate">
-        <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
-            screen.</p>
-        <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers"
-            role="button" draggable="false" class="govuk-button govuk-button--secondary"
-            data-module="govuk-button"> Skip</a>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`LPA Questionnaire review POST / should redirect to the complete page if no errors are present 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> LPA questionnaire complete</h1>
-                    <div class="govuk-panel__body">Appeal ID
-                        <br><strong>351062</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
-                    and the the review is finished.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`LPA Questionnaire review POST / should render LPA Questionnaire review with error (no answer provided) 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#review-outcome">Review outcome must be provided</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal </span>
-                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
-                </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Listed building details</dt>
-                            <dd class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Listed building details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building details</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="undefined" class="govuk-link"></a>
-                                <br><a href="undefined" class="govuk-link"></a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a listed building details</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a scheduled monument</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects a scheduled monument</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="conservation-area-map-and-guidance.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Protected species</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Protected species</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Area of outstanding natural beauty</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Area of outstanding natural beauty</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Designated sites</dt>
-                            <dd class="govuk-summary-list__value"><span>potential special protection area (pSPA)</span>
-                                <br><span>special area of conservation (SAC)</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Designated sites</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Preservation Order</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Tree Preservation Order</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tree Presevation Order extent</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="tree-preservation-order.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Tree Presevation Order extent</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Gypsy of traveller</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Gypsy of traveller</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public right of way</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Public right of way</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Definitive map and statement extract</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="right-of-way.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Definitive map and statement extract</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-summary-card">
-                <div class="govuk-summary-card__title-wrapper">
-                    <h2 class="govuk-summary-card__title">2. Environmental impact assessment</h2>
-                </div>
-                <div class="govuk-summary-card__content">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Schedule Type</dt>
-                            <dd class="govuk-summary-list__value"><span>Schedule 2</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Schedule Type</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Needed</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Needed</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Complete</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Environment Statement Complete</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Environment Statement Responses</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="environment-statement-responses.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Environment Statement Responses</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Issued</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Screening Opinion Issued</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Opinion Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="issued-screening-opinion.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Opinion Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Screening Direction Document</dt>
-                            <dd                             class="govuk-summary-list__value"><a href="screening-direction.pdf" class="govuk-link">filename</a>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Screening Direction Document</span></a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Notice</dt>
-                            <dd class="govuk-summary-list__value"><a href="site-notice.pdf" class="govuk-link">filename</a>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Details<span class="govuk-visually-hidden"> Site Notice</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects sensitive area</dt>
-                            <dd class="govuk-summary-list__value"><span>Yes</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Affects sensitive area</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sensitive area details</dt>
-                            <dd class="govuk-summary-list__value"><span>The area is prone to flooding</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Sensitive area details</span></a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Meets or exceeds threshold or criteria in column 2</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Meets or exceeds threshold or criteria in column 2</span></a>
-                                </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                                    <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                                </legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                        type="radio" value="complete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                        type="radio" value="incomplete">
-                                        <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <button class="govuk-button" data-module="govuk-button">Continue</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers should send a patch request to the LPA questionnaire API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete" 1`] = `
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="pins-width-container">
         <div class="govuk-grid-row">
@@ -657,6 +220,126 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
                 <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
                 </p>
             </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/date should render the 500 error page if required data is not present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/date should render the update due date page if required data is present in the session 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`LPA Questionnaire review POST / should render LPA Questionnaire review with error (no answer provided) 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#review-outcome">Review outcome must be provided</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
+                        </legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                                type="radio" value="complete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                                type="radio" value="incomplete">
+                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -855,37 +538,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -921,37 +603,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -987,37 +668,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1053,37 +733,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1119,37 +798,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1185,37 +863,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1251,37 +928,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1317,37 +993,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1383,37 +1058,36 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>
@@ -1453,37 +1127,99 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
         </div>
     </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="due-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
-                    <h1 class="govuk-fieldset__heading"> Update LPA questionnaire due date</h1>
-                </legend>
-                <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-                <div class="govuk-date-input" id="due-date">
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                            id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                        </div>
-                    </div>
-                    <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                        </div>
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
                     </div>
                 </div>
-            </fieldset>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
+            screen.</p>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Skip</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/date should re-render the update date page with the expected error message if provided date is not in the future 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Date must be a date in the future</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+        </div>
+    </div>
+    <div class="govuk-!-margin-bottom-7">
+        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 23 May 2024</div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
+            <div class="govuk-date-input" id="due-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="govuk-body">If the existing due date still applies, please skip to the confirmation
             screen.</p>

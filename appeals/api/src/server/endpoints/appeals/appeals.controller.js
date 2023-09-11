@@ -1,9 +1,9 @@
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
-
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppeal, formatAppeals } from './appeals.formatter.js';
+import { assignUser, assignedUserType } from './appeals.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('express').Response} Response */
@@ -50,11 +50,19 @@ const getAppealById = (req, res) => {
  * @returns {Promise<Response>}
  */
 const updateAppealById = async (req, res) => {
-	const { body, params } = req;
+	const {
+		body,
+		body: { caseOfficer, inspector, startedAt },
+		params
+	} = req;
 	const appealId = Number(params.appealId);
 
 	try {
-		await appealRepository.updateAppealById(appealId, body);
+		assignedUserType({ caseOfficer, inspector })
+			? await assignUser(appealId, { caseOfficer, inspector })
+			: await appealRepository.updateAppealById(appealId, {
+					startedAt
+			  });
 	} catch (error) {
 		if (error) {
 			logger.error(error);

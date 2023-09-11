@@ -1,13 +1,24 @@
-import { getDocumentsInFolder, getFolder, getFolderPath, getFolders } from './folders.service.js';
+import {
+	getDocumentsInFolder,
+	getFolder,
+	getFolderPath,
+	getFolders,
+	getAllFolders
+} from './folders.service.js';
 
 /**
  * Handles a GET request for multiple folders and sends the corresponding details in the request
  *
  * @type {import('express').RequestHandler<{ id: number, folderId: number }, ?, ?, any>}
  */
-export const getListOfFolders = async ({ params }, response) => {
-	const folderDetails = await getFolders(params.id, params.folderId);
+export const getListOfFolders = async ({ params, query }, response) => {
+	if (query.all) {
+		const folderDetails = await getAllFolders(params.id);
+		response.send(folderDetails);
+		return;
+	}
 
+	const folderDetails = await getFolders(params.id, params.folderId);
 	response.send(folderDetails);
 };
 

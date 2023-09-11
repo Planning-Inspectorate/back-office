@@ -110,6 +110,14 @@ The `api` app needs to know how to connect to the database. Create a `.env` file
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
 ```
 
+##### Appeals API
+
+Add the following env var to the `.env` file in `appeals/api`
+
+```
+TEST_MAILBOX=test@example.com
+```
+
 #### Schema & Seed Data
 
 1. First setup the database schema
@@ -187,7 +195,7 @@ The API is documented using an [OpenAPI (previously Swagger) spec](https://swagg
 To generate up-to-date documentation, run:
 
 ```shell
-apps/api> npm run swagger-autogen
+apps/api> npm run gen-api-spec
 ```
 
 This will re-generate the `apps/api/src/server/swagger-output.json` file. This spec is hosted by the api, and can be found at `http://localhost:3000/api-docs/`.

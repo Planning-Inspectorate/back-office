@@ -1,0 +1,36 @@
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
+{% block pageTitle %}
+	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{% set breadcrumbItems = breadcrumbItems | concat({text: [currentFolder.displayNameEn, ' documents']|join }) %}
+
+	{{ govukBreadcrumbs({
+		classes: 'govuk-!-margin-top-0',
+		items: breadcrumbItems
+	})
+	}}
+{% endblock %}
+
+{% block pageContent %}
+  {{ fileUploader({
+		text: 'Save and continue',
+		formId: 1,
+		caseId: caseId,
+		folderId: currentFolder.id,
+		adviceId: s51Advice.id,
+		formTitle: serviceName,
+    	nextPageUrl: 's51-item' | url({ caseId: caseId, folderId: currentFolder.id, adviceId: s51Advice.id, step: 'properties' }),
+		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
+		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
+		multiple: true
+  }) }}
+{% endblock %}

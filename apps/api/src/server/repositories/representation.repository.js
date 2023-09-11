@@ -158,6 +158,29 @@ export const getById = async (id, caseId) => {
 	return representations[0];
 };
 
+/**
+ *
+ * @param {number} repId
+ * @param {number} [caseId]
+ * @returns {Promise<Representation>}
+ */
+export const getFirstById = async (repId, caseId) => {
+	let filter = {
+		id: repId
+	};
+
+	if (caseId) {
+		filter = {
+			...filter,
+			caseId
+		};
+	}
+
+	return databaseConnector.representation.findFirst({
+		where: filter
+	});
+};
+
 export const getStatusCountByCaseId = async (caseId) => {
 	const groupRepStatusWithCount = databaseConnector.representation.groupBy({
 		where: { caseId },
@@ -250,12 +273,12 @@ export const updateApplicationRepresentation = async (
 	representationId
 ) => {
 	//  Validate case rep id is on case id
-	const response = await databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	const response = await getFirstById(representationId, caseId);
 
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
 
 	const whereIsRepresented = {
 		OR: [
@@ -371,9 +394,7 @@ export const updateApplicationRepresentation = async (
 		});
 	}
 
-	return databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	return getFirstById(representationId, caseId);
 };
 
 export const updateApplicationRepresentationRedaction = async (
@@ -382,12 +403,12 @@ export const updateApplicationRepresentationRedaction = async (
 	representationId
 ) => {
 	//  Validate case rep id is on case id
-	const response = await databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	const response = await getFirstById(representationId, caseId);
 
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
@@ -410,9 +431,7 @@ export const updateApplicationRepresentationRedaction = async (
 	}
 
 	//  returns updated redacted
-	return databaseConnector.representation.findFirst({
-		where: { id: representationId, caseId }
-	});
+	return getFirstById(representationId, caseId);
 };
 
 /**
@@ -422,6 +441,8 @@ export const updateApplicationRepresentationRedaction = async (
  * @return {Prisma.Prisma__RepresentationContactClient<Prisma.RepresentationContactGetPayload<{where: {id}}>>}
  */
 export const deleteApplicationRepresentationContact = async (repId, contactId) => {
+	const representation = await getFirstById(repId);
+
 	const data = await databaseConnector.representationContact.findFirst({
 		where: { id: contactId }
 	});
@@ -440,7 +461,20 @@ export const deleteApplicationRepresentationContact = async (repId, contactId) =
 		where: { id: contactId }
 	});
 
-	return databaseConnector.$transaction([...deleteAddressById, deleteRepresentationContactById]);
+	const transactionItems = [...deleteAddressById, deleteRepresentationContactById];
+
+	if (representation.status === 'PUBLISHED') {
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+	}
+
+	return databaseConnector.$transaction(transactionItems);
 };
 
 /**
@@ -495,44 +529,89 @@ function buildSearch(rawSearchTerm) {
  * @returns {Promise<*>}
  */
 export const addApplicationRepresentationAttachment = async (representationId, documentId) => {
-	return databaseConnector.representationAttachment.create({
-		data: {
-			documentGuid: documentId,
-			representationId
-		}
-	});
-};
+	const representation = await getFirstById(representationId);
 
-/**
- *
- * @param {number} attachmentId
- * @returns {Promise<*>}
- */
-export const deleteApplicationRepresentationAttachment = async (attachmentId) => {
-	return databaseConnector.representationAttachment.delete({
-		where: { id: attachmentId }
-	});
+	const transactionItems = [
+		databaseConnector.representationAttachment.create({
+			data: {
+				documentGuid: documentId,
+				representationId
+			}
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [representationAttachmentCreateResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
+
+	return representationAttachmentCreateResult;
 };
 
 /**
  *
  * @param {number} repId
- * @param {object}action
+ * @param {number} attachmentId
  * @returns {Promise<*>}
  */
-export const updateApplicationRepresentationStatus = async (repId, action) => {
-	const representation = await databaseConnector.representation.findFirst({ where: { id: repId } });
+export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
+	const representation = await getFirstById(repId);
 
+	const transactionItems = [
+		databaseConnector.representationAttachment.delete({
+			where: { id: attachmentId }
+		})
+	];
+
+	if (representation.status === 'PUBLISHED')
+		transactionItems.push(
+			databaseConnector.representation.update({
+				where: { id: representation.id },
+				data: {
+					unpublishedUpdates: true
+				}
+			})
+		);
+
+	const [representationAttachmentDeleteResult] = await databaseConnector.$transaction(
+		transactionItems
+	);
+
+	return representationAttachmentDeleteResult;
+};
+
+/**
+ *
+ * @param {Representation} representation
+ * @param {object} action
+ * @param {boolean} unpublished
+ * @returns {Promise<*>}
+ */
+export const updateApplicationRepresentationStatusById = async (
+	representation,
+	action,
+	unpublished
+) => {
 	const updateRepStatus = databaseConnector.representation.update({
-		where: { id: repId },
+		where: { id: representation.id },
 		data: {
-			status: action.status
+			status: action.status,
+			unpublishedUpdates: unpublished ? false : representation.unpublishedUpdates
 		}
 	});
 
 	const addAction = databaseConnector.representationAction.create({
 		data: {
-			representationId: repId,
+			representationId: representation.id,
 			previousStatus: representation.status,
 			...action,
 			actionDate: new Date()
@@ -542,6 +621,56 @@ export const updateApplicationRepresentationStatus = async (repId, action) => {
 	const [rep] = await databaseConnector.$transaction([updateRepStatus, addAction]);
 
 	return rep;
+};
+
+/**
+ * Sets representations as 'published' - set status to PUBLISHED for representations that are newly published,
+ * and for representations that have previously been PUBLISHED, set unpublishedUpdates to false
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing publish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsPublished = async (representations, actionBy) => {
+	const transactionItems = [];
+	representations
+		.filter((rep) => rep.status === 'VALID')
+		.forEach((representation) => {
+			transactionItems.push(
+				databaseConnector.representation.update({
+					where: { id: representation.id },
+					data: {
+						status: 'PUBLISHED'
+					}
+				})
+			);
+			transactionItems.push(
+				databaseConnector.representationAction.create({
+					data: {
+						representationId: representation.id,
+						previousStatus: representation.status,
+						type: 'STATUS',
+						status: 'PUBLISHED',
+						actionBy: actionBy,
+						actionDate: new Date()
+					}
+				})
+			);
+		});
+
+	transactionItems.push(
+		databaseConnector.representation.updateMany({
+			where: {
+				id: {
+					in: representations.filter((rep) => rep.status === 'PUBLISHED').map((rep) => rep.id)
+				}
+			},
+			data: {
+				unpublishedUpdates: false
+			}
+		})
+	);
+
+	await databaseConnector.$transaction(transactionItems);
 };
 
 /**
@@ -578,6 +707,68 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 					}
 				}
 			}
+		}
+	});
+};
+
+/**
+ * Returns representations for the given case id that are 'publishable' - those where status is VALID,
+ * or status is PUBLISHED and unpublishedUpdates is true
+ * @param {number} caseId
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getPublishableRepresentations = async (caseId) =>
+	databaseConnector.representation.findMany({
+		select: {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			contacts: {
+				select: {
+					firstName: true,
+					lastName: true,
+					organisationName: true
+				},
+				where: {
+					OR: [
+						{
+							NOT: { type: 'AGENT' }
+						},
+						{
+							type: null
+						}
+					]
+				}
+			}
+		},
+		where: {
+			caseId,
+			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+		}
+	});
+
+/**
+ * Returns representations with the given representation ids that are 'publishable' - those where status is VALID,
+ * or status is PUBLISHED and unpublishedUpdates is true
+ * @param {number} caseId
+ * @param {number[]} representationIds
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getPublishableRepresentationsById = async (caseId, representationIds) => {
+	return databaseConnector.representation.findMany({
+		where: {
+			caseId,
+			id: { in: representationIds },
+			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+		},
+		include: {
+			user: true,
+			attachments: true,
+			case: true,
+			contacts: true,
+			representationActions: true
 		}
 	});
 };

@@ -41,94 +41,25 @@ describe('Section 51 Advice', () => {
 		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
 	});
 
-	it('S51 Advice - Enquirer Full Details', () => {
-		const {
-			firstName,
-			lastName,
-			organisation,
-			title,
-			methodOfEnquiry,
-			enquirerFull,
-			day,
-			month,
-			year,
-			dateFullFormatted,
-			enquiryDetails,
-			adviserName,
-			adviceDetails
-		} = s51AdviceDetails();
-		s51AdvicePage.fillTitle(title);
-		s51AdvicePage.fillEnquirerDetails({ firstName, lastName, organisation });
-		s51AdvicePage.chooseEnquiryMethod(methodOfEnquiry);
-		s51AdvicePage.fillEnquiryDetails({ day, month, year, enquiryDetails });
-		s51AdvicePage.fillAdviserDetails(adviserName);
-		s51AdvicePage.fillAdviceDetails({ day, month, year, adviceDetails });
-		s51AdvicePage.checkAnswer('S51 title', title);
-		s51AdvicePage.checkAnswer('Enquirer', enquirerFull);
-		s51AdvicePage.checkAnswer('Enquiry method', methodOfEnquiry.toLowerCase());
-		s51AdvicePage.checkAnswer('Enquiry date', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Enquiry details', enquiryDetails);
-		s51AdvicePage.checkAnswer('Advise given by (internal use only)', adviserName);
-		s51AdvicePage.checkAnswer('Date advice given', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Advice given', adviceDetails);
+	it.only('S51 Advice - Enquirer Full Details', () => {
+		const details = s51AdviceDetails();
+		s51AdvicePage.completeS51Advice(details, {
+			organisation: details.organisation,
+			firstName: details.firstName,
+			lastName: details.lastName
+		});
 	});
 
 	it('S51 Advice - Enquirer Name Only', () => {
-		const {
-			firstName,
-			lastName,
-			title,
-			methodOfEnquiry,
-			day,
-			month,
-			year,
-			dateFullFormatted,
-			enquiryDetails,
-			adviserName,
-			adviceDetails
-		} = s51AdviceDetails();
-		s51AdvicePage.fillTitle(title);
-		s51AdvicePage.fillEnquirerDetails({ firstName, lastName });
-		s51AdvicePage.chooseEnquiryMethod(methodOfEnquiry);
-		s51AdvicePage.fillEnquiryDetails({ day, month, year, enquiryDetails });
-		s51AdvicePage.fillAdviserDetails(adviserName);
-		s51AdvicePage.fillAdviceDetails({ day, month, year, adviceDetails });
-		s51AdvicePage.checkAnswer('S51 title', title);
-		s51AdvicePage.checkAnswer('Enquirer', `${firstName} ${lastName}`);
-		s51AdvicePage.checkAnswer('Enquiry method', methodOfEnquiry.toLowerCase());
-		s51AdvicePage.checkAnswer('Enquiry date', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Enquiry details', enquiryDetails);
-		s51AdvicePage.checkAnswer('Advise given by (internal use only)', adviserName);
-		s51AdvicePage.checkAnswer('Date advice given', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Advice given', adviceDetails);
+		const details = s51AdviceDetails();
+		s51AdvicePage.completeS51Advice(details, {
+			firstName: details.firstName,
+			lastName: details.lastName
+		});
 	});
 
 	it('S51 Advice - Enquirer Org Only', () => {
-		const {
-			organisation,
-			title,
-			methodOfEnquiry,
-			day,
-			month,
-			year,
-			dateFullFormatted,
-			enquiryDetails,
-			adviserName,
-			adviceDetails
-		} = s51AdviceDetails();
-		s51AdvicePage.fillTitle(title);
-		s51AdvicePage.fillEnquirerDetails({ organisation });
-		s51AdvicePage.chooseEnquiryMethod(methodOfEnquiry);
-		s51AdvicePage.fillEnquiryDetails({ day, month, year, enquiryDetails });
-		s51AdvicePage.fillAdviserDetails(adviserName);
-		s51AdvicePage.fillAdviceDetails({ day, month, year, adviceDetails });
-		s51AdvicePage.checkAnswer('S51 title', title);
-		s51AdvicePage.checkAnswer('Enquirer', organisation);
-		s51AdvicePage.checkAnswer('Enquiry method', methodOfEnquiry.toLowerCase());
-		s51AdvicePage.checkAnswer('Enquiry date', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Enquiry details', enquiryDetails);
-		s51AdvicePage.checkAnswer('Advise given by (internal use only)', adviserName);
-		s51AdvicePage.checkAnswer('Date advice given', dateFullFormatted);
-		s51AdvicePage.checkAnswer('Advice given', adviceDetails);
+		const details = s51AdviceDetails();
+		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
 	});
 });

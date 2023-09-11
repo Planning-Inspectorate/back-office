@@ -1,4 +1,7 @@
 {% extends "govuk/template.njk" %}
+{# see https://design-system.service.gov.uk/styles/page-template/#options #}
+{# to match the scss $govuk-assets-path variable in main.scss #}
+{% set assetPath = "" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}

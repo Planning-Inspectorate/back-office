@@ -58,6 +58,7 @@ const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
 const mockRepresentationUpdate = jest.fn().mockResolvedValue({});
+const mockRepresentationUpdateMany = jest.fn().mockResolvedValue({});
 const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationContactDelete = jest.fn().mockResolvedValue({});
@@ -85,8 +86,16 @@ const mockS51AdviceFindUnique = jest.fn().mockResolvedValue({});
 const mockS51AdviceFindMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceCount = jest.fn().mockResolvedValue({});
 const mockS51AdviceCreate = jest.fn().mockResolvedValue({});
+const mockS51AdviceUpdate = jest.fn().mockResolvedValue({});
 const mockS51AdviceUpdateMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceDelete = jest.fn().mockResolvedValue({});
+
+const mockS51AdviceDocumentFindUnique = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentFindMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentCount = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentCreate = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentUpdateMany = jest.fn().mockResolvedValue({});
+const mockS51AdviceDocumentDelete = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -192,8 +201,20 @@ class MockPrismaClient {
 			findUnique: mockS51AdviceFindUnique,
 			count: mockS51AdviceCount,
 			create: mockS51AdviceCreate,
+			update: mockS51AdviceUpdate,
 			updateMany: mockS51AdviceUpdateMany,
 			delete: mockS51AdviceDelete
+		};
+	}
+
+	get s51AdviceDocument() {
+		return {
+			findMany: mockS51AdviceDocumentFindMany,
+			findUnique: mockS51AdviceDocumentFindUnique,
+			count: mockS51AdviceDocumentCount,
+			create: mockS51AdviceDocumentCreate,
+			updateMany: mockS51AdviceDocumentUpdateMany,
+			delete: mockS51AdviceDocumentDelete
 		};
 	}
 
@@ -246,7 +267,8 @@ class MockPrismaClient {
 			findMany: mockRepresentationFindMany,
 			findFirst: mockRepresentationFindFirst,
 			create: mockRepresentationCreate,
-			update: mockRepresentationUpdate
+			update: mockRepresentationUpdate,
+			updateMany: mockRepresentationUpdateMany
 		};
 	}
 

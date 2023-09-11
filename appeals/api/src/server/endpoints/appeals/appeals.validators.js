@@ -1,5 +1,5 @@
 import { composeMiddleware } from '@pins/express';
-import { query } from 'express-validator';
+import { body, query } from 'express-validator';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
@@ -9,6 +9,7 @@ import {
 } from '../constants.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
+import validateUuidParameter from '#common/validators/uuid-parameter.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 /** @typedef {import('express').Request} Request */
@@ -66,7 +67,19 @@ const getAppealValidator = composeMiddleware(
 
 const patchAppealValidator = composeMiddleware(
 	validateIdParameter('appealId'),
-	validateDateParameter('startedAt'),
+	validateDateParameter({ parameterName: 'startedAt' }),
+	validateUuidParameter({
+		parameterName: 'caseOfficer',
+		parameterType: body,
+		isRequired: false,
+		allowNull: true
+	}),
+	validateUuidParameter({
+		parameterName: 'inspector',
+		parameterType: body,
+		isRequired: false,
+		allowNull: true
+	}),
 	validationErrorHandler
 );
 

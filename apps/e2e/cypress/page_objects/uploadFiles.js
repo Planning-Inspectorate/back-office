@@ -10,9 +10,14 @@ export class FileUploadPage extends Page {
 		return 'Upload files';
 	}
 
+	get uploadNewVersionBtnText() {
+		return 'Upload new version';
+	}
+
 	// U S E R  A C T I O N S
-	uploadFile(fileName) {
-		this.clickButtonByText(this.uploadFileBtnText);
+	uploadFile(fileName, newVersion = false) {
+		const text = newVersion ? this.uploadNewVersionBtnText : this.uploadFileBtnText;
+		this.clickButtonByText(text);
 		cy.fixture(fileName).as('file');
 		this.elements.chooseFileInput().selectFile('@file', { force: true });
 	}

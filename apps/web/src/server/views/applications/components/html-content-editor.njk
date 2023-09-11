@@ -1,6 +1,7 @@
 {% from "govuk/components/label/macro.njk" import govukLabel %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {#
     Show an html-content-editor (using toastui)
@@ -26,6 +27,14 @@
         <div class="html-content-editor" id="{{ params.name }}">{{ params.value }}</div>
         {% if params.characterCount %}
             <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
+        {% endif %}
+        {% if params.characterCountWarning %}
+            <div class="display--none character-count-warning" data-character-count-limit="{{ params.characterCountWarningLimit }}">
+                {{ govukWarningText({
+                    text: params.characterCountWarningMessage,
+                    iconFallbackText: "Warning"
+                }) }}
+            </div>
         {% endif %}
         <noscript>
             {{ govukTextarea({

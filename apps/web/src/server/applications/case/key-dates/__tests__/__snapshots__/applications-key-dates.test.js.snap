@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`S51 Advice Key dates page GET /case/123/key-dates/ If user is inspector should not render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
+            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page GET /case/123/key-dates/ If user is not inspector should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
+    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
+            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
+            <div class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
+                    <br>
+                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row display--flex\\">
+        <div class=\\"pins-list-menu-container\\">
+            <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
+                <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
+                <nav>
+                    <ul class=\\"gov-list pins-list-menu\\">
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
+                        </li>
+                        <li><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-updates\\"> Project updates</a>
+                        </li>
+                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/examination-timetable\\"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class=\\"govuk-grid-column-full\\">
+            <h3 class=\\"govuk-heading-m\\">Key dates</h3>
+            <p class=\\"govuk-body\\">Provide details on dates and deadlines in this project.</p>
+            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+            <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-key-dates\\">
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-1\\"><p class='govuk-heading-s'>errors</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-1\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-1\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='#'>Manage dates</a>
+                            <table class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">msg</th>
+                                        <td class=\\"govuk-table__cell\\"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;

@@ -171,6 +171,7 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
+			latestDocumentVersion: true,
 			folder: true
 		},
 		skip: skipValue,
@@ -219,6 +220,20 @@ export const getByDocumentGUID = (documentGUID) => {
 		}
 	});
 };
+
+/**
+ *
+ * @param {string[]} guids
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[] | null>}
+ * */
+export const getDocumentsByGUID = (guids) =>
+	databaseConnector.document.findMany({
+		where: {
+			guid: {
+				in: guids
+			}
+		}
+	});
 
 /**
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
@@ -300,3 +315,18 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
 		}
 	});
 };
+
+/**
+ * Returns the file with a given name in the given folder
+ *
+ * @param {number} folderId
+ * @param {string} fileName
+ * @returns {import('@prisma/client').PrismaPromise<Document | null>}
+ */
+export const getInFolderByName = (folderId, fileName) =>
+	databaseConnector.document.findFirst({
+		where: {
+			folderId,
+			latestDocumentVersion: { originalFilename: fileName }
+		}
+	});

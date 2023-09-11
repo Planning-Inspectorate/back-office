@@ -1,3 +1,4 @@
+import { document as testDocument } from '#tests/data.js';
 import swaggerAutogen from 'swagger-autogen';
 
 const document = {
@@ -130,6 +131,7 @@ const document = {
 			appellantCaseId: 1,
 			appellantName: 'Fiona Burgess',
 			appellantOwnsWholeSite: true,
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
 			decision: 'Not issued yet',
 			healthAndSafety: {
 				appellantCase: {
@@ -141,6 +143,7 @@ const document = {
 					hasIssues: true
 				}
 			},
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855',
 			inspectorAccess: {
 				appellantCase: {
 					details: 'There is a tall hedge around the site which obstructs the view of the site',
@@ -168,12 +171,7 @@ const document = {
 							addressLine2: 'Shotesham Road',
 							postCode: 'NR35 2ND',
 							town: 'Woodton'
-						},
-						contactId: 1,
-						email: 'appellant@example.com',
-						firstName: 'Lee',
-						lastName: 'Thornton',
-						telephone: '01234567891'
+						}
 					}
 				],
 				isAffected: true
@@ -212,22 +210,24 @@ const document = {
 			appealId: 1,
 			appealReference: 'APP/Q9999/D/21/965625',
 			appealSite: {
+				addressId: 1,
 				addressLine1: '21 The Pavement',
 				county: 'Wandsworth',
 				postCode: 'SW4 0HY'
 			},
 			appellantCaseId: 1,
 			appellant: {
-				name: 'Roger Simmons',
-				company: 'Roger Simmons Ltd'
+				appellantId: 1,
+				company: 'Roger Simmons Ltd',
+				name: 'Roger Simmons'
 			},
 			applicant: {
 				firstName: 'Fiona',
 				surname: 'Burgess'
 			},
 			developmentDescription: {
-				isCorrect: false,
-				details: 'A new extension has been added at the back'
+				details: 'A new extension has been added at the back',
+				isCorrect: false
 			},
 			documents: {
 				appealStatement: {
@@ -290,16 +290,19 @@ const document = {
 			}
 		},
 		UpdateAppealRequest: {
-			startedAt: '2023-05-09'
+			startedAt: '2023-05-09',
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855'
 		},
 		UpdateAppealResponse: {
-			startedAt: '2023-05-09T01:00:00.000Z'
+			startedAt: '2023-05-09T01:00:00.000Z',
+			caseOfficer: '13de469c-8de6-4908-97cd-330ea73df618',
+			inspector: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855'
 		},
 		SingleLPAQuestionnaireResponse: {
 			affectsListedBuildingDetails: [
 				{
-					grade: 'Grade I',
-					description: 'http://localhost:8080/affects-listed-building.pdf'
+					listEntry: '654321'
 				}
 			],
 			appealId: 1,
@@ -318,24 +321,25 @@ const document = {
 			],
 			developmentDescription: '',
 			documents: {
-				definitiveMapAndStatement: 'right-of-way.pdf',
-				treePreservationOrder: 'tree-preservation-order.pdf',
-				communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-				conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-				consultationResponses: 'consultation-responses.pdf',
-				emergingPlans: ['emerging-plan-1.pdf'],
-				environmentalStatementResponses: 'environment-statement-responses.pdf',
-				issuedScreeningOption: 'issued-screening-opinion.pdf',
-				lettersToNeighbours: 'letters-to-neighbours.pdf',
-				otherRelevantPolicies: ['policy-1.pdf'],
-				planningOfficersReport: 'planning-officers-report.pdf',
-				policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-				pressAdvert: 'press-advert.pdf',
-				representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-				responsesOrAdvice: ['responses-or-advice.pdf'],
-				screeningDirection: 'screening-direction.pdf',
-				siteNotice: 'site-notice.pdf',
-				supplementaryPlanningDocuments: ['supplementary-1.pdf']
+				communityInfrastructureLevy: testDocument,
+				conservationAreaMapAndGuidance: testDocument,
+				consultationResponses: testDocument,
+				definitiveMapAndStatement: testDocument,
+				emergingPlans: testDocument,
+				environmentalStatementResponses: testDocument,
+				issuedScreeningOption: testDocument,
+				lettersToNeighbours: testDocument,
+				otherRelevantPolicies: testDocument,
+				planningOfficersReport: testDocument,
+				policiesFromStatutoryDevelopment: testDocument,
+				pressAdvert: testDocument,
+				relevantPartiesNotification: testDocument,
+				representationsFromOtherParties: testDocument,
+				responsesOrAdvice: testDocument,
+				screeningDirection: testDocument,
+				siteNotice: testDocument,
+				supplementaryPlanningtestDocuments: testDocument,
+				treePreservationOrder: testDocument
 			},
 			doesAffectAListedBuilding: true,
 			doesAffectAScheduledMonument: true,
@@ -360,6 +364,8 @@ const document = {
 			inspectorAccessDetails: 'The entrance is at the back of the property',
 			isAffectingNeighbouringSites: true,
 			isCommunityInfrastructureLevyFormallyAdopted: true,
+			isConservationArea: true,
+			isCorrectAppealType: true,
 			isEnvironmentalStatementRequired: true,
 			isGypsyOrTravellerSite: true,
 			isListedBuilding: true,
@@ -369,8 +375,7 @@ const document = {
 			isTheSiteWithinAnAONB: true,
 			listedBuildingDetails: [
 				{
-					grade: 'Grade I',
-					description: 'http://localhost:8080/listed-building.pdf'
+					listEntry: '123456'
 				}
 			],
 			localPlanningDepartment: 'Wiltshire Council',
@@ -417,16 +422,44 @@ const document = {
 		},
 		UpdateAppellantCaseRequest: {
 			appealDueDate: '2023-12-13',
+			applicantFirstName: 'Fiona',
+			applicantSurname: 'Burgess',
+			areAllOwnersKnown: true,
+			hasAdvertisedAppeal: true,
+			hasAttemptedToIdentifyOwners: true,
+			hasHealthAndSafetyIssues: true,
+			healthAndSafetyIssues: 'There is no mobile reception at the site',
 			incompleteReasons: [1, 2, 3],
 			invalidReasons: [1, 2, 3],
+			isSiteFullyOwned: false,
+			isSitePartiallyOwned: true,
+			isSiteVisibleFromPublicRoad: false,
 			otherNotValidReasons: 'Another invalid reason',
-			validationOutcome: 'valid'
+			validationOutcome: 'valid',
+			visibilityRestrictions: 'The site is behind a tall hedge'
 		},
 		UpdateAppellantCaseResponse: {},
 		UpdateLPAQuestionnaireRequest: {
+			designatedSites: [1, 2, 3],
+			doesAffectAListedBuilding: true,
+			doesAffectAScheduledMonument: true,
+			hasCompletedAnEnvironmentalStatement: true,
+			hasProtectedSpecies: true,
+			hasTreePreservationOrder: true,
+			includesScreeningOption: true,
 			incompleteReasons: [1, 2, 3],
+			isConservationArea: true,
+			isEnvironmentalStatementRequired: true,
+			isGypsyOrTravellerSite: true,
+			isListedBuilding: true,
+			isPublicRightOfWay: true,
+			isSensitiveArea: true,
+			isTheSiteWithinAnAONB: true,
 			lpaQuestionnaireDueDate: '2023-06-21',
+			meetsOrExceedsThresholdOrCriteriaInColumn2: true,
 			otherNotValidReasons: 'Another incomplete reason',
+			scheduleType: 1,
+			sensitiveAreaDetails: 'The area is liable to flooding',
 			validationOutcome: 'incomplete'
 		},
 		UpdateLPAQuestionnaireResponse: {},
@@ -588,6 +621,18 @@ const document = {
 			county: 'Devon',
 			postcode: 'NR35 2ND',
 			town: 'Woodton'
+		},
+		UpdateAppealTimetableRequest: {
+			finalCommentReviewDate: '2023-08-09',
+			issueDeterminationDate: '2023-08-10',
+			lpaQuestionnaireDueDate: '2023-08-11',
+			statementReviewDate: '2023-08-12'
+		},
+		UpdateAppealTimetableResponse: {
+			finalCommentReviewDate: '2023-08-09T01:00:00.000Z',
+			issueDeterminationDate: '2023-08-10T01:00:00.000Z',
+			lpaQuestionnaireDueDate: '2023-08-11T01:00:00.000Z',
+			statementReviewDate: '2023-08-12T01:00:00.000Z'
 		}
 	},
 	components: {}

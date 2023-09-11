@@ -32,7 +32,9 @@ describe('Update application', () => {
 		const response = await request.patch('/applications/1').send({
 			title: 'some title',
 			keyDates: {
-				submissionDateInternal: 1_649_319_344_000
+				preApplication: {
+					submissionAtInternal: 1_649_319_344_000
+				}
 			}
 		});
 
@@ -165,8 +167,10 @@ describe('Update application', () => {
 				}
 			},
 			keyDates: {
-				submissionDateInternal: 1_649_319_344_000,
-				submissionDatePublished: 'Q1 2023'
+				preApplication: {
+					submissionAtInternal: 1_649_319_344_000,
+					submissionAtPublished: 'Q1 2023'
+				}
 			}
 		});
 
@@ -370,7 +374,9 @@ describe('Update application', () => {
 				}
 			],
 			keyDates: {
-				submissionDateInternal: 100_000
+				preApplication: {
+					submissionAtInternal: 100_000
+				}
 			},
 			subSectorName: 'some unknown subsector'
 		});
@@ -387,7 +393,8 @@ describe('Update application', () => {
 				'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 				'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
 				'geographicalInformation.regionNames': 'Unknown region',
-				'keyDates.submissionDateInternal': 'Submission date internal must be in the future',
+				'keyDates.preApplication.submissionAtInternal':
+					'Submission date internal must be in the future',
 				subSectorName: 'Must be existing sub-sector'
 			}
 		});

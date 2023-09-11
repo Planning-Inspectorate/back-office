@@ -1,0 +1,87 @@
+{%- extends "app/layouts/app.layout.njk" -%}
+{%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from 'govuk/components/accordion/macro.njk' import govukAccordion -%}
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
+{%- from "../appeals/components/status-tag.njk" import statusTag -%}
+
+{%- set backLinkUrl = backLink.link -%}
+{%- set pageTitle = pageHeading + " - " +  appealReference | appealShortReference + " - GOV.UK" -%}
+{% set backLinkText = backLink.text -%}
+
+{%- macro createAccordionItem(accordionItem)-%}
+	{%- if accordionItem.type === 'summary-list'-%}
+		{{ govukSummaryList(accordionItem.content.html)}}
+	{%- elif accordionItem.type === 'table'-%}
+		{{ govukTable(accordionItem.content.html)}}
+	{%- elif accordionItem.type === 'inset-text'-%}
+		{{ govukInsetText(accordionItem.content.html)}}
+	{%- endif -%}
+{%- endmacro -%}
+
+{%- block pageHeading -%}
+
+	{%- for component in pageContents -%}
+		{%- if component.type === 'notification-banner' -%}
+			{%- for notificationBanner in component.bannerProperties -%}
+				{{ govukNotificationBanner(notificationBanner) }}
+			{%- endfor -%}
+		{%- endif -%}
+	{%- endfor -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appealReference | appealShortReference }}</span>
+			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">{{pageHeading}}</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{# TODO: Replace this with a filter using a switch or object litteral to determine which component to display#}
+{%- block pageContent -%}
+	{%- for component in pageContents -%}
+		{%- if component.type === 'summary-list'-%}
+			{{ govukSummaryList(component) }}
+		{%- elif component.type === 'accordion' -%}
+			{%- set accordionItems = [] -%}
+			{%- for accordionItem in component.items -%}
+				{%- set obj = {
+						heading: accordionItem.heading,
+						content: {
+							html: createAccordionItem(accordionItem),
+							text: accordionItem.text
+						}
+					}-%}
+				{%- set accordionItems = accordionItems | concat(obj) -%}
+			{%- endfor -%}
+			{{ govukAccordion(
+				{
+					id: component.id,
+					headingLevel: component.headingLevel,
+					classes: component.classes,
+					rememberExpanded: component.rememberExpanded,
+					hideAllSectionsText: component.hideAllSecionsText,
+					hideSectionAriaLabelText: component.hideSectionAriaLabelText,
+					showAllSectionsText: component.showAllSectionsText,
+					showSectionText: component.showSectionText,
+					showSectionAriaLabelText: component.showSectionAriaLabelText,
+					items: accordionItems
+				}
+			)}}
+		{%- elif component.type === 'status-tag' -%}
+			{{ statusTag(component.status, component.classes) }}
+		{%- elif component.type === 'radio'-%}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-full">
+					<form action="" method="POST" novalidate>
+						{{ govukRadios(component)}}
+						{{ govukButton({text: "Continue"}) }}
+					</form>
+				</div>
+			</div>
+		{%- endif -%}
+	{%- endfor -%}
+
+{%- endblock -%}

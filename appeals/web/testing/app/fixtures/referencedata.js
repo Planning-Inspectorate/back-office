@@ -223,12 +223,7 @@ export const appellantCaseData = {
 export const lpaQuestionnaireData = {
 	affectsListedBuildingDetails: [
 		{
-			grade: 'Grade III',
-			description: 'http://localhost:8080/document-2.pdf'
-		},
-		{
-			grade: 'Grade IV',
-			description: 'http://localhost:8080/document-3.pdf'
+			listEntry: '123456'
 		}
 	],
 	appealId: 1,
@@ -251,32 +246,90 @@ export const lpaQuestionnaireData = {
 	],
 	developmentDescription: '',
 	documents: {
-		definitiveMapAndStatement: { href: 'right-of-way.pdf', title: 'filename' },
-		treePreservationOrder: { href: 'tree-preservation-order.pdf', title: 'filename' },
-		communityInfrastructureLevy: { href: 'community-infrastructure-levy.pdf', title: 'filename' },
-		conservationAreaMapAndGuidance: {
-			href: 'conservation-area-map-and-guidance.pdf',
-			title: 'filename'
+		conservationAreaMap: {
+			folderId: 1,
+			path: 'lpa_questionnaire/conservationAreaMap',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56a',
+					name: 'conservationAreaMap.docx',
+					folderId: 1,
+					caseId: 1
+				}
+			]
 		},
-		consultationResponses: { href: 'consultation-responses.pdf', title: 'filename' },
-		emergingPlans: [{ href: 'emerging-plan-1.pdf', title: 'filename' }],
-		environmentalStatementResponses: {
-			href: 'environment-statement-responses.pdf',
-			title: 'filename'
+		notifyingParties: {
+			folderId: 2,
+			path: 'lpa_questionnaire/notifyingParties',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56b',
+					name: 'notifyingParties.docx',
+					folderId: 2,
+					caseId: 1
+				}
+			]
 		},
-		issuedScreeningOption: { href: 'issued-screening-opinion.pdf', title: 'filename' },
-		lettersToNeighbours: { href: 'letters-to-neighbours.pdf', title: 'filename' },
-		otherRelevantPolicies: [{ href: 'policy-1.pdf', title: 'filename' }],
-		planningOfficersReport: { href: 'planning-officers-report.pdf', title: 'filename' },
-		policiesFromStatutoryDevelopment: [{ href: 'policy-a.pdf', title: 'filename' }],
-		pressAdvert: { href: 'press-advert.pdf', title: 'filename' },
-		representationsFromOtherParties: [
-			{ href: 'representations-from-other-parties-1.pdf', title: 'filename' }
-		],
-		responsesOrAdvice: [{ href: 'responses-or-advice.pdf', title: 'filename' }],
-		screeningDirection: { href: 'screening-direction.pdf', title: 'filename' },
-		siteNotice: { href: 'site-notice.pdf', title: 'filename' },
-		supplementaryPlanningDocuments: [{ href: 'supplementary-1.pdf', title: 'filename' }]
+		siteNotices: {
+			folderId: 3,
+			path: 'lpa_questionnaire/siteNotices',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56c',
+					name: 'siteNotices.docx',
+					folderId: 3,
+					caseId: 1
+				}
+			]
+		},
+		lettersToNeighbours: {
+			folderId: 4,
+			path: 'lpa_questionnaire/lettersToNeighbours',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56d',
+					name: 'lettersToNeighbours.docx',
+					folderId: 4,
+					caseId: 1
+				}
+			]
+		},
+		pressAdvert: {
+			folderId: 5,
+			path: 'lpa_questionnaire/pressAdvert',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56e',
+					name: 'pressAdvert.docx',
+					folderId: 5,
+					caseId: 1
+				}
+			]
+		},
+		representations: {
+			folderId: 6,
+			path: 'lpa_questionnaire/representations',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56f',
+					name: 'representations.docx',
+					folderId: 6,
+					caseId: 1
+				}
+			]
+		},
+		officersReport: {
+			folderId: 7,
+			path: 'lpa_questionnaire/officersReport',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56g',
+					name: 'officersReport.docx',
+					folderId: 7,
+					caseId: 1
+				}
+			]
+		}
 	},
 	doesAffectAListedBuilding: true,
 	doesAffectAScheduledMonument: true,
@@ -310,12 +363,10 @@ export const lpaQuestionnaireData = {
 	isTheSiteWithinAnAONB: true,
 	listedBuildingDetails: [
 		{
-			grade: 'Grade I',
-			description: 'http://localhost:8080/document-0.pdf'
+			listEntry: '123456'
 		},
 		{
-			grade: 'Grade II',
-			description: 'http://localhost:8080/document-1.pdf'
+			listEntry: '123457'
 		}
 	],
 	localPlanningDepartment: 'Dorset Council',

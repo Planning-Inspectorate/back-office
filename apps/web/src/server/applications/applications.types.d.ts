@@ -39,8 +39,10 @@ export interface Case {
 	caseEmail?: string;
 	applicants?: Applicant[];
 	keyDates?: {
-		submissionDatePublished: string;
-		submissionDateInternal: string;
+		preApplication: {
+			submissionAtPublished: string;
+			submissionAtInternal: string;
+		};
 	};
 	geographicalInformation?: {
 		mapZoomLevel: ZoomLevel;
@@ -142,6 +144,15 @@ export interface DocumentVersion {
 	};
 }
 
+export interface S51Attachment {
+	documentName: string;
+	documentType: string;
+	documentSize: number;
+	dateAdded: number;
+	status: string;
+	version: number;
+	documentGuid: string;
+}
 export interface S51Advice {
 	caseId: number;
 	id: number;
@@ -161,4 +172,5 @@ export interface S51Advice {
 	redactedStatus: string;
 	dateCreated: number;
 	dateUpdated: number;
+	attachments: S51Attachment[];
 }

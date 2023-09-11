@@ -48,7 +48,7 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should redirect to the complete page if no errors are present', async () => {
+		it('should redirect to the complete page if no errors are present and posted outcome is "complete"', async () => {
 			nock('http://test/')
 				.get('/appeals/1/lpa-questionnaires/2')
 				.reply(200, lpaQuestionnaireData)
@@ -59,9 +59,7 @@ describe('LPA Questionnaire review', () => {
 				'review-outcome': 'complete'
 			});
 
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(response.statusCode).toBe(302);
 		});
 	});
 	describe('GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete', () => {
@@ -279,6 +277,21 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the update date page with the expected error message if provided date is not in the future', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+			expect(incompleteReasonPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete/date`).send({
+				'due-date-day': '1',
+				'due-date-month': '1',
+				'due-date-year': '2000'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should re-render the update date page with the expected error message if an invalid day was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -286,7 +299,7 @@ describe('LPA Questionnaire review', () => {
 			let response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '0',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -298,7 +311,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '32',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -310,7 +323,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': 'first',
 				'due-date-month': '1',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -327,7 +340,7 @@ describe('LPA Questionnaire review', () => {
 			let response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '0',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -339,7 +352,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '13',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -351,7 +364,7 @@ describe('LPA Questionnaire review', () => {
 			response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': 'dec',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -397,7 +410,7 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '29',
 				'due-date-month': '2',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(200);
@@ -414,7 +427,7 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.post(`${baseUrl}/incomplete/date`).send({
 				'due-date-day': '1',
 				'due-date-month': '12',
-				'due-date-year': '2023'
+				'due-date-year': '3000'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -463,17 +476,11 @@ describe('LPA Questionnaire review', () => {
 	});
 
 	describe('POST /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers', () => {
-		beforeEach(() => {
-			nock('http://test/')
-				.get('/appeals/lpa-questionnaire-incomplete-reasons')
-				.reply(200, lpaQuestionnaireIncompleteReasons);
-		});
-
 		afterEach(() => {
 			nock.cleanAll();
 		});
 
-		it('should send a patch request to the LPA questionnaire API endpoint and render the decision incomplete confirmation page, if posted outcome was "incomplete"', async () => {
+		it('should send a patch request to the LPA questionnaire API endpoint and redirect to the decision incomplete confirmation page, if posted outcome was "incomplete"', async () => {
 			// post to LPA questionnaire page controller is necessary to set required data in the session
 			const lpaQPostResponse = await request.post(baseUrl).send({
 				'review-outcome': 'incomplete'
@@ -496,7 +503,76 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.post(`${baseUrl}/check-your-answers`);
 
 			expect(mockedlpaQuestionnairesEndpoint.isDone()).toBe(true);
+			expect(response.statusCode).toBe(302);
+		});
+	});
 
+	describe('GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation', () => {
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
+		it('should render the 500 error page if required data is not present in the session', async () => {
+			const response = await request.get(`${baseUrl}/incomplete/confirmation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the confirmation page with the expected content if required data is present in the session', async () => {
+			// post to LPA questionnaire page controller is necessary to set required data in the session
+			const lpaQPostResponse = await request.post(baseUrl).send({
+				'review-outcome': 'incomplete'
+			});
+
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			// post to incomplete reason page controller is necessary to set required data in the session
+			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: incompleteReasonIdsWithoutOther,
+				otherReasonId
+			});
+
+			expect(incompleteReasonPostResponse.statusCode).toBe(302);
+
+			const mockedlpaQuestionnairesEndpoint = nock('http://test/')
+				.patch('/appeals/1/lpa-questionnaires/2')
+				.reply(200, { validationOutcome: 'incomplete' });
+
+			// post to check and confirm page controller is necessary to set required data in the session
+			const checkAndConfirmPostResponse = await request.post(`${baseUrl}/check-your-answers`);
+
+			expect(mockedlpaQuestionnairesEndpoint.isDone()).toBe(true);
+			expect(checkAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/incomplete/confirmation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation', () => {
+		it('should render the 500 error page if required data is not present in the session', async () => {
+			const response = await request.get(`${baseUrl}/confirmation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the confirmation page with the expected content if required data is present in the session', async () => {
+			// post to LPA questionnaire page controller is necessary to set required data in the session
+			nock('http://test/')
+				.patch('/appeals/1/lpa-questionnaires/2')
+				.reply(200, { validationOutcome: 'incomplete' });
+
+			const lpaQPostResponse = await request.post(baseUrl).send({
+				'review-outcome': 'complete'
+			});
+
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/confirmation`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

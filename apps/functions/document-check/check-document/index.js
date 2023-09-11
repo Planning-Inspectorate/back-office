@@ -1,6 +1,7 @@
 import { Readable } from 'node:stream';
 import { getBlobStream, parseBlobFromUrl } from './blob-utils.js';
 import { checkMyBlob } from './check-my-blob.js';
+import { handleInfected, handleNotInfected } from './event-client.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -34,7 +35,19 @@ export const index = async (context, eventGridEvent) => {
 
 	const blobStream = await getBlobStream(storageUrl, container, blobPath);
 
-	await checkMyBlob(context.log, url, new Readable().wrap(blobStream));
+	const { guid, isInfected } = await checkMyBlob(context.log, url, new Readable().wrap(blobStream));
+	if (isInfected) {
+		context.log.info('Virus detected for blob', blobPath);
+		await handleInfected(context, guid);
+	} else {
+		await handleNotInfected(context, guid);
+	}
 
-	context.log.info('Successfully scanned stream for blob', storageUrl, container, blobPath);
+	context.log.info(
+		'Successfully scanned stream for blob',
+		storageUrl,
+		container,
+		blobPath,
+		isInfected
+	);
 };

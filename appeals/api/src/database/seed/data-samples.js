@@ -192,6 +192,12 @@ export const addressesList = [
 	}
 ];
 
+export const addressListForTrainers = addressesList.map((address) => ({
+	...address,
+	addressLine1: 'FOR TRAINERS ONLY',
+	addressLine2: address.addressLine1
+}));
+
 /**
  * An array of objects representing LPA questionnaire lists.
  *
@@ -222,6 +228,7 @@ export const addressesList = [
  *	'inspectorAccessDetails' |
  *	'isAffectingNeighbouringSites' |
  *	'isCommunityInfrastructureLevyFormallyAdopted' |
+ *	'isCorrectAppealType' |
  *	'isEnvironmentalStatementRequired' |
  *	'isGypsyOrTravellerSite' |
  *	'isListedBuilding' |
@@ -266,6 +273,7 @@ export const lpaQuestionnaireList = {
 		inspectorAccessDetails: 'The entrance is at the back of the property',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
+		isCorrectAppealType: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
 		isListedBuilding: true,
@@ -308,6 +316,7 @@ export const lpaQuestionnaireList = {
 		inspectorAccessDetails: 'The entrance is at the back of the property',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: true,
+		isCorrectAppealType: true,
 		isEnvironmentalStatementRequired: true,
 		isGypsyOrTravellerSite: true,
 		isListedBuilding: true,

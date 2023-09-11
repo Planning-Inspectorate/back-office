@@ -1,0 +1,101 @@
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% macro s51AttachmentsTab(attachments, caseId, folderId, adviceId) %}
+
+	{% set attachmentsRows = [] %}
+	{% for attachment in attachments %}
+
+		{% set name %}
+
+		{% set isPreviewPossible = (attachment.documentType === 'application/pdf' or attachment.documentType === 'image/jpeg' or attachment.documentType === 'image/png') %}
+		{% set isAttachmentSafe = attachment.status === 'scanned' %}
+
+		{% if isPreviewPossible and isAttachmentSafe %}
+			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version, isPreviewActive: true}) }}">{{ attachment.documentName }}</a>
+		{% else %}
+			<p class="font-weight--700">
+				{{ attachment.documentName }}
+			</p>
+		{% endif %}
+
+		<p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>
+			{{ attachment.documentType|fileType }}, {{ attachment.documentSize|fileSize }}
+		</p>
+		{% endset %}
+
+		{% set activity %}
+		<p>
+			{{ attachment.dateAdded|datestamp({format: 'dd/MM/yyyy'}) }}
+		</p>
+
+		{% endset %}
+
+		{% set download %}
+      {% if isAttachmentSafe %}
+        <a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
+          Download
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+		{% endset %}
+
+		{% set delete %}
+		<a class='govuk-link'href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, step: ['delete/', attachment.documentGuid]|join})}}' >Delete
+			</a>
+
+		{% endset %}
+
+		{% set status %}
+		{% set avWaiting = attachment.status === 'awaiting_virus_check'%}
+		{% set avFailed = attachment.status === 'failed_virus_check' %}
+		<p>
+			{% if avWaiting %}
+				<strong class="govuk-tag govuk-tag--yellow">
+			{% elif avFailed %}
+				<strong class="govuk-tag govuk-tag--red">
+			{% else %}
+				<strong class="govuk-tag">
+			{% endif %}
+			{{ attachment.status|statusName }}
+			</strong>
+		</p>
+		{% endset %}
+		{% set row = [
+			{
+				html: name
+			}, {
+				html: activity
+			}, {
+				html: status
+			}, {
+				html: download
+			}, {
+				html: delete
+			}
+		] %}
+		{% set attachmentsRows = attachmentsRows.concat([row]) %}
+
+	{% endfor %}
+
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
+
+	{% if attachmentsRows.length > 0%}
+
+		{{ govukTable({
+			classes: 'pins-file-versions-table',
+            captionClasses: "govuk-table__caption--m",
+            head: [
+                { text: "File name" },
+                { text: "Date added" },
+                { text: "" },
+                { text: "" },
+                { text: "" }
+            ],
+            rows: attachmentsRows
+    }) }}
+	{% else %}
+		<p>There are no attachments on this item.</p>
+	{% endif %}
+
+{% endmacro %}

@@ -12,8 +12,11 @@ import {
 import { isOutcomeIncomplete, isOutcomeInvalid } from '#utils/check-validation-outcome.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
-import validateValidationOutcomeReasons from '#common/validators/validation-outcome-reasons.js';
+import validateNumberArrayParameter from '#common/validators/number-array-parameter.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
+import validateBooleanParameter from '#common/validators/boolean-parameter.js';
+import validateBooleanWithConditionalStringParameters from '#common/validators/boolean-with-conditional-string-parameters.js';
+import validateNumberParameter from '#common/validators/number-parameter.js';
 
 const getLPAQuestionnaireValidator = composeMiddleware(
 	validateIdParameter('appealId'),
@@ -24,7 +27,7 @@ const getLPAQuestionnaireValidator = composeMiddleware(
 const patchLPAQuestionnaireValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validateIdParameter('lpaQuestionnaireId'),
-	validateValidationOutcomeReasons(
+	validateNumberArrayParameter(
 		'incompleteReasons',
 		(
 			/** @type {any} */ value,
@@ -55,6 +58,7 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 			return value;
 		}),
 	body('validationOutcome')
+		.optional()
 		.isString()
 		.custom((value, { req }) => {
 			if (isOutcomeIncomplete(value) && !req.body.incompleteReasons) {
@@ -63,7 +67,36 @@ const patchLPAQuestionnaireValidator = composeMiddleware(
 
 			return value;
 		}),
-	validateDateParameter('lpaQuestionnaireDueDate'),
+	validateDateParameter({
+		parameterName: 'lpaQuestionnaireDueDate',
+		mustBeFutureDate: true,
+		customFn: (
+			/** @type {any} */ value,
+			/** @type {{ req: { body: { validationOutcome: string } } }} */ { req }
+		) => {
+			if (value && !isOutcomeIncomplete(req.body.validationOutcome)) {
+				throw new Error(ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME);
+			}
+
+			return value;
+		}
+	}),
+	validateBooleanParameter('isListedBuilding'),
+	validateBooleanParameter('doesAffectAListedBuilding'),
+	validateBooleanParameter('doesAffectAScheduledMonument'),
+	validateBooleanParameter('isConservationArea'),
+	validateBooleanParameter('hasProtectedSpecies'),
+	validateBooleanParameter('isTheSiteWithinAnAONB'),
+	validateNumberArrayParameter('designatedSites'),
+	validateBooleanParameter('hasTreePreservationOrder'),
+	validateBooleanParameter('isGypsyOrTravellerSite'),
+	validateBooleanParameter('isPublicRightOfWay'),
+	validateNumberParameter('scheduleType'),
+	validateBooleanParameter('isEnvironmentalStatementRequired'),
+	validateBooleanParameter('hasCompletedAnEnvironmentalStatement'),
+	validateBooleanParameter('includesScreeningOption'),
+	validateBooleanWithConditionalStringParameters('isSensitiveArea', 'sensitiveAreaDetails', true),
+	validateBooleanParameter('meetsOrExceedsThresholdOrCriteriaInColumn2'),
 	validationErrorHandler
 );
 

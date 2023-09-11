@@ -438,41 +438,7 @@
 								"items": {
 									"type": "array",
 									"items": {
-										"type": "object",
-										"properties": {
-											"id": {
-												"type": "number",
-												"example": 1
-											},
-											"reference": {
-												"type": "string",
-												"example": "BC0110001-2"
-											},
-											"status": {
-												"type": "string",
-												"example": "VALID"
-											},
-											"redacted": {
-												"type": "boolean",
-												"example": true
-											},
-											"received": {
-												"type": "string",
-												"example": "2023-03-14T14:28:25.704Z"
-											},
-											"firstName": {
-												"type": "string",
-												"example": "James"
-											},
-											"lastName": {
-												"type": "string",
-												"example": "Bond"
-											},
-											"organisationName": {
-												"type": "string",
-												"example": "MI6"
-											}
-										}
+										"$ref": "#/definitions/RepresentationSummary"
 									}
 								}
 							},
@@ -852,6 +818,101 @@
 				"responses": {
 					"200": {
 						"description": "Representations CSV"
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/publishable": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets publishable representations for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/RepresentationSummary"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/publish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Publishes representations on an application that are VALID or PUBLISHED with unpublishedUpdates",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation IDs to publish, and user performing action",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"representationIds": {
+									"type": "array",
+									"example": [123, 124, 125],
+									"items": {
+										"type": "number"
+									}
+								},
+								"actionBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representation",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedRepIds": {
+									"type": "array",
+									"example": [123, 134, 125],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -1440,6 +1501,29 @@
 				}
 			}
 		},
+		"/documents/{guid}/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of a single file",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/version/:version/properties": {
 			"get": {
 				"tags": ["Applications"],
@@ -1477,7 +1561,7 @@
 				}
 			}
 		},
-		"/applications/documents/{guid}/properties": {
+		"/applications/document/{guid}/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of a single file on a case",
@@ -1495,6 +1579,49 @@
 						"description": "Document properties",
 						"schema": {
 							"$ref": "#/definitions/documentsPropertiesRequestBody"
+						}
+					}
+				}
+			}
+		},
+		"/applications/documents/{guid}/path": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the array of folders containing a document",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Array of folders which consitute the path the document is located in",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 1
+									},
+									"displayNameEn": {
+										"type": "string",
+										"example": "Post-decision"
+									},
+									"displayOrder": {
+										"type": "number",
+										"example": 1100
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -1678,6 +1805,13 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "all",
+						"in": "query",
+						"description": "Should retrieve the full list of folders, not just root level ones",
+						"required": false,
+						"type": "boolean"
 					}
 				],
 				"responses": {
@@ -2714,7 +2848,7 @@
 		"/applications/{id}/s51-advice/{adviceId}": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Application case ID",
+				"description": "Gets an S51 Advice record",
 				"parameters": [
 					{
 						"name": "id",
@@ -2742,7 +2876,7 @@
 			}
 		},
 		"/applications/{id}/s51-advice": {
-			"post": {
+			"get": {
 				"tags": ["Applications"],
 				"description": "Gets paginated array of S51 Advice(s) on a case",
 				"parameters": [
@@ -2754,13 +2888,18 @@
 						"description": "Application ID"
 					},
 					{
-						"name": "body",
-						"in": "body",
-						"description": "S51 Advice pagination parameters",
-						"schema": {
-							"$ref": "#/definitions/S51AdvicePaginatedRequestBody"
-						},
-						"required": true
+						"name": "page",
+						"in": "query",
+						"description": "The page number required",
+						"required": true,
+						"type": "number"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of items per page",
+						"required": true,
+						"type": "number"
 					}
 				],
 				"responses": {
@@ -2774,6 +2913,63 @@
 						"description": "Error: Bad Request",
 						"schema": {
 							"$ref": "#/definitions/S51AdvicePaginatedBadRequest"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates redacted status and / or published status for an array of S51 Advice(s) on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"description": "Advice ID",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "S51 Advice update parameters",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Advice(s) that have been updated",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceCreateResponseBody"
 						}
 					},
 					"404": {
@@ -2844,6 +3040,34 @@
 						"description": "All documents failed to upload",
 						"schema": {
 							"$ref": "#/definitions/documentsUploadFailed"
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get S51 advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Documents",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
 						}
 					}
 				}
@@ -3093,6 +3317,79 @@
 					}
 				}
 			}
+		},
+		"/applications/{id}/key-dates": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the Key Dates for an NSIP Application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of Key Dates",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates the key dates for an NSIP Application. Only the provided sections will be updated.",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Key Dates update parameters",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "New updated Key Dates for the entire project",
+						"schema": {
+							"$ref": "#/definitions/ApplicationKeyDates"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -3269,6 +3566,13 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"duplicates": {
+					"type": "array",
+					"example": ["example2.pdf"],
+					"items": {
+						"type": "string"
+					}
 				}
 			}
 		},
@@ -3278,6 +3582,13 @@
 				"failedDocuments": {
 					"type": "array",
 					"example": ["example.pdf"],
+					"items": {
+						"type": "string"
+					}
+				},
+				"duplicates": {
+					"type": "array",
+					"example": ["example2.pdf"],
 					"items": {
 						"type": "string"
 					}
@@ -3420,13 +3731,18 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionDatePublished": {
-							"type": "string",
-							"example": "Q1 2023"
-						},
-						"submissionDateInternal": {
-							"type": "number",
-							"example": 123
+						"preApplication": {
+							"type": "object",
+							"properties": {
+								"submissionAtPublished": {
+									"type": "string",
+									"example": "Q1 2023"
+								},
+								"submissionAtInternal": {
+									"type": "number",
+									"example": 123
+								}
+							}
 						}
 					}
 				}
@@ -3548,13 +3864,18 @@
 				"keyDates": {
 					"type": "object",
 					"properties": {
-						"submissionDatePublished": {
-							"type": "string",
-							"example": "Q1 2023"
-						},
-						"submissionDateInternal": {
-							"type": "number",
-							"example": 123
+						"preApplication": {
+							"type": "object",
+							"properties": {
+								"submissionAtPublished": {
+									"type": "string",
+									"example": "Q1 2023"
+								},
+								"submissionAtInternal": {
+									"type": "number",
+									"example": 123
+								}
+							}
 						}
 					}
 				}
@@ -4058,6 +4379,10 @@
 				"filter2": {
 					"type": "string",
 					"example": "Brochure"
+				},
+				"fromFrontOffice": {
+					"type": "boolean",
+					"example": true
 				}
 			}
 		},
@@ -7369,21 +7694,6 @@
 				}
 			}
 		},
-		"S51AdvicePaginatedRequestBody": {
-			"type": "object",
-			"properties": {
-				"pageNumber": {
-					"type": "integer",
-					"description": "The page number required",
-					"example": 1
-				},
-				"pageSize": {
-					"type": "integer",
-					"description": "The number of items per page",
-					"example": 50
-				}
-			}
-		},
 		"S51AdviceDetails": {
 			"type": "object",
 			"properties": {
@@ -7529,6 +7839,94 @@
 				}
 			}
 		},
+		"S51AdviceUpdateRequestBody": {
+			"title": "title",
+			"firstName": "first name",
+			"lastName": "last name",
+			"enquirer": "organisation",
+			"enquiryMethod": "meeting",
+			"enquiryDate": "2023-01-11T00:00:00.000Z",
+			"enquiryDetails": "title",
+			"adviser": "person",
+			"adviceDate": "2023-02-11T00:00:00.000Z",
+			"adviceDetails": "title",
+			"redactedStatus": "redacted",
+			"publishedStatus": "not_checked"
+		},
+		"S51AdviceMultipleUpdateRequestBody": {
+			"type": "object",
+			"properties": {
+				"redacted": {
+					"type": "boolean",
+					"description": "Redacted status",
+					"example": true
+				},
+				"status": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "integer",
+								"description": "The S51 Advice record id",
+								"example": 1
+							}
+						}
+					}
+				}
+			}
+		},
+		"S51AdviceUpdateResponseItem": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The S51 Advice record id",
+					"example": 1
+				},
+				"status": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Redacted status",
+					"example": "not_redacted"
+				}
+			}
+		},
+		"S51AdviceMultipleUpdateResponseBody": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/S51AdviceUpdateResponseItem"
+			}
+		},
+		"S51AdviceUpdateBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"items": {
+							"type": "string",
+							"example": "Unknown S51 Advice id 100"
+						},
+						"unknown": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
 		"ProjectUpdateNotificationLogList": {
 			"type": "object",
 			"properties": {
@@ -7645,6 +8043,43 @@
 				"functionInvocationId": {
 					"type": "string",
 					"description": "the ID of the Azure function run that handled this entry"
+				}
+			}
+		},
+		"RepresentationSummary": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "number",
+					"example": 1
+				},
+				"reference": {
+					"type": "string",
+					"example": "BC0110001-2"
+				},
+				"status": {
+					"type": "string",
+					"example": "VALID"
+				},
+				"redacted": {
+					"type": "boolean",
+					"example": true
+				},
+				"received": {
+					"type": "string",
+					"example": "2023-03-14T14:28:25.704Z"
+				},
+				"firstName": {
+					"type": "string",
+					"example": "James"
+				},
+				"lastName": {
+					"type": "string",
+					"example": "Bond"
+				},
+				"organisationName": {
+					"type": "string",
+					"example": "MI6"
 				}
 			}
 		},
@@ -7940,6 +8375,230 @@
 						"notFound": {
 							"type": "string",
 							"example": "resource not found"
+						}
+					}
+				}
+			}
+		},
+		"ApplicationKeyDates": {
+			"type": "object",
+			"properties": {
+				"preApplication": {
+					"type": "object",
+					"properties": {
+						"datePINSFirstNotifiedOfProject": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateProjectAppearsOnWebsite": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"anticipatedSubmissionDateNonSpecific": {
+							"type": "string",
+							"description": "Quarter followed by year",
+							"example": "Q1 2023"
+						},
+						"anticipatedDateOfSubmission": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"screeningOpinionSought": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"screeningOpinionIssued": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"scopingOpinionSought": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"scopingOpinionIssued": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"section46Notification": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"acceptance": {
+					"type": "object",
+					"properties": {
+						"dateOfDCOSubmission": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"deadlineForAcceptanceDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfDCOAcceptance": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfNonAcceptance": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"preExamination": {
+					"type": "object",
+					"properties": {
+						"dateOfRepresentationPeriodOpen": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfRelevantRepresentationClose": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"extensionToDateRelevantRepresentationsClose": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateRRepAppearOnWebsite": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateIAPIDue": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"rule6LetterPublishDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"preliminaryMeetingStartDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"notificationDateForPMAndEventsDirectlyFollowingPM": {
+							"type": "number",
+							"example": 1646822600
+						},
+						"notificationDateForEventsDeveloper": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"examination": {
+					"type": "object",
+					"properties": {
+						"dateSection58NoticeReceived": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"confirmedStartOfExamination": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"rule8LetterPublishDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"deadlineForCloseOfExamination": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateTimeExaminationEnds": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage4ExtensionToExamCloseDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"recommendation": {
+					"type": "object",
+					"properties": {
+						"deadlineForSubmissionOfRecommendation": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfRecommendations": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage5ExtensionToRecommendationDeadline": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"decision": {
+					"type": "object",
+					"properties": {
+						"deadlineForDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"confirmedDateOfDecision": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"stage5ExtensionToDecisionDeadline": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"postDecision": {
+					"type": "object",
+					"properties": {
+						"jRPeriodEndDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						}
+					}
+				},
+				"withdrawal": {
+					"type": "object",
+					"properties": {
+						"dateProjectWithdrawn": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
 						}
 					}
 				}

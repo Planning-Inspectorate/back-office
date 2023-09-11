@@ -23,6 +23,19 @@ export const dateIsValid = (year, month, day) => {
 };
 
 /**
+ * @param {number} year
+ * @param {number} month
+ * @param {number} day
+ * @returns {boolean}
+ */
+export const dateIsInTheFuture = (year, month, day) => {
+	const date = new Date(year, month - 1, day);
+	const now = new Date();
+
+	return dateIsValid(year, month, day) && now < date;
+};
+
+/**
  * @param {Date} date
  * @returns {boolean}
  */
@@ -45,6 +58,22 @@ export const dayMonthYearToApiDateString = (dayMonthYear) => {
 	const monthString = dayMonthYear.month < 10 ? `0${dayMonthYear.month}` : dayMonthYear.month;
 
 	return `${dayMonthYear.year}-${monthString}-${dayString}`;
+};
+
+/**
+ * @param {string | undefined} hour
+ * @param {string | undefined} minute
+ * @returns {string} - time in format HH:MM
+ */
+export const hourMinuteToApiDateString = (hour, minute = '0') => {
+	if (!hour) {
+		return '';
+	}
+
+	const hourString = hour.padStart(2, '0');
+	const minuteString = minute.padStart(2, '0');
+
+	return `${hourString}:${minuteString}`;
 };
 
 /**

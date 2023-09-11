@@ -1,53 +1,28 @@
-import { addressToString } from '../../lib/address-formatter.js';
-import { dateToDisplayDate } from '../../lib/dates.js';
-import { convertFromBooleanToYesNoWithOptionalDetails } from '#lib/boolean-formatter.js';
+import config from '#environment/config.js';
+import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
+
+export const backLink = {
+	text: 'Back to National list',
+	link: '/appeals-service/appeals-list'
+};
+export const pageHeading = 'Case details';
 
 /**
- * @typedef {import("../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
+ * @param {{appeal: any;}} data
+ * @param {string} currentRoute
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  */
+export function appealsDetailPage(data, currentRoute, session) {
+	const mappedData = initialiseAndMapAppealData(data, currentRoute);
 
-/**
- * @typedef {import("../../lib/nunjucks-template-builders/table-builder.js").BuilderParameters} TableBuilderParameters
- */
-
-/**
- * @typedef AppealDetailsSummaryParameters
- * @property {string} appealSite
- * @property {string} localPlanningAuthority
- * @property {string} [appealSiteKey]
- * @property {string} [localPlanningAuthorityKey]
- */
-
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealData
- * @returns {AppealDetailsSummaryParameters}
- */
-export function mapAppealDetailsToAppealDetailsSummaryParameters(appealData) {
-	return {
-		appealSite: appealData.appealSite
-			? addressToString({
-					addressLine1: appealData.appealSite.addressLine1 || '',
-					addressLine2: appealData.appealSite.addressLine2 || '',
-					town: appealData.appealSite.town || '',
-					county: appealData.appealSite.county || '',
-					postCode: appealData.appealSite.postCode || ''
-			  })
-			: 'Address not known',
-		localPlanningAuthority: appealData.localPlanningDepartment
+	/** @type {{type: string, bannerProperties: any[]}} */
+	const notificationBanners = {
+		type: 'notification-banner',
+		bannerProperties: []
 	};
-}
-
-/**
- *
- * @param {import('@pins/express').Session} session
- * @returns {import('./appellant-case/appellant-case.mapper.js').NotificationBannerComponentParameters[]}
- */
-export function mapSessionDataToNotificationBannerParameters(session) {
-	const notificationBanners = [];
 
 	if (session.siteVisitTypeSelected) {
-		notificationBanners.push({
+		notificationBanners.bannerProperties.push({
 			titleText: 'Success',
 			titleHeadingLevel: 3,
 			type: 'success',
@@ -57,361 +32,166 @@ export function mapSessionDataToNotificationBannerParameters(session) {
 		delete session.siteVisitTypeSelected;
 	}
 
-	return notificationBanners;
-}
+	const statusTag = { type: 'status-tag', ...mappedData.appeal.appealStatus.display.statusTag };
 
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealData
- * @returns {Object<string, SummaryListBuilderParameters>}
- */
-export function mapAppealDetailsToSummaryListBuilderParameters(appealData) {
-	const mappedCaseOverview = mapCaseOverview(appealData);
-	const mappedCaseTimetable = mapCaseTimetable(appealData);
-	const mappedCaseTeam = mapCaseTeam(appealData);
-	const mappedSiteDetails = mapSiteDetails(appealData);
-
-	return {
-		caseOverview: mappedCaseOverview,
-		siteDetails: mappedSiteDetails,
-		...(mappedCaseTimetable && {
-			caseTimetable: mappedCaseTimetable
-		}),
-		caseTeam: mappedCaseTeam
-	};
-}
-
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealData
- * @returns {Object<string, TableBuilderParameters>}
- */
-export function mapAppealDetailsToTableBuilderParameters(appealData) {
-	const mappedCaseDocumentation = mapCaseDocumentation(appealData);
-
-	return {
-		caseDocumentation: mappedCaseDocumentation
-	};
-}
-
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {SummaryListBuilderParameters}
- */
-function mapCaseOverview(appealDetails) {
-	return {
+	const caseSummary = {
+		type: 'summary-list',
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		classes: 'govuk-summary-list--no-border',
 		rows: [
-			{
-				title: 'Appeal type',
-				value: appealDetails.appealType || '',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Case procedure',
-				value: appealDetails.procedureType || '',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Appellant name',
-				value: appealDetails.appellantName || 'No appellant for this appeal',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Agent name',
-				value: appealDetails.agentName || 'No agent for this appeal',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Linked appeals',
-				value: appealDetails.linkedAppeals.map((linkedAppeal) => {
-					const linkedAppealReferenceFragments = linkedAppeal.appealReference.split('/');
-					return {
-						title:
-							linkedAppealReferenceFragments?.[linkedAppealReferenceFragments.length - 1] || '',
-						href: `/appeals-service/appeal-details/${linkedAppeal.appealId}`
-					};
-				}),
-				valueType: 'link',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Other appeals',
-				value: appealDetails.otherAppeals.map((otherAppeal) => {
-					const otherAppealReferenceFragments = otherAppeal.appealReference.split('/');
-					return {
-						title: otherAppealReferenceFragments?.[otherAppealReferenceFragments.length - 1] || '',
-						href: `/appeals-service/appeal-details/${otherAppeal.appealId}`
-					};
-				}),
-				valueType: 'link',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Allocation details',
-				value: appealDetails.allocationDetails || 'No allocation details for this appeal',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'LPA Reference',
-				value: appealDetails.planningApplicationReference || 'No LPA reference for this appeal',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Decision',
-				value: appealDetails.decision || 'Not issued yet',
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			}
+			removeActions(mappedData.appeal.siteAddress.display.summaryListItem),
+			removeActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
 		]
 	};
-}
+	const caseOverview = {
+		type: 'summary-list',
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		rows: [
+			mappedData.appeal.appealType.display.summaryListItem,
+			mappedData.appeal?.caseProcedure?.display.summaryListItem,
+			mappedData.appeal?.appellantName?.display.summaryListItem,
+			mappedData.appeal?.agentName?.display.summaryListItem,
+			mappedData.appeal?.linkedAppeals?.display.summaryListItem,
+			mappedData.appeal?.otherAppeals?.display.summaryListItem,
+			mappedData.appeal?.allocationDetails?.display.summaryListItem,
+			removeActions(mappedData.appeal?.lpaReference?.display.summaryListItem),
+			mappedData.appeal?.decision?.display.summaryListItem
+		]
+	};
 
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {SummaryListBuilderParameters|undefined}
- */
-function mapCaseTimetable(appealDetails) {
-	if (!appealDetails.startedAt) {
-		return;
+	// Extracting display from each affected site address
+	let neighbouringSitesSummaryLists = [];
+	if (data.appeal.neighbouringSite.contacts && data.appeal.neighbouringSite.contacts.length > 0) {
+		for (const site of mappedData.appeal.neighbouringSite) {
+			neighbouringSitesSummaryLists.push(site.display.summaryListItem);
+		}
 	}
 
-	return {
+	const siteDetails = {
+		type: 'summary-list',
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
 		rows: [
-			{
-				title: 'Start date',
-				value: dateToDisplayDate(appealDetails.startedAt),
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'LPA Questionnaire due',
-				value: dateToDisplayDate(appealDetails.appealTimetable?.lpaQuestionnaireDueDate),
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Statement review due',
-				value: dateToDisplayDate(appealDetails.appealTimetable?.statementReviewDate),
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Final comment review due',
-				value: dateToDisplayDate(appealDetails.appealTimetable?.finalCommentReviewDate),
-				valueType: 'text',
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Site visit',
-				value: appealDetails.siteVisit?.visitDate
-					? dateToDisplayDate(appealDetails.siteVisit?.visitDate)
-					: 'Not scheduled',
-				valueType: 'text',
-				actionText: appealDetails.siteVisit?.visitDate ? 'Change' : 'Schedule',
-				actionLink: `/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/schedule-visit`
-			}
+			mappedData.appeal.lpaInspectorAccess.display.summaryListItem,
+			mappedData.appeal.appellantInspectorAccess.display.summaryListItem,
+			mappedData.appeal.neighbouringSiteIsAffected.display.summaryListItem,
+			...neighbouringSitesSummaryLists,
+			mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
+			mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
+			mappedData.appeal.visitType.display.summaryListItem
 		]
 	};
-}
 
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {TableBuilderParameters}
- */
-function mapCaseDocumentation(appealDetails) {
-	return {
-		headings: ['Documentation', 'Status', 'Due date', 'Action'],
+	let caseTimetable = {};
+
+	if (data.appeal.startedAt) {
+		caseTimetable.type = 'summary-list';
+		caseTimetable.rows = [
+			mappedData.appeal.startedAt.display.summaryListItem,
+			data.appeal.startedAt
+				? mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem
+				: undefined,
+			data.appeal.lpaQuestionnaireDueDate
+				? mappedData.appeal.statementReviewDueDate.display.summaryListItem
+				: undefined,
+			data.appeal.statementReviewDate
+				? mappedData.appeal.finalCommentReviewDueDate.display.summaryListItem
+				: undefined,
+			data.appeal.finalCommentReviewDate
+				? mappedData.appeal.siteVisitDate.display.summaryListItem
+				: undefined
+		].filter((item) => item !== undefined);
+	} else {
+		caseTimetable.type = 'inset-text';
+		caseTimetable.html = `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${data.appeal.appealId}/appellant-case" class="govuk-link">Review appeal</a>`;
+	}
+
+	const caseDocumentation = {
+		type: 'table',
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		head: [{ text: 'Documentation' }, { text: 'Status' }, { text: 'Due date' }, { text: 'Action' }],
 		rows: [
-			[
-				'Appellant case',
-				mapDocumentStatus(appealDetails.documentationSummary?.appellantCase?.status),
-				dateToDisplayDate(appealDetails.documentationSummary?.appellantCase?.dueDate),
-				appealDetails.documentationSummary?.appellantCase?.status !== 'not_received'
-					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review</a>`
-					: ''
-			],
-			[
-				'LPA Questionnaire',
-				mapDocumentStatus(appealDetails.documentationSummary?.lpaQuestionnaire?.status),
-				dateToDisplayDate(appealDetails.documentationSummary?.lpaQuestionnaire?.dueDate),
-				appealDetails.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
-					? `<a href="/appeals-service/appeal-details/${appealDetails.appealId}/lpa-questionnaire/${appealDetails.lpaQuestionnaireId}" class="govuk-link">Review</a>`
-					: ''
-			]
+			mappedData.appeal.appellantCase.display.tableItem,
+			mappedData.appeal.lpaQuestionnaire.display.tableItem
 		],
 		firstCellIsHeader: true
 	};
+
+	const caseTeam = {
+		type: 'summary-list',
+		noActions: !session.account.idTokenClaims.groups.includes(
+			config.referenceData.appeals.caseOfficerGroupId
+		),
+		rows: [
+			mappedData.appeal.caseOfficer.display.summaryListItem,
+			mappedData.appeal.inspector.display.summaryListItem
+		]
+	};
+
+	const appealDetailsAccordion = {
+		id: 'accordion-default' + data.appeal.appealId,
+		type: 'accordion',
+		items: [
+			{
+				heading: { text: 'Case Overview' },
+				type: caseOverview.type,
+				content: { html: caseOverview }
+			},
+			{
+				heading: { text: 'Site Details' },
+				type: siteDetails.type,
+				content: { html: siteDetails }
+			},
+			{
+				heading: { text: 'Case Timetable' },
+				type: caseTimetable.type,
+				content: { html: caseTimetable }
+			},
+			{
+				heading: { text: 'Case documentation' },
+				type: caseDocumentation.type,
+				content: { html: caseDocumentation }
+			},
+			{
+				heading: { text: 'Case Team' },
+				type: caseTeam.type,
+				content: { html: caseTeam }
+			}
+		]
+	};
+
+	let components = [
+		caseSummary,
+		caseOverview,
+		siteDetails,
+		caseTimetable,
+		caseDocumentation,
+		caseTeam
+	];
+
+	components.forEach((item) => {
+		if ('noActions' in item && item.noActions && 'rows' in item) {
+			item.rows.forEach((row) => removeActions(row));
+		}
+	});
+	let pageItems = [notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
+	return pageItems;
 }
 
 /**
- * @param {import('./appeal-details.types').DocumentStatus | undefined} status
- * @returns {string}
+ * @param {object | undefined} row
  */
-function mapDocumentStatus(status) {
-	switch (status?.toLowerCase()) {
-		case 'received':
-			return 'Received';
-		case 'not_received':
-			return 'Not received';
-		case 'invalid':
-			return 'Invalid';
-		case 'incomplete':
-			return 'Incomplete';
-		case 'valid':
-			return 'Valid';
-		case 'complete':
-			return 'Complete';
-		default:
-			return '';
+function removeActions(row) {
+	if (row) {
+		Reflect.deleteProperty(row, 'actions');
+		return row;
 	}
-}
-
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {SummaryListBuilderParameters}
- */
-function mapCaseTeam(appealDetails) {
-	return {
-		rows: [
-			{
-				title: 'Case officer',
-				value: appealDetails.caseOfficer
-					? [
-							appealDetails.caseOfficer?.name,
-							appealDetails.caseOfficer?.email,
-							appealDetails.caseOfficer?.phone
-					  ]
-					: 'No project members have been added yet',
-				valueType: 'text',
-				actionText: appealDetails.caseOfficer ? 'Change' : 'Add',
-				actionLink: '#'
-			},
-			{
-				title: 'Inspector',
-				value: appealDetails.inspector
-					? [
-							appealDetails.inspector?.name,
-							appealDetails.inspector?.email,
-							appealDetails.inspector?.phone
-					  ]
-					: 'No project members have been added yet',
-				valueType: 'text',
-				actionText: appealDetails.inspector ? 'Change' : 'Add',
-				actionLink: '#'
-			}
-		]
-	};
-}
-
-/**
- *
- * @param {import('./appeal-details.types').Appeal} appealDetails
- * @returns {SummaryListBuilderParameters}
- */
-function mapSiteDetails(appealDetails) {
-	/**
-	 * @type {import('../../lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType}
-	 */
-	const valueTypeText = 'text';
-
-	const neighbourAddressRows = appealDetails.neighbouringSite?.contacts?.map((contact, index) => ({
-		title: `Neighbour address ${index + 1}`,
-		value: addressToString({
-			addressLine1: contact.address?.addressLine1 || '',
-			addressLine2: contact.address?.addressLine2 || '',
-			town: contact.address?.town || '',
-			county: contact.address?.county || '',
-			postCode: contact.address?.postCode || ''
-		}),
-		valueType: valueTypeText,
-		actionText: 'Change',
-		actionLink: '#'
-	}));
-
-	return {
-		rows: [
-			{
-				title: `Inspector access (LPA's answer)`,
-				value: convertFromBooleanToYesNoWithOptionalDetails(
-					appealDetails.inspectorAccess?.lpaQuestionnaire?.isRequired,
-					appealDetails.inspectorAccess?.lpaQuestionnaire?.details || 'No details provided'
-				),
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: `Inspector access (appellant's answer)`,
-				value: convertFromBooleanToYesNoWithOptionalDetails(
-					appealDetails.inspectorAccess?.appellantCase?.isRequired,
-					appealDetails.inspectorAccess?.appellantCase?.details || 'No details provided'
-				),
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Could a neighbouring site be affected?',
-				value: convertFromBooleanToYesNoWithOptionalDetails(
-					appealDetails.neighbouringSite.isAffected
-				),
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			...(neighbourAddressRows || []),
-			{
-				title: `Potential safety risks (LPA's answer)`,
-				value: convertFromBooleanToYesNoWithOptionalDetails(
-					appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues,
-					appealDetails.healthAndSafety?.lpaQuestionnaire?.details || 'No details provided'
-				),
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: `Potential safety risks (appellant's answer)`,
-				value: convertFromBooleanToYesNoWithOptionalDetails(
-					appealDetails.healthAndSafety?.appellantCase?.hasIssues,
-					appealDetails.healthAndSafety?.appellantCase?.details || 'No details provided'
-				),
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			},
-			{
-				title: 'Visit type',
-				value: appealDetails.siteVisit?.visitType
-					? appealDetails.siteVisit?.visitType
-					: 'Not selected',
-				valueType: valueTypeText,
-				actionText: 'Change',
-				actionLink: '#'
-			}
-		]
-	};
+	return undefined;
 }

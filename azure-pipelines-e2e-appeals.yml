@@ -28,7 +28,7 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: "16.x"
+          versionSpec: "18.x"
         displayName: "Install Node.js"
 
       - task: ShellScript@2
@@ -47,10 +47,10 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
         env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          BASE_URL: $(APPEALS_BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_APPEALS_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_APPEALS_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_APPEALS_EMAIL)
           VALIDATION_OFFICER_EMAIL: $(VALIDATION_OFFICER_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
         displayName: "Run Cypress Tests"

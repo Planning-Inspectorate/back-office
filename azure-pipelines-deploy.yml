@@ -60,7 +60,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.2.0
+      ref: refs/tags/release/3.4.0
   pipelines:
     - pipeline: build
       source: Back Office Build
@@ -72,6 +72,15 @@ resources:
 extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
+    automaticDeployments:
+      environments:
+        - name: Dev
+        - name: Test
+          dependsOn:
+            - Dev
+        - name: Prod
+          dependsOn:
+            - Test
     deploymentStages:
       - name: Deploy Applications
         deploymentJobs:
@@ -87,6 +96,7 @@ extends:
                           variable: DATABASE_URL
                   - template: ../steps/node_script.yml
                     parameters:
+                      nodeVersion: 18
                       environmentVariables:
                         DATABASE_URL: $(DATABASE_URL)
                       script: npm run db:migrate:prod

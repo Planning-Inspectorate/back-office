@@ -13,11 +13,11 @@ import { updateCase } from '../../services/case.service.js';
 export function keyDatesData(request, locals) {
 	const { currentCase } = locals;
 	const { keyDates } = currentCase;
-	const { submissionDatePublished, submissionDateInternal } = keyDates || {};
+	const { submissionAtPublished, submissionAtInternal } = keyDates?.preApplication || {};
 
 	const values = {
-		'keyDates.submissionDatePublished': submissionDatePublished,
-		'keyDates.submissionDateInternal': submissionDateInternal
+		'keyDates.preApplication.submissionAtPublished': submissionAtPublished,
+		'keyDates.preApplication.submissionAtInternal': submissionAtInternal
 	};
 
 	return { values };
@@ -33,28 +33,30 @@ export function keyDatesData(request, locals) {
  */
 export async function keyDatesDataUpdate({ body, errors: validationErrors }, locals) {
 	const { caseId } = locals;
-	const submissionInternalDay = body['keyDates.submissionDateInternal.day'];
-	const submissionInternalMonth = body['keyDates.submissionDateInternal.month'];
-	const submissionInternalYear = body['keyDates.submissionDateInternal.year'];
-	const submissionDatePublished = body['keyDates.submissionDatePublished'];
+	const submissionInternalDay = body['keyDates.preApplication.submissionAtInternal.day'];
+	const submissionInternalMonth = body['keyDates.preApplication.submissionAtInternal.month'];
+	const submissionInternalYear = body['keyDates.preApplication.submissionAtInternal.year'];
+	const submissionAtPublished = body['keyDates.preApplication.submissionAtPublished'];
 
 	const submissionInternalDateSeconds =
 		(Date.parse(`${submissionInternalYear}-${submissionInternalMonth}-${submissionInternalDay}`) ||
 			0) / 1000;
-	const submissionDateInternal =
+	const submissionAtInternal =
 		submissionInternalDateSeconds > 0 ? `${submissionInternalDateSeconds}` : '';
 	const values = {
-		'keyDates.submissionDatePublished': submissionDatePublished,
-		'keyDates.submissionDateInternal': submissionDateInternal,
-		'keyDates.submissionDateInternal.day': submissionInternalDay,
-		'keyDates.submissionDateInternal.month': submissionInternalMonth,
-		'keyDates.submissionDateInternal.year': submissionInternalYear
+		'keyDates.preApplication.submissionAtPublished': submissionAtPublished,
+		'keyDates.preApplication.submissionAtInternal': submissionAtInternal,
+		'keyDates.preApplication.submissionAtInternal.day': submissionInternalDay,
+		'keyDates.preApplication.submissionAtInternal.month': submissionInternalMonth,
+		'keyDates.preApplication.submissionAtInternal.year': submissionInternalYear
 	};
 
 	const payload = {
 		keyDates: {
-			submissionDatePublished,
-			submissionDateInternal: submissionDateInternal === '' ? null : submissionDateInternal
+			preApplication: {
+				submissionAtPublished,
+				submissionAtInternal: submissionAtInternal === '' ? null : submissionAtInternal
+			}
 		}
 	};
 

@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import { Page } from './basePage';
 
 export class AppealsListPage extends Page {
@@ -24,6 +25,8 @@ export class AppealsListPage extends Page {
 		cy.get(this.selectors.errorMessage).should('have.text', 'this is an error message');
 	}
 
+	//ACTIONS
+
 	clickAppealFromList(position) {
 		this.basePageElements
 			.tableRow()
@@ -32,8 +35,62 @@ export class AppealsListPage extends Page {
 			.click();
 	}
 
+	clickReviewLpaq(position) {
+		this.clickAccordionByText('Case documentation');
+		this.basePageElements
+			.tableCell()
+			.eq(position - 2)
+			.find(this.selectors.link)
+			.click();
+	}
+
+	clickReviewAppellantCase(position) {
+		this.clickAccordionByText('Case documentation');
+		this.basePageElements
+			.tableCell()
+			.eq(position - 2)
+			.find(this.selectors.link)
+			.click();
+	}
+
+	clickChangeVisitTypeHasCaseTimetable(position) {
+		this.clickAccordionByText('Case timetable');
+		this.basePageElements.summaryListActions().eq(position - 1);
+		this.basePageElements.linkByText('Change Site visit').click();
+	}
+
+	clickChangeVisitTypeHasSiteDetails(position) {
+		this.clickAccordionByText('Site details');
+		this.basePageElements.summaryListActions().eq(position - 1);
+		this.basePageElements.linkByText('Change visit type').click();
+	}
+
 	nationalListSearch(text) {
 		this.fillInput(text);
 		this.clickButtonByText('Search');
 	}
+
+	selectAppellantOutcome(outcome) {
+		this.clickAccordionByText('Case documentation');
+		cy.contains(this.selectors.tableHeader, 'Appellant case');
+		this.clickAppealFromList(2);
+		this.selectRadioButtonByValue(outcome);
+	}
+
+	selectLpaqOutcome(outcome) {
+		this.clickAccordionByText('Case documentation');
+		cy.contains(this.selectors.tableHeader, 'LPA Questionnaire');
+		this.clickAppealFromList(3);
+		this.selectRadioButtonByValue(outcome);
+	}
+
+	verifyBannerTitle() {
+		cy.contains(this.selectors.bannerTitle);
+	}
+
+	verifyBannerContent() {
+		cy.contains(this.selectors.bannerContent);
+	}
+
+	//ASSERTIONS
 }

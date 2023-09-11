@@ -4,7 +4,7 @@
   "private": true,
   "description": "PINS Back Office API App",
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18.0.0 <19.0.0"
   },
   "prisma": {
     "schema": "src/database/schema.prisma",
@@ -16,18 +16,17 @@
     "test:watch": "npm run test -- --watch",
     "coverage": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
     "dev": "npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
-    "dev:queue:listen": "nodemon --experimental-json-modules -e js ./src/server/utils/service-bus-receiver.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "clean": "rimraf .turbo node_modules dist",
-    "swagger-autogen": "node ./src/server/swagger.js && npx prettier ./src/server/swagger-output.json --write",
+    "gen-api-spec": "node ./src/server/swagger.js && npx prettier ./src/server/swagger-output.json --write",
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:push": "npx prisma db push --accept-data-loss",
     "db:reset": "npx prisma migrate reset --force",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
-    "db:seed:prod": "npm run prisma-generate && NODE_ENV=production node src/database/seed/seed-production.js",
+    "db:seed:prod": "npm run prisma-generate && cross-env NODE_ENV=production node src/database/seed/seed-production.js",
     "prisma:format": "npx prisma format",
     "prisma-generate": "npx prisma generate",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
@@ -79,7 +78,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-mock-extended": "^3.0.1",
     "nodemon": "^2.0.18",
-    "prisma": "^4.16.1",
+    "prisma": "4.16.1",
     "rimraf": "^3.0.2",
     "supertest": "6.2.3",
     "swagger-autogen": "^2.21.4"

@@ -13,6 +13,7 @@ export class Page {
 		bannerHeader: '.govuk-notification-banner__heading',
 		button: '.govuk-button',
 		body: '.govuk-body',
+		caption: '.govuk-caption-m',
 		centralCol: '.pins-column--central',
 		checkbox: '.govuk-checkboxes__item',
 		errorMessage: '.govuk-error-message',
@@ -35,13 +36,15 @@ export class Page {
 		tableCell: '.govuk-table__cell',
 		tableHeader: '.govuk-table__header',
 		tableRow: '.govuk-table__row',
+		tab: '.govuk-tabs__tab',
 		tag: '.govuk-tag',
 		textArea: '.govuk-textarea',
+		successBanner: '.govuk-notification-banner--success',
+		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
-		xlHeader: '.govuk-heading-xl',
-		caption: '.govuk-caption-m'
+		xlHeader: '.govuk-heading-xl'
 	};
 
 	// E L E M E N T S
@@ -60,6 +63,7 @@ export class Page {
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
+		enterDate: () => cy.get(this.selectors.dateInput),
 		errorMessage: () => cy.get(this.selectors.errorMessage),
 		summaryErrorMessages: () => cy.get(this.selectors.summaryErrorMessages),
 		goToDashboardLink: () =>
@@ -76,13 +80,18 @@ export class Page {
 		selectAllCheckboxes: () => cy.get('#selectAll'),
 		selectElem: () => cy.get(this.selectors.select),
 		saveAndContinue: () => this.clickButtonByText('Save and Continue'),
+		successBanner: () => cy.get(this.selectors.successBanner),
+		summaryListActions: () => cy.get(this.selectors.summaryListActions),
+		summaryListValue: () => cy.get(this.selectors.summaryListValue),
 		signOutLink: () =>
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Sign Out', {
 				matchCase: false
 			}),
 		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
+		tabByText: (tabText) => cy.contains(this.selectors.tab, tabText, { matchCase: false }),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
+		tableHeader: () => cy.get(this.selectors.tableHeader),
 		tableCell: () => cy.get(this.selectors.tableCell),
 		textArea: () => cy.get(this.selectors.textArea),
 		genericText: () => cy.get(this.selectors.body)
@@ -136,6 +145,10 @@ export class Page {
 		this.basePageElements.linkByText(linkText).click();
 	}
 
+	clickTabByText(tabText) {
+		this.basePageElements.tabByText(tabText).click();
+	}
+
 	chooseRadioBtnByIndex(indexNumber) {
 		this.basePageElements.radioButton().find('input').eq(indexNumber).check();
 	}
@@ -156,6 +169,10 @@ export class Page {
 		this.basePageElements.clearSearchResultsButton().click();
 	}
 
+	selectRadioButtonByValue(value) {
+		this.basePageElements.radioButton().contains(value).click();
+	}
+
 	// A S S E R T I O N S
 
 	verifyTableCellText(options) {
@@ -174,7 +191,7 @@ export class Page {
 	}
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
-			expect($banner.text().trim()).to.equal(successMessage);
+			expect($banner.text().trim()).eq(successMessage);
 		});
 	}
 

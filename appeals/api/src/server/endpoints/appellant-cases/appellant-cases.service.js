@@ -17,8 +17,7 @@ import transitionState from '../../state/transition-state.js';
 import appealRepository from '#repositories/appeal.repository.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
-/** @typedef {import('@pins/appeals.api').Schema.ValidationOutcome} ValidationOutcome */
-/** @typedef {import('@pins/appeals.api').Appeals.NotifyClient} NotifyClient */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcomeParams} UpdateAppellantCaseValidationOutcomeParams */
 
 /**
  * @type {RequestHandler}
@@ -39,14 +38,7 @@ const checkAppellantCaseExists = async (req, res, next) => {
 };
 
 /**
- *
- * @param {{
- *  appeal: { appealStatus: *, appealType: *, appellant: *, id: number, reference: string }
- *  appellantCaseId: number
- *  data: { appealDueDate: string, incompleteReasons: number[], invalidReasons: number[], otherNotValidReasons: string }
- *  notifyClient: NotifyClient
- *  validationOutcome: ValidationOutcome
- * }} param0
+ * @param {UpdateAppellantCaseValidationOutcomeParams} param0
  */
 const updateAppellantCaseValidationOutcome = async ({
 	appeal,

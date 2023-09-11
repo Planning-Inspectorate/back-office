@@ -3,6 +3,7 @@ import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
+import * as folderRepository from '../../../repositories/folder.repository.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
 import logger from '../../../utils/logger.js';
@@ -12,6 +13,7 @@ import {
 } from '../../../utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	extractDuplicates,
 	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
 	makeDocumentReference,
@@ -63,19 +65,24 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 		: 1;
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
-	for (const doc of documentsToUpload) {
+	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
+	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
+		remainder.includes(doc.documentName)
+	);
+
+	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
 	}
 
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
-		documentsToUpload,
+		filteredToUpload,
 		params.id
 	);
 
 	if (dbResponse === null) {
-		response.status(409).send({ failedDocuments });
+		response.status(409).send({ failedDocuments, duplicates });
 		return;
 	}
 
@@ -87,11 +94,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
-	response.status(failedDocuments.length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
-		failedDocuments
+		failedDocuments,
+		duplicates
 	});
 };
 
@@ -105,7 +113,7 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
 	// Obtain URL of document from blob storage
 	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
-		params.id,
+		Number(params.id),
 		params.guid
 	);
 
@@ -205,6 +213,23 @@ export const updateDocuments = async ({ body }, response) => {
 
 	logger.info(`Updated ${documents.length} documents`);
 	response.send(formattedResponseList);
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ * */
+export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
+	const document = await documentRepository.getById(guid);
+	if (!document) {
+		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
+	}
+
+	const folders = await folderRepository.getFolderWithParents(document.folderId);
+
+	response.send(folders);
 };
 
 /**

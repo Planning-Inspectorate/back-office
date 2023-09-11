@@ -22,7 +22,8 @@ import {
 	projectUpdatesRows,
 	statusRadioOption,
 	sortStatuses,
-	typeRadioOption
+	typeRadioOption,
+	statusFilter
 } from './project-updates.view-model.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 
@@ -191,16 +192,14 @@ export async function projectUpdatesStatusGet(req, res) {
 	const errors = req.errors;
 
 	// which statuses options should be shown, given the current status
-	const statusOptions = sortStatuses([
+	const allowedStatuses = [
 		// you can always choose the current status option
 		projectUpdate.status,
 		// and any other allowed statuses
 		...ProjectUpdate.AllowedStatuses[projectUpdate.status]
-			// you can't change an update to published from the status page
-			// that happens on the check answers page
-			// instead it'd be set to Ready to Publish
-			.filter((status) => status !== ProjectUpdate.Status.published)
-	]);
+	].filter(statusFilter(projectUpdate.status));
+
+	const statusOptions = sortStatuses(allowedStatuses);
 
 	const title =
 		projectUpdate.status === ProjectUpdate.Status.draft ? 'Set status' : 'Change status';

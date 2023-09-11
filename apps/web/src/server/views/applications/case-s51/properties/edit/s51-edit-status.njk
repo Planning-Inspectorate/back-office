@@ -1,0 +1,44 @@
+{% extends "../../../layouts/applications.layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back to S51 advice",
+    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
+	}) }}
+{% endblock %}
+{% block pageHeading %}{% endblock %}
+{% block pageContent %}
+	{% set statusItems = [
+		{
+			value: 'not_checked',
+			text: 'Not checked'
+		}, {
+			value: 'checked',
+			text: 'Checked'
+    }, {
+      value: 'ready_to_publish',
+      text: 'Ready to publish'
+    }, {
+      value: 'do_not_publish',
+      text: 'Do not publish'
+    }
+  ]
+  %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    Select the S51 advice status
+  </h1>
+  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+		{{ govukRadios({
+			name: 'publishedStatus',
+			id: 'publishedStatus',
+			items: statusItems,
+			errorMessage: errors.publishedStatus,
+			items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.publishedStatus})
+
+		}) }}
+    {{ govukButton({ text: 'Save and return'}) }}
+  </form>
+{% endblock %}

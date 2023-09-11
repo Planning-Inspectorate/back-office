@@ -135,7 +135,8 @@ describe('Ready-to-publish-documents', () => {
 					documentType: '',
 					filter1: null,
 					filter2: null,
-					examinationRefNo: ''
+					examinationRefNo: '',
+					fromFrontOffice: false
 				}
 			]
 		});

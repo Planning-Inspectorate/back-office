@@ -1,13 +1,22 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
+import { asyncHandler } from '#middleware/async-handler.js';
 import {
 	createS51Advice,
 	getS51Advice,
 	getManyS51Advices,
-	addDocuments
+	addDocuments,
+	getDocuments,
+	updateManyS51Advices,
+	updateS51Advice
 } from './s51-advice.controller.js';
-import { validateCreateS51Advice, validatePaginationCriteria } from './s51-advice.validators.js';
+import {
+	validateCreateS51Advice,
+	validatePaginationCriteria,
+	validateS51AdviceIds,
+	validateS51AdviceToUpdateProvided
+} from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 
 const router = createRouter();
 
@@ -37,7 +46,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
-        #swagger.description = 'Application case ID'
+        #swagger.description = 'Gets an S51 Advice record'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application case ID',
@@ -59,7 +68,7 @@ router.get(
 	asyncHandler(getS51Advice)
 );
 
-router.post(
+router.get(
 	'/:id/s51-advice',
 	/*
         #swagger.tags = ['Applications']
@@ -67,16 +76,22 @@ router.post(
         #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
         #swagger.parameters['id'] = {
             in: 'path',
-			description: 'Application ID',
-			required: true,
-			type: 'integer'
-		}
-		#swagger.parameters['body'] = {
-			in: 'body',
-			description: 'S51 Advice pagination parameters',
-			schema: { $ref: '#/definitions/S51AdvicePaginatedRequestBody' },
-			required: true
-		}
+            description: 'Application ID',
+            required: true,
+            type: 'integer'
+        }
+        #swagger.parameters['page'] = {
+            in: 'query',
+            description: 'The page number required',
+            required: true,
+            type: 'number'
+        }
+        #swagger.parameters['pageSize'] = {
+            in: 'query',
+            description: 'The number of items per page',
+            required: true,
+            type: 'number'
+        }
         #swagger.responses[200] = {
             description: 'A paginated data set of S51 Advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
@@ -134,4 +149,109 @@ router.post(
 	validateApplicationId,
 	asyncHandler(addDocuments)
 );
+
+router.get(
+	'/:id/s51-advice/:adviceId/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}/documents'
+        #swagger.description = 'Get S51 advice documents'
+         #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application case ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+			description: 'S51 advice ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'S51 Documents',
+            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(getDocuments)
+);
+
+router.patch(
+	'/:id/s51-advice',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice'
+        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'S51 Advice update parameters',
+			schema: { $ref: '#/definitions/S51AdviceMultipleUpdateRequestBody' },
+			required: true
+		}
+        #swagger.responses[200] = {
+            description: 'S51 Advice(s) that have been updated',
+            schema: { $ref: '#/definitions/S51AdviceUpdateResponseBody' }
+        }
+		#swagger.responses[400] = {
+            description: 'Error: Bad Request',
+            schema: { $ref: '#/definitions/S51AdviceUpdateBadRequest' }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateManyS51Advices)
+);
+
+router.patch(
+	'/:id/s51-advice/:adviceId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice'
+        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    #swagger.parameters['adviceId'] = {
+      in: 'path',
+      description: 'Advice ID',
+      required: true,
+      type: 'integer'
+    }
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'S51 Advice update parameters',
+			schema: { $ref: '#/definitions/S51AdviceUpdateRequestBody' },
+			required: true
+		}
+        #swagger.responses[200] = {
+            description: 'S51 Advice(s) that have been updated',
+            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+        }
+      #swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	trimUnexpectedRequestParameters,
+	asyncHandler(updateS51Advice)
+);
+
 export { router as s51AdviceRoutes };

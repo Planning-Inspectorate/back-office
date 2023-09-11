@@ -9,9 +9,12 @@
 			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
 			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
 		},
+		"topo": {
+			"dependsOn": ["^topo"]
+		},
 		"test": {
 			"outputs": ["coverage/**"],
-			"dependsOn": []
+			"dependsOn": ["topo"]
 		},
 		"lint:js": {
 			"dependsOn": ["^build"],
@@ -25,7 +28,7 @@
 			"cache": false
 		},
 		"tscheck": {
-			"cache": false
+			"dependsOn": ["topo"]
 		},
 		"dev": {
 			"cache": false

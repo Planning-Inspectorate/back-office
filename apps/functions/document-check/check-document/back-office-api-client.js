@@ -18,6 +18,44 @@ const sendRequestToBackOffice = async (documentGuid, machineAction) => {
 
 /**
  *
+ * @param {string} documentGuid
+ * @param {import('@azure/functions').Logger} log
+ * @returns {Promise<{ guid: string, documentName: string, fromFrontOffice: boolean } | null>}
+ * */
+export const getDocumentProperties = async (documentGuid, log) => {
+	try {
+		const result = await got
+			.get(`https://${config.API_HOST}/applications/documents/${documentGuid}/properties`)
+			.json();
+
+		return result;
+	} catch (err) {
+		log.error(err);
+		return null;
+	}
+};
+
+/**
+ *
+ * @param {string} documentGuid
+ * @param {import('@azure/functions').Logger} log
+ * @returns {Promise<{ id: number, displayNameEn: string }[] | null>}
+ * */
+export const getDocumentFolders = async (documentGuid, log) => {
+	try {
+		const result = await got
+			.get(`https://${config.API_HOST}/applications/documents/${documentGuid}/path`)
+			.json();
+
+		return result;
+	} catch (err) {
+		log.error(err);
+		return null;
+	}
+};
+
+/**
+ *
  * @param {Error} error
  * @returns {boolean}
  */
@@ -37,7 +75,7 @@ const errorIsDueToDocumentAlreadyMakedWithNewStatus = (error) => {
 export const sendDocumentStateAction = async (documentGuid, machineAction, log) => {
 	try {
 		await sendRequestToBackOffice(documentGuid, machineAction);
-	} catch (error) {
+	} catch (/** @type {any} */ error) {
 		if (errorIsDueToDocumentAlreadyMakedWithNewStatus(error)) {
 			log.info(`Document status already updated using the state machine trigger ${machineAction}`);
 		} else {

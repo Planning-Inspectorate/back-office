@@ -5,4 +5,7 @@ const router = createRouter();
 
 router.route('/').get(controller.viewNationalList);
 
+//This is a test route to check user permissions on AD
+router.route('/ad').get(controller.getCaseOfficers);
+
 export default router;

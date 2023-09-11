@@ -6,11 +6,12 @@ import {
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
 	DEFAULT_TIMESTAMP_TIME,
+	ERROR_MUST_BE_IN_FUTURE,
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INVALID_APPELLANT_CASE_VALIDATION_OUTCOME,
 	ERROR_MAX_LENGTH_CHARACTERS,
-	ERROR_MUST_BE_ARRAY_OF_IDS,
+	ERROR_MUST_BE_ARRAY_OF_NUMBERS,
 	ERROR_MUST_BE_BOOLEAN,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
@@ -26,6 +27,7 @@ import {
 	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
 	ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED,
 	MAX_LENGTH_300,
+	MAX_LENGTH_4000,
 	STATE_TARGET_INVALID,
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE
 } from '../../constants.js';
@@ -54,8 +56,6 @@ const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMA
 const notifyClient = new NotifyClient();
 
 describe('appellant cases routes', () => {
-	config.govNotify.api.key = 'gov-notify-api-key-123';
-
 	afterEach(() => {
 		jest.resetAllMocks();
 		jest.useRealTimers();
@@ -252,7 +252,7 @@ describe('appellant cases routes', () => {
 				);
 
 				const body = {
-					appealDueDate: '2023-07-14',
+					appealDueDate: '2099-07-14',
 					incompleteReasons: [1, 2, 3],
 					validationOutcome: 'Incomplete',
 					otherNotValidReasons: 'Another reason'
@@ -285,49 +285,6 @@ describe('appellant cases routes', () => {
 				});
 			});
 
-			test('updates appellant case when the validation outcome is incomplete with string array and no appeal due date', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-				// @ts-ignore
-				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
-					appellantCaseValidationOutcomes[0]
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue(
-					appellantCaseIncompleteReasons
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.deleteMany.mockResolvedValue(
-					true
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseIncompleteReasonOnAppellantCase.createMany.mockResolvedValue(
-					true
-				);
-
-				const body = {
-					incompleteReasons: ['1', '2', '3'],
-					validationOutcome: 'incomplete',
-					otherNotValidReasons: 'Another reason'
-				};
-				const { appellantCase, id } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
-
-				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
-					where: { id: appellantCase.id },
-					data: {
-						appellantCaseValidationOutcomeId: 1,
-						otherNotValidReasons: 'Another reason'
-					}
-				});
-				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
-				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
-				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
-			});
-
 			test('updates appellant case when the validation outcome is Invalid with numeric array', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
@@ -351,56 +308,6 @@ describe('appellant cases routes', () => {
 				const body = {
 					invalidReasons: [1, 2, 3],
 					validationOutcome: 'Invalid',
-					otherNotValidReasons: 'Another reason'
-				};
-				const { appellantCase, id } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
-
-				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
-					where: { id: appellantCase.id },
-					data: {
-						appellantCaseValidationOutcomeId: 2,
-						otherNotValidReasons: 'Another reason'
-					}
-				});
-				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
-					data: {
-						appealId: id,
-						createdAt: expect.any(Date),
-						status: STATE_TARGET_INVALID,
-						valid: true
-					}
-				});
-				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
-				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
-			});
-
-			test('updates appellant case when the validation outcome is invalid with string array', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-				// @ts-ignore
-				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
-					appellantCaseValidationOutcomes[1]
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseInvalidReason.findMany.mockResolvedValue(
-					appellantCaseInvalidReasons
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.deleteMany.mockResolvedValue(
-					true
-				);
-				// @ts-ignore
-				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany.mockResolvedValue(
-					true
-				);
-
-				const body = {
-					invalidReasons: ['1', '2', '3'],
-					validationOutcome: 'invalid',
 					otherNotValidReasons: 'Another reason'
 				};
 				const { appellantCase, id } = householdAppeal;
@@ -794,6 +701,28 @@ describe('appellant cases routes', () => {
 				});
 			});
 
+			test('returns an error if appealDueDate is in the past', async () => {
+				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+
+				const { appellantCase, id } = householdAppeal;
+				const body = {
+					appealDueDate: '2023-06-04',
+					incompleteReasons: [1, 2, 3],
+					validationOutcome: 'Incomplete',
+					otherNotValidReasons: 'Another reason'
+				};
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						appealDueDate: ERROR_MUST_BE_IN_FUTURE
+					}
+				});
+			});
+
 			test('returns an error if appealDueDate is not a valid date', async () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
@@ -808,6 +737,44 @@ describe('appellant cases routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						appealDueDate: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is not a string', async () => {
+				const { appellantCase, id } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send({
+						incompleteReasons: [1, 3],
+						otherNotValidReasons: 123,
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: ERROR_MUST_BE_STRING
+					}
+				});
+			});
+
+			test('returns an error if otherNotValidReasons is more than 4000 characters', async () => {
+				const { appellantCase, id } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send({
+						incompleteReasons: [1, 3],
+						otherNotValidReasons: 'A'.repeat(MAX_LENGTH_4000 + 1),
+						validationOutcome: 'Incomplete'
+					});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						otherNotValidReasons: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
+							MAX_LENGTH_4000
+						])
 					}
 				});
 			});
@@ -856,7 +823,7 @@ describe('appellant cases routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						incompleteReasons: ERROR_MUST_BE_ARRAY_OF_IDS
+						incompleteReasons: ERROR_MUST_BE_ARRAY_OF_NUMBERS
 					}
 				});
 			});
@@ -873,7 +840,7 @@ describe('appellant cases routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						invalidReasons: ERROR_MUST_BE_ARRAY_OF_IDS
+						invalidReasons: ERROR_MUST_BE_ARRAY_OF_NUMBERS
 					}
 				});
 			});
@@ -1103,6 +1070,25 @@ describe('appellant cases routes', () => {
 				});
 			});
 
+			test('returns an error if incompleteReasons is not a numeric array', async () => {
+				const body = {
+					incompleteReasons: ['1', '2', '3'],
+					validationOutcome: 'incomplete',
+					otherNotValidReasons: 'Another reason'
+				};
+				const { appellantCase, id } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						incompleteReasons: ERROR_MUST_BE_ARRAY_OF_NUMBERS
+					}
+				});
+			});
+
 			test('returns an error if incompleteReasons is given when validationOutcome is not Incomplete', async () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
@@ -1116,6 +1102,29 @@ describe('appellant cases routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						incompleteReasons: ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME
+					}
+				});
+			});
+
+			test('returns an error if invalidReasons is not a numeric array', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+
+				const body = {
+					invalidReasons: ['1', '2', '3'],
+					validationOutcome: 'invalid',
+					otherNotValidReasons: 'Another reason'
+				};
+				const { appellantCase, id } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.send(body);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						invalidReasons: ERROR_MUST_BE_ARRAY_OF_NUMBERS
 					}
 				});
 			});

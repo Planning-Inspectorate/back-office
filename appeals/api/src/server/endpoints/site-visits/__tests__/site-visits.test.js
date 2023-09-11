@@ -7,13 +7,21 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_SITE_VISIT_REQUIRED_FIELDS,
 	ERROR_START_TIME_MUST_BE_EARLIER_THAN_END_TIME,
+	SITE_VISIT_TYPE_UNACCOMPANIED,
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../constants.js';
-import { householdAppeal } from '../../../tests/data.js';
+import { householdAppeal as householdAppealData } from '../../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
 describe('site visit routes', () => {
+	/** @type {typeof householdAppealData} */
+	let householdAppeal;
+
+	beforeEach(() => {
+		householdAppeal = JSON.parse(JSON.stringify(householdAppealData));
+	});
+
 	describe('/:appealId/site-visits', () => {
 		describe('POST', () => {
 			test('creates a site visit without updating the status', async () => {
@@ -160,6 +168,35 @@ describe('site visit routes', () => {
 				});
 			});
 
+			test('creates an Unaccompanied site visit without time fields', async () => {
+				const { siteVisit } = householdAppeal;
+
+				siteVisit.siteVisitType.name = SITE_VISIT_TYPE_UNACCOMPANIED;
+
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
+
+				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
+					visitDate: siteVisit.visitDate.split('T')[0],
+					visitType: siteVisit.siteVisitType.name
+				});
+
+				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						visitDate: siteVisit.visitDate,
+						siteVisitTypeId: siteVisit.siteVisitType.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					visitDate: siteVisit.visitDate,
+					visitType: siteVisit.siteVisitType.name
+				});
+			});
+
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request.post('/appeals/one/site-visits').send({
 					visitType: householdAppeal.siteVisit.siteVisitType.name
@@ -223,7 +260,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitDate is not given when visitEndTime and visitStartTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitDate is not given when visitEndTime and visitStartTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -241,7 +278,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitEndTime is not given when visitDate and visitStartTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitEndTime is not given when visitDate and visitStartTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -259,7 +296,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitStartTime is not given when visitDate and visitEndTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitStartTime is not given when visitDate and visitEndTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -603,6 +640,37 @@ describe('site visit routes', () => {
 				});
 			});
 
+			test('updates an Unaccompanied site visit without time fields', async () => {
+				const { siteVisit } = householdAppeal;
+
+				siteVisit.siteVisitType.name = SITE_VISIT_TYPE_UNACCOMPANIED;
+
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
+
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}/site-visits/${siteVisit.id}`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitType: siteVisit.siteVisitType.name
+					});
+
+				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						visitDate: siteVisit.visitDate,
+						siteVisitTypeId: siteVisit.siteVisitType.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					visitDate: siteVisit.visitDate,
+					visitType: siteVisit.siteVisitType.name
+				});
+			});
+
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/one/site-visits/${householdAppeal.siteVisit.id}`)
@@ -708,7 +776,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitDate is not given when visitEndTime and visitStartTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitDate is not given when visitEndTime and visitStartTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -728,7 +796,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitEndTime is not given when visitDate and visitStartTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitEndTime is not given when visitDate and visitStartTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
@@ -748,7 +816,7 @@ describe('site visit routes', () => {
 				});
 			});
 
-			test('returns an error if visitStartTime is not given when visitDate and visitEndTime are given', async () => {
+			test('returns an error if visitType is not Unaccompanied and visitStartTime is not given when visitDate and visitEndTime are given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 

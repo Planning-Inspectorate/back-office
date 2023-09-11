@@ -9,7 +9,7 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -103,6 +103,41 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
 </main>"
 `;
 
+exports[`site-visit GET /site-visit/set-visit-type should render the select site visit type page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Select site visit type</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select visit type</legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
+                        value="unaccompanied">
+                        <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-2" name="visit-type"
+                        type="radio" value="accessRequired">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-2">Access required</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
+                        type="radio" value="accompanied">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
 exports[`site-visit GET /site-visit/visit-scheduled should render the visit scheduled confirmation page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="pins-width-container">
@@ -155,7 +190,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -219,7 +254,125 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <h2>Select a time</h2>
+        <p class="govuk-body">Time is optional for unaccompanied site visits</p>
+        <p class="govuk-body">Enter a time, for example 9:00 or 16:30</p>
+        <fieldset class="govuk-fieldset govuk-!-margin-top-4">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
+            <div class="govuk-form-group govuk-!-margin-bottom-4">
+                <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
+                name="visit-start-time-hour" type="number" value="10">&nbsp;:&nbsp;
+                <input class="govuk-input govuk-input--width-2" id="visit-start-time-minute"
+                name="visit-start-time-minute" type="number" value="00">
+            </div>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>
+            <div class="govuk-form-group">
+                <input class="govuk-input govuk-input--width-2" id="visit-end-time-hour"
+                name="visit-end-time-hour" type="number" value="11">&nbsp;:&nbsp;
+                <input class="govuk-input govuk-input--width-2" id="visit-end-time-minute"
+                name="visit-end-time-minute" type="number" value="30">
+            </div>
+        </fieldset>
+        <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Schedule site visit</button>
+    </form>
+</main>"
+`;
+
+exports[`site-visit POST /site-visit/schedule-visit should re-render the schedule visit page with the expected error message if provided date is not in the future 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Visit date must be a date in the future</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Schedule site visit</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
+            </summary>
+            <div class="govuk-details__text">
+                <dl class="govuk-summary-list govuk-summary-list--no-border">
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
+                        <dd class="govuk-summary-list__value">Eva Sharma
+                            <br>21 The Pavement, Wandsworth, SW4 0HY
+                            <br>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </details>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select visit type</legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
+                        value="unaccompanied" checked>
+                        <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-2" name="visit-type"
+                        type="radio" value="accessRequired">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-2">Access required</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
+                        type="radio" value="accompanied">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
+                <div class="govuk-date-input" id="visit-date">
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="visit-date-day">Day</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="visit-date-day" name="visit-date-day" type="text" value="29" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="visit-date-month">Month</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                            id="visit-date-month" name="visit-date-month" type="text" value="2" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
+                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                            id="visit-date-year" name="visit-date-year" type="text" value="2000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -275,7 +428,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -339,7 +492,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -395,7 +548,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -459,7 +612,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -515,7 +668,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -579,7 +732,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -635,7 +788,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -699,7 +852,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -740,6 +893,8 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <ul class="govuk-list govuk-error-summary__list">
                             <li><a href="#visit-date-year">Visit date year must be 4 digits</a>
                             </li>
+                            <li><a href="#">Visit date must be a date in the future</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -753,7 +908,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -871,7 +1026,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -935,7 +1090,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="20233" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="30003" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -989,7 +1144,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1014,7 +1169,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
-                        value="unaccompanied" checked>
+                        value="unaccompanied">
                         <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
                     </div>
                     <div class="govuk-radios__item">
@@ -1024,7 +1179,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
-                        type="radio" value="accompanied">
+                        type="radio" value="accompanied" checked>
                         <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
                     </div>
                 </div>
@@ -1053,7 +1208,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -1107,7 +1262,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1132,7 +1287,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
-                        value="unaccompanied" checked>
+                        value="unaccompanied">
                         <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
                     </div>
                     <div class="govuk-radios__item">
@@ -1142,7 +1297,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
-                        type="radio" value="accompanied">
+                        type="radio" value="accompanied" checked>
                         <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
                     </div>
                 </div>
@@ -1171,7 +1326,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -1225,7 +1380,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1250,7 +1405,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
-                        value="unaccompanied" checked>
+                        value="unaccompanied">
                         <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
                     </div>
                     <div class="govuk-radios__item">
@@ -1260,7 +1415,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
-                        type="radio" value="accompanied">
+                        type="radio" value="accompanied" checked>
                         <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
                     </div>
                 </div>
@@ -1289,7 +1444,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -1343,7 +1498,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1368,7 +1523,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
-                        value="unaccompanied" checked>
+                        value="unaccompanied">
                         <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
                     </div>
                     <div class="govuk-radios__item">
@@ -1378,7 +1533,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
-                        type="radio" value="accompanied">
+                        type="radio" value="accompanied" checked>
                         <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
                     </div>
                 </div>
@@ -1407,7 +1562,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="visit-date-year">Year</label>
                             <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="visit-date-year" name="visit-date-year" type="text" value="2023" inputmode="numeric">
+                            id="visit-date-year" name="visit-date-year" type="text" value="3000" inputmode="numeric">
                         </div>
                     </div>
                 </div>
@@ -1477,7 +1632,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
     </div>
     <form method="post" novalidate="novalidate">
         <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Relevant information</span>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Site information</span>
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -1568,5 +1723,272 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </fieldset>
         <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Schedule site visit</button>
     </form>
+</main>"
+`;
+
+exports[`site-visit POST /site-visit/set-visit-type should re-render the select site visit type page with the expected error message if the site visit type was not selected 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#visit-type">Please select a visit type</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Select site visit type</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select visit type</legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type" name="visit-type" type="radio"
+                        value="unaccompanied">
+                        <label class="govuk-label govuk-radios__label" for="visit-type">Unaccompanied</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-2" name="visit-type"
+                        type="radio" value="accessRequired">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-2">Access required</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="visit-type-3" name="visit-type"
+                        type="radio" value="accompanied">
+                        <label class="govuk-label govuk-radios__label" for="visit-type-3">Accompanied</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`site-visit POST /site-visit/set-visit-type should render the case details page displaying the success notification banner with the expected content if the site visit type was updated 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-notification-banner govuk-notification-banner--success"
+    role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h3>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Site visit type has been selected</p>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
+        </div>
+    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+    <dl     class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+        </dl>
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                </div>
+                <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-1">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
+                            <dd class="govuk-summary-list__value">household</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/appeal-type"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Procedure</dt>
+                            <dd class="govuk-summary-list__value">Written</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/case-procedure"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
+                            <dd class="govuk-summary-list__value">Eva Sharma</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/appellant-name"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
+                            <dd class="govuk-summary-list__value">No agent for this appeal</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/agent-name"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked Appeals</dt>
+                            <dd class="govuk-summary-list__value">
+                                <ul class="govuk-list"
+                                "><li><a href='/appeals-service/appeal-details/1' class="govuk-link
+                                ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions
+                                "><a class="govuk-link " href="/appeals-service/appeal-details/1/change/linked-appeals
+                                "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
+                                "> Other Appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                    <li><a href='/appeals-service/appeal-details/3' class="govuk-link">765413</a>
+                                    </li>
+                                    <li><a href='/appeals-service/appeal-details/4' class="govuk-link">523467</a>
+                                    </li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/other-appeals"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
+                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
+                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
+                            <dd class="govuk-summary-list__value">Not issued yet</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/decision"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                </div>
+                <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-2">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
+                            <dd                             class="govuk-summary-list__value"><span>No answer provided</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire/inspector-access/"> Change</a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (Appellant&#39;s answer)</dt>
+                            <dd                             class="govuk-summary-list__value"><span>No</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/appellant-case/inspector-access/"> Change</a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Could a neighbouring site be affected?</dt>
+                            <dd                             class="govuk-summary-list__value">Yes</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/neighbouring-site-is-affected"> Change</a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/neighbouring-site-address-0"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                            <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/neighbouring-site-address-1"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                            <dd                             class="govuk-summary-list__value"><span>No answer provided</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/appellant-case/health-and-safety"> Change</a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
+                                <br><span>Dogs on site</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire/health-and-safety"> Change</a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                </div>
+                <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-3">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                            <dd class="govuk-summary-list__value">23 May 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/start-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-4"> Case documentation</span></h2>
+                </div>
+                <div id="accordion-default1-content-4" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-4">
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Documentation</th>
+                                <th scope="col" class="govuk-table__header">Status</th>
+                                <th scope="col" class="govuk-table__header">Due date</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">Appellant Case</th>
+                                <td class="govuk-table__cell">Received</td>
+                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
+                                <td class="govuk-table__cell">Not received</td>
+                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                </div>
+                <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-5">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
+                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/case-officer"> Add</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
+                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/inspector"> Add</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
 </main>"
 `;

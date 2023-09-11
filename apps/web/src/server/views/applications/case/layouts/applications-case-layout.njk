@@ -41,13 +41,13 @@
 {% endblock %}
 
 {% block pageContent %}
-	<div class="govuk-grid-row">
+	<div class="govuk-grid-row display--flex">
 		{% block sectionMenu %}
-			<div class="govuk-grid-column-one-third">
+			<div class="pins-list-menu-container">
 				{{ casePageNavigation({ case: case, domainType: domainType, selectedPageType: selectedPageType }) }}
 			</div>
 		{% endblock %}
-		<div class="govuk-grid-column-two-thirds">
+		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
 			{% endblock %}
 		</div>

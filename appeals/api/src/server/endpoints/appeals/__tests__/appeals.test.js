@@ -5,6 +5,7 @@ import {
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
+	ERROR_MUST_BE_UUID,
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
@@ -15,7 +16,7 @@ import {
 	linkedAppeals,
 	otherAppeals
 } from '#tests/data.js';
-import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
+import formatAddress from '#utils/format-address.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -412,11 +413,13 @@ describe('appeals routes', () => {
 					},
 					appealStatus: householdAppeal.appealStatus[0].status,
 					appealTimetable: {
+						appealTimetableId: householdAppeal.appealTimetable.id,
 						lpaQuestionnaireDueDate: householdAppeal.appealTimetable.lpaQuestionnaireDueDate
 					},
 					appealType: householdAppeal.appealType.type,
 					appellantCaseId: 1,
 					appellantName: householdAppeal.appellant.name,
+					caseOfficer: householdAppeal.caseOfficer.azureUserId,
 					decision: householdAppeal.inspectorDecision.outcome,
 					documentationSummary: {
 						appellantCase: {
@@ -438,6 +441,7 @@ describe('appeals routes', () => {
 							hasIssues: householdAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
 						}
 					},
+					inspector: householdAppeal.inspector.azureUserId,
 					inspectorAccess: {
 						appellantCase: {
 							details: householdAppeal.appellantCase.visibilityRestrictions,
@@ -458,9 +462,9 @@ describe('appeals routes', () => {
 					localPlanningDepartment: householdAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
-						contacts: formatNeighbouringSiteContacts(
-							householdAppeal.lpaQuestionnaire.neighbouringSiteContact
-						),
+						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
+							address: formatAddress(contact.address)
+						})),
 						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
 					otherAppeals: [
@@ -505,6 +509,7 @@ describe('appeals routes', () => {
 					},
 					appealStatus: fullPlanningAppeal.appealStatus[0].status,
 					appealTimetable: {
+						appealTimetableId: fullPlanningAppeal.appealTimetable.id,
 						finalCommentReviewDate: fullPlanningAppeal.appealTimetable.finalCommentReviewDate,
 						lpaQuestionnaireDueDate: fullPlanningAppeal.appealTimetable.lpaQuestionnaireDueDate,
 						statementReviewDate: fullPlanningAppeal.appealTimetable.statementReviewDate
@@ -512,6 +517,7 @@ describe('appeals routes', () => {
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantCaseId: 1,
 					appellantName: fullPlanningAppeal.appellant.name,
+					caseOfficer: fullPlanningAppeal.caseOfficer.azureUserId,
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
 					documentationSummary: {
 						appellantCase: {
@@ -533,6 +539,7 @@ describe('appeals routes', () => {
 							hasIssues: fullPlanningAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
 						}
 					},
+					inspector: fullPlanningAppeal.inspector.azureUserId,
 					inspectorAccess: {
 						appellantCase: {
 							details: fullPlanningAppeal.appellantCase.visibilityRestrictions,
@@ -553,8 +560,10 @@ describe('appeals routes', () => {
 					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
-						contacts: formatNeighbouringSiteContacts(
-							fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact
+						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(
+							(contact) => ({
+								address: formatAddress(contact.address)
+							})
 						),
 						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
@@ -619,6 +628,106 @@ describe('appeals routes', () => {
 				});
 			});
 
+			test('assigns a case officer to an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.caseOfficer);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					caseOfficer: householdAppeal.caseOfficer.azureUserId
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						caseOfficerUserId: householdAppeal.caseOfficer.id,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					caseOfficer: householdAppeal.caseOfficer.azureUserId
+				});
+			});
+
+			test('removes a case officer from an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.caseOfficer);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					caseOfficer: null
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						caseOfficerUserId: null,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					caseOfficer: null
+				});
+			});
+
+			test('assigns an inspector to an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.inspector);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					inspector: householdAppeal.inspector.azureUserId
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						inspectorUserId: householdAppeal.inspector.id,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					inspector: householdAppeal.inspector.azureUserId
+				});
+			});
+
+			test('removes an inspector from an appeal', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.inspector);
+
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					inspector: null
+				});
+
+				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
+					data: {
+						inspectorUserId: null,
+						updatedAt: expect.any(Date)
+					},
+					where: {
+						id: householdAppeal.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					inspector: null
+				});
+			});
+
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request.patch('/appeals/one');
 
@@ -679,6 +788,32 @@ describe('appeals routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						startedAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if caseOfficer is not a valid uuid', async () => {
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					caseOfficer: '1'
+				});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						caseOfficer: ERROR_MUST_BE_UUID
+					}
+				});
+			});
+
+			test('returns an error if inspector is not a valid uuid', async () => {
+				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
+					inspector: '1'
+				});
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						inspector: ERROR_MUST_BE_UUID
 					}
 				});
 			});

@@ -1,9 +1,8 @@
 import { databaseConnector } from '#utils/database-connector.js';
-import appealRepositoryTemp from '#repositories/appeal.repository.js';
+import appealRepository from '#repositories/appeal.repository.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
-/** @typedef {import('@pins/appeals.api').Appeals.TimetableDeadlineDate} TimetableDeadlineDate */
 /** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseRequest} UpdateAppellantCaseRequest */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcome} UpdateAppellantCaseValidationOutcome */
@@ -70,7 +69,7 @@ const updateAppellantCaseValidationOutcome = ({
 
 	if (appealId && startedAt && timetable) {
 		transaction.push(
-			appealRepositoryTemp.updateAppealById(appealId, { startedAt: startedAt.toISOString() }),
+			appealRepository.updateAppealById(appealId, { startedAt: startedAt.toISOString() }),
 			appealTimetablesRepository.upsertAppealTimetableById(appealId, timetable)
 		);
 	}

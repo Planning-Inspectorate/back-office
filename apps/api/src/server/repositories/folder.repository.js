@@ -50,6 +50,21 @@ export const getByCaseId = async (caseId, parentFolderId = null) => {
 };
 
 /**
+ * Returns full array of folders in a case
+ *
+ * @param {number} caseId
+ * @returns {Promise<Folder[]>}
+ * */
+export const getAllByCaseId = async (caseId) => {
+	const result = await databaseConnector.folder.findMany({ where: { caseId } });
+	if (!Array.isArray(result)) {
+		return [];
+	}
+
+	return result;
+};
+
+/**
  * Returns a single folder on a case
  *
  * @param {number} folderId
@@ -70,6 +85,27 @@ const findFolder = (folders, id) => {
 	const matchedFolder = folders.find((folder) => folder.id === id);
 
 	return matchedFolder ?? null;
+};
+
+/**
+ * Returns the requested folder along with all of its parents
+ *
+ * @param {number} folderId
+ * @returns {Promise<Folder[]>}
+ * */
+export const getFolderWithParents = async (folderId) => {
+	const folder = await databaseConnector.folder.findUnique({ where: { id: folderId } });
+	if (!folder) {
+		return [];
+	}
+
+	if (!folder.parentFolderId) {
+		return [folder];
+	}
+
+	const parents = await getFolderWithParents(folder.parentFolderId);
+
+	return [folder, ...parents];
 };
 
 /**

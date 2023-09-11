@@ -84,7 +84,15 @@ const householdAppeal = {
 		otherNotValidReasons: null,
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
+	caseOfficer: {
+		id: 1,
+		azureUserId: 'a8973f33-4d2e-486b-87b0-d068343ad9eb'
+	},
 	dueDate: '2023-08-10T01:00:00.000Z',
+	inspector: {
+		id: 2,
+		azureUserId: 'e8f89175-d02c-4a60-870e-dc954d5b530a'
+	},
 	inspectorDecision: {
 		outcome: 'Not issued yet'
 	},
@@ -135,6 +143,8 @@ const householdAppeal = {
 			'There is a tall hedge around the site which obstructs the view of the site',
 		isAffectingNeighbouringSites: true,
 		isCommunityInfrastructureLevyFormallyAdopted: null,
+		isConservationArea: true,
+		isCorrectAppealType: true,
 		isDevelopmentInOrNearDesignatedSites: null,
 		isEnvironmentalStatementRequired: null,
 		isGypsyOrTravellerSite: null,
@@ -145,13 +155,11 @@ const householdAppeal = {
 		isTheSiteWithinAnAONB: null,
 		listedBuildingDetails: [
 			{
-				grade: 'Grade I',
-				description: 'http://localhost:8080',
+				listEntry: '1',
 				affectsListedBuilding: false
 			},
 			{
-				grade: 'Grade II',
-				description: 'http://localhost:8081',
+				listEntry: '2',
 				affectsListedBuilding: true
 			}
 		],
@@ -468,8 +476,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	affectsListedBuildingDetails: appeal.lpaQuestionnaire?.listedBuildingDetails
 		? [
 				{
-					grade: appeal.lpaQuestionnaire?.listedBuildingDetails[1].grade,
-					description: appeal.lpaQuestionnaire?.listedBuildingDetails[1].description
+					listEntry: appeal.lpaQuestionnaire?.listedBuildingDetails[1].listEntry
 				}
 		  ]
 		: null,
@@ -489,24 +496,25 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	),
 	developmentDescription: appeal.lpaQuestionnaire?.developmentDescription,
 	documents: {
-		communityInfrastructureLevy: 'community-infrastructure-levy.pdf',
-		conservationAreaMapAndGuidance: 'conservation-area-map-and-guidance.pdf',
-		consultationResponses: 'consultation-responses.pdf',
-		definitiveMapAndStatement: 'right-of-way.pdf',
-		emergingPlans: ['emerging-plan-1.pdf'],
-		environmentalStatementResponses: 'environment-statement-responses.pdf',
-		issuedScreeningOption: 'issued-screening-opinion.pdf',
-		lettersToNeighbours: 'letters-to-neighbours.pdf',
-		otherRelevantPolicies: ['policy-1.pdf'],
-		planningOfficersReport: 'planning-officers-report.pdf',
-		policiesFromStatutoryDevelopment: ['policy-a.pdf'],
-		pressAdvert: 'press-advert.pdf',
-		representationsFromOtherParties: ['representations-from-other-parties-1.pdf'],
-		responsesOrAdvice: ['responses-or-advice.pdf'],
-		screeningDirection: 'screening-direction.pdf',
-		siteNotice: 'site-notice.pdf',
-		supplementaryPlanningDocuments: ['supplementary-1.pdf'],
-		treePreservationOrder: 'tree-preservation-order.pdf'
+		communityInfrastructureLevy: document,
+		conservationAreaMap: document,
+		consultationResponses: document,
+		definitiveMapAndStatement: document,
+		emergingPlans: document,
+		environmentalStatementResponses: document,
+		issuedScreeningOption: document,
+		lettersToNeighbours: document,
+		otherRelevantPolicies: document,
+		officersReport: document,
+		policiesFromStatutoryDevelopment: document,
+		pressAdvert: document,
+		notifyingParties: document,
+		representations: document,
+		responsesOrAdvice: document,
+		screeningDirection: document,
+		siteNotices: document,
+		supplementaryPlanningDocuments: document,
+		treePreservationOrder: document
 	},
 	doesAffectAListedBuilding: appeal.lpaQuestionnaire?.doesAffectAListedBuilding,
 	doesAffectAScheduledMonument: appeal.lpaQuestionnaire?.doesAffectAScheduledMonument,
@@ -533,6 +541,8 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	isAffectingNeighbouringSites: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites,
 	isCommunityInfrastructureLevyFormallyAdopted:
 		appeal.lpaQuestionnaire?.isCommunityInfrastructureLevyFormallyAdopted,
+	isConservationArea: appeal.lpaQuestionnaire?.isConservationArea || null,
+	isCorrectAppealType: appeal.lpaQuestionnaire?.isCorrectAppealType || null,
 	isEnvironmentalStatementRequired: appeal.lpaQuestionnaire?.isEnvironmentalStatementRequired,
 	isGypsyOrTravellerSite: appeal.lpaQuestionnaire?.isGypsyOrTravellerSite,
 	isListedBuilding: appeal.lpaQuestionnaire?.isListedBuilding,
@@ -543,8 +553,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	listedBuildingDetails: appeal.lpaQuestionnaire?.listedBuildingDetails
 		? [
 				{
-					grade: appeal.lpaQuestionnaire?.listedBuildingDetails[0].grade,
-					description: appeal.lpaQuestionnaire?.listedBuildingDetails[0].description
+					listEntry: appeal.lpaQuestionnaire?.listedBuildingDetails[0].listEntry
 				}
 		  ]
 		: null,
@@ -588,16 +597,18 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appealId: appeal.id,
 	appealReference: appeal.reference,
 	appealSite: {
-		addressLine1: appeal.address?.addressLine1,
-		addressLine2: appeal.address?.addressLine2,
-		town: appeal.address?.town,
-		county: appeal.address?.county,
-		postCode: appeal.address?.postcode
+		addressId: appeal.address.id,
+		addressLine1: appeal.address.addressLine1,
+		addressLine2: appeal.address.addressLine2,
+		town: appeal.address.town,
+		county: appeal.address.county,
+		postCode: appeal.address.postcode
 	},
 	appellantCaseId: appeal.appellantCase?.id,
 	appellant: {
-		name: appeal.appellant?.name,
-		company: appeal.appellant?.company
+		appellantId: appeal.appellant.id,
+		company: appeal.appellant?.company,
+		name: appeal.appellant?.name
 	},
 	applicant: {
 		firstName: appeal.appellantCase?.applicantFirstName,
@@ -605,8 +616,8 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	},
 	...(isFPA(appeal.appealType) && {
 		developmentDescription: {
-			isCorrect: appeal.appellantCase?.isDevelopmentDescriptionStillCorrect,
-			details: appeal.appellantCase?.newDevelopmentDescription
+			details: appeal.appellantCase?.newDevelopmentDescription,
+			isCorrect: appeal.appellantCase?.isDevelopmentDescriptionStillCorrect
 		}
 	}),
 	documents: {
@@ -682,6 +693,22 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	}
 });
 
+/**
+ * @param {string} path
+ */
+const document = {
+	folderId: 1,
+	path: 'path/to/document/folder',
+	documents: [
+		{
+			id: 'fdadc281-f686-40ee-97cf-9bafdd02b1cb',
+			name: 'an appeal related document.pdf',
+			folderId: 1,
+			caseId: 2
+		}
+	]
+};
+
 export {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
@@ -689,6 +716,7 @@ export {
 	baseExpectedAppellantCaseResponse,
 	baseExpectedLPAQuestionnaireResponse,
 	designatedSites,
+	document,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,

@@ -71,7 +71,10 @@ app.use(
 				"'unsafe-hashes'",
 				"'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
 				"'sha256-dCNOmK/nSY+12vHzasLXiswzlGT5UHA7jAGYkvmCuQs='",
-				"'sha256-aqNNdDLnnrDOnTNdkJpYlAxKVJtLt9CtFLklmInuUAE='"
+				"'sha256-aqNNdDLnnrDOnTNdkJpYlAxKVJtLt9CtFLklmInuUAE='",
+				// these are for the html-content-editor warning message show/hide logic
+				"'sha256-dCNOmK/nSY+12vHzasLXiswzlGT5UHA7jAGYkvmCuQs='",
+				"'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='"
 			]
 		}
 	})

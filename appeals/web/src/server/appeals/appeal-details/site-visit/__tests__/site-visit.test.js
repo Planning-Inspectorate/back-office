@@ -14,6 +14,7 @@ const baseUrl = '/appeals-service/appeal-details';
 const siteVisitPath = '/site-visit';
 const scheduleVisitPath = '/schedule-visit';
 const visitScheduledPath = '/visit-scheduled';
+const setVisitTypePath = '/set-visit-type';
 
 describe('site-visit', () => {
 	beforeEach(() => {
@@ -64,7 +65,7 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '0',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -79,7 +80,7 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '32',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -96,7 +97,7 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '0',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -111,7 +112,7 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '13',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -143,7 +144,7 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '20233',
+				'visit-date-year': '30003',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -160,7 +161,24 @@ describe('site-visit', () => {
 				'visit-type': 'unaccompanied',
 				'visit-date-day': '29',
 				'visit-date-month': '2',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
+				'visit-start-time-hour': '10',
+				'visit-start-time-minute': '00',
+				'visit-end-time-hour': '11',
+				'visit-end-time-minute': '30'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the schedule visit page with the expected error message if provided date is not in the future', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
+				'visit-type': 'unaccompanied',
+				'visit-date-day': '29',
+				'visit-date-month': '2',
+				'visit-date-year': '2000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -174,10 +192,10 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit start time hour is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '24',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -191,10 +209,10 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit start time minute is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '60',
 				'visit-end-time-hour': '11',
@@ -208,10 +226,10 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit end time hour is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '24',
@@ -225,10 +243,10 @@ describe('site-visit', () => {
 
 		it('should re-render the schedule visit page with the expected error message if visit end time minute is invalid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
@@ -242,14 +260,29 @@ describe('site-visit', () => {
 
 		it('should redirect to the site visit scheduled confirmation page if all required fields are populated and valid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
-				'visit-type': 'unaccompanied',
+				'visit-type': 'accompanied',
 				'visit-date-day': '1',
 				'visit-date-month': '1',
-				'visit-date-year': '2023',
+				'visit-date-year': '3000',
 				'visit-start-time-hour': '10',
 				'visit-start-time-minute': '00',
 				'visit-end-time-hour': '11',
 				'visit-end-time-minute': '30'
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the site visit scheduled confirmation page if visit type is unaccompanied and start and end times are not populated but all other required fields are populated and valid', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
+				'visit-type': 'unaccompanied',
+				'visit-date-day': '1',
+				'visit-date-month': '1',
+				'visit-date-year': '3000',
+				'visit-start-time-hour': '',
+				'visit-start-time-minute': '',
+				'visit-end-time-hour': '',
+				'visit-end-time-minute': ''
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -270,6 +303,67 @@ describe('site-visit', () => {
 		it('should render the visit scheduled confirmation page', async () => {
 			const response = await request.get(`${baseUrl}/1${siteVisitPath}${visitScheduledPath}`);
 			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /site-visit/set-visit-type', () => {
+		beforeEach(() => {
+			nock('http://test/').get('/appeals/1').reply(200, appealData);
+		});
+
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
+		it('should render the select site visit type page', async () => {
+			const response = await request.get(`${baseUrl}/1${siteVisitPath}${setVisitTypePath}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('POST /site-visit/set-visit-type', () => {
+		beforeEach(() => {
+			nock('http://test/').get('/appeals/1').reply(200, appealData);
+			nock('http://test/').get('/appeals/1/site-visits/0').reply(200, siteVisitData);
+			nock('http://test/').post('/appeals/1/site-visits').reply(200, siteVisitData);
+			nock('http://test/').patch('/appeals/1/site-visits/0').reply(200, siteVisitData);
+		});
+
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
+		it('should re-render the select site visit type page with the expected error message if the site visit type was not selected', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${setVisitTypePath}`).send({
+				'visit-type': ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the case details page if the site visit type was selected', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${setVisitTypePath}`).send({
+				'visit-type': 'unaccompanied'
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should render the case details page displaying the success notification banner with the expected content if the site visit type was updated', async () => {
+			await request.post(`${baseUrl}/1${siteVisitPath}${setVisitTypePath}`).send({
+				'visit-type': 'accompanied'
+			});
+
+			nock('http://test/').get(`/appeals/1`).reply(200, appealData);
+
+			const caseDetailsResponse = await request.get(`${baseUrl}/1`);
+			const element = parseHtml(caseDetailsResponse.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});

@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
+import config from '#config/config.js';
+import { NODE_ENV_PRODUCTION } from '#endpoints/constants.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
@@ -20,6 +22,7 @@ const mockAppealStatusCreateMany = jest.fn().mockResolvedValue({});
 const mockAppealFindMany = jest.fn().mockResolvedValue({});
 const mockAppealCount = jest.fn().mockResolvedValue(0);
 const mockAppealTimetableUpsert = jest.fn().mockResolvedValue(0);
+const mockAppealTimetableUpdate = jest.fn().mockResolvedValue(0);
 const mockReviewQuestionnaireCreate = jest.fn().mockResolvedValue({});
 const mockCaseCreate = jest.fn().mockResolvedValue({});
 const mockFolderCreate = jest.fn().mockResolvedValue({});
@@ -106,6 +109,9 @@ const mockPlanningObligationStatusFindMany = jest.fn().mockResolvedValue({});
 const mockProcedureTypeFindMany = jest.fn().mockResolvedValue({});
 const mockScheduleTypeFindMany = jest.fn().mockResolvedValue({});
 const mockAppellantUpdate = jest.fn().mockResolvedValue({});
+const mockDesignatedSitesOnLPAQuestionnairesCreateMany = jest.fn().mockResolvedValue({});
+const mockDesignatedSitesOnLPAQuestionnairesDeleteMany = jest.fn().mockResolvedValue({});
+const mockUserUpsert = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -133,7 +139,8 @@ class MockPrismaClient {
 
 	get appealTimetable() {
 		return {
-			upsert: mockAppealTimetableUpsert
+			upsert: mockAppealTimetableUpsert,
+			update: mockAppealTimetableUpdate
 		};
 	}
 
@@ -430,6 +437,19 @@ class MockPrismaClient {
 		};
 	}
 
+	get designatedSitesOnLPAQuestionnaires() {
+		return {
+			createMany: mockDesignatedSitesOnLPAQuestionnairesCreateMany,
+			deleteMany: mockDesignatedSitesOnLPAQuestionnairesDeleteMany
+		};
+	}
+
+	get user() {
+		return {
+			upsert: mockUserUpsert
+		};
+	}
+
 	$transaction(queries = []) {
 		return Promise.all(queries);
 	}
@@ -480,5 +500,19 @@ jest.unstable_mockModule('got', () => ({
 jest.unstable_mockModule('notifications-node-client', () => ({
 	NotifyClient: class {
 		sendEmail = mockSendEmail;
+	}
+}));
+
+jest.unstable_mockModule('./src/server/config/config.js', () => ({
+	default: {
+		...config,
+		NODE_ENV: NODE_ENV_PRODUCTION,
+		govNotify: {
+			...config.govNotify,
+			testMailbox: '',
+			api: {
+				key: 'gov-notify-api-key-123'
+			}
+		}
 	}
 }));

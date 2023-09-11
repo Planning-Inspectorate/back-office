@@ -1,5 +1,5 @@
 import got from 'got';
-import config from './config';
+import config from './config.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 
@@ -8,14 +8,15 @@ import config from './config';
  * @returns {Promise<number | null>}
  * */
 async function getCaseID(caseReference) {
-	const response = await got.get(
-		`https://${config.API_HOST}/applications?reference=${caseReference}`
-	);
-	if (!response.ok) {
-		return null;
-	}
+	try {
+		const result = await got
+			.get(`https://${config.apiHost}/applications?reference=${caseReference}`)
+			.json();
 
-	return JSON.parse(response.body).id;
+		return result.id;
+	} catch (err) {
+		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`);
+	}
 }
 
 /**
@@ -30,19 +31,23 @@ async function submitDocument({
 	folderID,
 	userEmail
 }) {
-	return await got
-		.post(`https://${config.API_HOST}/applications/${caseID}/documents`, {
-			json: [
-				{
-					documentName,
-					documentType,
-					documentSize,
-					folderId: folderID,
-					username: userEmail
-				}
-			]
-		})
-		.json();
+	try {
+		return await got
+			.post(`https://${config.apiHost}/applications/${caseID}/documents?all=true`, {
+				json: [
+					{
+						documentName,
+						documentType,
+						documentSize,
+						folderId: folderID,
+						username: userEmail
+					}
+				]
+			})
+			.json();
+	} catch (err) {
+		throw new Error(`submitDocument failed for case ID ${caseID} with error: ${err}`);
+	}
 }
 
 /**
@@ -54,17 +59,30 @@ async function submitDocument({
  * */
 async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
-	const folders = await got.get(`https://${config.API_HOST}/applications/${caseID}/folders`).json();
+	const folders = await (async () => {
+		try {
+			return await got.get(`https://${config.apiHost}/applications/${caseID}/folders`).json();
+		} catch (err) {
+			throw new Error(`fetching folders failed for case ID ${caseID} with error: ${err}`);
+		}
+	})();
 
-	const folder = folders.find((f) => f.displayNameEn === timetableItemName);
+	const folder = folders.find((f) => f.displayNameEn.endsWith(timetableItemName));
 	if (!folder) {
 		throw new Error(`No folder found with name '${timetableItemName}'`);
 	}
 
 	/** @type {FolderJSON[]} */
-	const subfolders = await got
-		.get(`https://${config.API_HOST}/applications/${caseID}/folders/${folder.id}/sub-folders`)
-		.json();
+	const subfolders = await (async () => {
+		try {
+			return await got
+				.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
+				.json();
+		} catch (err) {
+			throw new Error(`fetching subfolders failed for folder ID ${folder.id} with error: ${err}`);
+		}
+	})();
+
 	const subfolder = subfolders.find((f) => f.displayNameEn === lineItem);
 	if (!subfolder) {
 		throw new Error(`No folder found with name '${lineItem}'`);
@@ -81,17 +99,18 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
  * @returns {Promise<boolean>}
  * */
 async function lineItemExists(caseID, timetableItemName, lineItem) {
-	const response = await got.get(
-		`https://${config.API_HOST}/applications/examination-timetable-items/case/${caseID}`
-	);
-	if (!response.ok) {
-		return false;
-	}
+	/** @type {{ items: { name: string, description: string }[] }} */
+	const results = await (async () => {
+		try {
+			return await got
+				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
+				.json();
+		} catch (err) {
+			throw new Error(`fetching examinatino timetable items failed for case ID ${caseID}: ${err}`);
+		}
+	})();
 
-	/** @type {{ name: string, description: string }[]} */
-	const timetableItems = JSON.parse(response.body);
-
-	const timetableItem = timetableItems.find((item) => item.name === timetableItemName);
+	const timetableItem = results.items.find((item) => item.name === timetableItemName);
 	if (!timetableItem) {
 		return false;
 	}
@@ -103,9 +122,35 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 	return _lineItem !== null;
 }
 
+/**
+ *
+ * @param {number} caseID
+ * @param {{ documentGuid: string, documentName: string, userName: string, deadline: string, submissionType: string, representative?: string }} _
+ * */
+async function populateDocumentMetadata(
+	caseID,
+	{ documentGuid, documentName, userName, deadline, submissionType, representative }
+) {
+	await got.post(
+		`https://${config.apiHost}/applications/${caseID}/documents/${documentGuid}/metadata`,
+		{
+			json: {
+				version: 1,
+				documentGuid,
+				fileName: documentName,
+				author: userName,
+				representative,
+				filter1: deadline,
+				filter2: submissionType
+			}
+		}
+	);
+}
+
 export default {
 	getCaseID,
 	getFolderID,
 	lineItemExists,
-	submitDocument
+	submitDocument,
+	populateDocumentMetadata
 };

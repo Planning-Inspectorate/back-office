@@ -4,6 +4,7 @@
 
 import {
 	addressesList,
+	addressListForTrainers,
 	appellantCaseList,
 	appellantsList,
 	completeValidationDecisionSample,
@@ -25,6 +26,8 @@ import {
 } from '#endpoints/constants.js';
 
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
+
+/** @typedef {import('@pins/appeals.api').Appeals.AppealSite} AppealSite */
 
 /**
  * @returns {Date} date two weeks ago
@@ -93,7 +96,7 @@ const buildCompoundState = (
  *  startedAt?: Date | null,
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
- *  connectToUser?: boolean}} param0
+ *  siteAddressList?: AppealSite[]}} param0
  * @returns {object}
  */
 const appealFactory = ({
@@ -106,7 +109,7 @@ const appealFactory = ({
 	startedAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
-	connectToUser = false
+	siteAddressList = addressesList
 }) => {
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
@@ -116,7 +119,7 @@ const appealFactory = ({
 		appellant: { create: appellantsList[pickRandom(appellantsList)] },
 		localPlanningDepartment: localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)],
 		planningApplicationReference: '48269/APP/2021/1482',
-		address: { create: addressesList[pickRandom(addressesList)] },
+		address: { create: siteAddressList[pickRandom(siteAddressList)] },
 		...(incompleteValidationDecision && {
 			validationDecision: { create: incompleteValidationDecisionSample }
 		}),
@@ -132,18 +135,26 @@ const appealFactory = ({
 		}),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } }),
 		appellantCase: { create: appellantCaseList[typeShorthand] },
-		...(connectToUser && {
-			user: {
-				connectOrCreate: {
-					create: {
-						azureReference: 1
-					},
-					where: {
-						azureReference: 1
-					}
+		caseOfficer: {
+			connectOrCreate: {
+				create: {
+					azureUserId: '57e788b4-41a4-44db-a487-6d7d4b51ce38'
+				},
+				where: {
+					azureUserId: '57e788b4-41a4-44db-a487-6d7d4b51ce38'
 				}
 			}
-		})
+		},
+		inspector: {
+			connectOrCreate: {
+				create: {
+					azureUserId: 'd4ab853d-a0e7-4769-9e95-e90b629ab955'
+				},
+				where: {
+					azureUserId: 'd4ab853d-a0e7-4769-9e95-e90b629ab955'
+				}
+			}
+		}
 	};
 };
 
@@ -154,6 +165,22 @@ const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers
+	}),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
@@ -190,6 +217,22 @@ const appealsLpaQuestionnaireDue = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date()
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
+		completeValidationDecision: true,
+		lpaQuestionnaire: true,
+		startedAt: new Date(),
+		siteAddressList: addressListForTrainers
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'lpa_questionnaire_due', createdAt: getDateTwoWeeksAgo() },
+		completeValidationDecision: true,
+		lpaQuestionnaire: true,
+		startedAt: new Date(),
+		siteAddressList: addressListForTrainers
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
@@ -259,8 +302,7 @@ const appealsArrangeSiteVisit = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 3, 1, 10),
-		completeReviewQuestionnaire: true,
-		connectToUser: true
+		completeReviewQuestionnaire: true
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -268,8 +310,7 @@ const appealsArrangeSiteVisit = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		connectToUser: true
+		completeReviewQuestionnaire: true
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
@@ -277,8 +318,7 @@ const appealsArrangeSiteVisit = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		connectToUser: true
+		completeReviewQuestionnaire: true
 	})
 ];
 
@@ -289,8 +329,7 @@ const appealsIssueDetermination = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		connectToUser: true
+		completeReviewQuestionnaire: true
 	})
 ];
 
@@ -301,8 +340,7 @@ const appealsComplete = [
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		connectToUser: true
+		completeReviewQuestionnaire: true
 	})
 ];
 
@@ -343,10 +381,9 @@ export async function seedTestData(databaseConnector) {
 		});
 
 		await databaseConnector.listedBuildingDetails.createMany({
-			data: ['Grade I', 'Grade II', 'Grade III', 'Grade IV'].map((grade, index) => ({
+			data: ['123456', '654321', '789012', '210987'].map((listEntry, index) => ({
 				lpaQuestionnaireId: lpaQuestionnaire.id,
-				grade,
-				description: `http://localhost:8080/document-${index}.pdf`,
+				listEntry,
 				affectsListedBuilding: index > 1
 			}))
 		});
