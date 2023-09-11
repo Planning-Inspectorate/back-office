@@ -186,9 +186,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Minim veniam quis nostrud</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -197,7 +196,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -214,15 +213,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Elit sed</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Elit sed</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -231,7 +229,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -248,15 +246,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Magna aliqua Ut</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Magna aliqua Ut</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -265,15 +262,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Enim ad minim veniam</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Enim ad minim veniam</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -282,7 +278,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -299,7 +295,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -316,15 +312,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -333,15 +328,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Aliqua Ut enim</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Aliqua Ut enim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -350,7 +344,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -367,15 +361,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -384,7 +377,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -401,15 +394,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -418,7 +410,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -435,15 +427,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Ad minim veniam quis</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Ad minim veniam quis</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -452,15 +443,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Dolore magna aliqua</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Dolore magna aliqua</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -469,15 +459,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Eiusmod tempor incididunt</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -486,15 +475,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Eiusmod tempor incididunt</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -503,15 +491,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Labore et dolore</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Labore et dolore</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -520,7 +507,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -634,9 +621,8 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                             </thead>
                             <tbody class=\\"govuk-table__body\\">
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Minim veniam quis nostrud</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Minim veniam quis nostrud</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -645,7 +631,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -662,15 +648,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Elit sed</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Elit sed</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -679,7 +664,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -696,15 +681,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Magna aliqua Ut</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Magna aliqua Ut</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -713,15 +697,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Enim ad minim veniam</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Enim ad minim veniam</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -730,7 +713,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -747,7 +730,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -764,15 +747,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -781,15 +763,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Aliqua Ut enim</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Aliqua Ut enim</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -798,7 +779,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -815,15 +796,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -832,7 +812,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -849,15 +829,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Do eiusmod</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Do eiusmod</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -866,7 +845,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
@@ -883,15 +862,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--red\\"> Failed virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Ad minim veniam quis</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Ad minim veniam quis</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -900,15 +878,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting virus check</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Dolore magna aliqua</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Dolore magna aliqua</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>JPG, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -917,15 +894,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Eiusmod tempor incididunt</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -934,15 +910,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Eiusmod tempor incididunt</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Eiusmod tempor incididunt</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -951,15 +926,14 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <td class=\\"govuk-table__cell\\">
-                                        <p class=\\"font-weight--700\\">Labore et dolore</p>
-                                        <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
+                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link font-weight--700\\" href=\\"/documents/123/download/1/version/1/preview\\">Labore et dolore</a>
+                                        <p                                         class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF, 7.7 KB</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
                                         <p>07/03/2023</p>
@@ -968,7 +942,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
-                                    <td class=\\"govuk-table__cell\\"><span></span>
+                                    <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/delete/1'>Delete</a>
                                     </td>
