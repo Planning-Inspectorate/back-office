@@ -405,12 +405,14 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 
 	const adviceCount = await s51AdviceRepository.getS51AdviceCountInByPublishStatus(caseId);
 
+	// @ts-ignore
+	const items = paginatedAdviceToPublish.map(advice => mapS51Advice(caseId, advice, advice.S51AdviceDocument));
+
 	response.send({
 		page: pageNumber,
 		pageDefaultSize: pageSize,
 		pageCount: getPageCount(adviceCount, pageSize),
 		itemCount: adviceCount,
-		// @ts-ignore
-		items: mapS51Advice(caseId, paginatedAdviceToPublish, [])
+		items
 	});
 };

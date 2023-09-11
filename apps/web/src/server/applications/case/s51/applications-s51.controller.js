@@ -10,6 +10,7 @@
 /** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
+import { url } from '../../../lib/nunjucks-filters/url.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	checkS51NameIsUnique,
@@ -428,18 +429,44 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
- * @type {import('@pins/express').RenderHandler<{}, ApplicationCaseLocals, {}, {size?: string, number?: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, any, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51PublishingQueue(request, response) {
 	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
 	const { caseId } = response.locals;
-	const documentationFiles = await getCaseAdviceReadyToPublish(caseId, currentPageNumber);
-	const backLink = '';
-	const paginationButtons = '';
+	// @ts-ignore
+	const { folderId } = request.params;
+	const s51Advices = await getCaseAdviceReadyToPublish(caseId, currentPageNumber);
+	const backLink = url('s51-list', { caseId, folderId });
+	const paginationButtons = getPaginationButtonData(
+		currentPageNumber,
+		s51Advices.pageCount
+	);
 
-	response.render(`applications/case-documentation/documentation-publish`, {
-		documentationFiles,
+	response.render(`applications/case-s51/s51-publish`, {
+		s51Advices,
 		paginationButtons,
-		backLink
+		backLink,
+		folderId,
 	});
 }
+
+/**
+ *
+ * @param {number} currentPageNumber
+ * @param {number} pageCount
+ * @returns {any}
+ */
+const getPaginationButtonData = (currentPageNumber, pageCount) => {
+	return {
+		...(currentPageNumber === 1 ? {} : { previous: { href: `?number=${currentPageNumber - 1}` } }),
+		...(currentPageNumber === pageCount
+			? {}
+			: { next: { href: `?number=${currentPageNumber + 1}` } }),
+		items: [...Array.from({ length: pageCount }).keys()].map((index) => ({
+			number: index + 1,
+			href: `?number=${index + 1}`,
+			current: index + 1 === currentPageNumber
+		}))
+	};
+};
