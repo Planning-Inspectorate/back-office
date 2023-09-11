@@ -480,16 +480,31 @@ interface UpdateTimetableRequest {
 	statementReviewDate?: Date;
 }
 
+interface UpdateAppealRequest {
+	dueDate?: string;
+	startedAt?: string;
+	caseOfficer?: string | null;
+	inspector?: string | null;
+}
+
+interface UsersToAssign {
+	caseOfficer?: string | null;
+	inspector?: string | null;
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
 
 type NotValidReasons = Array<number | string>;
 
+type AssignedUser = 'caseOfficer' | 'inspector';
+
 export {
 	AppealListResponse,
 	AppealSite,
 	AppealTimetable,
+	AssignedUser,
 	BankHolidayFeedDivisions,
 	BankHolidayFeedEvents,
 	DocumentationSummary,
@@ -512,6 +527,7 @@ export {
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
 	UpdateAddressRequest,
+	UpdateAppealRequest,
 	UpdateAppellantCaseRequest,
 	UpdateAppellantCaseValidationOutcome,
 	UpdateAppellantCaseValidationOutcomeParams,
@@ -519,5 +535,6 @@ export {
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,
+	UsersToAssign,
 	ValidationOutcomeResponse
 };

@@ -68,8 +68,18 @@ const getAppealValidator = composeMiddleware(
 const patchAppealValidator = composeMiddleware(
 	validateIdParameter('appealId'),
 	validateDateParameter({ parameterName: 'startedAt' }),
-	validateUuidParameter({ parameterName: 'caseOfficer', parameterType: body, isRequired: false }),
-	validateUuidParameter({ parameterName: 'inspector', parameterType: body, isRequired: false }),
+	validateUuidParameter({
+		parameterName: 'caseOfficer',
+		parameterType: body,
+		isRequired: false,
+		allowNull: true
+	}),
+	validateUuidParameter({
+		parameterName: 'inspector',
+		parameterType: body,
+		isRequired: false,
+		allowNull: true
+	}),
 	validationErrorHandler
 );
 
