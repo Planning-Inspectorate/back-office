@@ -20,7 +20,7 @@
 
 		{% set content %}
 		<div class='pins-key-dates-section'>
-			<a class='govuk-link offset-link' href='#'>Manage dates</a>
+			<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
 			{{createSectionTable(values) }}
 		</div>
 		{% endset %}

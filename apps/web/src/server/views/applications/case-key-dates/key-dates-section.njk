@@ -1,0 +1,69 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+
+{% set serviceName = "Key dates" %}
+{% set pageTitle = sectionName | keyDatesProperty + " dates" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 'key-dates'|url({caseId: caseId})
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+		<span class="govuk-caption-l">Manage key dates</span>
+		{{ pageTitle }}
+	</h1>
+
+	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
+
+		{% for key, values in sectionValues %}
+
+			{% if key === 'submissionAtPublished' %}
+				<div class="govuk-form-group govuk-grid-column-full">
+
+					{{ govukInput({
+					label: {
+						text: key|keyDatesProperty,
+						classes: 'font-weight--700'
+					},
+					hint: {
+						text: (key+'_label')|keyDatesProperty
+
+					},
+					id: key,
+					name: key,
+					value: values,
+					classes: "govuk-!-width-one-third"
+				}) }}
+				</div>
+			{% else %}
+
+				{{ dateInput({
+					layout: {
+						fieldName: key,
+						label: key|keyDatesProperty,
+						classes: 'govuk-grid-column-one-third',
+						hint: (key+'_label')|keyDatesProperty
+					},
+					errors: errors,
+					values: sectionValues
+				}) }}
+			{% endif %}
+		{% endfor %}
+		{{ govukButton({ text: 'Save and return'}) }}
+	</form>
+{% endblock %}

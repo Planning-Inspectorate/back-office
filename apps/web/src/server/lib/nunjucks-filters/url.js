@@ -104,9 +104,9 @@ export const url = (key, filterArguments = {}) => {
 		case 's51-edit':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/edit/${step}`;
 		case 's51-status':
-				return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/change-status`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/change-status`;
 		case 's51-publishing-queue':
-				return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/s51-publishing-queue`;	
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/s51-publishing-queue`;
 		case 's51-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/s51-queue`;
 		case 'timetable':
@@ -121,6 +121,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/change-status`;
 		case 'status-result':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/status-result`;
+		case 'key-dates':
+			return `${domainUrl}/case/${caseId}/key-dates/${step}`;
 		default:
 			return 'app/404';
 	}
