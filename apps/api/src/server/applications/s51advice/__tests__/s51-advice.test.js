@@ -181,6 +181,7 @@ describe('Test S51 advice API', () => {
 					documentSize: 207364
 				}
 			],
+			totalAttachments: 1,
 			dateCreated: 1672531200,
 			dateUpdated: 1672531200,
 			enquirer: 'enquirer',
