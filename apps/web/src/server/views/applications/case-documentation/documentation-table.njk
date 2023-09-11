@@ -60,7 +60,7 @@
 				</td>
 			</tr>
 			{% for item in items.items %}
-        {% set isNotDisabled = item.virusCheckStatus === 'scanned' %}
+        {% set isNotDisabled = (item.publishedStatus !== 'awaiting_upload') and (item.publishedStatus !== 'awaiting_virus_check') and (item.publishedStatus !== 'failed_virus_check') %}
 
 				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.failed else "" }}">
 					<td class="govuk-table__cell">
