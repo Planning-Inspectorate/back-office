@@ -13,7 +13,8 @@ import {
 	validateCreateS51Advice,
 	validatePaginationCriteria,
 	validateS51AdviceIds,
-	validateS51AdviceToUpdateProvided
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId
 } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
@@ -250,6 +251,7 @@ router.patch(
     */
 	validateApplicationId,
 	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
 );

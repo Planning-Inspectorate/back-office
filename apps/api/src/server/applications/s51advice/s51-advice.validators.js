@@ -1,9 +1,22 @@
 import { composeMiddleware } from '@pins/express';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js'
+import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import { validateExistingApplication } from '../application/application.validators.js';
 import { validationErrorHandler } from '../../middleware/error-handler.js';
+
+/**
+ *
+ * @param {number} id
+ * @throws {Error}
+ * @returns {Promise<void>}
+ * */
+export const validateExistingS51Advice = async (id) => {
+	const s51 = await s51AdviceRepository.get(id);
+	if (!s51) {
+		throw new Error(`unknown S51 advice with id ${id}`);
+	}
+};
 
 export const validateCreateS51Advice = composeMiddleware(
 	body('caseId').toInt().custom(validateExistingApplication).withMessage('Must be valid case id'),
@@ -76,6 +89,16 @@ export const validateS51AdviceIds = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateS51AdviceId = composeMiddleware(
+	param('adviceId')
+		.toInt()
+		.isInt()
+		.withMessage('Advice id must be a valid numerical value')
+		.custom(validateExistingS51Advice)
+		.withMessage('Must be an existing S51 advice item'),
+	validationErrorHandler
+);
+
 /**
  * Verifies if the given array of S51 Advice IDs have the correct required fields, so that they are ready to publish
  *
@@ -140,7 +163,7 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 };
 
 /**
- * 
+ *
  * @param {number[]} adviceIds
  * @returns {Promise<boolean>}
  */
@@ -150,17 +173,19 @@ export const hasPublishedAdvice = async (adviceIds) => {
 		return true;
 	}
 	return false;
-}
+};
 
 /**
- * 
+ *
  * @param {number[]} adviceIds
  * @returns {Promise<boolean>}
  */
 export const hasPublishedDocument = async (adviceIds) => {
-	const publishedAdvices = await s51AdviceDocumentRepository.getPublishedDocumentsByAdviceIds(adviceIds);
+	const publishedAdvices = await s51AdviceDocumentRepository.getPublishedDocumentsByAdviceIds(
+		adviceIds
+	);
 	if (publishedAdvices && publishedAdvices?.length > 0) {
 		return true;
 	}
 	return false;
-}
+};
