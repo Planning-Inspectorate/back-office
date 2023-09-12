@@ -22,6 +22,9 @@ const nocks = () => {
 	nock('http://test/')
 		.post('/applications/123/s51-advice')
 		.reply(200, fixturePaginatedS51Advice(1, 50));
+	nock('http://test/')
+		.post('/applications/123/s51-advice/ready-to-publish')
+		.reply(200, fixturePaginatedS51Advice(1, 50));
 
 	nock('http://test/')
 		.get('/applications/123/s51-advice/1')
@@ -532,6 +535,22 @@ describe('S51 Advice', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Attachmment deleted successfully');
+			});
+		});
+	});
+
+	describe('S51 publishing queue', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/21/s51-advice/s51-queue', () => {
+			it('should render the page', async () => {
+				const response = await request.get(`${baseUrl}/s51-queue`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select items for publishing');
 			});
 		});
 	});
