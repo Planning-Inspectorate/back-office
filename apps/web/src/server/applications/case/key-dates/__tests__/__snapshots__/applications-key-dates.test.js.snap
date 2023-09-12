@@ -61,24 +61,2091 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ If user is not inspe
             <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-key-dates\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
-                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-1\\"><p class='govuk-heading-s'>errors</p></span></h2>
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-1\\"><p class='govuk-heading-s'>Pre-application</p></span></h2>
                     </div>
                     <div id=\\"accordion-key-dates-content-1\\" class=\\"govuk-accordion__section-content\\"
                     aria-labelledby=\\"accordion-key-dates-heading-1\\">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='#'>Manage dates</a>
-                            <table class=\\"govuk-table\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/preApplication'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">msg</th>
-                                        <td class=\\"govuk-table__cell\\"></td>
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date first notified of project</th>
+                                        <td class=\\"govuk-table__cell\\">20 Aug 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Project published on website</th>
+                                        <td class=\\"govuk-table__cell\\">23 Sep 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Anticipated submission date internal</th>
+                                        <td class=\\"govuk-table__cell\\">07 Mar 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Screening opinion sought</th>
+                                        <td class=\\"govuk-table__cell\\">20 Aug 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Screening opinion issued</th>
+                                        <td class=\\"govuk-table__cell\\">15 Jun 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Scoping opinion sought</th>
+                                        <td class=\\"govuk-table__cell\\">18 Jul 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Scoping opinion issued</th>
+                                        <td class=\\"govuk-table__cell\\">03 Jan 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Section 46 notification</th>
+                                        <td class=\\"govuk-table__cell\\">01 Jan 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Anticipated submission date published</th>
+                                        <td class=\\"govuk-table__cell\\">Q4 2023</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-2\\"><p class='govuk-heading-s'>Acceptance</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-2\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-2\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/acceptance'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Application submitted (Section 55)</th>
+                                        <td class=\\"govuk-table__cell\\">08 Apr 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for Acceptance decision</th>
+                                        <td class=\\"govuk-table__cell\\">16 Jul 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Acceptance (Section 55)</th>
+                                        <td class=\\"govuk-table__cell\\">24 Oct 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Non-Acceptance</th>
+                                        <td class=\\"govuk-table__cell\\">09 Apr 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-3\\"><p class='govuk-heading-s'>Pre-examination</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-3\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-3\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/preExamination'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations open</th>
+                                        <td class=\\"govuk-table__cell\\">22 Sep 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations close</th>
+                                        <td class=\\"govuk-table__cell\\">09 Apr 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to date Relevant Representations close</th>
+                                        <td class=\\"govuk-table__cell\\">01 Jan 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations to appear on website</th>
+                                        <td class=\\"govuk-table__cell\\">20 Aug 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date IAPI due</th>
+                                        <td class=\\"govuk-table__cell\\">15 Jun 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Rule 6 letter publication date</th>
+                                        <td class=\\"govuk-table__cell\\">10 Apr 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Preliminary Meeting start date</th>
+                                        <td class=\\"govuk-table__cell\\">10 Apr 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Notification date for PM and any events directly following the PM</th>
+                                        <td                                         class=\\"govuk-table__cell\\">13 May 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Notification date for events - Developer</th>
+                                        <td class=\\"govuk-table__cell\\">18 Jul 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-4\\"><p class='govuk-heading-s'>Examination</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-4\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-4\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/examination'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Section 58 Notice received</th>
+                                        <td class=\\"govuk-table__cell\\">26 Oct 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination start date</th>
+                                        <td class=\\"govuk-table__cell\\">11 May 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Rule 8 letter publication date</th>
+                                        <td class=\\"govuk-table__cell\\">24 Oct 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for close of Examination</th>
+                                        <td class=\\"govuk-table__cell\\">17 Jul 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination closing date</th>
+                                        <td class=\\"govuk-table__cell\\">13 May 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to close of Examination</th>
+                                        <td class=\\"govuk-table__cell\\">13 May 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-5\\"><p class='govuk-heading-s'>Recommendation</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-5\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-5\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/recommendation'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission of Recommendation</th>
+                                        <td class=\\"govuk-table__cell\\">14 Jun 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Recommendation submitted to SoS</th>
+                                        <td class=\\"govuk-table__cell\\">19 Aug 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Recommendation deadline</th>
+                                        <td class=\\"govuk-table__cell\\">07 Mar 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-6\\"><p class='govuk-heading-s'>Decision</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-6\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-6\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/decision'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for Decision</th>
+                                        <td class=\\"govuk-table__cell\\">21 Aug 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Decision</th>
+                                        <td class=\\"govuk-table__cell\\">14 Jun 2023</td>
+                                    </tr>
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Decision deadline</th>
+                                        <td class=\\"govuk-table__cell\\">12 May 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-7\\"><p class='govuk-heading-s'>Post-decision</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-7\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-7\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/postDecision'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Judicial review period end date</th>
+                                        <td class=\\"govuk-table__cell\\">15 Jun 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-key-dates-heading-8\\"><p class='govuk-heading-s'>Withdrawal</p></span></h2>
+                    </div>
+                    <div id=\\"accordion-key-dates-content-8\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-key-dates-heading-8\\">
+                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/withdrawal'>Manage dates</a>
+                            <table                             class=\\"govuk-table\\">
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date project withdrawn</th>
+                                        <td class=\\"govuk-table__cell\\">21 Aug 2023</td>
+                                    </tr>
+                                </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Pre-application dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date first notified of project</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Applicant notifies the Planning Inspectorate of a project.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.day\\"
+                        name=\\"datePINSFirstNotifiedOfProject.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.month\\"
+                        name=\\"datePINSFirstNotifiedOfProject.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.year\\"
+                        name=\\"datePINSFirstNotifiedOfProject.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Project published on website</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Applicant notifies the Planning Inspectorate of a project.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.day\\"
+                        name=\\"dateProjectAppearsOnWebsite.day\\" type=\\"text\\" value=\\"23\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.month\\"
+                        name=\\"dateProjectAppearsOnWebsite.month\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.year\\"
+                        name=\\"dateProjectAppearsOnWebsite.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Anticipated submission date internal</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.day\\" name=\\"submissionAtInternal.day\\"
+                        type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.month\\"
+                        name=\\"submissionAtInternal.month\\" type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.year\\"
+                        name=\\"submissionAtInternal.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Screening opinion sought</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant requests a screening opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.day\\"
+                        name=\\"screeningOpinionSought.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.month\\"
+                        name=\\"screeningOpinionSought.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.year\\"
+                        name=\\"screeningOpinionSought.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Screening opinion issued</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate issues our screening opinion.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.day\\"
+                        name=\\"screeningOpinionIssued.day\\" type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.month\\"
+                        name=\\"screeningOpinionIssued.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.year\\"
+                        name=\\"screeningOpinionIssued.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Scoping opinion sought</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant requests a scoping opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.day\\" name=\\"scopingOpinionSought.day\\"
+                        type=\\"text\\" value=\\"18\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.month\\"
+                        name=\\"scopingOpinionSought.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.year\\"
+                        name=\\"scopingOpinionSought.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Scoping opinion issued</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate issues our scoping opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.day\\" name=\\"scopingOpinionIssued.day\\"
+                        type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.month\\"
+                        name=\\"scopingOpinionIssued.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.year\\"
+                        name=\\"scopingOpinionIssued.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Section 46 notification</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant notifies the Planning Inspectorate of statutory consultation.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.day\\" name=\\"section46Notification.day\\"
+                        type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.month\\"
+                        name=\\"section46Notification.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.year\\"
+                        name=\\"section46Notification.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full\\">
+            <div class=\\"govuk-form-group\\">
+                <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtPublished\\">Anticipated submission date published</label>
+                <div id=\\"submissionAtPublished-hint\\"
+                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted
+                    e.g. Q4 2023.</div>
+                <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
+                name=\\"submissionAtPublished\\" type=\\"text\\" value=\\"Q4 2023\\" aria-describedby=\\"submissionAtPublished-hint\\">
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Acceptance dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Application submitted (Section 55)</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the application is submitted.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.day\\" name=\\"dateOfDCOSubmission.day\\"
+                        type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.month\\"
+                        name=\\"dateOfDCOSubmission.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.year\\" name=\\"dateOfDCOSubmission.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for Acceptance decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for Acceptance decision by the Planning Inspectorate.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.day\\"
+                        name=\\"deadlineForAcceptanceDecision.day\\" type=\\"text\\" value=\\"16\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.month\\"
+                        name=\\"deadlineForAcceptanceDecision.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.year\\"
+                        name=\\"deadlineForAcceptanceDecision.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Acceptance (Section 55)</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of decision to accept.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.day\\" name=\\"dateOfDCOAcceptance.day\\"
+                        type=\\"text\\" value=\\"24\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.month\\"
+                        name=\\"dateOfDCOAcceptance.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.year\\" name=\\"dateOfDCOAcceptance.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Non-Acceptance</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of decision not to accept.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.day\\" name=\\"dateOfNonAcceptance.day\\"
+                        type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.month\\"
+                        name=\\"dateOfNonAcceptance.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.year\\" name=\\"dateOfNonAcceptance.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 3`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Pre-examination dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations open</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start date of Relevant Representation (RR) period. The RR portal will
+                open on this date on website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.day\\"
+                        name=\\"dateOfRepresentationPeriodOpen.day\\" type=\\"text\\" value=\\"22\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.month\\"
+                        name=\\"dateOfRepresentationPeriodOpen.month\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.year\\"
+                        name=\\"dateOfRepresentationPeriodOpen.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations close</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date RR period will close.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.day\\"
+                        name=\\"dateOfRelevantRepresentationClose.day\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.month\\"
+                        name=\\"dateOfRelevantRepresentationClose.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.year\\"
+                        name=\\"dateOfRelevantRepresentationClose.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to date Relevant Representations close</label>
+            <div id=\\"-hint\\"
+            class=\\"govuk-hint\\">Date RR period will close, if it has been extended.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.day\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.day\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.month\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.year\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations to appear on website</label>
+            <div id=\\"-hint\\"
+            class=\\"govuk-hint\\">Date for RRs to appear on the website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.day\\"
+                        name=\\"dateRRepAppearOnWebsite.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.month\\"
+                        name=\\"dateRRepAppearOnWebsite.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.year\\"
+                        name=\\"dateRRepAppearOnWebsite.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date IAPI due</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date that the ExA must have completed their IAPI.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.day\\" name=\\"dateIAPIDue.day\\"
+                        type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.month\\" name=\\"dateIAPIDue.month\\"
+                        type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.year\\" name=\\"dateIAPIDue.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Rule 6 letter publication date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date when Rule 6 letter is published on website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.day\\"
+                        name=\\"rule6LetterPublishDate.day\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.month\\"
+                        name=\\"rule6LetterPublishDate.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.year\\"
+                        name=\\"rule6LetterPublishDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Preliminary Meeting start date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start date of the Preliminary Meeting.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.day\\"
+                        name=\\"preliminaryMeetingStartDate.day\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.month\\"
+                        name=\\"preliminaryMeetingStartDate.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.year\\"
+                        name=\\"preliminaryMeetingStartDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Notification date for PM and any events directly following the PM</label>
+            <div             id=\\"-hint\\" class=\\"govuk-hint\\">28 days before PM. Rule 6 - 21 days + 7 days to allow for post.</div>
+        <div         class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\">Day</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\" type=\\"text\\"
+                    value=\\"13\\">
+                </div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\">Month</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\" type=\\"text\\"
+                    value=\\"05\\">
+                </div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\">Year</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\" type=\\"text\\"
+                    value=\\"2023\\">
+                </div>
+            </div>
+            </div>
+            </div>
+            <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Notification date for events - Developer</label>
+                <div id=\\"-hint\\" class=\\"govuk-hint\\">21 days before the event - Rule 13.</div>
+                <div class=\\"govuk-grid-column-one-third\\">
+                    <div class=\\"govuk-grid-row pins-date-form-group\\">
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.day\\">Day</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.day\\"
+                            name=\\"notificationDateForEventsDeveloper.day\\" type=\\"text\\" value=\\"18\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.month\\">Month</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.month\\"
+                            name=\\"notificationDateForEventsDeveloper.month\\" type=\\"text\\" value=\\"07\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.year\\">Year</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.year\\"
+                            name=\\"notificationDateForEventsDeveloper.year\\" type=\\"text\\" value=\\"2023\\">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 4`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Examination dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Section 58 Notice received</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date s58 notice is received.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.day\\"
+                        name=\\"dateSection58NoticeReceived.day\\" type=\\"text\\" value=\\"26\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.month\\"
+                        name=\\"dateSection58NoticeReceived.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.year\\"
+                        name=\\"dateSection58NoticeReceived.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Examination start date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start of examination.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.day\\"
+                        name=\\"confirmedStartOfExamination.day\\" type=\\"text\\" value=\\"11\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.month\\"
+                        name=\\"confirmedStartOfExamination.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.year\\"
+                        name=\\"confirmedStartOfExamination.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Rule 8 letter publication date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date when Rule 8 letter is published.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.day\\"
+                        name=\\"rule8LetterPublishDate.day\\" type=\\"text\\" value=\\"24\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.month\\"
+                        name=\\"rule8LetterPublishDate.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.year\\"
+                        name=\\"rule8LetterPublishDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for close of Examination</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for the close of the examination.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.day\\"
+                        name=\\"deadlineForCloseOfExamination.day\\" type=\\"text\\" value=\\"17\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.month\\"
+                        name=\\"deadlineForCloseOfExamination.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.year\\"
+                        name=\\"deadlineForCloseOfExamination.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Examination closing date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date that the examination closes.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.day\\"
+                        name=\\"dateTimeExaminationEnds.day\\" type=\\"text\\" value=\\"13\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.month\\"
+                        name=\\"dateTimeExaminationEnds.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.year\\"
+                        name=\\"dateTimeExaminationEnds.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to close of Examination</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date examination will close, if it has been extended.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.day\\"
+                        name=\\"stage4ExtensionToExamCloseDate.day\\" type=\\"text\\" value=\\"13\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.month\\"
+                        name=\\"stage4ExtensionToExamCloseDate.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.year\\"
+                        name=\\"stage4ExtensionToExamCloseDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 5`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Recommendation dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission of Recommendation</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
+                (SoS).</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.day\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.day\\" type=\\"text\\" value=\\"14\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.month\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.year\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Recommendation submitted to SoS</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Recommendation report submitted to SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.day\\" name=\\"dateOfRecommendations.day\\"
+                        type=\\"text\\" value=\\"19\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.month\\"
+                        name=\\"dateOfRecommendations.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.year\\"
+                        name=\\"dateOfRecommendations.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to Recommendation deadline</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date for submission of Recommendation report, if this stage is extended.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.day\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.day\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.month\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.month\\" type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.year\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 6`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Decision dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for Decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of the deadline for a decision by the SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.day\\" name=\\"deadlineForDecision.day\\"
+                        type=\\"text\\" value=\\"21\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.month\\"
+                        name=\\"deadlineForDecision.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.year\\" name=\\"deadlineForDecision.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the decision is made by SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.day\\"
+                        name=\\"confirmedDateOfDecision.day\\" type=\\"text\\" value=\\"14\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.month\\"
+                        name=\\"confirmedDateOfDecision.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.year\\"
+                        name=\\"confirmedDateOfDecision.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to Decision deadline</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of the deadline for a decision by the SoS, if extended.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.day\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.day\\" type=\\"text\\" value=\\"12\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.month\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.year\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 7`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Post-decision dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Judicial review period end date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Close of the judicial review period.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.day\\" name=\\"jRPeriodEndDate.day\\"
+                        type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.month\\" name=\\"jRPeriodEndDate.month\\"
+                        type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.year\\" name=\\"jRPeriodEndDate.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Pre-application dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date first notified of project</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Applicant notifies the Planning Inspectorate of a project.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.day\\"
+                        name=\\"datePINSFirstNotifiedOfProject.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.month\\"
+                        name=\\"datePINSFirstNotifiedOfProject.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.year\\"
+                        name=\\"datePINSFirstNotifiedOfProject.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Project published on website</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Applicant notifies the Planning Inspectorate of a project.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.day\\"
+                        name=\\"dateProjectAppearsOnWebsite.day\\" type=\\"text\\" value=\\"23\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.month\\"
+                        name=\\"dateProjectAppearsOnWebsite.month\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateProjectAppearsOnWebsite.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateProjectAppearsOnWebsite.year\\"
+                        name=\\"dateProjectAppearsOnWebsite.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Anticipated submission date internal</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.day\\" name=\\"submissionAtInternal.day\\"
+                        type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.month\\"
+                        name=\\"submissionAtInternal.month\\" type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"submissionAtInternal.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"submissionAtInternal.year\\"
+                        name=\\"submissionAtInternal.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Screening opinion sought</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant requests a screening opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.day\\"
+                        name=\\"screeningOpinionSought.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.month\\"
+                        name=\\"screeningOpinionSought.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionSought.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionSought.year\\"
+                        name=\\"screeningOpinionSought.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Screening opinion issued</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate issues our screening opinion.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.day\\"
+                        name=\\"screeningOpinionIssued.day\\" type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.month\\"
+                        name=\\"screeningOpinionIssued.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"screeningOpinionIssued.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"screeningOpinionIssued.year\\"
+                        name=\\"screeningOpinionIssued.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Scoping opinion sought</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant requests a scoping opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.day\\" name=\\"scopingOpinionSought.day\\"
+                        type=\\"text\\" value=\\"18\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.month\\"
+                        name=\\"scopingOpinionSought.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionSought.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionSought.year\\"
+                        name=\\"scopingOpinionSought.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Scoping opinion issued</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the Planning Inspectorate issues our scoping opinion.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.day\\" name=\\"scopingOpinionIssued.day\\"
+                        type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.month\\"
+                        name=\\"scopingOpinionIssued.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"scopingOpinionIssued.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"scopingOpinionIssued.year\\"
+                        name=\\"scopingOpinionIssued.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Section 46 notification</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Applicant notifies the Planning Inspectorate of statutory consultation.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.day\\" name=\\"section46Notification.day\\"
+                        type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.month\\"
+                        name=\\"section46Notification.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"section46Notification.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"section46Notification.year\\"
+                        name=\\"section46Notification.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full\\">
+            <div class=\\"govuk-form-group\\">
+                <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtPublished\\">Anticipated submission date published</label>
+                <div id=\\"submissionAtPublished-hint\\"
+                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted
+                    e.g. Q4 2023.</div>
+                <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
+                name=\\"submissionAtPublished\\" type=\\"text\\" value=\\"Q4 2023\\" aria-describedby=\\"submissionAtPublished-hint\\">
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 2`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Acceptance dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Application submitted (Section 55)</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the application is submitted.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.day\\" name=\\"dateOfDCOSubmission.day\\"
+                        type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.month\\"
+                        name=\\"dateOfDCOSubmission.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.year\\" name=\\"dateOfDCOSubmission.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for Acceptance decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for Acceptance decision by the Planning Inspectorate.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.day\\"
+                        name=\\"deadlineForAcceptanceDecision.day\\" type=\\"text\\" value=\\"16\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.month\\"
+                        name=\\"deadlineForAcceptanceDecision.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForAcceptanceDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForAcceptanceDecision.year\\"
+                        name=\\"deadlineForAcceptanceDecision.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Acceptance (Section 55)</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of decision to accept.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.day\\" name=\\"dateOfDCOAcceptance.day\\"
+                        type=\\"text\\" value=\\"24\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.month\\"
+                        name=\\"dateOfDCOAcceptance.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOAcceptance.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfDCOAcceptance.year\\" name=\\"dateOfDCOAcceptance.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Non-Acceptance</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of decision not to accept.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.day\\" name=\\"dateOfNonAcceptance.day\\"
+                        type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.month\\"
+                        name=\\"dateOfNonAcceptance.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfNonAcceptance.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfNonAcceptance.year\\" name=\\"dateOfNonAcceptance.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 3`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Pre-examination dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations open</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start date of Relevant Representation (RR) period. The RR portal will
+                open on this date on website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.day\\"
+                        name=\\"dateOfRepresentationPeriodOpen.day\\" type=\\"text\\" value=\\"22\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.month\\"
+                        name=\\"dateOfRepresentationPeriodOpen.month\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.year\\"
+                        name=\\"dateOfRepresentationPeriodOpen.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations close</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date RR period will close.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.day\\"
+                        name=\\"dateOfRelevantRepresentationClose.day\\" type=\\"text\\" value=\\"09\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.month\\"
+                        name=\\"dateOfRelevantRepresentationClose.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRelevantRepresentationClose.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRelevantRepresentationClose.year\\"
+                        name=\\"dateOfRelevantRepresentationClose.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to date Relevant Representations close</label>
+            <div id=\\"-hint\\"
+            class=\\"govuk-hint\\">Date RR period will close, if it has been extended.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.day\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.day\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.month\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.month\\" type=\\"text\\" value=\\"01\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"extensionToDateRelevantRepresentationsClose.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"extensionToDateRelevantRepresentationsClose.year\\"
+                        name=\\"extensionToDateRelevantRepresentationsClose.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Relevant Representations to appear on website</label>
+            <div id=\\"-hint\\"
+            class=\\"govuk-hint\\">Date for RRs to appear on the website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.day\\"
+                        name=\\"dateRRepAppearOnWebsite.day\\" type=\\"text\\" value=\\"20\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.month\\"
+                        name=\\"dateRRepAppearOnWebsite.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateRRepAppearOnWebsite.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateRRepAppearOnWebsite.year\\"
+                        name=\\"dateRRepAppearOnWebsite.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date IAPI due</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date that the ExA must have completed their IAPI.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.day\\" name=\\"dateIAPIDue.day\\"
+                        type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.month\\" name=\\"dateIAPIDue.month\\"
+                        type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateIAPIDue.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateIAPIDue.year\\" name=\\"dateIAPIDue.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Rule 6 letter publication date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date when Rule 6 letter is published on website.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.day\\"
+                        name=\\"rule6LetterPublishDate.day\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.month\\"
+                        name=\\"rule6LetterPublishDate.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule6LetterPublishDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"rule6LetterPublishDate.year\\"
+                        name=\\"rule6LetterPublishDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Preliminary Meeting start date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start date of the Preliminary Meeting.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.day\\"
+                        name=\\"preliminaryMeetingStartDate.day\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.month\\"
+                        name=\\"preliminaryMeetingStartDate.month\\" type=\\"text\\" value=\\"04\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"preliminaryMeetingStartDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"preliminaryMeetingStartDate.year\\"
+                        name=\\"preliminaryMeetingStartDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Notification date for PM and any events directly following the PM</label>
+            <div             id=\\"-hint\\" class=\\"govuk-hint\\">28 days before PM. Rule 6 - 21 days + 7 days to allow for post.</div>
+        <div         class=\\"govuk-grid-column-one-third\\">
+            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\">Day</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.day\\" type=\\"text\\"
+                    value=\\"13\\">
+                </div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\">Month</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.month\\" type=\\"text\\"
+                    value=\\"05\\">
+                </div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\">Year</label>
+                    <input class=\\"govuk-input\\" id=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\"
+                    name=\\"notificationDateForPMAndEventsDirectlyFollowingPM.year\\" type=\\"text\\"
+                    value=\\"2023\\">
+                </div>
+            </div>
+            </div>
+            </div>
+            <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Notification date for events - Developer</label>
+                <div id=\\"-hint\\" class=\\"govuk-hint\\">21 days before the event - Rule 13.</div>
+                <div class=\\"govuk-grid-column-one-third\\">
+                    <div class=\\"govuk-grid-row pins-date-form-group\\">
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.day\\">Day</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.day\\"
+                            name=\\"notificationDateForEventsDeveloper.day\\" type=\\"text\\" value=\\"18\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.month\\">Month</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.month\\"
+                            name=\\"notificationDateForEventsDeveloper.month\\" type=\\"text\\" value=\\"07\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"notificationDateForEventsDeveloper.year\\">Year</label>
+                            <input class=\\"govuk-input\\" id=\\"notificationDateForEventsDeveloper.year\\"
+                            name=\\"notificationDateForEventsDeveloper.year\\" type=\\"text\\" value=\\"2023\\">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 4`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Examination dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date Section 58 Notice received</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date s58 notice is received.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.day\\"
+                        name=\\"dateSection58NoticeReceived.day\\" type=\\"text\\" value=\\"26\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.month\\"
+                        name=\\"dateSection58NoticeReceived.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.year\\"
+                        name=\\"dateSection58NoticeReceived.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Examination start date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Start of examination.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.day\\"
+                        name=\\"confirmedStartOfExamination.day\\" type=\\"text\\" value=\\"11\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.month\\"
+                        name=\\"confirmedStartOfExamination.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedStartOfExamination.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedStartOfExamination.year\\"
+                        name=\\"confirmedStartOfExamination.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Rule 8 letter publication date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date when Rule 8 letter is published.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.day\\"
+                        name=\\"rule8LetterPublishDate.day\\" type=\\"text\\" value=\\"24\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.month\\"
+                        name=\\"rule8LetterPublishDate.month\\" type=\\"text\\" value=\\"10\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"rule8LetterPublishDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"rule8LetterPublishDate.year\\"
+                        name=\\"rule8LetterPublishDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for close of Examination</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for the close of the examination.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.day\\"
+                        name=\\"deadlineForCloseOfExamination.day\\" type=\\"text\\" value=\\"17\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.month\\"
+                        name=\\"deadlineForCloseOfExamination.month\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForCloseOfExamination.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForCloseOfExamination.year\\"
+                        name=\\"deadlineForCloseOfExamination.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Examination closing date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date that the examination closes.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.day\\"
+                        name=\\"dateTimeExaminationEnds.day\\" type=\\"text\\" value=\\"13\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.month\\"
+                        name=\\"dateTimeExaminationEnds.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateTimeExaminationEnds.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateTimeExaminationEnds.year\\"
+                        name=\\"dateTimeExaminationEnds.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to close of Examination</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date examination will close, if it has been extended.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.day\\"
+                        name=\\"stage4ExtensionToExamCloseDate.day\\" type=\\"text\\" value=\\"13\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.month\\"
+                        name=\\"stage4ExtensionToExamCloseDate.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage4ExtensionToExamCloseDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage4ExtensionToExamCloseDate.year\\"
+                        name=\\"stage4ExtensionToExamCloseDate.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 5`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Recommendation dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission of Recommendation</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
+                (SoS).</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.day\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.day\\" type=\\"text\\" value=\\"14\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.month\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.year\\"
+                        name=\\"deadlineForSubmissionOfRecommendation.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Recommendation submitted to SoS</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date Recommendation report submitted to SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.day\\" name=\\"dateOfRecommendations.day\\"
+                        type=\\"text\\" value=\\"19\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.month\\"
+                        name=\\"dateOfRecommendations.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRecommendations.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"dateOfRecommendations.year\\"
+                        name=\\"dateOfRecommendations.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to Recommendation deadline</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date for submission of Recommendation report, if this stage is extended.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.day\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.day\\" type=\\"text\\" value=\\"07\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.month\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.month\\" type=\\"text\\" value=\\"03\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToRecommendationDeadline.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToRecommendationDeadline.year\\"
+                        name=\\"stage5ExtensionToRecommendationDeadline.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 6`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Decision dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for Decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of the deadline for a decision by the SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.day\\" name=\\"deadlineForDecision.day\\"
+                        type=\\"text\\" value=\\"21\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.month\\"
+                        name=\\"deadlineForDecision.month\\" type=\\"text\\" value=\\"08\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"deadlineForDecision.year\\" name=\\"deadlineForDecision.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date of Decision</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date the decision is made by SoS.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.day\\"
+                        name=\\"confirmedDateOfDecision.day\\" type=\\"text\\" value=\\"14\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.month\\"
+                        name=\\"confirmedDateOfDecision.month\\" type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"confirmedDateOfDecision.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"confirmedDateOfDecision.year\\"
+                        name=\\"confirmedDateOfDecision.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Extension to Decision deadline</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Date of the deadline for a decision by the SoS, if extended.</div>
+            <div             class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.day\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.day\\" type=\\"text\\" value=\\"12\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.month\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.month\\" type=\\"text\\" value=\\"05\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"stage5ExtensionToDecisionDeadline.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"stage5ExtensionToDecisionDeadline.year\\"
+                        name=\\"stage5ExtensionToDecisionDeadline.year\\" type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+        </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 7`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Post-decision dates</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
+        <div class=\\"govuk-form-group govuk-grid-column-full \\">
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Judicial review period end date</label>
+            <div id=\\"-hint\\" class=\\"govuk-hint\\">Close of the judicial review period.</div>
+            <div class=\\"govuk-grid-column-one-third\\">
+                <div class=\\"govuk-grid-row pins-date-form-group\\">
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.day\\">Day</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.day\\" name=\\"jRPeriodEndDate.day\\"
+                        type=\\"text\\" value=\\"15\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.month\\">Month</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.month\\" name=\\"jRPeriodEndDate.month\\"
+                        type=\\"text\\" value=\\"06\\">
+                    </div>
+                    <div class=\\"govuk-form-group\\">
+                        <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.year\\">Year</label>
+                        <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.year\\" name=\\"jRPeriodEndDate.year\\"
+                        type=\\"text\\" value=\\"2023\\">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+    </form>
 </main>"
 `;
