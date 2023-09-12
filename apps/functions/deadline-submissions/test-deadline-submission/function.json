@@ -11,6 +11,13 @@
 			"type": "http",
 			"name": "res",
 			"direction": "out"
+		},
+		{
+			"name": "output",
+			"type": "serviceBus",
+			"topicName": "deadline-submission-topic",
+			"connection": "ServiceBusConnection",
+			"direction": "out"
 		}
 	]
 }
