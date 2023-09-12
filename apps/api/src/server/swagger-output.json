@@ -3073,6 +3073,22 @@
 				}
 			}
 		},
+		"/applications/{id}/s51-advice/ready-to-publish": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Gets all S51 that are ready to publish for the case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],

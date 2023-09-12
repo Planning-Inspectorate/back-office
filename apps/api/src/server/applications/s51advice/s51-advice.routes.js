@@ -278,7 +278,7 @@ router.post(
         }
 		#swagger.responses[200] = {
             description: 'An paginated data set of s51 advices and their properties',
-            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
+            schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
         }
     */
 	asyncHandler(getReadyToPublishAdvices)
