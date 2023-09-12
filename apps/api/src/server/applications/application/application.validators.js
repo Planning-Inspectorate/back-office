@@ -52,7 +52,7 @@ export const validateExistingApplication = async (value) => {
 	const caseFromDatabase = await caseRepository.getById(value, {});
 
 	if (caseFromDatabase === null || typeof caseFromDatabase === 'undefined') {
-		throw new Error('Unknown case');
+		throw new Error(`unknown case with id ${value}`);
 	}
 };
 
