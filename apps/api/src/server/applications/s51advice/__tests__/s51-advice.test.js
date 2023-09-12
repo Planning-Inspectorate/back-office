@@ -87,6 +87,29 @@ const s51AdvicesOnCase1 = [
 	}
 ];
 
+const s51AdvicesReadyToPublish= [
+	{
+		caseId: 1,
+		id: 1,
+		referenceNumber: 1,
+		title: 'Advice 1',
+		enquirer: 'New Power Company',
+		firstName: 'David',
+		lastName: 'White',
+		enquiryMethod: 'email',
+		enquiryDate: '2023-01-01T00:00:00.000Z',
+		enquiryDetails: 'detail',
+		adviser: 'PINS Staff',
+		adviceDate: '2023-01-01T00:00:00.000Z',
+		adviceDetails: 'good advice',
+		publishedStatus: 'ready_to_publish',
+		redactedStatus: 'not_redacted',
+		createdAt: '2023-01-01T00:00:00.000Z',
+		updatedAt: '2023-01-01T00:00:00.000Z',
+		S51AdviceDocument: []
+	}
+];
+
 const s51AdviceDocuments = [
 	{
 		id: 1,
@@ -257,5 +280,25 @@ describe('Test S51 advice API', () => {
 		expect(response.body).toEqual({
 			errors: { id: 'Must be an existing application' }
 		});
+	});
+
+	test('getReadyToPublishAdvices returns s51 advice by that in ready to publish status', async () => {
+		databaseConnector.s51Advice.findMany.mockResolvedValue(s51AdvicesReadyToPublish);
+		databaseConnector.s51Advice.count.mockResolvedValue(1)
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		const resp = await request.post('/applications/21/s51-advice/ready-to-publish').send({pageNumber: 1, pageSize: 125});
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.s51Advice.findMany).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.s51Advice.count).toHaveBeenCalledTimes(1);
+	});
+
+	test('removePublishItemFromQueue returns s51 advice by that in ready to publish status', async () => {
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdvicesOnCase1);
+		databaseConnector.s51Advice.update.mockResolvedValue(s51AdvicesOnCase1);
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		const resp = await request.post('/applications/21/s51-advice/remove-queue-item').send({adviceId : 1});
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.s51Advice.update).toHaveBeenCalledTimes(1);
 	});
 });

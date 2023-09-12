@@ -103,7 +103,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation//s51-advice/s51-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -538,7 +538,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation//s51-advice/s51-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -1552,7 +1552,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/title\\"> Create new S51 advice</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/s51-queue\\"> View S51 publishing queue</a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/s51-queue\\"> View S51 publishing queue</a>
                     </div>
                 </div>
             </div>
