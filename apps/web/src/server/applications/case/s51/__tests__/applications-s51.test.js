@@ -546,11 +546,29 @@ describe('S51 Advice', () => {
 
 		describe('GET /case/123/project-documentation/21/s51-advice/s51-queue', () => {
 			it('should render the page', async () => {
-				const response = await request.get(`${baseUrl}/s51-queue`);
+				const response = await request.get(`${baseUrl}/publishing-queue`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select items for publishing');
+			});
+		});
+
+		describe('GET /case/123/project-documentation/21/s51-advice/s51-queue/remove/:adviceId', () => {
+			it('should display an error if the API returned an error', async () => {
+				const response = await request.get(`${baseUrl}/publishing-queue/remove/1`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select items for publishing');
+				expect(element.innerHTML).toContain('An error occurred, please try again later');
+			});
+
+			it('should go to s51 page if API did not return an error', async () => {
+				nock('http://test/').post('/applications/123/s51-advice/remove-queue-item').reply(200, {});
+				const response = await request.get(`${baseUrl}/publishing-queue/remove/1`);
+
+				expect(response?.headers?.location).toEqual('../../');
 			});
 		});
 	});
