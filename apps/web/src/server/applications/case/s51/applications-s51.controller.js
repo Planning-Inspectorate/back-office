@@ -10,7 +10,6 @@
 /** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
 
 import { dateString } from '../../../lib/nunjucks-filters/date.js';
-import { url } from '../../../lib/nunjucks-filters/url.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	checkS51NameIsUnique,
@@ -21,8 +20,8 @@ import {
 	mapUpdateBodyToPayload,
 	updateS51Advice,
 	updateS51AdviceStatus,
-	getCaseAdviceReadyToPublish,
-	removePublishItem
+	getS51AdviceReadyToPublish,
+	removeS51AdviceFromReadyToPublish
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -192,11 +191,11 @@ export async function changeAdviceStatus(request, response) {
 
 	let redacted = body?.isRedacted;
 	// @ts-ignore
-	if (body?.isRedacted &&  body.isRedacted === '1') {
+	if (body?.isRedacted && body.isRedacted === '1') {
 		redacted = true;
 	}
 	// @ts-ignore
-	if (body?.isRedacted &&  body.isRedacted === '0') {
+	if (body?.isRedacted && body.isRedacted === '0') {
 		redacted = false;
 	}
 
@@ -428,53 +427,59 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 }
 
 /**
- * View a folder, showing files in the folder, and listing subfolders
+ * View the s51 publishing queue page
  *
  * @type {import('@pins/express').RenderHandler<{}, any, {}, {size?: string, number?: string}, {}>}
  */
-export async function viewApplicationsCaseS51PublishingQueue(request, response) {
-	const properties = await publishQueueData(request, response);
-	response.render(`applications/case-s51/s51-publish`, properties);
+export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
+	const { caseId } = response.locals;
+	const properties = await getDataForPublishingQueuePage(caseId, query.number);
+
+	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Remove s51 item from the publishing queue
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {number: string}, {adviceId: string}>}
  */
-const publishQueueData = async (request, response) => {
-	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
+export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
+	{ query, params },
+	response
+) {
+	const { adviceId } = params;
 	const { caseId } = response.locals;
-	// @ts-ignore
-	const { folderId } = request.params;
-	const s51Advices = await getCaseAdviceReadyToPublish(caseId, currentPageNumber);
-	const backLink = url('s51-list', { caseId, folderId });
-	const paginationButtons = getPaginationButtonData(
-		currentPageNumber,
-		s51Advices.pageCount
+	const { paginationButtons, s51Advices } = await getDataForPublishingQueuePage(
+		caseId,
+		query.number
 	);
+
+	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
+
+	response.render(`applications/case-s51/s51-publish`, {
+		paginationButtons,
+		s51Advices,
+		errors
+	});
+}
+
+/**
+ *
+ * @param {number} caseId
+ * @param {string=} queryPageNumber
+ * @returns
+ */
+const getDataForPublishingQueuePage = async (caseId, queryPageNumber) => {
+	const currentPageNumber = Number.parseInt(queryPageNumber || '1', 10);
+	const s51Advices = await getS51AdviceReadyToPublish(caseId, currentPageNumber);
+
+	const paginationButtons = getPaginationButtonData(currentPageNumber, s51Advices.pageCount);
 
 	return {
 		s51Advices,
-		paginationButtons,
-		backLink,
-		folderId,
+		paginationButtons
 	};
-}
-
-/**
- * 
- * @param {*} request 
- * @param {*} response 
- */
-export async function removeS51AdviceFromQueue(request, response) {
-	const { adviceId } = request.params;
-	const { caseId } = response.locals;
-	await removePublishItem(caseId, adviceId);
-	const properties = await publishQueueData(request, response);
-	response.render(`applications/case-s51/s51-publish`, properties);
-}
+};
 
 /**
  *

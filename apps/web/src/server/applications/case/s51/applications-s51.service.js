@@ -202,31 +202,56 @@ export const mapS51AdviceToPage = (payload) => {
 };
 
 /**
- * Get the documents for the current folder
+ * Get a paginated list for the ready to publish S51 items
  *
  * @param {number} caseId
  * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getCaseAdviceReadyToPublish = async (caseId, pageNumber) => {
-	return post(`applications/${caseId}/s51-advice/ready-to-publish`, {
-		json: {
-			pageSize: 125,
-			pageNumber
-		}
-	});
+export const getS51AdviceReadyToPublish = async (caseId, pageNumber) => {
+	let response;
+
+	try {
+		response = post(`applications/${caseId}/s51-advice/ready-to-publish`, {
+			json: {
+				pageSize: 125,
+				pageNumber
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
 };
 
 /**
- * 
- * @param {number} caseId 
- * @param {number} adviceId 
- * @returns 
+ * Remove item from the "ready to publish" list
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns
  */
-export const removePublishItem = async (caseId, adviceId) => {
-	return post(`applications/${caseId}/s51-advice/remove-queue-item`, {
-		json: {
-			adviceId
-		}
-	});
-} 
+export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
+	let response;
+
+	try {
+		response = post(`applications/${caseId}/s51-advice/remove-queue-item`, {
+			json: {
+				adviceId
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
