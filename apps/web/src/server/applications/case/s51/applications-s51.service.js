@@ -206,15 +206,16 @@ export const mapS51AdviceToPage = (payload) => {
  *
  * @param {number} caseId
  * @param {number} pageNumber
+ * @param {number} pageSize
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51AdviceReadyToPublish = async (caseId, pageNumber) => {
+export const getS51AdviceReadyToPublish = async (caseId, pageNumber, pageSize) => {
 	let response;
 
 	try {
-		response = post(`applications/${caseId}/s51-advice/ready-to-publish`, {
+		response = await post(`applications/${caseId}/s51-advice/ready-to-publish`, {
 			json: {
-				pageSize: 125,
+				pageSize,
 				pageNumber
 			}
 		});
@@ -240,7 +241,7 @@ export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
 	let response;
 
 	try {
-		response = post(`applications/${caseId}/s51-advice/remove-queue-item`, {
+		response = await post(`applications/${caseId}/s51-advice/remove-queue-item`, {
 			json: {
 				adviceId
 			}

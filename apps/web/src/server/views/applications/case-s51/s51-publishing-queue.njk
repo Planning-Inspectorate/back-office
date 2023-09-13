@@ -15,9 +15,9 @@
 
 {% block pageContent %}
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-full govuk-!-margin-top-0">
+		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
-				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">
+				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8">
 					<span class="govuk-caption-m">S51 advice publishing queue</span>
                     Select items for publishing
                 </h1>
@@ -31,16 +31,33 @@
 						{{ case.reference }}
 					</li>
 				</ul>
-				<p class='govuk-body govuk-!-margin-top-6'>
+
+				<p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
                     The queue contains {{ s51Advices.itemCount }} item(s).
 										Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
 										- {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
 										item(s).
                 </p>
-				<p class='govuk-body font-weight--700'>
-					<span id="selectedfilesnumber">0</span> item(s) on this page are selected.
+
+<div class='pins-files-list__info'>
+<div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
+				<p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'>
+					<span id="selectedFilesNumber">0</span> item(s) on this page are selected.
                 </p>
-				<form class="pins-files-list" method="post">
+
+				<div>
+					<span class='font-weight--700'>Results per page</span>
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=25'>25</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=50'>50</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=75'>75</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=100'>100</a>
+				</div>
+</div>
+
+
+
+			</div>
+				<form class="pins-files-list govuk-!-margin-top-8" method="post">
 					<table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
 						<thead class="govuk-table__head govuk-body-s">
 							<tr class="govuk-table__row">
@@ -83,11 +100,7 @@
 									</td>
 									<td class="govuk-table__cell">
 										<p class='font-weight--700 govuk-body-m'>{{ s51Advice.referenceNumber }} - {{ s51Advice.title }}</p>
-										{% if s51Advice.enquirer %}
-											<p class="file-info">
-                                                Enquirer: {{ s51Advice.enquirer }}
-											</p>
-										{% endif %}
+										{{enquirerString(s51Advice)}}
 									</td>
 									<td class="govuk-table__cell">
 										<p class="file-info ">
@@ -103,7 +116,7 @@
                                         </a>
 									</td>
 									<td class="govuk-table__cell">
-										<a href='{{'s51-remove-queue'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id})}}' class='govuk-link'>
+										<a href='{{'s51-queue-remove'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id})}}' class='govuk-link'>
                                             Remove
                                         </a>
 									</td>
@@ -113,7 +126,7 @@
 					</table>
 					{{ govukButton({ text: 'Publish S51 advice' }) }}
 
-					{% if s51Advices.itemCount > 125 %}
+					{% if s51Advices.itemCount > pageSize %}
 						{{ govukPagination(paginationButtons) }}
 					{% endif %}
 				</form>
@@ -121,3 +134,13 @@
 		</div>
 	</div>
 {% endblock %}
+
+{% macro enquirerString(s51Advice) %}
+	{% if s51Advice.firstName or s51Advice.enquirer %}
+	{% set comma = ', ' if s51Advice.firstName and s51Advice.enquirer else '' %}
+		<p class="file-info">
+			{{s51Advice.firstName}} {{s51Advice.lastName}}{{ comma }}
+			{{s51Advice.enquirer}}
+		</p>
+		{%endif%}
+	{% endmacro %}
