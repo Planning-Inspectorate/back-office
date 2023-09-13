@@ -433,7 +433,7 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
  */
 export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
 	const { caseId } = response.locals;
-	const properties = await getDataForPublishingQueuePage(caseId, query.number);
+	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
 
 	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
@@ -441,43 +441,43 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 /**
  * Remove s51 item from the publishing queue
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {number: string}, {adviceId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
  */
-export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
-	{ query, params },
-	response
-) {
+export async function removeApplicationsCaseS51AdviceFromPublishingQueue({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
-	const { paginationButtons, s51Advices } = await getDataForPublishingQueuePage(
-		caseId,
-		query.number
-	);
 
 	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
 
-	response.render(`applications/case-s51/s51-publish`, {
-		paginationButtons,
-		s51Advices,
-		errors
-	});
+	if (errors) {
+		const properties = await getDataForPublishingQueuePage(caseId);
+		return response.render(`applications/case-s51/s51-publishing-queue`, {
+			...properties,
+			errors
+		});
+	}
+
+	return response.redirect('../../');
 }
 
 /**
  *
  * @param {number} caseId
  * @param {string=} queryPageNumber
+ * @param {string=} queryPageSize
  * @returns
  */
-const getDataForPublishingQueuePage = async (caseId, queryPageNumber) => {
-	const currentPageNumber = Number.parseInt(queryPageNumber || '1', 10);
-	const s51Advices = await getS51AdviceReadyToPublish(caseId, currentPageNumber);
+const getDataForPublishingQueuePage = async (caseId, queryPageNumber, queryPageSize) => {
+	const pageNumber = Number.parseInt(queryPageNumber || '1', 10);
+	const pageSize = Number.parseInt(queryPageSize || '25', 10);
+	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
 
-	const paginationButtons = getPaginationButtonData(currentPageNumber, s51Advices.pageCount);
+	const paginationButtons = getPaginationButtonData(pageNumber, s51Advices.pageCount);
 
 	return {
 		s51Advices,
-		paginationButtons
+		paginationButtons,
+		pageSize
 	};
 };
 
