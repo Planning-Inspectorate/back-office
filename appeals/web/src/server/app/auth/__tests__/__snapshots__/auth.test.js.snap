@@ -16,7 +16,7 @@ exports[`auth authentication should clear any pending authentication data if the
 exports[`auth authentication should display a logout link in the header when the user is authenticated 1`] = `
 "<header class="govuk-header" id="pins-applications-header" role="banner"
 data-module="govuk-header">
-    <div class="pins-width-container">
+    <div class="govuk-width-container">
         <div class="pins-row">
             <div class="pins-column--left">
                 <svg width="39" height="32" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +148,7 @@ data-module="govuk-header">
 exports[`auth authentication should display a logout link in the header when the user is authenticated 2`] = `
 "<header class="govuk-header" id="pins-applications-header" role="banner"
 data-module="govuk-header">
-    <div class="pins-width-container">
+    <div class="govuk-width-container">
         <div class="pins-row">
             <div class="pins-column--left">
                 <svg width="39" height="32" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
