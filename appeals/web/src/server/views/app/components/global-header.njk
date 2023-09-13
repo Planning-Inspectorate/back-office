@@ -1,6 +1,7 @@
-{% macro globalHeader(domainType, domainName) %}
+
+{% macro globalHeader(domainType, domainName, containerClasses) %}
 	<header class="govuk-header" id="pins-applications-header" role="banner" data-module="govuk-header">
-		<div class="pins-width-container">
+		<div class={{containerClasses}}>
 			<div class="pins-row">
 				<div class="pins-column--left">
 					<svg width="39" height="32" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
