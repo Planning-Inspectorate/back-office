@@ -103,7 +103,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation//s51-advice/s51-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -538,7 +538,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation//s51-advice/s51-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -1552,7 +1552,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/create/title\\"> Create new S51 advice</a>
                     </div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/s51-queue\\"> View S51 publishing queue</a>
+                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\"> View S51 publishing queue</a>
                     </div>
                 </div>
             </div>
@@ -1564,15 +1564,25 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
 exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/s51-advice/s51-queue should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9\\"><span class=\\"govuk-caption-m\\">S51 advice publishing queue</span> Select items for publishing</h1>
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8\\"><span class=\\"govuk-caption-m\\">S51 advice publishing queue</span> Select items for publishing</h1>
             <ul class=\\"govuk-list\\">
                 <li><span class='font-weight--700'>Case name:</span> Title CASE/04</li>
                 <li><span class='font-weight--700'>Case reference:</span> CASE/04</li>
             </ul>
-            <p class='govuk-body govuk-!-margin-top-6'>The queue contains 200 item(s). Showing 1 - 50 item(s).</p>
-            <p class='govuk-body font-weight--700'><span id=\\"selectedFilesNumber\\">0</span> item(s) on this page are selected.</p>
-            <form             class=\\"pins-files-list\\" method=\\"post\\">
+            <p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>The queue contains 200 item(s). Showing 1 - 50 item(s).</p>
+            <div class='pins-files-list__info'>
+                <div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
+                    <p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'><span id=\\"selectedFilesNumber\\">0</span> item(s) on this page are selected.</p>
+                    <div><span class='font-weight--700'>Results per page</span><a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=25'>25</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=50'>50</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=75'>75</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=100'>100</a>
+                    </div>
+                </div>
+            </div>
+            <form class=\\"pins-files-list govuk-!-margin-top-8\\" method=\\"post\\">
                 <table class=\\"govuk-table pins-files-list__table pins-files-list__table-publish pins-table\\">
                     <thead class=\\"govuk-table__head govuk-body-s\\">
                         <tr class=\\"govuk-table__row\\">
@@ -1614,7 +1624,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00000 - Ut enim ad</p>
-                                <p class=\\"file-info\\">Enquirer: Sed</p>
+                                <p class=\\"file-info\\">Sed Do, Sed</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1623,7 +1633,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice//properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice//s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1641,7 +1651,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00001 - Minim veniam quis nostrud</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1650,7 +1660,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/1/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/1/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/1'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1668,7 +1678,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00002 - Nostrud exercitation ullamco laboris</p>
-                                <p class=\\"file-info\\">Enquirer: Eiusmod</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1677,7 +1687,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/2/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/2/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/2'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1695,7 +1705,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00003 - Elit sed</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1704,7 +1714,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/3/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/3/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/3'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1722,7 +1732,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00004 - Minim veniam quis nostrud</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Eiusmod, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1731,7 +1741,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/4/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/4/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/4'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1749,7 +1759,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00005 - Magna aliqua Ut</p>
-                                <p class=\\"file-info\\">Enquirer: Sed</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1758,7 +1768,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/5/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/5/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/5'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1776,7 +1786,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00006 - Enim ad minim veniam</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1785,7 +1795,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/6/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/6/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/6'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1803,7 +1813,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00007 - Dolor sit</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1812,7 +1822,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/7/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/7/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/7'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1830,7 +1840,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00008 - Lorem ipsum</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1839,7 +1849,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/8/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/8/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/8'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1857,7 +1867,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00009 - Do eiusmod</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1866,7 +1876,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/9/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/9/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/9'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1884,7 +1894,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00010 - Aliqua Ut enim</p>
-                                <p class=\\"file-info\\">Enquirer: Sed</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1893,7 +1903,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/10/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/10/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/10'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1911,7 +1921,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00011 - Ullamco laboris nisi ut</p>
-                                <p class=\\"file-info\\">Enquirer: Tempor</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1920,7 +1930,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/11/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/11/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/11'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1938,7 +1948,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00012 - Do eiusmod</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1947,7 +1957,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/12/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/12/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/12'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1965,7 +1975,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00013 - Quis nostrud exercitation ullamco</p>
-                                <p class=\\"file-info\\">Enquirer: Eiusmod</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -1974,7 +1984,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/13/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/13/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/13'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -1992,7 +2002,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00014 - Do eiusmod</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2001,7 +2011,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/14/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/14/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/14'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2019,7 +2029,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00015 - Lorem ipsum</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2028,7 +2038,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/15/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/15/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/15'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2046,7 +2056,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00016 - Ad minim veniam quis</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2055,7 +2065,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/16/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/16/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/16'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2073,7 +2083,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00017 - Dolore magna aliqua</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2082,7 +2092,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/17/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/17/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/17'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2100,7 +2110,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00018 - Eiusmod tempor incididunt</p>
-                                <p class=\\"file-info\\">Enquirer: Adipiscing</p>
+                                <p class=\\"file-info\\">Adipiscing Adipiscing, Adipiscing</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2109,7 +2119,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/18/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/18/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/18'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2127,7 +2137,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00019 - Eiusmod tempor incididunt</p>
-                                <p class=\\"file-info\\">Enquirer: Adipiscing</p>
+                                <p class=\\"file-info\\">Adipiscing Adipiscing, Adipiscing</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2136,7 +2146,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/19/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/19/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/19'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2154,7 +2164,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00020 - Labore et dolore</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2163,7 +2173,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/20/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/20/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/20'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2181,7 +2191,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00021 - Enim ad minim veniam</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2190,7 +2200,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/21/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/21/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/21'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2208,7 +2218,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00022 - Nisi ut aliquip ex</p>
-                                <p class=\\"file-info\\">Enquirer: Tempor</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2217,7 +2227,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/22/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/22/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/22'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2235,7 +2245,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00023 - Incididunt ut labore</p>
-                                <p class=\\"file-info\\">Enquirer: Adipiscing</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2244,7 +2254,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/23/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/23/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/23'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2262,7 +2272,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00024 - Ullamco laboris nisi ut</p>
-                                <p class=\\"file-info\\">Enquirer: Tempor</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2271,7 +2281,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/24/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/24/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/24'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2289,7 +2299,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00025 - Ut enim ad</p>
-                                <p class=\\"file-info\\">Enquirer: Sed</p>
+                                <p class=\\"file-info\\">Sed Do, Sed</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2298,7 +2308,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/25/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/25/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/25'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2316,7 +2326,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00026 - Ut labore et</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2325,7 +2335,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/26/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/26/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/26'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2343,7 +2353,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00027 - Labore et dolore</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2352,7 +2362,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/27/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/27/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/27'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2370,7 +2380,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00028 - Et dolore magna</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2379,7 +2389,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/28/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/28/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/28'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2397,7 +2407,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00029 - Ad minim veniam quis</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2406,7 +2416,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/29/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/29/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/29'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2424,7 +2434,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00030 - Elit sed</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2433,7 +2443,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/30/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/30/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/30'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2451,7 +2461,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00031 - Veniam quis nostrud exercitation</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Eiusmod, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2460,7 +2470,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/31/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/31/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/31'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2478,7 +2488,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00032 - Et dolore magna</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2487,7 +2497,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/32/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/32/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/32'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2505,7 +2515,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00033 - Ut labore et</p>
-                                <p class=\\"file-info\\">Enquirer: Adipiscing</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2514,7 +2524,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/33/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/33/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/33'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2532,7 +2542,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00034 - Dolore magna aliqua</p>
-                                <p class=\\"file-info\\">Enquirer: Sed</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2541,7 +2551,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/34/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/34/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/34'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2559,7 +2569,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00035 - Veniam quis nostrud exercitation</p>
-                                <p class=\\"file-info\\">Enquirer: Eiusmod</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2568,7 +2578,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/35/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/35/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/35'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2586,7 +2596,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00036 - Elit sed</p>
-                                <p class=\\"file-info\\">Enquirer: Consectetur</p>
+                                <p class=\\"file-info\\">Consectetur Consectetur, Consectetur</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2595,7 +2605,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/36/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/36/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/36'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2613,7 +2623,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00037 - Nostrud exercitation ullamco laboris</p>
-                                <p class=\\"file-info\\">Enquirer: Eiusmod</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2622,7 +2632,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/37/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/37/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/37'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2640,7 +2650,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00038 - Ad minim veniam quis</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2649,7 +2659,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/38/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/38/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/38'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2667,7 +2677,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00039 - Minim veniam quis nostrud</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2676,7 +2686,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/39/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/39/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/39'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2694,7 +2704,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00040 - Dolor sit</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2703,7 +2713,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/40/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/40/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/40'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2721,7 +2731,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00041 - Ut labore et</p>
-                                <p class=\\"file-info\\">Enquirer: Adipiscing</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2730,7 +2740,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/41/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/41/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/41'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2748,7 +2758,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00042 - Consectetur adipiscing</p>
-                                <p class=\\"file-info\\">Enquirer: Amet</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2757,7 +2767,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/42/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/42/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/42'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2775,7 +2785,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00043 - Ipsum dolor</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2784,7 +2794,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/43/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/43/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/43'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2802,7 +2812,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00044 - Consectetur adipiscing</p>
-                                <p class=\\"file-info\\">Enquirer: Amet</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2811,7 +2821,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/44/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/44/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/44'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2829,7 +2839,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00045 - Dolore magna aliqua</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2838,7 +2848,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/45/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/45/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/45'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2856,7 +2866,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00046 - Consectetur adipiscing</p>
-                                <p class=\\"file-info\\">Enquirer: Amet</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2865,7 +2875,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/46/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/46/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/46'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2883,7 +2893,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00047 - Et dolore magna</p>
-                                <p class=\\"file-info\\">Enquirer: Elit</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2892,7 +2902,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/47/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/47/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/47'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2910,7 +2920,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00048 - Sit amet</p>
-                                <p class=\\"file-info\\">Enquirer: Sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2919,7 +2929,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/48/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/48/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/48'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2937,7 +2947,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class='font-weight--700 govuk-body-m'>00049 - Ad minim veniam quis</p>
-                                <p class=\\"file-info\\">Enquirer: Do</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
                             </td>
                             <td class=\\"govuk-table__cell\\">
                                 <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
@@ -2946,7 +2956,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                             <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/49/properties'
                                 class='govuk-link'> View/edit details</a>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/49/s51-remove-queue'
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/49'
                                 class='govuk-link'> Remove</a>
                             </td>
                         </tr>
@@ -2969,7 +2979,1446 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                     <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2\\" rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
                     </div>
                 </nav>
-                </form>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/s51-advice/s51-queue/remove/:adviceId should display an error if the API returned an error 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8\\"><span class=\\"govuk-caption-m\\">S51 advice publishing queue</span> Select items for publishing</h1>
+            <ul class=\\"govuk-list\\">
+                <li><span class='font-weight--700'>Case name:</span> Title CASE/04</li>
+                <li><span class='font-weight--700'>Case reference:</span> CASE/04</li>
+            </ul>
+            <p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>The queue contains 200 item(s). Showing 1 - 50 item(s).</p>
+            <div class='pins-files-list__info'>
+                <div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
+                    <p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'><span id=\\"selectedFilesNumber\\">0</span> item(s) on this page are selected.</p>
+                    <div><span class='font-weight--700'>Results per page</span><a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=25'>25</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=50'>50</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=75'>75</a> |<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1'
+                        href='?number=1&size=100'>100</a>
+                    </div>
+                </div>
+            </div>
+            <form class=\\"pins-files-list govuk-!-margin-top-8\\" method=\\"post\\">
+                <table class=\\"govuk-table pins-files-list__table pins-files-list__table-publish pins-table\\">
+                    <thead class=\\"govuk-table__head govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Select</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">S51 advice item</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Properties</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Actions</th>
+                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class=\\"govuk-table__body govuk-body-s\\">
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"selectAll\\" name=\\"selectAll\\"
+                                            type=\\"checkbox\\" value=\\"true\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"selectAll\\">Select all</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\" colspan=\\"5\\">
+                                <p>Select all items on page</p>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-0\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"0\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-0\\">Ut enim ad</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00000 - Ut enim ad</p>
+                                <p class=\\"file-info\\">Sed Do, Sed</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice//properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-1\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"1\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-1\\">Minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00001 - Minim veniam quis nostrud</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/1/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/1'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-2\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"2\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-2\\">Nostrud exercitation ullamco laboris</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00002 - Nostrud exercitation ullamco laboris</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/2/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/2'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-3\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"3\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-3\\">Elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00003 - Elit sed</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/3/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/3'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-4\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"4\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-4\\">Minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00004 - Minim veniam quis nostrud</p>
+                                <p class=\\"file-info\\">Do Eiusmod, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/4/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/4'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-5\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"5\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-5\\">Magna aliqua Ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00005 - Magna aliqua Ut</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/5/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/5'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-6\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"6\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-6\\">Enim ad minim veniam</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00006 - Enim ad minim veniam</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/6/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/6'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-7\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"7\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-7\\">Dolor sit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00007 - Dolor sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/7/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/7'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-8\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"8\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-8\\">Lorem ipsum</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00008 - Lorem ipsum</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/8/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/8'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-9\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"9\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-9\\">Do eiusmod</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00009 - Do eiusmod</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/9/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/9'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-10\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"10\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-10\\">Aliqua Ut enim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00010 - Aliqua Ut enim</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/10/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/10'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-11\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"11\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-11\\">Ullamco laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00011 - Ullamco laboris nisi ut</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/11/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/11'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-12\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"12\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-12\\">Do eiusmod</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00012 - Do eiusmod</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/12/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/12'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-13\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"13\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-13\\">Quis nostrud exercitation ullamco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00013 - Quis nostrud exercitation ullamco</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/13/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/13'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-14\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"14\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-14\\">Do eiusmod</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00014 - Do eiusmod</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/14/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/14'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-15\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"15\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-15\\">Lorem ipsum</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00015 - Lorem ipsum</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/15/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/15'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-16\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"16\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-16\\">Ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00016 - Ad minim veniam quis</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/16/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/16'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-17\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"17\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-17\\">Dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00017 - Dolore magna aliqua</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/17/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/17'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-18\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"18\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-18\\">Eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00018 - Eiusmod tempor incididunt</p>
+                                <p class=\\"file-info\\">Adipiscing Adipiscing, Adipiscing</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/18/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/18'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-19\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"19\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-19\\">Eiusmod tempor incididunt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00019 - Eiusmod tempor incididunt</p>
+                                <p class=\\"file-info\\">Adipiscing Adipiscing, Adipiscing</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/19/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/19'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-20\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"20\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-20\\">Labore et dolore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00020 - Labore et dolore</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/20/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/20'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-21\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"21\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-21\\">Enim ad minim veniam</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00021 - Enim ad minim veniam</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/21/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/21'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-22\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"22\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-22\\">Nisi ut aliquip ex</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00022 - Nisi ut aliquip ex</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/22/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/22'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-23\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"23\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-23\\">Incididunt ut labore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00023 - Incididunt ut labore</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/23/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/23'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-24\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"24\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-24\\">Ullamco laboris nisi ut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00024 - Ullamco laboris nisi ut</p>
+                                <p class=\\"file-info\\">Tempor Tempor, Tempor</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/24/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/24'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-25\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"25\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-25\\">Ut enim ad</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00025 - Ut enim ad</p>
+                                <p class=\\"file-info\\">Sed Do, Sed</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/25/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/25'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-26\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"26\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-26\\">Ut labore et</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00026 - Ut labore et</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/26/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/26'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-27\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"27\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-27\\">Labore et dolore</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00027 - Labore et dolore</p>
+                                <p class=\\"file-info\\">Elit Elit, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/27/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/27'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-28\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"28\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-28\\">Et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00028 - Et dolore magna</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/28/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/28'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-29\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"29\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-29\\">Ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00029 - Ad minim veniam quis</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/29/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/29'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-30\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"30\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-30\\">Elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00030 - Elit sed</p>
+                                <p class=\\"file-info\\">Consectetur Adipiscing, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/30/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/30'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-31\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"31\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-31\\">Veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00031 - Veniam quis nostrud exercitation</p>
+                                <p class=\\"file-info\\">Do Eiusmod, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/31/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/31'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-32\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"32\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-32\\">Et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00032 - Et dolore magna</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/32/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/32'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-33\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"33\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-33\\">Ut labore et</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00033 - Ut labore et</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/33/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/33'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-34\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"34\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-34\\">Dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00034 - Dolore magna aliqua</p>
+                                <p class=\\"file-info\\">Sed Sed, Sed</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/34/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/34'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-35\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"35\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-35\\">Veniam quis nostrud exercitation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00035 - Veniam quis nostrud exercitation</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/35/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/35'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-36\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"36\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-36\\">Elit sed</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00036 - Elit sed</p>
+                                <p class=\\"file-info\\">Consectetur Consectetur, Consectetur</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/36/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/36'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-37\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"37\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-37\\">Nostrud exercitation ullamco laboris</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00037 - Nostrud exercitation ullamco laboris</p>
+                                <p class=\\"file-info\\">Eiusmod Eiusmod, Eiusmod</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/37/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/37'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-38\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"38\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-38\\">Ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00038 - Ad minim veniam quis</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/38/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/38'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-39\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"39\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-39\\">Minim veniam quis nostrud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00039 - Minim veniam quis nostrud</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/39/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/39'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-40\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"40\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-40\\">Dolor sit</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00040 - Dolor sit</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/40/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/40'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-41\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"41\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-41\\">Ut labore et</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00041 - Ut labore et</p>
+                                <p class=\\"file-info\\">Adipiscing Elit, Adipiscing</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/41/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/41'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-42\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"42\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-42\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00042 - Consectetur adipiscing</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/42/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/42'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-43\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"43\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-43\\">Ipsum dolor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00043 - Ipsum dolor</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/43/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/43'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-44\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"44\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-44\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00044 - Consectetur adipiscing</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/44/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/44'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-45\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"45\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-45\\">Dolore magna aliqua</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00045 - Dolore magna aliqua</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/45/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/45'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-46\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"46\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-46\\">Consectetur adipiscing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00046 - Consectetur adipiscing</p>
+                                <p class=\\"file-info\\">Amet Consectetur, Amet</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/46/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/46'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-47\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"47\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-47\\">Et dolore magna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00047 - Et dolore magna</p>
+                                <p class=\\"file-info\\">Elit Sed, Elit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/47/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/47'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-48\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"48\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-48\\">Sit amet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00048 - Sit amet</p>
+                                <p class=\\"file-info\\">Sit Amet, Sit</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/48/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/48'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                        <tr class=\\"govuk-table__row\\">
+                            <td class=\\"govuk-table__cell\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                        <div class=\\"govuk-checkboxes__item\\">
+                                            <input class=\\"govuk-checkboxes__input\\" id=\\"checkbox-id-49\\" name=\\"selectedFilesIds[]\\"
+                                            type=\\"checkbox\\" value=\\"49\\">
+                                            <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"checkbox-id-49\\">Ad minim veniam quis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class='font-weight--700 govuk-body-m'>00049 - Ad minim veniam quis</p>
+                                <p class=\\"file-info\\">Do Do, Do</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\">
+                                <p class=\\"file-info \\">Enquiry date: 7 Mar 2023</p>
+                                <p class=\\"file-info \\">No of attachments:</p>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/49/properties'
+                                class='govuk-link'> View/edit details</a>
+                            </td>
+                            <td class=\\"govuk-table__cell\\"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/49'
+                                class='govuk-link'> Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Publish S51 advice</button>
+                <nav class=\\"govuk-pagination\\" role=\\"navigation\\"
+                aria-label=\\"results\\">
+                    <ul class=\\"govuk-pagination__list\\">
+                        <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=1\\" aria-label=\\"Page 1\\"
+                            aria-current=\\"page\\"> 1</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2\\" aria-label=\\"Page 2\\"> 2</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=3\\" aria-label=\\"Page 3\\"> 3</a>
+                        </li>
+                        <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=4\\" aria-label=\\"Page 4\\"> 4</a>
+                        </li>
+                    </ul>
+                    <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2\\" rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+                    </div>
+                </nav>
+            </form>
         </div>
     </div>
 </main>"
