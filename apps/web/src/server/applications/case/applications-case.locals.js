@@ -45,6 +45,19 @@ export const registerCase = async (request, response, next) => {
 };
 
 /**
+ * Register the folder id (withouth the rest of the folder info)
+ *
+ * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}
+ */
+export const registerFolderId = async ({ params }, response, next) => {
+	const folderId = Number.parseInt(params.folderId, 10);
+
+	response.locals.folderId = folderId;
+
+	next();
+};
+
+/**
  * Register the current folder and the items (url and text) for the breadcrumbs component
  *
  * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}

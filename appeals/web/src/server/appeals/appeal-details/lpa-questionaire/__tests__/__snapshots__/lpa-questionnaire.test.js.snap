@@ -104,7 +104,7 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 
 exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
+    <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
@@ -200,7 +200,7 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 
 exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete/confirmation should render the confirmation page with the expected content if required data is present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
+    <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">

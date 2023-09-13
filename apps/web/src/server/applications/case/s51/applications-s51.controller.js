@@ -19,7 +19,9 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload,
 	updateS51Advice,
-	updateS51AdviceStatus
+	updateS51AdviceStatus,
+	getS51AdviceReadyToPublish,
+	removeS51AdviceFromReadyToPublish
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -189,11 +191,11 @@ export async function changeAdviceStatus(request, response) {
 
 	let redacted = body?.isRedacted;
 	// @ts-ignore
-	if (body?.isRedacted &&  body.isRedacted === '1') {
+	if (body?.isRedacted && body.isRedacted === '1') {
 		redacted = true;
 	}
 	// @ts-ignore
-	if (body?.isRedacted &&  body.isRedacted === '0') {
+	if (body?.isRedacted && body.isRedacted === '0') {
 		redacted = false;
 	}
 
@@ -423,3 +425,78 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 
 	return response.render('applications/case-s51/s51-successfully-deleted');
 }
+
+/**
+ * View the s51 publishing queue page
+ *
+ * @type {import('@pins/express').RenderHandler<{}, any, {}, {size?: string, number?: string}, {}>}
+ */
+export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
+	const { caseId } = response.locals;
+	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
+
+	response.render(`applications/case-s51/s51-publishing-queue`, properties);
+}
+
+/**
+ * Remove s51 item from the publishing queue
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
+ */
+export async function removeApplicationsCaseS51AdviceFromPublishingQueue({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
+
+	if (errors) {
+		const properties = await getDataForPublishingQueuePage(caseId);
+		return response.render(`applications/case-s51/s51-publishing-queue`, {
+			...properties,
+			errors
+		});
+	}
+
+	return response.redirect('../../');
+}
+
+/**
+ *
+ * @param {number} caseId
+ * @param {string=} queryPageNumber
+ * @param {string=} queryPageSize
+ * @returns
+ */
+const getDataForPublishingQueuePage = async (caseId, queryPageNumber, queryPageSize) => {
+	const pageNumber = Number.parseInt(queryPageNumber || '1', 10);
+	const pageSize = Number.parseInt(queryPageSize || '25', 10);
+	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+
+	const paginationButtons = getPaginationButtonData(pageNumber, s51Advices.pageCount);
+
+	return {
+		s51Advices,
+		paginationButtons,
+		pageSize
+	};
+};
+
+/**
+ *
+ * @param {number} currentPageNumber
+ * @param {number} pageCount
+ * @returns {any}
+ */
+const getPaginationButtonData = (currentPageNumber, pageCount) => {
+	return {
+		...(currentPageNumber === 1 ? {} : { previous: { href: `?number=${currentPageNumber - 1}` } }),
+		...(currentPageNumber === pageCount
+			? {}
+			: { next: { href: `?number=${currentPageNumber + 1}` } }),
+		items: [...Array.from({ length: pageCount }).keys()].map((index) => ({
+			number: index + 1,
+			href: `?number=${index + 1}`,
+			current: index + 1 === currentPageNumber
+		}))
+	};
+};

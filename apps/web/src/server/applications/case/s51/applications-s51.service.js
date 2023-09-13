@@ -200,3 +200,59 @@ export const mapS51AdviceToPage = (payload) => {
 		'adviceDate.year': String(adviceDate.getFullYear())
 	};
 };
+
+/**
+ * Get a paginated list for the ready to publish S51 items
+ *
+ * @param {number} caseId
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @returns {Promise<S51AdvicePaginatedResponse>}
+ */
+export const getS51AdviceReadyToPublish = async (caseId, pageNumber, pageSize) => {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/s51-advice/ready-to-publish`, {
+			json: {
+				pageSize,
+				pageNumber
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+
+/**
+ * Remove item from the "ready to publish" list
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns
+ */
+export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/s51-advice/remove-queue-item`, {
+			json: {
+				adviceId
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};

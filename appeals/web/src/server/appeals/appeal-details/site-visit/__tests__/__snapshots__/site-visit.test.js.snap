@@ -140,7 +140,7 @@ exports[`site-visit GET /site-visit/set-visit-type should render the select site
 
 exports[`site-visit GET /site-visit/visit-scheduled should render the visit scheduled confirmation page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="pins-width-container">
+    <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">

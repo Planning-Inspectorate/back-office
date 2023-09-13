@@ -6,30 +6,19 @@
     {% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
     {% set applicantFirstWebsite = case.applicants[0].website %}
     {% set userIsInspector = domainType === 'inspector' %}
-    <h2 class="govuk-heading-m">Latest key dates</h2>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>Anticipated submission date: {{ case.keyDates.preApplication.submissionAtPublished }}</li>
-        <li>Anticipated submission date internal:
-            {{ case.keyDates.preApplication.submissionAtInternal | datestamp({format: 'dd/MM/yyyy'}) }}</li>
-    </ul>
-    {% if not userIsInspector %}
-        <a class="govuk-link" href="#">Update key dates</a>
-    {% endif %}
     {% set applicantFirstWebsiteValue = '' %}
     {% if applicantFirstWebsite %}
         {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
     {% endif %}
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-        <h2 class="govuk-heading-m">Summary information</h2>
+    <h2 class="govuk-heading-m">Overview</h2>
         {{ govukSummaryList({
-		classes: 'govuk-summary-list--no-border',
 		rows: [
 			{
 				key: { text: "Case reference" },
 				value: { text: case.reference }
 			},
 			{
-				key: { text: "Applicant Information" },
+				key: { text: "Applicant information" },
 				value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
 			},
 			{
@@ -46,12 +35,11 @@
 			}
 		]
 	}) }}
-        {% if not userIsInspector %}
-            <a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">
-                Update project information</a>
-        </li>
+      {% if not userIsInspector %}
+        <div class="govuk-!-margin-bottom-8">
+          <a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">Update project information</a>
+        </div>
     {% endif %}
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-        <h2 class="govuk-heading-m">Project team</h2>
-        <p class="govuk-body">No project members have been added yet</p>
+      <h2 class="govuk-heading-m">Project team</h2>
+      <p class="govuk-body">No project members have been added yet</p>
     {% endblock %}

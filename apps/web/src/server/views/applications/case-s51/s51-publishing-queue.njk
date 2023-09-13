@@ -1,0 +1,146 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 's51-list'|url({caseId: caseId, folderId: folderId })
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{% block sectionContent %}
+				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8">
+					<span class="govuk-caption-m">S51 advice publishing queue</span>
+                    Select items for publishing
+                </h1>
+				<ul class="govuk-list">
+					<li>
+						<span class='font-weight--700'>Case name:</span>
+						{{ case.title }}
+					</li>
+					<li>
+						<span class='font-weight--700'>Case reference:</span>
+						{{ case.reference }}
+					</li>
+				</ul>
+
+				<p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
+                    The queue contains {{ s51Advices.itemCount }} item(s).
+										Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
+										- {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
+										item(s).
+                </p>
+
+<div class='pins-files-list__info'>
+<div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
+				<p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'>
+					<span id="selectedFilesNumber">0</span> item(s) on this page are selected.
+                </p>
+
+				<div>
+					<span class='font-weight--700'>Results per page</span>
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=25'>25</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=50'>50</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=75'>75</a> |
+					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=100'>100</a>
+				</div>
+</div>
+
+
+
+			</div>
+				<form class="pins-files-list govuk-!-margin-top-8" method="post">
+					<table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+						<thead class="govuk-table__head govuk-body-s">
+							<tr class="govuk-table__row">
+								<th scope="col" class="govuk-table__header">Select</th>
+								<th scope="col" class="govuk-table__header">S51 advice item</th>
+								<th scope="col" class="govuk-table__header">Properties</th>
+								<th scope="col" class="govuk-table__header">Actions</th>
+								<th scope="col" class="govuk-table__header">Remove</th>
+							</tr>
+						</thead>
+						<tbody class="govuk-table__body govuk-body-s">
+							<tr class="govuk-table__row">
+								<td class="govuk-table__cell">
+									{{ govukCheckboxes({
+											name: "selectAll",
+											items: [
+												{
+													value: true,
+													text: 'Select all'
+												}]
+										}) }}
+								</td>
+								<td class="govuk-table__cell" colspan="5">
+									<p>Select all items on page</p>
+								</td>
+							</tr>
+							{% for s51Advice in s51Advices.items %}
+								<tr class="govuk-table__row">
+									<td class="govuk-table__cell">
+										{{ govukCheckboxes({
+													name: "selectedFilesIds[]",
+													items: [
+														{
+															id: 'checkbox-id-' + s51Advice.id,
+															value: s51Advice.id,
+															text: s51Advice.title,
+															label: 'select ' + s51Advice.title
+														}]
+												}) }}
+									</td>
+									<td class="govuk-table__cell">
+										<p class='font-weight--700 govuk-body-m'>{{ s51Advice.referenceNumber }} - {{ s51Advice.title }}</p>
+										{{enquirerString(s51Advice)}}
+									</td>
+									<td class="govuk-table__cell">
+										<p class="file-info ">
+                                            Enquiry date: {{s51Advice.enquiryDate|datestamp({format: 'd MMM yyyy'})}}
+										</p>
+										<p class="file-info ">
+                                            No of attachments: {{ s51Advice.totalAttachments }}
+										</p>
+									</td>
+									<td class="govuk-table__cell">
+										<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties'})}}' class='govuk-link'>
+                                            View/edit details
+                                        </a>
+									</td>
+									<td class="govuk-table__cell">
+										<a href='{{'s51-queue-remove'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id})}}' class='govuk-link'>
+                                            Remove
+                                        </a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					{{ govukButton({ text: 'Publish S51 advice' }) }}
+
+					{% if s51Advices.itemCount > pageSize %}
+						{{ govukPagination(paginationButtons) }}
+					{% endif %}
+				</form>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+
+{% macro enquirerString(s51Advice) %}
+	{% if s51Advice.firstName or s51Advice.enquirer %}
+	{% set comma = ', ' if s51Advice.firstName and s51Advice.enquirer else '' %}
+		<p class="file-info">
+			{{s51Advice.firstName}} {{s51Advice.lastName}}{{ comma }}
+			{{s51Advice.enquirer}}
+		</p>
+		{%endif%}
+	{% endmacro %}

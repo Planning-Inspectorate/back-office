@@ -8,7 +8,7 @@
 		{% set name %}
 
 		{% set isPreviewPossible = (attachment.documentType === 'application/pdf' or attachment.documentType === 'image/jpeg' or attachment.documentType === 'image/png') %}
-		{% set isAttachmentSafe = attachment.status === 'scanned' %}
+    {% set isAttachmentSafe = (attachment.publishedStatus !== 'awaiting_upload') and (attachment.publishedStatus !== 'awaiting_virus_check') and (attachment.publishedStatus !== 'failed_virus_check') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
 			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version, isPreviewActive: true}) }}">{{ attachment.documentName }}</a>

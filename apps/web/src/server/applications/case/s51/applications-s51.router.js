@@ -50,6 +50,17 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/:adviceId/:step')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Item));
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51Item));
+
+applicationsS51Router
+	.route('/publishing-queue')
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue));
+
+applicationsS51Router
+	.route('/publishing-queue/remove/:adviceId')
+	.get(
+		locals.registerFolderId,
+		asyncRoute(controller.removeApplicationsCaseS51AdviceFromPublishingQueue)
+	);
 
 export default applicationsS51Router;

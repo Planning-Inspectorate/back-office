@@ -1,6 +1,7 @@
 import { pick } from 'lodash-es';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
 	verifyAllS51DocumentsAreVirusChecked,
@@ -384,3 +385,56 @@ export const updateManyS51Advices = async ({ body }, response) => {
 
 	response.send(formattedResponseList);
 };
+
+/**
+ * Gets paginated array of S51 advices
+ *
+ * @type {import('express').RequestHandler<{ folderId: number, id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ */
+export const getReadyToPublishAdvices = async ({ params: { id }, body }, response) => {
+	const { pageNumber = 1, pageSize = 125 } = body;
+
+	const skipValue = getSkipValue(pageNumber, pageSize);
+	const caseId = Number(id);
+
+	const paginatedAdviceToPublish = await s51AdviceRepository.getReadyToPublishAdvices({
+		skipValue,
+		pageSize,
+		caseId
+	});
+
+	const adviceCount = await s51AdviceRepository.getS51AdviceCountInByPublishStatus(caseId);
+
+	// @ts-ignore
+	const items = paginatedAdviceToPublish.map(advice => mapS51Advice(caseId, advice, advice.S51AdviceDocument));
+
+	response.send({
+		page: pageNumber,
+		pageDefaultSize: pageSize,
+		pageCount: getPageCount(adviceCount, pageSize),
+		itemCount: adviceCount,
+		items
+	});
+};
+
+/**
+ * 
+ * @param {*} body 
+ * @param {*} response 
+ * @returns 
+ */
+export const removePublishItemFromQueue = async ({ body }, response) => {
+	const adviceId = Number(body.adviceId);
+
+	const s51Advice = await s51AdviceRepository.get(adviceId);
+	if (!s51Advice) {
+		// @ts-ignore
+		return response
+			.status(404)
+			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+	}
+
+	const updatedS51Advice = await s51AdviceRepository.update(adviceId, { publishedStatus: s51Advice.publishedStatusPrev });
+
+	response.send(updatedS51Advice);
+}

@@ -209,7 +209,7 @@ const renderCheckAndConfirm = async (request, response) => {
 			},
 			insetText: 'Confirming this review will inform the appellant and LPA of the outcome',
 			summaryList: { formattedSections },
-			backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+			backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
 		});
 	} catch (error) {
 		logger.error(

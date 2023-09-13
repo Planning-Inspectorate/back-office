@@ -1269,18 +1269,12 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
             </aside>
         </div>
         <div class=\\"govuk-grid-column-full\\">
-            <h2 class=\\"govuk-heading-m\\">Latest key dates</h2>
-            <ul class=\\"govuk-list govuk-list--bullet\\">
-                <li>Anticipated submission date:</li>
-                <li>Anticipated submission date internal:</li>
-            </ul><a class=\\"govuk-link\\" href=\\"#\\">Update key dates</a>
-            <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
-            <h2 class=\\"govuk-heading-m\\">Summary information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
+            <h2 class=\\"govuk-heading-m\\">Overview</h2>
+            <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference</dt>
                     <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
                 </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant Information</dt>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Applicant information</dt>
                     <dd class=\\"govuk-summary-list__value\\">Org name
                         <br>email@email.co
                         <br>001</dd>
@@ -1296,10 +1290,11 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                     <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">NOT PUBLISHED</strong>
                     </dd>
                 </div>
-            </dl><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/project-information\\"> Update project information</a>
-            <hr             class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
-                <h2 class=\\"govuk-heading-m\\">Project team</h2>
-                <p class=\\"govuk-body\\">No project members have been added yet</p>
+            </dl>
+            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/project-information\\">Update project information</a>
+            </div>
+            <h2 class=\\"govuk-heading-m\\">Project team</h2>
+            <p class=\\"govuk-body\\">No project members have been added yet</p>
         </div>
     </div>
 </main>"

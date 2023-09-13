@@ -136,8 +136,8 @@ export const getPublishableS51Advice = (s51AdviceIds) => {
 };
 
 /**
- * 
- * @param {number[]} s51AdviceIds 
+ *
+ * @param {number[]} s51AdviceIds
  */
 export const getPublishedAdvicesByIds = (s51AdviceIds) => {
 	return databaseConnector.s51Advice.findMany({
@@ -150,4 +150,44 @@ export const getPublishedAdvicesByIds = (s51AdviceIds) => {
 			}
 		}
 	});
-}
+};
+
+/**
+ * Filter S51 advice table to retrieve documents by 'ready-to-publish' status
+ *
+ * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
+ */
+export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
+	return databaseConnector.s51Advice.findMany({
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
+		where: {
+			caseId,
+			publishedStatus: 'ready_to_publish'
+		},
+		include: {
+			S51AdviceDocument: true
+		}
+	});
+};
+
+/**
+ * Returns total number of S51 advice by published status (ready-to-publish)
+ *
+ * @param {number} caseId
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getS51AdviceCountInByPublishStatus = (caseId) => {
+	return databaseConnector.s51Advice.count({
+		where: {
+			caseId,
+			publishedStatus: 'ready_to_publish'
+		}
+	});
+};

@@ -7,13 +7,16 @@ import {
 	addDocuments,
 	getDocuments,
 	updateManyS51Advices,
-	updateS51Advice
+	updateS51Advice,
+	getReadyToPublishAdvices,
+    removePublishItemFromQueue
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
 	validatePaginationCriteria,
 	validateS51AdviceIds,
-	validateS51AdviceToUpdateProvided
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId
 } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
@@ -227,12 +230,12 @@ router.patch(
 			required: true,
 			type: 'integer'
 		}
-    #swagger.parameters['adviceId'] = {
-      in: 'path',
-      description: 'Advice ID',
-      required: true,
-      type: 'integer'
-    }
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+            description: 'Advice ID',
+            required: true,
+            type: 'integer'
+        }
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'S51 Advice update parameters',
@@ -250,8 +253,51 @@ router.patch(
     */
 	validateApplicationId,
 	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
+);
+
+router.post(
+	'/:id/s51-advice/ready-to-publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
+        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		},
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 's51 pagination parameters',
+            schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+            required: true
+        }
+		#swagger.responses[200] = {
+            description: 'An paginated data set of s51 advices and their properties',
+            schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
+        }
+    */
+	asyncHandler(getReadyToPublishAdvices)
+);
+
+router.post(
+	'/:id/s51-advice/remove-queue-item',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
+        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    */
+	asyncHandler(removePublishItemFromQueue)
 );
 
 export { router as s51AdviceRoutes };
