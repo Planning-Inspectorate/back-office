@@ -7,6 +7,7 @@ import { applicationsRoutes } from './applications/applications.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
 import BackOfficeAppError from './utils/app-error.js';
+import { migrationRoutes } from './migration/migration.routes.js';
 
 // The purpose of this is to allow the jest environment to create an instance of the app without loading Swagger
 // We have to use a HOF (i.e. we can't just conditionally register swagger UI) because Jest doesn't care about our conditionals and loads all of the modules based on the top-level imports
@@ -32,6 +33,8 @@ const buildApp = (
 			1: applicationsRoutes
 		})
 	);
+
+	app.use('/migration', migrationRoutes);
 
 	app.all('*', (req, res, next) => {
 		next(new BackOfficeAppError(`Method is not allowed`, 405));
