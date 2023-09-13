@@ -10,7 +10,7 @@
 {% block beforeContent %}
 	{{ govukBackLink({
 		text: "Back to S51 advice folder",
-		href: breadcrumbItems[breadcrumbItems.length - 1].href
+		href: 's51-list'|url({caseId: caseId, folderId: folderId})
 	}) }}
 {% endblock %}
 {% block pageHeading %}{% endblock %}
@@ -60,7 +60,7 @@
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="">Delete</a>
 					</div>
 					<div class="govuk-grid-column-one-third govuk-!-text-align-right">
-						<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-queue'|url({caseId:caseId})}}">View S51 publishing queue</a>
+						<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-queue'|url({caseId:caseId, folderId: folderId})}}">View S51 publishing queue</a>
 					</div>
 				</nav>
 				<div class="govuk-!-margin-top-7">
