@@ -20,7 +20,7 @@ const { value, error } = schema.validate({
 	submissionsContainer: environment.SUBMISSIONS_BLOB_CONTAINER_NAME,
 	uploadsContainer: environment.UPLOADS_BLOB_CONTAINER_NAME,
 	serviceBusHost: environment.SERVICE_BUS_HOSTNAME,
-	serviceBusTopic: environment.SERVICE_BUS_TOPIC
+	serviceBusTopic: environment.SERVICE_BUS_RESULT_TOPIC
 });
 
 if (error) {
