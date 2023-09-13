@@ -33,14 +33,21 @@ async function createFile() {
  *
  * @param {import('@azure/functions').Context} context
  * @param {string} fileName
+ * @param {string} [deadline]
+ * @param {string} [submissionType]
  * @returns {Promise<void>}
  * */
-async function publishMessage(context, fileName) {
+async function publishMessage(
+	context,
+	fileName,
+	deadline = 'Test deadline',
+	submissionType = 'Test line item'
+) {
 	const msg = {
 		name: 'Joe Bloggs',
 		email: 'fakeemail@email.com',
-		deadline: 'Test deadline',
-		submissionType: 'Test line item',
+		deadline,
+		submissionType,
 		blobGuid: ZERO_UUID,
 		documentName: fileName
 	};
@@ -53,15 +60,16 @@ async function publishMessage(context, fileName) {
 /**
  *
  * @param {import('@azure/functions').Context} context
+ * @param {import('@azure/functions').HttpRequest} req
  */
-export default async function (context) {
+export default async function (context, req) {
 	const fileName = await createFile();
 
 	context.log(
 		`created file with path '${ZERO_UUID}/${fileName}' in container '${submissionsContainer}'`
 	);
 
-	await publishMessage(context, fileName);
+	await publishMessage(context, fileName, req.query.deadline, req.query.lineItem);
 
 	context.log(`published message to topic '${serviceBusTopic}'`);
 }
