@@ -33,6 +33,7 @@ async function createFile() {
  *
  * @param {import('@azure/functions').Context} context
  * @param {string} fileName
+ * @param {string} caseReference
  * @param {string} [deadline]
  * @param {string} [submissionType]
  * @returns {Promise<void>}
@@ -40,12 +41,14 @@ async function createFile() {
 async function publishMessage(
 	context,
 	fileName,
+	caseReference,
 	deadline = 'Test deadline',
 	submissionType = 'Test line item'
 ) {
 	const msg = {
 		name: 'Joe Bloggs',
 		email: 'fakeemail@email.com',
+		caseReference,
 		deadline,
 		submissionType,
 		blobGuid: ZERO_UUID,
@@ -69,7 +72,11 @@ export default async function (context, req) {
 		`created file with path '${ZERO_UUID}/${fileName}' in container '${submissionsContainer}'`
 	);
 
-	await publishMessage(context, fileName, req.query.deadline, req.query.lineItem);
+	if (!req.query.case) {
+		throw new Error('no `case` query parameter found');
+	}
+
+	await publishMessage(context, fileName, req.query.case, req.query.deadline, req.query.lineItem);
 
 	context.log(`published message to topic '${serviceBusTopic}'`);
 }
