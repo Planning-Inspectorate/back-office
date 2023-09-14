@@ -6,8 +6,8 @@ import {
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
 	ERROR_NOT_FOUND,
-	MAX_LENGTH_300,
-	MAX_LENGTH_8
+	LENGTH_300,
+	LENGTH_8
 } from '../../constants.js';
 import { householdAppeal } from '#tests/data.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
@@ -217,13 +217,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						addressLine1: 'A'.repeat(MAX_LENGTH_300 + 1)
+						addressLine1: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine1: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						addressLine1: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -271,13 +271,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						addressLine2: 'A'.repeat(MAX_LENGTH_300 + 1)
+						addressLine2: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine2: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						addressLine2: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -325,13 +325,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						country: 'A'.repeat(MAX_LENGTH_300 + 1)
+						country: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						country: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						country: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -379,13 +379,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						county: 'A'.repeat(MAX_LENGTH_300 + 1)
+						county: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						county: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						county: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -433,13 +433,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						postcode: 'A'.repeat(MAX_LENGTH_8 + 1)
+						postcode: 'A'.repeat(LENGTH_8 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						postcode: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_8])
+						postcode: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_8])
 					}
 				});
 			});
@@ -487,13 +487,13 @@ describe('addresses routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
-						town: 'A'.repeat(MAX_LENGTH_300 + 1)
+						town: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						town: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						town: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});

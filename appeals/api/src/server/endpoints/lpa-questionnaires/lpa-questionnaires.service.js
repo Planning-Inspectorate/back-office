@@ -9,9 +9,9 @@ import { ERROR_NOT_FOUND } from '../constants.js';
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object | void>}
+ * @returns {object | void}
  */
-const checkLPAQuestionnaireExists = async (req, res, next) => {
+const checkLPAQuestionnaireExists = (req, res, next) => {
 	const {
 		appeal,
 		params: { lpaQuestionnaireId }
@@ -38,7 +38,7 @@ const updateLPAQuestionaireValidationOutcome = async ({
 	let timetable = undefined;
 
 	const { id: appealId, appealStatus, appealType } = appeal;
-	const { lpaQuestionnaireDueDate, incompleteReasons, otherNotValidReasons } = data;
+	const { lpaQuestionnaireDueDate, incompleteReasons } = data;
 
 	if (lpaQuestionnaireDueDate) {
 		timetable = {
@@ -48,7 +48,6 @@ const updateLPAQuestionaireValidationOutcome = async ({
 
 	await lpaQuestionnaireRepository.updateLPAQuestionnaireById(lpaQuestionnaireId, {
 		validationOutcomeId: validationOutcome.id,
-		otherNotValidReasons,
 		...(isOutcomeIncomplete(validationOutcome.name) && {
 			appealId,
 			incompleteReasons,

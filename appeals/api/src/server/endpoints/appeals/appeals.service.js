@@ -5,19 +5,19 @@ import appealRepository from '#repositories/appeal.repository.js';
 /** @typedef {import('@pins/appeals.api').Appeals.UsersToAssign} UsersToAssign */
 
 /**
- * @param {string | null} [value]
+ * @param {string | number | null} [value]
  * @returns {boolean}
  */
-const isStringOrNull = (value) => Boolean(value) || value === null;
+const hasValueOrIsNull = (value) => Boolean(value) || value === null;
 
 /**
  * @param {UsersToAssign} param0
  * @returns {AssignedUser | null}
  */
 const assignedUserType = ({ caseOfficer, inspector }) => {
-	if (isStringOrNull(caseOfficer)) {
+	if (hasValueOrIsNull(caseOfficer)) {
 		return 'caseOfficer';
-	} else if (isStringOrNull(inspector)) {
+	} else if (hasValueOrIsNull(inspector)) {
 		return 'inspector';
 	}
 	return null;
@@ -45,4 +45,4 @@ const assignUser = async (id, { caseOfficer, inspector }) => {
 	return null;
 };
 
-export { assignUser, isStringOrNull, assignedUserType };
+export { assignUser, hasValueOrIsNull, assignedUserType };

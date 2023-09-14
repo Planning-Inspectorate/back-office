@@ -1,6 +1,6 @@
 import { getSkipValue } from '#utils/database-pagination.js';
 import { databaseConnector } from '#utils/database-connector.js';
-import { isStringOrNull } from '#endpoints/appeals/appeals.service.js';
+import { hasValueOrIsNull } from '#endpoints/appeals/appeals.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -84,12 +84,14 @@ const getAppealById = async (id) => {
 				include: {
 					appellantCaseIncompleteReasonsOnAppellantCases: {
 						include: {
-							appellantCaseIncompleteReason: true
+							appellantCaseIncompleteReason: true,
+							appellantCaseIncompleteReasonText: true
 						}
 					},
 					appellantCaseInvalidReasonsOnAppellantCases: {
 						include: {
-							appellantCaseInvalidReason: true
+							appellantCaseInvalidReason: true,
+							appellantCaseInvalidReasonText: true
 						}
 					},
 					appellantCaseValidationOutcome: true,
@@ -123,7 +125,8 @@ const getAppealById = async (id) => {
 					},
 					lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire: {
 						include: {
-							lpaQuestionnaireIncompleteReason: true
+							lpaQuestionnaireIncompleteReason: true,
+							lpaQuestionnaireIncompleteReasonText: true
 						}
 					},
 					lpaQuestionnaireValidationOutcome: true,
@@ -184,8 +187,8 @@ const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector }) =>
 		data: {
 			...(dueDate && { dueDate }),
 			...(startedAt && { startedAt }),
-			...(isStringOrNull(caseOfficer) && { caseOfficerUserId: caseOfficer }),
-			...(isStringOrNull(inspector) && { inspectorUserId: inspector }),
+			...(hasValueOrIsNull(caseOfficer) && { caseOfficerUserId: caseOfficer }),
+			...(hasValueOrIsNull(inspector) && { inspectorUserId: inspector }),
 			updatedAt: new Date()
 		}
 	});

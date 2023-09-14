@@ -154,7 +154,6 @@ model AppellantCase {
   isSitePartiallyOwned                           Boolean?
   isSiteVisibleFromPublicRoad                    Boolean?
   newDevelopmentDescription                      String?
-  otherNotValidReasons                           String?                                        @db.NVarChar(4000)
   visibilityRestrictions                         String?
   appeal                                         Appeal                                         @relation(fields: [appealId], references: [id])
   knowledgeOfOtherLandowners                     KnowledgeOfOtherLandowners?                    @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
@@ -268,7 +267,6 @@ model LPAQuestionnaire {
   isSiteVisible                                      Boolean?
   isTheSiteWithinAnAONB                              Boolean?
   meetsOrExceedsThresholdOrCriteriaInColumn2         Boolean?
-  otherNotValidReasons                               String?                                              @db.NVarChar(4000)
   receivedAt                                         DateTime?
   isEnvironmentalStatementRequired                   Boolean?
   sensitiveAreaDetails                               String?
@@ -573,6 +571,7 @@ model AppellantCaseValidationOutcome {
 model AppellantCaseIncompleteReason {
   id                                             Int                                            @id @default(autoincrement())
   name                                           String                                         @unique
+  hasText                                        Boolean                                        @default(false)
   AppellantCase                                  AppellantCase[]
   AppellantCaseIncompleteReasonsOnAppellantCases AppellantCaseIncompleteReasonOnAppellantCase[]
 }
@@ -580,24 +579,27 @@ model AppellantCaseIncompleteReason {
 model AppellantCaseInvalidReason {
   id                                          Int                                         @id @default(autoincrement())
   name                                        String                                      @unique
+  hasText                                     Boolean                                     @default(false)
   AppellantCase                               AppellantCase[]
   AppellantCaseInvalidReasonsOnAppellantCases AppellantCaseInvalidReasonOnAppellantCase[]
 }
 
 model AppellantCaseIncompleteReasonOnAppellantCase {
-  appellantCaseIncompleteReason   AppellantCaseIncompleteReason @relation(fields: [appellantCaseIncompleteReasonId], references: [id])
-  appellantCaseIncompleteReasonId Int
-  appellantCase                   AppellantCase                 @relation(fields: [appellantCaseId], references: [id])
-  appellantCaseId                 Int
+  appellantCaseIncompleteReason     AppellantCaseIncompleteReason       @relation(fields: [appellantCaseIncompleteReasonId], references: [id])
+  appellantCaseIncompleteReasonId   Int
+  appellantCase                     AppellantCase                       @relation(fields: [appellantCaseId], references: [id])
+  appellantCaseId                   Int
+  appellantCaseIncompleteReasonText AppellantCaseIncompleteReasonText[]
 
   @@id([appellantCaseIncompleteReasonId, appellantCaseId])
 }
 
 model AppellantCaseInvalidReasonOnAppellantCase {
-  appellantCaseInvalidReason   AppellantCaseInvalidReason @relation(fields: [appellantCaseInvalidReasonId], references: [id])
-  appellantCaseInvalidReasonId Int
-  appellantCase                AppellantCase              @relation(fields: [appellantCaseId], references: [id])
-  appellantCaseId              Int
+  appellantCaseInvalidReason     AppellantCaseInvalidReason       @relation(fields: [appellantCaseInvalidReasonId], references: [id])
+  appellantCaseInvalidReasonId   Int
+  appellantCase                  AppellantCase                    @relation(fields: [appellantCaseId], references: [id])
+  appellantCaseId                Int
+  appellantCaseInvalidReasonText AppellantCaseInvalidReasonText[]
 
   @@id([appellantCaseInvalidReasonId, appellantCaseId])
 }
@@ -611,14 +613,16 @@ model LPAQuestionnaireValidationOutcome {
 model LPAQuestionnaireIncompleteReason {
   id                                                 Int                                                  @id @default(autoincrement())
   name                                               String                                               @unique
+  hasText                                            Boolean                                              @default(false)
   lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire[]
 }
 
 model LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
-  lpaQuestionnaireIncompleteReason   LPAQuestionnaireIncompleteReason @relation(fields: [lpaQuestionnaireIncompleteReasonId], references: [id])
-  lpaQuestionnaireIncompleteReasonId Int
-  lpaQuestionnaire                   LPAQuestionnaire                 @relation(fields: [lpaQuestionnaireId], references: [id])
-  lpaQuestionnaireId                 Int
+  lpaQuestionnaireIncompleteReason     LPAQuestionnaireIncompleteReason       @relation(fields: [lpaQuestionnaireIncompleteReasonId], references: [id])
+  lpaQuestionnaireIncompleteReasonId   Int
+  lpaQuestionnaire                     LPAQuestionnaire                       @relation(fields: [lpaQuestionnaireId], references: [id])
+  lpaQuestionnaireId                   Int
+  lpaQuestionnaireIncompleteReasonText LPAQuestionnaireIncompleteReasonText[]
 
   @@id([lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId])
 }
@@ -645,4 +649,28 @@ model Specialism {
   id                Int                @id @default(autoincrement())
   name              String             @unique
   appealSpecialisms AppealSpecialism[]
+}
+
+model AppellantCaseIncompleteReasonText {
+  id                                           Int                                          @id @default(autoincrement())
+  text                                         String
+  appellantCaseIncompleteReasonOnAppellantCase AppellantCaseIncompleteReasonOnAppellantCase @relation(fields: [appellantCaseIncompleteReasonId, appellantCaseId], references: [appellantCaseIncompleteReasonId, appellantCaseId])
+  appellantCaseIncompleteReasonId              Int
+  appellantCaseId                              Int
+}
+
+model AppellantCaseInvalidReasonText {
+  id                                        Int                                       @id @default(autoincrement())
+  text                                      String
+  appellantCaseInvalidReasonOnAppellantCase AppellantCaseInvalidReasonOnAppellantCase @relation(fields: [appellantCaseInvalidReasonId, appellantCaseId], references: [appellantCaseInvalidReasonId, appellantCaseId])
+  appellantCaseInvalidReasonId              Int
+  appellantCaseId                           Int
+}
+
+model LPAQuestionnaireIncompleteReasonText {
+  id                                                 Int                                                @id @default(autoincrement())
+  text                                               String
+  lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire @relation(fields: [lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId], references: [lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId])
+  lpaQuestionnaireIncompleteReasonId                 Int
+  lpaQuestionnaireId                                 Int
 }

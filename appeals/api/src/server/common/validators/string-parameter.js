@@ -3,7 +3,7 @@ import {
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_MAX_LENGTH_CHARACTERS,
 	ERROR_MUST_BE_STRING,
-	MAX_LENGTH_300
+	LENGTH_300
 } from '#endpoints/constants.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
 
@@ -14,7 +14,7 @@ import errorMessageReplacement from '#utils/error-message-replacement.js';
  * @param {number} maxLength
  * @returns {ValidationChain}
  */
-const validateStringParameter = (parameterName, maxLength = MAX_LENGTH_300) =>
+const validateStringParameter = (parameterName, maxLength = LENGTH_300) =>
 	body(parameterName)
 		.optional()
 		.isString()

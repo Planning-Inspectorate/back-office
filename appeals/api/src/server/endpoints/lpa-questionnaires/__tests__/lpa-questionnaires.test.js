@@ -10,19 +10,18 @@ import {
 	ERROR_MUST_BE_ARRAY_OF_NUMBERS,
 	ERROR_MUST_BE_BOOLEAN,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
+	ERROR_MUST_BE_INCOMPLETE_INVALID_REASON,
 	ERROR_MUST_BE_IN_FUTURE,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
 	ERROR_MUST_HAVE_DETAILS,
-	ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS,
 	ERROR_MUST_NOT_HAVE_DETAILS,
 	ERROR_NOT_FOUND,
 	ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME,
-	ERROR_OTHER_NOT_VALID_REASONS_REQUIRED,
-	ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS,
-	MAX_LENGTH_300,
-	MAX_LENGTH_4000,
+	LENGTH_10,
+	LENGTH_300,
+	LENGTH_8,
 	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
@@ -273,9 +272,8 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				const body = {
-					incompleteReasons: [1, 2, 3],
+					incompleteReasons: [{ id: 1 }, { id: 2 }],
 					lpaQuestionnaireDueDate: '2099-06-22',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -285,8 +283,7 @@ describe('lpa questionnaires routes', () => {
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
-						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
-						otherNotValidReasons: 'Another incomplete reason'
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
 					},
 					where: {
 						id: householdAppeal.lpaQuestionnaire.id
@@ -296,7 +293,7 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
 				).toHaveBeenCalledWith({
 					data: createManyToManyRelationData({
-						data: body.incompleteReasons,
+						data: body.incompleteReasons.map(({ id }) => id),
 						relationOne: 'lpaQuestionnaireId',
 						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
 						relationOneId: householdAppeal.lpaQuestionnaire.id
@@ -323,9 +320,8 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				const body = {
-					incompleteReasons: [1, 2, 3],
+					incompleteReasons: [{ id: 1 }, { id: 2 }],
 					lpaQuestionnaireDueDate: '2025-08-23',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -335,8 +331,7 @@ describe('lpa questionnaires routes', () => {
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
-						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
-						otherNotValidReasons: 'Another incomplete reason'
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
 					},
 					where: {
 						id: householdAppeal.lpaQuestionnaire.id
@@ -346,7 +341,7 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
 				).toHaveBeenCalledWith({
 					data: createManyToManyRelationData({
-						data: body.incompleteReasons,
+						data: body.incompleteReasons.map(({ id }) => id),
 						relationOne: 'lpaQuestionnaireId',
 						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
 						relationOneId: householdAppeal.lpaQuestionnaire.id
@@ -373,9 +368,8 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				const body = {
-					incompleteReasons: [1, 2, 3],
+					incompleteReasons: [{ id: 1 }, { id: 2 }],
 					lpaQuestionnaireDueDate: '2025-04-18',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -385,8 +379,7 @@ describe('lpa questionnaires routes', () => {
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
-						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
-						otherNotValidReasons: 'Another incomplete reason'
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
 					},
 					where: {
 						id: householdAppeal.lpaQuestionnaire.id
@@ -396,7 +389,7 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
 				).toHaveBeenCalledWith({
 					data: createManyToManyRelationData({
-						data: body.incompleteReasons,
+						data: body.incompleteReasons.map(({ id }) => id),
 						relationOne: 'lpaQuestionnaireId',
 						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
 						relationOneId: householdAppeal.lpaQuestionnaire.id
@@ -423,9 +416,8 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				const body = {
-					incompleteReasons: [1, 2, 3],
+					incompleteReasons: [{ id: 1 }, { id: 2 }],
 					lpaQuestionnaireDueDate: '2024-12-25',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -435,8 +427,7 @@ describe('lpa questionnaires routes', () => {
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
-						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
-						otherNotValidReasons: 'Another incomplete reason'
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
 					},
 					where: {
 						id: householdAppeal.lpaQuestionnaire.id
@@ -446,7 +437,7 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
 				).toHaveBeenCalledWith({
 					data: createManyToManyRelationData({
-						data: body.incompleteReasons,
+						data: body.incompleteReasons.map(({ id }) => id),
 						relationOne: 'lpaQuestionnaireId',
 						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
 						relationOneId: householdAppeal.lpaQuestionnaire.id
@@ -460,7 +451,7 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
-			test('updates an lpa questionnaire when the validation outcome is Incomplete with numeric array', async () => {
+			test('updates an lpa questionnaire when the validation outcome is Incomplete without reason text', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
@@ -473,9 +464,8 @@ describe('lpa questionnaires routes', () => {
 				);
 
 				const body = {
-					incompleteReasons: [1, 2, 3],
+					incompleteReasons: [{ id: 1 }, { id: 2 }],
 					lpaQuestionnaireDueDate: '2099-06-22',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'Incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -485,8 +475,7 @@ describe('lpa questionnaires routes', () => {
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
-						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id,
-						otherNotValidReasons: 'Another incomplete reason'
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
 					},
 					where: {
 						id: householdAppeal.lpaQuestionnaire.id
@@ -496,7 +485,7 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
 				).toHaveBeenCalledWith({
 					data: createManyToManyRelationData({
-						data: body.incompleteReasons,
+						data: body.incompleteReasons.map(({ id }) => id),
 						relationOne: 'lpaQuestionnaireId',
 						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
 						relationOneId: householdAppeal.lpaQuestionnaire.id
@@ -506,6 +495,260 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					...body,
+					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [
+						{
+							id: 1,
+							text: ['Reason 1', 'Reason 2']
+						},
+						{
+							id: 2,
+							text: ['Reason 3', 'Reason 4']
+						}
+					],
+					lpaQuestionnaireDueDate: '2099-06-22',
+					validationOutcome: 'Incomplete'
+				};
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons.map(({ id }) => id),
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
+				).toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.createMany
+				).toHaveBeenCalledWith({
+					data: [
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 1,
+							text: 'Reason 1'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 1,
+							text: 'Reason 2'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 2,
+							text: 'Reason 3'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 2,
+							text: 'Reason 4'
+						}
+					]
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					...body,
+					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text containing blank strings', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const body = {
+					incompleteReasons: [
+						{
+							id: 1,
+							text: ['Reason 1', 'Reason 2', '']
+						},
+						{
+							id: 2,
+							text: ['Reason 3', 'Reason 4', '']
+						}
+					],
+					lpaQuestionnaireDueDate: '2099-06-22',
+					validationOutcome: 'Incomplete'
+				};
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons.map(({ id }) => id),
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
+				).toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.createMany
+				).toHaveBeenCalledWith({
+					data: [
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 1,
+							text: 'Reason 1'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 1,
+							text: 'Reason 2'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 2,
+							text: 'Reason 3'
+						},
+						{
+							lpaQuestionnaireId: lpaQuestionnaire.id,
+							lpaQuestionnaireIncompleteReasonId: 2,
+							text: 'Reason 4'
+						}
+					]
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					incompleteReasons: [
+						{
+							id: 1,
+							text: ['Reason 1', 'Reason 2']
+						},
+						{
+							id: 2,
+							text: ['Reason 3', 'Reason 4']
+						}
+					],
+					validationOutcome: 'Incomplete',
+					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
+				});
+			});
+
+			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text where blank strings takes the text over 10 items', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
+					lpaQuestionnaireValidationOutcomes[1]
+				);
+				// @ts-ignore
+				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
+					lpaQuestionnaireIncompleteReasons
+				);
+
+				const eightItemArray = new Array(LENGTH_8).fill('A');
+				const body = {
+					incompleteReasons: [
+						{
+							id: 1,
+							text: [...eightItemArray, '', '']
+						}
+					],
+					lpaQuestionnaireDueDate: '2099-06-22',
+					validationOutcome: 'Incomplete'
+				};
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send(body);
+
+				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
+					data: {
+						lpaQuestionnaireValidationOutcomeId: lpaQuestionnaireValidationOutcomes[1].id
+					},
+					where: {
+						id: householdAppeal.lpaQuestionnaire.id
+					}
+				});
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.createMany
+				).toHaveBeenCalledWith({
+					data: createManyToManyRelationData({
+						data: body.incompleteReasons.map(({ id }) => id),
+						relationOne: 'lpaQuestionnaireId',
+						relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+						relationOneId: householdAppeal.lpaQuestionnaire.id
+					})
+				});
+				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
+				).toHaveBeenCalled();
+				expect(
+					databaseConnector.lPAQuestionnaireIncompleteReasonText.createMany
+				).toHaveBeenCalledWith({
+					data: new Array(LENGTH_8).fill({
+						lpaQuestionnaireId: lpaQuestionnaire.id,
+						lpaQuestionnaireIncompleteReasonId: 1,
+						text: 'A'
+					})
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					incompleteReasons: [
+						{
+							id: 1,
+							text: eightItemArray
+						}
+					],
+					validationOutcome: 'Incomplete',
 					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
 				});
 			});
@@ -581,9 +824,8 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const body = {
-					incompleteReasons: ['1', '2', '3'],
+					incompleteReasons: [{ id: '1' }, { id: '2' }],
 					lpaQuestionnaireDueDate: '2099-06-22',
-					otherNotValidReasons: 'Another incomplete reason',
 					validationOutcome: 'incomplete'
 				};
 				const { id, lpaQuestionnaire } = householdAppeal;
@@ -593,7 +835,31 @@ describe('lpa questionnaires routes', () => {
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						incompleteReasons: ERROR_MUST_BE_ARRAY_OF_NUMBERS
+						incompleteReasons: ERROR_MUST_BE_INCOMPLETE_INVALID_REASON
+					}
+				});
+			});
+
+			test('returns an error if incompleteReasons text contains more than 10 items', async () => {
+				const body = {
+					incompleteReasons: [
+						{
+							id: '1',
+							text: new Array(LENGTH_10 + 1).fill('A')
+						}
+					],
+					lpaQuestionnaireDueDate: '2099-06-22',
+					validationOutcome: 'incomplete'
+				};
+				const { id, lpaQuestionnaire } = householdAppeal;
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.send(body);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						incompleteReasons: ERROR_MUST_BE_INCOMPLETE_INVALID_REASON
 					}
 				});
 			});
@@ -606,7 +872,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1],
+						incompleteReasons: [{ id: 1 }],
 						validationOutcome: 'Complete'
 					});
 
@@ -638,70 +904,6 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
-			test('returns an error if otherNotValidReasons is not a string', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-
-				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({
-						incompleteReasons: [1, 3],
-						otherNotValidReasons: 123,
-						validationOutcome: 'Incomplete'
-					});
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						otherNotValidReasons: ERROR_MUST_BE_STRING
-					}
-				});
-			});
-
-			test('returns an error if otherNotValidReasons is more than 4000 characters', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-
-				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({
-						incompleteReasons: [1, 3],
-						otherNotValidReasons: 'A'.repeat(MAX_LENGTH_4000 + 1),
-						validationOutcome: 'Incomplete'
-					});
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						otherNotValidReasons: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
-							MAX_LENGTH_4000
-						])
-					}
-				});
-			});
-
-			test('returns an error if validationOutcome is Complete and otherNotValidReasons is given', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-
-				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({
-						otherNotValidReasons: 'Another incomplete reason',
-						validationOutcome: 'Complete'
-					});
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						otherNotValidReasons: ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS
-					}
-				});
-			});
-
 			test('returns an error if validationOutcome is Incomplete and incompleteReasons is not given', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
@@ -726,7 +928,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1],
+						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '05/05/2099',
 						validationOutcome: 'Incomplete'
 					});
@@ -744,7 +946,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1],
+						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2099-5-5',
 						validationOutcome: 'Incomplete'
 					});
@@ -764,7 +966,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1],
+						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2023-06-04',
 						validationOutcome: 'Incomplete'
 					});
@@ -782,7 +984,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1],
+						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2099-02-30',
 						validationOutcome: 'Incomplete'
 					});
@@ -816,65 +1018,6 @@ describe('lpa questionnaires routes', () => {
 				});
 			});
 
-			test('returns an error if otherNotValidReasons is not given when validationOutcome is Incomplete and Other is selected', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-				// @ts-ignore
-				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
-					lpaQuestionnaireValidationOutcomes[0]
-				);
-				// @ts-ignore
-				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
-					lpaQuestionnaireIncompleteReasons
-				);
-
-				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({
-						incompleteReasons: [1, 3],
-						lpaQuestionnaireDueDate: '2099-06-22',
-						validationOutcome: 'Incomplete'
-					});
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						otherNotValidReasons: ERROR_OTHER_NOT_VALID_REASONS_REQUIRED
-					}
-				});
-			});
-
-			test('returns an error if otherNotValidReasons is given when validationOutcome is Incomplete and Other is not selected', async () => {
-				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
-				// @ts-ignore
-				databaseConnector.lPAQuestionnaireValidationOutcome.findUnique.mockResolvedValue(
-					lpaQuestionnaireValidationOutcomes[0]
-				);
-				// @ts-ignore
-				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
-					lpaQuestionnaireIncompleteReasons
-				);
-
-				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request
-					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({
-						incompleteReasons: [1, 2],
-						lpaQuestionnaireDueDate: '2099-06-22',
-						otherNotValidReasons: 'Another incomplete reason',
-						validationOutcome: 'Incomplete'
-					});
-
-				expect(response.status).toEqual(400);
-				expect(response.body).toEqual({
-					errors: {
-						otherNotValidReasons: ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS
-					}
-				});
-			});
-
 			test('returns an error if incompleteReasons contains an invalid value', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
@@ -891,7 +1034,7 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						incompleteReasons: [1, 10],
+						incompleteReasons: [{ id: 1 }, { id: 10 }],
 						lpaQuestionnaireDueDate: '2099-06-22',
 						validationOutcome: 'Incomplete'
 					});
@@ -4017,15 +4160,13 @@ describe('lpa questionnaires routes', () => {
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
-						sensitiveAreaDetails: 'A'.repeat(MAX_LENGTH_300 + 1)
+						sensitiveAreaDetails: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						sensitiveAreaDetails: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
-							MAX_LENGTH_300
-						])
+						sensitiveAreaDetails: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
