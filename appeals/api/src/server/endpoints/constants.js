@@ -41,6 +41,8 @@ export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `Must be a valid date and in th
 export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = 'Must be a valid time and in the format hh:mm';
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'Must be greater than 0';
 export const ERROR_MUST_BE_IN_FUTURE = 'Must be in the future';
+export const ERROR_MUST_BE_INCOMPLETE_INVALID_REASON =
+	'Must be an array of objects containing a required id number parameter and an optional text string array parameter containing 10 or less items';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
 export const ERROR_MUST_BE_STRING = 'Must be a string';
 export const ERROR_MUST_BE_UUID = 'Must be a uuid';
@@ -48,8 +50,6 @@ export const ERROR_MUST_BE_VALID_FILEINFO = 'Must be a valid file';
 export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'Must contain at least one value';
 export const ERROR_MUST_HAVE_DETAILS =
 	'Must have {replacement0} when {replacement1} is {replacement2}';
-export const ERROR_MUST_NOT_CONTAIN_VALIDATION_OUTCOME_REASONS =
-	'Must not be given when invalidReasons or incompleteReasons does not contain Other';
 export const ERROR_MUST_NOT_HAVE_DETAILS =
 	'Must not have {replacement0} when {replacement1} is {replacement2}';
 export const ERROR_MUST_NOT_HAVE_TIMETABLE_DATE =
@@ -57,24 +57,21 @@ export const ERROR_MUST_NOT_HAVE_TIMETABLE_DATE =
 export const ERROR_NOT_FOUND = 'Not found';
 export const ERROR_ONLY_FOR_INCOMPLETE_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INCOMPLETE}`;
 export const ERROR_ONLY_FOR_INVALID_VALIDATION_OUTCOME = `Should only be given if the validation outcome is ${VALIDATION_OUTCOME_INVALID}`;
-export const ERROR_OTHER_NOT_VALID_REASONS_REQUIRED =
-	'Required when invalidReasons or incompleteReasons contains Other';
 export const ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED =
 	'Both pageNumber and pageSize are required for pagination';
 export const ERROR_SITE_VISIT_REQUIRED_FIELDS =
 	'If any of visitDate, visitStartTime or visitEndTime are given then all these fields are required';
 export const ERROR_START_TIME_MUST_BE_EARLIER_THAN_END_TIME =
 	'Start time must be earlier than end time';
-export const ERROR_VALID_VALIDATION_OUTCOME_NO_REASONS =
-	'Should not include validation outcome reasons when validationOutcome is Valid';
 export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete or Invalid';
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
 
-export const MAX_LENGTH_8 = 8;
-export const MAX_LENGTH_300 = 300;
-export const MAX_LENGTH_4000 = 4000;
+export const LENGTH_1 = 1;
+export const LENGTH_8 = 8;
+export const LENGTH_10 = 10;
+export const LENGTH_300 = 300;
 
 export const NODE_ENV_PRODUCTION = 'production';
 

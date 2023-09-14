@@ -8,11 +8,11 @@ import {
 	VALIDATION_OUTCOME_VALID
 } from '#endpoints/constants.js';
 import { folder } from '#tests/documents/mocks.js';
-import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
+import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
+import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
-import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
 const householdAppeal = {
 	id: 1,
@@ -81,7 +81,6 @@ const householdAppeal = {
 		knowledgeOfOtherLandowners: {
 			name: 'Some'
 		},
-		otherNotValidReasons: null,
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
 	caseOfficer: {
@@ -262,8 +261,7 @@ const incompleteAppellantCaseOutcome = {
 	],
 	appellantCaseValidationOutcome: {
 		name: 'Incomplete'
-	},
-	otherNotValidReasons: 'The site address is missing'
+	}
 };
 
 const invalidAppellantCaseOutcome = {
@@ -281,8 +279,7 @@ const invalidAppellantCaseOutcome = {
 	],
 	appellantCaseValidationOutcome: {
 		name: 'Invalid'
-	},
-	otherNotValidReasons: 'The site address does not exist'
+	}
 };
 
 const completeLPAQuestionnaireOutcome = {
@@ -306,8 +303,7 @@ const incompleteLPAQuestionnaireOutcome = {
 	],
 	lpaQuestionnaireValidationOutcome: {
 		name: 'Incomplete'
-	},
-	otherNotValidReasons: 'The site address is missing'
+	}
 };
 
 const householdAppealAppellantCaseValid = {
@@ -504,11 +500,11 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 		environmentalStatementResponses: document,
 		issuedScreeningOption: document,
 		lettersToNeighbours: document,
-		otherRelevantPolicies: document,
+		notifyingParties: document,
 		officersReport: document,
+		otherRelevantPolicies: document,
 		policiesFromStatutoryDevelopment: document,
 		pressAdvert: document,
-		notifyingParties: document,
 		representations: document,
 		responsesOrAdvice: document,
 		screeningDirection: document,
@@ -573,9 +569,8 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	procedureType: appeal.lpaQuestionnaire?.procedureType?.name,
 	scheduleType: appeal.lpaQuestionnaire?.scheduleType?.name,
 	siteWithinGreenBelt: appeal.lpaQuestionnaire?.siteWithinGreenBelt,
-	validation: createValidationOutcomeResponse(
+	validation: formatValidationOutcomeResponse(
 		appeal.lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name,
-		appeal.lpaQuestionnaire?.otherNotValidReasons,
 		appeal.lpaQuestionnaire?.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire
 	)
 });
@@ -597,16 +592,16 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appealId: appeal.id,
 	appealReference: appeal.reference,
 	appealSite: {
-		addressId: appeal.address.id,
-		addressLine1: appeal.address.addressLine1,
-		addressLine2: appeal.address.addressLine2,
-		town: appeal.address.town,
-		county: appeal.address.county,
-		postCode: appeal.address.postcode
+		addressId: appeal.address?.id,
+		addressLine1: appeal.address?.addressLine1,
+		addressLine2: appeal.address?.addressLine2,
+		town: appeal.address?.town,
+		county: appeal.address?.county,
+		postCode: appeal.address?.postcode
 	},
 	appellantCaseId: appeal.appellantCase?.id,
 	appellant: {
-		appellantId: appeal.appellant.id,
+		appellantId: appeal.appellant?.id,
 		company: appeal.appellant?.company,
 		name: appeal.appellant?.name
 	},
@@ -681,9 +676,8 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		siteVisitId: appeal.siteVisit?.id,
 		visitType: appeal.siteVisit?.siteVisitType.name
 	},
-	validation: createValidationOutcomeResponse(
+	validation: formatValidationOutcomeResponse(
 		appeal.appellantCase?.appellantCaseValidationOutcome?.name,
-		appeal.appellantCase?.otherNotValidReasons,
 		appeal.appellantCase?.appellantCaseIncompleteReasonsOnAppellantCases,
 		appeal.appellantCase?.appellantCaseInvalidReasonsOnAppellantCases
 	),

@@ -21,9 +21,9 @@ import appealRepository from '#repositories/appeal.repository.js';
 
 /**
  * @type {RequestHandler}
- * @returns {Promise<object | void>}
+ * @returns {object | void}
  */
-const checkAppellantCaseExists = async (req, res, next) => {
+const checkAppellantCaseExists = (req, res, next) => {
 	const {
 		appeal,
 		params: { appellantCaseId }
@@ -48,7 +48,7 @@ const updateAppellantCaseValidationOutcome = async ({
 	validationOutcome
 }) => {
 	const { appealStatus, appealType, appellant, id: appealId, reference } = appeal;
-	const { appealDueDate, incompleteReasons, invalidReasons, otherNotValidReasons } = data;
+	const { appealDueDate, incompleteReasons, invalidReasons } = data;
 
 	let startedAt = undefined;
 	let timetable = undefined;
@@ -69,7 +69,6 @@ const updateAppellantCaseValidationOutcome = async ({
 	await appellantCaseRepository.updateAppellantCaseValidationOutcome({
 		appellantCaseId,
 		validationOutcomeId: validationOutcome.id,
-		otherNotValidReasons,
 		...(isOutcomeIncomplete(validationOutcome.name) && { incompleteReasons }),
 		...(isOutcomeInvalid(validationOutcome.name) && { invalidReasons }),
 		...(isOutcomeValid(validationOutcome.name) && { appealId, startedAt, timetable })

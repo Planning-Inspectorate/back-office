@@ -112,6 +112,12 @@ const mockAppellantUpdate = jest.fn().mockResolvedValue({});
 const mockDesignatedSitesOnLPAQuestionnairesCreateMany = jest.fn().mockResolvedValue({});
 const mockDesignatedSitesOnLPAQuestionnairesDeleteMany = jest.fn().mockResolvedValue({});
 const mockUserUpsert = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonTextDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseIncompleteReasonTextCreateMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonTextDeleteMany = jest.fn().mockResolvedValue({});
+const mockAppellantCaseInvalidReasonTextCreateMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonTextDeleteMany = jest.fn().mockResolvedValue({});
+const mockLPAQuestionnaireIncompleteReasonTextCreateMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -447,6 +453,27 @@ class MockPrismaClient {
 	get user() {
 		return {
 			upsert: mockUserUpsert
+		};
+	}
+
+	get appellantCaseIncompleteReasonText() {
+		return {
+			deleteMany: mockAppellantCaseIncompleteReasonTextDeleteMany,
+			createMany: mockAppellantCaseIncompleteReasonTextCreateMany
+		};
+	}
+
+	get appellantCaseInvalidReasonText() {
+		return {
+			deleteMany: mockAppellantCaseInvalidReasonTextDeleteMany,
+			createMany: mockAppellantCaseInvalidReasonTextCreateMany
+		};
+	}
+
+	get lPAQuestionnaireIncompleteReasonText() {
+		return {
+			deleteMany: mockLPAQuestionnaireIncompleteReasonTextDeleteMany,
+			createMany: mockLPAQuestionnaireIncompleteReasonTextCreateMany
 		};
 	}
 

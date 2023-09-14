@@ -3,7 +3,6 @@ import appealRepository from '#repositories/appeal.repository.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
-/** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseRequest} UpdateAppellantCaseRequest */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcome} UpdateAppellantCaseValidationOutcome */
 /**
@@ -29,7 +28,6 @@ const updateAppellantCaseById = (id, data) =>
 const updateAppellantCaseValidationOutcome = ({
 	appellantCaseId,
 	validationOutcomeId,
-	otherNotValidReasons,
 	incompleteReasons,
 	invalidReasons,
 	appealId,
@@ -38,31 +36,32 @@ const updateAppellantCaseValidationOutcome = ({
 }) => {
 	const transaction = [
 		updateAppellantCaseById(appellantCaseId, {
-			otherNotValidReasons,
 			appellantCaseValidationOutcomeId: validationOutcomeId
 		})
 	];
 
 	if (incompleteReasons) {
 		transaction.push(
-			...commonRepository.updateManyToManyRelationTable({
+			...commonRepository.createIncompleteInvalidReasons({
 				id: appellantCaseId,
-				data: incompleteReasons,
-				databaseTable: 'appellantCaseIncompleteReasonOnAppellantCase',
 				relationOne: 'appellantCaseId',
-				relationTwo: 'appellantCaseIncompleteReasonId'
+				relationTwo: 'appellantCaseIncompleteReasonId',
+				manyToManyRelationTable: 'appellantCaseIncompleteReasonOnAppellantCase',
+				incompleteInvalidReasonTextTable: 'appellantCaseIncompleteReasonText',
+				data: incompleteReasons
 			})
 		);
 	}
 
 	if (invalidReasons) {
 		transaction.push(
-			...commonRepository.updateManyToManyRelationTable({
+			...commonRepository.createIncompleteInvalidReasons({
 				id: appellantCaseId,
-				data: invalidReasons,
-				databaseTable: 'appellantCaseInvalidReasonOnAppellantCase',
 				relationOne: 'appellantCaseId',
-				relationTwo: 'appellantCaseInvalidReasonId'
+				relationTwo: 'appellantCaseInvalidReasonId',
+				manyToManyRelationTable: 'appellantCaseInvalidReasonOnAppellantCase',
+				incompleteInvalidReasonTextTable: 'appellantCaseInvalidReasonText',
+				data: invalidReasons
 			})
 		);
 	}

@@ -1,5 +1,5 @@
 import formatAddress from '#utils/format-address.js';
-import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
+import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import formatLinkedAppeals from '#utils/format-linked-appeals.js';
 import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 import { document } from '#tests/data.js';
@@ -8,7 +8,6 @@ import { document } from '#tests/data.js';
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
-/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /**
  * @param {boolean} affectsListedBuilding
  * @param {ListedBuildingDetails[] | null | undefined} values
@@ -118,9 +117,8 @@ const formatLpaQuestionnaire = (appeal) => {
 				sensitiveAreaDetails: lpaQuestionnaire.sensitiveAreaDetails,
 				siteWithinGreenBelt: lpaQuestionnaire.siteWithinGreenBelt,
 				statutoryConsulteesDetails: lpaQuestionnaire.statutoryConsulteesDetails,
-				validation: createValidationOutcomeResponse(
+				validation: formatValidationOutcomeResponse(
 					lpaQuestionnaire.lpaQuestionnaireValidationOutcome?.name,
-					lpaQuestionnaire.otherNotValidReasons,
 					lpaQuestionnaire.lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire
 				)
 		  }

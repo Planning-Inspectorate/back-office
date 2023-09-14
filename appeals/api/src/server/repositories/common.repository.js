@@ -3,7 +3,7 @@ import createManyToManyRelationData from '#utils/create-many-to-many-relation-da
 import { DATABASE_ORDER_BY_ASC } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.LookupTables} LookupTables */
-/** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
+/** @typedef {import('@pins/appeals.api').Appeals.IncompleteInvalidReasons} IncompleteInvalidReasons */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -37,7 +37,7 @@ const getLookupListValueByName = (databaseTable, value) =>
 /**
  * @param {{
  *  id: number,
- *  data: NotValidReasons,
+ *  data: (number | string)[],
  *  databaseTable: string,
  *  relationOne: string,
  *  relationTwo: string,
@@ -55,7 +55,55 @@ const updateManyToManyRelationTable = ({ id, data, databaseTable, relationOne, r
 	})
 ];
 
+/**
+ *
+ * @param {{
+ *  id: number;
+ *  relationOne: string;
+ *  relationTwo: string;
+ *  manyToManyRelationTable: string;
+ *  incompleteInvalidReasonTextTable: string;
+ *  data: IncompleteInvalidReasons;
+ * }} param0
+ * @returns
+ */
+const createIncompleteInvalidReasons = ({
+	id,
+	relationOne,
+	relationTwo,
+	manyToManyRelationTable,
+	incompleteInvalidReasonTextTable,
+	data
+}) => [
+	// @ts-ignore
+	databaseConnector[incompleteInvalidReasonTextTable].deleteMany({
+		where: { [relationOne]: id }
+	}),
+	...updateManyToManyRelationTable({
+		id,
+		data: data.map(({ id: reasonId }) => reasonId),
+		databaseTable: manyToManyRelationTable,
+		relationOne: relationOne,
+		relationTwo: relationTwo
+	}),
+	// @ts-ignore
+	databaseConnector[incompleteInvalidReasonTextTable].createMany({
+		data: data
+			.map(
+				({ id: reasonId, text }) =>
+					text &&
+					text.map((text) => ({
+						[relationOne]: id,
+						[relationTwo]: reasonId,
+						text
+					}))
+			)
+			.flat()
+	})
+];
+
 export default {
+	createIncompleteInvalidReasons,
 	getLookupList,
 	getLookupListValueByName,
 	updateManyToManyRelationTable

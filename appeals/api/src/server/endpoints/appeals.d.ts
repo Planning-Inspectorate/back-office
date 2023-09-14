@@ -60,12 +60,12 @@ interface RepositoryGetAllResultItem {
 }
 
 interface RepositoryGetByIdResultItem {
-	address: Schema.Address;
+	address: Schema.Address | null;
 	allocation?: Schema.AppealAllocation | null;
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
 	appealType: Schema.AppealType | null;
-	appellant: Schema.Appellant;
+	appellant: Schema.Appellant | null;
 	appellantCase?: Schema.AppellantCase | null;
 	caseOfficer: User | null;
 	createdAt: Date;
@@ -103,22 +103,22 @@ interface SingleLPAQuestionnaireResponse {
 	developmentDescription?: string | null;
 	documents: {
 		communityInfrastructureLevy: FolderInfo | {};
-		conservationAreaMapAndGuidance: FolderInfo | {};
+		conservationAreaMap: FolderInfo | {};
 		consultationResponses: FolderInfo | {};
 		definitiveMapAndStatement: FolderInfo | {};
 		emergingPlans: FolderInfo | {};
 		environmentalStatementResponses: FolderInfo | {};
 		issuedScreeningOption: FolderInfo | {};
 		lettersToNeighbours: FolderInfo | {};
+		notifyingParties: FolderInfo | {};
+		officersReport: FolderInfo | {};
 		otherRelevantPolicies: FolderInfo | {};
-		planningOfficersReport: FolderInfo | {};
 		policiesFromStatutoryDevelopment: FolderInfo | {};
 		pressAdvert: FolderInfo | {};
-		relevantPartiesNotification: FolderInfo | {};
-		representationsFromOtherParties: FolderInfo | {};
+		representations: FolderInfo | {};
 		responsesOrAdvice: FolderInfo | {};
 		screeningDirection: FolderInfo | {};
-		siteNotice: FolderInfo | {};
+		siteNotices: FolderInfo | {};
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
 	};
@@ -245,7 +245,7 @@ interface SingleAppellantCaseResponse {
 	appealSite: AppealSite;
 	appellantCaseId: number;
 	appellant: {
-		appellantId: number;
+		appellantId: number | null;
 		company: string | null;
 		name: string | null;
 	};
@@ -302,9 +302,8 @@ interface SingleAppellantCaseResponse {
 
 interface ValidationOutcomeResponse {
 	outcome: string | null;
-	incompleteReasons?: string[];
-	invalidReasons?: string[];
-	otherNotValidReasons?: string;
+	incompleteReasons?: IncompleteInvalidReasonsResponse[];
+	invalidReasons?: IncompleteInvalidReasonsResponse[];
 }
 
 interface AppealListResponse {
@@ -398,16 +397,14 @@ interface UpdateAppellantCaseRequest {
 	isSiteFullyOwned?: boolean;
 	isSitePartiallyOwned?: boolean;
 	isSiteVisibleFromPublicRoad?: boolean;
-	otherNotValidReasons?: string;
 	visibilityRestrictions?: string;
 }
 
 interface UpdateAppellantCaseValidationOutcome {
 	appellantCaseId: number;
 	validationOutcomeId: number;
-	otherNotValidReasons: string;
-	incompleteReasons?: NotValidReasons;
-	invalidReasons?: NotValidReasons;
+	incompleteReasons?: IncompleteInvalidReasons;
+	invalidReasons?: IncompleteInvalidReasons;
 	appealId?: number;
 	timetable?: TimetableDeadlineDate;
 	startedAt?: Date;
@@ -422,7 +419,7 @@ interface UpdateLPAQuestionnaireRequest {
 	hasProtectedSpecies?: boolean;
 	hasTreePreservationOrder?: boolean;
 	includesScreeningOption?: boolean;
-	incompleteReasons?: NotValidReasons;
+	incompleteReasons?: IncompleteInvalidReasons;
 	isConservationArea?: boolean;
 	isEnvironmentalStatementRequired?: boolean;
 	isGypsyOrTravellerSite?: boolean;
@@ -432,7 +429,6 @@ interface UpdateLPAQuestionnaireRequest {
 	isTheSiteWithinAnAONB?: boolean;
 	lpaQuestionnaireValidationOutcomeId?: number;
 	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean;
-	otherNotValidReasons?: string;
 	scheduleTypeId?: number;
 	sensitiveAreaDetails?: string;
 	timetable?: TimetableDeadlineDate;
@@ -447,8 +443,7 @@ interface UpdateLPAQuestionaireValidationOutcomeParams {
 	};
 	data: {
 		lpaQuestionnaireDueDate: string;
-		incompleteReasons: number[];
-		otherNotValidReasons: string;
+		incompleteReasons: IncompleteInvalidReasons;
 	};
 	lpaQuestionnaireId: number;
 	validationOutcome: ValidationOutcome;
@@ -465,9 +460,8 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 	appellantCaseId: number;
 	data: {
 		appealDueDate: string;
-		incompleteReasons: number[];
-		invalidReasons: number[];
-		otherNotValidReasons: string;
+		incompleteReasons: IncompleteInvalidReasons;
+		invalidReasons: IncompleteInvalidReasons;
 	};
 	notifyClient: NotifyClient;
 	validationOutcome: ValidationOutcome;
@@ -483,8 +477,8 @@ interface UpdateTimetableRequest {
 interface UpdateAppealRequest {
 	dueDate?: string;
 	startedAt?: string;
-	caseOfficer?: string | null;
-	inspector?: string | null;
+	caseOfficer?: number | null;
+	inspector?: number | null;
 }
 
 interface UsersToAssign {
@@ -492,11 +486,19 @@ interface UsersToAssign {
 	inspector?: string | null;
 }
 
+interface IncompleteInvalidReasonsResponse {
+	name: string;
+	text: string[];
+}
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
 
-type NotValidReasons = Array<number | string>;
+type IncompleteInvalidReasons = {
+	id: number;
+	text?: string[];
+}[];
 
 type AssignedUser = 'caseOfficer' | 'inspector';
 
@@ -510,13 +512,14 @@ export {
 	DocumentationSummary,
 	DocumentInfo,
 	FolderInfo,
+	IncompleteInvalidReasons,
+	IncompleteInvalidReasonsResponse,
 	LinkedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
 	NeighbouringSiteContactsResponse,
 	NotifyClient,
 	NotifyTemplate,
-	NotValidReasons,
 	RepositoryGetAllResultItem,
 	RepositoryGetByIdResultItem,
 	SingleAddressResponse,

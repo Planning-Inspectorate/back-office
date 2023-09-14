@@ -1,8 +1,6 @@
-/** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
-
 /**
  * @param {{
- *  data: NotValidReasons
+ *  data: (number | string)[]
  *  relationOne: string
  *  relationTwo: string
  *  relationOneId: number

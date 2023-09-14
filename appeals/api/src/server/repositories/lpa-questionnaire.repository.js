@@ -2,7 +2,6 @@ import { databaseConnector } from '#utils/database-connector.js';
 import appealTimetablesRepository from '#repositories/appeal-timetable.repository.js';
 import commonRepository from './common.repository.js';
 
-/** @typedef {import('@pins/appeals.api').Appeals.NotValidReasons} NotValidReasons */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateLPAQuestionnaireRequest} UpdateLPAQuestionnaireRequest */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
@@ -37,7 +36,6 @@ const updateLPAQuestionnaireById = (id, data) => {
 				isTheSiteWithinAnAONB: data.isTheSiteWithinAnAONB,
 				lpaQuestionnaireValidationOutcomeId: data.validationOutcomeId,
 				meetsOrExceedsThresholdOrCriteriaInColumn2: data.meetsOrExceedsThresholdOrCriteriaInColumn2,
-				otherNotValidReasons: data.otherNotValidReasons,
 				scheduleTypeId: data.scheduleTypeId,
 				sensitiveAreaDetails: data.sensitiveAreaDetails
 			}
@@ -58,12 +56,13 @@ const updateLPAQuestionnaireById = (id, data) => {
 
 	if (incompleteReasons) {
 		transaction.push(
-			...commonRepository.updateManyToManyRelationTable({
+			...commonRepository.createIncompleteInvalidReasons({
 				id,
-				data: incompleteReasons,
-				databaseTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
 				relationOne: 'lpaQuestionnaireId',
-				relationTwo: 'lpaQuestionnaireIncompleteReasonId'
+				relationTwo: 'lpaQuestionnaireIncompleteReasonId',
+				manyToManyRelationTable: 'lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire',
+				incompleteInvalidReasonTextTable: 'lPAQuestionnaireIncompleteReasonText',
+				data: incompleteReasons
 			})
 		);
 	}

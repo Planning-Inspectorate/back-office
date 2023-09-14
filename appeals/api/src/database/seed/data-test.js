@@ -487,13 +487,11 @@ export async function seedTestData(databaseConnector) {
 	const appellantCaseValidationOutcomes = [
 		{
 			validationOutcomeId: validationOutcomes[0].id,
-			incompleteReasons: appellantCaseIncompleteReasons.map(({ id }) => id),
-			otherNotValidReasons: 'Another incomplete reason'
+			incompleteReasons: appellantCaseIncompleteReasons.map(({ id }) => id)
 		},
 		{
 			validationOutcomeId: validationOutcomes[1].id,
-			invalidReasons: appellantCaseInvalidReasons.map(({ id }) => id),
-			otherNotValidReasons: 'Another invalid reason'
+			invalidReasons: appellantCaseInvalidReasons.map(({ id }) => id)
 		},
 		{
 			validationOutcomeId: validationOutcomes[2].id
@@ -520,10 +518,7 @@ export async function seedTestData(databaseConnector) {
 					knowledgeOfOtherLandownersId: knowledgeOfOtherLandowners[0].id
 				}),
 				...(validationOutcome && {
-					appellantCaseValidationOutcomeId: validationOutcome.validationOutcomeId,
-					otherNotValidReasons:
-						(validationOutcome.incompleteReasons || validationOutcome.invalidReasons) &&
-						validationOutcome.otherNotValidReasons
+					appellantCaseValidationOutcomeId: validationOutcome.validationOutcomeId
 				})
 			}
 		});
