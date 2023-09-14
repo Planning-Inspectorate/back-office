@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { readdirSync, readFileSync } from 'node:fs';
-import { migrateNsipProjects } from './nsip-project/nsip-project-migrator.js';
+import { migrateNsipProjects } from './migrators/nsip-project-migrator.js';
 
 const schemas = readdirSync('./src/message-schemas/events')
 	.filter((file) => file.endsWith('.schema.json'))

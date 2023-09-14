@@ -26,5 +26,13 @@ export default joi.object({
 	}),
 	cwd: joi.string(),
 	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-	serviceBusEnabled: joi.boolean().optional()
+	serviceBusEnabled: joi.boolean().optional(),
+	wordpressDatabase: {
+		username: joi.string(),
+		password: joi.string(),
+		database: joi.string(),
+		host: joi.string(),
+		port: joi.string(),
+		dialect: joi.string()
+	}
 });
