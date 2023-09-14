@@ -72,6 +72,9 @@ GO
 exit
 ```
 
+> [!IMPORTANT]
+> If setting up both Applications and Appeals back offices locally, it is recommended to create 2 separate databases, so they can be referenced independently from `apps/api` and `appeals/api` configurations.
+
 **Notes for M1 Macs**
 
 Replace steps 1 and 2 with:
@@ -103,6 +106,8 @@ Install Azure Data Studio, and after setting up the database in Docker as descri
 
 
 #### Environment Setup
+> [!IMPORTANT]
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
 
 The `api` app needs to know how to connect to the database. Create a `.env` file in `apps/api` with a `DATABASE_URL` entry, as follows:
 
@@ -119,6 +124,8 @@ TEST_MAILBOX=test@example.com
 ```
 
 #### Schema & Seed Data
+> [!IMPORTANT]
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
 
 1. First setup the database schema
 
@@ -133,35 +140,43 @@ apps/api> npm run db:seed
 ```
 ### Running Locally the Applications Stack
 
+> [!IMPORTANT]
+> If running the Appeal Back Office instead of the Applications Back Office, apply the below to the `appeals` folder instead.
+
 Ensure a database is running and setup, then:
 
 1. `apps/api` requires an `.env` file with a `DATABASE_URL` entry, as per [Database Environment Setup](#environment-setup)
 2. `apps/web` requires a `.env.local` file, copying `.env.development` gives a good starting point, but `SESSION_SECRET=anyValue` needs adding to it
 
-To run the apps, either:
+To run the apps, the recommended option is to have 2 terminals, one running the api, and one running the web app:
 
-Run the dev script in all apps via [Turbo](https://turbo.build/repo/docs), from root:
-
+For applications:
 ```shell
-npm run dev
+# terminal 1
+npm run api:applications
+# terminal 2
+npm run web:applications
 ```
 
-**Note** the web app may fail to run on Windows due to an [npm bug](https://github.com/npm/cli/issues/5066), use the methods below to run the apps separately. 
-
-or manually run any individual app, from root or the app directory:
-
+For appeals:
 ```shell
-npm run dev --workspace=@pins/api
-
-# which is equivalent to
-apps/api> npm run dev
+# terminal 1
+npm run api:appeals
+# terminal 2
+npm run web:appeals
 ```
 
-For most development it is useful to have the `api` and `web` apps running; which run on `http://localhost:3000` and `http://localhost:8080` respectively.
+You can also run the dev script in all apps via [Turbo](https://turbo.build/repo/docs), from root (although this sometimes fails due to an [npm bug](https://github.com/npm/cli/issues/5066)):
+
+```shell
+npm run dev:applications
+# or
+npm run dev:appeals
+```
 
 ## Structure
 
-The two main folders are `apps` (which contains the deployable services, such as the API and web front-end), and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack), `appeals` (which contains the deployable services, such as the API and web front-end for the Appeal stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 
 ## Building
 
@@ -189,6 +204,8 @@ npm run test
 ```
 
 ## API Documentation
+> [!IMPORTANT]
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
 
 The API is documented using an [OpenAPI (previously Swagger) spec](https://swagger.io/specification/v2/). The spec is generated from code comments in the Express route definitions.
 
