@@ -32,12 +32,8 @@ export default joi.object({
 		appeals: joi.object({
 			caseOfficerGroupId: joi.string(),
 			inspectorGroupId: joi.string(),
-			validationOfficerGroupId: joi.string()
-		}),
-		applications: joi.object({
-			caseAdminOfficerGroupId: joi.string(),
-			caseTeamGroupId: joi.string(),
-			inspectorGroupId: joi.string()
+			legalGroupId: joi.string(),
+			customerServiceGroupId: joi.string()
 		})
 	}),
 	featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
