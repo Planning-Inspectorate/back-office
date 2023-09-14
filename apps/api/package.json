@@ -65,7 +65,6 @@
     "pino-pretty": "^8.1.0",
     "rhea": "3.0.1",
     "sanitize-html": "^2.11.0",
-    "sequelize": "^6.33.0",
     "swagger-ui-express": "^4.4.0",
     "xstate": "4.32.1"
   },

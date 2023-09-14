@@ -1,22 +1,22 @@
 import { QueryTypes, Sequelize } from 'sequelize';
 import config from '#config/config.js';
 
-const { username, password, database, host, port, dialect } = config.wordpressDatabase;
-
-console.info(`Connecting to server ${host}`);
-
-const sequelize = new Sequelize(database, username, password, {
-	host,
-	port,
-	dialect
-});
-
 /**
  * Handle an HTTP trigger/request to run the migration
  *
  * @param {string[]} caseReferences
  */
 export const migrateProjectUpdates = async (caseReferences) => {
+	const { username, password, database, host, port, dialect } = config.wordpressDatabase;
+
+	console.info(`Connecting to server ${host}`);
+
+	const sequelize = new Sequelize(database, username, password, {
+		host,
+		port,
+		dialect
+	});
+
 	console.info(`Migrating ${caseReferences.length} CASES`);
 
 	for (const caseReference of caseReferences) {

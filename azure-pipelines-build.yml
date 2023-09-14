@@ -35,6 +35,10 @@ parameters:
     displayName: Build Function - Notify Subscribers
     type: boolean
     default: true
+  - name: buildFunctionApplicationsMigration
+    displayName: Build Function - Applications Migration
+    type: boolean
+    default: true
   - name: buildFunctionAppealsCasedataImport
     displayName: Build Function - Appeals Casedata Import
     type: boolean
@@ -121,6 +125,8 @@ extends:
                   path: apps/functions/deadline-submissions
                 - name: function-notify-subscribers
                   path: apps/functions/notify-subscribers
+                - name: function-applications-migration
+                  path: apps/functions/applications-migration
                 - name: function-appeals-casedata-import
                   path: appeals/functions/casedata-import
                 - name: function-appeals-lpaq-import
@@ -341,6 +347,46 @@ extends:
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: function-notify-subscribers
+            displayName: Publish Functions Artifact
+      - name: Build Function - Applications Migration
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildFunctionApplicationsMigration }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-migration'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 18
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/applications.functions-applications-migration
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mkdir -p $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/
+              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/@pins
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/applications-migration
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: function-applications-migration
             displayName: Publish Functions Artifact
       - name: Build Function - Deadline Submissions
         condition: >-

@@ -27,6 +27,10 @@ parameters:
     displayName: Deploy Function - Handle Subscriptions
     type: boolean
     default: true
+  - name: deployFunctionApplicationsMigration
+    displayName: Deploy Function - Applications Migration
+    type: boolean
+    default: true
   - name: deployDeadlineSubmissionsFunction
     displayName: Deploy Function - Deadline Submissions
     type: boolean
@@ -174,6 +178,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-handle-subs-handle-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Applications Migration
+            artifact:
+              name: function-applications-migration
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Notify Subscribers
             artifact:

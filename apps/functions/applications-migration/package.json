@@ -1,0 +1,23 @@
+{
+  "name": "@pins/functions-applications-migration",
+  "version": "1.0.0",
+  "description": "Azure functions related to migration for Applications",
+  "type": "module",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@pins/platform": "^0.0.0",
+    "dotenv": "*",
+    "joi": "*",
+    "mysql2": "^3.6.1",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x",
+    "cross-env": "*",
+    "jest": "*",
+    "prisma": "4.16.1"
+  }
+}

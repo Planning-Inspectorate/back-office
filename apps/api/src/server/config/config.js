@@ -34,15 +34,7 @@ const { value, error } = schema.validate({
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
-	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
-	wordpressDatabase: {
-		username: environment.NI_DB_MYSQL_USERNAME,
-		password: environment.NI_DB_MYSQL_PASSWORD,
-		database: environment.NI_DB_MYSQL_DATABASE,
-		host: environment.NI_DB_MYSQL_HOST,
-		port: environment.NI_DB_MYSQL_PORT,
-		dialect: environment.NI_DB_MYSQL_DIALECT
-	}
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true'
 });
 
 if (error) {
