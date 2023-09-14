@@ -61,7 +61,9 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
 	const folders = await (async () => {
 		try {
-			return await got.get(`https://${config.apiHost}/applications/${caseID}/folders`).json();
+			return await got
+				.get(`https://${config.apiHost}/applications/${caseID}/folders?all=true`)
+				.json();
 		} catch (err) {
 			throw new Error(`fetching folders failed for case ID ${caseID} with error: ${err}`);
 		}
