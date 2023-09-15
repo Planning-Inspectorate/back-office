@@ -295,13 +295,14 @@ export interface LPANotificationMethod {
 }
 
 export interface ListedBuildingDetails extends schema.ListedBuildingDetails {
-	listEntry: string;
+	listEntry: string | null;
 	affectsListedBuilding: boolean;
 }
 
 export interface LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire
 	extends schema.LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
-	lpaQuestionnaireIncompleteReason: schema.LPAQuestionnaireIncompleteReason | null;
+	lpaQuestionnaireIncompleteReason: LPAQuestionnaireIncompleteReason;
+	lpaQuestionnaireIncompleteReasonText: LPAQuestionnaireIncompleteReasonText[];
 }
 
 export interface NeighbouringSiteContact extends schema.NeighbouringSiteContact {
@@ -311,9 +312,11 @@ export interface NeighbouringSiteContact extends schema.NeighbouringSiteContact 
 export interface AppellantCaseIncompleteReasonOnAppellantCase
 	extends schema.AppellantCaseIncompleteReasonOnAppellantCase {
 	appellantCaseIncompleteReason: AppellantCaseIncompleteReason;
+	appellantCaseIncompleteReasonText: AppellantCaseIncompleteReasonText[];
 }
 
 export interface AppellantCaseInvalidReasonOnAppellantCase
 	extends schema.AppellantCaseInvalidReasonOnAppellantCase {
 	appellantCaseInvalidReason: AppellantCaseInvalidReason;
+	appellantCaseInvalidReasonText: AppellantCaseInvalidReasonText[];
 }

@@ -2380,10 +2380,6 @@
 								"items": {
 									"type": "string"
 								}
-							},
-							"otherNotValidReasons": {
-								"type": "string",
-								"example": "The site address is missing"
 							}
 						}
 					},
@@ -3475,10 +3471,6 @@
 								"items": {
 									"type": "string"
 								}
-							},
-							"otherNotValidReasons": {
-								"type": "string",
-								"example": "The site address is missing"
 							}
 						}
 					}
@@ -3524,16 +3516,40 @@
 					},
 					"incompleteReasons": {
 						"type": "array",
-						"example": [1, 2, 3],
 						"items": {
-							"type": "number"
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"text": {
+									"type": "array",
+									"example": ["Incomplete reason 1", "Incomplete reason 2", "Incomplete reason 3"],
+									"items": {
+										"type": "string"
+									}
+								}
+							}
 						}
 					},
 					"invalidReasons": {
 						"type": "array",
-						"example": [1, 2, 3],
 						"items": {
-							"type": "number"
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"text": {
+									"type": "array",
+									"example": ["Invalid reason 1", "Invalid reason 2", "Invalid reason 3"],
+									"items": {
+										"type": "string"
+									}
+								}
+							}
 						}
 					},
 					"isSiteFullyOwned": {
@@ -3547,10 +3563,6 @@
 					"isSiteVisibleFromPublicRoad": {
 						"type": "boolean",
 						"example": false
-					},
-					"otherNotValidReasons": {
-						"type": "string",
-						"example": "Another invalid reason"
 					},
 					"validationOutcome": {
 						"type": "string",
@@ -3608,9 +3620,21 @@
 					},
 					"incompleteReasons": {
 						"type": "array",
-						"example": [1, 2, 3],
 						"items": {
-							"type": "number"
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"text": {
+									"type": "array",
+									"example": ["Incomplete reason 1", "Incomplete reason 2", "Incomplete reason 3"],
+									"items": {
+										"type": "string"
+									}
+								}
+							}
 						}
 					},
 					"isConservationArea": {
@@ -3648,10 +3672,6 @@
 					"meetsOrExceedsThresholdOrCriteriaInColumn2": {
 						"type": "boolean",
 						"example": true
-					},
-					"otherNotValidReasons": {
-						"type": "string",
-						"example": "Another incomplete reason"
 					},
 					"scheduleType": {
 						"type": "number",
@@ -3817,6 +3837,10 @@
 						"name": {
 							"type": "string",
 							"example": "Incomplete reason"
+						},
+						"hasText": {
+							"type": "boolean",
+							"example": true
 						}
 					}
 				},
@@ -3836,6 +3860,10 @@
 						"name": {
 							"type": "string",
 							"example": "Invalid reason"
+						},
+						"hasText": {
+							"type": "boolean",
+							"example": true
 						}
 					}
 				},
@@ -3855,6 +3883,10 @@
 						"name": {
 							"type": "string",
 							"example": "Incomplete reason"
+						},
+						"hasText": {
+							"type": "boolean",
+							"example": true
 						}
 					}
 				},

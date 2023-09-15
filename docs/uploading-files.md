@@ -1,6 +1,6 @@
 # Uploading Files
 
-Files are uploaded from the client-side directly to blob storage. There isn't currently an implementation that works with a local storage emulator, so tests against uploaded files must be done against a live blob storage instance. Authentication to the blob storage instance is achieved using the OBO flow with the currently logged-in user's session, so you'll have to enable authentication. Additionally, azure blob storage will refuse uploads from non-https origins, so you'll need to create a certificate and enable HTTPS.
+Files are uploaded from the client-side directly to blob storage. Unless using the [azurite storage emulator](./azurite-blob-emulator.md), tests against uploaded files must be done against a live blob storage instance. Authentication to the blob storage instance is achieved using the OBO flow with the currently logged-in user's session, so you'll have to enable authentication. Additionally, azure blob storage will refuse uploads from non-https origins, so you'll need to create a certificate and enable HTTPS.
 
 Prerequisites:
 
@@ -34,9 +34,10 @@ Finally for the web app, create a .env.local file that mirrors dev settings for:
 
 ```
 APPEALS_CASE_OFFICER_GROUP_ID
-APPEALS_INSPECTOR_GROUP_ID
-APPEALS_VALIDATION_OFFICER_GROUP_ID
 APPLICATIONS_CASE_ADMIN_OFFICER_GROUP_ID
+APPEALS_LEGAL_TEAM_GROUP_ID
+APPEALS_LEGAL_TEAM_GROUP_ID
+APPEALS_CS_TEAM_GROUP_ID
 APPLICATIONS_CASEOFFICER_GROUP_ID
 APPLICATIONS_CASETEAM_GROUP_ID
 APPLICATIONS_INSPECTOR_GROUP_ID

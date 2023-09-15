@@ -1,6 +1,6 @@
 import config from '#config/config.js';
 import formatAddress from '#utils/format-address.js';
-import createValidationOutcomeResponse from '#utils/create-validation-outcome-response.js';
+import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import isFPA from '#utils/is-fpa.js';
 import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
 
@@ -29,14 +29,14 @@ const formatAppellantCase = (appeal, folders = null) => {
 			appealId: appeal.id,
 			appealReference: appeal.reference,
 			appealSite: {
-				addressId: appeal.address.id,
+				addressId: appeal.address?.id,
 				...formatAddress(appeal.address)
 			},
 			appellantCaseId: appellantCase.id,
 			appellant: {
-				appellantId: appeal.appellant.id,
-				company: appeal.appellant.company || null,
-				name: appeal.appellant.name || null
+				appellantId: appeal.appellant?.id || null,
+				company: appeal.appellant?.company || null,
+				name: appeal.appellant?.name || null
 			},
 			applicant: {
 				firstName: appellantCase.applicantFirstName,
@@ -84,9 +84,8 @@ const formatAppellantCase = (appeal, folders = null) => {
 				siteVisitId: siteVisit?.id || null,
 				visitType: siteVisit?.siteVisitType?.name || null
 			},
-			validation: createValidationOutcomeResponse(
+			validation: formatValidationOutcomeResponse(
 				appellantCase.appellantCaseValidationOutcome?.name,
-				appellantCase.otherNotValidReasons,
 				appellantCase.appellantCaseIncompleteReasonsOnAppellantCases,
 				appellantCase.appellantCaseInvalidReasonsOnAppellantCases
 			),

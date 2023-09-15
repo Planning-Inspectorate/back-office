@@ -6,7 +6,7 @@ import {
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_STRING,
 	ERROR_NOT_FOUND,
-	MAX_LENGTH_300
+	LENGTH_300
 } from '../../constants.js';
 import { householdAppeal } from '#tests/data.js';
 import errorMessageReplacement from '#utils/error-message-replacement.js';
@@ -211,13 +211,13 @@ describe('appellants routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
 					.send({
-						name: 'A'.repeat(MAX_LENGTH_300 + 1)
+						name: 'A'.repeat(LENGTH_300 + 1)
 					});
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [MAX_LENGTH_300])
+						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});

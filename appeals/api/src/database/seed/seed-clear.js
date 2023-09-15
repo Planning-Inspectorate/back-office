@@ -33,6 +33,12 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire =
 		databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.deleteMany();
 	const deleteNeighbouringSiteContacts = databaseConnector.neighbouringSiteContact.deleteMany();
+	const deleteAppellantCaseIncompleteReasonText =
+		databaseConnector.appellantCaseIncompleteReasonText.deleteMany();
+	const deleteAppellantCaseInvalidReasonText =
+		databaseConnector.appellantCaseInvalidReasonText.deleteMany();
+	const deleteLPAQuestionnaireIncompleteReasonText =
+		databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany();
 
 	// and reference data tables
 	const deleteAppealTypes = databaseConnector.appealType.deleteMany();
@@ -51,6 +57,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppealAllocationLevels = databaseConnector.appealAllocation.deleteMany();
 	const deleteAppealSpecialisms = databaseConnector.appealSpecialism.deleteMany();
 	const deleteSpecialisms = databaseConnector.specialism.deleteMany();
+	const deleteLPAQUestionnaireIncompleteReason =
+		databaseConnector.lPAQuestionnaireIncompleteReason.deleteMany();
 
 	// Truncate calls on data tables
 	await deleteRepresentationAction;
@@ -67,13 +75,16 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAppealAllocationLevels,
 		deleteAppealSpecialisms,
 		deleteServiceCustomers,
+		deleteAppellantCaseIncompleteReasonText,
 		deleteAppellantCaseIncompleteReasonOnAppellantCase,
+		deleteAppellantCaseInvalidReasonText,
 		deleteAppellantCaseInvalidReasonOnAppellantCase,
 		deleteAppellantCase,
 		deleteAppealStatus,
 		deleteValidationDecision,
 		deleteDesignatedSitesOnLPAQuestionnaires,
 		deleteLPANotificationMethodsOnLPAQuestionnaires,
+		deleteLPAQuestionnaireIncompleteReasonText,
 		deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
 		deleteNeighbouringSiteContacts,
 		deleteLPAQuestionnaire,
@@ -100,4 +111,5 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteAppellantCaseValidationOutcome;
 	await deleteLPAQuestionnaireValidationOutcome;
 	await deleteSpecialisms;
+	await deleteLPAQUestionnaireIncompleteReason;
 }

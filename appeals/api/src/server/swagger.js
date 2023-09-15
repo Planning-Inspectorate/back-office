@@ -281,8 +281,7 @@ const document = {
 					'Appellant name is not the same on the application form and appeal form',
 					'Attachments and/or appendices have not been included to the full statement of case',
 					'Other'
-				],
-				otherNotValidReasons: 'The site address is missing'
+				]
 			},
 			visibility: {
 				details: 'The site is behind a tall hedge',
@@ -412,12 +411,7 @@ const document = {
 			statutoryConsulteesDetails: 'Some other people need to be consulted',
 			validation: {
 				outcome: 'Incomplete',
-				incompleteReasons: [
-					'Documents or information are missing',
-					'Policies are missing',
-					'Other'
-				],
-				otherNotValidReasons: 'The site address is missing'
+				incompleteReasons: ['Documents or information are missing', 'Policies are missing', 'Other']
 			}
 		},
 		UpdateAppellantCaseRequest: {
@@ -429,12 +423,21 @@ const document = {
 			hasAttemptedToIdentifyOwners: true,
 			hasHealthAndSafetyIssues: true,
 			healthAndSafetyIssues: 'There is no mobile reception at the site',
-			incompleteReasons: [1, 2, 3],
-			invalidReasons: [1, 2, 3],
+			incompleteReasons: [
+				{
+					id: 1,
+					text: ['Incomplete reason 1', 'Incomplete reason 2', 'Incomplete reason 3']
+				}
+			],
+			invalidReasons: [
+				{
+					id: 1,
+					text: ['Invalid reason 1', 'Invalid reason 2', 'Invalid reason 3']
+				}
+			],
 			isSiteFullyOwned: false,
 			isSitePartiallyOwned: true,
 			isSiteVisibleFromPublicRoad: false,
-			otherNotValidReasons: 'Another invalid reason',
 			validationOutcome: 'valid',
 			visibilityRestrictions: 'The site is behind a tall hedge'
 		},
@@ -447,7 +450,12 @@ const document = {
 			hasProtectedSpecies: true,
 			hasTreePreservationOrder: true,
 			includesScreeningOption: true,
-			incompleteReasons: [1, 2, 3],
+			incompleteReasons: [
+				{
+					id: 1,
+					text: ['Incomplete reason 1', 'Incomplete reason 2', 'Incomplete reason 3']
+				}
+			],
 			isConservationArea: true,
 			isEnvironmentalStatementRequired: true,
 			isGypsyOrTravellerSite: true,
@@ -457,7 +465,6 @@ const document = {
 			isTheSiteWithinAnAONB: true,
 			lpaQuestionnaireDueDate: '2023-06-21',
 			meetsOrExceedsThresholdOrCriteriaInColumn2: true,
-			otherNotValidReasons: 'Another incomplete reason',
 			scheduleType: 1,
 			sensitiveAreaDetails: 'The area is liable to flooding',
 			validationOutcome: 'incomplete'
@@ -498,19 +505,22 @@ const document = {
 		AllAppellantCaseIncompleteReasonsResponse: [
 			{
 				id: 1,
-				name: 'Incomplete reason'
+				name: 'Incomplete reason',
+				hasText: true
 			}
 		],
 		AllAppellantCaseInvalidReasonsResponse: [
 			{
 				id: 1,
-				name: 'Invalid reason'
+				name: 'Invalid reason',
+				hasText: true
 			}
 		],
 		AllLPAQuestionnaireIncompleteReasonsResponse: [
 			{
 				id: 1,
-				name: 'Incomplete reason'
+				name: 'Incomplete reason',
+				hasText: true
 			}
 		],
 		AllocationSpecialismsResponse: [

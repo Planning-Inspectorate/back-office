@@ -2,7 +2,7 @@
 
 To run a local emulator, there are a number of required steps. In order to successfully write to the emulator, it is necessary to configure it over https, using a self-signed certificate, and with a Shared Access Signature (SAS).
 
-1. The first step is to create a local self-signed certificate, using OS built-in tools, or using tools such as `mkcert (https://github.com/FiloSottile/mkcert)`. The tool will create a certificate for the ip address(es) or domains passed as input, e.g.: `mkcert localhost 127.0.0.1`
+1. The first step is to create a [local self-signed certificate](./self-signed-ssl.md)
 
 2. Once the certificate is created, it needs to be accessible by docker, in order to start the Azurite emulator with https.
    The following command will create a docker container running the emulator, mapping a local folder containing the certificate (in the example below, the command is run from the folder containing the certificate `localhost+3.pem`, which is mapped and accessible from the docker container locally in the `/workspace` folder):
@@ -15,7 +15,9 @@ To run a local emulator, there are a number of required steps. In order to succe
 
 5. The final step is to configure the application to use the emulator. That is achieved by adding the following to `./appeals/web/.env.local`:
 
-`AZURE_BLOB_DEFAULT_CONTAINER=document-service-uploads`
-`AZURE_BLOB_EMULATOR_SAS_HOST=<obtained in step 4`
-`AZURE_BLOB_USE_EMULATOR=true `
-`NODE_TLS_REJECT_UNAUTHORIZED=0`
+```
+AZURE_BLOB_DEFAULT_CONTAINER=document-service-uploads
+AZURE_BLOB_EMULATOR_SAS_HOST=<obtained in step 4>
+AZURE_BLOB_USE_EMULATOR=true
+NODE_TLS_REJECT_UNAUTHORIZED=0
+```

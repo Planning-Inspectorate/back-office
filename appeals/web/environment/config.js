@@ -33,7 +33,8 @@ const { value: validatedConfig, error } = schema.validate({
 		appeals: {
 			caseOfficerGroupId: environment.APPEALS_CASE_OFFICER_GROUP_ID,
 			inspectorGroupId: environment.APPEALS_INSPECTOR_GROUP_ID,
-			validationOfficerGroupId: environment.APPEALS_VALIDATION_OFFICER_GROUP_ID
+			legalGroupId: environment.APPEALS_LEGAL_TEAM_GROUP_ID,
+			customerServiceGroupId: environment.APPEALS_CS_TEAM_GROUP_ID
 		}
 	},
 	// flag name convention: featureFlag[ jira number ][ferature shoret description]

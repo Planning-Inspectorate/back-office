@@ -2,7 +2,7 @@ import { composeMiddleware } from '@pins/express';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateStringParameter from '#common/validators/string-parameter.js';
-import { MAX_LENGTH_8 } from '#endpoints/constants.js';
+import { LENGTH_8 } from '#endpoints/constants.js';
 
 const getAddressValidator = composeMiddleware(
 	validateIdParameter('appealId'),
@@ -17,7 +17,7 @@ const patchAddressValidator = composeMiddleware(
 	validateStringParameter('addressLine2'),
 	validateStringParameter('country'),
 	validateStringParameter('county'),
-	validateStringParameter('postcode', MAX_LENGTH_8),
+	validateStringParameter('postcode', LENGTH_8),
 	validateStringParameter('town'),
 	validationErrorHandler
 );

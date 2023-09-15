@@ -162,52 +162,72 @@ export const appellantCaseValidationOutcomes = [
 /**
  * An array of appellant case incomplete reasons.
  *
- * @type {Pick<AppellantCaseIncompleteReason, 'name'>[]}
+ * @type {Pick<AppellantCaseIncompleteReason, 'name' | 'hasText'>[]}
  */
 export const appellantCaseIncompleteReasons = [
 	{
-		name: 'Appellant name is not the same on the application form and appeal form'
+		name: 'Appellant name is not the same on the application form and appeal form',
+		hasText: false
 	},
 	{
-		name: 'Attachments and/or appendices have not been included to the full statement of case'
+		name: 'Attachments and/or appendices have not been included to the full statement of case',
+		hasText: true
 	},
 	{
-		name: "LPA's decision notice is incorrect, incomplete or missing"
+		name: "LPA's decision notice is missing",
+		hasText: false
 	},
 	{
-		name: 'Documents and/or plans referred in the application form, decision notice and appeal covering letter are missing'
+		name: "LPA's decision notice is incorrect or incomplete",
+		hasText: true
 	},
 	{
-		name: 'Agricultural holding certificate and declaration have not been completed on the appeal form'
+		name: 'Documents and/or plans referred in the application form, decision notice and appeal covering letter are missing',
+		hasText: true
 	},
 	{
-		name: 'The original application form is incomplete or missing'
+		name: 'Agricultural holding certificate and declaration have not been completed on the appeal form',
+		hasText: false
 	},
 	{
-		name: 'Statement of case and ground of appeal are missing'
+		name: 'The original application form is missing',
+		hasText: false
 	},
 	{
-		name: 'Other'
+		name: 'The original application form is incomplete',
+		hasText: true
+	},
+	{
+		name: 'Statement of case and ground of appeal are missing',
+		hasText: false
+	},
+	{
+		name: 'Other',
+		hasText: true
 	}
 ];
 
 /**
  * An array of appellant case invalid reasons.
  *
- * @type {Pick<AppellantCaseInvalidReason, 'name'>[]}
+ * @type {Pick<AppellantCaseInvalidReason, 'name' | 'hasText'>[]}
  */
 export const appellantCaseInvalidReasons = [
 	{
-		name: 'Appeal has not been submitted on time'
+		name: 'Appeal has not been submitted on time',
+		hasText: false
 	},
 	{
-		name: 'Documents have not been submitted on time'
+		name: 'Documents have not been submitted on time',
+		hasText: false
 	},
 	{
-		name: "The appellant doesn't have the right to appeal"
+		name: "The appellant doesn't have the right to appeal",
+		hasText: false
 	},
 	{
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
@@ -228,17 +248,20 @@ export const lpaQuestionnaireValidationOutcomes = [
 /**
  * An array of LPA questionnaire incomplete reasons.
  *
- * @type {Pick<LPAQuestionnaireIncompleteReason, 'name'>[]}
+ * @type {Pick<LPAQuestionnaireIncompleteReason, 'name' | 'hasText'>[]}
  */
 export const lpaQuestionnaireIncompleteReasons = [
 	{
-		name: 'Documents or information are missing'
+		name: 'Policies are missing',
+		hasText: true
 	},
 	{
-		name: 'Policies are missing'
+		name: 'Other documents or information are missing',
+		hasText: true
 	},
 	{
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
