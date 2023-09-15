@@ -328,7 +328,7 @@ router.head(
             schema: null
         }
 		#swagger.responses[404] = {
-            description: 'Error: Not Found',
+            description: 'Error: Not Found - invalid case id',
 			schema: null
         }
 

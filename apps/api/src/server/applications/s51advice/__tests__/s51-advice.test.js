@@ -301,4 +301,32 @@ describe('Test S51 advice API', () => {
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledTimes(1);
 	});
+
+	// Tests for the title unique HEAD checks
+	test('Is s51 title unique - HEAD returns 200 success if S51 title is unique to the case', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findMany.mockResolvedValue({});
+		const resp = await request.head('/applications/1/s51-advice/title-unique/Advice 12').send();
+		expect(resp.status).toEqual(200);
+	});
+
+	test('Is s51 title unique - HEAD returns 404 error if S51 title is already used in the case', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findMany.mockResolvedValue(s51AdvicesOnCase1);
+		const resp = await request.head('/applications/1/s51-advice/title-unique/Advice 1').send();
+		expect(resp.status).toEqual(400);
+	});
+
+	test('Is s51 title unique - whitespace is ignored in the test, also case-insensitive', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findMany.mockResolvedValue(s51AdvicesOnCase1);
+		const resp = await request.head('/applications/1/s51-advice/title-unique/  ADVICE 1  ').send();
+		expect(resp.status).toEqual(400);
+	});
+
+	test('Is s51 title unique - HEAD returns 400 error if case id is invalid', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+		const resp = await request.head('/applications/999/s51-advice/title-unique/Advice 1').send();
+		expect(resp.status).toEqual(404);
+	});
 });
