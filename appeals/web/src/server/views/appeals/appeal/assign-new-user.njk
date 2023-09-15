@@ -1,0 +1,49 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = "Are you sure? - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}/{{ 'unassign' if isUnassign else 'assign' }}-user/{{ 'inspector' if isInspector else 'case-officer' }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-8">Assign a new {{ 'inspector' if isInspector else 'case officer' }}?</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
+		{{ govukRadios({
+			name: "confirm",
+			id: "confirm",
+			fieldset: {
+				legend: {
+					text: user.email,
+					isPageHeading: false,
+					classes: "govuk-fieldset__legend--m"
+				}
+			},
+			items: [
+				{
+					value: "yes",
+					text: "Yes"
+				},
+				{
+					value: "no",
+					text: "No"
+				}
+			]
+			})
+		}}
+		{{ govukButton({
+			text: "Continue"
+		}) }}
+	</form>
+{%- endblock -%}

@@ -23,12 +23,9 @@
 {%- endmacro -%}
 
 {%- block pageHeading -%}
-
 	{%- for component in pageContents -%}
 		{%- if component.type === 'notification-banner' -%}
-			{%- for notificationBanner in component.bannerProperties -%}
-				{{ govukNotificationBanner(notificationBanner) }}
-			{%- endfor -%}
+			{{ govukNotificationBanner(component.bannerProperties) }}
 		{%- endif -%}
 	{%- endfor -%}
 	<div class="govuk-grid-row">

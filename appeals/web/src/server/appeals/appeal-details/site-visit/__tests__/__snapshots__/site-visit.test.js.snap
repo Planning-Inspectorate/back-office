@@ -1977,13 +1977,13 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                 aria-labelledby="accordion-default1-heading-5">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/case-officer"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer"> Assign</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/inspector"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector"> Assign</a>
                             </dd>
                         </div>
                     </dl>

@@ -2,6 +2,9 @@ import { convertFromBooleanToYesNo } from '../boolean-formatter.js';
 import { addressToString } from '#lib/address-formatter.js';
 import { dateToDisplayDate } from '#lib/dates.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
+import usersService from '../../appeals/appeal-users/users-service.js';
+import config from '#environment/config.js';
+import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 
 // TODO: Limit the input types to constants
 /**
@@ -81,9 +84,13 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
 /**
  * @param {*} data
  * @param {string} currentRoute
- * @returns {MappedAppealInstructions}
+ * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
+ * @returns {Promise<MappedAppealInstructions>}
  */
-export function initialiseAndMapAppealData(data, currentRoute) {
+export async function initialiseAndMapAppealData(data, currentRoute, session) {
+	currentRoute =
+		currentRoute[currentRoute.length - 1] === '/' ? currentRoute.slice(0, -1) : currentRoute;
+
 	/** @type {MappedAppealInstructions} */
 	let mappedData = {};
 	mappedData.appeal = {};
@@ -778,6 +785,23 @@ export function initialiseAndMapAppealData(data, currentRoute) {
 			}
 		}
 	};
+
+	let caseOfficerRowValue = '';
+	let caseOfficerUser;
+
+	if (data.appeal.caseOfficer) {
+		caseOfficerUser = await usersService.getUserByRoleAndId(
+			config.referenceData.appeals.caseOfficerGroupId,
+			session,
+			data.appeal.caseOfficer
+		);
+		caseOfficerRowValue = caseOfficerUser
+			? `<ul class="govuk-list"><li>${surnameFirstToFullName(caseOfficerUser?.name)}</li><li>${
+					caseOfficerUser?.email
+			  }</li></ul>`
+			: '<p class="govuk-body">A case officer is assigned but their user account was not found';
+	}
+
 	/** @type {Instructions} */
 	mappedData.appeal.caseOfficer = {
 		display: {
@@ -786,19 +810,36 @@ export function initialiseAndMapAppealData(data, currentRoute) {
 					text: 'Case Officer'
 				},
 				value: {
-					html: data.appeal.caseOfficer || 'No project members have been added yet'
+					html: caseOfficerRowValue
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal.caseOfficer ? 'Change' : 'Add',
-							href: `${currentRoute}/change/case-officer`
+							text: data.appeal.caseOfficer ? 'Change' : 'Assign',
+							href: `${currentRoute}/assign-user/case-officer`
 						}
 					]
 				}
 			}
 		}
 	};
+
+	let inspectorRowValue = '';
+	let inspectorUser;
+
+	if (data.appeal.inspector) {
+		inspectorUser = await usersService.getUserByRoleAndId(
+			config.referenceData.appeals.inspectorGroupId,
+			session,
+			data.appeal.inspector
+		);
+		inspectorRowValue = inspectorUser
+			? `<ul class="govuk-list"><li>${surnameFirstToFullName(inspectorUser?.name)}</li><li>${
+					inspectorUser?.email
+			  }</li></ul>`
+			: '<p class="govuk-body">An inspector is assigned but their user account was not found';
+	}
+
 	/** @type {Instructions} */
 	mappedData.appeal.inspector = {
 		display: {
@@ -807,13 +848,13 @@ export function initialiseAndMapAppealData(data, currentRoute) {
 					text: 'Inspector'
 				},
 				value: {
-					html: data.appeal.inspector || 'No project members have been added yet'
+					html: inspectorRowValue
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal.inspector ? 'Change' : 'Add',
-							href: `${currentRoute}/change/inspector`
+							text: data.appeal.inspector ? 'Change' : 'Assign',
+							href: `${currentRoute}/assign-user/inspector`
 						}
 					]
 				}

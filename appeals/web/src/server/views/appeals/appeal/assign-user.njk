@@ -1,0 +1,74 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+
+{%- set userType = 'inspector' if isInspector else 'case-officer' -%}
+{%- set userTypeText = 'inspector' if isInspector else 'case officer' -%}
+{%- set userTypeTextWithArticle = 'an inspector' if isInspector else 'a case officer' -%}
+{%- set pageTitle = "Assign " + userTypeText + " - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	/appeals-service/appeal-details/{{ appeal.id }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search for {{ userTypeTextWithArticle }}</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
+		{{ govukInput({
+			id: 'searchTerm',
+			name: 'searchTerm',
+			label: {
+				text: 'Search by name or email address',
+				classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
+			},
+			value: search.term
+		}) }}
+		{{ govukButton({
+			text: "Search"
+		}) }}
+	</form>
+	{%- if search.performed -%}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+				<h2 class="govuk-heading-m">Search results</h2>
+				<p class="govuk-body">{{ 'Displaying' if search.results | length else 'No' }} results for <strong>{{ search.term }}</strong></p>
+				{%- set resultsRows = [] -%}
+				{%- for result in search.results-%}
+					{%- set _ = resultsRows.push({
+						key: {
+							text: result.name
+						},
+						value: {
+							text: result.email
+						},
+						actions: {
+							items: [
+								{
+									text: 'Assign',
+									href: '/appeals-service/appeal-details/' + appeal.id + '/assign-user/' + userType + '/' + result.id + '/confirm'
+								}
+							]
+						}
+					}) -%}
+				{%- endfor -%}
+				{{ govukSummaryList({
+					rows: resultsRows
+				}) }}
+			</div>
+		</div>
+	{%- endif -%}
+	{%- if currentAssignee -%}
+		<h2 class="govuk-heading-s">{{ userTypeText | capitalize }} that is currently assigned</h2>
+		{{ govukSummaryList(currentAssignee) }}
+	{%- endif -%}
+{%- endblock -%}

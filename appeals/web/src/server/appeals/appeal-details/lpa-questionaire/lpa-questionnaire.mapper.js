@@ -22,9 +22,9 @@ export const pageHeading = 'LPA Questionnaire';
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  */
-export function lpaQuestionnairePage(lpaData, appealData, currentRoute, session) {
+export async function lpaQuestionnairePage(lpaData, appealData, currentRoute, session) {
 	const mappedLPAQData = initialiseAndMapLPAQData(lpaData, currentRoute);
-	const mappedAppealData = initialiseAndMapAppealData(appealData, currentRoute);
+	const mappedAppealData = await initialiseAndMapAppealData(appealData, currentRoute, session);
 	const appealType = appealData.appeal.appealType;
 
 	const caseSummary = {

@@ -8,6 +8,7 @@ import {
 	dayMonthYearToApiDateString,
 	dateToDisplayDate
 } from '#lib/dates.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -35,7 +36,6 @@ const renderScheduleSiteVisit = async (request, response) => {
 			}
 		} = request;
 
-		const appealReferenceFragments = appealDetails?.appealReference.split('/');
 		const formattedSiteAddress = appealDetails?.appealSite
 			? Object.values(appealDetails?.appealSite)?.join(', ')
 			: 'Address not known';
@@ -52,7 +52,7 @@ const renderScheduleSiteVisit = async (request, response) => {
 			appeal: {
 				id: appealDetails?.appealId,
 				reference: appealDetails?.appealReference,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1],
+				shortReference: appealShortReference(appealDetails?.appealReference),
 				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
 				localPlanningAuthority: appealDetails?.localPlanningDepartment,
 				potentialSafetyRisks: healthAndSafetyIssues.join('; ').concat('.'),
@@ -90,7 +90,6 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
-		const appealReferenceFragments = appealDetails?.appealReference.split('/');
 		const appellantCaseResponse = await appellantCaseService
 			.getAppellantCaseFromAppealId(
 				request.apiClient,
@@ -121,7 +120,7 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 							title: 'Site visit booked',
 							appealReference: {
 								label: 'Appeal ID',
-								reference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+								reference: appealShortReference(appealDetails?.appealReference)
 							}
 						},
 						body: {
@@ -173,13 +172,11 @@ const renderSetVisitType = async (request, response) => {
 			body: { 'visit-type': visitType }
 		} = request;
 
-		const appealReferenceFragments = appealDetails?.appealReference.split('/');
-
 		return response.render('appeals/appeal/set-site-visit-type.njk', {
 			appeal: {
 				id: appealDetails?.appealId,
 				reference: appealDetails?.appealReference,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealDetails?.appealReference)
 			},
 			siteVisit: {
 				visitType
