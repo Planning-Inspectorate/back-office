@@ -446,11 +446,12 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
  * */
 export async function publishApplicationsCaseS51Items({ query, body }, response) {
 	const { caseId } = response.locals;
-	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
 	await publishS51AdviceItems(caseId, {
 		publishAll: Boolean(body.selectAll),
 		ids: body.selectedFilesIds
 	});
+
+	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
 
 	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
