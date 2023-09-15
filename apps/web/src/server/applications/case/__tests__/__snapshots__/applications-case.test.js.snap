@@ -233,8 +233,6 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
-                        </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-updates\\"> Project updates</a>
@@ -414,8 +412,6 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
-                        </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-updates\\"> Project updates</a>
@@ -593,8 +589,6 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
-                        </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-updates\\"> Project updates</a>
@@ -746,8 +740,6 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
-                        </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
                         </li>
@@ -916,8 +908,6 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/project-team\\"> Project team</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/fees\\"> Fees</a>
-                        </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/project-documentation\\"> Project documentation</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/6/project-updates\\"> Project updates</a>
@@ -1084,8 +1074,6 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/key-dates\\"> Key dates</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-team\\"> Project team</a>
-                        </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/fees\\"> Fees</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/7/project-documentation\\"> Project documentation</a>
                         </li>
@@ -1255,8 +1243,6 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
-                        </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
                         </li>

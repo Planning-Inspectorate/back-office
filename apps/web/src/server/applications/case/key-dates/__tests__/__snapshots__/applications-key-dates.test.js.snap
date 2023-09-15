@@ -42,8 +42,6 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ If user is not inspe
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/fees\\"> Fees</a>
-                        </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-documentation\\"> Project documentation</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-updates\\"> Project updates</a>
