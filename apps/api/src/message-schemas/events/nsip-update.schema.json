@@ -1,9 +1,0 @@
-{
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "nsip-update.schema.json",
-	"title": "NSIP Update",
-	"description": "Update for an NSIP Project (Formerly known as Banners)",
-	"type": "object",
-	"required": [],
-	"properties": {}
-}

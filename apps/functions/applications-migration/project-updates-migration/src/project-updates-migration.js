@@ -1,10 +1,9 @@
 import { QueryTypes, Sequelize } from 'sequelize';
 import { loadConfig } from './config.js';
+import { makePostRequest } from './back-office-api-client.js';
 
 const config = loadConfig();
 const { username, password, database, host, port, dialect } = config.wordpressDatabase;
-
-console.info(`Connecting to server ${host}`);
 
 const sequelize = new Sequelize(database, username, password, {
 	host,
@@ -20,24 +19,25 @@ const sequelize = new Sequelize(database, username, password, {
  * @param {string[]} caseReferences
  */
 export const migrateProjectUpdates = async (log, caseReferences) => {
-	log.info('handleRequest', caseReferences);
-
 	try {
 		log.info(`Migrating ${caseReferences.length} CASES`);
 
 		for (const caseReference of caseReferences) {
+			log.info(`Migrating project updates for case ${caseReference}`);
+
 			const updates = await getProjectUpdates(log, caseReference);
 
-			// TODO: Post them to the migration endpoint
-			log.info('Project Updates', JSON.stringify(updates));
+			log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
+
+			await makePostRequest(log, '/migration/nsip-project-update', updates);
+
+			log.info('Successfully migrated project updates');
 
 			const subscriptions = await getProjectSubscriptions(log, caseReference);
 
 			// TODO: Post them to the migration endpoint
 			log.info('subscriptions', JSON.stringify(subscriptions));
 		}
-
-		throw Error('Not implemented');
 	} catch (e) {
 		log.error(e);
 	}
