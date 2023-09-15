@@ -438,6 +438,13 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
 
+export async function publishS51Advices({ params, body }, response) {
+
+	console.log(params, body);
+	return response.render('applications/case-s51/s51-successfully-published');
+
+}
+
 /**
  * Remove s51 item from the publishing queue
  *
