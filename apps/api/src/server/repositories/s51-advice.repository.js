@@ -91,6 +91,19 @@ export const update = (id, s51AdviceDetails) => {
 };
 
 /**
+ * 
+ * @param {number[]} ids
+ * @param {string} publishedStatus 
+ * @returns  {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload>}
+ */
+export const updateMany = (ids, publishedStatus) => {
+	return databaseConnector.s51Advice.updateMany({
+		where: { id: { in: ids } },
+		data: { publishedStatus}
+	});
+};
+
+/**
  * From a given list of S51 advice ids, retrieve the ones which are publishable
  *
  * @param {number[]} s51AdviceIds

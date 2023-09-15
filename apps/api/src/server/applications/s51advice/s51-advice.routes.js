@@ -10,7 +10,8 @@ import {
 	updateS51Advice,
 	getReadyToPublishAdvices,
     removePublishItemFromQueue,
-	verifyS51TitleIsUnique
+	verifyS51TitleIsUnique,
+    publishS51Advices
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -299,6 +300,22 @@ router.post(
 		}
     */
 	asyncHandler(removePublishItemFromQueue)
+);
+
+router.post(
+	'/:id/s51-advice/publish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
+        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    */
+	asyncHandler(publishS51Advices)
 );
 
 router.head(

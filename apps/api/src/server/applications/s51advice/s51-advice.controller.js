@@ -454,3 +454,25 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 
 	response.send({ title: title.trim() });
 };
+
+/**
+ *
+ * @type {import('express').RequestHandler<{adviceId: string[]}, any, any, any>}
+ * @param {*} response
+ * @returns
+ */
+export const publishS51Advices = async ({ body }, response) => {
+	if (!body?.adviceIds || body?.adviceIds?.length === 0) {
+		// @ts-ignore
+		return response
+			.status(400)
+			.json({ errors: { message: `No advice Ids provided` } });
+	}
+
+	/** @type {number[]} */
+	const adviceIds = body.adviceIds.map((/** @type {string} */ adviceId) =>  Number(adviceId) );
+
+	const s51Advices = await s51AdviceRepository.updateMany(adviceIds, 'published');
+
+	response.send(s51Advices);
+}

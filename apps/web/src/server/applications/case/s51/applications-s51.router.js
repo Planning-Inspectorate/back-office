@@ -55,7 +55,7 @@ applicationsS51Router
 applicationsS51Router
 	.route('/publishing-queue')
 	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue))
-	.post(locals.registerFolderId, asyncRoute(controller.publishS51Advices));
+	.post(locals.registerFolderId, asyncRoute(controller.postPublishS51Advices));
 
 applicationsS51Router
 	.route('/publishing-queue/remove/:adviceId')

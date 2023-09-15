@@ -256,3 +256,29 @@ export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
 
 	return response;
 };
+
+/**
+ * publish S51 advices to NI website
+ * 
+ * @param {number} caseId 
+ * @param {number[]} adviceIds 
+ */
+export const publishS51Advices = async (caseId, adviceIds) => {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/s51-advice/publish`, {
+			json: {
+				adviceIds
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+}

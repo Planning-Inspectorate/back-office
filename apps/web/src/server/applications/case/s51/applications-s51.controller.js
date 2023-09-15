@@ -21,7 +21,8 @@ import {
 	updateS51Advice,
 	updateS51AdviceStatus,
 	getS51AdviceReadyToPublish,
-	removeS51AdviceFromReadyToPublish
+	removeS51AdviceFromReadyToPublish,
+	publishS51Advices
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -438,11 +439,15 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
 
-export async function publishS51Advices({ params, body }, response) {
-
-	console.log(params, body);
+/**
+ * 
+ * @param {*} body 
+ * @param {*} response 
+ * @returns 
+ */
+export async function postPublishS51Advices({ params, body }, response) {
+	await publishS51Advices(Number(params.caseId), body.selectedFilesIds)
 	return response.render('applications/case-s51/s51-successfully-published');
-
 }
 
 /**
