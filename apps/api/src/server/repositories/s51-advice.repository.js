@@ -91,6 +91,20 @@ export const update = (id, s51AdviceDetails) => {
 };
 
 /**
+ * Update all S51 Advice records in a case
+ *
+ * @param {number} caseId
+ * @param {*} s51AdviceDetails
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload<S51Advice>>}
+ * */
+export const updateForCase = (caseId, s51AdviceDetails) => {
+	return databaseConnector.s51Advice.updateMany({
+		where: { caseId },
+		data: s51AdviceDetails
+	});
+};
+
+/**
  * From a given list of S51 advice ids, retrieve the ones which are publishable
  *
  * @param {number[]} s51AdviceIds

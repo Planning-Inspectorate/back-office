@@ -461,9 +461,58 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 
 /**
  *
- * @type {import('express').RequestHandler}
+ * @type {import('express').RequestHandler<{ id: string }, ?, {selectAll?: boolean, ids: string[]}>}
  * */
-export const publishQueueItems = async ({ body }, response) => {
-	console.log(body);
-	response.status(200).end();
+export const publishQueueItems = async ({ params: { id }, body }, response) => {
+	const caseId = Number(id);
+
+	if (!(body.selectAll || body.ids)) {
+		throw new BackOfficeAppError('`selectAll` or `ids` must be specified in request body');
+	}
+
+	if (body.selectAll) {
+		await s51AdviceRepository.updateForCase(caseId, { publishedStatus: 'published' });
+		response.status(200).end();
+		return;
+	}
+
+	const results = await Promise.allSettled(
+		body.ids.map(
+			(s51Id) =>
+				new Promise((resolve, reject) =>
+					s51AdviceRepository
+						.update(Number(s51Id), { publishedStatus: 'published' })
+						.then(resolve)
+						.catch(reject)
+				)
+		)
+	);
+
+	const { fulfilled, errors } = results.reduce((acc, result) => {
+		switch (result.status) {
+			case 'fulfilled':
+				acc.fulfilled.push(result.value);
+				break;
+			case 'rejected':
+				acc.errors.push(result.reason);
+				break;
+		}
+
+		return acc;
+	}, /** @type {{fulfilled: string[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
+
+	if (errors.length === body.ids.length) {
+		throw new BackOfficeAppError(`publishQueueItems failed with errors:\n${errors.join('\n')}`);
+	}
+
+	if (errors.length > 0) {
+		response.status(206).send({
+			results: fulfilled,
+			errors
+		});
+
+		return;
+	}
+
+	response.status(200).send({ results: fulfilled });
 };
