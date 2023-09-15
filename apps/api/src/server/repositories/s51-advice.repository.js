@@ -191,3 +191,21 @@ export const getS51AdviceCountInByPublishStatus = (caseId) => {
 		}
 	});
 };
+
+/**
+ * Finds all matching S51 advice records by title on a case.
+ * Can be used to check if a given S51 Title is unique to this case
+ *
+ * @param {number} caseId
+ * @param {string} title
+ * @returns {Promise<import('@pins/applications.api').Schema.S51Advice[] | null>}
+ */
+export const getS51AdviceManyByTitle = (caseId, title) => {
+	const s51advice = databaseConnector.s51Advice.findMany({
+		where: {
+			caseId,
+			title
+		}
+	});
+	return s51advice;
+};
