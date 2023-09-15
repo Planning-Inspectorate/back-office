@@ -1410,6 +1410,24 @@ export const spec = {
 				}
 			}
 		},
+		S51AdvicePublishItems: {
+			type: 'array',
+			items: {
+				type: 'object',
+				properties: {
+					publishAll: {
+						type: 'boolean',
+						description: 'Whether to publish all items in the queue',
+						example: false
+					},
+					ids: {
+						type: 'array',
+						description: 'Array of ids to publish',
+						items: { type: 'string', example: '1' }
+					}
+				}
+			}
+		},
 		S51AdviceCreateResponseBody: {
 			type: 'object',
 			properties: {
