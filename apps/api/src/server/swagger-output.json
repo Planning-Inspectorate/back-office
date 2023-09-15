@@ -3089,6 +3089,42 @@
 				"responses": {}
 			}
 		},
+		"/applications/{id}/s51-advice/title-unique/{title}": {
+			"head": {
+				"tags": ["Applications"],
+				"description": "Checks whether an S51 title is unique to this case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "title",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "S51 Title"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "valid unique S51 Advice title",
+						"schema": null
+					},
+					"400": {
+						"description": "Error: Bad Request - title is not unique",
+						"schema": null
+					},
+					"404": {
+						"description": "Error: Not Found - invalid case id",
+						"schema": null
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],

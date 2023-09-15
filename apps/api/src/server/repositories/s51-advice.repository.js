@@ -191,7 +191,6 @@ export const getS51AdviceCountInByPublishStatus = (caseId) => {
 		}
 	});
 };
-};
 
 /**
  * Finds all matching S51 advice records by title on a case.
