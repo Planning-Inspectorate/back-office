@@ -134,27 +134,7 @@ const appealFactory = ({
 			reviewQuestionnaire: { create: incompleteReviewQuestionnaireSample }
 		}),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } }),
-		appellantCase: { create: appellantCaseList[typeShorthand] },
-		caseOfficer: {
-			connectOrCreate: {
-				create: {
-					azureUserId: '57e788b4-41a4-44db-a487-6d7d4b51ce38'
-				},
-				where: {
-					azureUserId: '57e788b4-41a4-44db-a487-6d7d4b51ce38'
-				}
-			}
-		},
-		inspector: {
-			connectOrCreate: {
-				create: {
-					azureUserId: 'd4ab853d-a0e7-4769-9e95-e90b629ab955'
-				},
-				where: {
-					azureUserId: 'd4ab853d-a0e7-4769-9e95-e90b629ab955'
-				}
-			}
-		}
+		appellantCase: { create: appellantCaseList[typeShorthand] }
 	};
 };
 

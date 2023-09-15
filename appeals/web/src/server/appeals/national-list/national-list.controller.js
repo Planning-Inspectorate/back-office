@@ -1,7 +1,7 @@
 import { paginationDefaultSettings } from '../appeal.constants.js';
 import * as nationalListService from './national-list.service.js';
 import config from '#environment/config.js';
-import { getUsersByRole } from '#appeals/appeal-users/users-service.js';
+import usersService from '#appeals/appeal-users/users-service.js';
 
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
 /** @typedef {import('@pins/appeals').SearchInputFieldObject} SearchInputFieldObject */
@@ -23,7 +23,7 @@ export const getCaseOfficers = async (
 	/** @type {{ json: (arg0: { id: string; name: string; email: string; }[]) => void; }} */
 	response
 ) => {
-	const caseOfficers = await getUsersByRole(
+	const caseOfficers = await usersService.getUsersByRole(
 		config.referenceData.appeals.caseOfficerGroupId,
 		request.session
 	);

@@ -473,3 +473,30 @@ export const siteVisitData = {
 	visitStartTime: '09:38',
 	visitType: 'Accompanied'
 };
+
+export const activeDirectoryUsersData = [
+	{
+		'@odata.type': '#microsoft.graph.user',
+		id: '1',
+		name: 'Smith, John',
+		email: 'John.Smith@planninginspectorate.gov.uk'
+	},
+	{
+		'@odata.type': '#microsoft.graph.user',
+		id: '2',
+		name: 'Doe, Jane',
+		email: 'Jane.Doe@planninginspectorate.gov.uk'
+	},
+	{
+		'@odata.type': '#microsoft.graph.user',
+		id: '3',
+		name: 'Bloggs, Joe',
+		email: 'Joe.Bloggs@planninginspectorate.gov.uk'
+	},
+	{
+		'@odata.type': '#microsoft.graph.user',
+		id: '4',
+		name: 'Jenkins, Leeroy',
+		email: 'Leeroy.Jenkins@planninginspectorate.gov.uk'
+	}
+];

@@ -206,13 +206,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-5">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/case-officer"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer"> Assign</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/inspector"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector"> Assign</a>
                             </dd>
                         </div>
                     </dl>
@@ -409,13 +409,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default3-heading-5">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change/case-officer"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/assign-user/case-officer"> Assign</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change/inspector"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/assign-user/inspector"> Assign</a>
                             </dd>
                         </div>
                     </dl>
@@ -614,13 +614,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default2-heading-5">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/case-officer"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/case-officer"> Assign</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/inspector"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/inspector"> Assign</a>
                             </dd>
                         </div>
                     </dl>
@@ -814,13 +814,13 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-5">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/case-officer"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/case-officer"> Assign</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value">No project members have been added yet</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/inspector"> Add</a>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/inspector"> Assign</a>
                             </dd>
                         </div>
                     </dl>

@@ -5,8 +5,10 @@ import pino from './logger.js';
 
 const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
 
+export const prefixUrl = 'https://graph.microsoft.com/v1.0/';
+
 const instance = got.extend({
-	prefixUrl: 'https://graph.microsoft.com/v1.0/',
+	prefixUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
 	hooks: {
