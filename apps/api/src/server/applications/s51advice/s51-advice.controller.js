@@ -406,7 +406,9 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 	const adviceCount = await s51AdviceRepository.getS51AdviceCountInByPublishStatus(caseId);
 
 	// @ts-ignore
-	const items = paginatedAdviceToPublish.map(advice => mapS51Advice(caseId, advice, advice.S51AdviceDocument));
+	const items = paginatedAdviceToPublish.map((advice) =>
+		mapS51Advice(caseId, advice, advice.S51AdviceDocument)
+	);
 
 	response.send({
 		page: pageNumber,
@@ -434,7 +436,9 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
 	}
 
-	const updatedS51Advice = await s51AdviceRepository.update(adviceId, { publishedStatus: s51Advice.publishedStatusPrev });
+	const updatedS51Advice = await s51AdviceRepository.update(adviceId, {
+		publishedStatus: s51Advice.publishedStatusPrev
+	});
 
 	response.send(updatedS51Advice);
 }
@@ -453,4 +457,13 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 	}
 
 	response.send({ title: title.trim() });
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler}
+ * */
+export const publishQueueItems = async ({ body }, response) => {
+	console.log(body);
+	response.status(200).end();
 };
