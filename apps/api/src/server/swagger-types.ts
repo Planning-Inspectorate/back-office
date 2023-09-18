@@ -2030,7 +2030,7 @@ export interface S51AdviceCreateResponseBody {
 	 * Date of enquiry
 	 * @example "2023-02-01T00:00:00.000Z"
 	 */
-	enquiryDate?: dateTime;
+	enquiryDate?: string;
 	/**
 	 * Details of the enquiry
 	 * @example "details of the advice sought"
@@ -2045,7 +2045,7 @@ export interface S51AdviceCreateResponseBody {
 	 * Date advice given
 	 * @example "2023-02-01T00:00:00.000Z"
 	 */
-	adviceDate?: dateTime;
+	adviceDate?: string;
 	/**
 	 * Details of the advive given
 	 * @example "details of the advice provided"
@@ -2070,12 +2070,12 @@ export interface S51AdviceCreateResponseBody {
 	 * Date advice record was created
 	 * @example "2023-02-01T00:00:00.000Z"
 	 */
-	createdAt?: dateTime;
+	createdAt?: string;
 	/**
 	 * Date advice record was last updated
 	 * @example "2023-02-01T00:00:00.000Z"
 	 */
-	updatedAt?: dateTime;
+	updatedAt?: string;
 }
 
 export interface S51AdviceDetails {
