@@ -463,7 +463,9 @@ describe('appeals routes', () => {
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
 						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
-							address: formatAddress(contact.address)
+							address: formatAddress(contact.address),
+							firstName: contact.firstName,
+							lastName: contact.lastName
 						})),
 						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
@@ -562,7 +564,9 @@ describe('appeals routes', () => {
 					neighbouringSite: {
 						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(
 							(contact) => ({
-								address: formatAddress(contact.address)
+								address: formatAddress(contact.address),
+								firstName: contact.firstName,
+								lastName: contact.lastName
 							})
 						),
 						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites

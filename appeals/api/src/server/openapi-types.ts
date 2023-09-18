@@ -211,6 +211,10 @@ export interface SingleAppealResponse {
 				/** @example "Woodton" */
 				town?: string;
 			};
+			/** @example "Fiona" */
+			firstName?: string;
+			/** @example "Burgess" */
+			lastName?: string;
 		}[];
 		/** @example true */
 		isAffected?: boolean;

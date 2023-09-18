@@ -170,7 +170,9 @@ export const spec = {
 							addressLine2: 'Shotesham Road',
 							postCode: 'NR35 2ND',
 							town: 'Woodton'
-						}
+						},
+						firstName: 'Fiona',
+						lastName: 'Burgess'
 					}
 				],
 				isAffected: true
