@@ -1,26 +1,26 @@
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
-    checkS51NameIsUnique,
-    createS51Advice,
-    getS51Advice,
-    getS51FilesInFolder,
-    updateS51Advice,
-    updateS51AdviceStatus,
-    getS51AdviceReadyToPublish,
-    removeS51AdviceFromReadyToPublish
+	checkS51NameIsUnique,
+	createS51Advice,
+	getS51Advice,
+	getS51FilesInFolder,
+	updateS51Advice,
+	updateS51AdviceStatus,
+	getS51AdviceReadyToPublish,
+	removeS51AdviceFromReadyToPublish
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
-    destroySuccessBanner,
-    getSuccessBanner,
-    setSuccessBanner
+	destroySuccessBanner,
+	getSuccessBanner,
+	setSuccessBanner
 } from '../../common/services/session.service.js';
 import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
 import {
-    getCheckYourAnswersRows,
-    getIntegerRequestQuery,
-    mapS51AdviceToPage,
-    mapUpdateBodyToPayload
+	getCheckYourAnswersRows,
+	getIntegerRequestQuery,
+	mapS51AdviceToPage,
+	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
@@ -38,12 +38,12 @@ import {
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
-    title: { nextPage: 'enquirer' },
-    enquirer: { nextPage: 'method' },
-    method: { nextPage: 'enquiry-details' },
-    'enquiry-details': { nextPage: 'person' },
-    person: { nextPage: 'advice-details' },
-    'advice-details': { nextPage: 'check-your-answers' }
+	title: { nextPage: 'enquirer' },
+	enquirer: { nextPage: 'method' },
+	method: { nextPage: 'enquiry-details' },
+	'enquiry-details': { nextPage: 'person' },
+	person: { nextPage: 'advice-details' },
+	'advice-details': { nextPage: 'check-your-answers' }
 };
 
 /**
@@ -52,10 +52,10 @@ const createS51Journey = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51Folder({ query }, response) {
-    const { caseId } = response.locals;
-    const { items, pagination } = await getS51FolderData(caseId, query);
+	const { caseId } = response.locals;
+	const { items, pagination } = await getS51FolderData(caseId, query);
 
-    response.render(`applications/components/folder/folder`, { items, pagination });
+	response.render(`applications/components/folder/folder`, { items, pagination });
 }
 
 /**
@@ -64,40 +64,40 @@ export async function viewApplicationsCaseS51Folder({ query }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
  */
 export async function updateApplicationsCaseS51ItemStatus(
-    { query, errors: validationErrors, body },
-    response
+	{ query, errors: validationErrors, body },
+	response
 ) {
-    const { caseId } = response.locals;
-    const { isRedacted, status, selectedFilesIds } = body;
+	const { caseId } = response.locals;
+	const { isRedacted, status, selectedFilesIds } = body;
 
-    let apiErrors;
-    if (!validationErrors) {
-        const items = (selectedFilesIds || []).map((selectField) => ({
-            id: Number(selectField)
-        }));
+	let apiErrors;
+	if (!validationErrors) {
+		const items = (selectedFilesIds || []).map((selectField) => ({
+			id: Number(selectField)
+		}));
 
-        let redacted = isRedacted !== undefined ? isRedacted === '1' : undefined;
+		let redacted = isRedacted !== undefined ? isRedacted === '1' : undefined;
 
-        const { errors } = await updateS51AdviceStatus(caseId, {
-            redacted,
-            status,
-            items
-        });
+		const { errors } = await updateS51AdviceStatus(caseId, {
+			redacted,
+			status,
+			items
+		});
 
-        apiErrors = errors;
-    }
+		apiErrors = errors;
+	}
 
-    if (validationErrors || apiErrors) {
-        const { pagination, items } = await getS51FolderData(caseId, query);
+	if (validationErrors || apiErrors) {
+		const { pagination, items } = await getS51FolderData(caseId, query);
 
-        return response.render(`applications/components/folder/folder`, {
-            errors: validationErrors || apiErrors,
-            pagination,
-            items
-        });
-    }
+		return response.render(`applications/components/folder/folder`, {
+			errors: validationErrors || apiErrors,
+			pagination,
+			items
+		});
+	}
 
-    response.redirect('../');
+	response.redirect('../s51-advice');
 }
 
 /**
@@ -106,18 +106,18 @@ export async function updateApplicationsCaseS51ItemStatus(
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
 export async function viewApplicationsCaseS51Item({ params, session }, response) {
-    const { adviceId } = params;
-    const { caseId } = response.locals;
+	const { adviceId } = params;
+	const { caseId } = response.locals;
 
-    const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, +adviceId);
 
-    const showSuccessBanner = getSuccessBanner(session);
-    destroySuccessBanner(session);
+	const showSuccessBanner = getSuccessBanner(session);
+	destroySuccessBanner(session);
 
-    response.render(`applications/case-s51/properties/s51-properties`, {
-        s51Advice,
-        showSuccessBanner
-    });
+	response.render(`applications/case-s51/properties/s51-properties`, {
+		s51Advice,
+		showSuccessBanner
+	});
 }
 
 /**
@@ -126,15 +126,15 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function viewApplicationsCaseEditS51Item({ params }, response) {
-    const { caseId, adviceId, step } = params;
+	const { caseId, adviceId, step } = params;
 
-    const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
-    const values = mapS51AdviceToPage(s51Advice);
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const values = mapS51AdviceToPage(s51Advice);
 
-    response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-        adviceId,
-        values
-    });
+	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+		adviceId,
+		values
+	});
 }
 
 /**
@@ -143,26 +143,26 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item({ body, params }, response) {
-    const { adviceId, step } = params;
-    const { caseId } = response.locals;
+	const { adviceId, step } = params;
+	const { caseId } = response.locals;
 
-    const payload = mapUpdateBodyToPayload(body);
+	const payload = mapUpdateBodyToPayload(body);
 
-    let titleUniqueErrors;
-    if (step === 'title' && body.title) {
-        const { errors } = await checkS51NameIsUnique(caseId, body.title);
-        titleUniqueErrors = errors;
-    }
-    const { errors: apiErrors } = await updateS51Advice(caseId, +adviceId, payload);
+	let titleUniqueErrors;
+	if (step === 'title' && body.title) {
+		const { errors } = await checkS51NameIsUnique(caseId, body.title);
+		titleUniqueErrors = errors;
+	}
+	const { errors: apiErrors } = await updateS51Advice(caseId, +adviceId, payload);
 
-    if (titleUniqueErrors || apiErrors) {
-        return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-            adviceId,
-            errors: titleUniqueErrors || apiErrors
-        });
-    }
+	if (titleUniqueErrors || apiErrors) {
+		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+			adviceId,
+			errors: titleUniqueErrors || apiErrors
+		});
+	}
 
-    return response.redirect('../properties');
+	return response.redirect('../properties');
 }
 
 /**
@@ -171,14 +171,14 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
 export async function viewApplicationsCaseS51Upload({ params }, response) {
-    const { adviceId } = params;
-    const { caseId } = response.locals;
+	const { adviceId } = params;
+	const { caseId } = response.locals;
 
-    const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, +adviceId);
 
-    response.render(`applications/case-s51/properties/s51-upload`, {
-        s51Advice
-    });
+	response.render(`applications/case-s51/properties/s51-upload`, {
+		s51Advice
+	});
 }
 
 /**
@@ -187,10 +187,10 @@ export async function viewApplicationsCaseS51Upload({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null}, {}, {}, {}, {step: string}>}
  */
 export async function viewApplicationsCaseS51CreatePage(request, response) {
-    const { session, params } = request;
-    const values = getSessionS51(session);
+	const { session, params } = request;
+	const values = getSessionS51(session);
 
-    response.render(`applications/case-s51/s51-${params.step}`, { values });
+	response.render(`applications/case-s51/s51-${params.step}`, { values });
 }
 
 /**
@@ -199,25 +199,25 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {caseId: object}>}
  */
 export async function updateApplicationsCaseS51CreatePage(request, response) {
-    const { errors: validationErrors, body, session, params } = request;
-    const { caseId } = response.locals;
+	const { errors: validationErrors, body, session, params } = request;
+	const { caseId } = response.locals;
 
-    let apiErrors;
-    if (params.step === 'title' && body.title) {
-        const { errors } = await checkS51NameIsUnique(+caseId, body.title);
-        apiErrors = errors;
-    }
+	let apiErrors;
+	if (params.step === 'title' && body.title) {
+		const { errors } = await checkS51NameIsUnique(+caseId, body.title);
+		apiErrors = errors;
+	}
 
-    if (validationErrors || apiErrors) {
-        return response.render(`applications/case-s51/s51-${params.step}`, {
-            values: body,
-            errors: validationErrors || apiErrors || {}
-        });
-    }
+	if (validationErrors || apiErrors) {
+		return response.render(`applications/case-s51/s51-${params.step}`, {
+			values: body,
+			errors: validationErrors || apiErrors || {}
+		});
+	}
 
-    setSessionS51(session, body);
-    const { nextPage } = createS51Journey[params.step];
-    response.redirect(`../create/${nextPage}`);
+	setSessionS51(session, body);
+	const { nextPage } = createS51Journey[params.step];
+	response.redirect(`../create/${nextPage}`);
 }
 
 /**
@@ -226,17 +226,17 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, documentationCategory: {id: string, displayNameEn: string}}, {}, {}, {}, {folderId: string}>}
  */
 export async function viewApplicationsCaseS51CheckYourAnswers(request, response) {
-    const { session, params } = request;
+	const { session, params } = request;
 
-    const s51Data = getSessionS51(session);
+	const s51Data = getSessionS51(session);
 
-    response.render(`applications/case-s51/s51-check-your-answers`, {
-        values: getCheckYourAnswersRows(s51Data),
-        documentationCategory: {
-            id: params.folderId,
-            displayNameEn: 's51-advice'
-        }
-    });
+	response.render(`applications/case-s51/s51-check-your-answers`, {
+		values: getCheckYourAnswersRows(s51Data),
+		documentationCategory: {
+			id: params.folderId,
+			displayNameEn: 's51-advice'
+		}
+	});
 }
 
 /**
@@ -244,34 +244,34 @@ export async function viewApplicationsCaseS51CheckYourAnswers(request, response)
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {}>}
  */
 export async function postApplicationsCaseS51CheckYourAnswersSave({ body, session }, response) {
-    /** @type {ApplicationsS51CreatePayload} */
-    const payload = {
-        caseId: response.locals.caseId,
-        title: body.title,
-        enquirer: body.enquirer,
-        firstName: body.enquirerFirstName,
-        lastName: body.enquirerLastName,
-        enquiryMethod: body.enquiryMethod,
-        enquiryDate: new Date(body.enquiryDate),
-        enquiryDetails: body.enquiryDetails,
-        adviser: body.adviser,
-        adviceDate: new Date(body.adviceDate),
-        adviceDetails: body.adviceDetails
-    };
+	/** @type {ApplicationsS51CreatePayload} */
+	const payload = {
+		caseId: response.locals.caseId,
+		title: body.title,
+		enquirer: body.enquirer,
+		firstName: body.enquirerFirstName,
+		lastName: body.enquirerLastName,
+		enquiryMethod: body.enquiryMethod,
+		enquiryDate: new Date(body.enquiryDate),
+		enquiryDetails: body.enquiryDetails,
+		adviser: body.adviser,
+		adviceDate: new Date(body.adviceDate),
+		adviceDetails: body.adviceDetails
+	};
 
-    const { errors, newS51Advice } = await createS51Advice(payload);
+	const { errors, newS51Advice } = await createS51Advice(payload);
 
-    if (errors || !newS51Advice?.id) {
-        const s51Data = getSessionS51(session);
-        return response.render(`applications/case-s51/s51-check-your-answers`, {
-            values: getCheckYourAnswersRows(s51Data),
-            errors
-        });
-    }
+	if (errors || !newS51Advice?.id) {
+		const s51Data = getSessionS51(session);
+		return response.render(`applications/case-s51/s51-check-your-answers`, {
+			values: getCheckYourAnswersRows(s51Data),
+			errors
+		});
+	}
 
-    setSuccessBanner(session);
+	setSuccessBanner(session);
 
-    response.redirect(`../../s51-advice/${newS51Advice.id}/properties`);
+	response.redirect(`../../s51-advice/${newS51Advice.id}/properties`);
 }
 
 /**
@@ -280,18 +280,18 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string}>}
  */
 export async function viewApplicationsCaseS51Delete({ params }, response) {
-    const { adviceId, attachmentId } = params;
-    const { caseId } = response.locals;
+	const { adviceId, attachmentId } = params;
+	const { caseId } = response.locals;
 
-    const s51Advice = await getS51Advice(caseId, +adviceId);
-    const attachmentToDelete = s51Advice.attachments.find(
-        (attachment) => attachment.documentGuid === attachmentId
-    );
+	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const attachmentToDelete = s51Advice.attachments.find(
+		(attachment) => attachment.documentGuid === attachmentId
+	);
 
-    response.render('applications/case-s51/s51-delete.njk', {
-        attachment: attachmentToDelete,
-        adviceId: adviceId
-    });
+	response.render('applications/case-s51/s51-delete.njk', {
+		attachment: attachmentToDelete,
+		adviceId: adviceId
+	});
 }
 
 /**
@@ -300,24 +300,24 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {adviceId: string, attachmentId: string}>}
  */
 export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
-    const { adviceId, attachmentId } = params;
-    const { caseId } = response.locals;
+	const { adviceId, attachmentId } = params;
+	const { caseId } = response.locals;
 
-    const { errors: apiErrors } = await deleteCaseDocumentationFile(
-        caseId,
-        attachmentId,
-        'Your item'
-    );
+	const { errors: apiErrors } = await deleteCaseDocumentationFile(
+		caseId,
+		attachmentId,
+		'Your item'
+	);
 
-    if (apiErrors) {
-        return response.render('applications/case-s51/s51-delete.njk', {
-            attachment: body,
-            adviceId: adviceId,
-            errors: apiErrors
-        });
-    }
+	if (apiErrors) {
+		return response.render('applications/case-s51/s51-delete.njk', {
+			attachment: body,
+			adviceId: adviceId,
+			errors: apiErrors
+		});
+	}
 
-    return response.render('applications/case-s51/s51-successfully-deleted');
+	return response.render('applications/case-s51/s51-successfully-deleted');
 }
 
 /**
@@ -326,14 +326,14 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
  * @type {import('@pins/express').RenderHandler<{}, any, {}, {size?: string, number?: string}, {}>}
  */
 export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
-    const { caseId } = response.locals;
+	const { caseId } = response.locals;
 
-    const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
+	const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
 
-    response.render(`applications/case-s51/s51-publishing-queue`, {
-        s51Advices,
-        paginationButtons
-    });
+	response.render(`applications/case-s51/s51-publishing-queue`, {
+		s51Advices,
+		paginationButtons
+	});
 }
 
 /**
@@ -342,25 +342,25 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
  */
 export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
-    { query, params },
-    response
+	{ query, params },
+	response
 ) {
-    const { adviceId } = params;
-    const { caseId } = response.locals;
+	const { adviceId } = params;
+	const { caseId } = response.locals;
 
-    const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
+	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
 
-    if (errors) {
-        const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
+	if (errors) {
+		const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
 
-        return response.render(`applications/case-s51/s51-publishing-queue`, {
-            paginationButtons,
-            s51Advices,
-            errors
-        });
-    }
+		return response.render(`applications/case-s51/s51-publishing-queue`, {
+			paginationButtons,
+			s51Advices,
+			errors
+		});
+	}
 
-    return response.redirect('../../');
+	return response.redirect('../../');
 }
 
 /**
@@ -370,12 +370,12 @@ export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
  * @returns {Promise<{items: S51AdvicePaginatedResponse, pagination: null | PaginationParams }>}
  */
 const getS51FolderData = async (caseId, query) => {
-    const { pageNumber, pageSize } = getIntegerRequestQuery(query, 50);
+	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 50);
 
-    const items = await getS51FilesInFolder(caseId, pageNumber, pageSize);
-    const pagination = paginationParams(pageSize, pageNumber, items.pageCount);
+	const items = await getS51FilesInFolder(caseId, pageNumber, pageSize);
+	const pagination = paginationParams(pageSize, pageNumber, items.pageCount);
 
-    return { items, pagination };
+	return { items, pagination };
 };
 
 /**
@@ -385,12 +385,11 @@ const getS51FolderData = async (caseId, query) => {
  * @returns {Promise<{s51Advices: S51AdvicePaginatedResponse, paginationButtons: null | Buttons }>}
  */
 const getS51PublishinQueueData = async (caseId, query) => {
-    const { pageNumber, pageSize } = getIntegerRequestQuery(query, 25);
+	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 25);
 
-    const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
 
-    const pagination = paginationParams(pageSize, pageNumber, s51Advices.pageCount);
+	const pagination = paginationParams(pageSize, pageNumber, s51Advices.pageCount);
 
-    return { s51Advices, paginationButtons: pagination?.buttons || null };
+	return { s51Advices, paginationButtons: pagination?.buttons || null };
 };
-

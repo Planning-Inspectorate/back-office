@@ -29,7 +29,7 @@ const instance = got.extend({
  */
 
 /**
- * Type-safe implementation of a post request using the got instance.
+ * Type-safe implementation of a HEAD request using the got instance.
  *
  * @template T
  * @param {string | URL} url
