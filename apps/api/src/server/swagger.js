@@ -281,43 +281,6 @@ export const spec = {
 			endTime: '12:20',
 			submissions: true
 		},
-		S51AdviceRequestBody: {
-			caseId: 29,
-			title: 'title',
-			firstName: 'first name',
-			lastName: 'last name',
-			enquirer: 'organisation',
-			enquiryMethod: 'meeting',
-			enquiryDate: '2023-01-11T00:00:00.000Z',
-			enquiryDetails: 'title',
-			adviser: 'person',
-			adviceDate: '2023-02-11T00:00:00.000Z',
-			adviceDetails: 'title',
-			referenceNumber: 1,
-			redactedStatus: 'redacted',
-			publishedStatus: 'not_checked',
-			createdAt: '2023-08-07T09:13:15.593Z',
-			updatedAt: '2023-08-07T09:13:15.593Z'
-		},
-		S51AdviceResponseBody: {
-			id: 1,
-			caseId: 29,
-			title: 'title',
-			firstName: 'first name',
-			lastName: 'last name',
-			enquirer: 'organisation',
-			enquiryMethod: 'meeting',
-			enquiryDate: '2023-01-11T00:00:00.000Z',
-			enquiryDetails: 'title',
-			adviser: 'person',
-			adviceDate: '2023-02-11T00:00:00.000Z',
-			adviceDetails: 'title',
-			referenceNumber: 1,
-			redactedStatus: 'redacted',
-			publishedStatus: 'not_checked',
-			createdAt: '2023-08-07T09:13:15.593Z',
-			updatedAt: '2023-08-07T09:13:15.593Z'
-		},
 		documentsPropertiesRequestBody: {
 			version: 1,
 			createdAt: '2023-02-27T10:00:00Z',
@@ -1410,25 +1373,121 @@ export const spec = {
 				}
 			}
 		},
-		S51AdvicePublishItems: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					publishAll: {
-						type: 'boolean',
-						description: 'Whether to publish all items in the queue',
-						example: false
-					},
-					ids: {
-						type: 'array',
-						description: 'Array of ids to publish',
-						items: { type: 'string', example: '1' }
-					}
+		S51AdviceDocumentDetails: {
+			type: 'object',
+			properties: {
+				documentName: {
+					type: 'string',
+					description: 'Document name',
+					example: 'Small9'
+				},
+				documentType: {
+					type: 'string',
+					description: 'Document mime type',
+					example: 'application/pdf'
+				},
+				documentSize: {
+					type: 'number',
+					description: 'Size of the document in bytes',
+					example: 7945
+				},
+				dateAdded: {
+					type: 'number',
+					description: 'Date document was added',
+					example: 1694179427
+				},
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'not_checked'
+				},
+				documentGuid: {
+					type: 'string',
+					description: 'GUID of the document in the Document table',
+					example: '742f3ba1-c80a-4f76-81c2-5a4627d6ac00'
+				},
+				version: {
+					type: 'number',
+					description: 'Document version number',
+					example: 1
 				}
 			}
 		},
-		S51AdviceCreateResponseBody: {
+		S51AdviceDetails: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
+				referenceNumber: {
+					type: 'string',
+					description: 'Advice reference 5 digits number',
+					example: '00001'
+				},
+				referenceCode: {
+					type: 'string',
+					description: 'Advice reference number containing Case ref number',
+					example: 'EN010001-Advice-00001'
+				},
+				title: {
+					type: 'string',
+					description: 'Advice title',
+					example: 'Advice regarding right to roam'
+				},
+				enquirer: {
+					type: 'string',
+					description: 'Name of enquiring company / organisation',
+					example: 'New Power Plc'
+				},
+				firstName: { type: 'string', description: 'First name of enquirer', example: 'John' },
+				lastName: { type: 'string', description: 'Last name of enquirer', example: 'Keats' },
+				enquiryMethod: {
+					type: 'string',
+					enum: ['phone', 'email', 'meeting', 'post'],
+					description: 'Enquiry method',
+					example: 'email'
+				},
+				enquiryDate: { type: 'number', description: 'Date of enquiry', example: 1_646_822_400 },
+				enquiryDetails: {
+					type: 'string',
+					description: 'Details of the enquiry',
+					example: 'details of the advice sought'
+				},
+				adviser: {
+					type: 'string',
+					description: 'Name of who gave the advice',
+					example: 'John Caseworker-Smith'
+				},
+				adviceDate: { type: 'number', description: 'Date advice given', example: 1_646_822_400 },
+				adviceDetails: {
+					type: 'string',
+					description: 'Details of the advive given',
+					example: 'details of the advice provided'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				},
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'published'
+				},
+				dateCreated: {
+					type: 'number',
+					description: 'Date advice record was created',
+					example: 1_646_822_400
+				},
+				dateUpdated: {
+					type: 'number',
+					description: 'Date advice record was last updated',
+					example: 1_646_822_400
+				}
+			}
+		},
+		S51AdviceDetailsWithCaseId: {
 			type: 'object',
 			properties: {
 				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
@@ -1509,7 +1568,7 @@ export const spec = {
 				}
 			}
 		},
-		S51AdviceDetails: {
+		S51AdviceDetailsWithDocumentDetails: {
 			type: 'object',
 			properties: {
 				id: { type: 'integer', description: 'The S51 Advice record id', example: 1 },
@@ -1579,6 +1638,15 @@ export const spec = {
 					type: 'number',
 					description: 'Date advice record was last updated',
 					example: 1_646_822_400
+				},
+				attachments: {
+					type: 'array',
+					items: { $ref: '#/definitions/S51AdviceDocumentDetails' }
+				},
+				totalAttachments: {
+					type: 'number',
+					description: 'Total S51 Documents attached to this advice',
+					example: 1
 				}
 			}
 		},
@@ -1608,6 +1676,35 @@ export const spec = {
 				items: {
 					type: 'array',
 					items: { $ref: '#/definitions/S51AdviceDetails' }
+				}
+			}
+		},
+		S51AdvicePaginatedResponseWithDocumentDetails: {
+			type: 'object',
+			properties: {
+				page: {
+					type: 'integer',
+					description: 'The page number required',
+					example: 1
+				},
+				pageDefaultSize: {
+					type: 'integer',
+					description: 'The default number of S51 Advice per page',
+					example: 50
+				},
+				pageCount: {
+					type: 'integer',
+					description: 'The total number of pages',
+					example: 1
+				},
+				itemCount: {
+					type: 'integer',
+					description: 'The total number of s51 Advice records on the case',
+					example: 1
+				},
+				items: {
+					type: 'array',
+					items: { $ref: '#/definitions/S51AdviceDetailsWithDocumentDetails' }
 				}
 			}
 		},
@@ -1675,9 +1772,9 @@ export const spec = {
 			type: 'object',
 			properties: {
 				id: {
-					type: 'integer',
+					type: 'string',
 					description: 'The S51 Advice record id',
-					example: 1
+					example: '1'
 				},
 				status: {
 					type: 'string',

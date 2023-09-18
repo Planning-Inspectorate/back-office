@@ -104,7 +104,7 @@ export const getS51Advice = async (_request, response) => {
 /**
  * Gets paginated array of S51 Advice records on a case
  *
- * @type {import('express').RequestHandler<{ id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ * @type {import('express').RequestHandler<{ id: number }, ?, {page?: number, pageSize?: number}, any>}
  */
 export const getManyS51Advices = async ({ params, query }, response) => {
 	const { id } = params;
@@ -441,7 +441,7 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 	});
 
 	response.send(updatedS51Advice);
-}
+};
 
 /**
  * Checks whether passed s51 title is unique to this case. Test is case-insensitive, and search string is trimmed.
