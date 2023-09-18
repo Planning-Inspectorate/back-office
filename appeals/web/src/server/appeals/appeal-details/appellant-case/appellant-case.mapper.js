@@ -6,8 +6,8 @@ import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 import { mapFolder } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 
 /**
- * @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason
- * @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
+ * @typedef {import('./appellant-case.service.js').AppellantCaseInvalidIncompleteReasonOption} AppellantCaseInvalidIncompleteReasonOption
+ * @typedef {import('./appellant-case.service.js').AppellantCaseInvalidIncompleteReason} AppellantCaseInvalidIncompleteReason
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
@@ -34,15 +34,13 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData, per
 
 /**
  *
- * @param {AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
+ * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {string} [otherNotValidReasons]
  * @returns {string[]}
  */
-function mapInvalidOrIncompleteReasonsToReasonsList(
+function mapInvalidOrIncompleteReasonsToList(
 	invalidOrIncompleteReasonOptions,
-	invalidOrIncompleteReasons,
-	otherNotValidReasons
+	invalidOrIncompleteReasons
 ) {
 	const reasons = Array.isArray(invalidOrIncompleteReasons)
 		? invalidOrIncompleteReasons
@@ -57,8 +55,9 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
 				if (!option) {
 					throw new Error('invalid or incomplete reason ID was not recognised');
 				}
-				const name = option.name;
-				return name.toLowerCase() === 'other' ? `${name}: ${otherNotValidReasons || ''}` : name;
+
+				// TODO: BOAT-494: text associated with each reason should also be rendered here (nested unordered list?)
+				return option.name;
 			}) || ['']
 	);
 }
@@ -66,10 +65,9 @@ function mapInvalidOrIncompleteReasonsToReasonsList(
 /**
  *
  * @param {number} appealId
- * @param {AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]} invalidOrIncompleteReasonOptions
+ * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {string} [otherNotValidReasons]
  * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */
@@ -78,7 +76,6 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 	invalidOrIncompleteReasonOptions,
 	validationOutcome,
 	invalidOrIncompleteReasons,
-	otherNotValidReasons,
 	updatedDueDate
 ) {
 	if (
@@ -89,10 +86,9 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 		throw new Error(`validationOutcome "${validationOutcome}" requires invalidOrIncompleteReasons`);
 	}
 
-	const reasonsList = mapInvalidOrIncompleteReasonsToReasonsList(
+	const reasonsList = mapInvalidOrIncompleteReasonsToList(
 		invalidOrIncompleteReasonOptions,
-		invalidOrIncompleteReasons,
-		otherNotValidReasons
+		invalidOrIncompleteReasons
 	);
 
 	const validationOutcomeAsString = String(validationOutcome);
@@ -146,14 +142,12 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 /**
  *
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
- * @param {string|string[]} invalidOrIncompleteReasons
- * @param {string} [otherNotValidReasons]
+ * @param {AppellantCaseInvalidIncompleteReason[]} invalidOrIncompleteReasons
  * @returns {NotificationBannerComponentParameters}
  */
 export function mapReviewOutcomeToNotificationBannerComponentParameters(
 	validationOutcome,
-	invalidOrIncompleteReasons,
-	otherNotValidReasons
+	invalidOrIncompleteReasons
 ) {
 	if (!Array.isArray(invalidOrIncompleteReasons)) {
 		invalidOrIncompleteReasons = [invalidOrIncompleteReasons];
@@ -162,10 +156,11 @@ export function mapReviewOutcomeToNotificationBannerComponentParameters(
 	return {
 		titleText: `Appeal is ${String(validationOutcome)}`,
 		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${invalidOrIncompleteReasons
-			.map((reason) =>
-				reason.toLowerCase() === 'other'
-					? `<li>${reason}: ${otherNotValidReasons}</li>`
-					: `<li>${reason}</li>`
+			.map(
+				(reason) =>
+					`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
+						reason?.text?.length ? mapReasonTextToUnorderedList(reason?.text) : ''
+					}`
 			)
 			.join('')}</ul>`
 	};
@@ -173,11 +168,22 @@ export function mapReviewOutcomeToNotificationBannerComponentParameters(
 
 /**
  *
- * @param {AppellantCaseInvalidReason[]|AppellantCaseInvalidReason[]} invalidOrIncompleteReasonOptions
+ * @param {string[]} reasonText
+ * @returns {string}
+ */
+function mapReasonTextToUnorderedList(reasonText) {
+	return `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">
+		${reasonText.map((textItem) => `<li>${textItem}</li>`)}
+	</ul>`;
+}
+
+/**
+ *
+ * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
  * @param {string[]|number[]} [checkedOptionValues]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
-export function mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
+export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	invalidOrIncompleteReasonOptions,
 	checkedOptionValues
 ) {
@@ -202,14 +208,12 @@ export function mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
  *
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {string} [otherNotValidReasons]
  * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {import('./appellant-case.service.js').AppellantCaseReviewOutcome}
  */
 export function mapWebReviewOutcomeToApiReviewOutcome(
 	validationOutcome,
 	invalidOrIncompleteReasons,
-	otherNotValidReasons,
 	updatedDueDate
 ) {
 	let parsedReasons;
@@ -227,10 +231,19 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 	return {
 		validationOutcome: String(validationOutcome),
 		...(validationOutcome === appellantCaseReviewOutcomes.invalid &&
-			invalidOrIncompleteReasons && { invalidReasons: parsedReasons }),
+			invalidOrIncompleteReasons && {
+				invalidReasons: parsedReasons?.map((reason) => ({
+					id: reason,
+					text: []
+				}))
+			}),
 		...(validationOutcome === appellantCaseReviewOutcomes.incomplete &&
-			invalidOrIncompleteReasons && { incompleteReasons: parsedReasons }),
-		...(otherNotValidReasons && { otherNotValidReasons }),
+			invalidOrIncompleteReasons && {
+				incompleteReasons: parsedReasons?.map((reason) => ({
+					id: reason,
+					text: []
+				}))
+			}),
 		...(updatedDueDate && {
 			appealDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})

@@ -57,8 +57,7 @@ const renderAppellantCase = async (request, response) => {
 				existingValidationOutcome,
 				existingValidationOutcome === appellantCaseReviewOutcomes.invalid
 					? appellantCaseResponse.validation?.invalidReasons
-					: appellantCaseResponse.validation?.incompleteReasons,
-				appellantCaseResponse.validation?.otherNotValidReasons
+					: appellantCaseResponse.validation?.incompleteReasons
 			);
 		}
 
@@ -99,10 +98,11 @@ const renderCheckAndConfirm = async (request, response) => {
 
 		const { appealId, appealReference, webAppellantCaseReviewOutcome } = request.session;
 
-		const reasonOptions = await appellantCaseService.getAppellantCaseNotValidReasonsForOutcome(
-			request.apiClient,
-			webAppellantCaseReviewOutcome.validationOutcome
-		);
+		const reasonOptions =
+			await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
+				request.apiClient,
+				webAppellantCaseReviewOutcome.validationOutcome
+			);
 		if (!reasonOptions) {
 			throw new Error('error retrieving invalid reason options');
 		}
@@ -112,7 +112,6 @@ const renderCheckAndConfirm = async (request, response) => {
 			reasonOptions,
 			webAppellantCaseReviewOutcome.validationOutcome,
 			webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
-			webAppellantCaseReviewOutcome.otherNotValidReasons,
 			webAppellantCaseReviewOutcome.updatedDueDate
 		);
 		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
@@ -223,7 +222,6 @@ export const postCheckAndConfirm = async (request, response) => {
 			mapWebReviewOutcomeToApiReviewOutcome(
 				webAppellantCaseReviewOutcome.validationOutcome,
 				webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
-				webAppellantCaseReviewOutcome.otherNotValidReasons,
 				webAppellantCaseReviewOutcome.updatedDueDate
 			)
 		);
