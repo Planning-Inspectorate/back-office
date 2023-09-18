@@ -119,6 +119,10 @@ export const publishCase = async ({ params: { id } }, response) => {
 		caseId: id
 	});
 
+	if (!publishedCase) {
+		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
+	}
+
 	await eventClient.sendEvents(
 		NSIP_PROJECT,
 		[buildNsipProjectPayload(publishedCase)],
