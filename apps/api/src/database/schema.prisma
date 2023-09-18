@@ -398,6 +398,7 @@ model Subscription {
   emailAddress  String
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
+  // TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
   caseReference String
 
   // what has been subscribed to
@@ -456,9 +457,9 @@ model ProjectUpdate {
   title             String?
   // the content of this project update, which can include HTML and must be santised before entry into the database
   // it can only include <a> <b> <ul> <li> tags
-  htmlContent       String
+  htmlContent       String    @db.VarChar(8000)
   // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
-  htmlContentWelsh  String?
+  htmlContentWelsh  String?   @db.VarChar(8000)
   // the type of update - which determines which subscribers will recieve the notification emails
   // of type SubscriptionType
   type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
