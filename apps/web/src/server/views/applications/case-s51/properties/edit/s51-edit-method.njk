@@ -1,15 +1,14 @@
-{% extends "../../../layouts/applications.layout.njk" %}
+{% extends "../../../layouts/s51-edit.layout.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block beforeContent %}
-	{{ govukBackLink({
-		text: "Back to S51 advice",
-    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
-	}) }}
+{% block formHeading %}
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    Edit enquiry method
+  </h1>
 {% endblock %}
-{% block pageHeading %}{% endblock %}
-{% block pageContent %}
+
+{% block formContent %}
 	{% set methodsItems = [
 		{
 			value: 'phone',
@@ -27,19 +26,13 @@
 	]
  	%}
 
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Edit enquiry method
-  </h1>
-  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
-		{{ govukRadios({
-			name: 'enquiryMethod',
-			id: 'enquiryMethod',
+  {{ govukRadios({
+    name: 'enquiryMethod',
+    id: 'enquiryMethod',
 
-			items: methodsItems,
-			errorMessage: errors.enquiryMethod,
-			items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})
+    items: methodsItems,
+    errorMessage: errors.enquiryMethod,
+    items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})
 
-		}) }}
-    {{ govukButton({ text: 'Save and return'}) }}
-  </form>
+  }) }}
 {% endblock %}

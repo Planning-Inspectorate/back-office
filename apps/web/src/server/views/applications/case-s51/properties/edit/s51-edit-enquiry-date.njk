@@ -1,29 +1,22 @@
-{% extends "../../../layouts/applications.layout.njk" %}
+{% extends "../../../layouts/s51-edit.layout.njk" %}
 {% from '../../../components/inputs/date-input.component.njk' import dateInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block beforeContent %}
-	{{ govukBackLink({
-		text: "Back to S51 advice",
-    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
-	}) }}
-{% endblock %}
-{% block pageHeading %}{% endblock %}
-{% block pageContent %}
+{% block formHeading %}
 	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
     Edit enquiry date
 	</h1>
-  <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-2">
-    {{ dateInput({
-      layout: {
-        fieldName: 'enquiryDate',
-        label: 'Enquiry date',
-        classes: 'govuk-grid-column-one-third',
-        hint: 'For example, 01 02 2000'
-      },
-      errors: errors,
-      values: values
-    }) }}
-		{{ govukButton({ text: 'Save and return' }) }}
-  </form>
+{% endblock %}
+
+{% block formContent %}
+  {{ dateInput({
+    layout: {
+      fieldName: 'enquiryDate',
+      label: 'Enquiry date',
+      classes: 'govuk-grid-column-one-third',
+      hint: 'For example, 01 02 2000'
+    },
+    errors: errors,
+    values: values
+  }) }}
 {% endblock %}
