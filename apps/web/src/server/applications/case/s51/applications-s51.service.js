@@ -42,20 +42,21 @@ export const createS51Advice = async (payload) => {
  * @param {number} caseId
  * @param {number} adviceId
  * @param {ApplicationsS51UpdatePayload} payload
- * @returns {Promise<S51Advice>}
+ * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
 export const updateS51Advice = async (caseId, adviceId, payload) => {
-	// TODO: use the same structure of other APIs
-
+	let response;
 	try {
-		return await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
+		response = await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
 	} catch (/** @type {*} */ error) {
-		// TODO: use usual generic error
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		// TODO: return a validation error
-		throw error;
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
 	}
+
+	return response;
 };
 
 /**
@@ -63,19 +64,23 @@ export const updateS51Advice = async (caseId, adviceId, payload) => {
  *
  * @param {number} caseId
  * @param {ApplicationsS51ChangeStatusBody} payload
- * @returns {Promise<S51Advice>}
+ * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
 export const updateS51AdviceStatus = async (caseId, payload) => {
+	let response;
+
 	try {
-		return await patch(`applications/${caseId}/s51-advice/`, { json: payload });
+		response = await patch(`applications/${caseId}/s51-advice/`, { json: payload });
 	} catch (/** @type {*} */ error) {
+		console.log(error);
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		return new Promise((resolve) => {
-			// @ts-ignore
-			resolve({ errors: error?.response?.body?.errors || [] });
+		response = new Promise((resolve) => {
+			resolve({ errors: 'That advice title already exists on this project.  Enter a new title.' });
 		});
 	}
+
+	return response;
 };
 
 /**
@@ -132,14 +137,26 @@ export const getS51Advice = async (caseId, adviceId) => {
  * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
-	get(`applications/${caseId}/s51-advice`, {
-		searchParams: {
-			page: pageNumber,
-			pageSize
-		}
-	});
+export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) => {
+	let response;
 
+	try {
+		response = await get(`applications/${caseId}/s51-advice`, {
+			searchParams: {
+				page: pageNumber,
+				pageSize
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve([]);
+		});
+	}
+
+	return response;
+};
 /**
  * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
  *

@@ -45,7 +45,7 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/:adviceId/edit/:step')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseEditS51Item))
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseEditS51Item))
 	.post(asyncRoute(controller.postApplicationsCaseEditS51Item));
 
 applicationsS51Router
