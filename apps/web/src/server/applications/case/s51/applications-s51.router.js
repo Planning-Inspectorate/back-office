@@ -21,7 +21,7 @@ applicationsS51Router
 	.route('/change-status')
 	.post(
 		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
-		asyncRoute(controller.changeAdviceStatus)
+		asyncRoute(controller.updateApplicationsCaseS51ItemStatus)
 	);
 
 applicationsS51Router

@@ -119,10 +119,32 @@ describe('S51 Advice', () => {
 					expect(element.innerHTML).toContain('You must enter a S51 advice title');
 				});
 
-				it('Should go to next page if title is provided', async () => {
+				it('Should display error if s51 with the same title already exists', async () => {
+					nock('http://test/').head('/applications/123/title/').reply(200, []);
+					const title = 'existing title';
+					const urlTitle = title.trim().replace(/\s/g, '%20');
+
+					nock('http://test/')
+						.head(`/applications/123/s51-advice/title-unique/${urlTitle}`)
+						.reply(500, []);
+
 					const response = await request
 						.post(`${baseUrl}/create/title`)
-						.send({ title: 'sent s51 title' });
+						.send({ title: 'existing title' });
+
+					const element = parseHtml(response.text);
+					expect(element.innerHTML).toContain('Enter a new title');
+				});
+
+				it('Should go to next page if title is provided', async () => {
+					const title = 'sent s51 title';
+					const urlTitle = title.trim().replace(/\s/g, '%20');
+
+					nock('http://test/')
+						.head(`/applications/123/s51-advice/title-unique/${urlTitle}`)
+						.reply(200, []);
+
+					const response = await request.post(`${baseUrl}/create/title`).send({ title });
 
 					expect(response?.headers?.location).toEqual('../create/enquirer');
 

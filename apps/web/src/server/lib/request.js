@@ -36,6 +36,18 @@ const instance = got.extend({
  * @param {import('got').OptionsOfJSONResponseBody=} options
  * @returns {import('got').CancelableRequest<T>}
  */
+export function head(url, options) {
+	return /** @type {import('got').CancelableRequest<*>} */ (instance.head(url, options));
+}
+
+/**
+ * Type-safe implementation of a post request using the got instance.
+ *
+ * @template T
+ * @param {string | URL} url
+ * @param {import('got').OptionsOfJSONResponseBody=} options
+ * @returns {import('got').CancelableRequest<T>}
+ */
 export function get(url, options) {
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.get(url, options));
 }
