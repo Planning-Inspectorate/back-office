@@ -43,6 +43,9 @@ export const mapS51Advice = (caseRef, s51Advice, attachments) => {
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
 		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString()),
 		attachments,
+		datePublished: s51Advice?.datePublished
+			? mapDateStringToUnixTimestamp(s51Advice?.datePublished?.toString())
+			: null,
 		totalAttachments: attachments?.length
 	};
 };
