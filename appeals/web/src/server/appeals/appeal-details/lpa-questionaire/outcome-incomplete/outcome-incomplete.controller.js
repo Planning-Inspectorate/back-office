@@ -1,9 +1,10 @@
-import logger from '../../../../lib/logger.js';
+import logger from '#lib/logger.js';
 import { mapIncompleteReasonsToCheckboxItemParameters } from '../lpa-questionnaire.mapper.js';
 import { getLPAQuestionnaireIncompleteReasons } from '../lpa-questionnaire.service.js';
-import { objectContainsAllKeys } from '../../../../lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '../../../../lib/id-name-pairs.js';
-import { webDateToDisplayDate, dateToDisplayDate } from '../../../../lib/dates.js';
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
+import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
+import { webDateToDisplayDate, dateToDisplayDate } from '#lib/dates.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -44,12 +45,10 @@ const renderIncompleteReason = async (request, response) => {
 			incompleteReasons
 		);
 
-		const appealReferenceFragments = appealReference.split('/');
-
 		return response.render('appeals/appeal/lpa-questionnaire-incomplete.njk', {
 			appeal: {
 				id: appealId,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealReference)
 			},
 			lpaQuestionnaireId,
 			reasonOptions: mappedIncompleteReasonOptions,
@@ -83,12 +82,10 @@ const renderUpdateDueDate = async (request, response) => {
 
 	const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
-	const appealReferenceFragments = appealReference.split('/');
-
 	return response.render('appeals/appeal/update-due-date.njk', {
 		appeal: {
 			id: appealId,
-			shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+			shortReference: appealShortReference(appealReference)
 		},
 		sideNote,
 		page: {

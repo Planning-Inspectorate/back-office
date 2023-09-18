@@ -9,7 +9,8 @@ import {
 	updateManyS51Advices,
 	updateS51Advice,
 	getReadyToPublishAdvices,
-    removePublishItemFromQueue
+    removePublishItemFromQueue,
+	verifyS51TitleIsUnique
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -298,6 +299,42 @@ router.post(
 		}
     */
 	asyncHandler(removePublishItemFromQueue)
+);
+
+router.head(
+	'/:id/s51-advice/title-unique/:title',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/title-unique/{title}'
+        #swagger.description = 'Checks whether an S51 title is unique to this case'
+         #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application case ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['title'] = {
+            in: 'path',
+			description: 'S51 Title',
+			required: true,
+			type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'valid unique S51 Advice title',
+            schema: null
+        }
+		#swagger.responses[400] = {
+            description: 'Error: Bad Request - title is not unique',
+            schema: null
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found - invalid case id',
+			schema: null
+        }
+
+    */
+	validateApplicationId,
+	asyncHandler(verifyS51TitleIsUnique)
 );
 
 export { router as s51AdviceRoutes };

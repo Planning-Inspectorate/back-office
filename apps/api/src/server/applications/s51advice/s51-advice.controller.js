@@ -418,10 +418,10 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 };
 
 /**
- * 
- * @param {*} body 
- * @param {*} response 
- * @returns 
+ *
+ * @param {*} body
+ * @param {*} response
+ * @returns
  */
 export const removePublishItemFromQueue = async ({ body }, response) => {
 	const adviceId = Number(body.adviceId);
@@ -438,3 +438,19 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 
 	response.send(updatedS51Advice);
 }
+
+/**
+ * Checks whether passed s51 title is unique to this case. Test is case-insensitive, and search string is trimmed.
+ *
+ * @type {import('express').RequestHandler<{id: number, title: string}, any, any, any>}
+ */
+export const verifyS51TitleIsUnique = async ({ params }, response) => {
+	const { id, title } = params;
+	const existingAdvice = await s51AdviceRepository.getS51AdviceManyByTitle(id, title.trim());
+
+	if (existingAdvice && existingAdvice.length > 0) {
+		throw new BackOfficeAppError(`Title already exists`, 400);
+	}
+
+	response.send({ title: title.trim() });
+};

@@ -1,5 +1,6 @@
 import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
+import { notificationBanners as notificationBannerConstants } from '#appeals/appeal.constants.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -8,30 +9,12 @@ export const backLink = {
 export const pageHeading = 'Case details';
 
 /**
- * @param {{appeal: any;}} data
+ * @param {{appeal: any}} data
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  */
-export function appealsDetailPage(data, currentRoute, session) {
-	const mappedData = initialiseAndMapAppealData(data, currentRoute);
-
-	/** @type {{type: string, bannerProperties: any[]}} */
-	const notificationBanners = {
-		type: 'notification-banner',
-		bannerProperties: []
-	};
-
-	if (session.siteVisitTypeSelected) {
-		notificationBanners.bannerProperties.push({
-			titleText: 'Success',
-			titleHeadingLevel: 3,
-			type: 'success',
-			text: 'Site visit type has been selected'
-		});
-
-		delete session.siteVisitTypeSelected;
-	}
-
+export async function appealDetailsPage(data, currentRoute, session) {
+	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
 	const statusTag = { type: 'status-tag', ...mappedData.appeal.appealStatus.display.statusTag };
 
 	const caseSummary = {
@@ -181,8 +164,57 @@ export function appealsDetailPage(data, currentRoute, session) {
 			item.rows.forEach((row) => removeActions(row));
 		}
 	});
-	let pageItems = [notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
-	return pageItems;
+
+	const notificationBanners = buildNotificationBanners(session);
+
+	return [...notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
+}
+
+/**
+ * @typedef NotificationBannerPageComponent
+ * @property {string} type
+ * @property {NotificationBannerProperties} bannerProperties
+ */
+
+/**
+ *
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @returns {NotificationBannerPageComponent[]}
+ */
+function buildNotificationBanners(session) {
+	/**
+	 * @type {NotificationBannerPageComponent[]}
+	 */
+	const notificationBanners = [];
+
+	Object.keys(session).forEach((key) => {
+		if (Object.keys(notificationBannerConstants).indexOf(key) !== -1) {
+			const bannerConstant = notificationBannerConstants[key];
+			let titleText = '';
+
+			switch (bannerConstant.type) {
+				case 'success':
+					titleText = 'Success';
+					break;
+				default:
+					break;
+			}
+
+			notificationBanners.push({
+				type: 'notification-banner',
+				bannerProperties: {
+					titleText,
+					titleHeadingLevel: 3,
+					type: bannerConstant.type,
+					text: bannerConstant.text
+				}
+			});
+
+			delete session[key];
+		}
+	});
+
+	return notificationBanners;
 }
 
 /**

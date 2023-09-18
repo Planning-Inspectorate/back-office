@@ -1,12 +1,11 @@
-import { ProjectUpdatesMigration } from './src/project-updates-migration.js';
+import { migrateProjectUpdates } from './src/project-updates-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async function (context, req) {
-	console.info(JSON.stringify(req));
+export default async function (context, { body: { caseReferences } }) {
+	console.info('Migrating project updates for', JSON.stringify(caseReferences));
 
-	const handler = new ProjectUpdatesMigration();
-	await handler.handleRequest(context, req);
+	await migrateProjectUpdates(context.log, caseReferences);
 }

@@ -22,8 +22,8 @@ export interface Appeal {
 	appellantCaseId: number;
 	healthAndSafety: AppealHealthAndSafety;
 	procedureType: string;
-	caseOfficer?: Contact;
-	inspector?: Contact;
+	caseOfficer?: string;
+	inspector?: string;
 	developmentType: string;
 	decision?: string;
 	eventType: string;

@@ -4,6 +4,7 @@ import * as appellantCaseService from '../appellant-case.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -44,12 +45,10 @@ const renderIncompleteReason = async (request, response) => {
 			incompleteReasons
 		);
 
-		const appealReferenceFragments = appealReference.split('/');
-
 		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
 			appeal: {
 				id: appealId,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealReference)
 			},
 			notValidStatus: appellantCaseReviewOutcomes.incomplete,
 			reasonOptions: mappedIncompleteReasonOptions,
@@ -75,12 +74,11 @@ const renderUpdateDueDate = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
-	const appealReferenceFragments = appealReference.split('/');
 
 	return response.render('appeals/appeal/update-due-date.njk', {
 		appeal: {
 			id: appealId,
-			shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+			shortReference: appealShortReference(appealReference)
 		},
 		page: {
 			title: 'Appellant case due date',

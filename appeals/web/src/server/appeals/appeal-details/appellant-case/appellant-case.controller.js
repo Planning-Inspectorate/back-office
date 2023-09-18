@@ -1,4 +1,4 @@
-import logger from '../../../lib/logger.js';
+import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from './appellant-case.service.js';
 import {
@@ -7,9 +7,10 @@ import {
 	mapReviewOutcomeToSummaryListBuilderParameters,
 	mapReviewOutcomeToNotificationBannerComponentParameters
 } from './appellant-case.mapper.js';
-import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
-import { objectContainsAllKeys } from '../../../lib/object-utilities.js';
+import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -24,7 +25,6 @@ const renderAppellantCase = async (request, response) => {
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
-		const appealReferenceFragments = appealDetails?.appealReference.split('/');
 		const formattedSiteAddress = appealDetails?.appealSite
 			? Object.values(appealDetails?.appealSite)?.join(', ')
 			: 'Address not known';
@@ -66,7 +66,7 @@ const renderAppellantCase = async (request, response) => {
 			appeal: {
 				id: appealDetails?.appealId,
 				reference: appealDetails?.appealReference,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1],
+				shortReference: appealShortReference(appealDetails?.appealReference),
 				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
 				localPlanningAuthority: appealDetails?.localPlanningDepartment
 			},
@@ -107,7 +107,6 @@ const renderCheckAndConfirm = async (request, response) => {
 			throw new Error('error retrieving invalid reason options');
 		}
 
-		const appealReferenceFragments = appealReference.split('/');
 		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
 			appealId,
 			reasonOptions,
@@ -121,7 +120,7 @@ const renderCheckAndConfirm = async (request, response) => {
 		return response.render('app/check-and-confirm.njk', {
 			appeal: {
 				id: appealId,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealReference)
 			},
 			page: {
 				title: 'Check answers'

@@ -6,10 +6,11 @@ import {
 	mapWebReviewOutcomeToApiReviewOutcome,
 	pageHeading
 } from './lpa-questionnaire.mapper.js';
-import { generateSummaryList } from '../../../lib/nunjucks-template-builders/summary-list-builder.js';
-import logger from '../../../lib/logger.js';
+import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
+import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
-import { objectContainsAllKeys } from '../../../lib/object-utilities.js';
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -35,7 +36,7 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 
 	if (lpaQuestionnaire && appealDetails) {
 		const currentUrl = request.originalUrl;
-		const pageComponents = lpaQuestionnairePage(
+		const pageComponents = await lpaQuestionnairePage(
 			{ lpaQ: lpaQuestionnaire },
 			{ appeal: appealDetails },
 			currentUrl,
@@ -186,7 +187,6 @@ const renderCheckAndConfirm = async (request, response) => {
 			throw new Error('error retrieving invalid reason options');
 		}
 
-		const appealReferenceFragments = appealReference.split('/');
 		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
 			reasonOptions,
 			'incomplete',
@@ -199,7 +199,7 @@ const renderCheckAndConfirm = async (request, response) => {
 		return response.render('app/check-and-confirm.njk', {
 			appeal: {
 				id: appealId,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealReference)
 			},
 			page: {
 				title: 'Check answers'

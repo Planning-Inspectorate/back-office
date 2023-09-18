@@ -4,6 +4,7 @@ import { mapInvalidOrIncompleteReasonsToCheckboxItemParameters } from '../appell
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -44,12 +45,10 @@ const renderInvalidReason = async (request, response) => {
 			invalidReasons
 		);
 
-		const appealReferenceFragments = appealReference.split('/');
-
 		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
 			appeal: {
 				id: appealId,
-				shortReference: appealReferenceFragments?.[appealReferenceFragments.length - 1]
+				shortReference: appealShortReference(appealReference)
 			},
 			notValidStatus: appellantCaseReviewOutcomes.invalid,
 			reasonOptions: mappedInvalidReasonOptions,

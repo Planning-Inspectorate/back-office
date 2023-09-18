@@ -10,6 +10,7 @@
   "dependencies": {
     "@pins/platform": "^0.0.0",
     "dotenv": "*",
+    "got": "^13.0.0",
     "joi": "*",
     "mysql2": "^3.6.1",
     "sequelize": "^6.33.0"

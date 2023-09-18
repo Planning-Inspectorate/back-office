@@ -434,6 +434,8 @@ model ExaminationTimetable {
 // Otherwise known as Banners or Latest Updates.
 model ProjectUpdate {
   id                Int       @id @default(autoincrement())
+  // The ID of the project update in the NI Database
+  migratedId        Int?
   // the ID of the case this project update relates to
   caseId            Int
   case              Case?     @relation(fields: [caseId], references: [id])

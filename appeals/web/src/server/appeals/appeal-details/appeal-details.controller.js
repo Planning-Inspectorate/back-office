@@ -1,6 +1,6 @@
 import logger from '../../lib/logger.js';
 import * as appealDetailsService from './appeal-details.service.js';
-import { appealsDetailPage, backLink, pageHeading } from './appeal-details.mapper.js';
+import { appealDetailsPage, backLink, pageHeading } from './appeal-details.mapper.js';
 
 /**
  * @typedef {Object} ViewAppealDetailsRenderOptions
@@ -20,7 +20,7 @@ export const viewAppealDetails = async (request, response) => {
 
 	if (appealDetails) {
 		const currentUrl = request.originalUrl;
-		const pageComponents = appealsDetailPage({ appeal: appealDetails }, currentUrl, session);
+		const pageComponents = await appealDetailsPage({ appeal: appealDetails }, currentUrl, session);
 
 		response.render('patterns/display-page.pattern.njk', {
 			backLink: backLink,

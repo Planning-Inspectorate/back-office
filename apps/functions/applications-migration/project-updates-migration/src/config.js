@@ -4,6 +4,7 @@ import joi from 'joi';
 const schema = joi
 	.object({
 		NODE_ENV: joi.string().valid('development', 'production', 'test'),
+		apiHost: joi.string(),
 		wordpressDatabase: {
 			username: joi.string(),
 			password: joi.string(),
@@ -28,6 +29,7 @@ const schema = joi
 /**
  * @typedef {Object} Config
  * @property {string} NODE_ENV
+ * @property {string} apiHost
  * @property {WordpressDatabaseConfig} wordpressDatabase
  */
 
@@ -46,6 +48,7 @@ export function loadConfig() {
 
 	const { value, error } = schema.validate({
 		NODE_ENV: environment.NODE_ENV,
+		apiHost: environment.API_HOST,
 		wordpressDatabase: {
 			username: environment.NI_DB_MYSQL_USERNAME,
 			password: environment.NI_DB_MYSQL_PASSWORD,
