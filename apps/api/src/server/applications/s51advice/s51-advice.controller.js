@@ -471,7 +471,7 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 	}
 
 	if (body.selectAll) {
-		await s51AdviceRepository.updateForCase(caseId, { publishedStatus: 'published' });
+		await s51AdviceRepository.updateForCase(caseId, { publishedStatus: 'published', datePublished: new Date() });
 		response.status(200).end();
 		return;
 	}
@@ -481,7 +481,7 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 			(s51Id) =>
 				new Promise((resolve, reject) =>
 					s51AdviceRepository
-						.update(Number(s51Id), { publishedStatus: 'published' })
+						.update(Number(s51Id), { publishedStatus: 'published', datePublished: new Date() })
 						.then(resolve)
 						.catch(reject)
 				)

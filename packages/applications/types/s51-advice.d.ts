@@ -17,6 +17,7 @@ export interface S51AdviceDetails {
 	dateCreated: number;
 	dateUpdated: number;
 	totalAttachments: number;
+	datePublished: number | null;
 	attachments: {
 		documentName: any;
 		documentType: string;

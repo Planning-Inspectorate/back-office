@@ -510,6 +510,7 @@ model S51Advice {
   redactedStatus      String?
   publishedStatus     String              @default("not_checked")
   publishedStatusPrev String?
+  datePublished       DateTime?
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @default(now())
   case                Case                @relation(fields: [caseId], references: [id])
