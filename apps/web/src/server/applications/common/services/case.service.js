@@ -22,27 +22,17 @@ import {
  * @returns {Promise<Case>}
  */
 export const getCase = async (id, query = null) => {
-	let queryObject = {};
-
-	if (query) {
-		for (const singleQuery of query) {
-			queryObject = { ...queryObject, [singleQuery]: true };
-		}
-	}
-
+	const queryObject = query?.reduce((acc, q) => ({ ...acc, [q]: true }), {}) ?? {};
 	const queryStringified = JSON.stringify(queryObject);
 
-	let response;
-
 	try {
-		response = await get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
+		return await get(`applications/${id}${query ? `?query=${queryStringified}` : ''}`);
 	} catch (/** @type {*} */ error) {
 		pino.error(
 			`[WEB] GET /applications-service/case/${id} (Response code: ${error?.response?.statusCode})`
 		);
 		throw new Error(error?.response?.statusCode ?? 500);
 	}
-	return response;
 };
 
 /**
@@ -55,22 +45,17 @@ export const getCase = async (id, query = null) => {
 export const createCase = async (payload, session) => {
 	const payloadWithEmptyApplicant = { ...payload, applicants: [{ organisationName: '' }] };
 
-	let response;
-
 	try {
-		response = await post('applications', {
-			json: payloadWithEmptyApplicant
-		});
 		setSessionCaseHasNeverBeenResumed(session);
 		destroySessionApplicantInfoTypes(session);
 		destroySessionCaseSectorName(session);
-	} catch (/** @type {*} */ error) {
-		response = new Promise((resolve) => {
-			resolve({ errors: error?.response?.body?.errors || {} });
-		});
-	}
 
-	return response;
+		return await post('applications', {
+			json: payloadWithEmptyApplicant
+		});
+	} catch (/** @type {*} */ error) {
+		return { errors: error?.response?.body?.errors || {} };
+	}
 };
 
 /**
@@ -82,25 +67,18 @@ export const createCase = async (payload, session) => {
  * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
  */
 export const updateCase = async (caseId, payload) => {
-	let response;
-
 	try {
-		response = await patch(`applications/${caseId}`, {
+		return await patch(`applications/${caseId}`, {
 			json: payload
 		});
 	} catch (/** @type {*} */ error) {
-		response = new Promise((resolve) => {
-			const apiErrors = error?.response?.body?.errors;
+		const apiErrors = error?.response?.body?.errors;
+		if (typeof apiErrors === 'object' && typeof Object.values(apiErrors)[0] === 'string') {
+			return { errors: error?.response?.body?.errors || {} };
+		}
 
-			if (typeof apiErrors === 'object' && typeof Object.values(apiErrors)[0] === 'string') {
-				resolve({ errors: error?.response?.body?.errors || {} });
-			} else {
-				resolve({ errors: {} });
-			}
-		});
+		return { errors: {} };
 	}
-
-	return response;
 };
 
 /**
@@ -111,15 +89,9 @@ export const updateCase = async (caseId, payload) => {
  * @returns {Promise<{publishedDate?: number, errors?: ValidationErrors}>}
  */
 export const publishCase = async (caseId) => {
-	let response;
-
 	try {
-		response = await patch(`applications/${caseId}/publish`);
-	} catch {
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'Something went wrong, please try again' } });
-		});
+		return await patch(`applications/${caseId}/publish`);
+	} catch (/** @type {*} */ error) {
+		return { errors: error?.response?.body?.errors || {} };
 	}
-
-	return response;
 };
