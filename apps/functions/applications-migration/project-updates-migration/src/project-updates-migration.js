@@ -19,11 +19,11 @@ const sequelize = new Sequelize(database, username, password, {
  * @param {string[]} caseReferences
  */
 export const migrateProjectUpdates = async (log, caseReferences) => {
-	log.info(`Migrating ${caseReferences.length} CASES`);
+	log.info(`Migrating ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
 		try {
-			log.info(`Migrating project updates for case ${caseReference}`);
+			log.info(`Migrating project updates and subscriptions for case ${caseReference}`);
 
 			const updates = await getProjectUpdates(log, caseReference);
 
@@ -35,8 +35,11 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 
 			const subscriptions = await getProjectSubscriptions(log, caseReference);
 
-			// TODO: Post them to the migration endpoint
-			log.info('subscriptions', JSON.stringify(subscriptions));
+			log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
+
+			await makePostRequest(log, '/migration/nsip-subscription', subscriptions);
+
+			log.info('Successfully migrated subscriptions');
 		} catch (e) {
 			log.error(`Failed to migrate project updates for case ${caseReference}`, e);
 			throw e;

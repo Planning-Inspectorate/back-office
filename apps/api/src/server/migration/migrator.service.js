@@ -3,6 +3,7 @@ import addFormats from 'ajv-formats';
 import { readdirSync, readFileSync } from 'node:fs';
 import { migrateNsipProjects } from './migrators/nsip-project-migrator.js';
 import { migrateNsipProjectUpdates } from './migrators/nsip-project-update-migrator.js';
+import { migrateNsipSubscriptions } from './migrators/nsip-subscription-migrator.js';
 
 /**
  * @callback Migrator
@@ -56,5 +57,10 @@ const initializeMapping = () => {
 	migrationMap.set('nsip-project-update', {
 		validator: ajv.getSchema('nsip-project-update.schema.json'),
 		migrator: migrateNsipProjectUpdates
+	});
+
+	migrationMap.set('nsip-subscription', {
+		validator: ajv.getSchema('nsip-subscription.schema.json'),
+		migrator: migrateNsipSubscriptions
 	});
 };
