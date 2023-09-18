@@ -7,7 +7,11 @@ export const publishRepresentations = async ({ params, body }, response) => {
 		body.actionBy
 	);
 
-	const publishedRepIds = publishedRepresentations.map((rep) => rep.id);
-
-	return response.status(200).json({ publishedRepIds });
+	if (publishedRepresentations.length > 0) {
+		return response
+			.status(200)
+			.json({ publishedRepIds: publishedRepresentations.map((rep) => rep.id) });
+	} else {
+		return response.status(400).json({ errors: { message: 'unable to publish representations' } });
+	}
 };
