@@ -256,3 +256,20 @@ export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
 
 	return response;
 };
+
+/**
+ *
+ * @param {number} caseId
+ * @param {{publishAll?: boolean, ids?: string[]}} _
+ * */
+export const publishS51AdviceItems = async (caseId, { publishAll, ids }) => {
+	try {
+		return await post(`applications/${caseId}/s51-advice/publish-queue-items`, {
+			json: { publishAll, ids }
+		});
+	} catch (err) {
+		return new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+};

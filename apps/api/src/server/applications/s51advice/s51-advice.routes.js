@@ -9,8 +9,9 @@ import {
 	updateManyS51Advices,
 	updateS51Advice,
 	getReadyToPublishAdvices,
-    removePublishItemFromQueue,
-	verifyS51TitleIsUnique
+	verifyS51TitleIsUnique,
+	removePublishItemFromQueue,
+	publishQueueItems
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -335,6 +336,28 @@ router.head(
     */
 	validateApplicationId,
 	asyncHandler(verifyS51TitleIsUnique)
+);
+
+router.post(
+	'/:id/s51-advice/publish-queue-items',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/publish-queue-items'
+        #swagger.description = 'Publishes a list of items from the publish queue'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Payload to publish items',
+        schema: { $ref: '#/definitions/S51AdvicePublishItems' },
+        required: true
+    }
+    */
+	asyncHandler(publishQueueItems)
 );
 
 export { router as s51AdviceRoutes };

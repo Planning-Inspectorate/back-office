@@ -1,33 +1,26 @@
-{% extends "../../../layouts/applications.layout.njk" %}
+{% extends "../../../layouts/s51-edit.layout.njk" %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block beforeContent %}
-	{{ govukBackLink({
-		text: "Back to S51 advice",
-    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
-	}) }}
-{% endblock %}
-{% block pageHeading %}{% endblock %}
-{% block pageContent %}
+{% block formHeading %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
     Edit the S51 advice title
   </h1>
-  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
-    {{ govukInput({
-      label: {
-        text: 'S51 title',
-        classes: 'font-weight--700'
-      },
-      id: 'title',
-      name: 'title',
-      classes: 'govuk-!-width-one-third',
-      errorMessage: errors.title | errorMessage,
-      value: values.title,
-      hint: {
-        text: "For example,  'Advice following issue of decision to accept the application for examination'"
-      }
-    }) }}
-    {{ govukButton({ text: 'Save and return'}) }}
-  </form>
+{% endblock %}
+
+{% block formContent %}
+  {{ govukInput({
+    label: {
+      text: 'S51 title',
+      classes: 'font-weight--700'
+    },
+    id: 'title',
+    name: 'title',
+    classes: 'govuk-!-width-one-third',
+    errorMessage: errors.title | errorMessage,
+    value: values.title,
+    hint: {
+      text: "For example,  'Advice following issue of decision to accept the application for examination'"
+    }
+  }) }}
 {% endblock %}

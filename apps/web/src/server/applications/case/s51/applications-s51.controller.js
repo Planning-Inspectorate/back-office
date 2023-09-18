@@ -21,7 +21,8 @@ import {
 	updateS51Advice,
 	updateS51AdviceStatus,
 	getS51AdviceReadyToPublish,
-	removeS51AdviceFromReadyToPublish
+	removeS51AdviceFromReadyToPublish,
+	publishS51AdviceItems
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import pino from '../../../lib/logger.js';
@@ -140,28 +141,22 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	// TODO: add function to check whether title exists (checkS51NameIsUnique)
 
-	// TODO: express catches automatically all the errors of the services: no need to try/catch on the controller
 	try {
 		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
 	} catch (/** @type {any} */ err) {
-		// console.log(err);
-		if (err.response.statusCode === 409) {
-			// TODO: return errors property (it should come from the service)
-			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-				caseId,
-				adviceId,
-				folderId,
-				...err.response.body
-			});
+		response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+			caseId,
+			adviceId,
+			folderId,
+			...err.response.body
+		});
 
-			return;
-		}
-
-		throw err;
+		return;
 	}
 
 	response.redirect('../properties');
 }
+
 /**
  * Show s51 advice item
  *
@@ -433,6 +428,23 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
  */
 export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
 	const { caseId } = response.locals;
+	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
+
+	response.render(`applications/case-s51/s51-publishing-queue`, properties);
+}
+
+/**
+ * Publish S51 advice items
+ *
+ * @type {import('@pins/express').RenderHandler<{}, any, {selectAll?: boolean, selectedFilesIds: string[]}, {size?: string, number?: string}, {}>}
+ * */
+export async function publishApplicationsCaseS51Items({ query, body }, response) {
+	const { caseId } = response.locals;
+	await publishS51AdviceItems(caseId, {
+		publishAll: Boolean(body.selectAll),
+		ids: body.selectedFilesIds
+	});
+
 	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
 
 	response.render(`applications/case-s51/s51-publishing-queue`, properties);

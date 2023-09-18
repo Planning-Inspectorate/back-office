@@ -1,52 +1,45 @@
-{% extends "../../../layouts/applications.layout.njk" %}
+{% extends "../../../layouts/s51-edit.layout.njk" %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block beforeContent %}
-	{{ govukBackLink({
-		text: "Back to S51 advice",
-    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
-	}) }}
-{% endblock %}
-{% block pageHeading %}{% endblock %}
-{% block pageContent %}
+{% block formHeading %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
     Edit the S51 enquirer
   </h1>
-  <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
-    {{ govukInput({
-      label: {
-        text: "First name",
-        classes: 'font-weight--700'
-      },
-      id: 'firstName',
-      name: 'firstName',
-      classes: 'govuk-!-width-one-third',
-      errorMessage: errors.firstName | errorMessage,
-      value: values.firstName
-    }) }}
-    {{ govukInput({
-      label: {
-        text: "Last name",
-        classes: 'font-weight--700'
-      },
-      id: 'lastName',
-      name: 'lastName',
-      classes: 'govuk-!-width-one-third',
-      errorMessage: errors.lastName | errorMessage,
-      value: values.lastName
-    }) }}
-    {{ govukInput({
-      label: {
-        text: "Organisation",
-        classes: 'font-weight--700'
-      },
-      id: 'enquirer',
-      name: 'enquirer',
-      classes: 'govuk-!-width-one-third',
-      errorMessage: errors.enquirer | errorMessage,
-      value: values.enquirer
-    }) }}
-    {{ govukButton({ text: 'Save and return'}) }}
-  </form>
+{% endblock %}
+
+{% block formContent %}
+  {{ govukInput({
+    label: {
+      text: "First name",
+      classes: 'font-weight--700'
+    },
+    id: 'firstName',
+    name: 'firstName',
+    classes: 'govuk-!-width-one-third',
+    errorMessage: errors.firstName | errorMessage,
+    value: values.firstName
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "Last name",
+      classes: 'font-weight--700'
+    },
+    id: 'lastName',
+    name: 'lastName',
+    classes: 'govuk-!-width-one-third',
+    errorMessage: errors.lastName | errorMessage,
+    value: values.lastName
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "Organisation",
+      classes: 'font-weight--700'
+    },
+    id: 'enquirer',
+    name: 'enquirer',
+    classes: 'govuk-!-width-one-third',
+    errorMessage: errors.enquirer | errorMessage,
+    value: values.enquirer
+  }) }}
 {% endblock %}
