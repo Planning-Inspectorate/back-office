@@ -1,5 +1,3 @@
-import swaggerAutogen from 'swagger-autogen';
-
 /**
  * Return the properties for a paged response, with an array of items
  *
@@ -30,7 +28,10 @@ const paginationErrors = {
 	}
 };
 
-const document = {
+/**
+ * Basis of the OpenAPI spec document, which gets merged with express route defintion comments
+ */
+export const spec = {
 	info: {
 		// by default: '1.0.0'
 		version: '2.0',
@@ -2298,11 +2299,3 @@ const document = {
 	},
 	components: {}
 };
-
-const outputFile = './src/server/swagger-output.json';
-const endpointsFiles = [
-	'./src/server/appeals/**/*.routes.js',
-	'./src/server/applications/**/*.routes.js'
-];
-
-swaggerAutogen()(outputFile, endpointsFiles, document);

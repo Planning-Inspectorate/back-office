@@ -20,7 +20,7 @@
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "clean": "rimraf .turbo node_modules dist",
-    "gen-api-spec": "node ./src/server/swagger.js && npx prettier ./src/server/swagger-output.json --write",
+    "gen-api-spec": "node ./src/server/gen-api-spec.js",
     "db:migrate": "npx prisma migrate dev",
     "db:migrate:prod": "npx prisma migrate deploy",
     "db:push": "npx prisma db push --accept-data-loss",
@@ -81,7 +81,8 @@
     "prisma": "4.16.1",
     "rimraf": "^3.0.2",
     "supertest": "6.2.3",
-    "swagger-autogen": "^2.21.4"
+    "swagger-autogen": "^2.21.4",
+    "swagger-typescript-api": "^13.0.3"
   },
   "imports": {
     "#app-test": "./src/server/app-test.js",
