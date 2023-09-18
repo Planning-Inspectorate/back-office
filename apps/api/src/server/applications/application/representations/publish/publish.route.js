@@ -33,6 +33,10 @@ router.patch(
 							publishedRepIds: [123, 134, 125]
 					}
 			}
+			#swagger.responses[400] = {
+				description: 'Error: Bad Request',
+				schema: { $ref: '#/definitions/GeneralError' }
+			}
 	 */
 	validateApplicationId,
 	validatePublishRepresentations,

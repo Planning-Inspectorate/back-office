@@ -14,10 +14,16 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 		representationIds
 	);
 
-	const nsipRepresentationsPayload = representations.map(buildNsipRepresentationPayload);
-	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationsPayload, EventType.Publish);
+	if (representations.length > 0) {
+		const nsipRepresentationsPayload = representations.map(buildNsipRepresentationPayload);
+		await eventClient.sendEvents(
+			NSIP_REPRESENTATION,
+			nsipRepresentationsPayload,
+			EventType.Publish
+		);
 
-	await setRepresentationsAsPublished(representations, actionBy);
+		await setRepresentationsAsPublished(representations, actionBy);
+	}
 
 	return representations;
 };

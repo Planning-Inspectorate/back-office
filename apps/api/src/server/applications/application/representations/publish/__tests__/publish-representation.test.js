@@ -197,6 +197,8 @@ const expectedEventPayload = [
 describe('Publish Representations', () => {
 	jest.useFakeTimers({ now: 1_649_319_144_000 });
 
+	afterEach(() => jest.clearAllMocks());
+
 	it('publishes representations with given ids', async () => {
 		databaseConnector.representation.findMany.mockResolvedValue(representations);
 
@@ -237,6 +239,23 @@ describe('Publish Representations', () => {
 				unpublishedUpdates: false
 			}
 		});
+	});
+
+	it('returns 400 response if no publishable representations found', async () => {
+		databaseConnector.representation.findMany.mockResolvedValue([]);
+
+		const response = await request.patch('/applications/1/representations/publish').send({
+			representationIds: [6409, 6579],
+			actionBy: 'Joe Bloggs'
+		});
+
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({ errors: { message: 'unable to publish representations' } });
+
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		expect(databaseConnector.representation.update).not.toHaveBeenCalled();
+		expect(databaseConnector.representationAction.create).not.toHaveBeenCalled();
+		expect(databaseConnector.representation.updateMany).not.toHaveBeenCalled();
 	});
 
 	it.each([
