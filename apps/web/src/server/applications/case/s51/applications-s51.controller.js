@@ -141,7 +141,6 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	// TODO: add function to check whether title exists (checkS51NameIsUnique)
 
-	// TODO: express catches automatically all the errors of the services: no need to try/catch on the controller
 	try {
 		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
 	} catch (/** @type {any} */ err) {
@@ -157,6 +156,7 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	response.redirect('../properties');
 }
+
 /**
  * Show s51 advice item
  *
