@@ -395,6 +395,8 @@ model ExaminationTimetableItem {
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
   id            Int    @id @default(autoincrement())
+  // The ID of the project update in the NI Database
+  migratedId    Int?
   emailAddress  String
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
