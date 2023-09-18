@@ -4,6 +4,7 @@
 {% from "./components/case-info-table.component.njk" import caseInfoTable %}
 {% from "./components/case-details-table.component.njk" import caseDetailsTable %}
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
+{% from "./components/case-key-dates-table.component.njk" import caseKeyDatesTable %}
 
 {% set pageTitle = case.title %}
 {% set serviceName = 'Preview and publish project' %}
@@ -33,6 +34,10 @@
 			<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Applicant information</h2>
 			<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
 			{{ caseApplicantTable(case, domainType, isPublishPage) }}
+
+			<h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2">Key dates</h2>
+			<p class="govuk-body govuk-!-margin-bottom-5">Check details before publishing</p>
+			{{ caseKeyDatesTable(case) }}
 		</div>
 		<div class="govuk-grid-column-full">
 			{{ govukButton({ classes: 'govuk-!-margin-top-5', text: 'Accept and publish changes' if case.publishedDate else 'Accept and publish project' }) }}
