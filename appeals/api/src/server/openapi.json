@@ -2018,6 +2018,14 @@
 													"example": "Woodton"
 												}
 											}
+										},
+										"firstName": {
+											"type": "string",
+											"example": "Fiona"
+										},
+										"lastName": {
+											"type": "string",
+											"example": "Burgess"
 										}
 									}
 								}

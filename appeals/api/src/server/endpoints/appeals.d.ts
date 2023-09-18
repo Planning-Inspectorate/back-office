@@ -172,6 +172,8 @@ interface SingleLPAQuestionnaireResponse {
 
 interface NeighbouringSiteContactsResponse {
 	address: AppealSite;
+	firstName: string | null;
+	lastName: string | null;
 }
 
 interface SingleAppealDetailsResponse {

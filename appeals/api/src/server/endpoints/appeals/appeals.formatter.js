@@ -88,7 +88,9 @@ const formatAppeal = (appeal) => {
 			neighbouringSite: {
 				contacts:
 					appeal.lpaQuestionnaire?.neighbouringSiteContact?.map((contact) => ({
-						address: formatAddress(contact.address)
+						address: formatAddress(contact.address),
+						firstName: contact.firstName,
+						lastName: contact.lastName
 					})) || null,
 				isAffected: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites || null
 			},
