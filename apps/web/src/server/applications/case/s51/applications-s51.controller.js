@@ -7,7 +7,8 @@ import {
 	updateS51Advice,
 	updateS51AdviceStatus,
 	getS51AdviceReadyToPublish,
-	removeS51AdviceFromReadyToPublish
+	removeS51AdviceFromReadyToPublish,
+	publishS51AdviceItems
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
@@ -334,6 +335,41 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 		s51Advices,
 		paginationButtons
 	});
+}
+
+
+/**
+ * Publish S51 advice items
+ *
+ * @type {import('@pins/express').RenderHandler<{}, any, {selectAll?: boolean, selectedFilesIds: string[]}, {size?: string, number?: string}, {}>}
+ * */
+export async function publishApplicationsCaseS51Items(request, response) {
+	const { caseId } = response.locals;
+	const { errors: validationErrors, body } = request;
+	const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, request.query);
+
+	if (validationErrors) {
+		return response.render(`applications/case-s51/s51-publishing-queue`, {
+			paginationButtons,
+			s51Advices,
+			errors: validationErrors
+		});
+	}
+
+	const { errors } = await publishS51AdviceItems(caseId, {
+		publishAll: Boolean(body.selectAll),
+		ids: body.selectedFilesIds
+	});
+
+	if (errors) {
+		return response.render(`applications/case-s51/s51-publishing-queue`, {
+			paginationButtons,
+			s51Advices,
+			errors
+		});
+	}
+
+	return response.render('applications/case-s51/s51-successfully-published', { items: body.selectedFilesIds.length});
 }
 
 /**
