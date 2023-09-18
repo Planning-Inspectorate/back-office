@@ -8,17 +8,20 @@ import fs from 'fs/promises';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const endpointsFiles = ['./src/server/applications/**/*.routes.js'];
+const endpointsFiles = ['./src/server/endpoints/**/*.routes.js'];
 
-const specFile = path.join(__dirname, 'swagger-output.json');
-const typesFile = path.join(__dirname, 'swagger-types.ts');
+const specFile = path.join(__dirname, 'openapi.json');
+const typesFile = path.join(__dirname, 'openapi-types.ts');
 
 /**
  * Generate the API spec and types
  */
 async function run() {
 	console.log(`generating api spec`);
-	const res = await swaggerAutogen({ disableLogs: true })(specFile, endpointsFiles, spec);
+	const res = await swaggerAutogen({
+		openapi: '3.0.0',
+		disableLogs: true
+	})(specFile, endpointsFiles, spec);
 	if (!res) {
 		throw new Error('no spec generated');
 	}
