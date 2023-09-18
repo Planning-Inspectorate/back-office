@@ -2,8 +2,8 @@ import { databaseConnector } from '#utils/database-connector.js';
 import sanitizeHtml from 'sanitize-html';
 import { allowedTags } from '../../applications/application/project-updates/project-updates.validators.js';
 import { buildProjectUpdatePayload } from '../../applications/application/project-updates/project-updates.mapper.js';
-import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
+import { sendChunkedEvents } from './utils.js';
 /**
  * @typedef {import('../../../message-schemas/events/nsip-project-update.d.ts').NSIPProjectUpdate} NSIPProjectUpdate
  */
@@ -38,7 +38,8 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	for (const model of projectUpdates) {
 		const entity = await mapModelToEntity(model);
 
-		// We can't make migratedId unique because it's nullable, and MSSQL doesn't allow nullable unique fields
+		// We can't make migratedId unique because it's nullable, and Prisma won't allow us to create a nullable unique index in MSSQL
+		// In MSSQL, this can only be achieved with a filtered index (where column is not null)
 		// Since it can't be unique, we can't use upsert - so we have to deal with this manually
 		const existingUpdate = await databaseConnector.projectUpdate.findFirst({
 			where: { migratedId: entity.migratedId },
@@ -65,7 +66,7 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 		buildProjectUpdatePayload(updatedEntity, caseReference)
 	);
 
-	await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, 'Update');
+	await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, 'Update');
 };
 
 /**
@@ -97,7 +98,6 @@ const mapModelToEntity = async (m) => {
 			},
 			allowedSchemes: ['https']
 		})
-		// TODO: Do we also need to migrate update type?
 	};
 };
 
