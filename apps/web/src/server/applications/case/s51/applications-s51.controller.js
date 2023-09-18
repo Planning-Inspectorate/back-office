@@ -145,20 +145,14 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 	try {
 		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
 	} catch (/** @type {any} */ err) {
-		// console.log(err);
-		if (err.response.statusCode === 409) {
-			// TODO: return errors property (it should come from the service)
-			response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-				caseId,
-				adviceId,
-				folderId,
-				...err.response.body
-			});
+		response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+			caseId,
+			adviceId,
+			folderId,
+			...err.response.body
+		});
 
-			return;
-		}
-
-		throw err;
+		return;
 	}
 
 	response.redirect('../properties');
