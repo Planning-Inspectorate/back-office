@@ -5,7 +5,8 @@ import * as locals from '../applications-case.locals.js';
 import {
 	s51ValidatorsDispatcher,
 	validateS51AdviceToChange,
-	validateS51AdviceActions
+	validateS51AdviceActions,
+	validateS51AdviceToPublish
 } from './applications-s51.validators.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
@@ -55,10 +56,7 @@ applicationsS51Router
 applicationsS51Router
 	.route('/publishing-queue')
 	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue))
-	.post(
-		locals.registerFolderId,
-		asyncRoute(controller.removeApplicationsCaseS51AdviceFromPublishingQueue)
-	);
+	.post([validateS51AdviceToPublish, locals.registerFolderId], asyncRoute(controller.publishApplicationsCaseS51Items));
 
 applicationsS51Router
 	.route('/publishing-queue/remove/:adviceId')
