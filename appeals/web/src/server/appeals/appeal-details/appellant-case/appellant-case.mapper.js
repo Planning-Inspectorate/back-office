@@ -1,6 +1,6 @@
 import { addressToString } from '../../../lib/address-formatter.js';
 import { convertFromBooleanToYesNo } from '../../../lib/boolean-formatter.js';
-import { dayMonthYearToApiDateString } from '../../../lib/dates.js';
+import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 import { capitalize } from 'lodash-es';
 import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 import { mapFolder } from '#appeals/appeal-documents/appeal-documents.mapper.js';
@@ -118,7 +118,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 	if (updatedDueDate) {
 		sectionData.push({
 			title: `Updated due date`,
-			value: `${updatedDueDate.day}/${updatedDueDate.month}/${updatedDueDate.year}`,
+			value: webDateToDisplayDate(updatedDueDate),
 			valueType: 'text',
 			actionText: 'Change',
 			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}/date`
