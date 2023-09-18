@@ -1,7 +1,6 @@
 import { document as testDocument } from '#tests/data.js';
-import swaggerAutogen from 'swagger-autogen';
 
-const document = {
+export const spec = {
 	info: {
 		// by default: '1.0.0'
 		version: '2.0',
@@ -647,8 +646,3 @@ const document = {
 	},
 	components: {}
 };
-
-const outputFile = './src/server/openapi.json';
-const endpointsFiles = ['./src/server/endpoints/**/*.routes.js'];
-
-swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);
