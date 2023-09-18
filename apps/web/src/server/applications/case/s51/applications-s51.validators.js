@@ -148,6 +148,12 @@ export const validateS51AdviceToChange = createValidator(
 		.withMessage('Select advice to make changes to statuses')
 );
 
+export const validateS51AdviceToPublish = createValidator(
+	body('selectedFilesIds')
+		.isArray({ min: 1 })
+		.withMessage('Select advice to publish')
+);
+
 export const validateS51AdviceActions = createValidator(
 	body('isRedacted')
 		.custom((value, { req }) => !!value || !!req?.body?.status)
