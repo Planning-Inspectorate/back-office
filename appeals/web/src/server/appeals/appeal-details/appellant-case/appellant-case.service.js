@@ -2,8 +2,19 @@ import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 
 /**
  * @typedef {import('./appellant-case.types.js').SingleAppellantCaseResponse} AppellantCaseResponse
- * @typedef {import('@pins/appeals.api').Schema.AppellantCaseInvalidReason} AppellantCaseInvalidReason
- * @typedef {import('@pins/appeals.api').Schema.AppellantCaseIncompleteReason} AppellantCaseIncompleteReason
+ */
+
+/**
+ * @typedef {Object} AppellantCaseInvalidIncompleteReasonOption
+ * @property {boolean} hasText
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} AppellantCaseInvalidIncompleteReason
+ * @property {AppellantCaseInvalidIncompleteReasonOption} name
+ * @property {string[]} [text]
  */
 
 /**
@@ -23,11 +34,16 @@ export function getAppellantCaseFromAppealId(apiClient, appealId, appellantCaseI
  */
 
 /**
+ * @typedef {Object} AppellantCaseReviewOutcomeReason
+ * @property {number} id
+ * @property {string[]} [text]
+ */
+
+/**
  * @typedef {Object} AppellantCaseReviewOutcome
  * @property {string} validationOutcome
- * @property {number[]} [invalidReasons]
- * @property {number[]} [incompleteReasons]
- * @property {string} [otherNotValidReasons] - free text field for "other" (shared by both invalid and incomplete outcomes)
+ * @property {AppellantCaseReviewOutcomeReason[]} [invalidReasons]
+ * @property {AppellantCaseReviewOutcomeReason[]} [incompleteReasons]
  * @property {string} [appealDueDate]
  */
 
@@ -53,31 +69,34 @@ export async function setReviewOutcomeForAppellantCase(
 
 /**
  * @param {import('got').Got} apiClient
- * @returns {Promise<AppellantCaseInvalidReason[]>}
+ * @returns {Promise<AppellantCaseInvalidIncompleteReasonOption[]>}
  */
-export async function getAppellantCaseInvalidReasons(apiClient) {
+async function getAppellantCaseInvalidReasonOptions(apiClient) {
 	return apiClient.get(`appeals/appellant-case-invalid-reasons`).json();
 }
 
 /**
  * @param {import('got').Got} apiClient
- * @returns {Promise<AppellantCaseIncompleteReason[]>}
+ * @returns {Promise<AppellantCaseInvalidIncompleteReasonOption[]>}
  */
-export async function getAppellantCaseIncompleteReasons(apiClient) {
+async function getAppellantCaseIncompleteReasonOptions(apiClient) {
 	return apiClient.get(`appeals/appellant-case-incomplete-reasons`).json();
 }
 
 /**
  * @param {import('got').Got} apiClient
  * @param {string} validationOutcome
- * @returns {Promise<AppellantCaseInvalidReason[]|AppellantCaseIncompleteReason[]>}
+ * @returns {Promise<AppellantCaseInvalidIncompleteReasonOption[]>}
  */
-export async function getAppellantCaseNotValidReasonsForOutcome(apiClient, validationOutcome) {
+export async function getAppellantCaseNotValidReasonOptionsForOutcome(
+	apiClient,
+	validationOutcome
+) {
 	switch (validationOutcome) {
 		case appellantCaseReviewOutcomes.invalid:
-			return getAppellantCaseInvalidReasons(apiClient);
+			return getAppellantCaseInvalidReasonOptions(apiClient);
 		case appellantCaseReviewOutcomes.incomplete:
-			return getAppellantCaseIncompleteReasons(apiClient);
+			return getAppellantCaseIncompleteReasonOptions(apiClient);
 		default:
 			return [];
 	}

@@ -1,6 +1,6 @@
 import logger from '#lib/logger.js';
 import * as appellantCaseService from '../appellant-case.service.js';
-import { mapInvalidOrIncompleteReasonsToCheckboxItemParameters } from '../appellant-case.mapper.js';
+import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
@@ -32,15 +32,17 @@ const renderInvalidReason = async (request, response) => {
 	}
 
 	const { webAppellantCaseReviewOutcome } = request.session;
-	const invalidReasonOptions = await appellantCaseService.getAppellantCaseInvalidReasons(
-		request.apiClient
-	);
+	const invalidReasonOptions =
+		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
+			request.apiClient,
+			'invalid'
+		);
 
 	if (invalidReasonOptions) {
 		const invalidReasons =
 			body.invalidReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
 		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
-		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonsToCheckboxItemParameters(
+		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 			invalidReasonOptions,
 			invalidReasons
 		);
@@ -122,8 +124,7 @@ export const postInvalidReason = async (request, response) => {
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.invalid,
-			invalidOrIncompleteReasons: request.body.invalidReason,
-			otherNotValidReasons: request.body.otherReason
+			invalidOrIncompleteReasons: request.body.invalidReason
 		};
 
 		return response.redirect(
