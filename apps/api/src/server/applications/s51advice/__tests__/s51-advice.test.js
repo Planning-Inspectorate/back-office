@@ -217,7 +217,8 @@ describe('Test S51 advice API', () => {
 			redactedStatus: '',
 			referenceCode: 'undefined-Advice-00001',
 			referenceNumber: '00001',
-			title: 'A title'
+			title: 'A title',
+			datePublished: null,
 		});
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 	});
@@ -259,7 +260,8 @@ describe('Test S51 advice API', () => {
 					publishedStatus: 'not_checked',
 					redactedStatus: 'not_redacted',
 					dateCreated: 1672531200,
-					dateUpdated: 1672531200
+					dateUpdated: 1672531200,
+					datePublished: null,
 				}
 			]
 		});
