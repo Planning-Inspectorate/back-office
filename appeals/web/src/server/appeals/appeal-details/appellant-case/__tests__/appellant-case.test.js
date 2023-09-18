@@ -761,6 +761,19 @@ describe('appellant-case', () => {
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
 
+			// post to update date page controller is necessary to set updated due date
+			const updateDateResponse = await request
+				.post(
+					`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${updateDueDatePagePath}`
+				)
+				.send({
+					'due-date-day': '1',
+					'due-date-month': '12',
+					'due-date-year': '3000'
+				});
+
+			expect(updateDateResponse.statusCode).toBe(302);
+
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
 			);
