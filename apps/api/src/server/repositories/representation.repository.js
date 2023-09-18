@@ -746,7 +746,8 @@ export const getPublishableRepresentations = async (caseId) =>
 		where: {
 			caseId,
 			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
-		}
+		},
+		orderBy: [{ status: 'desc' }, { reference: 'asc' }]
 	});
 
 /**

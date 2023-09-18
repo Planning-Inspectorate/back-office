@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { request } from '#app-test';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -43,10 +44,18 @@ const representations = [
 ];
 
 describe('Get Publishable Representations', () => {
-	it('returns publiable representations for given case ids', async () => {
+	afterEach(() => jest.clearAllMocks());
+
+	it('returns publishable representations for given case id', async () => {
 		databaseConnector.representation.findMany.mockResolvedValue(representations);
 
 		const response = await request.get('/applications/1/representations/publishable');
+
+		expect(databaseConnector.representation.findMany).toHaveBeenCalledWith(
+			expect.objectContaining({
+				orderBy: [{ status: 'desc' }, { reference: 'asc' }]
+			})
+		);
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
