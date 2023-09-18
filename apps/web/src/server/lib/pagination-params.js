@@ -13,11 +13,17 @@
  */
 
 /**
+ * @typedef {object} PaginationParams
+ * @property {DropdownItem[]} dropdownItems
+ * @property {Buttons} buttons
+ */
+
+/**
  *
  * @param {number} size
  * @param {number} number
- * @param {number} pageCount
- * @returns {{dropdownItems: DropdownItem[], buttons: Buttons}}
+ * @param {number=} pageCount
+ * @returns {PaginationParams}
  */
 export const paginationParams = (size, number, pageCount) => {
 	const paginationDropdownItems = [...Array.from({ length: 5 }).keys()].map((index) => ({
@@ -29,7 +35,7 @@ export const paginationParams = (size, number, pageCount) => {
 	const paginationButtons = {
 		...(number === 1 ? {} : { previous: { href: `?number=${number - 1}&size=${size}` } }),
 		...(number === pageCount ? {} : { next: { href: `?number=${number + 1}&size=${size}` } }),
-		items: [...Array.from({ length: pageCount }).keys()].map((index) => ({
+		items: [...Array.from({ length: pageCount || 0 }).keys()].map((index) => ({
 			number: index + 1,
 			href: `?number=${index + 1}&size=${size}`,
 			current: index + 1 === number
