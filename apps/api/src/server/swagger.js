@@ -1434,7 +1434,8 @@ export const spec = {
 					example: 'email'
 				},
 				enquiryDate: {
-					type: 'date-time',
+					type: 'string',
+					string: 'date-time',
 					description: 'Date of enquiry',
 					example: '2023-02-01T00:00:00.000Z'
 				},
@@ -1449,7 +1450,8 @@ export const spec = {
 					example: 'John Caseworker-Smith'
 				},
 				adviceDate: {
-					type: 'date-time',
+					type: 'string',
+					string: 'date-time',
 					description: 'Date advice given',
 					example: '2023-02-01T00:00:00.000Z'
 				},
@@ -1476,12 +1478,14 @@ export const spec = {
 					example: 'published'
 				},
 				createdAt: {
-					type: 'date-time',
+					type: 'string',
+					string: 'date-time',
 					description: 'Date advice record was created',
 					example: '2023-02-01T00:00:00.000Z'
 				},
 				updatedAt: {
-					type: 'date-time',
+					type: 'string',
+					string: 'date-time',
 					description: 'Date advice record was last updated',
 					example: '2023-02-01T00:00:00.000Z'
 				}
