@@ -39,7 +39,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'Created S51 advice',
-            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
     */
 	validateCreateS51Advice,
@@ -65,8 +65,8 @@ router.get(
 			type: 'integer'
         }
         #swagger.responses[200] = {
-            description: 'List of examination timetable items',
-            schema: { $ref: '#/definitions/S51AdviceResponseBody' }
+            description: 'An S51 Advice on a case',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithDocumentDetails' }
         }
     */
 	validateApplicationId,
@@ -202,7 +202,7 @@ router.patch(
 		}
         #swagger.responses[200] = {
             description: 'S51 Advice(s) that have been updated',
-            schema: { $ref: '#/definitions/S51AdviceUpdateResponseBody' }
+            schema: { $ref: '#/definitions/S51AdviceMultipleUpdateResponseBody' }
         }
 		#swagger.responses[400] = {
             description: 'Error: Bad Request',
@@ -224,8 +224,8 @@ router.patch(
 	'/:id/s51-advice/:adviceId',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/s51-advice'
-        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
+        #swagger.description = 'Updates redacted status and / or published status for a single S51 Advice on a case'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -245,8 +245,8 @@ router.patch(
 			required: true
 		}
         #swagger.responses[200] = {
-            description: 'S51 Advice(s) that have been updated',
-            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+            description: 'The updated S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
       #swagger.responses[404] = {
             description: 'Error: Not Found',
@@ -280,7 +280,7 @@ router.post(
         }
 		#swagger.responses[200] = {
             description: 'An paginated data set of s51 advices and their properties',
-            schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
+            schema: { $ref: '#/definitions/S51AdvicePaginatedResponseWithDocumentDetails' }
         }
     */
 	asyncHandler(getReadyToPublishAdvices)
@@ -290,14 +290,24 @@ router.post(
 	'/:id/s51-advice/remove-queue-item',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
-        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+        #swagger.path = '/applications/{id}/s51-advice/remove-queue-item'
+        #swagger.description = 'Removes an S51 Advice item from the publishing queue'
 		#swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'S51 Advice Id',
+            schema: { adviceId: 1 },
+            required: true
+        }
+		#swagger.responses[200] = {
+            description: 'Updated S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
     */
 	asyncHandler(removePublishItemFromQueue)
 );
