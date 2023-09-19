@@ -45,6 +45,10 @@ applicationsS51Router
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Upload));
 
 applicationsS51Router
+	.route('/unpublish/:adviceId')
+	.get(locals.registerFolderId, asyncRoute(controller.viewUnpublishAdvice))
+
+applicationsS51Router
 	.route('/:adviceId/attachments/:attachmentId/delete')
 	.get(asyncRoute(controller.viewApplicationsCaseS51AttachmentDelete))
 	.post(locals.registerFolder, asyncRoute(controller.deleteApplicationsCaseS51Attachment));
