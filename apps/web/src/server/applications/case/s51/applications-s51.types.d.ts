@@ -58,6 +58,9 @@ export interface ApplicationsS51UpdatePayload {
 	lastName?: string;
 	redactedStatus?: string;
 	publishedStatus?: string;
+	redacted?: boolean;
+	status?: string;
+	items?: { id: number }[];
 }
 
 // S51 type for the creation journey
@@ -91,11 +94,11 @@ export interface S51BlobResponse {
 export interface ApplicationsS51ChangeStatusBodyPayload {
 	redacted?: boolean;
 	status?: string;
-	items?: Array<{id: number}>;
+	items?: Array<{ id: number }>;
 }
-export interface ApplicationsS51ChangeStatusBody{
-	isRedacted?: boolean;
-	status?: string;
-	selectAll?: boolean;
-	selectedFilesIds?: any;
-  }
+export interface ApplicationsS51ChangeStatusBody {
+	isRedacted: string;
+	status: string;
+	selectAll: boolean;
+	selectedFilesIds: string[];
+}

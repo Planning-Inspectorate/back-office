@@ -1,37 +1,40 @@
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51ChangeStatusBody} ApplicationsS51ChangeStatusBody */
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
-/** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
-/** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
-/** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
-
-import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	checkS51NameIsUnique,
 	createS51Advice,
 	getS51Advice,
 	getS51FilesInFolder,
-	mapS51AdviceToPage,
-	mapUpdateBodyToPayload,
 	updateS51Advice,
 	updateS51AdviceStatus,
 	getS51AdviceReadyToPublish,
-	removeS51AdviceFromReadyToPublish,
-	publishS51AdviceItems
+	removeS51AdviceFromReadyToPublish
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
-import pino from '../../../lib/logger.js';
 import {
 	destroySuccessBanner,
 	getSuccessBanner,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
 import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
+import {
+	getCheckYourAnswersRows,
+	getIntegerRequestQuery,
+	mapS51AdviceToPage,
+	mapUpdateBodyToPayload
+} from './applications-s51.mapper.js';
+
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
+/** @typedef {import('./applications-s51.types.js').ApplicationsS51ChangeStatusBody} ApplicationsS51ChangeStatusBody */
+/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
+/** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
+/** @typedef {import('../../../lib/pagination-params.js').PaginationParams} PaginationParams */
+/** @typedef {import('../../../lib/pagination-params.js').Buttons} Buttons */
+/** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
+/** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 
 /** @type {Record<any, {nextPage: string}>} */
 const createS51Journey = {
@@ -44,52 +47,58 @@ const createS51Journey = {
 };
 
 /**
- * Show pages for creating/editing s51 advice
+ * Show s51 items folder
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
  */
-export async function viewApplicationsCaseS51Folder(request, response) {
-	// @ts-ignore
-	const properties = await s51FolderData(request, response);
+export async function viewApplicationsCaseS51Folder({ query }, response) {
+	const { caseId } = response.locals;
+	const { items, pagination } = await getS51FolderData(caseId, query);
 
-	// @ts-ignore
-	response.render(`applications/components/folder/folder`, properties);
+	response.render(`applications/components/folder/folder`, { items, pagination });
 }
 
 /**
- * Show pages for creating/editing s51 advice
+ * Update s51 status and redacted status from folder page
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {size?: string, number?: string}, {}>}
- * @returns {Promise<any>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
  */
-const s51FolderData = async (request, response) => {
-	const number = Number(request.query.number || '1');
-	const size = (() => {
-		const _size = Number(request.query?.size ?? NaN);
-		if (Number.isNaN(_size)) {
-			return 50;
-		}
+export async function updateApplicationsCaseS51ItemStatus(
+	{ query, errors: validationErrors, body },
+	response
+) {
+	const { caseId } = response.locals;
+	const { isRedacted, status, selectedFilesIds } = body;
 
-		return _size;
-	})();
+	let apiErrors;
+	if (!validationErrors) {
+		const items = (selectedFilesIds || []).map((selectField) => ({
+			id: Number(selectField)
+		}));
 
-	const s51Files = await (async () => {
-		try {
-			return await getS51FilesInFolder(response.locals.caseId, size, number);
-		} catch (/** @type {*} */ error) {
-			pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		let redacted = isRedacted !== undefined ? isRedacted === '1' : undefined;
 
-			return null;
-		}
-	})();
+		const { errors } = await updateS51AdviceStatus(caseId, {
+			redacted,
+			status,
+			items
+		});
 
-	const pagination = s51Files ? paginationParams(size, number, s51Files.pageCount) : null;
+		apiErrors = errors;
+	}
 
-	return {
-		items: s51Files,
-		pagination
-	};
-};
+	if (validationErrors || apiErrors) {
+		const { pagination, items } = await getS51FolderData(caseId, query);
+
+		return response.render(`applications/components/folder/folder`, {
+			errors: validationErrors || apiErrors,
+			pagination,
+			items
+		});
+	}
+
+	response.redirect('../s51-advice');
+}
 
 /**
  * Show s51 advice item
@@ -100,7 +109,7 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+	const s51Advice = await getS51Advice(caseId, +adviceId);
 
 	const showSuccessBanner = getSuccessBanner(session);
 	destroySuccessBanner(session);
@@ -112,110 +121,52 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 }
 
 /**
- * Show s51 advice item
+ * Show page for editing s51 advice item
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function viewApplicationsCaseEditS51Item({ params }, response) {
-	const { caseId, adviceId, step, folderId } = params;
+	const { caseId, adviceId, step } = params;
 
 	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
 	const values = mapS51AdviceToPage(s51Advice);
 
 	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-		caseId,
 		adviceId,
-		folderId,
 		values
 	});
 }
 
 /**
- * Show s51 advice item
+ * Edit s51 advice item
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item({ body, params }, response) {
-	const { caseId, adviceId, step, folderId } = params;
+	const { adviceId, step } = params;
+	const { caseId } = response.locals;
+
 	const payload = mapUpdateBodyToPayload(body);
 
-	// TODO: add function to check whether title exists (checkS51NameIsUnique)
+	let titleUniqueErrors;
+	if (step === 'title' && body.title) {
+		const { errors } = await checkS51NameIsUnique(caseId, body.title);
+		titleUniqueErrors = errors;
+	}
+	const { errors: apiErrors } = await updateS51Advice(caseId, +adviceId, payload);
 
-	try {
-		await updateS51Advice(Number(params.caseId), Number(params.adviceId), payload);
-	} catch (/** @type {any} */ err) {
-		response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-			caseId,
+	if (titleUniqueErrors || apiErrors) {
+		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
-			folderId,
-			...err.response.body
+			errors: titleUniqueErrors || apiErrors
 		});
-
-		return;
 	}
 
-	response.redirect('../properties');
+	return response.redirect('../properties');
 }
 
 /**
- * Show s51 advice item
- *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51ChangeStatusBody, {size?: string, number?: string}>}
- */
-export async function changeAdviceStatus(request, response) {
-	const { errors: validationErrors, body } = request;
-
-	// @ts-ignore
-	const properties = await s51FolderData(request, response);
-
-	if (validationErrors) {
-		return response.render(`applications/components/folder/folder`, {
-			errors: validationErrors,
-			// @ts-ignore
-			...properties
-		});
-	}
-
-	/**
-	 * @type {{ id: number; }[]}
-	 */
-
-	const items = body.selectedFilesIds.map((/** @type {any} */ selectField) => ({
-		id: Number(selectField)
-	}));
-
-	let redacted = body?.isRedacted;
-	// @ts-ignore
-	if (body?.isRedacted && body.isRedacted === '1') {
-		redacted = true;
-	}
-	// @ts-ignore
-	if (body?.isRedacted && body.isRedacted === '0') {
-		redacted = false;
-	}
-
-	const payload = {
-		redacted,
-		status: body.status,
-		items: items
-	};
-
-	// @ts-ignore
-	const { errors } = await updateS51AdviceStatus(request.params.caseId, payload);
-
-	if (errors) {
-		return response.render(`applications/components/folder/folder`, {
-			errors,
-			// @ts-ignore
-			...properties
-		});
-	}
-
-	response.redirect('.');
-}
-
-/**
- * Show s51 advice item
+ * Show page for uploading s51 attachment
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {adviceId: string}>}
  */
@@ -223,7 +174,7 @@ export async function viewApplicationsCaseS51Upload({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+	const s51Advice = await getS51Advice(caseId, +adviceId);
 
 	response.render(`applications/case-s51/properties/s51-upload`, {
 		s51Advice
@@ -243,57 +194,7 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
 }
 
 /**
- * Refines the S51Advice data to display on the check your answers page
- *
- * @param { Partial<S51AdviceForm> | null } data
- */
-const getCheckYourAnswersRows = (data) => {
-	if (!data) return {};
-
-	const enquiryDateString = [
-		data['enquiryDate.year'],
-		data['enquiryDate.month'],
-		data['enquiryDate.day']
-	].join('-');
-	const enquiryDate = new Date(enquiryDateString).toISOString();
-
-	const adviceDateString = [
-		data['adviceDate.year'],
-		data['adviceDate.month'],
-		data['adviceDate.day']
-	].join('-');
-	const adviceDate = new Date(adviceDateString).toISOString();
-	const enquirerLabel = `${data?.enquirerFirstName} ${data?.enquirerLastName}${
-		(data?.enquirerFirstName || data?.enquirerLastName) && data?.enquirerOrganisation ? ', ' : ''
-	}${data?.enquirerOrganisation}`;
-
-	return {
-		title: data.title,
-		enquirer: data.enquirerOrganisation,
-		enquirerLabel,
-		firstName: data.enquirerFirstName,
-		lastName: data.enquirerLastName,
-		enquiryMethod: data.enquiryMethod,
-		enquiryDateDisplay: dateString(
-			data['enquiryDate.year'],
-			data['enquiryDate.month'],
-			data['enquiryDate.day']
-		),
-		enquiryDate: enquiryDate,
-		enquiryDetails: data.enquiryDetails,
-		adviser: data.adviser,
-		adviceDateDisplay: dateString(
-			data['adviceDate.year'],
-			data['adviceDate.month'],
-			data['adviceDate.day']
-		),
-		adviceDate: adviceDate,
-		adviceDetails: data.adviceDetails
-	};
-};
-
-/**
- * Save data for creating/editing s51 advice
+ * Save data for creating s51 advice
  *
  * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {caseId: object}>}
  */
@@ -376,10 +277,10 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 /**
  * View page for deleting S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {folderId: string, adviceId: string, attachmentId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string}>}
  */
 export async function viewApplicationsCaseS51Delete({ params }, response) {
-	const { adviceId, attachmentId, folderId } = params;
+	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
 	const s51Advice = await getS51Advice(caseId, +adviceId);
@@ -389,18 +290,17 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 
 	response.render('applications/case-s51/s51-delete.njk', {
 		attachment: attachmentToDelete,
-		adviceId: adviceId,
-		folderId: folderId
+		adviceId: adviceId
 	});
 }
 
 /**
  * Delete the S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {folderId: string, adviceId: string, attachmentId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {adviceId: string, attachmentId: string}>}
  */
 export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
-	const { adviceId, attachmentId, folderId } = params;
+	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
 	const { errors: apiErrors } = await deleteCaseDocumentationFile(
@@ -413,7 +313,6 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 		return response.render('applications/case-s51/s51-delete.njk', {
 			attachment: body,
 			adviceId: adviceId,
-			folderId: folderId,
 			errors: apiErrors
 		});
 	}
@@ -428,26 +327,13 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
  */
 export async function viewApplicationsCaseS51PublishingQueue({ query }, response) {
 	const { caseId } = response.locals;
-	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
 
-	response.render(`applications/case-s51/s51-publishing-queue`, properties);
-}
+	const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
 
-/**
- * Publish S51 advice items
- *
- * @type {import('@pins/express').RenderHandler<{}, any, {selectAll?: boolean, selectedFilesIds: string[]}, {size?: string, number?: string}, {}>}
- * */
-export async function publishApplicationsCaseS51Items({ query, body }, response) {
-	const { caseId } = response.locals;
-	await publishS51AdviceItems(caseId, {
-		publishAll: Boolean(body.selectAll),
-		ids: body.selectedFilesIds
+	response.render(`applications/case-s51/s51-publishing-queue`, {
+		s51Advices,
+		paginationButtons
 	});
-
-	const properties = await getDataForPublishingQueuePage(caseId, query.number, query.size);
-
-	response.render(`applications/case-s51/s51-publishing-queue`, properties);
 }
 
 /**
@@ -455,16 +341,21 @@ export async function publishApplicationsCaseS51Items({ query, body }, response)
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {adviceId: string}>}
  */
-export async function removeApplicationsCaseS51AdviceFromPublishingQueue({ params }, response) {
+export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
+	{ query, params },
+	response
+) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
 	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
 
 	if (errors) {
-		const properties = await getDataForPublishingQueuePage(caseId);
+		const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
+
 		return response.render(`applications/case-s51/s51-publishing-queue`, {
-			...properties,
+			paginationButtons,
+			s51Advices,
 			errors
 		});
 	}
@@ -475,40 +366,30 @@ export async function removeApplicationsCaseS51AdviceFromPublishingQueue({ param
 /**
  *
  * @param {number} caseId
- * @param {string=} queryPageNumber
- * @param {string=} queryPageSize
- * @returns
+ * @param {{size?: string, number?: string}} query
+ * @returns {Promise<{items: S51AdvicePaginatedResponse, pagination: null | PaginationParams }>}
  */
-const getDataForPublishingQueuePage = async (caseId, queryPageNumber, queryPageSize) => {
-	const pageNumber = Number.parseInt(queryPageNumber || '1', 10);
-	const pageSize = Number.parseInt(queryPageSize || '25', 10);
-	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+const getS51FolderData = async (caseId, query) => {
+	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 50);
 
-	const paginationButtons = getPaginationButtonData(pageNumber, s51Advices.pageCount);
+	const items = await getS51FilesInFolder(caseId, pageNumber, pageSize);
+	const pagination = paginationParams(pageSize, pageNumber, items.pageCount);
 
-	return {
-		s51Advices,
-		paginationButtons,
-		pageSize
-	};
+	return { items, pagination };
 };
 
 /**
  *
- * @param {number} currentPageNumber
- * @param {number} pageCount
- * @returns {any}
+ * @param {number} caseId
+ * @param {{size?: string, number?: string}} query
+ * @returns {Promise<{s51Advices: S51AdvicePaginatedResponse, paginationButtons: null | Buttons }>}
  */
-const getPaginationButtonData = (currentPageNumber, pageCount) => {
-	return {
-		...(currentPageNumber === 1 ? {} : { previous: { href: `?number=${currentPageNumber - 1}` } }),
-		...(currentPageNumber === pageCount
-			? {}
-			: { next: { href: `?number=${currentPageNumber + 1}` } }),
-		items: [...Array.from({ length: pageCount }).keys()].map((index) => ({
-			number: index + 1,
-			href: `?number=${index + 1}`,
-			current: index + 1 === currentPageNumber
-		}))
-	};
+const getS51PublishinQueueData = async (caseId, query) => {
+	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 25);
+
+	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+
+	const pagination = paginationParams(pageSize, pageNumber, s51Advices.pageCount);
+
+	return { s51Advices, paginationButtons: pagination?.buttons || null };
 };

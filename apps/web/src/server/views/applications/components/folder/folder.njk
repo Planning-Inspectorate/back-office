@@ -65,7 +65,9 @@
 								{{ folderDocumentsTable(items, pagination, caseId, folderId) }}
 							{% endif %}
 
-							{{ govukPagination(pagination.buttons) }}
+							{% if items.itemCount > items.pageDefaultSize %}
+								{{ govukPagination(pagination.buttons) }}
+							{% endif %}
 						</form>
 					{% endif %}
 				{% endif %}

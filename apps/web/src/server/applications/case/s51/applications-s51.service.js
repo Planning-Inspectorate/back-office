@@ -1,11 +1,9 @@
-import { post, get, patch } from '../../../lib/request.js';
+import { post, get, patch, head } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
-import { fixtureS51Advices } from '../../../../../testing/applications/fixtures/s51-advice.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51UpdatePayload */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdatePayload} ApplicationsS51ChangeStatusBody */
-/** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
@@ -42,20 +40,21 @@ export const createS51Advice = async (payload) => {
  * @param {number} caseId
  * @param {number} adviceId
  * @param {ApplicationsS51UpdatePayload} payload
- * @returns {Promise<S51Advice>}
+ * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
 export const updateS51Advice = async (caseId, adviceId, payload) => {
-	// TODO: use the same structure of other APIs
-
+	let response;
 	try {
-		return await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
+		response = await patch(`applications/${caseId}/s51-advice/${adviceId}`, { json: payload });
 	} catch (/** @type {*} */ error) {
-		// TODO: use usual generic error
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		// TODO: return a validation error
-		throw error;
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
 	}
+
+	return response;
 };
 
 /**
@@ -63,19 +62,22 @@ export const updateS51Advice = async (caseId, adviceId, payload) => {
  *
  * @param {number} caseId
  * @param {ApplicationsS51ChangeStatusBody} payload
- * @returns {Promise<S51Advice>}
+ * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
 export const updateS51AdviceStatus = async (caseId, payload) => {
+	let response;
+
 	try {
-		return await patch(`applications/${caseId}/s51-advice/`, { json: payload });
+		response = await patch(`applications/${caseId}/s51-advice/`, { json: payload });
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		return new Promise((resolve) => {
-			// @ts-ignore
-			resolve({ errors: error?.response?.body?.errors || [] });
+		response = new Promise((resolve) => {
+			resolve({ errors: 'An error occurred, please try again later' });
 		});
 	}
+
+	return response;
 };
 
 /**
@@ -88,10 +90,13 @@ export const updateS51AdviceStatus = async (caseId, payload) => {
 export const checkS51NameIsUnique = async (caseId, title) => {
 	let response;
 	try {
-		const validS51Advice = await Promise.resolve({ ...fixtureS51Advices[0], caseId, title });
+		const urlTitle = title.trim().replace(/\s/g, '%20');
+		const validS51Advice = await head(`applications/${caseId}/s51-advice/title-unique/${urlTitle}`);
 		response = { validS51Advice };
 	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		pino.error(
+			`[API] ${error?.response?.body?.errors?.message || 'Advice title already existing'}`
+		);
 
 		response = new Promise((resolve) => {
 			resolve({ errors: 'That advice title already exists on this project.  Enter a new title.' });
@@ -128,77 +133,29 @@ export const getS51Advice = async (caseId, adviceId) => {
  * Get the advice items for the current case
  *
  * @param {number} caseId
+ * @param {number} page
  * @param {number} pageSize
- * @param {number} pageNumber
  * @returns {Promise<S51AdvicePaginatedResponse>}
  */
-export const getS51FilesInFolder = async (caseId, pageSize, pageNumber) =>
-	get(`applications/${caseId}/s51-advice`, {
-		searchParams: {
-			page: pageNumber,
-			pageSize
-		}
-	});
+export const getS51FilesInFolder = async (caseId, page, pageSize) => {
+	let response;
 
-/**
- * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
- *
- * @param {ApplicationsS51UpdateBody} body
- * @returns {ApplicationsS51UpdatePayload}
- * */
-export const mapUpdateBodyToPayload = (body) => {
-	/** @type {ApplicationsS51UpdatePayload} */
-	let payload = {
-		title: body.title,
-		firstName: body.firstName,
-		lastName: body.lastName,
-		enquirer: body.enquirer,
-		enquiryMethod: body.enquiryMethod,
-		enquiryDetails: body.enquiryDetails,
-		adviser: body.adviser,
-		adviceDetails: body.adviceDetails,
-		redactedStatus: body.redactedStatus,
-		publishedStatus: body.publishedStatus
-	};
+	try {
+		response = await get(`applications/${caseId}/s51-advice`, {
+			searchParams: {
+				page,
+				pageSize
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-	if (body['enquiryDate.day'] && body['enquiryDate.month'] && body['enquiryDate.year']) {
-		payload.enquiryDate = new Date(
-			parseInt(body['enquiryDate.year']),
-			parseInt(body['enquiryDate.month']) - 1,
-			parseInt(body['enquiryDate.day'])
-		);
+		response = new Promise((resolve) => {
+			resolve([]);
+		});
 	}
 
-	if (body['adviceDate.day'] && body['adviceDate.month'] && body['adviceDate.year']) {
-		payload.adviceDate = new Date(
-			parseInt(body['adviceDate.year']),
-			parseInt(body['adviceDate.month']) - 1,
-			parseInt(body['adviceDate.day'])
-		);
-	}
-
-	return payload;
-};
-
-/**
- * Transform ApplicationsS51UpdatePayload to ApplicationsS51UpdateBody
- *
- * @param {S51Advice} payload
- * @returns {ApplicationsS51UpdateBody}
- * */
-export const mapS51AdviceToPage = (payload) => {
-	const enquiryDate = new Date(payload.enquiryDate);
-	const adviceDate = new Date(payload.adviceDate);
-
-	return {
-		...payload,
-		'enquiryDate.day': String(enquiryDate.getDate()),
-		'enquiryDate.month': String(enquiryDate.getMonth() + 1),
-		'enquiryDate.year': String(enquiryDate.getFullYear()),
-		'adviceDate.day': String(adviceDate.getDate()),
-		'adviceDate.month': String(adviceDate.getMonth() + 1),
-		'adviceDate.year': String(adviceDate.getFullYear())
-	};
+	return response;
 };
 
 /**
@@ -212,6 +169,7 @@ export const mapS51AdviceToPage = (payload) => {
 export const getS51AdviceReadyToPublish = async (caseId, pageNumber, pageSize) => {
 	let response;
 
+	//return fixturePaginatedS51Advice(pageNumber, pageSize);
 	try {
 		response = await post(`applications/${caseId}/s51-advice/ready-to-publish`, {
 			json: {
@@ -235,7 +193,7 @@ export const getS51AdviceReadyToPublish = async (caseId, pageNumber, pageSize) =
  *
  * @param {number} caseId
  * @param {number} adviceId
- * @returns
+ * @returns {Promise<{validS51Advice?: S51Advice, errors?: ValidationErrors}>}
  */
 export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
 	let response;

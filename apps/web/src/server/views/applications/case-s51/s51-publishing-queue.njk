@@ -126,7 +126,7 @@
 					</table>
 					{{ govukButton({ text: 'Publish S51 advice' }) }}
 
-					{% if s51Advices.itemCount > pageSize %}
+					{% if s51Advices.itemCount > s51Advices.pageDefaultSize %}
 						{{ govukPagination(paginationButtons) }}
 					{% endif %}
 				</form>

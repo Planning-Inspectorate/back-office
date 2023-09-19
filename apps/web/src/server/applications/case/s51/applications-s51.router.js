@@ -21,7 +21,7 @@ applicationsS51Router
 	.route('/change-status')
 	.post(
 		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
-		asyncRoute(controller.changeAdviceStatus)
+		asyncRoute(controller.updateApplicationsCaseS51ItemStatus)
 	);
 
 applicationsS51Router
@@ -45,7 +45,7 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/:adviceId/edit/:step')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseEditS51Item))
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseEditS51Item))
 	.post(asyncRoute(controller.postApplicationsCaseEditS51Item));
 
 applicationsS51Router
@@ -55,7 +55,10 @@ applicationsS51Router
 applicationsS51Router
 	.route('/publishing-queue')
 	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue))
-	.post(locals.registerFolderId, asyncRoute(controller.publishApplicationsCaseS51Items));
+	.post(
+		locals.registerFolderId,
+		asyncRoute(controller.removeApplicationsCaseS51AdviceFromPublishingQueue)
+	);
 
 applicationsS51Router
 	.route('/publishing-queue/remove/:adviceId')
