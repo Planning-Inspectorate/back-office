@@ -2936,12 +2936,80 @@
 						}
 					}
 				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Soft-deletes an S51 Advice by id, and any associated S51 Advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 Advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Advice successfully soft-deleted",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"400": {
+						"description": "S51 Advice successfully soft-deleted",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"adviceId": {
+											"type": "string",
+											"example": "You must first unpublish S51 advice before deleting it."
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/s51-advice": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets paginated array of S51 Advice(s) on a case",
+				"description": "Gets paginated array of undeleted S51 Advice(s) on a case",
 				"parameters": [
 					{
 						"name": "id",
@@ -7875,6 +7943,11 @@
 					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
 					"description": "Published status",
 					"example": "published"
+				},
+				"isDeleted": {
+					"type": "boolean",
+					"description": "True if the advice is marked as deleted",
+					"example": "true"
 				},
 				"createdAt": {
 					"type": "string",

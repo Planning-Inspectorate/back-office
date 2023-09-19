@@ -1554,6 +1554,11 @@ export const spec = {
 					description: 'Published status',
 					example: 'published'
 				},
+				isDeleted: {
+					type: 'boolean',
+					description: 'True if the advice is marked as deleted',
+					example: 'true'
+				},
 				createdAt: {
 					type: 'string',
 					string: 'date-time',

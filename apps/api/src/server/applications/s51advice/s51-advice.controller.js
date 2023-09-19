@@ -17,6 +17,7 @@ import {
 } from './s51-advice.service.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import {
 	makeDocumentReference,
 	obtainURLsForDocuments
@@ -37,7 +38,7 @@ export const createS51Advice = async (_request, response) => {
 	const { body } = _request;
 	const { caseId } = body;
 
-	const latestReferenceNumber = await s51AdviceRepository.getS51AdviceCountOnCase(caseId);
+	const latestReferenceNumber = await s51AdviceRepository.getS51AdviceCountOnCase(caseId, true);
 	const newReferenceNumber = latestReferenceNumber + 1;
 
 	const payload = { ...body, referenceNumber: newReferenceNumber };
@@ -471,7 +472,10 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 	}
 
 	if (body.selectAll) {
-		await s51AdviceRepository.updateForCase(caseId, { publishedStatus: 'published', datePublished: new Date() });
+		await s51AdviceRepository.updateForCase(caseId, {
+			publishedStatus: 'published',
+			datePublished: new Date()
+		});
 		response.status(200).end();
 		return;
 	}
@@ -515,4 +519,26 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 	}
 
 	response.status(200).send({ results: fulfilled });
+};
+
+/**
+ * Soft-deletes an S51 Advice
+ * @type {import('express').RequestHandler<{ adviceId: string }, ?, ?>}
+ */
+export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
+	let s51Advice;
+	try {
+		s51Advice = await s51AdviceRepository.deleteSoftlyById(+adviceId);
+
+		// and need to mark any associated documents as deleted too
+		const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
+		const docGuids = attachments.map(({ documentGuid }) => documentGuid);
+		for (const guid of docGuids) {
+			await documentRepository.deleteDocument(guid);
+		}
+	} catch (error) {
+		throw new BackOfficeAppError(`Unknown error: ${error}`, 400);
+	}
+
+	response.send(s51Advice);
 };

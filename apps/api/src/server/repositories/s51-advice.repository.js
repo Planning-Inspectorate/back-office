@@ -21,18 +21,18 @@ export const get = (id) => {
 };
 
 /**
- * Returns total number of S51 Advice on a case
+ * Returns total number of S51 Advice on a case, including deleted advice if includeDeleted = true
  *
  * @param {number} caseId
- * @param {boolean} getAllS51Advice
+ * @param {boolean} includeDeleted
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
-export const getS51AdviceCountOnCase = (caseId, getAllS51Advice = false) => {
+export const getS51AdviceCountOnCase = (caseId, includeDeleted = true) => {
 	/** @type {{caseId: number, isDeleted?:boolean}} */
 	const where = { caseId };
 
-	if (getAllS51Advice) {
-		// where.isDeleted = true; // TODO: no isDeleted field yet
+	if (!includeDeleted) {
+		where.isDeleted = false;
 	}
 
 	return databaseConnector.s51Advice.count({
@@ -41,7 +41,7 @@ export const getS51AdviceCountOnCase = (caseId, getAllS51Advice = false) => {
 };
 
 /**
- * returns and array of all the S51 Advice on a case
+ * returns and array of all undeleted S51 Advice on a case
  *
  * @param {{caseId: number, skipValue: number, pageSize: number }} caseId
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
@@ -56,7 +56,8 @@ export const getManyS51AdviceOnCase = ({ caseId, skipValue, pageSize }) => {
 			}
 		],
 		where: {
-			caseId
+			caseId,
+			isDeleted: false
 		}
 	});
 };
@@ -222,4 +223,17 @@ export const getS51AdviceManyByTitle = (caseId, title) => {
 		}
 	});
 	return s51advice;
+};
+
+/**
+ * Soft Delete of an S51 Advice
+ *
+ * @param {number} id
+ * @returns {Promise<import('@pins/applications.api').Schema.S51Advice | null>}
+ */
+export const deleteSoftlyById = (id) => {
+	return databaseConnector.s51Advice.update({
+		where: { id },
+		data: { isDeleted: true }
+	});
 };

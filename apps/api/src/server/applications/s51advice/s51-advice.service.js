@@ -26,7 +26,7 @@ import BackOfficeAppError from '../../utils/app-error.js';
  */
 export const getManyS51AdviceOnCase = async (caseId, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
-	const s51AdviceCount = await s51AdviceRepository.getS51AdviceCountOnCase(caseId);
+	const s51AdviceCount = await s51AdviceRepository.getS51AdviceCountOnCase(caseId, false);
 	const s51advices = await s51AdviceRepository.getManyS51AdviceOnCase({
 		caseId,
 		skipValue,
