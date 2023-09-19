@@ -90,6 +90,10 @@ const layouts = {
 				text: 'Exam library'
 			},
 			{
+				value: 'Rule 6 letter',
+				text: 'Rule 6 letter'
+			},
+			{
 				value: 'Rule 8 letter',
 				text: 'Rule 8 letter'
 			},

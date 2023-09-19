@@ -17,6 +17,12 @@
 				html: successMessage
 			}) }}
 
+			{% if extraMessage %}
+				<p class="govuk-body">
+					{{extraMessage}}
+				</p>
+			{% endif %}
+
 			<div class="govuk-body">
 				Return to folder:
 				<a href="{{ breadcrumbItems[breadcrumbItems.length - 1].href }}" class="govuk-link">
