@@ -363,8 +363,12 @@ router.post(
     #swagger.parameters['body'] = {
         in: 'body',
         description: 'Payload to publish items',
-        schema: { $ref: '#/definitions/S51AdvicePublishItems' },
+        schema: { $ref: '#/definitions/S51AdvicePublishRequestBody' },
         required: true
+    }
+	#swagger.responses[200] = {
+		description: 'Array of all updated S51 Advice records',
+		schema: { $ref: '#/definitions/S51AdviceDetailsArrayWithCaseId' }
     }
     */
 	asyncHandler(publishQueueItems)

@@ -343,78 +343,6 @@ export interface ExaminationTimetableItemResponseBody {
 	submissions?: boolean;
 }
 
-export interface S51AdviceRequestBody {
-	/** @example 29 */
-	caseId?: number;
-	/** @example "title" */
-	title?: string;
-	/** @example "first name" */
-	firstName?: string;
-	/** @example "last name" */
-	lastName?: string;
-	/** @example "organisation" */
-	enquirer?: string;
-	/** @example "meeting" */
-	enquiryMethod?: string;
-	/** @example "2023-01-11T00:00:00.000Z" */
-	enquiryDate?: string;
-	/** @example "title" */
-	enquiryDetails?: string;
-	/** @example "person" */
-	adviser?: string;
-	/** @example "2023-02-11T00:00:00.000Z" */
-	adviceDate?: string;
-	/** @example "title" */
-	adviceDetails?: string;
-	/** @example 1 */
-	referenceNumber?: number;
-	/** @example "redacted" */
-	redactedStatus?: string;
-	/** @example "not_checked" */
-	publishedStatus?: string;
-	/** @example "2023-08-07T09:13:15.593Z" */
-	createdAt?: string;
-	/** @example "2023-08-07T09:13:15.593Z" */
-	updatedAt?: string;
-}
-
-export interface S51AdviceResponseBody {
-	/** @example 1 */
-	id?: number;
-	/** @example 29 */
-	caseId?: number;
-	/** @example "title" */
-	title?: string;
-	/** @example "first name" */
-	firstName?: string;
-	/** @example "last name" */
-	lastName?: string;
-	/** @example "organisation" */
-	enquirer?: string;
-	/** @example "meeting" */
-	enquiryMethod?: string;
-	/** @example "2023-01-11T00:00:00.000Z" */
-	enquiryDate?: string;
-	/** @example "title" */
-	enquiryDetails?: string;
-	/** @example "person" */
-	adviser?: string;
-	/** @example "2023-02-11T00:00:00.000Z" */
-	adviceDate?: string;
-	/** @example "title" */
-	adviceDetails?: string;
-	/** @example 1 */
-	referenceNumber?: number;
-	/** @example "redacted" */
-	redactedStatus?: string;
-	/** @example "not_checked" */
-	publishedStatus?: string;
-	/** @example "2023-08-07T09:13:15.593Z" */
-	createdAt?: string;
-	/** @example "2023-08-07T09:13:15.593Z" */
-	updatedAt?: string;
-}
-
 export interface DocumentsPropertiesRequestBody {
 	/** @example 1 */
 	version?: number;
@@ -1990,92 +1918,42 @@ export interface S51AdviceCreateRequestBody {
 	adviceDetails?: string;
 }
 
-export interface S51AdviceCreateResponseBody {
+export interface S51AdviceDocumentDetails {
 	/**
-	 * The S51 Advice record id
-	 * @example 1
+	 * Document name
+	 * @example "Small9"
 	 */
-	id?: number;
+	documentName?: string;
 	/**
-	 * The application id
-	 * @example 1
+	 * Document mime type
+	 * @example "application/pdf"
 	 */
-	caseId?: number;
+	documentType?: string;
 	/**
-	 * Advice title
-	 * @example "Advice regarding right to roam"
+	 * Size of the document in bytes
+	 * @example 7945
 	 */
-	title?: string;
+	documentSize?: number;
 	/**
-	 * First name of enquirer
-	 * @example "John"
+	 * Date document was added
+	 * @example 1694179427
 	 */
-	firstName?: string;
-	/**
-	 * Last name of enquirer
-	 * @example "Keats"
-	 */
-	lastName?: string;
-	/**
-	 * Name of enquiring company / organisation
-	 * @example "New Power Plc"
-	 */
-	enquirer?: string;
-	/**
-	 * Enquiry method
-	 * @example "email"
-	 */
-	enquiryMethod?: 'phone' | 'email' | 'meeting' | 'post';
-	/**
-	 * Date of enquiry
-	 * @example "2023-02-01T00:00:00.000Z"
-	 */
-	enquiryDate?: string;
-	/**
-	 * Details of the enquiry
-	 * @example "details of the advice sought"
-	 */
-	enquiryDetails?: string;
-	/**
-	 * Name of who gave the advice
-	 * @example "John Caseworker-Smith"
-	 */
-	adviser?: string;
-	/**
-	 * Date advice given
-	 * @example "2023-02-01T00:00:00.000Z"
-	 */
-	adviceDate?: string;
-	/**
-	 * Details of the advive given
-	 * @example "details of the advice provided"
-	 */
-	adviceDetails?: string;
-	/**
-	 * Advice reference number
-	 * @example "1"
-	 */
-	referenceNumber?: number;
-	/**
-	 * Redacted status
-	 * @example "not_redacted"
-	 */
-	redactedStatus?: 'not_redacted' | 'redacted';
+	dateAdded?: number;
 	/**
 	 * Published status
-	 * @example "published"
+	 * @example "not_checked"
 	 */
-	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	status?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
 	/**
-	 * Date advice record was created
-	 * @example "2023-02-01T00:00:00.000Z"
+	 * GUID of the document in the Document table
+	 * @example "742f3ba1-c80a-4f76-81c2-5a4627d6ac00"
 	 */
-	createdAt?: string;
+	documentGuid?: string;
 	/**
-	 * Date advice record was last updated
-	 * @example "2023-02-01T00:00:00.000Z"
+	 * Document version number
+	 * @example 1
 	 */
-	updatedAt?: string;
+	version?: number;
 }
 
 export interface S51AdviceDetails {
@@ -2166,6 +2044,188 @@ export interface S51AdviceDetails {
 	dateUpdated?: number;
 }
 
+export interface S51AdviceDetailsWithCaseId {
+	/**
+	 * The S51 Advice record id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * The application id
+	 * @example 1
+	 */
+	caseId?: number;
+	/**
+	 * Advice title
+	 * @example "Advice regarding right to roam"
+	 */
+	title?: string;
+	/**
+	 * First name of enquirer
+	 * @example "John"
+	 */
+	firstName?: string;
+	/**
+	 * Last name of enquirer
+	 * @example "Keats"
+	 */
+	lastName?: string;
+	/**
+	 * Name of enquiring company / organisation
+	 * @example "New Power Plc"
+	 */
+	enquirer?: string;
+	/**
+	 * Enquiry method
+	 * @example "email"
+	 */
+	enquiryMethod?: 'phone' | 'email' | 'meeting' | 'post';
+	/**
+	 * Date of enquiry
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	enquiryDate?: string;
+	/**
+	 * Details of the enquiry
+	 * @example "details of the advice sought"
+	 */
+	enquiryDetails?: string;
+	/**
+	 * Name of who gave the advice
+	 * @example "John Caseworker-Smith"
+	 */
+	adviser?: string;
+	/**
+	 * Date advice given
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	adviceDate?: string;
+	/**
+	 * Details of the advive given
+	 * @example "details of the advice provided"
+	 */
+	adviceDetails?: string;
+	/**
+	 * Advice reference number
+	 * @example "1"
+	 */
+	referenceNumber?: number;
+	/**
+	 * Redacted status
+	 * @example "not_redacted"
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * Published status
+	 * @example "published"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * Date advice record was created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+	/**
+	 * Date advice record was last updated
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	updatedAt?: string;
+}
+
+export interface S51AdviceDetailsWithDocumentDetails {
+	/**
+	 * The S51 Advice record id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Advice reference 5 digits number
+	 * @example "00001"
+	 */
+	referenceNumber?: string;
+	/**
+	 * Advice reference number containing Case ref number
+	 * @example "EN010001-Advice-00001"
+	 */
+	referenceCode?: string;
+	/**
+	 * Advice title
+	 * @example "Advice regarding right to roam"
+	 */
+	title?: string;
+	/**
+	 * Name of enquiring company / organisation
+	 * @example "New Power Plc"
+	 */
+	enquirer?: string;
+	/**
+	 * First name of enquirer
+	 * @example "John"
+	 */
+	firstName?: string;
+	/**
+	 * Last name of enquirer
+	 * @example "Keats"
+	 */
+	lastName?: string;
+	/**
+	 * Enquiry method
+	 * @example "email"
+	 */
+	enquiryMethod?: 'phone' | 'email' | 'meeting' | 'post';
+	/**
+	 * Date of enquiry
+	 * @example 1646822400
+	 */
+	enquiryDate?: number;
+	/**
+	 * Details of the enquiry
+	 * @example "details of the advice sought"
+	 */
+	enquiryDetails?: string;
+	/**
+	 * Name of who gave the advice
+	 * @example "John Caseworker-Smith"
+	 */
+	adviser?: string;
+	/**
+	 * Date advice given
+	 * @example 1646822400
+	 */
+	adviceDate?: number;
+	/**
+	 * Details of the advive given
+	 * @example "details of the advice provided"
+	 */
+	adviceDetails?: string;
+	/**
+	 * Redacted status
+	 * @example "not_redacted"
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * Published status
+	 * @example "published"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * Date advice record was created
+	 * @example 1646822400
+	 */
+	dateCreated?: number;
+	/**
+	 * Date advice record was last updated
+	 * @example 1646822400
+	 */
+	dateUpdated?: number;
+	attachments?: S51AdviceDocumentDetails[];
+	/**
+	 * Total S51 Documents attached to this advice
+	 * @example 1
+	 */
+	totalAttachments?: number;
+}
+
 export interface S51AdvicePaginatedResponse {
 	/**
 	 * The page number required
@@ -2190,6 +2250,34 @@ export interface S51AdvicePaginatedResponse {
 	items?: S51AdviceDetails[];
 }
 
+export interface S51AdvicePaginatedResponseWithDocumentDetails {
+	/**
+	 * The page number required
+	 * @example 1
+	 */
+	page?: number;
+	/**
+	 * The default number of S51 Advice per page
+	 * @example 50
+	 */
+	pageDefaultSize?: number;
+	/**
+	 * The total number of pages
+	 * @example 1
+	 */
+	pageCount?: number;
+	/**
+	 * The total number of s51 Advice records on the case
+	 * @example 1
+	 */
+	itemCount?: number;
+	items?: S51AdviceDetailsWithDocumentDetails[];
+}
+
+export interface S51AdviceDetailsArrayWithCaseId {
+	results?: S51AdviceDetailsWithCaseId[];
+}
+
 export interface S51AdvicePaginatedBadRequest {
 	errors?: {
 		/** @example "Page Number is not valid" */
@@ -2200,8 +2288,68 @@ export interface S51AdvicePaginatedBadRequest {
 	};
 }
 
-/** title */
-export type S51AdviceUpdateRequestBody = any;
+export interface S51AdviceUpdateRequestBody {
+	/**
+	 * Advice title
+	 * @example "Advice regarding right to roam"
+	 */
+	title?: string;
+	/**
+	 * First name of enquirer
+	 * @example "John"
+	 */
+	firstName?: string;
+	/**
+	 * Last name of enquirer
+	 * @example "Keats"
+	 */
+	lastName?: string;
+	/**
+	 * Name of enquiring company / organisation
+	 * @example "New Power Plc"
+	 */
+	enquirer?: string;
+	/**
+	 * Enquiry method
+	 * @example "email"
+	 */
+	enquiryMethod?: 'phone' | 'email' | 'meeting' | 'post';
+	/**
+	 * Date of enquiry
+	 * @example "2023-01-11T00:00:00.000Z"
+	 */
+	enquiryDate?: string;
+	/**
+	 * Details of the enquiry
+	 * @example "details of the advice sought"
+	 */
+	enquiryDetails?: string;
+	/**
+	 * Name of who gave the advice
+	 * @example "John Caseworker-Smith"
+	 */
+	adviser?: string;
+	/**
+	 * Date advice given
+	 * @example "2023-02-11T00:00:00.000Z"
+	 */
+	adviceDate?: string;
+	/**
+	 * Details of the advive given
+	 * @example "details of the advice provided"
+	 */
+	adviceDetails?: string;
+	/**
+	 * Published status
+	 * @example "redacted"
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * Published status
+	 * @example "not_checked"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+}
 
 export interface S51AdviceMultipleUpdateRequestBody {
 	/**
@@ -2226,9 +2374,9 @@ export interface S51AdviceMultipleUpdateRequestBody {
 export interface S51AdviceUpdateResponseItem {
 	/**
 	 * The S51 Advice record id
-	 * @example 1
+	 * @example "1"
 	 */
-	id?: number;
+	id?: string;
 	/**
 	 * Published status
 	 * @example "published"
@@ -2249,6 +2397,16 @@ export interface S51AdviceUpdateBadRequest {
 		items?: string;
 		unknown?: string;
 	};
+}
+
+export interface S51AdvicePublishRequestBody {
+	/**
+	 * Optional parameter. True if all S51 Advice in the publishing queue for that case is to be published
+	 * @example true
+	 */
+	selectAll?: boolean;
+	/** Array of S51 Advice Ids to publish */
+	ids?: string[];
 }
 
 export interface ProjectUpdateNotificationLogList {
