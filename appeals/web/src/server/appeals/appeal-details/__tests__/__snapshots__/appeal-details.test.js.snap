@@ -162,6 +162,21 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
                             </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">Visit date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/complete"> Schedule</a>
+                            </dd>
+                        </div>
                     </dl>
                 </div>
             </div>
@@ -363,6 +378,21 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">Visit date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/schedule-visit"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
@@ -568,6 +598,21 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">Visit date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/schedule-visit"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
