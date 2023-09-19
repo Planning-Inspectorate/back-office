@@ -143,7 +143,6 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 	}
 
 	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
-
 	if (!attachments || attachments?.length === 0) {
 		return;
 	}
@@ -156,7 +155,11 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 			return;
 		}
 
-		if (latestDocumentVersion.virusCheckStatus !== 'scanned') {
+		if (
+			['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
+				latestDocumentVersion.publishedStatus
+			)
+		) {
 			throw new Error('Documents were not successfully virus scanned');
 		}
 	});
