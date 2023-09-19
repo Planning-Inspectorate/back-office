@@ -129,65 +129,65 @@ export const addressesList = [
 	{
 		addressLine1: '96 The Avenue',
 		addressLine2: 'Maidstone',
-		county: 'Kent',
+		addressCounty: 'Kent',
 		postcode: 'MD21 5XY'
 	},
 	{
 		addressLine1: '55 Butcher Street',
-		town: 'Thurnscoe',
+		addressTown: 'Thurnscoe',
 		postcode: 'S63 0RB'
 	},
 	{
 		addressLine1: '8 The Chase',
-		town: 'Findon',
+		addressTown: 'Findon',
 		postcode: 'BN14 0TT'
 	},
 	{
 		addressLine1: '96 The Avenue',
 		addressLine2: 'Maidstone',
-		county: 'Kent',
+		addressCounty: 'Kent',
 		postcode: 'MD21 5XY'
 	},
 	{
 		addressLine1: '44 Rivervale',
-		town: 'Bridport',
+		addressTown: 'Bridport',
 		postcode: 'DT6 5RN'
 	},
 	{
 		addressLine1: '92 Huntsmoor Road',
-		town: 'Tadley',
+		addressTown: 'Tadley',
 		postcode: 'RG26 4BX'
 	},
 	{
 		addressLine1: '1 Grove Cottage',
 		addressLine2: 'Shotesham Road',
-		town: 'Woodton',
+		addressTown: 'Woodton',
 		postcode: 'NR35 2ND'
 	},
 	{
 		addressLine1: '19 Beauchamp Road',
-		town: 'Bristol',
+		addressTown: 'Bristol',
 		postcode: 'BS7 8LQ'
 	},
 	{
 		addressLine1: '92 Huntsmoor Road',
-		county: 'Tadley',
+		addressCounty: 'Tadley',
 		postcode: 'RG26 4BX'
 	},
 	{
 		addressLine1: '72 Clapham High St',
-		county: 'Wandsworth',
+		addressCounty: 'Wandsworth',
 		postcode: 'SW4 7UL'
 	},
 	{
 		addressLine1: '21 The Pavement',
-		county: 'Wandsworth',
+		addressCounty: 'Wandsworth',
 		postcode: 'SW4 0HY'
 	},
 	{
 		addressLine1: 'Copthalls',
 		addressLine2: 'Clevedon Road',
-		town: 'West Hill',
+		addressTown: 'West Hill',
 		postcode: 'BS48 1PN'
 	}
 ];

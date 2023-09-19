@@ -1,5 +1,5 @@
 import { pick } from 'lodash-es';
-import formatAddressLowerCase from '../address-formatter-lowercase.js';
+import formatAddress from '../format-address.js';
 
 /**
  *
@@ -18,7 +18,7 @@ export const mapServiceCustomer = (serviceCustomer) => {
 		'website',
 		'phoneNumber'
 	]);
-	const applicantAddress = formatAddressLowerCase(serviceCustomer.address);
+	const applicantAddress = formatAddress(serviceCustomer.address);
 
 	return {
 		...applicantInfo,

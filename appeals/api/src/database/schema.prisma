@@ -188,9 +188,9 @@ model Address {
   addressLine1            String?
   addressLine2            String?
   postcode                String?
-  county                  String?
-  town                    String?
-  country                 String?
+  addressCounty           String?
+  addressTown             String?
+  addressCountry          String?
   Appeal                  Appeal[]
   ServiceCustomer         ServiceCustomer[]
   RepresentationContact   RepresentationContact[]

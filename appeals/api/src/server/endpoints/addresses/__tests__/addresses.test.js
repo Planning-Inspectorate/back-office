@@ -30,10 +30,10 @@ describe('addresses routes', () => {
 					addressId: householdAppeal.address.id,
 					addressLine1: householdAppeal.address.addressLine1,
 					addressLine2: householdAppeal.address.addressLine2,
-					country: householdAppeal.address.country,
-					county: householdAppeal.address.county,
+					country: householdAppeal.address.addressCountry,
+					county: householdAppeal.address.addressCounty,
 					postcode: householdAppeal.address.postcode,
-					town: householdAppeal.address.town
+					town: householdAppeal.address.addressTown
 				});
 			});
 
@@ -92,10 +92,18 @@ describe('addresses routes', () => {
 			const patchBody = {
 				addressLine1: householdAppeal.address.addressLine1,
 				addressLine2: householdAppeal.address.addressLine2,
-				country: householdAppeal.address.country,
-				county: householdAppeal.address.county,
+				country: householdAppeal.address.addressCountry,
+				county: householdAppeal.address.addressCounty,
 				postcode: householdAppeal.address.postcode,
-				town: householdAppeal.address.town
+				town: householdAppeal.address.addressTown
+			};
+			const dataToSave = {
+				addressLine1: patchBody.addressLine1,
+				addressLine2: patchBody.addressLine2,
+				addressCountry: patchBody.country,
+				addressCounty: patchBody.county,
+				postcode: patchBody.postcode,
+				addressTown: patchBody.town
 			};
 
 			test('updates an address', async () => {
@@ -107,7 +115,7 @@ describe('addresses routes', () => {
 					.send(patchBody);
 
 				expect(databaseConnector.address.update).toHaveBeenCalledWith({
-					data: patchBody,
+					data: dataToSave,
 					where: {
 						id: householdAppeal.address.id
 					}
@@ -523,7 +531,7 @@ describe('addresses routes', () => {
 					.send(patchBody);
 
 				expect(databaseConnector.address.update).toHaveBeenCalledWith({
-					data: patchBody,
+					data: dataToSave,
 					where: {
 						id: householdAppeal.address.id
 					}

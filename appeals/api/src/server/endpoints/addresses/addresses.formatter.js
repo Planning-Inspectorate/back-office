@@ -9,10 +9,10 @@ const formatAddress = (address) => ({
 	addressId: address.id,
 	addressLine1: address.addressLine1,
 	addressLine2: address.addressLine2,
-	country: address.country,
-	county: address.county,
+	country: address.addressCountry,
+	county: address.addressCounty,
 	postcode: address.postcode,
-	town: address.town
+	town: address.addressTown
 });
 
 export { formatAddress };
