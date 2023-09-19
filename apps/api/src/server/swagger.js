@@ -1708,6 +1708,15 @@ export const spec = {
 				}
 			}
 		},
+		S51AdviceDetailsArrayWithCaseId: {
+			type: 'object',
+			properties: {
+				results: {
+					type: 'array',
+					items: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+				}
+			}
+		},
 		S51AdvicePaginatedBadRequest: {
 			type: 'object',
 			properties: {
@@ -1730,18 +1739,72 @@ export const spec = {
 			}
 		},
 		S51AdviceUpdateRequestBody: {
-			title: 'title',
-			firstName: 'first name',
-			lastName: 'last name',
-			enquirer: 'organisation',
-			enquiryMethod: 'meeting',
-			enquiryDate: '2023-01-11T00:00:00.000Z',
-			enquiryDetails: 'title',
-			adviser: 'person',
-			adviceDate: '2023-02-11T00:00:00.000Z',
-			adviceDetails: 'title',
-			redactedStatus: 'redacted',
-			publishedStatus: 'not_checked'
+			type: 'object',
+			properties: {
+				title: {
+					type: 'string',
+					description: 'Advice title',
+					example: 'Advice regarding right to roam'
+				},
+				firstName: {
+					type: 'string',
+					description: 'First name of enquirer',
+					example: 'John'
+				},
+				lastName: {
+					type: 'string',
+					description: 'Last name of enquirer',
+					example: 'Keats'
+				},
+				enquirer: {
+					type: 'string',
+					description: 'Name of enquiring company / organisation',
+					example: 'New Power Plc'
+				},
+				enquiryMethod: {
+					type: 'string',
+					enum: ['phone', 'email', 'meeting', 'post'],
+					description: 'Enquiry method',
+					example: 'email'
+				},
+				enquiryDate: {
+					type: 'string',
+					description: 'Date of enquiry',
+					example: '2023-01-11T00:00:00.000Z'
+				},
+				enquiryDetails: {
+					type: 'string',
+					description: 'Details of the enquiry',
+					example: 'details of the advice sought'
+				},
+				adviser: {
+					type: 'string',
+					description: 'Name of who gave the advice',
+					example: 'John Caseworker-Smith'
+				},
+				adviceDate: {
+					type: 'string',
+					description: 'Date advice given',
+					example: '2023-02-11T00:00:00.000Z'
+				},
+				adviceDetails: {
+					type: 'string',
+					description: 'Details of the advive given',
+					example: 'details of the advice provided'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Published status',
+					example: 'redacted'
+				},
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'not_checked'
+				}
+			}
 		},
 		S51AdviceMultipleUpdateRequestBody: {
 			type: 'object',
@@ -1808,6 +1871,25 @@ export const spec = {
 							type: 'string'
 						}
 					}
+				}
+			}
+		},
+		S51AdvicePublishRequestBody: {
+			type: 'object',
+			properties: {
+				selectAll: {
+					type: 'boolean',
+					description:
+						'Optional parameter. True if all S51 Advice in the publishing queue for that case is to be published',
+					example: true
+				},
+				ids: {
+					type: 'array',
+					items: {
+						type: 'string',
+						example: '1'
+					},
+					description: 'Array of S51 Advice Ids to publish'
 				}
 			}
 		},
