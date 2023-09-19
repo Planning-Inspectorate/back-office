@@ -51,6 +51,8 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @property {Instructions} inspector
  * @property {Instructions} appellantCase
  * @property {Instructions} lpaQuestionnaire
+ * @property {Instructions} issueDeterminationDate
+ * @property {Instructions} completeDate
  */
 
 /**
@@ -907,6 +909,53 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 							: ''
 				}
 			]
+		}
+	};
+
+	/** @type {Instructions} */
+	mappedData.appeal.issueDeterminationDate = {
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Issue Determination'
+				},
+				value: {
+					html:
+						dateToDisplayDate(data.appeal.appealTimetable?.issueDeterminationDate) ||
+						'Due date not yet set'
+				},
+				actions: {
+					items: [
+						{
+							text: data.appealTimetable?.issueDeterminationDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/issue-determination`
+						}
+					]
+				}
+			}
+		}
+	};
+
+	/** @type {Instructions} */
+	mappedData.appeal.completeDate = {
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Complete'
+				},
+				value: {
+					html:
+						dateToDisplayDate(data.appeal.appealTimetable?.completeDate) || 'Due date not yet set'
+				},
+				actions: {
+					items: [
+						{
+							text: data.appealTimetable?.completeDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/complete`
+						}
+					]
+				}
+			}
 		}
 	};
 
