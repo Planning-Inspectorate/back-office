@@ -672,10 +672,6 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		isPartiallyOwned: appeal.appellantCase?.isSitePartiallyOwned,
 		knowsOtherLandowners: appeal.appellantCase?.knowledgeOfOtherLandowners.name
 	},
-	siteVisit: {
-		siteVisitId: appeal.siteVisit?.id,
-		visitType: appeal.siteVisit?.siteVisitType.name
-	},
 	validation: formatValidationOutcomeResponse(
 		appeal.appellantCase?.appellantCaseValidationOutcome?.name,
 		appeal.appellantCase?.appellantCaseIncompleteReasonsOnAppellantCases,

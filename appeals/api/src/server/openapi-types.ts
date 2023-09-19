@@ -230,8 +230,14 @@ export interface SingleAppealResponse {
 	/** @example "Written" */
 	procedureType?: string;
 	siteVisit?: {
+		/** @example 1 */
+		siteVisitId?: number;
 		/** @example "2022-03-31T12:00:00.000Z" */
 		visitDate?: string;
+		/** @example "10:00" */
+		visitStartTime?: string;
+		/** @example "12:00" */
+		visitEndTime?: string;
 		/** @example "Accompanied" */
 		visitType?: string;
 	};
@@ -366,12 +372,6 @@ export interface SingleAppellantCaseResponse {
 		isPartiallyOwned?: boolean;
 		/** @example "Some" */
 		knowsOtherLandowners?: string;
-	};
-	siteVisit?: {
-		/** @example 1 */
-		siteVisitId?: number;
-		/** @example "Accompanied" */
-		visitType?: string;
 	};
 	validation?: {
 		/** @example "Incomplete" */

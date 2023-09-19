@@ -98,7 +98,10 @@ const formatAppeal = (appeal) => {
 			planningApplicationReference: appeal.planningApplicationReference,
 			procedureType: appeal.lpaQuestionnaire?.procedureType?.name || null,
 			siteVisit: {
+				siteVisitId: appeal.siteVisit?.id || null,
 				visitDate: appeal.siteVisit?.visitDate || null,
+				visitStartTime: appeal.siteVisit?.visitStartTime || null,
+				visitEndTime: appeal.siteVisit?.visitEndTime || null,
 				visitType: appeal.siteVisit?.siteVisitType?.name || null
 			},
 			startedAt: appeal.startedAt,
