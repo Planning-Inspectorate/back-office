@@ -6,6 +6,7 @@ import {
 	typesToSubscription
 } from '../../applications/subscriptions/subscriptions.js';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-subscription.d.ts').NSIPSubscription} NSIPSubscription
@@ -56,7 +57,7 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
 		buildSubscriptionPayloads(updatedEntity)
 	);
 
-	await eventClient.sendEvents(NSIP_SUBSCRIPTION, events, 'Update');
+	await eventClient.sendEvents(NSIP_SUBSCRIPTION, events, EventType.Update);
 };
 
 /**

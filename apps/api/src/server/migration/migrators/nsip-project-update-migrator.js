@@ -4,6 +4,7 @@ import { allowedTags } from '../../applications/application/project-updates/proj
 import { buildProjectUpdatePayload } from '../../applications/application/project-updates/project-updates.mapper.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
 import { sendChunkedEvents } from './utils.js';
+import { EventType } from '@pins/event-client';
 /**
  * @typedef {import('../../../message-schemas/events/nsip-project-update.d.ts').NSIPProjectUpdate} NSIPProjectUpdate
  */
@@ -66,7 +67,8 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 		buildProjectUpdatePayload(updatedEntity, caseReference)
 	);
 
-	await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, 'Update');
+	// We're only migrating published project updates, so publish everything
+	await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
 };
 
 /**
