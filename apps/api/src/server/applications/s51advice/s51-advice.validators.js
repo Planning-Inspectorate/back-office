@@ -18,6 +18,20 @@ export const validateExistingS51Advice = async (id) => {
 	}
 };
 
+/**
+ * Checks that an Advice is not published
+ *
+ * @param {number} id
+ * @throws {Error}
+ * @returns {Promise<void>}
+ * */
+const IsS51AdviceNotPublished = async (id) => {
+	const s51 = await s51AdviceRepository.get(id);
+	if (s51?.publishedStatus === 'published') {
+		throw new Error(`You must first unpublish S51 advice before deleting it.`);
+	}
+};
+
 export const validateCreateS51Advice = composeMiddleware(
 	body('caseId').toInt().custom(validateExistingApplication).withMessage('Must be valid case id'),
 	body('title').notEmpty().withMessage('Title must not be empty'),
@@ -96,6 +110,14 @@ export const validateS51AdviceId = composeMiddleware(
 		.withMessage('Advice id must be a valid numerical value')
 		.custom(validateExistingS51Advice)
 		.withMessage('Must be an existing S51 advice item'),
+	validationErrorHandler
+);
+
+export const validateS51AdviceIsNotPublished = composeMiddleware(
+	param('adviceId')
+		.toInt()
+		.custom(IsS51AdviceNotPublished)
+		.withMessage('You must first unpublish S51 advice before deleting it.'),
 	validationErrorHandler
 );
 

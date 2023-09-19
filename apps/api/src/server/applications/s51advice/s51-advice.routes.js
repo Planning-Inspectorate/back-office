@@ -11,14 +11,16 @@ import {
 	getReadyToPublishAdvices,
 	verifyS51TitleIsUnique,
 	removePublishItemFromQueue,
-	publishQueueItems
+	publishQueueItems,
+	deleteS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
 	validatePaginationCriteria,
 	validateS51AdviceIds,
 	validateS51AdviceToUpdateProvided,
-	validateS51AdviceId
+	validateS51AdviceId,
+	validateS51AdviceIsNotPublished
 } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
@@ -78,7 +80,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/s51-advice'
-        #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
+        #swagger.description = 'Gets paginated array of undeleted S51 Advice(s) on a case'
         #swagger.parameters['id'] = {
             in: 'path',
             description: 'Application ID',
@@ -248,7 +250,7 @@ router.patch(
             description: 'The updated S51 Advice record',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
-      #swagger.responses[404] = {
+      	#swagger.responses[404] = {
             description: 'Error: Not Found',
 			schema: { errors: { id: "Must be an existing application" } }
         }
@@ -258,6 +260,43 @@ router.patch(
 	validateS51AdviceId,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
+);
+
+router.delete(
+	'/:id/s51-advice/:adviceId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
+        #swagger.description = 'Soft-deletes an S51 Advice by id, and any associated S51 Advice documents'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+			description: 'S51 Advice ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'S51 Advice successfully soft-deleted',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
+		#swagger.responses[400] = {
+            description: 'S51 Advice successfully soft-deleted',
+            schema: { "errors": { "adviceId": "You must first unpublish S51 advice before deleting it."  } }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceId,
+	validateS51AdviceIsNotPublished,
+	asyncHandler(deleteS51Advice)
 );
 
 router.post(

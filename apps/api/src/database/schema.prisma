@@ -511,6 +511,7 @@ model S51Advice {
   publishedStatus     String              @default("not_checked")
   publishedStatusPrev String?
   datePublished       DateTime?
+  isDeleted           Boolean             @default(false)
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @default(now())
   case                Case                @relation(fields: [caseId], references: [id])

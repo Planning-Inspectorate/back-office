@@ -2121,6 +2121,11 @@ export interface S51AdviceDetailsWithCaseId {
 	 */
 	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
 	/**
+	 * True if the advice is marked as deleted
+	 * @example "true"
+	 */
+	isDeleted?: boolean;
+	/**
 	 * Date advice record was created
 	 * @example "2023-02-01T00:00:00.000Z"
 	 */
