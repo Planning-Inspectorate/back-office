@@ -17,9 +17,7 @@ export const makePostRequest = (log, path, body) => {
 
 	log(`Making POST request to ${requestUri}`);
 
-	return got
-		.post(requestUri, {
-			json: body
-		})
-		.json();
+	return got.post(requestUri, {
+		json: body
+	});
 };
