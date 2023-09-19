@@ -27,19 +27,27 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 
 			const updates = await getProjectUpdates(log, caseReference);
 
-			log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
+			if (updates.length > 0) {
+				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-project-update', updates);
+				await makePostRequest(log, '/migration/nsip-project-update', updates);
 
-			log.info('Successfully migrated project updates');
+				log.info('Successfully migrated project updates');
+			} else {
+				log.warn(`No updates found for case ${caseReference}`);
+			}
 
 			const subscriptions = await getProjectSubscriptions(log, caseReference);
 
-			log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
+			if (subscriptions.length > 0) {
+				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-subscription', subscriptions);
+				await makePostRequest(log, '/migration/nsip-subscription', subscriptions);
 
-			log.info('Successfully migrated subscriptions');
+				log.info('Successfully migrated subscriptions');
+			} else {
+				log.warn(`No subscriptions found for case ${caseReference}`);
+			}
 		} catch (e) {
 			log.error(`Failed to migrate project updates for case ${caseReference}`, e);
 			throw e;

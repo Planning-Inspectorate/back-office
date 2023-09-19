@@ -57,7 +57,9 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
 		buildSubscriptionPayloads(updatedEntity)
 	);
 
-	await eventClient.sendEvents(NSIP_SUBSCRIPTION, events, EventType.Update);
+	if (events.length > 0) {
+		await eventClient.sendEvents(NSIP_SUBSCRIPTION, events, EventType.Update);
+	}
 };
 
 /**

@@ -61,6 +61,10 @@ export class ServiceBusEventClient {
 	 * @param {Object.<string,any>?} [additionalProperties={}]
 	 */
 	sendEvents = async (topic, events, eventType, additionalProperties = {}) => {
+		if (events?.length < 1) {
+			throw Error('No events provided');
+		}
+
 		const sender = this.#createSender(topic);
 
 		const traceId = this.#createTraceId();

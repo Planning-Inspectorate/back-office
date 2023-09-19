@@ -68,7 +68,9 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	);
 
 	// We're only migrating published project updates, so publish everything
-	await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
+	if (events.length > 0) {
+		await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
+	}
 };
 
 /**
