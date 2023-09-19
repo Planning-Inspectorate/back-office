@@ -94,6 +94,84 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     </tr>
                 </tbody>
             </table>
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Key dates</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Anticipated submission date published</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Application submitted (Section 55)</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for Acceptance decision</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Acceptance (Section 55)</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Non-Acceptance</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations open</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations close</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations to appear on website</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Preliminary Meeting start date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination start date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for close of Examination</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination closing date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to close of Examination</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Recommendation submitted to SoS</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Recommendation deadline</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Decision</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Decision deadline</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date project withdrawn</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class=\\"govuk-grid-column-full\\">
             <button class=\\"govuk-button govuk-!-margin-top-5\\" data-module=\\"govuk-button\\">Accept and publish changes</button>
@@ -180,6 +258,84 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
                         <td class=\\"govuk-table__cell\\">001</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Key dates</h2>
+            <p class=\\"govuk-body govuk-!-margin-bottom-5\\">Check details before publishing</p>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Anticipated submission date published</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Application submitted (Section 55)</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for Acceptance decision</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Acceptance (Section 55)</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Non-Acceptance</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations open</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations close</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date Relevant Representations to appear on website</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Preliminary Meeting start date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination start date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for close of Examination</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Examination closing date</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to close of Examination</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Recommendation submitted to SoS</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Recommendation deadline</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date of Decision</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Extension to Decision deadline</th>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Date project withdrawn</th>
+                        <td class=\\"govuk-table__cell\\"></td>
                     </tr>
                 </tbody>
             </table>
