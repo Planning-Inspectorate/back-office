@@ -186,7 +186,10 @@ export const spec = {
 			planningApplicationReference: '48269/APP/2021/1482',
 			procedureType: 'Written',
 			siteVisit: {
+				siteVisitId: 1,
 				visitDate: '2022-03-31T12:00:00.000Z',
+				visitStartTime: '10:00',
+				visitEndTime: '12:00',
 				visitType: 'Accompanied'
 			},
 			startedAt: '2022-05-17T23:00:00.000Z',
@@ -271,10 +274,6 @@ export const spec = {
 				isFullyOwned: false,
 				isPartiallyOwned: true,
 				knowsOtherLandowners: 'Some'
-			},
-			siteVisit: {
-				siteVisitId: 1,
-				visitType: 'Accompanied'
 			},
 			validation: {
 				outcome: 'Incomplete',

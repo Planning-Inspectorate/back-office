@@ -223,7 +223,10 @@ interface SingleAppealDetailsResponse {
 	planningApplicationReference: string;
 	procedureType: string | null;
 	siteVisit: {
+		siteVisitId: number | null;
 		visitDate: Date | null;
+		visitStartTime: string | null;
+		visitEndTime: string | null;
 		visitType: string | null;
 	};
 	startedAt: Date | null;
@@ -290,10 +293,6 @@ interface SingleAppellantCaseResponse {
 		isFullyOwned: boolean | null;
 		isPartiallyOwned: boolean | null;
 		knowsOtherLandowners: string | null;
-	};
-	siteVisit: {
-		siteVisitId: number | null;
-		visitType: string | null;
 	};
 	validation: ValidationOutcomeResponse | null;
 	visibility: {

@@ -478,7 +478,10 @@ describe('appeals routes', () => {
 					planningApplicationReference: householdAppeal.planningApplicationReference,
 					procedureType: householdAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
+						siteVisitId: householdAppeal.siteVisit.id,
 						visitDate: householdAppeal.siteVisit.visitDate,
+						visitStartTime: householdAppeal.siteVisit.visitStartTime,
+						visitEndTime: householdAppeal.siteVisit.visitEndTime,
 						visitType: householdAppeal.siteVisit.siteVisitType.name
 					},
 					startedAt: householdAppeal.startedAt.toISOString()
@@ -575,7 +578,10 @@ describe('appeals routes', () => {
 					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
 					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
+						siteVisitId: fullPlanningAppeal.siteVisit.id,
 						visitDate: fullPlanningAppeal.siteVisit.visitDate,
+						visitStartTime: fullPlanningAppeal.siteVisit.visitStartTime,
+						visitEndTime: fullPlanningAppeal.siteVisit.visitEndTime,
 						visitType: fullPlanningAppeal.siteVisit.siteVisitType.name
 					},
 					startedAt: fullPlanningAppeal.startedAt.toISOString()

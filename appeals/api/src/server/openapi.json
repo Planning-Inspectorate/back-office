@@ -2063,9 +2063,21 @@
 					"siteVisit": {
 						"type": "object",
 						"properties": {
+							"siteVisitId": {
+								"type": "number",
+								"example": 1
+							},
 							"visitDate": {
 								"type": "string",
 								"example": "2022-03-31T12:00:00.000Z"
+							},
+							"visitStartTime": {
+								"type": "string",
+								"example": "10:00"
+							},
+							"visitEndTime": {
+								"type": "string",
+								"example": "12:00"
 							},
 							"visitType": {
 								"type": "string",
@@ -2355,19 +2367,6 @@
 							"knowsOtherLandowners": {
 								"type": "string",
 								"example": "Some"
-							}
-						}
-					},
-					"siteVisit": {
-						"type": "object",
-						"properties": {
-							"siteVisitId": {
-								"type": "number",
-								"example": 1
-							},
-							"visitType": {
-								"type": "string",
-								"example": "Accompanied"
 							}
 						}
 					},
