@@ -288,6 +288,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		selectedPageType: 'documentation-publish-success',
 		serviceName: 'Document/s successfully published',
 		successMessage: `${publishedItems?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
+		extraMessage: 'The documents will show on the NI website within the hour.',
 		showPublishedBanner: true
 	});
 }
