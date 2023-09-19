@@ -381,10 +381,10 @@ interface SingleAddressResponse {
 interface UpdateAddressRequest {
 	addressLine1?: string;
 	addressLine2?: string;
-	country?: string;
-	county?: string;
+	addressCountry?: string;
+	addressCounty?: string;
 	postcode?: string;
-	town?: string;
+	addressTown?: string;
 }
 
 interface UpdateAppellantCaseRequest {

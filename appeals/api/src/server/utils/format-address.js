@@ -13,8 +13,8 @@
 const formatAddress = (address) => ({
 	...(address?.addressLine1 && { addressLine1: address.addressLine1 }),
 	...(address?.addressLine2 && { addressLine2: address.addressLine2 }),
-	...(address?.town && { town: address.town }),
-	...(address?.county && { county: address.county }),
+	...(address?.addressTown && { town: address.addressTown }),
+	...(address?.addressCounty && { county: address.addressCounty }),
 	postCode: address?.postcode
 });
 

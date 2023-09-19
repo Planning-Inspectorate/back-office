@@ -3,22 +3,24 @@ import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAddress } from './addresses.formatter.js';
 import addressRepository from '#repositories/address.repository.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Response}
  */
 const getAddressById = (req, res) => {
 	const { address } = req.appeal;
-	const formattedAddress = formatAddress(address);
+	const formattedAddress = (address && formatAddress(address)) || {};
 
 	return res.send(formattedAddress);
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAddressById = async (req, res) => {
@@ -32,10 +34,10 @@ const updateAddressById = async (req, res) => {
 		await addressRepository.updateAddressById(Number(addressId), {
 			addressLine1,
 			addressLine2,
-			country,
-			county,
+			addressCountry: country,
+			addressCounty: county,
 			postcode,
-			town
+			addressTown: town
 		});
 	} catch (error) {
 		if (error) {

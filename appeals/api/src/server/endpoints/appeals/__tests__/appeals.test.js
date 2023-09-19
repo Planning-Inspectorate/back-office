@@ -47,8 +47,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
 								addressLine2: householdAppeal.address.addressLine2,
-								town: householdAppeal.address.town,
-								county: householdAppeal.address.county,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
 								postCode: householdAppeal.address.postcode
 							},
 							appealStatus: householdAppeal.appealStatus[0].status,
@@ -62,8 +62,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: fullPlanningAppeal.address.addressLine1,
 								addressLine2: fullPlanningAppeal.address.addressLine2,
-								town: fullPlanningAppeal.address.town,
-								county: fullPlanningAppeal.address.county,
+								town: fullPlanningAppeal.address.addressTown,
+								county: fullPlanningAppeal.address.addressCounty,
 								postCode: fullPlanningAppeal.address.postcode
 							},
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
@@ -102,8 +102,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: fullPlanningAppeal.address.addressLine1,
 								addressLine2: fullPlanningAppeal.address.addressLine2,
-								town: fullPlanningAppeal.address.town,
-								county: fullPlanningAppeal.address.county,
+								town: fullPlanningAppeal.address.addressTown,
+								county: fullPlanningAppeal.address.addressCounty,
 								postCode: fullPlanningAppeal.address.postcode
 							},
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
@@ -161,8 +161,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
 								addressLine2: householdAppeal.address.addressLine2,
-								town: householdAppeal.address.town,
-								county: householdAppeal.address.county,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
 								postCode: householdAppeal.address.postcode
 							},
 							appealStatus: householdAppeal.appealStatus[0].status,
@@ -220,8 +220,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
 								addressLine2: householdAppeal.address.addressLine2,
-								town: householdAppeal.address.town,
-								county: householdAppeal.address.county,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
 								postCode: householdAppeal.address.postcode
 							},
 							appealStatus: householdAppeal.appealStatus[0].status,
@@ -279,8 +279,8 @@ describe('appeals routes', () => {
 							appealSite: {
 								addressLine1: householdAppeal.address.addressLine1,
 								addressLine2: householdAppeal.address.addressLine2,
-								town: householdAppeal.address.town,
-								county: householdAppeal.address.county,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
 								postCode: householdAppeal.address.postcode
 							},
 							appealStatus: householdAppeal.appealStatus[0].status,
@@ -407,8 +407,8 @@ describe('appeals routes', () => {
 					appealSite: {
 						addressLine1: householdAppeal.address.addressLine1,
 						addressLine2: householdAppeal.address.addressLine2,
-						town: householdAppeal.address.town,
-						county: householdAppeal.address.county,
+						town: householdAppeal.address.addressTown,
+						county: householdAppeal.address.addressCounty,
 						postCode: householdAppeal.address.postcode
 					},
 					appealStatus: householdAppeal.appealStatus[0].status,
@@ -505,8 +505,8 @@ describe('appeals routes', () => {
 					appealSite: {
 						addressLine1: fullPlanningAppeal.address.addressLine1,
 						addressLine2: fullPlanningAppeal.address.addressLine2,
-						town: fullPlanningAppeal.address.town,
-						county: fullPlanningAppeal.address.county,
+						town: fullPlanningAppeal.address.addressTown,
+						county: fullPlanningAppeal.address.addressCounty,
 						postCode: fullPlanningAppeal.address.postcode
 					},
 					appealStatus: fullPlanningAppeal.appealStatus[0].status,
