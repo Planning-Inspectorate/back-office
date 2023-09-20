@@ -49,7 +49,11 @@ export const appealsNationalList = {
 
 export const appealData = {
 	agentName: null,
-	allocationDetails: 'F / General Allocation',
+	allocationDetails: {
+		level: 'A',
+		band: 3,
+		specialisms: ['Historic heritage', 'Architecture design']
+	},
 	appealId: 1,
 	appealReference: 'APP/Q9999/D/21/351062',
 	appealSite: {
@@ -501,3 +505,30 @@ export const activeDirectoryUsersData = [
 		email: 'Leeroy.Jenkins@planninginspectorate.gov.uk'
 	}
 ];
+
+export const allocationDetailsData = {
+	levels: [
+		{
+			level: 'A',
+			band: 3
+		},
+		{
+			level: 'B',
+			band: 3
+		}
+	],
+	specialisms: [
+		{
+			id: 1,
+			name: 'Specialism 1'
+		},
+		{
+			id: 2,
+			name: 'Specialism 2'
+		},
+		{
+			id: 3,
+			name: 'Specialism 3'
+		}
+	]
+};

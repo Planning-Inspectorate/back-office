@@ -1,6 +1,7 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 {%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
 {%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
 {%- from 'govuk/components/accordion/macro.njk' import govukAccordion -%}
@@ -39,8 +40,14 @@
 {# TODO: Replace this with a filter using a switch or object litteral to determine which component to display#}
 {%- block pageContent -%}
 	{%- for component in pageContents -%}
+		{%- if component.wrapperClasses -%}
+			<div class="{{ component.wrapperClasses }}">
+		{%- endif -%}
+
 		{%- if component.type === 'summary-list'-%}
 			{{ govukSummaryList(component) }}
+		{%- elif component.type === 'table' -%}
+			{{ govukTable(component)}}
 		{%- elif component.type === 'accordion' -%}
 			{%- set accordionItems = [] -%}
 			{%- for accordionItem in component.items -%}
@@ -77,6 +84,26 @@
 						{{ govukButton({text: "Continue"}) }}
 					</form>
 				</div>
+			</div>
+		{%- elif component.type === 'checkbox'-%}
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <form action="" method="POST" novalidate>
+                        {{ govukCheckboxes(component)}}
+                        {{ govukButton({text: "Continue"}) }}
+                    </form>
+                </div>
+            </div>
+		{%- elif component.type === 'confirm'-%}
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <form action="" method="POST" novalidate>
+                        {{ govukButton({text: "Confirm"}) }}
+                    </form>
+                </div>
+            </div>
+		{%- endif -%}
+		{%- if component.wrapperClasses -%}
 			</div>
 		{%- endif -%}
 	{%- endfor -%}

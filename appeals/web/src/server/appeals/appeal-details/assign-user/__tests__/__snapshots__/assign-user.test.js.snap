@@ -729,8 +729,15 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -1192,8 +1199,15 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -1516,8 +1530,15 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -1840,8 +1861,15 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>

@@ -349,7 +349,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		],
 		submitApi: '#'
 	};
-	// TODO: Need to determine the input type (set to text-input as a default)
+
 	/** @type {Instructions} */
 	mappedData.appeal.allocationDetails = {
 		display: {
@@ -358,15 +358,22 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Allocation details'
 				},
 				value: {
-					text: data.appeal.allocationDetails
-						? data.appeal.allocationDetails
+					html: data.appeal.allocationDetails
+						? `
+						Level: ${data.appeal.allocationDetails.level}<br />
+						Band: ${data.appeal.allocationDetails.band}<br />
+						Specialisms:
+						<ul class="govuk-!-margin-0"><li>${data.appeal.allocationDetails.specialisms.join(
+							'</li><li>'
+						)}</li></ul>
+					`
 						: 'No allocation details for this appeal'
 				},
 				actions: {
 					items: [
 						{
-							text: 'Change',
-							href: `${currentRoute}/change/allocation-details`
+							text: data.appeal.allocationDetails ? 'Change' : 'Add',
+							href: `${currentRoute}/allocation-details/allocation-level`
 						}
 					]
 				}
