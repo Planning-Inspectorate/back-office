@@ -68,15 +68,8 @@ const getProjectUpdates = async (log, caseReference) => {
 
 	updates.forEach((update) => {
 		// @ts-ignore
-		const caseStage = projectStages[update.caseStage];
+		update.caseStage = getCaseStageFromId(update.caseStage);
 
-		if (!caseStage) {
-			// @ts-ignore
-			throw Error(`caseStage ${update.caseStage} invalid for update ${update.id}`);
-		}
-
-		// @ts-ignore
-		update.caseStage = caseStage;
 		// @ts-ignore
 		update.updateStatus = 'published';
 	});
@@ -96,6 +89,9 @@ const getProjectSubscriptions = async (log, caseReference) => {
 
 	subscribers.forEach((subscription) => {
 		// @ts-ignore
+		subscription.caseStage = getCaseStageFromId(subscription.caseStage);
+
+		// @ts-ignore
 		const subscriptionType = subscriptionTypes[subscription.subscriptionType];
 
 		if (!subscriptionType) {
@@ -111,6 +107,24 @@ const getProjectSubscriptions = async (log, caseReference) => {
 	});
 
 	return subscribers;
+};
+
+/**
+ * @param {number} caseStageId
+ *
+ * @returns {string} caseStage
+ */
+const getCaseStageFromId = (caseStageId) => {
+	// @ts-ignore
+	const caseStage = projectStages[caseStageId];
+
+	if (!caseStage) {
+		// @ts-ignore
+		throw Error(`caseStage ${caseStageId} invalid`);
+	}
+
+	// @ts-ignore
+	return caseStage;
 };
 
 const projectStages = {
