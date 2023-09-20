@@ -77,8 +77,8 @@ describe('appeal-mapper', () => {
 				session
 			);
 			const preFormattedDate = appealData.appealTimetable.lpaQuestionnaireDueDate;
-			// @ts-ignore
 			const mappedDateHtml =
+				// @ts-ignore
 				mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem?.value.html;
 
 			// Check date is the same after being formatted
