@@ -75,8 +75,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -293,8 +300,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -513,8 +527,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
@@ -736,8 +757,15 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
-                            <dd class="govuk-summary-list__value">F / General Allocation</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/allocation-details"> Change</a>
+                            <dd class="govuk-summary-list__value">Level: A
+                                <br>Band: 3
+                                <br>Specialisms:
+                                <ul class="govuk-!-margin-0">
+                                    <li>Historic heritage</li>
+                                    <li>Architecture design</li>
+                                </ul>
+                            </dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>

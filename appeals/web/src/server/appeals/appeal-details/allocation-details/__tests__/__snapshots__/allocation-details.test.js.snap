@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Allocation Details should render "Check answers" Page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check answers</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Level</strong>
+                    </td>
+                    <td class="govuk-table__cell">A</td>
+                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-level">Change</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Band</strong>
+                    </td>
+                    <td class="govuk-table__cell">3</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Specialism</strong>
+                    </td>
+                    <td class="govuk-table__cell">
+                        <ul class="govuk-!-padding-0 govuk-!-margin-0 govuk-!-margin-left-4">
+                            <li>Specialism 1</li>
+                            <li>Specialism 2</li>
+                            <li>Specialism 3</li>
+                        </ul>
+                    </td>
+                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-specialism">Change</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <button class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Allocation Details should render "Select allocation specialism" Page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Level</strong>
+                    </td>
+                    <td class="govuk-table__cell">A</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Band</strong>
+                    </td>
+                    <td class="govuk-table__cell">3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            <h1 class="govuk-fieldset__heading"> Select allocation specialism</h1>
+                        </legend>
+                        <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms" name="allocation-specialisms"
+                                type="checkbox" value="1">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms">Specialism 1</label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms-2" name="allocation-specialisms"
+                                type="checkbox" value="2">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms-2">Specialism 2</label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms-3" name="allocation-specialisms"
+                                type="checkbox" value="3">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms-3">Specialism 3</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Allocation Details should render "Select allocation specialism" with error (no answer provided) 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#allocation-specialisms">Please select one or more allocation specialisms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Level</strong>
+                    </td>
+                    <td class="govuk-table__cell">A</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Band</strong>
+                    </td>
+                    <td class="govuk-table__cell">3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            <h1 class="govuk-fieldset__heading"> Select allocation specialism</h1>
+                        </legend>
+                        <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms" name="allocation-specialisms"
+                                type="checkbox" value="1">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms">Specialism 1</label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms-2" name="allocation-specialisms"
+                                type="checkbox" value="2">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms-2">Specialism 2</label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="allocation-specialisms-3" name="allocation-specialisms"
+                                type="checkbox" value="3">
+                                <label class="govuk-label govuk-checkboxes__label" for="allocation-specialisms-3">Specialism 3</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Allocation Details should render "Select the allocation level" Page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select the allocation level</h1>
+        </div>
+    </div>
+    <div class="govuk-!-margin-top-8">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <form action="" method="POST" novalidate>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
+                                    type="radio" value="A">
+                                    <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
+                                    type="radio" value="B">
+                                    <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <button class="govuk-button" data-module="govuk-button">Continue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Allocation Details should render "Select the allocation level" with error (no answer provided) 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#allocation-level">Allocation level must be provided</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select the allocation level</h1>
+        </div>
+    </div>
+    <div class="govuk-!-margin-top-8">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <form action="" method="POST" novalidate>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
+                                    type="radio" value="A">
+                                    <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
+                                    type="radio" value="B">
+                                    <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <button class="govuk-button" data-module="govuk-button">Continue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
