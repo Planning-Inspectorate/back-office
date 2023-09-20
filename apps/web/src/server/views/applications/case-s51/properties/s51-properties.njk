@@ -59,7 +59,7 @@
 					<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'delete'})}}">Delete</a>
 						{% if  s51Advice.publishedStatus == 'published' %}
-							<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="">Unpublish</a>
+							<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{'s51-unpublish'|url({caseId:caseId, folderId: folderId, adviceId: s51Advice.id })}}">Unpublish</a>
 						{% endif %}
 					</div>
 					<div class="govuk-grid-column-one-third govuk-!-text-align-right">
