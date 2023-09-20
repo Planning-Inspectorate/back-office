@@ -33,7 +33,6 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @property {Instructions} decision
  * @property {Instructions} siteAddress
  * @property {Instructions} localPlanningAuthority
- * @property {Instructions} localPlanningAuthorities
  * @property {Instructions} appealStatus
  * @property {Instructions} lpaInspectorAccess
  * @property {Instructions} appellantInspectorAccess
@@ -90,6 +89,13 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @returns {Promise<MappedAppealInstructions>}
  */
 export async function initialiseAndMapAppealData(data, currentRoute, session) {
+	if (data === undefined) {
+		throw new Error('Data is undefined');
+	}
+
+	if (data.appeal === undefined) {
+		data = { appeal: data };
+	}
 	currentRoute =
 		currentRoute[currentRoute.length - 1] === '/' ? currentRoute.slice(0, -1) : currentRoute;
 
