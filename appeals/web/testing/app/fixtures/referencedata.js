@@ -117,21 +117,22 @@ export const appealData = {
 	],
 	planningApplicationReference: '48269/APP/2021/1482',
 	appealTimetable: {
-		finalEventsDueDate: null,
-		questionnaireDueDate: null
+		appealTimetableId: 1053,
+		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
 	},
 	siteVisit: {
-		visitDate: null
+		visitDate: '2023-09-18T13:18:01.673Z',
+		visitType: 'Access required'
 	},
 	startedAt: '2023-05-23T10:27:06.626Z',
 	documentationSummary: {
 		appellantCase: {
 			status: 'received',
-			dueDate: '2024-05-23T10:27:06.626Z'
+			dueDate: '2024-10-02T10:27:06.626Z'
 		},
 		lpaQuestionnaire: {
 			status: 'not_received',
-			dueDate: '2024-05-23T10:27:06.626Z'
+			dueDate: '2024-10-11T10:27:06.626Z'
 		}
 	},
 	healthAndSafety: {

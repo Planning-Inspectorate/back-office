@@ -792,8 +792,8 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__value">Access required</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -812,8 +812,23 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
-                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">18 September 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
@@ -838,14 +853,14 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">Appellant Case</th>
                                 <td class="govuk-table__cell">Received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
                             </tr>
                         </tbody>
@@ -1240,8 +1255,8 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__value">Access required</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1260,8 +1275,23 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
-                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">18 September 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
@@ -1286,14 +1316,14 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">Appellant Case</th>
                                 <td class="govuk-table__cell">Received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
                             </tr>
                         </tbody>
@@ -1549,8 +1579,8 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__value">Access required</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1569,8 +1599,23 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
-                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">18 September 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
@@ -1595,14 +1640,14 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">Appellant Case</th>
                                 <td class="govuk-table__cell">Received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
                             </tr>
                         </tbody>
@@ -1858,8 +1903,8 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__value">Access required</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1878,8 +1923,23 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
-                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
+                            <dd class="govuk-summary-list__value">18 September 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
+                            <dd class="govuk-summary-list__value">Due date not yet set</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/complete"> Schedule</a>
                             </dd>
                         </div>
                     </dl>
@@ -1904,14 +1964,14 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">Appellant Case</th>
                                 <td class="govuk-table__cell">Received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
-                                <td class="govuk-table__cell">23 May 2024</td>
+                                <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
                             </tr>
                         </tbody>
