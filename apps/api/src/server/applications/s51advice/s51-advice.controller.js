@@ -68,10 +68,7 @@ export const getS51Advice = async (_request, response) => {
 	const s51Advice = await s51AdviceRepository.get(Number(adviceId));
 
 	if (!s51Advice) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
 	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
@@ -159,7 +156,6 @@ export const addDocuments = async ({ params, body }, response) => {
 	});
 
 	if (!theCase?.reference) {
-		// @ts-ignore
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
@@ -436,10 +432,7 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 
 	const s51Advice = await s51AdviceRepository.get(adviceId);
 	if (!s51Advice) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+    throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
 	const updatedS51Advice = await s51AdviceRepository.update(adviceId, {

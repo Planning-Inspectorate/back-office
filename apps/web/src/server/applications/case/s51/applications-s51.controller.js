@@ -149,17 +149,20 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	const payload = mapUpdateBodyToPayload(body);
 
-	let titleUniqueErrors;
 	if (step === 'title' && body.title) {
 		const { errors } = await checkS51NameIsUnique(caseId, body.title);
-		titleUniqueErrors = errors;
-	}
-	const { errors: apiErrors } = await updateS51Advice(caseId, +adviceId, payload);
-
-	if (titleUniqueErrors || apiErrors) {
 		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
-			errors: titleUniqueErrors || apiErrors
+			errors
+		});
+	}
+
+	const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
+
+	if (errors) {
+		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+			adviceId,
+			errors
 		});
 	}
 
@@ -337,7 +340,6 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 	});
 }
 
-
 /**
  * Publish S51 advice items
  *
@@ -369,7 +371,9 @@ export async function publishApplicationsCaseS51Items(request, response) {
 		});
 	}
 
-	return response.render('applications/case-s51/s51-successfully-published', { items: body.selectedFilesIds.length});
+	return response.render('applications/case-s51/s51-successfully-published', {
+		items: body.selectedFilesIds.length
+	});
 }
 
 /**
@@ -384,7 +388,7 @@ export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, +adviceId);
+	const { errors } = await removeS51AdviceFromReadyToPublish(caseId, Number(adviceId));
 
 	if (errors) {
 		const { paginationButtons, s51Advices } = await getS51PublishinQueueData(caseId, query);
