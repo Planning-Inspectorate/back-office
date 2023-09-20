@@ -17,6 +17,7 @@ import {
 /**
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
  * @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails
+ * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: S51AdviceDetails[]}} S51AdvicePaginatedDetails
  * @typedef {{ caseType: string, caseReference: string, GUID: string }} BlobStoreRequest
 
@@ -137,7 +138,7 @@ export const extractDuplicates = async (adviceId, fileNames) => {
  * Publish a set of S51 items given their IDs
  *
  * @param {number[]} ids
- * @returns {Promise<{ fulfilled: string[], errors: string[] }>}
+ * @returns {Promise<{ fulfilled: S51Advice[], errors: string[] }>}
  * */
 export const publishS51Items = async (ids) => {
 	const results = await Promise.allSettled(
@@ -163,7 +164,7 @@ export const publishS51Items = async (ids) => {
 		}
 
 		return acc;
-	}, /** @type {{fulfilled: string[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
+	}, /** @type {{fulfilled: S51Advice[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
 };
 
 /**

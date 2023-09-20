@@ -459,6 +459,11 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 		throw new BackOfficeAppError(`publishQueueItems failed with errors:\n${errors.join('\n')}`);
 	}
 
+	for (const f of fulfilled) {
+		const docs = await s51AdviceDocumentRepository.getForAdvice(f.id);
+		f.S51AdviceDocument = docs;
+	}
+
 	await eventClient.sendEvents(
 		NSIP_S51_ADVICE,
 		[fulfilled.map(buildNsipS51AdvicePayload)],
