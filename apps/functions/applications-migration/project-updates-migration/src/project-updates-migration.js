@@ -150,12 +150,16 @@ WHERE  p.post_type = 'ipc_project_update'
 ORDER  BY post_date DESC;`;
 
 const getSubscriptionsQuery = `SELECT sc.subscription_id   AS subscriptionId,
-s.case_reference     AS caseReference,
-s.useremail          AS emailAddress,
-sc.subscription_type AS subscriptionType,
-sc.subscription_date AS startDate
+       s.case_reference     AS caseReference,
+       s.useremail          AS emailAddress,
+       sc.subscription_type AS subscriptionType,
+       sc.subscription_date AS startDate,
+       -- Additional columns we need to migrate to create cases
+       pr.projectname   AS caseName,
+       pr.summary       AS caseDescription,
+       pr.stage         AS caseStage
 FROM   ipclive.wp_ipc_subscribers s
-INNER JOIN ipclive.wp_ipc_subscriptions sc
-		ON s.user_id = sc.user_id
+       INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
+       INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
 WHERE  verified = 1
 AND s.case_reference = ?;`;
