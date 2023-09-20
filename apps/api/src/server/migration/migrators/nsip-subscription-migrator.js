@@ -1,6 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { getCaseIdFromRef } from './utils.js';
+import { getOrCreateMinimalCaseId } from './utils.js';
 import {
 	buildSubscriptionPayloads,
 	typesToSubscription
@@ -10,16 +10,17 @@ import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-subscription.d.ts').NSIPSubscription} NSIPSubscription
+ * @typedef {NSIPSubscription & import('./utils.js').NSIPProjectMinimalCaseData} NSIPSubscriptionMigrateModel
  */
 
 /**
- * @typedef {NSIPSubscription & {subscriptionTypes: string[]}} NSIPSubscriber
+ * @typedef {NSIPSubscriptionMigrateModel & {subscriptionTypes: string[]}} NSIPSubscriber
  */
 
 /**
  * Migrate NSIP Subscriptions
  *
- * @param {NSIPSubscription[]} subscriptions
+ * @param {NSIPSubscriptionMigrateModel[]} subscriptions
  */
 export const migrateNsipSubscriptions = async (subscriptions) => {
 	console.info(`Migrating ${subscriptions.length} NSIP Subscriptions`);
@@ -66,7 +67,7 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
  * For a given case, a user can have multiple subscriptions with different types. We store them as a single 'subscriber' entity with multiple 'subscription types'.
  * The PINS Data Model defines these as separate 'subscriptions', so we must first group all subscriptions into a subscriber using the email and case reference.
  *
- * @param {NSIPSubscription[]} subscriptions
+ * @param {NSIPSubscriptionMigrateModel[]} subscriptions
  *
  * @returns {NSIPSubscriber[]} subscribers
  */
@@ -111,7 +112,7 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
  * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput>}} projectUpdate
  */
 const mapModelToEntity = async (m) => {
-	const caseId = await getCaseIdFromRef(m.caseReference);
+	const caseId = await getOrCreateMinimalCaseId(m);
 
 	if (!caseId) {
 		throw Error(

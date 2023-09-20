@@ -16,7 +16,7 @@ const caseRefToIdCache = new Map();
  *
  * @returns {Promise<number | undefined>} caseId
  */
-export const getCaseIdFromRef = async (reference) => {
+const getCaseIdFromRef = async (reference) => {
 	const existingCaseId = caseRefToIdCache.get(reference);
 
 	if (existingCaseId) {

@@ -3,20 +3,11 @@ import sanitizeHtml from 'sanitize-html';
 import { allowedTags } from '../../applications/application/project-updates/project-updates.validators.js';
 import { buildProjectUpdatePayload } from '../../applications/application/project-updates/project-updates.mapper.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
-import { sendChunkedEvents } from './utils.js';
+import { getOrCreateMinimalCaseId, sendChunkedEvents } from './utils.js';
 import { EventType } from '@pins/event-client';
 /**
  * @typedef {import('../../../message-schemas/events/nsip-project-update.d.ts').NSIPProjectUpdate} NSIPProjectUpdate
- */
-
-/**
- * @typedef {Object} NSIPProjectUpdateCaseData
- * @property {string} caseReference
- * @property {string} caseName
- * @property {string} caseDescription
- * @property {string} caseStage
- *
- * @typedef {NSIPProjectUpdate & NSIPProjectUpdateCaseData} NSIPProjectUpdateMigrateModel
+ * @typedef {NSIPProjectUpdate & import('./utils.js').NSIPProjectMinimalCaseData} NSIPProjectUpdateMigrateModel
  */
 
 /**
@@ -80,7 +71,7 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
  * @returns {Promise<import('@prisma/client').ProjectUpdate>} projectUpdate
  */
 const mapModelToEntity = async (m) => {
-	const caseId = await getOrCreateCaseId(m);
+	const caseId = await getOrCreateMinimalCaseId(m);
 
 	return {
 		migratedId: m.id,
@@ -103,86 +94,4 @@ const mapModelToEntity = async (m) => {
 			allowedSchemes: ['https']
 		})
 	};
-};
-
-const caseRefToId = new Map();
-
-/**
- * @param {NSIPProjectUpdateCaseData} projectUpdate
- *
- * @returns {Promise<number>} caseId
- */
-const getOrCreateCaseId = async ({
-	caseReference: reference,
-	caseName: title,
-	caseDescription: description,
-	caseStage
-}) => {
-	const existingCaseId = caseRefToId.get(reference);
-
-	if (existingCaseId) {
-		return existingCaseId;
-	}
-
-	// Check if the case exists in the database
-	let existingCase = await databaseConnector.case.findFirst({
-		where: { reference },
-		select: {
-			id: true
-		}
-	});
-
-	if (!existingCase) {
-		// We're only creating (and not upserting) cases because upserts could be dangerous.
-		// The stage is likely to change, but if we actually migrate nsip-project entities and re-run this job we would be in trouble
-		const subSectorId = await getSubSectorIdFromReference(reference);
-
-		const caseEntity = {
-			reference,
-			title,
-			description,
-			ApplicationDetails: {
-				create: {
-					subSector: {
-						connect: { id: subSectorId }
-					}
-				}
-			},
-			CaseStatus: {
-				create: { status: caseStage }
-			}
-		};
-
-		existingCase = await databaseConnector.case.create({ data: caseEntity });
-	}
-
-	caseRefToId.set(reference, existingCase.id);
-
-	return existingCase.id;
-};
-
-/**
- *
- * @param {string} reference
- *
- * @returns {Promise<number>} subSectorId
- */
-const getSubSectorIdFromReference = async (reference) => {
-	const abbreviation = reference?.slice(0, 4);
-
-	if (!abbreviation) {
-		throw Error(`Unable to determine sub sector for reference ${reference}`);
-	}
-
-	const subSector = await databaseConnector.subSector.findUnique({
-		where: {
-			abbreviation
-		}
-	});
-
-	if (!subSector) {
-		throw Error(`No subsector found for abbreviation ${abbreviation}`);
-	}
-
-	return subSector.id;
 };
