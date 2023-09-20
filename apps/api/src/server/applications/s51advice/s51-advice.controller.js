@@ -13,10 +13,12 @@ import {
 } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
+	checkCanPublish,
 	extractDuplicates,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
 	getS51AdviceDocuments,
+	performStatusChangeChecks,
 	publishS51Items
 } from './s51-advice.service.js';
 import { buildNsipS51AdvicePayload } from './s51-advice.js';
@@ -228,49 +230,11 @@ export const updateS51Advice = async ({ body, params }, response) => {
 	const payload = body[''];
 
 	if (payload.publishedStatus === 'ready_to_publish') {
-		try {
-			await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
-		} catch (err) {
-			logger.info(
-				`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`
-			);
-			throw new BackOfficeAppError(
-				`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
-				400
-			);
-		}
-
-		try {
-			await verifyAllS51DocumentsAreVirusChecked(adviceId);
-		} catch (err) {
-			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
-			throw new BackOfficeAppError(
-				`There are attachments which have failed the virus check.\nReturn to the S51 advice properties screen to delete files.`,
-				400
-			);
-		}
+		await checkCanPublish(adviceId);
 	}
 
 	if (payload.publishedStatus) {
-		const publishedAdvices = await hasPublishedAdvice([adviceId]);
-		if (publishedAdvices) {
-			logger.info(`Can not change status, advice is already published for adviceId: ${adviceId}`);
-			throw new BackOfficeAppError(
-				`You must first unpublish S51 advice before changing the status.`,
-				400
-			);
-		}
-
-		const publishedDocuments = await hasPublishedDocument([adviceId]);
-		if (publishedDocuments) {
-			logger.info(
-				`Can not change status, advice has published documents as attachment: ${adviceId}`
-			);
-			throw new BackOfficeAppError(
-				`You must first unpublish documents before changing the status.`,
-				400
-			);
-		}
+		await performStatusChangeChecks(adviceId);
 
 		const advice = await s51AdviceRepository.get(adviceId);
 		if (!advice) {
@@ -443,7 +407,7 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 
 	const s51Advice = await s51AdviceRepository.get(adviceId);
 	if (!s51Advice) {
-    throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
+		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
 	const updatedS51Advice = await s51AdviceRepository.update(adviceId, {
