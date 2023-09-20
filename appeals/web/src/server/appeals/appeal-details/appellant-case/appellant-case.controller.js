@@ -112,6 +112,7 @@ const renderCheckAndConfirm = async (request, response) => {
 			reasonOptions,
 			webAppellantCaseReviewOutcome.validationOutcome,
 			webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
+			webAppellantCaseReviewOutcome.invalidOrIncompleteReasonsText,
 			webAppellantCaseReviewOutcome.updatedDueDate
 		);
 		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
@@ -222,6 +223,7 @@ export const postCheckAndConfirm = async (request, response) => {
 			mapWebReviewOutcomeToApiReviewOutcome(
 				webAppellantCaseReviewOutcome.validationOutcome,
 				webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
+				webAppellantCaseReviewOutcome.invalidOrIncompleteReasonsText,
 				webAppellantCaseReviewOutcome.updatedDueDate
 			)
 		);

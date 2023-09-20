@@ -284,7 +284,7 @@
  * @typedef DetailsProperties
  * - Make a page easier to scan by letting users reveal more detailed information only if they need it.
  * - Documentation: https://design-system.service.gov.uk/components/details/
- * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
+ * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryTextProperty & HtmlProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
  *
  * @typedef SharedDetailsProperties
  * @type {object}

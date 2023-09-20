@@ -41,6 +41,12 @@ const renderInvalidReason = async (request, response) => {
 		const invalidReasons =
 			body.invalidReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
 
+		// TODO: need to account for possibility of existing reasons from API as well as the body and session values:
+		// - body.invalidReason is used when re-rendering invalid reason page in an error state (this happens before session.webAppellantCaseReviewOutcome has been set)
+		// - session.webAppellantCaseReviewOutcome is used when navigating back to the page before completing the flow (won't be a body.invalidReason in this case)
+		// - existing reasons from API are used when navigating to the page after the flow has been completed once
+		// priority order for which of these should be used in the event more than one is present is (highest-lowest) 1. body, 2. session, 3. existing
+
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 			invalidReasonOptions,
 			invalidReasons

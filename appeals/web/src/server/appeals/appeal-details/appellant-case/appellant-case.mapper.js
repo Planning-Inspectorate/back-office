@@ -36,11 +36,13 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData, per
  *
  * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @returns {string[]}
+ * @param {Object<string, string[]>} [invalidOrIncompleteReasonsText]
+ * @returns {Array<string|string[]>}
  */
 function mapInvalidOrIncompleteReasonsToList(
 	invalidOrIncompleteReasonOptions,
-	invalidOrIncompleteReasons
+	invalidOrIncompleteReasons,
+	invalidOrIncompleteReasonsText
 ) {
 	const reasons = Array.isArray(invalidOrIncompleteReasons)
 		? invalidOrIncompleteReasons
@@ -56,9 +58,27 @@ function mapInvalidOrIncompleteReasonsToList(
 					throw new Error('invalid or incomplete reason ID was not recognised');
 				}
 
-				// TODO: BOAT-494: text associated with each reason should also be rendered here (nested unordered list?)
-				return option.name;
-			}) || ['']
+				/** @type {string[]} */
+				let textItems = [];
+
+				if (
+					option.hasText &&
+					invalidOrIncompleteReasonsText &&
+					invalidOrIncompleteReasonsText[option.id]
+				) {
+					textItems = invalidOrIncompleteReasonsText[option.id];
+				}
+
+				/** @type {Array<string|string[]>} */
+				const list = [`${option.name}${textItems.length ? ':' : ''}`];
+
+				if (textItems.length) {
+					list.push(textItems);
+				}
+
+				return list;
+			})
+			.flat() || ['']
 	);
 }
 
@@ -68,6 +88,7 @@ function mapInvalidOrIncompleteReasonsToList(
  * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {Object<string, string[]>} [invalidOrIncompleteReasonsText]
  * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */
@@ -76,6 +97,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 	invalidOrIncompleteReasonOptions,
 	validationOutcome,
 	invalidOrIncompleteReasons,
+	invalidOrIncompleteReasonsText,
 	updatedDueDate
 ) {
 	if (
@@ -88,7 +110,8 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 
 	const reasonsList = mapInvalidOrIncompleteReasonsToList(
 		invalidOrIncompleteReasonOptions,
-		invalidOrIncompleteReasons
+		invalidOrIncompleteReasons,
+		invalidOrIncompleteReasonsText
 	);
 
 	const validationOutcomeAsString = String(validationOutcome);
@@ -173,7 +196,7 @@ export function mapReviewOutcomeToNotificationBannerComponentParameters(
  */
 function mapReasonTextToUnorderedList(reasonText) {
 	return `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">
-		${reasonText.map((textItem) => `<li>${textItem}</li>`)}
+		${reasonText.map((textItem) => `<li>${textItem}</li>`).join('')}
 	</ul>`;
 }
 
@@ -209,12 +232,14 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
  *
  * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
+ * @param {Object<string, string[]>} [invalidOrIncompleteReasonsText]
  * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
  * @returns {import('./appellant-case.service.js').AppellantCaseReviewOutcome}
  */
 export function mapWebReviewOutcomeToApiReviewOutcome(
 	validationOutcome,
 	invalidOrIncompleteReasons,
+	invalidOrIncompleteReasonsText,
 	updatedDueDate
 ) {
 	let parsedReasons;
@@ -235,14 +260,20 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 			invalidOrIncompleteReasons && {
 				invalidReasons: parsedReasons?.map((reason) => ({
 					id: reason,
-					text: []
+					...(invalidOrIncompleteReasonsText &&
+						invalidOrIncompleteReasonsText[reason] && {
+							text: invalidOrIncompleteReasonsText[reason]
+						})
 				}))
 			}),
 		...(validationOutcome === appellantCaseReviewOutcomes.incomplete &&
 			invalidOrIncompleteReasons && {
 				incompleteReasons: parsedReasons?.map((reason) => ({
 					id: reason,
-					text: []
+					...(invalidOrIncompleteReasonsText &&
+						invalidOrIncompleteReasonsText[reason] && {
+							text: invalidOrIncompleteReasonsText[reason]
+						})
 				}))
 			}),
 		...(updatedDueDate && {
