@@ -34,8 +34,6 @@ export function buildSubscriptionPayloads(subscription) {
 	const payload = buildSubscriptionBasePayload(subscription);
 	const types = subscriptionToTypes(subscription);
 
-	console.log('buildSubscriptionPayloads', subscription, payload, types);
-
 	return types.map((t) => copyPayloadWithType(payload, t));
 }
 

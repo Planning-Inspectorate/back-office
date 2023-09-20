@@ -71,7 +71,10 @@ const getProjectUpdates = async (log, caseReference) => {
 		update.caseStage = getCaseStageFromId(update.caseStage);
 
 		// @ts-ignore
-		update.updateStatus = 'published';
+		if (update.updateStatus === 'publish') {
+			// @ts-ignore
+			update.updateStatus = 'published';
+		}
 	});
 
 	return updates;
@@ -150,6 +153,7 @@ const getUpdatesQuery = `SELECT p.id,
        p.post_date      AS updateDate,
        p.post_title     AS updateName,
        p.post_content   AS updateContentEnglish,
+       p.post_status    AS updateStatus,
        -- Additional columns we need to migrate to create cases
        pr.projectname   AS caseName,
        pr.summary       AS caseDescription,
@@ -159,8 +163,9 @@ FROM   ipclive.wp_posts p
        INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
        INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.NAME, 8) = pr.casereference
 WHERE  p.post_type = 'ipc_project_update'
-       AND p.post_status = 'publish'
+       AND p.post_status IN( 'publish', 'draft' )
        AND pr.casereference = ?
+GROUP BY id
 ORDER  BY post_date DESC;`;
 
 const getSubscriptionsQuery = `SELECT sc.subscription_id   AS subscriptionId,
