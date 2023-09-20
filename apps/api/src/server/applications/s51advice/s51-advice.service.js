@@ -125,3 +125,36 @@ export const extractDuplicates = async (adviceId, fileNames) => {
 		return acc;
 	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
 };
+
+/**
+ * Publish a set of S51 items given their IDs
+ *
+ * @param {number[]} ids
+ * @returns {Promise<{ fulfilled: string[], errors: string[] }>}
+ * */
+export const publishS51Items = async (ids) => {
+	const results = await Promise.allSettled(
+		ids.map(
+			(id) =>
+				new Promise((resolve, reject) =>
+					s51AdviceRepository
+						.update(id, { publishedStatus: 'published', datePublished: new Date() })
+						.then(resolve)
+						.catch(reject)
+				)
+		)
+	);
+
+	return results.reduce((acc, result) => {
+		switch (result.status) {
+			case 'fulfilled':
+				acc.fulfilled.push(result.value);
+				break;
+			case 'rejected':
+				acc.errors.push(result.reason);
+				break;
+		}
+
+		return acc;
+	}, /** @type {{fulfilled: string[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
+};
