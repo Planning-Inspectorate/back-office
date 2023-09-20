@@ -19,7 +19,7 @@ import {
 	getS51AdviceDocuments,
 	publishS51Items
 } from './s51-advice.service.js';
-import { buildNsipS51AdvicePayload } from './s51-advice';
+import { buildNsipS51AdvicePayload } from './s51-advice.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
