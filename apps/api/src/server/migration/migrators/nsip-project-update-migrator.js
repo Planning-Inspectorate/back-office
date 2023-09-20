@@ -54,14 +54,45 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	// Broadcast all updates
 	console.info(`Broadcasting updates for ${updatesToBroadcast.length} entities`);
 
-	const events = updatesToBroadcast.map(({ updatedEntity, caseReference }) =>
-		buildProjectUpdatePayload(updatedEntity, caseReference)
-	);
+	const { publishEvents, updateEvents } = buildEventPayloads(updatesToBroadcast);
 
 	// We're only migrating published project updates, so publish everything
-	if (events.length > 0) {
-		await sendChunkedEvents(NSIP_PROJECT_UPDATE, events, EventType.Publish);
+	if (publishEvents.length > 0) {
+		await sendChunkedEvents(NSIP_PROJECT_UPDATE, publishEvents, EventType.Publish);
 	}
+
+	if (updateEvents.length > 0) {
+		await sendChunkedEvents(NSIP_PROJECT_UPDATE, updateEvents, EventType.Update);
+	}
+};
+
+/**
+ * @typedef {Object} EventsToBroadcast
+ * @property {NSIPProjectUpdate[]} publishEvents
+ * @property {NSIPProjectUpdate[]} updateEvents
+ */
+
+/**
+ *
+ * @param {UpdateToBroadcast[]} updatesToBroadcast
+ *
+ * @returns {EventsToBroadcast} eventsToBroadcast
+ */
+const buildEventPayloads = (updatesToBroadcast) => {
+	return updatesToBroadcast.reduce(
+		(/** @type {EventsToBroadcast} */ events, { updatedEntity, caseReference }) => {
+			const payload = buildProjectUpdatePayload(updatedEntity, caseReference);
+
+			if (updatedEntity.status === 'published') {
+				events.publishEvents.push(payload);
+			} else {
+				events.updateEvents.push(payload);
+			}
+
+			return events;
+		},
+		{ publishEvents: [], updateEvents: [] }
+	);
 };
 
 /**
@@ -78,10 +109,10 @@ const mapModelToEntity = async (m) => {
 		caseId,
 		...(m.updateDate && {
 			dateCreated: new Date(m.updateDate),
-			datePublished: new Date(m.updateDate)
+			datePublished: m.updateStatus === 'published' ? new Date(m.updateDate) : null
 		}),
 		// sentToSubscribers flag will prevent the azure function from re-sending emails
-		sentToSubscribers: true,
+		sentToSubscribers: m.updateStatus === 'published',
 		emailSubscribers: true,
 		status: m.updateStatus,
 		// @ts-ignore
