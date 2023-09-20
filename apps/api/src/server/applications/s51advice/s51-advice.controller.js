@@ -271,6 +271,13 @@ export const updateS51Advice = async ({ body, params }, response) => {
 				400
 			);
 		}
+
+		const advice = await s51AdviceRepository.get(adviceId);
+		if (!advice) {
+			throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
+		}
+
+		payload.publishedStatusPrev = advice.publishedStatus;
 	}
 
 	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
