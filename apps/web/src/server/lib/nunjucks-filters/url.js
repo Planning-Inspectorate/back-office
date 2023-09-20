@@ -111,6 +111,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${step}`;
 		case 's51-queue-remove':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/publishing-queue/remove/${adviceId}`;
+		case 's51-unpublish':
+				return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/unpublish/${adviceId}`;
 		case 'timetable':
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		case 'timetable-item':

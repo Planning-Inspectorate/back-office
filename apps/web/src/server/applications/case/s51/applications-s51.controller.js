@@ -473,6 +473,7 @@ const getS51PublishinQueueData = async (caseId, query) => {
 
 	return { s51Advices, paginationButtons: pagination?.buttons || null };
 };
+
 /**
  * Show page for editing s51 advice item
  *
@@ -486,4 +487,16 @@ export async function viewUnpublishAdvice({ params }, response) {
 		adviceId,
 		s51Advice
 	});
+}
+
+/**
+ * Show page for editing s51 advice item
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
+ */
+export async function postUnpublishAdvice({ params }, response) {
+	const { caseId, adviceId } = params;
+
+	await updateS51Advice(Number(caseId), Number(adviceId), { publishedStatus: 'unpublished' });
+	response.render('applications/case-s51/s51-successfully-unpublished');
 }

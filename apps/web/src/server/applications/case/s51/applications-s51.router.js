@@ -47,6 +47,7 @@ applicationsS51Router
 applicationsS51Router
 	.route('/unpublish/:adviceId')
 	.get(locals.registerFolderId, asyncRoute(controller.viewUnpublishAdvice))
+	.post(locals.registerFolderId, asyncRoute(controller.postUnpublishAdvice))
 
 applicationsS51Router
 	.route('/:adviceId/attachments/:attachmentId/delete')
