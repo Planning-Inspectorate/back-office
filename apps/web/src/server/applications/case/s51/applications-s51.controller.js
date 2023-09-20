@@ -483,6 +483,13 @@ export async function viewUnpublishAdvice({ params }, response) {
 	const { caseId, adviceId } = params;
 
 	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+
+	if (s51Advice.publishedStatus !== 'published') {
+		return response.render(`applications/case-s51/s51-unpublish`, {
+			errors: 'Can not unpublish not published items.'
+		});
+	}
+
 	response.render(`applications/case-s51/s51-unpublish`, {
 		adviceId,
 		s51Advice
@@ -496,6 +503,14 @@ export async function viewUnpublishAdvice({ params }, response) {
  */
 export async function postUnpublishAdvice({ params }, response) {
 	const { caseId, adviceId } = params;
+
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+
+	if (s51Advice.publishedStatus !== 'published') {
+		return response.render(`applications/case-s51/s51-unpublish`, {
+			errors: 'Can not unpublish not published items.'
+		});
+	}
 
 	await updateS51Advice(Number(caseId), Number(adviceId), { publishedStatus: 'unpublished' });
 	response.render('applications/case-s51/s51-successfully-unpublished');
