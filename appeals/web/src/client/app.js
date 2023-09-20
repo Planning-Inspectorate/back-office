@@ -7,6 +7,7 @@ import initExcerpt from './components/excerpts/excerpt.js';
 import initFilesListModule from './components/files-list/files-list.module.js';
 import initSelectAllCheckbox from './components/select-all-checkbox/select-all-checkbox.js';
 import initFileUploaderModule from './components/file-uploader/file-uploader.module.js';
+import initAddAnother from './components/add-another/add-another.js';
 
 const initAll = () => {
 	initGovUKScripts();
@@ -14,6 +15,7 @@ const initAll = () => {
 	initFilesListModule();
 	initSelectAllCheckbox();
 	initFileUploaderModule();
+	initAddAnother();
 };
 
 initAll();

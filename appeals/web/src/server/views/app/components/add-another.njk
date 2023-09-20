@@ -1,0 +1,16 @@
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- macro addAnother(params) -%}
+	<div class="pins-add-another" aria-live="polite">
+		{%- for item in params.items -%}
+			<div class="pins-add-another__item">
+				{{ item }}
+			</div>
+		{%- endfor -%}
+		{{ govukButton({
+			type: 'button',
+			text: 'Add another item',
+			classes: 'pins-add-another__button govuk-!-margin-top-6'
+		}) }}
+	</div>
+{%- endmacro -%}

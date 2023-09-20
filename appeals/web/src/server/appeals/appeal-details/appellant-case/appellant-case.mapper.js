@@ -198,6 +198,7 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	return invalidOrIncompleteReasonOptions.map((reason) => ({
 		value: `${reason.id}`,
 		text: reason.name,
+		hasText: reason.hasText,
 		...(checkedOptions && {
 			checked: checkedOptions.includes(reason.id)
 		})

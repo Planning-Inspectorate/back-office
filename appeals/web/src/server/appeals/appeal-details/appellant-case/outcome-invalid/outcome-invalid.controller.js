@@ -2,7 +2,6 @@ import logger from '#lib/logger.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
@@ -41,7 +40,7 @@ const renderInvalidReason = async (request, response) => {
 	if (invalidReasonOptions) {
 		const invalidReasons =
 			body.invalidReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
-		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
+
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 			invalidReasonOptions,
 			invalidReasons
@@ -54,8 +53,6 @@ const renderInvalidReason = async (request, response) => {
 			},
 			notValidStatus: appellantCaseReviewOutcomes.invalid,
 			reasonOptions: mappedInvalidReasonOptions,
-			otherReasonId: getIdByNameFromIdNamePairs(invalidReasonOptions, 'other'),
-			otherReason,
 			errors
 		});
 	}
@@ -106,6 +103,37 @@ export const getInvalidReason = async (request, response) => {
 	renderInvalidReason(request, response);
 };
 
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {string} reasonKey
+ * @returns {Object<string, string[]>}
+ */
+const getInvalidOrIncompleteReasonsTextFromRequestBody = (request, reasonKey) => {
+	if (!request.body[reasonKey]) {
+		throw new Error(`reasonKey "${reasonKey}" not found in request.body`);
+	}
+
+	/** @type {Object<string, string[]>} */
+	const reasonsText = {};
+
+	let reasons = Array.isArray(request.body[reasonKey])
+		? request.body[reasonKey]
+		: [request.body[reasonKey]];
+
+	for (const reason of reasons) {
+		const textItemsKey = `${reasonKey}-${reason}`;
+
+		if (request.body[textItemsKey]) {
+			reasonsText[`${reason}`] = Array.isArray(request.body[textItemsKey])
+				? request.body[textItemsKey]
+				: [request.body[textItemsKey]];
+		}
+	}
+
+	return reasonsText;
+};
+
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postInvalidReason = async (request, response) => {
 	const { errors } = request;
@@ -124,7 +152,11 @@ export const postInvalidReason = async (request, response) => {
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
 			validationOutcome: appellantCaseReviewOutcomes.invalid,
-			invalidOrIncompleteReasons: request.body.invalidReason
+			invalidOrIncompleteReasons: request.body.invalidReason,
+			invalidOrIncompleteReasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(
+				request,
+				'invalidReason'
+			)
 		};
 
 		return response.redirect(

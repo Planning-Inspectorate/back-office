@@ -1,28 +1,14 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
-{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "../../app/components/add-another.njk" import addAnother -%}
 
 {%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
 	/appeals-service/appeal-details/{{ appeal.id }}/appellant-case
-{%- endset -%}
-
-{%- set otherReasonTextareaHtml -%}
-	{{ govukTextarea({
-		name: "otherReason",
-		label: {
-			text: "List any other reasons",
-			classes: "govuk-label--s",
-			isPageHeading: false
-		},
-		hint: {
-			text: "Try to organise your list"
-		},
-		value: otherReason if otherReason else ''
-	}) }}
 {%- endset -%}
 
 {%- block pageHeading -%}
@@ -35,10 +21,22 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
+
+	{# add "add another" as conditional html on each checkbox option which hasText #}
+	{%- for option in reasonOptions -%}
+		{%- if option.hasText -%}
+			{# build "add another" html #}
+			{# don't worry about existing items for now - can do those once basic version is working #}
+			{%- set addAnotherHtml = addAnother({ items: [govukInput({classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input', name: notValidStatus + 'Reason-' + option.value, value: reason})] }) -%}
+			{# assign built html to conditional property of option #}
+			{%- set _ = option | addConditionalHtml(addAnotherHtml) -%}
+		{%- endif -%}
+	{%- endfor -%}
+
 	<form method="post" novalidate="novalidate">
 		{{ govukCheckboxes({
 			name: notValidStatus + "Reason",
-			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
+			items: reasonOptions
 		}) }}
 		{{ govukButton({
 			text: "Continue",
