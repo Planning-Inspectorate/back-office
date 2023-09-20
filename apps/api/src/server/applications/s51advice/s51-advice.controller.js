@@ -251,22 +251,26 @@ export const updateS51Advice = async ({ body, params }, response) => {
 		}
 	}
 
-	const publishedAdvices = await hasPublishedAdvice([adviceId]);
-	if (publishedAdvices) {
-		logger.info(`Can not change status, advice is already published for adviceId: ${adviceId}`);
-		throw new BackOfficeAppError(
-			`You must first unpublish S51 advice before changing the status.`,
-			400
-		);
-	}
+	if (payload.publishedStatus) {
+		const publishedAdvices = await hasPublishedAdvice([adviceId]);
+		if (publishedAdvices) {
+			logger.info(`Can not change status, advice is already published for adviceId: ${adviceId}`);
+			throw new BackOfficeAppError(
+				`You must first unpublish S51 advice before changing the status.`,
+				400
+			);
+		}
 
-	const publishedDocuments = await hasPublishedDocument([adviceId]);
-	if (publishedDocuments) {
-		logger.info(`Can not change status, advice has published documents as attachment: ${adviceId}`);
-		throw new BackOfficeAppError(
-			`You must first unpublish documents before changing the status.`,
-			400
-		);
+		const publishedDocuments = await hasPublishedDocument([adviceId]);
+		if (publishedDocuments) {
+			logger.info(
+				`Can not change status, advice has published documents as attachment: ${adviceId}`
+			);
+			throw new BackOfficeAppError(
+				`You must first unpublish documents before changing the status.`,
+				400
+			);
+		}
 	}
 
 	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
