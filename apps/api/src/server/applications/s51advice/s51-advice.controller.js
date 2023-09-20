@@ -1,4 +1,7 @@
 import { pick } from 'lodash-es';
+import { EventType } from '@pins/event-client';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -13,8 +16,10 @@ import {
 	extractDuplicates,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
-	getS51AdviceDocuments
+	getS51AdviceDocuments,
+	publishS51Items
 } from './s51-advice.service.js';
+import { buildNsipS51AdvicePayload } from './s51-advice';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
@@ -480,34 +485,17 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 		return;
 	}
 
-	const results = await Promise.allSettled(
-		body.ids.map(
-			(s51Id) =>
-				new Promise((resolve, reject) =>
-					s51AdviceRepository
-						.update(Number(s51Id), { publishedStatus: 'published', datePublished: new Date() })
-						.then(resolve)
-						.catch(reject)
-				)
-		)
-	);
-
-	const { fulfilled, errors } = results.reduce((acc, result) => {
-		switch (result.status) {
-			case 'fulfilled':
-				acc.fulfilled.push(result.value);
-				break;
-			case 'rejected':
-				acc.errors.push(result.reason);
-				break;
-		}
-
-		return acc;
-	}, /** @type {{fulfilled: string[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
+	const { fulfilled, errors } = await publishS51Items(body.ids.map(Number));
 
 	if (errors.length === body.ids.length) {
 		throw new BackOfficeAppError(`publishQueueItems failed with errors:\n${errors.join('\n')}`);
 	}
+
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[fulfilled.map(buildNsipS51AdvicePayload)],
+		EventType.Publish
+	);
 
 	if (errors.length > 0) {
 		response.status(206).send({

@@ -76,19 +76,11 @@ export async function appealDetailsPage(data, currentRoute, session) {
 		caseTimetable.type = 'summary-list';
 		caseTimetable.rows = [
 			mappedData.appeal.startedAt.display.summaryListItem,
-			data.appeal.startedAt
-				? mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem
-				: undefined,
-			data.appeal.lpaQuestionnaireDueDate
-				? mappedData.appeal.statementReviewDueDate.display.summaryListItem
-				: undefined,
-			data.appeal.statementReviewDate
-				? mappedData.appeal.finalCommentReviewDueDate.display.summaryListItem
-				: undefined,
-			data.appeal.finalCommentReviewDate
-				? mappedData.appeal.siteVisitDate.display.summaryListItem
-				: undefined
-		].filter((item) => item !== undefined);
+			mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
+			mappedData.appeal.siteVisitDate.display.summaryListItem,
+			mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
+			mappedData.appeal.completeDate?.display.summaryListItem
+		];
 	} else {
 		caseTimetable.type = 'inset-text';
 		caseTimetable.html = `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${data.appeal.appealId}/appellant-case" class="govuk-link">Review appeal</a>`;

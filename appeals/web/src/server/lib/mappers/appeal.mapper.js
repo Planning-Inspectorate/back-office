@@ -33,7 +33,6 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @property {Instructions} decision
  * @property {Instructions} siteAddress
  * @property {Instructions} localPlanningAuthority
- * @property {Instructions} localPlanningAuthorities
  * @property {Instructions} appealStatus
  * @property {Instructions} lpaInspectorAccess
  * @property {Instructions} appellantInspectorAccess
@@ -51,6 +50,8 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @property {Instructions} inspector
  * @property {Instructions} appellantCase
  * @property {Instructions} lpaQuestionnaire
+ * @property {Instructions} issueDeterminationDate
+ * @property {Instructions} completeDate
  */
 
 /**
@@ -88,6 +89,13 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @returns {Promise<MappedAppealInstructions>}
  */
 export async function initialiseAndMapAppealData(data, currentRoute, session) {
+	if (data === undefined) {
+		throw new Error('Data is undefined');
+	}
+
+	if (data.appeal === undefined) {
+		data = { appeal: data };
+	}
 	currentRoute =
 		currentRoute[currentRoute.length - 1] === '/' ? currentRoute.slice(0, -1) : currentRoute;
 
@@ -907,6 +915,53 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 							: ''
 				}
 			]
+		}
+	};
+
+	/** @type {Instructions} */
+	mappedData.appeal.issueDeterminationDate = {
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Issue Determination'
+				},
+				value: {
+					html:
+						dateToDisplayDate(data.appeal.appealTimetable?.issueDeterminationDate) ||
+						'Due date not yet set'
+				},
+				actions: {
+					items: [
+						{
+							text: data.appealTimetable?.issueDeterminationDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/issue-determination`
+						}
+					]
+				}
+			}
+		}
+	};
+
+	/** @type {Instructions} */
+	mappedData.appeal.completeDate = {
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Complete'
+				},
+				value: {
+					html:
+						dateToDisplayDate(data.appeal.appealTimetable?.completeDate) || 'Due date not yet set'
+				},
+				actions: {
+					items: [
+						{
+							text: data.appealTimetable?.completeDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/complete`
+						}
+					]
+				}
+			}
 		}
 	};
 
