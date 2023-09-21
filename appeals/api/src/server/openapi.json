@@ -883,6 +883,53 @@
 				}
 			}
 		},
+		"/appeals/lpaq-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Request adding LPA response to an existing case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appeal successfully updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Questionnaire data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuestionnaireData"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/QuestionnaireData"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/document-submission": {
 			"post": {
 				"tags": ["Integration"],

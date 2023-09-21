@@ -1,34 +1,61 @@
-import { createAppeal, createDocument } from '#repositories/integrations.repository.js';
 import {
-	mapAppealFromTopic,
-	mapDocumentFromTopic,
-	mapAppealForTopic,
-	mapDocumentForTopic
+	createAppeal,
+	createOrUpdateLpaQuestionnaire,
+	createDocument
+} from '#repositories/integrations.repository.js';
+import {
+	mapAppealSubmission,
+	mapQuestionnaireSubmission,
+	mapDocumentSubmission,
+	mapAppeal,
+	mapDocument
 } from './integrations.mapper.js';
+import { produceAppealUpdate } from './integrations.service.js';
+import config from '#config/config.js';
+import { EventType } from '@pins/event-client';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 export const postAppealSubmission = async (req, res) => {
-	const { appeal, documents } = mapAppealFromTopic(req.body);
+	const { appeal, documents } = mapAppealSubmission(req.body);
 	const result = await createAppeal(appeal, documents);
-	const formattedResult = mapAppealForTopic(result);
-
+	const formattedResult = mapAppeal(result);
+	if (!config.DISABLE_INTEGRATIONS) {
+		await produceAppealUpdate(formattedResult, EventType.Create);
+	}
 	return res.send(formattedResult);
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<Response>}
+ */
+export const postLpaqSubmission = async (req, res) => {
+	const { caseReference, questionnaire, documents } = mapQuestionnaireSubmission(req.body);
+	const result = await createOrUpdateLpaQuestionnaire(caseReference, questionnaire, documents);
+	const formattedResult = mapAppeal(result);
+	if (!config.DISABLE_INTEGRATIONS) {
+		await produceAppealUpdate(formattedResult, EventType.Update);
+	}
+	return res.send(formattedResult);
+};
+
+/**
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 export const postDocumentSubmission = async (req, res) => {
-	const data = mapDocumentFromTopic(req.body);
+	const data = mapDocumentSubmission(req.body);
 	const result = await createDocument(data);
-	const formattedResult = mapDocumentForTopic(result);
+	const formattedResult = mapDocument(result);
 
 	return res.send(formattedResult);
 };
