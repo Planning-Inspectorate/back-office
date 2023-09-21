@@ -37,6 +37,7 @@ export interface ApplicationExaminationTimetableItem {
 	startTime: string | null;
 	endTime: string | null;
 	submissions?: boolean;
+	createdAt: Date;
 	ExaminationTimetableType: ExaminationTimetableType;
 }
 
