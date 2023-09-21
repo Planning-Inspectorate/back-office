@@ -104,32 +104,6 @@ const buildEventPayloads = (updatesToBroadcast) => {
 const mapModelToEntity = async (m) => {
 	const caseId = await getOrCreateMinimalCaseId(m);
 
-	if (m.id === 4012034) {
-		console.info('=== 4012034 updateContentEnglish');
-
-		const content = m.updateContentEnglish;
-
-		console.info(content);
-
-		console.info('Contains r', content.indexOf('\r'));
-		console.info('Contains n', content.indexOf('\n'));
-
-		const sanitizedContent = sanitizeHtml(m.updateContentEnglish, {
-			allowedTags,
-			allowedAttributes: {
-				a: ['href']
-			},
-			allowedSchemes: ['https']
-		});
-
-		console.info('=== 4012034 sanitizedContent');
-
-		console.info(sanitizedContent);
-
-		console.info('Contains r', sanitizedContent.indexOf('\r'));
-		console.info('Contains n', sanitizedContent.indexOf('\n'));
-	}
-
 	return {
 		migratedId: m.id,
 		caseId,
@@ -143,12 +117,41 @@ const mapModelToEntity = async (m) => {
 		status: m.updateStatus,
 		// @ts-ignore
 		title: m.updateName,
-		htmlContent: sanitizeHtml(m.updateContentEnglish, {
-			allowedTags,
-			allowedAttributes: {
-				a: ['href']
-			},
-			allowedSchemes: ['https']
-		})
+		htmlContent: replaceNewlinesAndSanitizeHtml(m.updateContentEnglish)
 	};
+};
+
+const cr = '\r';
+const lf = '\n';
+
+const crlf = cr + lf;
+
+const breakElement = '<br />';
+
+/**
+ * The HTML editor only supports break elements, but the migrated wordpress data comes over using carriage returns and line break control characters.
+ * Replace these manually to make the content compatible with the editor.
+ *
+ * @param {string} html
+ *
+ * @returns {string} sanitizedHtml
+ */
+const replaceNewlinesAndSanitizeHtml = (html) => {
+	if (!html) {
+		// Support empty content by returning
+		return html;
+	}
+
+	const htmlWithLineBreaks = html
+		.replace(crlf, breakElement)
+		.replace(cr, breakElement)
+		.replace(lf, breakElement);
+
+	return sanitizeHtml(htmlWithLineBreaks, {
+		allowedTags,
+		allowedAttributes: {
+			a: ['href']
+		},
+		allowedSchemes: ['https']
+	});
 };
