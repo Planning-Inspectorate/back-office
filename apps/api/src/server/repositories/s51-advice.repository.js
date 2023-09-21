@@ -168,7 +168,7 @@ export const getPublishedAdvicesByIds = (s51AdviceIds) => {
 };
 
 /**
- * Filter S51 advice table to retrieve documents by 'ready-to-publish' status
+ * Filter S51 advice table to retrieve documents by 'ready-to-publish' status, ignoring deleted advice
  *
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
@@ -184,7 +184,8 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 		],
 		where: {
 			caseId,
-			publishedStatus: 'ready_to_publish'
+			publishedStatus: 'ready_to_publish',
+			isDeleted: false
 		},
 		include: {
 			S51AdviceDocument: true
@@ -193,7 +194,7 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 };
 
 /**
- * Returns total number of S51 advice by published status (ready-to-publish)
+ * Returns total number of S51 advice by published status (ready-to-publish), ignoring deleted advice
  *
  * @param {number} caseId
  * @returns {import('@prisma/client').PrismaPromise<number>}
@@ -202,7 +203,8 @@ export const getS51AdviceCountInByPublishStatus = (caseId) => {
 	return databaseConnector.s51Advice.count({
 		where: {
 			caseId,
-			publishedStatus: 'ready_to_publish'
+			publishedStatus: 'ready_to_publish',
+			isDeleted: false
 		}
 	});
 };
