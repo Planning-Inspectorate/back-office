@@ -3,7 +3,7 @@ import path from 'node:path';
 import url from 'node:url';
 import { baseSchema } from './schema.js';
 
-const __dirname = url.fileURLToPath(import.meta.url);
+const __dirname = path.basename(url.fileURLToPath(import.meta.url));
 
 /**
  * @typedef {import('./config.js').BaseEnvironmentConfig} BaseEnvironmentConfig
