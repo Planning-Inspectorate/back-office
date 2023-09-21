@@ -143,9 +143,9 @@ const replaceNewlinesAndSanitizeHtml = (html) => {
 	}
 
 	const htmlWithLineBreaks = html
-		.replace(crlf, breakElement)
-		.replace(cr, breakElement)
-		.replace(lf, breakElement);
+		.replaceAll(crlf, breakElement)
+		.replaceAll(cr, breakElement)
+		.replaceAll(lf, breakElement);
 
 	return sanitizeHtml(htmlWithLineBreaks, {
 		allowedTags,
