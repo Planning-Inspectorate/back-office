@@ -104,6 +104,32 @@ const buildEventPayloads = (updatesToBroadcast) => {
 const mapModelToEntity = async (m) => {
 	const caseId = await getOrCreateMinimalCaseId(m);
 
+	if (m.id === 4012034) {
+		console.info('=== 4012034 updateContentEnglish');
+
+		const content = m.updateContentEnglish;
+
+		console.info(content);
+
+		console.info('Contains r', content.indexOf('\r'));
+		console.info('Contains n', content.indexOf('\n'));
+
+		const sanitizedContent = sanitizeHtml(m.updateContentEnglish, {
+			allowedTags,
+			allowedAttributes: {
+				a: ['href']
+			},
+			allowedSchemes: ['https']
+		});
+
+		console.info('=== 4012034 sanitizedContent');
+
+		console.info(sanitizedContent);
+
+		console.info('Contains r', sanitizedContent.indexOf('\r'));
+		console.info('Contains n', sanitizedContent.indexOf('\n'));
+	}
+
 	return {
 		migratedId: m.id,
 		caseId,
