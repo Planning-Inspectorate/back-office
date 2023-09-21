@@ -2,28 +2,31 @@
 // TODO: data and document types schema (PINS data model)
 import { APPEAL_TYPE_SHORTHAND_HAS } from '#endpoints/constants.js';
 import { randomUUID } from 'node:crypto';
+import mappers from './integrations.mappers/index.js';
 
-export const mapAppealFromTopic = (data) => {
+export const mapAppealSubmission = (data) => {
 	const { appeal, documents } = data;
 	const { appellant, agent } = appeal;
 
-	const typeShorthand = mapAppealTypeShorthand(appeal.appealType);
-	const appellantInput = mapAppellant(appellant, agent);
-	const appellantCaseInput = mapAppellantCase(appeal);
-	const addressInput = mapAddress(appeal);
+	const typeShorthand = mapAppealTypeIn(appeal.appealType);
+
+	const appellantInput = mappers.mapServiceUserIn(appellant, agent);
+	const appellantCaseInput = mappers.mapAppellantCaseIn(appeal);
+	const addressInput = mappers.mapAddressIn(appeal);
+	const lpaInput = mappers.mapLpaIn(appeal);
 
 	const appealInput = {
 		reference: randomUUID(),
 		appealType: { connect: { shorthand: typeShorthand } },
 		appellant: { create: appellantInput },
-		localPlanningDepartment: mapLpa(appeal),
+		localPlanningDepartment: lpaInput,
 
 		planningApplicationReference: appeal.LPAApplicationReference,
 		address: { create: addressInput },
 		appellantCase: { create: appellantCaseInput }
 	};
 
-	const documentsInput = (documents || []).map((document) => mapDocumentFromTopic(document));
+	const documentsInput = (documents || []).map((document) => mappers.mapDocumentIn(document));
 
 	return {
 		appeal: appealInput,
@@ -31,131 +34,71 @@ export const mapAppealFromTopic = (data) => {
 	};
 };
 
-export const mapDocumentFromTopic = (doc) => {
-	const { filename, ...props } = doc;
-	const { documentURI, blobStorageContainer, blobStoragePath, ...metadata } = props;
-	const { container, path } = mapDocumentUrl(documentURI);
-
-	if (blobStorageContainer !== container) {
-		metadata.blobStorageContainer = container;
-	}
-
-	if (blobStoragePath !== path) {
-		metadata.blobStoragePath = path;
-	}
+export const mapQuestionnaireSubmission = (data) => {
+	const { questionnaire, documents } = data;
+	const questionnaireInput = mappers.mapQuestionnaireIn(questionnaire);
+	const documentsInput = (documents || []).map((document) => mappers.mapDocumentIn(document));
 
 	return {
-		...metadata,
-		documentGuid: doc.documentGuid ? doc.documentGuid : randomUUID(),
-		fileName: filename || doc.fileName,
-		dateCreated: (doc.dateCreated ? new Date(doc.dateCreated) : new Date()).toISOString(),
-		lastModified: (doc.lastModified ? new Date(doc.lastModified) : new Date()).toISOString()
+		questionnaire: questionnaireInput,
+		documents: documentsInput,
+		caseReference: questionnaire.caseReference
 	};
 };
 
-export const mapAppealForTopic = (appeal) => {
-	const lpa = {
-		LPACode: appeal.localPlanningDepartment.replace(/\[(.*)\] (.*)/gm, '$1'),
-		LPAName: appeal.localPlanningDepartment.replace(/\[(.*)\] (.*)/gm, '$2')
-	};
+export const mapDocumentSubmission = (data) => {
+	return mappers.mapDocumentIn(data);
+};
 
-	const address = {
-		siteAddressLine1: appeal.addressLine1,
-		siteAddressLine2: appeal.addressLine2,
-		siteAddressCounty: appeal.county,
-		siteAddressPostcode: appeal.postcode
-	};
+export const mapAppeal = (appeal) => {
+	const lpa = mappers.mapLpaOut(appeal);
 
+	const address = mappers.mapAddressOut(appeal);
+
+	const allocation = appeal.allocation
+		? {
+				level: appeal.allocation.level,
+				band: appeal.allocation.band,
+				specialism: appeal.specialisms?.map((s) => s.specialism?.name) || []
+		  }
+		: null;
+
+	//TODO:
 	const topic = {
-		...lpa,
-		...address,
-		appealType: shortHandsMap[appeal.appealType],
+		appealType: mapAppealTypeOut(appeal.appealType.shorthand),
 		reference: appeal.reference,
-		...appeal
+		...lpa,
+		LPAApplicationReference: appeal.planningApplicationReference,
+		...address,
+		...allocation,
+		...mappers.mapAppellantCaseOut(appeal.appellantCase),
+		...mappers.mapQuestionnaireOut(appeal.lpaQuestionnaire)
 	};
 
 	return topic;
 };
 
-export const mapDocumentForTopic = (doc) => {
-	//TODO: mapping, may not be needed
-	return doc;
-};
-
-const mapDocumentUrl = (documentURI) => {
-	const url = new URL(documentURI);
-	if (!url) {
-		return null;
-	}
-
-	const path = url.pathname.split('/').slice(1);
-	return {
-		blobStorageUrl: url.origin,
-		container: path[0],
-		path: path.slice(1).join('/')
-	};
+export const mapDocument = (doc) => {
+	return mappers.mapDocumentOut(doc);
 };
 
 //TODO: add more types
-const shortHandsMap = {
+const appealTypeMap = {
 	APPEAL_TYPE_SHORTHAND_HAS: 'Householder (HAS) Appeal'
 };
 
-const mapAppealTypeShorthand = (appealType) => {
+const mapAppealTypeIn = (appealType) => {
 	switch (appealType) {
-		case shortHandsMap.APPEAL_TYPE_SHORTHAND_HAS:
+		case appealTypeMap.APPEAL_TYPE_SHORTHAND_HAS:
 		default:
 			return APPEAL_TYPE_SHORTHAND_HAS;
 	}
 };
 
-const mapAppellant = (appellant, agent) => {
-	let user = {
-		name: `${appellant.firstName} ${appellant.lastName}`,
-		email: appellant.emailAddress
-	};
-
-	if (agent) {
-		user.agentName = `${agent.firstName} ${agent.lastName}`;
+const mapAppealTypeOut = (appealType) => {
+	switch (appealType) {
+		case APPEAL_TYPE_SHORTHAND_HAS:
+		default:
+			return appealTypeMap.APPEAL_TYPE_SHORTHAND_HAS;
 	}
-
-	return user;
 };
-
-const mapAppellantCase = (appeal) => {
-	return {
-		applicantFirstName: appeal.appellant.firstName,
-		applicantSurname: appeal.appellant.lastName,
-		areAllOwnersKnown: appeal.areAllOwnersKnown || false,
-		hasAttemptedToIdentifyOwners: appeal.hasAttemptedToIdentifyOwners || false,
-		hasDesignAndAccessStatement: appeal.hasDesignAndAccessStatement || false,
-		hasHealthAndSafetyIssues: appeal.doesSiteHaveHealthAndSafetyIssues || false,
-		hasNewSupportingDocuments: appeal.hasNewSupportingDocuments || false,
-		hasOtherTenants: appeal.hasOtherTenants || false,
-		hasPlanningObligation: appeal.hasPlanningObligation || false,
-		hasSeparateOwnershipCertificate: appeal.hasSeparateOwnershipCertificate || false,
-		hasToldOwners: appeal.hasToldOwners || false,
-		hasToldTenants: appeal.hasToldTenants || false,
-		healthAndSafetyIssues: appeal.healthAndSafetyIssuesDetails,
-		isAgriculturalHolding: appeal.isAgriculturalHolding || false,
-		isAgriculturalHoldingTenant: appeal.isAgriculturalHoldingTenant || false,
-		isAppellantNamedOnApplication: appeal.isAppellantNamedOnApplication || false,
-		isDevelopmentDescriptionStillCorrect: appeal.isDevelopmentDescriptionStillCorrect || false,
-		isSiteFullyOwned: appeal.isSiteFullyOwned || false,
-		isSitePartiallyOwned: appeal.isSitePartiallyOwned || false,
-		isSiteVisibleFromPublicRoad: appeal.isSiteVisible || false,
-		newDevelopmentDescription: appeal.newDevelopmentDescription || '',
-		visibilityRestrictions: appeal.visibilityRestrictions || ''
-	};
-};
-
-const mapAddress = (appeal) => {
-	return {
-		addressLine1: appeal.siteAddressLine1,
-		addressLine2: appeal.siteAddressLine2,
-		county: appeal.siteAddressCounty,
-		postcode: appeal.siteAddressPostcode
-	};
-};
-
-const mapLpa = (appeal) => `[${appeal.LPACode}] ${appeal.LPAName}`;

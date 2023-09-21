@@ -28,6 +28,29 @@ router.post(
 );
 
 router.post(
+	'/lpaq-submission',
+	/*
+		#swagger.tags = ['Integration']
+		#swagger.path = '/appeals/lpaq-submission'
+		#swagger.description = Request adding LPA response to an existing case
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Questionnaire data',
+			schema: { $ref: '#/definitions/QuestionnaireData' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Appeal successfully updated',
+			schema: { $ref: '#/definitions/Appeal' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	//TODO: validators (integrations.middleware.js)
+	asyncHandler(controller.postLpaqSubmission)
+);
+
+router.post(
 	'/document-submission',
 	/*
 		#swagger.tags = ['Integration']
