@@ -3,6 +3,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from './components/enquirer-string.njk' import enquirerString %}
 
 {% block beforeContent %}
 	{{ govukBackLink({
@@ -100,7 +101,9 @@
 									</td>
 									<td class="govuk-table__cell">
 										<p class='font-weight--700 govuk-body-m'>{{ s51Advice.referenceNumber }} - {{ s51Advice.title }}</p>
-										{{enquirerString(s51Advice)}}
+										<p class="file-info">
+											{{enquirerString(s51Advice)}}
+										</p>
 									</td>
 									<td class="govuk-table__cell">
 										<p class="file-info ">
@@ -135,12 +138,3 @@
 	</div>
 {% endblock %}
 
-{% macro enquirerString(s51Advice) %}
-	{% if s51Advice.firstName or s51Advice.enquirer %}
-	{% set comma = ', ' if s51Advice.firstName and s51Advice.enquirer else '' %}
-		<p class="file-info">
-			{{s51Advice.firstName}} {{s51Advice.lastName}}{{ comma }}
-			{{s51Advice.enquirer}}
-		</p>
-		{%endif%}
-	{% endmacro %}

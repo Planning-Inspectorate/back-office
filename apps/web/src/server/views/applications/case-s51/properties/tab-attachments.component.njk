@@ -8,7 +8,7 @@
 		{% set name %}
 
 		{% set isPreviewPossible = (attachment.documentType === 'application/pdf' or attachment.documentType === 'image/jpeg' or attachment.documentType === 'image/png') %}
-    {% set isAttachmentSafe = (attachment.publishedStatus !== 'awaiting_upload') and (attachment.publishedStatus !== 'awaiting_virus_check') and (attachment.publishedStatus !== 'failed_virus_check') %}
+		{% set isAttachmentSafe = (attachment.publishedStatus !== 'awaiting_upload') and (attachment.publishedStatus !== 'awaiting_virus_check') and (attachment.publishedStatus !== 'failed_virus_check') %}
 
 		{% if isPreviewPossible and isAttachmentSafe %}
 			<a class="govuk-link font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version, isPreviewActive: true}) }}">{{ attachment.documentName }}</a>
@@ -31,18 +31,19 @@
 		{% endset %}
 
 		{% set download %}
-      {% if isAttachmentSafe %}
-        <a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
+		{% if isAttachmentSafe %}
+			<a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
           Download
         </a>
-      {% else %}
-        <span></span>
-      {% endif %}
+		{% else %}
+			<span></span>
+		{% endif %}
 		{% endset %}
 
 		{% set delete %}
-		<a class='govuk-link'href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, step: ['delete/', attachment.documentGuid]|join})}}' >Delete
-			</a>
+		<a class='govuk-link'href='{{'s51-attachment'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, documentGuid: attachment.documentGuid, step: 'delete'})}}' >
+			Delete
+		</a>
 
 		{% endset %}
 
@@ -52,37 +53,37 @@
 		<p>
 			{% if avWaiting %}
 				<strong class="govuk-tag govuk-tag--yellow">
-			{% elif avFailed %}
-				<strong class="govuk-tag govuk-tag--red">
-			{% else %}
-				<strong class="govuk-tag">
-			{% endif %}
-			{{ attachment.status|statusName }}
-			</strong>
-		</p>
-		{% endset %}
-		{% set row = [
-			{
-				html: name
-			}, {
-				html: activity
-			}, {
-				html: status
-			}, {
-				html: download
-			}, {
-				html: delete
-			}
-		] %}
-		{% set attachmentsRows = attachmentsRows.concat([row]) %}
+				{% elif avFailed %}
+					<strong class="govuk-tag govuk-tag--red">
+					{% else %}
+						<strong class="govuk-tag">
+						{% endif %}
+						{{ attachment.status|statusName }}
+					</strong>
+				</p>
+				{% endset %}
+				{% set row = [
+					{
+						html: name
+					}, {
+						html: activity
+					}, {
+						html: status
+					}, {
+						html: download
+					}, {
+						html: delete
+					}
+				] %}
+				{% set attachmentsRows = attachmentsRows.concat([row]) %}
 
-	{% endfor %}
+			{% endfor %}
 
-	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
+			<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
 
-	{% if attachmentsRows.length > 0%}
+			{% if attachmentsRows.length > 0%}
 
-		{{ govukTable({
+				{{ govukTable({
 			classes: 'pins-file-versions-table',
             captionClasses: "govuk-table__caption--m",
             head: [
@@ -94,8 +95,8 @@
             ],
             rows: attachmentsRows
     }) }}
-	{% else %}
-		<p>There are no attachments on this item.</p>
-	{% endif %}
+			{% else %}
+				<p>There are no attachments on this item.</p>
+			{% endif %}
 
-{% endmacro %}
+		{% endmacro %}

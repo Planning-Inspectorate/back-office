@@ -101,14 +101,14 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/create/${step}`;
 		case 's51-item':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/${step}`;
+		case 's51-attachment':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/attachments/${documentGuid}/${step}`;
 		case 's51-edit':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${adviceId}/edit/${step}`;
 		case 's51-status':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/change-status`;
 		case 's51-list':
-			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice`;
-		case 's51-queue':
-			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/publishing-queue`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/${step}`;
 		case 's51-queue-remove':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/publishing-queue/remove/${adviceId}`;
 		case 'timetable':

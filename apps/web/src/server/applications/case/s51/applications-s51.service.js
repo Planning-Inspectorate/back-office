@@ -1,4 +1,4 @@
-import { post, get, patch, head } from '../../../lib/request.js';
+import { post, get, patch, head, deleteRequest } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -169,7 +169,6 @@ export const getS51FilesInFolder = async (caseId, page, pageSize) => {
 export const getS51AdviceReadyToPublish = async (caseId, pageNumber, pageSize) => {
 	let response;
 
-	//return fixturePaginatedS51Advice(pageNumber, pageSize);
 	try {
 		response = await post(`applications/${caseId}/s51-advice/ready-to-publish`, {
 			json: {
@@ -209,6 +208,34 @@ export const removeS51AdviceFromReadyToPublish = async (caseId, adviceId) => {
 
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+
+	return response;
+};
+/**
+ * Delete s51 advice item
+ *
+ * @param {number} caseId
+ * @param {number} adviceId
+ * @returns {Promise<{validS51Advice?: S51Advice, errors?: ValidationErrors}>}
+ */
+export const deleteS51Advice = async (caseId, adviceId) => {
+	let response;
+
+	try {
+		response = await deleteRequest(`applications/${caseId}/s51-advice/${adviceId}`);
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors?.adviceId || 'Unknown error'}`);
+
+		response = new Promise((resolve) => {
+			resolve({
+				errors: {
+					msg: `${
+						error?.response?.body?.errors?.adviceId || 'An error occurred, please try again later'
+					}`
+				}
+			});
 		});
 	}
 
