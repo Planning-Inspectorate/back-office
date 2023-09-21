@@ -1,58 +1,53 @@
 import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
-import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
+import BackOfficeAppError from '../../utils/app-error.js';
 import { format } from 'date-fns';
 import logger from '../../utils/logger.js';
 import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
-import * as examinationTimetableItemsService from './examination-timetable-items.service.js';
+import * as service from './examination-timetable-items.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
 /**
  * @type {import('express').RequestHandler}
  * @throws {Error}
- * @returns {Promise<void>}
  */
-export const getExaminationTimetableItems = async (_request, response) => {
-	const { caseId } = _request.params;
-	try {
-		const examinationTimetable = await examinationTimetableRepository.getByCaseId(+caseId);
+export const getExaminationTimetableItems = async ({ params }, response) => {
+	const { caseId } = params;
 
-		if (!examinationTimetable) {
-			// @ts-ignore
-			return response.send([]);
-		}
-
-		const examinationTimetableItems =
-			await examinationTimetableItemsRepository.getByExaminationTimetableId(
-				examinationTimetable.id
-			);
-
-		if (!examinationTimetableItems || examinationTimetableItems.length === 0) {
-			// @ts-ignore
-			return response.send({ ...examinationTimetable, items: [] });
-		}
-
-		const examinationTimetableItemsForCase = [];
-		for (const examinationTimetableItem of examinationTimetableItems) {
-			const submissions = await validateSubmissions(
-				examinationTimetableItem,
-				examinationTimetable.caseId
-			);
-			examinationTimetableItemsForCase.push({ ...examinationTimetableItem, submissions });
-		}
-
-		const examinationTimetableResponse = {
-			...examinationTimetable,
-			items: examinationTimetableItemsForCase
-		};
-		response.send(examinationTimetableResponse);
-	} catch (error) {
-		logger.error(error);
-		throw error;
+	const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(caseId));
+	if (!examinationTimetable) {
+		response.send([]);
+		return;
 	}
+
+	const examinationTimetableItems =
+		await examinationTimetableItemsRepository.getByExaminationTimetableId(examinationTimetable.id);
+
+	if (!examinationTimetableItems || examinationTimetableItems.length === 0) {
+		response.send({ ...examinationTimetable, items: [] });
+		return;
+	}
+
+	const examinationTimetableItemsForCase = await Promise.all(
+		examinationTimetableItems.map(
+			(item) =>
+				new Promise((resolve, reject) => {
+					service
+						.validateSubmissions(item, examinationTimetable.caseId)
+						.then((submissions) => resolve({ ...item, submissions }))
+						.catch(reject);
+				})
+		)
+	);
+
+	const examinationTimetableResponse = {
+		...examinationTimetable,
+		items: examinationTimetableItemsForCase
+	};
+
+	response.send(examinationTimetableResponse);
 };
 
 /**
@@ -62,18 +57,16 @@ export const getExaminationTimetableItems = async (_request, response) => {
  */
 export const getExaminationTimetableItem = async (_request, response) => {
 	const { id } = _request.params;
-	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
+	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 	if (!examinationTimetableItem) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+		throw new BackOfficeAppError(`Examination timetable item with id: ${id} not found.`, 404);
 	}
 
 	// @ts-ignore
 	const caseId = examinationTimetableItem.ExaminationTimetable.caseId;
-	const submissions = await validateSubmissions(examinationTimetableItem, caseId);
+	const submissions = await service.validateSubmissions(examinationTimetableItem, caseId);
+
 	response.send({ ...examinationTimetableItem, submissions });
 };
 
@@ -82,11 +75,8 @@ export const getExaminationTimetableItem = async (_request, response) => {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export const createExaminationTimetableItem = async (_request, response) => {
-	const { body } = _request;
-
+export const createExaminationTimetableItem = async ({ body }, response) => {
 	let examinationTimetable = await examinationTimetableRepository.getByCaseId(body.caseId);
-
 	if (!examinationTimetable) {
 		// @ts-ignore
 		examinationTimetable = await examinationTimetableRepository.create({
@@ -95,19 +85,17 @@ export const createExaminationTimetableItem = async (_request, response) => {
 		});
 	}
 
-	// find the examination folder id to create subfolder.
 	const examinationFolder = await folderRepository.getFolderByNameAndCaseId(
 		body.caseId,
 		'Examination timetable'
 	);
 
 	if (!examinationFolder) {
-		throw new Error(`Examination folder not found for the case ${body.caseId}`);
+		throw new BackOfficeAppError(`Examination folder not found for the case ${body.caseId}`, 404);
 	}
 
-	// Create sub folder for the examination timetable item.
 	const folderName = `${format(new Date(body.date), 'dd MMM yyyy')} - ${body.name}`;
-	const displayOrder = +format(new Date(body.date), 'yyyyMMdd');
+	const displayOrder = Number(format(new Date(body.date), 'yyyyMMdd'));
 	const folder = {
 		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
@@ -116,9 +104,8 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	};
 
 	const itemFolder = await folderRepository.createFolder(folder);
-
 	if (!itemFolder) {
-		throw Error('Failed to create sub folder for the examination item.');
+		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
 	}
 
 	body.folderId = itemFolder.id;
@@ -127,7 +114,7 @@ export const createExaminationTimetableItem = async (_request, response) => {
 	delete body.published;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
-	await createDeadlineSubFolders(
+	await service.createDeadlineSubFolders(
 		examinationTimetableItem,
 		itemFolder.id,
 		examinationTimetable.caseId
@@ -137,111 +124,21 @@ export const createExaminationTimetableItem = async (_request, response) => {
 };
 
 /**
- *
- * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
- * @param {Number} parentFolderId
- * @param {Number} caseId
- * @returns
- */
-const createDeadlineSubFolders = async (examinationTimetableItem, parentFolderId, caseId) => {
-	if (!examinationTimetableItem?.description) return;
-	const description = JSON.parse(examinationTimetableItem?.description);
-	const categoryType = await examinationTimetableTypesRepository.getById(
-		examinationTimetableItem.examinationTypeId
-	);
-
-	if (
-		!categoryType?.name ||
-		(categoryType?.name !== 'Deadline' &&
-			categoryType?.name !== 'Procedural Deadline (Pre-Examination)')
-	) {
-		logger.info('Category name does not match to Deadline, skip creating sub folders');
-		return;
-	}
-
-	/**
-	 * @type {Promise<(Folder |null)>[]}
-	 */
-	const createFolderPromise = [];
-
-	// create Other sub folder
-	const otherFolder = {
-		displayNameEn: 'Other',
-		caseId,
-		parentFolderId: parentFolderId,
-		displayOrder: 100
-	};
-	createFolderPromise.push(folderRepository.createFolder(otherFolder));
-
-	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
-		logger.info('No bulletpoints');
-	}
-
-	// create sub folder for each bullet points.
-	description.bulletPoints.forEach((/** @type {String} */ folderName) => {
-		const subFolder = {
-			displayNameEn: folderName?.trim(),
-			caseId,
-			parentFolderId: parentFolderId,
-			displayOrder: 100
-		};
-		createFolderPromise.push(folderRepository.createFolder(subFolder));
-	});
-
-	logger.info('Create sub folders');
-	await Promise.all(createFolderPromise);
-	logger.info('Sub folders created successfully');
-};
-
-/**
- * Deletes all the sub folders in a exam timetable folder, assumption is that all folders are empty.
- * eg for deadline exams, deletes all line item folders and the "Other" folder
- *
- * @param {Number} caseId
- * @param {Number} parentFolderId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload>}
- */
-const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
-	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);
-
-	if (!subFolders) {
-		logger.info(`No sub folder found for the parent folder Id ${parentFolderId}`);
-		return;
-	}
-
-	const idsToDelete = [];
-	for (const /** @type {Folder} */ folder of subFolders) {
-		idsToDelete.push(folder.id);
-	}
-	await folderRepository.deleteFolderMany(idsToDelete);
-	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
-};
-
-/**
  * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export const publishExaminationTimetable = async (_request, response) => {
-	const { id } = _request.params;
-	try {
-		const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
-		if (!examinationTimetable) {
-			// @ts-ignore
-			return response
-				.status(404)
-				.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
-		}
+export const publishExaminationTimetable = async ({ params }, response) => {
+	const { id } = params;
 
-		await examinationTimetableItemsService.publish(examinationTimetable.id);
-
-		response.send({
-			success: true
-		});
-	} catch (error) {
-		logger.error(error);
-		throw error;
+	const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
+	if (!examinationTimetable) {
+		throw new BackOfficeAppError(`Examination timetable item with id: ${id} not found.`, 404);
 	}
+
+	await service.publish(examinationTimetable.id);
+
+	response.send({ success: true });
 };
 
 /**
@@ -251,25 +148,17 @@ export const publishExaminationTimetable = async (_request, response) => {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export const unpublishExaminationTimetable = async (_request, response) => {
-	const { id } = _request.params;
-	try {
-		const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
-		if (!examinationTimetable) {
-			// @ts-ignore
-			return response
-				.status(404)
-				.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
-		}
-		await examinationTimetableItemsService.unPublish(examinationTimetable.id);
+export const unpublishExaminationTimetable = async ({ params }, response) => {
+	const { id } = params;
 
-		response.send({
-			success: true
-		});
-	} catch (error) {
-		logger.error(error);
-		throw error;
+	const examinationTimetable = await examinationTimetableRepository.getByCaseId(Number(id));
+	if (!examinationTimetable) {
+		throw new BackOfficeAppError(`Examination timetable item with id: ${id} not found.`, 404);
 	}
+
+	await service.unPublish(examinationTimetable.id);
+
+	response.send({ success: true });
 };
 
 /**
@@ -277,32 +166,27 @@ export const unpublishExaminationTimetable = async (_request, response) => {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export const deleteExaminationTimetableItem = async (_request, response) => {
-	const { id } = _request.params;
+export const deleteExaminationTimetableItem = async ({ params }, response) => {
+	const { id } = params;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(+id);
 
 	if (!examinationTimetableItem) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+		throw new BackOfficeAppError(`Examination timetable item with id: ${id} not found.`, 404);
 	}
+
 	// @ts-ignore
 	const caseId = examinationTimetableItem.ExaminationTimetable.caseId;
-	const hasSubmissions = await validateSubmissions(examinationTimetableItem, caseId);
+	const hasSubmissions = await service.validateSubmissions(examinationTimetableItem, caseId);
 
 	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
-		// @ts-ignore
-		return response
-			.status(400)
-			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+		throw new BackOfficeAppError('Can not delete examination timetable item.', 400);
 	}
 
-	await examinationTimetableItemsRepository.deleteById(+id);
+	await examinationTimetableItemsRepository.deleteById(Number(id));
 
 	logger.info(`delete subfolder for folder Id ${examinationTimetableItem.folderId}`);
-	await deleteDeadlineSubFolders(
+	await service.deleteDeadlineSubFolders(
 		// @ts-ignore
 		examinationTimetableItem.ExaminationTimetable.caseId,
 		examinationTimetableItem.folderId
@@ -311,7 +195,6 @@ export const deleteExaminationTimetableItem = async (_request, response) => {
 	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
 	await folderRepository.deleteById(examinationTimetableItem.folderId);
 
-	// @ts-ignore
 	await examinationTimetableRepository.update(examinationTimetableItem.examinationTimetableId, {
 		updatedAt: new Date()
 	});
@@ -332,27 +215,21 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	const timetableBeforeUpdate = await examinationTimetableItemsRepository.getById(+id);
 
 	if (!timetableBeforeUpdate) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `Examination timetable item with id: ${id} not found.` } });
+		throw new BackOfficeAppError(`Examination timetable item with id: ${id} not found.`, 404);
 	}
 
 	// @ts-ignore
 	const caseId = timetableBeforeUpdate.ExaminationTimetable.caseId;
-	const hasSubmissions = await validateSubmissions(timetableBeforeUpdate, caseId);
+	const hasSubmissions = await service.validateSubmissions(timetableBeforeUpdate, caseId);
 
 	if (hasSubmissions) {
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
-		// @ts-ignore
-		return response
-			.status(400)
-			.json({ errors: { message: 'Can not delete examination timetable item.' } });
+		throw new BackOfficeAppError('Can not delete examination timetable item.', 400);
 	}
 
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 	const updatedExaminationTimetableItem = await examinationTimetableItemsRepository.update(
-		+id,
+		Number(id),
 		mappedExamTimetableDetails
 	);
 
@@ -363,7 +240,9 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		const newFolderName = `${format(new Date(mappedExamTimetableDetails.date), 'dd MMM yyyy')} - ${
 			mappedExamTimetableDetails.name
 		}`;
-		const newDisplayOrder = +format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd');
+
+		const newDisplayOrder = Number(format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd'));
+
 		await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
 			displayNameEn: newFolderName,
 			displayOrder: newDisplayOrder
@@ -373,17 +252,18 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
 		// @ts-ignore
 		const caseId = timetableBeforeUpdate.ExaminationTimetable.caseId;
+
 		logger.info('Delete sub folders');
-		await deleteDeadlineSubFolders(caseId, timetableBeforeUpdate.folderId);
+		await service.deleteDeadlineSubFolders(caseId, timetableBeforeUpdate.folderId);
+
 		logger.info('Create new sub folders');
-		await createDeadlineSubFolders(
+		await service.createDeadlineSubFolders(
 			updatedExaminationTimetableItem,
 			timetableBeforeUpdate.folderId,
 			caseId
 		);
 	}
 
-	// @ts-ignore
 	await examinationTimetableRepository.update(
 		updatedExaminationTimetableItem.examinationTimetableId,
 		{
@@ -392,52 +272,4 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	);
 
 	response.send(updatedExaminationTimetableItem);
-};
-
-/**
- *
- * @param {import('@prisma/client').ExaminationTimetableItem} timetableItem
- * @param {Number} caseId
- * @returns
- */
-const validateSubmissions = async (timetableItem, caseId) => {
-	const folder = await folderRepository.getById(timetableItem.folderId);
-	if (!folder) {
-		logger.info('No associated folder found');
-		// @ts-ignore
-		return false;
-	}
-
-	const documents = await documentRepository.countDocumentsInFolder(timetableItem.folderId);
-	if (documents && documents > 0) {
-		logger.info(`Document found in folder ${timetableItem.folderId}`);
-		// @ts-ignore
-		return true;
-	}
-
-	const subFolders = await folderRepository.getByCaseId(caseId, timetableItem.folderId);
-	if (!subFolders || subFolders.length === 0) {
-		logger.info(`No sub folder for folder ${timetableItem.folderId}`);
-		// @ts-ignore
-		return false;
-	}
-	/**
-	 * @type {any[]}
-	 */
-	const subFoldersDocumentsPromise = [];
-	subFolders.forEach((subFolder) => {
-		subFoldersDocumentsPromise.push(documentRepository.countDocumentsInFolder(subFolder.id));
-	});
-
-	const subfoldersDocuments = await Promise.all(subFoldersDocumentsPromise);
-
-	if (subfoldersDocuments.some((sd) => sd > 0)) {
-		logger.info(`Document found for parent folder ${timetableItem.folderId}`);
-		// @ts-ignore
-		return true;
-	}
-
-	logger.info(`Document not found for parent folder ${timetableItem.folderId}`);
-
-	return false;
 };
