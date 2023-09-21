@@ -233,7 +233,7 @@ export const updateS51Advice = async ({ body, params }, response) => {
 		await checkCanPublish(adviceId);
 	}
 
-	if (payload.publishedStatus) {
+	if (payload.publishedStatus && payload.publishedStatus !== 'unpublished') {
 		await performStatusChangeChecks(adviceId);
 
 		const advice = await s51AdviceRepository.get(adviceId);
