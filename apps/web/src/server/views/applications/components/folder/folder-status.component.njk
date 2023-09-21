@@ -27,7 +27,7 @@
 
 	{% set queueLink %}
 	{% if isS51folder %}
-		<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-queue'|url({caseId:caseId, folderId: currentFolder.id})}}">
+		<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-list'|url({caseId:caseId, folderId: currentFolder.id, step: 'publishing-queue'})}}">
 			View S51 publishing queue
 		</a>
 	{% else %}

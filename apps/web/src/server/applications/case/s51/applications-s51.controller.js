@@ -8,7 +8,8 @@ import {
 	updateS51AdviceStatus,
 	getS51AdviceReadyToPublish,
 	removeS51AdviceFromReadyToPublish,
-	publishS51AdviceItems
+	publishS51AdviceItems,
+	deleteS51Advice
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
@@ -279,11 +280,50 @@ export async function postApplicationsCaseS51CheckYourAnswersSave({ body, sessio
 }
 
 /**
+ * View page for deleting S51
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string}>}
+ */
+export async function viewApplicationsCaseS51Delete({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const s51Advice = await getS51Advice(caseId, +adviceId);
+
+	response.render('applications/case-s51/s51-delete.njk', {
+		s51Advice
+	});
+}
+
+/**
+ * Delete S51 advice
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string}>}
+ */
+export async function deleteApplicationsCaseS51({ params }, response) {
+	const { adviceId } = params;
+	const { caseId } = response.locals;
+
+	const { errors } = await deleteS51Advice(caseId, +adviceId);
+
+	if (errors) {
+		const s51Advice = await getS51Advice(caseId, +adviceId);
+
+		return response.render('applications/case-s51/s51-delete.njk', {
+			s51Advice,
+			errors
+		});
+	}
+
+	return response.redirect('../');
+}
+
+/**
  * View page for deleting S51 attachment
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string}>}
  */
-export async function viewApplicationsCaseS51Delete({ params }, response) {
+export async function viewApplicationsCaseS51AttachmentDelete({ params }, response) {
 	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
@@ -292,7 +332,7 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 		(attachment) => attachment.documentGuid === attachmentId
 	);
 
-	response.render('applications/case-s51/s51-delete.njk', {
+	response.render('applications/case-s51/s51-delete-attachment.njk', {
 		attachment: attachmentToDelete,
 		adviceId: adviceId
 	});

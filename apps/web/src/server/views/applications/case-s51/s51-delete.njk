@@ -2,19 +2,19 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
-
+{% from './components/enquirer-string.njk' import enquirerString %}
 
 {% set serviceName = "S51 advice" %}
-{% set pageTitle = "Delete selected attachment" %}
+{% set pageTitle = "Delete selected S51 advice" %}
 
 {% block pageTitle %}
-    {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
 
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
+	{{ govukBackLink({
 		text: "Back",
 		href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
 	}) }}
@@ -23,36 +23,36 @@
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-        {{ pageTitle }}
-    </h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
 
-    <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
-		<input type='hidden' value='{{  attachment.documentName}}' name='documentName' />
-		<input type='hidden' value='{{  attachment.dateAdded}}' name='dateAdded' />
+	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
+		<input type='hidden' value='{{  s51Advice.title}}' name='adviceTitle'/>
+		<input type='hidden' value='{{ enquirerString(s51Advice)}}' name='adviceEnquirer'/>
 
 		{{ govukTable({
 				captionClasses: "govuk-table__caption--m",
 				head: [
 					{
-						text: "File name"
+						text: "S51 title"
 					},
 					{
-						text: "Date added"
+						text: "Enquirer"
 					}
 				],
 				rows: [
 					[
 						{
-							text: attachment.documentName
+							text: s51Advice.title
 						},
 						{
-							text: attachment.dateAdded|datestamp({format: 'dd MMM yyyy'})
+							text: enquirerString(s51Advice)
 						}
 					]
 				]
 			}) }}
 
-        {{ govukButton({ text: 'Delete', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
-    </form>
+		{{ govukButton({ text: 'Delete', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
+	</form>
 {% endblock %}

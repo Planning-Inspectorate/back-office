@@ -1,0 +1,10 @@
+{% macro enquirerString(s51Advice) %}
+	{% if s51Advice.firstName or s51Advice.enquirer %}
+		{% set comma = ', ' if s51Advice.firstName and s51Advice.enquirer else
+			'' %}
+
+		{{s51Advice.firstName}}
+		{{s51Advice.lastName}}{{ comma }}
+		{{s51Advice.enquirer}}
+		{%endif%}
+	{% endmacro %}
