@@ -70,20 +70,6 @@ const getProjectUpdates = async (log, caseReference) => {
 		// @ts-ignore
 		update.caseStage = getCaseStageFromId(update.caseStage);
 
-		// TODO: Testing
-		// @ts-ignore
-		if (update.id === 4012034) {
-			console.info('=== 4012034 update content');
-
-			// @ts-ignore
-			const content = update.updateContentEnglish;
-
-			console.info(content);
-
-			console.info('Contains r', content.indexOf('\r'));
-			console.info('Contains n', content.indexOf('\n'));
-		}
-
 		// @ts-ignore
 		if (update.updateStatus === 'publish') {
 			// @ts-ignore
