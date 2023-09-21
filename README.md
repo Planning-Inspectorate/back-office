@@ -146,7 +146,7 @@ apps/api> npm run db:seed
 Ensure a database is running and setup, then:
 
 1. `apps/api` requires an `.env` file with a `DATABASE_URL` entry, as per [Database Environment Setup](#environment-setup)
-2. `apps/web` requires a `.env.local` file, copying `.env.development` gives a good starting point, but `SESSION_SECRET=anyValue` needs adding to it
+2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point and should work
 
 To run the apps, the recommended option is to have 2 terminals, one running the api, and one running the web app:
 
