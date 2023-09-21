@@ -2,24 +2,24 @@
 
 {% macro caseKeyDatesTable(case) %}
   {% set rowsData = [
-    {title: 'Anticipated submission date published', value: case.keyDates.preApplication.submissionAtPublished},
-    {title: 'Application submitted (Section 55)', value: case.keyDates.acceptance.dateOfDCOSubmission},
-    {title: 'Deadline for Acceptance decision', value: case.keyDates.acceptance.deadlineForAcceptanceDecision},
-    {title: 'Date of Acceptance (Section 55)', value: case.keyDates.acceptance.dateOfDCOAcceptance},
-    {title: 'Date of Non-Acceptance', value: case.keyDates.acceptance.dateOfNonAcceptance},
-    {title: 'Date Relevant Representations open', value: case.keyDates.preExamination.dateOfRepresentationPeriodOpen},
-    {title: 'Date Relevant Representations close', value: case.keyDates.preExamination.dateOfRelevantRepresentationClose},
-    {title: 'Date Relevant Representations to appear on website', value: case.keyDates.preExamination.dateRRepAppearOnWebsite},
-    {title: 'Preliminary Meeting start date', value: case.keyDates.preExamination.preliminaryMeetingStartDate},
-    {title: 'Examination start date', value: case.keyDates.examination.confirmedStartOfExamination},
-    {title: 'Deadline for close of Examination', value: case.keyDates.examination.deadlineForCloseOfExamination},
-    {title: 'Examination closing date', value: case.keyDates.examination.dateTimeExaminationEnds},
-    {title: 'Extension to close of Examination', value: case.keyDates.examination.stage4ExtensionToExamCloseDate},
-    {title: 'Date of Recommendation submitted to SoS', value: case.keyDates.recommendation.deadlineForSubmissionOfRecommendation},
-    {title: 'Extension to Recommendation deadline', value: case.keyDates.recommendation.stage5ExtensionToRecommendationDeadline},
-    {title: 'Date of Decision', value: case.keyDates.decision.confirmedDateOfDecision},
-    {title: 'Extension to Decision deadline', value: case.keyDates.decision.stage5ExtensionToDecisionDeadline},
-    {title: 'Date project withdrawn', value: case.keyDates.withdrawal.dateProjectWithdraw}
+    {title: 'Anticipated submission date published', value: case.keyDates.preApplication.submissionAtPublished | displayDate},
+    {title: 'Application submitted (Section 55)', value: case.keyDates.acceptance.dateOfDCOSubmission | displayDate},
+    {title: 'Deadline for Acceptance decision', value: case.keyDates.acceptance.deadlineForAcceptanceDecision | displayDate},
+    {title: 'Date of Acceptance (Section 55)', value: case.keyDates.acceptance.dateOfDCOAcceptance | displayDate},
+    {title: 'Date of Non-Acceptance', value: case.keyDates.acceptance.dateOfNonAcceptance | displayDate},
+    {title: 'Date Relevant Representations open', value: case.keyDates.preExamination.dateOfRepresentationPeriodOpen | displayDate},
+    {title: 'Date Relevant Representations close', value: case.keyDates.preExamination.dateOfRelevantRepresentationClose | displayDate},
+    {title: 'Date Relevant Representations to appear on website', value: case.keyDates.preExamination.dateRRepAppearOnWebsite | displayDate},
+    {title: 'Preliminary Meeting start date', value: case.keyDates.preExamination.preliminaryMeetingStartDate | displayDate},
+    {title: 'Examination start date', value: case.keyDates.examination.confirmedStartOfExamination | displayDate},
+    {title: 'Deadline for close of Examination', value: case.keyDates.examination.deadlineForCloseOfExamination | displayDate},
+    {title: 'Examination closing date', value: case.keyDates.examination.dateTimeExaminationEnds | displayDate},
+    {title: 'Extension to close of Examination', value: case.keyDates.examination.stage4ExtensionToExamCloseDate | displayDate},
+    {title: 'Date of Recommendation submitted to SoS', value: case.keyDates.recommendation.deadlineForSubmissionOfRecommendation | displayDate},
+    {title: 'Extension to Recommendation deadline', value: case.keyDates.recommendation.stage5ExtensionToRecommendationDeadline | displayDate},
+    {title: 'Date of Decision', value: case.keyDates.decision.confirmedDateOfDecision | displayDate},
+    {title: 'Extension to Decision deadline', value: case.keyDates.decision.stage5ExtensionToDecisionDeadline | displayDate},
+    {title: 'Date project withdrawn', value: case.keyDates.withdrawal.dateProjectWithdraw | displayDate}
   ] %}
 
   {% set tableRows = [] %}
