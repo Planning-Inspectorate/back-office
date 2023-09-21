@@ -79,7 +79,7 @@ export const uniqueTimeTableTypes = {
  */
 export async function viewApplicationsCaseTimetableList(_, response) {
 	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
-	const timetableItemsViewData = examinationTimetable?.items?.map(getTimetableRows);
+	const timetableItemsViewData = examinationTimetable?.items?.map(getTimetableRows) ?? [];
 	const republishStatus = examinationTimetable.items.some(
 		(item) => item.createdAt > examinationTimetable.publishedAt
 	);
