@@ -117,7 +117,7 @@ const mapModelToEntity = async (m) => {
 		status: m.updateStatus,
 		// @ts-ignore
 		title: m.updateName,
-		htmlContent: replaceNewlinesAndSanitizeHtml(m.updateContentEnglish)
+		htmlContent: prepareAndSanitizeHtml(m.updateContentEnglish)
 	};
 };
 
@@ -128,15 +128,21 @@ const crlf = cr + lf;
 
 const breakElement = '<br />';
 
+const http = 'http://';
+
+const https = 'https://';
+
 /**
  * The HTML editor only supports break elements, but the migrated wordpress data comes over using carriage returns and line break control characters.
  * Replace these manually to make the content compatible with the editor.
+ *
+ * There are also 'http' links in some of the updates which will be stripped by the sanitiser. We can manually covert these to https before migrating.
  *
  * @param {string} html
  *
  * @returns {string} sanitizedHtml
  */
-const replaceNewlinesAndSanitizeHtml = (html) => {
+const prepareAndSanitizeHtml = (html) => {
 	if (!html) {
 		// Support empty content by returning
 		return html;
@@ -147,7 +153,9 @@ const replaceNewlinesAndSanitizeHtml = (html) => {
 		.replaceAll(cr, breakElement)
 		.replaceAll(lf, breakElement);
 
-	return sanitizeHtml(htmlWithLineBreaks, {
+	const htmlWithHttpReplaced = htmlWithLineBreaks.replaceAll(http, https);
+
+	return sanitizeHtml(htmlWithHttpReplaced, {
 		allowedTags,
 		allowedAttributes: {
 			a: ['href']
