@@ -21,7 +21,7 @@ export default async function (context, msg) {
 
 	const type = applicationProperties?.type;
 
-	if (type !== EventType.Create) {
+	if (type !== EventType.Create || type !== EventType.Update) {
 		context.log.warn(`Ignoring invalid message, unsupported type '${type}'`, msg);
 		return;
 	}
