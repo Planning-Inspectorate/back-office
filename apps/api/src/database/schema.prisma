@@ -388,6 +388,7 @@ model ExaminationTimetableItem {
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
   ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
   Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+  createdAt                DateTime                 @default(now())
 }
 
 // Subscription represents a subscriber interested in project updates for a case
