@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import { rollup } from 'rollup';
 import iife from 'rollup-plugin-iife';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { loadBaseConfig } from '@pins/applications.web/environment/base-config.js';
+import { loadBaseConfig } from '@pins/appeals.web/environment/base-config.js';
 import { getLogger } from './get-logger.js';
 import { minifySource } from './minify-js.js';
 import { buildVirtualJSON } from './rollup-plugin-virtual-json.js';

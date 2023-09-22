@@ -1,4 +1,4 @@
-import { loadBaseConfig } from '@pins/applications.web/environment/base-config.js';
+import { loadBaseConfig } from '@pins/appeals.web/environment/base-config.js';
 import autoprefixer from 'autoprefixer';
 import kleur from 'kleur';
 import fs from 'node:fs';
