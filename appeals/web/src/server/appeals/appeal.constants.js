@@ -3,6 +3,10 @@ export const paginationDefaultSettings = {
 	firstPageNumber: 1
 };
 
+/**
+ * @typedef {'valid'|'invalid'|'incomplete'} AppellantCaseReviewOutcome
+ */
+
 export const appellantCaseReviewOutcomes = {
 	valid: 'valid',
 	invalid: 'invalid',

@@ -201,29 +201,79 @@ function mapReasonTextToUnorderedList(reasonText) {
 }
 
 /**
+ * @typedef {Object} AppellantCaseSessionValidationOutcome
+ * @property {string} appealId
+ * @property {import('../../appeal.constants.js').AppellantCaseReviewOutcome} validationOutcome
+ * @property {string|string[]} invalidOrIncompleteReasons
+ * @property {Object<string, string[]>} invalidOrIncompleteReasonsText
+ * )
+ */
+
+/**
+ * @typedef {Object} AppellantCaseAPIValidationOutcome
+ * @property {'valid'|'invalid'|'incomplete'} outcome
+ * @property {AppellantCaseInvalidIncompleteReason[]} [invalidReasons]
+ * @property {AppellantCaseInvalidIncompleteReason[]} [incompleteReasons]
+ */
+
+/**
  *
  * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
- * @param {string[]|number[]} [checkedOptionValues]
+ * @param {string[]|number[]} [postedReasonIds]
+ * @param {AppellantCaseSessionValidationOutcome} [sessionValidationOutcome]
+ * @param {AppellantCaseAPIValidationOutcome} [existingValidationOutcome]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
 export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	invalidOrIncompleteReasonOptions,
-	checkedOptionValues
+	postedReasonIds,
+	sessionValidationOutcome,
+	existingValidationOutcome
 ) {
-	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
-		checkedOptionValues = [checkedOptionValues];
+	/** @type {AppellantCaseInvalidIncompleteReason[]} */
+	let existingReasons = [];
+	/** @type {number[]|undefined} */
+	let existingReasonIds;
+
+	if (existingValidationOutcome) {
+		existingReasons =
+			existingValidationOutcome.outcome.toLowerCase() === 'invalid'
+				? existingValidationOutcome.invalidReasons || []
+				: existingValidationOutcome.incompleteReasons || [];
+		existingReasonIds = existingReasons.map((reason) => reason.name.id);
 	}
 
-	let checkedOptions = checkedOptionValues?.map((value) =>
+	let notValidReasonIds =
+		existingReasonIds || postedReasonIds || sessionValidationOutcome?.invalidOrIncompleteReasons;
+	if (typeof notValidReasonIds !== 'undefined' && !Array.isArray(notValidReasonIds)) {
+		notValidReasonIds = [notValidReasonIds];
+	}
+	const checkedOptions = notValidReasonIds?.map((value) =>
 		typeof value === 'string' ? parseInt(value, 10) : value
 	);
 
 	return invalidOrIncompleteReasonOptions.map((reason) => ({
 		value: `${reason.id}`,
 		text: reason.name,
-		hasText: reason.hasText,
 		...(checkedOptions && {
 			checked: checkedOptions.includes(reason.id)
+		}),
+		...(reason.hasText && {
+			addAnother: {
+				...{
+					textItems: ['']
+				},
+				...(existingReasons.length && {
+					// @ts-ignore
+					textItems: (existingReasons || []).find(
+						(existingReason) => existingReason?.name?.id === reason.id
+					).text || ['']
+				}),
+				...(Object.keys(sessionValidationOutcome?.invalidOrIncompleteReasonsText || {}).length && {
+					// @ts-ignore
+					textItems: sessionValidationOutcome?.invalidOrIncompleteReasonsText[reason.id] || ['']
+				})
+			}
 		})
 	}));
 }

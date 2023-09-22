@@ -21,14 +21,19 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
-
-	{# add "add another" as conditional html on each checkbox option which hasText #}
 	{%- for option in reasonOptions -%}
-		{%- if option.hasText -%}
-			{# build "add another" html #}
-			{# don't worry about existing items for now - can do those once basic version is working #}
-			{%- set addAnotherHtml = addAnother({ items: [govukInput({classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input', name: notValidStatus + 'Reason-' + option.value, value: reason})] }) -%}
-			{# assign built html to conditional property of option #}
+		{%- if option.addAnother -%}
+			{%- set addAnotherItems = [] -%}
+			{%- for textItem in option.addAnother.textItems -%}
+				{%- set inputHtml = govukInput({
+						classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input',
+						name: notValidStatus + 'Reason-' + option.value,
+						value: textItem
+					})
+				-%}
+				{%- set _ = addAnotherItems.push(inputHtml) -%}
+			{%- endfor -%}
+			{%- set addAnotherHtml = addAnother({ items: addAnotherItems }) -%}
 			{%- set _ = option | addConditionalHtml(addAnotherHtml) -%}
 		{%- endif -%}
 	{%- endfor -%}

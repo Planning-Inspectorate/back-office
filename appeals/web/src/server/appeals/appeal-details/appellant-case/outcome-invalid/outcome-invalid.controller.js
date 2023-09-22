@@ -1,4 +1,5 @@
 import logger from '#lib/logger.js';
+import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
@@ -19,6 +20,26 @@ const renderInvalidReason = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.render('app/404.njk');
+	}
+
+	const appellantCaseResponse = await appellantCaseService
+		.getAppellantCaseFromAppealId(
+			request.apiClient,
+			appealDetails?.appealId,
+			appealDetails?.appellantCaseId
+		)
+		.catch((error) => logger.error(error));
+
+	if (!appellantCaseResponse) {
+		return response.render('app/404.njk');
+	}
+
 	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
 
 	if (
@@ -38,18 +59,11 @@ const renderInvalidReason = async (request, response) => {
 		);
 
 	if (invalidReasonOptions) {
-		const invalidReasons =
-			body.invalidReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
-
-		// TODO: need to account for possibility of existing reasons from API as well as the body and session values:
-		// - body.invalidReason is used when re-rendering invalid reason page in an error state (this happens before session.webAppellantCaseReviewOutcome has been set)
-		// - session.webAppellantCaseReviewOutcome is used when navigating back to the page before completing the flow (won't be a body.invalidReason in this case)
-		// - existing reasons from API are used when navigating to the page after the flow has been completed once
-		// priority order for which of these should be used in the event more than one is present is (highest-lowest) 1. body, 2. session, 3. existing
-
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 			invalidReasonOptions,
-			invalidReasons
+			body.invalidReason,
+			webAppellantCaseReviewOutcome,
+			appellantCaseResponse.validation
 		);
 
 		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
@@ -112,7 +126,7 @@ export const getInvalidReason = async (request, response) => {
 /**
  *
  * @param {import('@pins/express/types/express.js').Request} request
- * @param {string} reasonKey
+ * @param {'invalidReason'|'incompleteReason'} reasonKey
  * @returns {Object<string, string[]>}
  */
 const getInvalidOrIncompleteReasonsTextFromRequestBody = (request, reasonKey) => {
@@ -123,17 +137,22 @@ const getInvalidOrIncompleteReasonsTextFromRequestBody = (request, reasonKey) =>
 	/** @type {Object<string, string[]>} */
 	const reasonsText = {};
 
-	let reasons = Array.isArray(request.body[reasonKey])
+	let bodyReasonIds = Array.isArray(request.body[reasonKey])
 		? request.body[reasonKey]
 		: [request.body[reasonKey]];
 
-	for (const reason of reasons) {
-		const textItemsKey = `${reasonKey}-${reason}`;
+	for (const reasonId of bodyReasonIds) {
+		const textItemsKey = `${reasonKey}-${reasonId}`;
 
 		if (request.body[textItemsKey]) {
-			reasonsText[`${reason}`] = Array.isArray(request.body[textItemsKey])
+			const reasonsTextKey = `${reasonId}`;
+			reasonsText[reasonsTextKey] = Array.isArray(request.body[textItemsKey])
 				? request.body[textItemsKey]
 				: [request.body[textItemsKey]];
+
+			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
+				(reason) => reason.length > 0
+			);
 		}
 	}
 
