@@ -45,9 +45,14 @@
   <h2 class="govuk-heading-m">Project team</h2>
   <p class="govuk-body">No project members have been added yet</p>
 
-  {{ govukButton({
-    text: 'Preview and publish project',
-    href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}),
-    classes: "govuk-!-margin-top-6" })
-  }}
+  <div class="govuk-!-margin-top-6">
+    {{ govukButton({
+      text: 'Preview and publish project',
+      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) })
+    }}
+
+    {% if case.publishedDate and not userIsInspector %}
+      <a href="../{{ caseId }}/unpublish" class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">Unpublish project</a>
+    {% endif %}
+  </div>
 {% endblock %}
