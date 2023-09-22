@@ -109,7 +109,7 @@ Install Azure Data Studio, and after setting up the database in Docker as descri
 > [!IMPORTANT]
 > The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
 
-The `api` app needs to know how to connect to the database. Create a `.env` file in `apps/api` with a `DATABASE_URL` entry, as follows:
+The `api` app needs to know how to connect to the database. Copy the `.env.example` to `.env` in `apps/api` and replace `<YourStrong@Passw0rd>` in `DATABASE_URL`.
 
 ```
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
@@ -145,7 +145,7 @@ apps/api> npm run db:seed
 
 Ensure a database is running and setup, then:
 
-1. `apps/api` requires an `.env` file with a `DATABASE_URL` entry, as per [Database Environment Setup](#environment-setup)
+1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup))
 2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point and should work
 
 To run the apps, the recommended option is to have 2 terminals, one running the api, and one running the web app:
