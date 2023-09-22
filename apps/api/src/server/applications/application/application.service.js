@@ -8,6 +8,7 @@ import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
 import { transitionState } from '../../utils/transition-state.js';
+import BackOfficeAppError from '../../utils/app-error.js';
 import { buildNsipProjectPayload } from './application.js';
 
 /**
@@ -202,11 +203,13 @@ const filterOutResponse = (parsedQuery, applicationDetailsFormatted) => {
  * @returns {Promise<object>}
  */
 export const getCaseDetails = async (id, query) => {
-	let emptyQuery;
-
-	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : emptyQuery;
+	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : undefined;
 	const modelsToInclude = findModelsToInclude(parsedQuery);
+
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+	if (!caseDetails) {
+		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
+	}
 
 	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
 
@@ -221,11 +224,11 @@ export const getCaseDetails = async (id, query) => {
  * */
 export const getCaseByRef = async (ref) => {
 	const caseDetails = await caseRepository.getByRef(ref);
-  if (!caseDetails) {
-    return null;
-  }
+	if (!caseDetails) {
+		return null;
+	}
 
-  return mapApplicationDetails(caseDetails);
+	return mapApplicationDetails(caseDetails);
 };
 
 /**
