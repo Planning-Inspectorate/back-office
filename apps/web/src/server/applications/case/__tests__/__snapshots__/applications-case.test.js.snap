@@ -18,21 +18,31 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
     <form id=\\"pins-publish-case\\" class=\\"govuk-grid-row \\" method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-column-full\\">
             <h1 class=\\"govuk-heading-l\\">Preview and publish project</h1>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
-                </div>
-            </dl>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/07</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 23</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Project details</h2>
@@ -89,7 +99,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                         <td class=\\"govuk-table__cell\\">email@email.co</td>
                     </tr>
                     <tr class=\\"govuk-table__row\\">
-                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                         <td class=\\"govuk-table__cell\\">001</td>
                     </tr>
                 </tbody>
@@ -185,21 +195,31 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
     <form id=\\"pins-publish-case\\" class=\\"govuk-grid-row \\" method=\\"post\\" action=\\"\\">
         <div class=\\"govuk-grid-column-full\\">
             <h1 class=\\"govuk-heading-l\\">Preview and publish project</h1>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not Published</strong>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
-                </div>
-            </dl>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/04</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Transport EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h2 class=\\"govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-2\\">Project details</h2>
@@ -256,7 +276,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                         <td class=\\"govuk-table__cell\\">email@email.co</td>
                     </tr>
                     <tr class=\\"govuk-table__row\\">
-                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                         <td class=\\"govuk-table__cell\\">001</td>
                     </tr>
                 </tbody>
@@ -411,25 +431,35 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                 </div>
             </div>
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
-                </div>
-            </dl>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/07</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 23</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <p class=\\"govuk-body-m colour--red font-weight--700\\">There are unpublished changes that have been made. Publish the project
-                for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
-            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
-            id=\\"\\">
+                for changes to be applied.</p>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\"
+            data-module=\\"govuk-accordion\\" id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
@@ -524,7 +554,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-telephone-number\\"> Change</a>
                                     </td>
@@ -533,8 +563,8 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </table>
                     </div>
                 </div>
-        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
-    </div>
+            </div>
+        </div>
     </div>
 </main>"
 `;
@@ -590,22 +620,32 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                 </div>
             </div>
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 3:21pm 16/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
-                </div>
-            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
-            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/04</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Transport EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
@@ -701,7 +741,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
                                     </td>
@@ -710,8 +750,8 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                         </table>
                     </div>
                 </div>
-        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
-    </div>
+            </div>
+        </div>
     </div>
 </main>"
 `;
@@ -755,21 +795,31 @@ exports[`Applications case pages Project information page GET /case/123/project-
         </div>
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
-                </div>
-            </dl>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/07</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 23</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
@@ -854,7 +904,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"></td>
                                 </tr>
@@ -909,22 +959,32 @@ exports[`Applications case pages Project information page GET /case/123/project-
         </div>
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey\\">Not Published</strong>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
-                </div>
-            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/4/preview-and-publish\\"> Preview and publish project</a>
-            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/04</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Transport EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Highways EN</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
@@ -1020,7 +1080,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
                                     </td>
@@ -1029,8 +1089,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
     </div>
 </main>"
 `;
@@ -1076,22 +1136,32 @@ exports[`Applications case pages Project information page GET /case/123/project-
         </div>
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 31/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/06</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 21</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 22</dd>
-                </div>
-            </dl><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/6/preview-and-publish\\"> Preview and publish project</a>
-            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/06</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 21</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 22</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 22</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
             id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
@@ -1187,7 +1257,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-telephone-number\\"> Change</a>
                                     </td>
@@ -1196,8 +1266,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
-    </div>
+            </div>
+        </div>
     </div>
 </main>"
 `;
@@ -1243,25 +1313,35 @@ exports[`Applications case pages Project information page GET /case/123/project-
         </div>
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
-            <dl class=\\"govuk-summary-list govuk-summary-list--no-border\\">
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project page status</dt>
-                    <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--green\\">Published</strong><span class=\\"govuk-body-s govuk-!-margin-left-4\\"> Last updated: 12:00am 30/01/2023</span>
-                    </dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
-                    <dd class=\\"govuk-summary-list__value\\">CASE/07</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 23</dd>
-                </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
-                    <dd class=\\"govuk-summary-list__value\\">Item EN 24</dd>
-                </div>
-            </dl>
+            <table class=\\"govuk-table\\">
+                <tbody class=\\"govuk-table__body\\">
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
+                        <td class=\\"govuk-table__cell\\">CASE/07</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 23</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"></td>
+                    </tr>
+                    <tr class=\\"govuk-table__row\\">
+                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                        <td class=\\"govuk-table__cell\\">Item EN 24</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <p class=\\"govuk-body-m colour--red font-weight--700\\">There are unpublished changes that have been made. Publish the project
-                for changes to be applied.</p><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/7/preview-and-publish\\"> Preview and publish project</a>
-            <div             class=\\"govuk-accordion govuk-!-margin-top-5\\" data-module=\\"govuk-accordion\\"
-            id=\\"\\">
+                for changes to be applied.</p>
+            <div class=\\"govuk-accordion govuk-!-margin-top-5\\"
+            data-module=\\"govuk-accordion\\" id=\\"\\">
                 <div class=\\"govuk-accordion__section\\">
                     <div class=\\"govuk-accordion__section-header\\">
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"> Project details</span></h2>
@@ -1356,7 +1436,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number</th>
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
                                     <td class=\\"govuk-table__cell\\">001</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-telephone-number\\"> Change</a>
                                     </td>
@@ -1365,8 +1445,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </table>
                     </div>
                 </div>
-        </div><a href=\\"../123/unpublish\\" class=\\"govuk-link colour--red govuk-body-m\\">Unpublish project</a>
-    </div>
+            </div>
+        </div>
     </div>
 </main>"
 `;
@@ -1437,6 +1517,9 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
             </div>
             <h2 class=\\"govuk-heading-m\\">Project team</h2>
             <p class=\\"govuk-body\\">No project members have been added yet</p>
+            <div class=\\"govuk-!-margin-top-6\\"><a href=\\"/applications-service/case/4/preview-and-publish\\" role=\\"button\\"
+                draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Preview and publish project</a>
+            </div>
         </div>
     </div>
 </main>"

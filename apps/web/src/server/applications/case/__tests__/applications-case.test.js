@@ -54,10 +54,8 @@ describe('Applications case pages', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).not.toContain('Change');
 					expect(element.innerHTML).not.toContain('Preview and publish project');
 					expect(element.innerHTML).not.toContain('There are unpublished changes');
-					expect(element.innerHTML).not.toContain('Unpublish project');
 
 					// if user is inspector the link to examination timetable page should not appear
 					expect(element.innerHTML).not.toContain('Examination timetable');
@@ -80,10 +78,7 @@ describe('Applications case pages', () => {
 
 						expect(element.innerHTML).toMatchSnapshot();
 						expect(element.innerHTML).toContain('Change');
-						expect(element.innerHTML).toContain('Not Published');
-						expect(element.innerHTML).not.toContain('Last updated:');
 						expect(element.innerHTML).not.toContain('There are unpublished changes');
-						expect(element.innerHTML).not.toContain('Unpublish project');
 						expect(element.innerHTML).toContain('Internal use only');
 					});
 				});
@@ -100,10 +95,7 @@ describe('Applications case pages', () => {
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Published');
-						expect(element.innerHTML).toContain('Last updated:');
 						expect(element.innerHTML).not.toContain('There are unpublished changes');
-						expect(element.innerHTML).toContain('Unpublish project');
 					});
 
 					it('with pending changes, should show publishing info, unpublish link and warning about unpublished changes', async () => {
@@ -113,10 +105,7 @@ describe('Applications case pages', () => {
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Published');
-						expect(element.innerHTML).toContain('Last updated:');
 						expect(element.innerHTML).toContain('There are unpublished changes');
-						expect(element.innerHTML).toContain('Unpublish project');
 					});
 				});
 			});
@@ -153,10 +142,7 @@ describe('Applications case pages', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Published');
 					expect(element.innerHTML).toContain('Accept and publish changes');
-					expect(element.innerHTML).toContain('Last updated:');
-					expect(element.innerHTML).not.toContain('Internal use only');
 				});
 
 				it('if not yet published, should render the page with no previous publishing info', async () => {
@@ -167,8 +153,6 @@ describe('Applications case pages', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Accept and publish project');
-					expect(element.innerHTML).toContain('Not Published');
-					expect(element.innerHTML).not.toContain('Last updated:');
 				});
 			});
 		});
