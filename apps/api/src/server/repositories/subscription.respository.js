@@ -23,29 +23,7 @@ export async function list({ page, pageSize, caseReference, type }) {
 		where.caseReference = caseReference;
 	}
 	if (type) {
-		switch (type) {
-			case Subscription.Type.AllUpdates:
-				where.subscribedToAllUpdates = true;
-				break;
-			case Subscription.Type.ApplicationSubmitted:
-				where.OR = {
-					subscribedToAllUpdates: true,
-					subscribedToApplicationSubmitted: true
-				};
-				break;
-			case Subscription.Type.ApplicationDecided:
-				where.OR = {
-					subscribedToAllUpdates: true,
-					subscribedToApplicationDecided: true
-				};
-				break;
-			case Subscription.Type.RegistrationOpen:
-				where.OR = {
-					subscribedToAllUpdates: true,
-					subscribedToRegistrationOpen: true
-				};
-				break;
-		}
+		subscriptionTypeToWhere(type, where);
 	}
 
 	const result = await databaseConnector.$transaction([
@@ -63,6 +41,30 @@ export async function list({ page, pageSize, caseReference, type }) {
 		count: result[0],
 		items: result[1]
 	};
+}
+
+/**
+ * Amend a where clause to include the given subscription type
+ * Any given type should include allUpdates.
+ *
+ * @param {string} type
+ * @param {import('@prisma/client').Prisma.SubscriptionWhereInput} where
+ */
+export function subscriptionTypeToWhere(type, where) {
+	switch (type) {
+		case Subscription.Type.allUpdates:
+			where.subscribedToAllUpdates = true;
+			break;
+		case Subscription.Type.applicationSubmitted:
+			where.OR = [{ subscribedToAllUpdates: true }, { subscribedToApplicationSubmitted: true }];
+			break;
+		case Subscription.Type.applicationDecided:
+			where.OR = [{ subscribedToAllUpdates: true }, { subscribedToApplicationDecided: true }];
+			break;
+		case Subscription.Type.registrationOpen:
+			where.OR = [{ subscribedToAllUpdates: true }, { subscribedToRegistrationOpen: true }];
+			break;
+	}
 }
 
 /**
