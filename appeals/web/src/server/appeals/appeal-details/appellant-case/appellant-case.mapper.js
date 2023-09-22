@@ -201,32 +201,39 @@ function mapReasonTextToUnorderedList(reasonText) {
 }
 
 /**
+ * @typedef {Object<string, string|string[]>} AppellantCaseBodyValidationOutcome
+ * @property {string|string[]} [invalidReason]
+ * @property {string|string[]} [incompleteReason]
+ */
+
+/**
  * @typedef {Object} AppellantCaseSessionValidationOutcome
  * @property {string} appealId
  * @property {import('../../appeal.constants.js').AppellantCaseReviewOutcome} validationOutcome
  * @property {string|string[]} invalidOrIncompleteReasons
  * @property {Object<string, string[]>} invalidOrIncompleteReasonsText
- * )
  */
 
 /**
  * @typedef {Object} AppellantCaseAPIValidationOutcome
- * @property {'valid'|'invalid'|'incomplete'} outcome
+ * @property {import('../../appeal.constants.js').AppellantCaseReviewOutcome} outcome
  * @property {AppellantCaseInvalidIncompleteReason[]} [invalidReasons]
  * @property {AppellantCaseInvalidIncompleteReason[]} [incompleteReasons]
  */
 
 /**
  *
+ * @param {import('../../appeal.constants.js').AppellantCaseReviewOutcome} validationOutcome
  * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
- * @param {string[]|number[]} [postedReasonIds]
+ * @param {AppellantCaseBodyValidationOutcome} [bodyValidationOutcome]
  * @param {AppellantCaseSessionValidationOutcome} [sessionValidationOutcome]
  * @param {AppellantCaseAPIValidationOutcome} [existingValidationOutcome]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
 export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
+	validationOutcome,
 	invalidOrIncompleteReasonOptions,
-	postedReasonIds,
+	bodyValidationOutcome,
 	sessionValidationOutcome,
 	existingValidationOutcome
 ) {
@@ -243,8 +250,14 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 		existingReasonIds = existingReasons.map((reason) => reason.name.id);
 	}
 
+	const bodyValidationBaseKey = `${validationOutcome}Reason`;
+	const bodyValidationOutcomeReasons = bodyValidationOutcome?.[bodyValidationBaseKey];
+
 	let notValidReasonIds =
-		existingReasonIds || postedReasonIds || sessionValidationOutcome?.invalidOrIncompleteReasons;
+		existingReasonIds ||
+		sessionValidationOutcome?.invalidOrIncompleteReasons ||
+		bodyValidationOutcomeReasons;
+
 	if (typeof notValidReasonIds !== 'undefined' && !Array.isArray(notValidReasonIds)) {
 		notValidReasonIds = [notValidReasonIds];
 	}
@@ -260,18 +273,17 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 		}),
 		...(reason.hasText && {
 			addAnother: {
-				...{
-					textItems: ['']
-				},
+				...{ textItems: [''] },
 				...(existingReasons.length && {
-					// @ts-ignore
-					textItems: (existingReasons || []).find(
+					textItems: existingReasons.find(
 						(existingReason) => existingReason?.name?.id === reason.id
-					).text || ['']
+					)?.text || ['']
 				}),
 				...(Object.keys(sessionValidationOutcome?.invalidOrIncompleteReasonsText || {}).length && {
-					// @ts-ignore
 					textItems: sessionValidationOutcome?.invalidOrIncompleteReasonsText[reason.id] || ['']
+				}),
+				...(Object.keys(bodyValidationOutcome || {}).length && {
+					textItems: (bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reason.id}`] || ['']
 				})
 			}
 		})

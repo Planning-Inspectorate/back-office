@@ -60,8 +60,9 @@ const renderInvalidReason = async (request, response) => {
 
 	if (invalidReasonOptions) {
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
+			'invalid',
 			invalidReasonOptions,
-			body.invalidReason,
+			body,
 			webAppellantCaseReviewOutcome,
 			appellantCaseResponse.validation
 		);
