@@ -71,6 +71,22 @@ export const projectInformation = () => {
 
 	const internalDateFull = `${internalDateDay}/${internalDateMonth}/${internalDateYear}`;
 
+	const formatDateToShortMonth = (dateString) => {
+		const [day, month, year] = dateString.split('/');
+		const dateObj = new Date(`${year}-${month}-${day}`);
+
+		const options = { day: '2-digit', month: 'short', year: 'numeric' };
+		let formatted = dateObj.toLocaleDateString('en-GB', options);
+		const parts = formatted.split(' ');
+		if (parts[1] && parts[1].length > 3) {
+			parts[1] = parts[1].slice(0, 3);
+			formatted = parts.join(' ');
+		}
+
+		return formatted;
+	};
+	const internalDateFullFormatted = formatDateToShortMonth(internalDateFull);
+
 	return {
 		applicantEmail,
 		applicantFirstName,
@@ -84,6 +100,7 @@ export const projectInformation = () => {
 		gridRefNorthing,
 		internalDateDay,
 		internalDateFull,
+		internalDateFullFormatted,
 		internalDateMonth,
 		internalDateYear,
 		orgName,

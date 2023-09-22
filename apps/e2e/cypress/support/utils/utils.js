@@ -1,6 +1,7 @@
 // @ts-nocheck
 const { CasePage } = require('../../page_objects/casePage');
 const { CreateCasePage } = require('../../page_objects/createCasePage');
+const { faker } = require('@faker-js/faker');
 
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
@@ -25,10 +26,12 @@ const validateSummaryPage = (fileIndex, checkType) => {
 const validateSummaryPageInfo = (projectInformation, checkType) => {
 	const mandatoryOnly = checkType === 'mandatory';
 
-	casePage.validateKeyDates(
-		mandatoryOnly ? '' : projectInformation.publishedDate,
-		projectInformation.internalDateFull
-	);
+	// No longer mandatory
+	// casePage.validateKeyDates(
+	// 	mandatoryOnly ? '' : projectInformation.publishedDate,
+	// 	projectInformation.internalDateFull
+	// );
+
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.validateSummaryItem(
 		'Applicant Information',
@@ -182,11 +185,49 @@ const enquirerString = (details) => {
 	return hasOrg ? details.organisation : '';
 };
 
+const getRandomFormattedDate = (direction = 'future') => {
+	const date = direction === 'future' ? faker.date.future() : faker.date.past();
+
+	const displayedDate = date.toLocaleDateString('en-GB', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric'
+	});
+
+	const [day, month, year] = displayedDate.split('/');
+	const enteredFormat = [day, month, year];
+	let displayedDateFormatted = date.toLocaleDateString('en-GB', {
+		day: '2-digit',
+		month: 'short',
+		year: 'numeric'
+	});
+
+	const parts = displayedDateFormatted.split(' ');
+	if (parts[1] && parts[1].length > 3) {
+		parts[1] = parts[1].slice(0, 3);
+		displayedDateFormatted = parts.join(' ');
+	}
+
+	return {
+		displayedDate: displayedDateFormatted,
+		enteredFormat: enteredFormat
+	};
+};
+
+const getRandomQuarterDate = (direction = 'future') => {
+	const year =
+		direction === 'future' ? faker.date.future().getFullYear() : faker.date.past().getFullYear();
+	const quarter = `Q${faker.datatype.number({ min: 1, max: 4 })}`;
+	return `${quarter} ${year}`;
+};
+
 module.exports = {
 	validateSummaryPage,
 	validateSummaryPageInfo,
 	validateProjectInformation,
 	updateProjectInformation,
 	getShortMonthName,
-	enquirerString
+	enquirerString,
+	getRandomFormattedDate,
+	getRandomQuarterDate
 };

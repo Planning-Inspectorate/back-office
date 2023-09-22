@@ -9,6 +9,8 @@ export class Page {
 	selectors = {
 		accordion: '.govuk-accordion',
 		accordionToggleText: '.govuk-accordion__section-toggle-text',
+		accordionSectionHeader: '.govuk-accordion__section-header',
+		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
 		button: '.govuk-button',
@@ -32,6 +34,7 @@ export class Page {
 		rightCol: '.pins-column--right',
 		select: '.govuk-select',
 		smallHeader: '.govuk-heading-s',
+		table: '.govuk-table',
 		tableBody: '.govuk-table__body',
 		tableCell: '.govuk-table__cell',
 		tableHeader: '.govuk-table__header',
