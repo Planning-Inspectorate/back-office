@@ -7,7 +7,9 @@ COPY packages ./packages
 COPY apps/document-storage apps/document-storage
 ENV NODE_ENV=production
 RUN npm ci
-COPY apps/document-storage/.env.development apps/document-storage/.env
+# not OK, configuration should be in Azure. This app is going to be removed soon and replaced by a utility function
+# so this is just to ensure it works for now.
+COPY apps/document-storage/.env.example apps/document-storage/.env
 
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
