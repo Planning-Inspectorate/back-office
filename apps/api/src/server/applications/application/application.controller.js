@@ -7,6 +7,7 @@ import logger from '../../utils/logger.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
+import { publishedFieldsHaveChanged } from '../../utils/published-fields-changed.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
@@ -49,17 +50,49 @@ export const createApplication = async (request, response) => {
 export const updateApplication = async ({ params, body }, response) => {
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(body);
 
-	const updateResponse = await caseRepository.updateApplication({
+	const originalResponse = await caseRepository.getById(params.id, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
+
+	if (!originalResponse) {
+		throw new BackOfficeAppError(`Application not found with id ${params.id}`, 404);
+	}
+
+	let updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
 		applicantId: head(body?.applicants)?.id,
 		...mappedApplicationDetails
 	});
 
 	if (!updateResponse) {
-		throw new Error('Application not found');
+		throw new BackOfficeAppError('Application not found', 500);
 	}
 
-	// @ts-ignore
+	const publishableFieldsChanged = publishedFieldsHaveChanged(originalResponse, updateResponse);
+	if (publishableFieldsChanged) {
+		const finalResponse = await caseRepository.updateApplication({
+			caseId: params.id,
+			hasUnpublishedChanges: true
+		});
+
+		if (!finalResponse) {
+			throw new BackOfficeAppError(
+				`Could not update hasUnpublishedChanges propery for case with id ${params.id}`,
+				500
+			);
+		}
+
+		updateResponse = finalResponse;
+	}
+
 	await eventClient.sendEvents(
 		NSIP_PROJECT,
 		[buildNsipProjectPayload(updateResponse)],

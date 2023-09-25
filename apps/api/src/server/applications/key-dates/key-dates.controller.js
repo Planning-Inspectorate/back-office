@@ -5,6 +5,7 @@ import * as keyDatesRepository from '../../repositories/key-dates.repository.js'
 import * as caseRepository from '../../repositories/case.repository.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapRequestToKeyDates, mapKeyDatesToResponse } from '../../utils/mapping/map-key-dates.js';
+import { publishedFieldsHaveChanged } from '../../utils/published-fields-changed.js';
 import { buildNsipProjectPayload } from '../application/application.js';
 
 /**
@@ -38,9 +39,7 @@ export const updateKeyDates = async ({ body, params }, response) => {
 
 	const keyDates = mapRequestToKeyDates(body);
 
-	const updateResponse = await keyDatesRepository.update(id, keyDates);
-
-	const updatedCase = await caseRepository.getById(id, {
+	const originalCase = await caseRepository.getById(id, {
 		subSector: true,
 		sector: true,
 		applicationDetails: true,
@@ -51,6 +50,35 @@ export const updateKeyDates = async ({ body, params }, response) => {
 		serviceCustomerAddress: true,
 		gridReference: true
 	});
+
+	if (!originalCase) {
+		throw new BackOfficeAppError(`No case found with id ${id}`, 404);
+	}
+
+	const updateResponse = await keyDatesRepository.update(id, keyDates);
+
+	let updatedCase = await caseRepository.getById(id, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
+
+	if (!updatedCase) {
+		throw new BackOfficeAppError(`An error occurred while updating case with id ${id}`, 500);
+	}
+
+	if (publishedFieldsHaveChanged(originalCase, updatedCase)) {
+		updatedCase = await caseRepository.updateApplication({
+			caseId: id,
+			hasUnpublishedChanges: true
+		});
+	}
 
 	await eventClient.sendEvents(
 		NSIP_PROJECT,

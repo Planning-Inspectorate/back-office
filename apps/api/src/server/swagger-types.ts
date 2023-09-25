@@ -155,6 +155,8 @@ export interface UpdateApplication {
 			submissionAtInternal?: number;
 		};
 	};
+	/** @example false */
+	hasUnpublishedChanges?: boolean;
 }
 
 export interface CreateApplication {

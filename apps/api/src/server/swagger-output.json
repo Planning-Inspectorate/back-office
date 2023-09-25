@@ -258,6 +258,10 @@
 								"keyDates": {
 									"type": "object",
 									"properties": {}
+								},
+								"hasUnpublishedChanges": {
+									"type": "boolean",
+									"example": false
 								}
 							},
 							"xml": {
@@ -4063,6 +4067,10 @@
 							}
 						}
 					}
+				},
+				"hasUnpublishedChanges": {
+					"type": "boolean",
+					"example": false
 				}
 			}
 		},
