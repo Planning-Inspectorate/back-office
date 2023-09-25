@@ -45,7 +45,8 @@ const includeAll = {
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
  *  publishedAt?: Date,
- *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} UpdateApplicationParams
+ *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
+ *  hasUnpublishedChanges?: boolean}} UpdateApplicationParams
  */
 
 /**
@@ -232,7 +233,8 @@ const updateApplicationSansRegionsRemoval = ({
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	hasUnpublishedChanges
 }) => {
 	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
 		return { region: { connect: { name: regionName } } };
@@ -298,7 +300,8 @@ const updateApplicationSansRegionsRemoval = ({
 							})
 						}
 					}
-				})
+				}),
+			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
 		},
 		include: {
 			serviceCustomer: true
@@ -320,7 +323,8 @@ export const updateApplication = async ({
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	hasUnpublishedChanges
 }) => {
 	const transactions = [];
 
@@ -346,7 +350,8 @@ export const updateApplication = async ({
 			regionNames,
 			mapZoomLevelName,
 			applicant,
-			applicantAddress
+			applicantAddress,
+			hasUnpublishedChanges
 		})
 	);
 
