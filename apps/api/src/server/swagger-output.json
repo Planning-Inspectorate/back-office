@@ -3341,6 +3341,56 @@
 				}
 			}
 		},
+		"/applications/{id}/s51-advice/{adviceId}/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Unpublish s51 advice",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublished S51 Advice record",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],

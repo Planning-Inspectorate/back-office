@@ -110,7 +110,8 @@ export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
 
-export interface S51Advice extends schema.S51Advice {}
+export interface S51Advice extends schema.S51Advice {
+}
 
 export interface S51AdviceDocument extends schema.S51AdviceDocument {}
 export interface CreateS51AdviceDocument {

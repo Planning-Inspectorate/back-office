@@ -12,7 +12,8 @@ import {
 	verifyS51TitleIsUnique,
 	removePublishItemFromQueue,
 	publishQueueItems,
-	deleteS51Advice
+	deleteS51Advice,
+    unpublishS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
@@ -411,6 +412,40 @@ router.post(
     }
     */
 	asyncHandler(publishQueueItems)
+);
+
+router.patch(
+	'/:id/s51-advice/:adviceId/unpublish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}/unpublish'
+        #swagger.description = 'Unpublish s51 advice'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+            description: 'Advice ID',
+            required: true,
+            type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'Unpublished S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
+      	#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId,
+	trimUnexpectedRequestParameters,
+	asyncHandler(unpublishS51Advice)
 );
 
 export { router as s51AdviceRoutes };

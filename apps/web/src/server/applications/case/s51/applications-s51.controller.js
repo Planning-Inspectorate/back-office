@@ -9,7 +9,8 @@ import {
 	getS51AdviceReadyToPublish,
 	removeS51AdviceFromReadyToPublish,
 	publishS51AdviceItems,
-	deleteS51Advice
+	deleteS51Advice,
+	unpublishS51Advice
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
@@ -512,6 +513,6 @@ export async function postUnpublishAdvice({ params }, response) {
 		});
 	}
 
-	await updateS51Advice(Number(caseId), Number(adviceId), { publishedStatus: 'unpublished' });
+	await unpublishS51Advice(Number(caseId), Number(adviceId));
 	response.render('applications/case-s51/s51-successfully-unpublished');
 }
