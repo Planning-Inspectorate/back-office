@@ -624,6 +624,33 @@
 				}
 			}
 		},
+		"/appeals/document-redaction-statuses": {
+			"get": {
+				"tags": ["Document Redaction Statuses"],
+				"description": "Gets document redaction statuses",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Document redaction statuses",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllDocumentRedactionStatusesResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllDocumentRedactionStatusesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/document-folders/{folderId}": {
 			"get": {
 				"tags": ["Documents"],
@@ -830,6 +857,60 @@
 						"application/xml": {
 							"schema": {
 								"$ref": "#/components/schemas/DocumentDetails"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Documents"],
+				"description": "Updates multiple documents",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document to update",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateDocumentsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateDocumentsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Document to update",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDocumentsRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDocumentsRequest"
 							}
 						}
 					}
@@ -1641,8 +1722,19 @@
 					},
 					"documents": {
 						"type": "array",
-						"example": [],
-						"items": {}
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+								},
+								"name": {
+									"type": "string",
+									"example": "right-of-way.pdf"
+								}
+							}
+						}
 					}
 				},
 				"xml": {
@@ -4378,6 +4470,78 @@
 				},
 				"xml": {
 					"name": "UpdateAppealTimetableResponse"
+				}
+			},
+			"AllDocumentRedactionStatusesResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "Document redaction status"
+					}
+				},
+				"xml": {
+					"name": "AllDocumentRedactionStatusesResponse"
+				}
+			},
+			"UpdateDocumentsRequest": {
+				"type": "object",
+				"properties": {
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+								},
+								"receivedDate": {
+									"type": "string",
+									"example": "2023-09-23"
+								},
+								"redactionStatus": {
+									"type": "number",
+									"example": 1
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "UpdateDocumentsRequest"
+				}
+			},
+			"UpdateDocumentsResponse": {
+				"type": "object",
+				"properties": {
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+								},
+								"receivedDate": {
+									"type": "string",
+									"example": "2023-09-23"
+								},
+								"redactionStatus": {
+									"type": "number",
+									"example": 1
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "UpdateDocumentsResponse"
 				}
 			}
 		}

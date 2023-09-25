@@ -2,6 +2,7 @@ const guid = '27d0fda4-8a9a-4f5a-a158-68eaea676158';
 const version = 1;
 const originalFileName = 'mydoc.pdf';
 const fileName = 'mydoc';
+const folderId = 23;
 
 export const appeal = {
 	id: 34,
@@ -25,7 +26,7 @@ export const addDocumentsRequest = {
 			documentType: 'application/pdf',
 			documentSize: 14699,
 			fileRowId: `file_row_1685470289030_16995`,
-			folderId: folder.folderId
+			folderId
 		}
 	]
 };
@@ -39,7 +40,7 @@ export const addDocumentVersionRequest = {
 		documentType: 'application/pdf',
 		documentSize: 14699,
 		fileRowId: `file_row_1685470289030_16995`,
-		folderId: folder.folderId
+		folderId
 	}
 };
 
@@ -81,4 +82,18 @@ export const blobInfo = {
 	GUID: guid,
 	documentName: fileName,
 	blobStoreUrl: `appeal/APP-Q9999-D-21-941501/${guid}/v1/${fileName}`
+};
+
+export const savedFolder = {
+	id: folderId,
+	path: 'appellant_case/appealStatement',
+	caseId: 1,
+	documents: [
+		{
+			caseId: appeal.id,
+			folderId,
+			guid,
+			name: originalFileName
+		}
+	]
 };

@@ -10,14 +10,296 @@ import {
 	documentCreated,
 	documentUpdated,
 	documentVersionCreated,
-	documentVersionRetrieved
+	documentVersionRetrieved,
+	savedFolder
 } from '#tests/documents/mocks.js';
 import * as mappers from '../documents.mapper.js';
 import * as service from '../documents.service.js';
 import * as controller from '../documents.controller.js';
+import { request } from '../../../app-test.js';
+import {
+	documentRedactionStatuses,
+	documentRedactionStatusIds,
+	householdAppeal
+} from '../../../tests/data.js';
+import joinDateAndTime from '#utils/join-date-and-time.js';
+import {
+	ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF,
+	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
+	ERROR_MUST_BE_NUMBER,
+	ERROR_MUST_BE_UUID,
+	ERROR_NOT_FOUND
+} from '#endpoints/constants.js';
+import errorMessageReplacement from '#utils/error-message-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 const { default: got } = await import('got');
+
+describe('/appeals/:appealId/document-folders/:folderId', () => {
+	describe('GET', () => {
+		test('gets a single document folder', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.folder.findUnique.mockResolvedValue(savedFolder);
+
+			const response = await request.get(
+				`/appeals/${householdAppeal.id}/document-folders/${savedFolder.id}`
+			);
+
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual({
+				id: savedFolder.id,
+				path: savedFolder.path,
+				caseId: savedFolder.caseId,
+				documents: [
+					{
+						id: savedFolder.documents[0].guid,
+						name: savedFolder.documents[0].name
+					}
+				]
+			});
+		});
+	});
+});
+
+describe('/appeals/:appealId/documents', () => {
+	describe('PATCH', () => {
+		let requestBody;
+
+		beforeEach(() => {
+			requestBody = {
+				documents: [
+					{
+						id: '987e66e0-1db4-404b-8213-8082919159e9',
+						receivedDate: '2023-09-22',
+						redactionStatus: 1
+					},
+					{
+						id: '8b107895-b8c9-467f-aad0-c09daafeaaad',
+						receivedDate: '2023-09-23',
+						redactionStatus: 2
+					}
+				]
+			};
+		});
+
+		test('updates multiple documents', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.documentRedactionStatus.findMany.mockResolvedValue(
+				documentRedactionStatuses
+			);
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(databaseConnector.document.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.document.update).toHaveBeenCalledWith({
+				data: {
+					receivedAt: joinDateAndTime(requestBody.documents[0].receivedDate),
+					documentRedactionStatusId: requestBody.documents[0].redactionStatus
+				},
+				where: {
+					guid: requestBody.documents[0].id
+				}
+			});
+			expect(databaseConnector.document.update).toHaveBeenCalledWith({
+				data: {
+					receivedAt: joinDateAndTime(requestBody.documents[1].receivedDate),
+					documentRedactionStatusId: requestBody.documents[1].redactionStatus
+				},
+				where: {
+					guid: requestBody.documents[1].id
+				}
+			});
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual({
+				documents: [
+					{
+						id: requestBody.documents[0].id,
+						receivedDate: joinDateAndTime(requestBody.documents[0].receivedDate),
+						redactionStatus: requestBody.documents[0].redactionStatus
+					},
+					{
+						id: requestBody.documents[1].id,
+						receivedDate: joinDateAndTime(requestBody.documents[1].receivedDate),
+						redactionStatus: requestBody.documents[1].redactionStatus
+					}
+				]
+			});
+		});
+
+		test('returns an error if appealId is not numeric', async () => {
+			const response = await request.patch('/appeals/one/documents').send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					appealId: ERROR_MUST_BE_NUMBER
+				}
+			});
+		});
+
+		test('returns an error if appealId is not found', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+			const response = await request.patch('/appeals/3/documents').send(requestBody);
+
+			expect(response.status).toEqual(404);
+			expect(response.body).toEqual({
+				errors: {
+					appealId: ERROR_NOT_FOUND
+				}
+			});
+		});
+
+		test('returns an error if documents.*.id is not given', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			delete requestBody.documents[0].id;
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].id': ERROR_MUST_BE_UUID
+				}
+			});
+		});
+
+		test('returns an error if documents.*.id is not a uuid', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			requestBody.documents[0].id = 1;
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].id': ERROR_MUST_BE_UUID
+				}
+			});
+		});
+
+		test('returns an error if documents.*.receivedDate is not given', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			delete requestBody.documents[0].receivedDate;
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].receivedDate': ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if documents.*.receivedDate is not in the correct format', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			requestBody.documents[0].receivedDate = '22/09/2023';
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].receivedDate': ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if documents.*.receivedDate does not contain leading zeros', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			requestBody.documents[0].receivedDate = '2023-5-5';
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].receivedDate': ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if documents.*.receivedDate is not a valid date', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+
+			requestBody.documents[0].receivedDate = '2023-02-30';
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					'documents[0].receivedDate': ERROR_MUST_BE_CORRECT_DATE_FORMAT
+				}
+			});
+		});
+
+		test('returns an error if documents.*.redactionStatus is not given', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.documentRedactionStatus.findMany.mockResolvedValue(
+				documentRedactionStatuses
+			);
+
+			delete requestBody.documents[0].redactionStatus;
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					documents: errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+						documentRedactionStatusIds.join(', ')
+					])
+				}
+			});
+		});
+
+		test('returns an error if documents.*.redactionStatus is a value that does not exist', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.documentRedactionStatus.findMany.mockResolvedValue(
+				documentRedactionStatuses
+			);
+
+			requestBody.documents[0].redactionStatus = 4;
+
+			const response = await request
+				.patch(`/appeals/${householdAppeal.id}/documents`)
+				.send(requestBody);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					documents: errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+						documentRedactionStatusIds.join(', ')
+					])
+				}
+			});
+		});
+	});
+});
 
 describe('appeals documents', () => {
 	describe('appeals folders', () => {

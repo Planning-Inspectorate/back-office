@@ -370,18 +370,21 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                     String                    @id @default(uuid())
-  name                     String
-  folderId                 Int
-  createdAt                DateTime                  @default(now())
-  isDeleted                Boolean                   @default(false)
-  latestVersionId          Int?
-  caseId                   Int
-  folder                   Folder                    @relation(fields: [folderId], references: [id])
-  documentVersion          DocumentVersion[]         @relation("VersionHistory")
-  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
-  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  case                     Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  guid                      String                    @id @default(uuid())
+  name                      String
+  folderId                  Int
+  createdAt                 DateTime                  @default(now())
+  isDeleted                 Boolean                   @default(false)
+  latestVersionId           Int?
+  caseId                    Int
+  receivedAt                DateTime?
+  documentRedactionStatusId Int?
+  folder                    Folder                    @relation(fields: [folderId], references: [id])
+  documentVersion           DocumentVersion[]         @relation("VersionHistory")
+  representationAttachment  RepresentationAttachment? @relation("AttachmentDocument")
+  latestDocumentVersion     DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                      Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  documentRedactionStatus   DocumentRedactionStatus?  @relation(fields: [documentRedactionStatusId], references: [id])
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -673,4 +676,10 @@ model LPAQuestionnaireIncompleteReasonText {
   lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire @relation(fields: [lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId], references: [lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId])
   lpaQuestionnaireIncompleteReasonId                 Int
   lpaQuestionnaireId                                 Int
+}
+
+model DocumentRedactionStatus {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  documents Document[]
 }

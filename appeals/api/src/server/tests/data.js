@@ -424,6 +424,8 @@ const planningObligationStatuses = lookupListData;
 const procedureTypes = lookupListData;
 const scheduleTypes = lookupListData;
 const siteVisitTypes = lookupListData;
+const documentRedactionStatuses = lookupListData;
+const documentRedactionStatusIds = documentRedactionStatuses.map(({ id }) => id);
 
 const designatedSites = [
 	{
@@ -707,6 +709,8 @@ export {
 	baseExpectedLPAQuestionnaireResponse,
 	designatedSites,
 	document,
+	documentRedactionStatuses,
+	documentRedactionStatusIds,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,

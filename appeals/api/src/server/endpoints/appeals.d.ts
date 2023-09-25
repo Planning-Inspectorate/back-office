@@ -8,6 +8,7 @@ declare global {
 			notifyClient: NotifyClient;
 			visitType: SiteVisitType;
 			validationOutcome: ValidationOutcome;
+			documentRedactionStatusIds: number[];
 		}
 	}
 }
@@ -342,8 +343,8 @@ interface FolderInfo {
 interface DocumentInfo {
 	id: string;
 	name: string;
-	folderId: number;
-	caseId: number;
+	folderId?: number;
+	caseId?: number;
 }
 
 interface SingleSiteVisitDetailsResponse {
@@ -492,6 +493,19 @@ interface IncompleteInvalidReasonsResponse {
 	text: string[];
 }
 
+interface SingleFolderResponse {
+	id: number;
+	path: string;
+	caseId: number;
+	documents: DocumentInfo[] | null;
+}
+
+type UpdateDocumentsRequest = {
+	id: string;
+	receivedDate: string;
+	redactionStatus: number;
+}[];
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -527,6 +541,7 @@ export {
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleAppellantResponse,
+	SingleFolderResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
@@ -536,6 +551,7 @@ export {
 	UpdateAppellantCaseValidationOutcome,
 	UpdateAppellantCaseValidationOutcomeParams,
 	UpdateAppellantRequest,
+	UpdateDocumentsRequest,
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,
