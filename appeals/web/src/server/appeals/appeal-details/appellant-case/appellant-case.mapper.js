@@ -269,12 +269,28 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	);
 
 	return invalidOrIncompleteReasonOptions.map((reason) => {
-		let addAnotherTextItemsFromBody =
-			Object.keys(bodyValidationOutcome || {}).length &&
-			(bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reason.id}`];
+		const addAnotherTextItemsFromExistingOutcome = getAddAnotherTextItemsFromExistingOutcome(
+			reason,
+			existingReasons
+		);
+		const addAnotherTextItemsFromSession = getAddAnotherTextItemsFromSession(
+			reason,
+			sessionValidationOutcome
+		);
+		const addAnotherTextItemsFromBody = getAddAnotherTextItemsFromBody(
+			reason,
+			bodyValidationOutcome,
+			bodyValidationBaseKey
+		);
 
-		if (addAnotherTextItemsFromBody && !Array.isArray(addAnotherTextItemsFromBody)) {
-			addAnotherTextItemsFromBody = [addAnotherTextItemsFromBody];
+		let textItems = [''];
+
+		if (addAnotherTextItemsFromBody) {
+			textItems = addAnotherTextItemsFromBody;
+		} else if (addAnotherTextItemsFromSession) {
+			textItems = addAnotherTextItemsFromSession;
+		} else if (addAnotherTextItemsFromExistingOutcome) {
+			textItems = addAnotherTextItemsFromExistingOutcome;
 		}
 
 		const mappedCheckboxItemParameter = {
@@ -284,26 +300,55 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 				checked: checkedOptions.includes(reason.id)
 			}),
 			...(reason.hasText && {
-				addAnother: {
-					...{ textItems: [''] },
-					...(existingReasons.length && {
-						textItems: existingReasons.find(
-							(existingReason) => existingReason?.name?.id === reason.id
-						)?.text || ['']
-					}),
-					...(Object.keys(sessionValidationOutcome?.invalidOrIncompleteReasonsText || {})
-						.length && {
-						textItems: sessionValidationOutcome?.invalidOrIncompleteReasonsText[reason.id] || ['']
-					}),
-					...(addAnotherTextItemsFromBody && {
-						textItems: addAnotherTextItemsFromBody || ['']
-					})
-				}
+				addAnother: { textItems }
 			})
 		};
 
 		return mappedCheckboxItemParameter;
 	});
+}
+
+/**
+ *
+ * @param {AppellantCaseInvalidIncompleteReasonOption} reason
+ * @param {AppellantCaseInvalidIncompleteReason[]} existingReasons
+ * @returns {string[]|undefined}
+ */
+function getAddAnotherTextItemsFromExistingOutcome(reason, existingReasons) {
+	return (
+		existingReasons.find((existingReason) => existingReason?.name?.id === reason.id)?.text || ['']
+	);
+}
+
+/**
+ *
+ * @param {AppellantCaseInvalidIncompleteReasonOption} reason
+ * @param {AppellantCaseSessionValidationOutcome|undefined} sessionValidationOutcome
+ * @returns {string[]|undefined}
+ */
+function getAddAnotherTextItemsFromSession(reason, sessionValidationOutcome) {
+	return sessionValidationOutcome?.invalidOrIncompleteReasonsText?.[reason.id];
+}
+
+/**
+ *
+ * @param {AppellantCaseInvalidIncompleteReasonOption} reason
+ * @param {AppellantCaseBodyValidationOutcome|undefined} bodyValidationOutcome
+ * @param {string} bodyValidationBaseKey
+ * @returns {string[]|undefined}
+ */
+function getAddAnotherTextItemsFromBody(reason, bodyValidationOutcome, bodyValidationBaseKey) {
+	let addAnotherTextItemsFromBody =
+		Object.keys(bodyValidationOutcome || {}).length &&
+		(bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reason.id}`];
+
+	if (addAnotherTextItemsFromBody) {
+		if (!Array.isArray(addAnotherTextItemsFromBody)) {
+			return [addAnotherTextItemsFromBody];
+		}
+
+		return addAnotherTextItemsFromBody;
+	}
 }
 
 /**
