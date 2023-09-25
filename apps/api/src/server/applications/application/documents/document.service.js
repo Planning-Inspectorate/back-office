@@ -3,7 +3,7 @@ import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
+import { getStorageLocation } from '../../../utils/document-storage.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
@@ -14,8 +14,8 @@ import { getFolder } from '../file-folders/folders.service.js';
 import config from '../../../config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
-/**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
-/**  @typedef {import('apps/api/src/database/schema.js').Document} Document */
+/**  @typedef {import('@pins/applications.api/src/database/schema.js').DocumentVersion} DocumentVersion */
+/**  @typedef {import('@pins/applications.api/src/database/schema.js').Document} Document */
 
 /**
  * Remove extension from document name
@@ -161,7 +161,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 /**
  * @param {{guid: string, documentName: string, reference: string}[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, version: number}[]}
+ * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
