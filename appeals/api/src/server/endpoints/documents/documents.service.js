@@ -3,11 +3,15 @@ import logger from '#utils/logger.js';
 import { mapDocumentsForDatabase, mapDocumentsForBlobStorage } from './documents.mapper.js';
 import { getByCaseId, getByCaseIdPath, getById } from '#repositories/folder.repository.js';
 import { addDocument, addDocumentVersion } from '#repositories/document-metadata.repository.js';
+import { formatFolder } from './documents.formatter.js';
+import documentRedactionStatusRepository from '#repositories/document-redaction-status.repository.js';
+import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
 
 /** @typedef {import('../appeals.js').RepositoryGetByIdResultItem} RepositoryResult */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsResponse} AddDocumentsResponse */
@@ -16,12 +20,12 @@ import { addDocument, addDocumentVersion } from '#repositories/document-metadata
 /**
  * @param {RepositoryResult} appeal
  * @param {string} folderId
- * @returns {Promise<Folder|null>}
+ * @returns {Promise<SingleFolderResponse | null>}
  */
 export const getFolderForAppeal = async (appeal, folderId) => {
 	const folder = await getById(Number(folderId));
 	if (folder && folder.caseId === appeal.id) {
-		return folder;
+		return formatFolder(folder);
 	}
 
 	return null;
@@ -165,4 +169,18 @@ export const addVersionToDocument = async (upload, appeal, document) => {
 	return {
 		documents: documentsToAddToBlobStorage
 	};
+};
+
+/**
+ * @returns {Promise<number[]>}
+ */
+export const getDocumentRedactionStatusIds = async () => {
+	const redactionStatuses =
+		await documentRedactionStatusRepository.getAllDocumentRedactionStatuses();
+
+	if (!redactionStatuses.length) {
+		throw new Error(ERROR_NOT_FOUND);
+	}
+
+	return redactionStatuses.map(({ id }) => id);
 };

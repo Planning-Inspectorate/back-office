@@ -16,6 +16,7 @@
  * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
  * @typedef {import('@pins/appeals.api').Schema.SiteVisitType} SiteVisitType
  * @typedef {import('@pins/appeals.api').Schema.Specialism} Specialism
+ * @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} DocumentRedactionStatus
  */
 
 /**
@@ -309,6 +310,23 @@ export const specialisms = [
 ];
 
 /**
+ * An array of document redaction statuses.
+ *
+ * @type {Pick<DocumentRedactionStatus, 'name'>[]}
+ */
+export const documentRedactionStatuses = [
+	{
+		name: 'Redacted'
+	},
+	{
+		name: 'Unredacted'
+	},
+	{
+		name: 'No redaction required'
+	}
+];
+
+/**
  * Seed static data into the database. Does not disconnect from the database or handle errors.
  *
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
@@ -409,6 +427,13 @@ export async function seedStaticData(databaseConnector) {
 		await databaseConnector.specialism.upsert({
 			create: { name: specialism.name },
 			where: { name: specialism.name },
+			update: {}
+		});
+	}
+	for (const documentRedactionStatus of documentRedactionStatuses) {
+		await databaseConnector.documentRedactionStatus.upsert({
+			create: { name: documentRedactionStatus.name },
+			where: { name: documentRedactionStatus.name },
 			update: {}
 		});
 	}
