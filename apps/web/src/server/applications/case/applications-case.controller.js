@@ -44,7 +44,11 @@ export async function updateApplicationsCasePublishPage(request, response) {
 	const isAlreadyPublic = caseToPublish.publishedDate;
 	const { publishedDate, errors } = await publishCase(caseId);
 
-	response.locals.case = { ...caseToPublish, publishedDate };
+	response.locals.case = {
+		...caseToPublish,
+		publishedDate,
+		hasUnpublishedChanges: false
+	};
 
 	if (errors) {
 		return response.render(`applications/case/preview-and-publish`, {
