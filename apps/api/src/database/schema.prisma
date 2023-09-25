@@ -12,24 +12,25 @@ datasource db {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                   Int                   @id @default(autoincrement())
-  reference            String?
-  modifiedAt           DateTime              @default(now())
-  createdAt            DateTime              @default(now())
-  description          String?
-  publishedAt          DateTime?
-  title                String?
-  ApplicationDetails   ApplicationDetails?
-  CaseStatus           CaseStatus[]
-  folder               Folder[]
-  gridReference        GridReference?
-  serviceCustomer      ServiceCustomer[]
-  Representation       Representation[]
-  document             Document[]
-  Subscriptions        Subscription[]
-  ExaminationTimetable ExaminationTimetable?
-  ProjectUpdate        ProjectUpdate[]
-  S51Advice            S51Advice[]
+  id                    Int                   @id @default(autoincrement())
+  reference             String?
+  modifiedAt            DateTime              @default(now())
+  createdAt             DateTime              @default(now())
+  description           String?
+  publishedAt           DateTime?
+  title                 String?
+  hasUnpublishedChanges Boolean               @default(false)
+  ApplicationDetails    ApplicationDetails?
+  CaseStatus            CaseStatus[]
+  folder                Folder[]
+  gridReference         GridReference?
+  serviceCustomer       ServiceCustomer[]
+  Representation        Representation[]
+  document              Document[]
+  Subscriptions         Subscription[]
+  ExaminationTimetable  ExaminationTimetable?
+  ProjectUpdate         ProjectUpdate[]
+  S51Advice             S51Advice[]
 }
 
 /// ServiceCustomer model
