@@ -517,7 +517,11 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 	if (!advice) {
 		throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
 	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, { publishedStatus: 'unpublished' });
+
 	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
+	// @ts-ignore
 	advice.S51AdviceDocument = docs;
 	payload.publishedStatusPrev = advice.publishedStatus;
 
@@ -526,8 +530,6 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 		[buildNsipS51AdvicePayload(advice)],
 		EventType.Publish
 	);
-
-	const updateResponseInTable = await s51AdviceRepository.update(adviceId, { publishedStatus: 'unpublished' });
 
 	response.send(updateResponseInTable);
 };
