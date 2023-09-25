@@ -242,7 +242,10 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	/** @type {number[]|undefined} */
 	let existingReasonIds;
 
-	if (existingValidationOutcome) {
+	if (
+		existingValidationOutcome &&
+		existingValidationOutcome.outcome.toLowerCase() === validationOutcome
+	) {
 		existingReasons =
 			existingValidationOutcome.outcome.toLowerCase() === 'invalid'
 				? existingValidationOutcome.invalidReasons || []
@@ -254,9 +257,9 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	const bodyValidationOutcomeReasons = bodyValidationOutcome?.[bodyValidationBaseKey];
 
 	let notValidReasonIds =
-		existingReasonIds ||
+		bodyValidationOutcomeReasons ||
 		sessionValidationOutcome?.invalidOrIncompleteReasons ||
-		bodyValidationOutcomeReasons;
+		existingReasonIds;
 
 	if (typeof notValidReasonIds !== 'undefined' && !Array.isArray(notValidReasonIds)) {
 		notValidReasonIds = [notValidReasonIds];
@@ -265,29 +268,42 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 		typeof value === 'string' ? parseInt(value, 10) : value
 	);
 
-	return invalidOrIncompleteReasonOptions.map((reason) => ({
-		value: `${reason.id}`,
-		text: reason.name,
-		...(checkedOptions && {
-			checked: checkedOptions.includes(reason.id)
-		}),
-		...(reason.hasText && {
-			addAnother: {
-				...{ textItems: [''] },
-				...(existingReasons.length && {
-					textItems: existingReasons.find(
-						(existingReason) => existingReason?.name?.id === reason.id
-					)?.text || ['']
-				}),
-				...(Object.keys(sessionValidationOutcome?.invalidOrIncompleteReasonsText || {}).length && {
-					textItems: sessionValidationOutcome?.invalidOrIncompleteReasonsText[reason.id] || ['']
-				}),
-				...(Object.keys(bodyValidationOutcome || {}).length && {
-					textItems: (bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reason.id}`] || ['']
-				})
-			}
-		})
-	}));
+	return invalidOrIncompleteReasonOptions.map((reason) => {
+		let addAnotherTextItemsFromBody =
+			Object.keys(bodyValidationOutcome || {}).length &&
+			(bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reason.id}`];
+
+		if (addAnotherTextItemsFromBody && !Array.isArray(addAnotherTextItemsFromBody)) {
+			addAnotherTextItemsFromBody = [addAnotherTextItemsFromBody];
+		}
+
+		const mappedCheckboxItemParameter = {
+			value: `${reason.id}`,
+			text: reason.name,
+			...(checkedOptions && {
+				checked: checkedOptions.includes(reason.id)
+			}),
+			...(reason.hasText && {
+				addAnother: {
+					...{ textItems: [''] },
+					...(existingReasons.length && {
+						textItems: existingReasons.find(
+							(existingReason) => existingReason?.name?.id === reason.id
+						)?.text || ['']
+					}),
+					...(Object.keys(sessionValidationOutcome?.invalidOrIncompleteReasonsText || {})
+						.length && {
+						textItems: sessionValidationOutcome?.invalidOrIncompleteReasonsText[reason.id] || ['']
+					}),
+					...(addAnotherTextItemsFromBody && {
+						textItems: addAnotherTextItemsFromBody || ['']
+					})
+				}
+			})
+		};
+
+		return mappedCheckboxItemParameter;
+	});
 }
 
 /**
@@ -625,3 +641,39 @@ const mapDocumentsForDisplay = (caseId, folder, readOnly = false, singleDocument
 		valueType: 'link'
 	};
 };
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {'invalidReason'|'incompleteReason'} reasonKey
+ * @returns {Object<string, string[]>}
+ */
+export function getInvalidOrIncompleteReasonsTextFromRequestBody(request, reasonKey) {
+	if (!request.body[reasonKey]) {
+		throw new Error(`reasonKey "${reasonKey}" not found in request.body`);
+	}
+
+	/** @type {Object<string, string[]>} */
+	const reasonsText = {};
+
+	let bodyReasonIds = Array.isArray(request.body[reasonKey])
+		? request.body[reasonKey]
+		: [request.body[reasonKey]];
+
+	for (const reasonId of bodyReasonIds) {
+		const textItemsKey = `${reasonKey}-${reasonId}`;
+
+		if (request.body[textItemsKey]) {
+			const reasonsTextKey = `${reasonId}`;
+			reasonsText[reasonsTextKey] = Array.isArray(request.body[textItemsKey])
+				? request.body[textItemsKey]
+				: [request.body[textItemsKey]];
+
+			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
+				(reason) => reason.length > 0
+			);
+		}
+	}
+
+	return reasonsText;
+}

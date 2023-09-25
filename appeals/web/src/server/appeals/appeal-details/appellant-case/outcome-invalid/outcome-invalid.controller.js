@@ -1,7 +1,10 @@
 import logger from '#lib/logger.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
-import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
+import {
+	mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters,
+	getInvalidOrIncompleteReasonsTextFromRequestBody
+} from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
@@ -40,12 +43,10 @@ const renderInvalidReason = async (request, response) => {
 		return response.render('app/404.njk');
 	}
 
-	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
-
 	if (
-		existingWebAppellantCaseReviewOutcome &&
-		(existingWebAppellantCaseReviewOutcome.appealId !== appealId ||
-			existingWebAppellantCaseReviewOutcome.validationOutcome !==
+		request.session.webAppellantCaseReviewOutcome &&
+		(request.session.webAppellantCaseReviewOutcome.appealId !== appealId ||
+			request.session.webAppellantCaseReviewOutcome.validationOutcome !==
 				appellantCaseReviewOutcomes.invalid)
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
@@ -122,42 +123,6 @@ const renderDecisionInvalidConfirmationPage = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getInvalidReason = async (request, response) => {
 	renderInvalidReason(request, response);
-};
-
-/**
- *
- * @param {import('@pins/express/types/express.js').Request} request
- * @param {'invalidReason'|'incompleteReason'} reasonKey
- * @returns {Object<string, string[]>}
- */
-const getInvalidOrIncompleteReasonsTextFromRequestBody = (request, reasonKey) => {
-	if (!request.body[reasonKey]) {
-		throw new Error(`reasonKey "${reasonKey}" not found in request.body`);
-	}
-
-	/** @type {Object<string, string[]>} */
-	const reasonsText = {};
-
-	let bodyReasonIds = Array.isArray(request.body[reasonKey])
-		? request.body[reasonKey]
-		: [request.body[reasonKey]];
-
-	for (const reasonId of bodyReasonIds) {
-		const textItemsKey = `${reasonKey}-${reasonId}`;
-
-		if (request.body[textItemsKey]) {
-			const reasonsTextKey = `${reasonId}`;
-			reasonsText[reasonsTextKey] = Array.isArray(request.body[textItemsKey])
-				? request.body[textItemsKey]
-				: [request.body[textItemsKey]];
-
-			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
-				(reason) => reason.length > 0
-			);
-		}
-	}
-
-	return reasonsText;
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */

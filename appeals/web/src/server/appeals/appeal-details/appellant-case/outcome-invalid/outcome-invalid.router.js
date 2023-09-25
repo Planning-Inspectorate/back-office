@@ -7,11 +7,7 @@ const router = createRouter({ mergeParams: true });
 router
 	.route('/')
 	.get(controller.getInvalidReason)
-	.post(
-		validators.validateInvalidReason,
-		validators.validateTextArea,
-		controller.postInvalidReason
-	);
+	.post(validators.validateInvalidReason, controller.postInvalidReason);
 
 router.route('/confirmation').get(controller.getConfirmation);
 

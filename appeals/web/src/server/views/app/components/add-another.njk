@@ -1,7 +1,7 @@
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
 {%- macro addAnother(params) -%}
-	<div class="pins-add-another" aria-live="polite">
+	<div class="pins-add-another" aria-live="polite" data-max-item-count="{{params.maximumNumberOfItems if params.maximumNumberOfItems else '10'}}">
 		{%- for item in params.items -%}
 			<div class="pins-add-another__item">
 				{{ item }}
@@ -10,7 +10,7 @@
 		{{ govukButton({
 			type: 'button',
 			text: 'Add another item',
-			classes: 'pins-add-another__button govuk-!-margin-top-6'
+			classes: 'pins-add-another__add-button govuk-!-margin-top-6'
 		}) }}
 	</div>
 {%- endmacro -%}
