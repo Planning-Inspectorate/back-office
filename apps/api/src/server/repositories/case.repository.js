@@ -378,7 +378,8 @@ export const publishCase = async ({ caseId }) => {
 	const publishedCase = await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
-			publishedAt: new Date()
+			publishedAt: new Date(),
+			hasUnpublishedChanges: false
 		}
 	});
 
