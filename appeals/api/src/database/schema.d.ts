@@ -13,6 +13,7 @@ export {
 	AppellantCaseInvalidReason,
 	AppellantCaseIncompleteReasonOnAppellantCase,
 	AppellantCaseInvalidReasonOnAppellantCase,
+	DocumentRedactionStatus,
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
 	LPAQuestionnaire,

@@ -36,7 +36,12 @@ export const spec = {
 			id: 23,
 			path: 'appellantCase/appealStatement',
 			caseId: 34,
-			documents: []
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					name: 'right-of-way.pdf'
+				}
+			]
 		},
 		DocumentDetails: {
 			guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
@@ -643,6 +648,28 @@ export const spec = {
 			issueDeterminationDate: '2023-08-10T01:00:00.000Z',
 			lpaQuestionnaireDueDate: '2023-08-11T01:00:00.000Z',
 			statementReviewDate: '2023-08-12T01:00:00.000Z'
+		},
+		AllDocumentRedactionStatusesResponse: {
+			id: 1,
+			name: 'Document redaction status'
+		},
+		UpdateDocumentsRequest: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					receivedDate: '2023-09-23',
+					redactionStatus: 1
+				}
+			]
+		},
+		UpdateDocumentsResponse: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					receivedDate: '2023-09-23',
+					redactionStatus: 1
+				}
+			]
 		}
 	},
 	components: {}
