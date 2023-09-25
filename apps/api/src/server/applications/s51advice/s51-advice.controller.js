@@ -235,13 +235,21 @@ export const updateS51Advice = async ({ body, params }, response) => {
 
 	if (payload.publishedStatus && payload.publishedStatus !== 'unpublished') {
 		await performStatusChangeChecks(adviceId);
+	}
 
-		const advice = await s51AdviceRepository.get(adviceId);
-		if (!advice) {
-			throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
-		}
+	const advice = await s51AdviceRepository.get(adviceId);
+	if (!advice) {
+		throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
+	}
 
-		payload.publishedStatusPrev = advice.publishedStatus;
+	payload.publishedStatusPrev = advice.publishedStatus;
+
+	if (payload.publishedStatus === 'unpublished') {
+		await eventClient.sendEvents(
+			NSIP_S51_ADVICE,
+			[buildNsipS51AdvicePayload(advice)],
+			EventType.Publish
+		);
 	}
 
 	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
