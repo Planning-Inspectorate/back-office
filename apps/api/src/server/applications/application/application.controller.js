@@ -7,7 +7,7 @@ import logger from '../../utils/logger.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
-import { publishedFieldsHaveChanged } from '../../utils/published-fields-changed.js';
+import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-fields-changed.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
@@ -76,22 +76,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		throw new BackOfficeAppError('Application not found', 500);
 	}
 
-	const publishableFieldsChanged = publishedFieldsHaveChanged(originalResponse, updateResponse);
-	if (publishableFieldsChanged) {
-		const finalResponse = await caseRepository.updateApplication({
-			caseId: params.id,
-			hasUnpublishedChanges: true
-		});
-
-		if (!finalResponse) {
-			throw new BackOfficeAppError(
-				`Could not update hasUnpublishedChanges propery for case with id ${params.id}`,
-				500
-			);
-		}
-
-		updateResponse = finalResponse;
-	}
+	updateResponse = await setCaseUnpublishedChangesIfTrue(originalResponse, updateResponse);
 
 	await eventClient.sendEvents(
 		NSIP_PROJECT,
