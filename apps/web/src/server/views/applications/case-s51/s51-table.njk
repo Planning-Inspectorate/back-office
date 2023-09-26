@@ -75,7 +75,7 @@
 					<td class="govuk-table__cell">
 						<span class='display--block govuk-!-margin-bottom-2'>
 							<strong>Published:</strong> 
-							{% if item.datePublished %}
+							{% if item.datePublished and item.publishedStatus == 'published' %}
 								{{ item.datePublished|datestamp({format: 'dd MMM yyyy'}) }},
 							{% else %}
 								Not published
