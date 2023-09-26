@@ -1,0 +1,48 @@
+{% from "../../components/published-tag.component.njk" import publishedTag %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./case-edit-link.component.njk" import caseEditLink %}
+
+{% macro caseInfoTablePreview(case) %}
+
+	{% set regionNames = [] %}
+	{% for item in case.geographicalInformation.regions %}
+		{% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
+	{% endfor %}
+
+	{% set gridReferences = '' %}
+	{% if case.geographicalInformation.gridReference.easting %}
+		{% set gridReferences = case.geographicalInformation.gridReference.easting + ' (Easting)' %}
+	{% endif %}
+	{% set gridReferences = gridReferences + '<br>' %}
+	{% if case.geographicalInformation.gridReference.northing %}
+		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
+	{% endif %}
+
+	{% set publishedTagHtml %}
+	{{ publishedTag(case.publishedDate) }}
+	{% if case.publishedDate %}
+		<span class="govuk-body-s govuk-!-margin-left-4">
+				Last updated: {{ case.publishedDate|datestamp({format: 'h:mma dd/MM/yyyy'})|lower }}
+		</span>
+	{% endif %}
+	{% endset %}
+
+
+			{{ govukTable({
+				firstCellIsHeader: true,
+				rows: [
+					[{ text: "Case reference number" }, { text: case.reference }],
+					[{ text: "Sector" }, { text: case.sector.displayNameEn }],
+					[{ text: "Subsector" }, { text: case.subSector.displayNameEn }],
+					[{ text: "Case stage" },{ text: '' }],
+					[{text: 'Project description'}, {html: case.description}],
+					[{text: 'Project email address'}, {html: case.caseEmail }],
+					[{text: 'Project location'}, {html: case.geographicalInformation.locationDescription }],
+					[{text: 'Grid references'}, {html: gridReferences }],
+					[{text: 'Region(s)'}, {html: regionNames}],
+					[{text: 'Map zoom level'}, {html: case.geographicalInformation.mapZoomLevel.displayNameEn }]
+				]
+			}) }}
+
+
+{% endmacro %}
