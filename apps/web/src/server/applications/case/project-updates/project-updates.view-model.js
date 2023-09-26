@@ -377,10 +377,10 @@ export function typeRadioOption(type) {
 		case ProjectUpdate.Type.applicationSubmitted:
 			text = 'The application has been submitted';
 			break;
-		case ProjectUpdate.Type.applicationDecided:
+		case ProjectUpdate.Type.registrationOpen:
 			text = 'Register to have your say has opened';
 			break;
-		case ProjectUpdate.Type.registrationOpen:
+		case ProjectUpdate.Type.applicationDecided:
 			text = 'The final decision has been issued';
 			break;
 	}
