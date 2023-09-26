@@ -3528,7 +3528,7 @@
 						"schema": {
 							"type": "string"
 						},
-						"required": true
+						"required": false
 					},
 					{
 						"name": "type",
@@ -3537,7 +3537,26 @@
 						"schema": {
 							"type": "string"
 						},
-						"required": true
+						"required": false
+					},
+					{
+						"name": "endAfter",
+						"in": "query",
+						"description": "subscriptions which end after this date (or have no end date)",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string",
+									"example": "string"
+								},
+								"format": {
+									"type": "string",
+									"example": "date-time"
+								}
+							}
+						},
+						"required": false
 					},
 					{
 						"name": "page",

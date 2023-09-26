@@ -65,13 +65,19 @@ router.get(
             in: 'query',
             description: 'subscription caseReference',
             schema: { type: 'string' },
-            required: true
+            required: false
         }
         #swagger.parameters['type'] = {
             in: 'query',
             description: 'subscription type',
             schema: { type: 'string' },
-            required: true
+            required: false
+        }
+        #swagger.parameters['endAfter'] = {
+            in: 'query',
+            description: 'subscriptions which end after this date (or have no end date)',
+            schema: { type: 'string', format: 'date-time' },
+            required: false
         }
         #swagger.parameters['page'] = {
 			in: 'query',
