@@ -7,7 +7,7 @@ import logger from '../../utils/logger.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
 import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
-import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-fields-changed.js';
+import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-case-fields-changed.js';
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';

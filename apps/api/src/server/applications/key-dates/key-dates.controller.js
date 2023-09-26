@@ -5,7 +5,7 @@ import * as keyDatesRepository from '../../repositories/key-dates.repository.js'
 import * as caseRepository from '../../repositories/case.repository.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import { mapRequestToKeyDates, mapKeyDatesToResponse } from '../../utils/mapping/map-key-dates.js';
-import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-fields-changed.js';
+import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-case-fields-changed.js';
 import { buildNsipProjectPayload } from '../application/application.js';
 
 /**
