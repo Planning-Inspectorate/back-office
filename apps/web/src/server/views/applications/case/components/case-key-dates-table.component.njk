@@ -2,7 +2,7 @@
 
 {% macro caseKeyDatesTable(case) %}
   {% set rowsData = [
-    {title: 'Anticipated submission date published', value: case.keyDates.preApplication.submissionAtPublished | displayDate},
+    {title: 'Anticipated submission date published', value: case.keyDates.preApplication.submissionAtPublished},
     {title: 'Application submitted (Section 55)', value: case.keyDates.acceptance.dateOfDCOSubmission | displayDate},
     {title: 'Deadline for Acceptance decision', value: case.keyDates.acceptance.deadlineForAcceptanceDecision | displayDate},
     {title: 'Date of Acceptance (Section 55)', value: case.keyDates.acceptance.dateOfDCOAcceptance | displayDate},
