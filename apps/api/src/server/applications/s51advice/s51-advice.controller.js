@@ -518,7 +518,10 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 		throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
 	}
 
-	const updateResponseInTable = await s51AdviceRepository.update(adviceId, { publishedStatus: 'unpublished' });
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, {
+		publishedStatus: 'not_checked',
+		publishedStatusPrev: advice.publishedStatus
+	});
 
 	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
 	// @ts-ignore

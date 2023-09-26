@@ -13,7 +13,7 @@ import {
 	removePublishItemFromQueue,
 	publishQueueItems,
 	deleteS51Advice,
-    unpublishS51Advice
+	unpublishS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
