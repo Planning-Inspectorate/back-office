@@ -13,6 +13,16 @@
       {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
   {% endif %}
   <h2 class="govuk-heading-m">Overview</h2>
+  {% set publishedTag %}
+    {% if case.publishedDate %}
+      <strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+      &nbsp;
+      <span class="govuk-body-s colour--secondary">Last updated {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+    {% else %}
+      <strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+    {% endif %}
+  {% endset %}
+
   {{ govukSummaryList({
     rows: [
       {
@@ -33,7 +43,7 @@
       },
       {
         key: { text: "Project page" },
-        value: { html:  '<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>' }
+        value: { html: publishedTag }
       }
     ]
   }) }}
