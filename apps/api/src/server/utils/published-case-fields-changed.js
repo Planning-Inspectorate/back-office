@@ -11,7 +11,7 @@ import { buildNsipProjectPayload } from '../applications/application/application
  * @param {Case} updated
  * @returns {boolean}
  * */
-const publishedFieldsHaveChanged = (original, updated) => {
+const publishedCaseFieldsHaveChanged = (original, updated) => {
 	const originalEvent = buildNsipProjectPayload(original);
 	const updatedEvent = buildNsipProjectPayload(updated);
 
@@ -32,7 +32,7 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
 		return updated;
 	}
 
-	const publishableFieldsChanged = publishedFieldsHaveChanged(original, updated);
+	const publishableFieldsChanged = publishedCaseFieldsHaveChanged(original, updated);
 	if (!publishableFieldsChanged) {
 		return updated;
 	}
