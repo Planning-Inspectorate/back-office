@@ -8,6 +8,7 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
  * @property {number} pageSize
  * @property {string} [caseReference] - filter option
  * @property {string} [type] - filter option
+ * @property {Date} [endAfter] - filter option
  */
 
 /**
@@ -16,7 +17,7 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
  * @param {ListSubscriptionOptions} options
  * @returns {Promise<{count: number, items: import('@prisma/client').Subscription[]}>}
  */
-export async function list({ page, pageSize, caseReference, type }) {
+export async function list({ page, pageSize, caseReference, type, endAfter }) {
 	/** @type {import('@prisma/client').Prisma.SubscriptionWhereInput} */
 	const where = {};
 	if (caseReference) {
@@ -24,6 +25,14 @@ export async function list({ page, pageSize, caseReference, type }) {
 	}
 	if (type) {
 		subscriptionTypeToWhere(type, where);
+	}
+	if (endAfter) {
+		// don't include updates that have a non-null endDate that is before (or equal) endAfter
+		where.NOT = [
+			{
+				AND: [{ endDate: { not: null } }, { endDate: { lte: endAfter } }]
+			}
+		];
 	}
 
 	const result = await databaseConnector.$transaction([
