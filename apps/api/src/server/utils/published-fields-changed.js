@@ -1,4 +1,6 @@
-import { get, isEqual } from 'lodash-es';
+import * as caseRepository from '../repositories/case.repository.js';
+import BackOfficeAppError from './app-error.js';
+import { buildNsipProjectPayload } from '../applications/application/application.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
@@ -9,41 +11,43 @@ import { get, isEqual } from 'lodash-es';
  * @param {Case} updated
  * @returns {boolean}
  * */
-export const publishedFieldsHaveChanged = (original, updated) => {
-	/** @type {(path: string[]) => (_original: Case, _updated: Case) => boolean} */
-	const compare = (path) => (_original, _updated) => get(_original, path) === get(_updated, path);
+const publishedFieldsHaveChanged = (original, updated) => {
+	const originalEvent = buildNsipProjectPayload(original);
+	const updatedEvent = buildNsipProjectPayload(updated);
 
-	/** @typedef {(o: Case, u: Case) => boolean} Differ */
-	/** @type {Differ[]} */
-	const conditions = [
-		compare(['title']),
-		compare(['description']),
-		compare(['ApplicationDetails', 'subSectorId']),
-		compare(['ApplicationDetails', 'locationDescription']),
-		compare(['gridReference', 'easting']),
-		compare(['gridReference', 'northing']),
-		compare(['ApplicationDetails', 'regions']),
-		compare(['ApplicationDetails', 'caseEmail']),
-		compare(['ApplicationDetails', 'submissionAtPublished']),
-		compare(['ApplicationDetails', 'dateOfDCOSubmission']),
-		compare(['ApplicationDetails', 'deadlineForAcceptanceDecision']),
-		compare(['ApplicationDetails', 'dateOfDCOAcceptance']),
-		compare(['ApplicationDetails', 'dateOfNonAcceptance']),
-		compare(['ApplicationDetails', 'dateOfRepresentationPeriodOpen']),
-		compare(['ApplicationDetails', 'dateOfRelevantRepresentationClose']),
-		compare(['ApplicationDetails', 'dateRRepAppearOnWebsite']),
-		compare(['ApplicationDetails', 'preliminaryMeetingStartDate']),
-		compare(['ApplicationDetails', 'confirmedStartOfExamination']),
-		compare(['ApplicationDetails', 'deadlineForCloseOfExamination']),
-		compare(['ApplicationDetails', 'dateTimeExaminationEnds']),
-		compare(['ApplicationDetails', 'stage4ExtensionToExamCloseDate']),
-		compare(['ApplicationDetails', 'dateOfRecommendations']),
-		compare(['ApplicationDetails', 'stage5ExtensionToRecommendationDeadline']),
-		compare(['ApplicationDetails', 'confirmedDateOfDecision']),
-		compare(['ApplicationDetails', 'stage5ExtensionToDecisionDeadline']),
-		compare(['ApplicationDetails', 'dateProjectWithdrawn']),
-		(o, u) => isEqual(o.serviceCustomer, u.serviceCustomer)
-	];
+	return JSON.stringify(originalEvent) !== JSON.stringify(updatedEvent);
+};
 
-	return conditions.some((c) => !c(original, updated));
+/**
+ * If `hasUnpublishedChanges = false` and publishable changes have been made,
+ * set `hasUnpublishedChanges = true`, otherwise just return `updated`
+ *
+ * @param {import('@pins/applications.api').Schema.Case} original
+ * @param {import('@pins/applications.api').Schema.Case} updated
+ * @returns {Promise<import('@pins/applications.api').Schema.Case>}
+ * @throws {BackOfficeAppError}
+ * */
+export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
+	if (updated.hasUnpublishedChanges) {
+		return updated;
+	}
+
+	const publishableFieldsChanged = publishedFieldsHaveChanged(original, updated);
+	if (!publishableFieldsChanged) {
+		return updated;
+	}
+
+	const result = await caseRepository.updateApplication({
+		caseId: updated.id,
+		hasUnpublishedChanges: true
+	});
+
+	if (!result) {
+		throw new BackOfficeAppError(
+			`Could not return updated application with id: ${updated.id}`,
+			500
+		);
+	}
+
+	return result;
 };

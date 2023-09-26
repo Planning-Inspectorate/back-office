@@ -111,21 +111,17 @@ const keyDateNames = allKeyDateNames.filter(
  */
 const mapApplicationDetails = (projectEntity) => {
 	const appDetails = projectEntity?.ApplicationDetails;
-
 	if (!appDetails) {
 		return;
 	}
 
 	const stage = projectEntity?.CaseStatus?.[0]?.status;
-
 	const mapZoomLevel = appDetails.zoomLevel?.name;
-
 	const regions = appDetails.regions?.map((r) => r.region.name) || [];
 
 	const gridReference =
 		projectEntity?.gridReference && pick(projectEntity?.gridReference, ['easting', 'northing']);
 
-	// @ts-ignore
 	return {
 		stage,
 		projectLocation: appDetails?.locationDescription,
