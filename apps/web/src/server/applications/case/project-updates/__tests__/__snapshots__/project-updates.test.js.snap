@@ -281,12 +281,12 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                             </div>
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"applicationDecided\\">
+                                value=\\"registrationOpen\\">
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">Register to have your say has opened</label>
                             </div>
                             <div class=\\"govuk-radios__item\\">
                                 <input class=\\"govuk-radios__input\\" id=\\"type-4\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"registrationOpen\\">
+                                value=\\"applicationDecided\\">
                                 <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-4\\">The final decision has been issued</label>
                             </div>
                         </div>

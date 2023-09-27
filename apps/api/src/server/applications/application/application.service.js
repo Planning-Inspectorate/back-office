@@ -145,12 +145,13 @@ const defaultInclusions = {
 	caseStatus: true,
 	serviceCustomer: true,
 	serviceCustomerAddress: true,
-	gridReference: true
+	gridReference: true,
+	hasUnpublishedChanges: true
 };
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -167,13 +168,14 @@ const inclusionsUsingQuery = (query) => {
 		caseStatus: query?.status,
 		serviceCustomer: notFalseOrUndefined(query?.applicants),
 		serviceCustomerAddress: notFalseOrUndefined(query?.applicantsAddress),
-		gridReference: notFalseOrUndefined(query.geographicalInformation)
+		gridReference: notFalseOrUndefined(query.geographicalInformation),
+		hasUnpublishedChanges: notFalseOrUndefined(query.hasUnpublishedChanges)
 	};
 };
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const findModelsToInclude = (query) => {

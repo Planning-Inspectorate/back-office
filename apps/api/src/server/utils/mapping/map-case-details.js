@@ -37,7 +37,8 @@ export const mapApplicationDetails = (caseDetails) => {
 				'description',
 				'modifiedAt',
 				'publishedAt',
-				'caseStatus'
+				'caseStatus',
+				'hasUnpublishedChanges'
 			]),
 			{
 				modifiedAt: 'modifiedDate',

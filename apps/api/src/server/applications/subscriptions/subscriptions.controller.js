@@ -29,6 +29,9 @@ export async function listSubscriptions(req, res) {
 	if (req.query.caseReference) {
 		opts.caseReference = String(req.query.caseReference);
 	}
+	if (typeof req.query.endAfter === 'string') {
+		opts.endAfter = new Date(req.query.endAfter);
+	}
 	logger.debug(opts, 'listSubscriptions');
 
 	const result = await subscriptionRepository.list(opts);
