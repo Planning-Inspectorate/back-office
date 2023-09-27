@@ -362,7 +362,7 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 		});
 	}
 
-	return response.render('applications/case-s51/s51-successfully-deleted');
+	return response.render('applications/case-s51/s51-attachment-successfully-deleted');
 }
 
 /**
