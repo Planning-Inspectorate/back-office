@@ -2,7 +2,7 @@
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
- * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').LPAQuestionnaireSessionValidationOutcome} LPAQuestionnaireSessionValidationOutcome
+ * @typedef {import('../../appeals/appeal-details/lpa-questionaire/lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} LPAQuestionnaireSessionValidationOutcome
  * @typedef {import('../../appeals/appeal-details/appellant-case/appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  */
 

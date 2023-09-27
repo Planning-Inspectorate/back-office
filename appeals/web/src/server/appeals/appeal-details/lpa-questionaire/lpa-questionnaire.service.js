@@ -16,7 +16,7 @@ export function getLpaQuestionnaireFromId(apiClient, appealId, lpaQuestionnaireI
  * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {string} lpaQuestionnaireId
- * @param {import('../appeal-details.types.js').LPAQuestionnaireValidationOutcomeRequest} reviewOutcome
+ * @param {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeRequest} reviewOutcome
  * @returns {Promise<LpaQuestionnaire>}
  */
 export function setReviewOutcomeForLpaQuestionnaire(

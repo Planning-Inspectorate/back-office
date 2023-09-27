@@ -177,7 +177,7 @@ export const postIncompleteReason = async (request, response) => {
 
 		const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
-		/** @type {import('../../appeal-details.types.js').LPAQuestionnaireSessionValidationOutcome} */
+		/** @type {import('../lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} */
 		request.session.webLPAQuestionnaireReviewOutcome = {
 			appealId,
 			appealReference,

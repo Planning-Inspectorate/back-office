@@ -10,10 +10,10 @@ import {
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
  * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
- * @typedef {import('../appeal-details.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
+ * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
  * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
- * @typedef {import('../appeal-details.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
+ * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
  */
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {
@@ -216,7 +216,7 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
  * @param {NotValidReasonOption[]} reasonOptions
  * @param {BodyValidationOutcome} [bodyValidationOutcome]
  * @param {SessionValidationOutcome} [sessionValidationOutcome]
- * @param {import('../appeal-details.types.js').LPAQuestionnaireValidationOutcomeResponse|null} [existingValidationOutcome]
+ * @param {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeResponse|null} [existingValidationOutcome]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
 export function mapIncompleteReasonOptionsToCheckboxItemParameters(
@@ -257,88 +257,7 @@ export function mapIncompleteReasonOptionsToCheckboxItemParameters(
 		bodyValidationBaseKey,
 		sessionValidationOutcome
 	);
-
-	// return reasonOptions.map((reason) => {
-	// 	const addAnotherTextItemsFromExistingOutcome = getAddAnotherTextItemsFromExistingOutcome(
-	// 		reason,
-	// 		existingReasons
-	// 	);
-	// 	const addAnotherTextItemsFromSession = getAddAnotherTextItemsFromSession(
-	// 		reason,
-	// 		sessionValidationOutcome
-	// 	);
-	// 	const addAnotherTextItemsFromBody = getAddAnotherTextItemsFromBody(
-	// 		reason,
-	// 		bodyValidationOutcome,
-	// 		bodyValidationBaseKey
-	// 	);
-
-	// 	let textItems = [''];
-
-	// 	if (addAnotherTextItemsFromBody) {
-	// 		textItems = addAnotherTextItemsFromBody;
-	// 	} else if (addAnotherTextItemsFromSession) {
-	// 		textItems = addAnotherTextItemsFromSession;
-	// 	} else if (addAnotherTextItemsFromExistingOutcome) {
-	// 		textItems = addAnotherTextItemsFromExistingOutcome;
-	// 	}
-
-	// 	return {
-	// 		value: `${reason.id}`,
-	// 		text: reason.name,
-	// 		...(checkedOptions && {
-	// 			checked: checkedOptions.includes(reason.id)
-	// 		}),
-	// 		...(reason.hasText && {
-	// 			addAnother: { textItems }
-	// 		})
-	// 	};
-	// });
 }
-
-// /**
-//  *
-//  * @param {NotValidReasonOption} reasonOption
-//  * @param {import('../appeal-details.types.js').NotValidReasonResponse[]} existingReasons
-//  * @returns {string[]|undefined}
-//  */
-// function getAddAnotherTextItemsFromExistingOutcome(reasonOption, existingReasons) {
-// 	return (
-// 		existingReasons.find((existingReason) => existingReason?.name?.id === reasonOption.id)?.text || ['']
-// 	);
-// }
-
-// /**
-//  *
-//  * @param {NotValidReasonOption} reasonOption
-//  * @param {SessionValidationOutcome|undefined} sessionValidationOutcome
-//  * @returns {string[]|undefined}
-//  */
-// function getAddAnotherTextItemsFromSession(reasonOption, sessionValidationOutcome) {
-// 	return sessionValidationOutcome?.incompleteReasonsText?.[reasonOption.id];
-// }
-
-// /**
-//  *
-//  * @param {NotValidReasonOption} reasonOption
-//  * @param {BodyValidationOutcome|undefined} bodyValidationOutcome
-//  * @param {string} bodyValidationBaseKey
-//  * @returns {string[]|undefined}
-//  */
-// function getAddAnotherTextItemsFromBody(reasonOption, bodyValidationOutcome, bodyValidationBaseKey) {
-// 	/** @type {string|string[]|undefined} */
-// 	let addAnotherTextItemsFromBody =
-// 		Object.keys(bodyValidationOutcome || {}).length &&
-// 		(bodyValidationOutcome || {})[`${bodyValidationBaseKey}-${reasonOption.id}`];
-
-// 	if (addAnotherTextItemsFromBody) {
-// 		if (!Array.isArray(addAnotherTextItemsFromBody)) {
-// 			addAnotherTextItemsFromBody = [addAnotherTextItemsFromBody];
-// 		}
-
-// 		return addAnotherTextItemsFromBody.filter(textItem => textItem.length);
-// 	}
-// }
 
 /**
  *
@@ -407,7 +326,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
  * @param {string|string[]} [incompleteReasons]
  * @param {Object<string, string[]>} [incompleteReasonsText]
  * @param {DayMonthYear} [updatedDueDate]
- * @returns {import('../appeal-details.types.js').LPAQuestionnaireValidationOutcomeRequest}
+ * @returns {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeRequest}
  */
 export function mapWebValidationOutcomeToApiValidationOutcome(
 	validationOutcome,

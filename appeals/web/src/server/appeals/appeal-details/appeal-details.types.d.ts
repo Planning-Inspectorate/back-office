@@ -1,4 +1,5 @@
 import { Address, AppealSite } from '@pins/appeals';
+import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionaire/lpa-questionnaire.types';
 
 export interface AppealHealthAndSafetyEntry {
 	details: string | null;
@@ -305,46 +306,6 @@ interface NeighbouringSiteContactsResponse {
 	address: AppealSite;
 }
 
-export interface NotValidReasonOption {
-	id: number;
-	name: string;
-	hasText: boolean;
-}
-
-export interface NotValidReasonResponse {
-	name: NotValidReasonOption;
-	text?: string[];
-}
-
-export type LPAQuestionnaireValidationOutcome = 'complete' | 'incomplete';
-
-export type BodyValidationOutcome = Object<string, string | string[]>;
-
-export interface LPAQuestionnaireSessionValidationOutcome {
-	appealId: string;
-	validationOutcome: LPAQuestionnaireValidationOutcome;
-	reasons: string | string[];
-	reasonsText: Object<string, string[]>;
-	appealReference: string;
-	lpaQuestionnaireId: string;
-}
-
-export interface LPAQuestionnaireIncompleteReasonRequest {
-	id: number;
-	text?: string[];
-}
-
-export interface LPAQuestionnaireValidationOutcomeRequest {
-	validationOutcome: LPAQuestionnaireValidationOutcome;
-	incompleteReasons?: LPAQuestionnaireIncompleteReasonRequest[];
-	lpaQuestionnaireDueDate?: string;
-}
-
-export interface LPAQuestionnaireValidationOutcomeResponse {
-	outcome: LPAQuestionnaireValidationOutcome;
-	incompleteReasons?: NotValidReasonResponse[];
-}
-
 export interface SingleLPAQuestionnaireResponse {
 	affectsListedBuildingDetails: ListedBuildingDetailsResponse | null;
 	appealId: number;
@@ -420,3 +381,16 @@ export interface SingleLPAQuestionnaireResponse {
 	statutoryConsulteesDetails?: string;
 	validation: LPAQuestionnaireValidationOutcomeResponse | null;
 }
+
+export interface NotValidReasonOption {
+	id: number;
+	name: string;
+	hasText: boolean;
+}
+
+export interface NotValidReasonResponse {
+	name: NotValidReasonOption;
+	text?: string[];
+}
+
+export type BodyValidationOutcome = Object<string, string | string[]>;
