@@ -6,6 +6,7 @@ import { databaseConnector } from '#utils/database-connector.js';
  */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersions} DocumentVersions */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsRequest} UpdateDocumentsRequest */
 
 /**
  * @param {string} guid
@@ -66,3 +67,22 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
 		include: { latestDocumentVersion: true }
 	});
 };
+
+/**
+ * @param {UpdateDocumentsRequest} data
+ * @returns
+ */
+export const updateDocuments = (data) =>
+	Promise.all(
+		data.map((document) =>
+			databaseConnector.document.update({
+				data: {
+					receivedAt: document.receivedDate,
+					documentRedactionStatusId: document.redactionStatus
+				},
+				where: {
+					guid: document.id
+				}
+			})
+		)
+	);

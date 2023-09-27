@@ -4,10 +4,37 @@ import validateIdParameter from '#common/validators/id-parameter.js';
 import validateUuidParameter from '#common/validators/uuid-parameter.js';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
+	ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF,
 	ERROR_MUST_BE_STRING,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
 	ERROR_MUST_BE_VALID_FILEINFO
 } from '#endpoints/constants.js';
+import validateDateParameter from '#common/validators/date-parameter.js';
+import errorMessageReplacement from '#utils/error-message-replacement.js';
+import { getDocumentRedactionStatusIds } from './documents.service.js';
+
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsRequest} UpdateDocumentsRequest */
+
+/**
+ * @param {UpdateDocumentsRequest} documents
+ * @returns {Promise<boolean>}
+ */
+const validateDocumentRedactionStatusIds = async (documents) => {
+	const redactionStatusIds = await getDocumentRedactionStatusIds();
+	const hasValidStatusIds = documents.every(({ redactionStatus }) =>
+		redactionStatusIds.includes(redactionStatus)
+	);
+
+	if (!hasValidStatusIds) {
+		throw new Error(
+			errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+				redactionStatusIds.join(', ')
+			])
+		);
+	}
+
+	return true;
+};
 
 const getFolderIdValidator = composeMiddleware(
 	validateIdParameter('folderId'),
@@ -36,9 +63,18 @@ const getDocumentsValidator = composeMiddleware(
 	validationErrorHandler
 );
 
+const patchDocumentsValidator = composeMiddleware(
+	validateIdParameter('appealId'),
+	validateUuidParameter({ parameterName: 'documents.*.id', parameterType: body }),
+	validateDateParameter({ parameterName: 'documents.*.receivedDate', isRequired: true }),
+	body('documents').custom(validateDocumentRedactionStatusIds),
+	validationErrorHandler
+);
+
 export {
-	getFolderIdValidator,
 	getDocumentIdValidator,
+	getDocumentsValidator,
 	getDocumentValidator,
-	getDocumentsValidator
+	getFolderIdValidator,
+	patchDocumentsValidator
 };

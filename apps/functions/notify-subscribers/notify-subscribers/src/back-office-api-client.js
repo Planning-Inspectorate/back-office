@@ -59,9 +59,10 @@ export class BackOfficeApiClient {
 	 * @param {Object} filters
 	 * @param {string} [filters.caseReference]
 	 * @param {string} [filters.type]
+	 * @param {Date} [filters.endAfter]
 	 * @returns {Promise<import('./types.js').PageResponse<import('@pins/applications').Subscription>>}
 	 */
-	getSubscriptions(page, pageSize, { caseReference, type }) {
+	getSubscriptions(page, pageSize, { caseReference, type, endAfter }) {
 		/** @type {querystring.ParsedUrlQueryInput} */
 		const queryInput = {
 			page,
@@ -72,6 +73,9 @@ export class BackOfficeApiClient {
 		}
 		if (type) {
 			queryInput.type = type;
+		}
+		if (endAfter) {
+			queryInput.endAfter = endAfter.toISOString();
 		}
 		const query = querystring.stringify(queryInput);
 		return got.get(`${this.baseUrl}/applications/subscriptions/list/?${query}`).json();

@@ -161,7 +161,8 @@ export const spec = {
 					submissionAtPublished: 'Q1 2023',
 					submissionAtInternal: 123
 				}
-			}
+			},
+			hasUnpublishedChanges: false
 		},
 		CreateApplication: {
 			title: '',

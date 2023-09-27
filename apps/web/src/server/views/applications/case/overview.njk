@@ -1,45 +1,68 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% block sectionContent %}
-    {% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
-    {% set applicantFirstEmail = case.applicants[0].email %}
-    {% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
-    {% set applicantFirstWebsite = case.applicants[0].website %}
-    {% set userIsInspector = domainType === 'inspector' %}
-    {% set applicantFirstWebsiteValue = '' %}
-    {% if applicantFirstWebsite %}
-        {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+  {% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
+  {% set applicantFirstEmail = case.applicants[0].email %}
+  {% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
+  {% set applicantFirstWebsite = case.applicants[0].website %}
+  {% set userIsInspector = domainType === 'inspector' %}
+  {% set applicantFirstWebsiteValue = '' %}
+  {% if applicantFirstWebsite %}
+      {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+  {% endif %}
+  <h2 class="govuk-heading-m">Overview</h2>
+  {% set publishedTag %}
+    {% if case.publishedDate %}
+      <strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+      &nbsp;
+      <span class="govuk-body-s colour--secondary">Last updated {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+    {% else %}
+      <strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
     {% endif %}
-    <h2 class="govuk-heading-m">Overview</h2>
-        {{ govukSummaryList({
-		rows: [
-			{
-				key: { text: "Case reference" },
-				value: { text: case.reference }
-			},
-			{
-				key: { text: "Applicant information" },
-				value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
-			},
-			{
-				key: { text: "Applicant website" },
-				value: { html: applicantFirstWebsiteValue }
-			},
-			{
-				key: { text: "Project email" },
-				value: { text: case.caseEmail }
-			},
-			{
-				key: { text: "Project page" },
-				value: { html:  '<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>' }
-			}
-		]
-	}) }}
-      {% if not userIsInspector %}
-        <div class="govuk-!-margin-bottom-8">
-          <a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">Update project information</a>
-        </div>
+  {% endset %}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: "Case reference" },
+        value: { text: case.reference }
+      },
+      {
+        key: { text: "Applicant information" },
+        value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
+      },
+      {
+        key: { text: "Applicant website" },
+        value: { html: applicantFirstWebsiteValue }
+      },
+      {
+        key: { text: "Project email" },
+        value: { text: case.caseEmail }
+      },
+      {
+        key: { text: "Project page" },
+        value: { html: publishedTag }
+      }
+    ]
+  }) }}
+  {% if not userIsInspector %}
+    <div class="govuk-!-margin-bottom-8">
+      <a class="govuk-link" href="{{ 'case-view'|url({caseId: case.id, step: 'project-information' }) }}">Update project information</a>
+    </div>
+  {% endif %}
+  <h2 class="govuk-heading-m">Project team</h2>
+  <p class="govuk-body">No project members have been added yet</p>
+
+  <div class="govuk-!-margin-top-6">
+    {{ govukButton({
+      text: 'Preview and publish project',
+      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) })
+    }}
+
+    {% if case.publishedDate and not userIsInspector %}
+      <a href="../{{ caseId }}/unpublish" class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">Unpublish project</a>
     {% endif %}
-      <h2 class="govuk-heading-m">Project team</h2>
-      <p class="govuk-body">No project members have been added yet</p>
-    {% endblock %}
+  </div>
+{% endblock %}

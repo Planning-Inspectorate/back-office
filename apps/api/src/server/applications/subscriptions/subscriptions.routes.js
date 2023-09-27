@@ -64,23 +64,32 @@ router.get(
         #swagger.parameters['caseReference'] = {
             in: 'query',
             description: 'subscription caseReference',
-            schema: { type: 'string' },
-            required: true
+            type: 'string' ,
+            required: false
         }
         #swagger.parameters['type'] = {
             in: 'query',
             description: 'subscription type',
-            schema: { type: 'string' },
-            required: true
+            type: 'string',
+            required: false
+        }
+        #swagger.parameters['endAfter'] = {
+            in: 'query',
+            description: 'subscriptions which end after this date (or have no end date)',
+            format: 'date-time',
+            type: 'string',
+            required: false
         }
         #swagger.parameters['page'] = {
 			in: 'query',
 			description: 'The page number to return, defaults to 1',
+            type: 'integer',
 			example: 1,
 		}
 		#swagger.parameters['pageSize'] = {
 			in: 'query',
 			description: 'The number of results per page, defaults to 25',
+            type: 'integer',
 			example: 25,
 		}
         #swagger.responses[200] = {

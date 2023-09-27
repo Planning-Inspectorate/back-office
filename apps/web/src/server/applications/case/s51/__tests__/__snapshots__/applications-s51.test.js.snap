@@ -56,7 +56,7 @@ exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/2
             </thead>
             <tbody class=\\"govuk-table__body\\">
                 <tr class=\\"govuk-table__row\\">
-                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\">undefined - undefined</td>
                     <td class=\\"govuk-table__cell\\"></td>
                 </tr>
             </tbody>
@@ -1517,7 +1517,7 @@ exports[`S51 Advice S51 delete GET /case/123/project-documentation/21/s51-advice
             </thead>
             <tbody class=\\"govuk-table__body\\">
                 <tr class=\\"govuk-table__row\\">
-                    <td class=\\"govuk-table__cell\\">Minim veniam quis nostrud</td>
+                    <td class=\\"govuk-table__cell\\">00001 - Minim veniam quis nostrud</td>
                     <td class=\\"govuk-table__cell\\">Do Do, Do</td>
                 </tr>
             </tbody>

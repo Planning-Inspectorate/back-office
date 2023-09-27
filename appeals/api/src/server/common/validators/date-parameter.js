@@ -16,6 +16,7 @@ import { recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
  * 	parameterName: string,
  *  mustBeFutureDate?: boolean,
  *  mustBeBusinessDay?: boolean,
+ *  isRequired?: boolean,
  *  customFn?: (value: any, other: {req: any}) => Error | boolean
  * }} param0
  * @returns {ValidationChain}
@@ -24,10 +25,14 @@ const validateDateParameter = ({
 	parameterName,
 	mustBeFutureDate = false,
 	mustBeBusinessDay = false,
+	isRequired = false,
 	customFn = () => true
-}) =>
-	body(parameterName)
-		.optional()
+}) => {
+	const validator = body(parameterName);
+
+	!isRequired && validator.optional();
+
+	return validator
 		.isDate()
 		.withMessage(ERROR_MUST_BE_CORRECT_DATE_FORMAT)
 		.custom((value) => (mustBeFutureDate ? dateIsAfterDate(new Date(value), new Date()) : true))
@@ -46,5 +51,6 @@ const validateDateParameter = ({
 		})
 		.custom(customFn)
 		.customSanitizer(joinDateAndTime);
+};
 
 export default validateDateParameter;

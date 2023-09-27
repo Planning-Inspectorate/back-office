@@ -9,7 +9,8 @@ import {
 	getS51AdviceReadyToPublish,
 	removeS51AdviceFromReadyToPublish,
 	publishS51AdviceItems,
-	deleteS51Advice
+	deleteS51Advice,
+	unpublishS51Advice
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
@@ -111,7 +112,7 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 	const showSuccessBanner = getSuccessBanner(session);
 	destroySuccessBanner(session);
@@ -179,7 +180,7 @@ export async function viewApplicationsCaseS51Upload({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 	response.render(`applications/case-s51/properties/s51-upload`, {
 		s51Advice
@@ -209,7 +210,7 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 
 	let apiErrors;
 	if (params.step === 'title' && body.title) {
-		const { errors } = await checkS51NameIsUnique(+caseId, body.title);
+		const { errors } = await checkS51NameIsUnique(Number(caseId), body.title);
 		apiErrors = errors;
 	}
 
@@ -288,7 +289,7 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 	response.render('applications/case-s51/s51-delete.njk', {
 		s51Advice
@@ -304,18 +305,17 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const { errors } = await deleteS51Advice(caseId, +adviceId);
+	const { errors } = await deleteS51Advice(caseId, Number(adviceId));
 
 	if (errors) {
-		const s51Advice = await getS51Advice(caseId, +adviceId);
+		const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 		return response.render('applications/case-s51/s51-delete.njk', {
 			s51Advice,
 			errors
 		});
 	}
-
-	return response.redirect('../');
+	return response.render('applications/case-s51/s51-successfully-deleted');
 }
 
 /**
@@ -327,7 +327,7 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
 	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 	const attachmentToDelete = s51Advice.attachments.find(
 		(attachment) => attachment.documentGuid === attachmentId
 	);
@@ -361,7 +361,7 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 		});
 	}
 
-	return response.render('applications/case-s51/s51-successfully-deleted');
+	return response.render('applications/case-s51/s51-attachment-successfully-deleted');
 }
 
 /**
@@ -512,6 +512,6 @@ export async function postUnpublishAdvice({ params }, response) {
 		});
 	}
 
-	await updateS51Advice(Number(caseId), Number(adviceId), { publishedStatus: 'unpublished' });
+	await unpublishS51Advice(Number(caseId), Number(adviceId));
 	response.render('applications/case-s51/s51-successfully-unpublished');
 }

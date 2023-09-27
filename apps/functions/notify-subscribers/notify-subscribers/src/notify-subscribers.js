@@ -119,10 +119,12 @@ export class NotifySubscribers {
 	 * @param {string} opts.caseReference
 	 */
 	async notifySubscribers({ update, content, subscriptionType, caseReference }) {
+		const now = new Date();
 		const subscriptions = new PagedRequest(this.perPage, (page, pageSize) => {
 			return this.apiClient.getSubscriptions(page, pageSize, {
 				caseReference,
-				type: subscriptionType
+				type: subscriptionType,
+				endAfter: now // only get subscriptions still valid after 'now' (i.e. not unsubscribed)
 			});
 		});
 		let total = 0;

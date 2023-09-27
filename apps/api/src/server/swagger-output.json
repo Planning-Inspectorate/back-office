@@ -258,6 +258,10 @@
 								"keyDates": {
 									"type": "object",
 									"properties": {}
+								},
+								"hasUnpublishedChanges": {
+									"type": "boolean",
+									"example": false
 								}
 							},
 							"xml": {
@@ -3341,6 +3345,56 @@
 				}
 			}
 		},
+		"/applications/{id}/s51-advice/{adviceId}/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Unpublish s51 advice",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublished S51 Advice record",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/subscriptions": {
 			"get": {
 				"tags": ["Applications"],
@@ -3471,33 +3525,37 @@
 						"name": "caseReference",
 						"in": "query",
 						"description": "subscription caseReference",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
+						"type": "string",
+						"required": false
 					},
 					{
 						"name": "type",
 						"in": "query",
 						"description": "subscription type",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "endAfter",
+						"in": "query",
+						"description": "subscriptions which end after this date (or have no end date)",
+						"format": "date-time",
+						"type": "string",
+						"required": false
 					},
 					{
 						"name": "page",
 						"in": "query",
 						"description": "The page number to return, defaults to 1",
-						"example": 1,
-						"type": "string"
+						"type": "integer",
+						"example": 1
 					},
 					{
 						"name": "pageSize",
 						"in": "query",
 						"description": "The number of results per page, defaults to 25",
-						"example": 25,
-						"type": "string"
+						"type": "integer",
+						"example": 25
 					}
 				],
 				"responses": {
@@ -4013,6 +4071,10 @@
 							}
 						}
 					}
+				},
+				"hasUnpublishedChanges": {
+					"type": "boolean",
+					"example": false
 				}
 			}
 		},

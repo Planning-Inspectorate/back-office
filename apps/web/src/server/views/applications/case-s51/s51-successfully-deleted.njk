@@ -2,23 +2,18 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set serviceName = ["Attachmment deleted successfully ", action] | join %}
-
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
+{% set serviceName = ["S51 advice item successfully deleted ", action] | join %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
-
 	{% set bannerDetails%}
-	<p class='govuk-!-font-size-19'>
-		Case: {{case.title}}
-		<br/>
-		Reference: {{case.reference}}
-	</p>
+    <p class='govuk-!-font-size-19'>
+      Case: {{case.title}}
+      <br/>
+      Reference: {{case.reference}}
+    </p>
 	{% endset %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">

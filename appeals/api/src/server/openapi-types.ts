@@ -5,8 +5,12 @@ export interface Folder {
 	path?: string;
 	/** @example 34 */
 	caseId?: number;
-	/** @example [] */
-	documents?: any[];
+	documents?: {
+		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
+		id?: string;
+		/** @example "right-of-way.pdf" */
+		name?: string;
+	}[];
 }
 
 export interface DocumentDetails {
@@ -1212,4 +1216,33 @@ export interface UpdateAppealTimetableResponse {
 	lpaQuestionnaireDueDate?: string;
 	/** @example "2023-08-12T01:00:00.000Z" */
 	statementReviewDate?: string;
+}
+
+export interface AllDocumentRedactionStatusesResponse {
+	/** @example 1 */
+	id?: number;
+	/** @example "Document redaction status" */
+	name?: string;
+}
+
+export interface UpdateDocumentsRequest {
+	documents?: {
+		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
+		id?: string;
+		/** @example "2023-09-23" */
+		receivedDate?: string;
+		/** @example 1 */
+		redactionStatus?: number;
+	}[];
+}
+
+export interface UpdateDocumentsResponse {
+	documents?: {
+		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
+		id?: string;
+		/** @example "2023-09-23" */
+		receivedDate?: string;
+		/** @example 1 */
+		redactionStatus?: number;
+	}[];
 }

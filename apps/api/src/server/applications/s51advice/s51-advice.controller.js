@@ -503,3 +503,36 @@ export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
 
 	response.send(s51Advice);
 };
+
+/**
+ * Unpublish S51 advice item
+ *
+ * @type {import('express').RequestHandler<{adviceId: number}, any, any, any>}
+ */
+export const unpublishS51Advice = async ({ body, params }, response) => {
+	const adviceId = params.adviceId;
+	const payload = body[''];
+
+	const advice = await s51AdviceRepository.get(adviceId);
+	if (!advice) {
+		throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
+	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, {
+		publishedStatus: 'not_checked',
+		publishedStatusPrev: advice.publishedStatus
+	});
+
+	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
+	// @ts-ignore
+	advice.S51AdviceDocument = docs;
+	payload.publishedStatusPrev = advice.publishedStatus;
+
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[buildNsipS51AdvicePayload(advice)],
+		EventType.Publish
+	);
+
+	response.send(updateResponseInTable);
+};

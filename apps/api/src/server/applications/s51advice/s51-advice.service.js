@@ -135,23 +135,35 @@ export const extractDuplicates = async (adviceId, fileNames) => {
 };
 
 /**
+ * @param {number} id
+ * @returns {Promise<S51Advice>}
+ * @throws {Error}
+ * */
+export const publishS51 = async (id) => {
+	const advice = await s51AdviceRepository.get(id);
+	if (!advice) {
+		throw new Error(`no advice found with id ${id}`);
+	}
+
+	if (advice.publishedStatus === 'published') {
+		throw new Error(`advice with id ${id} is already published`);
+	}
+
+	return await s51AdviceRepository.update(id, {
+		publishedStatus: 'published',
+		publishedStatusPrev: advice.publishedStatus,
+		datePublished: new Date()
+	});
+};
+
+/**
  * Publish a set of S51 items given their IDs
  *
  * @param {number[]} ids
  * @returns {Promise<{ fulfilled: S51Advice[], errors: string[] }>}
  * */
 export const publishS51Items = async (ids) => {
-	const results = await Promise.allSettled(
-		ids.map(
-			(id) =>
-				new Promise((resolve, reject) =>
-					s51AdviceRepository
-						.update(id, { publishedStatus: 'published', datePublished: new Date() })
-						.then(resolve)
-						.catch(reject)
-				)
-		)
-	);
+	const results = await Promise.allSettled(ids.map(publishS51));
 
 	return results.reduce((acc, result) => {
 		switch (result.status) {

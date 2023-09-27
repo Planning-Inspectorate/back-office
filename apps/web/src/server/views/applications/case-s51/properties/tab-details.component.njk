@@ -2,7 +2,7 @@
 {% from '../components/enquirer-string.njk' import enquirerString %}
 
 
-{% macro s51DetailsTab(s51Advice, caseId, folderId) %}
+{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished) %}
 
 	{% set properties = [
 						{label: 'S51 title', value: s51Advice.title, link: 'title'},
@@ -22,7 +22,7 @@
 	{% for property in properties %}
 		{% set rowActions = {} %}
 
-		{% if property.link %}
+		{% if property.link and not isPublished %}
 			{% set s51EditLink = ('s51-edit'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: property.link})) %}
 
 			{% set rowActions = {
