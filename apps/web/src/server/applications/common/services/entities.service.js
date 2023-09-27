@@ -33,6 +33,10 @@ export const getAllRegions = () => {
 	return get(`applications/region`);
 };
 
+export const getAllCaseStages = () => {
+	return get('applications/case-stage');
+};
+
 /**
  * Get all zoom levels
  *

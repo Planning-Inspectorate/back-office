@@ -20,10 +20,13 @@ import { subscriptionRoutes } from './subscriptions/subscriptions.routes.js';
 import { s51AdviceRoutes } from './s51advice/s51-advice.routes.js';
 import { projectUpdateNotificationLogsRoutes } from './application/project-updates/notification-logs/notification-logs.routes.js';
 import { keyDatesRoutes } from './key-dates/key-dates.routes.js';
+import { caseStageRoutes } from './case-stage/case-stage.routes.js';
 
 const router = createRouter();
 
 router.use('/case-team', caseTeamRoutes);
+
+router.use('/case-stage', caseStageRoutes);
 
 router.use('/case-admin-officer', caseAdminOfficerRoutes);
 
