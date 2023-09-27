@@ -4,21 +4,6 @@ export const paginationDefaultSettings = {
 };
 
 /**
- * @typedef {'valid'|'invalid'|'incomplete'} AppellantCaseReviewOutcome
- */
-
-export const appellantCaseReviewOutcomes = {
-	valid: 'valid',
-	invalid: 'invalid',
-	incomplete: 'incomplete'
-};
-
-export const lpaQuestionnaireOutcomes = {
-	complete: 'complete',
-	incomplete: 'incomplete'
-};
-
-/**
  * @type {Object<string, Object<string, string>>}
  */
 export const notificationBanners = {

@@ -1,8 +1,11 @@
 import logger from '#lib/logger.js';
-import { mapIncompleteReasonsToCheckboxItemParameters } from '../lpa-questionnaire.mapper.js';
-import { getLPAQuestionnaireIncompleteReasons } from '../lpa-questionnaire.service.js';
+import * as lpaQuestionnaireService from '../lpa-questionnaire.service.js';
+import {
+	mapIncompleteReasonOptionsToCheckboxItemParameters,
+	getIncompleteReasonsTextFromRequestBody
+} from '../lpa-questionnaire.mapper.js';
+import { getLPAQuestionnaireIncompleteReasonOptions } from '../lpa-questionnaire.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
 import { webDateToDisplayDate, dateToDisplayDate } from '#lib/dates.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
@@ -12,37 +15,43 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 const renderIncompleteReason = async (request, response) => {
-	const { errors, body } = request;
+	const { errors, body, session } = request;
 
-	if (
-		!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
-	) {
+	if (!objectContainsAllKeys(session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])) {
 		return response.render('app/500.njk');
 	}
 
-	const { appealId, appealReference, lpaQuestionnaireId } = request.session;
+	const { appealId, appealReference, lpaQuestionnaireId } = session;
 
-	const existingWebLPAQuestionnaireReviewOutcome = request.session.webLPAQuestionnaireReviewOutcome;
+	const lpaQuestionnaireResponse = await lpaQuestionnaireService.getLpaQuestionnaireFromId(
+		request.apiClient,
+		appealId,
+		lpaQuestionnaireId
+	);
 
-	if (
-		existingWebLPAQuestionnaireReviewOutcome &&
-		(existingWebLPAQuestionnaireReviewOutcome.appealId !== appealId ||
-			existingWebLPAQuestionnaireReviewOutcome.lpaQuestionnaireId !== lpaQuestionnaireId ||
-			existingWebLPAQuestionnaireReviewOutcome.validationOutcome !== 'incomplete')
-	) {
-		delete request.session.webLPAQuestionnaireReviewOutcome;
+	if (!lpaQuestionnaireResponse) {
+		return response.render('app/404.njk');
 	}
 
-	const { webLPAQuestionnaireReviewOutcome } = request.session;
-	const incompleteReasonOptions = await getLPAQuestionnaireIncompleteReasons(request.apiClient);
+	if (
+		session.webLPAQuestionnaireReviewOutcome &&
+		(session.webLPAQuestionnaireReviewOutcome.appealId !== appealId ||
+			session.webLPAQuestionnaireReviewOutcome.lpaQuestionnaireId !== lpaQuestionnaireId ||
+			session.webLPAQuestionnaireReviewOutcome.validationOutcome !== 'incomplete')
+	) {
+		delete session.webLPAQuestionnaireReviewOutcome;
+	}
+
+	const incompleteReasonOptions = await getLPAQuestionnaireIncompleteReasonOptions(
+		request.apiClient
+	);
 
 	if (incompleteReasonOptions) {
-		const incompleteReasons =
-			body.incompleteReason || webLPAQuestionnaireReviewOutcome?.incompleteReasons;
-		const otherReason = body.otherReason || webLPAQuestionnaireReviewOutcome?.otherReason;
-		const mappedIncompleteReasonOptions = mapIncompleteReasonsToCheckboxItemParameters(
+		const mappedIncompleteReasonOptions = mapIncompleteReasonOptionsToCheckboxItemParameters(
 			incompleteReasonOptions,
-			incompleteReasons
+			body,
+			session.webLPAQuestionnaireReviewOutcome,
+			lpaQuestionnaireResponse.validation
 		);
 
 		return response.render('appeals/appeal/lpa-questionnaire-incomplete.njk', {
@@ -52,8 +61,6 @@ const renderIncompleteReason = async (request, response) => {
 			},
 			lpaQuestionnaireId,
 			reasonOptions: mappedIncompleteReasonOptions,
-			otherReasonId: getIdByNameFromIdNamePairs(incompleteReasonOptions, 'other'),
-			otherReason,
 			errors
 		});
 	}
@@ -170,13 +177,14 @@ export const postIncompleteReason = async (request, response) => {
 
 		const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
+		/** @type {import('../../appeal-details.types.js').LPAQuestionnaireSessionValidationOutcome} */
 		request.session.webLPAQuestionnaireReviewOutcome = {
 			appealId,
 			appealReference,
 			lpaQuestionnaireId,
 			validationOutcome: 'incomplete',
-			incompleteReasons: request.body.incompleteReason,
-			otherReason: request.body.otherReason
+			reasons: request.body.incompleteReason,
+			reasonsText: getIncompleteReasonsTextFromRequestBody(request)
 		};
 
 		return response.redirect(

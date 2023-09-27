@@ -301,6 +301,50 @@ export type DesignatedSite =
 
 export type ScheduleTypeOption = 'Yes, schedule 1' | 'Yes, schedule 2' | 'No';
 
+interface NeighbouringSiteContactsResponse {
+	address: AppealSite;
+}
+
+export interface NotValidReasonOption {
+	id: number;
+	name: string;
+	hasText: boolean;
+}
+
+export interface NotValidReasonResponse {
+	name: NotValidReasonOption;
+	text?: string[];
+}
+
+export type LPAQuestionnaireValidationOutcome = 'complete' | 'incomplete';
+
+export type BodyValidationOutcome = Object<string, string | string[]>;
+
+export interface LPAQuestionnaireSessionValidationOutcome {
+	appealId: string;
+	validationOutcome: LPAQuestionnaireValidationOutcome;
+	reasons: string | string[];
+	reasonsText: Object<string, string[]>;
+	appealReference: string;
+	lpaQuestionnaireId: string;
+}
+
+export interface LPAQuestionnaireIncompleteReasonRequest {
+	id: number;
+	text?: string[];
+}
+
+export interface LPAQuestionnaireValidationOutcomeRequest {
+	validationOutcome: LPAQuestionnaireValidationOutcome;
+	incompleteReasons?: LPAQuestionnaireIncompleteReasonRequest[];
+	lpaQuestionnaireDueDate?: string;
+}
+
+export interface LPAQuestionnaireValidationOutcomeResponse {
+	outcome: LPAQuestionnaireValidationOutcome;
+	incompleteReasons?: NotValidReasonResponse[];
+}
+
 export interface SingleLPAQuestionnaireResponse {
 	affectsListedBuildingDetails: ListedBuildingDetailsResponse | null;
 	appealId: number;
@@ -374,16 +418,5 @@ export interface SingleLPAQuestionnaireResponse {
 	sensitiveAreaDetails?: string;
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string;
-	validation: ValidationOutcomeResponse | null;
-}
-
-interface NeighbouringSiteContactsResponse {
-	address: AppealSite;
-}
-
-interface ValidationOutcomeResponse {
-	outcome: string | null;
-	incompleteReasons?: string[];
-	invalidReasons?: string[];
-	otherNotValidReasons?: string;
+	validation: LPAQuestionnaireValidationOutcomeResponse | null;
 }

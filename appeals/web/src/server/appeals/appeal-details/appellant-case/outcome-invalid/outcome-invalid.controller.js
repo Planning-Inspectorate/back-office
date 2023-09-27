@@ -6,7 +6,6 @@ import {
 	getInvalidOrIncompleteReasonsTextFromRequestBody
 } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
@@ -46,13 +45,11 @@ const renderInvalidReason = async (request, response) => {
 	if (
 		request.session.webAppellantCaseReviewOutcome &&
 		(request.session.webAppellantCaseReviewOutcome.appealId !== appealId ||
-			request.session.webAppellantCaseReviewOutcome.validationOutcome !==
-				appellantCaseReviewOutcomes.invalid)
+			request.session.webAppellantCaseReviewOutcome.validationOutcome !== 'invalid')
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
 
-	const { webAppellantCaseReviewOutcome } = request.session;
 	const invalidReasonOptions =
 		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
 			request.apiClient,
@@ -64,7 +61,7 @@ const renderInvalidReason = async (request, response) => {
 			'invalid',
 			invalidReasonOptions,
 			body,
-			webAppellantCaseReviewOutcome,
+			request.session.webAppellantCaseReviewOutcome,
 			appellantCaseResponse.validation
 		);
 
@@ -73,7 +70,7 @@ const renderInvalidReason = async (request, response) => {
 				id: appealId,
 				shortReference: appealShortReference(appealReference)
 			},
-			notValidStatus: appellantCaseReviewOutcomes.invalid,
+			notValidStatus: 'invalid',
 			reasonOptions: mappedInvalidReasonOptions,
 			errors
 		});
@@ -140,14 +137,12 @@ export const postInvalidReason = async (request, response) => {
 
 		const { appealId } = request.session;
 
+		/** @type {import('../appellant-case.types.js').AppellantCaseSessionValidationOutcome} */
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
-			validationOutcome: appellantCaseReviewOutcomes.invalid,
-			invalidOrIncompleteReasons: request.body.invalidReason,
-			invalidOrIncompleteReasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(
-				request,
-				'invalidReason'
-			)
+			validationOutcome: 'invalid',
+			reasons: request.body.invalidReason,
+			reasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(request, 'invalidReason')
 		};
 
 		return response.redirect(

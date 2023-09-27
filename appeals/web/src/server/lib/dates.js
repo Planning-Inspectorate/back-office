@@ -50,7 +50,7 @@ export const isDateInstance = (date) => {
 };
 
 /**
- * @param {import("../appeals/appeal-details/appellant-case/appellant-case.service.js").DayMonthYear} dayMonthYear
+ * @param {import('../appeals/appeals.types.js').DayMonthYear} dayMonthYear
  * @returns {string} - date in format YYYY-MM-DD
  */
 export const dayMonthYearToApiDateString = (dayMonthYear) => {
@@ -92,7 +92,7 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 }
 
 /**
- * @param {import("../appeals/appeal-details/appellant-case/appellant-case.service.js").DayMonthYear} dayMonthYear
+ * @param {import('../appeals/appeals.types.js').DayMonthYear} dayMonthYear
  * @returns {string}
  */
 export function webDateToDisplayDate(dayMonthYear, { condensed = false } = {}) {

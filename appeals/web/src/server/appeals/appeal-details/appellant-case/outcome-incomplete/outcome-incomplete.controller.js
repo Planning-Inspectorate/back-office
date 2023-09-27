@@ -6,7 +6,6 @@ import {
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
@@ -46,8 +45,7 @@ const renderIncompleteReason = async (request, response) => {
 	if (
 		request.session.webAppellantCaseReviewOutcome &&
 		(request.session.webAppellantCaseReviewOutcome.appealId !== appealId ||
-			request.session.webAppellantCaseReviewOutcome.validationOutcome !==
-				appellantCaseReviewOutcomes.incomplete)
+			request.session.webAppellantCaseReviewOutcome.validationOutcome !== 'incomplete')
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
@@ -74,7 +72,7 @@ const renderIncompleteReason = async (request, response) => {
 				id: appealId,
 				shortReference: appealShortReference(appealReference)
 			},
-			notValidStatus: appellantCaseReviewOutcomes.incomplete,
+			notValidStatus: 'incomplete',
 			reasonOptions: mappedIncompleteReasonOptions,
 			errors
 		});
@@ -173,14 +171,12 @@ export const postIncompleteReason = async (request, response) => {
 
 		const { appealId } = request.session;
 
+		/** @type {import('../appellant-case.types.js').AppellantCaseSessionValidationOutcome} */
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
-			validationOutcome: appellantCaseReviewOutcomes.incomplete,
-			invalidOrIncompleteReasons: request.body.incompleteReason,
-			invalidOrIncompleteReasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(
-				request,
-				'incompleteReason'
-			)
+			validationOutcome: 'incomplete',
+			reasons: request.body.incompleteReason,
+			reasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(request, 'incompleteReason')
 		};
 
 		return response.redirect(

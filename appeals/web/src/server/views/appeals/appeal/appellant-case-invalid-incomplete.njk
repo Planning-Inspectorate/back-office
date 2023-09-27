@@ -37,7 +37,6 @@
 			{%- set _ = option | addConditionalHtml(addAnotherHtml) -%}
 		{%- endif -%}
 	{%- endfor -%}
-
 	<form method="post" novalidate="novalidate">
 		{{ govukCheckboxes({
 			name: notValidStatus + "Reason",
@@ -47,6 +46,5 @@
 			text: "Continue",
 			type: "submit"
 		}) }}
-		<input type="hidden" id="otherReasonId" name="otherReasonId" value="{{ otherReasonId }}" />
 	</form>
 {%- endblock -%}

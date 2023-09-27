@@ -7,7 +7,6 @@ import {
 	appellantCaseInvalidReasons,
 	appellantCaseIncompleteReasons
 } from '#testing/app/fixtures/referencedata.js';
-import { appellantCaseReviewOutcomes } from '#appeals/appeal.constants.js';
 import { TEXTAREA_MAXIMUM_CHARACTERS } from '#lib/validators/textarea-validator.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
@@ -69,10 +68,10 @@ describe('appellant-case', () => {
 		it('should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid"', async () => {
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.valid });
+				.reply(200, { validationOutcome: 'valid' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.valid
+				reviewOutcome: 'valid'
 			});
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
@@ -82,10 +81,10 @@ describe('appellant-case', () => {
 		it('should redirect to the invalid reason page if selected review outcome value is "invalid"', async () => {
 			nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.invalid });
+				.reply(200, { validationOutcome: 'invalid' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.invalid
+				reviewOutcome: 'invalid'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -94,10 +93,10 @@ describe('appellant-case', () => {
 		it('should redirect to the incomplete reason page if selected review outcome value is "incomplete"', async () => {
 			nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -129,7 +128,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -156,7 +155,7 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.invalid
+				reviewOutcome: 'invalid'
 			});
 		});
 
@@ -271,7 +270,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -298,7 +297,7 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 		});
 
@@ -413,7 +412,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -454,7 +453,7 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 
 			// post to incomplete reason page controller is necessary to set required data in the session
@@ -718,7 +717,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -746,7 +745,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -799,7 +798,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -816,7 +815,7 @@ describe('appellant-case', () => {
 
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.invalid });
+				.reply(200, { validationOutcome: 'invalid' });
 
 			const response = await request.post(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
@@ -831,7 +830,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -848,7 +847,7 @@ describe('appellant-case', () => {
 
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			const response = await request.post(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
@@ -872,13 +871,13 @@ describe('appellant-case', () => {
 		it('should render the outcome valid confirmation page if required data is present in the session', async () => {
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			// post to appellant case page controller is necessary to set required data in the session
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.valid
+					reviewOutcome: 'valid'
 				});
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
@@ -908,7 +907,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -937,7 +936,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
