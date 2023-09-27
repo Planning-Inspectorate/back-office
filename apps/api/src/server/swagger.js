@@ -220,6 +220,12 @@ export const spec = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
+		CaseStages: [
+			{
+				name: 'post_decision',
+				displayNameEn: 'Post-Decision'
+			}
+		],
 		MapZoomLevelForApplications: [
 			{
 				id: 1,
