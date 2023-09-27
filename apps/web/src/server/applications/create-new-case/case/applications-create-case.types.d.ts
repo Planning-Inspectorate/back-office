@@ -1,5 +1,6 @@
 import {
 	CaseCreateProps,
+	CaseStage,
 	FormCaseLayout,
 	Sector,
 	SelectItem,
@@ -28,7 +29,9 @@ export interface ApplicationsCreateCaseStageBody extends Record<string, string |
 	stage: string;
 }
 export interface ApplicationsCreateCaseStageProps
-	extends CaseCreateProps<ApplicationsCreateCaseStageBody> {}
+	extends CaseCreateProps<ApplicationsCreateCaseStageBody> {
+	stages: CaseStage[];
+}
 
 // Sub sector
 export interface ApplicationsCreateCaseSubSectorBody extends Record<string, string | undefined> {

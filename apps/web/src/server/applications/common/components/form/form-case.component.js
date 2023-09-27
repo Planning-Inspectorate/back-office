@@ -1,12 +1,14 @@
 import { bodyToPayload } from '../../../../lib/body-formatter.js';
 import { createCase, getCase, updateCase } from '../../services/case.service.js';
 import {
+	getAllCaseStages,
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
 } from '../../services/entities.service.js';
 import { getSessionCaseSectorName } from '../../services/session.service.js';
+import { camelToSnake } from '../../../../lib/camel-to-snake.js';
 
 /** @typedef {import('../../../applications.types').Region} Region */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -40,10 +42,12 @@ export async function caseNameAndDescriptionData(request, locals) {
  * @returns {Promise<ApplicationsCreateCaseStageProps>}
  * */
 export async function caseStageData(request, locals) {
-	const { currentCase } = locals || {};
-	const { stage } = currentCase;
+	const allStages = await getAllCaseStages();
 
-	return { values: { stage } };
+	const { currentCase } = locals || {};
+	const { status } = currentCase;
+
+	return { values: { stage: camelToSnake(status) }, stages: allStages };
 }
 
 /**
