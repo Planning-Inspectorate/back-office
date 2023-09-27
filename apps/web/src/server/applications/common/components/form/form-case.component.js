@@ -51,6 +51,34 @@ export async function caseStageData(request, locals) {
 }
 
 /**
+ * Perform update for case stage
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<{properties: ApplicationsCreateCaseStageProps, updatedCaseId?: number| null}>}
+ */
+export async function caseStageDataUpdate({ errors: validationErrors, body, session }, locals) {
+	const { caseId } = locals;
+	const { stage } = body;
+	const payload = bodyToPayload(body);
+	const action = caseId ? () => updateCase(caseId, payload) : () => createCase(payload, session);
+
+	const { errors: apiErrors, id: updatedCaseId } = validationErrors
+		? { id: null, errors: validationErrors }
+		: await action();
+
+	const allStages = await getAllCaseStages();
+
+	const properties = {
+		values: { stage },
+		errors: validationErrors || apiErrors,
+		stages: allStages
+	};
+
+	return { properties, updatedCaseId };
+}
+
+/**
  * Format properties for name and description update page
  *
  * @param {import('express').Request} request
