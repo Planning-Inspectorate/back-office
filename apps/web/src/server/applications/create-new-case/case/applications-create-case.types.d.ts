@@ -24,6 +24,12 @@ export interface ApplicationsCreateCaseSectorProps
 	sectors: Sector[];
 }
 
+export interface ApplicationsCreateCaseStageBody extends Record<string, string | undefined> {
+	stage: string;
+}
+export interface ApplicationsCreateCaseStageProps
+	extends CaseCreateProps<ApplicationsCreateCaseStageBody> {}
+
 // Sub sector
 export interface ApplicationsCreateCaseSubSectorBody extends Record<string, string | undefined> {
 	subSectorName?: string;

@@ -80,4 +80,8 @@ applicationsEditCaseRouter
 	)
 	.post(asyncRoute(controller.updateApplicationsEditCaseZoomLevel));
 
+applicationsEditCaseRouter
+	.route('/stage')
+	.get(registerCaseWithQuery(['stage']), asyncRoute(controller.viewApplicationsEditCaseStage));
+
 export default applicationsEditCaseRouter;
