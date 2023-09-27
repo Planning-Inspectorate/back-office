@@ -5,6 +5,6 @@
     name: 'stage',
     idPrefix: 'stage',
     errorMessage: errors.stage | errorMessage,
-    items: stages | selectItems({valueKey: 'stage', selectedValue: values.stage})
+    items: stages | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.stage})
   }) }}
 {% endmacro %}
