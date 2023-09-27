@@ -11,6 +11,7 @@ import { getSessionCaseSectorName } from '../../services/session.service.js';
 /** @typedef {import('../../../applications.types').Region} Region */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseStageProps} ApplicationsCreateCaseStageProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
@@ -29,6 +30,20 @@ export async function caseNameAndDescriptionData(request, locals) {
 	const { title, description } = currentCase;
 
 	return { values: { title, description } };
+}
+
+/**
+ * Format stage property for stage edit page
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<ApplicationsCreateCaseStageProps>}
+ * */
+export async function caseStageData(request, locals) {
+	const { currentCase } = locals || {};
+	const { stage } = currentCase;
+
+	return { values: { stage } };
 }
 
 /**
