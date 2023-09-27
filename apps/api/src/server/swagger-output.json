@@ -3956,6 +3956,10 @@
 					"type": "string",
 					"example": ""
 				},
+				"stage": {
+					"type": "string",
+					"example": ""
+				},
 				"geographicalInformation": {
 					"type": "object",
 					"properties": {
