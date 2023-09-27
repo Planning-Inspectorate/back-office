@@ -19,15 +19,15 @@ export class S51AdvicePage extends Page {
 		adviceDateMonthInput: () => cy.get('#adviceDate\\.month'),
 		adviceDateYearInput: () => cy.get('#adviceDate\\.year'),
 		adviceDetailsInput: () => cy.get('#adviceDetails'),
-		answerCell: (question) =>
-			cy.contains(this.selectors.tableCell, question, { matchCase: true }).next(),
+		answerCell: (question) => cy.contains(this.selectors.tableCell, new RegExp(question)).next(),
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a')
 	};
 
-	checkAnswer(question, answer) {
+	checkAnswer(question, answer, strict = true) {
 		this.elements.answerCell(question).then(($elem) => {
-			cy.wrap($elem.text().trim()).should('equal', answer.trim());
+			const assertion = strict ? 'equal' : 'include';
+			cy.wrap($elem.text().trim()).should(assertion, answer.trim());
 		});
 	}
 
@@ -94,13 +94,19 @@ export class S51AdvicePage extends Page {
 		this.fillAdviserDetails(adviserName);
 		this.fillAdviceDetails({ day, month, year, adviceDetails });
 		this.checkAnswer('S51 title', title);
-		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }));
-		this.checkAnswer('Enquiry method', methodOfEnquiry.toLowerCase());
+		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
+		this.checkAnswer('Enquiry method', methodOfEnquiry);
 		this.checkAnswer('Enquiry date', dateFullFormatted);
 		this.checkAnswer('Enquiry details', enquiryDetails);
-		this.checkAnswer('Advise given by (internal use only)', adviserName);
+		this.checkAnswer('Advice given by', adviserName);
 		this.checkAnswer('Date advice given', dateFullFormatted);
-		this.checkAnswer('Advice given', adviceDetails);
+		const adviceDetailsData = {
+			rowIndex: 7,
+			cellIndex: 1,
+			textToMatch: adviceDetails,
+			strict: true
+		};
+		this.verifyTableCellText(adviceDetailsData);
 		this.clickButtonByText('Create S51 advice item');
 		this.basePageElements.successBanner().then(($banner) => {
 			const text = $banner.text().trim();

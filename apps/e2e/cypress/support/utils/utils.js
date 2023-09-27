@@ -52,9 +52,9 @@ const validateSummaryPageInfo = (projectInformation, checkType) => {
 const validateProjectInformation = (page, projectInformation, checkType, updated = false) => {
 	const mandatoryOnly = checkType === 'mandatory';
 	// P R O J E C T  I N F O R M A T I O N
-	casePage.validateSummaryItem('Case reference number', Cypress.env('currentCreatedCase'));
-	casePage.validateSummaryItem('Sector', projectInformation.sector);
-	casePage.validateSummaryItem('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Sector', projectInformation.sector);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
 
 	// P R O J E C T  D E T A I L S
 	casePage.checkProjectAnswer('Project name', projectInformation.projectName);

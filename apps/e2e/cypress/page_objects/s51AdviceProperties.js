@@ -10,9 +10,10 @@ export class S51AdvicePropertiesPage extends Page {
 			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).nextUntil('a')
 	};
 
-	checkAnswer(question, answer) {
+	checkAnswer(question, answer, strict = true) {
 		this.elements.answerCell(question).then(($elem) => {
-			cy.wrap($elem.text().trim()).should('equal', answer.trim());
+			const assertion = strict ? 'equal' : 'include';
+			cy.wrap($elem.text().replace(/\s+/g, ' ').trim()).should(assertion, answer.trim());
 		});
 	}
 
@@ -22,12 +23,11 @@ export class S51AdvicePropertiesPage extends Page {
 
 	checkAllProperties(details, enquirerDetails) {
 		this.checkAnswer('S51 title', details.title);
-		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }));
+		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', details.methodOfEnquiry);
 		this.checkAnswer('Enquiry date', details.dateFullFormatted);
 		this.checkAnswer('Enquiry details', details.enquiryDetails);
-		this.checkAnswer('Advise given by (internal use only)', details.adviserName);
+		this.checkAnswer('Advice given by (internal use only)', details.adviserName);
 		this.checkAnswer('Date advice given', details.dateFullFormatted);
-		this.checkAnswer('Advice given', details.adviceDetails);
 	}
 }

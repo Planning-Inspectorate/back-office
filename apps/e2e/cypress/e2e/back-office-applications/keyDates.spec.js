@@ -5,12 +5,7 @@ import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
-import {
-	getRandomQuarterDate,
-	updateProjectInformation,
-	validateProjectInformation,
-	validateSummaryPageInfo
-} from '../../support/utils/utils';
+import { getRandomQuarterDate, validateSummaryPageInfo } from '../../support/utils/utils';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { CasePage } from '../../page_objects/casePage';
 import { getRandomFormattedDate } from '../../support/utils/utils.js';
