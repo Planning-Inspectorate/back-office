@@ -464,8 +464,8 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
@@ -653,8 +653,8 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-Application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
@@ -828,8 +828,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
@@ -992,8 +992,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-Application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
@@ -1169,8 +1169,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
@@ -1346,8 +1346,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     </tr>
                     <tr class=\\"govuk-table__row\\">
                         <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                        <td class=\\"govuk-table__cell\\"></td>
-                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/#\\"> Change</a>
+                        <td class=\\"govuk-table__cell\\">Pre-application</td>
+                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/stage\\"> Change</a>
                         </td>
                     </tr>
                 </tbody>
