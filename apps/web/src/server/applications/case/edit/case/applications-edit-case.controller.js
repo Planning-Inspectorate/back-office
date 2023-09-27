@@ -5,6 +5,7 @@ import {
 	caseNameAndDescriptionData,
 	caseNameAndDescriptionDataUpdate,
 	caseStageData,
+	caseStageDataUpdate,
 	caseRegionsData,
 	caseRegionsDataUpdate,
 	caseTeamEmailData,
@@ -171,6 +172,22 @@ export async function viewApplicationsEditCaseStage(request, response) {
 		...properties,
 		layout: stageLayout
 	});
+}
+
+/**
+ * Edit the case stage
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseStageProps,
+ * {}, ApplicationsCreateCaseStageBody, {}, {}>}
+ */
+export async function updateApplicationsEditCaseStage(request, response) {
+	const { properties, updatedCaseId } = await caseStageDataUpdate(request, response.locals);
+
+	if (properties.errors || !updatedCaseId) {
+		return handleErrors(properties, stageLayout, response);
+	}
+
+	return response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**
