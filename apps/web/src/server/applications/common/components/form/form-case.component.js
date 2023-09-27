@@ -42,12 +42,14 @@ export async function caseNameAndDescriptionData(request, locals) {
  * @returns {Promise<ApplicationsCreateCaseStageProps>}
  * */
 export async function caseStageData(request, locals) {
+	/** @type {{name: string, displayNameEn: string}[]} */
 	const allStages = await getAllCaseStages();
+	const stages = allStages.filter((stage) => stage.name !== 'draft');
 
 	const { currentCase } = locals || {};
 	const { status } = currentCase;
 
-	return { values: { stage: camelToSnake(status) }, stages: allStages };
+	return { values: { stage: camelToSnake(status) }, stages };
 }
 
 /**
