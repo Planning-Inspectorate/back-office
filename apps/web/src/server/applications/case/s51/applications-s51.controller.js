@@ -289,7 +289,7 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 	const { adviceId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, +adviceId);
+	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
 	response.render('applications/case-s51/s51-delete.njk', {
 		s51Advice
