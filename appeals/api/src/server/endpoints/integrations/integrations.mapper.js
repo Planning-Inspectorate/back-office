@@ -66,7 +66,7 @@ export const mapAppeal = (appeal) => {
 	//TODO:
 	const topic = {
 		appealType: mapAppealTypeOut(appeal.appealType.shorthand),
-		reference: appeal.reference,
+		caseReference: appeal.reference,
 		...lpa,
 		LPAApplicationReference: appeal.planningApplicationReference,
 		...address,

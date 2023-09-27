@@ -11,7 +11,6 @@ import {
 	mapDocument
 } from './integrations.mapper.js';
 import { produceAppealUpdate } from './integrations.service.js';
-import config from '#config/config.js';
 import { EventType } from '@pins/event-client';
 
 /** @typedef {import('express').Request} Request */
@@ -26,9 +25,8 @@ export const postAppealSubmission = async (req, res) => {
 	const { appeal, documents } = mapAppealSubmission(req.body);
 	const result = await createAppeal(appeal, documents);
 	const formattedResult = mapAppeal(result);
-	if (!config.DISABLE_INTEGRATIONS) {
-		await produceAppealUpdate(formattedResult, EventType.Create);
-	}
+
+	await produceAppealUpdate(formattedResult, EventType.Create);
 	return res.send(formattedResult);
 };
 
@@ -41,9 +39,8 @@ export const postLpaqSubmission = async (req, res) => {
 	const { caseReference, questionnaire, documents } = mapQuestionnaireSubmission(req.body);
 	const result = await createOrUpdateLpaQuestionnaire(caseReference, questionnaire, documents);
 	const formattedResult = mapAppeal(result);
-	if (!config.DISABLE_INTEGRATIONS) {
-		await produceAppealUpdate(formattedResult, EventType.Update);
-	}
+
+	await produceAppealUpdate(formattedResult, EventType.Update);
 	return res.send(formattedResult);
 };
 
