@@ -315,8 +315,7 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 			errors
 		});
 	}
-
-	return response.redirect('../');
+	return response.render('applications/case-s51/s51-successfully-deleted');
 }
 
 /**
