@@ -268,7 +268,13 @@ export const createApplicationRepresentation = async ({
 };
 
 export const updateApplicationRepresentation = async (
-	{ representationDetails, represented, representedAddress, representative, representativeAddress },
+	{
+		representationDetails = {},
+		represented,
+		representedAddress,
+		representative,
+		representativeAddress
+	},
 	caseId,
 	representationId
 ) => {
