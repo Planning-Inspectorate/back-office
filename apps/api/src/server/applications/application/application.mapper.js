@@ -59,6 +59,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		...(!isEmpty(formattedApplicantDetails) && { applicant: formattedApplicantDetails }),
 		...(!isEmpty(formattedApplicantAddressDetails) && {
 			applicantAddress: formattedApplicantAddressDetails
-		})
+		}),
+		...(applicationDetails.stage && { caseStatus: { status: applicationDetails.stage } })
 	};
 };
