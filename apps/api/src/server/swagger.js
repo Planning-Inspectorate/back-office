@@ -128,6 +128,7 @@ export const spec = {
 			description: '',
 			subSectorName: '',
 			caseEmail: '',
+			stage: '',
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',
