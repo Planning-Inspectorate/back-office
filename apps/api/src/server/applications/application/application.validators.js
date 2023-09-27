@@ -105,6 +105,28 @@ const validateExistingMapZoomLevel = async (value) => {
 
 /**
  *
+ * @param {string} value
+ * */
+export const validateCaseStage = async (value) => {
+	const isValid = [
+		'pre_application',
+		'draft',
+		'acceptance',
+		'pre_examination',
+		'examination',
+		'recommendation',
+		'decision',
+		'post_decision',
+		'withdrawn'
+	].includes(value);
+
+	if (!isValid) {
+		throw new Error(`'${value}' is not a valid case stage`);
+	}
+};
+
+/**
+ *
  * @param {number} value
  * @returns {Date}
  */
@@ -127,6 +149,10 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		})
 		.withMessage('Case email must be a valid email address')
 		.optional({ nullable: true, checkFalsy: true }),
+	body('stage')
+		.custom(validateCaseStage)
+		.withMessage('Must be a valid case stage')
+		.optional({ nullable: true }),
 	body('geographicalInformation.gridReference.easting')
 		.toInt()
 		.isLength({ min: 6, max: 6 })
