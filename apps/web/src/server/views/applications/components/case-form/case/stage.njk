@@ -1,4 +1,5 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro stage(values, errors, stages) %}
   {{ govukRadios({
@@ -6,5 +7,9 @@
     idPrefix: 'stage',
     errorMessage: errors.stage | errorMessage,
     items: stages | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.stage})
+  }) }}
+
+  {{ govukInsetText({
+    text: "Changing the case stage may require you to add or update any relevant key dates."
   }) }}
 {% endmacro %}
