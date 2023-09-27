@@ -16,7 +16,7 @@
 {% block beforeContent %}
 	{{ govukBackLink({
 		text: "Back",
-		href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
+		href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties' })
 	}) }}
 {% endblock %}
 
