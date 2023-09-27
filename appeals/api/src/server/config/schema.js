@@ -6,7 +6,6 @@ export default joi
 		PORT: joi.number(),
 		SWAGGER_JSON_DIR: joi.string(),
 		DATABASE_URL: joi.string(),
-		DISABLE_INTEGRATIONS: joi.boolean(),
 		defaultApiVersion: joi.string(),
 		serviceBusOptions: joi.object({
 			hostname: joi.string().optional()
