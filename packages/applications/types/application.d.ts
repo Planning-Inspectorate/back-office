@@ -46,11 +46,23 @@ export interface PreApplicationDates {
 	submissionDate?: Date;
 }
 
+export type ApplicationStageType =
+	| 'pre_application'
+	| 'acceptance'
+	| 'pre_examination'
+	| 'examination'
+	| 'recommendation'
+	| 'decision'
+	| 'post_decision'
+	| 'withdrawn'
+	| 'developers_application';
+
 export interface CreateUpdateApplication {
 	title?: string;
 	description?: string;
 	caseEmail?: string;
 	subSectorName?: string;
+	stage?: ApplicationStageType;
 	geographicalInformation?: GeographicalInformation;
 	applicants?: Applicant[];
 	keyDates?: KeyApplicationDates;
