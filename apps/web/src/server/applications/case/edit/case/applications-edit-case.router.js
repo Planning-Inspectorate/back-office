@@ -83,6 +83,9 @@ applicationsEditCaseRouter
 applicationsEditCaseRouter
 	.route('/stage')
 	.get(registerCaseWithQuery(['status']), asyncRoute(controller.viewApplicationsEditCaseStage))
-	.post(asyncRoute(controller.updateApplicationsEditCaseStage));
+	.post(
+		validators.validateApplicationsCreateCaseStage,
+		asyncRoute(controller.updateApplicationsEditCaseStage)
+	);
 
 export default applicationsEditCaseRouter;
