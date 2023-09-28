@@ -9,8 +9,8 @@ import {
 	LENGTH_300,
 	LENGTH_8
 } from '../../constants.js';
-import { householdAppeal } from '#tests/data.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import { azureAdUserId, householdAppeal } from '#tests/data.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -21,9 +21,9 @@ describe('addresses routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(
-					`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`
-				);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -38,7 +38,9 @@ describe('addresses routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get(`/appeals/one/addresses/${householdAppeal.address.id}`);
+				const response = await request
+					.get(`/appeals/one/addresses/${householdAppeal.address.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -52,7 +54,9 @@ describe('addresses routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get(`/appeals/3/addresses/${householdAppeal.address.id}`);
+				const response = await request
+					.get(`/appeals/3/addresses/${householdAppeal.address.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -63,7 +67,9 @@ describe('addresses routes', () => {
 			});
 
 			test('returns an error if addressId is not numeric', async () => {
-				const response = await request.get(`/appeals/${householdAppeal.id}/addresses/one`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/addresses/one`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -77,7 +83,9 @@ describe('addresses routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}/addresses/3`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/addresses/3`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -112,7 +120,8 @@ describe('addresses routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.address.update).toHaveBeenCalledWith({
 					data: dataToSave,
@@ -127,7 +136,8 @@ describe('addresses routes', () => {
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/one/addresses/${householdAppeal.address.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -143,7 +153,8 @@ describe('addresses routes', () => {
 
 				const response = await request
 					.patch(`/appeals/3/addresses/${householdAppeal.address.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -156,7 +167,8 @@ describe('addresses routes', () => {
 			test('returns an error if addressId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/one`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -172,7 +184,8 @@ describe('addresses routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/3`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -190,7 +203,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine1: [patchBody.addressLine1]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -208,7 +222,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine1: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -226,12 +241,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine1: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine1: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						addressLine1: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -244,7 +260,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine2: [patchBody.addressLine2]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -262,7 +279,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine2: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -280,12 +298,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						addressLine2: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						addressLine2: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						addressLine2: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -298,7 +317,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						country: [patchBody.country]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -316,7 +336,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						country: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -334,12 +355,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						country: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						country: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						country: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -352,7 +374,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						county: [patchBody.county]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -370,7 +393,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						county: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -388,12 +412,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						county: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						county: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						county: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -406,7 +431,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						postcode: [patchBody.postcode]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -424,7 +450,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						postcode: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -442,12 +469,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						postcode: 'A'.repeat(LENGTH_8 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						postcode: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_8])
+						postcode: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_8])
 					}
 				});
 			});
@@ -460,7 +488,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						town: [patchBody.town]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -478,7 +507,8 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						town: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -496,12 +526,13 @@ describe('addresses routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
 					.send({
 						town: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						town: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						town: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -512,7 +543,8 @@ describe('addresses routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
-					.send({});
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
@@ -528,7 +560,8 @@ describe('addresses routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/addresses/${householdAppeal.address.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.address.update).toHaveBeenCalledWith({
 					data: dataToSave,

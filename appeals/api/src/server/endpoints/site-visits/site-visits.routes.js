@@ -19,6 +19,11 @@ router.post(
 		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits'
 		#swagger.description = 'Creates a single site visit'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Site visit details to create',
@@ -48,6 +53,11 @@ router.get(
 		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits/{siteVisitId}'
 		#swagger.description = 'Gets a single site visit by id'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single site visit by id',
 			schema: { $ref: '#/definitions/SingleSiteVisitResponse' }
@@ -67,6 +77,11 @@ router.patch(
 		#swagger.tags = ['Site Visits']
 		#swagger.path = '/appeals/{appealId}/site-visits/{siteVisitId}'
 		#swagger.description = 'Updates a single site visit by id'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Site visit details to create',

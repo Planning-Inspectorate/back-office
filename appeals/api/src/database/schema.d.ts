@@ -321,3 +321,7 @@ export interface AppellantCaseInvalidReasonOnAppellantCase
 	appellantCaseInvalidReason: AppellantCaseInvalidReason;
 	appellantCaseInvalidReasonText: AppellantCaseInvalidReasonText[];
 }
+
+export interface AuditTrail extends schema.AuditTrail {
+	user: User;
+}

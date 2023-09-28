@@ -10,7 +10,7 @@ import {
 	SITE_VISIT_TYPE_UNACCOMPANIED,
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../constants.js';
-import { householdAppeal as householdAppealData } from '../../../tests/data.js';
+import { azureAdUserId, householdAppeal as householdAppealData } from '../../../tests/data.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
@@ -32,9 +32,12 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitType: siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -59,12 +62,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: siteVisit.visitDate.split('T')[0],
-					visitEndTime: siteVisit.visitEndTime,
-					visitStartTime: siteVisit.visitStartTime,
-					visitType: siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitEndTime: siteVisit.visitEndTime,
+						visitStartTime: siteVisit.visitStartTime,
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -102,12 +108,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: siteVisit.visitDate.split('T')[0],
-					visitEndTime: '9:00',
-					visitStartTime: '7:00',
-					visitType: siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitEndTime: '9:00',
+						visitStartTime: '7:00',
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -143,12 +152,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: siteVisit.visitDate.split('T')[0],
-					visitEndTime: '18:00',
-					visitStartTime: '16:00',
-					visitType: siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitEndTime: '18:00',
+						visitStartTime: '16:00',
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -178,10 +190,13 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: siteVisit.visitDate.split('T')[0],
-					visitType: siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -198,9 +213,12 @@ describe('site visit routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.post('/appeals/one/site-visits').send({
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post('/appeals/one/site-visits')
+					.send({
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -214,9 +232,12 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -230,9 +251,12 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitType: 123
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitType: 123
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -248,9 +272,12 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.siteVisitType.findUnique.mockResolvedValue(null);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitType: 'access not required'
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitType: 'access not required'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -264,11 +291,14 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitEndTime: '18:00',
-					visitStartTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitEndTime: '18:00',
+						visitStartTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -282,11 +312,14 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '2023-12-07',
-					visitStartTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '2023-12-07',
+						visitStartTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -300,11 +333,14 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '2023-12-07',
-					visitEndTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '2023-12-07',
+						visitEndTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -318,12 +354,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '07/12/2023',
-					visitEndTime: '18:00',
-					visitStartTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '07/12/2023',
+						visitEndTime: '18:00',
+						visitStartTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -337,12 +376,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '56/12/2023',
-					visitEndTime: '18:00',
-					visitStartTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '56/12/2023',
+						visitEndTime: '18:00',
+						visitStartTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -356,12 +398,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '2023-07-12',
-					visitEndTime: '56:00',
-					visitStartTime: '16:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '2023-07-12',
+						visitEndTime: '56:00',
+						visitStartTime: '16:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -375,12 +420,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '2023-07-12',
-					visitEndTime: '18:00',
-					visitStartTime: '56:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '2023-07-12',
+						visitEndTime: '18:00',
+						visitStartTime: '56:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -394,12 +442,15 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.post(`/appeals/${householdAppeal.id}/site-visits`).send({
-					visitDate: '2023-07-12',
-					visitEndTime: '16:00',
-					visitStartTime: '18:00',
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.post(`/appeals/${householdAppeal.id}/site-visits`)
+					.send({
+						visitDate: '2023-07-12',
+						visitEndTime: '16:00',
+						visitStartTime: '18:00',
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -418,9 +469,9 @@ describe('site visit routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { siteVisit } = householdAppeal;
-				const response = await request.get(
-					`/appeals/${householdAppeal.id}/site-visits/${siteVisit.id}`
-				);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/site-visits/${siteVisit.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -434,7 +485,7 @@ describe('site visit routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get('/appeals/one');
+				const response = await request.get('/appeals/one').set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -448,7 +499,7 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get('/appeals/3');
+				const response = await request.get('/appeals/3').set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -462,7 +513,9 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}/site-visits/one`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/site-visits/one`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -476,7 +529,9 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}/site-visits/2`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/site-visits/2`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -500,7 +555,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/site-visits/${siteVisit.id}`)
 					.send({
 						visitType: siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
 					where: { id: siteVisit.id },
@@ -532,7 +588,8 @@ describe('site visit routes', () => {
 						visitEndTime: siteVisit.visitEndTime,
 						visitStartTime: siteVisit.visitStartTime,
 						visitType: siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
 					where: { id: siteVisit.id },
@@ -577,7 +634,8 @@ describe('site visit routes', () => {
 						visitEndTime: '3:00',
 						visitStartTime: '1:00',
 						visitType: siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
 					where: { id: siteVisit.id },
@@ -620,7 +678,8 @@ describe('site visit routes', () => {
 						visitEndTime: '18:00',
 						visitStartTime: '16:00',
 						visitType: siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
 					where: { id: siteVisit.id },
@@ -655,7 +714,8 @@ describe('site visit routes', () => {
 					.send({
 						visitDate: siteVisit.visitDate.split('T')[0],
 						visitType: siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
@@ -676,7 +736,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/one/site-visits/${householdAppeal.siteVisit.id}`)
 					.send({
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -694,7 +755,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/site-visits/${householdAppeal.siteVisit.id}`)
 					.send({
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -712,7 +774,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/site-visits/one`)
 					.send({
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -726,9 +789,12 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}/site-visits/2`).send({
-					visitType: householdAppeal.siteVisit.siteVisitType.name
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}/site-visits/2`)
+					.send({
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -746,7 +812,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/site-visits/${householdAppeal.siteVisit.id}`)
 					.send({
 						visitType: 123
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -766,7 +833,8 @@ describe('site visit routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/site-visits/${householdAppeal.siteVisit.id}`)
 					.send({
 						visitType: 'access not required'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -786,7 +854,8 @@ describe('site visit routes', () => {
 						visitEndTime: '18:00',
 						visitStartTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -806,7 +875,8 @@ describe('site visit routes', () => {
 						visitDate: '2023-12-07',
 						visitStartTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -826,7 +896,8 @@ describe('site visit routes', () => {
 						visitDate: '2023-12-07',
 						visitEndTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -847,7 +918,8 @@ describe('site visit routes', () => {
 						visitEndTime: '18:00',
 						visitStartTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -868,7 +940,8 @@ describe('site visit routes', () => {
 						visitEndTime: '18:00',
 						visitStartTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -889,7 +962,8 @@ describe('site visit routes', () => {
 						visitEndTime: '56:00',
 						visitStartTime: '16:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -910,7 +984,8 @@ describe('site visit routes', () => {
 						visitEndTime: '18:00',
 						visitStartTime: '56:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -931,7 +1006,8 @@ describe('site visit routes', () => {
 						visitEndTime: '16:00',
 						visitStartTime: '18:00',
 						visitType: householdAppeal.siteVisit.siteVisitType.name
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -945,7 +1021,10 @@ describe('site visit routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.update.mockResolvedValue(householdAppeal);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});

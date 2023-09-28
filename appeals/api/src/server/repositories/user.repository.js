@@ -7,17 +7,17 @@ import { databaseConnector } from '#utils/database-connector.js';
  */
 
 /**
- * @param {string} azureUserId
+ * @param {string} azureAdUserId
  * @returns {PrismaPromise<User>}
  */
-const findOrCreateUser = (azureUserId) =>
+const findOrCreateUser = (azureAdUserId) =>
 	databaseConnector.user.upsert({
 		where: {
-			azureUserId
+			azureAdUserId
 		},
 		update: {},
 		create: {
-			azureUserId
+			azureAdUserId
 		}
 	});
 

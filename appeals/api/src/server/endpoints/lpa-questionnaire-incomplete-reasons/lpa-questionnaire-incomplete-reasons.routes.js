@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['LPA Questionnaire Incomplete Reasons']
 		#swagger.path = '/appeals/lpa-questionnaire-incomplete-reasons'
 		#swagger.description = 'Gets LPA questionnaire incomplete reasons'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'LPA questionnaire incomplete reasons',
 			schema: { $ref: '#/definitions/AllLPAQuestionnaireIncompleteReasonsResponse' },

@@ -58,7 +58,7 @@ const formatAppeal = (appeal) => {
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id,
 			appellantName: appeal.appellant?.name,
-			caseOfficer: appeal.caseOfficer?.azureUserId || null,
+			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
 			decision: appeal.inspectorDecision?.outcome,
 			healthAndSafety: {
 				appellantCase: {
@@ -70,7 +70,7 @@ const formatAppeal = (appeal) => {
 					hasIssues: appeal.lpaQuestionnaire?.doesSiteHaveHealthAndSafetyIssues || null
 				}
 			},
-			inspector: appeal.inspector?.azureUserId || null,
+			inspector: appeal.inspector?.azureAdUserId || null,
 			inspectorAccess: {
 				appellantCase: {
 					details: appeal.appellantCase?.visibilityRestrictions || null,

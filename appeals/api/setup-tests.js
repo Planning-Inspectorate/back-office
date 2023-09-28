@@ -119,6 +119,8 @@ const mockAppellantCaseInvalidReasonTextCreateMany = jest.fn().mockResolvedValue
 const mockLPAQuestionnaireIncompleteReasonTextDeleteMany = jest.fn().mockResolvedValue({});
 const mockLPAQuestionnaireIncompleteReasonTextCreateMany = jest.fn().mockResolvedValue({});
 const mockDocumentRedactionStatusFindMany = jest.fn().mockResolvedValue({});
+const mockAuditTrailFindMany = jest.fn().mockResolvedValue({});
+const mockAuditTrailCreate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -481,6 +483,13 @@ class MockPrismaClient {
 	get documentRedactionStatus() {
 		return {
 			findMany: mockDocumentRedactionStatusFindMany
+		};
+	}
+
+	get auditTrail() {
+		return {
+			findMany: mockAuditTrailFindMany,
+			create: mockAuditTrailCreate
 		};
 	}
 

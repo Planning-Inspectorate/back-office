@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { knowledgeOfOtherLandowners } from '../../../tests/data.js';
+import { azureAdUserId, knowledgeOfOtherLandowners } from '../../../tests/data.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -15,7 +15,9 @@ describe('knowledge of other landowners routes', () => {
 					knowledgeOfOtherLandowners
 				);
 
-				const response = await request.get('/appeals/knowledge-of-other-landowners');
+				const response = await request
+					.get('/appeals/knowledge-of-other-landowners')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(knowledgeOfOtherLandowners);
@@ -25,7 +27,9 @@ describe('knowledge of other landowners routes', () => {
 				// @ts-ignore
 				databaseConnector.knowledgeOfOtherLandowners.findMany.mockResolvedValue([]);
 
-				const response = await request.get('/appeals/knowledge-of-other-landowners');
+				const response = await request
+					.get('/appeals/knowledge-of-other-landowners')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({ errors: ERROR_NOT_FOUND });
@@ -37,7 +41,9 @@ describe('knowledge of other landowners routes', () => {
 					throw new Error(ERROR_FAILED_TO_GET_DATA);
 				});
 
-				const response = await request.get('/appeals/knowledge-of-other-landowners');
+				const response = await request
+					.get('/appeals/knowledge-of-other-landowners')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(500);
 				expect(response.body).toEqual({ errors: ERROR_FAILED_TO_GET_DATA });

@@ -32,6 +32,7 @@ import {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
 	appellantCaseValidationOutcomes,
+	azureAdUserId,
 	baseExpectedAppellantCaseResponse,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
@@ -46,7 +47,7 @@ import joinDateAndTime from '#utils/join-date-and-time.js';
 import { calculateTimetable } from '../../../utils/business-days.js';
 import config from '../../../config/config.js';
 import { NotifyClient } from 'notifications-node-client';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMAT_DATABASE)));
@@ -66,7 +67,9 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { appellantCase, id } = householdAppeal;
-				const response = await request.get(`/appeals/${id}/appellant-cases/${appellantCase.id}`);
+				const response = await request
+					.get(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(baseExpectedAppellantCaseResponse(householdAppeal));
@@ -78,9 +81,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseValid);
 
 				const { appellantCase } = householdAppealAppellantCaseValid;
-				const response = await request.get(
-					`/appeals/${householdAppealAppellantCaseValid.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(
+						`/appeals/${householdAppealAppellantCaseValid.id}/appellant-cases/${appellantCase.id}`
+					)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -96,9 +101,11 @@ describe('appellant cases routes', () => {
 				);
 
 				const { appellantCase } = householdAppealAppellantCaseIncomplete;
-				const response = await request.get(
-					`/appeals/${householdAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(
+						`/appeals/${householdAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
+					)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -112,9 +119,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseInvalid);
 
 				const { appellantCase } = householdAppealAppellantCaseInvalid;
-				const response = await request.get(
-					`/appeals/${householdAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(
+						`/appeals/${householdAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
+					)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -128,9 +137,9 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
 				const { appellantCase } = fullPlanningAppeal;
-				const response = await request.get(
-					`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(baseExpectedAppellantCaseResponse(fullPlanningAppeal));
@@ -144,9 +153,11 @@ describe('appellant cases routes', () => {
 				);
 
 				const { appellantCase } = fullPlanningAppealAppellantCaseIncomplete;
-				const response = await request.get(
-					`/appeals/${fullPlanningAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(
+						`/appeals/${fullPlanningAppealAppellantCaseIncomplete.id}/appellant-cases/${appellantCase.id}`
+					)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -162,9 +173,11 @@ describe('appellant cases routes', () => {
 				);
 
 				const { appellantCase } = fullPlanningAppealAppellantCaseInvalid;
-				const response = await request.get(
-					`/appeals/${fullPlanningAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
-				);
+				const response = await request
+					.get(
+						`/appeals/${fullPlanningAppealAppellantCaseInvalid.id}/appellant-cases/${appellantCase.id}`
+					)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -174,7 +187,9 @@ describe('appellant cases routes', () => {
 
 			test('returns an error if appealId is not numeric', async () => {
 				const { appellantCase } = householdAppeal;
-				const response = await request.get(`/appeals/one/appellant-cases/${appellantCase.id}`);
+				const response = await request
+					.get(`/appeals/one/appellant-cases/${appellantCase.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -189,7 +204,9 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
 				const { appellantCase } = householdAppeal;
-				const response = await request.get(`/appeals/3/appellant-cases/${appellantCase.id}`);
+				const response = await request
+					.get(`/appeals/3/appellant-cases/${appellantCase.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -201,7 +218,9 @@ describe('appellant cases routes', () => {
 
 			test('returns an error if appellantCaseId is not numeric', async () => {
 				const { id } = householdAppeal;
-				const response = await request.get(`/appeals/${id}/appellant-cases/one`);
+				const response = await request
+					.get(`/appeals/${id}/appellant-cases/one`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -216,7 +235,9 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { id } = householdAppeal;
-				const response = await request.get(`/appeals/${id}/appellant-cases/3`);
+				const response = await request
+					.get(`/appeals/${id}/appellant-cases/3`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -257,7 +278,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -316,7 +338,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -392,7 +415,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -465,7 +489,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -550,7 +575,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -616,7 +642,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -698,7 +725,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -753,7 +781,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -792,7 +821,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -856,7 +886,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -918,7 +949,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -954,7 +986,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -989,7 +1022,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1028,7 +1062,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${fullPlanningAppeal.id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1044,7 +1079,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/one/appellant-cases/${appellantCase.id}`)
 					.send({
 						validationOutcome: 'Valid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1063,7 +1099,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/3/appellant-cases/${appellantCase.id}`)
 					.send({
 						validationOutcome: 'Valid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -1075,9 +1112,12 @@ describe('appellant cases routes', () => {
 
 			test('returns an error if appellantCaseId is not numeric', async () => {
 				const { id } = householdAppeal;
-				const response = await request.patch(`/appeals/${id}/appellant-cases/one`).send({
-					validationOutcome: 'Valid'
-				});
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/one`)
+					.send({
+						validationOutcome: 'Valid'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1092,9 +1132,12 @@ describe('appellant cases routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { id } = householdAppeal;
-				const response = await request.patch(`/appeals/${id}/appellant-cases/3`).send({
-					validationOutcome: 'Valid'
-				});
+				const response = await request
+					.patch(`/appeals/${id}/appellant-cases/3`)
+					.send({
+						validationOutcome: 'Valid'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -1112,7 +1155,8 @@ describe('appellant cases routes', () => {
 						appealDueDate: '05/05/2023',
 						incompleteReasons: [{ id: 1 }],
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1130,7 +1174,8 @@ describe('appellant cases routes', () => {
 						appealDueDate: '2023-5-5',
 						incompleteReasons: [{ id: 1 }],
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1151,7 +1196,8 @@ describe('appellant cases routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1169,7 +1215,8 @@ describe('appellant cases routes', () => {
 						appealDueDate: '2023-02-30',
 						incompleteReasons: [{ id: 1 }],
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1185,7 +1232,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1201,7 +1249,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						validationOutcome: 'Invalid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1218,7 +1267,8 @@ describe('appellant cases routes', () => {
 					.send({
 						incompleteReasons: 1,
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1235,7 +1285,8 @@ describe('appellant cases routes', () => {
 					.send({
 						invalidReasons: 1,
 						validationOutcome: 'Invalid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1252,7 +1303,8 @@ describe('appellant cases routes', () => {
 					.send({
 						incompleteReasons: [],
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1269,7 +1321,8 @@ describe('appellant cases routes', () => {
 					.send({
 						invalidReasons: [],
 						validationOutcome: 'Invalid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1297,7 +1350,8 @@ describe('appellant cases routes', () => {
 					.send({
 						incompleteReasons: [{ id: 1 }, { id: 10 }],
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -1325,7 +1379,8 @@ describe('appellant cases routes', () => {
 					.send({
 						invalidReasons: [{ id: 1 }, { id: 10 }],
 						validationOutcome: 'Invalid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -1346,7 +1401,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						validationOutcome: 'Complete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1364,7 +1420,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1387,7 +1444,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1404,7 +1462,8 @@ describe('appellant cases routes', () => {
 					.send({
 						incompleteReasons: [{ id: 1 }, { id: 2 }],
 						validationOutcome: 'Valid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1426,7 +1485,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1449,7 +1509,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1466,7 +1527,8 @@ describe('appellant cases routes', () => {
 					.send({
 						invalidReasons: [{ id: 1 }, { id: 2 }],
 						validationOutcome: 'Valid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1485,7 +1547,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantFirstName: ['Fiona']
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1504,7 +1567,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantFirstName: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1523,12 +1587,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantFirstName: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						applicantFirstName: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						applicantFirstName: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -1542,7 +1607,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantSurname: ['Burgess']
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1561,7 +1627,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantSurname: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1580,12 +1647,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						applicantSurname: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						applicantSurname: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						applicantSurname: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -1599,7 +1667,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						isSiteFullyOwned: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1619,7 +1688,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1641,7 +1711,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1666,7 +1737,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1689,7 +1761,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1712,7 +1785,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1735,7 +1809,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1758,7 +1833,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1781,7 +1857,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1800,7 +1877,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						isSitePartiallyOwned: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1820,7 +1898,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1840,7 +1919,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1863,7 +1943,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1886,7 +1967,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1909,7 +1991,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1932,7 +2015,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1955,7 +2039,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1978,7 +2063,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -1997,7 +2083,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						areAllOwnersKnown: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2017,7 +2104,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2037,7 +2125,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2060,7 +2149,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2083,7 +2173,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2106,7 +2197,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2129,7 +2221,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2152,7 +2245,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2175,7 +2269,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2194,7 +2289,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasAttemptedToIdentifyOwners: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2216,7 +2312,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasAttemptedToIdentifyOwners: true
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2238,7 +2335,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasAttemptedToIdentifyOwners: false
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2263,7 +2361,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2286,7 +2385,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2309,7 +2409,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2332,7 +2433,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2355,7 +2457,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2378,7 +2481,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2397,7 +2501,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasAdvertisedAppeal: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2417,7 +2522,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2437,7 +2543,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2460,7 +2567,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2483,7 +2591,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2506,7 +2615,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2529,7 +2639,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2552,7 +2663,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2575,7 +2687,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2594,7 +2707,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						isSiteVisibleFromPublicRoad: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2614,7 +2728,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2635,7 +2750,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2658,7 +2774,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2683,7 +2800,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2706,7 +2824,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2731,7 +2850,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2754,7 +2874,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2779,7 +2900,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2798,7 +2920,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						visibilityRestrictions: ['The site is behind a tall hedge']
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2817,7 +2940,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						visibilityRestrictions: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2836,12 +2960,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						visibilityRestrictions: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						visibilityRestrictions: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
+						visibilityRestrictions: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
 							LENGTH_300
 						])
 					}
@@ -2857,12 +2982,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						isSiteVisibleFromPublicRoad: false
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						isSiteVisibleFromPublicRoad: errorMessageReplacement(ERROR_MUST_HAVE_DETAILS, [
+						isSiteVisibleFromPublicRoad: stringTokenReplacement(ERROR_MUST_HAVE_DETAILS, [
 							'visibilityRestrictions',
 							'isSiteVisibleFromPublicRoad',
 							false
@@ -2881,12 +3007,13 @@ describe('appellant cases routes', () => {
 					.send({
 						isSiteVisibleFromPublicRoad: true,
 						visibilityRestrictions: 'The site is behind a tall hedge'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						isSiteVisibleFromPublicRoad: errorMessageReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
+						isSiteVisibleFromPublicRoad: stringTokenReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
 							'visibilityRestrictions',
 							'isSiteVisibleFromPublicRoad',
 							true
@@ -2904,7 +3031,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasHealthAndSafetyIssues: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2925,7 +3053,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2945,7 +3074,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2970,7 +3100,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -2993,7 +3124,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -3018,7 +3150,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -3041,7 +3174,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -3066,7 +3200,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -3089,7 +3224,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					where: { id: appellantCase.id },
@@ -3108,7 +3244,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						healthAndSafetyIssues: ['There is no mobile reception at the site']
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3127,7 +3264,8 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						healthAndSafetyIssues: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3146,14 +3284,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						healthAndSafetyIssues: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						healthAndSafetyIssues: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [
-							LENGTH_300
-						])
+						healthAndSafetyIssues: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -3168,12 +3305,13 @@ describe('appellant cases routes', () => {
 					.send({
 						hasHealthAndSafetyIssues: false,
 						healthAndSafetyIssues: 'There is no mobile reception at the site'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						hasHealthAndSafetyIssues: errorMessageReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
+						hasHealthAndSafetyIssues: stringTokenReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
 							'healthAndSafetyIssues',
 							'hasHealthAndSafetyIssues',
 							false
@@ -3191,12 +3329,13 @@ describe('appellant cases routes', () => {
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
 					.send({
 						hasHealthAndSafetyIssues: true
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						hasHealthAndSafetyIssues: errorMessageReplacement(ERROR_MUST_HAVE_DETAILS, [
+						hasHealthAndSafetyIssues: stringTokenReplacement(ERROR_MUST_HAVE_DETAILS, [
 							'healthAndSafetyIssues',
 							'hasHealthAndSafetyIssues',
 							true
@@ -3212,7 +3351,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send({});
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
@@ -3232,7 +3372,8 @@ describe('appellant cases routes', () => {
 				const { appellantCase, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appellant-cases/${appellantCase.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellantCase.update).toHaveBeenCalledWith({
 					data: body,

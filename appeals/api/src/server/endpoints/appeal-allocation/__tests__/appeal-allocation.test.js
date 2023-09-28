@@ -1,5 +1,5 @@
 import { request } from '#tests/../app-test.js';
-import { householdAppeal } from '#tests/data.js';
+import { azureAdUserId, householdAppeal } from '#tests/data.js';
 import { ERROR_APPEAL_ALLOCATION_LEVELS, ERROR_NOT_FOUND } from '#endpoints/constants.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -19,7 +19,8 @@ describe('appeal allocation routes', () => {
 				.send({
 					specialisms: [3, 4],
 					level: 32
-				});
+				})
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -38,7 +39,8 @@ describe('appeal allocation routes', () => {
 				.send({
 					specialisms: [3, 4],
 					level: 'Z'
-				});
+				})
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -59,7 +61,8 @@ describe('appeal allocation routes', () => {
 				.send({
 					specialisms: [3, 4],
 					level: 'A'
-				});
+				})
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -89,7 +92,8 @@ describe('appeal allocation routes', () => {
 				.send({
 					specialisms: [1, 2],
 					level: 'A'
-				});
+				})
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(200);
 		});

@@ -5,11 +5,12 @@ import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } fro
 import { formatAppeal, formatAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const getAppeals = async (req, res) => {
@@ -35,7 +36,8 @@ const getAppeals = async (req, res) => {
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Response}
  */
 const getAppealById = (req, res) => {
@@ -46,7 +48,8 @@ const getAppealById = (req, res) => {
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAppealById = async (req, res) => {
@@ -56,10 +59,11 @@ const updateAppealById = async (req, res) => {
 		params
 	} = req;
 	const appealId = Number(params.appealId);
+	const azureAdUserId = String(req.get('azureAdUserId'));
 
 	try {
 		assignedUserType({ caseOfficer, inspector })
-			? await assignUser(appealId, { caseOfficer, inspector })
+			? await assignUser(appealId, { azureAdUserId, caseOfficer, inspector })
 			: await appealRepository.updateAppealById(appealId, {
 					startedAt
 			  });
