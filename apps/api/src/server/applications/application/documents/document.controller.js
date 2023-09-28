@@ -14,13 +14,13 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
-	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishNsipDocuments,
+	updateDocuments as updateDocumentsService,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
 import {
@@ -138,73 +138,22 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
  */
 export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
-	const formattedResponseList = [];
 
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
 	const redactedStatus = isRedacted ? undefined : getRedactionStatus(isRedacted);
+	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
 	if (publishedStatus === 'ready_to_publish') {
-		const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
-
 		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 	}
 
-	for (const document of documents ?? []) {
-		logger.info(
-			`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
-		);
-
-		// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
-		// This is fine from a requirements perspective, but opens us up to race conditions
-		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
-		// @ts-ignore
-		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-			document.guid
-		);
-
-		/**
-		 * @typedef {object} Updates
-		 * @property {string} [publishedStatus]
-		 * @property {string} [publishedStatusPrev]
-		 * @property {string} [redactedStatus]
-		 */
-
-		/** @type {Updates} */
-		const documentVersionUpdates = {
-			publishedStatus,
-			redactedStatus
-		};
-
-		if (!publishedStatus) {
-			delete documentVersionUpdates.publishedStatus;
-		} else if (
-			documentVersion?.publishedStatus === 'published' &&
-			publishedStatus !== 'published'
-		) {
-			throw new BackOfficeAppError(
-				`cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
-			);
-
-			// when setting publishedStatus, save previous publishedStatus
-			// do we have a previous doc version, does it have a published status, and is that status different
-		} else if (documentVersion?.publishedStatus !== publishedStatus) {
-			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-		}
-
-		const updateResponseInTable = await documentVersionRepository.update(document.guid, {
-			version: documentVersion.version,
-			...documentVersionUpdates
-		});
-		const formattedResponse = formatDocumentUpdateResponseBody(
-			updateResponseInTable.documentGuid ?? '',
-			updateResponseInTable.publishedStatus ?? '',
-			updateResponseInTable.redactedStatus ?? ''
-		);
-
-		formattedResponseList.push(formattedResponse);
-	}
+	const formattedResponseList = await updateDocumentsService(
+		documentIds,
+		publishedStatus,
+		redactedStatus
+	);
 
 	logger.info(`Updated ${documents.length} documents`);
 	response.send(formattedResponseList);

@@ -6,6 +6,7 @@ import * as documentActivityLogRepository from '../../../repositories/document-a
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import { buildNsipDocumentPayload } from './document.js';
 import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
@@ -605,4 +606,69 @@ export const extractDuplicates = async (documents) => {
 
 		return acc;
 	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+};
+
+/**
+ * @param {string[]} guids
+ * @param {string | undefined} status
+ * @param {string | undefined} redacted
+ * @returns {Promise<Record<string, any>[]>}
+ * */
+export const updateDocuments = async (guids, status, redacted) => {
+	let formattedResponseList = [];
+
+	for (const guid of guids) {
+		logger.info(
+			`Updating document with guid: ${guid} to published status: ${status} and redacted status: ${redacted}`
+		);
+
+		// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
+		// This is fine from a requirements perspective, but opens us up to race conditions
+		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
+		// @ts-ignore
+		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
+			guid
+		);
+
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
+
+		/** @type {Updates} */
+		const documentVersionUpdates = {
+			publishedStatus: status,
+			redactedStatus: redacted
+		};
+
+		if (!status) {
+			delete documentVersionUpdates.publishedStatus;
+		} else if (documentVersion?.publishedStatus === 'published' && status !== 'published') {
+			throw new BackOfficeAppError(
+				`cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
+			);
+
+			// when setting publishedStatus, save previous publishedStatus
+			// do we have a previous doc version, does it have a published status, and is that status different
+		} else if (documentVersion?.publishedStatus !== status) {
+			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
+		}
+
+		const updateResponseInTable = await documentVersionRepository.update(guid, {
+			version: documentVersion.version,
+			...documentVersionUpdates
+		});
+
+		const formattedResponse = formatDocumentUpdateResponseBody(
+			updateResponseInTable.documentGuid ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		formattedResponseList.push(formattedResponse);
+	}
+
+	return formattedResponseList;
 };
