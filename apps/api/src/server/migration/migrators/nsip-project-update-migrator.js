@@ -2,20 +2,12 @@ import { databaseConnector } from '#utils/database-connector.js';
 import sanitizeHtml from 'sanitize-html';
 import { allowedTags } from '../../applications/application/project-updates/project-updates.validators.js';
 import { buildProjectUpdatePayload } from '../../applications/application/project-updates/project-updates.mapper.js';
-import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
+import { getOrCreateMinimalCaseId, sendChunkedEvents } from './utils.js';
+import { EventType } from '@pins/event-client';
 /**
  * @typedef {import('../../../message-schemas/events/nsip-project-update.d.ts').NSIPProjectUpdate} NSIPProjectUpdate
- */
-
-/**
- * @typedef {Object} NSIPProjectUpdateCaseData
- * @property {string} caseReference
- * @property {string} caseName
- * @property {string} caseDescription
- * @property {string} caseStage
- *
- * @typedef {NSIPProjectUpdate & NSIPProjectUpdateCaseData} NSIPProjectUpdateMigrateModel
+ * @typedef {NSIPProjectUpdate & import('./utils.js').NSIPProjectMinimalCaseData} NSIPProjectUpdateMigrateModel
  */
 
 /**
@@ -38,7 +30,8 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	for (const model of projectUpdates) {
 		const entity = await mapModelToEntity(model);
 
-		// We can't make migratedId unique because it's nullable, and MSSQL doesn't allow nullable unique fields
+		// We can't make migratedId unique because it's nullable, and Prisma won't allow us to create a nullable unique index in MSSQL
+		// In MSSQL, this can only be achieved with a filtered index (where column is not null)
 		// Since it can't be unique, we can't use upsert - so we have to deal with this manually
 		const existingUpdate = await databaseConnector.projectUpdate.findFirst({
 			where: { migratedId: entity.migratedId },
@@ -61,11 +54,45 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	// Broadcast all updates
 	console.info(`Broadcasting updates for ${updatesToBroadcast.length} entities`);
 
-	const events = updatesToBroadcast.map(({ updatedEntity, caseReference }) =>
-		buildProjectUpdatePayload(updatedEntity, caseReference)
-	);
+	const { publishEvents, updateEvents } = buildEventPayloads(updatesToBroadcast);
 
-	await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, 'Update');
+	// We're only migrating published project updates, so publish everything
+	if (publishEvents.length > 0) {
+		await sendChunkedEvents(NSIP_PROJECT_UPDATE, publishEvents, EventType.Publish);
+	}
+
+	if (updateEvents.length > 0) {
+		await sendChunkedEvents(NSIP_PROJECT_UPDATE, updateEvents, EventType.Update);
+	}
+};
+
+/**
+ * @typedef {Object} EventsToBroadcast
+ * @property {NSIPProjectUpdate[]} publishEvents
+ * @property {NSIPProjectUpdate[]} updateEvents
+ */
+
+/**
+ *
+ * @param {UpdateToBroadcast[]} updatesToBroadcast
+ *
+ * @returns {EventsToBroadcast} eventsToBroadcast
+ */
+const buildEventPayloads = (updatesToBroadcast) => {
+	return updatesToBroadcast.reduce(
+		(/** @type {EventsToBroadcast} */ events, { updatedEntity, caseReference }) => {
+			const payload = buildProjectUpdatePayload(updatedEntity, caseReference);
+
+			if (updatedEntity.status === 'published') {
+				events.publishEvents.push(payload);
+			} else {
+				events.updateEvents.push(payload);
+			}
+
+			return events;
+		},
+		{ publishEvents: [], updateEvents: [] }
+	);
 };
 
 /**
@@ -75,110 +102,64 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
  * @returns {Promise<import('@prisma/client').ProjectUpdate>} projectUpdate
  */
 const mapModelToEntity = async (m) => {
-	const caseId = await getOrCreateCaseId(m);
+	const caseId = await getOrCreateMinimalCaseId(m);
 
 	return {
 		migratedId: m.id,
 		caseId,
 		...(m.updateDate && {
 			dateCreated: new Date(m.updateDate),
-			datePublished: new Date(m.updateDate)
+			datePublished: m.updateStatus === 'published' ? new Date(m.updateDate) : null
 		}),
 		// sentToSubscribers flag will prevent the azure function from re-sending emails
-		sentToSubscribers: true,
+		sentToSubscribers: m.updateStatus === 'published',
 		emailSubscribers: true,
 		status: m.updateStatus,
 		// @ts-ignore
 		title: m.updateName,
-		htmlContent: sanitizeHtml(m.updateContentEnglish, {
-			allowedTags,
-			allowedAttributes: {
-				a: ['href']
-			},
-			allowedSchemes: ['https']
-		})
-		// TODO: Do we also need to migrate update type?
+		htmlContent: prepareAndSanitizeHtml(m.updateContentEnglish)
 	};
 };
 
-const caseRefToId = new Map();
+const cr = '\r';
+const lf = '\n';
+
+const crlf = cr + lf;
+
+const breakElement = '<br />';
+
+const http = 'http://';
+
+const https = 'https://';
 
 /**
- * @param {NSIPProjectUpdateCaseData} projectUpdate
+ * The HTML editor only supports break elements, but the migrated wordpress data comes over using carriage returns and line break control characters.
+ * Replace these manually to make the content compatible with the editor.
  *
- * @returns {Promise<number>} caseId
+ * There are also 'http' links in some of the updates which will be stripped by the sanitiser. We can manually covert these to https before migrating.
+ *
+ * @param {string} html
+ *
+ * @returns {string} sanitizedHtml
  */
-const getOrCreateCaseId = async ({
-	caseReference: reference,
-	caseName: title,
-	caseDescription: description,
-	caseStage
-}) => {
-	const existingCaseId = caseRefToId.get(reference);
-
-	if (existingCaseId) {
-		return existingCaseId;
+const prepareAndSanitizeHtml = (html) => {
+	if (!html) {
+		// Support empty content by returning
+		return html;
 	}
 
-	// Check if the case exists in the database
-	let existingCase = await databaseConnector.case.findFirst({
-		where: { reference },
-		select: {
-			id: true
-		}
+	const htmlWithLineBreaks = html
+		.replaceAll(crlf, breakElement)
+		.replaceAll(cr, breakElement)
+		.replaceAll(lf, breakElement);
+
+	const htmlWithHttpReplaced = htmlWithLineBreaks.replaceAll(http, https);
+
+	return sanitizeHtml(htmlWithHttpReplaced, {
+		allowedTags,
+		allowedAttributes: {
+			a: ['href']
+		},
+		allowedSchemes: ['https']
 	});
-
-	if (!existingCase) {
-		// We're only creating (and not upserting) cases because upserts could be dangerous.
-		// The stage is likely to change, but if we actually migrate nsip-project entities and re-run this job we would be in trouble
-		const subSectorId = await getSubSectorIdFromReference(reference);
-
-		const caseEntity = {
-			reference,
-			title,
-			description,
-			ApplicationDetails: {
-				create: {
-					subSector: {
-						connect: { id: subSectorId }
-					}
-				}
-			},
-			CaseStatus: {
-				create: { status: caseStage }
-			}
-		};
-
-		existingCase = await databaseConnector.case.create({ data: caseEntity });
-	}
-
-	caseRefToId.set(reference, existingCase.id);
-
-	return existingCase.id;
-};
-
-/**
- *
- * @param {string} reference
- *
- * @returns {Promise<number>} subSectorId
- */
-const getSubSectorIdFromReference = async (reference) => {
-	const abbreviation = reference?.slice(0, 4);
-
-	if (!abbreviation) {
-		throw Error(`Unable to determine sub sector for reference ${reference}`);
-	}
-
-	const subSector = await databaseConnector.subSector.findUnique({
-		where: {
-			abbreviation
-		}
-	});
-
-	if (!subSector) {
-		throw Error(`No subsector found for abbreviation ${abbreviation}`);
-	}
-
-	return subSector.id;
 };

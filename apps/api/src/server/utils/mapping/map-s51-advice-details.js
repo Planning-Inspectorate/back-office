@@ -11,7 +11,7 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  * @param { number } adviceRef
  * @returns {string}
  */
-const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
+export const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
 	return `${caseRef}-Advice-` + String(adviceRef).padStart(5, '0');
 };
 
@@ -43,6 +43,9 @@ export const mapS51Advice = (caseRef, s51Advice, attachments) => {
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
 		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString()),
 		attachments,
+		datePublished: s51Advice?.datePublished
+			? mapDateStringToUnixTimestamp(s51Advice?.datePublished?.toString())
+			: null,
 		totalAttachments: attachments?.length
 	};
 };

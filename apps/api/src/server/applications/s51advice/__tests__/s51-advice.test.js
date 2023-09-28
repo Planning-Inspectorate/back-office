@@ -82,12 +82,13 @@ const s51AdvicesOnCase1 = [
 		adviceDetails: 'good advice',
 		publishedStatus: 'not_checked',
 		redactedStatus: 'not_redacted',
+		isDeleted: false,
 		createdAt: '2023-01-01T00:00:00.000Z',
 		updatedAt: '2023-01-01T00:00:00.000Z'
 	}
 ];
 
-const s51AdvicesReadyToPublish= [
+const s51AdvicesReadyToPublish = [
 	{
 		caseId: 1,
 		id: 1,
@@ -113,7 +114,7 @@ const s51AdvicesReadyToPublish= [
 const s51AdviceDocuments = [
 	{
 		id: 1,
-		adviceId: 5,
+		adviceId: 1,
 		documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
 		Document: {
 			guid: '458a2020-cafd-4885-a78c-1c13735e1aac',
@@ -217,7 +218,8 @@ describe('Test S51 advice API', () => {
 			redactedStatus: '',
 			referenceCode: 'undefined-Advice-00001',
 			referenceNumber: '00001',
-			title: 'A title'
+			title: 'A title',
+			datePublished: null
 		});
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 	});
@@ -259,7 +261,8 @@ describe('Test S51 advice API', () => {
 					publishedStatus: 'not_checked',
 					redactedStatus: 'not_redacted',
 					dateCreated: 1672531200,
-					dateUpdated: 1672531200
+					dateUpdated: 1672531200,
+					datePublished: null
 				}
 			]
 		});
@@ -284,9 +287,11 @@ describe('Test S51 advice API', () => {
 
 	test('getReadyToPublishAdvices returns s51 advice by that in ready to publish status', async () => {
 		databaseConnector.s51Advice.findMany.mockResolvedValue(s51AdvicesReadyToPublish);
-		databaseConnector.s51Advice.count.mockResolvedValue(1)
+		databaseConnector.s51Advice.count.mockResolvedValue(1);
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		const resp = await request.post('/applications/21/s51-advice/ready-to-publish').send({pageNumber: 1, pageSize: 125});
+		const resp = await request
+			.post('/applications/21/s51-advice/ready-to-publish')
+			.send({ pageNumber: 1, pageSize: 125 });
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.findMany).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.s51Advice.count).toHaveBeenCalledTimes(1);
@@ -296,7 +301,9 @@ describe('Test S51 advice API', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdvicesOnCase1);
 		databaseConnector.s51Advice.update.mockResolvedValue(s51AdvicesOnCase1);
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		const resp = await request.post('/applications/21/s51-advice/remove-queue-item').send({adviceId : 1});
+		const resp = await request
+			.post('/applications/21/s51-advice/remove-queue-item')
+			.send({ adviceId: 1 });
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledTimes(1);
@@ -328,5 +335,53 @@ describe('Test S51 advice API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 		const resp = await request.head('/applications/999/s51-advice/title-unique/Advice 1').send();
 		expect(resp.status).toEqual(404);
+	});
+
+	test('DELETE S51 Advice successfully soft-deletes', async () => {
+		const validBeforeDelete = { ...s51AdvicesOnCase1[0], isDeleted: false };
+		const validDeletedResponse = { ...validBeforeDelete, isDeleted: true };
+
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(validBeforeDelete);
+		databaseConnector.s51Advice.update.mockResolvedValue(validDeletedResponse);
+		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue(s51AdviceDocuments);
+
+		const response = await request.delete('/applications/1/s51-advice/1').send();
+		expect(response.status).toEqual(200);
+		expect(response.body.isDeleted).toEqual(true);
+	});
+
+	test('DELETE S51 Advice throws error 404 if case id is invalid', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+
+		const response = await request.delete('/applications/1/s51-advice/1').send();
+		expect(response.status).toEqual(404);
+		expect(response.body).toEqual({
+			errors: { id: 'Must be an existing application' }
+		});
+	});
+
+	test('DELETE S51 Advice throws error 400 if advice id is invalid', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(null);
+
+		const response = await request.delete('/applications/1/s51-advice/999').send();
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: { adviceId: 'Must be an existing S51 advice item' }
+		});
+	});
+
+	test('DELETE S51 Advice throws error 400 if advice is published', async () => {
+		const validBeforeDelete = { ...s51AdvicesOnCase1[0], publishedStatus: 'published' };
+
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.s51Advice.findUnique.mockResolvedValue(validBeforeDelete);
+
+		const response = await request.delete('/applications/999/s51-advice/1').send();
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: { adviceId: 'You must first unpublish S51 advice before deleting it.' }
+		});
 	});
 });

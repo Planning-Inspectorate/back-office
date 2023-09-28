@@ -174,3 +174,8 @@ export interface S51Advice {
 	dateUpdated: number;
 	attachments: S51Attachment[];
 }
+
+export interface CaseStage {
+	name: string;
+	displayNameEn: string;
+}

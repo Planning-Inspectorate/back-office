@@ -7,7 +7,6 @@ COPY packages ./packages
 COPY appeals/api appeals/api
 ENV NODE_ENV=production
 RUN npm ci
-COPY appeals/api/.env.development ./.env
 
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/openapi.json

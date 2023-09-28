@@ -22,6 +22,7 @@ import { appellantCaseValidationOutcomesRoutes } from './appellant-case-validati
 import { appellantsRoutes } from './appellants/appellants.routes.js';
 import { addressesRoutes } from './addresses/addresses.routes.js';
 import { appealTimetablesRoutes } from './appeal-timetables/appeal-timetables.routes.js';
+import { documentRedactionStatusesRoutes } from './document-redaction-statuses/document-redaction-statuses.routes.js';
 
 const router = createRouter();
 
@@ -36,6 +37,7 @@ router.use(appellantCasesRoutes);
 router.use(appellantCaseValidationOutcomesRoutes);
 router.use(appellantsRoutes);
 router.use(designatedSitesRoutes);
+router.use(documentRedactionStatusesRoutes);
 router.use(documentsRoutes);
 router.use(integrationsRoutes);
 router.use(knowledgeOfOtherLandownersRoutes);

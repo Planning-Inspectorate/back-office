@@ -7,7 +7,8 @@ import {
 	getFolderIdValidator,
 	getDocumentIdValidator,
 	getDocumentValidator,
-	getDocumentsValidator
+	getDocumentsValidator,
+	patchDocumentsValidator
 } from './documents.validators.js';
 import * as controller from './documents.controller.js';
 
@@ -102,6 +103,30 @@ router.post(
 	validateDocumentAndAddToRequest,
 	getDocumentValidator,
 	asyncHandler(controller.addDocumentVersion)
+);
+
+router.patch(
+	'/:appealId/documents',
+	/*
+		#swagger.tags = ['Documents']
+		#swagger.path = '/appeals/{appealId}/documents'
+		#swagger.description = Updates multiple documents
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Documents to update',
+			schema: { $ref: '#/definitions/UpdateDocumentsRequest' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Documents to update',
+			schema: { $ref: '#/definitions/UpdateDocumentsResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	patchDocumentsValidator,
+	checkAppealExistsAndAddToRequest,
+	asyncHandler(controller.updateDocuments)
 );
 
 export { router as documentsRoutes };

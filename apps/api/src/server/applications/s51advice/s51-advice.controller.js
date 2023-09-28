@@ -1,4 +1,7 @@
 import { pick } from 'lodash-es';
+import { EventType } from '@pins/event-client';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
 import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -10,13 +13,18 @@ import {
 } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
 import {
+	checkCanPublish,
 	extractDuplicates,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
-	getS51AdviceDocuments
+	getS51AdviceDocuments,
+	performStatusChangeChecks,
+	publishS51Items
 } from './s51-advice.service.js';
+import { buildNsipS51AdvicePayload } from './s51-advice.js';
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import * as caseRepository from '../../repositories/case.repository.js';
+import * as documentRepository from '../../repositories/document.repository.js';
 import {
 	makeDocumentReference,
 	obtainURLsForDocuments
@@ -37,7 +45,7 @@ export const createS51Advice = async (_request, response) => {
 	const { body } = _request;
 	const { caseId } = body;
 
-	const latestReferenceNumber = await s51AdviceRepository.getS51AdviceCountOnCase(caseId);
+	const latestReferenceNumber = await s51AdviceRepository.getS51AdviceCountOnCase(caseId, true);
 	const newReferenceNumber = latestReferenceNumber + 1;
 
 	const payload = { ...body, referenceNumber: newReferenceNumber };
@@ -62,10 +70,7 @@ export const getS51Advice = async (_request, response) => {
 	const s51Advice = await s51AdviceRepository.get(Number(adviceId));
 
 	if (!s51Advice) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
 	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
@@ -104,7 +109,7 @@ export const getS51Advice = async (_request, response) => {
 /**
  * Gets paginated array of S51 Advice records on a case
  *
- * @type {import('express').RequestHandler<{ id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ * @type {import('express').RequestHandler<{ id: number }, ?, {page?: number, pageSize?: number}, any>}
  */
 export const getManyS51Advices = async ({ params, query }, response) => {
 	const { id } = params;
@@ -153,7 +158,6 @@ export const addDocuments = async ({ params, body }, response) => {
 	});
 
 	if (!theCase?.reference) {
-		// @ts-ignore
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
@@ -226,45 +230,18 @@ export const updateS51Advice = async ({ body, params }, response) => {
 	const payload = body[''];
 
 	if (payload.publishedStatus === 'ready_to_publish') {
-		try {
-			await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
-		} catch (err) {
-			logger.info(
-				`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`
-			);
-			throw new BackOfficeAppError(
-				`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
-				400
-			);
-		}
-
-		try {
-			await verifyAllS51DocumentsAreVirusChecked(adviceId);
-		} catch (err) {
-			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
-			throw new BackOfficeAppError(
-				`There are attachments which have failed the virus check.\nReturn to the S51 advice properties screen to delete files.`,
-				400
-			);
-		}
+		await checkCanPublish(adviceId);
 	}
 
-	const publishedAdvices = await hasPublishedAdvice([adviceId]);
-	if (publishedAdvices) {
-		logger.info(`Can not change status, advice is already published for adviceId: ${adviceId}`);
-		throw new BackOfficeAppError(
-			`You must first unpublish S51 advice before changing the status.`,
-			400
-		);
-	}
+	if (payload.publishedStatus && payload.publishedStatus !== 'unpublished') {
+		await performStatusChangeChecks(adviceId);
 
-	const publishedDocuments = await hasPublishedDocument([adviceId]);
-	if (publishedDocuments) {
-		logger.info(`Can not change status, advice has published documents as attachment: ${adviceId}`);
-		throw new BackOfficeAppError(
-			`You must first unpublish documents before changing the status.`,
-			400
-		);
+		const advice = await s51AdviceRepository.get(adviceId);
+		if (!advice) {
+			throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
+		}
+
+		payload.publishedStatusPrev = advice.publishedStatus;
 	}
 
 	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
@@ -406,7 +383,9 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 	const adviceCount = await s51AdviceRepository.getS51AdviceCountInByPublishStatus(caseId);
 
 	// @ts-ignore
-	const items = paginatedAdviceToPublish.map(advice => mapS51Advice(caseId, advice, advice.S51AdviceDocument));
+	const items = paginatedAdviceToPublish.map((advice) =>
+		mapS51Advice(caseId, advice, advice.S51AdviceDocument)
+	);
 
 	response.send({
 		page: pageNumber,
@@ -428,16 +407,15 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 
 	const s51Advice = await s51AdviceRepository.get(adviceId);
 	if (!s51Advice) {
-		// @ts-ignore
-		return response
-			.status(404)
-			.json({ errors: { message: `S51 advice with id: ${adviceId} not found.` } });
+		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
 	}
 
-	const updatedS51Advice = await s51AdviceRepository.update(adviceId, { publishedStatus: s51Advice.publishedStatusPrev });
+	const updatedS51Advice = await s51AdviceRepository.update(adviceId, {
+		publishedStatus: s51Advice.publishedStatusPrev
+	});
 
 	response.send(updatedS51Advice);
-}
+};
 
 /**
  * Checks whether passed s51 title is unique to this case. Test is case-insensitive, and search string is trimmed.
@@ -453,4 +431,108 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 	}
 
 	response.send({ title: title.trim() });
+};
+
+/**
+ *
+ * @type {import('express').RequestHandler<{ id: string }, ?, {selectAll?: boolean, ids: string[]}>}
+ * */
+export const publishQueueItems = async ({ params: { id }, body }, response) => {
+	const caseId = Number(id);
+
+	if (!(body.selectAll || body.ids)) {
+		throw new BackOfficeAppError('`selectAll` or `ids` must be specified in request body');
+	}
+
+	if (body.selectAll) {
+		await s51AdviceRepository.updateForCase(caseId, {
+			publishedStatus: 'published',
+			datePublished: new Date()
+		});
+		response.status(200).end();
+		return;
+	}
+
+	const { fulfilled, errors } = await publishS51Items(body.ids.map(Number));
+
+	if (errors.length === body.ids.length) {
+		throw new BackOfficeAppError(`publishQueueItems failed with errors:\n${errors.join('\n')}`);
+	}
+
+	for (const f of fulfilled) {
+		const docs = await s51AdviceDocumentRepository.getForAdvice(f.id);
+		f.S51AdviceDocument = docs;
+	}
+
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[fulfilled.map(buildNsipS51AdvicePayload)],
+		EventType.Publish
+	);
+
+	if (errors.length > 0) {
+		response.status(206).send({
+			results: fulfilled,
+			errors
+		});
+
+		return;
+	}
+
+	response.status(200).send({ results: fulfilled });
+};
+
+/**
+ * Soft-deletes an S51 Advice
+ * @type {import('express').RequestHandler<{ adviceId: string }, ?, ?>}
+ */
+export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
+	let s51Advice;
+	try {
+		s51Advice = await s51AdviceRepository.deleteSoftlyById(+adviceId);
+
+		// and need to mark any associated documents as deleted too
+		const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
+		const docGuids = attachments.map(({ documentGuid }) => documentGuid);
+		for (const guid of docGuids) {
+			await documentRepository.deleteDocument(guid);
+		}
+	} catch (error) {
+		throw new BackOfficeAppError(`Unknown error: ${error}`, 400);
+	}
+
+	response.send(s51Advice);
+};
+
+/**
+ * Unpublish S51 advice item
+ *
+ * @type {import('express').RequestHandler<{adviceId: number}, any, any, any>}
+ */
+export const unpublishS51Advice = async ({ body, params }, response) => {
+	const adviceId = params.adviceId;
+	const payload = body[''];
+
+	const advice = await s51AdviceRepository.get(adviceId);
+	if (!advice) {
+		throw new BackOfficeAppError(`no S51 advice found with id ${adviceId}`, 404);
+	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(adviceId, {
+		publishedStatus: 'not_checked',
+		publishedStatusPrev: advice.publishedStatus
+	});
+
+	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
+	// @ts-ignore
+	advice.S51AdviceDocument = docs;
+	payload.publishedStatusPrev = advice.publishedStatus;
+
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[buildNsipS51AdvicePayload(advice)],
+		EventType.Publish
+	);
+
+	response.send(updateResponseInTable);
 };

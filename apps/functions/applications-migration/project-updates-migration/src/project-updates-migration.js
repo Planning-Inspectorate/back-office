@@ -19,27 +19,39 @@ const sequelize = new Sequelize(database, username, password, {
  * @param {string[]} caseReferences
  */
 export const migrateProjectUpdates = async (log, caseReferences) => {
-	try {
-		log.info(`Migrating ${caseReferences.length} CASES`);
+	log.info(`Migrating ${caseReferences.length} Cases`);
 
-		for (const caseReference of caseReferences) {
-			log.info(`Migrating project updates for case ${caseReference}`);
+	for (const caseReference of caseReferences) {
+		try {
+			log.info(`Migrating project updates and subscriptions for case ${caseReference}`);
 
 			const updates = await getProjectUpdates(log, caseReference);
 
-			log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
+			if (updates.length > 0) {
+				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-project-update', updates);
+				await makePostRequest(log, '/migration/nsip-project-update', updates);
 
-			log.info('Successfully migrated project updates');
+				log.info('Successfully migrated project updates');
+			} else {
+				log.warn(`No updates found for case ${caseReference}`);
+			}
 
 			const subscriptions = await getProjectSubscriptions(log, caseReference);
 
-			// TODO: Post them to the migration endpoint
-			log.info('subscriptions', JSON.stringify(subscriptions));
+			if (subscriptions.length > 0) {
+				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
+
+				await makePostRequest(log, '/migration/nsip-subscription', subscriptions);
+
+				log.info('Successfully migrated subscriptions');
+			} else {
+				log.warn(`No subscriptions found for case ${caseReference}`);
+			}
+		} catch (e) {
+			log.error(`Failed to migrate project updates for case ${caseReference}`, e);
+			throw e;
 		}
-	} catch (e) {
-		log.error(e);
 	}
 };
 
@@ -56,17 +68,13 @@ const getProjectUpdates = async (log, caseReference) => {
 
 	updates.forEach((update) => {
 		// @ts-ignore
-		const caseStage = projectStages[update.caseStage];
+		update.caseStage = getCaseStageFromId(update.caseStage);
 
-		if (!caseStage) {
+		// @ts-ignore
+		if (update.updateStatus === 'publish') {
 			// @ts-ignore
-			throw Error(`caseStage ${update.caseStage} invalid for update ${update.id}`);
+			update.updateStatus = 'published';
 		}
-
-		// @ts-ignore
-		update.caseStage = caseStage;
-		// @ts-ignore
-		update.updateStatus = 'published';
 	});
 
 	return updates;
@@ -84,6 +92,9 @@ const getProjectSubscriptions = async (log, caseReference) => {
 
 	subscribers.forEach((subscription) => {
 		// @ts-ignore
+		subscription.caseStage = getCaseStageFromId(subscription.caseStage);
+
+		// @ts-ignore
 		const subscriptionType = subscriptionTypes[subscription.subscriptionType];
 
 		if (!subscriptionType) {
@@ -99,6 +110,24 @@ const getProjectSubscriptions = async (log, caseReference) => {
 	});
 
 	return subscribers;
+};
+
+/**
+ * @param {number} caseStageId
+ *
+ * @returns {string} caseStage
+ */
+const getCaseStageFromId = (caseStageId) => {
+	// @ts-ignore
+	const caseStage = projectStages[caseStageId];
+
+	if (!caseStage) {
+		// @ts-ignore
+		throw Error(`caseStage ${caseStageId} invalid`);
+	}
+
+	// @ts-ignore
+	return caseStage;
 };
 
 const projectStages = {
@@ -124,6 +153,7 @@ const getUpdatesQuery = `SELECT p.id,
        p.post_date      AS updateDate,
        p.post_title     AS updateName,
        p.post_content   AS updateContentEnglish,
+       p.post_status    AS updateStatus,
        -- Additional columns we need to migrate to create cases
        pr.projectname   AS caseName,
        pr.summary       AS caseDescription,
@@ -133,17 +163,22 @@ FROM   ipclive.wp_posts p
        INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
        INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.NAME, 8) = pr.casereference
 WHERE  p.post_type = 'ipc_project_update'
-       AND p.post_status = 'publish'
+       AND p.post_status IN( 'publish', 'draft' )
        AND pr.casereference = ?
+GROUP BY id
 ORDER  BY post_date DESC;`;
 
 const getSubscriptionsQuery = `SELECT sc.subscription_id   AS subscriptionId,
-s.case_reference     AS caseReference,
-s.useremail          AS emailAddress,
-sc.subscription_type AS subscriptionType,
-sc.subscription_date AS startDate
+       s.case_reference     AS caseReference,
+       s.useremail          AS emailAddress,
+       sc.subscription_type AS subscriptionType,
+       sc.subscription_date AS startDate,
+       -- Additional columns we need to migrate to create cases
+       pr.projectname   AS caseName,
+       pr.summary       AS caseDescription,
+       pr.stage         AS caseStage
 FROM   ipclive.wp_ipc_subscribers s
-INNER JOIN ipclive.wp_ipc_subscriptions sc
-		ON s.user_id = sc.user_id
+       INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
+       INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
 WHERE  verified = 1
 AND s.case_reference = ?;`;

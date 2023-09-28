@@ -50,8 +50,8 @@ export class ProjectUpdate {
 		return Object.freeze({
 			general: 'general',
 			applicationSubmitted: 'applicationSubmitted',
-			applicationDecided: 'applicationDecided',
-			registrationOpen: 'registrationOpen'
+			registrationOpen: 'registrationOpen',
+			applicationDecided: 'applicationDecided'
 		});
 	}
 

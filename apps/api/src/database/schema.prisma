@@ -12,24 +12,25 @@ datasource db {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                   Int                   @id @default(autoincrement())
-  reference            String?
-  modifiedAt           DateTime              @default(now())
-  createdAt            DateTime              @default(now())
-  description          String?
-  publishedAt          DateTime?
-  title                String?
-  ApplicationDetails   ApplicationDetails?
-  CaseStatus           CaseStatus[]
-  folder               Folder[]
-  gridReference        GridReference?
-  serviceCustomer      ServiceCustomer[]
-  Representation       Representation[]
-  document             Document[]
-  Subscriptions        Subscription[]
-  ExaminationTimetable ExaminationTimetable?
-  ProjectUpdate        ProjectUpdate[]
-  S51Advice            S51Advice[]
+  id                    Int                   @id @default(autoincrement())
+  reference             String?
+  modifiedAt            DateTime              @default(now())
+  createdAt             DateTime              @default(now())
+  description           String?
+  publishedAt           DateTime?
+  title                 String?
+  hasUnpublishedChanges Boolean               @default(false)
+  ApplicationDetails    ApplicationDetails?
+  CaseStatus            CaseStatus[]
+  folder                Folder[]
+  gridReference         GridReference?
+  serviceCustomer       ServiceCustomer[]
+  Representation        Representation[]
+  document              Document[]
+  Subscriptions         Subscription[]
+  ExaminationTimetable  ExaminationTimetable?
+  ProjectUpdate         ProjectUpdate[]
+  S51Advice             S51Advice[]
 }
 
 /// ServiceCustomer model
@@ -388,6 +389,7 @@ model ExaminationTimetableItem {
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
   ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
   Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+  createdAt                DateTime                 @default(now())
 }
 
 // Subscription represents a subscriber interested in project updates for a case
@@ -395,9 +397,12 @@ model ExaminationTimetableItem {
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
   id            Int    @id @default(autoincrement())
+  // The ID of the project update in the NI Database
+  migratedId    Int?
   emailAddress  String
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
+  // TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
   caseReference String
 
   // what has been subscribed to
@@ -456,9 +461,9 @@ model ProjectUpdate {
   title             String?
   // the content of this project update, which can include HTML and must be santised before entry into the database
   // it can only include <a> <b> <ul> <li> tags
-  htmlContent       String
+  htmlContent       String    @db.VarChar(8000)
   // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
-  htmlContentWelsh  String?
+  htmlContentWelsh  String?   @db.VarChar(8000)
   // the type of update - which determines which subscribers will recieve the notification emails
   // of type SubscriptionType
   type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
@@ -507,6 +512,8 @@ model S51Advice {
   redactedStatus      String?
   publishedStatus     String              @default("not_checked")
   publishedStatusPrev String?
+  datePublished       DateTime?
+  isDeleted           Boolean             @default(false)
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @default(now())
   case                Case                @relation(fields: [caseId], references: [id])

@@ -263,18 +263,33 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-3\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"Exam library\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-3\\">Exam library</label>
+                    type=\\"radio\\" value=\\"Event recording\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-3\\">Event recording</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-4\\" name=\\"documentType\\"
-                    type=\\"radio\\" value=\\"Rule 8 letter\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-4\\">Rule 8 letter</label>
+                    type=\\"radio\\" value=\\"Event recording transcript\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-4\\">Event recording transcript</label>
                 </div>
                 <div class=\\"govuk-radios__item\\">
                     <input class=\\"govuk-radios__input\\" id=\\"documentType-5\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"Exam library\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-5\\">Exam library</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType-6\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"Rule 6 letter\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-6\\">Rule 6 letter</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType-7\\" name=\\"documentType\\"
+                    type=\\"radio\\" value=\\"Rule 8 letter\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-7\\">Rule 8 letter</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"documentType-8\\" name=\\"documentType\\"
                     type=\\"radio\\" value=\\"\\" checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-5\\">No document type</label>
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"documentType-8\\">No document type</label>
                 </div>
             </div>
         </div>

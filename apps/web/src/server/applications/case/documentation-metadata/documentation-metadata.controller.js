@@ -86,8 +86,20 @@ const layouts = {
 				text: 'DCO decision letter (SoS)(refuse)'
 			},
 			{
+				value: 'Event recording',
+				text: 'Event recording'
+			},
+			{
+				value: 'Event recording transcript',
+				text: 'Event recording transcript'
+			},
+			{
 				value: 'Exam library',
 				text: 'Exam library'
+			},
+			{
+				value: 'Rule 6 letter',
+				text: 'Rule 6 letter'
 			},
 			{
 				value: 'Rule 8 letter',

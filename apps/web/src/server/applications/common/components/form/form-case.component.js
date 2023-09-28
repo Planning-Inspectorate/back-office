@@ -1,16 +1,19 @@
 import { bodyToPayload } from '../../../../lib/body-formatter.js';
 import { createCase, getCase, updateCase } from '../../services/case.service.js';
 import {
+	getAllCaseStages,
 	getAllRegions,
 	getAllSectors,
 	getAllZoomLevels,
 	getSubSectorsBySectorName
 } from '../../services/entities.service.js';
 import { getSessionCaseSectorName } from '../../services/session.service.js';
+import { camelToSnake } from '../../../../lib/camel-to-snake.js';
 
 /** @typedef {import('../../../applications.types').Region} Region */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseStageProps} ApplicationsCreateCaseStageProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
@@ -29,6 +32,67 @@ export async function caseNameAndDescriptionData(request, locals) {
 	const { title, description } = currentCase;
 
 	return { values: { title, description } };
+}
+
+/**
+ * Format stage property for stage edit page
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<ApplicationsCreateCaseStageProps>}
+ * */
+export async function caseStageData(request, locals) {
+	/** @type {{name: string, displayNameEn: string}[]} */
+	const allStages = await (async () => {
+		try {
+			return (await getAllCaseStages()) ?? [];
+		} catch (err) {
+			console.error(`error fetching case stages: ${err}`);
+			return [];
+		}
+	})();
+
+	const stages = allStages.filter((stage) => stage.name !== 'draft');
+
+	const { currentCase } = locals || {};
+	const { status } = currentCase;
+
+	return { values: { stage: camelToSnake(status) }, stages };
+}
+
+/**
+ * Perform update for case stage
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<{properties: ApplicationsCreateCaseStageProps, updatedCaseId?: number| null}>}
+ */
+export async function caseStageDataUpdate({ errors: validationErrors, body, session }, locals) {
+	const { caseId } = locals;
+	const { stage } = body;
+	const payload = bodyToPayload(body);
+	const action = caseId ? () => updateCase(caseId, payload) : () => createCase(payload, session);
+
+	const { errors: apiErrors, id: updatedCaseId } = validationErrors
+		? { id: null, errors: validationErrors }
+		: await action();
+
+	const allStages = await (async () => {
+		try {
+			return (await getAllCaseStages()) ?? [];
+		} catch (err) {
+			console.error(`error fetching case stages: ${err}`);
+			return [];
+		}
+	})();
+
+	const properties = {
+		values: { stage },
+		errors: validationErrors || apiErrors,
+		stages: allStages
+	};
+
+	return { properties, updatedCaseId };
 }
 
 /**

@@ -33,11 +33,14 @@
 				{% endif %}
 				</a>
 			{% endif %}
-			{% if republishStatus %}
-				<p class="govuk-body-s govuk-!-margin-top-6 font-weight--700 colour--red">Republish the examination timetable to view changes on the website</p>
-			{% endif %}
 		</div>
 	</div>
+
+  {% if republishStatus %}
+    <div class="govuk-!-margin-top-6">
+      <strong class="font-weight--700 colour--red">Republish the exam timetable to view changes on the website</strong>
+    </div>
+  {% endif %}
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 

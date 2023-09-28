@@ -7,6 +7,7 @@
 {% from "./case/grid-references.njk" import gridReferences %}
 {% from "./case/project-location.njk" import projectLocation %}
 {% from "./case/sector.njk" import sector %}
+{% from "./case/stage.njk" import stage %}
 {% from "./case/sub-sector.njk" import subSector %}
 {% from "./case/regions.njk" import regions %}
 {% from "./case/zoom-level.njk" import zoomLevel %}
@@ -80,6 +81,8 @@
 		{{ subSector(values, errors, subSectors) }}
 		{% elif componentName == 'regions' %}
 		{{ regions(allRegions, errors) }}
+    {% elif componentName == 'stage' %}
+    {{ stage(values, errors, stages) }}
 		{% elif componentName == 'zoom-level' %}
 		{{ zoomLevel(values, errors, zoomLevels) }}
 		{% elif componentName == 'team-email' %}

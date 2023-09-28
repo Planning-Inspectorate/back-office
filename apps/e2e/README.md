@@ -2,7 +2,7 @@
 
 To run the tests, you can run `npm run e2e` from the root, or `npm run e2e:open` to run in interactive mode. 
 
-You can also run `npm run cy:run` and `npm run cy:open` to run in interactive mode from the e2e-testing directory.
+You can also run `npm run cy:run` and `npm run cy:open` to run in interactive mode from the e2e-testing - `/back-office/apps/e2e`` directory.
 
 ## Environment Variables
 

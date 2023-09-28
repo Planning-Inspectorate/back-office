@@ -26,6 +26,7 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
+ *  caseStatus?: { status: string },
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
@@ -40,12 +41,14 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
+ *  caseStatus?: { status: import('@pins/applications').ApplicationStageType},
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
  *  publishedAt?: Date,
- *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} UpdateApplicationParams
+ *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
+ *  hasUnpublishedChanges?: boolean}} UpdateApplicationParams
  */
 
 /**
@@ -228,11 +231,13 @@ const updateApplicationSansRegionsRemoval = ({
 	caseDetails,
 	gridReference,
 	applicationDetails,
+	caseStatus,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	hasUnpublishedChanges
 }) => {
 	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
 		return { region: { connect: { name: regionName } } };
@@ -298,7 +303,16 @@ const updateApplicationSansRegionsRemoval = ({
 							})
 						}
 					}
-				})
+				}),
+			...(caseStatus && {
+				CaseStatus: {
+					updateMany: {
+						data: caseStatus,
+						where: { caseId }
+					}
+				}
+			}),
+			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
 		},
 		include: {
 			serviceCustomer: true
@@ -316,11 +330,13 @@ export const updateApplication = async ({
 	caseDetails,
 	gridReference,
 	applicationDetails,
+	caseStatus,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
 	applicant,
-	applicantAddress
+	applicantAddress,
+	hasUnpublishedChanges
 }) => {
 	const transactions = [];
 
@@ -342,11 +358,13 @@ export const updateApplication = async ({
 			caseDetails,
 			gridReference,
 			applicationDetails,
+			caseStatus,
 			subSectorName,
 			regionNames,
 			mapZoomLevelName,
 			applicant,
-			applicantAddress
+			applicantAddress,
+			hasUnpublishedChanges
 		})
 	);
 
@@ -367,13 +385,14 @@ export const updateApplication = async ({
 
 /**
  * @param {UpdateApplicationParams} caseInfo
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
+ * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
  */
 export const publishCase = async ({ caseId }) => {
 	const publishedCase = await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
-			publishedAt: new Date()
+			publishedAt: new Date(),
+			hasUnpublishedChanges: false
 		}
 	});
 

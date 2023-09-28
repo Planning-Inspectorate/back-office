@@ -38,11 +38,11 @@ const householdAppeal = {
 	address: {
 		addressLine1: '96 The Avenue',
 		addressLine2: 'Leftfield',
-		country: 'United Kingdom',
-		county: 'Kent',
+		addressCountry: 'United Kingdom',
+		addressCounty: 'Kent',
 		id: 1,
 		postcode: 'MD21 5XY',
-		town: 'Maidstone'
+		addressTown: 'Maidstone'
 	},
 	appealTimetable: {
 		appealId: 1,
@@ -183,10 +183,10 @@ const householdAppeal = {
 					id: 1,
 					addressLine1: '44 Rivervale',
 					addressLine2: null,
-					town: 'Bridport',
+					addressTown: 'Bridport',
 					postcode: 'DT6 5RN',
-					county: null,
-					country: null
+					addressCounty: null,
+					addressCountry: null
 				}
 			}
 		],
@@ -424,6 +424,8 @@ const planningObligationStatuses = lookupListData;
 const procedureTypes = lookupListData;
 const scheduleTypes = lookupListData;
 const siteVisitTypes = lookupListData;
+const documentRedactionStatuses = lookupListData;
+const documentRedactionStatusIds = documentRedactionStatuses.map(({ id }) => id);
 
 const designatedSites = [
 	{
@@ -595,8 +597,8 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		addressId: appeal.address?.id,
 		addressLine1: appeal.address?.addressLine1,
 		addressLine2: appeal.address?.addressLine2,
-		town: appeal.address?.town,
-		county: appeal.address?.county,
+		town: appeal.address?.addressTown,
+		county: appeal.address?.addressCounty,
 		postCode: appeal.address?.postcode
 	},
 	appellantCaseId: appeal.appellantCase?.id,
@@ -672,10 +674,6 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		isPartiallyOwned: appeal.appellantCase?.isSitePartiallyOwned,
 		knowsOtherLandowners: appeal.appellantCase?.knowledgeOfOtherLandowners.name
 	},
-	siteVisit: {
-		siteVisitId: appeal.siteVisit?.id,
-		visitType: appeal.siteVisit?.siteVisitType.name
-	},
 	validation: formatValidationOutcomeResponse(
 		appeal.appellantCase?.appellantCaseValidationOutcome?.name,
 		appeal.appellantCase?.appellantCaseIncompleteReasonsOnAppellantCases,
@@ -711,6 +709,8 @@ export {
 	baseExpectedLPAQuestionnaireResponse,
 	designatedSites,
 	document,
+	documentRedactionStatuses,
+	documentRedactionStatusIds,
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,

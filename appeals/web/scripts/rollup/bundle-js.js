@@ -10,12 +10,12 @@ import fs from 'node:fs';
 import { rollup } from 'rollup';
 import iife from 'rollup-plugin-iife';
 import { visualizer } from 'rollup-plugin-visualizer';
-import config from '../../environment/config.js';
+import { loadBaseConfig } from '@pins/appeals.web/environment/base-config.js';
 import { getLogger } from './get-logger.js';
 import { minifySource } from './minify-js.js';
 import { buildVirtualJSON } from './rollup-plugin-virtual-json.js';
 
-const { buildDir, env, bundleAnalyzer, isProduction, isRelease } = config;
+const { buildDir, env, bundleAnalyzer, isProduction, isRelease } = loadBaseConfig();
 const logger = getLogger({ scope: 'JS' });
 
 process.on('unhandledRejection', (reason, p) => {

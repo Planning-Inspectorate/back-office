@@ -258,6 +258,10 @@
 								"keyDates": {
 									"type": "object",
 									"properties": {}
+								},
+								"hasUnpublishedChanges": {
+									"type": "boolean",
+									"example": false
 								}
 							},
 							"xml": {
@@ -912,6 +916,12 @@
 							"xml": {
 								"name": "main"
 							}
+						}
+					},
+					"400": {
+						"description": "Error: Bad Request",
+						"schema": {
+							"$ref": "#/definitions/GeneralError"
 						}
 					}
 				}
@@ -2839,7 +2849,7 @@
 					"200": {
 						"description": "Created S51 advice",
 						"schema": {
-							"$ref": "#/definitions/S51AdviceCreateResponseBody"
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
 						}
 					}
 				}
@@ -2867,9 +2877,134 @@
 				],
 				"responses": {
 					"200": {
-						"description": "List of examination timetable items",
+						"description": "An S51 Advice on a case",
 						"schema": {
-							"$ref": "#/definitions/S51AdviceResponseBody"
+							"$ref": "#/definitions/S51AdviceDetailsWithDocumentDetails"
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates redacted status and / or published status for a single S51 Advice on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Advice ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "S51 Advice update parameters",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The updated S51 Advice record",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Soft-deletes an S51 Advice by id, and any associated S51 Advice documents",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "S51 Advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "S51 Advice successfully soft-deleted",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"400": {
+						"description": "S51 Advice successfully soft-deleted",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"adviceId": {
+											"type": "string",
+											"example": "You must first unpublish S51 advice before deleting it."
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -2878,7 +3013,7 @@
 		"/applications/{id}/s51-advice": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets paginated array of S51 Advice(s) on a case",
+				"description": "Gets paginated array of undeleted S51 Advice(s) on a case",
 				"parameters": [
 					{
 						"name": "id",
@@ -2949,18 +3084,11 @@
 						"description": "Application ID"
 					},
 					{
-						"name": "adviceId",
-						"in": "path",
-						"description": "Advice ID",
-						"required": true,
-						"type": "integer"
-					},
-					{
 						"name": "body",
 						"in": "body",
 						"description": "S51 Advice update parameters",
 						"schema": {
-							"$ref": "#/definitions/S51AdviceUpdateRequestBody"
+							"$ref": "#/definitions/S51AdviceMultipleUpdateRequestBody"
 						},
 						"required": true
 					}
@@ -2969,7 +3097,13 @@
 					"200": {
 						"description": "S51 Advice(s) that have been updated",
 						"schema": {
-							"$ref": "#/definitions/S51AdviceCreateResponseBody"
+							"$ref": "#/definitions/S51AdviceMultipleUpdateResponseBody"
+						}
+					},
+					"400": {
+						"description": "Error: Bad Request",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceUpdateBadRequest"
 						}
 					},
 					"404": {
@@ -3084,9 +3218,63 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "s51 pagination parameters",
+						"schema": {
+							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
+						},
+						"required": true
 					}
 				],
-				"responses": {}
+				"responses": {
+					"200": {
+						"description": "An paginated data set of s51 advices and their properties",
+						"schema": {
+							"$ref": "#/definitions/S51AdvicePaginatedResponseWithDocumentDetails"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/s51-advice/remove-queue-item": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Removes an S51 Advice item from the publishing queue",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "S51 Advice Id",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"adviceId": {
+									"type": "number",
+									"example": 1
+								}
+							}
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updated S51 Advice record",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/s51-advice/title-unique/{title}": {
@@ -3121,6 +3309,88 @@
 					"404": {
 						"description": "Error: Not Found - invalid case id",
 						"schema": null
+					}
+				}
+			}
+		},
+		"/applications/{id}/s51-advice/publish-queue-items": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Publishes a list of items from the publish queue",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Payload to publish items",
+						"schema": {
+							"$ref": "#/definitions/S51AdvicePublishRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Array of all updated S51 Advice records",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsArrayWithCaseId"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/s51-advice/{adviceId}/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Unpublish s51 advice",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "adviceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Advice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublished S51 Advice record",
+						"schema": {
+							"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -3255,33 +3525,37 @@
 						"name": "caseReference",
 						"in": "query",
 						"description": "subscription caseReference",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
+						"type": "string",
+						"required": false
 					},
 					{
 						"name": "type",
 						"in": "query",
 						"description": "subscription type",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "endAfter",
+						"in": "query",
+						"description": "subscriptions which end after this date (or have no end date)",
+						"format": "date-time",
+						"type": "string",
+						"required": false
 					},
 					{
 						"name": "page",
 						"in": "query",
 						"description": "The page number to return, defaults to 1",
-						"example": 1,
-						"type": "string"
+						"type": "integer",
+						"example": 1
 					},
 					{
 						"name": "pageSize",
 						"in": "query",
 						"description": "The number of results per page, defaults to 25",
-						"example": 25,
-						"type": "string"
+						"type": "integer",
+						"example": 25
 					}
 				],
 				"responses": {
@@ -3682,6 +3956,10 @@
 					"type": "string",
 					"example": ""
 				},
+				"stage": {
+					"type": "string",
+					"example": ""
+				},
 				"geographicalInformation": {
 					"type": "object",
 					"properties": {
@@ -3797,6 +4075,10 @@
 							}
 						}
 					}
+				},
+				"hasUnpublishedChanges": {
+					"type": "boolean",
+					"example": false
 				}
 			}
 		},
@@ -4188,148 +4470,6 @@
 				"submissions": {
 					"type": "boolean",
 					"example": true
-				}
-			}
-		},
-		"S51AdviceRequestBody": {
-			"type": "object",
-			"properties": {
-				"caseId": {
-					"type": "number",
-					"example": 29
-				},
-				"title": {
-					"type": "string",
-					"example": "title"
-				},
-				"firstName": {
-					"type": "string",
-					"example": "first name"
-				},
-				"lastName": {
-					"type": "string",
-					"example": "last name"
-				},
-				"enquirer": {
-					"type": "string",
-					"example": "organisation"
-				},
-				"enquiryMethod": {
-					"type": "string",
-					"example": "meeting"
-				},
-				"enquiryDate": {
-					"type": "string",
-					"example": "2023-01-11T00:00:00.000Z"
-				},
-				"enquiryDetails": {
-					"type": "string",
-					"example": "title"
-				},
-				"adviser": {
-					"type": "string",
-					"example": "person"
-				},
-				"adviceDate": {
-					"type": "string",
-					"example": "2023-02-11T00:00:00.000Z"
-				},
-				"adviceDetails": {
-					"type": "string",
-					"example": "title"
-				},
-				"referenceNumber": {
-					"type": "number",
-					"example": 1
-				},
-				"redactedStatus": {
-					"type": "string",
-					"example": "redacted"
-				},
-				"publishedStatus": {
-					"type": "string",
-					"example": "not_checked"
-				},
-				"createdAt": {
-					"type": "string",
-					"example": "2023-08-07T09:13:15.593Z"
-				},
-				"updatedAt": {
-					"type": "string",
-					"example": "2023-08-07T09:13:15.593Z"
-				}
-			}
-		},
-		"S51AdviceResponseBody": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "number",
-					"example": 1
-				},
-				"caseId": {
-					"type": "number",
-					"example": 29
-				},
-				"title": {
-					"type": "string",
-					"example": "title"
-				},
-				"firstName": {
-					"type": "string",
-					"example": "first name"
-				},
-				"lastName": {
-					"type": "string",
-					"example": "last name"
-				},
-				"enquirer": {
-					"type": "string",
-					"example": "organisation"
-				},
-				"enquiryMethod": {
-					"type": "string",
-					"example": "meeting"
-				},
-				"enquiryDate": {
-					"type": "string",
-					"example": "2023-01-11T00:00:00.000Z"
-				},
-				"enquiryDetails": {
-					"type": "string",
-					"example": "title"
-				},
-				"adviser": {
-					"type": "string",
-					"example": "person"
-				},
-				"adviceDate": {
-					"type": "string",
-					"example": "2023-02-11T00:00:00.000Z"
-				},
-				"adviceDetails": {
-					"type": "string",
-					"example": "title"
-				},
-				"referenceNumber": {
-					"type": "number",
-					"example": 1
-				},
-				"redactedStatus": {
-					"type": "string",
-					"example": "redacted"
-				},
-				"publishedStatus": {
-					"type": "string",
-					"example": "not_checked"
-				},
-				"createdAt": {
-					"type": "string",
-					"example": "2023-08-07T09:13:15.593Z"
-				},
-				"updatedAt": {
-					"type": "string",
-					"example": "2023-08-07T09:13:15.593Z"
 				}
 			}
 		},
@@ -7653,96 +7793,44 @@
 				}
 			}
 		},
-		"S51AdviceCreateResponseBody": {
+		"S51AdviceDocumentDetails": {
 			"type": "object",
 			"properties": {
-				"id": {
-					"type": "integer",
-					"description": "The S51 Advice record id",
-					"example": 1
-				},
-				"caseId": {
-					"type": "integer",
-					"description": "The application id",
-					"example": 1
-				},
-				"title": {
+				"documentName": {
 					"type": "string",
-					"description": "Advice title",
-					"example": "Advice regarding right to roam"
+					"description": "Document name",
+					"example": "Small9"
 				},
-				"firstName": {
+				"documentType": {
 					"type": "string",
-					"description": "First name of enquirer",
-					"example": "John"
+					"description": "Document mime type",
+					"example": "application/pdf"
 				},
-				"lastName": {
-					"type": "string",
-					"description": "Last name of enquirer",
-					"example": "Keats"
+				"documentSize": {
+					"type": "number",
+					"description": "Size of the document in bytes",
+					"example": 7945
 				},
-				"enquirer": {
-					"type": "string",
-					"description": "Name of enquiring company / organisation",
-					"example": "New Power Plc"
+				"dateAdded": {
+					"type": "number",
+					"description": "Date document was added",
+					"example": 1694179427
 				},
-				"enquiryMethod": {
-					"type": "string",
-					"enum": ["phone", "email", "meeting", "post"],
-					"description": "Enquiry method",
-					"example": "email"
-				},
-				"enquiryDate": {
-					"type": "date-time",
-					"description": "Date of enquiry",
-					"example": "2023-02-01T00:00:00.000Z"
-				},
-				"enquiryDetails": {
-					"type": "string",
-					"description": "Details of the enquiry",
-					"example": "details of the advice sought"
-				},
-				"adviser": {
-					"type": "string",
-					"description": "Name of who gave the advice",
-					"example": "John Caseworker-Smith"
-				},
-				"adviceDate": {
-					"type": "date-time",
-					"description": "Date advice given",
-					"example": "2023-02-01T00:00:00.000Z"
-				},
-				"adviceDetails": {
-					"type": "string",
-					"description": "Details of the advive given",
-					"example": "details of the advice provided"
-				},
-				"referenceNumber": {
-					"type": "integer",
-					"description": "Advice reference number",
-					"example": "1"
-				},
-				"redactedStatus": {
-					"type": "string",
-					"enum": ["not_redacted", "redacted"],
-					"description": "Redacted status",
-					"example": "not_redacted"
-				},
-				"publishedStatus": {
+				"status": {
 					"type": "string",
 					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
 					"description": "Published status",
-					"example": "published"
+					"example": "not_checked"
 				},
-				"createdAt": {
-					"type": "date-time",
-					"description": "Date advice record was created",
-					"example": "2023-02-01T00:00:00.000Z"
+				"documentGuid": {
+					"type": "string",
+					"description": "GUID of the document in the Document table",
+					"example": "742f3ba1-c80a-4f76-81c2-5a4627d6ac00"
 				},
-				"updatedAt": {
-					"type": "date-time",
-					"description": "Date advice record was last updated",
-					"example": "2023-02-01T00:00:00.000Z"
+				"version": {
+					"type": "number",
+					"description": "Document version number",
+					"example": 1
 				}
 			}
 		},
@@ -7839,6 +7927,212 @@
 				}
 			}
 		},
+		"S51AdviceDetailsWithCaseId": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The S51 Advice record id",
+					"example": 1
+				},
+				"caseId": {
+					"type": "integer",
+					"description": "The application id",
+					"example": 1
+				},
+				"title": {
+					"type": "string",
+					"description": "Advice title",
+					"example": "Advice regarding right to roam"
+				},
+				"firstName": {
+					"type": "string",
+					"description": "First name of enquirer",
+					"example": "John"
+				},
+				"lastName": {
+					"type": "string",
+					"description": "Last name of enquirer",
+					"example": "Keats"
+				},
+				"enquirer": {
+					"type": "string",
+					"description": "Name of enquiring company / organisation",
+					"example": "New Power Plc"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"enum": ["phone", "email", "meeting", "post"],
+					"description": "Enquiry method",
+					"example": "email"
+				},
+				"enquiryDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date of enquiry",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"description": "Details of the enquiry",
+					"example": "details of the advice sought"
+				},
+				"adviser": {
+					"type": "string",
+					"description": "Name of who gave the advice",
+					"example": "John Caseworker-Smith"
+				},
+				"adviceDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date advice given",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"adviceDetails": {
+					"type": "string",
+					"description": "Details of the advive given",
+					"example": "details of the advice provided"
+				},
+				"referenceNumber": {
+					"type": "integer",
+					"description": "Advice reference number",
+					"example": "1"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Redacted status",
+					"example": "not_redacted"
+				},
+				"publishedStatus": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"isDeleted": {
+					"type": "boolean",
+					"description": "True if the advice is marked as deleted",
+					"example": "true"
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date advice record was created",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"updatedAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date advice record was last updated",
+					"example": "2023-02-01T00:00:00.000Z"
+				}
+			}
+		},
+		"S51AdviceDetailsWithDocumentDetails": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The S51 Advice record id",
+					"example": 1
+				},
+				"referenceNumber": {
+					"type": "string",
+					"description": "Advice reference 5 digits number",
+					"example": "00001"
+				},
+				"referenceCode": {
+					"type": "string",
+					"description": "Advice reference number containing Case ref number",
+					"example": "EN010001-Advice-00001"
+				},
+				"title": {
+					"type": "string",
+					"description": "Advice title",
+					"example": "Advice regarding right to roam"
+				},
+				"enquirer": {
+					"type": "string",
+					"description": "Name of enquiring company / organisation",
+					"example": "New Power Plc"
+				},
+				"firstName": {
+					"type": "string",
+					"description": "First name of enquirer",
+					"example": "John"
+				},
+				"lastName": {
+					"type": "string",
+					"description": "Last name of enquirer",
+					"example": "Keats"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"enum": ["phone", "email", "meeting", "post"],
+					"description": "Enquiry method",
+					"example": "email"
+				},
+				"enquiryDate": {
+					"type": "number",
+					"description": "Date of enquiry",
+					"example": 1646822400
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"description": "Details of the enquiry",
+					"example": "details of the advice sought"
+				},
+				"adviser": {
+					"type": "string",
+					"description": "Name of who gave the advice",
+					"example": "John Caseworker-Smith"
+				},
+				"adviceDate": {
+					"type": "number",
+					"description": "Date advice given",
+					"example": 1646822400
+				},
+				"adviceDetails": {
+					"type": "string",
+					"description": "Details of the advive given",
+					"example": "details of the advice provided"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Redacted status",
+					"example": "not_redacted"
+				},
+				"publishedStatus": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "published"
+				},
+				"dateCreated": {
+					"type": "number",
+					"description": "Date advice record was created",
+					"example": 1646822400
+				},
+				"dateUpdated": {
+					"type": "number",
+					"description": "Date advice record was last updated",
+					"example": 1646822400
+				},
+				"attachments": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/S51AdviceDocumentDetails"
+					}
+				},
+				"totalAttachments": {
+					"type": "number",
+					"description": "Total S51 Documents attached to this advice",
+					"example": 1
+				}
+			}
+		},
 		"S51AdvicePaginatedResponse": {
 			"type": "object",
 			"properties": {
@@ -7870,6 +8164,48 @@
 				}
 			}
 		},
+		"S51AdvicePaginatedResponseWithDocumentDetails": {
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "integer",
+					"description": "The page number required",
+					"example": 1
+				},
+				"pageDefaultSize": {
+					"type": "integer",
+					"description": "The default number of S51 Advice per page",
+					"example": 50
+				},
+				"pageCount": {
+					"type": "integer",
+					"description": "The total number of pages",
+					"example": 1
+				},
+				"itemCount": {
+					"type": "integer",
+					"description": "The total number of s51 Advice records on the case",
+					"example": 1
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/S51AdviceDetailsWithDocumentDetails"
+					}
+				}
+			}
+		},
+		"S51AdviceDetailsArrayWithCaseId": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/S51AdviceDetailsWithCaseId"
+					}
+				}
+			}
+		},
 		"S51AdvicePaginatedBadRequest": {
 			"type": "object",
 			"properties": {
@@ -7892,18 +8228,72 @@
 			}
 		},
 		"S51AdviceUpdateRequestBody": {
-			"title": "title",
-			"firstName": "first name",
-			"lastName": "last name",
-			"enquirer": "organisation",
-			"enquiryMethod": "meeting",
-			"enquiryDate": "2023-01-11T00:00:00.000Z",
-			"enquiryDetails": "title",
-			"adviser": "person",
-			"adviceDate": "2023-02-11T00:00:00.000Z",
-			"adviceDetails": "title",
-			"redactedStatus": "redacted",
-			"publishedStatus": "not_checked"
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string",
+					"description": "Advice title",
+					"example": "Advice regarding right to roam"
+				},
+				"firstName": {
+					"type": "string",
+					"description": "First name of enquirer",
+					"example": "John"
+				},
+				"lastName": {
+					"type": "string",
+					"description": "Last name of enquirer",
+					"example": "Keats"
+				},
+				"enquirer": {
+					"type": "string",
+					"description": "Name of enquiring company / organisation",
+					"example": "New Power Plc"
+				},
+				"enquiryMethod": {
+					"type": "string",
+					"enum": ["phone", "email", "meeting", "post"],
+					"description": "Enquiry method",
+					"example": "email"
+				},
+				"enquiryDate": {
+					"type": "string",
+					"description": "Date of enquiry",
+					"example": "2023-01-11T00:00:00.000Z"
+				},
+				"enquiryDetails": {
+					"type": "string",
+					"description": "Details of the enquiry",
+					"example": "details of the advice sought"
+				},
+				"adviser": {
+					"type": "string",
+					"description": "Name of who gave the advice",
+					"example": "John Caseworker-Smith"
+				},
+				"adviceDate": {
+					"type": "string",
+					"description": "Date advice given",
+					"example": "2023-02-11T00:00:00.000Z"
+				},
+				"adviceDetails": {
+					"type": "string",
+					"description": "Details of the advive given",
+					"example": "details of the advice provided"
+				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Published status",
+					"example": "redacted"
+				},
+				"publishedStatus": {
+					"type": "string",
+					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
+					"description": "Published status",
+					"example": "not_checked"
+				}
+			}
 		},
 		"S51AdviceMultipleUpdateRequestBody": {
 			"type": "object",
@@ -7938,9 +8328,9 @@
 			"type": "object",
 			"properties": {
 				"id": {
-					"type": "integer",
+					"type": "string",
 					"description": "The S51 Advice record id",
-					"example": 1
+					"example": "1"
 				},
 				"status": {
 					"type": "string",
@@ -7976,6 +8366,24 @@
 							"type": "string"
 						}
 					}
+				}
+			}
+		},
+		"S51AdvicePublishRequestBody": {
+			"type": "object",
+			"properties": {
+				"selectAll": {
+					"type": "boolean",
+					"description": "Optional parameter. True if all S51 Advice in the publishing queue for that case is to be published",
+					"example": true
+				},
+				"ids": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"example": "1"
+					},
+					"description": "Array of S51 Advice Ids to publish"
 				}
 			}
 		},

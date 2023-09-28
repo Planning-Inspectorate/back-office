@@ -119,10 +119,32 @@ describe('S51 Advice', () => {
 					expect(element.innerHTML).toContain('You must enter a S51 advice title');
 				});
 
-				it('Should go to next page if title is provided', async () => {
+				it('Should display error if s51 with the same title already exists', async () => {
+					nock('http://test/').head('/applications/123/title/').reply(200, []);
+					const title = 'existing title';
+					const urlTitle = title.trim().replace(/\s/g, '%20');
+
+					nock('http://test/')
+						.head(`/applications/123/s51-advice/title-unique/${urlTitle}`)
+						.reply(500, []);
+
 					const response = await request
 						.post(`${baseUrl}/create/title`)
-						.send({ title: 'sent s51 title' });
+						.send({ title: 'existing title' });
+
+					const element = parseHtml(response.text);
+					expect(element.innerHTML).toContain('Enter a new title');
+				});
+
+				it('Should go to next page if title is provided', async () => {
+					const title = 'sent s51 title';
+					const urlTitle = title.trim().replace(/\s/g, '%20');
+
+					nock('http://test/')
+						.head(`/applications/123/s51-advice/title-unique/${urlTitle}`)
+						.reply(200, []);
+
+					const response = await request.post(`${baseUrl}/create/title`).send({ title });
 
 					expect(response?.headers?.location).toEqual('../create/enquirer');
 
@@ -484,15 +506,31 @@ describe('S51 Advice', () => {
 		});
 	});
 
+	describe('S51 delete', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/21/s51-advice/1/delete', () => {
+			it('should render the page', async () => {
+				const response = await request.get(`${baseUrl}/1/delete`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Delete selected S51 advice');
+			});
+		});
+	});
+
 	describe('S51 Attachment delete', () => {
 		beforeEach(async () => {
 			await request.get('/applications-service/case-team');
 		});
 
-		describe('GET /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid', () => {
+		describe('GET /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete', () => {
 			it('should render the page', async () => {
 				const documentGuid = createS51Advice({ id: 1 }).attachments[0].documentGuid;
-				const response = await request.get(`${baseUrl}/1/delete/${documentGuid}`);
+				const response = await request.get(`${baseUrl}/1/attachments/${documentGuid}/delete`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -500,7 +538,7 @@ describe('S51 Advice', () => {
 			});
 		});
 
-		describe('POST /case/123/project-documentation/21/s51-advice/1/delete/:documentGuid', () => {
+		describe('POST /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete', () => {
 			it('should render error if delete is NOT successful', async () => {
 				const attachment = createS51Advice({ id: 1 }).attachments[0];
 
@@ -508,10 +546,12 @@ describe('S51 Advice', () => {
 					.post(`/applications/123/documents/${attachment.documentGuid}/delete`)
 					.reply(500, {});
 
-				const response = await request.post(`${baseUrl}/1/delete/${attachment.documentGuid}`).send({
-					documentName: attachment.documentName,
-					dateAdded: attachment.dateAdded
-				});
+				const response = await request
+					.post(`${baseUrl}/1/attachments/${attachment.documentGuid}/delete`)
+					.send({
+						documentName: attachment.documentName,
+						dateAdded: attachment.dateAdded
+					});
 
 				const element = parseHtml(response.text);
 
@@ -526,10 +566,12 @@ describe('S51 Advice', () => {
 					.post(`/applications/123/documents/${attachment.documentGuid}/delete`)
 					.reply(200, {});
 
-				const response = await request.post(`${baseUrl}/1/delete/${attachment.documentGuid}`).send({
-					documentName: attachment.documentName,
-					dateAdded: attachment.dateAdded
-				});
+				const response = await request
+					.post(`${baseUrl}/1/attachments/${attachment.documentGuid}/delete`)
+					.send({
+						documentName: attachment.documentName,
+						dateAdded: attachment.dateAdded
+					});
 
 				const element = parseHtml(response.text);
 

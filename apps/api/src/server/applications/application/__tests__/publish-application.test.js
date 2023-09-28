@@ -41,7 +41,8 @@ describe('Publish application', () => {
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: caseId },
 			data: {
-				publishedAt: mockDate
+				publishedAt: mockDate,
+				hasUnpublishedChanges: false
 			}
 		});
 

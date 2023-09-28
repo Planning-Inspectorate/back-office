@@ -9,15 +9,19 @@ import {
 	updateManyS51Advices,
 	updateS51Advice,
 	getReadyToPublishAdvices,
-    removePublishItemFromQueue,
-	verifyS51TitleIsUnique
+	verifyS51TitleIsUnique,
+	removePublishItemFromQueue,
+	publishQueueItems,
+	deleteS51Advice,
+	unpublishS51Advice
 } from './s51-advice.controller.js';
 import {
 	validateCreateS51Advice,
 	validatePaginationCriteria,
 	validateS51AdviceIds,
 	validateS51AdviceToUpdateProvided,
-	validateS51AdviceId
+	validateS51AdviceId,
+	validateS51AdviceIsNotPublished
 } from './s51-advice.validators.js';
 import { validateApplicationId } from '../application/application.validators.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
@@ -38,7 +42,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'Created S51 advice',
-            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
     */
 	validateCreateS51Advice,
@@ -64,8 +68,8 @@ router.get(
 			type: 'integer'
         }
         #swagger.responses[200] = {
-            description: 'List of examination timetable items',
-            schema: { $ref: '#/definitions/S51AdviceResponseBody' }
+            description: 'An S51 Advice on a case',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithDocumentDetails' }
         }
     */
 	validateApplicationId,
@@ -77,7 +81,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/s51-advice'
-        #swagger.description = 'Gets paginated array of S51 Advice(s) on a case'
+        #swagger.description = 'Gets paginated array of undeleted S51 Advice(s) on a case'
         #swagger.parameters['id'] = {
             in: 'path',
             description: 'Application ID',
@@ -201,7 +205,7 @@ router.patch(
 		}
         #swagger.responses[200] = {
             description: 'S51 Advice(s) that have been updated',
-            schema: { $ref: '#/definitions/S51AdviceUpdateResponseBody' }
+            schema: { $ref: '#/definitions/S51AdviceMultipleUpdateResponseBody' }
         }
 		#swagger.responses[400] = {
             description: 'Error: Bad Request',
@@ -223,8 +227,8 @@ router.patch(
 	'/:id/s51-advice/:adviceId',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/s51-advice'
-        #swagger.description = 'Updates redacted status and / or published status for an array of S51 Advice(s) on a case'
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
+        #swagger.description = 'Updates redacted status and / or published status for a single S51 Advice on a case'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -244,10 +248,10 @@ router.patch(
 			required: true
 		}
         #swagger.responses[200] = {
-            description: 'S51 Advice(s) that have been updated',
-            schema: { $ref: '#/definitions/S51AdviceCreateResponseBody' }
+            description: 'The updated S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
-      #swagger.responses[404] = {
+      	#swagger.responses[404] = {
             description: 'Error: Not Found',
 			schema: { errors: { id: "Must be an existing application" } }
         }
@@ -257,6 +261,43 @@ router.patch(
 	validateS51AdviceId,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateS51Advice)
+);
+
+router.delete(
+	'/:id/s51-advice/:adviceId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}'
+        #swagger.description = 'Soft-deletes an S51 Advice by id, and any associated S51 Advice documents'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+			description: 'S51 Advice ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'S51 Advice successfully soft-deleted',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
+		#swagger.responses[400] = {
+            description: 'S51 Advice successfully soft-deleted',
+            schema: { "errors": { "adviceId": "You must first unpublish S51 advice before deleting it."  } }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceId,
+	validateS51AdviceIsNotPublished,
+	asyncHandler(deleteS51Advice)
 );
 
 router.post(
@@ -279,7 +320,7 @@ router.post(
         }
 		#swagger.responses[200] = {
             description: 'An paginated data set of s51 advices and their properties',
-            schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
+            schema: { $ref: '#/definitions/S51AdvicePaginatedResponseWithDocumentDetails' }
         }
     */
 	asyncHandler(getReadyToPublishAdvices)
@@ -289,14 +330,24 @@ router.post(
 	'/:id/s51-advice/remove-queue-item',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/s51-advice/ready-to-publish'
-        #swagger.description = 'Gets all S51 that are ready to publish for the case'
+        #swagger.path = '/applications/{id}/s51-advice/remove-queue-item'
+        #swagger.description = 'Removes an S51 Advice item from the publishing queue'
 		#swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+            description: 'S51 Advice Id',
+            schema: { adviceId: 1 },
+            required: true
+        }
+		#swagger.responses[200] = {
+            description: 'Updated S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
     */
 	asyncHandler(removePublishItemFromQueue)
 );
@@ -335,6 +386,66 @@ router.head(
     */
 	validateApplicationId,
 	asyncHandler(verifyS51TitleIsUnique)
+);
+
+router.post(
+	'/:id/s51-advice/publish-queue-items',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/publish-queue-items'
+        #swagger.description = 'Publishes a list of items from the publish queue'
+		#swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Payload to publish items',
+        schema: { $ref: '#/definitions/S51AdvicePublishRequestBody' },
+        required: true
+    }
+	#swagger.responses[200] = {
+		description: 'Array of all updated S51 Advice records',
+		schema: { $ref: '#/definitions/S51AdviceDetailsArrayWithCaseId' }
+    }
+    */
+	asyncHandler(publishQueueItems)
+);
+
+router.patch(
+	'/:id/s51-advice/:adviceId/unpublish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/s51-advice/{adviceId}/unpublish'
+        #swagger.description = 'Unpublish s51 advice'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['adviceId'] = {
+            in: 'path',
+            description: 'Advice ID',
+            required: true,
+            type: 'integer'
+        }
+        #swagger.responses[200] = {
+            description: 'Unpublished S51 Advice record',
+            schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
+        }
+      	#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+    */
+	validateApplicationId,
+	validateS51AdviceToUpdateProvided,
+	validateS51AdviceId,
+	trimUnexpectedRequestParameters,
+	asyncHandler(unpublishS51Advice)
 );
 
 export { router as s51AdviceRoutes };

@@ -268,7 +268,13 @@ export const createApplicationRepresentation = async ({
 };
 
 export const updateApplicationRepresentation = async (
-	{ representationDetails, represented, representedAddress, representative, representativeAddress },
+	{
+		representationDetails = {},
+		represented,
+		representedAddress,
+		representative,
+		representativeAddress
+	},
 	caseId,
 	representationId
 ) => {
@@ -746,7 +752,8 @@ export const getPublishableRepresentations = async (caseId) =>
 		where: {
 			caseId,
 			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
-		}
+		},
+		orderBy: [{ status: 'desc' }, { reference: 'asc' }]
 	});
 
 /**

@@ -14,6 +14,12 @@ export const validateGetSubscription = composeMiddleware(
 export const validateSubscriptionFilters = composeMiddleware(
 	query('type').optional().isIn(Subscription.TypeList).withMessage(typesError),
 	query('caseReference').optional().isString().withMessage('caseReference must be a string'),
+	query('endAfter')
+		.optional()
+		.isString()
+		.withMessage('endAfter must be a string')
+		.isISO8601({ strict: true, strictSeparator: true })
+		.withMessage('endAfter must be a valid date'),
 	validationErrorHandler
 );
 

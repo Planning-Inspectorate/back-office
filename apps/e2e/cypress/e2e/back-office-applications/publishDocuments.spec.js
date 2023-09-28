@@ -62,7 +62,7 @@ describe('Document Properties', () => {
 		publishingQueuePage.validateDocumentCountInList(1);
 	});
 
-	it('Case admin be able to set "Ready to publish" after setting all mandatory properties for document', () => {
+	it('Case admin should be able to set "Ready to publish" after setting all mandatory properties for document', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.updateAllProperties('Redacted');
 		folderPage.markAllReadyToPublish();

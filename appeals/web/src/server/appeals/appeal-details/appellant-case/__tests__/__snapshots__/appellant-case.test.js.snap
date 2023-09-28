@@ -205,6 +205,12 @@ exports[`appellant-case GET /appellant-case/check-your-answers should render the
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/incomplete"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
                         </dd>
                     </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Updated due date</dt>
+                        <dd class="govuk-summary-list__value"><span>1 December 3000</span>
+                        </dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/incomplete/date"> Change<span class="govuk-visually-hidden"> Updated due date</span></a>
+                        </dd>
+                    </div>
                 </dl>
                 <div class="govuk-inset-text">Confirming this review will inform the appellant and LPA of the outcome</div>
                 <form                 method="post" novalidate="novalidate">

@@ -3,6 +3,7 @@
 {% from "../components/case-page-navigation.component.njk" import casePageNavigation %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "../../components/status-tag.component.njk" import statusTag %}
 
 
@@ -48,6 +49,19 @@
 			</div>
 		{% endblock %}
 		<div class="govuk-grid-column-full">
+      {% if case.hasUnpublishedChanges %}
+        {% set unpublishedBannerHtml %}
+          <h4 class="govuk-notification-banner__heading">Unpublished changes have been made.</h4>
+          <p class="govuk-body">
+            <a href="{{ 'case-view' | url({caseId:case.id, step: 'preview-and-publish'}) }}">Preview and publish</a> the project for changes to be applied.
+          </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          html: unpublishedBannerHtml
+        }) }}
+      {% endif %}
+
 			{% block sectionContent %}
 			{% endblock %}
 		</div>

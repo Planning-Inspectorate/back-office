@@ -10,6 +10,10 @@ const timeZone = 'Europe/London';
  * @returns {string}
  */
 export function displayDate(date, { condensed = false } = {}) {
+	if (!date) {
+		return '';
+	}
+
 	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 		locale: enGB
 	});

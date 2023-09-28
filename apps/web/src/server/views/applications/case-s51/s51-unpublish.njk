@@ -1,0 +1,49 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties'})
+	}) }}
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+
+{{ govukTable({
+  caption: "Unpublish selected S51 advice",
+  captionClasses: "govuk-table__caption--l",
+  firstCellIsHeader: false,
+  head: [
+    {
+      text: "S51 title"
+    },
+    {
+      text: "Enquirer"
+    }
+  ],
+  rows: [
+    [
+      {
+        text: s51Advice.referenceNumber + ' - ' + s51Advice.title
+      },
+      {
+        text: s51Advice.enquirer
+      }
+    ]
+  ]
+}) }}
+<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+  {{ govukButton({
+    text: "Unpublish S51 advice"
+  }) }}
+</form>
+
+{% endblock %}

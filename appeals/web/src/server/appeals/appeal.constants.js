@@ -22,6 +22,10 @@ export const notificationBanners = {
 		type: 'success',
 		text: 'Site visit type has been selected'
 	},
+	allocationDetailsUpdated: {
+		type: 'success',
+		text: 'Allocation details updated'
+	},
 	caseOfficerAdded: {
 		type: 'success',
 		text: 'Case officer has been assigned'

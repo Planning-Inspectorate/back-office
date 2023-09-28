@@ -8,6 +8,7 @@ declare global {
 			notifyClient: NotifyClient;
 			visitType: SiteVisitType;
 			validationOutcome: ValidationOutcome;
+			documentRedactionStatusIds: number[];
 		}
 	}
 }
@@ -172,6 +173,8 @@ interface SingleLPAQuestionnaireResponse {
 
 interface NeighbouringSiteContactsResponse {
 	address: AppealSite;
+	firstName: string | null;
+	lastName: string | null;
 }
 
 interface SingleAppealDetailsResponse {
@@ -221,7 +224,10 @@ interface SingleAppealDetailsResponse {
 	planningApplicationReference: string;
 	procedureType: string | null;
 	siteVisit: {
+		siteVisitId: number | null;
 		visitDate: Date | null;
+		visitStartTime: string | null;
+		visitEndTime: string | null;
 		visitType: string | null;
 	};
 	startedAt: Date | null;
@@ -289,10 +295,6 @@ interface SingleAppellantCaseResponse {
 		isPartiallyOwned: boolean | null;
 		knowsOtherLandowners: string | null;
 	};
-	siteVisit: {
-		siteVisitId: number | null;
-		visitType: string | null;
-	};
 	validation: ValidationOutcomeResponse | null;
 	visibility: {
 		details: string | null;
@@ -341,8 +343,8 @@ interface FolderInfo {
 interface DocumentInfo {
 	id: string;
 	name: string;
-	folderId: number;
-	caseId: number;
+	folderId?: number;
+	caseId?: number;
 }
 
 interface SingleSiteVisitDetailsResponse {
@@ -379,10 +381,10 @@ interface SingleAddressResponse {
 interface UpdateAddressRequest {
 	addressLine1?: string;
 	addressLine2?: string;
-	country?: string;
-	county?: string;
+	addressCountry?: string;
+	addressCounty?: string;
 	postcode?: string;
-	town?: string;
+	addressTown?: string;
 }
 
 interface UpdateAppellantCaseRequest {
@@ -491,6 +493,19 @@ interface IncompleteInvalidReasonsResponse {
 	text: string[];
 }
 
+interface SingleFolderResponse {
+	id: number;
+	path: string;
+	caseId: number;
+	documents: DocumentInfo[] | null;
+}
+
+type UpdateDocumentsRequest = {
+	id: string;
+	receivedDate: string;
+	redactionStatus: number;
+}[];
+
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
 
 type LookupTables = AppellantCaseIncompleteReason | AppellantCaseInvalidReason | ValidationOutcome;
@@ -526,6 +541,7 @@ export {
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleAppellantResponse,
+	SingleFolderResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,
 	TimetableDeadlineDate,
@@ -535,6 +551,7 @@ export {
 	UpdateAppellantCaseValidationOutcome,
 	UpdateAppellantCaseValidationOutcomeParams,
 	UpdateAppellantRequest,
+	UpdateDocumentsRequest,
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,

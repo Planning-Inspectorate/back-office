@@ -1,10 +1,12 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from '../components/enquirer-string.njk' import enquirerString %}
 
-{% macro s51DetailsTab(s51Advice, caseId, folderId) %}
+
+{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished) %}
 
 	{% set properties = [
 						{label: 'S51 title', value: s51Advice.title, link: 'title'},
-						{label: 'Enquirer', value: enquirerString(s51Advice.firstName, s51Advice.lastName, s51Advice.enquirer), link: 'enquirer'},
+						{label: 'Enquirer', value: enquirerString(s51Advice), link: 'enquirer'},
 						{label: 'Enquiry method', value: s51Advice.enquiryMethod|capitalize, link: 'method'},
 						{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd MMM yyyy'})), link: 'enquiry-date'},
 						{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-details'},
@@ -20,7 +22,7 @@
 	{% for property in properties %}
 		{% set rowActions = {} %}
 
-		{% if property.link %}
+		{% if property.link and not isPublished %}
 			{% set s51EditLink = ('s51-edit'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: property.link})) %}
 
 			{% set rowActions = {
@@ -52,6 +54,3 @@
 
 {% endmacro %}
 
-{% macro enquirerString(firstName, lastName, orgName) %}
-  {{firstName}} {{lastName}}, {{orgName}}
-{% endmacro %}

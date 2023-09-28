@@ -13,7 +13,7 @@
 		{title: 'Address (Internal use only)', value: writeFullAddress(case.applicants[0].address), url: 'applicant-address', isProjectInfoOnly: 1 },
 		{title: 'Website', value: applicantFirstWebsite, url: 'applicant-website' },
 		{title: 'Email address', value: applicantFirstEmail, url: 'applicant-email' },
-		{title: 'Telephone number', value: applicantFirstPhoneNumber, url: 'applicant-telephone-number' }
+		{title: 'Telephone number (Internal use only)', value: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
 	] %}
 
 	{% set tableRows = [] %}

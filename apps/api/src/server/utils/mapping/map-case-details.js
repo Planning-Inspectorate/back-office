@@ -30,7 +30,16 @@ import { mapKeyDatesToResponse } from './map-key-dates.js';
 export const mapApplicationDetails = (caseDetails) => {
 	const caseDetailsFormatted = mapValuesUsingObject(
 		mapKeysUsingObject(
-			pick(caseDetails, ['id', 'reference', 'title', 'description', 'modifiedAt', 'publishedAt']),
+			pick(caseDetails, [
+				'id',
+				'reference',
+				'title',
+				'description',
+				'modifiedAt',
+				'publishedAt',
+				'caseStatus',
+				'hasUnpublishedChanges'
+			]),
 			{
 				modifiedAt: 'modifiedDate',
 				publishedAt: 'publishedDate'

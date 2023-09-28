@@ -14,7 +14,7 @@ import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.
  * @returns {SingleAppellantCaseResponse | void}
  */
 const formatAppellantCase = (appeal, folders = null) => {
-	const { appellantCase, siteVisit } = appeal;
+	const { appellantCase } = appeal;
 
 	if (appellantCase) {
 		return {
@@ -79,10 +79,6 @@ const formatAppellantCase = (appeal, folders = null) => {
 				isFullyOwned: appellantCase.isSiteFullyOwned,
 				isPartiallyOwned: appellantCase.isSitePartiallyOwned,
 				knowsOtherLandowners: appellantCase.knowledgeOfOtherLandowners?.name || null
-			},
-			siteVisit: {
-				siteVisitId: siteVisit?.id || null,
-				visitType: siteVisit?.siteVisitType?.name || null
 			},
 			validation: formatValidationOutcomeResponse(
 				appellantCase.appellantCaseValidationOutcome?.name,

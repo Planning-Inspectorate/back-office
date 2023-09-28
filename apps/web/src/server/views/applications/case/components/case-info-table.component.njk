@@ -1,5 +1,6 @@
 {% from "../../components/published-tag.component.njk" import publishedTag %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "./case-edit-link.component.njk" import caseEditLink %}
 
 {% macro caseInfoTable(case) %}
 
@@ -12,25 +13,17 @@
 		{% endif %}
 	{% endset %}
 
-	{{ govukSummaryList({
-		classes: 'govuk-summary-list--no-border',
-		rows: [
-			{
-				key: { text: "Project page status" },
-				value: { html: publishedTagHtml }
-			},
-			{
-				key: { text: "Case reference number" },
-				value: { text: case.reference }
-			},
-			{
-				key: { text: "Sector" },
-				value: { text: case.sector.displayNameEn }
-			},
-			{
-				key: { text: "Subsector" },
-				value: { text: case.subSector.displayNameEn }
-			}
-		]
-	}) }}
+  {{ govukTable({
+    firstCellIsHeader: true,
+    rows: [
+      [{ text: "Case reference number" }, { text: case.reference }, {}],
+      [{ text: "Sector" }, { text: case.sector.displayNameEn }, {}],
+      [{ text: "Subsector" }, { text: case.subSector.displayNameEn }, {}],
+      [
+        { text: "Case stage" },
+        { text: case.status },
+        { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }) }
+      ]
+    ]
+  }) }}
 {% endmacro %}

@@ -1,7 +1,6 @@
 import { document as testDocument } from '#tests/data.js';
-import swaggerAutogen from 'swagger-autogen';
 
-const document = {
+export const spec = {
 	info: {
 		// by default: '1.0.0'
 		version: '2.0',
@@ -37,7 +36,12 @@ const document = {
 			id: 23,
 			path: 'appellantCase/appealStatement',
 			caseId: 34,
-			documents: []
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					name: 'right-of-way.pdf'
+				}
+			]
 		},
 		DocumentDetails: {
 			guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
@@ -171,7 +175,9 @@ const document = {
 							addressLine2: 'Shotesham Road',
 							postCode: 'NR35 2ND',
 							town: 'Woodton'
-						}
+						},
+						firstName: 'Fiona',
+						lastName: 'Burgess'
 					}
 				],
 				isAffected: true
@@ -185,7 +191,10 @@ const document = {
 			planningApplicationReference: '48269/APP/2021/1482',
 			procedureType: 'Written',
 			siteVisit: {
+				siteVisitId: 1,
 				visitDate: '2022-03-31T12:00:00.000Z',
+				visitStartTime: '10:00',
+				visitEndTime: '12:00',
 				visitType: 'Accompanied'
 			},
 			startedAt: '2022-05-17T23:00:00.000Z',
@@ -270,10 +279,6 @@ const document = {
 				isFullyOwned: false,
 				isPartiallyOwned: true,
 				knowsOtherLandowners: 'Some'
-			},
-			siteVisit: {
-				siteVisitId: 1,
-				visitType: 'Accompanied'
 			},
 			validation: {
 				outcome: 'Incomplete',
@@ -643,12 +648,29 @@ const document = {
 			issueDeterminationDate: '2023-08-10T01:00:00.000Z',
 			lpaQuestionnaireDueDate: '2023-08-11T01:00:00.000Z',
 			statementReviewDate: '2023-08-12T01:00:00.000Z'
+		},
+		AllDocumentRedactionStatusesResponse: {
+			id: 1,
+			name: 'Document redaction status'
+		},
+		UpdateDocumentsRequest: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					receivedDate: '2023-09-23',
+					redactionStatus: 1
+				}
+			]
+		},
+		UpdateDocumentsResponse: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					receivedDate: '2023-09-23',
+					redactionStatus: 1
+				}
+			]
 		}
 	},
 	components: {}
 };
-
-const outputFile = './src/server/openapi.json';
-const endpointsFiles = ['./src/server/endpoints/**/*.routes.js'];
-
-swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, document);

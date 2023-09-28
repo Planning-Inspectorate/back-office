@@ -1,6 +1,25 @@
 import { LevelWithSilent } from 'pino';
 
-export interface EnvironmentConfig {
+/**
+ * Configuration required for bundling or build steps, not running the application.
+ * Loaded from the process environment, and .env files.
+ */
+export interface BaseEnvironmentConfig {
+	buildDir: string;
+	bundleAnalyzer: boolean;
+	cwd: string;
+	env: 'development' | 'test' | 'production' | 'local';
+	isProduction: boolean;
+	isDevelopment: boolean;
+	isTest: boolean;
+	isRelease?: boolean;
+}
+
+/**
+ * Configuration required for running the application.
+ * Loaded from the process environment, and .env files.
+ */
+export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	// The web application hostname (e.g. back-office-dev.planninginspectorate.gov.uk)
 	appHostname: string;
 	apiUrl: string;
@@ -12,20 +31,12 @@ export interface EnvironmentConfig {
 	blobStorageDefaultContainer: string;
 	blobEmulatorSasUrl: string;
 	useBlobEmulator: boolean;
-	bundleAnalyzer: boolean;
-	buildDir: string;
 	cwd: string;
-	env: 'development' | 'test' | 'production' | 'local';
-	isProduction: boolean;
-	isDevelopment: boolean;
-	isTest: boolean;
-	isRelease?: boolean;
 	logLevelFile: LevelWithSilent;
 	logLevelStdOut: LevelWithSilent;
 	msal: {
 		authority: string;
 		clientId: string;
-		apiClientId: string;
 		clientSecret: string;
 		redirectUri: string;
 		logoutUri: string;
@@ -48,6 +59,7 @@ export interface EnvironmentConfig {
 	};
 }
 
-const config: EnvironmentConfig;
+export function loadConfig(): EnvironmentConfig;
 
+const config: EnvironmentConfig;
 export default config;

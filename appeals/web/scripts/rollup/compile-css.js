@@ -1,4 +1,4 @@
-import config from '@pins/appeals.web/environment/config.js';
+import { loadBaseConfig } from '@pins/appeals.web/environment/base-config.js';
 import autoprefixer from 'autoprefixer';
 import kleur from 'kleur';
 import fs from 'node:fs';
@@ -12,7 +12,7 @@ import { hashForContent } from './hash.js';
 /** @typedef {import('source-map-js').RawSourceMap} RawSourceMap */
 /** @typedef {import('postcss').SourceMap} SourceMap */
 
-const { buildDir, isProduction, isRelease } = config;
+const { buildDir, isProduction, isRelease } = loadBaseConfig();
 const logger = getLogger({ scope: 'Sass' });
 
 const appDirectory = fs.realpathSync(process.cwd());

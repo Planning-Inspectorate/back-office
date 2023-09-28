@@ -18,6 +18,20 @@ export const validateExistingS51Advice = async (id) => {
 	}
 };
 
+/**
+ * Checks that an Advice is not published
+ *
+ * @param {number} id
+ * @throws {Error}
+ * @returns {Promise<void>}
+ * */
+const IsS51AdviceNotPublished = async (id) => {
+	const s51 = await s51AdviceRepository.get(id);
+	if (s51?.publishedStatus === 'published') {
+		throw new Error(`You must first unpublish S51 advice before deleting it.`);
+	}
+};
+
 export const validateCreateS51Advice = composeMiddleware(
 	body('caseId').toInt().custom(validateExistingApplication).withMessage('Must be valid case id'),
 	body('title').notEmpty().withMessage('Title must not be empty'),
@@ -99,6 +113,14 @@ export const validateS51AdviceId = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateS51AdviceIsNotPublished = composeMiddleware(
+	param('adviceId')
+		.toInt()
+		.custom(IsS51AdviceNotPublished)
+		.withMessage('You must first unpublish S51 advice before deleting it.'),
+	validationErrorHandler
+);
+
 /**
  * Verifies if the given array of S51 Advice IDs have the correct required fields, so that they are ready to publish
  *
@@ -143,7 +165,6 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 	}
 
 	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
-
 	if (!attachments || attachments?.length === 0) {
 		return;
 	}
@@ -156,7 +177,11 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
 			return;
 		}
 
-		if (latestDocumentVersion.virusCheckStatus !== 'scanned') {
+		if (
+			['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
+				latestDocumentVersion.publishedStatus
+			)
+		) {
 			throw new Error('Documents were not successfully virus scanned');
 		}
 	});
@@ -169,10 +194,7 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
  */
 export const hasPublishedAdvice = async (adviceIds) => {
 	const publishedAdvices = await s51AdviceRepository.getPublishedAdvicesByIds(adviceIds);
-	if (publishedAdvices && publishedAdvices?.length > 0) {
-		return true;
-	}
-	return false;
+	return publishedAdvices?.length > 0 ?? false;
 };
 
 /**
@@ -184,8 +206,6 @@ export const hasPublishedDocument = async (adviceIds) => {
 	const publishedAdvices = await s51AdviceDocumentRepository.getPublishedDocumentsByAdviceIds(
 		adviceIds
 	);
-	if (publishedAdvices && publishedAdvices?.length > 0) {
-		return true;
-	}
-	return false;
+
+	return publishedAdvices?.length > 0 ?? false;
 };

@@ -5,7 +5,8 @@ import * as locals from '../applications-case.locals.js';
 import {
 	s51ValidatorsDispatcher,
 	validateS51AdviceToChange,
-	validateS51AdviceActions
+	validateS51AdviceActions,
+	validateS51AdviceToPublish
 } from './applications-s51.validators.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
@@ -21,7 +22,7 @@ applicationsS51Router
 	.route('/change-status')
 	.post(
 		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
-		asyncRoute(controller.changeAdviceStatus)
+		asyncRoute(controller.updateApplicationsCaseS51ItemStatus)
 	);
 
 applicationsS51Router
@@ -35,17 +36,27 @@ applicationsS51Router
 	.post(s51ValidatorsDispatcher, asyncRoute(controller.updateApplicationsCaseS51CreatePage));
 
 applicationsS51Router
+	.route('/:adviceId/delete')
+	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Delete))
+	.post(locals.registerFolder, asyncRoute(controller.deleteApplicationsCaseS51));
+
+applicationsS51Router
 	.route('/:adviceId/upload')
 	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseS51Upload));
 
 applicationsS51Router
-	.route('/:adviceId/delete/:attachmentId')
-	.get(asyncRoute(controller.viewApplicationsCaseS51Delete))
+	.route('/unpublish/:adviceId')
+	.get(locals.registerFolderId, asyncRoute(controller.viewUnpublishAdvice))
+	.post(locals.registerFolderId, asyncRoute(controller.postUnpublishAdvice))
+
+applicationsS51Router
+	.route('/:adviceId/attachments/:attachmentId/delete')
+	.get(asyncRoute(controller.viewApplicationsCaseS51AttachmentDelete))
 	.post(locals.registerFolder, asyncRoute(controller.deleteApplicationsCaseS51Attachment));
 
 applicationsS51Router
 	.route('/:adviceId/edit/:step')
-	.get(locals.registerFolder, asyncRoute(controller.viewApplicationsCaseEditS51Item))
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseEditS51Item))
 	.post(asyncRoute(controller.postApplicationsCaseEditS51Item));
 
 applicationsS51Router
@@ -54,7 +65,11 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/publishing-queue')
-	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue));
+	.get(locals.registerFolderId, asyncRoute(controller.viewApplicationsCaseS51PublishingQueue))
+	.post(
+		[validateS51AdviceToPublish, locals.registerFolderId],
+		asyncRoute(controller.publishApplicationsCaseS51Items)
+	);
 
 applicationsS51Router
 	.route('/publishing-queue/remove/:adviceId')
