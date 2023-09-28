@@ -43,7 +43,15 @@ export async function caseNameAndDescriptionData(request, locals) {
  * */
 export async function caseStageData(request, locals) {
 	/** @type {{name: string, displayNameEn: string}[]} */
-	const allStages = await getAllCaseStages();
+	const allStages = await (async () => {
+		try {
+			return (await getAllCaseStages()) ?? [];
+		} catch (err) {
+			console.error(`error fetching case stages: ${err}`);
+			return [];
+		}
+	})();
+
 	const stages = allStages.filter((stage) => stage.name !== 'draft');
 
 	const { currentCase } = locals || {};
@@ -69,7 +77,14 @@ export async function caseStageDataUpdate({ errors: validationErrors, body, sess
 		? { id: null, errors: validationErrors }
 		: await action();
 
-	const allStages = await getAllCaseStages();
+	const allStages = await (async () => {
+		try {
+			return (await getAllCaseStages()) ?? [];
+		} catch (err) {
+			console.error(`error fetching case stages: ${err}`);
+			return [];
+		}
+	})();
 
 	const properties = {
 		values: { stage },
