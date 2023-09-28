@@ -140,13 +140,9 @@ export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
 	const formattedResponseList = [];
 
-	let redactedStatus;
-
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
-	if (typeof isRedacted !== 'undefined') {
-		redactedStatus = getRedactionStatus(isRedacted);
-	}
+	const redactedStatus = isRedacted ? undefined : getRedactionStatus(isRedacted);
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
 	if (publishedStatus === 'ready_to_publish') {
