@@ -149,14 +149,10 @@ export const updateDocuments = async ({ body }, response) => {
 		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 	}
 
-	const formattedResponseList = await updateDocumentsService(
-		documentIds,
-		publishedStatus,
-		redactedStatus
-	);
+	const result = await updateDocumentsService(documentIds, publishedStatus, redactedStatus);
 
 	logger.info(`Updated ${documents.length} documents`);
-	response.send(formattedResponseList);
+	response.send(result);
 };
 
 /**

@@ -6,7 +6,6 @@ import * as documentActivityLogRepository from '../../../repositories/document-a
 import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
 import { buildNsipDocumentPayload } from './document.js';
 import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
@@ -612,10 +611,13 @@ export const extractDuplicates = async (documents) => {
  * @param {string[]} guids
  * @param {string | undefined} status
  * @param {string | undefined} redacted
- * @returns {Promise<Record<string, any>[]>}
+ * @returns {Promise<{ documents: Record<string, any>[], errors: Record<string, string>[] }>}
  * */
 export const updateDocuments = async (guids, status, redacted) => {
 	let formattedResponseList = [];
+
+	/** @type {Record<string, string>[]} */
+	let errors = [];
 
 	for (const guid of guids) {
 		logger.info(
@@ -646,9 +648,9 @@ export const updateDocuments = async (guids, status, redacted) => {
 		if (!status) {
 			delete documentVersionUpdates.publishedStatus;
 		} else if (documentVersion?.publishedStatus === 'published' && status !== 'published') {
-			throw new BackOfficeAppError(
-				`cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
-			);
+			errors.push({
+				[guid]: `cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
+			});
 
 			// when setting publishedStatus, save previous publishedStatus
 			// do we have a previous doc version, does it have a published status, and is that status different
@@ -670,5 +672,5 @@ export const updateDocuments = async (guids, status, redacted) => {
 		formattedResponseList.push(formattedResponse);
 	}
 
-	return formattedResponseList;
+	return { documents: formattedResponseList, errors };
 };

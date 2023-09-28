@@ -1360,22 +1360,32 @@
 					"200": {
 						"description": "Documents that have been updated",
 						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"guid": {
-										"type": "string",
-										"example": "0084b156-006b-48b1-a47f-e7176414db29"
-									},
-									"status": {
-										"type": "string",
-										"example": "not_checked"
-									},
-									"redactedStatus": {
-										"type": "string",
-										"example": "redacted"
+							"type": "object",
+							"properties": {
+								"documents": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"guid": {
+												"type": "string",
+												"example": "0084b156-006b-48b1-a47f-e7176414db29"
+											},
+											"status": {
+												"type": "string",
+												"example": "not_checked"
+											},
+											"redactedStatus": {
+												"type": "string",
+												"example": "redacted"
+											}
+										}
 									}
+								},
+								"errors": {
+									"type": "array",
+									"example": [],
+									"items": {}
 								}
 							},
 							"xml": {
@@ -2499,6 +2509,21 @@
 						"description": "List of applications assigned to case team",
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForCaseTeam"
+						}
+					}
+				}
+			}
+		},
+		"/applications/case-stage": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all possible stages for a case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of stages for a case",
+						"schema": {
+							"$ref": "#/definitions/CaseStages"
 						}
 					}
 				}
@@ -4259,6 +4284,22 @@
 					"displayNameCy": {
 						"type": "string",
 						"example": "Region Name Cy"
+					}
+				}
+			}
+		},
+		"CaseStages": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "post_decision"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Post-Decision"
 					}
 				}
 			}

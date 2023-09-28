@@ -150,7 +150,7 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Documents that have been updated',
-            schema: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29', "status": "not_checked", "redactedStatus": "redacted" } ]
+            schema: { documents: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29', "status": "not_checked", "redactedStatus": "redacted" } ], errors: [] }
         }
 		#swagger.responses[400] = {
             description: 'Example of an error response',

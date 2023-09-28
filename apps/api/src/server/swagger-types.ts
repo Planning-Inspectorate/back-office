@@ -244,6 +244,13 @@ export type RegionsForApplications = {
 	displayNameCy?: string;
 }[];
 
+export type CaseStages = {
+	/** @example "post_decision" */
+	name?: string;
+	/** @example "Post-Decision" */
+	displayNameEn?: string;
+}[];
+
 export type MapZoomLevelForApplications = {
 	/** @example 1 */
 	id?: number;
