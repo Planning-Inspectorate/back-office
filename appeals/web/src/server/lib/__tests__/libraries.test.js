@@ -13,13 +13,12 @@ import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
 import { objectContainsAllKeys } from '../object-utilities.js';
-import { checkboxItemParameterAddConditionalHtml } from '../nunjucks-filters/checkbox-item-parameter-add-conditional-html.js';
 import { getIdByNameFromIdNamePairs } from '../id-name-pairs.js';
-import { cloneDeep } from 'lodash-es';
 import {
 	convertFromBooleanToYesNo,
 	convertFromBooleanToYesNoWithOptionalDetails
 } from '#lib/boolean-formatter.js';
+import { addConditionalHtml } from '#lib/nunjucks-filters/add-conditional-html.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -442,46 +441,14 @@ describe('Libraries', () => {
 		});
 	});
 
-	describe('checkboxItemParameterAddConditionalHtml', () => {
-		it('should add the provided html to the "conditional" property of each item in the provided checkbox/radio "items" parameter object whose "propertyToCheck" is equal to "valueToCheckFor"', () => {
-			const itemParameters = [
-				{
-					value: '1',
-					text: 'item 1'
-				},
-				{
-					value: '2',
-					text: 'item'
-				},
-				{
-					value: '3',
-					text: 'item'
-				}
-			];
-			const conditionalHtml = '<div>conditional html</div>';
-			const expectedResult = { html: '<div>conditional html</div>' };
+	describe('addConditionalHtml', () => {
+		it('should add the provided html to the "conditional" property of the supplied object', () => {
+			const item = {};
+			const conditionalHtml = '<div>test</div>';
+			/** @type {Object<string, any>} */
+			const result = addConditionalHtml(item, conditionalHtml);
 
-			const resultForValueProperty = checkboxItemParameterAddConditionalHtml(
-				cloneDeep(itemParameters),
-				'value',
-				'1',
-				conditionalHtml
-			);
-
-			expect(resultForValueProperty[0].conditional).toEqual(expectedResult);
-			expect(resultForValueProperty[1].conditional).toBe(undefined);
-			expect(resultForValueProperty[2].conditional).toBe(undefined);
-
-			const resultForTextProperty = checkboxItemParameterAddConditionalHtml(
-				cloneDeep(itemParameters),
-				'text',
-				'item',
-				conditionalHtml
-			);
-
-			expect(resultForTextProperty[0].conditional).toBe(undefined);
-			expect(resultForTextProperty[1].conditional).toEqual(expectedResult);
-			expect(resultForTextProperty[2].conditional).toEqual(expectedResult);
+			expect(result.conditional).toEqual(conditionalHtml);
 		});
 	});
 
