@@ -649,7 +649,7 @@ export const updateDocuments = async (guids, status, redacted) => {
 			delete documentVersionUpdates.publishedStatus;
 		} else if (documentVersion?.publishedStatus === 'published' && status !== 'published') {
 			errors.push({
-				[guid]: `cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
+				[guid]: `Cannot set the status of documents that are already published.`
 			});
 
 			// when setting publishedStatus, save previous publishedStatus
