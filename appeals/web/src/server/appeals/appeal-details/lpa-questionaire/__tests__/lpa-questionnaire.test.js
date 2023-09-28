@@ -6,19 +6,12 @@ import {
 	lpaQuestionnaireIncompleteReasons
 } from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
-import { TEXTAREA_MAXIMUM_CHARACTERS } from '#lib/validators/textarea-validator.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/appeal-details/1/lpa-questionnaire/2';
-const otherReasonId = lpaQuestionnaireIncompleteReasons.find(
-	(reason) => reason.name.toLowerCase() === 'other'
-)?.id;
 
-const incompleteReasonsWithoutOther = lpaQuestionnaireIncompleteReasons.filter(
-	(reason) => reason.name.toLowerCase() !== 'other'
-);
-const incompleteReasonIdsWithoutOther = incompleteReasonsWithoutOther.map((reason) => reason.id);
+const incompleteReasonIds = lpaQuestionnaireIncompleteReasons.map((reason) => reason.id);
 
 describe('LPA Questionnaire review', () => {
 	beforeEach(installMockApi);
@@ -108,6 +101,8 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/lpa-questionnaire-incomplete-reasons')
 				.reply(200, lpaQuestionnaireIncompleteReasons);
 
+			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+
 			// post to LPA questionnaire page controller is necessary to set required data in the session
 			lpaQPostResponse = await request.post(baseUrl).send({
 				'review-outcome': 'incomplete'
@@ -121,43 +116,7 @@ describe('LPA Questionnaire review', () => {
 		it('should re-render the incomplete reason page with the expected error message if no incomplete reason was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
-			const response = await request.post(`${baseUrl}/incomplete`).send({
-				otherReason: '',
-				otherReasonId: otherReasonId
-			});
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should re-render the incomplete reason page with the expected error message if "other" reason was selected but no "otherReason" was provided', async () => {
-			expect(lpaQPostResponse.statusCode).toBe(302);
-
-			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: otherReasonId,
-				otherReason: '',
-				otherReasonId: otherReasonId
-			});
-
-			expect(response.statusCode).toBe(200);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should re-render the incomplete reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
-			expect(lpaQPostResponse.statusCode).toBe(302);
-
-			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
-			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: otherReasonId,
-				otherReason: otherReasonTextOverCharacterLimit,
-				otherReasonId: otherReasonId
-			});
-
-			expect(response.statusCode).toBe(200);
+			const response = await request.post(`${baseUrl}/incomplete`).send({});
 
 			const element = parseHtml(response.text);
 
@@ -168,9 +127,7 @@ describe('LPA Questionnaire review', () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonsWithoutOther[0].id,
-				otherReason: '',
-				otherReasonId: otherReasonId
+				incompleteReason: lpaQuestionnaireIncompleteReasons[0].id
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -179,11 +136,8 @@ describe('LPA Questionnaire review', () => {
 		it('should redirect to the check and confirm page if multiple incomplete reasons were provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
-			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: lpaQuestionnaireIncompleteReasons.map((reason) => reason.id),
-				otherReason: otherReasonTextWithinCharacterLimit,
-				otherReasonId: otherReasonId
+				incompleteReason: lpaQuestionnaireIncompleteReasons.map((reason) => reason.id)
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -218,8 +172,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -253,8 +206,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 		});
 
@@ -462,8 +414,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -490,8 +441,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -529,8 +479,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);

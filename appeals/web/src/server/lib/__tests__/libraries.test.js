@@ -448,7 +448,7 @@ describe('Libraries', () => {
 			/** @type {Object<string, any>} */
 			const result = addConditionalHtml(item, conditionalHtml);
 
-			expect(result.conditional).toEqual(conditionalHtml);
+			expect(result.conditional).toEqual({ html: '<div>test</div>' });
 		});
 	});
 
