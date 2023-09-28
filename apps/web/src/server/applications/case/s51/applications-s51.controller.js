@@ -153,10 +153,13 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 
 	if (step === 'title' && body.title) {
 		const { errors } = await checkS51NameIsUnique(caseId, body.title);
-		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-			adviceId,
-			errors
-		});
+
+		if (errors) {
+			return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
+				adviceId,
+				errors
+			});
+		}
 	}
 
 	const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
