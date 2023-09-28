@@ -35,6 +35,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -77,6 +86,15 @@
 						"name": "addressId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -144,6 +162,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -195,7 +222,17 @@
 			"get": {
 				"tags": ["Appeal Allocation"],
 				"description": "Gets the list of specialisms used for allocation",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "List of allocation specialisms",
@@ -222,7 +259,17 @@
 			"get": {
 				"tags": ["Appeal Allocation"],
 				"description": "Gets the list of levels and associated bands used for allocation",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "List of allocation levels",
@@ -254,6 +301,15 @@
 						"name": "appealId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -302,7 +358,17 @@
 			"get": {
 				"tags": ["Appellant Case Incomplete Reasons"],
 				"description": "Gets appellant case incomplete reasons",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Appellant case incomplete reasons",
@@ -329,7 +395,17 @@
 			"get": {
 				"tags": ["Appellant Case Invalid Reasons"],
 				"description": "Gets appellant case invalid reasons",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Appellant case invalid reasons",
@@ -369,6 +445,15 @@
 						"name": "appellantCaseId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -414,6 +499,15 @@
 						"name": "appellantCaseId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -465,7 +559,17 @@
 			"get": {
 				"tags": ["Appellant Case Validation Outcomes"],
 				"description": "Gets appellant case validation outcomes",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Appellant case validation outcomes",
@@ -505,6 +609,15 @@
 						"name": "appellantId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -553,6 +666,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -597,11 +719,69 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/audit-trails": {
+			"get": {
+				"tags": ["Audit Trails"],
+				"description": "Gets audit trail entries for an appeal by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets audit trail entries for an appeal by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetAuditTrailsResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/GetAuditTrailsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/appeals/designated-sites": {
 			"get": {
 				"tags": ["Designated Sites"],
 				"description": "Gets designated sites",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Designated sites",
@@ -628,7 +808,17 @@
 			"get": {
 				"tags": ["Document Redaction Statuses"],
 				"description": "Gets document redaction statuses",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Document redaction statuses",
@@ -668,6 +858,15 @@
 						"name": "folderId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -718,6 +917,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -760,6 +968,15 @@
 						"name": "documentId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -819,6 +1036,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -873,11 +1099,20 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Document to update",
+						"description": "Documents to update",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -900,7 +1135,7 @@
 				},
 				"requestBody": {
 					"in": "body",
-					"description": "Document to update",
+					"description": "Documents to update",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -1062,7 +1297,17 @@
 			"get": {
 				"tags": ["Knowledge Of Other Landowners"],
 				"description": "Gets knowledge of other landowners values",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Knowledge of other landowners values",
@@ -1089,7 +1334,17 @@
 			"get": {
 				"tags": ["LPA Notification Methods"],
 				"description": "Gets LPA notification methods",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "LPA notification methods",
@@ -1116,7 +1371,17 @@
 			"get": {
 				"tags": ["LPA Questionnaire Incomplete Reasons"],
 				"description": "Gets LPA questionnaire incomplete reasons",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "LPA questionnaire incomplete reasons",
@@ -1156,6 +1421,15 @@
 						"name": "lpaQuestionnaireId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -1201,6 +1475,15 @@
 						"name": "lpaQuestionnaireId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -1252,7 +1535,17 @@
 			"get": {
 				"tags": ["LPA Questionnaire Validation Outcomes"],
 				"description": "Gets LPA questionnaire validation outcomes",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "LPA questionnaire validation outcomes",
@@ -1279,7 +1572,17 @@
 			"get": {
 				"tags": ["Planning Obligation Statuses"],
 				"description": "Gets planning obligation statuses",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Planning obligation statuses",
@@ -1306,7 +1609,17 @@
 			"get": {
 				"tags": ["Procedure Types"],
 				"description": "Gets procedure types",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Procedure types",
@@ -1333,7 +1646,17 @@
 			"get": {
 				"tags": ["Schedule Types"],
 				"description": "Gets schedule types",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Schedule types",
@@ -1365,6 +1688,15 @@
 						"name": "appealId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -1432,6 +1764,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -1477,6 +1818,15 @@
 						"name": "siteVisitId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -1531,7 +1881,17 @@
 			"get": {
 				"tags": ["Site Visit Types"],
 				"description": "Gets site visit types",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Site visit types",
@@ -1559,6 +1919,15 @@
 				"tags": ["Appeals"],
 				"description": "Gets requested appeals, limited to the first 30 appeals if no pagination params are given",
 				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					},
 					{
 						"name": "pageNumber",
 						"in": "query",
@@ -1621,6 +1990,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -1655,6 +2033,15 @@
 						"name": "appealId",
 						"in": "path",
 						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
 						"schema": {
 							"type": "string"
 						}
@@ -4542,6 +4929,29 @@
 				},
 				"xml": {
 					"name": "UpdateDocumentsResponse"
+				}
+			},
+			"GetAuditTrailsResponse": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"azureAdUserId": {
+							"type": "string",
+							"example": "f7ea429b-65d8-4c44-8fc2-7f1a34069855"
+						},
+						"details": {
+							"type": "string",
+							"example": "the case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team"
+						},
+						"loggedDate": {
+							"type": "string",
+							"example": "2023-09-26T16:22:20.688Z"
+						}
+					}
+				},
+				"xml": {
+					"name": "GetAuditTrailsResponse"
 				}
 			}
 		}

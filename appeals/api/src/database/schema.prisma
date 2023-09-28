@@ -49,6 +49,7 @@ model Appeal {
   caseOfficer                  User?                 @relation("caseOfficer", fields: [caseOfficerUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   inspectorUserId              Int?
   inspector                    User?                 @relation("inspector", fields: [inspectorUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  auditTrail                   AuditTrail[]
 }
 
 /// AppealType model
@@ -344,10 +345,11 @@ model InspectorDecision {
 /// Contains information on Back Office users (PINS employees)
 model User {
   id             Int              @id @default(autoincrement())
-  azureUserId    String?          @unique
+  azureAdUserId  String?          @unique
   Representation Representation[]
   caseOfficer    Appeal[]         @relation("caseOfficer")
   inspector      Appeal[]         @relation("inspector")
+  auditTrail     AuditTrail[]
 }
 
 /// Folder model
@@ -682,4 +684,14 @@ model DocumentRedactionStatus {
   id        Int        @id @default(autoincrement())
   name      String     @unique
   documents Document[]
+}
+
+model AuditTrail {
+  id       Int      @id @default(autoincrement())
+  appealId Int
+  userId   Int
+  loggedAt DateTime
+  details  String
+  appeal   Appeal   @relation(fields: [appealId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
 }

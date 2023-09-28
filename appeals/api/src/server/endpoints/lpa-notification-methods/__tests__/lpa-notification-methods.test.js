@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { lpaNotificationMethods } from '../../../tests/data.js';
+import { azureAdUserId, lpaNotificationMethods } from '../../../tests/data.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -13,7 +13,9 @@ describe('lpa notification methods routes', () => {
 				// @ts-ignore
 				databaseConnector.lPANotificationMethods.findMany.mockResolvedValue(lpaNotificationMethods);
 
-				const response = await request.get('/appeals/lpa-notification-methods');
+				const response = await request
+					.get('/appeals/lpa-notification-methods')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(lpaNotificationMethods);
@@ -23,7 +25,9 @@ describe('lpa notification methods routes', () => {
 				// @ts-ignore
 				databaseConnector.lPANotificationMethods.findMany.mockResolvedValue([]);
 
-				const response = await request.get('/appeals/lpa-notification-methods');
+				const response = await request
+					.get('/appeals/lpa-notification-methods')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({ errors: ERROR_NOT_FOUND });
@@ -35,7 +39,9 @@ describe('lpa notification methods routes', () => {
 					throw new Error(ERROR_FAILED_TO_GET_DATA);
 				});
 
-				const response = await request.get('/appeals/lpa-notification-methods');
+				const response = await request
+					.get('/appeals/lpa-notification-methods')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(500);
 				expect(response.body).toEqual({ errors: ERROR_FAILED_TO_GET_DATA });

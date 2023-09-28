@@ -20,6 +20,11 @@ router.get(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/document-folders/{folderId}'
 		#swagger.description = Returns the contents of a single appeal folder, by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Returns the contents of a single appeal folder, by id',
 			schema: { $ref: '#/definitions/Folder' }
@@ -39,6 +44,11 @@ router.get(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
 		#swagger.description = Returns the contents of the appeal folders
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets all the documents for a specific appeal by id',
 			schema: { $ref: '#/definitions/DocumentDetails' }
@@ -59,6 +69,11 @@ router.post(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents'
 		#swagger.description = Upload documents to a case
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal documents to post',
@@ -84,6 +99,11 @@ router.post(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
 		#swagger.description = Add a new version of a document
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal documents to post',
@@ -111,6 +131,11 @@ router.patch(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents'
 		#swagger.description = Updates multiple documents
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Documents to update',

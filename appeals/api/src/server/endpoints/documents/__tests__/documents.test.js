@@ -18,6 +18,7 @@ import * as service from '../documents.service.js';
 import * as controller from '../documents.controller.js';
 import { request } from '../../../app-test.js';
 import {
+	azureAdUserId,
 	documentRedactionStatuses,
 	documentRedactionStatusIds,
 	householdAppeal
@@ -30,7 +31,7 @@ import {
 	ERROR_MUST_BE_UUID,
 	ERROR_NOT_FOUND
 } from '#endpoints/constants.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 const { default: got } = await import('got');
@@ -41,9 +42,9 @@ describe('/appeals/:appealId/document-folders/:folderId', () => {
 			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 			databaseConnector.folder.findUnique.mockResolvedValue(savedFolder);
 
-			const response = await request.get(
-				`/appeals/${householdAppeal.id}/document-folders/${savedFolder.id}`
-			);
+			const response = await request
+				.get(`/appeals/${householdAppeal.id}/document-folders/${savedFolder.id}`)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(200);
 			expect(response.body).toEqual({
@@ -90,7 +91,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(databaseConnector.document.update).toHaveBeenCalledTimes(2);
 			expect(databaseConnector.document.update).toHaveBeenCalledWith({
@@ -129,7 +131,10 @@ describe('/appeals/:appealId/documents', () => {
 		});
 
 		test('returns an error if appealId is not numeric', async () => {
-			const response = await request.patch('/appeals/one/documents').send(requestBody);
+			const response = await request
+				.patch('/appeals/one/documents')
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -143,7 +148,10 @@ describe('/appeals/:appealId/documents', () => {
 			// @ts-ignore
 			databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-			const response = await request.patch('/appeals/3/documents').send(requestBody);
+			const response = await request
+				.patch('/appeals/3/documents')
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(404);
 			expect(response.body).toEqual({
@@ -160,7 +168,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -177,7 +186,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -194,7 +204,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -211,7 +222,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -228,7 +240,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -245,7 +258,8 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
@@ -265,12 +279,13 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					documents: errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+					documents: stringTokenReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
 						documentRedactionStatusIds.join(', ')
 					])
 				}
@@ -287,12 +302,13 @@ describe('/appeals/:appealId/documents', () => {
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/documents`)
-				.send(requestBody);
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
 
 			expect(response.status).toEqual(400);
 			expect(response.body).toEqual({
 				errors: {
-					documents: errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+					documents: stringTokenReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
 						documentRedactionStatusIds.join(', ')
 					])
 				}

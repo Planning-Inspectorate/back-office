@@ -14,6 +14,8 @@ import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-cont
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 
+const azureAdUserId = '6f930ec9-7f6f-448c-bb50-b3b898035959';
+
 const householdAppeal = {
 	id: 1,
 	reference: 'APP/Q9999/D/21/1345264',
@@ -83,14 +85,23 @@ const householdAppeal = {
 		},
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
+	auditTrail: [
+		{
+			details: 'The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team',
+			loggedAt: new Date().toISOString(),
+			user: {
+				azureAdUserId
+			}
+		}
+	],
 	caseOfficer: {
 		id: 1,
-		azureUserId: 'a8973f33-4d2e-486b-87b0-d068343ad9eb'
+		azureAdUserId: 'a8973f33-4d2e-486b-87b0-d068343ad9eb'
 	},
 	dueDate: '2023-08-10T01:00:00.000Z',
 	inspector: {
 		id: 2,
-		azureUserId: 'e8f89175-d02c-4a60-870e-dc954d5b530a'
+		azureAdUserId: 'e8f89175-d02c-4a60-870e-dc954d5b530a'
 	},
 	inspectorDecision: {
 		outcome: 'Not issued yet'
@@ -426,6 +437,7 @@ const scheduleTypes = lookupListData;
 const siteVisitTypes = lookupListData;
 const documentRedactionStatuses = lookupListData;
 const documentRedactionStatusIds = documentRedactionStatuses.map(({ id }) => id);
+const auditTrails = lookupListData;
 
 const designatedSites = [
 	{
@@ -705,6 +717,8 @@ export {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
 	appellantCaseValidationOutcomes,
+	auditTrails,
+	azureAdUserId,
 	baseExpectedAppellantCaseResponse,
 	baseExpectedLPAQuestionnaireResponse,
 	designatedSites,

@@ -19,6 +19,11 @@ router.get(
 		#swagger.tags = ['Appellant Cases']
 		#swagger.path = '/appeals/{appealId}/appellant-cases/{appellantCaseId}'
 		#swagger.description = Gets a single appellant case for an appeal by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single appellant case for an appeal by id',
 			schema: { $ref: '#/definitions/SingleAppellantCaseResponse' }
@@ -38,6 +43,11 @@ router.patch(
 		#swagger.tags = ['Appellant Cases']
 		#swagger.path = '/appeals/{appealId}/appellant-cases/{appellantCaseId}'
 		#swagger.description = Updates a single appellant case for an appeal by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appellant case details to update',

@@ -670,7 +670,14 @@ export const spec = {
 					redactionStatus: 1
 				}
 			]
-		}
+		},
+		GetAuditTrailsResponse: [
+			{
+				azureAdUserId: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855',
+				details: 'The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team',
+				loggedDate: '2023-09-26T16:22:20.688Z'
+			}
+		]
 	},
 	components: {}
 };

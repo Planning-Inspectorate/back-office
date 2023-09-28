@@ -10,7 +10,7 @@ import {
 	ERROR_MUST_BE_VALID_FILEINFO
 } from '#endpoints/constants.js';
 import validateDateParameter from '#common/validators/date-parameter.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { getDocumentRedactionStatusIds } from './documents.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsRequest} UpdateDocumentsRequest */
@@ -27,7 +27,7 @@ const validateDocumentRedactionStatusIds = async (documents) => {
 
 	if (!hasValidStatusIds) {
 		throw new Error(
-			errorMessageReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
+			stringTokenReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
 				redactionStatusIds.join(', ')
 			])
 		);

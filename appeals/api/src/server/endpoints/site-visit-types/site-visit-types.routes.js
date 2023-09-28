@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['Site Visit Types']
 		#swagger.path = '/appeals/site-visit-types'
 		#swagger.description = 'Gets site visit types'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Site visit types',
 			schema: { $ref: '#/definitions/AllSiteVisitTypesResponse' },

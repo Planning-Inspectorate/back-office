@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { appellantCaseIncompleteReasons } from '../../../tests/data.js';
+import { appellantCaseIncompleteReasons, azureAdUserId } from '../../../tests/data.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -15,7 +15,9 @@ describe('appellant case incomplete reasons routes', () => {
 					appellantCaseIncompleteReasons
 				);
 
-				const response = await request.get('/appeals/appellant-case-incomplete-reasons');
+				const response = await request
+					.get('/appeals/appellant-case-incomplete-reasons')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(appellantCaseIncompleteReasons);
@@ -25,7 +27,9 @@ describe('appellant case incomplete reasons routes', () => {
 				// @ts-ignore
 				databaseConnector.appellantCaseIncompleteReason.findMany.mockResolvedValue([]);
 
-				const response = await request.get('/appeals/appellant-case-incomplete-reasons');
+				const response = await request
+					.get('/appeals/appellant-case-incomplete-reasons')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({ errors: ERROR_NOT_FOUND });
@@ -37,7 +41,9 @@ describe('appellant case incomplete reasons routes', () => {
 					throw new Error(ERROR_FAILED_TO_GET_DATA);
 				});
 
-				const response = await request.get('/appeals/appellant-case-incomplete-reasons');
+				const response = await request
+					.get('/appeals/appellant-case-incomplete-reasons')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(500);
 				expect(response.body).toEqual({ errors: ERROR_FAILED_TO_GET_DATA });

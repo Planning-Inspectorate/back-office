@@ -6,9 +6,15 @@ export const VALIDATION_OUTCOME_VALID = 'Valid';
 export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
 
+export const AUDIT_TRAIL_ASSIGNED_CASE_OFFICER =
+	'The case officer {replacement0} was added to the team';
+export const AUDIT_TRAIL_ASSIGNED_INSPECTOR =
+	'The inspector {replacement0} was assigned to the team';
+
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
 
 export const DATABASE_ORDER_BY_ASC = 'asc';
+export const DATABASE_ORDER_BY_DESC = 'desc';
 
 export const DEFAULT_DATE_FORMAT_DATABASE = 'yyyy-MM-dd';
 export const DEFAULT_DATE_FORMAT_DISPLAY = 'dd LLL yyyy';
@@ -46,6 +52,7 @@ export const ERROR_MUST_BE_IN_FUTURE = 'Must be in the future';
 export const ERROR_MUST_BE_INCOMPLETE_INVALID_REASON =
 	'Must be an array of objects containing a required id number parameter and an optional text string array parameter containing 10 or less items';
 export const ERROR_MUST_BE_NUMBER = 'Must be a number';
+export const ERROR_MUST_BE_SET_AS_HEADER = 'Must be set as a header';
 export const ERROR_MUST_BE_STRING = 'Must be a string';
 export const ERROR_MUST_BE_UUID = 'Must be a uuid';
 export const ERROR_MUST_BE_VALID_FILEINFO = 'Must be a valid file';
@@ -89,3 +96,6 @@ export const STATE_TARGET_READY_TO_START = 'ready_to_start';
 export const STATE_TARGET_STATEMENT_REVIEW = 'statement_review';
 
 export const STATE_TYPE_FINAL = 'final';
+
+export const USER_TYPE_CASE_OFFICER = 'caseOfficer';
+export const USER_TYPE_INSPECTOR = 'inspector';

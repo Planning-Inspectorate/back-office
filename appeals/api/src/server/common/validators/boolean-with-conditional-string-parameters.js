@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import validateBooleanParameter from './boolean-parameter.js';
 import validateStringParameter from './string-parameter.js';
 import { ERROR_MUST_HAVE_DETAILS, ERROR_MUST_NOT_HAVE_DETAILS } from '#endpoints/constants.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 
@@ -22,13 +22,13 @@ const validateBooleanWithConditionalStringParameters = (
 	body(booleanParameterName)
 		.optional()
 		.custom((value, { req }) => {
-			const errorMessageReplacements = [detailsParameterName, booleanParameterName, value];
+			const stringTokenReplacements = [detailsParameterName, booleanParameterName, value];
 
 			if (value === triggerValue && !req.body[detailsParameterName]) {
-				throw new Error(errorMessageReplacement(ERROR_MUST_HAVE_DETAILS, errorMessageReplacements));
+				throw new Error(stringTokenReplacement(ERROR_MUST_HAVE_DETAILS, stringTokenReplacements));
 			} else if (value !== triggerValue && req.body[detailsParameterName]) {
 				throw new Error(
-					errorMessageReplacement(ERROR_MUST_NOT_HAVE_DETAILS, errorMessageReplacements)
+					stringTokenReplacement(ERROR_MUST_NOT_HAVE_DETAILS, stringTokenReplacements)
 				);
 			}
 
