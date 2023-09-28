@@ -1,6 +1,9 @@
 // @ts-nocheck
 const CLASSES = {
-	removeButton: 'pins-add-another__remove-button',
+	removeButton: {
+		base: 'pins-add-another__remove-button',
+		additional: 'govuk-!-margin-bottom-1'
+	},
 	addButtonHidden: 'pins-add-another__add-button--hidden'
 };
 
@@ -9,7 +12,8 @@ const SELECTORS = {
 	item: '.pins-add-another__item',
 	itemInput: '.pins-add-another__item-input',
 	addButton: '.pins-add-another__add-button',
-	removeButton: `.${CLASSES.removeButton}`
+	removeButton: `.${CLASSES.removeButton.base}`,
+	removeButtonContainer: '.pins-add-another__remove-button-container'
 };
 
 const ATTRIBUTES = {
@@ -43,9 +47,12 @@ function addRemoveButton(element) {
 	removeButton.innerText = 'Remove';
 	removeButton.classList.add('govuk-button');
 	removeButton.classList.add('govuk-button--secondary');
-	removeButton.classList.add(CLASSES.removeButton);
+	removeButton.classList.add(CLASSES.removeButton.base);
+	removeButton.classList.add(CLASSES.removeButton.additional);
 
-	element.appendChild(removeButton);
+	const buttonContainer = element.querySelector(SELECTORS.removeButtonContainer) || element;
+
+	buttonContainer.appendChild(removeButton);
 }
 
 function removeRemoveButtons(element) {

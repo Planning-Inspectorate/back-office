@@ -2,8 +2,7 @@
 
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
-{%- from "govuk/components/input/macro.njk" import govukInput -%}
-{%- from "../../app/components/add-another.njk" import addAnother -%}
+{%- from "../components/add-another-reason.njk" import addAnotherReason -%}
 
 {%- set pageTitle = "Why is the LPA questionnaire incomplete - GOV.UK" -%}
 
@@ -23,18 +22,12 @@
 {%- block pageContent -%}
 	{%- for option in reasonOptions -%}
 		{%- if option.addAnother -%}
-			{%- set addAnotherItems = [] -%}
-			{%- for textItem in option.addAnother.textItems -%}
-				{%- set inputHtml = govukInput({
-						classes: 'govuk-!-margin-bottom-3 pins-add-another__item-input',
-						name: 'incompleteReason-' + option.value,
-						value: textItem
-					})
-				-%}
-				{%- set _ = addAnotherItems.push(inputHtml) -%}
-			{%- endfor -%}
-			{%- set addAnotherHtml = addAnother({ items: addAnotherItems }) -%}
-			{%- set _ = option | addConditionalHtml(addAnotherHtml) -%}
+			{%- set addAnotherReasonHtml = addAnotherReason({
+				textItems: option.addAnother.textItems,
+				inputName: 'incompleteReason-' + option.value,
+				labelText: 'Which part is incorrect or incomplete?'
+			}) -%}
+			{%- set _ = option | addConditionalHtml(addAnotherReasonHtml) -%}
 		{%- endif -%}
 	{%- endfor -%}
 	<form method="post" novalidate="novalidate">
