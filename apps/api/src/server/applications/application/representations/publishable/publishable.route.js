@@ -20,6 +20,7 @@ router.get(
             #swagger.responses[200] = {
                     description: 'Representations',
                     schema: {
+                    		previouslyPublished: false,
                             itemCount: 100,
                             items: [
 									{

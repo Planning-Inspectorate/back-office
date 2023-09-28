@@ -756,6 +756,17 @@ export const getPublishableRepresentations = async (caseId) =>
 		orderBy: [{ status: 'desc' }, { reference: 'asc' }]
 	});
 
+export const isRepresentationsPreviouslyPublished = async (caseId) => {
+	const previouslyPublished = await databaseConnector.representation.count({
+		where: {
+			caseId,
+			status: 'PUBLISHED'
+		}
+	});
+
+	return previouslyPublished > 0;
+};
+
 /**
  * Returns representations with the given representation ids that are 'publishable' - those where status is VALID,
  * or status is PUBLISHED and unpublishedUpdates is true
