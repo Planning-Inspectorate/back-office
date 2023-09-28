@@ -332,6 +332,18 @@ export const documentRedactionStatuses = [
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function seedStaticData(databaseConnector) {
+	const systemUserId = '00000000-0000-0000-0000-000000000000';
+
+	await databaseConnector.user.upsert({
+		where: {
+			azureAdUserId: systemUserId
+		},
+		update: {},
+		create: {
+			azureAdUserId: systemUserId
+		}
+	});
+
 	for (const appealType of appealTypes) {
 		await databaseConnector.appealType.upsert({
 			create: appealType,
