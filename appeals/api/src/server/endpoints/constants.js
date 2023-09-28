@@ -99,3 +99,7 @@ export const STATE_TYPE_FINAL = 'final';
 
 export const USER_TYPE_CASE_OFFICER = 'caseOfficer';
 export const USER_TYPE_INSPECTOR = 'inspector';
+
+export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
+export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received';
+export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';

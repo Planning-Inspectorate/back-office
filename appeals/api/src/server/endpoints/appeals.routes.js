@@ -44,7 +44,6 @@ router.use(auditTrailsRoutes);
 router.use(designatedSitesRoutes);
 router.use(documentRedactionStatusesRoutes);
 router.use(documentsRoutes);
-
 router.use(knowledgeOfOtherLandownersRoutes);
 router.use(lpaNotificationMethodsRoutes);
 router.use(lpaQuestionnaireIncompleteReasonsRoutes);

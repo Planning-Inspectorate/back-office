@@ -15,12 +15,11 @@ import { produceAppealUpdate } from './integrations.service.js';
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import { EventType } from '@pins/event-client';
 import BackOfficeAppError from '#utils/app-error.js';
-
-const auditSettings = {
-	systemUserId: '00000000-0000-0000-0000-000000000000',
-	appellantCaseMsg: 'The Appellant case was received',
-	lpaQuestionnaireMsg: 'The LPA questionnaire was received'
-};
+import {
+	AUDIT_TRAIL_SYSTEM_UUID,
+	AUDIT_TRAIL_APPELLANT_IMPORT_MSG,
+	AUDIT_TRAIL_LPAQ_IMPORT_MSG
+} from '#endpoints/constants.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -36,8 +35,8 @@ export const postAppealSubmission = async (req, res) => {
 
 	await createAuditTrail({
 		appealId: result.id,
-		details: auditSettings.appellantCaseMsg,
-		azureAdUserId: auditSettings.systemUserId
+		details: AUDIT_TRAIL_APPELLANT_IMPORT_MSG,
+		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
 	const formattedResult = mapAppeal(result);
@@ -62,8 +61,8 @@ export const postLpaqSubmission = async (req, res) => {
 
 	await createAuditTrail({
 		appealId: result.id,
-		details: auditSettings.lpaQuestionnaireMsg,
-		azureAdUserId: auditSettings.systemUserId
+		details: AUDIT_TRAIL_LPAQ_IMPORT_MSG,
+		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
 	const formattedResult = mapAppeal(result);
