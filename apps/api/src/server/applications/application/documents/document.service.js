@@ -651,6 +651,7 @@ export const updateDocuments = async (guids, status, redacted) => {
 			errors.push({
 				[guid]: `Cannot set the status of documents that are already published.`
 			});
+			continue;
 
 			// when setting publishedStatus, save previous publishedStatus
 			// do we have a previous doc version, does it have a published status, and is that status different
