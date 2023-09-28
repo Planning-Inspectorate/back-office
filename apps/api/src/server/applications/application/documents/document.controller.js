@@ -177,19 +177,20 @@ export const updateDocuments = async ({ body }, response) => {
 			redactedStatus
 		};
 
-		if (typeof publishedStatus === 'undefined') {
+		if (!publishedStatus) {
 			delete documentVersionUpdates.publishedStatus;
-		} else {
-			// when setting publishedStatus, save previous publishedStatus
+		} else if (
+			documentVersion?.publishedStatus === 'published' &&
+			publishedStatus !== 'published'
+		) {
+			throw new BackOfficeAppError(
+				`cannot set publishedStatus of documentVersion with id ${documentVersion.id} as it is already published`
+			);
 
+			// when setting publishedStatus, save previous publishedStatus
 			// do we have a previous doc version, does it have a published status, and is that status different
-			if (
-				typeof documentVersion !== 'undefined' &&
-				typeof documentVersion.publishedStatus !== 'undefined' &&
-				documentVersion.publishedStatus !== publishedStatus
-			) {
-				documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-			}
+		} else if (documentVersion?.publishedStatus !== publishedStatus) {
+			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
 		}
 
 		const updateResponseInTable = await documentVersionRepository.update(document.guid, {
