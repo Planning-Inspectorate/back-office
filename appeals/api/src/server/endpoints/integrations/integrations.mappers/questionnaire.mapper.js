@@ -4,6 +4,7 @@
 
 export const mapQuestionnaireIn = (questionnaire) => {
 	return {
+		sentAt: new Date().toISOString(),
 		isCorrectAppealType: questionnaire.isAppealTypeAppropriate || false,
 		doesAffectAListedBuilding:
 			questionnaire.doesTheDevelopmentAffectTheSettingOfAListedBuilding || false,
@@ -24,6 +25,8 @@ export const mapQuestionnaireIn = (questionnaire) => {
 
 export const mapQuestionnaireOut = (data) => {
 	return {
+		questionnaireReceived: data?.sentAt,
+		questionnaireDueDate: data?.appealTimeTable?.lpaQuestionnaireDueDate,
 		isAppealTypeAppropriate: data?.isCorrectAppealType,
 		doesTheDevelopmentAffectTheSettingOfAListedBuilding: data?.doesAffectAListedBuilding,
 		//affectedListedBuildings,

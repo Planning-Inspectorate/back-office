@@ -2,6 +2,7 @@
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
+	const deleteAudits = databaseConnector.auditTrail.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
@@ -93,6 +94,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAppealTimetable,
 		deleteAddresses,
 		deleteInspectorDecision,
+		deleteAudits,
 		deleteFolders,
 		deleteAppeals,
 		deleteUsers,
