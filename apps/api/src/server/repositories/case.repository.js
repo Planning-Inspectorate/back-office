@@ -26,7 +26,7 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
- *  caseStatus?: { status: string },
+ *  caseStatus?: { status: import('@pins/applications').ApplicationStageType },
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
