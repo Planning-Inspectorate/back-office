@@ -4,6 +4,7 @@ import { get } from '../../../lib/request.js';
 /** @typedef {import('../../applications.types').Case} Case */
 /** @typedef {import('../../applications.types').Region} Region */
 /** @typedef {import('../../applications.types').ZoomLevel} ZoomLevel */
+/** @typedef {import('../../applications.types').CaseStage} CaseStage */
 
 /**
  * Get the list of sector for an case
@@ -33,8 +34,15 @@ export const getAllRegions = () => {
 	return get(`applications/region`);
 };
 
-export const getAllCaseStages = () => {
-	return get('applications/case-stage');
+/**
+ * Get all possible case stage values
+ *
+ * @throws {Error}
+ * @returns {Promise<CaseStage[] | null>}
+ * */
+export const getAllCaseStages = async () => {
+	const response = await get('applications/case-stage');
+	return response ?? null;
 };
 
 /**
