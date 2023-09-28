@@ -151,8 +151,16 @@ export const updateDocuments = async ({ body }, response) => {
 
 	const result = await updateDocumentsService(documentIds, publishedStatus, redactedStatus);
 
-	logger.info(`Updated ${documents.length} documents`);
-	response.send(result);
+	if (Object.keys(result.errors).length > 0) {
+		logger.info(
+			`Updated ${result.documents.length} documents. Failed to update ${result.errors.length} documents.`
+		);
+		response.status(207).send(result);
+		return;
+	}
+
+	logger.info(`Updated all ${documents.length} documents.`);
+	response.status(200).send(result);
 };
 
 /**
