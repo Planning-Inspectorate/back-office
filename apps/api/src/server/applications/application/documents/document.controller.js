@@ -151,60 +151,58 @@ export const updateDocuments = async ({ body }, response) => {
 		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 	}
 
-	if (documents) {
-		for (const document of documents) {
-			logger.info(
-				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
-			);
+	for (const document of documents ?? []) {
+		logger.info(
+			`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+		);
 
-			// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
-			// This is fine from a requirements perspective, but opens us up to race conditions
-			// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
-			// @ts-ignore
-			const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-				document.guid
-			);
+		// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
+		// This is fine from a requirements perspective, but opens us up to race conditions
+		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
+		// @ts-ignore
+		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
+			document.guid
+		);
 
-			/**
-			 * @typedef {object} Updates
-			 * @property {string} [publishedStatus]
-			 * @property {string} [publishedStatusPrev]
-			 * @property {string} [redactedStatus]
-			 */
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
 
-			/** @type {Updates} */
-			const documentVersionUpdates = {
-				publishedStatus,
-				redactedStatus
-			};
+		/** @type {Updates} */
+		const documentVersionUpdates = {
+			publishedStatus,
+			redactedStatus
+		};
 
-			if (typeof publishedStatus === 'undefined') {
-				delete documentVersionUpdates.publishedStatus;
-			} else {
-				// when setting publishedStatus, save previous publishedStatus
+		if (typeof publishedStatus === 'undefined') {
+			delete documentVersionUpdates.publishedStatus;
+		} else {
+			// when setting publishedStatus, save previous publishedStatus
 
-				// do we have a previous doc version, does it have a published status, and is that status different
-				if (
-					typeof documentVersion !== 'undefined' &&
-					typeof documentVersion.publishedStatus !== 'undefined' &&
-					documentVersion.publishedStatus !== publishedStatus
-				) {
-					documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-				}
+			// do we have a previous doc version, does it have a published status, and is that status different
+			if (
+				typeof documentVersion !== 'undefined' &&
+				typeof documentVersion.publishedStatus !== 'undefined' &&
+				documentVersion.publishedStatus !== publishedStatus
+			) {
+				documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
 			}
-
-			const updateResponseInTable = await documentVersionRepository.update(document.guid, {
-				version: documentVersion.version,
-				...documentVersionUpdates
-			});
-			const formattedResponse = formatDocumentUpdateResponseBody(
-				updateResponseInTable.documentGuid ?? '',
-				updateResponseInTable.publishedStatus ?? '',
-				updateResponseInTable.redactedStatus ?? ''
-			);
-
-			formattedResponseList.push(formattedResponse);
 		}
+
+		const updateResponseInTable = await documentVersionRepository.update(document.guid, {
+			version: documentVersion.version,
+			...documentVersionUpdates
+		});
+		const formattedResponse = formatDocumentUpdateResponseBody(
+			updateResponseInTable.documentGuid ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		formattedResponseList.push(formattedResponse);
 	}
 
 	logger.info(`Updated ${documents.length} documents`);
