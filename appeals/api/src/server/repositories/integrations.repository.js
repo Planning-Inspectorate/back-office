@@ -139,33 +139,35 @@ export const createOrUpdateLpaQuestionnaire = async (caseReference, data, docume
 			}
 		}
 
-		appeal = await tx.appeal.findUnique({
-			where: { id: appeal.id },
-			include: {
-				appellantCase: {
-					include: {
-						appellantCaseValidationOutcome: true
-					}
-				},
-				lpaQuestionnaire: {
-					include: {
-						lpaQuestionnaireValidationOutcome: true
-					}
-				},
-				inspector: true,
-				caseOfficer: true,
-				appellant: true,
-				appealTimetable: true,
-				address: true,
-				appealType: true,
-				allocation: true,
-				specialisms: {
-					include: {
-						specialism: true
+		if (appeal) {
+			appeal = await tx.appeal.findUnique({
+				where: { id: appeal.id },
+				include: {
+					appellantCase: {
+						include: {
+							appellantCaseValidationOutcome: true
+						}
+					},
+					lpaQuestionnaire: {
+						include: {
+							lpaQuestionnaireValidationOutcome: true
+						}
+					},
+					inspector: true,
+					caseOfficer: true,
+					appellant: true,
+					appealTimetable: true,
+					address: true,
+					appealType: true,
+					allocation: true,
+					specialisms: {
+						include: {
+							specialism: true
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 
 		return appeal;
 	});
