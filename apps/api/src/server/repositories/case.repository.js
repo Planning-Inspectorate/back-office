@@ -307,8 +307,12 @@ const updateApplicationSansRegionsRemoval = ({
 			...(caseStatus && {
 				CaseStatus: {
 					updateMany: {
-						data: caseStatus,
+						data: { valid: false },
 						where: { caseId }
+					},
+					create: {
+						...caseStatus,
+						valid: true
 					}
 				}
 			}),
