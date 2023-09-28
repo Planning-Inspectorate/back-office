@@ -114,9 +114,13 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
-				guid: 'documenttoupdate_1_guid',
-				redactedStatus: 'redacted',
-				status: 'not_checked'
+				documents: [
+					{
+						guid: 'documenttoupdate_1_guid',
+						redactedStatus: 'redacted',
+						status: 'not_checked'
+					}
+				]
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
@@ -214,9 +218,13 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
-				guid: 'documenttoupdate_1a_guid',
-				redactedStatus: 'unredacted',
-				status: 'ready_to_publish'
+				documents: [
+					{
+						guid: 'documenttoupdate_1a_guid',
+						redactedStatus: 'unredacted',
+						status: 'ready_to_publish'
+					}
+				]
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
@@ -281,9 +289,13 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
-				guid: 'documenttoupdate_2_guid',
-				redactedStatus: 'unredacted',
-				status: 'not_checked'
+				documents: [
+					{
+						guid: 'documenttoupdate_2_guid',
+						redactedStatus: 'unredacted',
+						status: 'not_checked'
+					}
+				]
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
@@ -342,9 +354,13 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
-				guid: 'documenttoupdate_3_guid',
-				redactedStatus: 'redacted',
-				status: 'awaiting_upload'
+				documents: [
+					{
+						guid: 'documenttoupdate_3_guid',
+						redactedStatus: 'redacted',
+						status: 'awaiting_upload'
+					}
+				]
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
@@ -407,9 +423,13 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual([
 			{
-				guid: 'documenttoupdate_1a_guid',
-				redactedStatus: 'unredacted',
-				status: 'ready_to_publish'
+				documents: [
+					{
+						guid: 'documenttoupdate_1a_guid',
+						redactedStatus: 'unredacted',
+						status: 'ready_to_publish'
+					}
+				]
 			}
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
