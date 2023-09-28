@@ -68,7 +68,7 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
  *
  * @param {number} caseId
  * @param {{status: string, redacted?: boolean, documents: Array<{guid: string}>}} payload
- * @returns {Promise<{documents?: Array<{guid: string}>, errors?: {guid: string}[]}>}
+ * @returns {Promise<{documents?: Array<{guid: string}>, errors?: Record<string, string>[]}>}
  */
 export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
 	let response;

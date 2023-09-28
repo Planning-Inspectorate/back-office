@@ -86,9 +86,10 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 		: await updateCaseDocumentationFiles(caseId, payload);
 
 	if (validationErrors || apiErrors) {
-		const apiErrorMessage = (apiErrors || [])[0]?.guid
-			? { msg: 'You must fill in all mandatory document properties to publish a document' }
-			: { msg: 'Something went wrong. Please, try again later.' };
+		const apiErrorMessage =
+			apiErrors && apiErrors.length > 0
+				? { msg: Object.values(apiErrors[0])[0] }
+				: { msg: 'Something went wrong. Please, try again later.' };
 
 		/** @type {DocumentationFile[]} */
 		const allItems = properties.items.items;
