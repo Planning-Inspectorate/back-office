@@ -5,7 +5,7 @@ import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
-import { getRandomQuarterDate, validateProjectInformation } from '../../support/utils/utils';
+import { getRandomQuarterDate, validateProjectOverview } from '../../support/utils/utils';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { CasePage } from '../../page_objects/casePage';
 import { getRandomFormattedDate } from '../../support/utils/utils.js';
@@ -65,7 +65,7 @@ describe('Update Key Dates', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateProjectInformation(projectInfo, true);
+			validateProjectOverview(projectInfo, true);
 			casePage.clickLinkByText('Key dates');
 			casePage.showAllSections();
 			keyDatesPage.validateSectionDates('Pre-application', expectedBefore);
