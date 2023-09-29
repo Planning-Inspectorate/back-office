@@ -6,7 +6,6 @@ import {
 	APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS
 } from '../../server/endpoints/constants.js';
-import config from '../../../src/server/config/config.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Schema.Appellant} Appellant
@@ -21,70 +20,70 @@ export const personList = [
 		firstName: 'Lee',
 		lastName: 'Thornton',
 		company: 'Lee Thornton Ltd',
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Haley',
 		lastName: 'Eland',
 		company: null,
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Roger',
 		lastName: 'Simmons',
 		company: 'Roger Simmons Ltd',
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Sophie',
 		lastName: 'Skinner',
 		company: null,
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Ryan',
 		lastName: 'Marshall',
 		company: 'Ryan Marshall Ltd',
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Fiona',
 		lastName: 'Burgess',
 		company: null,
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Kevin',
 		lastName: 'Fowler',
 		company: 'Kevin Fowler Ltd',
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Bob',
 		lastName: 'Ross',
 		company: null,
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Eva',
 		lastName: 'Sharma',
 		company: 'Eva Sharma Ltd',
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Elaine',
 		lastName: 'Madsen',
 		company: null,
-		email: config.govNotify.testMailbox,
+		email: 'test@example.com',
 		telephone: '01234567891'
 	}
 ];

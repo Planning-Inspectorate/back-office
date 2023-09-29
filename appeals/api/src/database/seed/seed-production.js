@@ -1,6 +1,4 @@
-import config from '../../server/config/config.js';
 import { databaseConnector } from '../../server/utils/database-connector.js';
-import logger from '../../server/utils/logger.js';
 import { seedStaticData } from './data-static.js';
 
 /**
@@ -13,11 +11,11 @@ const seedProduction = async () => {
 	try {
 		await seedStaticData(databaseConnector);
 	} catch (error) {
-		logger.error(error);
+		console.error(error);
 		throw error;
 	} finally {
 		await databaseConnector.$disconnect();
 	}
 };
 
-await (config.NODE_ENV === 'production' ? seedProduction() : null);
+await (process.env.NODE_ENV === 'production' ? seedProduction() : null);

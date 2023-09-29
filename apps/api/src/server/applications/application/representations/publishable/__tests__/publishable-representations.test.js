@@ -46,41 +46,89 @@ const representations = [
 describe('Get Publishable Representations', () => {
 	afterEach(() => jest.clearAllMocks());
 
-	it('returns publishable representations for given case id', async () => {
+	describe('for given case id', () => {
 		databaseConnector.representation.findMany.mockResolvedValue(representations);
 
-		const response = await request.get('/applications/1/representations/publishable');
+		describe('when representations have been published before', () => {
+			it('returns publishable representations with .previouslyPublished true', async () => {
+				databaseConnector.representation.count.mockResolvedValue(1);
 
-		expect(databaseConnector.representation.findMany).toHaveBeenCalledWith(
-			expect.objectContaining({
-				orderBy: [{ status: 'desc' }, { reference: 'asc' }]
-			})
-		);
+				const response = await request.get('/applications/1/representations/publishable');
 
-		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({
-			itemCount: 2,
-			items: [
-				{
-					id: 6409,
-					reference: 'BC0110001-55',
-					status: 'VALID',
-					redacted: true,
-					received: '2023-08-11T10:52:56.516Z',
-					firstName: 'Jane',
-					lastName: 'Bloggs',
-					organisationName: 'Something Ltd'
-				},
-				{
-					id: 6579,
-					reference: 'BC0110001-1533',
-					status: 'PUBLISHED',
-					redacted: false,
-					received: '2023-08-11T10:52:56.516Z',
-					firstName: 'Joe',
-					lastName: 'Bloggs'
-				}
-			]
+				expect(databaseConnector.representation.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						orderBy: [{ status: 'desc' }, { reference: 'asc' }]
+					})
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					previouslyPublished: true,
+					itemCount: 2,
+					items: [
+						{
+							id: 6409,
+							reference: 'BC0110001-55',
+							status: 'VALID',
+							redacted: true,
+							received: '2023-08-11T10:52:56.516Z',
+							firstName: 'Jane',
+							lastName: 'Bloggs',
+							organisationName: 'Something Ltd'
+						},
+						{
+							id: 6579,
+							reference: 'BC0110001-1533',
+							status: 'PUBLISHED',
+							redacted: false,
+							received: '2023-08-11T10:52:56.516Z',
+							firstName: 'Joe',
+							lastName: 'Bloggs'
+						}
+					]
+				});
+			});
+		});
+
+		describe('when representations have not been published before', () => {
+			it('returns publishable representations', async () => {
+				databaseConnector.representation.count.mockResolvedValue(0);
+
+				const response = await request.get('/applications/1/representations/publishable');
+
+				expect(databaseConnector.representation.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						orderBy: [{ status: 'desc' }, { reference: 'asc' }]
+					})
+				);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					previouslyPublished: false,
+					itemCount: 2,
+					items: [
+						{
+							id: 6409,
+							reference: 'BC0110001-55',
+							status: 'VALID',
+							redacted: true,
+							received: '2023-08-11T10:52:56.516Z',
+							firstName: 'Jane',
+							lastName: 'Bloggs',
+							organisationName: 'Something Ltd'
+						},
+						{
+							id: 6579,
+							reference: 'BC0110001-1533',
+							status: 'PUBLISHED',
+							redacted: false,
+							received: '2023-08-11T10:52:56.516Z',
+							firstName: 'Joe',
+							lastName: 'Bloggs'
+						}
+					]
+				});
+			});
 		});
 	});
 });

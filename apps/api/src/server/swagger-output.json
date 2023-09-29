@@ -845,6 +845,10 @@
 						"schema": {
 							"type": "object",
 							"properties": {
+								"previouslyPublished": {
+									"type": "boolean",
+									"example": false
+								},
 								"itemCount": {
 									"type": "number",
 									"example": 100
