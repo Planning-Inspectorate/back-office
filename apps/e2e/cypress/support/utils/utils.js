@@ -23,14 +23,8 @@ const validateSummaryPage = (fileIndex, checkType) => {
 	});
 };
 
-const validateSummaryPageInfo = (projectInformation, checkType) => {
+const validateProjectOverview = (projectInformation, checkType) => {
 	const mandatoryOnly = checkType === 'mandatory';
-
-	// No longer mandatory
-	// casePage.validateKeyDates(
-	// 	mandatoryOnly ? '' : projectInformation.publishedDate,
-	// 	projectInformation.internalDateFull
-	// );
 
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.validateSummaryItem(
@@ -47,6 +41,8 @@ const validateSummaryPageInfo = (projectInformation, checkType) => {
 		'Project email',
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
+
+	casePage.validateSummaryItem('Project page', projectInformation.defaultPublishedStatus);
 };
 
 const validateProjectInformation = (page, projectInformation, checkType, updated = false) => {
@@ -68,7 +64,7 @@ const validateProjectInformation = (page, projectInformation, checkType, updated
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	// casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
@@ -98,6 +94,28 @@ const validateProjectInformation = (page, projectInformation, checkType, updated
 			: projectInformation.applicantFullAddress;
 		casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address);
 	}
+};
+
+const validatePreviewAndPublishInfo = (projectInformation) => {
+	// P R O J E C T  I N F O R M A T I O N
+	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Sector', projectInformation.sector);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Case stage', '');
+	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
+	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
+	casePage.checkProjectAnswer(
+		'Grid references',
+		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
+	);
+	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
+
+	// A P P L I C A T I O N  I N F O R M A T I O N
+	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
+	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
 };
 
 const updateProjectInformation = (projectInformation) => {
@@ -223,11 +241,12 @@ const getRandomQuarterDate = (direction = 'future') => {
 
 module.exports = {
 	validateSummaryPage,
-	validateSummaryPageInfo,
+	validateProjectOverview,
 	validateProjectInformation,
 	updateProjectInformation,
 	getShortMonthName,
 	enquirerString,
 	getRandomFormattedDate,
-	getRandomQuarterDate
+	getRandomQuarterDate,
+	validatePreviewAndPublishInfo
 };

@@ -45,7 +45,7 @@ module.exports = defineConfig({
 		pageLoadTimeout: 30000,
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
-		video: false,
-		retries: 1
+		video: false
+		// retries: 1
 	}
 });
