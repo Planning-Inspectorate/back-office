@@ -7,9 +7,9 @@ import {
 	ERROR_MUST_NOT_HAVE_TIMETABLE_DATE,
 	ERROR_NOT_FOUND
 } from '../../constants.js';
-import { fullPlanningAppeal, householdAppeal } from '#tests/data.js';
+import { azureAdUserId, fullPlanningAppeal, householdAppeal } from '#tests/data.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 const futureDate = '2099-09-01';
@@ -46,7 +46,8 @@ describe('appeal timetables routes', () => {
 				const { appealTimetable, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appealTimetable.update).toHaveBeenCalledWith({
 					data: householdAppealResponseBody,
@@ -65,7 +66,8 @@ describe('appeal timetables routes', () => {
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(fullPlanningAppealRequestBody);
+					.send(fullPlanningAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appealTimetable.update).toHaveBeenCalledWith({
 					data: fullPlanningAppealResponseBody,
@@ -83,7 +85,8 @@ describe('appeal timetables routes', () => {
 
 				const response = await request
 					.patch(`/appeals/one/appeal-timetables/${householdAppeal.appealTimetable.id}`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -100,7 +103,8 @@ describe('appeal timetables routes', () => {
 				const { appealTimetable } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/3/appeal-timetables/${appealTimetable.id}`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -116,7 +120,8 @@ describe('appeal timetables routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appeal-timetables/one`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -133,7 +138,8 @@ describe('appeal timetables routes', () => {
 				const { id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/3`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -152,7 +158,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						finalCommentReviewDate: '05/05/2023'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -171,7 +178,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						finalCommentReviewDate: '2023-5-5'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -191,7 +199,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -211,7 +220,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -231,7 +241,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -250,7 +261,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						finalCommentReviewDate: '2099-02-30'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -270,12 +282,13 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						finalCommentReviewDate: errorMessageReplacement(ERROR_MUST_NOT_HAVE_TIMETABLE_DATE, [
+						finalCommentReviewDate: stringTokenReplacement(ERROR_MUST_NOT_HAVE_TIMETABLE_DATE, [
 							appealType.type
 						])
 					}
@@ -291,7 +304,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						issueDeterminationDate: '05/05/2023'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -310,7 +324,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						issueDeterminationDate: '2023-5-5'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -330,7 +345,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -350,7 +366,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -370,7 +387,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -389,7 +407,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						issueDeterminationDate: '2099-02-30'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -408,7 +427,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						lpaQuestionnaireDueDate: '05/05/2023'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -427,7 +447,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						lpaQuestionnaireDueDate: '2023-5-5'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -447,7 +468,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -467,7 +489,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -487,7 +510,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -506,7 +530,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						lpaQuestionnaireDueDate: '2023-02-30'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -525,7 +550,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						statementReviewDate: '05/05/2023'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -544,7 +570,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						statementReviewDate: '2023-5-5'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -564,7 +591,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -584,7 +612,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -604,7 +633,8 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -623,7 +653,8 @@ describe('appeal timetables routes', () => {
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
 					.send({
 						statementReviewDate: '2023-02-30'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -643,12 +674,13 @@ describe('appeal timetables routes', () => {
 				};
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						statementReviewDate: errorMessageReplacement(ERROR_MUST_NOT_HAVE_TIMETABLE_DATE, [
+						statementReviewDate: stringTokenReplacement(ERROR_MUST_NOT_HAVE_TIMETABLE_DATE, [
 							appealType.type
 						])
 					}
@@ -662,7 +694,8 @@ describe('appeal timetables routes', () => {
 				const { appealTimetable, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send({});
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
@@ -679,7 +712,8 @@ describe('appeal timetables routes', () => {
 				const { appealTimetable, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/appeal-timetables/${appealTimetable.id}`)
-					.send(householdAppealRequestBody);
+					.send(householdAppealRequestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appealTimetable.update).toHaveBeenCalledWith({
 					data: householdAppealResponseBody,

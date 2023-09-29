@@ -845,6 +845,10 @@
 						"schema": {
 							"type": "object",
 							"properties": {
+								"previouslyPublished": {
+									"type": "boolean",
+									"example": false
+								},
 								"itemCount": {
 									"type": "number",
 									"example": 100
@@ -3953,6 +3957,10 @@
 					"example": ""
 				},
 				"caseEmail": {
+					"type": "string",
+					"example": ""
+				},
+				"stage": {
 					"type": "string",
 					"example": ""
 				},

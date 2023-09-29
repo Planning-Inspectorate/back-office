@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { scheduleTypes } from '../../../tests/data.js';
+import { azureAdUserId, scheduleTypes } from '../../../tests/data.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -13,7 +13,9 @@ describe('schedule types routes', () => {
 				// @ts-ignore
 				databaseConnector.scheduleType.findMany.mockResolvedValue(scheduleTypes);
 
-				const response = await request.get('/appeals/schedule-types');
+				const response = await request
+					.get('/appeals/schedule-types')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(scheduleTypes);
@@ -23,7 +25,9 @@ describe('schedule types routes', () => {
 				// @ts-ignore
 				databaseConnector.scheduleType.findMany.mockResolvedValue([]);
 
-				const response = await request.get('/appeals/schedule-types');
+				const response = await request
+					.get('/appeals/schedule-types')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({ errors: ERROR_NOT_FOUND });
@@ -35,7 +39,9 @@ describe('schedule types routes', () => {
 					throw new Error(ERROR_FAILED_TO_GET_DATA);
 				});
 
-				const response = await request.get('/appeals/schedule-types');
+				const response = await request
+					.get('/appeals/schedule-types')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(500);
 				expect(response.body).toEqual({ errors: ERROR_FAILED_TO_GET_DATA });

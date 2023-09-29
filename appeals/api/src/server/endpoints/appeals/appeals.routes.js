@@ -16,6 +16,11 @@ router.get(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals'
 		#swagger.description = 'Gets requested appeals, limited to the first 30 appeals if no pagination params are given'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.parameters['pageNumber'] = {
 			in: 'query',
 			description: 'The pagination page number - required if pageSize is given',
@@ -47,6 +52,11 @@ router.get(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}'
 		#swagger.description = Gets a single appeal by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single appeal by id',
 			schema: { $ref: '#/definitions/SingleAppealResponse' }
@@ -65,6 +75,11 @@ router.patch(
 		#swagger.tags = ['Appeals']
 		#swagger.path = '/appeals/{appealId}'
 		#swagger.description = 'Updates a single appeal by id'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal details to update',

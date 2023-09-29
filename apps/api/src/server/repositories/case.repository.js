@@ -26,6 +26,7 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
+ *  caseStatus?: { status: import('@pins/applications').ApplicationStageType },
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
@@ -40,6 +41,7 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
+ *  caseStatus?: { status: import('@pins/applications').ApplicationStageType},
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
@@ -229,6 +231,7 @@ const updateApplicationSansRegionsRemoval = ({
 	caseDetails,
 	gridReference,
 	applicationDetails,
+	caseStatus,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
@@ -301,6 +304,18 @@ const updateApplicationSansRegionsRemoval = ({
 						}
 					}
 				}),
+			...(caseStatus && {
+				CaseStatus: {
+					updateMany: {
+						data: { valid: false },
+						where: { caseId }
+					},
+					create: {
+						...caseStatus,
+						valid: true
+					}
+				}
+			}),
 			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
 		},
 		include: {
@@ -319,6 +334,7 @@ export const updateApplication = async ({
 	caseDetails,
 	gridReference,
 	applicationDetails,
+	caseStatus,
 	subSectorName,
 	regionNames,
 	mapZoomLevelName,
@@ -346,6 +362,7 @@ export const updateApplication = async ({
 			caseDetails,
 			gridReference,
 			applicationDetails,
+			caseStatus,
 			subSectorName,
 			regionNames,
 			mapZoomLevelName,
@@ -372,7 +389,7 @@ export const updateApplication = async ({
 
 /**
  * @param {UpdateApplicationParams} caseInfo
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
+ * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
  */
 export const publishCase = async ({ caseId }) => {
 	const publishedCase = await databaseConnector.case.update({

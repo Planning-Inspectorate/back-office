@@ -103,6 +103,8 @@ export interface UpdateApplication {
 	subSectorName?: string;
 	/** @example "" */
 	caseEmail?: string;
+	/** @example "" */
+	stage?: string;
 	geographicalInformation?: {
 		/** @example "" */
 		mapZoomLevelName?: string;

@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['LPA Questionnaire Validation Outcomes']
 		#swagger.path = '/appeals/lpa-questionnaire-validation-outcomes'
 		#swagger.description = 'Gets LPA questionnaire validation outcomes'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'LPA questionnaire validation outcomes',
 			schema: { $ref: '#/definitions/AllLPAQuestionnaireValidationOutcomesResponse' },

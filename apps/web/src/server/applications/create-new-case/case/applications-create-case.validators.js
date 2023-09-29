@@ -77,3 +77,12 @@ export const validateApplicationsTeamEmail = createValidator(
 		})
 		.withMessage('Enter a valid email address')
 );
+
+export const validateApplicationsCreateCaseStage = createValidator(
+	body('stage')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Set a stage for the case')
+		.isLength({ max: 50 })
+		.withMessage('The case stage must be 50 characters or fewer')
+);

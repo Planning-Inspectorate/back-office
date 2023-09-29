@@ -21,8 +21,8 @@
       [{ text: "Subsector" }, { text: case.subSector.displayNameEn }, {}],
       [
         { text: "Case stage" },
-        { text: '' },
-        { html: caseEditLink({ editStepUrl: "#", caseId: case.id }) }
+        { text: case.status },
+        { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }) }
       ]
     ]
   }) }}

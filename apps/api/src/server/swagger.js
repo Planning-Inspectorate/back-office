@@ -128,6 +128,7 @@ export const spec = {
 			description: '',
 			subSectorName: '',
 			caseEmail: '',
+			stage: '',
 			geographicalInformation: {
 				mapZoomLevelName: '',
 				locationDescription: '',
@@ -217,6 +218,12 @@ export const spec = {
 				name: 'Region Name',
 				displayNameEn: 'Region Name En',
 				displayNameCy: 'Region Name Cy'
+			}
+		],
+		CaseStages: [
+			{
+				name: 'post_decision',
+				displayNameEn: 'Post-Decision'
 			}
 		],
 		MapZoomLevelForApplications: [

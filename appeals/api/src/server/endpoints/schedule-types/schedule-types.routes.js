@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['Schedule Types']
 		#swagger.path = '/appeals/schedule-types'
 		#swagger.description = 'Gets schedule types'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Schedule types',
 			schema: { $ref: '#/definitions/AllScheduleTypesResponse' },

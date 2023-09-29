@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['Planning Obligation Statuses']
 		#swagger.path = '/appeals/planning-obligation-statuses'
 		#swagger.description = 'Gets planning obligation statuses'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Planning obligation statuses',
 			schema: { $ref: '#/definitions/AllPlanningObligationStatusesResponse' },

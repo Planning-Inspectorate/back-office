@@ -4,6 +4,8 @@ import {
 	caseGeographicalInformationDataUpdate,
 	caseNameAndDescriptionData,
 	caseNameAndDescriptionDataUpdate,
+	caseStageData,
+	caseStageDataUpdate,
 	caseRegionsData,
 	caseRegionsDataUpdate,
 	caseTeamEmailData,
@@ -21,6 +23,12 @@ const nameLayout = {
 const descriptionLayout = {
 	pageTitle: 'Enter project description',
 	components: ['description'],
+	isEdit: true
+};
+
+const stageLayout = {
+	pageTitle: 'Select a case stage',
+	components: ['stage'],
 	isEdit: true
 };
 
@@ -58,6 +66,8 @@ const zoomLevelLayout = {
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSectorProps} ApplicationsCreateCaseSectorProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSectorBody} ApplicationsCreateCaseSectorBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseStageProps} ApplicationsCreateCaseStageProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseStageBody} ApplicationsCreateCaseStageBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseSubSectorBody} ApplicationsCreateCaseSubSectorBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
@@ -147,6 +157,37 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 	}
 
 	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+}
+
+/**
+ * View the form step for editing the case stage
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseStageProps,
+ * {}, ApplicationsCreateCaseStageBody, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseStage(request, response) {
+	const properties = await caseStageData(request, response.locals);
+
+	return response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: stageLayout
+	});
+}
+
+/**
+ * Edit the case stage
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseStageProps,
+ * {}, ApplicationsCreateCaseStageBody, {}, {}>}
+ */
+export async function updateApplicationsEditCaseStage(request, response) {
+	const { properties, updatedCaseId } = await caseStageDataUpdate(request, response.locals);
+
+	if (properties.errors || !updatedCaseId) {
+		return handleErrors(properties, stageLayout, response);
+	}
+
+	return response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
 }
 
 /**

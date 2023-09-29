@@ -68,6 +68,7 @@ interface RepositoryGetByIdResultItem {
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
 	appellantCase?: Schema.AppellantCase | null;
+	auditTrail: Schema.AuditTrail[] | null;
 	caseOfficer: User | null;
 	createdAt: Date;
 	dueDate: Date | null;
@@ -484,6 +485,7 @@ interface UpdateAppealRequest {
 }
 
 interface UsersToAssign {
+	azureAdUserId: string;
 	caseOfficer?: string | null;
 	inspector?: string | null;
 }
@@ -499,6 +501,19 @@ interface SingleFolderResponse {
 	caseId: number;
 	documents: DocumentInfo[] | null;
 }
+
+interface CreateAuditTrailRequest {
+	appealId: number;
+	details: string;
+	loggedAt: Date;
+	userId: number;
+}
+
+type GetAuditTrailsResponse = {
+	azureAdUserId: string;
+	details: string;
+	loggedDate: Date;
+}[];
 
 type UpdateDocumentsRequest = {
 	id: string;
@@ -524,6 +539,7 @@ export {
 	AssignedUser,
 	BankHolidayFeedDivisions,
 	BankHolidayFeedEvents,
+	CreateAuditTrailRequest,
 	DocumentationSummary,
 	DocumentInfo,
 	FolderInfo,
@@ -541,6 +557,7 @@ export {
 	SingleAppealDetailsResponse,
 	SingleAppellantCaseResponse,
 	SingleAppellantResponse,
+	GetAuditTrailsResponse,
 	SingleFolderResponse,
 	SingleLPAQuestionnaireResponse,
 	SingleSiteVisitDetailsResponse,

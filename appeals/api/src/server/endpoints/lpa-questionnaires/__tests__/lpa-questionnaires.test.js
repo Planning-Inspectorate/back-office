@@ -26,6 +26,7 @@ import {
 	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
 import {
+	azureAdUserId,
 	baseExpectedLPAQuestionnaireResponse,
 	fullPlanningAppeal,
 	householdAppeal,
@@ -36,7 +37,7 @@ import {
 	otherAppeals
 } from '../../../tests/data.js';
 import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -54,9 +55,9 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppeal;
-				const response = await request.get(
-					`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`
-				);
+				const response = await request
+					.get(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(baseExpectedLPAQuestionnaireResponse(householdAppeal));
@@ -71,9 +72,9 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppealLPAQuestionnaireComplete;
-				const response = await request.get(
-					`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`
-				);
+				const response = await request
+					.get(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -90,9 +91,9 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppealLPAQuestionnaireIncomplete;
-				const response = await request.get(
-					`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`
-				);
+				const response = await request
+					.get(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(
@@ -101,9 +102,9 @@ describe('lpa questionnaires routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get(
-					`/appeals/one/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`
-				);
+				const response = await request
+					.get(`/appeals/one/lpa-questionnaires/${householdAppeal.lpaQuestionnaire.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -118,7 +119,9 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
 				const { lpaQuestionnaire } = householdAppeal;
-				const response = await request.get(`/appeals/3/lpa-questionnaires/${lpaQuestionnaire.id}`);
+				const response = await request
+					.get(`/appeals/3/lpa-questionnaires/${lpaQuestionnaire.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -130,7 +133,9 @@ describe('lpa questionnaires routes', () => {
 
 			test('returns an error if lpaQuestionnaireId is not numeric', async () => {
 				const { id } = householdAppeal;
-				const response = await request.get(`/appeals/${id}/lpa-questionnaires/one`);
+				const response = await request
+					.get(`/appeals/${id}/lpa-questionnaires/one`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -145,7 +150,9 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { id } = householdAppeal;
-				const response = await request.get(`/appeals/${id}/lpa-questionnaires/3`);
+				const response = await request
+					.get(`/appeals/${id}/lpa-questionnaires/3`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -183,7 +190,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -234,7 +242,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = fullPlanningAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -279,7 +288,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -327,7 +337,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -375,7 +386,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -423,7 +435,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -471,7 +484,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -528,7 +542,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -614,7 +629,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -707,7 +723,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {
@@ -759,7 +776,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/one/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						validationOutcome: 'Complete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -778,7 +796,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/3/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						validationOutcome: 'Complete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -790,9 +809,12 @@ describe('lpa questionnaires routes', () => {
 
 			test('returns an error if lpaQuestionnaireId is not numeric', async () => {
 				const { id } = householdAppeal;
-				const response = await request.patch(`/appeals/${id}/lpa-questionnaires/one`).send({
-					validationOutcome: 'Complete'
-				});
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/one`)
+					.send({
+						validationOutcome: 'Complete'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -807,9 +829,12 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { id } = householdAppeal;
-				const response = await request.patch(`/appeals/${id}/lpa-questionnaires/3`).send({
-					validationOutcome: 'Complete'
-				});
+				const response = await request
+					.patch(`/appeals/${id}/lpa-questionnaires/3`)
+					.send({
+						validationOutcome: 'Complete'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -831,7 +856,9 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
+
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
@@ -854,7 +881,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -874,7 +902,8 @@ describe('lpa questionnaires routes', () => {
 					.send({
 						incompleteReasons: [{ id: 1 }],
 						validationOutcome: 'Complete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -894,7 +923,8 @@ describe('lpa questionnaires routes', () => {
 					.send({
 						lpaQuestionnaireDueDate: '2099-06-22',
 						validationOutcome: 'Complete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -913,7 +943,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -931,7 +962,8 @@ describe('lpa questionnaires routes', () => {
 						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '05/05/2099',
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -949,7 +981,8 @@ describe('lpa questionnaires routes', () => {
 						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2099-5-5',
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -969,7 +1002,8 @@ describe('lpa questionnaires routes', () => {
 						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2023-06-04',
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -987,7 +1021,8 @@ describe('lpa questionnaires routes', () => {
 						incompleteReasons: [{ id: 1 }],
 						lpaQuestionnaireDueDate: '2099-02-30',
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1008,7 +1043,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						validationOutcome: 'invalid'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1037,7 +1073,8 @@ describe('lpa questionnaires routes', () => {
 						incompleteReasons: [{ id: 1 }, { id: 10 }],
 						lpaQuestionnaireDueDate: '2099-06-22',
 						validationOutcome: 'Incomplete'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -1056,7 +1093,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isListedBuilding: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1076,7 +1114,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1098,7 +1137,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1123,7 +1163,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1146,7 +1187,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1169,7 +1211,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1192,7 +1235,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1215,7 +1259,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1238,7 +1283,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1257,7 +1303,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						doesAffectAListedBuilding: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1277,7 +1324,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1299,7 +1347,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1324,7 +1373,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1347,7 +1397,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1370,7 +1421,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1393,7 +1445,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1416,7 +1469,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1439,7 +1493,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1458,7 +1513,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						doesAffectAScheduledMonument: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1478,12 +1534,14 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
 					data: body
 				});
+
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					doesAffectAScheduledMonument: true
@@ -1500,7 +1558,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1525,7 +1584,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1548,7 +1608,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1571,7 +1632,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1594,7 +1656,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1617,7 +1680,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1640,7 +1704,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1659,7 +1724,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isConservationArea: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1679,7 +1745,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1701,7 +1768,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1726,7 +1794,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1749,7 +1818,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1772,7 +1842,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1795,7 +1866,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1818,7 +1890,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1841,7 +1914,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1860,7 +1934,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						hasProtectedSpecies: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -1880,7 +1955,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1902,7 +1978,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1927,7 +2004,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1950,7 +2028,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1973,7 +2052,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -1996,7 +2076,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2019,7 +2100,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2042,7 +2124,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2061,7 +2144,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isTheSiteWithinAnAONB: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2081,7 +2165,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2103,7 +2188,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2128,7 +2214,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2151,7 +2238,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2174,7 +2262,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2197,7 +2286,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2220,7 +2310,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2243,7 +2334,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2262,7 +2354,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						hasTreePreservationOrder: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2282,7 +2375,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2304,7 +2398,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2329,7 +2424,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2352,7 +2448,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2375,7 +2472,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2398,7 +2496,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2421,7 +2520,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2444,7 +2544,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2463,7 +2564,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isGypsyOrTravellerSite: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2483,7 +2585,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2505,7 +2608,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2530,7 +2634,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2553,7 +2658,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2576,7 +2682,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2599,7 +2706,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2622,7 +2730,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2645,7 +2754,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2664,7 +2774,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isPublicRightOfWay: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2684,7 +2795,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2706,7 +2818,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2731,7 +2844,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2754,7 +2868,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2777,7 +2892,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2800,7 +2916,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2823,7 +2940,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2846,7 +2964,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2865,7 +2984,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isEnvironmentalStatementRequired: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -2885,7 +3005,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2907,7 +3028,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2932,7 +3054,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2955,7 +3078,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -2978,7 +3102,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3001,7 +3126,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3024,7 +3150,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3047,7 +3174,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3066,7 +3194,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						hasCompletedAnEnvironmentalStatement: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3086,7 +3215,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3108,7 +3238,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3133,7 +3264,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3156,7 +3288,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3179,7 +3312,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3202,7 +3336,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3225,7 +3360,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3248,7 +3384,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3267,7 +3404,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						includesScreeningOption: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3287,7 +3425,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3309,7 +3448,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3334,7 +3474,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3357,7 +3498,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3380,7 +3522,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3403,7 +3546,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3426,7 +3570,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3449,7 +3594,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3468,7 +3614,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						meetsOrExceedsThresholdOrCriteriaInColumn2: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3488,7 +3635,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3510,7 +3658,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3535,7 +3684,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3558,7 +3708,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3581,7 +3732,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3604,7 +3756,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3627,7 +3780,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3650,7 +3804,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3676,7 +3831,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(
 					databaseConnector.designatedSitesOnLPAQuestionnaires.createMany
@@ -3707,7 +3863,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(
 					databaseConnector.designatedSitesOnLPAQuestionnaires.createMany
@@ -3731,7 +3888,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						designatedSites: 1
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3751,7 +3909,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3770,7 +3929,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						designatedSites: []
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3796,7 +3956,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -3822,7 +3983,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3850,7 +4012,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: householdAppeal.lpaQuestionnaire.id },
@@ -3874,7 +4037,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -3900,7 +4064,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -3919,9 +4084,10 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isSensitiveArea: 'yes'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
-				// expect(response.status).toEqual(400);
+				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
 						isSensitiveArea: ERROR_MUST_BE_BOOLEAN
@@ -3940,7 +4106,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -3960,7 +4127,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -3985,7 +4153,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4008,7 +4177,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4033,7 +4203,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4056,7 +4227,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4081,7 +4253,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4104,7 +4277,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(requestBody);
+					.send(requestBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					where: { id: lpaQuestionnaire.id },
@@ -4123,7 +4297,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						sensitiveAreaDetails: ['The area is liable to flooding']
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -4142,7 +4317,8 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						sensitiveAreaDetails: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -4161,12 +4337,13 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						sensitiveAreaDetails: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						sensitiveAreaDetails: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						sensitiveAreaDetails: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -4181,12 +4358,13 @@ describe('lpa questionnaires routes', () => {
 					.send({
 						isSensitiveArea: false,
 						sensitiveAreaDetails: 'The area is liable to flooding'
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						isSensitiveArea: errorMessageReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
+						isSensitiveArea: stringTokenReplacement(ERROR_MUST_NOT_HAVE_DETAILS, [
 							'sensitiveAreaDetails',
 							'isSensitiveArea',
 							false
@@ -4204,12 +4382,13 @@ describe('lpa questionnaires routes', () => {
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
 					.send({
 						isSensitiveArea: true
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						isSensitiveArea: errorMessageReplacement(ERROR_MUST_HAVE_DETAILS, [
+						isSensitiveArea: stringTokenReplacement(ERROR_MUST_HAVE_DETAILS, [
 							'sensitiveAreaDetails',
 							'isSensitiveArea',
 							true
@@ -4225,7 +4404,8 @@ describe('lpa questionnaires routes', () => {
 				const { lpaQuestionnaire, id } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send({});
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
@@ -4253,7 +4433,8 @@ describe('lpa questionnaires routes', () => {
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
 					.patch(`/appeals/${id}/lpa-questionnaires/${lpaQuestionnaire.id}`)
-					.send(body);
+					.send(body)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.lPAQuestionnaire.update).toHaveBeenCalledWith({
 					data: {

@@ -1,15 +1,20 @@
+import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import {
+	AUDIT_TRAIL_ASSIGNED_CASE_OFFICER,
+	AUDIT_TRAIL_ASSIGNED_INSPECTOR,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
+	ERROR_MUST_BE_SET_AS_HEADER,
 	ERROR_MUST_BE_UUID,
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
 import {
+	azureAdUserId,
 	fullPlanningAppeal,
 	householdAppeal,
 	householdAppealAppellantCaseIncomplete,
@@ -17,10 +22,15 @@ import {
 	otherAppeals
 } from '#tests/data.js';
 import formatAddress from '#utils/format-address.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('appeals routes', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	describe('/appeals', () => {
 		describe('GET', () => {
 			test('gets appeals when not given pagination params or a search term', async () => {
@@ -29,7 +39,7 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal, fullPlanningAppeal]);
 
-				const response = await request.get('/appeals');
+				const response = await request.get('/appeals').set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -84,7 +94,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([fullPlanningAppeal]);
 
-				const response = await request.get('/appeals?pageNumber=2&pageSize=1');
+				const response = await request
+					.get('/appeals?pageNumber=2&pageSize=1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -124,7 +136,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
 
-				const response = await request.get('/appeals?searchTerm=MD21');
+				const response = await request
+					.get('/appeals?searchTerm=MD21')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -183,7 +197,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
 
-				const response = await request.get('/appeals?searchTerm=md21');
+				const response = await request
+					.get('/appeals?searchTerm=md21')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -242,7 +258,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
 
-				const response = await request.get('/appeals?searchTerm=MD21 5XY');
+				const response = await request
+					.get('/appeals?searchTerm=MD21 5XY')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -296,7 +314,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageNumber is given and pageSize is not given', async () => {
-				const response = await request.get('/appeals?pageNumber=1');
+				const response = await request
+					.get('/appeals?pageNumber=1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -307,7 +327,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageSize is given and pageNumber is not given', async () => {
-				const response = await request.get('/appeals?pageSize=1');
+				const response = await request
+					.get('/appeals?pageSize=1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -318,7 +340,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageNumber is not numeric', async () => {
-				const response = await request.get('/appeals?pageNumber=one&pageSize=1');
+				const response = await request
+					.get('/appeals?pageNumber=one&pageSize=1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -329,7 +353,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageNumber is less than 1', async () => {
-				const response = await request.get('/appeals?pageNumber=-1&pageSize=1');
+				const response = await request
+					.get('/appeals?pageNumber=-1&pageSize=1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -340,7 +366,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageSize is not numeric', async () => {
-				const response = await request.get('/appeals?pageNumber=1&pageSize=one');
+				const response = await request
+					.get('/appeals?pageNumber=1&pageSize=one')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -351,7 +379,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if pageSize is less than 1', async () => {
-				const response = await request.get('/appeals?pageNumber=1&pageSize=-1');
+				const response = await request
+					.get('/appeals?pageNumber=1&pageSize=-1')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -362,7 +392,9 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if searchTerm is less than 2 characters', async () => {
-				const response = await request.get('/appeals?searchTerm=a');
+				const response = await request
+					.get('/appeals?searchTerm=a')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -373,12 +405,25 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if searchTerm is more than 8 characters', async () => {
-				const response = await request.get('/appeals?searchTerm=aaaaaaaaa');
+				const response = await request
+					.get('/appeals?searchTerm=aaaaaaaaa')
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
 						searchTerm: ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS
+					}
+				});
+			});
+
+			test('returns an error if azureAdUserId is not set as a header', async () => {
+				const response = await request.get('/appeals');
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						azureAdUserId: ERROR_MUST_BE_SET_AS_HEADER
 					}
 				});
 			});
@@ -396,7 +441,9 @@ describe('appeals routes', () => {
 					.mockResolvedValueOnce(linkedAppeals)
 					.mockResolvedValueOnce(otherAppeals);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -419,7 +466,7 @@ describe('appeals routes', () => {
 					appealType: householdAppeal.appealType.type,
 					appellantCaseId: 1,
 					appellantName: householdAppeal.appellant.name,
-					caseOfficer: householdAppeal.caseOfficer.azureUserId,
+					caseOfficer: householdAppeal.caseOfficer.azureAdUserId,
 					decision: householdAppeal.inspectorDecision.outcome,
 					documentationSummary: {
 						appellantCase: {
@@ -441,7 +488,7 @@ describe('appeals routes', () => {
 							hasIssues: householdAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
 						}
 					},
-					inspector: householdAppeal.inspector.azureUserId,
+					inspector: householdAppeal.inspector.azureAdUserId,
 					inspectorAccess: {
 						appellantCase: {
 							details: householdAppeal.appellantCase.visibilityRestrictions,
@@ -497,7 +544,9 @@ describe('appeals routes', () => {
 					.mockResolvedValueOnce(linkedAppeals)
 					.mockResolvedValueOnce([]);
 
-				const response = await request.get(`/appeals/${fullPlanningAppeal.id}`);
+				const response = await request
+					.get(`/appeals/${fullPlanningAppeal.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -522,7 +571,7 @@ describe('appeals routes', () => {
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantCaseId: 1,
 					appellantName: fullPlanningAppeal.appellant.name,
-					caseOfficer: fullPlanningAppeal.caseOfficer.azureUserId,
+					caseOfficer: fullPlanningAppeal.caseOfficer.azureAdUserId,
 					decision: fullPlanningAppeal.inspectorDecision.outcome,
 					documentationSummary: {
 						appellantCase: {
@@ -544,7 +593,7 @@ describe('appeals routes', () => {
 							hasIssues: fullPlanningAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
 						}
 					},
-					inspector: fullPlanningAppeal.inspector.azureUserId,
+					inspector: fullPlanningAppeal.inspector.azureAdUserId,
 					inspectorAccess: {
 						appellantCase: {
 							details: fullPlanningAppeal.appellantCase.visibilityRestrictions,
@@ -589,7 +638,7 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get('/appeals/one');
+				const response = await request.get('/appeals/one').set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -603,7 +652,7 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get('/appeals/3');
+				const response = await request.get('/appeals/3').set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -619,9 +668,12 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-05-05'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						startedAt: '2023-05-05'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
@@ -644,9 +696,12 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.caseOfficer);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					caseOfficer: householdAppeal.caseOfficer.azureUserId
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						caseOfficer: householdAppeal.caseOfficer.azureAdUserId
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
@@ -657,9 +712,19 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_CASE_OFFICER, [
+							householdAppeal.caseOfficer.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					caseOfficer: householdAppeal.caseOfficer.azureUserId
+					caseOfficer: householdAppeal.caseOfficer.azureAdUserId
 				});
 			});
 
@@ -669,9 +734,12 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.caseOfficer);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					caseOfficer: null
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						caseOfficer: null
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
@@ -682,6 +750,7 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					caseOfficer: null
@@ -694,9 +763,12 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.inspector);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					inspector: householdAppeal.inspector.azureUserId
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						inspector: householdAppeal.inspector.azureAdUserId
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
@@ -707,9 +779,19 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_INSPECTOR, [
+							householdAppeal.inspector.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.inspector.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					inspector: householdAppeal.inspector.azureUserId
+					inspector: householdAppeal.inspector.azureAdUserId
 				});
 			});
 
@@ -719,9 +801,12 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.user.upsert.mockResolvedValue(householdAppeal.inspector);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					inspector: null
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						inspector: null
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
@@ -732,6 +817,7 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					inspector: null
@@ -739,7 +825,7 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.patch('/appeals/one');
+				const response = await request.patch('/appeals/one').set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -753,7 +839,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -764,9 +852,12 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if startedAt is not in the correct format', async () => {
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '05/05/2023'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						startedAt: '05/05/2023'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -777,9 +868,12 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if startedAt does not contain leading zeros', async () => {
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-5-5'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						startedAt: '2023-5-5'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -790,9 +884,12 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if startedAt is not a valid date', async () => {
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAt: '2023-02-30'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						startedAt: '2023-02-30'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -803,9 +900,12 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if caseOfficer is not a valid uuid', async () => {
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					caseOfficer: '1'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						caseOfficer: '1'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -816,9 +916,12 @@ describe('appeals routes', () => {
 			});
 
 			test('returns an error if inspector is not a valid uuid', async () => {
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					inspector: '1'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						inspector: '1'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -837,9 +940,12 @@ describe('appeals routes', () => {
 					throw new Error(ERROR_FAILED_TO_SAVE_DATA);
 				});
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({
-					startedAtDate: '2023-02-10'
-				});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						startedAtDate: '2023-02-10'
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(500);
 				expect(response.body).toEqual({
@@ -853,7 +959,10 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.update.mockResolvedValue(true);
 
-				const response = await request.patch(`/appeals/${householdAppeal.id}`).send({});
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});

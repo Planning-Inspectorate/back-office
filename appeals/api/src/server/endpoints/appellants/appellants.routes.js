@@ -13,6 +13,11 @@ router.get(
 		#swagger.tags = ['Appellants']
 		#swagger.path = '/appeals/{appealId}/appellants/{appellantId}'
 		#swagger.description = Gets a single appellant by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single appellant by id',
 			schema: { $ref: '#/definitions/SingleAppellantResponse' }
@@ -32,6 +37,11 @@ router.patch(
 		#swagger.tags = ['Appellants']
 		#swagger.path = '/appeals/{appealId}/appellants/{appellantId}'
 		#swagger.description = Updates a single appellant by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appellant details to update',
