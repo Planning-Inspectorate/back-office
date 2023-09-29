@@ -51,7 +51,7 @@ describe('Get Publishable Representations', () => {
 
 		describe('when representations have been published before', () => {
 			it('returns publishable representations with .previouslyPublished true', async () => {
-				databaseConnector.representation.count.mockResolvedValue(2);
+				databaseConnector.representation.count.mockResolvedValue(1);
 
 				const response = await request.get('/applications/1/representations/publishable');
 
