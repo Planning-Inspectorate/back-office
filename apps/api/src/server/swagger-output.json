@@ -1298,47 +1298,7 @@
 						}
 					}
 				}
-			}
-		},
-		"/applications/{id}/document/{guid}/add-version": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"type": "string",
-						"description": "guid of the required document here"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/definitions/documentToSave"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document that have been saved",
-						"schema": {
-							"$ref": "#/definitions/documentsAndBlobStorageURLs"
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/update": {
+			},
 			"patch": {
 				"tags": ["Applications"],
 				"description": "Updates the status and/or redaction status on an array of documents",
@@ -1405,6 +1365,44 @@
 							"xml": {
 								"name": "main"
 							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/document/{guid}/add-version": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
 						}
 					}
 				}
@@ -2503,6 +2501,21 @@
 						"description": "List of applications assigned to case team",
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForCaseTeam"
+						}
+					}
+				}
+			}
+		},
+		"/applications/case-stage": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all possible stages for a case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of stages for a case",
+						"schema": {
+							"$ref": "#/definitions/CaseStages"
 						}
 					}
 				}
@@ -4263,6 +4276,22 @@
 					"displayNameCy": {
 						"type": "string",
 						"example": "Region Name Cy"
+					}
+				}
+			}
+		},
+		"CaseStages": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "post_decision"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Post-Decision"
 					}
 				}
 			}
