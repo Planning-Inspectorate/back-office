@@ -1,13 +1,11 @@
 import logger from '#lib/logger.js';
 import * as lpaQuestionnaireService from '../lpa-questionnaire.service.js';
-import {
-	mapIncompleteReasonOptionsToCheckboxItemParameters,
-	getIncompleteReasonsTextFromRequestBody
-} from '../lpa-questionnaire.mapper.js';
+import { mapIncompleteReasonOptionsToCheckboxItemParameters } from '../lpa-questionnaire.mapper.js';
 import { getLPAQuestionnaireIncompleteReasonOptions } from '../lpa-questionnaire.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { webDateToDisplayDate, dateToDisplayDate } from '#lib/dates.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 
 /**
  *
@@ -184,7 +182,7 @@ export const postIncompleteReason = async (request, response) => {
 			lpaQuestionnaireId,
 			validationOutcome: 'incomplete',
 			reasons: request.body.incompleteReason,
-			reasonsText: getIncompleteReasonsTextFromRequestBody(request)
+			reasonsText: getNotValidReasonsTextFromRequestBody(request.body, 'incompleteReason')
 		};
 
 		return response.redirect(

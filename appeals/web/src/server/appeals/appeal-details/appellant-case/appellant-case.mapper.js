@@ -537,39 +537,3 @@ const mapDocumentsForDisplay = (caseId, folder, readOnly = false, singleDocument
 		valueType: 'link'
 	};
 };
-
-/**
- *
- * @param {import('@pins/express/types/express.js').Request} request
- * @param {'invalidReason'|'incompleteReason'} reasonKey
- * @returns {Object<string, string[]>}
- */
-export function getInvalidOrIncompleteReasonsTextFromRequestBody(request, reasonKey) {
-	if (!request.body[reasonKey]) {
-		throw new Error(`reasonKey "${reasonKey}" not found in request.body`);
-	}
-
-	/** @type {Object<string, string[]>} */
-	const reasonsText = {};
-
-	let bodyReasonIds = Array.isArray(request.body[reasonKey])
-		? request.body[reasonKey]
-		: [request.body[reasonKey]];
-
-	for (const reasonId of bodyReasonIds) {
-		const textItemsKey = `${reasonKey}-${reasonId}`;
-
-		if (request.body[textItemsKey]) {
-			const reasonsTextKey = `${reasonId}`;
-			reasonsText[reasonsTextKey] = Array.isArray(request.body[textItemsKey])
-				? request.body[textItemsKey]
-				: [request.body[textItemsKey]];
-
-			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
-				(reason) => reason.length > 0
-			);
-		}
-	}
-
-	return reasonsText;
-}

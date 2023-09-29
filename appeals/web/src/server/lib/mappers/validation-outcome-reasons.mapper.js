@@ -52,9 +52,7 @@ export function mapReasonOptionsToCheckboxItemParameters(
 		return {
 			value: `${reason.id}`,
 			text: reason.name,
-			...(checkedOptions && {
-				checked: checkedOptions.includes(reason.id)
-			}),
+			checked: checkedOptions?.includes(reason.id) || false,
 			...(reason.hasText && {
 				addAnother: { textItems }
 			})
@@ -69,10 +67,8 @@ export function mapReasonOptionsToCheckboxItemParameters(
  * @returns {string[]|undefined}
  */
 function getAddAnotherTextItemsFromExistingOutcome(reasonOption, existingReasons) {
-	return (
-		existingReasons.find((existingReason) => existingReason?.name?.id === reasonOption.id)
-			?.text || ['']
-	);
+	return existingReasons.find((existingReason) => existingReason?.name?.id === reasonOption.id)
+		?.text;
 }
 
 /**
@@ -153,4 +149,40 @@ export function mapReasonsToReasonsList(reasonOptions, reasons, reasonsText) {
 			})
 			.flat() || ['']
 	);
+}
+
+/**
+ *
+ * @param {Object<string, any>} requestBody
+ * @param {'invalidReason'|'incompleteReason'} reasonKey
+ * @returns {Object<string, string[]>}
+ */
+export function getNotValidReasonsTextFromRequestBody(requestBody, reasonKey) {
+	if (!requestBody[reasonKey]) {
+		throw new Error(`reasonKey "${reasonKey}" not found in requestBody`);
+	}
+
+	/** @type {Object<string, string[]>} */
+	const reasonsText = {};
+
+	let bodyReasonIds = Array.isArray(requestBody[reasonKey])
+		? requestBody[reasonKey]
+		: [requestBody[reasonKey]];
+
+	for (const reasonId of bodyReasonIds) {
+		const textItemsKey = `${reasonKey}-${reasonId}`;
+
+		if (requestBody[textItemsKey]) {
+			const reasonsTextKey = `${reasonId}`;
+			reasonsText[reasonsTextKey] = Array.isArray(requestBody[textItemsKey])
+				? requestBody[textItemsKey]
+				: [requestBody[textItemsKey]];
+
+			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
+				(reason) => reason.length > 0
+			);
+		}
+	}
+
+	return reasonsText;
 }

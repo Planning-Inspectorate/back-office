@@ -280,7 +280,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 	updatedDueDate
 ) {
 	if (validationOutcome === 'incomplete' && !incompleteReasons) {
-		throw new Error(`validationOutcome requires incompleteReasons`);
+		throw new Error('validationOutcome incomplete requires incompleteReasons');
 	}
 
 	const reasonsList = mapReasonsToReasonsList(
@@ -363,39 +363,4 @@ export function mapWebValidationOutcomeToApiValidationOutcome(
 			lpaQuestionnaireDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})
 	};
-}
-
-/**
- *
- * @param {import('@pins/express/types/express.js').Request} request
- * @returns {Object<string, string[]>}
- */
-export function getIncompleteReasonsTextFromRequestBody(request) {
-	if (!request.body.incompleteReason) {
-		throw new Error(`"incompleteReason" not found in request.body`);
-	}
-
-	/** @type {Object<string, string[]>} */
-	const reasonsText = {};
-
-	let bodyReasonIds = Array.isArray(request.body.incompleteReason)
-		? request.body.incompleteReason
-		: [request.body.incompleteReason];
-
-	for (const reasonId of bodyReasonIds) {
-		const textItemsKey = `incompleteReason-${reasonId}`;
-
-		if (request.body[textItemsKey]) {
-			const reasonsTextKey = `${reasonId}`;
-			reasonsText[reasonsTextKey] = Array.isArray(request.body[textItemsKey])
-				? request.body[textItemsKey]
-				: [request.body[textItemsKey]];
-
-			reasonsText[reasonsTextKey] = reasonsText[reasonsTextKey].filter(
-				(reason) => reason.length > 0
-			);
-		}
-	}
-
-	return reasonsText;
 }

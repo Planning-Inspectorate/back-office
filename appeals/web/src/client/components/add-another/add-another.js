@@ -151,10 +151,6 @@ const initAddAnother = () => {
 	/** @type {NodeListOf<HTMLElement>} */
 	const componentElementInstances = document.querySelectorAll(SELECTORS.container);
 
-	if (componentElementInstances.length === 0) {
-		return;
-	}
-
 	componentElementInstances.forEach((componentElementInstance) => {
 		const componentInstance = {
 			elements: {

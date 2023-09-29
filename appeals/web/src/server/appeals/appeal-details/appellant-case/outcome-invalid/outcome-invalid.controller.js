@@ -1,12 +1,10 @@
 import logger from '#lib/logger.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
-import {
-	mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters,
-	getInvalidOrIncompleteReasonsTextFromRequestBody
-} from '../appellant-case.mapper.js';
+import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 
 /**
  *
@@ -142,7 +140,7 @@ export const postInvalidReason = async (request, response) => {
 			appealId,
 			validationOutcome: 'invalid',
 			reasons: request.body.invalidReason,
-			reasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(request, 'invalidReason')
+			reasonsText: getNotValidReasonsTextFromRequestBody(request.body, 'invalidReason')
 		};
 
 		return response.redirect(

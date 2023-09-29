@@ -1,4 +1,5 @@
 import { AppealSite } from '@pins/appeals';
+import { NotValidReasonOption, NotValidReasonResponse } from '../appeal-details.types';
 
 // TODO: BOAT-245
 
@@ -17,17 +18,6 @@ interface FolderInfo {
 
 export type AppellantCaseValidationOutcome = 'valid' | 'invalid' | 'incomplete';
 
-export interface AppellantCaseInvalidIncompleteReasonOption {
-	id: number;
-	name: string;
-	hasText: boolean;
-}
-
-export interface AppellantCaseInvalidIncompleteReasonResponse {
-	name: AppellantCaseInvalidIncompleteReasonOption;
-	text?: string[];
-}
-
 export interface AppellantCaseNotValidReasonRequest {
 	id: number;
 	text?: string[];
@@ -42,8 +32,8 @@ export interface AppellantCaseValidationOutcomeRequest {
 
 export interface AppellantCaseValidationOutcomeResponse {
 	outcome: string;
-	invalidReasons?: AppellantCaseInvalidIncompleteReasonResponse[];
-	incompleteReasons?: AppellantCaseInvalidIncompleteReasonResponse[];
+	invalidReasons?: NotValidReasonResponse[];
+	incompleteReasons?: NotValidReasonResponse[];
 }
 
 export interface AppellantCaseSessionValidationOutcome {
