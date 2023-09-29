@@ -159,6 +159,7 @@ export const updateDocuments = async ({ body }, response) => {
 		const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
 			documentIds
 		);
+
 		if (invalid.length > 0) {
 			errors = [
 				...errors,
@@ -211,17 +212,13 @@ export const updateDocuments = async ({ body }, response) => {
 
 		if (typeof publishedStatus === 'undefined') {
 			delete documentVersionUpdates.publishedStatus;
-		} else {
 			// when setting publishedStatus, save previous publishedStatus
-
 			// do we have a previous doc version, does it have a published status, and is that status different
-			if (
-				typeof documentVersion !== 'undefined' &&
-				typeof documentVersion.publishedStatus !== 'undefined' &&
-				documentVersion.publishedStatus !== publishedStatus
-			) {
-				documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-			}
+		} else if (
+			documentVersion?.publishedStatus !== undefined &&
+			documentVersion.publishedStatus !== publishedStatus
+		) {
+			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
 		}
 
 		const updateResponseInTable = await documentVersionRepository.update(document.guid, {
@@ -322,7 +319,7 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 	}
 
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
-	const documentVersion = await documentVersionRepository.getById(document.guid, +version);
+	const documentVersion = await documentVersionRepository.getById(document.guid, Number(version));
 
 	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
@@ -338,25 +335,19 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 
 /**
  *
- * @param {*} activityLogs
- * @returns {Object}
+ * @param {{ status: string, createdAt: string, user: string }[]} activityLogs
+ * @returns {Record<string, {date: number, name: string}>}
  */
-const mapHistory = (activityLogs) => {
-	const history = {};
-
-	// @ts-ignore
-	activityLogs.forEach((activityLog) => {
-		// @ts-ignore
-		history[activityLog.status] = {
-			date: activityLog?.createdAt
-				? mapDateStringToUnixTimestamp(activityLog?.createdAt?.toString())
-				: null,
-			name: activityLog.user
-		};
-	});
-
-	return history;
-};
+const mapHistory = (activityLogs) =>
+	activityLogs.reduce(
+		(acc, log) => ({
+			[log.status]: {
+				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
+				name: log.user
+			}
+		}),
+		{}
+	);
 
 /**
  * Gets the properties/metadata for a single document
@@ -433,7 +424,7 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
  */
 export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
 	// Step 1: Fetch the document to be deleted from the database
-	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+	const document = await fetchDocumentByGuidAndCaseId(guid, Number(caseId));
 
 	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
 	const documentIsPublished =
@@ -496,16 +487,17 @@ export const storeDocumentVersion = async (request, response) => {
  */
 export const getReadyToPublishDocuments = async ({ params: { id }, body }, response) => {
 	const { pageNumber = 1, pageSize = 125 } = body;
+	id = Number(id);
 
 	const skipValue = getSkipValue(pageNumber, pageSize);
 
 	const paginatedReadyToPublishDocuments = await documentRepository.getDocumentsReadyPublishStatus({
 		skipValue,
 		pageSize,
-		caseId: +id
+		caseId: id
 	});
 
-	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(+id);
+	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(id);
 
 	console.log('documentsCount ' + documentsCount);
 
@@ -540,22 +532,15 @@ export const publishDocuments = async ({ body }, response) => {
 	const { publishable: publishableDocumentVersionIds } =
 		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 
-	/**
-	 * @type {any[]}
-	 */
-	const activityLogs = [];
-	publishableDocumentVersionIds.forEach((document) => {
-		activityLogs.push(
-			documentActivityLogRepository.create({
-				documentGuid: document.documentGuid,
-				version: document.version,
-				user: username,
-				status: 'published'
-			})
-		);
-	});
+	const activityLogs = publishableDocumentVersionIds.map((document) =>
+		documentActivityLogRepository.create({
+			documentGuid: document.documentGuid,
+			version: document.version,
+			user: username,
+			status: 'published'
+		})
+	);
 
-	// @ts-ignore
 	await Promise.all(activityLogs);
 
 	const publishedDocuments = await publishNsipDocuments(publishableDocumentVersionIds);
@@ -580,7 +565,7 @@ export const markAsPublished = async (
 
 	const updateResponse = await markDocumentVersionAsPublished({
 		guid,
-		version: +version,
+		version: Number(version),
 		publishedBlobPath,
 		publishedBlobContainer,
 		publishedDate: new Date(publishedDate)
