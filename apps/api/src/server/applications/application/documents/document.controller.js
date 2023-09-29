@@ -140,18 +140,42 @@ export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
 	const formattedResponseList = [];
 
+	/** @type {{ guid: string, msg: string }[]} */
+	let errors = [];
+
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
 	const redactedStatus = isRedacted !== undefined ? getRedactionStatus(isRedacted) : undefined;
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
-	if (publishedStatus === 'ready_to_publish') {
-		const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
+	/** @type {string[]} */
+	const publishableIds = await (async () => {
+		if (publishedStatus !== 'ready_to_publish') {
+			return /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid);
+		}
 
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
-	}
+		const documentIds = documents.map((/** @type {{guid: string}} */ document) => document.guid);
 
-	for (const document of documents ?? []) {
+		const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+			documentIds
+		);
+		if (invalid.length > 0) {
+			errors = [
+				...errors,
+				...invalid.map((id) => ({
+					guid: id,
+					msg: 'You must fill in all mandatory document properties to publish a document'
+				}))
+			];
+		}
+
+		return publishable.map((p) => p.documentGuid);
+	})();
+
+	const filteredDocs = /** @type {{guid: string}[]} */ (documents)?.filter((doc) =>
+		publishableIds.includes(doc.guid)
+	);
+	for (const document of filteredDocs ?? []) {
 		logger.info(
 			`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
 		);
@@ -163,6 +187,14 @@ export const updateDocuments = async ({ body }, response) => {
 		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
 			document.guid
 		);
+
+		if (publishedStatus && documentVersion.publishedStatus === 'published') {
+			errors.push({
+				guid: document.guid,
+				msg: 'You must first unpublish the document before changing the status.'
+			});
+			continue;
+		}
 
 		/**
 		 * @typedef {object} Updates
@@ -196,6 +228,7 @@ export const updateDocuments = async ({ body }, response) => {
 			version: documentVersion.version,
 			...documentVersionUpdates
 		});
+
 		const formattedResponse = formatDocumentUpdateResponseBody(
 			updateResponseInTable.documentGuid ?? '',
 			updateResponseInTable.publishedStatus ?? '',
@@ -205,7 +238,21 @@ export const updateDocuments = async ({ body }, response) => {
 		formattedResponseList.push(formattedResponse);
 	}
 
-	logger.info(`Updated ${documents.length} documents`);
+	if (errors.length === documents.length) {
+		logger.info(`Failed to update all ${documents.length} documents`);
+		response.status(400).send({ errors });
+		return;
+	}
+
+	if (errors.length > 0) {
+		logger.info(
+			`Updated ${formattedResponseList.length} documents. ${errors.length} failed to update.`
+		);
+		response.status(207).send({ documents: formattedResponseList, errors });
+		return;
+	}
+
+	logger.info(`Updated all ${documents.length} documents`);
 	response.send(formattedResponseList);
 };
 
@@ -490,9 +537,8 @@ export const publishDocuments = async ({ body }, response) => {
 
 	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
-	const publishableDocumentVersionIds = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
-		documentIds
-	);
+	const { publishable: publishableDocumentVersionIds } =
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
 
 	/**
 	 * @type {any[]}
