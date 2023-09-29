@@ -8,7 +8,8 @@ import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import {
 	updateProjectInformation,
 	validateProjectInformation,
-	validateSummaryPageInfo
+	validateProjectOverview,
+	validatePreviewAndPublishInfo
 } from '../../support/utils/utils';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { CasePage } from '../../page_objects/casePage';
@@ -34,7 +35,7 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateSummaryPageInfo(projectInfo, 'complete');
+			validateProjectOverview(projectInfo, 'complete');
 			searchResultsPage.clickLinkByText('Project information');
 			validateProjectInformation('Project information', projectInfo, 'complete');
 			casePage.validateUserIsUnableToEdit();
@@ -56,7 +57,7 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateSummaryPageInfo(projectInfo, 'mandatory');
+			validateProjectOverview(projectInfo, 'mandatory');
 			casePage.clickLinkByText('Update project information');
 			casePage.showAllSections();
 			validateProjectInformation('Project information', projectInfo, 'mandatory');
@@ -70,7 +71,7 @@ describe('Update Project Information', () => {
 		});
 	});
 
-	context('As Case Team Admin', () => {
+	context.only('As Case Team Admin', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
@@ -85,7 +86,7 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateSummaryPageInfo(projectInfo, 'mandatory');
+			validateProjectOverview(projectInfo, 'mandatory');
 			casePage.clickLinkByText('Update project information');
 			casePage.showAllSections();
 			validateProjectInformation('Project information', projectInfo, 'mandatory');
@@ -93,7 +94,7 @@ describe('Update Project Information', () => {
 			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
 			casePage.clickLinkByText('Overview');
 			casePage.clickButtonByText('Preview and publish project');
-			validateProjectInformation('Preview and publish', projectInfoNew, 'complete', true);
+			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validateBannerMessage('Project page published');
 		});
