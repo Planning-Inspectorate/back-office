@@ -35,9 +35,9 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo, 'complete');
+			validateProjectOverview(projectInfo);
 			searchResultsPage.clickLinkByText('Project information');
-			validateProjectInformation('Project information', projectInfo, 'complete');
+			validateProjectInformation(projectInfo);
 			casePage.validateUserIsUnableToEdit();
 		});
 	});
@@ -57,21 +57,22 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo, 'mandatory');
+			validateProjectOverview(projectInfo, true);
 			casePage.clickLinkByText('Update project information');
 			casePage.showAllSections();
-			validateProjectInformation('Project information', projectInfo, 'mandatory');
+			validateProjectInformation(projectInfo, true);
 			updateProjectInformation(projectInfoNew);
-			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
+			validateProjectInformation(projectInfoNew, false, true);
 			casePage.clickLinkByText('Overview');
 			casePage.clickButtonByText('Preview and publish project');
-			validateProjectInformation('Preview and publish', projectInfoNew, 'complete', true);
+			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validateBannerMessage('Project page published');
+			validateProjectInformation(projectInfoNew, false, true);
 		});
 	});
 
-	context.only('As Case Team Admin', () => {
+	context('As Case Team Admin', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
@@ -86,18 +87,18 @@ describe('Update Project Information', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo, 'mandatory');
+			validateProjectOverview(projectInfo, true);
 			casePage.clickLinkByText('Update project information');
 			casePage.showAllSections();
-			validateProjectInformation('Project information', projectInfo, 'mandatory');
+			validateProjectInformation(projectInfo, true);
 			updateProjectInformation(projectInfoNew);
-			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
+			validateProjectInformation(projectInfoNew, false, true);
 			casePage.clickLinkByText('Overview');
 			casePage.clickButtonByText('Preview and publish project');
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validateBannerMessage('Project page published');
-			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
+			validateProjectInformation(projectInfoNew, false, true);
 		});
 	});
 });
