@@ -21,7 +21,9 @@ export class S51AdvicePage extends Page {
 		adviceDetailsInput: () => cy.get('#adviceDetails'),
 		answerCell: (question) => cy.contains(this.selectors.tableCell, new RegExp(question)).next(),
 		changeLink: (question) =>
-			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a')
+			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
+			changetitleLink: () => cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
+			saveAndReturnTile: () => cy.get('#main-content > form > button')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -117,5 +119,17 @@ export class S51AdvicePage extends Page {
 
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
+		this.verifyTitleIsUpdated();
 	}
+	verifyTitleIsUpdated(){
+		this.elements.changetitleLink().click();
+		this.elements.titleInput().clear();
+		this.elements.titleInput().type("Title Updated");
+		this.elements.saveAndReturnTile().click();
+		this.elements.titleInput().then((text)=> {
+			let actualTitle=text.text();
+         expect(actualTitle).to.equal("Title Updated");
+
+	})
+}
 }

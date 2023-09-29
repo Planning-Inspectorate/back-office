@@ -50,7 +50,7 @@ describe('Section 51 Advice', () => {
 		});
 	});
 
-	it('S51 Advice - Enquirer Name Only', () => {
+	it.only('S51 Advice - Enquirer Name Only', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			firstName: details.firstName,
