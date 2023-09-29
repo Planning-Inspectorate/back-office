@@ -220,7 +220,7 @@ describe('applications documentation', () => {
 			});
 
 			it('should return an error if no action is selected', async () => {
-				nock('http://test/').patch('/applications/123/documents/update').reply(200, []);
+				nock('http://test/').patch('/applications/123/documents').reply(200, []);
 
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
@@ -234,7 +234,7 @@ describe('applications documentation', () => {
 			});
 
 			it('should refresh the page if there are no errors', async () => {
-				nock('http://test/').patch('/applications/123/documents/update').reply(200, []);
+				nock('http://test/').patch('/applications/123/documents').reply(200, []);
 
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)

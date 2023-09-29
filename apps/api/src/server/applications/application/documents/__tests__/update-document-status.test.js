@@ -104,7 +104,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentToUpdate1);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'not_checked',
 			redacted: true,
 			documents: [{ guid: 'documenttoupdate_1_guid' }]
@@ -205,7 +205,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseReadyToPublish);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'ready_to_publish',
 			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});
@@ -272,7 +272,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseUnredacted);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'not_checked',
 			documents: [{ guid: 'documenttoupdate_2_guid' }]
 		});
@@ -333,7 +333,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseStatusUnchanged);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			redacted: true,
 			documents: [{ guid: 'documenttoupdate_3_guid' }]
 		});
@@ -398,7 +398,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'ready_to_publish',
 			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});
