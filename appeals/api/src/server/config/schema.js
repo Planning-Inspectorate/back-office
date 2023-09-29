@@ -22,24 +22,6 @@ export default joi
 		cwd: joi.string(),
 		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
 		serviceBusEnabled: joi.boolean().optional(),
-		timetable: joi.object({
-			FPA: joi.object({
-				lpaQuestionnaireDueDate: joi.object({
-					daysFromStartDate: joi.number()
-				}),
-				statementReviewDate: joi.object({
-					daysFromStartDate: joi.number()
-				}),
-				finalCommentReviewDate: joi.object({
-					daysFromStartDate: joi.number()
-				})
-			}),
-			HAS: joi.object({
-				lpaQuestionnaireDueDate: joi.object({
-					daysFromStartDate: joi.number()
-				})
-			})
-		}),
 		govNotify: joi
 			.object({
 				api: joi.object({
@@ -64,11 +46,6 @@ export default joi
 				level: joi.string(),
 				band: joi.number()
 			})
-		),
-		appealFolderPaths: joi.array().items(joi.string()),
-		appealStages: joi.object({
-			appellantCase: joi.string(),
-			lpaQuestionnaire: joi.string()
-		})
+		)
 	})
 	.options({ presence: 'required' }); // required by default;

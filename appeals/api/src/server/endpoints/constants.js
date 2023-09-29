@@ -103,3 +103,49 @@ export const USER_TYPE_INSPECTOR = 'inspector';
 export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
 export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received';
 export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
+
+// Static config
+export const CONFIG_APPEAL_TIMETABLE = {
+	FPA: {
+		lpaQuestionnaireDueDate: {
+			daysFromStartDate: 5
+		},
+		statementReviewDate: {
+			daysFromStartDate: 25
+		},
+		finalCommentReviewDate: {
+			daysFromStartDate: 35
+		}
+	},
+	HAS: {
+		lpaQuestionnaireDueDate: {
+			daysFromStartDate: 5
+		}
+	}
+};
+
+export const CONFIG_APPEAL_FOLDER_PATHS = [
+	// path in the format of {stage}/{documentType}
+	'appellant_case/applicationForm',
+	'appellant_case/decisionLetter',
+	'appellant_case/designAndAccessStatement',
+	'appellant_case/planningObligation',
+	'appellant_case/plansDrawingsSupportingDocuments',
+	'appellant_case/separateOwnershipCertificate',
+	'appellant_case/newSupportingDocuments',
+	'appellant_case/appealStatement',
+	// LPA questionnaire folders
+	'lpa_questionnaire/conservationAreaMap',
+	'lpa_questionnaire/notifyingParties',
+	'lpa_questionnaire/siteNotices',
+	'lpa_questionnaire/lettersToNeighbours',
+	'lpa_questionnaire/pressAdvert',
+	'lpa_questionnaire/representations',
+	'lpa_questionnaire/officersReport'
+];
+
+export const CONFIG_APPEAL_STAGES = {
+	// stage mapping for ODW
+	appellantCase: 'appellant_case',
+	lpaQuestionnaire: 'lpa_questionnaire'
+};
