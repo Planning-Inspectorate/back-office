@@ -97,6 +97,7 @@ describe('Update Project Information', () => {
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validateBannerMessage('Project page published');
+			validateProjectInformation('Project information', projectInfoNew, 'complete', true);
 		});
 	});
 });
