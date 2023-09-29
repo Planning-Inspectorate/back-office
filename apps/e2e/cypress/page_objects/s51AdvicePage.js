@@ -23,7 +23,8 @@ export class S51AdvicePage extends Page {
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
 			changetitleLink: () => cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
-			saveAndReturnTile: () => cy.get('#main-content > form > button')
+			saveAndReturnTile: () => cy.get('#main-content > form > button'),
+			verifyTitleUpdated: () => cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -126,9 +127,10 @@ export class S51AdvicePage extends Page {
 		this.elements.titleInput().clear();
 		this.elements.titleInput().type("Title Updated");
 		this.elements.saveAndReturnTile().click();
-		this.elements.titleInput().then((text)=> {
+		this.elements.verifyTitleUpdated().then((text)=> {
 			let actualTitle=text.text();
-         expect(actualTitle).to.equal("Title Updated");
+         expect(actualTitle).to.include("Title Updated");
+
 
 	})
 }
