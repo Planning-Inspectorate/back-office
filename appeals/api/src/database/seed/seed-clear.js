@@ -73,6 +73,7 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteDocuments;
 
 	await databaseConnector.$transaction([
+		deleteUsers,
 		deleteAppealAllocationLevels,
 		deleteAppealSpecialisms,
 		deleteServiceCustomers,
@@ -97,7 +98,6 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAudits,
 		deleteFolders,
 		deleteAppeals,
-		deleteUsers,
 		deleteAppellant,
 		deleteListedBuildingDetails
 	]);
