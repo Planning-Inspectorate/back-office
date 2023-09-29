@@ -2,10 +2,18 @@ import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
+import {
+	mapReasonOptionsToCheckboxItemParameters,
+	mapReasonsToReasonsList
+} from '#lib/mappers/validation-outcome-reasons.mapper.js';
 
 /**
+ * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
  * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
- * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
+ * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
+ * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
+ * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
  */
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {
@@ -205,84 +213,80 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 
 /**
  *
- * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
- * @param {string|string[]} [incompleteReasons]
- * @param {string} [otherIncompleteReasons]
- * @returns {string[]}
- */
-function mapIncompleteReasonsToReasonsList(
-	incompleteReasonOptions,
-	incompleteReasons,
-	otherIncompleteReasons
-) {
-	const reasons = Array.isArray(incompleteReasons) ? incompleteReasons : [incompleteReasons];
-
-	return (
-		reasons
-			?.map((reason) =>
-				incompleteReasonOptions.find((option) => option.id === parseInt(reason || '', 10))
-			)
-			.map((option) => {
-				if (!option) {
-					throw new Error('invalid or incomplete reason ID was not recognised');
-				}
-				const name = option.name;
-				return name.toLowerCase() === 'other' ? `${name}: ${otherIncompleteReasons || ''}` : name;
-			}) || ['']
-	);
-}
-
-/**
- *
- * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
- * @param {string[]|number[]} [checkedOptionValues]
+ * @param {NotValidReasonOption[]} reasonOptions
+ * @param {BodyValidationOutcome} [bodyValidationOutcome]
+ * @param {SessionValidationOutcome} [sessionValidationOutcome]
+ * @param {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeResponse|null} [existingValidationOutcome]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
-export function mapIncompleteReasonsToCheckboxItemParameters(
-	incompleteReasonOptions,
-	checkedOptionValues
+export function mapIncompleteReasonOptionsToCheckboxItemParameters(
+	reasonOptions,
+	bodyValidationOutcome,
+	sessionValidationOutcome,
+	existingValidationOutcome
 ) {
-	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
-		checkedOptionValues = [checkedOptionValues];
+	/** @type {import('../appeal-details.types.js').NotValidReasonResponse[]} */
+	let existingReasons = [];
+	/** @type {number[]|undefined} */
+	let existingReasonIds;
+
+	if (existingValidationOutcome?.outcome.toLowerCase() === 'incomplete') {
+		existingReasons = existingValidationOutcome?.incompleteReasons || [];
+		existingReasonIds = existingReasons.map((reason) => reason.name?.id);
 	}
 
-	let checkedOptions = checkedOptionValues?.map((value) =>
+	const bodyValidationBaseKey = `incompleteReason`;
+	/** @type {string|string[]|undefined} */
+	const bodyValidationOutcomeReasons = bodyValidationOutcome?.[bodyValidationBaseKey];
+
+	let notValidReasonIds =
+		bodyValidationOutcomeReasons || sessionValidationOutcome?.reasons || existingReasonIds;
+
+	if (typeof notValidReasonIds !== 'undefined' && !Array.isArray(notValidReasonIds)) {
+		notValidReasonIds = [notValidReasonIds];
+	}
+	const checkedOptions = notValidReasonIds?.map((value) =>
 		typeof value === 'string' ? parseInt(value, 10) : value
 	);
 
-	return incompleteReasonOptions.map((reason) => ({
-		value: `${reason.id}`,
-		text: reason.name,
-		...(checkedOptions && {
-			checked: checkedOptions.includes(reason.id)
-		})
-	}));
+	return mapReasonOptionsToCheckboxItemParameters(
+		reasonOptions,
+		checkedOptions,
+		existingReasons,
+		bodyValidationOutcome,
+		bodyValidationBaseKey,
+		sessionValidationOutcome
+	);
 }
 
 /**
  *
- * @param {LPAQuestionnaireIncompleteReason[]} incompleteReasonOptions
- * @param {keyof import('../../appeal.constants.js').lpaQuestionnaireOutcomes} validationOutcome
+ * @param {number} appealId
+ * @param {number} lpaQuestionnaireId
+ * @param {NotValidReasonOption[]} incompleteReasonOptions
+ * @param {LPAQuestionnaireValidationOutcome} validationOutcome
  * @param {string|string[]} [incompleteReasons]
- * @param {string} [otherIncompleteReasons]
- * @param {import('./lpa-questionnaire.service.js').DayMonthYear} [updatedDueDate]
+ * @param {Object<string, string[]>} [incompleteReasonsText]
+ * @param {DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */
 export function mapReviewOutcomeToSummaryListBuilderParameters(
+	appealId,
+	lpaQuestionnaireId,
 	incompleteReasonOptions,
 	validationOutcome,
 	incompleteReasons,
-	otherIncompleteReasons,
+	incompleteReasonsText,
 	updatedDueDate
 ) {
 	if (validationOutcome === 'incomplete' && !incompleteReasons) {
-		throw new Error(`validationOutcome requires incompleteReasons`);
+		throw new Error('validationOutcome incomplete requires incompleteReasons');
 	}
 
-	const reasonsList = mapIncompleteReasonsToReasonsList(
+	const reasonsList = mapReasonsToReasonsList(
 		incompleteReasonOptions,
 		incompleteReasons,
-		otherIncompleteReasons
+		incompleteReasonsText
 	);
 
 	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
@@ -292,14 +296,14 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			value: 'Incomplete',
 			valueType: 'text',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
 		},
 		{
 			title: 'Incomplete reasons',
 			value: reasonsList,
 			valueType: 'unorderedList',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
 		}
 	];
 
@@ -309,7 +313,7 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			value: webDateToDisplayDate(updatedDueDate),
 			valueType: 'text',
 			actionText: 'Change',
-			actionLink: '#'
+			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
 		});
 	}
 
@@ -318,19 +322,20 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 
 /**
  *
- * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {LPAQuestionnaireValidationOutcome} validationOutcome
  * @param {string|string[]} [incompleteReasons]
- * @param {string} [otherReasons]
- * @param {import('./lpa-questionnaire.service.js').DayMonthYear} [updatedDueDate]
- * @returns {import('./lpa-questionnaire.service.js').LpaQuestionnaireReviewOutcome}
+ * @param {Object<string, string[]>} [incompleteReasonsText]
+ * @param {DayMonthYear} [updatedDueDate]
+ * @returns {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeRequest}
  */
-export function mapWebReviewOutcomeToApiReviewOutcome(
+export function mapWebValidationOutcomeToApiValidationOutcome(
 	validationOutcome,
 	incompleteReasons,
-	otherReasons,
+	incompleteReasonsText,
 	updatedDueDate
 ) {
-	let parsedReasons;
+	/** @type number[] */
+	let parsedReasons = [];
 
 	if (incompleteReasons) {
 		if (!Array.isArray(incompleteReasons)) {
@@ -343,10 +348,17 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 	}
 
 	return {
-		validationOutcome: String(validationOutcome),
+		validationOutcome,
 		...(validationOutcome === 'incomplete' &&
-			incompleteReasons && { incompleteReasons: parsedReasons }),
-		...(otherReasons && { otherNotValidReasons: otherReasons }),
+			incompleteReasons &&
+			incompleteReasonsText && {
+				incompleteReasons: parsedReasons.map((reason) => ({
+					id: reason,
+					...(incompleteReasonsText?.[`${reason}`] && {
+						text: incompleteReasonsText?.[`${reason}`]
+					})
+				}))
+			}),
 		...(updatedDueDate && {
 			lpaQuestionnaireDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})
