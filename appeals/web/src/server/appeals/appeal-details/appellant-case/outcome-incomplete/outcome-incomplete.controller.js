@@ -1,9 +1,11 @@
 import logger from '#lib/logger.js';
-import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
+import {
+	mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters,
+	getInvalidOrIncompleteReasonsTextFromRequestBody
+} from '../appellant-case.mapper.js';
+import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
@@ -20,13 +22,30 @@ const renderIncompleteReason = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.render('app/404.njk');
+	}
+
+	const appellantCaseResponse = await appellantCaseService
+		.getAppellantCaseFromAppealId(
+			request.apiClient,
+			appealDetails?.appealId,
+			appealDetails?.appellantCaseId
+		)
+		.catch((error) => logger.error(error));
+
+	if (!appellantCaseResponse) {
+		return response.render('app/404.njk');
+	}
 
 	if (
-		existingWebAppellantCaseReviewOutcome &&
-		(existingWebAppellantCaseReviewOutcome.appealId !== appealId ||
-			existingWebAppellantCaseReviewOutcome.validationOutcome !==
-				appellantCaseReviewOutcomes.incomplete)
+		request.session.webAppellantCaseReviewOutcome &&
+		(request.session.webAppellantCaseReviewOutcome.appealId !== appealId ||
+			request.session.webAppellantCaseReviewOutcome.validationOutcome !== 'incomplete')
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
@@ -39,13 +58,13 @@ const renderIncompleteReason = async (request, response) => {
 		);
 
 	if (incompleteReasonOptions) {
-		const incompleteReasons =
-			body.incompleteReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
-		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
 		const mappedIncompleteReasonOptions =
 			mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
+				'incomplete',
 				incompleteReasonOptions,
-				incompleteReasons
+				body,
+				webAppellantCaseReviewOutcome,
+				appellantCaseResponse.validation
 			);
 
 		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
@@ -53,10 +72,8 @@ const renderIncompleteReason = async (request, response) => {
 				id: appealId,
 				shortReference: appealShortReference(appealReference)
 			},
-			notValidStatus: appellantCaseReviewOutcomes.incomplete,
+			notValidStatus: 'incomplete',
 			reasonOptions: mappedIncompleteReasonOptions,
-			otherReasonId: getIdByNameFromIdNamePairs(incompleteReasonOptions, 'other'),
-			otherReason,
 			errors
 		});
 	}
@@ -154,10 +171,12 @@ export const postIncompleteReason = async (request, response) => {
 
 		const { appealId } = request.session;
 
+		/** @type {import('../appellant-case.types.js').AppellantCaseSessionValidationOutcome} */
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
-			validationOutcome: appellantCaseReviewOutcomes.incomplete,
-			invalidOrIncompleteReasons: request.body.incompleteReason
+			validationOutcome: 'incomplete',
+			reasons: request.body.incompleteReason,
+			reasonsText: getInvalidOrIncompleteReasonsTextFromRequestBody(request, 'incompleteReason')
 		};
 
 		return response.redirect(

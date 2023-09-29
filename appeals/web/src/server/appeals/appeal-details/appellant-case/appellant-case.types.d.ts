@@ -15,6 +15,44 @@ interface FolderInfo {
 	documents: DocumentInfo[];
 }
 
+export type AppellantCaseValidationOutcome = 'valid' | 'invalid' | 'incomplete';
+
+export interface AppellantCaseInvalidIncompleteReasonOption {
+	id: number;
+	name: string;
+	hasText: boolean;
+}
+
+export interface AppellantCaseInvalidIncompleteReasonResponse {
+	name: AppellantCaseInvalidIncompleteReasonOption;
+	text?: string[];
+}
+
+export interface AppellantCaseNotValidReasonRequest {
+	id: number;
+	text?: string[];
+}
+
+export interface AppellantCaseValidationOutcomeRequest {
+	validationOutcome: AppellantCaseValidationOutcome;
+	invalidReasons?: AppellantCaseNotValidReasonRequest[];
+	incompleteReasons?: AppellantCaseNotValidReasonRequest[];
+	appealDueDate?: string;
+}
+
+export interface AppellantCaseValidationOutcomeResponse {
+	outcome: string;
+	invalidReasons?: AppellantCaseInvalidIncompleteReasonResponse[];
+	incompleteReasons?: AppellantCaseInvalidIncompleteReasonResponse[];
+}
+
+export interface AppellantCaseSessionValidationOutcome {
+	appealId: string;
+	validationOutcome: AppellantCaseValidationOutcome;
+	reasons?: string | string[];
+	reasonsText?: Object<string, string[]>;
+}
+
 export interface SingleAppellantCaseResponse {
 	agriculturalHolding?: {
 		isAgriculturalHolding: boolean | null;
@@ -74,4 +112,5 @@ export interface SingleAppellantCaseResponse {
 		details: string | null;
 		isVisible: boolean | null;
 	};
+	validation: AppellantCaseValidationOutcomeResponse | null;
 }

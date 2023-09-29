@@ -39,6 +39,7 @@
 @use "7-components/InfoBox/InfoBox" as InfoBox;
 @use "7-components/DashboardBox/DashboardBox" as DashboardBox;
 @use "7-components/ListMenu/ListMenu" as ListMenu;
+@use "7-components/add-another";
 @use "7-components/app-header";
 @use "7-components/file-upload";
 @use "7-components/files-list";
@@ -55,6 +56,7 @@
 @use "7-components/filter-box";
 
 // 8 - UTILITIES
+@use "8-utilities/layout";
 
 // 9 - PAGES
 
