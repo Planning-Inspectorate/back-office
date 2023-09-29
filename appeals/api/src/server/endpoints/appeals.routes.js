@@ -27,6 +27,7 @@ import { auditTrailsRoutes } from './audit-trails/audit-trails.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 
 const router = createRouter();
+router.use(integrationsRoutes);
 
 router.use('/', checkAzureAdUserIdHeaderExists);
 router.use('/', initNotifyClientAndAddToRequest);
@@ -43,7 +44,6 @@ router.use(auditTrailsRoutes);
 router.use(designatedSitesRoutes);
 router.use(documentRedactionStatusesRoutes);
 router.use(documentsRoutes);
-router.use(integrationsRoutes);
 router.use(knowledgeOfOtherLandownersRoutes);
 router.use(lpaNotificationMethodsRoutes);
 router.use(lpaQuestionnaireIncompleteReasonsRoutes);
