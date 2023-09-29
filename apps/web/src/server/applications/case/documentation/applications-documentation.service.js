@@ -72,7 +72,7 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
  */
 export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
 	try {
-		return await patch(`applications/${caseId}/documents/update`, {
+		return await patch(`applications/${caseId}/documents`, {
 			json: {
 				status,
 				redacted,

@@ -13,7 +13,7 @@ import { post, patch } from '../../../lib/request.js';
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	if (newMetaData.publishedStatus) {
 		try {
-			return await patch(`applications/${caseId}/documents/update`, {
+			return await patch(`applications/${caseId}/documents`, {
 				json: {
 					status: newMetaData.publishedStatus,
 					documents: [{ guid: documentGuid }]
