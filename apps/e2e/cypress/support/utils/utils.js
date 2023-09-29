@@ -25,7 +25,6 @@ const validateSummaryPage = (fileIndex, checkType) => {
 
 const validateProjectOverview = (projectInformation, checkType) => {
 	const mandatoryOnly = checkType === 'mandatory';
-
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.validateSummaryItem(
 		'Applicant Information',
@@ -41,16 +40,49 @@ const validateProjectOverview = (projectInformation, checkType) => {
 		'Project email',
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
-
 	casePage.validateSummaryItem('Project page', projectInformation.defaultPublishedStatus);
+};
+
+const validateProjectInformationSection = (projectInformation) => {
+	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Sector', projectInformation.sector);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Case stage', '');
+};
+
+const validateProjectDetailsSection = (projectInformation) => {
+	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
+	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
+	casePage.checkProjectAnswer(
+		'Grid references',
+		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
+	);
+	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
+};
+
+const validateApplicatInfoSection = (projectInformation, updated = false) => {
+	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
+	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
+	casePage.checkProjectAnswer('Telephone number', projectInformation.applicantPhoneNumber);
+	casePage.checkProjectAnswer(
+		'Contact name (Internal use only)',
+		`${projectInformation.applicantFirstName}  ${projectInformation.applicantLastName}`
+	);
+	const address = updated
+		? projectInformation.applicantFullAddress2
+		: projectInformation.applicantFullAddress;
+	casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address);
 };
 
 const validateProjectInformation = (page, projectInformation, checkType, updated = false) => {
 	const mandatoryOnly = checkType === 'mandatory';
-	// P R O J E C T  I N F O R M A T I O N
-	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
-	casePage.checkProjectAnswer('Sector', projectInformation.sector);
-	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+
+	validateProjectInformationSection(projectInformation);
+	validateProjectDetailsSection(projectInformation);
+	validateApplicatInfoSection(projectInformation);
 
 	// P R O J E C T  D E T A I L S
 	casePage.checkProjectAnswer('Project name', projectInformation.projectName);
