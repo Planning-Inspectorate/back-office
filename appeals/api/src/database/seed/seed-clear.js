@@ -69,10 +69,15 @@ export async function deleteAllRecords(databaseConnector) {
 	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
 	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
 	await databaseConnector.$queryRawUnsafe(`UPDATE Document SET latestVersionId = NULL;`);
+	// delete references to users on appeals
+	await databaseConnector.$queryRawUnsafe(
+		`UPDATE Appeal SET inspectorUserId = NULL, caseOfficerUserId = NULL;`
+	);
 	await deleteDocumentsVersions;
 	await deleteDocuments;
 
 	await databaseConnector.$transaction([
+		deleteAudits,
 		deleteUsers,
 		deleteAppealAllocationLevels,
 		deleteAppealSpecialisms,
@@ -95,7 +100,6 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteAppealTimetable,
 		deleteAddresses,
 		deleteInspectorDecision,
-		deleteAudits,
 		deleteFolders,
 		deleteAppeals,
 		deleteAppellant,
