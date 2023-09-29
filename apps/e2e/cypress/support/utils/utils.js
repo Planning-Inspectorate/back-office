@@ -32,7 +32,7 @@ const validateProjectInformation = (projectInformation, mandatoryOnly = false, u
 };
 
 const validateProjectInformationSection = (projectInformation) => {
-	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.checkProjectAnswer('Sector', projectInformation.sector);
 	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
 	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
@@ -85,7 +85,7 @@ const validateApplicantInfoSection = (
 
 const validatePreviewAndPublishInfo = (projectInformation) => {
 	// P R O J E C T  I N F O R M A T I O N
-	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.checkProjectAnswer('Sector', projectInformation.sector);
 	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
 	casePage.checkProjectAnswer('Case stage', '');
