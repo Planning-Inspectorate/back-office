@@ -477,6 +477,16 @@ export const lpaQuestionnaireIncompleteReasons = [
 		id: 3,
 		name: 'Other',
 		hasText: true
+	},
+	{
+		id: 4,
+		name: 'Test incomplete reason without text 1',
+		hasText: false
+	},
+	{
+		id: 5,
+		name: 'Test incomplete reason without text 2',
+		hasText: false
 	}
 ];
 

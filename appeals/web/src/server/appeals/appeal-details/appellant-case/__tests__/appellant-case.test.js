@@ -19,31 +19,23 @@ const updateDueDatePagePath = '/date';
 const checkYourAnswersPagePath = '/check-your-answers';
 const confirmationPagePath = '/confirmation';
 
-const appellantCaseInvalidReasonsWithoutText = appellantCaseInvalidReasons.filter(
+const invalidReasonsWithoutText = appellantCaseInvalidReasons.filter(
 	(reason) => reason.hasText === false
 );
-const appellantCaseInvalidReasonsWithText = appellantCaseInvalidReasons.filter(
+const invalidReasonsWithText = appellantCaseInvalidReasons.filter(
 	(reason) => reason.hasText === true
 );
-const appellantCaseIncompleteReasonsWithoutText = appellantCaseIncompleteReasons.filter(
+const incompleteReasonsWithoutText = appellantCaseIncompleteReasons.filter(
 	(reason) => reason.hasText === false
 );
-const appellantCaseIncompleteReasonsWithText = appellantCaseIncompleteReasons.filter(
+const incompleteReasonsWithText = appellantCaseIncompleteReasons.filter(
 	(reason) => reason.hasText === true
 );
 
-const appellantCaseInvalidReasonIdsWithoutText = appellantCaseInvalidReasonsWithoutText.map(
-	(reason) => reason.id
-);
-const appellantCaseInvalidReasonIdsWithText = appellantCaseInvalidReasonsWithText.map(
-	(reason) => reason.id
-);
-const appellantCaseIncompleteReasonIdsWithoutText = appellantCaseIncompleteReasonsWithoutText.map(
-	(reason) => reason.id
-);
-const appellantCaseIncompleteReasonIdsWithText = appellantCaseIncompleteReasonsWithText.map(
-	(reason) => reason.id
-);
+const invalidReasonsWithoutTextIds = invalidReasonsWithoutText.map((reason) => reason.id);
+const invalidReasonsWithTextIds = invalidReasonsWithText.map((reason) => reason.id);
+const incompleteReasonsWithoutTextIds = incompleteReasonsWithoutText.map((reason) => reason.id);
+const incompleteReasonsWithTextIds = incompleteReasonsWithText.map((reason) => reason.id);
 
 describe('appellant-case', () => {
 	beforeEach(() => {
@@ -195,8 +187,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithText[0],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: ''
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -210,8 +202,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithText[0],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: []
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: []
 				});
 
 			const element = parseHtml(response.text);
@@ -225,12 +217,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: [
-						appellantCaseInvalidReasonIdsWithText[0],
-						appellantCaseInvalidReasonIdsWithText[1]
-					],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: 'test reason text 1',
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: ''
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -244,12 +233,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: [
-						appellantCaseInvalidReasonIdsWithText[0],
-						appellantCaseInvalidReasonIdsWithText[1]
-					],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: 'test reason text 1',
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: []
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: []
 				});
 
 			const element = parseHtml(response.text);
@@ -263,7 +249,7 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithoutText[0]
+					invalidReason: invalidReasonsWithoutTextIds[0]
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -275,8 +261,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithText[0],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: ['test reason text 1']
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ['test reason text 1']
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -288,7 +274,7 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithoutText
+					invalidReason: invalidReasonsWithoutTextIds
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -300,12 +286,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: [
-						appellantCaseInvalidReasonIdsWithText[0],
-						appellantCaseInvalidReasonIdsWithText[1]
-					],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[0]}`]: ['test reason text 1'],
-					[`invalidReason-${appellantCaseInvalidReasonIdsWithText[1]}`]: [
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ['test reason text 1'],
+					[`invalidReason-${invalidReasonsWithTextIds[1]}`]: [
 						'test reason text 2',
 						'test reason text 3'
 					]
@@ -393,8 +376,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithText[0],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: ''
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -408,8 +391,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithText[0],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: []
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
 				});
 
 			const element = parseHtml(response.text);
@@ -423,12 +406,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: [
-						appellantCaseIncompleteReasonIdsWithText[0],
-						appellantCaseIncompleteReasonIdsWithText[1]
-					],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: 'test reason text 1',
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: ''
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -442,12 +422,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: [
-						appellantCaseIncompleteReasonIdsWithText[0],
-						appellantCaseIncompleteReasonIdsWithText[1]
-					],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: 'test reason text 1',
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: []
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
 				});
 
 			const element = parseHtml(response.text);
@@ -461,7 +438,7 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText[0]
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -473,8 +450,8 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithText[0],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: [
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
 						'test reason text 2',
 						'test reason text 3'
 					]
@@ -489,7 +466,7 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText
+					incompleteReason: incompleteReasonsWithoutTextIds
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -501,14 +478,9 @@ describe('appellant-case', () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: [
-						appellantCaseIncompleteReasonIdsWithText[0],
-						appellantCaseIncompleteReasonIdsWithText[1]
-					],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[0]}`]: [
-						'test reason text 1'
-					],
-					[`incompleteReason-${appellantCaseIncompleteReasonIdsWithText[1]}`]: [
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ['test reason text 1'],
+					[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: [
 						'test reason text 2',
 						'test reason text 3'
 					]
@@ -552,7 +524,7 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText[0]
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -590,7 +562,7 @@ describe('appellant-case', () => {
 			incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText[0]
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 		});
 
@@ -855,7 +827,12 @@ describe('appellant-case', () => {
 			const invalidReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithoutText[0]
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[1]}`]: [
+						'test reason text 1',
+						'test reason text 2'
+					]
 				});
 
 			expect(invalidReasonPostResponse.statusCode).toBe(302);
@@ -882,7 +859,12 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText[0]
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+						'test reason text 1',
+						'test reason text 2'
+					],
+					[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'test reason text 1'
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -934,7 +916,7 @@ describe('appellant-case', () => {
 			const invalidReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasonIdsWithoutText[0]
+					invalidReason: invalidReasonsWithoutTextIds[0]
 				});
 
 			expect(invalidReasonPostResponse.statusCode).toBe(302);
@@ -965,7 +947,7 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasonIdsWithoutText[0]
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);

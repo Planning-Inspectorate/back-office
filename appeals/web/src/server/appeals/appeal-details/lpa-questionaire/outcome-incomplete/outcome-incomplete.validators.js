@@ -9,22 +9,7 @@ export const validateIncompleteReason = createValidator(
 		.withMessage('Please select one or more reasons why the LPA questionnaire is incomplete')
 		.bail()
 		.notEmpty()
-		.withMessage('Please select one or more reasons why the LPA questionnaire is incomplete'),
-	body('otherReason')
-		.if(
-			body().custom((value) => {
-				if (Array.isArray(value.incompleteReason)) {
-					return value.incompleteReason.includes(value.otherReasonId);
-				} else {
-					return value.incompleteReason === value.otherReasonId;
-				}
-			})
-		)
-		.notEmpty()
-		.withMessage('If selecting "Other", you must provide details in the text box')
-		.bail()
-		.isString()
-		.withMessage('something went wrong')
+		.withMessage('Please select one or more reasons why the LPA questionnaire is incomplete')
 );
 
 export const validateIncompleteReasonTextItems =

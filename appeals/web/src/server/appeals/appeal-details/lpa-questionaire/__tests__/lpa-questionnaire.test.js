@@ -12,6 +12,14 @@ const request = supertest(app);
 const baseUrl = '/appeals-service/appeal-details/1/lpa-questionnaire/2';
 
 const incompleteReasonIds = lpaQuestionnaireIncompleteReasons.map((reason) => reason.id);
+const incompleteReasonsWithText = lpaQuestionnaireIncompleteReasons.filter(
+	(reason) => reason.hasText === true
+);
+const incompleteReasonsWithoutText = lpaQuestionnaireIncompleteReasons.filter(
+	(reason) => reason.hasText === false
+);
+const incompleteReasonsWithTextIds = incompleteReasonsWithText.map((reason) => reason.id);
+const incompleteReasonsWithoutTextIds = incompleteReasonsWithoutText.map((reason) => reason.id);
 
 describe('LPA Questionnaire review', () => {
 	beforeEach(installMockApi);
@@ -123,21 +131,104 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should redirect to the check and confirm page if a single incomplete reason was provided', async () => {
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty string', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: lpaQuestionnaireIncompleteReasons[0].id
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty array', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty strings', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty arrays', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: [
+					'test reason text 1',
+					'test reason text 2'
+				]
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the check and confirm page if a single incomplete reason without text was provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: incompleteReasonsWithoutTextIds[0]
 			});
 
 			expect(response.statusCode).toBe(302);
 		});
 
-		it('should redirect to the check and confirm page if multiple incomplete reasons were provided', async () => {
+		it('should redirect to the check and confirm page if a single incomplete reason with text was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: lpaQuestionnaireIncompleteReasons.map((reason) => reason.id)
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1'
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons without text were provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithoutTextIds[0], incompleteReasonsWithoutTextIds[1]]
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons with text were provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+					'test reason text 1',
+					'test reason text 2'
+				],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'test reason text 1'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -414,7 +505,12 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIds
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+					'test reason text 1',
+					'test reason text 2'
+				],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'test reason text 1'
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
