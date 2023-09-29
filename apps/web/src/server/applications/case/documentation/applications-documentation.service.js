@@ -71,10 +71,8 @@ export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSi
  * @returns {Promise<{documents?: Array<{guid: string}>, errors?: {guid: string}[]}>}
  */
 export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
-	let response;
-
 	try {
-		response = await patch(`applications/${caseId}/documents/update`, {
+		return await patch(`applications/${caseId}/documents/update`, {
 			json: {
 				status,
 				redacted,
@@ -82,12 +80,8 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
 			}
 		});
 	} catch (/** @type {*} */ error) {
-		response = new Promise((resolve) => {
-			resolve({ errors: error?.response?.body?.errors || [] });
-		});
+		return { errors: error?.response?.body?.errors || [] };
 	}
-
-	return response;
 };
 
 /**
