@@ -95,3 +95,17 @@ export const publishCase = async (caseId) => {
 		return { errors: error?.response?.body?.errors || {} };
 	}
 };
+
+/**
+ *
+ * Unublish case
+ *
+ * @param {number} caseId
+ * @returns {Promise<{caseId?: number, errors?: ValidationErrors}>}
+ */
+export const unpublishCase = async (caseId) => {
+	// TODO: this is a mock
+	return new Promise((resolve) => {
+		resolve({ caseId });
+	});
+};

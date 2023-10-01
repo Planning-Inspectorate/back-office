@@ -1,0 +1,40 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set serviceName = "Project page successfully unpublished" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block beforeContent %}{% endblock %}
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+
+	{% set bannerDetails%}
+	<p class='govuk-!-font-size-19'>
+		Case: {{case.title}}
+		<br/>
+		Reference: {{case.reference}}
+	</p>
+	{% endset %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukPanel({
+				titleText: serviceName,
+				html: bannerDetails
+			}) }}
+
+			<p class='govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
+				The project will be unpublished from the NI website within the hour. You can republish the project page and associated content after this.
+			</p>
+
+			<a href="{{'case-view'|url({caseId: case.id})}}" class="govuk-link">
+					Go back to Overview
+			</a>
+
+		</div>
+	</div>
+{% endblock %}

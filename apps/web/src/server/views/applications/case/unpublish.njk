@@ -1,0 +1,41 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% set pageTitle = case.title %}
+{% set serviceName = 'Unpublish the project' %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: 'case-view'|url({caseId: case.id, step: 'project-information'})
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+	<form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
+		<div class="govuk-grid-column-full">
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{ serviceName }}</h1>
+			<p class="govuk-body govuk-!-margin-bottom-2">Case: {{case.title}}</p>
+			<p class="govuk-body govuk-!-margin-bottom-6">Reference: {{case.reference}}</p>
+		</div>
+		<div class="govuk-grid-column-two-thirds">
+
+			{{ govukWarningText({
+  				html: "Unpublishing will remove the project page and any associated content from the NI website.
+						<br><br>
+						You will be able to republish the project and content again.",
+  				iconFallbackText: "Warning"
+			}) }}
+
+		</div>
+
+		<div class="govuk-grid-column-full">
+			{{ govukButton({  classes: "govuk-button--warning govuk-!-margin-top-5", text: 'Unpublish project'  }) }}
+		</div>
+	</form>
+{% endblock %}
