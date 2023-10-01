@@ -1538,3 +1538,27 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
     </div>
 </main>"
 `;
+
+exports[`Applications case pages Unpublish case page GET /case/123/unpublish should render the page with the right info 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <form id=\\"pins-publish-case\\" class=\\"govuk-grid-row \\" method=\\"post\\" action=\\"\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-8\\">Unpublish the project</h1>
+            <p class=\\"govuk-body govuk-!-margin-bottom-2\\">Case: Title CASE/07</p>
+            <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Reference: CASE/07</p>
+        </div>
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                <strong                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> Unpublishing
+                    will remove the project page and any associated content from the NI website.
+                    <br>
+                    <br>You will be able to republish the project and content again.</strong>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-full\\">
+            <button class=\\"govuk-button govuk-button--warning govuk-!-margin-top-5\\"
+            data-module=\\"govuk-button\\">Unpublish project</button>
+        </div>
+    </form>
+</main>"
+`;

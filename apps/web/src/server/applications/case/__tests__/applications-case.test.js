@@ -204,4 +204,31 @@ describe('Applications case pages', () => {
 			});
 		});
 	});
+
+	describe('Unpublish case page', () => {
+		beforeEach(async () => {
+			nock('http://test/').get('/applications/case-team').reply(200, {});
+			nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
+
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/unpublish', () => {
+			it('should render the page with the right info', async () => {
+				const response = await request.get(`${baseUrl}/unpublish`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Unpublish the project');
+			});
+		});
+
+		describe('POST /case/123/unpublish', () => {
+			it('should go to success page if unpublished worked', async () => {
+				const response = await request.post(`${baseUrl}/unpublish`);
+
+				expect(response?.headers?.location).toEqual('./successfully-unpublished');
+			});
+		});
+	});
 });
