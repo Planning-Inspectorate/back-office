@@ -45,7 +45,6 @@ const includeAll = {
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
- *  publishedAt?: Date,
  *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
  *  hasUnpublishedChanges?: boolean}} UpdateApplicationParams
  */
@@ -394,6 +393,7 @@ export const publishCase = async ({ caseId }) => {
 	await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
+			hasUnpublishedChanges: false,
 			CasePublishedState: {
 				create: {
 					isPublished: true
