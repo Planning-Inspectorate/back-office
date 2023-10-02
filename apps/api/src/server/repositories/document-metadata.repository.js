@@ -185,21 +185,20 @@ export const updateAll = async (documentVersionIds, documentDetails) => {
 	const results = [];
 
 	for (const { documentGuid, version } of documentVersionIds) {
-		results.push(
-			await databaseConnector.documentVersion.update({
-				where: { documentGuid_version: { documentGuid, version } },
-				data: documentDetails,
-				include: {
-					Document: {
-						include: {
-							case: true
-						}
+		const result = await databaseConnector.documentVersion.update({
+			where: { documentGuid_version: { documentGuid, version } },
+			data: documentDetails,
+			include: {
+				Document: {
+					include: {
+						case: true
 					}
 				}
-			})
-		);
+			}
+		});
+
+		results.push(result);
 	}
 
-	// @ts-ignore
 	return results;
 };
