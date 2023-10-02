@@ -39,3 +39,16 @@ export const getBlobStream = async (storageUrl, container, blobPath) => {
 	// https://stackoverflow.com/a/72188690
 	return new Readable().wrap(response.readableStreamBody);
 };
+
+/**
+ *
+ * @param {string} storageUrl
+ * @param {string} container
+ * @param {string} blobPath
+ * @returns {Promise<void>}
+ */
+export const deleteBlob = async (storageUrl, container, blobPath) => {
+	const client = BlobStorageClient.fromUrlAndCredential(storageUrl, new DefaultAzureCredential());
+
+	await client.deleteBlobIfExists(container, blobPath);
+};
