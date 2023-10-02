@@ -968,6 +968,17 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </aside>
         </div>
         <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+            data-module=\\"govuk-notification-banner\\">
+                <div class=\\"govuk-notification-banner__header\\">
+                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+                </div>
+                <div class=\\"govuk-notification-banner__content\\">
+                    <h4 class=\\"govuk-notification-banner__heading\\">Unpublished changes have been made.</h4>
+                    <p class=\\"govuk-body\\"><a href=\\"/applications-service/case/7/preview-and-publish\\">Preview and publish</a> the
+                        project for changes to be applied.</p>
+                </div>
+            </div>
             <h2 class=\\"govuk-heading-m\\">Project information</h2>
             <table class=\\"govuk-table\\">
                 <tbody class=\\"govuk-table__body\\">
