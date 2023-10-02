@@ -1,4 +1,4 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('@prisma/client').Document} Document */
 
@@ -49,7 +49,7 @@ export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
  */
 export const getByIdWithVersion = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -150,6 +150,7 @@ export const update = (documentId, documentDetails) => {
 
 /**
  *  Deletes a document from the database based on its `guid`
+ * TODO: check - this does an actual delete, not a soft delete, is that correct?
  *
  * @async
  * @param {string} documentGuid
@@ -240,6 +241,7 @@ export const getDocumentsByGUID = (guids) =>
 	});
 
 /**
+ * TODO: I dont think this fn is used anymore
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
  */
