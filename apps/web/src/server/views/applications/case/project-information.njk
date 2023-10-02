@@ -9,21 +9,7 @@
 
 {% set userIsNotInspector = domainType !== 'inspector' %}
 
-{% set successBannerHtml %}
-	<h3 class="govuk-notification-banner__heading">
-		{% if isFirstTimePublished %} Project page published {% else %}Project page updates published  {% endif %}
-	</h3>
-	<p class="govuk-body">{% if isFirstTimePublished %} The project page will show on the NSIPs website within the hour{% else %} The project page updates will show on the NSIPs website within the hour{% endif %}</p>
-{% endset %}
-
-
 {% block sectionContent %}
-	{% if showPublishedBanner %}
-		{{ govukNotificationBanner({
-			html: successBannerHtml,
-			type: 'success'
-		}) }}
-	{% endif %}
 
 	<h2 class="govuk-heading-m">Project information</h2>
 

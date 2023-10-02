@@ -51,7 +51,7 @@ export async function unpublishApplicationsCase(request, response) {
 		});
 	}
 
-	return response.redirect('./successfully-unpublished');
+	return response.render('applications/case/project-success-banner', { isUnpublished: true });
 }
 
 /**
@@ -61,7 +61,6 @@ export async function unpublishApplicationsCase(request, response) {
  */
 export async function updateApplicationsCasePublishPage(request, response) {
 	const { caseId, case: caseToPublish } = response.locals;
-	const isAlreadyPublic = caseToPublish.publishedDate;
 	const { publishedDate, errors } = await publishCase(caseId);
 
 	response.locals.case = {
@@ -77,9 +76,5 @@ export async function updateApplicationsCasePublishPage(request, response) {
 		});
 	}
 
-	response.render(`applications/case/project-information`, {
-		selectedPageType: 'project-information',
-		showPublishedBanner: true,
-		isFirstTimePublished: !isAlreadyPublic
-	});
+	return response.render('applications/case/project-success-banner');
 }

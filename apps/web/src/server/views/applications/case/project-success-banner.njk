@@ -2,7 +2,7 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set serviceName = "Project page successfully unpublished" %}
+{% set serviceName = "Project page successfully "+ ('unpublished' if isUnpublished else 'published') %}
 
 {% block pageTitle %}
 	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
@@ -28,7 +28,11 @@
 			}) }}
 
 			<p class='govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
+				{% if isUnpublished %}
 				The project will be unpublished from the NI website within the hour. You can republish the project page and associated content after this.
+				{% else %}
+				The project will be published to the NI website within the hour.
+				{% endif %}
 			</p>
 
 			<a href="{{'case-view'|url({caseId: case.id})}}" class="govuk-link">

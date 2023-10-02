@@ -189,17 +189,7 @@ describe('Applications case pages', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Project page published ');
-				});
-
-				it('if the case is already published, should go the 2nd-time success banner page', async () => {
-					nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
-
-					const response = await request.post(`${baseUrl}/preview-and-publish`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Project page updates published');
+					expect(element.innerHTML).toContain('successfully published');
 				});
 			});
 		});
@@ -227,7 +217,10 @@ describe('Applications case pages', () => {
 			it('should go to success page if unpublished worked', async () => {
 				const response = await request.post(`${baseUrl}/unpublish`);
 
-				expect(response?.headers?.location).toEqual('./successfully-unpublished');
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('successfully unpublished');
 			});
 		});
 	});
