@@ -36,6 +36,12 @@ applicationsCaseRouter
 		[assertDomainTypeIsNotInspector, locals.registerCase],
 		asyncRoute(controller.updateApplicationsCasePublishPage)
 	);
+applicationsCaseRouter
+	.route('/:caseId/unpublish')
+	.post(
+		[assertDomainTypeIsNotInspector, locals.registerCase],
+		asyncRoute(controller.unpublishApplicationsCase)
+	);
 
 applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
 

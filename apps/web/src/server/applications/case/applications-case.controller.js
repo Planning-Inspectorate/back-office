@@ -1,4 +1,4 @@
-import { publishCase } from '../common/services/case.service.js';
+import { publishCase, unpublishCase } from '../common/services/case.service.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -32,6 +32,26 @@ export async function viewApplicationsCasePages({ params }, response) {
  */
 export async function viewApplicationsCasePublishPage(request, response) {
 	response.render(`applications/case/preview-and-publish`);
+}
+
+/**
+ * Handle unpublishing case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
+ */
+export async function unpublishApplicationsCase(request, response) {
+	const { caseId } = response.locals;
+
+	const { errors } = await unpublishCase(caseId);
+
+	if (errors) {
+		return response.render(`applications/case/unpublish`, {
+			case: response.locals.case,
+			errors
+		});
+	}
+
+	return response.redirect('./successfully-unpublished');
 }
 
 /**
