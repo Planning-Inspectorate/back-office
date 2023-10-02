@@ -17,11 +17,11 @@ model Case {
   modifiedAt            DateTime              @default(now())
   createdAt             DateTime              @default(now())
   description           String?
-  publishedAt           DateTime?
   title                 String?
   hasUnpublishedChanges Boolean               @default(false)
   ApplicationDetails    ApplicationDetails?
   CaseStatus            CaseStatus[]
+  CasePublishedState    CasePublishedState[]
   folder                Folder[]
   gridReference         GridReference?
   serviceCustomer       ServiceCustomer[]
@@ -75,6 +75,18 @@ model CaseStatus {
   compoundStateName   String?
   caseId              Int
   case                Case     @relation(fields: [caseId], references: [id])
+}
+
+/// CasePublishedState model
+/// Stores the current and past published states (published or not published) of Cases
+/// Does not include a `valid` column like in CaseStatus because only one row can be valid at a time.
+/// Therefore, the current row is the one with the most recent `createdAt` value.
+model CasePublishedState {
+  id          Int      @id @default(autoincrement())
+  isPublished Boolean
+  createdAt   DateTime @default(now())
+  caseId      Int
+  case        Case     @relation(fields: [caseId], references: [id])
 }
 
 /// ApplicationDetails model
