@@ -57,7 +57,7 @@ export async function unpublishApplicationsCase(request, response) {
 /**
  * Send publishing request with updated changes
  *
- * @type {import('@pins/express').RenderHandler<CasePageProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
  */
 export async function updateApplicationsCasePublishPage(request, response) {
 	const { caseId, case: caseToPublish } = response.locals;
@@ -76,5 +76,7 @@ export async function updateApplicationsCasePublishPage(request, response) {
 		});
 	}
 
-	return response.render('applications/case/project-success-banner');
+	return response.render('applications/case/project-success-banner', {
+		isRepublished: !!caseToPublish.publishedDate
+	});
 }

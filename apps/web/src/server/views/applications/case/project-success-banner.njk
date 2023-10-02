@@ -30,6 +30,8 @@
 			<p class='govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
 				{% if isUnpublished %}
 				The project will be unpublished from the NI website within the hour. You can republish the project page and associated content after this.
+				{% elseif isRepublished %}
+				The project page updates will show on the NI website within the hour.
 				{% else %}
 				The project will be published to the NI website within the hour.
 				{% endif %}
