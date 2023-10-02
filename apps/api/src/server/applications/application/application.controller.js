@@ -150,7 +150,9 @@ export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`successfully published case with id ${id}`);
 
 	response.send({
-		publishedDate: mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt))
+		publishedDate: mapDateStringToUnixTimestamp(
+			String(publishedCase?.CasePublishedState[0]?.createdAt)
+		)
 	});
 };
 

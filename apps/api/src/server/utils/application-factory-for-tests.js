@@ -122,13 +122,21 @@ export const applicationFactoryForTests = ({
 		description,
 		createdAt: dates.createdAt || new Date(),
 		modifiedAt: dates.modifiedAt || new Date(),
-		publishedAt: dates.publishedAt || null,
 		CaseStatus: [
 			{
 				id: 1,
 				status: caseStatus
 			}
 		],
+		...(dates?.publishedAt && {
+			CasePublishedState: [
+				{
+					id: 1,
+					createdAt: dates.publishedAt,
+					isPublished: true
+				}
+			]
+		}),
 		...(inclusions.gridReference && {
 			gridReference: {
 				id: 1,

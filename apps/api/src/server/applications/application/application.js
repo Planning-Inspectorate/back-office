@@ -86,7 +86,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		caseReference: projectEntity.reference,
 		projectName: projectEntity.title,
 		projectDescription: projectEntity.description,
-		publishStatus: projectEntity.publishedAt ? 'published' : 'unpublished',
+		publishStatus: projectEntity.CasePublishedState?.[0]?.isPublished ? 'published' : 'unpublished',
 		sourceSystem,
 		...application,
 		...sectorAndType,

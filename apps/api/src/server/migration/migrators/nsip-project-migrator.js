@@ -61,9 +61,6 @@ const mapModelToEntity = async (m) => {
 		reference: m.caseReference,
 		title: m.projectName,
 		description: m.projectDescription,
-		...(m.publishStatus === 'published' && {
-			publishedAt: new Date() // TODO: We're going to lose this info
-		}),
 		ApplicationDetails: {
 			create: {
 				subSector: {
@@ -88,6 +85,11 @@ const mapModelToEntity = async (m) => {
 		CaseStatus: {
 			create: { status: m.stage }
 		},
+		...(m.publishStatus === 'published' && {
+			CasePublishedState: {
+				create: { isPublished: true, createdAt: new Date() }
+			}
+		}),
 		// serviceCustomer: TODO
 		// case team: TODO
 		// interested
