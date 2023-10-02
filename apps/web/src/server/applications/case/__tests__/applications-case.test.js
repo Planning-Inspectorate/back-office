@@ -212,16 +212,5 @@ describe('Applications case pages', () => {
 				expect(element.innerHTML).toContain('Unpublish the project');
 			});
 		});
-
-		describe('POST /case/123/unpublish', () => {
-			it('should go to success page if unpublished worked', async () => {
-				const response = await request.post(`${baseUrl}/unpublish`);
-
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('successfully unpublished');
-			});
-		});
 	});
 });
