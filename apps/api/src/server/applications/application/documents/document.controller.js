@@ -140,18 +140,18 @@ export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
 	const formattedResponseList = [];
 
-	/** @type {{ guid: string, msg: string }[]} */
-	let errors = [];
-
 	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
 	// and the redaction status of each document should remain unchanged.
 	const redactedStatus = isRedacted !== undefined ? getRedactionStatus(isRedacted) : undefined;
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
-	/** @type {string[]} */
-	const publishableIds = await (async () => {
+	/** @type {{ publishableIds: string[], errors: { guid: string, msg: string }[] }} */
+	const { publishableIds, errors } = await (async () => {
 		if (publishedStatus !== 'ready_to_publish') {
-			return /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid);
+			return {
+				publishableIds: /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid),
+				errors: []
+			};
 		}
 
 		const documentIds = documents.map((/** @type {{guid: string}} */ document) => document.guid);
@@ -160,17 +160,13 @@ export const updateDocuments = async ({ body }, response) => {
 			documentIds
 		);
 
-		if (invalid.length > 0) {
-			errors = [
-				...errors,
-				...invalid.map((id) => ({
-					guid: id,
-					msg: 'You must fill in all mandatory document properties to publish a document'
-				}))
-			];
-		}
-
-		return publishable.map((p) => p.documentGuid);
+		return {
+			publishableIds: publishable.map((p) => p.documentGuid),
+			errors: invalid.map((id) => ({
+				guid: id,
+				msg: 'You must fill in all mandatory document properties to publish a document'
+			}))
+		};
 	})();
 
 	const filteredDocs = /** @type {{guid: string}[]} */ (documents)?.filter((doc) =>
@@ -529,8 +525,12 @@ export const publishDocuments = async ({ body }, response) => {
 
 	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
-	const { publishable: publishableDocumentVersionIds } =
+	const { publishable: publishableDocumentVersionIds, invalid } =
 		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
+
+	if (invalid.length > 0) {
+		response.status(500).send({ errors: [{ guid: 'bad_document_to_publish_guid' }] });
+	}
 
 	const activityLogs = publishableDocumentVersionIds.map((document) =>
 		documentActivityLogRepository.create({

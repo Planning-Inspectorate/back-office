@@ -207,13 +207,22 @@ describe('Publish documents', () => {
 
 	test('throws error if document missing properties required publishing', async () => {
 		// GIVEN
-
-		databaseConnector.document.findMany.mockResolvedValue([
+		databaseConnector.document.findMany.mockResolvedValueOnce([
 			{
 				guid: 'document_to_publish_guid',
 				latestVersionId: 1
 			}
 		]);
+		databaseConnector.documentVersion.update.mockResolvedValue({
+			Document: {
+				guid: 'document_to_publish_guid',
+				reference: 'document-reference',
+				case: {
+					id: 1,
+					reference: 'case-reference'
+				}
+			}
+		});
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
