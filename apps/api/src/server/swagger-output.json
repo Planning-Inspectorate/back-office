@@ -349,6 +349,38 @@
 				}
 			}
 		},
+		"/applications/{id}/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "unpublish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was unpublished as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations": {
 			"get": {
 				"tags": ["Applications"],
