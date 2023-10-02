@@ -41,9 +41,6 @@ const { value, error } = schema.validate({
 		},
 		testMailbox: environment.TEST_MAILBOX || 'test@example.com'
 	},
-	bankHolidayFeed: {
-		hostname: 'https://www.gov.uk/bank-holidays.json'
-	},
 	appealAllocationLevels: [
 		{ level: 'A', band: 3 },
 		{ level: 'B', band: 3 },
