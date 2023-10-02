@@ -1,5 +1,5 @@
 import { pick } from 'lodash-es';
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /**
  *

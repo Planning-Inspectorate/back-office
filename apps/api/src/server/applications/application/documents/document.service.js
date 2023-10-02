@@ -1,22 +1,25 @@
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
-import * as caseRepository from '../../../repositories/case.repository.js';
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import { getStorageLocation } from '../../../utils/document-storage.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
-import logger from '../../../utils/logger.js';
-import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
-import { eventClient } from '../../../infrastructure/event-client.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import { getStorageLocation } from '#utils/document-storage.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import logger from '#utils/logger.js';
+import { mapSingleDocumentDetailsFromVersion } from '#utils/mapping/map-document-details.js';
+import { eventClient } from '#infrastructure/event-client.js';
 import { buildNsipDocumentPayload } from './document.js';
-import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
+import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
-import config from '../../../config/config.js';
+import config from '#config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
-/**  @typedef {import('@pins/applications.api/src/database/schema.js').DocumentVersion} DocumentVersion */
-/**  @typedef {import('@pins/applications.api/src/database/schema.js').Document} Document */
+/**
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersion} DocumentVersion
+ * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ */
 
 /**
  * Remove extension from document name

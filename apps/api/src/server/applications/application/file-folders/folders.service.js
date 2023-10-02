@@ -1,18 +1,18 @@
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as folderRepository from '../../../repositories/folder.repository.js';
-import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
-import { mapDocumentVersionDetails } from '../../../utils/mapping/map-document-details.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import {
 	mapBreadcrumbFolderDetails,
 	mapFolderDetails,
 	mapSingleFolderDetails
-} from '../../../utils/mapping/map-folder-details.js';
+} from '#utils/mapping/map-folder-details.js';
 
 /**
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
- * @typedef {import('apps/api/src/database/schema.js').Document} Document
- * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
- * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: DocumentDetails[]}} PaginatedDocumentDetails
+ * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@pins/applications.api').Api.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Api.PaginatedDocumentDetails} PaginatedDocumentDetails
  */
 
 /**

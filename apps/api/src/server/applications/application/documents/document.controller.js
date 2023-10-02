@@ -1,16 +1,18 @@
 import { pick } from 'lodash-es';
-import * as caseRepository from '../../../repositories/case.repository.js';
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import * as folderRepository from '../../../repositories/folder.repository.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
-import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
-import logger from '../../../utils/logger.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+
+import BackOfficeAppError from '#utils/app-error.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import logger from '#utils/logger.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
 	mapSingleDocumentDetailsFromVersion
-} from '../../../utils/mapping/map-document-details.js';
+} from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
@@ -32,12 +34,12 @@ import {
 	validateDocumentVersionMetadataBody,
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing
 } from './document.validators.js';
-import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /**
- * @typedef {import('apps/api/src/database/schema.js').Document} Document
- * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
- * @typedef {import('apps/api/src/database/schema.js').DocumentVersionInput} DocumentVersion
+ * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersion} DocumentVersion
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  */
 
 /**
@@ -69,8 +71,8 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
-	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
-		remainder.includes(doc.documentName)
+	const filteredToUpload = /** @type {DocumentVersionWithDocument[]} */ (documentsToUpload).filter(
+		(doc) => remainder.includes(doc.documentName)
 	);
 
 	for (const doc of filteredToUpload) {
@@ -249,7 +251,7 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
 	// Step 3: If the document metadata is not found, throw an error.
@@ -435,7 +437,7 @@ export const storeDocumentVersion = async (request, response) => {
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
 		documentVersionMetadataBody,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
 	// Send the document details back in the response

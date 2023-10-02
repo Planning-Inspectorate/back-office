@@ -1,4 +1,4 @@
-import config from '../../../config/config.js';
+import config from '#config/config.js';
 /**
  * NSIP Document
  *
@@ -37,7 +37,7 @@ import config from '../../../config/config.js';
  */
 
 /**
- * @param {import('apps/api/src/database/schema.js').DocumentVersionWithDocument} version
+ * @param {import('@pins/applications.api').Schema.DocumentVersionWithDocument} version
  * @returns {NsipDocumentPayload}
  */
 export const buildNsipDocumentPayload = (version) => {
@@ -58,8 +58,11 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		mime: version.mime,
-		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
-		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
+		documentURI: buildBlobUri(version.privateBlobContainer ?? '', version.privateBlobPath ?? ''),
+		publishedDocumentURI: buildBlobUri(
+			version.publishedBlobContainer ?? '',
+			version.publishedBlobPath ?? ''
+		),
 		// @ts-ignore
 		virusCheckStatus: version.virusCheckStatus,
 		fileMD5: version.fileMD5,

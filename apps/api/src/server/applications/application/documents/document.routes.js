@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '#middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
