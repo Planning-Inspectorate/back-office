@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
-import logger from '../utils/logger.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
@@ -388,19 +387,20 @@ export const updateApplication = async ({
 };
 
 /**
- * @param {UpdateApplicationParams} caseInfo
+ * @param {{ caseId: number }} _
  * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
  */
 export const publishCase = async ({ caseId }) => {
-	const publishedCase = await databaseConnector.case.update({
+	await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
-			publishedAt: new Date(),
-			hasUnpublishedChanges: false
+			CasePublishedState: {
+				create: {
+					isPublished: true
+				}
+			}
 		}
 	});
-
-	logger.info(`case was published at ${publishedCase.publishedAt}`);
 
 	return getById(caseId, {
 		subSector: true,
@@ -409,6 +409,7 @@ export const publishCase = async ({ caseId }) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		serviceCustomer: true,
 		serviceCustomerAddress: true,
 		gridReference: true
