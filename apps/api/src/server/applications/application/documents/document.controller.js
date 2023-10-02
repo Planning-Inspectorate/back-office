@@ -14,13 +14,14 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
-	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
+	handleUpdateDocument,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishNsipDocuments,
+	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
 import {
@@ -138,98 +139,26 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
  */
 export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
-	const formattedResponseList = [];
 
-	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
-	// and the redaction status of each document should remain unchanged.
 	const redactedStatus = isRedacted !== undefined ? getRedactionStatus(isRedacted) : undefined;
 
-	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
-	/** @type {{ publishableIds: string[], errors: { guid: string, msg: string }[] }} */
-	const { publishableIds, errors } = await (async () => {
+	const { publishableIds, errors: validationErrors } = await (async () => {
+		const documentIds = /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid);
+
 		if (publishedStatus !== 'ready_to_publish') {
-			return {
-				publishableIds: /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid),
-				errors: []
-			};
+			return { publishableIds: documentIds, errors: [] };
 		}
 
-		const documentIds = documents.map((/** @type {{guid: string}} */ document) => document.guid);
-
-		const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
-			documentIds
-		);
-
-		return {
-			publishableIds: publishable.map((p) => p.documentGuid),
-			errors: invalid.map((id) => ({
-				guid: id,
-				msg: 'You must fill in all mandatory document properties to publish a document'
-			}))
-		};
+		return await separatePublishableDocuments(documentIds);
 	})();
 
-	const filteredDocs = /** @type {{guid: string}[]} */ (documents)?.filter((doc) =>
-		publishableIds.includes(doc.guid)
+	const { results, errors: updateErrors } = await handleUpdateDocument(
+		publishableIds,
+		publishedStatus,
+		redactedStatus
 	);
-	for (const document of filteredDocs ?? []) {
-		logger.info(
-			`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
-		);
 
-		// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
-		// This is fine from a requirements perspective, but opens us up to race conditions
-		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
-		// @ts-ignore
-		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-			document.guid
-		);
-
-		if (publishedStatus && documentVersion.publishedStatus === 'published') {
-			errors.push({
-				guid: document.guid,
-				msg: 'You must first unpublish the document before changing the status.'
-			});
-			continue;
-		}
-
-		/**
-		 * @typedef {object} Updates
-		 * @property {string} [publishedStatus]
-		 * @property {string} [publishedStatusPrev]
-		 * @property {string} [redactedStatus]
-		 */
-
-		/** @type {Updates} */
-		const documentVersionUpdates = {
-			publishedStatus,
-			redactedStatus
-		};
-
-		if (typeof publishedStatus === 'undefined') {
-			delete documentVersionUpdates.publishedStatus;
-			// when setting publishedStatus, save previous publishedStatus
-			// do we have a previous doc version, does it have a published status, and is that status different
-		} else if (
-			documentVersion?.publishedStatus !== undefined &&
-			documentVersion.publishedStatus !== publishedStatus
-		) {
-			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-		}
-
-		const updateResponseInTable = await documentVersionRepository.update(document.guid, {
-			version: documentVersion.version,
-			...documentVersionUpdates
-		});
-
-		const formattedResponse = formatDocumentUpdateResponseBody(
-			updateResponseInTable.documentGuid ?? '',
-			updateResponseInTable.publishedStatus ?? '',
-			updateResponseInTable.redactedStatus ?? ''
-		);
-
-		formattedResponseList.push(formattedResponse);
-	}
+	const errors = [...validationErrors, ...updateErrors];
 
 	if (errors.length === documents.length) {
 		logger.info(`Failed to update all ${documents.length} documents`);
@@ -238,15 +167,14 @@ export const updateDocuments = async ({ body }, response) => {
 	}
 
 	if (errors.length > 0) {
-		logger.info(
-			`Updated ${formattedResponseList.length} documents. ${errors.length} failed to update.`
-		);
-		response.status(207).send({ documents: formattedResponseList, errors });
+		logger.info(`Updated ${results.length} documents. ${errors.length} failed to update.`);
+
+		response.status(207).send({ documents: results, errors });
 		return;
 	}
 
 	logger.info(`Updated all ${documents.length} documents`);
-	response.send(formattedResponseList);
+	response.send(results);
 };
 
 /**
