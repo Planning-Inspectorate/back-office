@@ -27,6 +27,7 @@ export {
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
+	CasePublishedState?: CasePublishedState;
 	serviceCustomer?: ServiceCustomer[];
 	ApplicationDetails?: ApplicationDetails | null;
 	gridReference?: GridReference | null;
@@ -110,8 +111,7 @@ export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
 
-export interface S51Advice extends schema.S51Advice {
-}
+export interface S51Advice extends schema.S51Advice {}
 
 export interface S51AdviceDocument extends schema.S51AdviceDocument {}
 export interface CreateS51AdviceDocument {

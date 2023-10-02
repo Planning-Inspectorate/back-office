@@ -416,9 +416,39 @@ export const publishCase = async ({ caseId }) => {
 };
 
 /**
+ * @param {{ caseId: number }} _
+ * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
+ */
+export const unpublishCase = async ({ caseId }) => {
+	await databaseConnector.case.update({
+		where: { id: caseId },
+		data: {
+			CasePublishedState: {
+				create: {
+					isPublished: false
+				}
+			}
+		}
+	});
+
+	return getById(caseId, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		casePublishedState: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
+};
+
+/**
  *
  * @param {number} id
- * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const getById = (
@@ -430,6 +460,7 @@ export const getById = (
 		zoomLevel = false,
 		regions = false,
 		caseStatus = false,
+		casePublishedState = false,
 		serviceCustomer = false,
 		serviceCustomerAddress = false,
 		gridReference = false
@@ -443,6 +474,7 @@ export const getById = (
 			zoomLevel ||
 			regions ||
 			caseStatus ||
+			casePublishedState ||
 			serviceCustomer ||
 			serviceCustomerAddress) && {
 			include: {
@@ -458,6 +490,7 @@ export const getById = (
 					}
 				}),
 				...(caseStatus && { CaseStatus: { where: { valid: true } } }),
+				...(casePublishedState && { CasePublishedState: { orderBy: { createdAt: 'desc' } } }),
 				...((serviceCustomer || serviceCustomerAddress) && {
 					serviceCustomer: { include: { address: serviceCustomerAddress } }
 				}),

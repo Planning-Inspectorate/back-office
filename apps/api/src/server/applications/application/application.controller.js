@@ -154,6 +154,10 @@ export const publishCase = async ({ params: { id } }, response) => {
 	});
 };
 
+/**
+ *
+ * @type {import("express").RequestHandler<{id: number}, ?, ?, any>}
+ */
 export const unpublishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to unpublish a case with id ${id}`);
 
@@ -161,7 +165,7 @@ export const unpublishCase = async ({ params: { id } }, response) => {
 		caseId: id
 	});
 
-	if (!unpublishCase) {
+	if (!unpublishedCase) {
 		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
 	}
 
@@ -174,6 +178,8 @@ export const unpublishCase = async ({ params: { id } }, response) => {
 	logger.info(`successfully unpublished case with id ${id}`);
 
 	response.send({
-		unpublishedDate: mapDateStringToUnixTimestamp(String(unpublishedCase?.unpublishedAt))
+		unpublishedDate: mapDateStringToUnixTimestamp(
+			String(unpublishedCase?.CasePublishedState[0].createdAt)
+		)
 	});
 };
