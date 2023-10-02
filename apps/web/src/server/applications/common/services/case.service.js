@@ -104,8 +104,9 @@ export const publishCase = async (caseId) => {
  * @returns {Promise<{caseId?: number, errors?: ValidationErrors}>}
  */
 export const unpublishCase = async (caseId) => {
-	// TODO: this is a mock
-	return new Promise((resolve) => {
-		resolve({ caseId });
-	});
+	try {
+		return await patch(`applications/${caseId}/unpublish`);
+	} catch (/** @type {*} */ error) {
+		return { errors: error?.response?.body?.errors || {} };
+	}
 };
