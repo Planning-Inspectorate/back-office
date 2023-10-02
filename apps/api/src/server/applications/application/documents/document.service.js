@@ -12,6 +12,7 @@ import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
 import config from '../../../config/config.js';
+import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
 /**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
 /**  @typedef {import('apps/api/src/database/schema.js').Document} Document */
@@ -605,4 +606,99 @@ export const extractDuplicates = async (documents) => {
 
 		return acc;
 	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+};
+
+/**
+ * @param {string[]} guids
+ * @return {Promise<{ publishableIds: string[], errors: { guid: string, msg: string }[] }>}
+ * */
+export const separatePublishableDocuments = async (guids) => {
+	const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+		guids
+	);
+
+	return {
+		publishableIds: publishable.map((p) => p.documentGuid),
+		errors: invalid.map((id) => ({
+			guid: id,
+			msg: 'You must fill in all mandatory document properties to publish a document'
+		}))
+	};
+};
+
+/**
+ * Executes a list of updates to document publishedStatus and redacted status.
+ * Also handles implicit logic around publishedStatus/publishedStatusPrev.
+ *
+ * @typedef {{ guid: string, msg: string }} ItemError
+ *
+ * @param {string[]} guids
+ * @param {string} [publishedStatus]
+ * @param {'redacted' | 'not_redacted'} [redactedStatus]
+ * @returns {Promise<{ errors: ItemError[], results: Record<string, any>[] }>}
+ * */
+export const handleUpdateDocument = async (guids, publishedStatus, redactedStatus) => {
+	/** @type {ItemError[]} */
+	let errors = [];
+
+	/** @type {Record<string, any>[]} */
+	let results = [];
+
+	for (const guid of guids) {
+		logger.info(
+			`Updating document with guid: ${guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+		);
+
+		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
+		// @ts-ignore
+		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
+			guid
+		);
+
+		if (publishedStatus && documentVersion.publishedStatus === 'published') {
+			errors.push({
+				guid,
+				msg: 'You must first unpublish the document before changing the status.'
+			});
+
+			continue;
+		}
+
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
+
+		/** @type {Updates} */
+		const documentVersionUpdates = {
+			publishedStatus,
+			redactedStatus
+		};
+
+		if (!publishedStatus) {
+			delete documentVersionUpdates.publishedStatus;
+		} else if (
+			documentVersion?.publishedStatus !== undefined &&
+			documentVersion.publishedStatus !== publishedStatus
+		) {
+			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
+		}
+
+		const updateResponseInTable = await documentVersionRepository.update(guid, {
+			version: documentVersion.version,
+			...documentVersionUpdates
+		});
+
+		const formattedResponse = formatDocumentUpdateResponseBody(
+			updateResponseInTable.documentGuid ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		results.push(formattedResponse);
+	}
+
+	return { errors, results };
 };
