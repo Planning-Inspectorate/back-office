@@ -1,7 +1,7 @@
 import { add, addBusinessDays, isAfter, isBefore, isWeekend, parseISO, sub } from 'date-fns';
 import fetch from 'node-fetch';
-import config from '../config/config.js';
 import {
+	CONFIG_BANKHOLIDAYS_FEED_URL,
 	CONFIG_APPEAL_TIMETABLE,
 	BANK_HOLIDAY_FEED_DIVISION_ENGLAND
 } from '#endpoints/constants.js';
@@ -31,7 +31,7 @@ const bankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) =>
  */
 const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISION_ENGLAND) => {
 	try {
-		const bankHolidayFeed = await fetch(config.bankHolidayFeed.hostname);
+		const bankHolidayFeed = await fetch(CONFIG_BANKHOLIDAYS_FEED_URL);
 		const bankHolidayFeedJson = await bankHolidayFeed.json();
 
 		// @ts-ignore

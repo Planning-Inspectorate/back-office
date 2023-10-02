@@ -105,6 +105,7 @@ export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received
 export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
 
 // Static config
+export const CONFIG_BANKHOLIDAYS_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
 export const CONFIG_APPEAL_TIMETABLE = {
 	FPA: {
 		lpaQuestionnaireDueDate: {

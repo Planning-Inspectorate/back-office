@@ -38,9 +38,6 @@ export default joi
 				not: 'production',
 				then: joi.object({ api: joi.object({ key: joi.optional() }) })
 			}),
-		bankHolidayFeed: joi.object({
-			hostname: joi.string()
-		}),
 		appealAllocationLevels: joi.array().items(
 			joi.object({
 				level: joi.string(),
