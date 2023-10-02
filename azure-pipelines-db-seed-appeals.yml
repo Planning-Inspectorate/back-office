@@ -38,6 +38,7 @@ jobs:
             - template: steps/node_script.yml@templates
               parameters:
                 script: npm ci
+                nodeVersion: 18
             - template: steps/azure_auth.yml@templates
             - template: steps/azure_get_secrets.yml@templates
               parameters:
