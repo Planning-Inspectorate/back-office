@@ -7,7 +7,8 @@ import {
 	publishCase,
 	startCase,
 	queryApplications,
-	updateApplication
+	updateApplication,
+	unpublishCase
 } from './application.controller.js';
 import {
 	validateApplicantId,
@@ -157,6 +158,27 @@ router.patch(
     */
 	validateApplicationId,
 	asyncHandler(publishCase)
+);
+
+router.patch(
+	'/:id/unpublish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/unpublish'
+        #swagger.description = 'unpublish application'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.responses[200] = {
+            description: 'response will have the date that the case was unpublished as a timestamp',
+            schema: { publishedDate: 1673873105 }
+        }
+    */
+	validateApplicationId,
+	asyncHandler(unpublishCase)
 );
 
 router.use('/:id/representations', representaionsRouter);

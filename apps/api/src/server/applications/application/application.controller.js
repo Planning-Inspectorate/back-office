@@ -153,3 +153,27 @@ export const publishCase = async ({ params: { id } }, response) => {
 		publishedDate: mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt))
 	});
 };
+
+export const unpublishCase = async ({ params: { id } }, response) => {
+	logger.info(`attempting to unpublish a case with id ${id}`);
+
+	const unpublishedCase = await caseRepository.unpublishCase({
+		caseId: id
+	});
+
+	if (!unpublishCase) {
+		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
+	}
+
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(unpublishedCase)],
+		EventType.Unpublish
+	);
+
+	logger.info(`successfully unpublished case with id ${id}`);
+
+	response.send({
+		unpublishedDate: mapDateStringToUnixTimestamp(String(unpublishedCase?.unpublishedAt))
+	});
+};
