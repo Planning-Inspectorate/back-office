@@ -62,25 +62,6 @@ extends:
             variables:
               - name: apiVersion
                 value: $[ stageDependencies.semantic_release.run_semantic_release.outputs['versions.apiVersion'] ]
-          - name: Stage Document Storage API
-            condition: eq(stageDependencies.semantic_release.run_semantic_release.outputs['versions.documentStorageApiRelease'], 'true')
-            steps:
-              - template: ../steps/azure_web_app_docker_tag.yml
-                parameters:
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-document-storage-api
-                  tag: v$(documentStorageApiVersion)
-              - template: ../steps/azure_web_app_deploy.yml
-                parameters:
-                  appName: pins-app-back-office-document-storage-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  appSlotName: staging
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-document-storage-api
-                  tag: v$(documentStorageApiVersion)
-            variables:
-              - name: documentStorageApiVersion
-                value: $[ stageDependencies.semantic_release.run_semantic_release.outputs['versions.documentStorageApiVersion'] ]
           - name: Stage Web
             condition: eq(stageDependencies.semantic_release.run_semantic_release.outputs['versions.webRelease'], 'true')
             steps:
@@ -109,14 +90,6 @@ extends:
               - template: ../steps/azure_web_app_slot_swap.yml
                 parameters:
                   appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  appStagingSlotName: staging
-                  appTargetSlotName: production
-          - name: Deploy Document Storage API
-            steps:
-              - template: ../steps/azure_web_app_slot_swap.yml
-                parameters:
-                  appName: pins-app-back-office-document-storage-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
@@ -188,16 +161,6 @@ extends:
                     RELEASE=true
                   else
                     API_VERSION=$(git describe --match "api@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
-                    echo "API version: $API_VERSION (No change)"
-                  fi
-
-                  if [[ ! -z "$DOCUMENT_STORAGE_API_VERSION" ]]; then
-                    echo "API version: $DOCUMENT_STORAGE_API_VERSION"
-                    echo "##vso[task.setvariable variable=documentStorageApiVersion;isOutput=true]$DOCUMENT_STORAGE_API_VERSION"
-                    echo "##vso[task.setvariable variable=documentStorageApiRelease;isOutput=true]true"
-                    RELEASE=true
-                  else
-                    API_VERSION=$(git describe --match "document-storage-api@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
                     echo "API version: $API_VERSION (No change)"
                   fi
 
