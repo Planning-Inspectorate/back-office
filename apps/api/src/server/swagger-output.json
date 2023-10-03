@@ -3445,13 +3445,13 @@
 			}
 		},
 		"/applications/subscriptions": {
-			"get": {
+			"post": {
 				"tags": ["Applications"],
 				"description": "Get a subscription",
 				"parameters": [
 					{
 						"name": "caseReference",
-						"in": "query",
+						"in": "body",
 						"description": "subscription caseReference",
 						"schema": {
 							"type": "string"
@@ -3460,7 +3460,7 @@
 					},
 					{
 						"name": "emailAddress",
-						"in": "query",
+						"in": "body",
 						"description": "subscription emailAddress",
 						"schema": {
 							"type": "string"
