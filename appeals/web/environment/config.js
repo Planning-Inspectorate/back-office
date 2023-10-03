@@ -1,5 +1,4 @@
 import { loadEnvironment } from '@pins/platform';
-import path from 'node:path';
 import schema from './schema.js';
 import { baseConfigFromEnvironment } from './base-config.js';
 
@@ -89,8 +88,7 @@ export function loadConfig() {
 		// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
 		featureFlags: {
 			featureFlagBoas1TestFeature: FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-		},
-		tmpDir: path.join(baseConfig.cwd, '.tmp')
+		}
 	};
 
 	const { value: validatedConfig, error } = schema.validate(config);
