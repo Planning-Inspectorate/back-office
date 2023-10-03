@@ -1,6 +1,5 @@
 import got from 'got';
 import config from './config.js';
-import querystring from 'querystring';
 
 /**
  *
@@ -9,8 +8,11 @@ import querystring from 'querystring';
  * @returns {Promise<{id: number}|null>}
  */
 function getSubscription(caseReference, emailAddress) {
-	const query = querystring.stringify({ caseReference, emailAddress });
-	return got.get(`https://${config.API_HOST}/applications/subscriptions/?${query}`).json();
+	return got
+		.post(`https://${config.API_HOST}/applications/subscriptions/`, {
+			json: { caseReference, emailAddress }
+		})
+		.json();
 }
 
 /**
