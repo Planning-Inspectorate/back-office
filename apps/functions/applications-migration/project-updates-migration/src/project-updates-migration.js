@@ -148,7 +148,8 @@ const subscriptionTypes = {
 	all_updates: 'allUpdates'
 };
 
-const getUpdatesQuery = `SELECT p.id,
+const getUpdatesQuery = `
+SELECT p.id,
        pr.casereference AS caseReference,
        p.post_date      AS updateDate,
        p.post_title     AS updateName,
@@ -168,7 +169,8 @@ WHERE  p.post_type = 'ipc_project_update'
 GROUP BY id
 ORDER  BY post_date DESC;`;
 
-const getSubscriptionsQuery = `SELECT sc.subscription_id   AS subscriptionId,
+const getSubscriptionsQuery = `
+SELECT s.user_id   AS subscriptionId,
        s.case_reference     AS caseReference,
        s.useremail          AS emailAddress,
        sc.subscription_type AS subscriptionType,
