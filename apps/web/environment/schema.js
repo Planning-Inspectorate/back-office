@@ -40,7 +40,6 @@ export default baseSchema
 		sslCertificateKeyFile: joi
 			.string()
 			.when('serverProtocol', { is: 'http', then: joi.optional() }),
-		tmpDir: joi.string(),
 		referenceData: joi
 			.object({
 				applications: joi
