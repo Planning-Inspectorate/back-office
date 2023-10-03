@@ -16,20 +16,20 @@ import { validatePaginationParameters } from '#middleware/pagination-validation.
 
 const router = createRouter();
 
-router.get(
+router.post(
 	'/',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/subscriptions'
         #swagger.description = 'Get a subscription'
         #swagger.parameters['caseReference'] = {
-            in: 'query',
+            in: 'body',
             description: 'subscription caseReference',
             schema: { type: 'string' },
             required: true
         }
         #swagger.parameters['emailAddress'] = {
-            in: 'query',
+            in: 'body',
             description: 'subscription emailAddress',
             schema: { type: 'string' },
             required: true

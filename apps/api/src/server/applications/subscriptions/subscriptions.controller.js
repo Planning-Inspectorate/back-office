@@ -51,12 +51,10 @@ export async function listSubscriptions(req, res) {
  * @throws {Error}
  * @returns {Promise<void>}
  */
-export async function getSubscription(request, response) {
-	const { query } = request;
-
+export async function getSubscription({ body }, response) {
 	// we're expecting strings here, not other possible types (e.g. string[])
-	const caseReference = String(query.caseReference);
-	const emailAddress = String(query.emailAddress);
+	const caseReference = String(body.caseReference);
+	const emailAddress = String(body.emailAddress);
 
 	try {
 		const res = await subscriptionRepository.findUnique(caseReference, emailAddress);
