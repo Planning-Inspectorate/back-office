@@ -409,8 +409,6 @@ model ExaminationTimetableItem {
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
   id            Int    @id @default(autoincrement())
-  // The ID of the project update in the NI Database
-  migratedId    Int?
   emailAddress  String
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
@@ -447,12 +445,10 @@ model ExaminationTimetable {
 
 // ProjectUpdate represents some content in relation to a case (application/nsip) that may be of interest to
 // members of the public and those with an interest in that case. These updates are ultimate sent out to email
-// subscribers, and published to the front office.
+// subscribers, and published to the fr`ont office.
 // Otherwise known as Banners or Latest Updates.
 model ProjectUpdate {
   id                Int       @id @default(autoincrement())
-  // The ID of the project update in the NI Database
-  migratedId        Int?
   // the ID of the case this project update relates to
   caseId            Int
   case              Case?     @relation(fields: [caseId], references: [id])

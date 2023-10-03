@@ -7,6 +7,8 @@ import {
 } from '../../applications/subscriptions/subscriptions.js';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { buildUpsertForEntity } from './sql-tools.js';
+import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-subscription.d.ts').NSIPSubscription} NSIPSubscription
@@ -25,9 +27,6 @@ import { EventType } from '@pins/event-client';
 export const migrateNsipSubscriptions = async (subscriptions) => {
 	console.info(`Migrating ${subscriptions.length} NSIP Subscriptions`);
 
-	/** @type {import('@prisma/client').Subscription[]} */
-	const updatesToBroadcast = [];
-
 	const subscribers = mapSubscriptionsToSubscribers(subscriptions);
 
 	console.info(`Consolidated subscriptions, migrating ${subscribers.length} Subscribers`);
@@ -35,28 +34,23 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
 	for (const model of subscribers) {
 		const entity = await mapModelToEntity(model);
 
-		const existingSubscription = await databaseConnector.subscription.findFirst({
-			where: { migratedId: entity.migratedId },
-			select: { id: true }
-		});
+		if (entity.id >= MigratedEntityIdCeiling) {
+			throw Error(`Unable to migrate entity id=${entity.id} - identity above threshold`);
+		}
 
-		const updatedEntity = existingSubscription
-			? await databaseConnector.subscription.update({
-					where: { id: existingSubscription.id },
-					data: entity
-			  })
-			: await databaseConnector.subscription.create({
-					data: entity
-			  });
+		const { statement, parameters } = buildUpsertForEntity('Subscription', entity, 'id');
 
-		updatesToBroadcast.push(updatedEntity);
+		await databaseConnector.$transaction([
+			databaseConnector.$executeRawUnsafe(statement, ...parameters)
+		]);
 	}
 
-	console.info(`Broadcasting updates for ${updatesToBroadcast.length} entities`);
-
-	const events = updatesToBroadcast.map((updatedEntity) =>
-		buildSubscriptionPayloads(updatedEntity)
+	const events = await buildEventPayloads(
+		// @ts-ignore - subscriptionId will never be undefined here
+		subscribers.map((subscriber) => subscriber.subscriptionId)
 	);
+
+	console.info(`Broadcasting updates for ${events.length} entities`);
 
 	if (events.length > 0) {
 		await eventClient.sendEvents(NSIP_SUBSCRIPTION, events, EventType.Update);
@@ -64,8 +58,24 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
 };
 
 /**
+ *
+ * @param {number[]} subscriberIds
+ *
+ * @returns {Promise<NSIPSubscription[]>} eventsToBroadcast
+ */
+const buildEventPayloads = async (subscriberIds) => {
+	const updatedSubscriptions = await databaseConnector.subscription.findMany({
+		where: { id: { in: subscriberIds } }
+	});
+
+	return updatedSubscriptions.map(buildSubscriptionPayloads).flat();
+};
+
+/**
  * For a given case, a user can have multiple subscriptions with different types. We store them as a single 'subscriber' entity with multiple 'subscription types'.
- * The PINS Data Model defines these as separate 'subscriptions', so we must first group all subscriptions into a subscriber using the email and case reference.
+ * The PINS Data Model defines these as separate 'subscriptions'.
+ *
+ * From the migrated data, we pull the existing 'subscriber.user_id' as 'subscriptionId' (so it's actually a subscriber id, not a subscription id)
  *
  * @param {NSIPSubscriptionMigrateModel[]} subscriptions
  *
@@ -75,9 +85,9 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
 	return [
 		...subscriptions
 			.reduce((map, subscription) => {
-				const subscriptionKey = `${subscription.emailAddress}-${subscription.caseReference}`;
+				const subscriptionKey = subscription.subscriptionId;
 
-				const existingSubscriber = map.get(subscriptionKey);
+				const existingSubscriber = map.get(subscription.subscriptionId);
 
 				if (!existingSubscriber) {
 					/** @type {NSIPSubscriber} */
@@ -109,7 +119,7 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
  *
  * @param {NSIPSubscriber} m
  *
- * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput>}} projectUpdate
+ * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput & { id: number }>}} projectUpdate
  */
 const mapModelToEntity = async (m) => {
 	const caseId = await getOrCreateMinimalCaseId(m);
@@ -120,8 +130,12 @@ const mapModelToEntity = async (m) => {
 		);
 	}
 
+	if (!m.subscriptionId) {
+		throw Error('Missing subscription ID');
+	}
+
 	const entity = {
-		migratedId: m.subscriptionId,
+		id: m.subscriptionId,
 		emailAddress: m.emailAddress,
 		caseReference: m.caseReference,
 		startDate: m.startDate ? new Date(m.startDate) : null,
