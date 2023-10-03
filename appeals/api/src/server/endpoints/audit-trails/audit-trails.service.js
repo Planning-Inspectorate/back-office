@@ -1,11 +1,13 @@
 import auditTrailRepository from '#repositories/audit-trail.repository.js';
 import userRepository from '#repositories/user.repository.js';
 
+/** @typedef {import('@pins/appeals.api').Appeals.CreateAuditTrail} CreateAuditTrail */
+
 /**
- * @param {*} param0
+ * @param {CreateAuditTrail} param0
  */
-const createAuditTrail = async ({ appealId, details, azureAdUserId }) => {
-	if (azureAdUserId) {
+const createAuditTrail = async ({ appealId, azureAdUserId, details }) => {
+	if (azureAdUserId && details) {
 		const { id: userId } = await userRepository.findOrCreateUser(azureAdUserId);
 
 		if (userId) {

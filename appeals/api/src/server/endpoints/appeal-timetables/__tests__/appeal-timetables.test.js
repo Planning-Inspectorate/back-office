@@ -1,5 +1,6 @@
 import { request } from '../../../app-test.js';
 import {
+	AUDIT_TRAIL_CASE_TIMELINE_UPDATED,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_MUST_BE_BUSINESS_DAY,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
@@ -42,6 +43,11 @@ describe('appeal timetables routes', () => {
 			test('updates a household appeal timetable', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const { appealTimetable, id } = householdAppeal;
 				const response = await request
@@ -55,6 +61,14 @@ describe('appeal timetables routes', () => {
 						id: appealTimetable.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_UPDATED,
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(householdAppealResponseBody);
 			});
@@ -62,6 +76,11 @@ describe('appeal timetables routes', () => {
 			test('updates a full planning appeal timetable', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const { appealTimetable, id } = fullPlanningAppeal;
 				const response = await request
@@ -73,6 +92,14 @@ describe('appeal timetables routes', () => {
 					data: fullPlanningAppealResponseBody,
 					where: {
 						id: appealTimetable.id
+					}
+				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: fullPlanningAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_UPDATED,
+						loggedAt: expect.any(Date),
+						userId: fullPlanningAppeal.caseOfficer.id
 					}
 				});
 				expect(response.status).toEqual(200);

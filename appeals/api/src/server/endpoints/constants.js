@@ -6,16 +6,31 @@ export const VALIDATION_OUTCOME_VALID = 'Valid';
 export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
 
+export const AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED = 'The allocation details were added';
+export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received';
 export const AUDIT_TRAIL_ASSIGNED_CASE_OFFICER =
 	'The case officer {replacement0} was added to the team';
 export const AUDIT_TRAIL_ASSIGNED_INSPECTOR =
-	'The inspector {replacement0} was assigned to the team';
+	'The inspector {replacement0} was assigned to the case';
+export const AUDIT_TRAIL_CASE_TIMELINE_CREATED = 'The case timeline was created';
+export const AUDIT_TRAIL_CASE_TIMELINE_UPDATED = 'The case timeline was updated';
+export const AUDIT_TRAIL_DOCUMENT_UPLOADED = 'The document {replacement0} was uploaded';
+export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
+export const AUDIT_TRAIL_PROGRESSED_TO_STATUS = 'The case has progressed to {replacement0}';
+export const AUDIT_TRAIL_REMOVED_CASE_OFFICER =
+	'The case officer {replacement0} was removed from the team';
+export const AUDIT_TRAIL_REMOVED_INSPECTOR =
+	'The inspector {replacement0} was removed from the case';
+export const AUDIT_TRAIL_SITE_VISIT_ARRANGED = 'The site visit was arranged for {replacement0}';
+export const AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED = 'The site visit type was selected';
+export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
 
 export const DATABASE_ORDER_BY_ASC = 'asc';
 export const DATABASE_ORDER_BY_DESC = 'desc';
 
+export const DEFAULT_DATE_FORMAT_AUDIT_TRAIL = 'EEEE d MMMM';
 export const DEFAULT_DATE_FORMAT_DATABASE = 'yyyy-MM-dd';
 export const DEFAULT_DATE_FORMAT_DISPLAY = 'dd LLL yyyy';
 export const DEFAULT_PAGE_NUMBER = 1;
@@ -104,10 +119,6 @@ export const STATE_TYPE_FINAL = 'final';
 
 export const USER_TYPE_CASE_OFFICER = 'caseOfficer';
 export const USER_TYPE_INSPECTOR = 'inspector';
-
-export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
-export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received';
-export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
 
 // Static config
 export const CONFIG_BANKHOLIDAYS_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
