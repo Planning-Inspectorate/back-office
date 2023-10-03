@@ -107,6 +107,6 @@ export const unpublishCase = async (caseId) => {
 	try {
 		return await patch(`applications/${caseId}/unpublish`);
 	} catch (/** @type {*} */ error) {
-		return { errors: error?.response?.body?.errors || {} };
+		return { errors: error?.response?.body?.errors || null };
 	}
 };
