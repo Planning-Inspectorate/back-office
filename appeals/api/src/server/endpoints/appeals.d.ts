@@ -444,6 +444,7 @@ interface UpdateLPAQuestionaireValidationOutcomeParams {
 		appealStatus: AppealStatus[];
 		appealType: AppealType;
 	};
+	azureAdUserId: string;
 	data: {
 		lpaQuestionnaireDueDate: string;
 		incompleteReasons: IncompleteInvalidReasons;
@@ -461,6 +462,7 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 		reference: string;
 	};
 	appellantCaseId: number;
+	azureAdUserId: string;
 	data: {
 		appealDueDate: string;
 		incompleteReasons: IncompleteInvalidReasons;
@@ -485,7 +487,6 @@ interface UpdateAppealRequest {
 }
 
 interface UsersToAssign {
-	azureAdUserId: string;
 	caseOfficer?: string | null;
 	inspector?: string | null;
 }
@@ -500,6 +501,12 @@ interface SingleFolderResponse {
 	path: string;
 	caseId: number;
 	documents: DocumentInfo[] | null;
+}
+
+interface CreateAuditTrail {
+	appealId: number;
+	azureAdUserId?: string;
+	details: string;
 }
 
 interface CreateAuditTrailRequest {
@@ -539,6 +546,7 @@ export {
 	AssignedUser,
 	BankHolidayFeedDivisions,
 	BankHolidayFeedEvents,
+	CreateAuditTrail,
 	CreateAuditTrailRequest,
 	DocumentationSummary,
 	DocumentInfo,

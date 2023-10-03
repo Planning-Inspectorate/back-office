@@ -51,11 +51,13 @@ const updateLPAQuestionnaireById = async (req, res) => {
 		validationOutcome
 	} = req;
 	const lpaQuestionnaireId = Number(params.lpaQuestionnaireId);
+	const azureAdUserId = String(req.get('azureAdUserId'));
 
 	try {
 		validationOutcome
 			? (body.lpaQuestionnaireDueDate = await updateLPAQuestionaireValidationOutcome({
 					appeal,
+					azureAdUserId,
 					data: body,
 					lpaQuestionnaireId,
 					validationOutcome

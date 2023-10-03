@@ -31,6 +31,7 @@ const checkLPAQuestionnaireExists = (req, res, next) => {
  */
 const updateLPAQuestionaireValidationOutcome = async ({
 	appeal,
+	azureAdUserId,
 	data,
 	lpaQuestionnaireId,
 	validationOutcome
@@ -55,7 +56,7 @@ const updateLPAQuestionaireValidationOutcome = async ({
 		})
 	});
 
-	await transitionState(appealId, appealType, appealStatus, validationOutcome.name);
+	await transitionState(appealId, appealType, azureAdUserId, appealStatus, validationOutcome.name);
 
 	return timetable?.lpaQuestionnaireDueDate;
 };

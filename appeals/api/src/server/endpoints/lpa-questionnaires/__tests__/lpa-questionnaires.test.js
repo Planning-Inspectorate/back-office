@@ -2,6 +2,7 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import {
+	AUDIT_TRAIL_PROGRESSED_TO_STATUS,
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_INVALID_LPA_QUESTIONNAIRE_VALIDATION_OUTCOME,
@@ -183,6 +184,11 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
 					lpaQuestionnaireIncompleteReasons
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const body = {
 					validationOutcome: 'complete'
@@ -207,6 +213,16 @@ describe('lpa questionnaires routes', () => {
 						createdAt: expect.any(Date),
 						status: STATE_TARGET_ARRANGE_SITE_VISIT,
 						valid: true
+					}
+				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
+							STATE_TARGET_ARRANGE_SITE_VISIT
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
 					}
 				});
 				expect(
@@ -235,6 +251,11 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.lPAQuestionnaireIncompleteReason.findMany.mockResolvedValue(
 					lpaQuestionnaireIncompleteReasons
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const body = {
 					validationOutcome: 'Complete'
@@ -259,6 +280,16 @@ describe('lpa questionnaires routes', () => {
 						createdAt: expect.any(Date),
 						status: STATE_TARGET_STATEMENT_REVIEW,
 						valid: true
+					}
+				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: fullPlanningAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
+							STATE_TARGET_STATEMENT_REVIEW
+						]),
+						loggedAt: expect.any(Date),
+						userId: fullPlanningAppeal.caseOfficer.id
 					}
 				});
 				expect(
@@ -309,6 +340,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -358,6 +390,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -407,6 +440,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -456,6 +490,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -505,6 +540,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -563,6 +599,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(
 					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
@@ -650,6 +687,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(
 					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
@@ -744,6 +782,7 @@ describe('lpa questionnaires routes', () => {
 						relationOneId: householdAppeal.lpaQuestionnaire.id
 					})
 				});
+				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(
 					databaseConnector.lPAQuestionnaireIncompleteReasonText.deleteMany
