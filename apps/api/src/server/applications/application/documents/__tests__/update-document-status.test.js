@@ -104,7 +104,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentToUpdate1);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'not_checked',
 			redacted: true,
 			documents: [{ guid: 'documenttoupdate_1_guid' }]
@@ -157,27 +157,26 @@ describe('Update document statuses and redacted statuses', () => {
 		};
 
 		databaseConnector.document.findMany.mockResolvedValue([
-			[
-				{
-					guid: 'documenttoupdate_1a_guid',
+			{
+				guid: 'documenttoupdate_1a_guid',
 
-					folderId: 2,
-					privateBlobContainer: 'Container',
-					privateBlobPath: 'Container',
-					documentVersion: [
-						{
-							documentGuid: 'documenttoupdate_1a_guid',
-							version: 1,
-							description: 'davids doc',
-							author: 'David',
-							filter1: 'filter category',
-							publishedStatus: 'awaiting_upload',
-							redactedStatus: 'unredacted'
-						}
-					],
-					latestDocumentVersion: documentVersionPreResponseReadyToPublish
-				}
-			]
+				folderId: 2,
+				privateBlobContainer: 'Container',
+				privateBlobPath: 'Container',
+				latestVersionId: 1,
+				documentVersion: [
+					{
+						documentGuid: 'documenttoupdate_1a_guid',
+						version: 1,
+						description: 'davids doc',
+						author: 'David',
+						filter1: 'filter category',
+						publishedStatus: 'awaiting_upload',
+						redactedStatus: 'unredacted'
+					}
+				],
+				latestDocumentVersion: documentVersionPreResponseReadyToPublish
+			}
 		]);
 		databaseConnector.document.findUnique.mockResolvedValue({
 			guid: 'documenttoupdate_1a_guid',
@@ -185,6 +184,7 @@ describe('Update document statuses and redacted statuses', () => {
 			folderId: 2,
 			privateBlobContainer: 'Container',
 			privateBlobPath: 'Container',
+			latestVersionId: 1,
 			documentVersion: [
 				{
 					documentGuid: 'documenttoupdate_1a_guid',
@@ -205,7 +205,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseReadyToPublish);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'ready_to_publish',
 			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});
@@ -272,7 +272,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseUnredacted);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'not_checked',
 			documents: [{ guid: 'documenttoupdate_2_guid' }]
 		});
@@ -333,7 +333,7 @@ describe('Update document statuses and redacted statuses', () => {
 		databaseConnector.documentVersion.update.mockResolvedValue(documentResponseStatusUnchanged);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			redacted: true,
 			documents: [{ guid: 'documenttoupdate_3_guid' }]
 		});
@@ -366,13 +366,14 @@ describe('Update document statuses and redacted statuses', () => {
 		// GIVEN
 		const updatedDocument = {
 			caseId: 1,
-			documentGuid: 'documenttoupdate_1a_guid',
+			guid: 'documenttoupdate_1a_guid',
 
 			description: 'doc with all required fields for publishing',
 			publishedStatus: 'ready_to_publish',
 			filter1: 'Filter Category 1',
 			redactedStatus: 'unredacted',
-			author: 'David'
+			author: 'David',
+			latestVersionId: 1
 		};
 		const documentVersion = {
 			documentGuid: 'documenttoupdate_1a_guid',
@@ -387,6 +388,11 @@ describe('Update document statuses and redacted statuses', () => {
 			...updatedDocument,
 			documentVersion
 		};
+		const updatedVersion = {
+			...documentVersion,
+			publishedStatus: 'ready_to_publish',
+			publishedStatusPrev: 'checked'
+		};
 
 		databaseConnector.document.findMany.mockResolvedValue([document]);
 		databaseConnector.document.findUnique.mockResolvedValue({
@@ -395,10 +401,10 @@ describe('Update document statuses and redacted statuses', () => {
 		});
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(documentVersion);
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
-		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
+		databaseConnector.documentVersion.update.mockResolvedValue(updatedVersion);
 
 		// WHEN
-		const response = await request.patch('/applications/1/documents/update').send({
+		const response = await request.patch('/applications/1/documents').send({
 			status: 'ready_to_publish',
 			documents: [{ guid: 'documenttoupdate_1a_guid' }]
 		});

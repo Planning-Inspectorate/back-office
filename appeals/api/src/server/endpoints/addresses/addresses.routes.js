@@ -13,6 +13,11 @@ router.get(
 		#swagger.tags = ['Addresses']
 		#swagger.path = '/appeals/{appealId}/addresses/{addressId}'
 		#swagger.description = Gets a single address by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single address by id',
 			schema: { $ref: '#/definitions/SingleAddressResponse' }
@@ -32,6 +37,11 @@ router.patch(
 		#swagger.tags = ['Addresses']
 		#swagger.path = '/appeals/{appealId}/addresses/{addressId}'
 		#swagger.description = Updates a single address by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Address details to update',

@@ -5,7 +5,7 @@ import {
 	ERROR_MUST_BE_STRING,
 	LENGTH_300
 } from '#endpoints/constants.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
 
@@ -22,6 +22,6 @@ const validateStringParameter = (parameterName, maxLength = LENGTH_300) =>
 		.notEmpty()
 		.withMessage(ERROR_CANNOT_BE_EMPTY_STRING)
 		.isLength({ max: maxLength })
-		.withMessage(errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [maxLength]));
+		.withMessage(stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [maxLength]));
 
 export default validateStringParameter;

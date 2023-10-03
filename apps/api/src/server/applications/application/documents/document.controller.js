@@ -14,13 +14,14 @@ import {
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
-	formatDocumentUpdateResponseBody,
 	getIndexFromReference,
+	handleUpdateDocument,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishNsipDocuments,
+	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
 import {
@@ -138,81 +139,42 @@ export const provideDocumentVersionUploadURL = async ({ params, body }, response
  */
 export const updateDocuments = async ({ body }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
-	const formattedResponseList = [];
 
-	let redactedStatus;
+	const redactedStatus = isRedacted !== undefined ? getRedactionStatus(isRedacted) : undefined;
 
-	// special case - this fn can be called without setting redaction status - in which case a redaction status should not be passed in to the update fn
-	// and the redaction status of each document should remain unchanged.
-	if (typeof isRedacted !== 'undefined') {
-		redactedStatus = getRedactionStatus(isRedacted);
-	}
+	const { publishableIds, errors: validationErrors } = await (async () => {
+		const documentIds = /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid);
 
-	// special case - for Ready to Publish, need to check that required metadata is set on all the files - else error
-	if (publishedStatus === 'ready_to_publish') {
-		const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
-
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
-	}
-
-	if (documents) {
-		for (const document of documents) {
-			logger.info(
-				`Updating document with guid: ${document.guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
-			);
-
-			// To get things moving, we're going to assume every call to this endpoint is updating the latest version.
-			// This is fine from a requirements perspective, but opens us up to race conditions
-			// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
-			// @ts-ignore
-			const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-				document.guid
-			);
-
-			/**
-			 * @typedef {object} Updates
-			 * @property {string} [publishedStatus]
-			 * @property {string} [publishedStatusPrev]
-			 * @property {string} [redactedStatus]
-			 */
-
-			/** @type {Updates} */
-			const documentVersionUpdates = {
-				publishedStatus,
-				redactedStatus
-			};
-
-			if (typeof publishedStatus === 'undefined') {
-				delete documentVersionUpdates.publishedStatus;
-			} else {
-				// when setting publishedStatus, save previous publishedStatus
-
-				// do we have a previous doc version, does it have a published status, and is that status different
-				if (
-					typeof documentVersion !== 'undefined' &&
-					typeof documentVersion.publishedStatus !== 'undefined' &&
-					documentVersion.publishedStatus !== publishedStatus
-				) {
-					documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
-				}
-			}
-
-			const updateResponseInTable = await documentVersionRepository.update(document.guid, {
-				version: documentVersion.version,
-				...documentVersionUpdates
-			});
-			const formattedResponse = formatDocumentUpdateResponseBody(
-				updateResponseInTable.documentGuid ?? '',
-				updateResponseInTable.publishedStatus ?? '',
-				updateResponseInTable.redactedStatus ?? ''
-			);
-
-			formattedResponseList.push(formattedResponse);
+		if (publishedStatus !== 'ready_to_publish') {
+			return { publishableIds: documentIds, errors: [] };
 		}
+
+		return await separatePublishableDocuments(documentIds);
+	})();
+
+	const { results, errors: updateErrors } = await handleUpdateDocument(
+		publishableIds,
+		publishedStatus,
+		redactedStatus
+	);
+
+	const errors = [...validationErrors, ...updateErrors];
+
+	if (errors.length === documents.length) {
+		logger.info(`Failed to update all ${documents.length} documents`);
+		response.status(400).send({ errors });
+		return;
 	}
 
-	logger.info(`Updated ${documents.length} documents`);
-	response.send(formattedResponseList);
+	if (errors.length > 0) {
+		logger.info(`Updated ${results.length} documents. ${errors.length} failed to update.`);
+
+		response.status(207).send({ documents: results, errors });
+		return;
+	}
+
+	logger.info(`Updated all ${documents.length} documents`);
+	response.send(results);
 };
 
 /**
@@ -281,7 +243,7 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 	}
 
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
-	const documentVersion = await documentVersionRepository.getById(document.guid, +version);
+	const documentVersion = await documentVersionRepository.getById(document.guid, Number(version));
 
 	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
@@ -297,25 +259,19 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 
 /**
  *
- * @param {*} activityLogs
- * @returns {Object}
+ * @param {{ status: string, createdAt: string, user: string }[]} activityLogs
+ * @returns {Record<string, {date: number, name: string}>}
  */
-const mapHistory = (activityLogs) => {
-	const history = {};
-
-	// @ts-ignore
-	activityLogs.forEach((activityLog) => {
-		// @ts-ignore
-		history[activityLog.status] = {
-			date: activityLog?.createdAt
-				? mapDateStringToUnixTimestamp(activityLog?.createdAt?.toString())
-				: null,
-			name: activityLog.user
-		};
-	});
-
-	return history;
-};
+const mapHistory = (activityLogs) =>
+	activityLogs.reduce(
+		(acc, log) => ({
+			[log.status]: {
+				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
+				name: log.user
+			}
+		}),
+		{}
+	);
 
 /**
  * Gets the properties/metadata for a single document
@@ -392,7 +348,7 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
  */
 export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
 	// Step 1: Fetch the document to be deleted from the database
-	const document = await fetchDocumentByGuidAndCaseId(guid, +caseId);
+	const document = await fetchDocumentByGuidAndCaseId(guid, Number(caseId));
 
 	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
 	const documentIsPublished =
@@ -455,16 +411,17 @@ export const storeDocumentVersion = async (request, response) => {
  */
 export const getReadyToPublishDocuments = async ({ params: { id }, body }, response) => {
 	const { pageNumber = 1, pageSize = 125 } = body;
+	id = Number(id);
 
 	const skipValue = getSkipValue(pageNumber, pageSize);
 
 	const paginatedReadyToPublishDocuments = await documentRepository.getDocumentsReadyPublishStatus({
 		skipValue,
 		pageSize,
-		caseId: +id
+		caseId: id
 	});
 
-	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(+id);
+	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(id);
 
 	console.log('documentsCount ' + documentsCount);
 
@@ -496,26 +453,22 @@ export const publishDocuments = async ({ body }, response) => {
 
 	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
-	const publishableDocumentVersionIds = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
-		documentIds
+	const { publishable: publishableDocumentVersionIds, invalid } =
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
+
+	if (invalid.length > 0) {
+		response.status(500).send({ errors: [{ guid: 'bad_document_to_publish_guid' }] });
+	}
+
+	const activityLogs = publishableDocumentVersionIds.map((document) =>
+		documentActivityLogRepository.create({
+			documentGuid: document.documentGuid,
+			version: document.version,
+			user: username,
+			status: 'published'
+		})
 	);
 
-	/**
-	 * @type {any[]}
-	 */
-	const activityLogs = [];
-	publishableDocumentVersionIds.forEach((document) => {
-		activityLogs.push(
-			documentActivityLogRepository.create({
-				documentGuid: document.documentGuid,
-				version: document.version,
-				user: username,
-				status: 'published'
-			})
-		);
-	});
-
-	// @ts-ignore
 	await Promise.all(activityLogs);
 
 	const publishedDocuments = await publishNsipDocuments(publishableDocumentVersionIds);
@@ -540,7 +493,7 @@ export const markAsPublished = async (
 
 	const updateResponse = await markDocumentVersionAsPublished({
 		guid,
-		version: +version,
+		version: Number(version),
 		publishedBlobPath,
 		publishedBlobContainer,
 		publishedDate: new Date(publishedDate)

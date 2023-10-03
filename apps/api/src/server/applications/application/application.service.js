@@ -143,6 +143,7 @@ const defaultInclusions = {
 	zoomLevel: true,
 	regions: true,
 	caseStatus: true,
+	casePublishedState: true,
 	serviceCustomer: true,
 	serviceCustomerAddress: true,
 	gridReference: true,

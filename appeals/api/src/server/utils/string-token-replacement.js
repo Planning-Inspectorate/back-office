@@ -3,7 +3,7 @@
  * @param {Array<string | number>} replacements
  * @returns {string}
  */
-const errorMessageReplacement = (errorMessage, replacements) =>
+const stringTokenReplacement = (errorMessage, replacements) =>
 	replacements
 		.map((replacement) => String(replacement))
 		.reduce(
@@ -12,4 +12,4 @@ const errorMessageReplacement = (errorMessage, replacements) =>
 			errorMessage
 		);
 
-export default errorMessageReplacement;
+export default stringTokenReplacement;

@@ -10,6 +10,11 @@ router.get(
 		#swagger.tags = ['Procedure Types']
 		#swagger.path = '/appeals/procedure-types'
 		#swagger.description = 'Gets procedure types'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Procedure types',
 			schema: { $ref: '#/definitions/AllProcedureTypesResponse' },

@@ -8,8 +8,8 @@ import {
 	ERROR_NOT_FOUND,
 	LENGTH_300
 } from '../../constants.js';
-import { householdAppeal } from '#tests/data.js';
-import errorMessageReplacement from '#utils/error-message-replacement.js';
+import { azureAdUserId, householdAppeal } from '#tests/data.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -20,9 +20,9 @@ describe('appellants routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(
-					`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`
-				);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
@@ -35,9 +35,9 @@ describe('appellants routes', () => {
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
-				const response = await request.get(
-					`/appeals/one/appellants/${householdAppeal.appellant.id}`
-				);
+				const response = await request
+					.get(`/appeals/one/appellants/${householdAppeal.appellant.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -51,7 +51,9 @@ describe('appellants routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(null);
 
-				const response = await request.get(`/appeals/3/appellants/${householdAppeal.appellant.id}`);
+				const response = await request
+					.get(`/appeals/3/appellants/${householdAppeal.appellant.id}`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -62,7 +64,9 @@ describe('appellants routes', () => {
 			});
 
 			test('returns an error if appellantId is not numeric', async () => {
-				const response = await request.get(`/appeals/${householdAppeal.id}/appellants/one`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/appellants/one`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -76,7 +80,9 @@ describe('appellants routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
-				const response = await request.get(`/appeals/${householdAppeal.id}/appellants/3`);
+				const response = await request
+					.get(`/appeals/${householdAppeal.id}/appellants/3`)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -98,7 +104,8 @@ describe('appellants routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellant.update).toHaveBeenCalledWith({
 					data: patchBody,
@@ -113,7 +120,8 @@ describe('appellants routes', () => {
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/one/appellants/${householdAppeal.appellant.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -129,7 +137,8 @@ describe('appellants routes', () => {
 
 				const response = await request
 					.patch(`/appeals/3/appellants/${householdAppeal.appellant.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -142,7 +151,8 @@ describe('appellants routes', () => {
 			test('returns an error if appellantId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/one`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -158,7 +168,8 @@ describe('appellants routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/3`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(404);
 				expect(response.body).toEqual({
@@ -176,7 +187,8 @@ describe('appellants routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
 					.send({
 						name: [patchBody.name]
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -194,7 +206,8 @@ describe('appellants routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
 					.send({
 						name: ''
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
@@ -212,12 +225,13 @@ describe('appellants routes', () => {
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
 					.send({
 						name: 'A'.repeat(LENGTH_300 + 1)
-					});
+					})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(400);
 				expect(response.body).toEqual({
 					errors: {
-						name: errorMessageReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
+						name: stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [LENGTH_300])
 					}
 				});
 			});
@@ -228,7 +242,8 @@ describe('appellants routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
-					.send({});
+					.send({})
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({});
@@ -244,7 +259,8 @@ describe('appellants routes', () => {
 
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}/appellants/${householdAppeal.appellant.id}`)
-					.send(patchBody);
+					.send(patchBody)
+					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appellant.update).toHaveBeenCalledWith({
 					data: patchBody,

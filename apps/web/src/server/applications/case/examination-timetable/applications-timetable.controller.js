@@ -80,9 +80,9 @@ export const uniqueTimeTableTypes = {
 export async function viewApplicationsCaseTimetableList(_, response) {
 	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
 	const timetableItemsViewData = examinationTimetable?.items?.map(getTimetableRows) ?? [];
-	const republishStatus = examinationTimetable.items?.some(
-		(item) => item.createdAt > examinationTimetable.publishedAt
-	);
+	const republishStatus =
+		examinationTimetable.updatedAt > examinationTimetable.publishedAt ||
+		examinationTimetable.items?.some((item) => item.createdAt > examinationTimetable.publishedAt);
 
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,

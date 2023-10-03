@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
-import logger from '../utils/logger.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
@@ -26,7 +25,7 @@ const includeAll = {
  *  caseDetails?: { title?: string | null, description?: string | null },
  * 	gridReference?: { easting?: number | null, northing?: number | null },
  *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null },
- *  caseStatus?: { status: string },
+ *  caseStatus?: { status: import('@pins/applications').ApplicationStageType },
  *  subSectorName?: string | null,
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
@@ -46,7 +45,6 @@ const includeAll = {
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
- *  publishedAt?: Date,
  *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
  *  hasUnpublishedChanges?: boolean}} UpdateApplicationParams
  */
@@ -307,8 +305,12 @@ const updateApplicationSansRegionsRemoval = ({
 			...(caseStatus && {
 				CaseStatus: {
 					updateMany: {
-						data: caseStatus,
+						data: { valid: false },
 						where: { caseId }
+					},
+					create: {
+						...caseStatus,
+						valid: true
 					}
 				}
 			}),
@@ -384,19 +386,21 @@ export const updateApplication = async ({
 };
 
 /**
- * @param {UpdateApplicationParams} caseInfo
+ * @param {{ caseId: number }} _
  * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
  */
 export const publishCase = async ({ caseId }) => {
-	const publishedCase = await databaseConnector.case.update({
+	await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
-			publishedAt: new Date(),
-			hasUnpublishedChanges: false
+			hasUnpublishedChanges: false,
+			CasePublishedState: {
+				create: {
+					isPublished: true
+				}
+			}
 		}
 	});
-
-	logger.info(`case was published at ${publishedCase.publishedAt}`);
 
 	return getById(caseId, {
 		subSector: true,
@@ -405,6 +409,37 @@ export const publishCase = async ({ caseId }) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
+		serviceCustomer: true,
+		serviceCustomerAddress: true,
+		gridReference: true
+	});
+};
+
+/**
+ * @param {{ caseId: number }} _
+ * @returns {Promise<import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>>}
+ */
+export const unpublishCase = async ({ caseId }) => {
+	await databaseConnector.case.update({
+		where: { id: caseId },
+		data: {
+			CasePublishedState: {
+				create: {
+					isPublished: false
+				}
+			}
+		}
+	});
+
+	return getById(caseId, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		casePublishedState: true,
 		serviceCustomer: true,
 		serviceCustomerAddress: true,
 		gridReference: true
@@ -414,7 +449,7 @@ export const publishCase = async ({ caseId }) => {
 /**
  *
  * @param {number} id
- * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const getById = (
@@ -426,6 +461,7 @@ export const getById = (
 		zoomLevel = false,
 		regions = false,
 		caseStatus = false,
+		casePublishedState = false,
 		serviceCustomer = false,
 		serviceCustomerAddress = false,
 		gridReference = false
@@ -439,6 +475,7 @@ export const getById = (
 			zoomLevel ||
 			regions ||
 			caseStatus ||
+			casePublishedState ||
 			serviceCustomer ||
 			serviceCustomerAddress) && {
 			include: {
@@ -454,6 +491,7 @@ export const getById = (
 					}
 				}),
 				...(caseStatus && { CaseStatus: { where: { valid: true } } }),
+				...(casePublishedState && { CasePublishedState: { orderBy: { createdAt: 'desc' } } }),
 				...((serviceCustomer || serviceCustomerAddress) && {
 					serviceCustomer: { include: { address: serviceCustomerAddress } }
 				}),

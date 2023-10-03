@@ -1,8 +1,8 @@
-import config from '#config/config.js';
 import formatAddress from '#utils/format-address.js';
 import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import isFPA from '#utils/is-fpa.js';
 import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
+import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse */
@@ -115,7 +115,7 @@ const formatFoldersAndDocuments = (appeal, folders) => {
 	};
 
 	if (folders) {
-		mapFoldersLayoutForAppealSection(config.appealStages.appellantCase, folderLayout, folders);
+		mapFoldersLayoutForAppealSection(CONFIG_APPEAL_STAGES.appellantCase, folderLayout, folders);
 	}
 
 	return { documents: folderLayout };

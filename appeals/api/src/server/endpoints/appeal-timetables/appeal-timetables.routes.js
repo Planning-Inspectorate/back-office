@@ -13,6 +13,11 @@ router.patch(
 		#swagger.tags = ['Appeal Timetables']
 		#swagger.path = '/appeals/{appealId}/appeal-timetables/{appealTimetableId}'
 		#swagger.description = 'Updates a single appeal timetable by id'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal timetable details to update',

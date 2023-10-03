@@ -22,6 +22,11 @@ router.get(
 		#swagger.tags = ['LPA Questionnaires']
 		#swagger.path = '/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}'
 		#swagger.description = Gets a single LPA questionnaire for an appeal by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'Gets a single LPA questionnaire for an appeal by id',
 			schema: { $ref: '#/definitions/SingleLPAQuestionnaireResponse' }
@@ -41,6 +46,11 @@ router.patch(
 		#swagger.tags = ['LPA Questionnaires']
 		#swagger.path = '/appeals/{appealId}/lpa-questionnaires/{lpaQuestionnaireId}'
 		#swagger.description = Updates a single LPA questionnaire for an appeal by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'LPA questionnaire details to update',

@@ -13,6 +13,11 @@ router.get(
 		#swagger.tags = ['Appeal Allocation']
 		#swagger.path = '/appeals/appeal-allocation-specialisms'
 		#swagger.description = 'Gets the list of specialisms used for allocation'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'List of allocation specialisms',
 			schema: { $ref: '#/definitions/AllocationSpecialismsResponse' },
@@ -28,6 +33,11 @@ router.get(
 		#swagger.tags = ['Appeal Allocation']
 		#swagger.path = '/appeals/appeal-allocation-levels'
 		#swagger.description = 'Gets the list of levels and associated bands used for allocation'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.responses[200] = {
 			description: 'List of allocation levels',
 			schema: { $ref: '#/definitions/AllocationLevelsResponse' },
@@ -43,6 +53,11 @@ router.patch(
 		#swagger.tags = ['Appeal Allocation']
 		#swagger.path = '/appeals/{appealId}/appeal-allocation'
 		#swagger.description = 'Adds or changes allocation for an appeal'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal allocation',

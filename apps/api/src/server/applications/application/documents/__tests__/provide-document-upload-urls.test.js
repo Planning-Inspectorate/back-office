@@ -1,17 +1,37 @@
-import { jest } from '@jest/globals';
 import { request } from '../../../../app-test.js';
+import config from '#config/config.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
-const { default: got } = await import('got');
 
 const application = {
 	id: 1,
 	reference: 'case reference'
 };
 
+/**
+ * @type {Object<string, any>}
+ */
+const envConfig = {};
+const envKeys = ['blobStorageUrl', 'blobStorageContainer'];
+const saveEnvVars = () => {
+	for (const key of envKeys) {
+		envConfig[key] = config[key];
+	}
+};
+const restoreEnvVars = () => {
+	for (const key of envKeys) {
+		config[key] = envConfig[key];
+	}
+};
+
 describe('Provide document upload URLs', () => {
 	beforeAll(() => {
-		process.env.DOCUMENT_STORAGE_API_HOST = 'api-document-storage-host';
-		process.env.DOCUMENT_STORAGE_API_PROT = 'doc-storage-port';
+		saveEnvVars();
+
+		config.blobStorageUrl = 'blob-store-host';
+		config.blobStorageContainer = 'blob-store-container';
+	});
+	afterAll(() => {
+		restoreEnvVars();
 	});
 
 	test('saves documents information and returns upload URL', async () => {
@@ -24,22 +44,6 @@ describe('Provide document upload URLs', () => {
 		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});
-		got.post.mockReturnValue({
-			json: jest.fn().mockResolvedValue({
-				blobStorageHost: 'blob-store-host',
-				privateBlobContainer: 'blob-store-container',
-				documents: [
-					{
-						caseType: 'application',
-						blobStoreUrl: '/some/path/test doc',
-						caseReference: 'test reference',
-						GUID: 'some-guid'
-					}
-				],
-				failedDocuments: [],
-				duplicates: []
-			})
-		});
 
 		// WHEN
 		const response = await request.post('/applications/1/documents').send([
@@ -51,6 +55,8 @@ describe('Provide document upload URLs', () => {
 			}
 		]);
 
+		const blobPath = `/application/${application.reference}/${guid}/1`;
+
 		// THEN
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
@@ -58,7 +64,8 @@ describe('Provide document upload URLs', () => {
 			privateBlobContainer: 'blob-store-container',
 			documents: [
 				{
-					blobStoreUrl: '/some/path/test doc',
+					blobStoreUrl: blobPath,
+					documentName: 'test doc',
 					GUID: 'some-guid'
 				}
 			],
@@ -99,7 +106,7 @@ describe('Provide document upload URLs', () => {
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
 			create: {
 				privateBlobContainer: 'blob-store-container',
-				privateBlobPath: '/some/path/test doc',
+				privateBlobPath: blobPath,
 				Document: { connect: { guid: metadata?.documentGuid } },
 				version: 1
 			},
@@ -107,7 +114,7 @@ describe('Provide document upload URLs', () => {
 
 			update: {
 				privateBlobContainer: 'blob-store-container',
-				privateBlobPath: '/some/path/test doc',
+				privateBlobPath: blobPath,
 				version: 1
 			},
 			include: {
@@ -126,6 +133,31 @@ describe('Provide document upload URLs', () => {
 				}
 			}
 		});
+	});
+
+	test('returns file names which failed to upload', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.document.create.mockImplementation(() => {
+			throw new Error();
+		});
+		databaseConnector.documentVersion.upsert.mockResolvedValue({});
+
+		// WHEN
+		const response = await request.post('/applications/1/documents').send([
+			{
+				folderId: 1,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024
+			}
+		]);
+
+		// THEN
+		expect(response.status).toEqual(409);
+		expect(response.body).toEqual({ failedDocuments: [], duplicates: ['test doc'] });
 	});
 
 	test('throws error if folder id does not belong to case', async () => {

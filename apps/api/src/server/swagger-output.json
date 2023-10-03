@@ -349,6 +349,38 @@
 				}
 			}
 		},
+		"/applications/{id}/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "unpublish application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "response will have the date that the case was unpublished as a timestamp",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"publishedDate": {
+									"type": "number",
+									"example": 1673873105
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations": {
 			"get": {
 				"tags": ["Applications"],
@@ -845,6 +877,10 @@
 						"schema": {
 							"type": "object",
 							"properties": {
+								"previouslyPublished": {
+									"type": "boolean",
+									"example": false
+								},
 								"itemCount": {
 									"type": "number",
 									"example": 100
@@ -1294,47 +1330,7 @@
 						}
 					}
 				}
-			}
-		},
-		"/applications/{id}/document/{guid}/add-version": {
-			"post": {
-				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID here"
-					},
-					{
-						"name": "guid",
-						"in": "path",
-						"required": true,
-						"type": "string",
-						"description": "guid of the required document here"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Document Details",
-						"schema": {
-							"$ref": "#/definitions/documentToSave"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Document that have been saved",
-						"schema": {
-							"$ref": "#/definitions/documentsAndBlobStorageURLs"
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/documents/update": {
+			},
 			"patch": {
 				"tags": ["Applications"],
 				"description": "Updates the status and/or redaction status on an array of documents",
@@ -1401,6 +1397,44 @@
 							"xml": {
 								"name": "main"
 							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/document/{guid}/add-version": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Saves new documents to database and returns location in Blob Storage",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID here"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "guid of the required document here"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/documentToSave"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document that have been saved",
+						"schema": {
+							"$ref": "#/definitions/documentsAndBlobStorageURLs"
 						}
 					}
 				}
@@ -2499,6 +2533,21 @@
 						"description": "List of applications assigned to case team",
 						"schema": {
 							"$ref": "#/definitions/ApplicationsForCaseTeam"
+						}
+					}
+				}
+			}
+		},
+		"/applications/case-stage": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all possible stages for a case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of stages for a case",
+						"schema": {
+							"$ref": "#/definitions/CaseStages"
 						}
 					}
 				}
@@ -4259,6 +4308,22 @@
 					"displayNameCy": {
 						"type": "string",
 						"example": "Region Name Cy"
+					}
+				}
+			}
+		},
+		"CaseStages": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "post_decision"
+					},
+					"displayNameEn": {
+						"type": "string",
+						"example": "Post-Decision"
 					}
 				}
 			}

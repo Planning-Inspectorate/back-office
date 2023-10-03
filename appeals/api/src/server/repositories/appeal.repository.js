@@ -1,6 +1,7 @@
 import { getSkipValue } from '#utils/database-pagination.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { hasValueOrIsNull } from '#endpoints/appeals/appeals.service.js';
+import { DATABASE_ORDER_BY_DESC } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -107,6 +108,14 @@ const getAppealById = async (id) => {
 			},
 			appealTimetable: true,
 			appealType: true,
+			auditTrail: {
+				include: {
+					user: true
+				},
+				orderBy: {
+					loggedAt: DATABASE_ORDER_BY_DESC
+				}
+			},
 			caseOfficer: true,
 			inspector: true,
 			inspectorDecision: true,

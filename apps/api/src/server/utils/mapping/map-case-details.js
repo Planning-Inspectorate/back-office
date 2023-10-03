@@ -36,18 +36,16 @@ export const mapApplicationDetails = (caseDetails) => {
 				'title',
 				'description',
 				'modifiedAt',
-				'publishedAt',
 				'caseStatus',
+				'casePublishedState',
 				'hasUnpublishedChanges'
 			]),
 			{
-				modifiedAt: 'modifiedDate',
-				publishedAt: 'publishedDate'
+				modifiedAt: 'modifiedDate'
 			}
 		),
 		{
-			modifiedDate: mapDateStringToUnixTimestamp,
-			publishedDate: mapDateStringToUnixTimestamp
+			modifiedDate: mapDateStringToUnixTimestamp
 		}
 	);
 
@@ -64,14 +62,19 @@ export const mapApplicationDetails = (caseDetails) => {
 
 	const gridReferenceFormatted = mapGridReference(caseDetails?.gridReference);
 
-	// @ts-ignore
 	const keyDates = caseDetails?.ApplicationDetails
 		? mapKeyDatesToResponse(caseDetails?.ApplicationDetails)
 		: {};
 
+	const latestPublishedState = caseDetails?.CasePublishedState?.[0];
+	const publishedDate = latestPublishedState?.isPublished
+		? mapDateStringToUnixTimestamp(latestPublishedState.createdAt)
+		: null;
+
 	return {
 		...caseDetailsFormatted,
 		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
+		publishedDate,
 		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,

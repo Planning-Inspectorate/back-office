@@ -150,6 +150,38 @@ export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`successfully published case with id ${id}`);
 
 	response.send({
-		publishedDate: mapDateStringToUnixTimestamp(String(publishedCase?.publishedAt))
+		publishedDate: mapDateStringToUnixTimestamp(
+			String(publishedCase?.CasePublishedState[0]?.createdAt)
+		)
+	});
+};
+
+/**
+ *
+ * @type {import("express").RequestHandler<{id: number}, ?, ?, any>}
+ */
+export const unpublishCase = async ({ params: { id } }, response) => {
+	logger.info(`attempting to unpublish a case with id ${id}`);
+
+	const unpublishedCase = await caseRepository.unpublishCase({
+		caseId: id
+	});
+
+	if (!unpublishedCase) {
+		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
+	}
+
+	await eventClient.sendEvents(
+		NSIP_PROJECT,
+		[buildNsipProjectPayload(unpublishedCase)],
+		EventType.Unpublish
+	);
+
+	logger.info(`successfully unpublished case with id ${id}`);
+
+	response.send({
+		unpublishedDate: mapDateStringToUnixTimestamp(
+			String(unpublishedCase?.CasePublishedState[0].createdAt)
+		)
 	});
 };

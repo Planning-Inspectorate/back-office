@@ -62,7 +62,7 @@
 			{% for item in items.items %}
         {% set isNotDisabled = (item.publishedStatus !== 'awaiting_upload') and (item.publishedStatus !== 'awaiting_virus_check') and (item.publishedStatus !== 'failed_virus_check') %}
 
-				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.failed else "" }}">
+				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.error else "" }}">
 					<td class="govuk-table__cell">
 						{% if isNotDisabled %}
 							{{ govukCheckboxes({
@@ -78,8 +78,8 @@
 						{% endif %}
 					</td>
 					<td class="govuk-table__cell">
-						{% if item.failed %}
-							<span class='govuk-body-s govuk-!-font-weight-bold colour--red'> You must fill in all mandatory document properties to publish a document </span>{% endif %}
+						{% if item.error %}
+              <span class='govuk-body-s govuk-!-font-weight-bold colour--red'>{{item.error}}</span>{% endif %}
 						{% set isPreviewActive = isNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
 						{{ createOptionalLink(
 												{

@@ -497,7 +497,7 @@ describe('Edit applications documentation metadata', () => {
 		describe('POST /case/123/project-documentation/18/document/90/edit/published-status', () => {
 			it('should return an error if required properties are not defined', async () => {
 				nock('http://test/')
-					.patch('/applications/123/documents/update')
+					.patch('/applications/123/documents')
 					.reply(500, {
 						errors: [
 							{
@@ -521,7 +521,7 @@ describe('Edit applications documentation metadata', () => {
 		describe('POST /case/123/project-documentation/18/document/110/edit/published-status', () => {
 			it('should redirect to document properties page if there is no error', async () => {
 				nock('http://test/')
-					.patch('/applications/123/documents/update')
+					.patch('/applications/123/documents')
 					.reply(200, [
 						{
 							guid: '110',
@@ -539,7 +539,7 @@ describe('Edit applications documentation metadata', () => {
 		describe('POST /case/123/project-documentation/18/document/110/edit/published-status Ready To Publish Success', () => {
 			it('should redirect to document properties page if there is no error for ready_to_publish', async () => {
 				nock('http://test/')
-					.patch('/applications/123/documents/update')
+					.patch('/applications/123/documents')
 					.reply(200, [
 						{
 							guid: '110',

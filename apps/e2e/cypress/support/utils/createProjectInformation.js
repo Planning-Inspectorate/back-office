@@ -33,6 +33,7 @@ export const projectInformation = () => {
 	const applicantWebsite = faker.internet.url();
 	const applicantEmail = `${applicantFirstName}.${applicantLastName}@email.com`;
 	const applicantPhoneNumber = faker.phone.number('+4479########');
+	const defaultPublishedStatus = 'NOT PUBLISHED';
 
 	// K E Y  D A T E S
 	const publishedDate = `Q${faker.datatype.number({
@@ -114,6 +115,7 @@ export const projectInformation = () => {
 		regions,
 		sector,
 		subsector,
-		zoomLevel
+		zoomLevel,
+		defaultPublishedStatus
 	};
 };
