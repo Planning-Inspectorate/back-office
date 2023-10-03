@@ -1,8 +1,32 @@
 import { jest } from '@jest/globals';
+import config from '#config/config.js';
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
-const { default: got } = await import('got');
 
 import { obtainURLForDocumentVersion } from '../document.service.js';
+
+/**
+ * @type {Object<string, any>}
+ */
+const envConfig = {};
+const envKeys = ['blobStorageUrl', 'blobStorageContainer'];
+const saveEnvVars = () => {
+	for (const key of envKeys) {
+		envConfig[key] = config[key];
+	}
+};
+const restoreEnvVars = () => {
+	for (const key of envKeys) {
+		config[key] = envConfig[key];
+	}
+};
+
+const application = {
+	id: 1,
+	reference: 'case reference'
+};
+
+const caseId = 1234;
+const documentGuid = '1111-2222-3333';
 
 const document = {
 	documentName: 'test',
@@ -13,6 +37,7 @@ const document = {
 };
 
 const documentWithVersions = {
+	guid: documentGuid,
 	documentName: 'test',
 	folderId: 1111,
 	documentSize: 1111,
@@ -32,6 +57,7 @@ const documentWithVersions = {
 };
 
 const documentWithVersionsUnpublished = {
+	guid: documentGuid,
 	documentName: 'test',
 	folderId: 1111,
 	documentSize: 1111,
@@ -50,17 +76,18 @@ const documentWithVersionsUnpublished = {
 	]
 };
 
-const application = {
-	id: 1,
-	reference: 'case reference'
-};
-
-const caseId = 1234;
-const documentGuid = '1111-2222-3333';
-
 describe('Document service test', () => {
+	beforeAll(() => {
+		saveEnvVars();
+
+		config.blobStorageUrl = 'blob-store-host';
+		config.blobStorageContainer = 'blob-store-container';
+	});
 	beforeEach(() => {
 		jest.clearAllMocks();
+	});
+	afterAll(() => {
+		restoreEnvVars();
 	});
 
 	test('obtainURLForDocumentVersion throws error when case not exist', async () => {
@@ -81,19 +108,21 @@ describe('Document service test', () => {
 	test('obtainURLForDocumentVersion uploads new version of document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
-		got.post.mockReturnValue({
-			json: jest.fn().mockResolvedValue({
-				blobStorageHost: 'blob-store-host',
-				blobStorageContainer: 'blob-store-container',
-				documents: [document]
-			})
-		});
 
 		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
 
 		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
-		expect(ressponse.blobStorageContainer).toEqual('blob-store-container');
-		expect(ressponse.documents).toEqual([document]);
+		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');
+		expect(ressponse.documents).toEqual([
+			{
+				GUID: documentGuid,
+				blobStoreUrl: `/application/${application.reference}/${documentGuid}/2`,
+				caseReference: application.reference,
+				caseType: 'application',
+				documentName: document.documentName,
+				version: 2
+			}
+		]);
 		expect(databaseConnector.document.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
@@ -104,19 +133,21 @@ describe('Document service test', () => {
 	test('obtainURLForDocumentVersion uploads new version of document and does not unblish the document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersionsUnpublished);
-		got.post.mockReturnValue({
-			json: jest.fn().mockResolvedValue({
-				blobStorageHost: 'blob-store-host',
-				privateBlobContainer: 'blob-store-container',
-				documents: [document]
-			})
-		});
 
 		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
 
 		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
 		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');
-		expect(ressponse.documents).toEqual([document]);
+		expect(ressponse.documents).toEqual([
+			{
+				GUID: documentGuid,
+				blobStoreUrl: `/application/${application.reference}/${documentGuid}/2`,
+				caseReference: application.reference,
+				caseType: 'application',
+				documentName: document.documentName,
+				version: 2
+			}
+		]);
 		expect(databaseConnector.document.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
