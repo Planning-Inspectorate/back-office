@@ -7,10 +7,6 @@ parameters:
     displayName: Build Web
     type: boolean
     default: true
-  - name: buildDocumentStorageApi
-    displayName: Build Document Storage API
-    type: boolean
-    default: true
   - name: buildDocumentCheckFunction
     displayName: Build Document Check Function
     type: boolean
@@ -111,8 +107,6 @@ extends:
                   path: appeals/api
                 - name: appeals-web
                   path: appeals/web
-                - name: documentStorageApi
-                  path: apps/document-storage
                 - name: function-document-check
                   path: apps/functions/document-check
                 - name: function-odw-integration
@@ -161,33 +155,6 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
               repository: back-office/back-office-api
-      - name: Build Document Storage API
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildDocumentStorageAPI }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.document-storage-api'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: ../steps/azure_web_app_docker_build_push.yml@templates
-            parameters:
-              azurecrName: $(azurecrName)
-              dockerfilePath: $(Build.SourcesDirectory)/apps/document-storage/Dockerfile
-              repository: back-office/back-office-document-storage-api
       - name: Build Document Check Function
         condition: >-
           and(
