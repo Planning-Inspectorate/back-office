@@ -12,11 +12,11 @@ import { typesError } from '../subscriptions.validators.js';
  */
 
 describe('subscriptions', () => {
-	describe('get', () => {
+	describe('get (uses post)', () => {
 		const tests = [
 			{
 				name: 'should check all required fields',
-				query: {},
+				body: {},
 				want: {
 					status: 400,
 					body: {
@@ -29,7 +29,7 @@ describe('subscriptions', () => {
 			},
 			{
 				name: 'should allow a valid request',
-				query: {
+				body: {
 					caseReference: '5123',
 					emailAddress: 'hello.world@example.com'
 				},
@@ -41,7 +41,7 @@ describe('subscriptions', () => {
 			},
 			{
 				name: 'should return a subscription',
-				query: {
+				body: {
 					caseReference: '1234',
 					emailAddress: 'hello.world@example.com'
 				},
@@ -63,17 +63,13 @@ describe('subscriptions', () => {
 			}
 		];
 
-		it.each(tests)('$name', async ({ query, subscription, want }) => {
+		it.each(tests)('$name', async ({ body, subscription, want }) => {
 			databaseConnector.subscription.findUnique.mockReset();
 			if (subscription !== undefined) {
 				databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
 			}
 			// action
-			let queryStr = '';
-			for (const [k, v] of Object.entries(query)) {
-				queryStr += `${k}=${encodeURIComponent(v)}&`;
-			}
-			const response = await request.get(`/applications/subscriptions?${queryStr}`);
+			const response = await request.post(`/applications/subscriptions`).send(body);
 
 			// checks
 			expect(response.body).toEqual(want.body);
