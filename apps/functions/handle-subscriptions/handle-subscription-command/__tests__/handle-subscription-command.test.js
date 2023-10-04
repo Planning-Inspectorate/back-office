@@ -1,5 +1,5 @@
 import api from '../back-office-api-client.js';
-import run from '../index.js';
+import run, { redactEmailForLogs } from '../index.js';
 import { jest } from '@jest/globals';
 
 describe('handle-subscription-command', () => {
@@ -62,11 +62,14 @@ describe('handle-subscription-command', () => {
 			it('' + name, async () => {
 				setupContextLog(context);
 				await run(context, msg);
-				expect(context.log).toHaveBeenLastCalledWith('Handle subscription message', msg);
+				expect(context.log).toHaveBeenLastCalledWith(
+					'Handle subscription message',
+					redactEmailForLogs(msg)
+				);
 				// this is OK because we always run some checks
 				/* eslint-disable jest/no-conditional-expect */
 				if (log.warn) {
-					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, msg);
+					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, redactEmailForLogs(msg));
 				} else {
 					expect(api.createOrUpdateSubscription).toHaveBeenLastCalledWith({
 						...msg.nsipSubscription,
@@ -178,11 +181,14 @@ describe('handle-subscription-command', () => {
 				}
 
 				await run(context, msg);
-				expect(context.log).toHaveBeenLastCalledWith('Handle subscription message', msg);
+				expect(context.log).toHaveBeenLastCalledWith(
+					'Handle subscription message',
+					redactEmailForLogs(msg)
+				);
 				// this is OK because we always run some checks
 				/* eslint-disable jest/no-conditional-expect */
 				if (log.warn) {
-					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, msg);
+					expect(context.log.warn).toHaveBeenLastCalledWith(log.warn, redactEmailForLogs(msg));
 				} else {
 					expect(api.getSubscription).toHaveBeenLastCalledWith(
 						msg.nsipSubscription.caseReference,
