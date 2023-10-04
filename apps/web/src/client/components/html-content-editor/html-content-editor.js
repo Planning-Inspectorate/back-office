@@ -59,7 +59,6 @@ function initHtmlContentEditor() {
 				return;
 			}
 			const showWarning = text.length > parseInt(limit);
-			console.log('showWanring', { showWarning, length: text.length, limit: parseInt(limit) });
 			charCountWarning.style.setProperty('display', showWarning ? 'block' : 'none', 'important');
 		}
 
