@@ -77,6 +77,11 @@ export const ERROR_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 export const ERROR_LPA_QUESTIONNAIRE_VALID_VALIDATION_OUTCOME_REASONS_REQUIRED =
 	'Validation outcome reasons are required when validationOutcome is Incomplete';
 
+export const ERROR_INVALID_APPELLANT_CASE_DATA =
+	'The integration payload APPELLANT_CASE is invalid.';
+export const ERROR_INVALID_LPAQ_DATA = 'The integration payload LPA_QUESTIONNAIRE is invalid.';
+export const ERROR_INVALID_DOCUMENT_DATA = 'The integration payload DOCUMENT is invalid.';
+
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
 export const LENGTH_10 = 10;

@@ -1,5 +1,4 @@
 // @ts-nocheck
-// TODO: data and document types schema (PINS data model)
 
 import { randomUUID } from 'node:crypto';
 
@@ -31,7 +30,11 @@ const mappers = {
 	mapCaseDataOut
 };
 
-export const mapAppealSubmission = (data) => {
+/** @typedef {import('#config/../openapi-types.js').AppellantCaseData} AppellantCaseData */
+/** @typedef {import('#config/../openapi-types.js').QuestionnaireData} QuestionnaireData */
+/** @typedef {import('#config/../openapi-types.js').DocumentMetaImport} DocumentMetaImport */
+
+export const mapAppealSubmission = (/** @type {AppellantCaseData} */ data) => {
 	const { appeal, documents } = data;
 	const { appellant, agent } = appeal;
 
@@ -54,7 +57,7 @@ export const mapAppealSubmission = (data) => {
 	};
 };
 
-export const mapQuestionnaireSubmission = (data) => {
+export const mapQuestionnaireSubmission = (/** @type {QuestionnaireData} */ data) => {
 	const { questionnaire, documents } = data;
 	const questionnaireInput = mappers.mapQuestionnaireIn(questionnaire);
 	const documentsInput = (documents || []).map((document) => mappers.mapDocumentIn(document));
@@ -66,7 +69,7 @@ export const mapQuestionnaireSubmission = (data) => {
 	};
 };
 
-export const mapDocumentSubmission = (data) => {
+export const mapDocumentSubmission = (/** @type {DocumentMetaImport} */ data) => {
 	return mappers.mapDocumentIn(data);
 };
 
@@ -85,6 +88,7 @@ export const mapAppeal = (appeal) => {
 	return topic;
 };
 
+// @ts-ignore
 export const mapDocument = (doc) => {
 	return mappers.mapDocumentOut(doc);
 };
