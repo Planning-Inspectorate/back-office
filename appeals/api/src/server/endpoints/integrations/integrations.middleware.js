@@ -16,11 +16,10 @@ export const validateAppellantCase = async (req, res, next) => {
 	const { body } = req;
 
 	pino.info('Received appellant case from topic', body);
-	const validationResult = (await validateFromSchema(schemas.appellantCase, body)) || (() => false);
+	const validationResult = await validateFromSchema(schemas.appellantCase, body);
 	if (validationResult !== true && validationResult.errors) {
 		const errorDetails = validationResult.errors.map(
-			(/** @type {{ instancePath: string; message: string; }} */ e) =>
-				`${e.instancePath || '/'}: ${e.message}`
+			(e) => `${e.instancePath || '/'}: ${e.message}`
 		);
 
 		pino.error('Error validating appellant case', errorDetails);
@@ -43,12 +42,10 @@ export const validateLpaQuestionnaire = async (req, res, next) => {
 	const { body } = req;
 
 	pino.info('Received LPA questionnaire from topic', body);
-	const validationResult =
-		(await validateFromSchema(schemas.lpaQuestionnaire, body)) || (() => false);
+	const validationResult = await validateFromSchema(schemas.lpaQuestionnaire, body);
 	if (validationResult !== true && validationResult.errors) {
 		const errorDetails = validationResult.errors.map(
-			(/** @type {{ instancePath: string; message: string; }} */ e) =>
-				`${e.instancePath || '/'}: ${e.message}`
+			(e) => `${e.instancePath || '/'}: ${e.message}`
 		);
 
 		pino.error('Error validating LPA questionnaire', errorDetails);
@@ -86,8 +83,7 @@ export const validateDocument = async (req, res, next) => {
 	const validationResult = (await validateFromSchema(schemas.document, body)) || (() => false);
 	if (validationResult !== true && validationResult.errors) {
 		const errorDetails = validationResult.errors.map(
-			(/** @type {{ instancePath: string; message: string; }} */ e) =>
-				`${e.instancePath}: ${e.message}`
+			(e) => `${e.instancePath || '/'}: ${e.message}`
 		);
 
 		pino.error('Error validating document', errorDetails);
