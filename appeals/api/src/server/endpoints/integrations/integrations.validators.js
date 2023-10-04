@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { setCache, getCache } from '#utils/cache-data.js';
+import BackOfficeAppError from '#utils/app-error.js';
 
 const SCHEMA_PATH = './src/message-schemas';
 const loadSchemas = async () => {
@@ -33,7 +34,13 @@ export const validateFromSchema = async (
 	addFormats(ajv);
 
 	const validator = ajv.getSchema(`${schema}.schema.json`);
-	if (validator && !validator(payload)) {
+	if (!validator) {
+		throw new BackOfficeAppError(
+			`Trying to validate against schema '${schema}', which could not be loaded.`
+		);
+	}
+
+	if (!validator(payload)) {
 		return { errors: validator.errors };
 	} else {
 		return true;
