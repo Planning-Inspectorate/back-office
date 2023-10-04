@@ -1,16 +1,194 @@
+export interface AppellantCaseData {
+	appeal?: {
+		/** @example "Q9999" */
+		LPACode?: string;
+		/** @example "System Test Borough Council" */
+		LPAName?: string;
+		/** @example "Householder (HAS) Appeal" */
+		appealType?: string;
+		/** @example false */
+		isListedBuilding?: boolean;
+		/** @example "refused" */
+		decision?: string;
+		/** @example "2023-07-07T13:53:31.6003126+00:00" */
+		originalCaseDecisionDate?: string;
+		/** @example false */
+		costsAppliedForIndicator?: boolean;
+		/** @example "PL/12367232/B" */
+		LPAApplicationReference?: string;
+		appellant?: {
+			/** @example "Paul" */
+			firstName?: string;
+			/** @example "Pogba" */
+			lastName?: string;
+			/** @example "test@example.com" */
+			emailAddress?: string;
+		};
+		agent?: {
+			/** @example "Ray" */
+			firstName?: string;
+			/** @example "Liotta" */
+			lastName?: string;
+			/** @example "test@example.com" */
+			emailAddress?: string;
+		};
+		/** @example "123 Fake Street" */
+		siteAddressLine1?: string;
+		/** @example "Short Lane" */
+		siteAddressLine2?: string;
+		/** @example "Testville" */
+		siteAddressTown?: string;
+		/** @example "Testshire" */
+		siteAddressCounty?: string;
+		/** @example "M1 1BB" */
+		siteAddressPostcode?: string;
+		/** @example true */
+		isSiteFullyOwned?: boolean;
+		/** @example true */
+		hasToldOwners?: boolean;
+		/** @example true */
+		isSiteVisible?: boolean;
+		/** @example "Small lane from main road" */
+		inspectorAccessDetails?: string;
+		/** @example true */
+		doesSiteHaveHealthAndSafetyIssues?: boolean;
+		/** @example "There's an american bully onsite" */
+		healthAndSafetyIssuesDetails?: string;
+	};
+	documents?: {
+		/** @example "decision.pdf" */
+		filename?: string;
+		/** @example "decision.pdf" */
+		originalFilename?: string;
+		/** @example 12345 */
+		size?: number;
+		/** @example "application/pdf" */
+		mime?: string;
+		/** @example "https://storage.com/published/en010120/v1/filename.pdf" */
+		documentURI?: string;
+		/** @example "2023-03-26T00:00:00.000Z" */
+		dateCreated?: string;
+		/** @example "2023-03-26T00:00:00.000Z" */
+		lastModified?: string;
+		/** @example "decisionLetter" */
+		documentType?: string;
+		/** @example "appeals" */
+		sourceSystem?: string;
+		/** @example "citizen" */
+		origin?: string;
+		/** @example "en010120/v1/filename.pdf" */
+		blobStoragePath?: string;
+		/** @example "published" */
+		blobStorageContainer?: string;
+		/** @example "appellant_case" */
+		stage?: string;
+	}[];
+}
+
+export interface QuestionnaireData {
+	questionnaire?: {
+		/** @example "6000526" */
+		caseReference?: string;
+		/** @example "Q9999" */
+		LPACode?: string;
+		/** @example true */
+		isAppealTypeAppropriate?: boolean;
+		/** @example true */
+		doesTheDevelopmentAffectTheSettingOfAListedBuilding?: boolean;
+		affectedListedBuildings?: {
+			/** @example "1021477" */
+			listEntry?: string;
+		}[];
+		/** @example true */
+		inCAOrRelatesToCA?: boolean;
+		/** @example true */
+		siteWithinGreenBelt?: boolean;
+		/** @example ["A public notice at the site","Letters to neighbours","Advert in the local press"] */
+		howYouNotifiedPeople?: string[];
+		/** @example true */
+		hasRepresentationsFromOtherParties?: boolean;
+		/** @example true */
+		doesSiteRequireInspectorAccess?: boolean;
+		/** @example true */
+		doPlansAffectNeighbouringSite?: boolean;
+		/** @example true */
+		doesSiteHaveHealthAndSafetyIssues?: boolean;
+		/** @example "There are bears. Lots of bears." */
+		healthAndSafetyIssuesDetails?: string;
+		/** @example ["abc/123456","lpa/945357"] */
+		nearbyCaseReferences?: string[];
+		/** @example true */
+		hasExtraConditions?: boolean;
+		/** @example "Here are some extra conditions." */
+		extraConditions?: string;
+	};
+	/** @example [] */
+	documents?: any[];
+}
+
+export interface DocumentMetaImport {
+	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	documentGuid?: string;
+	/** @example "600012341" */
+	caseRef?: string;
+	/** @example 1 */
+	version?: number;
+	/** @example "applicationForm" */
+	documentType?: string;
+	/** @example false */
+	published?: boolean;
+	/** @example "back-office" */
+	sourceSystem?: string;
+	origin?: any;
+	/** @example "appeal-statement.pdf" */
+	originalFilename?: string;
+	/** @example "appeal-statement.pdf" */
+	filename?: string;
+	representative?: any;
+	description?: any;
+	owner?: any;
+	author?: any;
+	securityClassification?: any;
+	/** @example "application/pdf" */
+	mime?: string;
+	horizonDataID?: any;
+	fileMD5?: any;
+	path?: any;
+	virusCheckStatus?: any;
+	/** @example 146995 */
+	size?: number;
+	/** @example "appellant_case" */
+	stage?: string;
+	filter1?: any;
+	/** @example "document-service-uploads" */
+	blobStorageContainer?: string;
+	/** @example "appeal/APPREF-123/v1/appeal-statement.pdf" */
+	blobStoragePath?: string;
+	/** @example "2023-08-17T15:22:20.827Z" */
+	dateCreated?: string;
+	/** @example false */
+	isDeleted?: boolean;
+	examinationRefNo?: any;
+	filter2?: any;
+	/** @example "awaiting_upload" */
+	publishedStatus?: string;
+	publishedStatusPrev?: any;
+	redactedStatus?: any;
+	/** @example false */
+	redacted?: boolean;
+	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
+	documentURI?: string;
+}
+
 export interface Folder {
 	/** @example 23 */
-	id?: number;
-	/** @example "appellantCase/appealStatement" */
+	folderId?: number;
+	/** @example "appellant_case/appealStatement" */
 	path?: string;
-	/** @example 34 */
-	caseId?: number;
-	documents?: {
-		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
-		id?: string;
-		/** @example "right-of-way.pdf" */
-		name?: string;
-	}[];
+	/** @example "APP/Q9999/D/21/941501" */
+	caseId?: string;
+	/** @example [] */
+	documents?: any[];
 }
 
 export interface DocumentDetails {
@@ -1250,7 +1428,7 @@ export interface UpdateDocumentsResponse {
 export type GetAuditTrailsResponse = {
 	/** @example "f7ea429b-65d8-4c44-8fc2-7f1a34069855" */
 	azureAdUserId?: string;
-	/** @example "the case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team" */
+	/** @example "The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team" */
 	details?: string;
 	/** @example "2023-09-26T16:22:20.688Z" */
 	loggedDate?: string;

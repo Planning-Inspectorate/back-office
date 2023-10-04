@@ -1,4 +1,6 @@
 import { document as testDocument } from '#tests/data.js';
+import { validAppellantCase, validLpaQuestionnaire } from '#tests/integrations/mocks.js';
+import { folder } from '#tests/documents/mocks.js';
 
 export const spec = {
 	info: {
@@ -32,16 +34,50 @@ export const spec = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		AppellantCaseData: {
+			...validAppellantCase
+		},
+		QuestionnaireData: {
+			...validLpaQuestionnaire
+		},
+		DocumentMetaImport: {
+			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+			caseRef: '600012341',
+			version: 1,
+			documentType: 'applicationForm',
+			published: false,
+			sourceSystem: 'back-office',
+			origin: null,
+			originalFilename: 'appeal-statement.pdf',
+			filename: 'appeal-statement.pdf',
+			representative: null,
+			description: null,
+			owner: null,
+			author: null,
+			securityClassification: null,
+			mime: 'application/pdf',
+			horizonDataID: null,
+			fileMD5: null,
+			path: null,
+			virusCheckStatus: null,
+			size: 146995,
+			stage: 'appellant_case',
+			filter1: null,
+			blobStorageContainer: 'document-service-uploads',
+			blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
+			dateCreated: '2023-08-17T15:22:20.827Z',
+			isDeleted: false,
+			examinationRefNo: null,
+			filter2: null,
+			publishedStatus: 'awaiting_upload',
+			publishedStatusPrev: null,
+			redactedStatus: null,
+			redacted: false,
+			documentURI:
+				'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf'
+		},
 		Folder: {
-			id: 23,
-			path: 'appellantCase/appealStatement',
-			caseId: 34,
-			documents: [
-				{
-					id: '987e66e0-1db4-404b-8213-8082919159e9',
-					name: 'right-of-way.pdf'
-				}
-			]
+			...folder
 		},
 		DocumentDetails: {
 			guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',

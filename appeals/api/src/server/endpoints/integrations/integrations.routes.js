@@ -1,5 +1,10 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
+import {
+	validateAppellantCase,
+	validateLpaQuestionnaire,
+	validateDocument
+} from './integrations.middleware.js';
 import * as controller from './integrations.controller.js';
 
 const router = createRouter();
@@ -13,7 +18,7 @@ router.post(
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Case data',
-			schema: { $ref: '#/definitions/CaseData' },
+			schema: { $ref: '#/definitions/AppellantCaseData' },
 			required: true
 		}
 		#swagger.responses[200] = {
@@ -23,7 +28,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	//TODO: validators (integrations.middleware.js)
+	validateAppellantCase,
 	asyncHandler(controller.postAppealSubmission)
 );
 
@@ -46,7 +51,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	//TODO: validators (integrations.middleware.js)
+	validateLpaQuestionnaire,
 	asyncHandler(controller.postLpaqSubmission)
 );
 
@@ -59,7 +64,7 @@ router.post(
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Document',
-			schema: { $ref: '#/definitions/DocumentDetails' },
+			schema: { $ref: '#/definitions/DocumentMetaImport' },
 			required: true
 		}
 		#swagger.responses[200] = {
@@ -69,7 +74,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	//TODO: validators (integrations.middleware.js)
+	validateDocument,
 	asyncHandler(controller.postDocumentSubmission)
 );
 
