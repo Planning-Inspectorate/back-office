@@ -80,7 +80,7 @@ export const validateDocument = async (req, res, next) => {
 	const { body } = req;
 
 	pino.info('Received document from topic');
-	const validationResult = (await validateFromSchema(schemas.document, body)) || (() => false);
+	const validationResult = await validateFromSchema(schemas.document, body);
 	if (validationResult !== true && validationResult.errors) {
 		const errorDetails = validationResult.errors.map(
 			(e) => `${e.instancePath || '/'}: ${e.message}`
