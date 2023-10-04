@@ -1,15 +1,21 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
+import { setCache, getCache } from '#utils/cache-data.js';
 
 const SCHEMA_PATH = './src/message-schemas';
 const loadSchemas = async () => {
-	const schemas = await readdirSync(SCHEMA_PATH)
-		.filter((file) => file.endsWith('.schema.json'))
-		.map((file) => {
-			return JSON.parse(readFileSync(`./src/message-schemas/${file}`).toString());
-		});
+	const cacheKey = 'integration-schemas';
+	let schemas = getCache(cacheKey);
+	if (!schemas) {
+		schemas = await readdirSync(SCHEMA_PATH)
+			.filter((file) => file.endsWith('.schema.json'))
+			.map((file) => {
+				return JSON.parse(readFileSync(`./src/message-schemas/${file}`).toString());
+			});
 
+		setCache(cacheKey, schemas);
+	}
 	return schemas;
 };
 export const schemas = {
@@ -26,9 +32,8 @@ export const validateFromSchema = async (
 	const ajv = new Ajv({ schemas });
 	addFormats(ajv);
 
-	const validator = ajv.getSchema(`${schema}.schema.json`) || (() => false);
-	if (!validator(payload)) {
-		// @ts-ignore
+	const validator = ajv.getSchema(`${schema}.schema.json`);
+	if (validator && !validator(payload)) {
 		return { errors: validator.errors };
 	} else {
 		return true;
