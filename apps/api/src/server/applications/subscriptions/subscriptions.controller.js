@@ -47,16 +47,13 @@ export async function listSubscriptions(req, res) {
 }
 
 /**
- * @type {import('express').RequestHandler}
+ * @type {import('express').RequestHandler<any, any, import('@pins/applications.api').Api.SubscriptionGetRequest>}
  * @throws {Error}
  * @returns {Promise<void>}
  */
 export async function getSubscription(request, response) {
-	const { query } = request;
-
-	// we're expecting strings here, not other possible types (e.g. string[])
-	const caseReference = String(query.caseReference);
-	const emailAddress = String(query.emailAddress);
+	const { body } = request;
+	const { caseReference, emailAddress } = body;
 
 	try {
 		const res = await subscriptionRepository.findUnique(caseReference, emailAddress);
