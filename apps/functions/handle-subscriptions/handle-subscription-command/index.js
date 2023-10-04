@@ -2,12 +2,17 @@ import { EventType } from '@pins/event-client';
 import api from './back-office-api-client.js';
 
 /**
+ * @typedef {import('@pins/applications.api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} RegisterNSIPSubscription
+ */
+
+/**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('@pins/applications.api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} msg
+ * @param {RegisterNSIPSubscription} msg
  */
 export default async function (context, msg) {
-	context.log('Handle subscription message', msg);
+	const msgWithoutEmail = redactEmailForLogs(msg);
+	context.log('Handle subscription message', msgWithoutEmail);
 
 	const applicationProperties = context?.bindingData?.applicationProperties;
 
@@ -15,35 +20,35 @@ export default async function (context, msg) {
 		Boolean(applicationProperties) &&
 		Object.prototype.hasOwnProperty.call(applicationProperties, 'type');
 	if (!hasType) {
-		context.log.warn('Ingoring invalid message, no type', msg);
+		context.log.warn('Ingoring invalid message, no type', msgWithoutEmail);
 		return;
 	}
 
 	const type = applicationProperties?.type;
 
 	if (type !== EventType.Create && type !== EventType.Delete) {
-		context.log.warn(`Ingoring invalid message, unsupported type '${type}'`, msg);
+		context.log.warn(`Ingoring invalid message, unsupported type '${type}'`, msgWithoutEmail);
 		return;
 	}
 
 	if (!msg.nsipSubscription) {
-		context.log.warn(`Ingoring invalid message, nsipSubscription is required`, msg);
+		context.log.warn(`Ingoring invalid message, nsipSubscription is required`, msgWithoutEmail);
 		return;
 	}
 
 	const { caseReference, emailAddress } = msg.nsipSubscription;
 	if (!caseReference || typeof caseReference !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid caseReference`, msg);
+		context.log.warn(`Ingoring invalid message, invalid caseReference`, msgWithoutEmail);
 		return;
 	}
 	if (!emailAddress || typeof emailAddress !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid emailAddress`, msg);
+		context.log.warn(`Ingoring invalid message, invalid emailAddress`, msgWithoutEmail);
 		return;
 	}
 
 	if (type === EventType.Create) {
 		if (!msg.subscriptionTypes) {
-			context.log.warn(`Ingoring invalid message, subscriptionTypes is required`, msg);
+			context.log.warn(`Ingoring invalid message, subscriptionTypes is required`, msgWithoutEmail);
 			return;
 		}
 
@@ -60,7 +65,7 @@ export default async function (context, msg) {
 		try {
 			const existing = await api.getSubscription(caseReference, emailAddress);
 			if (existing === null) {
-				context.log.warn(`Existing subscription not found`, msg);
+				context.log.warn(`Existing subscription not found`, msgWithoutEmail);
 				return;
 			}
 
@@ -72,4 +77,22 @@ export default async function (context, msg) {
 			context.log.error('error deleting subscription', e);
 		}
 	}
+}
+
+/**
+ *
+ * @param {RegisterNSIPSubscription} msg
+ * @returns {RegisterNSIPSubscription}
+ */
+export function redactEmailForLogs(msg) {
+	if (msg?.nsipSubscription?.emailAddress) {
+		return {
+			nsipSubscription: {
+				...msg.nsipSubscription,
+				emailAddress: '<redacted>'
+			},
+			subscriptionTypes: msg.subscriptionTypes
+		};
+	}
+	return msg;
 }
