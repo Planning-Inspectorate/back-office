@@ -9,7 +9,7 @@ const loadSchemas = async () => {
 	const cacheKey = 'integration-schemas';
 	let schemas = getCache(cacheKey);
 	if (!schemas) {
-		schemas = await readdirSync(SCHEMA_PATH)
+		schemas = readdirSync(SCHEMA_PATH)
 			.filter((file) => file.endsWith('.schema.json'))
 			.map((file) => {
 				return JSON.parse(readFileSync(`./src/message-schemas/${file}`).toString());
