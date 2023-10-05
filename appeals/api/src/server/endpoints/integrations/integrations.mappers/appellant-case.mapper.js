@@ -3,8 +3,8 @@
 
 export const mapAppellantCaseIn = (appeal, appellant) => {
 	return {
-		applicantFirstName: appellant.customer.firstName,
-		applicantSurname: appellant.customer.lastName,
+		applicantFirstName: appellant.firstName,
+		applicantSurname: appellant.lastName,
 		areAllOwnersKnown: appeal.areAllOwnersKnown || false,
 		hasAttemptedToIdentifyOwners: appeal.hasAttemptedToIdentifyOwners || false,
 		hasDesignAndAccessStatement: appeal.hasDesignAndAccessStatement || false,
