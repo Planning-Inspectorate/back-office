@@ -6,8 +6,8 @@ const typesList = Subscription.TypeList.map((t) => `'${t}'`).join(', ');
 export const typesError = `type must be one of ${typesList}`;
 
 export const validateGetSubscription = composeMiddleware(
-	query('caseReference').notEmpty().withMessage(`caseReference is required`),
-	query('emailAddress').notEmpty().withMessage(`emailAddress is required`),
+	body('caseReference').notEmpty().withMessage(`caseReference is required`),
+	body('emailAddress').notEmpty().withMessage(`emailAddress is required`),
 	validationErrorHandler
 );
 

@@ -7,7 +7,6 @@
 		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
 		"CLAM_AV_HOST": "0.0.0.0",
 		"CLAM_AV_PORT": "3310",
-		"API_HOST": "http://localhost:3000",
-		"DOCUMENT_STORAGE_API_HOST": "http://localhost:3001"
+		"API_HOST": "http://localhost:3000"
 	}
 }

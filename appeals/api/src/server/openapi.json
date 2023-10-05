@@ -218,6 +218,147 @@
 				}
 			}
 		},
+		"/appeals/case-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Request the creation of a new case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appeal successfully created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Case data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppellantCaseData"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppellantCaseData"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/lpaq-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Request adding LPA response to an existing case",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Appeal successfully updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/Appeal"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Questionnaire data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuestionnaireData"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/QuestionnaireData"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/document-submission": {
+			"post": {
+				"tags": ["Integration"],
+				"description": "Imports a new document",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Document successfully created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Document",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentMetaImport"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentMetaImport"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/appeal-allocation-specialisms": {
 			"get": {
 				"tags": ["Appeal Allocation"],
@@ -1152,147 +1293,6 @@
 				}
 			}
 		},
-		"/appeals/case-submission": {
-			"post": {
-				"tags": ["Integration"],
-				"description": "Request the creation of a new case",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeal successfully created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Case data",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CaseData"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/CaseData"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/appeals/lpaq-submission": {
-			"post": {
-				"tags": ["Integration"],
-				"description": "Request adding LPA response to an existing case",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Appeal successfully updated",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/Appeal"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Questionnaire data",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/QuestionnaireData"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/QuestionnaireData"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/appeals/document-submission": {
-			"post": {
-				"tags": ["Integration"],
-				"description": "Imports a new document",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Document successfully created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							},
-							"application/xml": {
-								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"requestBody": {
-					"in": "body",
-					"description": "Document",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
-							}
-						},
-						"application/xml": {
-							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/appeals/knowledge-of-other-landowners": {
 			"get": {
 				"tags": ["Knowledge Of Other Landowners"],
@@ -2092,36 +2092,403 @@
 	},
 	"components": {
 		"schemas": {
-			"Folder": {
+			"AppellantCaseData": {
 				"type": "object",
 				"properties": {
-					"id": {
-						"type": "number",
-						"example": 23
-					},
-					"path": {
-						"type": "string",
-						"example": "appellantCase/appealStatement"
-					},
-					"caseId": {
-						"type": "number",
-						"example": 34
+					"appeal": {
+						"type": "object",
+						"properties": {
+							"LPACode": {
+								"type": "string",
+								"example": "Q9999"
+							},
+							"LPAName": {
+								"type": "string",
+								"example": "System Test Borough Council"
+							},
+							"appealType": {
+								"type": "string",
+								"example": "Householder (HAS) Appeal"
+							},
+							"isListedBuilding": {
+								"type": "boolean",
+								"example": false
+							},
+							"decision": {
+								"type": "string",
+								"example": "refused"
+							},
+							"originalCaseDecisionDate": {
+								"type": "string",
+								"example": "2023-07-07T13:53:31.6003126+00:00"
+							},
+							"costsAppliedForIndicator": {
+								"type": "boolean",
+								"example": false
+							},
+							"LPAApplicationReference": {
+								"type": "string",
+								"example": "PL/12367232/B"
+							},
+							"appellant": {
+								"type": "object",
+								"properties": {
+									"firstName": {
+										"type": "string",
+										"example": "Paul"
+									},
+									"lastName": {
+										"type": "string",
+										"example": "Pogba"
+									},
+									"emailAddress": {
+										"type": "string",
+										"example": "test@example.com"
+									}
+								}
+							},
+							"agent": {
+								"type": "object",
+								"properties": {
+									"firstName": {
+										"type": "string",
+										"example": "Ray"
+									},
+									"lastName": {
+										"type": "string",
+										"example": "Liotta"
+									},
+									"emailAddress": {
+										"type": "string",
+										"example": "test@example.com"
+									}
+								}
+							},
+							"siteAddressLine1": {
+								"type": "string",
+								"example": "123 Fake Street"
+							},
+							"siteAddressLine2": {
+								"type": "string",
+								"example": "Short Lane"
+							},
+							"siteAddressTown": {
+								"type": "string",
+								"example": "Testville"
+							},
+							"siteAddressCounty": {
+								"type": "string",
+								"example": "Testshire"
+							},
+							"siteAddressPostcode": {
+								"type": "string",
+								"example": "M1 1BB"
+							},
+							"isSiteFullyOwned": {
+								"type": "boolean",
+								"example": true
+							},
+							"hasToldOwners": {
+								"type": "boolean",
+								"example": true
+							},
+							"isSiteVisible": {
+								"type": "boolean",
+								"example": true
+							},
+							"inspectorAccessDetails": {
+								"type": "string",
+								"example": "Small lane from main road"
+							},
+							"doesSiteHaveHealthAndSafetyIssues": {
+								"type": "boolean",
+								"example": true
+							},
+							"healthAndSafetyIssuesDetails": {
+								"type": "string",
+								"example": "There's an american bully onsite"
+							}
+						}
 					},
 					"documents": {
 						"type": "array",
 						"items": {
 							"type": "object",
 							"properties": {
-								"id": {
+								"filename": {
 									"type": "string",
-									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+									"example": "decision.pdf"
 								},
-								"name": {
+								"originalFilename": {
 									"type": "string",
-									"example": "right-of-way.pdf"
+									"example": "decision.pdf"
+								},
+								"size": {
+									"type": "number",
+									"example": 12345
+								},
+								"mime": {
+									"type": "string",
+									"example": "application/pdf"
+								},
+								"documentURI": {
+									"type": "string",
+									"example": "https://storage.com/published/en010120/v1/filename.pdf"
+								},
+								"dateCreated": {
+									"type": "string",
+									"example": "2023-03-26T00:00:00.000Z"
+								},
+								"lastModified": {
+									"type": "string",
+									"example": "2023-03-26T00:00:00.000Z"
+								},
+								"documentType": {
+									"type": "string",
+									"example": "decisionLetter"
+								},
+								"sourceSystem": {
+									"type": "string",
+									"example": "appeals"
+								},
+								"origin": {
+									"type": "string",
+									"example": "citizen"
+								},
+								"blobStoragePath": {
+									"type": "string",
+									"example": "en010120/v1/filename.pdf"
+								},
+								"blobStorageContainer": {
+									"type": "string",
+									"example": "published"
+								},
+								"stage": {
+									"type": "string",
+									"example": "appellant_case"
 								}
 							}
 						}
+					}
+				},
+				"xml": {
+					"name": "AppellantCaseData"
+				}
+			},
+			"QuestionnaireData": {
+				"type": "object",
+				"properties": {
+					"questionnaire": {
+						"type": "object",
+						"properties": {
+							"caseReference": {
+								"type": "string",
+								"example": "6000526"
+							},
+							"LPACode": {
+								"type": "string",
+								"example": "Q9999"
+							},
+							"isAppealTypeAppropriate": {
+								"type": "boolean",
+								"example": true
+							},
+							"doesTheDevelopmentAffectTheSettingOfAListedBuilding": {
+								"type": "boolean",
+								"example": true
+							},
+							"affectedListedBuildings": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"listEntry": {
+											"type": "string",
+											"example": "1021477"
+										}
+									}
+								}
+							},
+							"inCAOrRelatesToCA": {
+								"type": "boolean",
+								"example": true
+							},
+							"siteWithinGreenBelt": {
+								"type": "boolean",
+								"example": true
+							},
+							"howYouNotifiedPeople": {
+								"type": "array",
+								"example": [
+									"A public notice at the site",
+									"Letters to neighbours",
+									"Advert in the local press"
+								],
+								"items": {
+									"type": "string"
+								}
+							},
+							"hasRepresentationsFromOtherParties": {
+								"type": "boolean",
+								"example": true
+							},
+							"doesSiteRequireInspectorAccess": {
+								"type": "boolean",
+								"example": true
+							},
+							"doPlansAffectNeighbouringSite": {
+								"type": "boolean",
+								"example": true
+							},
+							"doesSiteHaveHealthAndSafetyIssues": {
+								"type": "boolean",
+								"example": true
+							},
+							"healthAndSafetyIssuesDetails": {
+								"type": "string",
+								"example": "There are bears. Lots of bears."
+							},
+							"nearbyCaseReferences": {
+								"type": "array",
+								"example": ["abc/123456", "lpa/945357"],
+								"items": {
+									"type": "string"
+								}
+							},
+							"hasExtraConditions": {
+								"type": "boolean",
+								"example": true
+							},
+							"extraConditions": {
+								"type": "string",
+								"example": "Here are some extra conditions."
+							}
+						}
+					},
+					"documents": {
+						"type": "array",
+						"example": [],
+						"items": {}
+					}
+				},
+				"xml": {
+					"name": "QuestionnaireData"
+				}
+			},
+			"DocumentMetaImport": {
+				"type": "object",
+				"properties": {
+					"documentGuid": {
+						"type": "string",
+						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+					},
+					"caseRef": {
+						"type": "string",
+						"example": "600012341"
+					},
+					"version": {
+						"type": "number",
+						"example": 1
+					},
+					"documentType": {
+						"type": "string",
+						"example": "applicationForm"
+					},
+					"published": {
+						"type": "boolean",
+						"example": false
+					},
+					"sourceSystem": {
+						"type": "string",
+						"example": "back-office"
+					},
+					"origin": {},
+					"originalFilename": {
+						"type": "string",
+						"example": "appeal-statement.pdf"
+					},
+					"filename": {
+						"type": "string",
+						"example": "appeal-statement.pdf"
+					},
+					"representative": {},
+					"description": {},
+					"owner": {},
+					"author": {},
+					"securityClassification": {},
+					"mime": {
+						"type": "string",
+						"example": "application/pdf"
+					},
+					"horizonDataID": {},
+					"fileMD5": {},
+					"path": {},
+					"virusCheckStatus": {},
+					"size": {
+						"type": "number",
+						"example": 146995
+					},
+					"stage": {
+						"type": "string",
+						"example": "appellant_case"
+					},
+					"filter1": {},
+					"blobStorageContainer": {
+						"type": "string",
+						"example": "document-service-uploads"
+					},
+					"blobStoragePath": {
+						"type": "string",
+						"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+					},
+					"dateCreated": {
+						"type": "string",
+						"example": "2023-08-17T15:22:20.827Z"
+					},
+					"isDeleted": {
+						"type": "boolean",
+						"example": false
+					},
+					"examinationRefNo": {},
+					"filter2": {},
+					"publishedStatus": {
+						"type": "string",
+						"example": "awaiting_upload"
+					},
+					"publishedStatusPrev": {},
+					"redactedStatus": {},
+					"redacted": {
+						"type": "boolean",
+						"example": false
+					},
+					"documentURI": {
+						"type": "string",
+						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+					}
+				},
+				"xml": {
+					"name": "DocumentMetaImport"
+				}
+			},
+			"Folder": {
+				"type": "object",
+				"properties": {
+					"folderId": {
+						"type": "number",
+						"example": 23
+					},
+					"path": {
+						"type": "string",
+						"example": "appellant_case/appealStatement"
+					},
+					"caseId": {
+						"type": "string",
+						"example": "APP/Q9999/D/21/941501"
+					},
+					"documents": {
+						"type": "array",
+						"example": [],
+						"items": {}
 					}
 				},
 				"xml": {
@@ -4942,7 +5309,7 @@
 						},
 						"details": {
 							"type": "string",
-							"example": "the case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team"
+							"example": "The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team"
 						},
 						"loggedDate": {
 							"type": "string",

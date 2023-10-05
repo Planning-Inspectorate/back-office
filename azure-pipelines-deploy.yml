@@ -7,10 +7,6 @@ parameters:
     displayName: Deploy Web
     type: boolean
     default: true
-  - name: deployDocumentStorageApi
-    displayName: Deploy Document Storage API
-    type: boolean
-    default: true
   - name: deployDocumentCheckFunction
     displayName: Deploy Document Check Function
     type: boolean
@@ -120,15 +116,6 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
-          - name: Deploy Document Storage API
-            condition: eq(${{ parameters.deployDocumentStorageAPI }}, 'true')
-            steps:
-              - template: ../steps/azure_web_app_deploy.yml
-                parameters:
-                  appName: pins-app-back-office-document-storage-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-document-storage-api
           - name: Deploy Function - Document Check
             artifact:
               name: function-document-check

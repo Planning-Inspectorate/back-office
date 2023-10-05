@@ -1,8 +1,6 @@
-import got, { HTTPError } from 'got';
-import { isEqual } from 'lodash-es';
 import { sendDocumentStateAction } from './back-office-api-client.js';
-import config from './config.js';
 import { scanStream } from './scan-stream.js';
+import { deleteBlob, parseBlobFromUrl } from './blob-utils.js';
 
 /**
  * @param {boolean} isInfected
@@ -30,44 +28,6 @@ const getBlobCaseReferenceAndGuid = (blobUri) => {
 };
 
 /**
- *
- * @param {Error} error
- * @returns {boolean}
- */
-const errorIsDueToDocumentMissing = (error) => {
-	return (
-		error instanceof HTTPError &&
-		error.code === 'ERR_NON_2XX_3XX_RESPONSE' &&
-		error.response.statusCode === 404 &&
-		isEqual(JSON.parse(error.response.body), {
-			errors: { documentPath: 'Document does not exist in Blob Storage' }
-		})
-	);
-};
-
-/**
- * @param {string} documentUri
- * @param {import('@azure/functions').Logger} log
- */
-const deleteDocument = async (documentUri, log) => {
-	const documentPath = `/${documentUri.split('/').slice(-4).join('/')}`;
-
-	try {
-		await got
-			.delete(`https://${config.DOCUMENT_STORAGE_API_HOST}/document`, {
-				json: { documentPath }
-			})
-			.json();
-	} catch (error) {
-		if (errorIsDueToDocumentMissing(error)) {
-			log.info('Unable to delete document from Blob Store because it is already deleted');
-		} else {
-			throw error;
-		}
-	}
-};
-
-/**
  * @param {import('@azure/functions').Logger} log
  * @param {string} blobUri
  * @param {import('node:stream').Readable} blobStream
@@ -86,7 +46,15 @@ export const checkMyBlob = async (log, blobUri, blobStream) => {
 	if (isInfected) {
 		log.error('Document did not pass AV checks');
 		log.info('Deleting document from blob storage');
-		await deleteDocument(blobUri, log);
+
+		const blobDetails = parseBlobFromUrl(blobUri);
+		if (!blobDetails) {
+			log.error(`Unable to parse storage details for url `, blobUri);
+			throw new Error(`unexpected blob URI format, unable to parse: ${blobUri}`);
+		}
+		const { storageUrl, container, blobPath } = blobDetails;
+		// todo: should the document be deleted?
+		await deleteBlob(storageUrl, container, blobPath);
 	}
 
 	const machineAction = mapIsInfectedToMachineAction(isInfected);

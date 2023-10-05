@@ -99,6 +99,18 @@ export class BlobStorageClient {
 	/**
 	 *
 	 * @param {string} container
+	 * @param {string} blobPath
+	 * @returns {Promise<import('@azure/storage-blob').BlobDeleteIfExistsResponse>}
+	 */
+	deleteBlobIfExists(container, blobPath) {
+		const blockBlobClient = this.#getBlockBlobClient(container, blobPath);
+
+		return blockBlobClient.deleteIfExists();
+	}
+
+	/**
+	 *
+	 * @param {string} container
 	 * @param {File} fileContent
 	 * @param {string} filePath
 	 * @param {string} fileType

@@ -3,7 +3,7 @@ import * as s51AdviceRepository from '../../repositories/s51-advice.repository.j
 import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
 import { getPageCount, getSkipValue } from '../../utils/database-pagination.js';
 import { mapManyS51Advice } from '../../utils/mapping/map-s51-advice-details.js';
-import { getStorageLocation } from '../../utils/document-storage-api-client.js';
+import { getStorageLocation } from '../../utils/document-storage.js';
 import { getCaseDetails } from '../application/application.service.js';
 import BackOfficeAppError from '../../utils/app-error.js';
 import logger from '#utils/logger.js';

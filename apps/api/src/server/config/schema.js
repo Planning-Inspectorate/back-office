@@ -6,14 +6,12 @@ export default joi
 		PORT: joi.number(),
 		SWAGGER_JSON_DIR: joi.string(),
 		DATABASE_URL: joi.string(),
-		blobStorageUrl: joi.string().when('NODE_ENV', { is: 'development', then: joi.optional() }),
+		blobStorageUrl: joi.string().when('NODE_ENV', { not: 'production', then: joi.optional() }),
+		blobStorageContainer: joi
+			.string()
+			.when('NODE_ENV', { not: 'production', then: joi.optional() }),
 		virusScanningDisabled: joi.boolean().optional(),
 		defaultApiVersion: joi.string(),
-		documentStorageApi: joi
-			.object({
-				host: joi.string()
-			})
-			.when('NODE_ENV', { not: 'production', then: joi.object({ host: joi.optional() }) }),
 		serviceBusOptions: joi.object({
 			hostname: joi.string().optional()
 		}),

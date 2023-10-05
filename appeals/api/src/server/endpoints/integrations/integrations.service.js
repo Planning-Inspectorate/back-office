@@ -1,5 +1,21 @@
 import { producers } from '#infrastructure/topics.js';
 import { eventClient } from '#infrastructure/event-client.js';
+import {
+	createAppeal,
+	createOrUpdateLpaQuestionnaire,
+	createDocument
+} from '#repositories/integrations.repository.js';
+
+export const importAppellantCase = async (/** @type {any} */ data, /** @type {any} */ documents) =>
+	await createAppeal(data, documents);
+
+export const importLPAQuestionnaire = async (
+	/** @type {any} */ caseReference,
+	/** @type {any} */ data,
+	/** @type {any} */ documents
+) => await createOrUpdateLpaQuestionnaire(caseReference, data, documents);
+
+export const importDocument = async (/** @type {any} */ document) => await createDocument(document);
 
 export const produceAppealUpdate = async (
 	/** @type {any} */ appeal, // TODO: data and document types schema (PINS data model)

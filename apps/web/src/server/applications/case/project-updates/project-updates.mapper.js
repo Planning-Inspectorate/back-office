@@ -20,7 +20,8 @@ export function bodyToCreateRequest(body) {
 export function bodyToUpdateRequest(body) {
 	const content = decodeURI(body.backOfficeProjectUpdateContent)
 		.replaceAll('<p><br></p>', '<br>')
-		.replaceAll('<br>', '<br />');
+		.replaceAll('<br>', '<br />')
+		.replaceAll('&nbsp;', ' '); // these are sometimes included when copy+pasting in an update
 
 	return {
 		htmlContent: content,

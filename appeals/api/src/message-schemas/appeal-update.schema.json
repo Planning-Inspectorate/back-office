@@ -1,0 +1,15 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "appeal-update.schema.json",
+	"title": "appeal-update",
+	"description": "PINS Appeal Data Model",
+	"type": "object",
+	"properties": {
+		"appeal": {
+			"allOf": [
+				{ "$ref": "appeal-submission-schema.json" },
+				{ "$ref": "questionnaire-submission-schema.json" }
+			]
+		}
+	}
+}

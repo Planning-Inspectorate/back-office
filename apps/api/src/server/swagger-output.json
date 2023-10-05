@@ -3445,29 +3445,10 @@
 			}
 		},
 		"/applications/subscriptions": {
-			"get": {
+			"post": {
 				"tags": ["Applications"],
 				"description": "Get a subscription",
-				"parameters": [
-					{
-						"name": "caseReference",
-						"in": "query",
-						"description": "subscription caseReference",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
-					},
-					{
-						"name": "emailAddress",
-						"in": "query",
-						"description": "subscription emailAddress",
-						"schema": {
-							"type": "string"
-						},
-						"required": true
-					}
-				],
+				"parameters": [],
 				"responses": {
 					"200": {
 						"description": "Subscription",
@@ -7634,7 +7615,7 @@
 		},
 		"ApplicationProjectUpdateCreateRequest": {
 			"type": "object",
-			"requiredProperties": ["emailSubscribers", "status", "htmlContent"],
+			"required": ["emailSubscribers", "status", "htmlContent"],
 			"properties": {
 				"authorId": {
 					"type": "integer",
@@ -8535,7 +8516,7 @@
 		},
 		"ProjectUpdateNotificationLog": {
 			"type": "object",
-			"requiredProperties": [
+			"required": [
 				"projectUpdateId",
 				"subscriptionId",
 				"entryDate",
@@ -8658,6 +8639,20 @@
 							"example": "pageSize must be a number"
 						}
 					}
+				}
+			}
+		},
+		"SubscriptionGetRequest": {
+			"type": "object",
+			"required": ["caseReference", "emailAddress"],
+			"properties": {
+				"caseReference": {
+					"type": "string",
+					"example": "SOMEREF"
+				},
+				"emailAddress": {
+					"type": "string",
+					"example": "me@example.com"
 				}
 			}
 		},

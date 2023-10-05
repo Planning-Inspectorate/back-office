@@ -1366,6 +1366,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable When dom
                 <div><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/examination-timetable/preview\\"> Preview and republish timetable items</a>
                 </div>
             </div>
+            <div class=\\"govuk-!-margin-top-6\\"><strong class=\\"font-weight--700 colour--red\\">Republish the exam timetable to view changes on the website</strong>
+            </div>
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <div class='timetable-table'>
                 <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>

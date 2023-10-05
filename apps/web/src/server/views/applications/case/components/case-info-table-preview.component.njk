@@ -32,15 +32,16 @@
 				firstCellIsHeader: true,
 				rows: [
 					[{ text: "Case reference number" }, { text: case.reference }],
+          [{ text: "Project name" }, { text: case.title }],
 					[{ text: "Sector" }, { text: case.sector.displayNameEn }],
 					[{ text: "Subsector" }, { text: case.subSector.displayNameEn }],
 					[{ text: "Case stage" },{ text: '' }],
-					[{text: 'Project description'}, {html: case.description}],
-					[{text: 'Project email address'}, {html: case.caseEmail }],
-					[{text: 'Project location'}, {html: case.geographicalInformation.locationDescription }],
-					[{text: 'Grid references'}, {html: gridReferences }],
-					[{text: 'Region(s)'}, {html: regionNames}],
-					[{text: 'Map zoom level'}, {html: case.geographicalInformation.mapZoomLevel.displayNameEn }]
+					[{ text: 'Project description' }, { html: case.description }],
+					[{ text: 'Project email address' }, { html: case.caseEmail }],
+					[{ text: 'Project location' }, { html: case.geographicalInformation.locationDescription }],
+					[{ text: 'Grid references' }, { html: gridReferences }],
+					[{ text: 'Region(s)' }, { html: regionNames }],
+					[{ text: 'Map zoom level' }, { html: case.geographicalInformation.mapZoomLevel.displayNameEn }]
 				]
 			}) }}
 

@@ -38,7 +38,11 @@
 
   {% if republishStatus %}
     <div class="govuk-!-margin-top-6">
-      <strong class="font-weight--700 colour--red">Republish the exam timetable to view changes on the website</strong>
+      {% if timetableItems.length > 0 %}
+        <strong class="font-weight--700 colour--red">Republish the exam timetable to view changes on the website</strong>
+      {% else %}
+        <strong class="font-weight--700 colour--red">Create a timetable item and republish to view changes on the website</strong>
+      {% endif %}
     </div>
   {% endif %}
 

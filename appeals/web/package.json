@@ -10,7 +10,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production npm-run-all --silent sass rollup",
     "build:release": "cross-env NODE_ENV=production APP_RELEASE=true npm-run-all --silent sass rollup",
-    "clean": "rimraf .tmp .turbo node_modules dist",
+    "clean": "rimraf .turbo node_modules dist",
     "clean:dev": "rimraf dist src/server/static/scripts src/server/static/styles",
 		"dev": "cross-env NODE_ENV=local npm-run-all --silent clean:dev sass rollup --parallel --race watch:** nodemon",
     "lint:js": "npx eslint .",
@@ -21,7 +21,6 @@
     "start": "node ./src/server/server.js",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
     "test:cov": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
-    "posttest": "rimraf .tmp",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
     "watch:sass": "chokidar \"src/styles/**/*.scss\" --silent -c \"npm run sass\""

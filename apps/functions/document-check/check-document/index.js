@@ -18,9 +18,9 @@ export const index = async (context, eventGridEvent) => {
 
 	if (!blobDetails) {
 		context.log.error(`Unable to parse storage details for url `, url);
+		throw new Error(`unexpected blob URI format, unable to parse: ${url}`);
 	}
 
-	// @ts-ignore
 	const { storageUrl, container, blobPath } = blobDetails;
 
 	context.log.info(

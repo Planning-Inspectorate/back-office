@@ -33,6 +33,10 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                 <td class=\\"govuk-table__cell\\">CASE/07</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                <td class=\\"govuk-table__cell\\">Title CASE/07</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
                                 <td class=\\"govuk-table__cell\\">Item EN 23</td>
                             </tr>
@@ -158,7 +162,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission</th>
+                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission of Recommendation</th>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
@@ -215,6 +219,10 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
                                 <td class=\\"govuk-table__cell\\">CASE/04</td>
+                            </tr>
+                            <tr class=\\"govuk-table__row\\">
+                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
+                                <td class=\\"govuk-table__cell\\">Title CASE/04</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
@@ -342,7 +350,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission</th>
+                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission of Recommendation</th>
                                 <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">

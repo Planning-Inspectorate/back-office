@@ -1193,7 +1193,7 @@ export const spec = {
 		},
 		ApplicationProjectUpdateCreateRequest: {
 			type: 'object',
-			requiredProperties: ['emailSubscribers', 'status', 'htmlContent'],
+			required: ['emailSubscribers', 'status', 'htmlContent'],
 			properties: {
 				authorId: {
 					type: 'integer',
@@ -1955,7 +1955,7 @@ export const spec = {
 		},
 		ProjectUpdateNotificationLog: {
 			type: 'object',
-			requiredProperties: [
+			required: [
 				'projectUpdateId',
 				'subscriptionId',
 				'entryDate',
@@ -2039,6 +2039,20 @@ export const spec = {
 						},
 						...paginationErrors
 					}
+				}
+			}
+		},
+		SubscriptionGetRequest: {
+			type: 'object',
+			required: ['caseReference', 'emailAddress'],
+			properties: {
+				caseReference: {
+					type: 'string',
+					example: 'SOMEREF'
+				},
+				emailAddress: {
+					type: 'string',
+					example: 'me@example.com'
 				}
 			}
 		},
