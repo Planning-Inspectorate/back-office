@@ -2,6 +2,7 @@
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
+	const deleteLPAs = databaseConnector.lPA.deleteMany();
 	const deleteAudits = databaseConnector.auditTrail.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
 	const deleteAppeals = databaseConnector.appeal.deleteMany();
@@ -11,6 +12,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
 	const deleteAppealTimetable = databaseConnector.appealTimetable.deleteMany();
 	const deleteAppellant = databaseConnector.appellant.deleteMany();
+	const deleteAgent = databaseConnector.agent.deleteMany();
 	const deleteInspectorDecision = databaseConnector.inspectorDecision.deleteMany();
 	const deleteLPAQuestionnaire = databaseConnector.lPAQuestionnaire.deleteMany();
 	const deleteReviewQuestionnaire = databaseConnector.reviewQuestionnaire.deleteMany();
@@ -69,10 +71,13 @@ export async function deleteAllRecords(databaseConnector) {
 	// delete document versions, documents, and THEN the folders.  Has to be in this order for integrity constraints
 	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
 	await databaseConnector.$queryRawUnsafe(`UPDATE Document SET latestVersionId = NULL;`);
-	// delete references to users on appeals
+	// delete references to external users on appeals
 	await databaseConnector.$queryRawUnsafe(
 		`UPDATE Appeal SET inspectorUserId = NULL, caseOfficerUserId = NULL;`
 	);
+	// delete references to internal users on appeals
+	await databaseConnector.$queryRawUnsafe(`UPDATE Appeal SET appellantId = NULL, agentId = NULL;`);
+
 	await deleteDocumentsVersions;
 	await deleteDocuments;
 
@@ -81,7 +86,6 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteUsers,
 		deleteAppealAllocationLevels,
 		deleteAppealSpecialisms,
-		deleteServiceCustomers,
 		deleteAppellantCaseIncompleteReasonText,
 		deleteAppellantCaseIncompleteReasonOnAppellantCase,
 		deleteAppellantCaseInvalidReasonText,
@@ -98,11 +102,14 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,
 		deleteAppealTimetable,
-		deleteAddresses,
 		deleteInspectorDecision,
 		deleteFolders,
 		deleteAppeals,
 		deleteAppellant,
+		deleteAgent,
+		deleteAddresses,
+		deleteServiceCustomers,
+		deleteLPAs,
 		deleteListedBuildingDetails
 	]);
 

@@ -35,7 +35,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 			appellantCaseId: appellantCase.id,
 			appellant: {
 				appellantId: appeal.appellant?.id || null,
-				company: appeal.appellant?.company || null,
+				company: appeal.appellant?.customer?.organisationName || null,
 				name: appeal.appellant?.name || null
 			},
 			applicant: {
@@ -64,7 +64,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 				hasIssues: appellantCase.hasHealthAndSafetyIssues
 			},
 			isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
-			localPlanningDepartment: appeal.localPlanningDepartment,
+			localPlanningDepartment: appeal.lpa.lpaName,
 			...(isFPA(appeal.appealType) && {
 				planningObligation: {
 					hasObligation: appellantCase.hasPlanningObligation,

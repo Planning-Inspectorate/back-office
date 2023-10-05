@@ -4,10 +4,10 @@ import {
 	APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS
 } from '../server/endpoints/constants';
+import { ServiceCustomer } from '@prisma/client';
 
 export {
 	Address,
-	Appellant,
 	AppellantCase,
 	AppellantCaseIncompleteReason,
 	AppellantCaseInvalidReason,
@@ -16,6 +16,7 @@ export {
 	DocumentRedactionStatus,
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
+	LPA,
 	LPAQuestionnaire,
 	NeighbouringSiteContact,
 	ReviewQuestionnaire,
@@ -34,7 +35,8 @@ export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
-	appellant?: schema.Appellant;
+	appellant?: Appellant;
+	agent?: Agent;
 	allocation?: schema.AppealAllocation;
 	specialisms: AppealSpecialism[];
 	createdAt: Date;
@@ -44,7 +46,7 @@ export interface Appeal extends schema.Appeal {
 	id: number;
 	inspectorDecision?: InspectorDecision;
 	linkedAppealId?: number | null;
-	localPlanningDepartment: string;
+	lpa: LPA;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
 	otherAppealId?: number | null;
 	planningApplicationReference: string;
@@ -53,6 +55,14 @@ export interface Appeal extends schema.Appeal {
 	siteVisit?: SiteVisit;
 	startedAt: Date;
 	validationDecision?: ValidationDecision[];
+}
+
+export interface Agent extends schema.Agent {
+	customer?: ServiceCustomer;
+}
+
+export interface Appellant extends schema.Appellant {
+	customer?: ServiceCustomer;
 }
 
 export interface AppellantCase extends schema.AppellantCase {

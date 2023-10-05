@@ -6,7 +6,8 @@ export const mapAddressIn = (appeal) => {
 		addressLine1: appeal.siteAddressLine1,
 		addressLine2: appeal.siteAddressLine2,
 		addressCounty: appeal.siteAddressCounty,
-		postcode: appeal.siteAddressPostcode
+		postcode: appeal.siteAddressPostcode,
+		addressTown: appeal.siteAddressTown
 	};
 };
 
@@ -15,6 +16,7 @@ export const mapAddressOut = (appeal) => {
 		siteAddressLine1: appeal.address.addressLine1,
 		siteAddressLine2: appeal.address.addressLine2,
 		siteAddressCounty: appeal.address.addressCounty,
-		siteAddressPostcode: appeal.address.postcode
+		siteAddressPostcode: appeal.address.postcode,
+		siteAddressTown: appeal.address.addressTown
 	};
 };
