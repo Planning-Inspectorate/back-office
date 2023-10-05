@@ -476,8 +476,8 @@ export const publishDocuments = async ({ body }, response) => {
 
 	logger.info(`Published ${publishedDocuments.length} documents`);
 	response.send(
-		publishedDocuments.map(({ documentGuid, publishedStatus }) => ({
-			guid: documentGuid,
+		publishedDocuments.map(({ Document, publishedStatus }) => ({
+			guid: Document?.guid,
 			publishedStatus
 		}))
 	);
