@@ -1,9 +1,5 @@
-import * as schema from '../../src/server/utils/db-client';
-import { string_to_uuid } from 'rhea/typings/util';
-import {
-	APPEAL_TYPE_SHORTHAND_FPA,
-	APPEAL_TYPE_SHORTHAND_HAS
-} from '../server/endpoints/constants';
+import * as schema from '#utils/db-client';
+import { APPEAL_TYPE_SHORTHAND_FPA, APPEAL_TYPE_SHORTHAND_HAS } from '#endpoints/constants';
 
 export {
 	Address,
@@ -25,7 +21,7 @@ export {
 	PlanningObligationStatus,
 	SiteVisitType,
 	User
-} from '../../src/server/utils/db-client';
+} from '#utils/db-client';
 
 export interface Appeal extends schema.Appeal {
 	address?: schema.Address;
