@@ -10,7 +10,7 @@ router
 	.get(controller.getIncompleteReason)
 	.post(
 		validators.validateIncompleteReason,
-		validators.validateTextArea,
+		validators.validateIncompleteReasonTextItems,
 		controller.postIncompleteReason
 	);
 

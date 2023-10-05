@@ -13,13 +13,18 @@ import { datestamp, displayDate } from '../nunjucks-filters/date.js';
 import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
 import { objectContainsAllKeys } from '../object-utilities.js';
-import { checkboxItemParameterAddConditionalHtml } from '../nunjucks-filters/checkbox-item-parameter-add-conditional-html.js';
 import { getIdByNameFromIdNamePairs } from '../id-name-pairs.js';
-import { cloneDeep } from 'lodash-es';
 import {
 	convertFromBooleanToYesNo,
 	convertFromBooleanToYesNoWithOptionalDetails
 } from '#lib/boolean-formatter.js';
+import { addConditionalHtml } from '#lib/nunjucks-filters/add-conditional-html.js';
+import {
+	mapReasonOptionsToCheckboxItemParameters,
+	mapReasonsToReasonsList,
+	getNotValidReasonsTextFromRequestBody
+} from '../mappers/validation-outcome-reasons.mapper.js';
+import { appellantCaseInvalidReasons } from '#testing/app/fixtures/referencedata.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -442,46 +447,14 @@ describe('Libraries', () => {
 		});
 	});
 
-	describe('checkboxItemParameterAddConditionalHtml', () => {
-		it('should add the provided html to the "conditional" property of each item in the provided checkbox/radio "items" parameter object whose "propertyToCheck" is equal to "valueToCheckFor"', () => {
-			const itemParameters = [
-				{
-					value: '1',
-					text: 'item 1'
-				},
-				{
-					value: '2',
-					text: 'item'
-				},
-				{
-					value: '3',
-					text: 'item'
-				}
-			];
-			const conditionalHtml = '<div>conditional html</div>';
-			const expectedResult = { html: '<div>conditional html</div>' };
+	describe('addConditionalHtml', () => {
+		it('should add the provided html to the "conditional" property of the supplied object', () => {
+			const item = {};
+			const conditionalHtml = '<div>test</div>';
+			/** @type {Object<string, any>} */
+			const result = addConditionalHtml(item, conditionalHtml);
 
-			const resultForValueProperty = checkboxItemParameterAddConditionalHtml(
-				cloneDeep(itemParameters),
-				'value',
-				'1',
-				conditionalHtml
-			);
-
-			expect(resultForValueProperty[0].conditional).toEqual(expectedResult);
-			expect(resultForValueProperty[1].conditional).toBe(undefined);
-			expect(resultForValueProperty[2].conditional).toBe(undefined);
-
-			const resultForTextProperty = checkboxItemParameterAddConditionalHtml(
-				cloneDeep(itemParameters),
-				'text',
-				'item',
-				conditionalHtml
-			);
-
-			expect(resultForTextProperty[0].conditional).toBe(undefined);
-			expect(resultForTextProperty[1].conditional).toEqual(expectedResult);
-			expect(resultForTextProperty[2].conditional).toEqual(expectedResult);
+			expect(result.conditional).toEqual({ html: '<div>test</div>' });
 		});
 	});
 
@@ -546,6 +519,517 @@ describe('Libraries', () => {
 		});
 		it('should return an empty string if provided boolean is undefined', () => {
 			expect(convertFromBooleanToYesNoWithOptionalDetails(undefined)).toBe('');
+		});
+	});
+
+	describe('mappers/validation-outcome-reasons.mapper', () => {
+		describe('mapReasonOptionsToCheckboxItemParameters', () => {
+			it('should return an array of checkbox item parameters with the expected properties if checkedOptions is undefined', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					undefined,
+					[],
+					{},
+					'invalidReason',
+					undefined
+				);
+
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: false,
+						addAnother: { textItems: [''] }
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: false
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if checkedOptions is an empty array', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[],
+					[],
+					{},
+					'invalidReason',
+					undefined
+				);
+
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: false,
+						addAnother: { textItems: [''] }
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: false
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are no reasonOptions with text', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons.filter((reasonOption) => reasonOption.hasText === false),
+					[],
+					[],
+					{},
+					'invalidReason',
+					undefined
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: false
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions but no reasonOptions with text', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons.filter((reasonOption) => reasonOption.hasText === false),
+					[23],
+					[],
+					{},
+					'invalidReason',
+					undefined
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions and reasonOptions with text and existingReasons, but not a bodyValidationOutcome or sessionValidationOutcome', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[22, 23],
+					[
+						{
+							name: {
+								id: 22,
+								name: 'Documents have not been submitted on time',
+								hasText: true
+							},
+							text: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						},
+						{
+							name: {
+								id: 23,
+								name: "The appellant doesn't have the right to appeal",
+								hasText: false
+							}
+						}
+					],
+					{},
+					'invalidReason',
+					undefined
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: true,
+						addAnother: {
+							textItems: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						}
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions and reasonOptions with text and a sessionValidationOutcome, but not existingReasons or a bodyValidationOutcome', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[22, 23],
+					[],
+					{},
+					'invalidReason',
+					{
+						appealId: '1',
+						validationOutcome: 'invalid',
+						reasons: ['22', '23'],
+						reasonsText: {
+							22: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						}
+					}
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: true,
+						addAnother: {
+							textItems: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						}
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions and reasonOptions with text and a bodyValidationOutcome, but not existingReasons or a sessionValidationOutcome', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[22, 23],
+					[],
+					{
+						invalidReason: ['22', '23'],
+						'invalidReason-22': [
+							'test document 1 has not been submitted on time',
+							'test document 2 has not been submitted on time'
+						]
+					},
+					'invalidReason',
+					undefined
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: true,
+						addAnother: {
+							textItems: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						}
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions and reasonOptions with text and existingReasons and a sessionValidationOutcome, but not a bodyValidationOutcome (sessionValidationOutcome text items should take precedence over any conflicting existingReasons text items)', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[22, 23],
+					[
+						{
+							name: {
+								id: 22,
+								name: 'Documents have not been submitted on time',
+								hasText: true
+							},
+							text: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						},
+						{
+							name: {
+								id: 23,
+								name: "The appellant doesn't have the right to appeal",
+								hasText: false
+							}
+						}
+					],
+					{},
+					'invalidReason',
+					{
+						appealId: '1',
+						validationOutcome: 'invalid',
+						reasons: ['22', '23'],
+						reasonsText: {
+							22: ['session text item 1']
+						}
+					}
+				);
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: true,
+						addAnother: {
+							textItems: ['session text item 1']
+						}
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+
+			it('should return an array of checkbox item parameters with the expected properties if there are checkedOptions and reasonOptions with text and existingReasons and a sessionValidationOutcome and a bodyValidationOutcome (bodyValidationOutcome text items should take precedence over any conflicting sessionValidationOutcome or existingReasons text items)', () => {
+				const result = mapReasonOptionsToCheckboxItemParameters(
+					appellantCaseInvalidReasons,
+					[22, 23],
+					[
+						{
+							name: {
+								id: 22,
+								name: 'Documents have not been submitted on time',
+								hasText: true
+							},
+							text: [
+								'test document 1 has not been submitted on time',
+								'test document 2 has not been submitted on time'
+							]
+						},
+						{
+							name: {
+								id: 23,
+								name: "The appellant doesn't have the right to appeal",
+								hasText: false
+							}
+						}
+					],
+					{
+						invalidReason: ['22', '23'],
+						'invalidReason-22': 'body text item 1'
+					},
+					'invalidReason',
+					{
+						appealId: '1',
+						validationOutcome: 'invalid',
+						reasons: ['22', '23'],
+						reasonsText: {
+							22: ['session text item 1']
+						}
+					}
+				);
+
+				const expectedResult = [
+					{
+						value: '21',
+						text: 'Appeal has not been submitted on time',
+						checked: false
+					},
+					{
+						value: '22',
+						text: 'Documents have not been submitted on time',
+						checked: true,
+						addAnother: {
+							textItems: ['body text item 1']
+						}
+					},
+					{
+						value: '23',
+						text: "The appellant doesn't have the right to appeal",
+						checked: true
+					},
+					{
+						value: '24',
+						text: 'Other',
+						checked: false,
+						addAnother: { textItems: [''] }
+					}
+				];
+
+				expect(result).toEqual(expectedResult);
+			});
+		});
+
+		describe('mapReasonsToReasonsList', () => {
+			it('should return an empty array if reasons is undefined', () => {
+				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, undefined, undefined);
+
+				expect(result).toEqual([]);
+			});
+
+			it('should return an empty array if reasons is an empty array', () => {
+				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, [], undefined);
+
+				expect(result).toEqual([]);
+			});
+
+			it('should return an array of strings or string arrays with the expected properties if reasonsText is undefined', () => {
+				const result = mapReasonsToReasonsList(
+					appellantCaseInvalidReasons,
+					['22', '23'],
+					undefined
+				);
+
+				expect(result).toEqual([
+					'Documents have not been submitted on time',
+					"The appellant doesn't have the right to appeal"
+				]);
+			});
+
+			it('should return an array of strings or string arrays with the expected properties if reasonsText is an empty object', () => {
+				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {});
+
+				expect(result).toEqual([
+					'Documents have not been submitted on time',
+					"The appellant doesn't have the right to appeal"
+				]);
+			});
+
+			it('should return an array of strings or string arrays with the expected properties if reasons and reasonsText are defined and populated with values', () => {
+				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {
+					22: ['test reason text 1', 'test reason text 2']
+				});
+
+				expect(result).toEqual([
+					'Documents have not been submitted on time:',
+					['test reason text 1', 'test reason text 2'],
+					"The appellant doesn't have the right to appeal"
+				]);
+			});
+		});
+
+		describe('getNotValidReasonsTextFromRequestBody', () => {
+			it('should throw an error if reasonKey is not present in requestBody', () => {
+				expect(() => {
+					getNotValidReasonsTextFromRequestBody(
+						{
+							incompleteReason: ['22', '23']
+						},
+						'invalidReason'
+					);
+				}).toThrow('reasonKey "invalidReason" not found in requestBody');
+			});
+
+			it('should return an object with the expected properties if reasonKey is present in requestBody, but the expected reasonText keys are missing from requestBody', () => {
+				const result = getNotValidReasonsTextFromRequestBody(
+					{
+						invalidReason: ['22', '23']
+					},
+					'invalidReason'
+				);
+
+				expect(result).toEqual({});
+			});
+
+			it('should return an object with the expected properties if reasonKey and the expected reasonText keys are present in requestBody', () => {
+				const result = getNotValidReasonsTextFromRequestBody(
+					{
+						invalidReason: ['22', '23'],
+						'invalidReason-22': ['test reason text 1', 'test reason text 2']
+					},
+					'invalidReason'
+				);
+
+				expect(result).toEqual({
+					22: ['test reason text 1', 'test reason text 2']
+				});
+			});
 		});
 	});
 });

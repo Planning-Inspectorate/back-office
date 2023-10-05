@@ -1,10 +1,10 @@
 import logger from '#lib/logger.js';
+import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { getIdByNameFromIdNamePairs } from '#lib/id-name-pairs.js';
-import { appellantCaseReviewOutcomes } from '../../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 
 /**
  *
@@ -20,18 +20,34 @@ const renderInvalidReason = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	const existingWebAppellantCaseReviewOutcome = request.session.webAppellantCaseReviewOutcome;
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.render('app/404.njk');
+	}
+
+	const appellantCaseResponse = await appellantCaseService
+		.getAppellantCaseFromAppealId(
+			request.apiClient,
+			appealDetails?.appealId,
+			appealDetails?.appellantCaseId
+		)
+		.catch((error) => logger.error(error));
+
+	if (!appellantCaseResponse) {
+		return response.render('app/404.njk');
+	}
 
 	if (
-		existingWebAppellantCaseReviewOutcome &&
-		(existingWebAppellantCaseReviewOutcome.appealId !== appealId ||
-			existingWebAppellantCaseReviewOutcome.validationOutcome !==
-				appellantCaseReviewOutcomes.invalid)
+		request.session.webAppellantCaseReviewOutcome &&
+		(request.session.webAppellantCaseReviewOutcome.appealId !== appealId ||
+			request.session.webAppellantCaseReviewOutcome.validationOutcome !== 'invalid')
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
 
-	const { webAppellantCaseReviewOutcome } = request.session;
 	const invalidReasonOptions =
 		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
 			request.apiClient,
@@ -39,12 +55,12 @@ const renderInvalidReason = async (request, response) => {
 		);
 
 	if (invalidReasonOptions) {
-		const invalidReasons =
-			body.invalidReason || webAppellantCaseReviewOutcome?.invalidOrIncompleteReasons;
-		const otherReason = body.otherReason || webAppellantCaseReviewOutcome?.otherNotValidReasons;
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
+			'invalid',
 			invalidReasonOptions,
-			invalidReasons
+			body,
+			request.session.webAppellantCaseReviewOutcome,
+			appellantCaseResponse.validation
 		);
 
 		return response.render('appeals/appeal/appellant-case-invalid-incomplete.njk', {
@@ -52,10 +68,8 @@ const renderInvalidReason = async (request, response) => {
 				id: appealId,
 				shortReference: appealShortReference(appealReference)
 			},
-			notValidStatus: appellantCaseReviewOutcomes.invalid,
+			notValidStatus: 'invalid',
 			reasonOptions: mappedInvalidReasonOptions,
-			otherReasonId: getIdByNameFromIdNamePairs(invalidReasonOptions, 'other'),
-			otherReason,
 			errors
 		});
 	}
@@ -121,10 +135,12 @@ export const postInvalidReason = async (request, response) => {
 
 		const { appealId } = request.session;
 
+		/** @type {import('../appellant-case.types.js').AppellantCaseSessionValidationOutcome} */
 		request.session.webAppellantCaseReviewOutcome = {
 			appealId,
-			validationOutcome: appellantCaseReviewOutcomes.invalid,
-			invalidOrIncompleteReasons: request.body.invalidReason
+			validationOutcome: 'invalid',
+			reasons: request.body.invalidReason,
+			reasonsText: getNotValidReasonsTextFromRequestBody(request.body, 'invalidReason')
 		};
 
 		return response.redirect(

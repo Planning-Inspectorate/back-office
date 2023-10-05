@@ -9,7 +9,7 @@ router
 	.get(controller.getInvalidReason)
 	.post(
 		validators.validateInvalidReason,
-		validators.validateTextArea,
+		validators.validateInvalidReasonTextItems,
 		controller.postInvalidReason
 	);
 

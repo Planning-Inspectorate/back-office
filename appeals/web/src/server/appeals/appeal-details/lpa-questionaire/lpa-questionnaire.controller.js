@@ -3,7 +3,7 @@ import {
 	backLink,
 	lpaQuestionnairePage,
 	mapReviewOutcomeToSummaryListBuilderParameters,
-	mapWebReviewOutcomeToApiReviewOutcome,
+	mapWebValidationOutcomeToApiValidationOutcome,
 	pageHeading
 } from './lpa-questionnaire.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
@@ -92,9 +92,7 @@ export const postLpaQuestionnaire = async (request, response) => {
 					apiClient,
 					appealId,
 					lpaQId,
-					{
-						validationOutcome: 'complete'
-					}
+					mapWebValidationOutcomeToApiValidationOutcome('complete')
 				);
 				return response.redirect(
 					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQId}/confirmation`
@@ -180,7 +178,7 @@ const renderCheckAndConfirm = async (request, response) => {
 		const { appealId, appealReference, lpaQuestionnaireId, webLPAQuestionnaireReviewOutcome } =
 			request.session;
 
-		const reasonOptions = await lpaQuestionnaireService.getLPAQuestionnaireIncompleteReasons(
+		const reasonOptions = await lpaQuestionnaireService.getLPAQuestionnaireIncompleteReasonOptions(
 			request.apiClient
 		);
 		if (!reasonOptions) {
@@ -188,10 +186,12 @@ const renderCheckAndConfirm = async (request, response) => {
 		}
 
 		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
+			appealId,
+			lpaQuestionnaireId,
 			reasonOptions,
 			'incomplete',
-			webLPAQuestionnaireReviewOutcome.incompleteReasons,
-			webLPAQuestionnaireReviewOutcome.otherReason,
+			webLPAQuestionnaireReviewOutcome.reasons,
+			webLPAQuestionnaireReviewOutcome.reasonsText,
 			webLPAQuestionnaireReviewOutcome.updatedDueDate
 		);
 		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
@@ -247,10 +247,10 @@ export const postCheckAndConfirm = async (request, response) => {
 			request.apiClient,
 			appealId,
 			lpaQuestionnaireId,
-			mapWebReviewOutcomeToApiReviewOutcome(
+			mapWebValidationOutcomeToApiValidationOutcome(
 				'incomplete',
-				webLPAQuestionnaireReviewOutcome.incompleteReasons,
-				webLPAQuestionnaireReviewOutcome.otherReason,
+				webLPAQuestionnaireReviewOutcome.reasons,
+				webLPAQuestionnaireReviewOutcome.reasonsText,
 				webLPAQuestionnaireReviewOutcome.updatedDueDate
 			)
 		);

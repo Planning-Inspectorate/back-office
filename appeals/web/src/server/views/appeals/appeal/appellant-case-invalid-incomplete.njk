@@ -1,28 +1,13 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
-{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "../components/add-another-reason.njk" import addAnotherReason -%}
 
 {%- set pageTitle = "Why is the appeal " + notValidStatus + " - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
 	/appeals-service/appeal-details/{{ appeal.id }}/appellant-case
-{%- endset -%}
-
-{%- set otherReasonTextareaHtml -%}
-	{{ govukTextarea({
-		name: "otherReason",
-		label: {
-			text: "List any other reasons",
-			classes: "govuk-label--s",
-			isPageHeading: false
-		},
-		hint: {
-			text: "Try to organise your list"
-		},
-		value: otherReason if otherReason else ''
-	}) }}
 {%- endset -%}
 
 {%- block pageHeading -%}
@@ -35,15 +20,24 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
+	{%- for option in reasonOptions -%}
+		{%- if option.addAnother -%}
+			{%- set addAnotherReasonHtml = addAnotherReason({
+				textItems: option.addAnother.textItems,
+				inputName: notValidStatus + 'Reason-' + option.value,
+				labelText: 'Which part is incorrect or incomplete?'
+			}) -%}
+			{%- set _ = option | addConditionalHtml(addAnotherReasonHtml) -%}
+		{%- endif -%}
+	{%- endfor -%}
 	<form method="post" novalidate="novalidate">
 		{{ govukCheckboxes({
 			name: notValidStatus + "Reason",
-			items: reasonOptions | checkboxItemParameterAddConditionalHtml('text', 'Other', otherReasonTextareaHtml)
+			items: reasonOptions
 		}) }}
 		{{ govukButton({
 			text: "Continue",
 			type: "submit"
 		}) }}
-		<input type="hidden" id="otherReasonId" name="otherReasonId" value="{{ otherReasonId }}" />
 	</form>
 {%- endblock -%}

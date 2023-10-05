@@ -1,0 +1,27 @@
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "../../app/components/add-another.njk" import addAnother -%}
+
+{%- macro addAnotherReason(params) -%}
+	{%- set addAnotherItems = [] -%}
+	{%- for textItem in params.textItems -%}
+		{%- set itemHtml -%}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-full flex-row space-between">
+					<label for="{{ params.inputName }}" class="govuk-body govuk-!-margin-bottom-4">{{ params.labelText }}</label>
+					<div class="pins-add-another__remove-button-container"></div>
+				</div>
+			</div>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-full">
+					{{ govukInput({
+						classes: 'pins-add-another__item-input govuk-!-margin-0',
+						name: params.inputName,
+						value: textItem
+					}) }}
+				</div>
+			</div>
+		{%- endset -%}
+		{%- set _ = addAnotherItems.push(itemHtml | safe) -%}
+	{%- endfor -%}
+	{{ addAnother({ items: addAnotherItems }) }}
+{%- endmacro -%}
