@@ -28,7 +28,8 @@ const householdAppeal = {
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
 	lpa: {
-		lpaName: 'Maidstone Borough Council',
+		name: 'Maidstone Borough Council',
+		lpaCode: 'MAID',
 		id: 1
 	},
 	planningApplicationReference: '48269/APP/2021/1482',
@@ -583,7 +584,7 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 				}
 		  ]
 		: null,
-	localPlanningDepartment: appeal.localPlanningDepartment,
+	localPlanningDepartment: appeal.lpa.name,
 	lpaNotificationMethods: appeal.lpaQuestionnaire?.lpaNotificationMethods?.map(
 		({ lpaNotificationMethod: { name } }) => ({ name })
 	),
@@ -685,7 +686,7 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		hasIssues: appeal.appellantCase?.hasHealthAndSafetyIssues
 	},
 	isAppellantNamedOnApplication: appeal.appellantCase?.isAppellantNamedOnApplication,
-	localPlanningDepartment: appeal.lpa.lpaName,
+	localPlanningDepartment: appeal.lpa.name,
 	planningApplicationReference: '48269/APP/2021/1482',
 	...(isFPA(appeal.appealType) && {
 		planningObligation: {

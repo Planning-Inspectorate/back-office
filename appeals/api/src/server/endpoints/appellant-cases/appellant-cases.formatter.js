@@ -64,7 +64,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 				hasIssues: appellantCase.hasHealthAndSafetyIssues
 			},
 			isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
-			localPlanningDepartment: appeal.lpa.lpaName,
+			localPlanningDepartment: appeal.lpa.name,
 			...(isFPA(appeal.appealType) && {
 				planningObligation: {
 					hasObligation: appellantCase.hasPlanningObligation,
