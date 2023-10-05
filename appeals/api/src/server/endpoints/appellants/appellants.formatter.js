@@ -8,8 +8,8 @@
 const formatAppellant = (appellant) => ({
 	agentName: appellant.agentName,
 	appellantId: appellant.id,
-	company: appellant.company,
-	email: appellant.email,
+	company: appellant.customer.organisationName,
+	email: appellant.customer.email,
 	name: appellant.name
 });
 

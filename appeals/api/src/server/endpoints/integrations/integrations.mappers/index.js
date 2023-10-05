@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { mapAddressIn, mapAddressOut } from './address.mapper.js';
 import { mapLpaIn, mapLpaOut } from './lpa.mapper.js';
 import { mapDocumentIn, mapDocumentOut } from './document.mapper.js';
-import { mapServiceUserIn } from './service-user.mapper.js';
+import { mapServiceUserIn, mapServiceUserOut } from './service-user.mapper.js';
 import { mapAppellantCaseIn, mapAppellantCaseOut } from './appellant-case.mapper.js';
 import { mapQuestionnaireIn, mapQuestionnaireOut } from './questionnaire.mapper.js';
 import { mapAppealTypeIn, mapAppealTypeOut } from './appeal-type.mapper.js';
@@ -26,6 +26,7 @@ const mappers = {
 	mapQuestionnaireIn,
 	mapQuestionnaireOut,
 	mapServiceUserIn,
+	mapServiceUserOut,
 	mapAppealAllocationOut,
 	mapCaseDataOut
 };
@@ -41,9 +42,14 @@ export const mapAppealSubmission = (/** @type {AppellantCaseData} */ data) => {
 	const appealInput = {
 		reference: randomUUID(),
 		appealType: { connect: { shorthand: mappers.mapAppealTypeIn(appeal.appealType) } },
-		appellant: { create: mappers.mapServiceUserIn(appellant, agent) },
-		localPlanningDepartment: mappers.mapLpaIn(appeal),
-
+		appellant: mappers.mapServiceUserIn(appellant),
+		agent: mappers.mapServiceUserIn(agent),
+		lpa: {
+			connectOrCreate: {
+				where: { lpaCode: appeal.LPACode },
+				create: mappers.mapLpaIn(appeal)
+			}
+		},
 		planningApplicationReference: appeal.LPAApplicationReference,
 		address: { create: mappers.mapAddressIn(appeal) },
 		appellantCase: { create: mappers.mapAppellantCaseIn(appeal) }
@@ -75,6 +81,8 @@ export const mapDocumentSubmission = (/** @type {DocumentMetaImport} */ data) =>
 
 export const mapAppeal = (appeal) => {
 	const topic = {
+		appellant: mappers.mapServiceUserOut(appeal.appellant),
+		agent: mappers.mapServiceUserOut(appeal.agent),
 		appealType: mappers.mapAppealTypeOut(appeal.appealType.shorthand),
 		caseReference: appeal.reference,
 		...mappers.mapLpaOut(appeal),

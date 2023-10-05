@@ -23,7 +23,7 @@ const formatAppeals = (appeal) => ({
 	appealStatus: appeal.appealStatus[0].status,
 	appealType: appeal.appealType?.type,
 	createdAt: appeal.createdAt,
-	localPlanningDepartment: appeal.localPlanningDepartment
+	localPlanningDepartment: appeal.lpa.lpaName
 });
 
 /**
@@ -33,7 +33,7 @@ const formatAppeals = (appeal) => ({
 const formatAppeal = (appeal) => {
 	if (appeal) {
 		return {
-			agentName: appeal.appellant?.agentName,
+			agentName: appeal.agent?.name,
 			allocationDetails: appeal.allocation
 				? {
 						level: appeal.allocation.level,
@@ -83,7 +83,7 @@ const formatAppeal = (appeal) => {
 			},
 			isParentAppeal: appeal.linkedAppealId ? appeal.id === appeal.linkedAppealId : null,
 			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals, appeal.id),
-			localPlanningDepartment: appeal.localPlanningDepartment,
+			localPlanningDepartment: appeal.lpa.lpaName,
 			lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 			neighbouringSite: {
 				contacts:

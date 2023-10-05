@@ -1,10 +1,10 @@
 // @ts-nocheck
 // TODO: schemas (PINS data model)
 
-export const mapAppellantCaseIn = (appeal) => {
+export const mapAppellantCaseIn = (appeal, appellant) => {
 	return {
-		applicantFirstName: appeal.appellant.firstName,
-		applicantSurname: appeal.appellant.lastName,
+		applicantFirstName: appellant.customer.firstName,
+		applicantSurname: appellant.customer.lastName,
 		areAllOwnersKnown: appeal.areAllOwnersKnown || false,
 		hasAttemptedToIdentifyOwners: appeal.hasAttemptedToIdentifyOwners || false,
 		hasDesignAndAccessStatement: appeal.hasDesignAndAccessStatement || false,
@@ -30,10 +30,8 @@ export const mapAppellantCaseIn = (appeal) => {
 
 export const mapAppellantCaseOut = (data) => {
 	return {
-		appellant: {
-			firstName: data.applicantFirstName,
-			lastName: data.applicantSurname
-		},
+		applicantFirstName: data.applicantFirstName,
+		applicantSurname: data.applicantSurname,
 		hasAttemptedToIdentifyOwners: data.hasAttemptedToIdentifyOwners,
 		hasDesignAndAccessStatement: data.hasDesignAndAccessStatement,
 		doesSiteHaveHealthAndSafetyIssues: data.hasHealthAndSafetyIssues,

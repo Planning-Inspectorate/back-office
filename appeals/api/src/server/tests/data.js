@@ -27,14 +27,30 @@ const householdAppeal = {
 	],
 	createdAt: new Date(2022, 1, 23),
 	addressId: 1,
-	localPlanningDepartment: 'Maidstone Borough Council',
+	lpa: {
+		lpaName: 'Maidstone Borough Council',
+		id: 1
+	},
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellant: {
-		agentName: 'Mr Agent',
-		company: 'Lee Thornton Ltd',
-		email: 'l.thornton@example.com',
 		id: 1,
-		name: 'Lee Thornton'
+		name: 'Lee Thornton',
+		customer: {
+			id: 1,
+			firstName: 'some',
+			lastName: 'name',
+			email: 'test@1367.com'
+		}
+	},
+	agent: {
+		id: 1,
+		name: 'John Smith',
+		customer: {
+			id: 1,
+			firstName: 'some',
+			lastName: 'name',
+			email: 'test@136s7.com'
+		}
 	},
 	startedAt: new Date(2022, 4, 18),
 	address: {
@@ -616,7 +632,7 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appellantCaseId: appeal.appellantCase?.id,
 	appellant: {
 		appellantId: appeal.appellant?.id,
-		company: appeal.appellant?.company,
+		company: appeal.appellant?.customer?.organisationName || null,
 		name: appeal.appellant?.name
 	},
 	applicant: {
@@ -669,7 +685,7 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		hasIssues: appeal.appellantCase?.hasHealthAndSafetyIssues
 	},
 	isAppellantNamedOnApplication: appeal.appellantCase?.isAppellantNamedOnApplication,
-	localPlanningDepartment: appeal.localPlanningDepartment,
+	localPlanningDepartment: appeal.lpa.lpaName,
 	planningApplicationReference: '48269/APP/2021/1482',
 	...(isFPA(appeal.appealType) && {
 		planningObligation: {

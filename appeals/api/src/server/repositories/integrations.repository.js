@@ -64,9 +64,19 @@ export const createAppeal = async (data, documents) => {
 						lpaQuestionnaireValidationOutcome: true
 					}
 				},
+				appellant: {
+					include: {
+						customer: true
+					}
+				},
+				agent: {
+					include: {
+						customer: true
+					}
+				},
+				lpa: true,
 				inspector: true,
 				caseOfficer: true,
-				appellant: true,
 				appealTimetable: true,
 				address: true,
 				appealType: true,

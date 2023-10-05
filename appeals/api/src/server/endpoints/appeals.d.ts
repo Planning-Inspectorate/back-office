@@ -56,7 +56,7 @@ interface RepositoryGetAllResultItem {
 	appealType: Schema.AppealType | null;
 	createdAt: Date;
 	id: number;
-	localPlanningDepartment: string;
+	lpa: LPA;
 	reference: string;
 }
 
@@ -67,6 +67,7 @@ interface RepositoryGetByIdResultItem {
 	appealTimetable: Schema.AppealTimetable | null;
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
+	agent: Schema.Agent | null;
 	appellantCase?: Schema.AppellantCase | null;
 	auditTrail: Schema.AuditTrail[] | null;
 	caseOfficer: User | null;
@@ -77,7 +78,7 @@ interface RepositoryGetByIdResultItem {
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
-	localPlanningDepartment: string;
+	lpa: LPA;
 	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
 	otherAppeals: Appeal[];
 	planningApplicationReference: string;

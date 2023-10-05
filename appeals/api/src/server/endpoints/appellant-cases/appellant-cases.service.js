@@ -62,11 +62,15 @@ const updateAppellantCaseValidationOutcome = async ({
 		);
 		timetable = await calculateTimetable(appealType.shorthand, startedAt);
 
-		await notifyClient.sendEmail(config.govNotify.template.validAppellantCase, appellant?.email, {
-			appeal_reference: reference,
-			appeal_type: appealType.shorthand,
-			date_started: format(startedAt, DEFAULT_DATE_FORMAT_DISPLAY)
-		});
+		await notifyClient.sendEmail(
+			config.govNotify.template.validAppellantCase,
+			appellant?.customer?.email,
+			{
+				appeal_reference: reference,
+				appeal_type: appealType.shorthand,
+				date_started: format(startedAt, DEFAULT_DATE_FORMAT_DISPLAY)
+			}
+		);
 
 		await createAuditTrail({
 			appealId,
