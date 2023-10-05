@@ -12,9 +12,10 @@ import appellantRepository from '#repositories/appellant.repository.js';
  */
 const getAppellantById = (req, res) => {
 	const { appellant } = req.appeal;
-	const formattedAppellant = formatAppellant(appellant);
-
-	return res.send(formattedAppellant);
+	if (appellant) {
+		const formattedAppellant = formatAppellant(appellant);
+		return res.send(formattedAppellant);
+	}
 };
 
 /**
