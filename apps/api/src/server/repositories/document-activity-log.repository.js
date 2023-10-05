@@ -2,8 +2,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  *
- * @typedef {{documentGuid: string, version: number, user: string, status: string}} CreateLogInput
- * @param {CreateLogInput} documentLog
+ * @param {import('@prisma/client').Prisma.DocumentActivityLogUncheckedCreateInput} documentLog
  * @returns {Promise<import('@pins/applications.api').Schema.DocumentActivityLog>}
  */
 export const create = (documentLog) => {
