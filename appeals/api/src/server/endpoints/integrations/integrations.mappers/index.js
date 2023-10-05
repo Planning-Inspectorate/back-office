@@ -52,7 +52,7 @@ export const mapAppealSubmission = (/** @type {AppellantCaseData} */ data) => {
 		},
 		planningApplicationReference: appeal.LPAApplicationReference,
 		address: { create: mappers.mapAddressIn(appeal) },
-		appellantCase: { create: mappers.mapAppellantCaseIn(appeal) }
+		appellantCase: { create: mappers.mapAppellantCaseIn(appeal, appellant) }
 	};
 
 	const documentsInput = (documents || []).map((document) => mappers.mapDocumentIn(document));
