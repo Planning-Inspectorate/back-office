@@ -1,6 +1,7 @@
 import api from '../back-office-api-client.js';
-import run, { redactEmailForLogs } from '../index.js';
+import run from '../index.js';
 import { jest } from '@jest/globals';
+import { redactEmailForLogs } from '../logging-utils.js';
 
 describe('handle-subscription-command', () => {
 	function setupContextLog(ctx) {
