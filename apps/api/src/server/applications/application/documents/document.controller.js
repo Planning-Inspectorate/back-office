@@ -20,7 +20,7 @@ import {
 	markDocumentVersionAsPublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
-	publishNsipDocuments,
+	publishDocumentVersions,
 	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails
 } from './document.service.js';
@@ -472,7 +472,7 @@ export const publishDocuments = async ({ body }, response) => {
 
 	await Promise.all(activityLogs);
 
-	const publishedDocuments = await publishNsipDocuments(publishableDocumentVersionIds);
+	const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
 
 	logger.info(`Published ${publishedDocuments.length} documents`);
 	response.send(
