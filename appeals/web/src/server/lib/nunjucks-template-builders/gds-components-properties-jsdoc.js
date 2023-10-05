@@ -284,7 +284,7 @@
  * @typedef DetailsProperties
  * - Make a page easier to scan by letting users reveal more detailed information only if they need it.
  * - Documentation: https://design-system.service.gov.uk/components/details/
- * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
+ * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryTextProperty & HtmlProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
  *
  * @typedef SharedDetailsProperties
  * @type {object}
@@ -637,20 +637,20 @@
  * - Use the text input component when you need to let users enter text that’s no longer than a single line, such as their name or phone number.
  * - Documentation: https://design-system.service.gov.uk/components/text-input/
  * @type {object}
- * @property {string} id The ID of the input.
+ * @property {string} [id] The ID of the input.
  * @property {string} name The name of the input, which is submitted with the form data.
  * @property {string} [type] Type of input control to render, for example, a password input control. Defaults to text.
  * @property {string} [inputmode] https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode
  * @property {string} [value] Optional initial value of the input.
  * @property {boolean} [disabled] If true, input will be disabled.
  * @property {string} [describedBy] One or more element IDs to add to the aria-describedby attribute, used to provide additional descriptive information for screenreader users.
- * @property {SharedLabelProperties & TextProperty | SharedLabelProperties & HtmlProperty} label Options for the label component.
+ * @property {SharedLabelProperties & TextProperty | SharedLabelProperties & HtmlProperty} [label] Options for the label component.
  * @property {SharedHintProperties & TextProperty | SharedHintProperties & HtmlProperty} [hint] Options for the hint component.
  * @property {SharedErrorMessageProperties & TextProperty | SharedErrorMessageProperties & HtmlProperty} [errorMessage] Options for the error message component. The error message component will not display if you use a falsy value for errorMessage, for example false or null.
  * @property {TextProperty & ClassesProperty | HtmlProperty & ClassesProperty} [prefix] Options for the prefix element.
  * @property {TextProperty & ClassesProperty | HtmlProperty & ClassesProperty} [suffix] Options for the suffix element.
  * @property {FormGroupProperties} [formGroup] Options for the form-group wrapper.
- * @property {"govuk-input--width-20" | "govuk-input--width-10" | "govuk-input--width-5" | "govuk-input--width-4" | "govuk-input--width-3" | "govuk-input--width-2"} [classes] Classes to add to the input.
+ * @property {string} [classes] Classes to add to the input.
  * @property {string} [autocomplete] Attribute to identify input purpose, for instance "postal-code" or "username". See autofill for full list of attributes that can be used.
  * @property {string} [pattern] Attribute to provide a regular expression pattern, used to match allowed character combinations for the input value.
  * @property {boolean} [spellcheck] Optional field to enable or disable the spellcheck attribute on the input.

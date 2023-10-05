@@ -12,6 +12,12 @@ export interface CheckboxItemParameter {
 	checked?: boolean;
 }
 
+export interface DayMonthYear {
+	day: number;
+	month: number;
+	year: number;
+}
+
 declare global {
 	namespace Express {
 		interface Request {

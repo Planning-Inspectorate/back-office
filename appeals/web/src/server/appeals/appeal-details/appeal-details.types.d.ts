@@ -1,4 +1,5 @@
 import { Address, AppealSite } from '@pins/appeals';
+import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionaire/lpa-questionnaire.types';
 
 export interface AppealHealthAndSafetyEntry {
 	details: string | null;
@@ -304,6 +305,10 @@ export type DesignatedSite =
 
 export type ScheduleTypeOption = 'Yes, schedule 1' | 'Yes, schedule 2' | 'No';
 
+interface NeighbouringSiteContactsResponse {
+	address: AppealSite;
+}
+
 export interface SingleLPAQuestionnaireResponse {
 	affectsListedBuildingDetails: ListedBuildingDetailsResponse | null;
 	appealId: number;
@@ -377,16 +382,18 @@ export interface SingleLPAQuestionnaireResponse {
 	sensitiveAreaDetails?: string;
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string;
-	validation: ValidationOutcomeResponse | null;
+	validation: LPAQuestionnaireValidationOutcomeResponse | null;
 }
 
-interface NeighbouringSiteContactsResponse {
-	address: AppealSite;
+export interface NotValidReasonOption {
+	id: number;
+	name: string;
+	hasText: boolean;
 }
 
-interface ValidationOutcomeResponse {
-	outcome: string | null;
-	incompleteReasons?: string[];
-	invalidReasons?: string[];
-	otherNotValidReasons?: string;
+export interface NotValidReasonResponse {
+	name: NotValidReasonOption;
+	text?: string[];
 }
+
+export type BodyValidationOutcome = Object<string, string | string[]>;

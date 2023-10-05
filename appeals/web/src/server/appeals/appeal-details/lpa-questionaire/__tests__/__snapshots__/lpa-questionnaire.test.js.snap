@@ -66,17 +66,28 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
                         <dd class="govuk-summary-list__value"><span>Incomplete</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Incomplete reasons</dt>
                         <dd class="govuk-summary-list__value">
                             <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
-                                <li>Documents or information are missing</li>
-                                <li>Policies are missing</li>
+                                <li>Documents or information are missing:</li>
+                                <li>
+                                    <ul class="">
+                                        <li>test reason text 1</li>
+                                        <li>test reason text 2</li>
+                                    </ul>
+                                </li>
+                                <li>Policies are missing:</li>
+                                <li>
+                                    <ul class="">
+                                        <li>test reason text 1</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -154,13 +165,59 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
-                    type="checkbox" value="1">
+                    type="checkbox" value="1" data-aria-controls="conditional-incompleteReason">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-1" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-1" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
-                    type="checkbox" value="2">
+                    type="checkbox" value="2" data-aria-controls="conditional-incompleteReason-2">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
@@ -169,18 +226,40 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
                 </div>
                 <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
                 id="conditional-incompleteReason-3">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--s">List any other reasons</label>
-                        <div id="undefined-hint" class="govuk-hint">Try to organise your list</div>
-                        <textarea class="govuk-textarea" id=""
-                        name="otherReason" rows="5" aria-describedby="undefined-hint"></textarea>
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
                     </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
                 </div>
             </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-        <input type="hidden" id="otherReasonId" name="otherReasonId"
-        value="3">
     </form>
 </main>"
 `;
@@ -345,7 +424,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
 </main>"
 `;
 
-exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if "other" reason text exceeds the character limit 1`] = `
+exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty array 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -354,7 +433,7 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#otherReason">Text in &quot;List any other reasons&quot; must not exceed 4000 characters</a>
+                            <li><a href="#">All selected checkboxes with text fields must have at least one reason provided</a>
                             </li>
                         </ul>
                     </div>
@@ -372,37 +451,89 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
-                    type="checkbox" value="1">
+                    type="checkbox" value="1" checked data-aria-controls="conditional-incompleteReason">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
-                    type="checkbox" value="2">
+                    type="checkbox" value="2" data-aria-controls="conditional-incompleteReason-2">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
-                    type="checkbox" value="3" checked data-aria-controls="conditional-incompleteReason-3">
+                    type="checkbox" value="3" data-aria-controls="conditional-incompleteReason-3">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">Other</label>
                 </div>
-                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-3">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--s">List any other reasons</label>
-                        <div id="undefined-hint" class="govuk-hint">Try to organise your list</div>
-                        <textarea class="govuk-textarea" id=""
-                        name="otherReason" rows="5" aria-describedby="undefined-hint">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</textarea>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
                     </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
                 </div>
             </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-        <input type="hidden" id="otherReasonId" name="otherReasonId"
-        value="3">
     </form>
 </main>"
 `;
 
-exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if "other" reason was selected but no "otherReason" was provided 1`] = `
+exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty string 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -411,7 +542,7 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#otherReason">If selecting &quot;Other&quot;, you must provide details in the text box</a>
+                            <li><a href="#">All selected checkboxes with text fields must have at least one reason provided</a>
                             </li>
                         </ul>
                     </div>
@@ -429,32 +560,348 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
-                    type="checkbox" value="1">
+                    type="checkbox" value="1" checked data-aria-controls="conditional-incompleteReason">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-1" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-1" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
-                    type="checkbox" value="2">
+                    type="checkbox" value="2" data-aria-controls="conditional-incompleteReason-2">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
-                    type="checkbox" value="3" checked data-aria-controls="conditional-incompleteReason-3">
+                    type="checkbox" value="3" data-aria-controls="conditional-incompleteReason-3">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">Other</label>
                 </div>
-                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-3">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--s">List any other reasons</label>
-                        <div id="undefined-hint" class="govuk-hint">Try to organise your list</div>
-                        <textarea class="govuk-textarea" id=""
-                        name="otherReason" rows="5" aria-describedby="undefined-hint"></textarea>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
                     </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
                 </div>
             </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-        <input type="hidden" id="otherReasonId" name="otherReasonId"
-        value="3">
+    </form>
+</main>"
+`;
+
+exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty arrays 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">All selected checkboxes with text fields must have at least one reason provided</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the LPA questionnaire incomplete?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
+                    type="checkbox" value="1" checked data-aria-controls="conditional-incompleteReason">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
+                    type="checkbox" value="2" checked data-aria-controls="conditional-incompleteReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text" value="test reason text 1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text" value="test reason text 2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
+                    type="checkbox" value="3" data-aria-controls="conditional-incompleteReason-3">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty strings 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">All selected checkboxes with text fields must have at least one reason provided</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the LPA questionnaire incomplete?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
+                    type="checkbox" value="1" checked data-aria-controls="conditional-incompleteReason">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-1" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-1" type="text" value="test reason text 1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
+                    type="checkbox" value="2" checked data-aria-controls="conditional-incompleteReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
+                    type="checkbox" value="3" data-aria-controls="conditional-incompleteReason-3">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
@@ -486,13 +933,59 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
-                    type="checkbox" value="1">
+                    type="checkbox" value="1" data-aria-controls="conditional-incompleteReason">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Documents or information are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-1" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-1" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
-                    type="checkbox" value="2">
+                    type="checkbox" value="2" data-aria-controls="conditional-incompleteReason-2">
                     <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Policies are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
                 </div>
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
@@ -501,18 +994,40 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
                 </div>
                 <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
                 id="conditional-incompleteReason-3">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-label--s">List any other reasons</label>
-                        <div id="undefined-hint" class="govuk-hint">Try to organise your list</div>
-                        <textarea class="govuk-textarea" id=""
-                        name="otherReason" rows="5" aria-describedby="undefined-hint"></textarea>
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-3" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-3" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
                     </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Test incomplete reason without text 1</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="5">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Test incomplete reason without text 2</label>
                 </div>
             </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-        <input type="hidden" id="otherReasonId" name="otherReasonId"
-        value="3">
     </form>
 </main>"
 `;

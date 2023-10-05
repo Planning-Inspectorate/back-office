@@ -402,69 +402,94 @@ export const getRandomLocalPlanningDepartment = () =>
 export const appellantCaseInvalidReasons = [
 	{
 		id: 21,
-		name: 'Appeal has not been submitted on time'
+		name: 'Appeal has not been submitted on time',
+		hasText: false
 	},
 	{
 		id: 22,
-		name: 'Documents have not been submitted on time'
+		name: 'Documents have not been submitted on time',
+		hasText: true
 	},
 	{
 		id: 23,
-		name: "The appellant doesn't have the right to appeal"
+		name: "The appellant doesn't have the right to appeal",
+		hasText: false
 	},
 	{
 		id: 24,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
 export const appellantCaseIncompleteReasons = [
 	{
 		id: 2025,
-		name: 'Appellant name is not the same on the application form and appeal form'
+		name: 'Appellant name is not the same on the application form and appeal form',
+		hasText: false
 	},
 	{
 		id: 2026,
-		name: 'Attachments and/or appendices have not been included to the full statement of case'
+		name: 'Attachments and/or appendices have not been included to the full statement of case',
+		hasText: true
 	},
 	{
 		id: 2027,
-		name: "LPA's decision notice is incorrect or incomplete"
+		name: "LPA's decision notice is incorrect or incomplete",
+		hasText: true
 	},
 	{
 		id: 2028,
-		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing'
+		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing',
+		hasText: true
 	},
 	{
 		id: 2029,
-		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form'
+		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form',
+		hasText: false
 	},
 	{
 		id: 2030,
-		name: 'The original application form is incomplete or missing'
+		name: 'The original application form is incomplete or missing',
+		hasText: false
 	},
 	{
 		id: 2031,
-		name: 'Statement of case and ground of appeal are missing'
+		name: 'Statement of case and ground of appeal are missing',
+		hasText: false
 	},
 	{
 		id: 2032,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
 export const lpaQuestionnaireIncompleteReasons = [
 	{
 		id: 1,
-		name: 'Documents or information are missing'
+		name: 'Documents or information are missing',
+		hasText: true
 	},
 	{
 		id: 2,
-		name: 'Policies are missing'
+		name: 'Policies are missing',
+		hasText: true
 	},
 	{
 		id: 3,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
+	},
+	{
+		id: 4,
+		name: 'Test incomplete reason without text 1',
+		hasText: false
+	},
+	{
+		id: 5,
+		name: 'Test incomplete reason without text 2',
+		hasText: false
 	}
 ];
 

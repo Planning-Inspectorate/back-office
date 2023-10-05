@@ -1,21 +1,5 @@
 /**
  * @typedef {import('../appeal-details.types.js').SingleLPAQuestionnaireResponse} LpaQuestionnaire
- * @typedef {import('@pins/appeals.api').Schema.LPAQuestionnaireIncompleteReason} LPAQuestionnaireIncompleteReason
- */
-
-/**
- * @typedef {Object} DayMonthYear
- * @property {number} day
- * @property {number} month
- * @property {number} year
- */
-
-/**
- * @typedef {Object} LpaQuestionnaireReviewOutcome
- * @property {string} validationOutcome
- * @property {number[]} [incompleteReasons]
- * @property {string} [otherReasons] - free text field for "other"
- * @property {string} [appealDueDate]
  */
 
 /**
@@ -32,7 +16,7 @@ export function getLpaQuestionnaireFromId(apiClient, appealId, lpaQuestionnaireI
  * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {string} lpaQuestionnaireId
- * @param {LpaQuestionnaireReviewOutcome} reviewOutcome
+ * @param {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcomeRequest} reviewOutcome
  * @returns {Promise<LpaQuestionnaire>}
  */
 export function setReviewOutcomeForLpaQuestionnaire(
@@ -51,8 +35,8 @@ export function setReviewOutcomeForLpaQuestionnaire(
 /**
  *
  * @param {import('got').Got} apiClient
- * @returns {Promise<LPAQuestionnaireIncompleteReason[]>}
+ * @returns {Promise<import('../appeal-details.types.js').NotValidReasonOption[]>}
  */
-export async function getLPAQuestionnaireIncompleteReasons(apiClient) {
+export async function getLPAQuestionnaireIncompleteReasonOptions(apiClient) {
 	return apiClient.get(`appeals/lpa-questionnaire-incomplete-reasons`).json();
 }
