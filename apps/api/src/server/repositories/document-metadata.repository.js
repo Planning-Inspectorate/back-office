@@ -133,6 +133,17 @@ export const getAll = () => {
 };
 
 /**
+ * Get all published version of a document
+ *
+ * @param {string} documentGuid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
+ * */
+export const getPublished = (documentGuid) =>
+	databaseConnector.documentVersion.findMany({
+		where: { documentGuid, publishedStatus: 'published' }
+	});
+
+/**
  * Get all document metadata
  *
  * @param {string} guid

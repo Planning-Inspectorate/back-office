@@ -4,6 +4,7 @@ import * as documentRepository from '../../../repositories/document.repository.j
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
 import { getStorageLocation } from '../../../utils/document-storage.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
@@ -447,15 +448,51 @@ export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) =
 };
 
 /**
+ * @param {string[]} documentGuids
+ * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersion[]>}
+ * */
+export const getCurrentlyPublished = async (documentGuids) => {
+	const promises = documentGuids.map(documentVersionRepository.getPublished);
+	const results = await Promise.all(promises);
+	if (!results) {
+		throw new BackOfficeAppError('failed to fetch currently published documents', 500);
+	}
+
+	return results.flatMap((result) => result ?? []);
+};
+
+/**
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
  * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
  */
 export const publishNsipDocuments = async (documentVersionIds) => {
+	/** @type {string[]} */
+	const documentGuids = documentVersionIds.reduce((acc, version) => {
+		if (acc.includes(version.documentGuid)) {
+			return acc;
+		}
+
+		return [...acc, version.documentGuid];
+	}, /** @type {string[]} */ ([]));
+
+	const currentlyPublished = await getCurrentlyPublished(documentGuids);
+
 	const publishedDocuments = await documentVersionRepository.updateAll(documentVersionIds, {
 		publishedStatus: 'publishing',
 		publishedStatusPrev: 'ready_to_publish'
 	});
+
+	await documentVersionRepository.updateAll(
+		currentlyPublished.map((version) => ({
+			documentGuid: version.documentGuid,
+			version: version.version
+		})),
+		{
+			publishedStatus: 'unpublished',
+			publishedStatusPrev: 'published'
+		}
+	);
 
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
@@ -469,10 +506,7 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 		}
 	);
 
-	return documentVersionIds.map(({ documentGuid }) => ({
-		documentGuid,
-		publishedStatus: 'publishing'
-	}));
+	return publishedDocuments;
 };
 
 /**
