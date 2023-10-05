@@ -25,7 +25,7 @@ Max Age (in seconds): 5
 
 Be sure to save the new rule.
 
-6. The final step is to configure the application to use the emulator. That is achieved by adding the following to `./appeals/web/.env.local`:
+6. The final step is to configure the application to use the emulator. That is achieved by adding the following to `./appeals/web/.env`:
 
 ```
 AZURE_BLOB_DEFAULT_CONTAINER=document-service-uploads

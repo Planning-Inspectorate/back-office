@@ -24,13 +24,13 @@ Log into the azure portal and take a look at the App Configuration settings for 
 DATABASE_URL
 ```
 
-Then for the document storage API, create a .env.local file that mirrors the dev settings for:
+Then for the document storage API, create a .env file that mirrors the dev settings for:
 
 ```
 AZURE_BLOB_STORE_HOST
 ```
 
-Finally for the web app, create a .env.local file that mirrors dev settings for:
+Finally for the web app, create a .env file that mirrors dev settings for:
 
 ```
 APPEALS_CASE_OFFICER_GROUP_ID
@@ -53,7 +53,7 @@ openssl req -new -key client-key.pem -out client.csr
 openssl x509 -req -in client.csr -signkey client-key.pem -out client-cert.pem
 ```
 
-Then place them in the root of the 'web' folder (they'll be ignored by gitignore). Then, configure your .env.local file for the web app with the following settings:
+Then place them in the root of the 'web' folder (they'll be ignored by gitignore). Then, configure your .env file for the web app with the following settings:
 
 ```
 SSL_CERT_FILE=client-cert.pem
