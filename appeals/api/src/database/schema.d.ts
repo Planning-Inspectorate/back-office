@@ -4,7 +4,6 @@ import {
 	APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS
 } from '../server/endpoints/constants';
-import { ServiceCustomer } from '@prisma/client';
 
 export {
 	Address,
@@ -25,8 +24,7 @@ export {
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
 	SiteVisitType,
-	User,
-	ValidationOutcome
+	User
 } from '../../src/server/utils/db-client';
 
 export interface Appeal extends schema.Appeal {
@@ -58,11 +56,11 @@ export interface Appeal extends schema.Appeal {
 }
 
 export interface Agent extends schema.Agent {
-	customer?: ServiceCustomer;
+	customer?: schema.ServiceCustomer;
 }
 
 export interface Appellant extends schema.Appellant {
-	customer?: ServiceCustomer;
+	customer?: schema.ServiceCustomer;
 }
 
 export interface AppellantCase extends schema.AppellantCase {
