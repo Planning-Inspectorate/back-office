@@ -23,7 +23,7 @@ const formatAppeals = (appeal) => ({
 	appealStatus: appeal.appealStatus[0].status,
 	appealType: appeal.appealType?.type,
 	createdAt: appeal.createdAt,
-	localPlanningDepartment: appeal.lpa.lpaName
+	localPlanningDepartment: appeal.lpa.name
 });
 
 /**
@@ -83,7 +83,7 @@ const formatAppeal = (appeal) => {
 			},
 			isParentAppeal: appeal.linkedAppealId ? appeal.id === appeal.linkedAppealId : null,
 			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals, appeal.id),
-			localPlanningDepartment: appeal.lpa.lpaName,
+			localPlanningDepartment: appeal.lpa.name,
 			lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 			neighbouringSite: {
 				contacts:
