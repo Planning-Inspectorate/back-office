@@ -16,8 +16,8 @@ import config from '#config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
 /**
- * @typedef {import('@pins/applications.api').Schema.DocumentVersion} DocumentVersion
- * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  */
 
@@ -86,7 +86,7 @@ const getCaseStageMapping = async (folderId) => {
  *
  * @param {number} caseId
  * @param {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string, fromFrontOffice?: boolean}[]} documents
- * @returns {Promise<{successful: import('@pins/applications.api').Schema.Document[], failed: string[]}>}
+ * @returns {Promise<{successful: Document[], failed: string[]}>}
  */
 const attemptInsertDocuments = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
@@ -183,7 +183,6 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 /**
  * Upserts metadata for a set of documents to a database.
  *
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload - Array of documents to upload metadata for.
  * @param {{blobStoreUrl: string;caseType: string;documentName: string;GUID: string;}[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
  * @returns {Promise<void>}
@@ -227,61 +226,46 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
-
 	const caseForDocuments = await caseRepository.getById(Number(caseId), {});
-
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 
 	// Step 2: Check if the case object is found and has a reference
 	logger.info(`Checking if case has reference...`);
-
 	if (caseForDocuments == null || caseForDocuments.reference == null) {
 		throw new Error('Case not found or has no reference');
 	}
-
 	logger.info(`Case has reference`);
 
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
-
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
-
 	//throw Error(JSON.stringify(documentsToSendToDatabase));
-
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);
-
 	const { successful, failed } = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
 	if (successful.length === 0) {
 		logger.info(`Return early because all files failed to upload.`);
 		return { response: null, failedDocuments: failed };
 	}
-
 	logger.info(`Documents inserted: ${JSON.stringify(successful)}`);
 
 	// Step 5: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
-
 	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
 		successful,
 		caseForDocuments.reference
 	);
-
 	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
 
 	// Step 6: Send a request to the blob storage service to get the storage location for each document
-
 	logger.info(`Sending request to blob storage service...`);
-
 	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
-
 	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
 
 	// Step 7: Upsert document versions metadata to the database
 	logger.info(`Upserting document versions metadata to database...`);
-
 	await upsertDocumentVersionsMetadataToDatabase(
 		responseFromDocumentStorage.documents,
 		responseFromDocumentStorage.privateBlobContainer

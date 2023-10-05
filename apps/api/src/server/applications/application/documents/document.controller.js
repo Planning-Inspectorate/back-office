@@ -36,9 +36,9 @@ import {
 } from './document.validators.js';
 
 /**
- * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
- * @typedef {import('@pins/applications.api').Schema.DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  */
 
@@ -409,7 +409,7 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
 };
 
 /**
- * Creates or updates a document metadata record in the database.
+ * Creates or updates a document version metadata record in the database.
  *
  * @async
  * @function

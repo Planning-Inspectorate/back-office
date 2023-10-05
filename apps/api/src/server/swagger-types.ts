@@ -1,99 +1,3 @@
-export type DocumentsToSave = {
-	/** @example "document.pdf" */
-	documentName?: string;
-	/** @example 123 */
-	folderId?: number;
-	/** @example "application/pdf" */
-	documentType?: string;
-	/** @example 1024 */
-	documentSize?: number;
-	/** @example "test-user@email.com" */
-	username?: string;
-	/** @example false */
-	fromFrontOffice?: boolean;
-}[];
-
-export interface DocumentToSave {
-	/** @example "document.pdf" */
-	documentName?: string;
-	/** @example 123 */
-	folderId?: number;
-	/** @example "application/pdf" */
-	documentType?: string;
-	/** @example 1024 */
-	documentSize?: number;
-	/** @example "test-user@email.com" */
-	username?: string;
-}
-
-export interface DocumentsToUpdateRequestBody {
-	/** @example "not_checked" */
-	status?: string;
-	/** @example true */
-	redacted?: boolean;
-	documents?: {
-		/** @example "0084b156-006b-48b1-a47f-e7176414db29" */
-		guid?: string;
-	}[];
-}
-
-export interface DocumentsToPublishRequestBody {
-	documents?: {
-		/** @example "0084b156-006b-48b1-a47f-e7176414db29" */
-		guid?: string;
-	}[];
-	/** @example "test-user@email.com" */
-	username?: string;
-}
-
-export interface DocumentsAndBlobStorageURLs {
-	/** @example "blob-storage-host" */
-	blobStorageHost?: string;
-	/** @example "blob-storage-container" */
-	privateBlobContainer?: string;
-	documents?: {
-		/** @example "document.pdf" */
-		documentName?: string;
-		/** @example "docRef" */
-		documentReference?: string;
-		/** @example "/some/path/document.pdf" */
-		blobStoreUrl?: string;
-	}[];
-}
-
-export interface PartialDocumentsAndBlobStorageURLs {
-	/** @example "blob-storage-host" */
-	blobStorageHost?: string;
-	/** @example "blob-storage-container" */
-	privateBlobContainer?: string;
-	documents?: {
-		/** @example "document.pdf" */
-		documentName?: string;
-		/** @example "docRef" */
-		documentReference?: string;
-		/** @example "/some/path/document.pdf" */
-		blobStoreUrl?: string;
-	}[];
-	/** @example ["example.pdf"] */
-	failedDocuments?: string[];
-	/** @example ["example2.pdf"] */
-	duplicates?: string[];
-}
-
-export interface DocumentsUploadFailed {
-	/** @example ["example.pdf"] */
-	failedDocuments?: string[];
-	/** @example ["example2.pdf"] */
-	duplicates?: string[];
-}
-
-export type DocumentsPublished = {
-	/** @example "0084b156-006b-48b1-a47f-e7176414db29" */
-	guid?: string;
-	/** @example "published" */
-	publishedStatus?: string;
-}[];
-
 export interface UpdateApplication {
 	/** @example "" */
 	title?: string;
@@ -354,96 +258,6 @@ export interface ExaminationTimetableItemResponseBody {
 	submissions?: boolean;
 }
 
-export interface DocumentsPropertiesRequestBody {
-	/** @example 1 */
-	version?: number;
-	/** @example "2023-02-27T10:00:00Z" */
-	createdAt?: string;
-	/** @example "2023-02-27T12:00:00Z" */
-	lastModified?: string;
-	/** @example "PDF" */
-	documentType?: string;
-	/** @example "B123-000001" */
-	documentReference?: string;
-	/** @example false */
-	published?: boolean;
-	/** @example "Salesforce" */
-	sourceSystem?: string;
-	/** @example "Email" */
-	origin?: string;
-	/** @example "John Doe" */
-	representative?: string;
-	/** @example "Marketing Brochure" */
-	description?: string;
-	/** @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv" */
-	documentGuid?: string;
-	/** @example "2023-03-01T10:00:00Z" */
-	datePublished?: string;
-	/** @example "Jane Doe" */
-	owner?: string;
-	/** @example "Marketing Team" */
-	author?: string;
-	/** @example "Confidential" */
-	securityClassification?: string;
-	/** @example "application/pdf" */
-	mime?: string;
-	/** @example "123456789" */
-	horizonDataID?: string;
-	/** @example "f60c381d96dcedec4b4fb4b9e1f6e14e" */
-	fileMD5?: string;
-	/** @example "/documents/marketing/ab12cd34-5678-90ef-ghij-klmnopqrstuv.pdf" */
-	path?: string;
-	/** @example "Clean" */
-	virusCheckStatus?: string;
-	/** @example 1024 */
-	size?: number;
-	/** @example 3 */
-	stage?: number;
-	/** @example "Marketing" */
-	filter1?: string;
-	/** @example "Brochure" */
-	filter2?: string;
-	/** @example true */
-	fromFrontOffice?: boolean;
-}
-
-export interface DocumentsMetadataResponseBody {
-	/** @example 1 */
-	version?: number;
-	/** @example "a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99" */
-	documentId?: string;
-	/** @example "" */
-	datePublished?: string;
-	/** @example "BC0210002" */
-	caseRef?: string;
-	/** @example "5" */
-	documentName?: string;
-	/** @example "document-service-uploads" */
-	privateBlobContainer?: string;
-	/** @example "/application/BC010001/1111-2222-3333/my doc.pdf" */
-	privateBlobPath?: string;
-	/** @example "joe blogs" */
-	from?: string;
-	/** @example 1677585578 */
-	dateCreated?: number;
-	/** @example 0 */
-	size?: number;
-	/** @example "" */
-	fileType?: string;
-	/** @example false */
-	redacted?: boolean;
-	/** @example "awaiting_upload" */
-	status?: string;
-	/** @example "" */
-	description?: string;
-	/** @example "" */
-	agent?: string;
-	/** @example "" */
-	documentType?: string;
-	/** @example "" */
-	webFilter?: string;
-}
-
 export type ApplicationsForCaseTeam = {
 	/** @example 1 */
 	id?: number;
@@ -577,51 +391,6 @@ export interface DocumentsInCriteriaRequestBody {
 	pageNumber?: number;
 	/** @example 1 */
 	pageSize?: number;
-}
-
-export interface DocumentsMetadataRequestBody {
-	/** @example "123" */
-	documentId?: string;
-	/** @example 1 */
-	version?: number;
-	/** @example "ABC" */
-	sourceSystem?: string;
-	/** @example "456" */
-	documentGuid?: string;
-	/** @example "document.pdf" */
-	fileName?: string;
-	/** @example "2022-12-21T12:42:40.885Z" */
-	datePublished?: string;
-	/** @example "/documents/123.pdf" */
-	privateBlobPath?: string;
-	/** @example "my-blob-storage" */
-	privateBlobContainer?: string;
-	/** @example "John Smith" */
-	author?: string;
-	/** @example "2022-12-21T12:42:40.885Z" */
-	dateCreated?: string;
-	/** @example "published" */
-	publishedStatus?: string;
-	/** @example "not redacted" */
-	redactedStatus?: string;
-	/** @example 1024 */
-	size?: number;
-	/** @example "application/pdf" */
-	mime?: string;
-	/** @example "This is a sample document." */
-	description?: string;
-	/** @example "Jane Doe" */
-	representative?: string;
-	/** @example "some filter value" */
-	filter1?: string;
-	/** @example "some filter value" */
-	filter2?: string;
-	/** @example "contract" */
-	documentType?: string;
-	/** @example "ABC-123" */
-	caseRef?: string;
-	/** @example "EXM-456" */
-	examinationRefNo?: string;
 }
 
 export interface DocumentDetails {
@@ -1869,6 +1638,536 @@ export interface ApplicationProjectUpdates {
 	/** @min 0 */
 	itemCount?: number;
 	items?: ApplicationProjectUpdate[];
+}
+
+export interface DocumentActivityLog {
+	/**
+	 * Id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Username
+	 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+	 */
+	documentGuid?: string;
+	/**
+	 * Document version
+	 * @example 2
+	 */
+	version?: number;
+	/**
+	 * Username
+	 * @example "test-user@email.com"
+	 */
+	user?: string;
+	/** @example "uploaded" */
+	status?: string;
+	/**
+	 * Date created
+	 * @example "2023-10-04T12:45:19.785Z"
+	 */
+	createdAt?: string;
+}
+
+export interface DocumentToSaveRequestBody {
+	/**
+	 * Document file name
+	 * @example "document.pdf"
+	 */
+	documentName?: string;
+	/**
+	 * Folder Id
+	 * @example 123
+	 */
+	folderId?: number;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	documentType?: string;
+	/**
+	 * Document size in bytes
+	 * @example 1024
+	 */
+	documentSize?: number;
+	/**
+	 * Username
+	 * @example "test-user@email.com"
+	 */
+	username?: string;
+	/**
+	 * Sent from Front Office?
+	 * @example false
+	 */
+	fromFrontOffice?: boolean;
+}
+
+export type DocumentsToSaveManyRequestBody = DocumentToSaveRequestBody[];
+
+export interface DocumentsToUpdateRequestBody {
+	/**
+	 * Published status to set. Optional
+	 * @example "not_checked"
+	 */
+	status?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * Set redaction status to redacted. Optional
+	 * @example true
+	 */
+	redacted?: boolean;
+	documents?: {
+		/**
+		 * Document guid
+		 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+		 */
+		guid?: string;
+	}[];
+}
+
+export interface DocumentsToPublishRequestBody {
+	documents?: {
+		/**
+		 * Document guid
+		 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+		 */
+		guid?: string;
+	}[];
+	/**
+	 * Username
+	 * @example "test-user@email.com"
+	 */
+	username?: string;
+}
+
+export interface DocumentProperties {
+	/**
+	 * Document GUID
+	 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+	 */
+	documentGuid?: string;
+	/** @example null */
+	documentId?: number;
+	/**
+	 * Document Reference
+	 * @example "BC011001-000001"
+	 */
+	documentRef?: string;
+	/**
+	 * Folder Id
+	 * @example 2
+	 */
+	folderId?: number;
+	/**
+	 * Case Reference
+	 * @example "BC011001"
+	 */
+	caseRef?: string;
+	/**
+	 * Source system of the document
+	 * @example "back-office"
+	 */
+	sourceSystem?: string;
+	/**
+	 * Back Office blob storage container
+	 * @example "Blob-Storage-Container"
+	 */
+	privateBlobContainer?: string;
+	/**
+	 * Back Office blob storage path
+	 * @example "https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif"
+	 */
+	privateBlobPath?: string;
+	/** @example null */
+	author?: string;
+	/**
+	 * File Title
+	 * @example "Small Doc 1"
+	 */
+	fileName?: string;
+	/**
+	 * The original filename
+	 * @example "Small1.pdf"
+	 */
+	originalFilename?: string;
+	/**
+	 * Date Created Unix timestamp
+	 * @example 1696418643
+	 */
+	dateCreated?: number;
+	/**
+	 * File size in bytes
+	 * @example 1024
+	 */
+	size?: number;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	mime?: string;
+	/**
+	 * Published status
+	 * @example "ready_to_publish"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * Redacted status
+	 * @example null
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * Date published Unix timestamp
+	 * @example 1696418643
+	 */
+	datePublished?: number;
+	/** @example null */
+	description?: string;
+	/**
+	 * Document version
+	 * @example 2
+	 */
+	version?: number;
+	/** @example null */
+	representative?: string;
+	/** @example 3 */
+	stage?: number;
+	/** @example null */
+	documentType?: string;
+	/** @example "some filter" */
+	filter1?: string;
+	/** @example "some filter" */
+	filter2?: string;
+	/**
+	 * Examination Timetable reference number
+	 * @example null
+	 */
+	examinationRefNo?: string;
+	/**
+	 * Document from front office
+	 * @example false
+	 */
+	fromFrontOffice?: boolean;
+}
+
+export interface DocumentPropertiesWithAuditHistory {
+	/**
+	 * Username
+	 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+	 */
+	documentGuid?: string;
+	/**
+	 * Document version
+	 * @example 2
+	 */
+	version?: number;
+	/**
+	 * Last modified Unix timestamp
+	 * @example 1696418643
+	 */
+	lastModified?: number;
+	/** @example null */
+	documentType?: string;
+	/** @example false */
+	published?: boolean;
+	/**
+	 * Source system of the document
+	 * @example "back-office"
+	 */
+	sourceSystem?: string;
+	/** @example null */
+	origin?: string;
+	/**
+	 * The original filename
+	 * @example "Small1.pdf"
+	 */
+	originalFilename?: string;
+	/**
+	 * File Title
+	 * @example "Small Doc 1"
+	 */
+	fileName?: string;
+	/** @example null */
+	representative?: string;
+	/** @example null */
+	description?: string;
+	/** @example null */
+	owner?: string;
+	/** @example null */
+	author?: string;
+	/** @example null */
+	securityClassification?: string;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	mime?: string;
+	/** @example null */
+	horizonDataID?: string;
+	/** @example null */
+	fileMD5?: string;
+	/** @example null */
+	virusCheckStatus?: string;
+	/**
+	 * File size in bytes
+	 * @example 1024
+	 */
+	size?: number;
+	/** @example 3 */
+	stage?: number;
+	/** @example "some filter" */
+	filter1?: string;
+	/**
+	 * Back Office blob storage container
+	 * @example "Blob-Storage-Container"
+	 */
+	privateBlobContainer?: string;
+	/**
+	 * Back Office blob storage path
+	 * @example "https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif"
+	 */
+	privateBlobPath?: string;
+	/**
+	 * Published blob storage container
+	 * @example null
+	 */
+	publishedBlobContainer?: string;
+	/**
+	 * Published blob storage path
+	 * @example null
+	 */
+	publishedBlobPath?: string;
+	/**
+	 * Date Created Unix timestamp
+	 * @example 1696418643
+	 */
+	dateCreated?: number;
+	/**
+	 * Date published Unix timestamp
+	 * @example 1696418643
+	 */
+	datePublished?: number;
+	/**
+	 * Is the document marked as deleted
+	 * @example false
+	 */
+	isDeleted?: boolean;
+	/**
+	 * Examination Timetable reference number
+	 * @example null
+	 */
+	examinationRefNo?: string;
+	/** @example "some filter" */
+	filter2?: string;
+	/**
+	 * Published status
+	 * @example "ready_to_publish"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * The previous status
+	 * @example "not_checked"
+	 */
+	publishedStatusPrev?:
+		| 'not_checked'
+		| 'checked'
+		| 'ready_to_publish'
+		| 'published'
+		| 'not_published';
+	DocumentActivityLog?: DocumentActivityLog[];
+	history?: {
+		uploaded?: {
+			/**
+			 * UTC timestamp
+			 * @example 1696418643
+			 */
+			date?: number;
+			/**
+			 * User
+			 * @example "test-user@email.com"
+			 */
+			name?: string;
+		};
+	};
+}
+
+export type DocumentPropertiesWithAllVersionWithAuditHistory = DocumentPropertiesWithAuditHistory[];
+
+export interface DocumentAndBlobStorageDetail {
+	/**
+	 * URL to the File
+	 * @example "/some/path/document.pdf"
+	 */
+	blobStoreUrl?: string;
+	/**
+	 * URL to the File
+	 * @example "application"
+	 */
+	caseType?: 'appeal' | 'application';
+	/**
+	 * Case Reference
+	 * @example "1"
+	 */
+	caseReference?: string;
+	/**
+	 * Document name
+	 * @example "document.pdf"
+	 */
+	documentName?: string;
+	/**
+	 * Document guid
+	 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+	 */
+	GUID?: string;
+}
+
+export interface DocumentAndBlobInfoResponse {
+	/**
+	 * Blob Storage host name
+	 * @example "blob-storage-host"
+	 */
+	blobStorageHost?: string;
+	/**
+	 * Private Blob Storage container name
+	 * @example "blob-storage-container"
+	 */
+	privateBlobContainer?: string;
+	document?: DocumentAndBlobStorageDetail;
+}
+
+export interface DocumentAndBlobInfoManyResponse {
+	/**
+	 * Blob Storage host name
+	 * @example "blob-storage-host"
+	 */
+	blobStorageHost?: string;
+	/**
+	 * Private Blob Storage container name
+	 * @example "blob-storage-container"
+	 */
+	privateBlobContainer?: string;
+	documents?: DocumentAndBlobStorageDetail[];
+}
+
+export interface DocumentsUploadPartialFailed {
+	/**
+	 * Blob Storage host name
+	 * @example "blob-storage-host"
+	 */
+	blobStorageHost?: string;
+	/**
+	 * Private Blob Storage container name
+	 * @example "blob-storage-container"
+	 */
+	privateBlobContainer?: string;
+	documents?: DocumentAndBlobStorageDetail[];
+	failedDocuments?: string[];
+	duplicates?: string[];
+}
+
+export interface DocumentsUploadFailed {
+	failedDocuments?: string[];
+	duplicates?: string[];
+}
+
+export type DocumentsPublished = {
+	/**
+	 * Document guid
+	 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+	 */
+	guid?: string;
+	/**
+	 * Published status to set. Optional
+	 * @example "not_checked"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+}[];
+
+export interface DocumentVersionUpsertRequestBody {
+	/**
+	 * Document version
+	 * @example 2
+	 */
+	version?: number;
+	/**
+	 * Source system of the document
+	 * @example "back-office"
+	 */
+	sourceSystem?: string;
+	/**
+	 * Username
+	 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+	 */
+	documentGuid?: string;
+	/**
+	 * File Title
+	 * @example "Small Doc 1"
+	 */
+	fileName?: string;
+	/**
+	 * Date published UTC
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	datePublished?: string;
+	/**
+	 * Back Office blob storage container
+	 * @example "Blob-Storage-Container"
+	 */
+	privateBlobContainer?: string;
+	/**
+	 * Back Office blob storage path
+	 * @example "/documents/123.pdf"
+	 */
+	privateBlobPath?: string;
+	/** @example "John Keats" */
+	author?: string;
+	/**
+	 * Date created UTC
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	dateCreated?: string;
+	/**
+	 * Published status
+	 * @example "ready_to_publish"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * Redacted status
+	 * @example null
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * File size in bytes
+	 * @example 1024
+	 */
+	size?: number;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	mime?: string;
+	/**
+	 * This is a sample document
+	 * @example null
+	 */
+	description?: string;
+	/** @example "Jane Doe" */
+	representative?: string;
+	/** @example "some filter value" */
+	filter1?: string;
+	/** @example "some filter value" */
+	filter2?: string;
+	/** @example "contract" */
+	documentType?: string;
+	/**
+	 * Case Reference
+	 * @example "BC011001"
+	 */
+	caseRef?: string;
+	/**
+	 * Examination Timetable reference number
+	 * @example "EXM-456"
+	 */
+	examinationRefNo?: string;
 }
 
 export interface DocumentsToUnpublishRequestBody {

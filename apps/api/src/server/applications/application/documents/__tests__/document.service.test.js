@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import config from '#config/config.js';
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 import { obtainURLForDocumentVersion } from '../document.service.js';
 

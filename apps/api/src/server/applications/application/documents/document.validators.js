@@ -16,8 +16,8 @@ import logger from '#utils/logger.js';
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
- * @typedef {import('@pins/applications.api').Schema.DocumentVersion} DocumentVersion
- * @typedef {import('@pins/applications.api').Schema.Document} Document
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
  */
 
 export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
