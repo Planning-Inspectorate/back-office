@@ -359,10 +359,7 @@ interface SingleSiteVisitDetailsResponse {
 }
 
 interface SingleAppellantResponse {
-	agentName: string | null;
 	appellantId: number;
-	company: string | null;
-	email: string;
 	name: string;
 }
 
