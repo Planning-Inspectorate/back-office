@@ -466,7 +466,7 @@ export const getCurrentlyPublished = async (documentGuids) => {
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
  * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
  */
-export const publishNsipDocuments = async (documentVersionIds) => {
+export const publishDocumentVersions = async (documentVersionIds) => {
 	/** @type {string[]} */
 	const documentGuids = documentVersionIds.reduce((acc, version) => {
 		if (acc.includes(version.documentGuid)) {
