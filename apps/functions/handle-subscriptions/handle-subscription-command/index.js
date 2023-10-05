@@ -1,14 +1,11 @@
 import { EventType } from '@pins/event-client';
 import api from './back-office-api-client.js';
-
-/**
- * @typedef {import('@pins/applications.api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} RegisterNSIPSubscription
- */
+import { redactEmailForLogs } from './logging-utils.js';
 
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {RegisterNSIPSubscription} msg
+ * @param {import('./logging-utils.js').RegisterNSIPSubscription} msg
  */
 export default async function (context, msg) {
 	const msgWithoutEmail = redactEmailForLogs(msg);
@@ -77,22 +74,4 @@ export default async function (context, msg) {
 			context.log.error('error deleting subscription', e);
 		}
 	}
-}
-
-/**
- *
- * @param {RegisterNSIPSubscription} msg
- * @returns {RegisterNSIPSubscription}
- */
-export function redactEmailForLogs(msg) {
-	if (msg?.nsipSubscription?.emailAddress) {
-		return {
-			nsipSubscription: {
-				...msg.nsipSubscription,
-				emailAddress: '<redacted>'
-			},
-			subscriptionTypes: msg.subscriptionTypes
-		};
-	}
-	return msg;
 }
