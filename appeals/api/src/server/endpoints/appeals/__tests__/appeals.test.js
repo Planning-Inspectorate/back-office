@@ -66,7 +66,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.lpaName
+							localPlanningDepartment: householdAppeal.lpa.name
 						},
 						{
 							appealId: fullPlanningAppeal.id,
@@ -81,7 +81,7 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.lpa.lpaName
+							localPlanningDepartment: fullPlanningAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -123,7 +123,7 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.lpa.lpaName
+							localPlanningDepartment: fullPlanningAppeal.lpa.name
 						}
 					],
 					page: 2,
@@ -184,7 +184,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.lpaName
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -245,7 +245,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.lpaName
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -306,7 +306,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.lpaName
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -508,7 +508,7 @@ describe('appeals routes', () => {
 							appealReference: fullPlanningAppeal.reference
 						}
 					],
-					localPlanningDepartment: householdAppeal.lpa.lpaName,
+					localPlanningDepartment: householdAppeal.lpa.name,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
 						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
@@ -613,7 +613,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference
 						}
 					],
-					localPlanningDepartment: fullPlanningAppeal.lpa.lpaName,
+					localPlanningDepartment: fullPlanningAppeal.lpa.name,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
 						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(

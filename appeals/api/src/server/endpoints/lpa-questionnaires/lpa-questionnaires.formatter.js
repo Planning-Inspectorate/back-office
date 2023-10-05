@@ -25,7 +25,7 @@ const formatListedBuildingDetails = (affectsListedBuilding, values) =>
  * @returns {SingleLPAQuestionnaireResponse | {}}
  */
 const formatLpaQuestionnaire = (appeal) => {
-	const { address, id, localPlanningDepartment, lpaQuestionnaire, reference } = appeal;
+	const { address, id, lpa, lpaQuestionnaire, reference } = appeal;
 
 	return lpaQuestionnaire
 		? {
@@ -101,7 +101,7 @@ const formatLpaQuestionnaire = (appeal) => {
 					false,
 					lpaQuestionnaire.listedBuildingDetails
 				),
-				localPlanningDepartment,
+				localPlanningDepartment: lpa.name,
 				lpaNotificationMethods: lpaQuestionnaire.lpaNotificationMethods?.map(
 					({ lpaNotificationMethod: { name } }) => ({ name })
 				),
