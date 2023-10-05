@@ -1,8 +1,8 @@
 ### Enabling Active Directory locally
 
-Active Directory is the repository for users and groups with access to the application. By default, the `.env.local` in the web project is configured to emulate the authentication process, and never access the real thing.
+Active Directory is the repository for users and groups with access to the application. By default, the `.env` in the web project is configured to emulate the authentication process, and never access the real thing.
 
-To work with AD locally (it will be required for appeals case assignment and audit), the web site needs to run over HTTPS, therefore the `.env.local` configuration needs to change in order to:
+To work with AD locally (it will be required for appeals case assignment and audit), the web site needs to run over HTTPS, therefore the `.env` configuration needs to change in order to:
 
 1. Use a self-signed certificate [local self-signed certificate](./self-signed-ssl.md)
 2. Set `AUTH_DISABLED=false`
