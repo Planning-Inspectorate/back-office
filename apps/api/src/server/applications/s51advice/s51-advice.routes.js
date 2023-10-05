@@ -139,19 +139,19 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsToSave' }
+            schema: { $ref: '#/definitions/DocumentsToSaveManyRequestBody' }
         }
         #swagger.responses[200] = {
             description: 'S51 Documents that have been saved',
-            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+            schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
         }
 		#swagger.responses[206] = {
 			description: 'Some documents failed to save while others succeeded',
-			schema: { $ref: '#/definitions/partialDocumentsAndBlobStorageURLs' }
+			schema: { $ref: '#/definitions/DocumentsUploadPartialFailed' }
 		}
 		#swagger.responses[409] = {
 			description: 'All documents failed to upload',
-			schema: { $ref: '#/definitions/documentsUploadFailed' }
+			schema: { $ref: '#/definitions/DocumentsUploadFailed' }
 		}
     */
 	validateApplicationId,
@@ -163,7 +163,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/s51-advice/{adviceId}/documents'
-        #swagger.description = 'Get S51 advice documents'
+        #swagger.description = 'Get S51 advice documents for an S51 Advice record'
          #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application case ID',
@@ -178,7 +178,7 @@ router.get(
         }
         #swagger.responses[200] = {
             description: 'S51 Documents',
-            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+            schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
         }
     */
 	validateApplicationId,
