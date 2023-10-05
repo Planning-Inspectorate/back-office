@@ -458,6 +458,7 @@ export const publishDocuments = async ({ body }, response) => {
 
 	if (invalid.length > 0) {
 		response.status(500).send({ errors: [{ guid: 'bad_document_to_publish_guid' }] });
+		return;
 	}
 
 	const activityLogs = publishableDocumentVersionIds.map((document) =>
