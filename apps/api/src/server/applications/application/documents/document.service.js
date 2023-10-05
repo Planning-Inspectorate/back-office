@@ -464,7 +464,7 @@ export const getCurrentlyPublished = async (documentGuids) => {
 /**
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
+ * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersionWithDocument[]>}
  */
 export const publishDocumentVersions = async (documentVersionIds) => {
 	/** @type {string[]} */

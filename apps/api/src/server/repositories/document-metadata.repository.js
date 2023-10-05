@@ -138,10 +138,11 @@ export const getAll = () => {
  * @param {string} documentGuid
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
  * */
-export const getPublished = (documentGuid) =>
-	databaseConnector.documentVersion.findMany({
+export const getPublished = (documentGuid) => {
+	return databaseConnector.documentVersion.findMany({
 		where: { documentGuid, publishedStatus: 'published' }
 	});
+};
 
 /**
  * Get all document metadata
