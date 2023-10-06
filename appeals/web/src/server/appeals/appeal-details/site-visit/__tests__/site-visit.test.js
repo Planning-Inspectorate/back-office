@@ -2,11 +2,7 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '#testing/index.js';
-import {
-	siteVisitData,
-	appealData,
-	appellantCaseData
-} from '#testing/app/fixtures/referencedata.js';
+import { siteVisitData, appealData } from '#testing/app/fixtures/referencedata.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -34,7 +30,6 @@ describe('site-visit', () => {
 	describe('POST /site-visit/schedule-visit', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
-			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
 			nock('http://test/').get('/appeals/1/site-visits/0').reply(200, siteVisitData);
 			nock('http://test/').post('/appeals/1/site-visits').reply(200, siteVisitData);
 			nock('http://test/').post('/appeals/1/site-visits/0').reply(200, siteVisitData);
@@ -292,7 +287,6 @@ describe('site-visit', () => {
 	describe('GET /site-visit/visit-scheduled', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
-			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
 			nock('http://test/').get('/appeals/1/site-visits/0').reply(200, siteVisitData);
 		});
 

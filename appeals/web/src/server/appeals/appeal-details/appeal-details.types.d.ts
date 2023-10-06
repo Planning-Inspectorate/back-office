@@ -59,8 +59,11 @@ export type AppealTimetable = {
 };
 
 export type AppealSiteVisit = {
+	siteVisitId: number | null;
 	visitType: string | null;
 	visitDate: string | null;
+	visitStartTime?: string | null;
+	visitEndTime?: string | null;
 };
 
 export type DocumentStatus = 'received' | 'not_received' | 'incomplete' | 'invalid' | 'valid';
