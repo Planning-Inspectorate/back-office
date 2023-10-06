@@ -13,17 +13,23 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -194,17 +200,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -312,17 +324,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -432,17 +450,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -552,17 +576,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -672,17 +702,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -792,17 +828,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -912,17 +954,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1030,17 +1078,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1148,17 +1202,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1266,17 +1326,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1384,17 +1450,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1502,17 +1574,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
@@ -1636,17 +1714,23 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
             </summary>
             <div class="govuk-details__text">
                 <dl class="govuk-summary-list govuk-summary-list--no-border">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
-                        <dd class="govuk-summary-list__value">Dogs on site.</dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>No answer provided</span>
+                            </dd>
                     </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site details 1</dt>
-                        <dd class="govuk-summary-list__value">Eva Sharma
-                            <br>21 The Pavement, Wandsworth, SW4 0HY
-                            <br>
-                        </dd>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <dd                         class="govuk-summary-list__value"><span>Yes</span>
+                            <br><span>Dogs on site</span>
+                            </dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                        <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                        <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
                     </div>
                 </dl>
             </div>
