@@ -168,7 +168,7 @@ WHERE  p.post_type = 'ipc_project_update'
        AND pr.casereference = ?
 GROUP  BY id
 UNION
-SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 10) AS
+SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 10) AS UNSIGNED) AS
        id,
        casereference                                                        AS caseReference,
        dateofdcosubmission                                                  AS updateDate,
@@ -184,7 +184,7 @@ WHERE  casereference = ?
        AND dateofdcosubmission IS NOT NULL
        AND Now() > dateofdcosubmission
 UNION
-SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 11) AS id,
+SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 11) AS UNSIGNED) AS id,
        casereference                                                        AS caseReference,
        dateofdcoacceptance_nonacceptance                                    AS updateDate,
        'application accepted'                                               AS updateName,
@@ -199,7 +199,7 @@ WHERE  casereference = ?
        AND dateofdcoacceptance_nonacceptance IS NOT NULL
        AND Now() > dateofdcoacceptance_nonacceptance
 UNION
-SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 12) AS id,
+SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 12) AS UNSIGNED) AS id,
        casereference                                                        AS caseReference,
        dateofrepresentationperiodopen                                       AS updateDate,
        'registrations open'                                                 AS updateName,
@@ -214,7 +214,7 @@ WHERE  casereference = ?
        AND dateofrepresentationperiodopen IS NOT NULL
        AND Now() > dateofrepresentationperiodopen
 UNION
-SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 13) AS id,
+SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 13) AS UNSIGNED) AS id,
        casereference                                                        AS caseReference,
        dateofrelevantrepresentationclose                                    AS updateDate,
        'registrations closed'                                               AS updateName,
