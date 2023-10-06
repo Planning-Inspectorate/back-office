@@ -1670,32 +1670,44 @@ export interface DocumentActivityLog {
 	createdAt?: string;
 }
 
-export interface DocumentToSaveRequestBody {
+export interface DocumentToSaveExtended {
 	/**
 	 * Document file name
 	 * @example "document.pdf"
 	 */
-	documentName?: string;
-	/**
-	 * Folder Id
-	 * @example 123
-	 */
-	folderId?: number;
-	/**
-	 * Document mime type
-	 * @example "application/pdf"
-	 */
-	documentType?: string;
+	documentName: string;
 	/**
 	 * Document size in bytes
 	 * @example 1024
 	 */
-	documentSize?: number;
+	documentSize: number;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	documentType: string;
+	/**
+	 * Case Id
+	 * @example "1"
+	 */
+	caseId: string;
+	/**
+	 * Folder Id
+	 * @example 123
+	 */
+	folderId: number;
+	/** @example "file_row_1585663020000_7945" */
+	fileRowId: string;
 	/**
 	 * Username
-	 * @example "test-user@email.com"
+	 * @example "John Keats"
 	 */
-	username?: string;
+	username: string;
+	/**
+	 * Document unique reference
+	 * @example "BC011001-123456"
+	 */
+	documentReference?: string;
 	/**
 	 * Sent from Front Office?
 	 * @example false
@@ -1703,7 +1715,42 @@ export interface DocumentToSaveRequestBody {
 	fromFrontOffice?: boolean;
 }
 
-export type DocumentsToSaveManyRequestBody = DocumentToSaveRequestBody[];
+export interface DocumentToSave {
+	/**
+	 * Document file name
+	 * @example "document.pdf"
+	 */
+	documentName: string;
+	/**
+	 * Document size in bytes
+	 * @example 1024
+	 */
+	documentSize: number;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	documentType: string;
+	/**
+	 * Case Id
+	 * @example "1"
+	 */
+	caseId: string;
+	/**
+	 * Folder Id
+	 * @example 123
+	 */
+	folderId: number;
+	/** @example "file_row_1585663020000_7945" */
+	fileRowId: string;
+	/**
+	 * Username
+	 * @example "John Keats"
+	 */
+	username: string;
+}
+
+export type DocumentsToSaveManyRequestBody = DocumentToSave[];
 
 export interface DocumentsToUpdateRequestBody {
 	/**
@@ -1991,6 +2038,36 @@ export interface DocumentPropertiesWithAuditHistory {
 }
 
 export type DocumentPropertiesWithAllVersionWithAuditHistory = DocumentPropertiesWithAuditHistory[];
+
+export interface DocumentBlobStoragePayload {
+	/**
+	 * URL to the File
+	 * @example "application"
+	 */
+	caseType: 'appeal' | 'application';
+	/**
+	 * Case Reference
+	 * @example "1"
+	 */
+	caseReference: string;
+	/**
+	 * Document name
+	 * @example "document.pdf"
+	 */
+	documentName: string;
+	/** @example "" */
+	documentReference?: string | null;
+	/**
+	 * Document guid
+	 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+	 */
+	GUID: string;
+	/**
+	 * Document version
+	 * @example 1
+	 */
+	version: number;
+}
 
 export interface DocumentAndBlobStorageDetail {
 	/**

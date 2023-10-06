@@ -23,7 +23,7 @@ import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-deta
  * */
 
 /**
- * @param {import('apps/api/src/database/schema.js').S51Advice} s51Advice
+ * @param {import('@prisma/client').S51Advice} s51Advice
  * @returns {NsipS51AdvicePayload}
  * */
 export const buildNsipS51AdvicePayload = (s51Advice) => ({

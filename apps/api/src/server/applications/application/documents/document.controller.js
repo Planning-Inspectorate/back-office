@@ -40,15 +40,19 @@ import {
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ * @typedef {import('../../../swagger-types.ts').DocumentToSave} DocumentToSave
+ * @typedef {import('../../../swagger-types.ts').DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('../../../swagger-types.ts').DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
  */
 
 /**
- * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * Upload an array of documents to a folder on a case
+ *
+ * @type {import('express').RequestHandler<any, any, { DocumentsToSaveManyRequestBody } | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
-
 	const lastDocumentsInCase = await documentRepository.getByCaseId({
 		caseId: /** @type {number} */ (params.id),
 		skipValue: 0,
@@ -71,10 +75,11 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
-	const filteredToUpload = /** @type {DocumentVersionWithDocument[]} */ (documentsToUpload).filter(
+	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
 		(doc) => remainder.includes(doc.documentName)
 	);
 
+	// loop thru the docs to add full document references eg BC0110001-000001, BC0110001-000002
 	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
@@ -109,12 +114,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
+ * Upload a new document version
  *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
 	const documentToUpload = body;
-
 	// Obtain URL of document from blob storage
 	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
