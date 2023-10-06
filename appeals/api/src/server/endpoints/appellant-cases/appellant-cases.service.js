@@ -11,8 +11,8 @@ import {
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
 	ERROR_NOT_FOUND
-} from '../constants.js';
-import config from '../../config/config.js';
+} from '#endpoints/constants.js';
+import config from '#config/config.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import transitionState from '../../state/transition-state.js';
 import appealRepository from '#repositories/appeal.repository.js';
