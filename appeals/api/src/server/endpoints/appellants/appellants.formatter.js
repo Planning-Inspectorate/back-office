@@ -6,10 +6,7 @@
  * @returns {SingleAppellantResponse}
  */
 const formatAppellant = (appellant) => ({
-	agentName: appellant.agentName,
 	appellantId: appellant.id,
-	company: appellant.company,
-	email: appellant.email,
 	name: appellant.name
 });
 

@@ -125,6 +125,7 @@ export const appealData = {
 		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
 	},
 	siteVisit: {
+		siteVisitId: 0,
 		visitDate: '2023-09-18T13:18:01.673Z',
 		visitType: 'Access required'
 	},
@@ -219,9 +220,6 @@ export const appellantCaseData = {
 	visibility: {
 		details: null,
 		isVisible: true
-	},
-	siteVisit: {
-		siteVisitId: 0
 	}
 };
 

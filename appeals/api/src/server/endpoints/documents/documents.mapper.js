@@ -1,4 +1,4 @@
-import config from '#config/config.js';
+import { CONFIG_APPEAL_FOLDER_PATHS } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals/index.js').MappedDocument} MappedDocument */
@@ -82,7 +82,8 @@ export const mapCaseReferenceForStorageUrl = (caseReference) => {
  * @returns {Folder[]}
  */
 export const mapDefaultCaseFolders = (caseId) => {
-	return config.appealFolderPaths.map((/** @type {string} */ path) => {
+	// @ts-ignore
+	return CONFIG_APPEAL_FOLDER_PATHS.map((/** @type {string} */ path) => {
 		return {
 			caseId,
 			path

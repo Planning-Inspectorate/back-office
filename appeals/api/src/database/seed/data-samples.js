@@ -20,82 +20,91 @@ export const personList = [
 		firstName: 'Lee',
 		lastName: 'Thornton',
 		company: 'Lee Thornton Ltd',
-		email: 'test@example.com',
+		email: 'test1@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Haley',
 		lastName: 'Eland',
 		company: null,
-		email: 'test@example.com',
+		email: 'test2@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Roger',
 		lastName: 'Simmons',
 		company: 'Roger Simmons Ltd',
-		email: 'test@example.com',
+		email: 'test3@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Sophie',
 		lastName: 'Skinner',
 		company: null,
-		email: 'test@example.com',
+		email: 'test4@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Ryan',
 		lastName: 'Marshall',
 		company: 'Ryan Marshall Ltd',
-		email: 'test@example.com',
+		email: 'test5@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Fiona',
 		lastName: 'Burgess',
 		company: null,
-		email: 'test@example.com',
+		email: 'test6@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Kevin',
 		lastName: 'Fowler',
 		company: 'Kevin Fowler Ltd',
-		email: 'test@example.com',
+		email: 'test7@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Bob',
 		lastName: 'Ross',
 		company: null,
-		email: 'test@example.com',
+		email: 'test8@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Eva',
 		lastName: 'Sharma',
 		company: 'Eva Sharma Ltd',
-		email: 'test@example.com',
+		email: 'test9@example.com',
 		telephone: '01234567891'
 	},
 	{
 		firstName: 'Elaine',
 		lastName: 'Madsen',
 		company: null,
-		email: 'test@example.com',
+		email: 'test10@example.com',
 		telephone: '01234567891'
 	}
 ];
 
 /**
  * An array of appellants, each containing a name and email address.
- *
- * @type {Pick<Appellant, 'name' | 'company' | 'email'>[]}
  */
 export const appellantsList = personList.map(({ firstName, lastName, company, email }) => ({
-	name: `${firstName} ${lastName}`,
-	company,
+	firstName,
+	lastName,
+	organisationName: company,
+	email
+}));
+
+/**
+ * An array of appellants, each containing a name and email address.
+ */
+export const agentsList = personList.map(({ firstName, lastName, company, email }) => ({
+	firstName,
+	lastName,
+	organisationName: company,
 	email
 }));
 
@@ -114,14 +123,14 @@ export const neighbouringSiteContactsList = personList.map(
 );
 
 export const localPlanningDepartmentList = [
-	'Maidstone Borough Council',
-	'Barnsley Metropolitan Borough Council',
-	'Worthing Borough Council',
-	'Dorset Council',
-	'Basingstoke and Deane Borough Council',
-	'Wiltshire Council',
-	'Waveney District Council',
-	'Bristol City Council'
+	{ lpaCode: 'MAID', name: 'Maidstone Borough Council' },
+	{ lpaCode: 'BARN', name: 'Barnsley Metropolitan Borough Council' },
+	{ lpaCode: 'WORT', name: 'Worthing Borough Council' },
+	{ lpaCode: 'DORS', name: 'Dorset Council' },
+	{ lpaCode: 'BASI', name: 'Basingstoke and Deane Borough Council' },
+	{ lpaCode: 'WILT', name: 'Wiltshire Council' },
+	{ lpaCode: 'WAVE', name: 'Waveney District Council' },
+	{ lpaCode: 'BRIS', name: 'Bristol City Council' }
 ];
 
 export const addressesList = [

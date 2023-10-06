@@ -1,9 +1,4 @@
 import {
-	createAppeal,
-	createOrUpdateLpaQuestionnaire,
-	createDocument
-} from '#repositories/integrations.repository.js';
-import {
 	mapAppealSubmission,
 	mapQuestionnaireSubmission,
 	mapDocumentSubmission,
@@ -11,7 +6,13 @@ import {
 	mapDocument
 } from './integrations.mappers/index.js';
 
-import { produceAppealUpdate } from './integrations.service.js';
+import {
+	importAppellantCase,
+	importLPAQuestionnaire,
+	importDocument,
+	produceAppealUpdate
+} from './integrations.service.js';
+
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import { EventType } from '@pins/event-client';
 import BackOfficeAppError from '#utils/app-error.js';
@@ -23,15 +24,18 @@ import {
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
+/** @typedef {import('#config/../openapi-types.js').AppellantCaseData} AppellantCaseData */
+/** @typedef {import('#config/../openapi-types.js').QuestionnaireData} QuestionnaireData */
+/** @typedef {import('#config/../openapi-types.js').DocumentMetaImport} DocumentMetaImport */
 
 /**
- * @param {Request} req
+ * @param {{body: AppellantCaseData}} req
  * @param {Response} res
  * @returns {Promise<Response>}
  */
 export const postAppealSubmission = async (req, res) => {
 	const { appeal, documents } = mapAppealSubmission(req.body);
-	const result = await createAppeal(appeal, documents);
+	const result = await importAppellantCase(appeal, documents);
 
 	await createAuditTrail({
 		appealId: result.id,
@@ -46,13 +50,13 @@ export const postAppealSubmission = async (req, res) => {
 };
 
 /**
- * @param {Request} req
+ * @param {{body: QuestionnaireData}} req
  * @param {Response} res
  * @returns {Promise<Response>}
  */
 export const postLpaqSubmission = async (req, res) => {
 	const { caseReference, questionnaire, documents } = mapQuestionnaireSubmission(req.body);
-	const result = await createOrUpdateLpaQuestionnaire(caseReference, questionnaire, documents);
+	const result = await importLPAQuestionnaire(caseReference, questionnaire, documents);
 	if (!result) {
 		throw new BackOfficeAppError(
 			`Failure importing LPA questionnaire. Appeal with case reference '${caseReference}' does not exist.`
@@ -72,13 +76,13 @@ export const postLpaqSubmission = async (req, res) => {
 };
 
 /**
- * @param {Request} req
+ * @param {{body: DocumentMetaImport}} req
  * @param {Response} res
  * @returns {Promise<Response>}
  */
 export const postDocumentSubmission = async (req, res) => {
 	const data = mapDocumentSubmission(req.body);
-	const result = await createDocument(data);
+	const result = await importDocument(data);
 	const formattedResult = mapDocument(result);
 
 	return res.send(formattedResult);

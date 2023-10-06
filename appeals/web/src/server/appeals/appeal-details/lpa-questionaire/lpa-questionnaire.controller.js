@@ -261,7 +261,7 @@ export const postCheckAndConfirm = async (request, response) => {
 		}
 
 		delete request.session.webLPAQuestionnaireReviewOutcome;
-		console.log(response);
+
 		return response.redirect(
 			`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/confirmation`
 		);

@@ -1,8 +1,8 @@
-import config from '#config/config.js';
 import formatAddress from '#utils/format-address.js';
 import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import isFPA from '#utils/is-fpa.js';
 import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
+import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse */
@@ -35,7 +35,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 			appellantCaseId: appellantCase.id,
 			appellant: {
 				appellantId: appeal.appellant?.id || null,
-				company: appeal.appellant?.company || null,
+				company: appeal.appellant?.customer?.organisationName || null,
 				name: appeal.appellant?.name || null
 			},
 			applicant: {
@@ -64,7 +64,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 				hasIssues: appellantCase.hasHealthAndSafetyIssues
 			},
 			isAppellantNamedOnApplication: appellantCase.isAppellantNamedOnApplication,
-			localPlanningDepartment: appeal.localPlanningDepartment,
+			localPlanningDepartment: appeal.lpa.name,
 			...(isFPA(appeal.appealType) && {
 				planningObligation: {
 					hasObligation: appellantCase.hasPlanningObligation,
@@ -115,7 +115,7 @@ const formatFoldersAndDocuments = (appeal, folders) => {
 	};
 
 	if (folders) {
-		mapFoldersLayoutForAppealSection(config.appealStages.appellantCase, folderLayout, folders);
+		mapFoldersLayoutForAppealSection(CONFIG_APPEAL_STAGES.appellantCase, folderLayout, folders);
 	}
 
 	return { documents: folderLayout };

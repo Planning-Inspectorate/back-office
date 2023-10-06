@@ -13,40 +13,10 @@
 	/appeals-service/appeal-details/{{ appeal.id }}
 {%- endset -%}
 
-{%- set siteDetailsHtml -%}
-	{{ appeal.appellantName }}<br>
-	{{ appeal.siteAddress }}<br>
-{%- endset -%}
-
 {%- set detailsHtml -%}
 	{{ govukSummaryList({
 		classes: 'govuk-summary-list--no-border',
-		rows: [
-			{
-				key: {
-					text: "Site address"
-				},
-				value: {
-					text: appeal.siteAddress
-				}
-			},
-			{
-				key: {
-					text: "Potential safety risks"
-				},
-				value: {
-					text: appeal.potentialSafetyRisks
-				}
-			},
-			{
-				key: {
-					text: "Site details 1"
-				},
-				value: {
-					html: siteDetailsHtml
-				}
-			}
-		]
+		rows: siteDetailsRows
 	}) }}
 {%- endset -%}
 

@@ -1,8 +1,10 @@
 import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
-import * as appellantCaseService from '../appellant-case/appellant-case.service.js';
 import * as siteVisitService from './site-visit.service.js';
-import { mapWebVisitTypeToApiVisitType } from './site-visit.mapper.js';
+import {
+	mapWebVisitTypeToApiVisitType,
+	buildSiteDetailsSummaryListRows
+} from './site-visit.mapper.js';
 import {
 	hourMinuteToApiDateString,
 	dayMonthYearToApiDateString,
@@ -36,10 +38,6 @@ const renderScheduleSiteVisit = async (request, response) => {
 			}
 		} = request;
 
-		const formattedSiteAddress = appealDetails?.appealSite
-			? Object.values(appealDetails?.appealSite)?.join(', ')
-			: 'Address not known';
-
 		const healthAndSafetyIssues = [];
 		if (appealDetails.healthAndSafety?.appellantCase?.hasIssues) {
 			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.appellantCase?.details);
@@ -48,15 +46,17 @@ const renderScheduleSiteVisit = async (request, response) => {
 			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.lpaQuestionnaire?.details);
 		}
 
+		const siteDetailsRows = await buildSiteDetailsSummaryListRows(
+			{ appeal: appealDetails },
+			request.originalUrl,
+			request.session
+		);
+
 		return response.render('appeals/appeal/schedule-site-visit.njk', {
+			siteDetailsRows,
 			appeal: {
 				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference),
-				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
-				localPlanningAuthority: appealDetails?.localPlanningDepartment,
-				potentialSafetyRisks: healthAndSafetyIssues.join('; ').concat('.'),
-				appellantName: appealDetails.appellantName
+				shortReference: appealShortReference(appealDetails?.appealReference)
 			},
 			siteVisit: {
 				visitType,
@@ -90,64 +90,54 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
-		const appellantCaseResponse = await appellantCaseService
-			.getAppellantCaseFromAppealId(
+		const siteVisitIdAsNumber = appealDetails.siteVisit?.siteVisitId;
+		if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
+			const appealIdNumber = parseInt(appealId, 10);
+			const siteVisit = await siteVisitService.getSiteVisit(
 				request.apiClient,
-				appealDetails?.appealId,
-				appealDetails?.appellantCaseId
-			)
-			.catch((error) => logger.error(error));
+				appealIdNumber,
+				siteVisitIdAsNumber
+			);
 
-		if (appellantCaseResponse) {
-			const siteVisitIdAsNumber = parseInt(appellantCaseResponse.siteVisit?.siteVisitId, 10);
-			if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
-				const appealIdNumber = parseInt(appealId, 10);
-				const siteVisit = await siteVisitService.getSiteVisit(
-					request.apiClient,
-					appealIdNumber,
-					appellantCaseResponse.siteVisit?.siteVisitId
-				);
+			if (siteVisit) {
+				const formattedSiteVisitType = siteVisit.visitType.toLowerCase();
+				const formattedSiteAddress = appealDetails?.appealSite
+					? Object.values(appealDetails?.appealSite)?.join(', ')
+					: 'Address not known';
+				const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
 
-				if (siteVisit) {
-					const formattedSiteVisitType = siteVisit.visitType.toLowerCase();
-					const formattedSiteAddress = appealDetails?.appealSite
-						? Object.values(appealDetails?.appealSite)?.join(', ')
-						: 'Address not known';
-					const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
-
-					return response.render('app/confirmation.njk', {
-						panel: {
-							title: 'Site visit booked',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${
-								formattedSiteVisitType !== 'unaccompanied'
-									? `, starting at ${siteVisit.visitStartTime}`
-									: ''
-							}.`,
-							title: {
-								text: 'What happens next'
-							},
-							rows: [
-								{
-									text: `We updated the case timetable.${
-										formattedSiteVisitType !== 'unaccompanied'
-											? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-											: ''
-									}`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
+				return response.render('app/confirmation.njk', {
+					panel: {
+						title: 'Site visit booked',
+						appealReference: {
+							label: 'Appeal ID',
+							reference: appealShortReference(appealDetails?.appealReference)
 						}
-					});
-				}
+					},
+					body: {
+						preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${
+							formattedSiteVisitType !== 'unaccompanied'
+								? `, starting at ${siteVisit.visitStartTime}`
+								: ''
+						}.`,
+						title: {
+							text: 'What happens next'
+						},
+						rows: [
+							{
+								text: `We updated the case timetable.${
+									formattedSiteVisitType !== 'unaccompanied'
+										? ` We've sent an email to the LPA and appellant to confirm the site visit.`
+										: ''
+								}`
+							},
+							{
+								text: 'Go back to case details',
+								href: `/appeals-service/appeal-details/${appealId}`
+							}
+						]
+					}
+				});
 			}
 		}
 	}
@@ -211,64 +201,54 @@ export const postScheduleSiteVisit = async (request, response) => {
 			.catch((error) => logger.error(error));
 
 		if (appealDetails) {
-			const appellantCaseResponse = await appellantCaseService
-				.getAppellantCaseFromAppealId(
-					request.apiClient,
-					appealDetails?.appealId,
-					appealDetails?.appellantCaseId
-				)
-				.catch((error) => logger.error(error));
-
-			if (appellantCaseResponse) {
-				const {
-					body: {
-						'visit-type': visitType,
-						'visit-date-day': visitDateDay,
-						'visit-date-month': visitDateMonth,
-						'visit-date-year': visitDateYear,
-						'visit-start-time-hour': visitStartTimeHour,
-						'visit-start-time-minute': visitStartTimeMinute,
-						'visit-end-time-hour': visitEndTimeHour,
-						'visit-end-time-minute': visitEndTimeMinute
-					}
-				} = request;
-
-				const appealIdNumber = parseInt(appealId, 10);
-				const visitDate = dayMonthYearToApiDateString({
-					day: parseInt(visitDateDay, 10),
-					month: parseInt(visitDateMonth, 10),
-					year: parseInt(visitDateYear, 10)
-				});
-
-				const visitStartTime = hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute);
-				const visitEndTime = hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute);
-				const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
-
-				if (appellantCaseResponse.siteVisit?.siteVisitId) {
-					await siteVisitService.updateSiteVisit(
-						request.apiClient,
-						appealIdNumber,
-						appellantCaseResponse.siteVisit?.siteVisitId,
-						apiVisitType,
-						visitDate,
-						visitStartTime,
-						visitEndTime
-					);
-				} else {
-					await siteVisitService.createSiteVisit(
-						request.apiClient,
-						appealIdNumber,
-						apiVisitType,
-						visitDate,
-						visitStartTime,
-						visitEndTime
-					);
+			const {
+				body: {
+					'visit-type': visitType,
+					'visit-date-day': visitDateDay,
+					'visit-date-month': visitDateMonth,
+					'visit-date-year': visitDateYear,
+					'visit-start-time-hour': visitStartTimeHour,
+					'visit-start-time-minute': visitStartTimeMinute,
+					'visit-end-time-hour': visitEndTimeHour,
+					'visit-end-time-minute': visitEndTimeMinute
 				}
+			} = request;
 
-				return response.redirect(
-					`/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/visit-scheduled`
+			const appealIdNumber = parseInt(appealId, 10);
+			const visitDate = dayMonthYearToApiDateString({
+				day: parseInt(visitDateDay, 10),
+				month: parseInt(visitDateMonth, 10),
+				year: parseInt(visitDateYear, 10)
+			});
+
+			const visitStartTime = hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute);
+			const visitEndTime = hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute);
+			const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
+
+			if (appealDetails.siteVisit?.siteVisitId) {
+				await siteVisitService.updateSiteVisit(
+					request.apiClient,
+					appealIdNumber,
+					appealDetails.siteVisit?.siteVisitId,
+					apiVisitType,
+					visitDate,
+					visitStartTime,
+					visitEndTime
+				);
+			} else {
+				await siteVisitService.createSiteVisit(
+					request.apiClient,
+					appealIdNumber,
+					apiVisitType,
+					visitDate,
+					visitStartTime,
+					visitEndTime
 				);
 			}
+
+			return response.redirect(
+				`/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/visit-scheduled`
+			);
 		}
 
 		return response.render('app/404.njk');
@@ -310,37 +290,28 @@ export const postSetVisitType = async (request, response) => {
 			.catch((error) => logger.error(error));
 
 		if (appealDetails) {
-			const appellantCaseResponse = await appellantCaseService
-				.getAppellantCaseFromAppealId(
+			const {
+				body: { 'visit-type': visitType }
+			} = request;
+
+			const appealIdNumber = parseInt(appealId, 10);
+			const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
+
+			if (
+				appealDetails.siteVisit?.siteVisitId !== null &&
+				Number.isInteger(appealDetails.siteVisit?.siteVisitId) &&
+				appealDetails.siteVisit?.siteVisitId > -1
+			) {
+				await siteVisitService.updateSiteVisit(
 					request.apiClient,
-					appealDetails?.appealId,
-					appealDetails?.appellantCaseId
-				)
-				.catch((error) => logger.error(error));
+					appealIdNumber,
+					appealDetails.siteVisit?.siteVisitId,
+					apiVisitType
+				);
 
-			if (appellantCaseResponse) {
-				const {
-					body: { 'visit-type': visitType }
-				} = request;
+				request.session.siteVisitTypeSelected = true;
 
-				const appealIdNumber = parseInt(appealId, 10);
-				const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
-
-				if (
-					Number.isInteger(appellantCaseResponse.siteVisit?.siteVisitId) &&
-					appellantCaseResponse.siteVisit?.siteVisitId > -1
-				) {
-					await siteVisitService.updateSiteVisit(
-						request.apiClient,
-						appealIdNumber,
-						appellantCaseResponse.siteVisit?.siteVisitId,
-						apiVisitType
-					);
-
-					request.session.siteVisitTypeSelected = true;
-
-					return response.redirect(`/appeals-service/appeal-details/${appealDetails.appealId}`);
-				}
+				return response.redirect(`/appeals-service/appeal-details/${appealDetails.appealId}`);
 			}
 		}
 

@@ -235,7 +235,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ If user is not inspe
                             <table                             class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission of Recommendation</th>
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission</th>
                                         <td class=\\"govuk-table__cell\\">14 Jun 2023</td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
@@ -997,7 +997,7 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Recommendation dates</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
-            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission of Recommendation</label>
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission</label>
             <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
                 (SoS).</div>
             <div class=\\"govuk-grid-column-one-third\\">
@@ -1934,7 +1934,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-4\\"><span class=\\"govuk-caption-l\\">Manage key dates</span> Recommendation dates</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
-            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission of Recommendation</label>
+            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Deadline for submission</label>
             <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
                 (SoS).</div>
             <div class=\\"govuk-grid-column-one-third\\">

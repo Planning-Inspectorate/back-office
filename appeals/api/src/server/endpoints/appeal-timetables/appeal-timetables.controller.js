@@ -1,13 +1,14 @@
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import appealTimetableRepository from '#repositories/appeal-timetable.repository.js';
 import logger from '#utils/logger.js';
+import { AUDIT_TRAIL_CASE_TIMELINE_UPDATED, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 
-import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
-
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAppealTimetableById = async (req, res) => {
@@ -16,6 +17,12 @@ const updateAppealTimetableById = async (req, res) => {
 
 	try {
 		await appealTimetableRepository.updateAppealTimetableById(appealTimetableId, body);
+
+		await createAuditTrail({
+			appealId: Number(params.appealId),
+			azureAdUserId: req.get('azureAdUserId'),
+			details: AUDIT_TRAIL_CASE_TIMELINE_UPDATED
+		});
 	} catch (error) {
 		if (error) {
 			logger.error(error);

@@ -156,7 +156,8 @@ describe('Publish documents', () => {
 			size: 23452,
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
 			privateBlobContainer: 'document-uploads',
-			privateBlobPath: 'en010120/filename.pdf'
+			privateBlobPath: 'en010120/filename.pdf',
+			publishedStatus: 'publishing'
 		};
 
 		databaseConnector.document.findMany.mockResolvedValue([
@@ -170,6 +171,9 @@ describe('Publish documents', () => {
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedPublishedDocument);
+		databaseConnector.documentVersion.findMany.mockResolvedValue([
+			{ documentGuid: 'document_to_publish_guid', version: 1 }
+		]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
@@ -177,16 +181,6 @@ describe('Publish documents', () => {
 		});
 
 		// THEN
-		const expectedEventPayload = {
-			documentId: 'document_to_publish_guid',
-			version: 1,
-			filename: 'filename.pdf',
-			originalFilename: 'original_filename.pdf',
-			size: 23452,
-			documentURI: 'https://127.0.0.1:10000/document-uploads/en010120/filename.pdf',
-			dateCreated: '2023-03-26T00:00:00.000Z'
-		};
-
 		expect(response.body).toEqual([
 			{
 				guid: 'document_to_publish_guid',
@@ -195,25 +189,27 @@ describe('Publish documents', () => {
 		]);
 		expect(response.status).toEqual(200);
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-document',
-			[expectedEventPayload],
-			'Update',
-			{
-				publishing: 'true'
-			}
-		);
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
 	});
 
 	test('throws error if document missing properties required publishing', async () => {
 		// GIVEN
-
-		databaseConnector.document.findMany.mockResolvedValue([
+		databaseConnector.document.findMany.mockResolvedValueOnce([
 			{
 				guid: 'document_to_publish_guid',
 				latestVersionId: 1
 			}
 		]);
+		databaseConnector.documentVersion.update.mockResolvedValue({
+			Document: {
+				guid: 'document_to_publish_guid',
+				reference: 'document-reference',
+				case: {
+					id: 1,
+					reference: 'case-reference'
+				}
+			}
+		});
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({

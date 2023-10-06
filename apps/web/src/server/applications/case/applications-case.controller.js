@@ -1,4 +1,4 @@
-import { publishCase } from '../common/services/case.service.js';
+import { publishCase, unpublishCase } from '../common/services/case.service.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -35,13 +35,32 @@ export async function viewApplicationsCasePublishPage(request, response) {
 }
 
 /**
+ * Handle unpublishing case
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
+ */
+export async function unpublishApplicationsCase(request, response) {
+	const { caseId } = response.locals;
+
+	const { errors } = await unpublishCase(caseId);
+
+	if (errors) {
+		return response.render(`applications/case/unpublish`, {
+			case: response.locals.case,
+			errors
+		});
+	}
+
+	return response.render('applications/case/project-success-banner', { isUnpublished: true });
+}
+
+/**
  * Send publishing request with updated changes
  *
- * @type {import('@pins/express').RenderHandler<CasePageProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
  */
 export async function updateApplicationsCasePublishPage(request, response) {
 	const { caseId, case: caseToPublish } = response.locals;
-	const isAlreadyPublic = caseToPublish.publishedDate;
 	const { publishedDate, errors } = await publishCase(caseId);
 
 	response.locals.case = {
@@ -57,9 +76,7 @@ export async function updateApplicationsCasePublishPage(request, response) {
 		});
 	}
 
-	response.render(`applications/case/project-information`, {
-		selectedPageType: 'project-information',
-		showPublishedBanner: true,
-		isFirstTimePublished: !isAlreadyPublic
+	return response.render('applications/case/project-success-banner', {
+		isRepublished: !!caseToPublish.publishedDate
 	});
 }

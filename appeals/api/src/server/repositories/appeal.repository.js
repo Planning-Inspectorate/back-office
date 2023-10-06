@@ -56,7 +56,8 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 						valid: true
 					}
 				},
-				appealType: true
+				appealType: true,
+				lpa: true
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
@@ -100,7 +101,17 @@ const getAppealById = async (id) => {
 					planningObligationStatus: true
 				}
 			},
-			appellant: true,
+			appellant: {
+				include: {
+					customer: true
+				}
+			},
+			agent: {
+				include: {
+					customer: true
+				}
+			},
+			lpa: true,
 			appealStatus: {
 				where: {
 					valid: true

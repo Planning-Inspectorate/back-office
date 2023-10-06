@@ -26,7 +26,8 @@ import {
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
 	ERROR_MUST_BE_INCOMPLETE_INVALID_REASON,
 	LENGTH_10,
-	LENGTH_8
+	LENGTH_8,
+	AUDIT_TRAIL_CASE_TIMELINE_CREATED
 } from '../../constants.js';
 import {
 	appellantCaseIncompleteReasons,
@@ -398,6 +399,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany.mockResolvedValue(
 					true
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const body = {
 					invalidReasons: [
@@ -625,6 +631,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany.mockResolvedValue(
 					true
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const body = {
 					invalidReasons: [
@@ -711,6 +722,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany.mockResolvedValue(
 					true
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const eightItemArray = new Array(LENGTH_8).fill('A');
 				const body = {
@@ -773,6 +789,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseInvalidReasonOnAppellantCase.createMany.mockResolvedValue(
 					true
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const body = {
 					invalidReasons: [{ id: 1 }, { id: 2 }],
@@ -810,6 +831,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
 					appellantCaseValidationOutcomes[2]
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const expectedTimeTable = await calculateTimetable(
 					householdAppeal.appealType.shorthand,
@@ -845,7 +871,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
-					householdAppeal.appellant.email,
+					householdAppeal.appellant.customer.email,
 					{
 						emailReplyToId: null,
 						personalisation: {
@@ -856,6 +882,14 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_CREATED,
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(databaseConnector.appeal.update).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					where: { id },
@@ -875,6 +909,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
 					appellantCaseValidationOutcomes[2]
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				const expectedTimeTable = await calculateTimetable(
 					fullPlanningAppeal.appealType.shorthand,
@@ -910,7 +949,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
-					fullPlanningAppeal.appellant.email,
+					fullPlanningAppeal.appellant.customer.email,
 					{
 						emailReplyToId: null,
 						personalisation: {
@@ -921,6 +960,14 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: fullPlanningAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_CREATED,
+						loggedAt: expect.any(Date),
+						userId: fullPlanningAppeal.caseOfficer.id
+					}
+				});
 				expect(databaseConnector.appeal.update).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					where: { id: fullPlanningAppeal.id },
@@ -940,6 +987,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
 					appellantCaseValidationOutcomes[2]
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				jest.useFakeTimers().setSystemTime(new Date('2023-12-18'));
 
@@ -966,6 +1018,14 @@ describe('appellant cases routes', () => {
 						}
 					})
 				);
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_CREATED,
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});
@@ -977,6 +1037,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
 					appellantCaseValidationOutcomes[2]
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
 
@@ -1013,6 +1078,11 @@ describe('appellant cases routes', () => {
 				databaseConnector.appellantCaseValidationOutcome.findUnique.mockResolvedValue(
 					appellantCaseValidationOutcomes[2]
 				);
+				// @ts-ignore
+				databaseConnector.user.upsert.mockResolvedValue({
+					id: 1,
+					azureAdUserId
+				});
 
 				jest.useFakeTimers().setSystemTime(new Date('2023-05-22'));
 
@@ -1038,6 +1108,14 @@ describe('appellant cases routes', () => {
 						}
 					})
 				);
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: AUDIT_TRAIL_CASE_TIMELINE_CREATED,
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual(body);
 			});

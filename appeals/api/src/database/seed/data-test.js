@@ -7,6 +7,7 @@ import {
 	addressListForTrainers,
 	appellantCaseList,
 	appellantsList,
+	agentsList,
 	completeValidationDecisionSample,
 	incompleteReviewQuestionnaireSample,
 	incompleteValidationDecisionSample,
@@ -111,13 +112,43 @@ const appealFactory = ({
 	completeReviewQuestionnaire = false,
 	siteAddressList = addressesList
 }) => {
+	const appellantInput = appellantsList[pickRandom(appellantsList)];
+	const agentInput = agentsList[pickRandom(agentsList)];
+	const lpaInput = localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)];
+
 	return {
 		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),
 		startedAt,
 		appealStatus: { create: statuses },
-		appellant: { create: appellantsList[pickRandom(appellantsList)] },
-		localPlanningDepartment: localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)],
+		appellant: {
+			create: {
+				name: `${appellantInput.firstName} ${appellantInput.lastName}`,
+				customer: {
+					connectOrCreate: {
+						where: { email: appellantInput.email },
+						create: appellantInput
+					}
+				}
+			}
+		},
+		agent: {
+			create: {
+				name: `${agentInput.firstName} ${agentInput.lastName}`,
+				customer: {
+					connectOrCreate: {
+						where: { email: agentInput.email },
+						create: agentInput
+					}
+				}
+			}
+		},
+		lpa: {
+			connectOrCreate: {
+				where: { lpaCode: lpaInput.lpaCode },
+				create: lpaInput
+			}
+		},
 		planningApplicationReference: '48269/APP/2021/1482',
 		address: { create: siteAddressList[pickRandom(siteAddressList)] },
 		...(incompleteValidationDecision && {

@@ -5,10 +5,14 @@ import { randomUUID } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { checkMyBlob } from '../check-my-blob.js';
 import { clamAvClient } from '../clam-av-client.js';
+import { BlobStorageClient } from '@pins/blob-storage-client';
 
 const mockGotPatch = jest.spyOn(got, 'patch');
-const mockGotDelete = jest.spyOn(got, 'delete');
 const mockClamAvScanStream = jest.spyOn(clamAvClient, 'scanStream');
+const mockDeleteBlockIfExists = jest.fn().mockResolvedValue();
+jest.spyOn(BlobStorageClient, 'fromUrlAndCredential').mockReturnValue({
+	deleteBlobIfExists: mockDeleteBlockIfExists
+});
 
 // Mock Errors
 
@@ -35,11 +39,6 @@ const backOfficeFailedToMarkAsFailedAVError = generateHttpError(
 	409
 );
 
-const documentStorageFailedToDeleteError = generateHttpError(
-	'{"errors":{"documentPath":"Document does not exist in Blob Storage"}}',
-	404
-);
-
 // End Mock Errors
 
 const stream = Readable.from([]);
@@ -48,8 +47,9 @@ const logger = {
 	info: jest.fn(),
 	error: jest.fn()
 };
-
-const blobHostUrl = 'https://blobhost/container';
+const blobHost = 'https://test.blob.core.windows.net';
+const blobContainer = 'container';
+const blobHostUrl = `${blobHost}/${blobContainer}`;
 
 beforeEach(() => {
 	jest.clearAllMocks();
@@ -147,7 +147,6 @@ describe('document fails AV checks', () => {
 		const documentPath = `/application/ABC/${documentGuid}/1`;
 
 		mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
-		mockGotDelete.mockReturnValueOnce(mock200Response);
 		mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 		// WHEN
@@ -165,10 +164,8 @@ describe('document fails AV checks', () => {
 			`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 			{ json: { machineAction: 'failed_virus_check' } }
 		);
-		expect(mockGotDelete).toHaveBeenCalledTimes(1);
-		expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
-			json: { documentPath }
-		});
+		expect(mockDeleteBlockIfExists).toHaveBeenCalledTimes(1);
+		expect(mockDeleteBlockIfExists).toHaveBeenCalledWith(blobContainer, documentPath.substring(1));
 		expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 	});
 
@@ -181,7 +178,6 @@ describe('document fails AV checks', () => {
 			mockGotPatch
 				.mockReturnValueOnce(backOfficeFailedToMarkAsUploadedError)
 				.mockReturnValueOnce(mock200Response);
-			mockGotDelete.mockReturnValueOnce(mock200Response);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
@@ -203,10 +199,11 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'failed_virus_check' } }
 			);
-			expect(mockGotDelete).toHaveBeenCalledTimes(1);
-			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
-				json: { documentPath }
-			});
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledTimes(1);
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledWith(
+				blobContainer,
+				documentPath.substring(1)
+			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -218,7 +215,6 @@ describe('document fails AV checks', () => {
 			const documentPath = `/application/ABC/${documentGuid}/1`;
 
 			mockGotPatch.mockReturnValueOnce(mock200Response).mockReturnValueOnce(mock200Response);
-			mockGotDelete.mockReturnValueOnce(documentStorageFailedToDeleteError);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
@@ -240,10 +236,11 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'failed_virus_check' } }
 			);
-			expect(mockGotDelete).toHaveBeenCalledTimes(1);
-			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
-				json: { documentPath }
-			});
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledTimes(1);
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledWith(
+				blobContainer,
+				documentPath.substring(1)
+			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -257,7 +254,6 @@ describe('document fails AV checks', () => {
 			mockGotPatch
 				.mockReturnValueOnce(mock200Response)
 				.mockReturnValueOnce(backOfficeFailedToMarkAsFailedAVError);
-			mockGotDelete.mockReturnValueOnce(mock200Response);
 			mockClamAvScanStream.mockResolvedValueOnce({ isInfected: true });
 
 			// WHEN
@@ -279,10 +275,11 @@ describe('document fails AV checks', () => {
 				`https://test-api-host:3000/applications/documents/${documentGuid}/status`,
 				{ json: { machineAction: 'failed_virus_check' } }
 			);
-			expect(mockGotDelete).toHaveBeenCalledTimes(1);
-			expect(mockGotDelete).toHaveBeenCalledWith(`https://test-doc-api-host:3001/document`, {
-				json: { documentPath }
-			});
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledTimes(1);
+			expect(mockDeleteBlockIfExists).toHaveBeenCalledWith(
+				blobContainer,
+				documentPath.substring(1)
+			);
 			expect(mockClamAvScanStream).toHaveBeenCalledTimes(1);
 		});
 	});

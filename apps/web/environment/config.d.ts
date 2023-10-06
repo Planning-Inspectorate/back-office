@@ -43,7 +43,6 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	sessionSecret: string;
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
-	tmpDir: string;
 	referenceData: {
 		applications: {
 			caseAdminOfficerGroupId: string;

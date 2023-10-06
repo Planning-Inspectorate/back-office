@@ -3,7 +3,8 @@ import * as caseRepository from '../../../repositories/case.repository.js';
 import * as documentRepository from '../../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import { getStorageLocation } from '../../../utils/document-storage-api-client.js';
+import { getStorageLocation } from '../../../utils/document-storage.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 import logger from '../../../utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
 import { eventClient } from '../../../infrastructure/event-client.js';
@@ -12,9 +13,10 @@ import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
 import config from '../../../config/config.js';
+import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
-/**  @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion */
-/**  @typedef {import('apps/api/src/database/schema.js').Document} Document */
+/**  @typedef {import('@pins/applications.api/src/database/schema.js').DocumentVersion} DocumentVersion */
+/**  @typedef {import('@pins/applications.api/src/database/schema.js').Document} Document */
 
 /**
  * Remove extension from document name
@@ -160,7 +162,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 /**
  * @param {{guid: string, documentName: string, reference: string}[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, version: number}[]}
+ * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
@@ -357,46 +359,20 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
 	);
 
-	const isPublishedOldVersion = currentDocumentVersion[0].publishedStatus === 'published';
-
 	// copy all meta data from previous version except below properties.
 	currentDocumentVersion[0].version = version;
 	currentDocumentVersion[0].fileName = fileName;
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
-	currentDocumentVersion[0].publishedStatus = 'awaiting_upload';
-	currentDocumentVersion[0].datePublished = null;
-
-	if (config.virusScanningDisabled) {
-		currentDocumentVersion[0].publishedStatus = 'not_checked';
-	}
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
-	const activityLogs = [];
-	activityLogs.push(
-		// @ts-ignore
-		documentActivityLogRepository.create({
-			documentGuid: documentId,
-			version,
-			user: documentToUpload.username,
-			status: 'uploaded'
-		})
-	);
-
-	if (isPublishedOldVersion) {
-		activityLogs.push(
-			// @ts-ignore
-			documentActivityLogRepository.create({
-				documentGuid: documentId,
-				version: documentFromDatabase.latestVersionId,
-				user: documentToUpload.username,
-				status: 'unpublished'
-			})
-		);
-	}
-
-	await Promise.all(activityLogs);
+	await documentActivityLogRepository.create({
+		documentGuid: documentId,
+		version,
+		user: documentToUpload.username,
+		status: 'uploaded'
+	});
 
 	// Step 6: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
@@ -472,15 +448,62 @@ export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) =
 };
 
 /**
+ * @param {string[]} documentGuids
+ * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersion[]>}
+ * */
+export const getCurrentlyPublished = async (documentGuids) => {
+	const promises = documentGuids.map(documentVersionRepository.getPublished);
+	const results = await Promise.all(promises);
+	if (!results) {
+		throw new BackOfficeAppError('failed to fetch currently published documents', 500);
+	}
+
+	return results.flatMap((result) => result ?? []);
+};
+
+/**
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @returns {Promise<{documentGuid: string, publishedStatus: string}[]>}
+ * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersionWithDocument[]>}
  */
-export const publishNsipDocuments = async (documentVersionIds) => {
+export const publishDocumentVersions = async (documentVersionIds) => {
+	/** @type {string[]} */
+	const documentGuids = documentVersionIds.reduce((acc, version) => {
+		if (acc.includes(version.documentGuid)) {
+			return acc;
+		}
+
+		return [...acc, version.documentGuid];
+	}, /** @type {string[]} */ ([]));
+
+	const currentlyPublished = await getCurrentlyPublished(documentGuids);
+
 	const publishedDocuments = await documentVersionRepository.updateAll(documentVersionIds, {
 		publishedStatus: 'publishing',
 		publishedStatusPrev: 'ready_to_publish'
 	});
+
+	const unpublishedDocuments = await documentVersionRepository.updateAll(
+		currentlyPublished.map((version) => ({
+			documentGuid: version.documentGuid,
+			version: version.version
+		})),
+		{
+			publishedStatus: 'unpublished',
+			publishedStatusPrev: 'published'
+		}
+	);
+
+	await Promise.all(
+		unpublishedDocuments.map((doc) =>
+			documentActivityLogRepository.create({
+				documentGuid: doc.documentGuid,
+				version: doc.version,
+				user: doc.owner,
+				status: 'unpublished'
+			})
+		)
+	);
 
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
@@ -494,10 +517,7 @@ export const publishNsipDocuments = async (documentVersionIds) => {
 		}
 	);
 
-	return documentVersionIds.map(({ documentGuid }) => ({
-		documentGuid,
-		publishedStatus: 'publishing'
-	}));
+	return publishedDocuments;
 };
 
 /**
@@ -605,4 +625,99 @@ export const extractDuplicates = async (documents) => {
 
 		return acc;
 	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+};
+
+/**
+ * @param {string[]} guids
+ * @return {Promise<{ publishableIds: string[], errors: { guid: string, msg: string }[] }>}
+ * */
+export const separatePublishableDocuments = async (guids) => {
+	const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+		guids
+	);
+
+	return {
+		publishableIds: publishable.map((p) => p.documentGuid),
+		errors: invalid.map((id) => ({
+			guid: id,
+			msg: 'You must fill in all mandatory document properties to publish a document'
+		}))
+	};
+};
+
+/**
+ * Executes a list of updates to document publishedStatus and redacted status.
+ * Also handles implicit logic around publishedStatus/publishedStatusPrev.
+ *
+ * @typedef {{ guid: string, msg: string }} ItemError
+ *
+ * @param {string[]} guids
+ * @param {string} [publishedStatus]
+ * @param {'redacted' | 'not_redacted'} [redactedStatus]
+ * @returns {Promise<{ errors: ItemError[], results: Record<string, any>[] }>}
+ * */
+export const handleUpdateDocument = async (guids, publishedStatus, redactedStatus) => {
+	/** @type {ItemError[]} */
+	let errors = [];
+
+	/** @type {Record<string, any>[]} */
+	let results = [];
+
+	for (const guid of guids) {
+		logger.info(
+			`Updating document with guid: ${guid} to published status: ${publishedStatus} and redacted status: ${redactedStatus}`
+		);
+
+		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
+		// @ts-ignore
+		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
+			guid
+		);
+
+		if (publishedStatus && documentVersion.publishedStatus === 'published') {
+			errors.push({
+				guid,
+				msg: 'You must first unpublish the document before changing the status.'
+			});
+
+			continue;
+		}
+
+		/**
+		 * @typedef {object} Updates
+		 * @property {string} [publishedStatus]
+		 * @property {string} [publishedStatusPrev]
+		 * @property {string} [redactedStatus]
+		 */
+
+		/** @type {Updates} */
+		const documentVersionUpdates = {
+			publishedStatus,
+			redactedStatus
+		};
+
+		if (!publishedStatus) {
+			delete documentVersionUpdates.publishedStatus;
+		} else if (
+			documentVersion?.publishedStatus !== undefined &&
+			documentVersion.publishedStatus !== publishedStatus
+		) {
+			documentVersionUpdates.publishedStatusPrev = documentVersion.publishedStatus;
+		}
+
+		const updateResponseInTable = await documentVersionRepository.update(guid, {
+			version: documentVersion.version,
+			...documentVersionUpdates
+		});
+
+		const formattedResponse = formatDocumentUpdateResponseBody(
+			updateResponseInTable.documentGuid ?? '',
+			updateResponseInTable.publishedStatus ?? '',
+			updateResponseInTable.redactedStatus ?? ''
+		);
+
+		results.push(formattedResponse);
+	}
+
+	return { errors, results };
 };

@@ -74,7 +74,7 @@ const propertyToName = {
 	stage4ExtensionToExamCloseDate_label: 'Date examination will close, if it has been extended.',
 
 	recommendation: 'Recommendation',
-	deadlineForSubmissionOfRecommendation: 'Deadline for submission of Recommendation',
+	deadlineForSubmissionOfRecommendation: 'Deadline for submission',
 	deadlineForSubmissionOfRecommendation_label:
 		'Deadline for submission of Recommendation report to the Secretary of State (SoS).',
 	dateOfRecommendations: 'Date of Recommendation submitted to SoS',

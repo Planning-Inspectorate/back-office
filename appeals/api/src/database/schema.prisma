@@ -17,10 +17,11 @@ model Appeal {
   createdAt                    DateTime              @default(now())
   updatedAt                    DateTime              @default(now())
   addressId                    Int?
-  localPlanningDepartment      String
+  lpaId                        Int
   planningApplicationReference String
   startedAt                    DateTime?
-  appellantId                  Int?                  @unique
+  appellantId                  Int?
+  agentId                      Int?
   appealTypeId                 Int?
   linkedAppealId               Int?
   otherAppealId                Int?
@@ -28,7 +29,9 @@ model Appeal {
   allocationId                 Int?
   address                      Address?              @relation(fields: [addressId], references: [id])
   appealType                   AppealType?           @relation(fields: [appealTypeId], references: [id])
-  appellant                    Appellant?            @relation(fields: [appellantId], references: [id])
+  appellant                    Appellant?            @relation(fields: [appellantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  agent                        Agent?                @relation(fields: [agentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lpa                          LPA                   @relation(fields: [lpaId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   allocation                   AppealAllocation?
   specialisms                  AppealSpecialism[]
   appellantCase                AppellantCase?
@@ -112,12 +115,31 @@ model AppealSpecialism {
 /// Appellant model
 /// Contains information about the person who created the Appeal
 model Appellant {
-  id        Int     @id @default(autoincrement())
+  id         Int              @id @default(autoincrement())
+  name       String
+  appeals    Appeal[]
+  customerId Int
+  customer   ServiceCustomer? @relation("appellant", fields: [customerId], references: [id])
+}
+
+/// Agent model
+/// Contains information about the person who created the Appeal
+model Agent {
+  id         Int              @id @default(autoincrement())
+  name       String
+  appeals    Appeal[]
+  customerId Int
+  customer   ServiceCustomer? @relation("agent", fields: [customerId], references: [id])
+}
+
+/// LPA model
+/// Contains information about the Local Planning Authority in the appeal site
+model LPA {
+  id        Int               @id @default(autoincrement())
   name      String
-  company   String?
-  email     String
-  agentName String?
-  appeal    Appeal?
+  lpaCode   String            @unique
+  appeals   Appeal[]
+  customers ServiceCustomer[] @relation("lpa")
 }
 
 /// AppellantCase model
@@ -169,17 +191,19 @@ model AppellantCase {
 /// ServiceCustomer model
 /// Contains data of people who submitted Applications
 model ServiceCustomer {
-  id               Int      @id @default(autoincrement())
+  id               Int         @id @default(autoincrement())
   organisationName String?
   firstName        String?
   middleName       String?
   lastName         String?
-  email            String?
+  email            String      @unique
   website          String?
   phoneNumber      String?
   addressId        Int?
-  caseId           Int
-  address          Address? @relation(fields: [addressId], references: [id])
+  address          Address?    @relation(fields: [addressId], references: [id])
+  appellants       Appellant[] @relation("appellant")
+  agents           Agent[]     @relation("agent")
+  lpas             LPA[]       @relation("lpa")
 }
 
 /// Address model
@@ -346,6 +370,7 @@ model InspectorDecision {
 model User {
   id             Int              @id @default(autoincrement())
   azureAdUserId  String?          @unique
+  sapId          String?
   Representation Representation[]
   caseOfficer    Appeal[]         @relation("caseOfficer")
   inspector      Appeal[]         @relation("inspector")

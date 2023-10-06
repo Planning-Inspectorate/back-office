@@ -81,28 +81,25 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 		documents: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 
-	const { errors: apiErrors } = validationErrors
-		? { errors: [validationErrors] }
-		: await updateCaseDocumentationFiles(caseId, payload);
+	const { errors: itemErrors } = await updateCaseDocumentationFiles(caseId, payload);
 
-	if (validationErrors || apiErrors) {
-		const apiErrorMessage = (apiErrors || [])[0]?.guid
-			? { msg: 'You must fill in all mandatory document properties to publish a document' }
-			: { msg: 'Something went wrong. Please, try again later.' };
-
+	if (validationErrors || itemErrors) {
 		/** @type {DocumentationFile[]} */
 		const allItems = properties.items.items;
-		const failedItems = allItems.map((file) => ({
-			...file,
-			failed: !!(apiErrors || []).some((failedItem) => failedItem.guid === file.documentGuid)
-		}));
+		const failedItems = allItems.map((file) => {
+			return {
+				...file,
+				error: (itemErrors || []).find((item) => item.guid === file.documentGuid)?.msg ?? null
+			};
+		});
 
 		properties.items.items = failedItems;
 
 		return response.render(`applications/components/folder/folder`, {
 			...properties,
-			errors: validationErrors || apiErrorMessage,
-			failedItems: apiErrors
+			errors: validationErrors ||
+				itemErrors || { msg: 'Something went wrong. Please, try again later.' },
+			failedItems
 		});
 	}
 

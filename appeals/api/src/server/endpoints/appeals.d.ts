@@ -56,7 +56,7 @@ interface RepositoryGetAllResultItem {
 	appealType: Schema.AppealType | null;
 	createdAt: Date;
 	id: number;
-	localPlanningDepartment: string;
+	lpa: LPA;
 	reference: string;
 }
 
@@ -67,6 +67,7 @@ interface RepositoryGetByIdResultItem {
 	appealTimetable: Schema.AppealTimetable | null;
 	appealType: Schema.AppealType | null;
 	appellant: Schema.Appellant | null;
+	agent: Schema.Agent | null;
 	appellantCase?: Schema.AppellantCase | null;
 	auditTrail: Schema.AuditTrail[] | null;
 	caseOfficer: User | null;
@@ -77,7 +78,7 @@ interface RepositoryGetByIdResultItem {
 	inspectorDecision?: { outcome: string } | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
-	localPlanningDepartment: string;
+	lpa: LPA;
 	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
 	otherAppeals: Appeal[];
 	planningApplicationReference: string;
@@ -358,10 +359,7 @@ interface SingleSiteVisitDetailsResponse {
 }
 
 interface SingleAppellantResponse {
-	agentName: string | null;
 	appellantId: number;
-	company: string | null;
-	email: string;
 	name: string;
 }
 
@@ -444,6 +442,7 @@ interface UpdateLPAQuestionaireValidationOutcomeParams {
 		appealStatus: AppealStatus[];
 		appealType: AppealType;
 	};
+	azureAdUserId: string;
 	data: {
 		lpaQuestionnaireDueDate: string;
 		incompleteReasons: IncompleteInvalidReasons;
@@ -461,6 +460,7 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 		reference: string;
 	};
 	appellantCaseId: number;
+	azureAdUserId: string;
 	data: {
 		appealDueDate: string;
 		incompleteReasons: IncompleteInvalidReasons;
@@ -485,7 +485,6 @@ interface UpdateAppealRequest {
 }
 
 interface UsersToAssign {
-	azureAdUserId: string;
 	caseOfficer?: string | null;
 	inspector?: string | null;
 }
@@ -500,6 +499,12 @@ interface SingleFolderResponse {
 	path: string;
 	caseId: number;
 	documents: DocumentInfo[] | null;
+}
+
+interface CreateAuditTrail {
+	appealId: number;
+	azureAdUserId?: string;
+	details: string;
 }
 
 interface CreateAuditTrailRequest {
@@ -539,6 +544,7 @@ export {
 	AssignedUser,
 	BankHolidayFeedDivisions,
 	BankHolidayFeedEvents,
+	CreateAuditTrail,
 	CreateAuditTrailRequest,
 	DocumentationSummary,
 	DocumentInfo,

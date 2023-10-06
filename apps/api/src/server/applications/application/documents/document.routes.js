@@ -131,10 +131,10 @@ router.post(
 );
 
 router.patch(
-	'/:id/documents/update',
+	'/:id/documents',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents/update'
+        #swagger.path = '/applications/{id}/documents'
         #swagger.description = 'Updates the status and/or redaction status on an array of documents'
         #swagger.parameters['id'] = {
             in: 'path',

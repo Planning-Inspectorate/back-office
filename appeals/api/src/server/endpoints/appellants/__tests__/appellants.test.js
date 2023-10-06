@@ -26,10 +26,7 @@ describe('appellants routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: householdAppeal.appellant.agentName,
 					appellantId: householdAppeal.appellant.id,
-					company: householdAppeal.appellant.company,
-					email: householdAppeal.appellant.email,
 					name: householdAppeal.appellant.name
 				});
 			});

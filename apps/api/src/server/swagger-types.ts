@@ -244,6 +244,13 @@ export type RegionsForApplications = {
 	displayNameCy?: string;
 }[];
 
+export type CaseStages = {
+	/** @example "post_decision" */
+	name?: string;
+	/** @example "Post-Decision" */
+	displayNameEn?: string;
+}[];
+
 export type MapZoomLevelForApplications = {
 	/** @example 1 */
 	id?: number;
@@ -1778,16 +1785,16 @@ export interface ApplicationProjectUpdateCreateRequest {
 	/** The back-office ID of the user who created this updated */
 	authorId?: number;
 	/** Will this update be emailed to subscribers? */
-	emailSubscribers?: boolean;
+	emailSubscribers: boolean;
 	/** The current status of this update */
-	status?: 'draft' | 'published' | 'unpublished' | 'archived';
+	status: 'draft' | 'published' | 'unpublished' | 'archived';
 	/** The internal title of this update */
 	title?: string;
 	/**
 	 * The HTML content of this update, it can only include `<p> <a> <strong> <ul> <li> <br>` tags
 	 * @example "<strong>Important Update</strong> Something happened."
 	 */
-	htmlContent?: string;
+	htmlContent: string;
 	/**
 	 * The HTML content of this update in Welsh, it can only include `<p> <a> <strong> <ul> <li> <br>` tags
 	 * @example "<strong>Diweddariad Pwysig</strong> Digwyddodd rhywbeth."
@@ -2460,19 +2467,19 @@ export interface ProjectUpdateNotificationLog {
 	/** @min 0 */
 	id?: number;
 	/** @min 0 */
-	projectUpdateId?: number;
+	projectUpdateId: number;
 	/** @min 0 */
-	subscriptionId?: number;
+	subscriptionId: number;
 	/**
 	 * the date this notification was handled
 	 * @format date-time
 	 * @example "2022-12-21T12:42:40.885Z"
 	 */
-	entryDate?: string;
+	entryDate: string;
 	/** whether an email was successfully sent */
-	emailSent?: boolean;
+	emailSent: boolean;
 	/** the ID of the Azure function run that handled this entry */
-	functionInvocationId?: string;
+	functionInvocationId: string;
 }
 
 export interface RepresentationSummary {
@@ -2517,6 +2524,13 @@ export interface SubscriptionsListBadRequest {
 		/** @example "pageSize must be a number" */
 		pageSize?: string;
 	};
+}
+
+export interface SubscriptionGetRequest {
+	/** @example "SOMEREF" */
+	caseReference: string;
+	/** @example "me@example.com" */
+	emailAddress: string;
 }
 
 export interface SubscriptionGetBadRequest {

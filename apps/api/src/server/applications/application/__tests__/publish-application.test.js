@@ -17,8 +17,13 @@ describe('Publish application', () => {
 		// GIVEN
 		const caseId = 1;
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, publishedAt: mockDate });
-		databaseConnector.case.update.mockResolvedValue({ publishedAt: mockDate });
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
+		});
+		databaseConnector.case.update.mockResolvedValue({
+			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
+		});
 
 		// WHEN
 		const response = await request.patch(`/applications/${caseId}/publish`);
@@ -28,11 +33,10 @@ describe('Publish application', () => {
 
 		const publishedDate = 1_649_319_144;
 
-		expect(loggerInfo).toHaveBeenCalledTimes(3);
+		expect(loggerInfo).toHaveBeenCalledTimes(2);
 
 		expect(loggerInfo).toHaveBeenNthCalledWith(1, `attempting to publish a case with id ${caseId}`);
-		expect(loggerInfo).toHaveBeenNthCalledWith(2, `case was published at ${mockDate}`);
-		expect(loggerInfo).toHaveBeenNthCalledWith(3, `successfully published case with id ${caseId}`);
+		expect(loggerInfo).toHaveBeenNthCalledWith(2, `successfully published case with id ${caseId}`);
 
 		expect(response.body).toEqual({
 			publishedDate
@@ -41,8 +45,12 @@ describe('Publish application', () => {
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: caseId },
 			data: {
-				publishedAt: mockDate,
-				hasUnpublishedChanges: false
+				hasUnpublishedChanges: false,
+				CasePublishedState: {
+					create: {
+						isPublished: true
+					}
+				}
 			}
 		});
 

@@ -1,7 +1,10 @@
 import { add, addBusinessDays, isAfter, isBefore, isWeekend, parseISO, sub } from 'date-fns';
 import fetch from 'node-fetch';
-import config from '../config/config.js';
-import { BANK_HOLIDAY_FEED_DIVISION_ENGLAND } from '#endpoints/constants.js';
+import {
+	CONFIG_BANKHOLIDAYS_FEED_URL,
+	CONFIG_APPEAL_TIMETABLE,
+	BANK_HOLIDAY_FEED_DIVISION_ENGLAND
+} from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedEvents} BankHolidayFeedEvents */
 /** @typedef {import('@pins/appeals.api').Appeals.BankHolidayFeedDivisions} BankHolidayFeedDivisions */
@@ -28,7 +31,7 @@ const bankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) =>
  */
 const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISION_ENGLAND) => {
 	try {
-		const bankHolidayFeed = await fetch(config.bankHolidayFeed.hostname);
+		const bankHolidayFeed = await fetch(CONFIG_BANKHOLIDAYS_FEED_URL);
 		const bankHolidayFeedJson = await bankHolidayFeed.json();
 
 		// @ts-ignore
@@ -123,7 +126,8 @@ const recalculateDateIfNotBusinessDay = async (date) => {
  */
 const calculateTimetable = async (appealType, startedAt) => {
 	if (startedAt) {
-		const appealTimetableConfig = config.timetable[appealType];
+		// @ts-ignore
+		const appealTimetableConfig = CONFIG_APPEAL_TIMETABLE[appealType];
 
 		if (appealTimetableConfig) {
 			const bankHolidays = await fetchBankHolidaysForDivision();

@@ -1,7 +1,9 @@
-import { ERROR_FAILED_TO_SAVE_DATA } from '#endpoints/constants.js';
+import { AUDIT_TRAIL_DOCUMENT_UPLOADED, ERROR_FAILED_TO_SAVE_DATA } from '#endpoints/constants.js';
 import logger from '#utils/logger.js';
 import * as service from './documents.service.js';
 import * as documentRepository from '#repositories/document.repository.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 
 /** @typedef {import('@pins/appeals/index.js').BlobInfo} BlobInfo */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -40,6 +42,18 @@ const getDocument = async (req, res) => {
 const addDocuments = async (req, res) => {
 	const { appeal } = req;
 	const documentInfo = await service.addDocumentsToAppeal(req.body, appeal);
+
+	await Promise.all(
+		documentInfo.documents.map(
+			(document) =>
+				document &&
+				createAuditTrail({
+					appealId: appeal.id,
+					azureAdUserId: req.get('azureAdUserId'),
+					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [document.documentName])
+				})
+		)
+	);
 
 	return res.send(getStorageInfo(documentInfo.documents));
 };

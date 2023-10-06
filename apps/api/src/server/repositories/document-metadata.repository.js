@@ -133,6 +133,18 @@ export const getAll = () => {
 };
 
 /**
+ * Get all published version of a document
+ *
+ * @param {string} documentGuid
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
+ * */
+export const getPublished = (documentGuid) => {
+	return databaseConnector.documentVersion.findMany({
+		where: { documentGuid, publishedStatus: 'published' }
+	});
+};
+
+/**
  * Get all document metadata
  *
  * @param {string} guid
@@ -185,21 +197,20 @@ export const updateAll = async (documentVersionIds, documentDetails) => {
 	const results = [];
 
 	for (const { documentGuid, version } of documentVersionIds) {
-		results.push(
-			await databaseConnector.documentVersion.update({
-				where: { documentGuid_version: { documentGuid, version } },
-				data: documentDetails,
-				include: {
-					Document: {
-						include: {
-							case: true
-						}
+		const result = await databaseConnector.documentVersion.update({
+			where: { documentGuid_version: { documentGuid, version } },
+			data: documentDetails,
+			include: {
+				Document: {
+					include: {
+						case: true
 					}
 				}
-			})
-		);
+			}
+		});
+
+		results.push(result);
 	}
 
-	// @ts-ignore
 	return results;
 };

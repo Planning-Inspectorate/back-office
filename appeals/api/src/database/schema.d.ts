@@ -1,13 +1,8 @@
-import * as schema from '../../src/server/utils/db-client';
-import { string_to_uuid } from 'rhea/typings/util';
-import {
-	APPEAL_TYPE_SHORTHAND_FPA,
-	APPEAL_TYPE_SHORTHAND_HAS
-} from '../server/endpoints/constants';
+import * as schema from '#utils/db-client';
+import { APPEAL_TYPE_SHORTHAND_FPA, APPEAL_TYPE_SHORTHAND_HAS } from '#endpoints/constants';
 
 export {
 	Address,
-	Appellant,
 	AppellantCase,
 	AppellantCaseIncompleteReason,
 	AppellantCaseInvalidReason,
@@ -16,6 +11,7 @@ export {
 	DocumentRedactionStatus,
 	DocumentVersion,
 	KnowledgeOfOtherLandowners,
+	LPA,
 	LPAQuestionnaire,
 	NeighbouringSiteContact,
 	ReviewQuestionnaire,
@@ -24,9 +20,8 @@ export {
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
 	SiteVisitType,
-	User,
-	ValidationOutcome
-} from '../../src/server/utils/db-client';
+	User
+} from '#utils/db-client';
 
 export interface Appeal extends schema.Appeal {
 	address?: schema.Address;
@@ -34,7 +29,8 @@ export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
-	appellant?: schema.Appellant;
+	appellant?: Appellant;
+	agent?: Agent;
 	allocation?: schema.AppealAllocation;
 	specialisms: AppealSpecialism[];
 	createdAt: Date;
@@ -44,7 +40,7 @@ export interface Appeal extends schema.Appeal {
 	id: number;
 	inspectorDecision?: InspectorDecision;
 	linkedAppealId?: number | null;
-	localPlanningDepartment: string;
+	lpa: LPA;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
 	otherAppealId?: number | null;
 	planningApplicationReference: string;
@@ -53,6 +49,14 @@ export interface Appeal extends schema.Appeal {
 	siteVisit?: SiteVisit;
 	startedAt: Date;
 	validationDecision?: ValidationDecision[];
+}
+
+export interface Agent extends schema.Agent {
+	customer?: schema.ServiceCustomer;
+}
+
+export interface Appellant extends schema.Appellant {
+	customer?: schema.ServiceCustomer;
 }
 
 export interface AppellantCase extends schema.AppellantCase {

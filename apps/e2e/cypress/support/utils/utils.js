@@ -6,32 +6,7 @@ const { faker } = require('@faker-js/faker');
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 
-const validateSummaryPage = (fileIndex, checkType) => {
-	const files = ['mainProjectFile', 'secondProjectFile'];
-	const mandatoryOnly = checkType === 'mandatory';
-
-	const projectFileName = Cypress.env(files[fileIndex - 1]);
-	cy.fixture(projectFileName).then((file) => {
-		casePage.validateKeyDates(mandatoryOnly ? '' : file.publishedDate, file.internalDateFull);
-		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
-		casePage.validateSummaryItem(
-			'Applicant Information',
-			mandatoryOnly ? '' : `${file.orgName}${file.applicantEmail}${file.applicantPhoneNumber}`
-		);
-		casePage.validateSummaryItem('Applicant website', mandatoryOnly ? '' : file.applicantWebsite);
-		casePage.validateSummaryItem('Project email', mandatoryOnly ? '' : file.projectEmail);
-	});
-};
-
-const validateSummaryPageInfo = (projectInformation, checkType) => {
-	const mandatoryOnly = checkType === 'mandatory';
-
-	// No longer mandatory
-	// casePage.validateKeyDates(
-	// 	mandatoryOnly ? '' : projectInformation.publishedDate,
-	// 	projectInformation.internalDateFull
-	// );
-
+const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.validateSummaryItem(
 		'Applicant Information',
@@ -47,20 +22,26 @@ const validateSummaryPageInfo = (projectInformation, checkType) => {
 		'Project email',
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
+	casePage.validateSummaryItem('Project page', projectInformation.defaultPublishedStatus);
 };
 
-const validateProjectInformation = (page, projectInformation, checkType, updated = false) => {
-	const mandatoryOnly = checkType === 'mandatory';
-	// P R O J E C T  I N F O R M A T I O N
-	casePage.checkProjectAnswer('Case reference number', Cypress.env('currentCreatedCase'));
+const validateProjectInformation = (projectInformation, mandatoryOnly = false, updated = false) => {
+	validateProjectInformationSection(projectInformation);
+	validateProjectDetailsSection(projectInformation, mandatoryOnly);
+	validateApplicantInfoSection(projectInformation, mandatoryOnly, updated);
+};
+
+const validateProjectInformationSection = (projectInformation) => {
+	casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.checkProjectAnswer('Sector', projectInformation.sector);
 	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
+};
 
-	// P R O J E C T  D E T A I L S
-	casePage.checkProjectAnswer('Project name', projectInformation.projectName);
+const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false) => {
 	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
 	casePage.checkProjectAnswer(
-		'Project email address',
+		/^Project email address$/,
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
 	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
@@ -68,13 +49,18 @@ const validateProjectInformation = (page, projectInformation, checkType, updated
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	// casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
 	);
+};
 
-	// A P P L I C A T I O N  I N F O R M A T I O N
+const validateApplicantInfoSection = (
+	projectInformation,
+	mandatoryOnly = false,
+	updated = false
+) => {
 	casePage.checkProjectAnswer('Organisation name', mandatoryOnly ? '' : projectInformation.orgName);
 	casePage.checkProjectAnswer('Website', mandatoryOnly ? '' : projectInformation.applicantWebsite);
 	casePage.checkProjectAnswer(
@@ -85,19 +71,38 @@ const validateProjectInformation = (page, projectInformation, checkType, updated
 		'Telephone number',
 		mandatoryOnly ? '' : projectInformation.applicantPhoneNumber
 	);
+	casePage.checkProjectAnswer(
+		'Contact name (Internal use only)',
+		mandatoryOnly
+			? ''
+			: `${projectInformation.applicantFirstName}  ${projectInformation.applicantLastName}`
+	);
+	const address = updated
+		? projectInformation.applicantFullAddress2
+		: projectInformation.applicantFullAddress;
+	casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address);
+};
 
-	if (page.toLowerCase() === 'project information') {
-		casePage.checkProjectAnswer(
-			'Contact name (Internal use only)',
-			mandatoryOnly
-				? ''
-				: `${projectInformation.applicantFirstName}  ${projectInformation.applicantLastName}`
-		);
-		const address = updated
-			? projectInformation.applicantFullAddress2
-			: projectInformation.applicantFullAddress;
-		casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address);
-	}
+const validatePreviewAndPublishInfo = (projectInformation) => {
+	// P R O J E C T  I N F O R M A T I O N
+	casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
+	casePage.checkProjectAnswer('Sector', projectInformation.sector);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Case stage', '');
+	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
+	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
+	casePage.checkProjectAnswer(
+		'Grid references',
+		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
+	);
+	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
+
+	// A P P L I C A T I O N  I N F O R M A T I O N
+	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
+	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite);
+	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
 };
 
 const updateProjectInformation = (projectInformation) => {
@@ -222,12 +227,12 @@ const getRandomQuarterDate = (direction = 'future') => {
 };
 
 module.exports = {
-	validateSummaryPage,
-	validateSummaryPageInfo,
+	validateProjectOverview,
 	validateProjectInformation,
 	updateProjectInformation,
 	getShortMonthName,
 	enquirerString,
 	getRandomFormattedDate,
-	getRandomQuarterDate
+	getRandomQuarterDate,
+	validatePreviewAndPublishInfo
 };

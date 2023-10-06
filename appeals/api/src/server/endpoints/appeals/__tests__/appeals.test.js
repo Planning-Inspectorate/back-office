@@ -3,6 +3,8 @@ import { request } from '../../../app-test.js';
 import {
 	AUDIT_TRAIL_ASSIGNED_CASE_OFFICER,
 	AUDIT_TRAIL_ASSIGNED_INSPECTOR,
+	AUDIT_TRAIL_REMOVED_CASE_OFFICER,
+	AUDIT_TRAIL_REMOVED_INSPECTOR,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
@@ -64,7 +66,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.localPlanningDepartment
+							localPlanningDepartment: householdAppeal.lpa.name
 						},
 						{
 							appealId: fullPlanningAppeal.id,
@@ -79,7 +81,7 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment
+							localPlanningDepartment: fullPlanningAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -121,7 +123,7 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment
+							localPlanningDepartment: fullPlanningAppeal.lpa.name
 						}
 					],
 					page: 2,
@@ -182,7 +184,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.localPlanningDepartment
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -243,7 +245,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.localPlanningDepartment
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -304,7 +306,7 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.localPlanningDepartment
+							localPlanningDepartment: householdAppeal.lpa.name
 						}
 					],
 					page: 1,
@@ -447,7 +449,7 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: householdAppeal.appellant.agentName,
+					agentName: householdAppeal.agent.name,
 					allocationDetails: null,
 					appealId: householdAppeal.id,
 					appealReference: householdAppeal.reference,
@@ -506,7 +508,7 @@ describe('appeals routes', () => {
 							appealReference: fullPlanningAppeal.reference
 						}
 					],
-					localPlanningDepartment: householdAppeal.localPlanningDepartment,
+					localPlanningDepartment: householdAppeal.lpa.name,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
 						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
@@ -550,7 +552,7 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: fullPlanningAppeal.appellant.agentName,
+					agentName: fullPlanningAppeal.agent.name,
 					allocationDetails: null,
 					appealId: fullPlanningAppeal.id,
 					appealReference: fullPlanningAppeal.reference,
@@ -611,7 +613,7 @@ describe('appeals routes', () => {
 							appealReference: householdAppeal.reference
 						}
 					],
-					localPlanningDepartment: fullPlanningAppeal.localPlanningDepartment,
+					localPlanningDepartment: fullPlanningAppeal.lpa.name,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
 						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(
@@ -750,7 +752,16 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
-				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_REMOVED_CASE_OFFICER, [
+							householdAppeal.caseOfficer.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					caseOfficer: null
@@ -817,7 +828,16 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
-				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_REMOVED_INSPECTOR, [
+							householdAppeal.inspector.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.inspector.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					inspector: null

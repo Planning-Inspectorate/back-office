@@ -1,28 +1,30 @@
 import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import logger from '#utils/logger.js';
-import config from '#config/config.js';
+import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppellantCase } from './appellant-cases.formatter.js';
 import { updateAppellantCaseValidationOutcome } from './appellant-cases.service.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const getAppellantCaseById = async (req, res) => {
 	const { appeal } = req;
-	const folders = await getFoldersForAppeal(appeal, config.appealStages.appellantCase);
+	const folders = await getFoldersForAppeal(appeal, CONFIG_APPEAL_STAGES.appellantCase);
 	const formattedAppeal = formatAppellantCase(appeal, folders);
 
 	return res.send(formattedAppeal);
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAppellantCaseById = async (req, res) => {
@@ -46,12 +48,14 @@ const updateAppellantCaseById = async (req, res) => {
 		validationOutcome
 	} = req;
 	const appellantCaseId = Number(params.appellantCaseId);
+	const azureAdUserId = String(req.get('azureAdUserId'));
 
 	try {
 		validationOutcome
 			? await updateAppellantCaseValidationOutcome({
 					appeal,
 					appellantCaseId,
+					azureAdUserId,
 					data: body,
 					notifyClient: req.notifyClient,
 					validationOutcome

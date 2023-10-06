@@ -187,31 +187,19 @@ export const validateDocumentIds = composeMiddleware(
 /**
  * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish
  *
- * TODO: Let's make this return an error instead of throwing one
- *
  * @param {string[]} documentIds
- * @throws {Error}
- * @returns {Promise<{documentGuid: string, version: number}[]>}
+ * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: string[] }} VerifiedReturn
+ * @returns {Promise<VerifiedReturn>}
  */
 export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (documentIds) => {
 	const publishableDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
 
-	if (documentIds.length !== publishableDocuments.length) {
-		const publishableIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
-		// TODO: Return instead?
-		throw new Error(
-			JSON.stringify(
-				documentIds
-					.filter((documentId) => !publishableIds.has(documentId))
-					.map((guid) => ({
-						guid
-					}))
-			)
-		);
-	}
-
-	return publishableDocuments.map(({ guid, latestVersionId }) => ({
-		documentGuid: guid,
-		version: latestVersionId
-	}));
+	const publishableIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
+	return {
+		publishable: publishableDocuments.map(({ guid, latestVersionId }) => ({
+			documentGuid: guid,
+			version: latestVersionId
+		})),
+		invalid: documentIds.filter((id) => !publishableIds.has(id))
+	};
 };

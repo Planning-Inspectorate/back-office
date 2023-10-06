@@ -30,24 +30,6 @@ const { value, error } = schema.validate({
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
 	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
-	timetable: {
-		FPA: {
-			lpaQuestionnaireDueDate: {
-				daysFromStartDate: 5
-			},
-			statementReviewDate: {
-				daysFromStartDate: 25
-			},
-			finalCommentReviewDate: {
-				daysFromStartDate: 35
-			}
-		},
-		HAS: {
-			lpaQuestionnaireDueDate: {
-				daysFromStartDate: 5
-			}
-		}
-	},
 	govNotify: {
 		api: {
 			key: environment.GOV_NOTIFY_API_KEY
@@ -59,9 +41,6 @@ const { value, error } = schema.validate({
 		},
 		testMailbox: environment.TEST_MAILBOX || 'test@example.com'
 	},
-	bankHolidayFeed: {
-		hostname: 'https://www.gov.uk/bank-holidays.json'
-	},
 	appealAllocationLevels: [
 		{ level: 'A', band: 3 },
 		{ level: 'B', band: 3 },
@@ -71,31 +50,7 @@ const { value, error } = schema.validate({
 		{ level: 'F', band: 1 },
 		{ level: 'G', band: 1 },
 		{ level: 'H', band: 1 }
-	],
-	appealFolderPaths: [
-		// path in the format of {stage}/{documentType}
-		'appellant_case/applicationForm',
-		'appellant_case/decisionLetter',
-		'appellant_case/designAndAccessStatement',
-		'appellant_case/planningObligation',
-		'appellant_case/plansDrawingsSupportingDocuments',
-		'appellant_case/separateOwnershipCertificate',
-		'appellant_case/newSupportingDocuments',
-		'appellant_case/appealStatement',
-		// LPA questionnaire folders
-		'lpa_questionnaire/conservationAreaMap',
-		'lpa_questionnaire/notifyingParties',
-		'lpa_questionnaire/siteNotices',
-		'lpa_questionnaire/lettersToNeighbours',
-		'lpa_questionnaire/pressAdvert',
-		'lpa_questionnaire/representations',
-		'lpa_questionnaire/officersReport'
-	],
-	appealStages: {
-		// stage mapping for ODW
-		appellantCase: 'appellant_case',
-		lpaQuestionnaire: 'lpa_questionnaire'
-	}
+	]
 });
 
 if (error) {

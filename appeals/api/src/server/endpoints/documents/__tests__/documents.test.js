@@ -25,6 +25,7 @@ import {
 } from '../../../tests/data.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import {
+	AUDIT_TRAIL_DOCUMENT_UPLOADED,
 	ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_NUMBER,
@@ -62,27 +63,43 @@ describe('/appeals/:appealId/document-folders/:folderId', () => {
 	});
 });
 
-describe('/appeals/:appealId/documents', () => {
-	describe('PATCH', () => {
-		let requestBody;
+describe('/appeals/:appealId/documents/:documentId', () => {
+	describe('GET', () => {
+		test('gets a single document', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.document.findUnique.mockResolvedValue(documentCreated);
 
-		beforeEach(() => {
-			requestBody = {
-				documents: [
-					{
-						id: '987e66e0-1db4-404b-8213-8082919159e9',
-						receivedDate: '2023-09-22',
-						redactionStatus: 1
-					},
-					{
-						id: '8b107895-b8c9-467f-aad0-c09daafeaaad',
-						receivedDate: '2023-09-23',
-						redactionStatus: 2
-					}
-				]
-			};
+			const response = await request
+				.get(`/appeals/${householdAppeal.id}/documents/${documentCreated.guid}`)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual(documentCreated);
 		});
+	});
+});
 
+describe('/appeals/:appealId/documents', () => {
+	let requestBody;
+
+	beforeEach(() => {
+		requestBody = {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					receivedDate: '2023-09-22',
+					redactionStatus: 1
+				},
+				{
+					id: '8b107895-b8c9-467f-aad0-c09daafeaaad',
+					receivedDate: '2023-09-23',
+					redactionStatus: 2
+				}
+			]
+		};
+	});
+
+	describe('PATCH', () => {
 		test('updates multiple documents', async () => {
 			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 			databaseConnector.documentRedactionStatus.findMany.mockResolvedValue(
@@ -312,6 +329,89 @@ describe('/appeals/:appealId/documents', () => {
 						documentRedactionStatusIds.join(', ')
 					])
 				}
+			});
+		});
+	});
+
+	describe('POST', () => {
+		test('updates multiple documents', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.documentRedactionStatus.findMany.mockResolvedValue(
+				documentRedactionStatuses
+			);
+			databaseConnector.user.upsert.mockResolvedValue({
+				id: 1,
+				azureAdUserId
+			});
+
+			databaseConnector.$transaction = jest.fn().mockImplementation((callback) =>
+				callback({
+					document: {
+						create: jest.fn().mockResolvedValue(documentCreated),
+						update: jest.fn().mockResolvedValue(documentUpdated)
+					},
+					documentVersion: {
+						upsert: jest.fn().mockResolvedValue(documentVersionCreated),
+						findFirst: jest.fn().mockResolvedValue(documentVersionRetrieved)
+					}
+				})
+			);
+
+			const response = await request
+				.post(`/appeals/${householdAppeal.id}/documents`)
+				.send({
+					...requestBody,
+					blobStorageHost: 'blobStorageHost',
+					blobStorageContainer: 'blobStorageContainer'
+				})
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(databaseConnector.document.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.document.update).toHaveBeenCalledWith({
+				data: {
+					receivedAt: joinDateAndTime(requestBody.documents[0].receivedDate),
+					documentRedactionStatusId: requestBody.documents[0].redactionStatus
+				},
+				where: {
+					guid: requestBody.documents[0].id
+				}
+			});
+			expect(databaseConnector.document.update).toHaveBeenCalledWith({
+				data: {
+					receivedAt: joinDateAndTime(requestBody.documents[1].receivedDate),
+					documentRedactionStatusId: requestBody.documents[1].redactionStatus
+				},
+				where: {
+					guid: requestBody.documents[1].id
+				}
+			});
+			expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+				data: {
+					appealId: householdAppeal.id,
+					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [documentUpdated.name]),
+					loggedAt: expect.any(Date),
+					userId: householdAppeal.caseOfficer.id
+				}
+			});
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual({
+				documents: [
+					{
+						GUID: documentUpdated.guid,
+						blobStoreUrl: `appeal/${householdAppeal.reference.replace(/\//g, '-')}/${
+							documentUpdated.guid
+						}/v1/${documentUpdated.name}`,
+						documentName: documentUpdated.name
+					},
+					{
+						GUID: documentUpdated.guid,
+						blobStoreUrl: `appeal/${householdAppeal.reference.replace(/\//g, '-')}/${
+							documentUpdated.guid
+						}/v1/${documentUpdated.name}`,
+						documentName: documentUpdated.name
+					}
+				]
 			});
 		});
 	});
