@@ -174,7 +174,7 @@ SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 10)
        dateofdcosubmission                                                  AS updateDate,
        'application received'                                               AS updateName,
        'Application received by the Planning Inspectorate'                  AS updateContentEnglish,
-       'Publish'                                                            AS updateStatus,
+       'publish'                                                            AS updateStatus,
        -- Additional columns we need to migrate to create cases
        projectname                                                          AS caseName,
        summary                                                              AS caseDescription,
@@ -189,7 +189,7 @@ SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 11)
        dateofdcoacceptance_nonacceptance                                    AS updateDate,
        'application accepted'                                               AS updateName,
        'The application has been accepted for examination'                  AS updateContentEnglish,
-       'Publish'                                                            AS updateStatus,
+       'publish'                                                            AS updateStatus,
        -- Additional columns we need to migrate to create cases
        projectname                                                          AS caseName,
        summary                                                              AS caseDescription,
@@ -204,7 +204,7 @@ SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 12)
        dateofrepresentationperiodopen                                       AS updateDate,
        'registrations open'                                                 AS updateName,
        'Registration of interested parties begins'                          AS updateContentEnglish,
-       'Publish'                                                            AS updateStatus,
+       'publish'                                                            AS updateStatus,
        -- Additional columns we need to migrate to create cases
        projectname                                                          AS caseName,
        summary                                                              AS caseDescription,
@@ -219,7 +219,7 @@ SELECT CAST(Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 13)
        dateofrelevantrepresentationclose                                    AS updateDate,
        'registrations closed'                                               AS updateName,
        'Registration of interested parties closes'                          AS updateContentEnglish,
-       'Publish'                                                            AS updateStatus,
+       'publish'                                                            AS updateStatus,
        -- Additional columns we need to migrate to create cases
        projectname                                                          AS caseName,
        summary                                                              AS caseDescription,
