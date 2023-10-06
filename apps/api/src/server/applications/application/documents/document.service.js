@@ -483,7 +483,7 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 		publishedStatusPrev: 'ready_to_publish'
 	});
 
-	await documentVersionRepository.updateAll(
+	const unpublishedDocuments = await documentVersionRepository.updateAll(
 		currentlyPublished.map((version) => ({
 			documentGuid: version.documentGuid,
 			version: version.version
@@ -492,6 +492,17 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 			publishedStatus: 'unpublished',
 			publishedStatusPrev: 'published'
 		}
+	);
+
+	await Promise.all(
+		unpublishedDocuments.map((doc) =>
+			documentActivityLogRepository.create({
+				documentGuid: doc.documentGuid,
+				version: doc.version,
+				user: doc.owner,
+				status: 'unpublished'
+			})
+		)
 	);
 
 	await eventClient.sendEvents(
