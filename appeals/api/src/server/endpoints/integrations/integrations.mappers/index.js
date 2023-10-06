@@ -70,6 +70,7 @@ export const mapQuestionnaireSubmission = (/** @type {QuestionnaireData} */ data
 
 	return {
 		questionnaire: questionnaireInput,
+		nearbyCaseReferences: questionnaire.nearbyCaseReferences,
 		documents: documentsInput,
 		caseReference: questionnaire.caseReference
 	};

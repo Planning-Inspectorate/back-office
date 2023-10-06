@@ -17,7 +17,6 @@ export const mapQuestionnaireIn = (questionnaire) => {
 		isAffectingNeighbouringSites: questionnaire.doPlansAffectNeighbouringSite || false,
 		//doesSiteHaveHealthAndSafetyIssues
 		healthAndSafetyDetails: questionnaire.healthAndSafetyIssuesDetails,
-		//nearbyCaseReferences,
 		hasExtraConditions: questionnaire.hasExtraConditions || false,
 		extraConditions: questionnaire.extraConditions
 	};
