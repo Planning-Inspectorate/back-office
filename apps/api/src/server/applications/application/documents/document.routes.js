@@ -155,7 +155,7 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/DocumentToSaveRequestBody' }
+            schema: { $ref: '#/definitions/DocumentToSave' }
         }
         #swagger.responses[200] = {
             description: 'Document that has been saved',

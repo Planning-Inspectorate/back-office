@@ -1222,28 +1222,73 @@ export const spec = {
 				}
 			}
 		},
-		DocumentToSaveRequestBody: {
+		DocumentToSaveExtended: {
 			type: 'object',
+			required: [
+				'documentName',
+				'documentSize',
+				'documentType',
+				'caseId',
+				'folderId',
+				'fileRowId',
+				'username'
+			],
 			properties: {
 				documentName: {
 					type: 'string',
 					description: 'Document file name',
 					example: 'document.pdf'
 				},
-				folderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
 				documentType: {
 					type: 'string',
 					description: 'Document mime type',
 					example: 'application/pdf'
 				},
-				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
-				username: { type: 'string', description: 'Username', example: 'test-user@email.com' },
+				caseId: { type: 'string', description: 'Case Id', example: '1' },
+				folderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				fileRowId: { type: 'string', description: '', example: 'file_row_1585663020000_7945' },
+				username: { type: 'string', description: 'Username', example: 'John Keats' },
+				documentReference: {
+					type: 'string',
+					description: 'Document unique reference',
+					example: 'BC011001-123456'
+				},
 				fromFrontOffice: { type: 'boolean', description: 'Sent from Front Office?', example: false }
+			}
+		},
+		DocumentToSave: {
+			type: 'object',
+			required: [
+				'documentName',
+				'documentSize',
+				'documentType',
+				'caseId',
+				'folderId',
+				'fileRowId',
+				'username'
+			],
+			properties: {
+				documentName: {
+					type: 'string',
+					description: 'Document file name',
+					example: 'document.pdf'
+				},
+				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
+				documentType: {
+					type: 'string',
+					description: 'Document mime type',
+					example: 'application/pdf'
+				},
+				caseId: { type: 'string', description: 'Case Id', example: '1' },
+				folderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				fileRowId: { type: 'string', description: '', example: 'file_row_1585663020000_7945' },
+				username: { type: 'string', description: 'Username', example: 'John Keats' }
 			}
 		},
 		DocumentsToSaveManyRequestBody: {
 			type: 'array',
-			items: { $ref: '#/definitions/DocumentToSaveRequestBody' }
+			items: { $ref: '#/definitions/DocumentToSave' }
 		},
 		DocumentsToUpdateRequestBody: {
 			type: 'object',
@@ -1490,6 +1535,34 @@ export const spec = {
 		DocumentPropertiesWithAllVersionWithAuditHistory: {
 			type: 'array',
 			items: { $ref: '#/definitions/DocumentPropertiesWithAuditHistory' }
+		},
+		DocumentBlobStoragePayload: {
+			type: 'object',
+			required: [
+				'caseType',
+				'caseReference',
+				'documentName',
+				'documentReference',
+				'GUID',
+				'version'
+			],
+			properties: {
+				caseType: {
+					type: 'string',
+					enum: ['appeal', 'application'],
+					description: 'URL to the File',
+					example: 'application'
+				},
+				caseReference: { type: 'string', description: 'Case Reference', example: '1' },
+				documentName: { type: 'string', description: 'Document name', example: 'document.pdf' },
+				documentReference: { type: 'string', nullable: true, description: '', example: '' },
+				GUID: {
+					type: 'string',
+					description: 'Document guid',
+					example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+				},
+				version: { type: 'integer', description: 'Document version', example: 1 }
+			}
 		},
 		DocumentAndBlobStorageDetail: {
 			type: 'object',
