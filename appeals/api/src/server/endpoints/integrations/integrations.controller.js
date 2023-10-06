@@ -55,8 +55,14 @@ export const postAppealSubmission = async (req, res) => {
  * @returns {Promise<Response>}
  */
 export const postLpaqSubmission = async (req, res) => {
-	const { caseReference, questionnaire, documents } = mapQuestionnaireSubmission(req.body);
-	const result = await importLPAQuestionnaire(caseReference, questionnaire, documents);
+	const { caseReference, questionnaire, nearbyCaseReferences, documents } =
+		mapQuestionnaireSubmission(req.body);
+	const result = await importLPAQuestionnaire(
+		caseReference,
+		nearbyCaseReferences,
+		questionnaire,
+		documents
+	);
 	if (!result) {
 		throw new BackOfficeAppError(
 			`Failure importing LPA questionnaire. Appeal with case reference '${caseReference}' does not exist.`
