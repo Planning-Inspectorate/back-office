@@ -62,7 +62,7 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 const getProjectUpdates = async (log, caseReference) => {
 	// Get all of the updates (They contain three additional properties; caseName, caseDescription and caseStage (int))
 	const updates = await sequelize.query(getUpdatesQuery, {
-		replacements: [caseReference],
+		replacements: [caseReference, caseReference, caseReference, caseReference, caseReference],
 		type: QueryTypes.SELECT
 	});
 
