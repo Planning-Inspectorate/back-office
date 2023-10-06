@@ -15,7 +15,10 @@ import { databaseConnector } from '#utils/database-connector.js';
 export const getDocumentById = (guid) => {
 	return databaseConnector.document.findUnique({
 		where: { guid },
-		include: { latestDocumentVersion: true }
+		include: {
+			documentRedactionStatus: true,
+			latestDocumentVersion: true
+		}
 	});
 };
 

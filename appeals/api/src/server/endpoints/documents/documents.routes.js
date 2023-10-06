@@ -43,14 +43,14 @@ router.get(
 	/*
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/{appealId}/documents/{documentId}'
-		#swagger.description = Returns the contents of the appeal folders
+		#swagger.description = Returns a single document by id
 		#swagger.parameters['azureAdUserId'] = {
 			in: 'header',
 			required: true,
 			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
 		}
 		#swagger.responses[200] = {
-			description: 'Gets all the documents for a specific appeal by id',
+			description: 'Returns a single document by id',
 			schema: { $ref: '#/definitions/DocumentDetails' }
 		}
 		#swagger.responses[400] = {}
