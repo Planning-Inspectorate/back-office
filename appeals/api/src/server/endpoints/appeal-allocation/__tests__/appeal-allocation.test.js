@@ -1,6 +1,10 @@
 import { request } from '#tests/../app-test.js';
 import { azureAdUserId, householdAppeal } from '#tests/data.js';
-import { ERROR_APPEAL_ALLOCATION_LEVELS, ERROR_NOT_FOUND } from '#endpoints/constants.js';
+import {
+	AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED,
+	ERROR_APPEAL_ALLOCATION_LEVELS,
+	ERROR_NOT_FOUND
+} from '#endpoints/constants.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 const specialisms = [
@@ -86,6 +90,11 @@ describe('appeal allocation routes', () => {
 				// @ts-ignore
 				databaseConnector.appealAllocation.upsert.mockResolvedValue({}))
 			];
+			// @ts-ignore
+			databaseConnector.user.upsert.mockResolvedValue({
+				id: 1,
+				azureAdUserId
+			});
 
 			const response = await request
 				.patch(`/appeals/${householdAppeal.id}/appeal-allocation`)
@@ -95,6 +104,14 @@ describe('appeal allocation routes', () => {
 				})
 				.set('azureAdUserId', azureAdUserId);
 
+			expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+				data: {
+					appealId: householdAppeal.id,
+					details: AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED,
+					loggedAt: expect.any(Date),
+					userId: householdAppeal.caseOfficer.id
+				}
+			});
 			expect(response.status).toEqual(200);
 		});
 	});

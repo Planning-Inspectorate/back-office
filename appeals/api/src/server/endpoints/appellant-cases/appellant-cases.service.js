@@ -7,6 +7,7 @@ import {
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import { format } from 'date-fns';
 import {
+	AUDIT_TRAIL_CASE_TIMELINE_CREATED,
 	DEFAULT_DATE_FORMAT_DATABASE,
 	DEFAULT_DATE_FORMAT_DISPLAY,
 	ERROR_NOT_FOUND
@@ -15,6 +16,7 @@ import config from '../../config/config.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import transitionState from '../../state/transition-state.js';
 import appealRepository from '#repositories/appeal.repository.js';
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppellantCaseValidationOutcomeParams} UpdateAppellantCaseValidationOutcomeParams */
@@ -43,6 +45,7 @@ const checkAppellantCaseExists = (req, res, next) => {
 const updateAppellantCaseValidationOutcome = async ({
 	appeal,
 	appellantCaseId,
+	azureAdUserId,
 	data,
 	notifyClient,
 	validationOutcome
@@ -64,6 +67,12 @@ const updateAppellantCaseValidationOutcome = async ({
 			appeal_type: appealType.shorthand,
 			date_started: format(startedAt, DEFAULT_DATE_FORMAT_DISPLAY)
 		});
+
+		await createAuditTrail({
+			appealId,
+			azureAdUserId,
+			details: AUDIT_TRAIL_CASE_TIMELINE_CREATED
+		});
 	}
 
 	await appellantCaseRepository.updateAppellantCaseValidationOutcome({
@@ -74,7 +83,7 @@ const updateAppellantCaseValidationOutcome = async ({
 		...(isOutcomeValid(validationOutcome.name) && { appealId, startedAt, timetable })
 	});
 
-	await transitionState(appealId, appealType, appealStatus, validationOutcome.name);
+	await transitionState(appealId, appealType, azureAdUserId, appealStatus, validationOutcome.name);
 
 	if (appealDueDate) {
 		await appealRepository.updateAppealById(appealId, { dueDate: appealDueDate });

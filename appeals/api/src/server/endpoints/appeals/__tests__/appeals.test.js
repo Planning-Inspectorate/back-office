@@ -3,6 +3,8 @@ import { request } from '../../../app-test.js';
 import {
 	AUDIT_TRAIL_ASSIGNED_CASE_OFFICER,
 	AUDIT_TRAIL_ASSIGNED_INSPECTOR,
+	AUDIT_TRAIL_REMOVED_CASE_OFFICER,
+	AUDIT_TRAIL_REMOVED_INSPECTOR,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
@@ -750,7 +752,16 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
-				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_REMOVED_CASE_OFFICER, [
+							householdAppeal.caseOfficer.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					caseOfficer: null
@@ -817,7 +828,16 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
-				expect(databaseConnector.auditTrail.create).not.toHaveBeenCalled();
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: stringTokenReplacement(AUDIT_TRAIL_REMOVED_INSPECTOR, [
+							householdAppeal.inspector.azureAdUserId
+						]),
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.inspector.id
+					}
+				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					inspector: null

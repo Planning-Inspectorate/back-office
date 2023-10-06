@@ -1,15 +1,15 @@
 /**
- * @param {string} errorMessage
+ * @param {string} string
  * @param {Array<string | number>} replacements
  * @returns {string}
  */
-const stringTokenReplacement = (errorMessage, replacements) =>
+const stringTokenReplacement = (string, replacements) =>
 	replacements
 		.map((replacement) => String(replacement))
 		.reduce(
-			(replacedErrorMessage, replacement, index) =>
-				replacedErrorMessage.replace(`{replacement${index}}`, replacement),
-			errorMessage
+			(replacedString, replacement, index) =>
+				replacedString.replace(`{replacement${index}}`, replacement),
+			string
 		);
 
 export default stringTokenReplacement;

@@ -1,7 +1,17 @@
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
+import {
+	AUDIT_TRAIL_ASSIGNED_CASE_OFFICER,
+	AUDIT_TRAIL_ASSIGNED_INSPECTOR,
+	AUDIT_TRAIL_REMOVED_CASE_OFFICER,
+	AUDIT_TRAIL_REMOVED_INSPECTOR,
+	DEFAULT_PAGE_NUMBER,
+	DEFAULT_PAGE_SIZE,
+	ERROR_FAILED_TO_SAVE_DATA
+} from '../constants.js';
 import { formatAppeal, formatAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 
@@ -54,19 +64,43 @@ const getAppealById = (req, res) => {
  */
 const updateAppealById = async (req, res) => {
 	const {
+		appeal,
 		body,
 		body: { caseOfficer, inspector, startedAt },
 		params
 	} = req;
 	const appealId = Number(params.appealId);
-	const azureAdUserId = String(req.get('azureAdUserId'));
 
 	try {
-		assignedUserType({ caseOfficer, inspector })
-			? await assignUser(appealId, { azureAdUserId, caseOfficer, inspector })
-			: await appealRepository.updateAppealById(appealId, {
-					startedAt
-			  });
+		if (assignedUserType({ caseOfficer, inspector })) {
+			await assignUser(appealId, { caseOfficer, inspector });
+
+			let details = '';
+
+			if (caseOfficer) {
+				details = stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_CASE_OFFICER, [caseOfficer]);
+			} else if (inspector) {
+				details = stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_INSPECTOR, [inspector]);
+			} else if (caseOfficer === null && appeal.caseOfficer) {
+				details = stringTokenReplacement(AUDIT_TRAIL_REMOVED_CASE_OFFICER, [
+					appeal.caseOfficer.azureAdUserId
+				]);
+			} else if (inspector === null && appeal.inspector) {
+				details = stringTokenReplacement(AUDIT_TRAIL_REMOVED_INSPECTOR, [
+					appeal.inspector.azureAdUserId
+				]);
+			}
+
+			await createAuditTrail({
+				appealId: appeal.id,
+				details,
+				azureAdUserId: req.get('azureAdUserId')
+			});
+		} else {
+			await appealRepository.updateAppealById(appealId, {
+				startedAt
+			});
+		}
 	} catch (error) {
 		if (error) {
 			logger.error(error);

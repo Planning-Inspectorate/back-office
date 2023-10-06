@@ -6,11 +6,12 @@ import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppellantCase } from './appellant-cases.formatter.js';
 import { updateAppellantCaseValidationOutcome } from './appellant-cases.service.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const getAppellantCaseById = async (req, res) => {
@@ -22,7 +23,8 @@ const getAppellantCaseById = async (req, res) => {
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAppellantCaseById = async (req, res) => {
@@ -46,12 +48,14 @@ const updateAppellantCaseById = async (req, res) => {
 		validationOutcome
 	} = req;
 	const appellantCaseId = Number(params.appellantCaseId);
+	const azureAdUserId = String(req.get('azureAdUserId'));
 
 	try {
 		validationOutcome
 			? await updateAppellantCaseValidationOutcome({
 					appeal,
 					appellantCaseId,
+					azureAdUserId,
 					data: body,
 					notifyClient: req.notifyClient,
 					validationOutcome
