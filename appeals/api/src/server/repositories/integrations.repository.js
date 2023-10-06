@@ -61,18 +61,6 @@ export const createAppeal = async (data, documents) => {
 
 	return transaction;
 };
-export const updateAppealNearbyCaseReferences = async (caseReferences, appealId) => {
-	await databaseConnector.appeal.update({
-		where: { id: appealId },
-		data: {
-			otherAppeals: {
-				connect: caseReferences.map((reference) => {
-					return { reference };
-				})
-			}
-		}
-	});
-};
 
 export const createOrUpdateLpaQuestionnaire = async (
 	caseReference,
