@@ -2,7 +2,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 
 /**
  *
- * @param {import('@pins/applications.api').Schema.DocumentActivityLog} documentLog
+ * @param {import('@prisma/client').Prisma.DocumentActivityLogUncheckedCreateInput} documentLog
  * @returns {Promise<import('@pins/applications.api').Schema.DocumentActivityLog>}
  */
 export const create = (documentLog) => {

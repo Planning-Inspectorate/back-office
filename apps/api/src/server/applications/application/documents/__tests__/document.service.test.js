@@ -127,7 +127,7 @@ describe('Document service test', () => {
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.document.update).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(2);
+		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(1);
 	});
 
 	test('obtainURLForDocumentVersion uploads new version of document and does not unblish the document', async () => {

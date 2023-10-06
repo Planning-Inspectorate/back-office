@@ -358,46 +358,20 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
 	);
 
-	const isPublishedOldVersion = currentDocumentVersion[0].publishedStatus === 'published';
-
 	// copy all meta data from previous version except below properties.
 	currentDocumentVersion[0].version = version;
 	currentDocumentVersion[0].fileName = fileName;
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
-	currentDocumentVersion[0].publishedStatus = 'awaiting_upload';
-	currentDocumentVersion[0].datePublished = null;
-
-	if (config.virusScanningDisabled) {
-		currentDocumentVersion[0].publishedStatus = 'not_checked';
-	}
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
-	const activityLogs = [];
-	activityLogs.push(
-		// @ts-ignore
-		documentActivityLogRepository.create({
-			documentGuid: documentId,
-			version,
-			user: documentToUpload.username,
-			status: 'uploaded'
-		})
-	);
-
-	if (isPublishedOldVersion) {
-		activityLogs.push(
-			// @ts-ignore
-			documentActivityLogRepository.create({
-				documentGuid: documentId,
-				version: documentFromDatabase.latestVersionId,
-				user: documentToUpload.username,
-				status: 'unpublished'
-			})
-		);
-	}
-
-	await Promise.all(activityLogs);
+	await documentActivityLogRepository.create({
+		documentGuid: documentId,
+		version,
+		user: documentToUpload.username,
+		status: 'uploaded'
+	});
 
 	// Step 6: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);

@@ -97,7 +97,8 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 		return response.render(`applications/components/folder/folder`, {
 			...properties,
-			errors: validationErrors || { msg: 'Something went wrong. Please, try again later.' },
+			errors: validationErrors ||
+				itemErrors || { msg: 'Something went wrong. Please, try again later.' },
 			failedItems
 		});
 	}
