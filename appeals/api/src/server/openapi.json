@@ -1041,7 +1041,7 @@
 		"/appeals/{appealId}/documents/{documentId}": {
 			"get": {
 				"tags": ["Documents"],
-				"description": "Returns the contents of the appeal folders",
+				"description": "Returns a single document by id",
 				"parameters": [
 					{
 						"name": "appealId",
@@ -1071,7 +1071,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Gets all the documents for a specific appeal by id",
+						"description": "Returns a single document by id",
 						"content": {
 							"application/json": {
 								"schema": {

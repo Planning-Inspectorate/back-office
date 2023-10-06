@@ -47,7 +47,15 @@ export const addDocumentVersionRequest = {
 export const documentCreated = {
 	guid,
 	name: fileName,
-	case: { reference: appeal.reference }
+	case: { reference: appeal.reference },
+	latestDocumentVersion: {
+		version: 1
+	},
+	receivedAt: new Date().toISOString(),
+	redactionStatus: {
+		id: 1,
+		name: 'Redacted'
+	}
 };
 
 export const documentUpdated = {
