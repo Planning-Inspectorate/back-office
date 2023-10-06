@@ -162,12 +162,72 @@ SELECT p.id,
 FROM   ipclive.wp_posts p
        INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
        INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
-       INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.NAME, 8) = pr.casereference
+       INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.name, 8) = pr.casereference
 WHERE  p.post_type = 'ipc_project_update'
        AND p.post_status IN( 'publish', 'draft' )
        AND pr.casereference = ?
-GROUP BY id
-ORDER  BY post_date DESC;`;
+GROUP  BY id
+UNION
+SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 10) AS
+       id,
+       casereference                                                        AS caseReference,
+       dateofdcosubmission                                                  AS updateDate,
+       'application received'                                               AS updateName,
+       'Application received by the Planning Inspectorate'                  AS updateContentEnglish,
+       'Publish'                                                            AS updateStatus,
+       -- Additional columns we need to migrate to create cases
+       projectname                                                          AS caseName,
+       summary                                                              AS caseDescription,
+       stage                                                                AS caseStage
+FROM   ipclive.wp_ipc_projects
+WHERE  casereference = ?
+       AND dateofdcosubmission IS NOT NULL
+       AND Now() > dateofdcosubmission
+UNION
+SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 11) AS id,
+       casereference                                                        AS caseReference,
+       dateofdcoacceptance_nonacceptance                                    AS updateDate,
+       'application accepted'                                               AS updateName,
+       'The application has been accepted for examination'                  AS updateContentEnglish,
+       'Publish'                                                            AS updateStatus,
+       -- Additional columns we need to migrate to create cases
+       projectname                                                          AS caseName,
+       summary                                                              AS caseDescription,
+       stage                                                                AS caseStage
+FROM   ipclive.wp_ipc_projects
+WHERE  casereference = ?
+       AND dateofdcoacceptance_nonacceptance IS NOT NULL
+       AND Now() > dateofdcoacceptance_nonacceptance
+UNION
+SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 12) AS id,
+       casereference                                                        AS caseReference,
+       dateofrepresentationperiodopen                                       AS updateDate,
+       'registrations open'                                                 AS updateName,
+       'Registration of interested parties begins'                          AS updateContentEnglish,
+       'Publish'                                                            AS updateStatus,
+       -- Additional columns we need to migrate to create cases
+       projectname                                                          AS caseName,
+       summary                                                              AS caseDescription,
+       stage                                                                AS caseStage
+FROM   ipclive.wp_ipc_projects
+WHERE  casereference = ?
+       AND dateofrepresentationperiodopen IS NOT NULL
+       AND Now() > dateofrepresentationperiodopen
+UNION
+SELECT Concat(Substr(casereference, 4, 1), Substr(casereference, 6, 3), 13) AS id,
+       casereference                                                        AS caseReference,
+       dateofrelevantrepresentationclose                                    AS updateDate,
+       'registrations closed'                                               AS updateName,
+       'Registration of interested parties closes'                          AS updateContentEnglish,
+       'Publish'                                                            AS updateStatus,
+       -- Additional columns we need to migrate to create cases
+       projectname                                                          AS caseName,
+       summary                                                              AS caseDescription,
+       stage                                                                AS caseStage
+FROM   ipclive.wp_ipc_projects
+WHERE  casereference = ?
+       AND dateofrelevantrepresentationclose IS NOT NULL
+       AND Now() > dateofrelevantrepresentationclose;`;
 
 const getSubscriptionsQuery = `
 SELECT s.user_id   AS subscriptionId,
