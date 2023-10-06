@@ -212,7 +212,7 @@ function buildNotificationBanners(session) {
 /**
  * @param {object | undefined} row
  */
-function removeActions(row) {
+export function removeActions(row) {
 	if (row) {
 		Reflect.deleteProperty(row, 'actions');
 		return row;

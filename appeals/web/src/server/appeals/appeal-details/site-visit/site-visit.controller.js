@@ -2,7 +2,10 @@ import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case/appellant-case.service.js';
 import * as siteVisitService from './site-visit.service.js';
-import { mapWebVisitTypeToApiVisitType } from './site-visit.mapper.js';
+import {
+	mapWebVisitTypeToApiVisitType,
+	buildSiteDetailsSummaryListRows
+} from './site-visit.mapper.js';
 import {
 	hourMinuteToApiDateString,
 	dayMonthYearToApiDateString,
@@ -36,10 +39,6 @@ const renderScheduleSiteVisit = async (request, response) => {
 			}
 		} = request;
 
-		const formattedSiteAddress = appealDetails?.appealSite
-			? Object.values(appealDetails?.appealSite)?.join(', ')
-			: 'Address not known';
-
 		const healthAndSafetyIssues = [];
 		if (appealDetails.healthAndSafety?.appellantCase?.hasIssues) {
 			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.appellantCase?.details);
@@ -48,15 +47,17 @@ const renderScheduleSiteVisit = async (request, response) => {
 			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.lpaQuestionnaire?.details);
 		}
 
+		const siteDetailsRows = await buildSiteDetailsSummaryListRows(
+			{ appeal: appealDetails },
+			request.originalUrl,
+			request.session
+		);
+
 		return response.render('appeals/appeal/schedule-site-visit.njk', {
+			siteDetailsRows,
 			appeal: {
 				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference),
-				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
-				localPlanningAuthority: appealDetails?.localPlanningDepartment,
-				potentialSafetyRisks: healthAndSafetyIssues.join('; ').concat('.'),
-				appellantName: appealDetails.appellantName
+				shortReference: appealShortReference(appealDetails?.appealReference)
 			},
 			siteVisit: {
 				visitType,
