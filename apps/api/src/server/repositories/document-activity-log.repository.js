@@ -1,3 +1,4 @@
+import { pick } from 'lodash-es';
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
@@ -6,5 +7,17 @@ import { databaseConnector } from '../utils/database-connector.js';
  * @returns {Promise<import('@pins/applications.api').Schema.DocumentActivityLog>}
  */
 export const create = (documentLog) => {
-	return databaseConnector.documentActivityLog.create({ data: documentLog });
+	return databaseConnector.documentActivityLog.create({
+		data: {
+			...pick(documentLog, ['user', 'status']),
+			DocumentVersion: {
+				connect: {
+					documentGuid_version: {
+						documentGuid: documentLog.documentGuid,
+						version: documentLog.version
+					}
+				}
+			}
+		}
+	});
 };
