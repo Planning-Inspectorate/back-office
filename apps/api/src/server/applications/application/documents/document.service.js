@@ -20,11 +20,11 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
- * @typedef {import('../../../swagger-types.ts').DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
- * @typedef {import('../../../swagger-types.ts').DocumentAndBlobStorageDetail} DocumentAndBlobStorageDetail
- * @typedef {import('../../../swagger-types.ts').DocumentToSave} DocumentToSave
- * @typedef {import('../../../swagger-types.ts').DocumentToSaveExtended} DocumentToSaveExtended
- * @typedef {import('../../../swagger-types.ts').DocumentBlobStoragePayload} DocumentBlobStoragePayload
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobStorageDetail} DocumentAndBlobStorageDetail
+ * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentBlobStoragePayload} DocumentBlobStoragePayload
  */
 
 /**

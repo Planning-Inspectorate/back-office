@@ -35,7 +35,7 @@ import logger from '#utils/logger.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
- * @typedef {import('../../swagger-types.ts').DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
  */
 
 /**
