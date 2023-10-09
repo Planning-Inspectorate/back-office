@@ -133,6 +133,33 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 }
 
 /**
+ * View the unpublishing documentation page
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderName: string}>}
+ */
+export async function viewApplicationsCaseDocumentationUnpublishPage(request, response) {
+	if (request.errors) {
+		const properties = await documentationFolderData(request, response);
+
+		return response.render(`applications/components/folder/folder`, {
+			...properties,
+			errors: request.errors
+		});
+	}
+
+	// TODO: replace with a more appropriate API returning just the information needed in just one call
+	const documentationFiles = [];
+	for (const fileGuid of request.body.selectedFilesIds) {
+		const file = await getCaseDocumentationFileInfo(response.locals.caseId, fileGuid);
+		documentationFiles.push(file);
+	}
+
+	return response.render(`applications/case-documentation/documentation-unpublish`, {
+		documentationFiles
+	});
+}
+
+/**
  * View the documentation properties page
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}

@@ -7,7 +7,8 @@ import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
 	validateApplicationsDocumentationsDeleteStatus,
-	validateApplicationsDocumentsToPublish
+	validateApplicationsDocumentsToPublish,
+	validateApplicationsDocumentsToUnpublish
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
@@ -49,6 +50,13 @@ applicationsDocumentationRouter
 			locals.registerFolder
 		],
 		asyncRoute(controller.updateApplicationsCaseDocumentationFolder)
+	);
+
+applicationsDocumentationRouter
+	.route('/:folderId/:folderName/unpublish')
+	.post(
+		[validateApplicationsDocumentsToUnpublish, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishPage)
 	);
 
 applicationsDocumentationRouter
