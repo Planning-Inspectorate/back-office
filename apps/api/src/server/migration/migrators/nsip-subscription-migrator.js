@@ -77,6 +77,9 @@ const buildEventPayloads = async (subscriberIds) => {
  *
  * From the migrated data, we pull the existing 'subscriber.user_id' as 'subscriptionId' (so it's actually a subscriber id, not a subscription id)
  *
+ * Additionally, there's an issue in NI which allows a user to subscribe multiple times - which is not permitted in the back office.
+ * To resolve this, we're taking the 'latest' subscription.
+ *
  * @param {NSIPSubscriptionMigrateModel[]} subscriptions
  *
  * @returns {NSIPSubscriber[]} subscribers
@@ -85,11 +88,14 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
 	return [
 		...subscriptions
 			.reduce((map, subscription) => {
-				const subscriptionKey = subscription.subscriptionId;
+				const subscriptionKey = `${subscription.emailAddress}-${subscription.caseReference}`;
 
-				const existingSubscriber = map.get(subscription.subscriptionId);
+				const existingSubscriber = map.get(subscriptionKey);
 
-				if (!existingSubscriber) {
+				if (
+					!existingSubscriber ||
+					(subscription.startDate && subscription.startDate > existingSubscriber.startDate)
+				) {
 					/** @type {NSIPSubscriber} */
 					const subscriber = {
 						...subscription,
