@@ -66,6 +66,7 @@ describe('Get Application details', () => {
 			caseEmail: 'test@test.com',
 			modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+			unpublishedDate: null,
 			sector: {
 				name: 'business_and_commercial',
 				abbreviation: 'BC',
@@ -160,6 +161,7 @@ describe('Get Application details', () => {
 			},
 			modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+			unpublishedDate: null,
 			id: 2,
 			keyDates: {},
 			status: 'Draft',
