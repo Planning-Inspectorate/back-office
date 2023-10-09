@@ -67,14 +67,26 @@ export const mapApplicationDetails = (caseDetails) => {
 		: {};
 
 	const latestPublishedState = caseDetails?.CasePublishedState?.[0];
-	const publishedDate = latestPublishedState?.isPublished
-		? mapDateStringToUnixTimestamp(latestPublishedState.createdAt)
-		: null;
+
+	const [publishedDate, unpublishedDate] = (() => {
+		if (!latestPublishedState) {
+			return [null, null];
+		}
+
+		const timestamp = mapDateStringToUnixTimestamp(latestPublishedState.createdAt);
+
+		if (latestPublishedState.isPublished) {
+			return [timestamp, null];
+		}
+
+		return [null, timestamp];
+	})();
 
 	return {
 		...caseDetailsFormatted,
 		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
 		publishedDate,
+		unpublishedDate,
 		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
