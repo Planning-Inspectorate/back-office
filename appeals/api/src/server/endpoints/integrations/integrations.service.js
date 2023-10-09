@@ -11,9 +11,10 @@ export const importAppellantCase = async (/** @type {any} */ data, /** @type {an
 
 export const importLPAQuestionnaire = async (
 	/** @type {any} */ caseReference,
+	/** @type {any} */ nearbyCaseReferences,
 	/** @type {any} */ data,
 	/** @type {any} */ documents
-) => await createOrUpdateLpaQuestionnaire(caseReference, data, documents);
+) => await createOrUpdateLpaQuestionnaire(caseReference, nearbyCaseReferences, data, documents);
 
 export const importDocument = async (/** @type {any} */ document) => await createDocument(document);
 
