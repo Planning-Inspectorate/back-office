@@ -1,25 +1,35 @@
-import { addressToString } from '../../../lib/address-formatter.js';
-import { convertFromBooleanToYesNo } from '../../../lib/boolean-formatter.js';
-import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
+import { addressToString } from '#lib/address-formatter.js';
+import { convertFromBooleanToYesNo } from '#lib/boolean-formatter.js';
+import { dayMonthYearToApiDateString, webDateToDisplayDate } from '#lib/dates.js';
 import { capitalize } from 'lodash-es';
-import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 import { mapFolder } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+import {
+	mapReasonOptionsToCheckboxItemParameters,
+	mapReasonsToReasonsList
+} from '#lib/mappers/validation-outcome-reasons.mapper.js';
 
 /**
- * @typedef {import('./appellant-case.service.js').AppellantCaseInvalidIncompleteReasonOption} AppellantCaseInvalidIncompleteReasonOption
- * @typedef {import('./appellant-case.service.js').AppellantCaseInvalidIncompleteReason} AppellantCaseInvalidIncompleteReason
+ * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
+ * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('../appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
+ * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
+ * @typedef {import('./appellant-case.types.js').SingleAppellantCaseResponse} AppellantCaseResponse
+ * @typedef {import('./appellant-case.types.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
+ * @typedef {import('./appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
  * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} HtmlTagType
  * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
- * MappedFolderForListBuilder
+ * @typedef {import("#lib/nunjucks-template-builders/summary-list-builder.js").Row} SummaryListBuilderRowArray
+ * @typedef {Object<[key: string], SummaryListBuilderRowArray | Array<SummaryListBuilderRowArray>>} MappedAppellantCaseData
+ * @typedef {import("#lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
  */
 
 /**
  *
- * @param {import('./appellant-case.types.js').SingleAppellantCaseResponse} appellantCaseData
+ * @param {AppellantCaseResponse} appellantCaseData
  * @param {import('#app/auth/auth.pipes.js').CurrentPermissionSet} permissions
  * @returns {SummaryListBuilderParameters[]}
  */
@@ -34,63 +44,34 @@ export function mapResponseToSummaryListBuilderParameters(appellantCaseData, per
 
 /**
  *
- * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
- * @param {string|string[]} [invalidOrIncompleteReasons]
- * @returns {string[]}
- */
-function mapInvalidOrIncompleteReasonsToList(
-	invalidOrIncompleteReasonOptions,
-	invalidOrIncompleteReasons
-) {
-	const reasons = Array.isArray(invalidOrIncompleteReasons)
-		? invalidOrIncompleteReasons
-		: [invalidOrIncompleteReasons];
-
-	return (
-		reasons
-			?.map((reason) =>
-				invalidOrIncompleteReasonOptions.find((option) => option.id === parseInt(reason || '', 10))
-			)
-			.map((option) => {
-				if (!option) {
-					throw new Error('invalid or incomplete reason ID was not recognised');
-				}
-
-				// TODO: BOAT-494: text associated with each reason should also be rendered here (nested unordered list?)
-				return option.name;
-			}) || ['']
-	);
-}
-
-/**
- *
  * @param {number} appealId
- * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
- * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {NotValidReasonOption[]} reasonOptions
+ * @param {AppellantCaseValidationOutcome} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
+ * @param {Object<string, string[]>} [invalidOrIncompleteReasonsText]
+ * @param {DayMonthYear} [updatedDueDate]
  * @returns {SummaryListBuilderParameters}
  */
 export function mapReviewOutcomeToSummaryListBuilderParameters(
 	appealId,
-	invalidOrIncompleteReasonOptions,
+	reasonOptions,
 	validationOutcome,
 	invalidOrIncompleteReasons,
+	invalidOrIncompleteReasonsText,
 	updatedDueDate
 ) {
 	if (
-		(validationOutcome === appellantCaseReviewOutcomes.invalid ||
-			validationOutcome === appellantCaseReviewOutcomes.incomplete) &&
+		(validationOutcome === 'invalid' || validationOutcome === 'incomplete') &&
 		!invalidOrIncompleteReasons
 	) {
 		throw new Error(`validationOutcome "${validationOutcome}" requires invalidOrIncompleteReasons`);
 	}
 
-	const reasonsList = mapInvalidOrIncompleteReasonsToList(
-		invalidOrIncompleteReasonOptions,
-		invalidOrIncompleteReasons
+	const reasonsList = mapReasonsToReasonsList(
+		reasonOptions,
+		invalidOrIncompleteReasons,
+		invalidOrIncompleteReasonsText
 	);
-
 	const validationOutcomeAsString = String(validationOutcome);
 
 	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
@@ -141,8 +122,8 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 
 /**
  *
- * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
- * @param {AppellantCaseInvalidIncompleteReason[]} invalidOrIncompleteReasons
+ * @param {AppellantCaseValidationOutcome} validationOutcome
+ * @param {NotValidReasonResponse[]} invalidOrIncompleteReasons
  * @returns {NotificationBannerComponentParameters}
  */
 export function mapReviewOutcomeToNotificationBannerComponentParameters(
@@ -173,47 +154,78 @@ export function mapReviewOutcomeToNotificationBannerComponentParameters(
  */
 function mapReasonTextToUnorderedList(reasonText) {
 	return `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">
-		${reasonText.map((textItem) => `<li>${textItem}</li>`)}
+		${reasonText.map((textItem) => `<li>${textItem}</li>`).join('')}
 	</ul>`;
 }
 
 /**
  *
- * @param {AppellantCaseInvalidIncompleteReasonOption[]} invalidOrIncompleteReasonOptions
- * @param {string[]|number[]} [checkedOptionValues]
+ * @param {AppellantCaseValidationOutcome} validationOutcome
+ * @param {NotValidReasonOption[]} reasonOptions
+ * @param {BodyValidationOutcome} [bodyValidationOutcome]
+ * @param {AppellantCaseSessionValidationOutcome} [sessionValidationOutcome]
+ * @param {import('./appellant-case.types.js').AppellantCaseValidationOutcomeResponse} [existingValidationOutcome]
  * @returns {import('../../appeals.types.js').CheckboxItemParameter[]}
  */
 export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
-	invalidOrIncompleteReasonOptions,
-	checkedOptionValues
+	validationOutcome,
+	reasonOptions,
+	bodyValidationOutcome,
+	sessionValidationOutcome,
+	existingValidationOutcome
 ) {
-	if (checkedOptionValues && !Array.isArray(checkedOptionValues)) {
-		checkedOptionValues = [checkedOptionValues];
+	/** @type {NotValidReasonResponse[]} */
+	let existingReasons = [];
+	/** @type {number[]|undefined} */
+	let existingReasonIds;
+
+	if (
+		existingValidationOutcome &&
+		existingValidationOutcome.outcome.toLowerCase() === validationOutcome
+	) {
+		existingReasons =
+			existingValidationOutcome.outcome.toLowerCase() === 'invalid'
+				? existingValidationOutcome.invalidReasons || []
+				: existingValidationOutcome.incompleteReasons || [];
+		existingReasonIds = existingReasons.map((reason) => reason.name.id);
 	}
 
-	let checkedOptions = checkedOptionValues?.map((value) =>
+	const bodyValidationBaseKey = `${validationOutcome}Reason`;
+	/** @type {string|string[]|undefined} */
+	const bodyValidationOutcomeReasons = bodyValidationOutcome?.[bodyValidationBaseKey];
+
+	let notValidReasonIds =
+		bodyValidationOutcomeReasons || sessionValidationOutcome?.reasons || existingReasonIds;
+
+	if (typeof notValidReasonIds !== 'undefined' && !Array.isArray(notValidReasonIds)) {
+		notValidReasonIds = [notValidReasonIds];
+	}
+	const checkedOptions = notValidReasonIds?.map((value) =>
 		typeof value === 'string' ? parseInt(value, 10) : value
 	);
 
-	return invalidOrIncompleteReasonOptions.map((reason) => ({
-		value: `${reason.id}`,
-		text: reason.name,
-		...(checkedOptions && {
-			checked: checkedOptions.includes(reason.id)
-		})
-	}));
+	return mapReasonOptionsToCheckboxItemParameters(
+		reasonOptions,
+		checkedOptions,
+		existingReasons,
+		bodyValidationOutcome,
+		bodyValidationBaseKey,
+		sessionValidationOutcome
+	);
 }
 
 /**
  *
- * @param {keyof import('../../appeal.constants.js').appellantCaseReviewOutcomes} validationOutcome
+ * @param {AppellantCaseValidationOutcome} validationOutcome
  * @param {string|string[]} [invalidOrIncompleteReasons]
- * @param {import('./appellant-case.service.js').DayMonthYear} [updatedDueDate]
- * @returns {import('./appellant-case.service.js').AppellantCaseReviewOutcome}
+ * @param {Object<string, string[]>} [invalidOrIncompleteReasonsText]
+ * @param {DayMonthYear} [updatedDueDate]
+ * @returns {import('./appellant-case.types.js').AppellantCaseValidationOutcomeRequest}
  */
 export function mapWebReviewOutcomeToApiReviewOutcome(
 	validationOutcome,
 	invalidOrIncompleteReasons,
+	invalidOrIncompleteReasonsText,
 	updatedDueDate
 ) {
 	let parsedReasons;
@@ -229,19 +241,25 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 	}
 
 	return {
-		validationOutcome: String(validationOutcome),
-		...(validationOutcome === appellantCaseReviewOutcomes.invalid &&
+		validationOutcome: validationOutcome,
+		...(validationOutcome === 'invalid' &&
 			invalidOrIncompleteReasons && {
 				invalidReasons: parsedReasons?.map((reason) => ({
 					id: reason,
-					text: []
+					...(invalidOrIncompleteReasonsText &&
+						invalidOrIncompleteReasonsText[reason] && {
+							text: invalidOrIncompleteReasonsText[reason]
+						})
 				}))
 			}),
-		...(validationOutcome === appellantCaseReviewOutcomes.incomplete &&
+		...(validationOutcome === 'incomplete' &&
 			invalidOrIncompleteReasons && {
 				incompleteReasons: parsedReasons?.map((reason) => ({
 					id: reason,
-					text: []
+					...(invalidOrIncompleteReasonsText &&
+						invalidOrIncompleteReasonsText[reason] && {
+							text: invalidOrIncompleteReasonsText[reason]
+						})
 				}))
 			}),
 		...(updatedDueDate && {
@@ -251,20 +269,8 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 }
 
 /**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").Row} SummaryListBuilderRowArray
- */
-
-/**
- * @typedef {Object<[key: string], SummaryListBuilderRowArray | Array<SummaryListBuilderRowArray>>} MappedAppellantCaseData
- */
-
-/**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
- */
-
-/**
  *
- * @param {import("./appellant-case.types.js").SingleAppellantCaseResponse} appellantCaseData
+ * @param {AppellantCaseResponse} appellantCaseData
  * @param {import('#app/auth/auth.pipes.js').CurrentPermissionSet} permissions
  * @returns {MappedAppellantCaseData}
  */

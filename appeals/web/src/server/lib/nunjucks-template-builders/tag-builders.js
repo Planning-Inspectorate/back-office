@@ -21,12 +21,20 @@ export const buildHtmlLink = (link) => {
 };
 
 /**
- * @param {string[]} items
+ * @param {Array<string|string[]>} items
+ * @param {number} [recursionDepth]
  * @returns {string}
  */
-export const buildHtmUnorderedList = (items) => {
-	const listItems = items.map((i) => `<li>${i}</li>`).join('');
-	return `<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">${listItems}</ul>`;
+export const buildHtmUnorderedList = (items, recursionDepth = 0) => {
+	const listItems = items
+		.map(
+			(item) =>
+				`<li>${Array.isArray(item) ? buildHtmUnorderedList(item, recursionDepth + 1) : item}</li>`
+		)
+		.join('');
+	return `<ul class="${
+		recursionDepth === 0 ? 'govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0' : ''
+	}">${listItems}</ul>`;
 };
 
 /**

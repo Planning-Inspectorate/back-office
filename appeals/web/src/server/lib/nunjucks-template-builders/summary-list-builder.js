@@ -8,7 +8,7 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @typedef Row
  * @type {object}
  * @property {string} title - key column
- * @property {(string[] | string | HtmlLink[] | HtmlLink)} value - value column
+ * @property {(string | Array<string|string[]> | HtmlLink[] | HtmlLink)} value - value column
  * @property {string} actionText - text for button
  * @property {string} actionLink - url for button
  * @property {HtmlTagType} valueType - determines html tags
