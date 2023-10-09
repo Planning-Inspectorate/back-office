@@ -14,6 +14,7 @@ export const upload = async (request, response) => {
 	const documentType = pathComponents[1];
 
 	return response.render('appeals/documents/document-upload.njk', {
+		backButtonUrl: request.originalUrl?.split('documents/')?.[0] || '/',
 		caseId: appealId,
 		folderId: currentFolder.id,
 		documentId,
