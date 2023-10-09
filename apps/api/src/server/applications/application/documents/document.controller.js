@@ -40,9 +40,9 @@ import {
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
- * @typedef {import('../../../swagger-types.ts').DocumentToSave} DocumentToSave
- * @typedef {import('../../../swagger-types.ts').DocumentToSaveExtended} DocumentToSaveExtended
- * @typedef {import('../../../swagger-types.ts').DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
+ * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
  */
 
 /**

@@ -18,6 +18,7 @@ import config from '../config/config.js';
  * @typedef {DocumentInfo & WithBlobUrl} DocumentInfoWithBlobUrl
  */
 
+// TODO: DJW should we not use  * @returns {Promise<import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse>}
 /**
  * @param {DocumentInfo[]} documentsToSave
  * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: DocumentInfoWithBlobUrl[]}>}
