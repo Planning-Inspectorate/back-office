@@ -67,8 +67,8 @@ describe('Update Project Information', () => {
 			casePage.clickButtonByText('Preview and publish project');
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
-			casePage.validateBannerMessage('Project page published');
-			validateProjectInformation(projectInfoNew, false, true);
+			casePage.validatePublishBannerMessage('Project page successfully published');
+
 		});
 	});
 
@@ -97,8 +97,8 @@ describe('Update Project Information', () => {
 			casePage.clickButtonByText('Preview and publish project');
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
-			casePage.validateBannerMessage('Project page published');
-			validateProjectInformation(projectInfoNew, false, true);
+			casePage.validatePublishBannerMessage('Project page successfully published');
+
 		});
 	});
 });

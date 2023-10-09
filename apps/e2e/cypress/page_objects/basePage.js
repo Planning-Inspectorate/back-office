@@ -13,6 +13,7 @@ export class Page {
 		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
+		publish_bannerHeader: '#main-content > div > div > div > h1',
 		button: '.govuk-button',
 		body: '.govuk-body',
 		caption: '.govuk-caption-m',
@@ -38,6 +39,7 @@ export class Page {
 		tableBody: '.govuk-table__body',
 		tableCell: '.govuk-table__cell',
 		tableHeader: '.govuk-table__header',
+		publishtableHeader: '#main-content > div > div > div > div > p',
 		tableRow: '.govuk-table__row',
 		tab: '.govuk-tabs__tab',
 		tag: '.govuk-tag',
@@ -60,6 +62,7 @@ export class Page {
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
 		bannerHeader: () => cy.get(this.selectors.bannerHeader),
+		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
 			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
@@ -192,8 +195,14 @@ export class Page {
 					: expect(text).to.include(options.textToMatch);
 			});
 	}
+
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
+			expect($banner.text().trim()).eq(successMessage);
+		});
+	}
+	validatePublishBannerMessage(successMessage) {
+		this.basePageElements.publishBannerHeader().then(($banner) => {
 			expect($banner.text().trim()).eq(successMessage);
 		});
 	}
