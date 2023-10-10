@@ -180,13 +180,12 @@ export const updateDocuments = async ({ body }, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ * @type {import('express').RequestHandler<{id: number}, any, { documents: { guid: string }[] }, any>}
  * */
 export const unpublishDocuments = async ({ body }, response) => {
-	const { documents } = body[''];
+	const { documents } = body;
 
-	/** @type {string[]} */
-	const guids = documents.map((/** @type {{guid: string}} */ { guid }) => guid);
+	const guids = documents.map(({ guid }) => guid);
 
 	const nonPublishedDocuments = await separateNonPublishedDocuments(guids);
 	const notPublishedErrors = nonPublishedDocuments.map((guid) => ({
