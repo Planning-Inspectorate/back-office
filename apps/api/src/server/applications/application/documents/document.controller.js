@@ -21,8 +21,10 @@ import {
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishDocumentVersions,
+	separateNonPublishedDocuments,
 	separatePublishableDocuments,
-	upsertDocumentVersionAndReturnDetails
+	upsertDocumentVersionAndReturnDetails,
+	unpublishDocuments as unpublishDocumentGuids
 } from './document.service.js';
 import {
 	fetchDocumentByGuidAndCaseId,
@@ -175,6 +177,42 @@ export const updateDocuments = async ({ body }, response) => {
 
 	logger.info(`Updated all ${documents.length} documents`);
 	response.send(results);
+};
+
+/**
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ * */
+export const unpublishDocuments = async ({ body }, response) => {
+	const { documents } = body[''];
+
+	/** @type {string[]} */
+	const guids = documents.map((/** @type {{guid: string}} */ { guid }) => guid);
+
+	const nonPublishedDocuments = await separateNonPublishedDocuments(guids);
+	const notPublishedErrors = nonPublishedDocuments.map((guid) => ({
+		guid,
+		msg: 'You must publish the document before unpublishing.'
+	}));
+
+	const publishedGuids = guids.filter((guid) => !nonPublishedDocuments.includes(guid));
+	const results = await unpublishDocumentGuids(publishedGuids);
+	const updateErrors = publishedGuids
+		.filter((guid) => !results.includes(guid))
+		.map((guid) => ({ guid, msg: 'Something went wrong.' }));
+
+	const errors = [...notPublishedErrors, ...updateErrors];
+
+	if (errors.length === 0) {
+		response.send({ successful: results, errors });
+		return;
+	}
+
+	if (results.length === 0) {
+		response.status(409).send({ successful: [], errors });
+		return;
+	}
+
+	response.status(206).send({ successful: results, errors });
 };
 
 /**
