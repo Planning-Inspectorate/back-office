@@ -16,7 +16,8 @@ import {
 	getCaseFolders,
 	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
-	updateCaseDocumentationFiles
+	updateCaseDocumentationFiles,
+	unpublishCaseDocumentationFiles
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -310,9 +311,17 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string, documentGuid: string}>}
  * */
 export async function postUnpublishDocument({ params }, response) {
-	const { documentGuid } = params;
+	const { caseId, documentGuid } = params;
 
-	// TODO: Perform unpublish
+	const { errors } = await unpublishCaseDocumentationFiles(Number(caseId), [documentGuid]);
+	if (errors.length > 0 && errors[0].guid === documentGuid) {
+		const documentationFile = await getCaseDocumentationFileInfo(Number(caseId), documentGuid);
+
+		return response.render(`applications/case-documentation/documentation-unpublish`, {
+			documentationFile,
+			errors
+		});
+	}
 
 	return response.redirect(`../${documentGuid}/properties`);
 }
