@@ -1402,6 +1402,49 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Unpublish a document by its GUID",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document Details",
+						"schema": {
+							"$ref": "#/definitions/DocumentsToUnpublishRequestBody"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been unpublished",
+						"schema": {
+							"$ref": "#/definitions/DocumentsUnpublishResponseBody"
+						}
+					},
+					"206": {
+						"description": "Some documents failed to unpublish while others succeeded",
+						"schema": {
+							"$ref": "#/definitions/DocumentsUnpublishResponseBody"
+						}
+					},
+					"409": {
+						"description": "All documents failed to unpublish",
+						"schema": {
+							"$ref": "#/definitions/DocumentsUnpublishResponseBody"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/document/{guid}/add-version": {
 			"post": {
 				"tags": ["Applications"],
@@ -7774,6 +7817,48 @@
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/ApplicationProjectUpdate"
+					}
+				}
+			}
+		},
+		"DocumentsToUnpublishRequestBody": {
+			"type": "object",
+			"properties": {
+				"documents": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"guid": {
+								"type": "string",
+								"example": "0084b156-006b-48b1-a47f-e7176414db29"
+							}
+						}
+					}
+				}
+			}
+		},
+		"DocumentsUnpublishResponseBody": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"guid": {
+								"type": "string"
+							},
+							"msg": {
+								"type": "msg"
+							}
+						}
+					}
+				},
+				"successful": {
+					"type": "array",
+					"items": {
+						"type": "string"
 					}
 				}
 			}
