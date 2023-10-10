@@ -85,6 +85,23 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
 };
 
 /**
+ * @param {number} caseId
+ * @param {string[]} documentGuids
+ * @returns {Promise<{errors: {guid: string, msg: string}[]}>};
+ * */
+export const unpublishCaseDocumentationFiles = async (caseId, documentGuids) => {
+	try {
+		return await patch(`applications/${caseId}/documents/unpublish`, {
+			json: {
+				documents: documentGuids.map((guid) => ({ guid }))
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		return { errors: error?.response?.body?.errors || [] };
+	}
+};
+
+/**
  * Get the blob storage info for the file with the given GUID
  *
  * @param {number} caseId
