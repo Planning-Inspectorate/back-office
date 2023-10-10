@@ -1871,6 +1871,21 @@ export interface ApplicationProjectUpdates {
 	items?: ApplicationProjectUpdate[];
 }
 
+export interface DocumentsToUnpublishRequestBody {
+	documents?: {
+		/** @example "0084b156-006b-48b1-a47f-e7176414db29" */
+		guid?: string;
+	}[];
+}
+
+export interface DocumentsUnpublishResponseBody {
+	errors?: {
+		guid?: string;
+		msg?: msg;
+	}[];
+	successful?: string[];
+}
+
 export interface S51AdviceCreateRequestBody {
 	/**
 	 * The application id
