@@ -112,7 +112,7 @@ router.patch(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsToUnpublishRequestBody' }
+            schema: { $ref: '#/definitions/DocumentsToUnpublishRequestBody' }
         }
         #swagger.responses[200] = {
             description: 'Documents that have been unpublished',
