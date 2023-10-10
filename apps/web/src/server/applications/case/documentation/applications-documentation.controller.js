@@ -304,6 +304,19 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 	return response.redirect(url('documents-queue', { caseId }));
 }
 
+/**
+ * Handle unpublishing a document
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string, documentGuid: string}>}
+ * */
+export async function postUnpublishDocument({ params }, response) {
+	const { documentGuid } = params;
+
+	// TODO: Perform unpublish
+
+	return response.redirect(`../${documentGuid}/properties`);
+}
+
 // Data for controllers
 
 /**
