@@ -48,7 +48,7 @@ export class Page {
 		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
-		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
+		summaryErrorMessages: '#main-content > div:nth-child(1) > div > div > div > div > ul > li > a',
 		xlHeader: '.govuk-heading-xl'
 	};
 
