@@ -26,7 +26,8 @@ export const viewHomepage = async (request, response) => {
 
 	if (appealGroupIds.length === 1) {
 		switch (appealGroupIds[0]) {
-			case config.referenceData.appeals.validationOfficerGroupId:
+			case config.referenceData.appeals.customerServiceGroupId:
+			case config.referenceData.appeals.legalGroupId:
 			case config.referenceData.appeals.caseOfficerGroupId:
 			case config.referenceData.appeals.inspectorGroupId:
 				return response.redirect('/appeals-service/appeals-list');

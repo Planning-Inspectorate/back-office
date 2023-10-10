@@ -36,13 +36,23 @@ if (!config.authDisabled) {
 	router.use(assertIsAuthenticated);
 }
 
+const allowedGroups = config.referenceData.appeals;
+const groupIds = [
+	allowedGroups.caseOfficerGroupId,
+	allowedGroups.inspectorGroupId,
+	allowedGroups.customerServiceGroupId,
+	allowedGroups.legalGroupId
+];
+
+router.use(assertGroupAccess(...groupIds));
+
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncRoute(handleSignout));
 
 router
 	.route('/documents/:caseId/upload')
 	.post(
-		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		assertGroupAccess(allowedGroups.caseOfficerGroupId),
 		addApiClientToRequest,
 		postDocumentsUpload
 	);
@@ -50,7 +60,7 @@ router
 router
 	.route('/documents/:caseId/upload/:documentId')
 	.post(
-		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		assertGroupAccess(allowedGroups.caseOfficerGroupId),
 		addApiClientToRequest,
 		postUploadDocumentVersion
 	);

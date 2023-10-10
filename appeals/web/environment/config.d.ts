@@ -50,7 +50,8 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 		appeals: {
 			caseOfficerGroupId: string;
 			inspectorGroupId: string;
-			validationOfficerGroupId: string;
+			legalGroupId: string;
+			customerServiceGroupId: string;
 		};
 	};
 	featureFlags: {
