@@ -101,7 +101,7 @@ router.patch(
 	'/:id/documents/unpublish',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents'
+        #swagger.path = '/applications/{id}/documents/unpublish'
         #swagger.description = 'Unpublish a document by its GUID'
         #swagger.parameters['id'] = {
             in: 'path',
