@@ -327,13 +327,14 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
  *
  * @param {number} folderId
  * @param {string} fileName
+ * @param {boolean} [includeDeleted]
  * @returns {import('@prisma/client').PrismaPromise<Document | null>}
  */
-export const getInFolderByName = (folderId, fileName) =>
+export const getInFolderByName = (folderId, fileName, includeDeleted) =>
 	databaseConnector.document.findFirst({
 		where: {
 			folderId,
 			latestDocumentVersion: { originalFilename: fileName },
-			isDeleted: false
+			...(includeDeleted ? {} : { isDeleted: false })
 		}
 	});
