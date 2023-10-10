@@ -140,7 +140,7 @@ export const getAll = () => {
  * */
 export const getPublished = (documentGuid) => {
 	return databaseConnector.documentVersion.findMany({
-		where: { documentGuid, publishedStatus: 'published' }
+		where: { documentGuid, publishedStatus: 'published', isDeleted: false }
 	});
 };
 
@@ -154,7 +154,7 @@ export const getPublished = (documentGuid) => {
 export const getAllByDocumentGuid = (guid) => {
 	return databaseConnector.documentVersion.findMany({
 		include: { DocumentActivityLog: true },
-		where: { documentGuid: guid },
+		where: { documentGuid: guid, isDeleted: false },
 		orderBy: { version: 'desc' }
 	});
 };

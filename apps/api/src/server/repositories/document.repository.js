@@ -34,7 +34,7 @@ export const getById = (documentGuid) => {
  */
 export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
-		where: { caseId },
+		where: { caseId, isDeleted: false },
 		skip: skipValue,
 		take: pageSize,
 		orderBy: [
@@ -123,7 +123,8 @@ export const getPublishableDocuments = (documentIds) => {
 						}
 					]
 				}
-			}
+			},
+			isDeleted: false
 		},
 		select: {
 			guid: true,
@@ -187,7 +188,8 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 				some: {
 					version: documentVersion
 				}
-			}
+			},
+			isDeleted: false
 		}
 	});
 };
@@ -200,7 +202,8 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 export const countDocumentsInFolder = (folderId) => {
 	return databaseConnector.document.count({
 		where: {
-			folderId
+			folderId,
+			isDeleted: false
 		}
 	});
 };
@@ -231,7 +234,8 @@ export const getDocumentsByGUID = (guids) =>
 		where: {
 			guid: {
 				in: guids
-			}
+			},
+			isDeleted: false
 		}
 	});
 
@@ -293,7 +297,8 @@ export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) 
 			caseId,
 			latestDocumentVersion: {
 				publishedStatus: 'ready_to_publish'
-			}
+			},
+			isDeleted: false
 		}
 	});
 };
@@ -311,7 +316,8 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
 			caseId,
 			latestDocumentVersion: {
 				publishedStatus: 'ready_to_publish'
-			}
+			},
+			isDeleted: false
 		}
 	});
 };
@@ -327,6 +333,7 @@ export const getInFolderByName = (folderId, fileName) =>
 	databaseConnector.document.findFirst({
 		where: {
 			folderId,
-			latestDocumentVersion: { originalFilename: fileName }
+			latestDocumentVersion: { originalFilename: fileName },
+			isDeleted: false
 		}
 	});
