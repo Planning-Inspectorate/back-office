@@ -41,7 +41,7 @@ describe('Document Properties', () => {
 		searchResultsPage.clickLinkByText('Project management');
 	});
 
-	it.only('Case admin should not be able to set "Ready to publish" before setting all mandatory properties for document', () => {
+	it('Case admin should not be able to set "Ready to publish" before setting all mandatory properties for document', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile('sample-doc.pdf');
 		searchResultsPage.clickButtonByText('Save and continue');
