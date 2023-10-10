@@ -321,12 +321,18 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
  *
  * @param {number} folderId
  * @param {string} fileName
+ * @param {boolean} [includeDeleted]
  * @returns {import('@prisma/client').PrismaPromise<Document | null>}
  */
-export const getInFolderByName = (folderId, fileName) =>
-	databaseConnector.document.findFirst({
+export const getInFolderByName = (folderId, fileName, includeDeleted) => {
+	// findFirstWithDeleted is not a prisma method, but this is transformed into
+	// findFirst in 'utils/prisma-middleware/index.js'. This is a hack to allow
+	// querying deleted records.
+	// @ts-ignore
+	return databaseConnector.document[includeDeleted ? 'findFirstWithDeleted' : 'findFirst']({
 		where: {
 			folderId,
 			latestDocumentVersion: { originalFilename: fileName }
 		}
 	});
+};

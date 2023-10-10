@@ -605,13 +605,15 @@ export const extractDuplicates = async (documents) => {
 		documents.map(
 			(doc) =>
 				new Promise((resolve, reject) =>
-					documentRepository.getInFolderByName(doc.folderId, doc.documentName).then((existing) => {
-						if (existing) {
-							reject(doc.documentName);
-						} else {
-							resolve(doc.documentName);
-						}
-					})
+					documentRepository
+						.getInFolderByName(doc.folderId, doc.documentName, true)
+						.then((existing) => {
+							if (existing) {
+								reject(doc.documentName);
+							} else {
+								resolve(doc.documentName);
+							}
+						})
 				)
 		)
 	);

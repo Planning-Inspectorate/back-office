@@ -10,6 +10,14 @@
 export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	const allowedModels = new Set(['Document', 'DocumentVersion']);
 
+	const includeDeleted = parameters.action.endsWith('WithDeleted');
+	if (includeDeleted) {
+		// Doing hacky string manipulation to allow querying deleted records
+		// in special cases. The type checker doesn't like this.
+		// @ts-ignore
+		parameters.action = parameters.action.slice(0, -11);
+	}
+
 	const isDeleteAction = parameters.action === 'delete';
 
 	const isCountAction = parameters.action === 'count';
@@ -24,12 +32,21 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	if (isFindUniqueOrFirst) {
 		// Change action to findFirst - you cannot filter by anything except (ID or setting a unique constraint) with findUnique
 		parameters.action = 'findFirst';
-		parameters.args.where = { ...parameters.args.where, isDeleted: false };
-	} else if (isFindMany) {
-		const hasWhere = parameters.args?.where;
-		const isDeleted = hasWhere?.isDeleted ? hasWhere.isDeleted : false;
 
-		parameters.args.where = hasWhere
+		const whereClause = parameters.args?.where;
+
+		if (!includeDeleted) {
+			const isDeleted = whereClause?.isDeleted ? whereClause.isDeleted : false;
+
+			parameters.args.where = whereClause
+				? { ...parameters.args.where, isDeleted }
+				: { isDeleted: false };
+		}
+	} else if (isFindMany) {
+		const whereClause = parameters.args?.where;
+		const isDeleted = whereClause?.isDeleted ? whereClause.isDeleted : false;
+
+		parameters.args.where = whereClause
 			? { ...parameters.args.where, isDeleted }
 			: { isDeleted: false };
 	} else if (isDeleteAction) {
