@@ -91,6 +91,13 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/unpublish')
+	.post(
+		[assertDomainTypeIsNotInspector, locals.registerFolder],
+		asyncRoute(controller.postUnpublishDocument)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
