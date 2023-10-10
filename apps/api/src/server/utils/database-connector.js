@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { modifyPrismaDocumentQueryMiddleware } from './prisma-middleware.js';
 
 /** @type {PrismaClient} */
 let prismaClient;
@@ -10,6 +11,8 @@ function createPrismaClient() {
 	if (!prismaClient) {
 		prismaClient = new PrismaClient();
 	}
+
+	prismaClient.$use(modifyPrismaDocumentQueryMiddleware);
 
 	return prismaClient;
 }
