@@ -314,16 +314,21 @@ export async function postUnpublishDocument({ params }, response) {
 	const { caseId, documentGuid } = params;
 
 	const { errors } = await unpublishCaseDocumentationFiles(Number(caseId), [documentGuid]);
-	if (errors.length > 0 && errors[0].guid === documentGuid) {
-		const documentationFile = await getCaseDocumentationFileInfo(Number(caseId), documentGuid);
+	const documentationFile = await getCaseDocumentationFileInfo(Number(caseId), documentGuid);
 
+	if (errors.length > 0 && errors[0].guid === documentGuid) {
 		return response.render(`applications/case-documentation/documentation-unpublish`, {
 			documentationFile,
 			errors
 		});
 	}
 
-	return response.redirect(`../${documentGuid}/properties`);
+	return response.render('applications/case-documentation/documentation-success-banner', {
+		serviceName: 'Document/s successfully unpublished',
+		selectedPageType: 'documentation-unpublish-success',
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFile.caseRef}</p>`,
+		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
+	});
 }
 
 // Data for controllers

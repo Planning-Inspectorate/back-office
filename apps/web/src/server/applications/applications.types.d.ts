@@ -101,6 +101,7 @@ export interface DocumentationFile {
 	documentGuid: string;
 	fileName: string;
 	originalFilename: string;
+	caseRef: string;
 	description: string;
 	dateCreated: number;
 	datePublished?: number;

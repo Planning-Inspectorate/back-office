@@ -8,8 +8,10 @@ import { createRandomDescription, createUniqueRandomNumberFromSeed } from './uti
  * @returns {DocumentationFile}
  */
 export function createDocumentationFile(options = {}) {
-	const documentGuid = `${options.documentGuid}`;
+	const documentGuid = options.documentGuid ?? '';
 	const uniqueSeed = Number.parseInt(documentGuid, 10);
+
+	const caseRef = options.caseRef ?? '';
 
 	const dateCreated = 1_669_916_924;
 	const datePublished = 1_678_192_858;
@@ -79,6 +81,7 @@ export function createDocumentationFile(options = {}) {
 	return {
 		folderId: 11,
 		documentGuid,
+		caseRef,
 		filter1,
 		originalFilename: fileName,
 		fileName,
