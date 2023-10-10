@@ -20,6 +20,10 @@
       <span class="govuk-body-s colour--secondary">Last updated {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
     {% else %}
       <strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+      {% if case.unpublishedDate %}
+        &nbsp;
+        <span class="govuk-body-s colour--secondary">Last updated {{ case.unpublishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+      {% endif %}
     {% endif %}
   {% endset %}
 
