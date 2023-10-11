@@ -20,7 +20,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
     <form method=\\"GET\\">
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-one-half\\">
-                <div class=\\"pins-masthead-summary govuk-!-padding-4\\">
+                <div class=\\"pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4\\">
                     <div class=\\"govuk-form-group\\">
                         <div class=\\"filter-box\\">
                             <div class=\\"govuk-form-group\\">
@@ -185,7 +185,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
     <form method=\\"GET\\">
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-grid-column-one-half\\">
-                <div class=\\"pins-masthead-summary govuk-!-padding-4\\">
+                <div class=\\"pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4\\">
                     <div class=\\"govuk-form-group\\">
                         <div class=\\"filter-box\\">
                             <div class=\\"govuk-form-group\\">

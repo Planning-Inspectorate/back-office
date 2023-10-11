@@ -66,6 +66,12 @@
 			</div>
 		</div>
 
+		{% if publishQueueURL %}
+			<p class="govuk-body">
+				<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
+			</p>
+		{% endif %}
+
 		<h3 class="govuk-heading-m">Search representations</h3>
 
 			<input type="hidden" name="page" value="{{ queryData.page }}">
