@@ -302,6 +302,7 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 const mapHistory = (activityLogs) =>
 	activityLogs.reduce(
 		(acc, log) => ({
+			...acc,
 			[log.status]: {
 				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
 				name: log.user
