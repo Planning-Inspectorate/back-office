@@ -5,10 +5,12 @@
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		text: "Back",
 		href: backLink
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

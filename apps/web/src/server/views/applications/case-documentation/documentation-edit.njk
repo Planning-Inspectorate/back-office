@@ -9,11 +9,13 @@
 
 {% block pageHeading %}{% endblock %}
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
 		href: layout.backLink
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageContent %}

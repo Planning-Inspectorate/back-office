@@ -12,10 +12,12 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to Overview",
 		href: 'case-view'|url({caseId: case.id, step: 'project-information'})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageContent %}

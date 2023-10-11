@@ -6,10 +6,12 @@
 {% from './components/enquirer-string.njk' import enquirerString %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back",
 		href: 's51-list'|url({caseId: caseId, folderId: folderId })
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

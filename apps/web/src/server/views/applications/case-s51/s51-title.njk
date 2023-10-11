@@ -13,10 +13,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		text: "Back",
 		href: 'document-category'|url({caseId: caseId, documentationCategory: currentFolder })
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

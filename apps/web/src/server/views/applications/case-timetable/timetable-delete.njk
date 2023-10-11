@@ -15,10 +15,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to examination table",
 		href: 'timetable'|url({caseId: caseId})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

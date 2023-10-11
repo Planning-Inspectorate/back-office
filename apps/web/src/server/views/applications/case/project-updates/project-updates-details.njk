@@ -9,12 +9,14 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{% set defaultLink = "project-updates" | url({caseId: caseId}) %}
 	{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
 		href: backLink | default(defaultLink)
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageContent %}
