@@ -2,12 +2,14 @@ import formatAddress from '#utils/format-address.js';
 import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import formatLinkedAppeals from '#utils/format-linked-appeals.js';
 import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
-import { document } from '#tests/data.js';
+import { mapFoldersLayoutForAppealSection } from '../documents/documents.mapper.js';
+import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleLPAQuestionnaireResponse} SingleLPAQuestionnaireResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.ListedBuildingDetailsResponse} ListedBuildingDetailsResponse */
 /** @typedef {import('@pins/appeals.api').Schema.ListedBuildingDetails} ListedBuildingDetails */
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /**
  * @param {boolean} affectsListedBuilding
  * @param {ListedBuildingDetails[] | null | undefined} values
@@ -22,9 +24,10 @@ const formatListedBuildingDetails = (affectsListedBuilding, values) =>
 
 /**
  * @param {RepositoryGetByIdResultItem} appeal
+ * @param {Folder[] | null} folders
  * @returns {SingleLPAQuestionnaireResponse | {}}
  */
-const formatLpaQuestionnaire = (appeal) => {
+const formatLpaQuestionnaire = (appeal, folders = null) => {
 	const { address, id, lpa, lpaQuestionnaire, reference } = appeal;
 
 	return lpaQuestionnaire
@@ -42,27 +45,7 @@ const formatLpaQuestionnaire = (appeal) => {
 					({ designatedSite: { name, description } }) => ({ name, description })
 				),
 				developmentDescription: lpaQuestionnaire.developmentDescription,
-				documents: {
-					communityInfrastructureLevy: document,
-					conservationAreaMap: document,
-					consultationResponses: document,
-					definitiveMapAndStatement: document,
-					emergingPlans: document,
-					environmentalStatementResponses: document,
-					issuedScreeningOption: document,
-					lettersToNeighbours: [],
-					otherRelevantPolicies: document,
-					officersReport: document,
-					policiesFromStatutoryDevelopment: document,
-					pressAdvert: document,
-					notifyingParties: [],
-					representations: document,
-					responsesOrAdvice: document,
-					screeningDirection: document,
-					siteNotices: [],
-					supplementaryPlanningDocuments: document,
-					treePreservationOrder: document
-				},
+				...formatFoldersAndDocuments(folders),
 				doesAffectAListedBuilding: lpaQuestionnaire.doesAffectAListedBuilding,
 				doesAffectAScheduledMonument: lpaQuestionnaire.doesAffectAScheduledMonument,
 				doesSiteHaveHealthAndSafetyIssues: lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues,
@@ -123,6 +106,19 @@ const formatLpaQuestionnaire = (appeal) => {
 				)
 		  }
 		: {};
+};
+
+/**
+ * @param {Folder[] | null} folders
+ */
+const formatFoldersAndDocuments = (folders) => {
+	if (folders) {
+		return {
+			documents: mapFoldersLayoutForAppealSection(CONFIG_APPEAL_STAGES.lpaQuestionnaire, folders)
+		};
+	}
+
+	return null;
 };
 
 export { formatLpaQuestionnaire };
