@@ -20,9 +20,6 @@ import {
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: S51AdviceDetails[]}} S51AdvicePaginatedDetails
- * @typedef {{ caseType: string, caseReference: string, GUID: string }} BlobStoreRequest
-
- * S51AdvicePaginatedDetails
  */
 
 /**
@@ -76,11 +73,12 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 			return [];
 		}
 
-		return {
-			caseType: 'application',
+		return /** @type {DocumentBlobStoragePayload} */ {
+			/** @type {'appeal' | 'application'} */ caseType: 'application',
 			caseReference: caseData.reference,
 			GUID: item.documentGuid,
-			documentName: item.Document.latestDocumentVersion.fileName
+			documentName: item.Document?.latestDocumentVersion?.fileName,
+			version: 1
 		};
 	});
 

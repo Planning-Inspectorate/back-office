@@ -48,11 +48,12 @@ import {
 /**
  * Upload an array of documents to a folder on a case
  *
- * @type {import('express').RequestHandler<any, any, { DocumentsToSaveManyRequestBody } | any, any>}
+ * @type {import('express').RequestHandler<any, any, DocumentsToSaveManyRequestBody | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
+
 	const lastDocumentsInCase = await documentRepository.getByCaseId({
 		caseId: /** @type {number} */ (params.id),
 		skipValue: 0,

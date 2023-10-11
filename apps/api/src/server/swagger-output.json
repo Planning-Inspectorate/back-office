@@ -1815,7 +1815,7 @@
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
+							"$ref": "#/definitions/PaginationRequestBody"
 						},
 						"required": true
 					}
@@ -2052,7 +2052,7 @@
 						"in": "body",
 						"description": "document pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
+							"$ref": "#/definitions/PaginationRequestBody"
 						},
 						"required": true
 					}
@@ -3316,7 +3316,7 @@
 						"in": "body",
 						"description": "s51 pagination parameters",
 						"schema": {
-							"$ref": "#/definitions/DocumentsInCriteriaRequestBody"
+							"$ref": "#/definitions/PaginationRequestBody"
 						},
 						"required": true
 					}
@@ -3491,7 +3491,17 @@
 			"post": {
 				"tags": ["Applications"],
 				"description": "Get a subscription",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "subscription parameters",
+						"schema": {
+							"$ref": "#/definitions/SubscriptionGetRequest"
+						},
+						"required": true
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Subscription",
@@ -4610,19 +4620,6 @@
 							"datePublished": {}
 						}
 					}
-				}
-			}
-		},
-		"DocumentsInCriteriaRequestBody": {
-			"type": "object",
-			"properties": {
-				"pageNumber": {
-					"type": "number",
-					"example": 1
-				},
-				"pageSize": {
-					"type": "number",
-					"example": 1
 				}
 			}
 		},
@@ -8211,6 +8208,21 @@
 					"items": {
 						"type": "string"
 					}
+				}
+			}
+		},
+		"PaginationRequestBody": {
+			"type": "object",
+			"properties": {
+				"pageNumber": {
+					"type": "integer",
+					"description": "Page number requested",
+					"example": 1
+				},
+				"pageSize": {
+					"type": "integer",
+					"description": "Max number of items per page",
+					"example": 1
 				}
 			}
 		},

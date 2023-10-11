@@ -386,13 +386,6 @@ export interface ApplicationsForSearchCriteria {
 	}[];
 }
 
-export interface DocumentsInCriteriaRequestBody {
-	/** @example 1 */
-	pageNumber?: number;
-	/** @example 1 */
-	pageSize?: number;
-}
-
 export interface DocumentDetails {
 	/** @example "123" */
 	documentId?: string;
@@ -2260,6 +2253,19 @@ export interface DocumentsUnpublishResponseBody {
 		msg?: msg;
 	}[];
 	successful?: string[];
+}
+
+export interface PaginationRequestBody {
+	/**
+	 * Page number requested
+	 * @example 1
+	 */
+	pageNumber?: number;
+	/**
+	 * Max number of items per page
+	 * @example 1
+	 */
+	pageSize?: number;
 }
 
 export interface S51AdviceCreateRequestBody {

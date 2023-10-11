@@ -26,7 +26,7 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'subscription parameters',
-            schema: { $ref: '#/definitions/SubscriptionGetRequest' }
+            schema: { $ref: '#/definitions/SubscriptionGetRequest' },
             required: true
         }
         #swagger.responses[200] = {

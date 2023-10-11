@@ -145,7 +145,7 @@ router.post(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'document pagination parameters',
-			schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+			schema: { $ref: '#/definitions/PaginationRequestBody' },
 			required: true
 		}
         #swagger.responses[200] = {

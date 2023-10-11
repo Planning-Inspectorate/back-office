@@ -311,10 +311,6 @@ export const spec = {
 				}
 			]
 		},
-		DocumentsInCriteriaRequestBody: {
-			pageNumber: 1,
-			pageSize: 1
-		},
 		DocumentDetails: {
 			documentId: '123',
 			version: 1,
@@ -1778,6 +1774,13 @@ export const spec = {
 					type: 'array',
 					items: { type: 'string' }
 				}
+			}
+		},
+		PaginationRequestBody: {
+			type: 'object',
+			properties: {
+				pageNumber: { type: 'integer', description: 'Page number requested', example: 1 },
+				pageSize: { type: 'integer', description: 'Max number of items per page', example: 1 }
 			}
 		},
 		S51AdviceCreateRequestBody: {
