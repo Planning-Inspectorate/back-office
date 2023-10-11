@@ -887,6 +887,172 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
 </main>"
 `;
 
+exports[`appellant-case POST /appellant-case/incomplete should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property exceeds the character limit 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Text in text fields cannot exceed 1000 characters</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal incomplete?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
+                    type="checkbox" value="2025">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Appellant name is not the same on the application form and appeal form</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
+                    type="checkbox" value="2026" checked data-aria-controls="conditional-incompleteReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Attachments and/or appendices have not been included to the full statement
+                        of case</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2026" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2026" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
+                    type="checkbox" value="2027" data-aria-controls="conditional-incompleteReason-3">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">LPA&#39;s decision notice is incorrect or incomplete</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2027" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2027" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="2028" data-aria-controls="conditional-incompleteReason-4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Documents and plans referred in the application form, decision notice
+                        and appeal covering letter are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-4">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2028" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2028" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="2029">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Site ownership certificate, agricultural holding certificate and declaration
+                        have not been completed on the appeal form</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-6" name="incompleteReason"
+                    type="checkbox" value="2030">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-6">The original application form is incomplete or missing</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-7" name="incompleteReason"
+                    type="checkbox" value="2031">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-7">Statement of case and ground of appeal are missing</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-8" name="incompleteReason"
+                    type="checkbox" value="2032" data-aria-controls="conditional-incompleteReason-8">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-8">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-8">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2032" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2032" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
 exports[`appellant-case POST /appellant-case/incomplete should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty array 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -1402,6 +1568,171 @@ exports[`appellant-case POST /appellant-case/incomplete should re-render the inc
                                     <div class="govuk-form-group">
                                         <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
                                         id="" name="incompleteReason-2026" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-3" name="incompleteReason"
+                    type="checkbox" value="2027" checked data-aria-controls="conditional-incompleteReason-3">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-3">LPA&#39;s decision notice is incorrect or incomplete</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-3">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2027" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2027" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-4" name="incompleteReason"
+                    type="checkbox" value="2028" data-aria-controls="conditional-incompleteReason-4">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-4">Documents and plans referred in the application form, decision notice
+                        and appeal covering letter are missing</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-4">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2028" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2028" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-5" name="incompleteReason"
+                    type="checkbox" value="2029">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-5">Site ownership certificate, agricultural holding certificate and declaration
+                        have not been completed on the appeal form</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-6" name="incompleteReason"
+                    type="checkbox" value="2030">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-6">The original application form is incomplete or missing</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-7" name="incompleteReason"
+                    type="checkbox" value="2031">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-7">Statement of case and ground of appeal are missing</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-8" name="incompleteReason"
+                    type="checkbox" value="2032" data-aria-controls="conditional-incompleteReason-8">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-8">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-incompleteReason-8">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2032" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2032" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/incomplete should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties exceed the character limit 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Text in text fields cannot exceed 1000 characters</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal incomplete?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason" name="incompleteReason"
+                    type="checkbox" value="2025">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason">Appellant name is not the same on the application form and appeal form</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="incompleteReason-2" name="incompleteReason"
+                    type="checkbox" value="2026" checked data-aria-controls="conditional-incompleteReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="incompleteReason-2">Attachments and/or appendices have not been included to the full statement
+                        of case</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2026" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2026" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
                                     </div>
                                 </div>
                             </div>
@@ -2388,6 +2719,103 @@ exports[`appellant-case POST /appellant-case/incomplete/date should re-render th
 </main>"
 `;
 
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if a single invalid reason with text was provided but the matching text property exceeds the character limit 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Text in text fields cannot exceed 1000 characters</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason" name="invalidReason"
+                    type="checkbox" value="21">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason">Appeal has not been submitted on time</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-2" name="invalidReason"
+                    type="checkbox" value="22" checked data-aria-controls="conditional-invalidReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-2">Documents have not been submitted on time</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-invalidReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-22" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-22" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-3" name="invalidReason"
+                    type="checkbox" value="23">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-3">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-4" name="invalidReason"
+                    type="checkbox" value="24" data-aria-controls="conditional-invalidReason-4">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-4">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+                id="conditional-invalidReason-4">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-24" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-24" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
 exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if a single invalid reason with text was provided but the matching text property is an empty array 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -2695,6 +3123,102 @@ exports[`appellant-case POST /appellant-case/invalid should re-render the invali
                                     <div class="govuk-form-group">
                                         <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
                                         id="" name="invalidReason-22" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-3" name="invalidReason"
+                    type="checkbox" value="23">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-3">The appellant doesn&#39;t have the right to appeal</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-4" name="invalidReason"
+                    type="checkbox" value="24" checked data-aria-controls="conditional-invalidReason-4">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-4">Other</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-invalidReason-4">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-24" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-24" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
+                        data-module="govuk-button">Add another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if multiple invalid reasons with text were provided but any of the matching text properties exceed the character limit 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Text in text fields cannot exceed 1000 characters</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal invalid?</h1>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason" name="invalidReason"
+                    type="checkbox" value="21">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason">Appeal has not been submitted on time</label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="invalidReason-2" name="invalidReason"
+                    type="checkbox" value="22" checked data-aria-controls="conditional-invalidReason-2">
+                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-2">Documents have not been submitted on time</label>
+                </div>
+                <div class="govuk-checkboxes__conditional" id="conditional-invalidReason-2">
+                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-22" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-22" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
                                     </div>
                                 </div>
                             </div>

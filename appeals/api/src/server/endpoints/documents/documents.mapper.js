@@ -93,15 +93,20 @@ export const mapDefaultCaseFolders = (caseId) => {
 
 /**
  * @param {string} sectionName
- * @param {Object<string, Object>} folderLayout
  * @param {Folder[]} folders
- * @returns {void}
+ * @returns {Object<string, Object>}
  */
-export const mapFoldersLayoutForAppealSection = (sectionName, folderLayout, folders) => {
-	for (const folderName of Object.keys(folderLayout)) {
-		folderLayout[folderName] =
-			mapFoldersLayoutForAppealFolder(folders, `${sectionName}/${folderName}`) || {};
+export const mapFoldersLayoutForAppealSection = (sectionName, folders) => {
+	/** @type {Object<string, Object>} **/ const folderLayout = {};
+
+	for (const path of CONFIG_APPEAL_FOLDER_PATHS) {
+		if (path.indexOf(sectionName) === 0) {
+			const key = path.replace(`${sectionName}/`, '');
+			folderLayout[key] = mapFoldersLayoutForAppealFolder(folders, `${sectionName}/${key}`) || {};
+		}
 	}
+
+	return folderLayout;
 };
 
 /**

@@ -11,4 +11,7 @@ export const validateInvalidReason = createValidator(
 		.withMessage('Please select one or more reasons why the appeal is invalid')
 );
 
-export const validateInvalidReasonTextItems = createCheckboxTextItemsValidator('invalidReason');
+export const validateInvalidReasonTextItems = createCheckboxTextItemsValidator(
+	'invalidReason',
+	'appellantCaseNotValidReason'
+);
