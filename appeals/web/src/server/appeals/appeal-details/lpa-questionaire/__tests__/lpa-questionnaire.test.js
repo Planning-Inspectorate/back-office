@@ -3,7 +3,9 @@ import nock from 'nock';
 import supertest from 'supertest';
 import {
 	lpaQuestionnaireData,
-	lpaQuestionnaireIncompleteReasons
+	lpaQuestionnaireIncompleteReasons,
+	documentFolderInfo,
+	documentFileInfo
 } from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
@@ -654,6 +656,30 @@ describe('LPA Questionnaire review', () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.get(`${baseUrl}/confirmation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/add-documents/:folderId/', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/add-documents/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/add-documents/:folderId/:documentId', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/add-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

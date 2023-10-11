@@ -5,7 +5,9 @@ import { createTestEnvironment } from '#testing/index.js';
 import {
 	appellantCaseData,
 	appellantCaseInvalidReasons,
-	appellantCaseIncompleteReasons
+	appellantCaseIncompleteReasons,
+	documentFolderInfo,
+	documentFileInfo
 } from '#testing/app/fixtures/referencedata.js';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 
@@ -1128,6 +1130,30 @@ describe('appellant-case', () => {
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${confirmationPagePath}`
 			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/add-documents/:folderId/', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}/add-documents/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/add-documents/:folderId/:documentId', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}/add-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
