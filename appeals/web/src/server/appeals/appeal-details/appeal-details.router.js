@@ -1,6 +1,7 @@
 import { Router as createRouter } from 'express';
 import lpaQuestionnaireRouter from './lpa-questionaire/lpa-questionnaire.router.js';
 import allocationDetailsRouter from './allocation-details/allocation-details.router.js';
+import appealTimetablesRouter from './appeal-timetables/appeal-timetables.router.js';
 import appellantCaseRouter from './appellant-case/appellant-case.router.js';
 import appealDocumentsRouter from '../appeal-documents/appeal-documents.router.js';
 import siteVisitRouter from './site-visit/site-visit.router.js';
@@ -17,6 +18,7 @@ router.route('/:appealId').get(controller.viewAppealDetails);
 router.use('/:appealId/documents', appealDocumentsRouter);
 router.use('/:appealId/lpa-questionnaire', lpaQuestionnaireRouter);
 router.use('/:appealId/allocation-details', allocationDetailsRouter);
+router.use('/:appealId/appeal-timetables', appealTimetablesRouter);
 router.use('/:appealId/appellant-case', appellantCaseRouter);
 router.use('/:appealId/site-visit', siteVisitRouter);
 router.use('/:appealId/assign-user', assignUserRouter);
