@@ -1,10 +1,10 @@
 import { EventType } from '@pins/event-client';
-import * as caseRepository from '../../repositories/case.repository.js';
-import logger from '../../utils/logger.js';
-import BackOfficeAppError from '../../utils/app-error.js';
-import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
-import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
-import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-case-fields-changed.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import logger from '#utils/logger.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { mapCaseStatusString } from '#utils/mapping/map-case-status-string.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
+import { setCaseUnpublishedChangesIfTrue } from '#utils/published-case-fields-changed.js';
 import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';

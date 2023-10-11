@@ -258,134 +258,6 @@ export interface ExaminationTimetableItemResponseBody {
 	submissions?: boolean;
 }
 
-export type ApplicationsForCaseTeam = {
-	/** @example 1 */
-	id?: number;
-	/** @example 1655298882 */
-	modifiedDate?: number;
-	/** @example "REFERENCE" */
-	reference?: string;
-	sector?: {
-		/** @example "BB" */
-		abbreviation?: string;
-		/** @example "Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sector" */
-		name?: string;
-	};
-	subSector?: {
-		/** @example "AA" */
-		abbreviation?: string;
-		/** @example "Sub Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sub Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sub_sector" */
-		name?: string;
-	};
-	/** @example "status" */
-	status?: string;
-}[];
-
-export type ApplicationsForCaseAdminOfficer = {
-	/** @example 1 */
-	id?: number;
-	/** @example 1655298882 */
-	modifiedDate?: number;
-	/** @example "REFERENCE" */
-	reference?: string;
-	sector?: {
-		/** @example "BB" */
-		abbreviation?: string;
-		/** @example "Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sector" */
-		name?: string;
-	};
-	subSector?: {
-		/** @example "AA" */
-		abbreviation?: string;
-		/** @example "Sub Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sub Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sub_sector" */
-		name?: string;
-	};
-	/** @example "status" */
-	status?: string;
-}[];
-
-export type ApplicationsForInspector = {
-	/** @example 1 */
-	id?: number;
-	/** @example 1655298882 */
-	modifiedDate?: number;
-	/** @example "REFERENCE" */
-	reference?: string;
-	sector?: {
-		/** @example "BB" */
-		abbreviation?: string;
-		/** @example "Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sector" */
-		name?: string;
-	};
-	subSector?: {
-		/** @example "AA" */
-		abbreviation?: string;
-		/** @example "Sub Sector Name Cy" */
-		displayNameCy?: string;
-		/** @example "Sub Sector Name En" */
-		displayNameEn?: string;
-		/** @example "sub_sector" */
-		name?: string;
-	};
-	/** @example "status" */
-	status?: string;
-}[];
-
-export interface ApplicationsForSearchCriteriaRequestBody {
-	/** @example "BC" */
-	query?: string;
-	/** @example "case-team" */
-	role?: string;
-	/** @example 1 */
-	pageNumber?: number;
-	/** @example 1 */
-	pageSize?: number;
-}
-
-export interface ApplicationsForSearchCriteria {
-	/** @example 1 */
-	page?: number;
-	/** @example 1 */
-	pageSize?: number;
-	/** @example 1 */
-	pageCount?: number;
-	/** @example 1 */
-	itemCount?: number;
-	items?: {
-		/** @example 3 */
-		id?: number;
-		/** @example "open" */
-		status?: string;
-		/** @example "EN010003" */
-		reference?: string;
-		/** @example "EN010003 - NI Case 3 Name" */
-		title?: string;
-		/** @example 1655298882 */
-		modifiedDate?: number;
-		datePublished?: any;
-	}[];
-}
-
 export interface DocumentDetails {
 	/** @example "123" */
 	documentId?: string;
@@ -493,6 +365,171 @@ export type PaginatedDocumentDetails = {
 		examinationRefNo?: string;
 	}[];
 }[];
+
+export interface ApplicationSummary {
+	/**
+	 * Application id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Application title
+	 * @example "NSIP Application Title"
+	 */
+	title?: string;
+	/**
+	 * Application unique reference
+	 * @example "BC0110001"
+	 */
+	reference?: string;
+	/**
+	 * Date last modified, unix timestamp
+	 * @example 1655298882
+	 */
+	modifiedDate?: number;
+	subSector?: {
+		/**
+		 * Internal id code
+		 * @example "office_use"
+		 */
+		name?: string;
+		/**
+		 * 4-char code
+		 * @example "BC01"
+		 */
+		abbreviation?: string;
+		/**
+		 * Subsector title in English
+		 * @example "Office Use"
+		 */
+		displayNameEn?: string;
+		/**
+		 * Subsector title in Welsh
+		 * @example "Office Use"
+		 */
+		displayNameCy?: string;
+	};
+	sector?: {
+		/**
+		 * Internal id code
+		 * @example "business_and_commercial"
+		 */
+		name?: string;
+		/**
+		 * 4-char code
+		 * @example "BC"
+		 */
+		abbreviation?: string;
+		/**
+		 * Sector title in English
+		 * @example "Business and Commercial"
+		 */
+		displayNameEn?: string;
+		/**
+		 * Sector title in Welsh
+		 * @example "Business and Commercial"
+		 */
+		displayNameCy?: string;
+	};
+	/**
+	 * Application status
+	 * @example "Acceptance"
+	 */
+	status?:
+		| 'Pre-application'
+		| 'Acceptance'
+		| 'Pre-examination'
+		| 'Examination'
+		| 'Recommendation'
+		| 'Decision'
+		| 'Post decision'
+		| 'Withdrawn';
+}
+
+export type ApplicationSummaryMany = ApplicationSummary[];
+
+export interface ApplicationSearchSummary {
+	/**
+	 * Application id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Application title
+	 * @example "NSIP Application Title"
+	 */
+	title?: string;
+	/**
+	 * Application unique reference
+	 * @example "BC0110001"
+	 */
+	reference?: string;
+	/**
+	 * Application description
+	 * @example "A description of the application"
+	 */
+	description?: string;
+	/**
+	 * Application status
+	 * @example "Acceptance"
+	 */
+	status?:
+		| 'Pre-application'
+		| 'Acceptance'
+		| 'Pre-examination'
+		| 'Examination'
+		| 'Recommendation'
+		| 'Decision'
+		| 'Post decision'
+		| 'Withdrawn';
+}
+
+export interface ApplicationsSearchCriteriaRequestBody {
+	/**
+	 * String to search for
+	 * @example "BC"
+	 */
+	query: string;
+	/**
+	 * User role
+	 * @example "case-team"
+	 */
+	role: string;
+	/**
+	 * Page number required
+	 * @example 1
+	 */
+	pageNumber?: number;
+	/**
+	 * Max items per page
+	 * @example 1
+	 */
+	pageSize?: number;
+}
+
+export interface ApplicationsSearchResponse {
+	/**
+	 * Page number
+	 * @example 1
+	 */
+	page?: number;
+	/**
+	 * Max items per page
+	 * @example 1
+	 */
+	pageSize?: number;
+	/**
+	 * Total number of pages
+	 * @example 1
+	 */
+	pageCount?: number;
+	/**
+	 * Total items
+	 * @example 1
+	 */
+	itemCount?: number;
+	items?: any[];
+}
 
 export type ApplicationProjectUpdate = ApplicationProjectUpdateCreateRequest & {
 	/** @min 0 */

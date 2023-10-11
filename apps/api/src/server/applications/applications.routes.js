@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '#middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { applicationRoutes } from './application/application.routes.js';
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';

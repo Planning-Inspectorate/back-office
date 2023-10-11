@@ -1,6 +1,6 @@
 import { request } from '../../../app-test.js';
-import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const application = applicationFactoryForTests({
 	id: 1,

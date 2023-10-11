@@ -3,14 +3,13 @@ import { mapCaseStatus } from './map-case-status.js';
 import { mapSector } from './map-sector.js';
 
 /**
- * @typedef {import('./map-sector').SectorResponse} SectorResponse
- * @typedef {{id: number, modifiedDate: number, reference: string, status: string | object, sector?: SectorResponse | null, subSector?: SectorResponse | null}} ApplicationWithSectorResponse
+ * @typedef {import('@pins/applications.api').Api.ApplicationSummary} ApplicationSummary
  */
 
 /**
  *
  * @param {import('@pins/applications.api').Schema.Case} application
- * @returns {ApplicationWithSectorResponse}
+ * @returns {ApplicationSummary}
  */
 export const mapApplicationWithSectorAndSubSector = (application) => {
 	const applicationData = mapApplication(application, ['id', 'title', 'reference', 'modifiedAt']);
