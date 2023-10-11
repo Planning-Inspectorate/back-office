@@ -16,7 +16,8 @@ import {
 	storeDocumentVersion,
 	updateDocuments,
 	getDocumentVersionProperties,
-	markAsPublished
+	markAsPublished,
+	unpublishDocuments
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -94,6 +95,43 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(provideDocumentUploadURLs)
+);
+
+router.patch(
+	'/:id/documents/unpublish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'Unpublish a document by its GUID'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/documentsToUnpublishRequestBody' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been unpublished',
+            schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+        }
+		#swagger.responses[206] = {
+			description: 'Some documents failed to unpublish while others succeeded',
+			schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+		}
+		#swagger.responses[409] = {
+			description: 'All documents failed to unpublish',
+			schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+		}
+  */
+	validateApplicationId,
+	validateDocumentsToUpdateProvided,
+	validateDocumentIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(unpublishDocuments)
 );
 
 router.post(

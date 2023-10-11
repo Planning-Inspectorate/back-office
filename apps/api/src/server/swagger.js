@@ -89,6 +89,9 @@ export const spec = {
 			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }],
 			username: 'test-user@email.com'
 		},
+		documentsToUnpublishRequestBody: {
+			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
+		},
 		documentsAndBlobStorageURLs: {
 			blobStorageHost: 'blob-storage-host',
 			privateBlobContainer: 'blob-storage-container',
@@ -1331,6 +1334,25 @@ export const spec = {
 		ApplicationProjectUpdates: {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/ApplicationProjectUpdate')
+		},
+		DocumentsUnpublishResponseBody: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							guid: { type: 'string' },
+							msg: { type: 'msg' }
+						}
+					}
+				},
+				successful: {
+					type: 'array',
+					items: { type: 'string' }
+				}
+			}
 		},
 		S51AdviceCreateRequestBody: {
 			type: 'object',

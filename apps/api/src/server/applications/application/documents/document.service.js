@@ -721,3 +721,54 @@ export const handleUpdateDocument = async (guids, publishedStatus, redactedStatu
 
 	return { errors, results };
 };
+
+/**
+ * Return document GUIDs (and their statuses) which are not published
+ *
+ * @param {string[]} guids
+ * @returns {Promise<string[]>}
+ * */
+export const separateNonPublishedDocuments = async (guids) => {
+	/** @type {string[]} */
+	let results = [];
+
+	for (const guid of guids) {
+		const documentFromDatabase = await documentRepository.getByIdWithVersion(guid);
+
+		if (
+			!documentFromDatabase.documentVersion.some(
+				(/** @type {DocumentVersion} */ version) => version.publishedStatus === 'published'
+			)
+		) {
+			results.push(guid);
+		}
+	}
+
+	return results;
+};
+
+/**
+ * Unpublish a list of documents
+ *
+ * @param {string[]} guids
+ * @returns {Promise<string[]>}
+ * */
+export const unpublishDocuments = async (guids) => {
+	const versionPromises = guids.map(documentVersionRepository.getPublished);
+	const versions = await Promise.all(versionPromises);
+
+	const allVersions = versions.flatMap((docVersions) => docVersions?.filter(Boolean) ?? []);
+
+	const unpublishedDocuments = await documentVersionRepository.updateAll(
+		allVersions.map((version) => ({
+			documentGuid: version.documentGuid,
+			version: version.version
+		})),
+		{
+			publishedStatus: 'unpublished',
+			publishedStatusPrev: 'published'
+		}
+	);
+
+	return unpublishedDocuments.map((doc) => doc.documentGuid);
+};
