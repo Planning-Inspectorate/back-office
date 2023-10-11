@@ -12,6 +12,7 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{% set breadcrumbItems = breadcrumbItems | concat({text: [currentFolder.displayNameEn, ' documents']|join }) %}
 
 	{{ govukBreadcrumbs({
@@ -19,6 +20,7 @@
 		items: breadcrumbItems
 	})
 	}}
+</aside>
 {% endblock %}
 
 {% block pageContent %}

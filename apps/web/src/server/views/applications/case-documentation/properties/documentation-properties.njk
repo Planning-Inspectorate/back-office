@@ -8,10 +8,12 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		text: "Back",
 		href: breadcrumbItems[breadcrumbItems.length - 1].href
 	}) }}
+</aside>
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
@@ -55,7 +57,7 @@
                     </a>
                 </div>
                 <nav class="govuk-grid-row govuk-!-margin-top-0">
-					<h4 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">Document actions</h4>
+					<h3 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">Document actions</h3>
 					<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
 						{% set isNotDisabled = documentationFile.publishedStatus !== 'awaiting_upload' and documentationFile.publishedStatus !== 'awaiting_virus_check' and documentationFile.publishedStatus !== 'failed_virus_check' %}
 						{% set isPreviewActive = isNotDisabled and(documentationFile.mime === 'application/pdf' or documentationFile.mime === 'image/jpeg' or documentationFile.mime === 'image/png') %}

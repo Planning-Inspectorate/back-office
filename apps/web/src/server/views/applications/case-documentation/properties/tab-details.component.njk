@@ -26,9 +26,9 @@
 			{% set documentEditLink = ('document-edit'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: property.link})) %}
 
 			{% set rowActions = {
-								href: documentEditLink,
-								text: "Change",
-								visuallyHiddenText: property.label
+				href: documentEditLink,
+				text: "Change",
+				visuallyHiddenText: property.label
 			} %}
 		{% endif %}
 
