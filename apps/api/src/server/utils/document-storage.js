@@ -1,26 +1,13 @@
 import config from '../config/config.js';
 
 /**
- * @typedef {Object} DocumentInfo
- * @property {string} caseType
- * @property {string} caseReference
- * @property {string} documentName
- * @property {string} GUID
- * @property {number} [version]
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobStorageDetail} DocumentAndBlobStorageDetail
+ * @typedef {import('@pins/applications.api').Api.DocumentBlobStoragePayload} DocumentBlobStoragePayload
  */
 
 /**
- * @typedef {Object} WithBlobUrl
- * @property {string} blobStoreUrl
- */
-
-/**
- * @typedef {DocumentInfo & WithBlobUrl} DocumentInfoWithBlobUrl
- */
-
-/**
- * @param {DocumentInfo[]} documentsToSave
- * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: DocumentInfoWithBlobUrl[]}>}
+ * @param {DocumentBlobStoragePayload[]} documentsToSave
+ * @returns {Promise<import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse>}
  */
 export const getStorageLocation = async (documentsToSave) => {
 	return {
@@ -31,8 +18,8 @@ export const getStorageLocation = async (documentsToSave) => {
 };
 
 /**
- * @param {DocumentInfo} doc
- * @returns {DocumentInfoWithBlobUrl}
+ * @param {DocumentBlobStoragePayload} doc
+ * @returns {DocumentAndBlobStorageDetail}
  */
 function populateBlobStoreUrl(doc) {
 	const { caseReference, GUID, version = 1 } = doc;

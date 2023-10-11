@@ -1,10 +1,15 @@
-import { databaseConnector } from '../utils/database-connector.js';
-
-/** @typedef {import('@prisma/client').Document} Document */
+import { databaseConnector } from '#utils/database-connector.js';
 
 /**
- * @param {{caseId: number, folderId: number, latestVersionId?: number, reference: string, fromFrontOffice?: boolean}} document
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@prisma/client').Prisma.DocumentGetPayload<{include: {documentVersion: true }}>} DocumentWithDocumentVersion
+ */
+
+/**
+ * Create a new Document record
+ *
+ * @param {import('@prisma/client').Prisma.DocumentUncheckedCreateInput} document
+ * @returns {import('@prisma/client').PrismaPromise<Document>}
  */
 export const create = (document) => {
 	return databaseConnector.document.create({
@@ -16,7 +21,7 @@ export const create = (document) => {
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<Document |null>}
  */
 export const getById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -27,10 +32,10 @@ export const getById = (documentGuid) => {
 };
 
 /**
- * Get a document by caseid
+ * Get a paginated array of documents by caseid
  *
  * @param {{ caseId: number, skipValue?: number, pageSize?: number }} _
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
+ * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
 export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
@@ -49,7 +54,7 @@ export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentWithDocumentVersion |null>}
  */
 export const getByIdWithVersion = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -65,7 +70,7 @@ export const getByIdWithVersion = (documentGuid) => {
  *
  * @param {string} documentGuid
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document |null>}
+ * @returns {import('@prisma/client').PrismaPromise<Document |null>}
  */
 export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 	return databaseConnector.document.findFirst({
@@ -137,7 +142,7 @@ export const getPublishableDocuments = (documentIds) => {
  *
  * @param {string} documentId
  * @param {import('@pins/applications.api').Schema.DocumentUpdateInput} documentDetails
- * @returns {Promise<import('@pins/applications.api').Schema.Document>}
+ * @returns {Promise<Document>}
  */
 export const update = (documentId, documentDetails) => {
 	return databaseConnector.document.update({
@@ -150,10 +155,11 @@ export const update = (documentId, documentDetails) => {
 
 /**
  *  Deletes a document from the database based on its `guid`
+ * TODO: check - this does an actual delete, not a soft delete, is that correct?
  *
  * @async
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<Document>}
  */
 export const deleteDocument = (documentGuid) => {
 	return databaseConnector.document.delete({
@@ -166,7 +172,7 @@ export const deleteDocument = (documentGuid) => {
 /**
  *
  * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
+ * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
 export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
 	return databaseConnector.document.findMany({
@@ -211,7 +217,7 @@ export const countDocumentsInFolder = (folderId) => {
 /**
  *
  * @param {string} documentGUID
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document | null>}
+ * @returns {import('@prisma/client').PrismaPromise<Document | null>}
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
@@ -227,7 +233,7 @@ export const getByDocumentGUID = (documentGUID) => {
 /**
  *
  * @param {string[]} guids
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[] | null>}
+ * @returns {import('@prisma/client').PrismaPromise<Document[] | null>}
  * */
 export const getDocumentsByGUID = (guids) =>
 	databaseConnector.document.findMany({
@@ -240,8 +246,9 @@ export const getDocumentsByGUID = (guids) =>
 	});
 
 /**
+ * TODO: I dont think this fn is used anymore
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document>}
+ * @returns {import('@prisma/client').PrismaPromise<Document>}
  */
 export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
@@ -278,7 +285,7 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
  * Filter document table to retrieve documents by 'ready-to-publish' status
  *
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Document[]>}
+ * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
 export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) => {
 	return databaseConnector.document.findMany({

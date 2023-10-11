@@ -63,66 +63,6 @@ export const spec = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
-		documentsToSave: [
-			{
-				documentName: 'document.pdf',
-				folderId: 123,
-				documentType: 'application/pdf',
-				documentSize: 1024,
-				username: 'test-user@email.com',
-				fromFrontOffice: false
-			}
-		],
-		documentToSave: {
-			documentName: 'document.pdf',
-			folderId: 123,
-			documentType: 'application/pdf',
-			documentSize: 1024,
-			username: 'test-user@email.com'
-		},
-		documentsToUpdateRequestBody: {
-			status: 'not_checked',
-			redacted: true,
-			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }]
-		},
-		documentsToPublishRequestBody: {
-			documents: [{ guid: '0084b156-006b-48b1-a47f-e7176414db29' }],
-			username: 'test-user@email.com'
-		},
-		documentsAndBlobStorageURLs: {
-			blobStorageHost: 'blob-storage-host',
-			privateBlobContainer: 'blob-storage-container',
-			documents: [
-				{
-					documentName: 'document.pdf',
-					documentReference: 'docRef',
-					blobStoreUrl: '/some/path/document.pdf'
-				}
-			]
-		},
-		partialDocumentsAndBlobStorageURLs: {
-			blobStorageHost: 'blob-storage-host',
-			privateBlobContainer: 'blob-storage-container',
-			documents: [
-				{
-					documentName: 'document.pdf',
-					documentReference: 'docRef',
-					blobStoreUrl: '/some/path/document.pdf'
-				}
-			],
-			failedDocuments: ['example.pdf'],
-			duplicates: ['example2.pdf']
-		},
-		documentsUploadFailed: {
-			failedDocuments: ['example.pdf'],
-			duplicates: ['example2.pdf']
-		},
-		documentsPublished: [
-			{
-				guid: '0084b156-006b-48b1-a47f-e7176414db29',
-				publishedStatus: 'published'
-			}
-		],
 		UpdateApplication: {
 			title: '',
 			description: '',
@@ -289,52 +229,6 @@ export const spec = {
 			endTime: '12:20',
 			submissions: true
 		},
-		documentsPropertiesRequestBody: {
-			version: 1,
-			createdAt: '2023-02-27T10:00:00Z',
-			lastModified: '2023-02-27T12:00:00Z',
-			documentType: 'PDF',
-			documentReference: 'B123-000001',
-			published: false,
-			sourceSystem: 'Salesforce',
-			origin: 'Email',
-			representative: 'John Doe',
-			description: 'Marketing Brochure',
-			documentGuid: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv',
-			datePublished: '2023-03-01T10:00:00Z',
-			owner: 'Jane Doe',
-			author: 'Marketing Team',
-			securityClassification: 'Confidential',
-			mime: 'application/pdf',
-			horizonDataID: '123456789',
-			fileMD5: 'f60c381d96dcedec4b4fb4b9e1f6e14e',
-			path: '/documents/marketing/ab12cd34-5678-90ef-ghij-klmnopqrstuv.pdf',
-			virusCheckStatus: 'Clean',
-			size: 1024,
-			stage: 3,
-			filter1: 'Marketing',
-			filter2: 'Brochure',
-			fromFrontOffice: true
-		},
-		documentsMetadataResponseBody: {
-			version: 1,
-			documentId: 'a6f9f2e0-12c9-49b7-8a1c-3b5edc34dd99',
-			datePublished: '',
-			caseRef: 'BC0210002',
-			documentName: '5',
-			privateBlobContainer: 'document-service-uploads',
-			privateBlobPath: '/application/BC010001/1111-2222-3333/my doc.pdf',
-			from: 'joe blogs',
-			dateCreated: 1_677_585_578,
-			size: 0,
-			fileType: '',
-			redacted: false,
-			status: 'awaiting_upload',
-			description: '',
-			agent: '',
-			documentType: '',
-			webFilter: ''
-		},
 		ApplicationsForCaseTeam: [
 			{
 				id: 1,
@@ -416,33 +310,6 @@ export const spec = {
 					datePublished: null
 				}
 			]
-		},
-		DocumentsInCriteriaRequestBody: {
-			pageNumber: 1,
-			pageSize: 1
-		},
-		documentsMetadataRequestBody: {
-			documentId: '123',
-			version: 1,
-			sourceSystem: 'ABC',
-			documentGuid: '456',
-			fileName: 'document.pdf',
-			datePublished: '2022-12-21T12:42:40.885Z',
-			privateBlobPath: '/documents/123.pdf',
-			privateBlobContainer: 'my-blob-storage',
-			author: 'John Smith',
-			dateCreated: '2022-12-21T12:42:40.885Z',
-			publishedStatus: 'published',
-			redactedStatus: 'not redacted',
-			size: 1024,
-			mime: 'application/pdf',
-			description: 'This is a sample document.',
-			representative: 'Jane Doe',
-			filter1: 'some filter value',
-			filter2: 'some filter value',
-			documentType: 'contract',
-			caseRef: 'ABC-123',
-			examinationRefNo: 'EXM-456'
 		},
 		DocumentDetails: {
 			documentId: '123',
@@ -1332,6 +1199,547 @@ export const spec = {
 			type: 'object',
 			properties: pagedResponseProperties('#/definitions/ApplicationProjectUpdate')
 		},
+		DocumentActivityLog: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Id', example: 1 },
+				documentGuid: {
+					type: 'string',
+					description: 'Username',
+					example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+				},
+				version: { type: 'integer', description: 'Document version', example: 2 },
+				user: { type: 'string', description: 'Username', example: 'test-user@email.com' },
+				status: { type: 'string', description: '', example: 'uploaded' },
+				createdAt: {
+					type: 'string',
+					description: 'Date created',
+					example: '2023-10-04T12:45:19.785Z'
+				}
+			}
+		},
+		DocumentToSaveExtended: {
+			type: 'object',
+			required: [
+				'documentName',
+				'documentSize',
+				'documentType',
+				'caseId',
+				'folderId',
+				'fileRowId',
+				'username'
+			],
+			properties: {
+				documentName: {
+					type: 'string',
+					description: 'Document file name',
+					example: 'document.pdf'
+				},
+				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
+				documentType: {
+					type: 'string',
+					description: 'Document mime type',
+					example: 'application/pdf'
+				},
+				caseId: { type: 'string', description: 'Case Id', example: '1' },
+				folderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				fileRowId: { type: 'string', description: '', example: 'file_row_1585663020000_7945' },
+				username: { type: 'string', description: 'Username', example: 'John Keats' },
+				documentReference: {
+					type: 'string',
+					description: 'Document unique reference',
+					example: 'BC011001-123456'
+				},
+				fromFrontOffice: { type: 'boolean', description: 'Sent from Front Office?', example: false }
+			}
+		},
+		DocumentToSave: {
+			type: 'object',
+			required: [
+				'documentName',
+				'documentSize',
+				'documentType',
+				'caseId',
+				'folderId',
+				'fileRowId',
+				'username'
+			],
+			properties: {
+				documentName: {
+					type: 'string',
+					description: 'Document file name',
+					example: 'document.pdf'
+				},
+				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
+				documentType: {
+					type: 'string',
+					description: 'Document mime type',
+					example: 'application/pdf'
+				},
+				caseId: { type: 'string', description: 'Case Id', example: '1' },
+				folderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				fileRowId: { type: 'string', description: '', example: 'file_row_1585663020000_7945' },
+				username: { type: 'string', description: 'Username', example: 'John Keats' }
+			}
+		},
+		DocumentsToSaveManyRequestBody: {
+			type: 'array',
+			items: { $ref: '#/definitions/DocumentToSave' }
+		},
+		DocumentsToUpdateRequestBody: {
+			type: 'object',
+			properties: {
+				status: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status to set. Optional',
+					example: 'not_checked'
+				},
+				redacted: {
+					type: 'boolean',
+					description: 'Set redaction status to redacted. Optional',
+					example: true
+				},
+				documents: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							guid: {
+								type: 'string',
+								description: 'Document guid',
+								example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+							}
+						}
+					}
+				}
+			}
+		},
+		DocumentsToPublishRequestBody: {
+			type: 'object',
+			properties: {
+				documents: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							guid: {
+								type: 'string',
+								description: 'Document guid',
+								example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+							}
+						}
+					}
+				},
+				username: { type: 'string', description: 'Username', example: 'test-user@email.com' }
+			}
+		},
+		DocumentProperties: {
+			type: 'object',
+			properties: {
+				documentGuid: {
+					type: 'string',
+					description: 'Document GUID',
+					example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+				},
+				documentId: { type: 'integer', description: '', example: null },
+				documentRef: {
+					type: 'string',
+					description: 'Document Reference',
+					example: 'BC011001-000001'
+				},
+				folderId: { type: 'integer', description: 'Folder Id', example: 2 },
+				caseRef: { type: 'string', description: 'Case Reference', example: 'BC011001' },
+				sourceSystem: {
+					type: 'string',
+					description: 'Source system of the document',
+					example: 'back-office'
+				},
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Back Office blob storage container',
+					example: 'Blob-Storage-Container'
+				},
+				privateBlobPath: {
+					type: 'string',
+					description: 'Back Office blob storage path',
+					example:
+						'https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif'
+				},
+				author: { type: 'string', description: '', example: null },
+				fileName: { type: 'string', description: 'File Title', example: 'Small Doc 1' },
+				originalFilename: {
+					type: 'string',
+					description: 'The original filename',
+					example: 'Small1.pdf'
+				},
+				dateCreated: {
+					type: 'integer',
+					description: 'Date Created Unix timestamp',
+					example: 1696418643
+				},
+				size: { type: 'integer', description: 'File size in bytes', example: 1024 },
+				mime: { type: 'string', description: 'Document mime type', example: 'application/pdf' },
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'ready_to_publish'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: null
+				},
+				datePublished: {
+					type: 'integer',
+					description: 'Date published Unix timestamp',
+					example: 1696418643
+				},
+				description: { type: 'string', description: '', example: null },
+				version: { type: 'integer', description: 'Document version', example: 2 },
+				representative: { type: 'string', description: '', example: null },
+				stage: { type: 'integer', description: '', example: 3 },
+				documentType: { type: 'string', description: '', example: null },
+				filter1: { type: 'string', description: '', example: 'some filter' },
+				filter2: { type: 'string', description: '', example: 'some filter' },
+				examinationRefNo: {
+					type: 'string',
+					description: 'Examination Timetable reference number',
+					example: null
+				},
+				fromFrontOffice: {
+					type: 'boolean',
+					description: 'Document from front office',
+					example: false
+				}
+			}
+		},
+		DocumentPropertiesWithAuditHistory: {
+			type: 'object',
+			properties: {
+				documentGuid: {
+					type: 'string',
+					description: 'Username',
+					example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+				},
+				version: { type: 'integer', description: 'Document version', example: 2 },
+				lastModified: {
+					type: 'integer',
+					description: 'Last modified Unix timestamp',
+					example: 1696418643
+				},
+				documentType: { type: 'string', description: '', example: null },
+				published: { type: 'boolean', description: '', example: false },
+				sourceSystem: {
+					type: 'string',
+					description: 'Source system of the document',
+					example: 'back-office'
+				},
+				origin: { type: 'string', description: '', example: null },
+				originalFilename: {
+					type: 'string',
+					description: 'The original filename',
+					example: 'Small1.pdf'
+				},
+				fileName: { type: 'string', description: 'File Title', example: 'Small Doc 1' },
+				representative: { type: 'string', description: '', example: null },
+				description: { type: 'string', description: '', example: null },
+				owner: { type: 'string', description: '', example: null },
+				author: { type: 'string', description: '', example: null },
+				securityClassification: { type: 'string', description: '', example: null },
+				mime: { type: 'string', description: 'Document mime type', example: 'application/pdf' },
+				horizonDataID: { type: 'string', description: '', example: null },
+				fileMD5: { type: 'string', description: '', example: null },
+				virusCheckStatus: { type: 'string', description: '', example: null },
+				size: { type: 'integer', description: 'File size in bytes', example: 1024 },
+				stage: { type: 'integer', description: '', example: 3 },
+				filter1: { type: 'string', description: '', example: 'some filter' },
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Back Office blob storage container',
+					example: 'Blob-Storage-Container'
+				},
+				privateBlobPath: {
+					type: 'string',
+					description: 'Back Office blob storage path',
+					example:
+						'https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif'
+				},
+				publishedBlobContainer: {
+					type: 'string',
+					description: 'Published blob storage container',
+					example: null
+				},
+				publishedBlobPath: {
+					type: 'string',
+					description: 'Published blob storage path',
+					example: null
+				},
+				dateCreated: {
+					type: 'integer',
+					description: 'Date Created Unix timestamp',
+					example: 1696418643
+				},
+				datePublished: {
+					type: 'integer',
+					description: 'Date published Unix timestamp',
+					example: 1696418643
+				},
+				isDeleted: {
+					type: 'boolean',
+					description: 'Is the document marked as deleted',
+					example: false
+				},
+				examinationRefNo: {
+					type: 'string',
+					description: 'Examination Timetable reference number',
+					example: null
+				},
+				filter2: { type: 'string', description: '', example: 'some filter' },
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'ready_to_publish'
+				},
+				publishedStatusPrev: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'The previous status',
+					example: 'not_checked'
+				},
+				DocumentActivityLog: {
+					type: 'array',
+					items: { $ref: '#/definitions/DocumentActivityLog' }
+				},
+				history: {
+					type: 'object',
+					properties: {
+						uploaded: {
+							type: 'object',
+							properties: {
+								date: { type: 'integer', description: 'UTC timestamp', example: 1696418643 },
+								name: { type: 'string', description: 'User', example: 'test-user@email.com' }
+							}
+						}
+					}
+				}
+			}
+		},
+		DocumentPropertiesWithAllVersionWithAuditHistory: {
+			type: 'array',
+			items: { $ref: '#/definitions/DocumentPropertiesWithAuditHistory' }
+		},
+		DocumentBlobStoragePayload: {
+			type: 'object',
+			required: [
+				'caseType',
+				'caseReference',
+				'documentName',
+				'documentReference',
+				'GUID',
+				'version'
+			],
+			properties: {
+				caseType: {
+					type: 'string',
+					enum: ['appeal', 'application'],
+					description: 'URL to the File',
+					example: 'application'
+				},
+				caseReference: { type: 'string', description: 'Case Reference', example: '1' },
+				documentName: { type: 'string', description: 'Document name', example: 'document.pdf' },
+				documentReference: { type: 'string', nullable: true, description: '', example: '' },
+				GUID: {
+					type: 'string',
+					description: 'Document guid',
+					example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+				},
+				version: { type: 'integer', description: 'Document version', example: 1 }
+			}
+		},
+		DocumentAndBlobStorageDetail: {
+			type: 'object',
+			properties: {
+				blobStoreUrl: {
+					type: 'string',
+					description: 'URL to the File',
+					example: '/some/path/document.pdf'
+				},
+				caseType: {
+					type: 'string',
+					enum: ['appeal', 'application'],
+					description: 'URL to the File',
+					example: 'application'
+				},
+				caseReference: { type: 'string', description: 'Case Reference', example: '1' },
+				documentName: { type: 'string', description: 'Document name', example: 'document.pdf' },
+				GUID: {
+					type: 'string',
+					description: 'Document guid',
+					example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+				}
+			}
+		},
+		DocumentAndBlobInfoResponse: {
+			type: 'object',
+			properties: {
+				blobStorageHost: {
+					type: 'string',
+					description: 'Blob Storage host name',
+					example: 'blob-storage-host'
+				},
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Private Blob Storage container name',
+					example: 'blob-storage-container'
+				},
+				document: { $ref: '#/definitions/DocumentAndBlobStorageDetail' }
+			}
+		},
+		DocumentAndBlobInfoManyResponse: {
+			type: 'object',
+			properties: {
+				blobStorageHost: {
+					type: 'string',
+					description: 'Blob Storage host name',
+					example: 'blob-storage-host'
+				},
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Private Blob Storage container name',
+					example: 'blob-storage-container'
+				},
+				documents: {
+					type: 'array',
+					items: { $ref: '#/definitions/DocumentAndBlobStorageDetail' }
+				}
+			}
+		},
+		DocumentsUploadPartialFailed: {
+			type: 'object',
+			properties: {
+				blobStorageHost: {
+					type: 'string',
+					description: 'Blob Storage host name',
+					example: 'blob-storage-host'
+				},
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Private Blob Storage container name',
+					example: 'blob-storage-container'
+				},
+				documents: {
+					type: 'array',
+					items: { $ref: '#/definitions/DocumentAndBlobStorageDetail' }
+				},
+				failedDocuments: {
+					type: 'array',
+					items: { type: 'string', description: 'Failed document name', example: 'example.pdf' }
+				},
+				duplicates: {
+					type: 'array',
+					items: { type: 'string', description: 'Failed document name', example: 'example2.pdf' }
+				}
+			}
+		},
+		DocumentsUploadFailed: {
+			type: 'object',
+			properties: {
+				failedDocuments: {
+					type: 'array',
+					items: { type: 'string', description: 'Failed document name', example: 'example.pdf' }
+				},
+				duplicates: {
+					type: 'array',
+					items: { type: 'string', description: 'Failed document name', example: 'example2.pdf' }
+				}
+			}
+		},
+		DocumentsPublished: {
+			type: 'array',
+			items: {
+				type: 'object',
+				properties: {
+					guid: {
+						type: 'string',
+						description: 'Document guid',
+						example: '00000000-a173-47e2-b4b2-ce7064e0468a'
+					},
+					publishedStatus: {
+						type: 'string',
+						enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+						description: 'Published status to set. Optional',
+						example: 'not_checked'
+					}
+				}
+			}
+		},
+		DocumentVersionUpsertRequestBody: {
+			type: 'object',
+			properties: {
+				version: { type: 'integer', description: 'Document version', example: 2 },
+				sourceSystem: {
+					type: 'string',
+					description: 'Source system of the document',
+					example: 'back-office'
+				},
+				documentGuid: {
+					type: 'string',
+					description: 'Username',
+					example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+				},
+				fileName: { type: 'string', description: 'File Title', example: 'Small Doc 1' },
+				datePublished: {
+					type: 'string',
+					description: 'Date published UTC',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Back Office blob storage container',
+					example: 'Blob-Storage-Container'
+				},
+				privateBlobPath: {
+					type: 'string',
+					description: 'Back Office blob storage path',
+					example: '/documents/123.pdf'
+				},
+				author: { type: 'string', description: '', example: 'John Keats' },
+				dateCreated: {
+					type: 'string',
+					description: 'Date created UTC',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'ready_to_publish'
+				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: null
+				},
+				size: { type: 'integer', description: 'File size in bytes', example: 1024 },
+				mime: { type: 'string', description: 'Document mime type', example: 'application/pdf' },
+				description: { type: 'string', description: 'This is a sample document', example: null },
+				representative: { type: 'string', description: '', example: 'Jane Doe' },
+				filter1: { type: 'string', description: '', example: 'some filter value' },
+				filter2: { type: 'string', description: '', example: 'some filter value' },
+				documentType: { type: 'string', description: '', example: 'contract' },
+				caseRef: { type: 'string', description: 'Case Reference', example: 'BC011001' },
+				examinationRefNo: {
+					type: 'string',
+					description: 'Examination Timetable reference number',
+					example: 'EXM-456'
+				}
+			}
+		},
 		DocumentsToUnpublishRequestBody: {
 			type: 'object',
 			properties: {
@@ -1366,6 +1774,13 @@ export const spec = {
 					type: 'array',
 					items: { type: 'string' }
 				}
+			}
+		},
+		PaginationRequestBody: {
+			type: 'object',
+			properties: {
+				pageNumber: { type: 'integer', description: 'Page number requested', example: 1 },
+				pageSize: { type: 'integer', description: 'Max number of items per page', example: 1 }
 			}
 		},
 		S51AdviceCreateRequestBody: {

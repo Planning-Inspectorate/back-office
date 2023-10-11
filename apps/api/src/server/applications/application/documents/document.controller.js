@@ -1,16 +1,18 @@
 import { pick } from 'lodash-es';
-import * as caseRepository from '../../../repositories/case.repository.js';
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import * as folderRepository from '../../../repositories/folder.repository.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
-import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
-import logger from '../../../utils/logger.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+
+import BackOfficeAppError from '#utils/app-error.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import logger from '#utils/logger.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
 	mapSingleDocumentDetailsFromVersion
-} from '../../../utils/mapping/map-document-details.js';
+} from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
@@ -32,16 +34,21 @@ import {
 	validateDocumentVersionMetadataBody,
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing
 } from './document.validators.js';
-import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /**
- * @typedef {import('apps/api/src/database/schema.js').Document} Document
- * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
- * @typedef {import('apps/api/src/database/schema.js').DocumentVersionInput} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
  */
 
 /**
- * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * Upload an array of documents to a folder on a case
+ *
+ * @type {import('express').RequestHandler<any, any, DocumentsToSaveManyRequestBody | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
@@ -69,10 +76,11 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
-	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
-		remainder.includes(doc.documentName)
+	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
+		(doc) => remainder.includes(doc.documentName)
 	);
 
+	// loop thru the docs to add full document references eg BC0110001-000001, BC0110001-000002
 	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
@@ -107,12 +115,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
+ * Upload a new document version
  *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
 	const documentToUpload = body;
-
 	// Obtain URL of document from blob storage
 	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
@@ -249,7 +257,7 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
 	// Step 3: If the document metadata is not found, throw an error.
@@ -407,7 +415,7 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
 };
 
 /**
- * Creates or updates a document metadata record in the database.
+ * Creates or updates a document version metadata record in the database.
  *
  * @async
  * @function
@@ -435,7 +443,7 @@ export const storeDocumentVersion = async (request, response) => {
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
 		documentVersionMetadataBody,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
 	// Send the document details back in the response

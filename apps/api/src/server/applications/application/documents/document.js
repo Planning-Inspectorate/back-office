@@ -1,4 +1,4 @@
-import config from '../../../config/config.js';
+import config from '#config/config.js';
 /**
  * NSIP Document
  *
@@ -37,7 +37,7 @@ import config from '../../../config/config.js';
  */
 
 /**
- * @param {import('apps/api/src/database/schema.js').DocumentVersionWithDocument} version
+ * @param {import('@pins/applications.api').Schema.DocumentVersionWithDocument} version
  * @returns {NsipDocumentPayload}
  */
 export const buildNsipDocumentPayload = (version) => {
@@ -91,8 +91,10 @@ export const buildNsipDocumentPayload = (version) => {
 };
 
 /**
- * @param {string} containerName
- * @param {string} path
+ * return the document blob uri, eg config.blobStorageUrl/containerName/path
+ *
+ * @param {string |null} containerName
+ * @param {string |null} path
  *
  * @returns {string | undefined}
  */
