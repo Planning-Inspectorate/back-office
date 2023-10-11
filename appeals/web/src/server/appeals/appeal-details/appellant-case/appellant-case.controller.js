@@ -10,6 +10,7 @@ import {
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { renderDocumentUpload } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
  *
@@ -245,4 +246,13 @@ export const postCheckAndConfirm = async (request, response) => {
 
 		return response.render('app/500.njk');
 	}
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocuments = async (request, response) => {
+	renderDocumentUpload(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
+	);
 };

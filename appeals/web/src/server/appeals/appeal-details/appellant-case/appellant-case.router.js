@@ -4,9 +4,13 @@ import * as validators from './appellant-case.validators.js';
 import outcomeValidRouter from './outcome-valid/outcome-valid.router.js';
 import outcomeInvalidRouter from './outcome-invalid/outcome-invalid.router.js';
 import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
-
 import config from '@pins/appeals.web/environment/config.js';
 import { assertGroupAccess } from '../../../app/auth/auth.guards.js';
+import asyncRoute from '#lib/async-route.js';
+import {
+	validateCaseFolderId,
+	validateCaseDocumentId
+} from '../../appeal-documents/appeal-documents.middleware.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -30,5 +34,9 @@ router
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postCheckAndConfirm
 	);
+
+router
+	.route('/add-documents/:folderId/:documentId?')
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
 
 export default router;

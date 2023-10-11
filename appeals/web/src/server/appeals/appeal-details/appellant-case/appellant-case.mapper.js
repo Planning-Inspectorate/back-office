@@ -509,7 +509,7 @@ function appealDataList(mappedData) {
  * @returns {MappedDocumentRow}
  */
 const mapDocumentsForDisplay = (caseId, folder, readOnly = false, singleDocument = true) => {
-	const mappedFolder = mapFolder(caseId, folder, singleDocument);
+	const mappedFolder = mapFolder(caseId, folder, mapDocumentUploadUrl, singleDocument);
 	const { documents } = mappedFolder;
 	if (singleDocument && documents?.length) {
 		const d = documents[0];
@@ -536,4 +536,18 @@ const mapDocumentsForDisplay = (caseId, folder, readOnly = false, singleDocument
 		actionLink: readOnly ? '' : mappedFolder.addDocumentUrl,
 		valueType: 'link'
 	};
+};
+
+/**
+ *
+ * @param {Number} caseId
+ * @param {FolderInfo} folder
+ * @param {DocumentInfo | null} doc
+ */
+const mapDocumentUploadUrl = (caseId, folder, doc = null) => {
+	if (doc) {
+		return `/appeals-service/appeal-details/${doc.caseId}/appellant-case/add-documents/${doc.folderId}/${doc.id}/`;
+	}
+
+	return `/appeals-service/appeal-details/${caseId}/appellant-case/add-documents/${folder.folderId}/`;
 };
