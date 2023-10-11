@@ -32,3 +32,8 @@ export const notificationBanners = {
 		text: 'Inspector has been removed'
 	}
 };
+
+export const textInputCharacterLimits = {
+	appellantCaseNotValidReason: 1000,
+	lpaQuestionnaireNotValidReason: 1000
+};
