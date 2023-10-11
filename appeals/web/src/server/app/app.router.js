@@ -36,6 +36,12 @@ if (!config.authDisabled) {
 	router.use(assertIsAuthenticated);
 }
 
+// assert membership to one of the required groups to get to any page
+// this only excludes the unauthenticated routes above, such as login
+// note this also works locally, as the session is mocked
+//
+// specific routes should still add a group access guard where required for specific RBAC
+
 const allowedGroups = config.referenceData.appeals;
 const groupIds = [
 	allowedGroups.caseOfficerGroupId,
