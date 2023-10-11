@@ -58,11 +58,8 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		mime: version.mime,
-		documentURI: buildBlobUri(version.privateBlobContainer ?? '', version.privateBlobPath ?? ''),
-		publishedDocumentURI: buildBlobUri(
-			version.publishedBlobContainer ?? '',
-			version.publishedBlobPath ?? ''
-		),
+		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
+		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
 		// @ts-ignore
 		virusCheckStatus: version.virusCheckStatus,
 		fileMD5: version.fileMD5,
@@ -94,8 +91,10 @@ export const buildNsipDocumentPayload = (version) => {
 };
 
 /**
- * @param {string} containerName
- * @param {string} path
+ * return the document blob uri, eg config.blobStorageUrl/containerName/path
+ *
+ * @param {string |null} containerName
+ * @param {string |null} path
  *
  * @returns {string | undefined}
  */

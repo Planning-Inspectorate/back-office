@@ -277,11 +277,11 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 		responseFromDocumentStorage.privateBlobContainer
 	);
 
-	/** @type {DocumentAndBlobInfoManyResponse[]} */
+	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
 	const documentActivityLogs = [];
+	// TODO: refactor to use createMany instead?
 	requestToDocumentStorage.forEach((document) => {
 		documentActivityLogs.push(
-			// @ts-ignore
 			documentActivityLogRepository.create({
 				documentGuid: document.GUID,
 				version: document.version,
