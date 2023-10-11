@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
-const { eventClient } = await import('../../../infrastructure/event-client.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
 
-import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,

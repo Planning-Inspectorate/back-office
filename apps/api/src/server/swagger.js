@@ -225,88 +225,6 @@ export const spec = {
 			endTime: '12:20',
 			submissions: true
 		},
-		ApplicationsForCaseTeam: [
-			{
-				id: 1,
-				modifiedDate: 1_655_298_882,
-				reference: 'REFERENCE',
-				sector: {
-					abbreviation: 'BB',
-					displayNameCy: 'Sector Name Cy',
-					displayNameEn: 'Sector Name En',
-					name: 'sector'
-				},
-				subSector: {
-					abbreviation: 'AA',
-					displayNameCy: 'Sub Sector Name Cy',
-					displayNameEn: 'Sub Sector Name En',
-					name: 'sub_sector'
-				},
-				status: 'status'
-			}
-		],
-		ApplicationsForCaseAdminOfficer: [
-			{
-				id: 1,
-				modifiedDate: 1_655_298_882,
-				reference: 'REFERENCE',
-				sector: {
-					abbreviation: 'BB',
-					displayNameCy: 'Sector Name Cy',
-					displayNameEn: 'Sector Name En',
-					name: 'sector'
-				},
-				subSector: {
-					abbreviation: 'AA',
-					displayNameCy: 'Sub Sector Name Cy',
-					displayNameEn: 'Sub Sector Name En',
-					name: 'sub_sector'
-				},
-				status: 'status'
-			}
-		],
-		ApplicationsForInspector: [
-			{
-				id: 1,
-				modifiedDate: 1_655_298_882,
-				reference: 'REFERENCE',
-				sector: {
-					abbreviation: 'BB',
-					displayNameCy: 'Sector Name Cy',
-					displayNameEn: 'Sector Name En',
-					name: 'sector'
-				},
-				subSector: {
-					abbreviation: 'AA',
-					displayNameCy: 'Sub Sector Name Cy',
-					displayNameEn: 'Sub Sector Name En',
-					name: 'sub_sector'
-				},
-				status: 'status'
-			}
-		],
-		ApplicationsForSearchCriteriaRequestBody: {
-			query: 'BC',
-			role: 'case-team',
-			pageNumber: 1,
-			pageSize: 1
-		},
-		ApplicationsForSearchCriteria: {
-			page: 1,
-			pageSize: 1,
-			pageCount: 1,
-			itemCount: 1,
-			items: [
-				{
-					id: 3,
-					status: 'open',
-					reference: 'EN010003',
-					title: 'EN010003 - NI Case 3 Name',
-					modifiedDate: 1_655_298_882,
-					datePublished: null
-				}
-			]
-		},
 		DocumentDetails: {
 			documentId: '123',
 			version: 1,
@@ -369,6 +287,143 @@ export const spec = {
 		]
 	},
 	'@definitions': {
+		ApplicationSummary: {
+			type: 'object',
+			properties: {
+				id: { type: 'number', description: 'Application id', example: 1 },
+				title: {
+					type: 'string',
+					description: 'Application title',
+					example: 'NSIP Application Title'
+				},
+				reference: {
+					type: 'string',
+					description: 'Application unique reference',
+					example: 'BC0110001'
+				},
+				modifiedDate: {
+					type: 'number',
+					description: 'Date last modified, unix timestamp',
+					example: 1655298882
+				},
+				subSector: {
+					type: 'object',
+					properties: {
+						name: { type: 'string', description: 'Internal id code', example: 'office_use' },
+						abbreviation: { type: 'string', description: '4-char code', example: 'BC01' },
+						displayNameEn: {
+							type: 'string',
+							description: 'Subsector title in English',
+							example: 'Office Use'
+						},
+						displayNameCy: {
+							type: 'string',
+							description: 'Subsector title in Welsh',
+							example: 'Office Use'
+						}
+					}
+				},
+				sector: {
+					type: 'object',
+					properties: {
+						name: {
+							type: 'string',
+							description: 'Internal id code',
+							example: 'business_and_commercial'
+						},
+						abbreviation: { type: 'string', description: '4-char code', example: 'BC' },
+						displayNameEn: {
+							type: 'string',
+							description: 'Sector title in English',
+							example: 'Business and Commercial'
+						},
+						displayNameCy: {
+							type: 'string',
+							description: 'Sector title in Welsh',
+							example: 'Business and Commercial'
+						}
+					}
+				},
+				status: {
+					type: 'string',
+					enum: [
+						'Pre-application',
+						'Acceptance',
+						'Pre-examination',
+						'Examination',
+						'Recommendation',
+						'Decision',
+						'Post decision',
+						'Withdrawn'
+					],
+					description: 'Application status',
+					example: 'Acceptance'
+				}
+			}
+		},
+		ApplicationSummaryMany: {
+			type: 'array',
+			items: { $ref: '#/definitions/ApplicationSummary' }
+		},
+		ApplicationSearchSummary: {
+			type: 'object',
+			properties: {
+				id: { type: 'number', description: 'Application id', example: 1 },
+				title: {
+					type: 'string',
+					description: 'Application title',
+					example: 'NSIP Application Title'
+				},
+				reference: {
+					type: 'string',
+					description: 'Application unique reference',
+					example: 'BC0110001'
+				},
+				description: {
+					type: 'string',
+					description: 'Application description',
+					example: 'A description of the application'
+				},
+				status: {
+					type: 'string',
+					enum: [
+						'Pre-application',
+						'Acceptance',
+						'Pre-examination',
+						'Examination',
+						'Recommendation',
+						'Decision',
+						'Post decision',
+						'Withdrawn'
+					],
+					description: 'Application status',
+					example: 'Acceptance'
+				}
+			}
+		},
+		ApplicationsSearchCriteriaRequestBody: {
+			type: 'object',
+			required: ['query', 'role'],
+			properties: {
+				query: { type: 'string', description: 'String to search for', example: 'BC' },
+				role: { type: 'string', description: 'User role', example: 'case-team' },
+				pageNumber: { type: 'number', description: 'Page number required', example: 1 },
+				pageSize: { type: 'number', description: 'Max items per page', example: 1 }
+			}
+		},
+		ApplicationsSearchResponse: {
+			type: 'object',
+			properties: {
+				page: { type: 'number', description: 'Page number', example: 1 },
+				pageSize: { type: 'number', description: 'Max items per page', example: 1 },
+				pageCount: { type: 'number', description: 'Total number of pages', example: 1 },
+				itemCount: { type: 'number', description: 'Total items', example: 1 },
+				items: {
+					type: 'array',
+					items: { $ref: '#ApplicationSearchSummary' }
+				}
+			}
+		},
 		ApplicationProjectUpdate: {
 			allOf: [
 				{ $ref: '#/definitions/ApplicationProjectUpdateCreateRequest' },

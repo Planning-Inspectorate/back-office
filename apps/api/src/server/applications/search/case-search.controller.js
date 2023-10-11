@@ -1,7 +1,11 @@
 import { obtainSearchResults } from './case-search.services.js';
 
 /**
- * @type {import('express').RequestHandler<any, any, {query: string, pageNumber?: number, pageSize?: number, role: string}>}
+ * @typedef {import('@pins/applications.api').Api.ApplicationsSearchCriteriaRequestBody} ApplicationsSearchCriteriaRequestBody
+ */
+
+/**
+ * @type {import('express').RequestHandler<any, any, ApplicationsSearchCriteriaRequestBody>}
  */
 export const getApplicationsByCriteria = async ({ body }, response) => {
 	const { query, pageNumber, pageSize } = body;

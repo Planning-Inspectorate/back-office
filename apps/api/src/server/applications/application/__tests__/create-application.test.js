@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
-const { eventClient } = await import('../../../infrastructure/event-client.js');
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const createdCase = { id: 1, applicant: { id: 4 } };
 

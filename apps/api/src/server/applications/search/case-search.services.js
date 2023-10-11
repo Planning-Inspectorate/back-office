@@ -1,14 +1,15 @@
-import * as caseRepository from '../../repositories/case.repository.js';
-import { getPageCount, getSkipValue } from '../../utils/database-pagination.js';
-import { mapApplicationWithSearchCriteria } from '../../utils/mapping/map-application-with-search-criteria.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import { mapApplicationWithSearchCriteria } from '#utils/mapping/map-application-with-search-criteria.js';
+
 /**
- * @typedef {import('apps/api/src/server/utils/mapping/map-application-with-search-criteria').ApplicationWithSearchCriteriaResponse} ApplicationWithSearchCriteriaResponse
- * @typedef {{page:number, pageSize: number, pageCount: number, itemCount: number, items: ApplicationWithSearchCriteriaResponse[]}} paginationInfo
+ * @typedef {import('@pins/applications.api').Api.ApplicationSearchSummary} ApplicationSearchSummary
+ * @typedef {import('@pins/applications.api').Api.ApplicationsSearchResponse} ApplicationsSearchResponse
  */
 
 /**
  * @param {import('@pins/applications.api').Schema.Case[]} applications
- * @returns {ApplicationWithSearchCriteriaResponse[]}
+ * @returns {ApplicationSearchSummary[]}
  */
 const mapApplicationsWithSearchCriteria = (applications) => {
 	return applications.map((application) => mapApplicationWithSearchCriteria(application));
@@ -26,7 +27,7 @@ const tidyQuery = (query) => {
  * @param {string} query
  * @param {number} pageNumber
  * @param {number} pageSize
- * @returns {Promise<paginationInfo>}
+ * @returns {Promise<ApplicationsSearchResponse>}
  */
 export const obtainSearchResults = async (query, pageNumber = 1, pageSize = 50) => {
 	const tidiedQuery = tidyQuery(query);

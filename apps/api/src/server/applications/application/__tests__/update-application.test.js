@@ -21,8 +21,8 @@ const expectedApplicantPayload = {
 };
 
 const { request } = await import('../../../app-test.js');
-const { databaseConnector } = await import('../../../utils/database-connector.js');
-const { eventClient } = await import('../../../infrastructure/event-client.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
 
 describe('Update application', () => {
 	test('update-application updates application with just title and first notified date', async () => {
