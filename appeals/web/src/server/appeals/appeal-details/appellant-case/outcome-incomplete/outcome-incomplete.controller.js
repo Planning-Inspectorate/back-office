@@ -102,6 +102,7 @@ const renderUpdateDueDate = async (request, response) => {
 			title: 'Appellant case due date',
 			text: 'Update appeal due date'
 		},
+		continueButtonText: 'Save and continue',
 		backButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/incomplete`,
 		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`,
 		errors
