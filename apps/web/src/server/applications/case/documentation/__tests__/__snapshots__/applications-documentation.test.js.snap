@@ -6810,8 +6810,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
-                        <a                         class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
                 </div>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
@@ -7128,8 +7126,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
-                        <a                         class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
                 </div>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
