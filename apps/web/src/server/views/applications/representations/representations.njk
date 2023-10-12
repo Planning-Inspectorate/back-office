@@ -8,6 +8,7 @@
 {% from "applications/components/status-tag.component.njk" import statusTag %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block pageHeading %}
 {% endblock %}
@@ -29,6 +30,7 @@
 	</div>
 
 	{{ govukBreadcrumbs({
+		classes: "govuk-!-margin-bottom-5",
 		items: [
 			{
 				text: "Project documentation",
@@ -40,6 +42,36 @@
 			}
 		]
 	}) }}
+
+	{% if showUnpublishedRepUpdatesBanner %}
+
+		{% set bannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				Changes have been made. These changes have not been published.
+			</p>
+
+			<p class="govuk-body">
+				<a class="govuk-notification-banner__link" href="/applications-service/case/{{ caseId }}/select-representations-for-publishing">
+					Preview and publish the changes
+				</a>
+			</p>
+
+			<button id="clear-notification-btn" class="govuk-button govuk-button--secondary" type="button">
+				Clear notification
+			</button>
+		{% endset %}
+
+		{{ govukNotificationBanner({
+			attributes: { id: "unpublished-changes-banner" },
+			html: bannerHtml
+		}) }}
+
+		<script nonce="{{ cspNonce }}">
+			document.getElementById('clear-notification-btn').addEventListener('click', () =>
+				document.getElementById('unpublished-changes-banner').style.display = 'none');
+		</script>
+
+	{% endif %}
 
 	<h2 class="govuk-heading-l">Relevant representations</h2>
 

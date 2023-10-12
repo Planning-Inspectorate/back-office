@@ -66,7 +66,6 @@
               <a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}) }}">Open</a>
               <a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}) }}">Download</a>
             {% endif %}
-						<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="/move">Move</a>
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'delete'}) }}">Delete</a>
             {% if documentationFile.publishedStatus == 'published' %}
               <a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document' | url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'unpublish'}) }}">Unpublish</a>

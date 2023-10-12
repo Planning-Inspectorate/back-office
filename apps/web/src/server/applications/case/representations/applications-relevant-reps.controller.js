@@ -3,11 +3,16 @@ import {
 	getCaseReferenceViewModel,
 	getRepresentationsViewModel
 } from './application-representations.view-model.js';
-import { getCase, getRepresentations } from './applications-relevant-reps.service.js';
+import {
+	getCase,
+	getPublishableReps,
+	getRepresentations
+} from './applications-relevant-reps.service.js';
 import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
 import { getPagination } from './utils/pagination.js';
 import { publishQueueUrl } from './config.js';
 import { hasSearchUpdated } from './utils/search/has-search-updated.js';
+import { hasUnpublishedRepUpdates } from './utils/has-unpublished-rep-updates.js';
 import { tableSortLinks } from './utils/table.js';
 import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
 
@@ -40,6 +45,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 	)
 		? publishQueueUrl
 		: '';
+	const publishableReps = await getPublishableReps(caseId);
 
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
@@ -56,6 +62,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 			pageSize,
 			page
 		},
-		filters: getFilterViewModel(filters, representations.filters)
+		filters: getFilterViewModel(filters, representations.filters),
+		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps)
 	});
 }

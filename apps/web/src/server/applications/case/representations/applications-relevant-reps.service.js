@@ -16,3 +16,10 @@ export const getRepresentations = async (caseId, queryString) => {
 export const getCase = async (caseId) => {
 	return get(`applications/${caseId}`);
 };
+
+/**
+ * @param {string} caseId
+ * @returns {Promise<any>}
+ */
+export const getPublishableReps = async (caseId) =>
+	get(`applications/${caseId}/representations/publishable`);
