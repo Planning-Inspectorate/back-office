@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "pins-lpa-questionnaire.schema.json#",
+	"title": "questionnaire-submission",
+	"description": "OTD Questionnaire Command Data Model",
+	"type": "object",
+	"required": ["questionnaire"],
+	"properties": {
+		"questionnaire": {
+			"$ref": "pins-root.schema.json#/definitions/LpaQuestionnaire"
+		},
+		"documents": {
+			"type": "array",
+			"items": {
+				"$ref": "pins-document.schema.json"
+			}
+		}
+	}
+}

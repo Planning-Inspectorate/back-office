@@ -36,7 +36,7 @@ export const mapQuestionnaireOut = (data) => {
 		doesSiteRequireInspectorAccess: data?.doesSiteRequireInspectorAccess,
 		doPlansAffectNeighbouringSite: data?.isAffectingNeighbouringSites,
 		//doesSiteHaveHealthAndSafetyIssues
-		healthAndSafetyIssuesDetails: data?.healthAndSafetyDetails,
+		//healthAndSafetyIssuesDetails: data?.healthAndSafetyDetails,
 		//nearbyCaseReferences,
 		hasExtraConditions: data?.hasExtraConditions,
 		extraConditions: data?.extraConditions
