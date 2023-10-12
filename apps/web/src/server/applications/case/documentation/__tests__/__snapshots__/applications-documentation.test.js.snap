@@ -6710,7 +6710,7 @@ exports[`applications documentation Document properties delete page If the user 
                 <tbody class=\\"govuk-table__body\\">
                     <tr class=\\"govuk-table__row\\">
                         <td class=\\"govuk-table__cell\\">12 Ullamco laboris nisi ut</td>
-                        <td class=\\"govuk-table__cell\\"></td>
+                        <td class=\\"govuk-table__cell\\">Tempor incididunt</td>
                     </tr>
                 </tbody>
             </table>
@@ -6743,7 +6743,7 @@ exports[`applications documentation Document properties delete page If the user 
                 <tbody class=\\"govuk-table__body\\">
                     <tr class=\\"govuk-table__row\\">
                         <td class=\\"govuk-table__cell\\">4 Elit sed</td>
-                        <td class=\\"govuk-table__cell\\"></td>
+                        <td class=\\"govuk-table__cell\\">Consectetur adipiscing</td>
                     </tr>
                 </tbody>
             </table>
