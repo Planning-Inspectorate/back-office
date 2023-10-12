@@ -34,10 +34,10 @@ export async function relevantRepsApplications({ params, query }, res) {
 		caseId,
 		buildQueryString({ searchTerm, sortBy, pageSize, page, ...buildFilterQueryString(filters) })
 	);
-	const publishQueueURL = (await isRelevantRepsPeriodClosed(
+	const publishQueueURL = isRelevantRepsPeriodClosed(
 		dateOfRelevantRepresentationClose,
 		extensionToDateRelevantRepresentationsClose
-	))
+	)
 		? publishQueueUrl
 		: '';
 

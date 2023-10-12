@@ -39,7 +39,7 @@ const getRelevantRepsCloseDateOrFalse = (originalDate, extensionDate) => {
 /**
  * @param {*} dateOfRelevantRepresentationClose
  * @param {*} extensionToDateRelevantRepresentationsClose
- * @returns {Promise<boolean>}
+ * @returns { boolean }
  */
 export const isRelevantRepsPeriodClosed = (
 	dateOfRelevantRepresentationClose,
