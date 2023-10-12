@@ -17,7 +17,8 @@ import {
 	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles,
-	unpublishCaseDocumentationFiles
+	unpublishCaseDocumentationFiles,
+	getCaseManyDocumentationFilesInfo
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -147,12 +148,10 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 		});
 	}
 
-	// TODO: replace with a more appropriate API returning just the information needed in just one call
-	const documentationFiles = [];
-	for (const fileGuid of request.body.selectedFilesIds) {
-		const file = await getCaseDocumentationFileInfo(response.locals.caseId, fileGuid);
-		documentationFiles.push(file);
-	}
+	const documentationFiles = await getCaseManyDocumentationFilesInfo(
+		response.locals.caseId,
+		request.body.selectedFilesIds
+	);
 
 	return response.render(`applications/case-documentation/documentation-unpublish`, {
 		documentationFiles
@@ -335,17 +334,19 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 /**
  * Handle unpublishing a document
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {caseId: string, documentGuid: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {documentGuids: string[]}, {}, {}>}
  * */
-export async function postUnpublishDocument({ params }, response) {
-	const { caseId, documentGuid } = params;
+export async function postUnpublishDocuments({ body }, response) {
+	const { documentGuids } = body;
+	const { caseId } = response.locals;
 
-	const { errors } = await unpublishCaseDocumentationFiles(Number(caseId), [documentGuid]);
-	const documentationFile = await getCaseDocumentationFileInfo(Number(caseId), documentGuid);
+	const { errors } = await unpublishCaseDocumentationFiles(caseId, documentGuids);
 
-	if (errors.length > 0 && errors[0].guid === documentGuid) {
+	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, documentGuids);
+
+	if (errors.length > 0) {
 		return response.render(`applications/case-documentation/documentation-unpublish`, {
-			documentationFile,
+			documentationFiles,
 			errors
 		});
 	}
@@ -353,7 +354,7 @@ export async function postUnpublishDocument({ params }, response) {
 	return response.render('applications/case-documentation/documentation-success-banner', {
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
-		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFile.caseRef}</p>`,
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFiles[0].caseRef}</p>`,
 		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
 	});
 }

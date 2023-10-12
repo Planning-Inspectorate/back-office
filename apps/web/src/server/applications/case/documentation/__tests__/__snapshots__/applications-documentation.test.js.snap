@@ -132,7 +132,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -947,7 +949,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -2230,7 +2234,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -3136,7 +3142,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -4366,7 +4374,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -5594,7 +5604,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class=\\"pins-files-list__actions\\">
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
-                            id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
+                            id=\\"bulkDownload\\">Download selected</button>
+                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -6806,12 +6818,19 @@ exports[`applications documentation Document properties page If the user is not 
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+<<<<<<< HEAD
                 <h3 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
+=======
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <form action='../unpublishing-queue' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
+>>>>>>> f8972323c (fix(web/applications): fix rebase changes)
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
-                </div>
+                    href=\\"/documents/123/download/11/version//\\">Download</a>
+                        <input type='hidden' value='11' name='selectedFilesIds[]'>
+                        <button class='govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2'
+                        type='submit'>Unpublish</button>
+                </form>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -6963,12 +6982,17 @@ exports[`applications documentation Document properties page If the user is not 
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+<<<<<<< HEAD
                 <h3 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
+=======
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <form action='../unpublishing-queue' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
+>>>>>>> f8972323c (fix(web/applications): fix rebase changes)
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
-                </div>
+                </form>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
                 </div>
             </nav>
@@ -7122,12 +7146,19 @@ exports[`applications documentation Document properties page If the user is not 
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+<<<<<<< HEAD
                 <h3 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
+=======
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <form action='../unpublishing-queue' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
+>>>>>>> f8972323c (fix(web/applications): fix rebase changes)
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                    href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
-                </div>
+                    href=\\"/documents/123/download/11/version//\\">Download</a>
+                        <input type='hidden' value='11' name='selectedFilesIds[]'>
+                        <button class='govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2'
+                        type='submit'>Unpublish</button>
+                </form>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"></div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -7279,12 +7310,17 @@ exports[`applications documentation Document properties page If the user is not 
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
+<<<<<<< HEAD
                 <h3 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
+=======
+                <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">Document actions</h4>
+                <form action='../unpublishing-queue' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
+>>>>>>> f8972323c (fix(web/applications): fix rebase changes)
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
-                </div>
+                </form>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
                 </div>
             </nav>
