@@ -8,7 +8,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <p class=\\"govuk-body\\">mock title</p><strong class=\\"govuk-heading-s\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
         </div>
     </div>
-    <div class=\\"govuk-breadcrumbs\\">
+    <div class=\\"govuk-breadcrumbs govuk-!-margin-bottom-5\\">
         <ol class=\\"govuk-breadcrumbs__list\\">
             <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/1/project-documentation\\">Project documentation</a>
             </li>
@@ -16,6 +16,23 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             </li>
         </ol>
     </div>
+    <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+    data-module=\\"govuk-notification-banner\\" id=\\"unpublished-changes-banner\\">
+        <div class=\\"govuk-notification-banner__header\\">
+            <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+        </div>
+        <div class=\\"govuk-notification-banner__content\\">
+            <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            </p>
+            <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
+            type=\\"button\\">Clear notification</button>
+        </div>
+    </div>
+    <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+        document.getElementById('clear-notification-btn').addEventListener('click', () =>
+        				document.getElementById('unpublished-changes-banner').style.display = 'none');
+    </script>
     <h2 class=\\"govuk-heading-l\\">Relevant representations</h2>
     <form method=\\"GET\\">
         <div class=\\"govuk-grid-row\\">
@@ -173,7 +190,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <p class=\\"govuk-body\\">mock title</p><strong class=\\"govuk-heading-s\\"><strong class=\\"govuk-tag govuk-tag--\\">in test</strong></strong>
         </div>
     </div>
-    <div class=\\"govuk-breadcrumbs\\">
+    <div class=\\"govuk-breadcrumbs govuk-!-margin-bottom-5\\">
         <ol class=\\"govuk-breadcrumbs__list\\">
             <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/1/project-documentation\\">Project documentation</a>
             </li>
@@ -181,6 +198,23 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             </li>
         </ol>
     </div>
+    <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
+    data-module=\\"govuk-notification-banner\\" id=\\"unpublished-changes-banner\\">
+        <div class=\\"govuk-notification-banner__header\\">
+            <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+        </div>
+        <div class=\\"govuk-notification-banner__content\\">
+            <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            </p>
+            <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
+            type=\\"button\\">Clear notification</button>
+        </div>
+    </div>
+    <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+        document.getElementById('clear-notification-btn').addEventListener('click', () =>
+        				document.getElementById('unpublished-changes-banner').style.display = 'none');
+    </script>
     <h2 class=\\"govuk-heading-l\\">Relevant representations</h2>
     <form method=\\"GET\\">
         <div class=\\"govuk-grid-row\\">
