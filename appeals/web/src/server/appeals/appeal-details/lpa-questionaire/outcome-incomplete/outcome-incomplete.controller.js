@@ -97,6 +97,7 @@ const renderUpdateDueDate = async (request, response) => {
 			title: 'LPA questionnaire due date',
 			text: 'Update LPA questionnaire due date'
 		},
+		continueButtonText: 'Save and continue',
 		backButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/`,
 		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/check-your-answers`,
 		errors

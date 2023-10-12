@@ -1,0 +1,121 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "service-user.schema.json",
+	"title": "Service User",
+	"description": "Service User of the planning inspectorate. Also contains role information by combining serviceUserType and caseReference.",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "A unique identifier for the entity.",
+			"example": "12345"
+		},
+		"salutation": {
+			"type": "string",
+			"description": "A formal greeting, e.g., Mr, Mrs, Ms.",
+			"example": "Mr"
+		},
+		"firstName": {
+			"type": "string",
+			"description": "The first name of the individual.",
+			"example": "John"
+		},
+		"lastName": {
+			"type": "string",
+			"description": "The last name of the individual.",
+			"example": "Doe"
+		},
+		"addressLine1": {
+			"type": "string",
+			"description": "The first line of the address.",
+			"example": "123 Elm Street"
+		},
+		"addressLine2": {
+			"type": "string",
+			"description": "The second line of the address, usually includes suite or apartment number.",
+			"example": "Apt 4B"
+		},
+		"addressTown": {
+			"type": "string",
+			"description": "The town or city of the address.",
+			"example": "Springfield"
+		},
+		"addressCounty": {
+			"type": "string",
+			"description": "The county in which the town or city is located.",
+			"example": "Hampshire"
+		},
+		"postcode": {
+			"type": "string",
+			"description": "The postal code for the address.",
+			"example": "M12 4AF"
+		},
+		"addressCountry": {
+			"type": "string",
+			"description": "The country of the address.",
+			"example": "United Kingdom"
+		},
+		"organisation": {
+			"type": "string",
+			"description": "The name of the organisation associated with the individual.",
+			"example": "Tech Corp"
+		},
+		"organisationType": {
+			"type": "string",
+			"description": "The type or nature of the organisation.",
+			"example": "Private Company"
+		},
+		"role": {
+			"type": "string",
+			"description": "The individual's role or position within the organisation.",
+			"example": "Agent"
+		},
+		"telephoneNumber": {
+			"type": "string",
+			"description": "The primary telephone contact number.",
+			"example": "+447123456789"
+		},
+		"otherPhoneNumber": {
+			"type": "string",
+			"description": "An alternate or secondary phone number.",
+			"example": "+447123456789"
+		},
+		"faxNumber": {
+			"type": "string",
+			"description": "A fax contact number.",
+			"example": "+447123456789"
+		},
+		"emailAddress": {
+			"type": "string",
+			"description": "The primary email address for contact.",
+			"example": "john.doe@example.com"
+		},
+		"webAddress": {
+			"type": "string",
+			"description": "Website address or URL.",
+			"example": "https://www.example.com"
+		},
+		"serviceUserType": {
+			"type": "string",
+			"description": "Type or category of the service user.",
+			"enum": ["Applicant", "Appellant", "Agent", "RepresentationContact", "Subscriber"]
+		},
+		"caseReference": {
+			"type": "string",
+			"description": "Reference number for a particular case or incident.",
+			"examples": ["BC0510001"]
+		},
+		"sourceSystem": {
+			"type": "string",
+			"description": "The originating system from where the data was sourced.",
+			"examples": ["ODT", "Horizon"]
+		},
+		"sourceSuid": {
+			"type": "string",
+			"description": "Unique identifier from the source system.",
+			"example": "12345"
+		}
+	},
+	"required": ["id", "sourceSuid", "sourceSystem", "serviceUserType", "caseReference"],
+	"additionalProperties": false
+}

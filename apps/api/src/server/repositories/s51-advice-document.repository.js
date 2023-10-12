@@ -1,6 +1,10 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
+ * @typedef {import('@prisma/client').Prisma.S51AdviceDocumentGetPayload<{include: {Document: {include: {latestDocumentVersion: true }} }}>} S51AdviceDocumentWithLatestVersion
+ */
+
+/**
  *
  * @param {import('@pins/applications.api').Schema.CreateS51AdviceDocument[]} s51AdviceDocument
  * @returns {Promise<import('@pins/applications.api').Schema.BatchPayload>}
@@ -12,7 +16,7 @@ export const create = (s51AdviceDocument) => {
 /**
  *
  * @param {number} adviceId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument[]>}
+ * @returns {import('@prisma/client').PrismaPromise<S51AdviceDocumentWithLatestVersion [] >}
  * */
 export const getForAdvice = (adviceId) =>
 	databaseConnector.s51AdviceDocument.findMany({
@@ -47,11 +51,11 @@ export const getDocumentInAdviceByName = (adviceId, documentName) =>
 				}
 			}
 		}
-});
+	});
 
 /**
- * 
- * @param {number[]} s51AdviceIds 
+ *
+ * @param {number[]} s51AdviceIds
  */
 export const getPublishedDocumentsByAdviceIds = (s51AdviceIds) => {
 	return databaseConnector.s51AdviceDocument.findMany({
@@ -68,4 +72,4 @@ export const getPublishedDocumentsByAdviceIds = (s51AdviceIds) => {
 			}
 		}
 	});
-}
+};

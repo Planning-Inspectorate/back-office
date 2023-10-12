@@ -1,22 +1,31 @@
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
-import * as caseRepository from '../../../repositories/case.repository.js';
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import { getStorageLocation } from '../../../utils/document-storage.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
-import logger from '../../../utils/logger.js';
-import { mapSingleDocumentDetailsFromVersion } from '../../../utils/mapping/map-document-details.js';
-import { eventClient } from '../../../infrastructure/event-client.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import { getStorageLocation } from '#utils/document-storage.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import logger from '#utils/logger.js';
+import { mapSingleDocumentDetailsFromVersion } from '#utils/mapping/map-document-details.js';
+import { eventClient } from '#infrastructure/event-client.js';
 import { buildNsipDocumentPayload } from './document.js';
-import { NSIP_DOCUMENT } from '../../../infrastructure/topics.js';
+import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
-import config from '../../../config/config.js';
+import config from '#config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 
-/**  @typedef {import('@pins/applications.api/src/database/schema.js').DocumentVersion} DocumentVersion */
-/**  @typedef {import('@pins/applications.api/src/database/schema.js').Document} Document */
+/**
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobStorageDetail} DocumentAndBlobStorageDetail
+ * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentBlobStoragePayload} DocumentBlobStoragePayload
+ */
 
 /**
  * Remove extension from document name
@@ -37,19 +46,21 @@ export const documentName = (documentNameWithExtension) => {
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string, fromFrontOffice?: boolean}[]} documents
- * @returns {{caseId: number, folderId: number; documentType: string, documentSize: number; documentReference: string, fromFrontOffice: boolean}[]}
+ * @param {DocumentToSaveExtended[]} documents
+ * @returns {DocumentToSaveExtended[]}
  */
 const mapDocumentsToSendToDatabase = (caseId, documents) => {
 	return documents?.map((document) => {
 		return {
-			caseId,
+			caseId: caseId.toString(),
 			documentName: document.documentName,
 			folderId: document.folderId,
 			documentType: document.documentType,
 			documentSize: document.documentSize,
 			documentReference: document.documentReference,
-			fromFrontOffice: document.fromFrontOffice ?? false
+			fromFrontOffice: document.fromFrontOffice ?? false,
+			fileRowId: document.fileRowId,
+			username: document.username
 		};
 	});
 };
@@ -82,8 +93,8 @@ const getCaseStageMapping = async (folderId) => {
 /**
  *
  * @param {number} caseId
- * @param {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string, fromFrontOffice?: boolean}[]} documents
- * @returns {Promise<{successful: import('@pins/applications.api').Schema.Document[], failed: string[]}>}
+ * @param {DocumentToSaveExtended[]} documents
+ * @returns {Promise<{successful: DocumentWithDocumentName[], failed: string[]}>}
  */
 const attemptInsertDocuments = async (caseId, documents) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
@@ -152,17 +163,15 @@ const attemptInsertDocuments = async (caseId, documents) => {
 
 	logger.info(`Upserted ${results.length} documents to database`);
 
-	const successful = /** @type {import('@pins/applications.api').Schema.Document[]} */ (
-		results.filter(Boolean)
-	);
+	const successful = /** @type { DocumentWithDocumentName[] } */ (results.filter(Boolean));
 
 	return { successful, failed: Array.from(failed) };
 };
 
 /**
- * @param {{guid: string, documentName: string, reference: string}[]} documents
+ * @param {DocumentWithDocumentName[]} documents
  * @param {string} caseReference
- * @returns {{caseType: string, caseReference: string, GUID: string, documentName: string, version: number}[]}
+ * @returns {DocumentBlobStoragePayload[]}
  */
 const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
@@ -180,8 +189,7 @@ const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 /**
  * Upserts metadata for a set of documents to a database.
  *
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number}[]} documentsToUpload - Array of documents to upload metadata for.
- * @param {{blobStoreUrl: string;caseType: string;documentName: string;GUID: string;}[]} blobStorageDocuments - Array of documents containing metadata to upsert.
+ * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
  * @returns {Promise<void>}
  */
@@ -217,78 +225,61 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 };
 
 /**
- * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}[]} documentsToUpload
+ * @param {DocumentToSaveExtended[]} documentsToUpload
  * @param {number} caseId
- * @returns {Promise<{response: {blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]} | null, failedDocuments: string[]}>}}
+ * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
 export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
-
 	const caseForDocuments = await caseRepository.getById(Number(caseId), {});
-
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 
 	// Step 2: Check if the case object is found and has a reference
 	logger.info(`Checking if case has reference...`);
-
 	if (caseForDocuments == null || caseForDocuments.reference == null) {
 		throw new Error('Case not found or has no reference');
 	}
-
 	logger.info(`Case has reference`);
 
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
-
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
-
 	//throw Error(JSON.stringify(documentsToSendToDatabase));
-
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);
-
 	const { successful, failed } = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
 	if (successful.length === 0) {
 		logger.info(`Return early because all files failed to upload.`);
 		return { response: null, failedDocuments: failed };
 	}
-
 	logger.info(`Documents inserted: ${JSON.stringify(successful)}`);
 
 	// Step 5: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
-
 	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
 		successful,
 		caseForDocuments.reference
 	);
-
 	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
 
 	// Step 6: Send a request to the blob storage service to get the storage location for each document
-
 	logger.info(`Sending request to blob storage service...`);
-
 	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
-
 	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
 
 	// Step 7: Upsert document versions metadata to the database
 	logger.info(`Upserting document versions metadata to database...`);
-
 	await upsertDocumentVersionsMetadataToDatabase(
 		responseFromDocumentStorage.documents,
 		responseFromDocumentStorage.privateBlobContainer
 	);
 
-	// @ts-ignore
-	/**
-	 * @type {any[]}
-	 */
+	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
 	const documentActivityLogs = [];
+	// TODO: refactor to use createMany instead?
 	requestToDocumentStorage.forEach((document) => {
 		documentActivityLogs.push(
 			documentActivityLogRepository.create({
@@ -308,10 +299,12 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 };
 
 /**
+ * Used when uploading a new document version
+ *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
- * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}}
+ * @returns {Promise<DocumentAndBlobInfoManyResponse>}}
  */
 export const obtainURLForDocumentVersion = async (documentToUpload, caseId, documentId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
@@ -414,6 +407,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	logger.info(`Returning response from blob storage service...`);
 	return responseFromDocumentStorage;
 };
+
 /**
  * Upserts the metadata for a document with the provided GUID using the provided metadata body.
  *
@@ -594,10 +588,10 @@ export const markDocumentVersionAsPublished = async ({
 };
 
 /**
- * Given a list of file names, return two lists: one of pre-existing files with that name in the S51 case and another with the remainder
+ * Given a list of file names, return two lists: one of pre-existing files with that name in the folder, and another with the remainder
  *
  * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
- * @param {Document[]} documents
+ * @param {DocumentToSave[]} documents
  * @returns {Promise<ExtractedDuplicates>}
  * */
 export const extractDuplicates = async (documents) => {
@@ -605,13 +599,15 @@ export const extractDuplicates = async (documents) => {
 		documents.map(
 			(doc) =>
 				new Promise((resolve, reject) =>
-					documentRepository.getInFolderByName(doc.folderId, doc.documentName).then((existing) => {
-						if (existing) {
-							reject(doc.documentName);
-						} else {
-							resolve(doc.documentName);
-						}
-					})
+					documentRepository
+						.getInFolderByName(doc.folderId, doc.documentName, true)
+						.then((existing) => {
+							if (existing) {
+								reject(doc.documentName);
+							} else {
+								resolve(doc.documentName);
+							}
+						})
 				)
 		)
 	);

@@ -1,4 +1,4 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */

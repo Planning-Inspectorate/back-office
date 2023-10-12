@@ -7,6 +7,6 @@ const router = createRouter({ mergeParams: true });
 
 router
 	.route('/:folderId/upload/:documentId?')
-	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.upload));
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.renderDocumentUpload));
 
 export default router;

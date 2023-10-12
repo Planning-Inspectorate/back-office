@@ -49,7 +49,7 @@ const formatAppellantCase = (appeal, folders = null) => {
 					details: appellantCase.newDevelopmentDescription
 				}
 			}),
-			...formatFoldersAndDocuments(appeal, folders),
+			...formatFoldersAndDocuments(folders),
 			hasAdvertisedAppeal: appellantCase.hasAdvertisedAppeal,
 			...(isFPA(appeal.appealType) && {
 				hasDesignAndAccessStatement: appellantCase.hasDesignAndAccessStatement,
@@ -94,31 +94,16 @@ const formatAppellantCase = (appeal, folders = null) => {
 };
 
 /**
- * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[] | null} folders
  */
-const formatFoldersAndDocuments = (appeal, folders) => {
-	const folderLayout = {
-		appealStatement: {},
-		applicationForm: {},
-		decisionLetter: {},
-		...(isFPA(appeal.appealType) && {
-			designAndAccessStatement: {},
-			newPlansOrDrawings: {}
-		}),
-		newSupportingDocuments: {},
-		...(isFPA(appeal.appealType) && {
-			planningObligation: {},
-			plansDrawingsSupportingDocuments: {},
-			separateOwnershipCertificate: {}
-		})
-	};
-
+const formatFoldersAndDocuments = (folders) => {
 	if (folders) {
-		mapFoldersLayoutForAppealSection(CONFIG_APPEAL_STAGES.appellantCase, folderLayout, folders);
+		return {
+			documents: mapFoldersLayoutForAppealSection(CONFIG_APPEAL_STAGES.appellantCase, folders)
+		};
 	}
 
-	return { documents: folderLayout };
+	return null;
 };
 
 export { formatAppellantCase };

@@ -2021,7 +2021,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -2031,7 +2031,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>

@@ -166,7 +166,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -176,7 +176,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
@@ -391,7 +391,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -401,7 +401,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
@@ -618,7 +618,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -628,7 +628,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
