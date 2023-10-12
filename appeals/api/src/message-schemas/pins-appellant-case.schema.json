@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "pins-appellant-case.schema.json",
+	"title": "appellant-case-cmd",
+	"description": "ODT Appellant Case Command Data Model",
+	"type": "object",
+	"required": ["appeal"],
+	"properties": {
+		"appeal": {
+			"$ref": "pins-root.schema.json#/definitions/AppellantCase"
+		},
+		"documents": {
+			"type": "array",
+			"items": {
+				"$ref": "pins-document.schema.json"
+			}
+		}
+	}
+}
