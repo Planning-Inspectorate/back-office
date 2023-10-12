@@ -133,7 +133,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -949,7 +948,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -2233,7 +2231,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -3140,7 +3137,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -4371,7 +4367,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -5600,7 +5595,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button><a href=\\"4\\" class=\\"govuk-link\\">Unpublish selected</a>
-                            <a                             href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
                         </div>
                     </div>
                 </div>
@@ -6816,7 +6810,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
                         <a                         class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
@@ -6976,7 +6969,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
                 </div>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
@@ -7136,7 +7128,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/11/version//\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/11/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/delete\\">Delete</a>
                         <a                         class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/11/unpublish\\">Unpublish</a>
@@ -7296,7 +7287,6 @@ exports[`applications documentation Document properties page If the user is not 
                 <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/documents/123/download/3/version//preview\\">Open</a>
                     <a                     class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                     href=\\"/documents/123/download/3/version//\\">Download</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
-                        href=\\"/move\\">Move</a><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2\\"
                         href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\">Delete</a>
                 </div>
                 <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
