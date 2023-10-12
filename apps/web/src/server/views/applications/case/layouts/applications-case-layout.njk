@@ -14,10 +14,12 @@
 {% set hasUnpublishedChanges = case.publishedDate and case.publishedDate < case.modifiedDate %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to applications",
 		href: 'dashboard'|url({domainType: domainType})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}

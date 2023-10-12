@@ -13,10 +13,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back",
 		href: 's51-create'|url({caseId: caseId, documentationCategory: currentFolder, step: 'enquiry-details' })
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

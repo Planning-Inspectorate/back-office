@@ -14,10 +14,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back",
 		href: 'key-dates'|url({caseId: caseId})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

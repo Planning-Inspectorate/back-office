@@ -13,10 +13,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		text: "Back to examination timetable",
 		href: 'case-view'|url({caseId: caseId, step: 'examination-timetable'})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
@@ -38,7 +40,7 @@
 			},
 			items: timetableItems
 		}) }}
-		
+
         {{ govukButton({ text: 'Continue', classes: 'govuk-!-margin-top-6'}) }}
     </form>
 {% endblock %}

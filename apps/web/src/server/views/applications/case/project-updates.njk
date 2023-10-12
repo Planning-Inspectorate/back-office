@@ -8,10 +8,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to project overview",
 		href: "case-view"|url({caseId: caseId})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageContent %}
@@ -21,7 +23,7 @@
 				{% set bannerHtml %}
 				<h3 class="govuk-notification-banner__heading">{{ banner }}</h3>
 				<p class="govuk-body">
-					<a class="govuk-notification-banner__link" href="{{ "project-updates" | url({caseId: caseId}) }}">Clear notification</a> 
+					<a class="govuk-notification-banner__link" href="{{ "project-updates" | url({caseId: caseId}) }}">Clear notification</a>
 				</p>
 				{% endset %}
 				{{ govukNotificationBanner({type: 'success', html: bannerHtml}) }}

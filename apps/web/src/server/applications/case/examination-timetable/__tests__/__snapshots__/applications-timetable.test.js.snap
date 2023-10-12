@@ -28,57 +28,68 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     name=\\"name\\" type=\\"text\\" aria-describedby=\\"name-hint\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"date.day\\" name=\\"date.day\\" type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"date.month\\" name=\\"date.month\\"
-                                type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"date.year\\" name=\\"date.year\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"date.day\\" name=\\"date.day\\" type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -144,96 +155,108 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">End date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        end date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
-                                <p id=\\"endDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
-                                <p id=\\"endDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
-                                <p id=\\"endDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <p id=\\"endDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <p id=\\"endDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <p id=\\"endDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        end time</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"endTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
-                                type=\\"text\\" aria-describedby=\\"endTime.hours-error\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"endTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\" aria-describedby=\\"endTime.minutes-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <p id=\\"endTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <p id=\\"endTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.minutes-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -303,110 +326,122 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        start date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                type=\\"text\\" aria-describedby=\\"startDate.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                type=\\"text\\" aria-describedby=\\"startDate.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                type=\\"text\\" aria-describedby=\\"startDate.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            start date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\" aria-describedby=\\"startDate.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\" aria-describedby=\\"startDate.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\" aria-describedby=\\"startDate.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        start time</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            start time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">End date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        end date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
-                                <p id=\\"endDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
-                                <p id=\\"endDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
-                                <p id=\\"endDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
-                                type=\\"text\\" aria-describedby=\\"endDate.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <p id=\\"endDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <p id=\\"endDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <p id=\\"endDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        end time</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"endTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
-                                type=\\"text\\" aria-describedby=\\"endTime.hours-error\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"endTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\" aria-describedby=\\"endTime.minutes-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <p id=\\"endTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <p id=\\"endTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.minutes-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -470,35 +505,37 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
-                                type=\\"text\\" aria-describedby=\\"date.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
-                                type=\\"text\\" aria-describedby=\\"date.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
-                                type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -564,72 +601,83 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
-                                type=\\"text\\" aria-describedby=\\"date.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
-                                type=\\"text\\" aria-describedby=\\"date.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
-                                type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        start time</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            start time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -693,66 +741,77 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
-                                type=\\"text\\" aria-describedby=\\"date.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
-                                type=\\"text\\" aria-describedby=\\"date.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
-                                type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -816,90 +875,102 @@ exports[`Create examination timetable page should display errors if start date a
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The item end date must
-                        be after the item start date</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"startDate.day-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                type=\\"text\\" value=\\"02\\" aria-describedby=\\"startDate.month-error\\">
-                            </div>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                type=\\"text\\" value=\\"2001\\" aria-describedby=\\"startDate.year-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The item end date must
+                            be after the item start date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\" value=\\"01\\" aria-describedby=\\"startDate.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\" value=\\"02\\" aria-describedby=\\"startDate.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\" value=\\"2001\\" aria-describedby=\\"startDate.year-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\" value=\\"01\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\" value=\\"02\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">End date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
-                                type=\\"text\\" value=\\"01\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
-                                type=\\"text\\" value=\\"02\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
-                                type=\\"text\\" value=\\"2000\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" value=\\"2000\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\"
-                                value=\\"01\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\" value=\\"02\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -963,88 +1034,100 @@ exports[`Create examination timetable page should display errors if start time a
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                type=\\"text\\" value=\\"01\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                type=\\"text\\" value=\\"02\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                type=\\"text\\" value=\\"2001\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\" value=\\"2001\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The item end time must
-                        be after the item start time</p>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\" value=\\"02\\" aria-describedby=\\"startTime.hours-error\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                </p>
-                                <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\" value=\\"02\\" aria-describedby=\\"startTime.minutes-error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The item end time must
+                            be after the item start time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" value=\\"02\\" aria-describedby=\\"startTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" value=\\"02\\" aria-describedby=\\"startTime.minutes-error\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">End date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
-                                type=\\"text\\" value=\\"01\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
-                                type=\\"text\\" value=\\"02\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
-                                type=\\"text\\" value=\\"2001\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" value=\\"2001\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\"
-                                value=\\"01\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\" value=\\"02\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" value=\\"01\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" value=\\"02\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
@@ -1209,82 +1292,94 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                     name=\\"name\\" type=\\"text\\" value=\\"Test\\" aria-describedby=\\"name-hint\\">
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Start date (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                type=\\"text\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                type=\\"text\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"startTime\\">Start time (optional)</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                type=\\"text\\" value=\\"10\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                type=\\"text\\" value=\\"10\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">End date</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-date-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
-                                type=\\"text\\" value=\\"10\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
-                                type=\\"text\\" value=\\"10\\">
-                            </div>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
-                                <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
-                                type=\\"text\\" value=\\"2023\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" value=\\"2023\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"endTime\\">End time</label>
-                    <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                    <div class=\\"govuk-grid-column-one-half\\">
-                        <div class=\\"govuk-grid-row pins-time-form-group\\">
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\" type=\\"text\\"
-                                value=\\"10\\">
-                            </div><span class='govuk-form-group'>:</span>
-                            <div class=\\"govuk-form-group\\">
-                                <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                type=\\"text\\" value=\\"10\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" value=\\"10\\">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>

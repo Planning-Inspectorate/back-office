@@ -27,7 +27,7 @@
 
 
 {% block beforeContent %}
-
+<aside>
 	{% set breadcrumbBackLink = 'dashboard'|url({domainType: domainType}) if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
 	{% set computedBackLink = backPath if backPath else breadcrumbBackLink %}
 	{{ govukBackLink({
@@ -35,6 +35,7 @@
 		text: "Back",
 		href: computedBackLink
 	}) }}
+</aside>
 {% endblock %}
 
 

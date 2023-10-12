@@ -7,10 +7,12 @@
 {% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back",
 		href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'properties'})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
