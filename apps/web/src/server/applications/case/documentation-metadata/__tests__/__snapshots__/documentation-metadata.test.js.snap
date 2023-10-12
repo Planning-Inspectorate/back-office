@@ -504,27 +504,29 @@ exports[`Edit applications documentation metadata Edit published date GET /case/
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <input class=\\"govuk-input\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\">
-                        </div>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <input class=\\"govuk-input\\" id=\\"datePublished.month\\" name=\\"datePublished.month\\"
-                            type=\\"text\\" value=\\"03\\">
-                        </div>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <input class=\\"govuk-input\\" id=\\"datePublished.year\\" name=\\"datePublished.year\\"
-                            type=\\"text\\" value=\\"2023\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <input class=\\"govuk-input\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\">
+                            </div>
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <input class=\\"govuk-input\\" id=\\"datePublished.month\\" name=\\"datePublished.month\\"
+                                type=\\"text\\" value=\\"03\\">
+                            </div>
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <input class=\\"govuk-input\\" id=\\"datePublished.year\\" name=\\"datePublished.year\\"
+                                type=\\"text\\" value=\\"2023\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -557,35 +559,37 @@ exports[`Edit applications documentation metadata Edit published date POST /case
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the published
-                    date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                            name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                            name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the published
+                        date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                                name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                                name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -618,35 +622,37 @@ exports[`Edit applications documentation metadata Edit published date POST /case
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The published date cannot
-                    be in the future</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                            name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                            name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The published date cannot
+                        be in the future</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                                name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                                name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -679,35 +685,37 @@ exports[`Edit applications documentation metadata Edit published date POST /case
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
-                    the published date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                            name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                            name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                        the published date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                                name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                                name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -740,35 +748,37 @@ exports[`Edit applications documentation metadata Edit published date POST /case
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
-                    the published date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                            name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                            name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
+                        the published date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                                name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                                name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -801,35 +811,37 @@ exports[`Edit applications documentation metadata Edit published date POST /case
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document published</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
-                    the published date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
-                            <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                            type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
-                            <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                            name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
-                            <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                            name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document published</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"datePublished-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
+                        the published date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.day\\">Day</label>
+                                <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
+                                type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
+                                <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
+                                name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
+                                <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
+                                name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -847,27 +859,29 @@ exports[`Edit applications documentation metadata Edit receipt date GET /case/12
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <input class=\\"govuk-input\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\">
-                        </div>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <input class=\\"govuk-input\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\">
-                        </div>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <input class=\\"govuk-input\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <input class=\\"govuk-input\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\">
+                            </div>
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <input class=\\"govuk-input\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\">
+                            </div>
+                            <div class=\\"govuk-form-group\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <input class=\\"govuk-input\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -900,35 +914,37 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the receipt
-                    date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the receipt
+                        date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -961,35 +977,37 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The receipt date cannot
-                    be in the future</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The receipt date cannot
+                        be in the future</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -1022,35 +1040,37 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
-                    the receipt date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                        the receipt date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -1083,35 +1103,37 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
-                    the receipt date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
+                        the receipt date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
@@ -1144,35 +1166,37 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class='govuk-grid-row'>
             <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date document received</label>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
-                    the receipt date</p>
-                <div class=\\"govuk-grid-column-one-third\\">
-                    <div class=\\"govuk-grid-row pins-date-form-group\\">
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                            <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                            type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
-                            <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                            type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
-                        </div>
-                        <div class=\\"govuk-form-group govuk-form-group--error\\">
-                            <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
-                            <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                            </p>
-                            <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                            type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                <fieldset class=\\"govuk-fieldset\\">
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date document received</legend>
+                    <div id=\\"-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
+                    <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
+                        the receipt date</p>
+                    <div class=\\"govuk-grid-column-one-third\\">
+                        <div class=\\"govuk-grid-row pins-date-form-group\\">
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
+                                <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
+                                type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
+                                <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
+                                type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                            </div>
+                            <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
+                                <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                </p>
+                                <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
+                                type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
