@@ -198,7 +198,7 @@ export const unpublishDocuments = async ({ body }, response) => {
 	const nonPublishedDocuments = await separateNonPublishedDocuments(guids);
 	const notPublishedErrors = nonPublishedDocuments.map((guid) => ({
 		guid,
-		msg: 'You must publish the document before unpublishing.'
+		msg: 'You must publish the document/s before unpublishing.'
 	}));
 
 	const publishedGuids = guids.filter((guid) => !nonPublishedDocuments.includes(guid));
@@ -299,6 +299,38 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
 	// Step 5: Return the document metadata in the response.
+	response.status(200).send(documentDetails);
+};
+
+/**
+ * Gets the properties/metadata for many documents
+ *
+ * @type {import('express').RequestHandler<{}, {}, {}, {guids: string}>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const getManyDocumentsProperties = async ({ query: { guids } }, response) => {
+	const filesGuid = JSON.parse(guids);
+
+	const documentsVersion = await documentVersionRepository.getManyByIdAndStatus(
+		filesGuid,
+		'published'
+	);
+
+	/** @type {DocumentVersionWithDocument[]} */
+	const foundDocuments = [];
+	documentsVersion.forEach((document, index) => {
+		if (document === null) {
+			logger.warn(`No published version of document ${filesGuid[index]} found`);
+			return;
+		}
+		foundDocuments.push(document);
+	});
+
+	// Map the documents metadata to a format to be returned in the API response.
+	const documentDetails = mapDocumentVersionDetails(foundDocuments);
+
+	// Return the documents metadata in the response.
 	response.status(200).send(documentDetails);
 };
 
