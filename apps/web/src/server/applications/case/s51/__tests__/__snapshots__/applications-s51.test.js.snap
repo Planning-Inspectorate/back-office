@@ -962,27 +962,29 @@ exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-do
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Advice details</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-2 pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
-            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Date advice given</label>
-            <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.day\\">Day</label>
-                        <input class=\\"govuk-input\\" id=\\"adviceDate.day\\" name=\\"adviceDate.day\\"
-                        type=\\"text\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.month\\">Month</label>
-                        <input class=\\"govuk-input\\" id=\\"adviceDate.month\\" name=\\"adviceDate.month\\"
-                        type=\\"text\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.year\\">Year</label>
-                        <input class=\\"govuk-input\\" id=\\"adviceDate.year\\" name=\\"adviceDate.year\\"
-                        type=\\"text\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date advice given</legend>
+                <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                <div class=\\"govuk-grid-column-one-third\\">
+                    <div class=\\"govuk-grid-row pins-date-form-group\\">
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.day\\">Day</label>
+                            <input class=\\"govuk-input\\" id=\\"adviceDate.day\\" name=\\"adviceDate.day\\"
+                            type=\\"text\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.month\\">Month</label>
+                            <input class=\\"govuk-input\\" id=\\"adviceDate.month\\" name=\\"adviceDate.month\\"
+                            type=\\"text\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"adviceDate.year\\">Year</label>
+                            <input class=\\"govuk-input\\" id=\\"adviceDate.year\\" name=\\"adviceDate.year\\"
+                            type=\\"text\\">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </fieldset>
         </div>
         <div class=\\"govuk-form-group govuk-grid-column-two-thirds govuk-!-margin-top-4 govuk-!-margin-bottom-0\\">
             <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"adviceDetails\\">Advice given</label>
@@ -1351,27 +1353,29 @@ exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-d
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Enquiry details</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-2 pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
-            <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"\\">Enquiry date</label>
-            <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.day\\">Day</label>
-                        <input class=\\"govuk-input\\" id=\\"enquiryDate.day\\" name=\\"enquiryDate.day\\"
-                        type=\\"text\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.month\\">Month</label>
-                        <input class=\\"govuk-input\\" id=\\"enquiryDate.month\\" name=\\"enquiryDate.month\\"
-                        type=\\"text\\">
-                    </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.year\\">Year</label>
-                        <input class=\\"govuk-input\\" id=\\"enquiryDate.year\\" name=\\"enquiryDate.year\\"
-                        type=\\"text\\">
+            <fieldset class=\\"govuk-fieldset\\">
+                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Enquiry date</legend>
+                <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                <div class=\\"govuk-grid-column-one-third\\">
+                    <div class=\\"govuk-grid-row pins-date-form-group\\">
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.day\\">Day</label>
+                            <input class=\\"govuk-input\\" id=\\"enquiryDate.day\\" name=\\"enquiryDate.day\\"
+                            type=\\"text\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.month\\">Month</label>
+                            <input class=\\"govuk-input\\" id=\\"enquiryDate.month\\" name=\\"enquiryDate.month\\"
+                            type=\\"text\\">
+                        </div>
+                        <div class=\\"govuk-form-group\\">
+                            <label class=\\"govuk-label govuk-hint\\" for=\\"enquiryDate.year\\">Year</label>
+                            <input class=\\"govuk-input\\" id=\\"enquiryDate.year\\" name=\\"enquiryDate.year\\"
+                            type=\\"text\\">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </fieldset>
         </div>
         <div class=\\"govuk-form-group govuk-grid-column-two-thirds govuk-!-margin-top-4 govuk-!-margin-bottom-0\\">
             <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"enquiryDetails\\">Enquiry details</label>

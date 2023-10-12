@@ -24,6 +24,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+<aside>
   {% block backLink %}
 		{% if backLinkUrl and backLinkText %}
       {{ govukBackLink({ text: backLinkText, href: backLinkUrl }) }}
@@ -33,6 +34,7 @@
       {{ govukBackLink({ href: backURL }) }}
       {% endif %}
     {% endblock %}
+</aside>
   {% endblock %}
 
   {% block content %}

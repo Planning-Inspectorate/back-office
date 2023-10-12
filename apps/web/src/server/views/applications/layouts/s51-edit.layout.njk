@@ -1,10 +1,12 @@
 {% extends "./applications.layout.njk" %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to S51 advice",
     href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
