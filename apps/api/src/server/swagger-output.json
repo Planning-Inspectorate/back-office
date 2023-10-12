@@ -1611,6 +1611,36 @@
 				}
 			}
 		},
+		"/applications/documents/properties": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the properties of the specified files",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Application ID",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "guids",
+						"in": "query",
+						"description": "A list of guids",
+						"example": [1, 2],
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document properties",
+						"schema": {
+							"$ref": "#/definitions/DocumentProperties"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/version/{version}/properties": {
 			"get": {
 				"tags": ["Applications"],
