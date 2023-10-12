@@ -123,6 +123,26 @@ export const getById = (documentGuid, version = 1) => {
 };
 
 /**
+
+ * Get info for many documents by documentGuid and published status
+ *
+ * @param {string} documentGuids
+ * @param {string} publishedStatus
+ * @returns {import('@prisma/client').PrismaPromise<Array<DocumentVersion |null>>}
+ */
+export const getManyByIdAndStatus = (documentGuids, publishedStatus = 'published') => {
+	return databaseConnector.documentVersion.findMany({
+		where: {
+			documentGuid: {
+				in: documentGuids
+			},
+			publishedStatus,
+			isDeleted: false
+		}
+	});
+};
+
+/**
  * Get all document metadata
  *
  * @returns {import('@prisma/client').PrismaPromise<DocumentVersion[] |null>}
