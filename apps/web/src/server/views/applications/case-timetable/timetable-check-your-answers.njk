@@ -5,7 +5,7 @@
 
 {% set serviceName = "Examination timetable" %}
 {% set pageTitle = "Check your answers" %}
-{% set formAction = ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) if isEditing else ('timetable'|url({caseId: caseId, step: 'new-item'}))  %}
+{% set formAction = ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) if isEditing else ('timetable'|url({caseId: caseId, step: 'item/new'}))  %}
 
 {% block pageTitle %}
 	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
