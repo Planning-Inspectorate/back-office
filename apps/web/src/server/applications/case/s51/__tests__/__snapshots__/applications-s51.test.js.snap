@@ -259,7 +259,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -341,7 +341,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -456,7 +456,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -472,7 +472,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -488,7 +488,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -504,7 +504,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -694,7 +694,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -776,7 +776,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -891,7 +891,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -907,7 +907,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -923,7 +923,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
@@ -939,7 +939,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                         <p>07/03/2023</p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\">
-                                        <p><strong class=\\"govuk-tag\\"> Awaiting upload</strong>
+                                        <p><strong class=\\"govuk-tag govuk-tag--yellow\\"> Awaiting upload</strong>
                                         </p>
                                     </td>
                                     <td class=\\"govuk-table__cell\\"><a class='govuk-link' href=\\"/documents/123/download/1/version/1/\\"> Download</a>
