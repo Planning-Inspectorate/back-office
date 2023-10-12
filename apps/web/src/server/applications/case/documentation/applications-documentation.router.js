@@ -53,7 +53,7 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/:folderName/unpublish')
+	.route('/:folderId/:folderName/unpublishing-queue')
 	.post(
 		[validateApplicationsDocumentsToUnpublish, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishPage)
@@ -99,10 +99,10 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/document/:documentGuid/unpublish')
+	.route('/:folderId/:folderName/unpublish')
 	.post(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
-		asyncRoute(controller.postUnpublishDocument)
+		asyncRoute(controller.postUnpublishDocuments)
 	);
 
 applicationsDocumentationRouter

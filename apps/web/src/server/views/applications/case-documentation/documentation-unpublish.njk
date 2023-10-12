@@ -46,18 +46,15 @@
 									</td>
 
 									<td class="govuk-table__cell">
-										{# <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'remove-from-publishing-queue'}) }}" class='govuk-link govuk-body-m govuk-!-margin-bottom-0'>
-                                            Remove
-                                        </a> #}
 										{{removeButton(documentationFiles, documentationFile.documentGuid)}}
 									</td>
 								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
-					<form action='' method='post'>
+					<form action='./unpublish' method='post'>
 						{% for documentationFile in documentationFiles %}
-							<input name="selectedFilesIds[]" type="hidden" value="{{documentationFile.documentGuid}}">
+							<input name="documentGuids[]" type="hidden" value="{{documentationFile.documentGuid}}">
 						{% endfor %}
 						{{ govukButton({ text: 'Unpublish documents' }) }}
 					</form>
@@ -78,7 +75,6 @@
 				<input name="selectedFilesIds[]" type="hidden" value="{{documentationFile.documentGuid}}">
 			{% endif %}
 		{% endfor %}
-
 
 		<input type="submit" class='pins-files-list__button-link govuk-link govuk-body-m govuk-!-margin-bottom-0' value='Remove'/>
 	</form>
