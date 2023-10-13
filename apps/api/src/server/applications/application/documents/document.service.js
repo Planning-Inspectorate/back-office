@@ -766,5 +766,16 @@ export const unpublishDocuments = async (guids) => {
 		}
 	);
 
+	await Promise.all(
+		allVersions.map((version) =>
+			documentActivityLogRepository.create({
+				documentGuid: version.documentGuid,
+				version: version.version,
+				user: version.owner ?? '',
+				status: 'unpublished'
+			})
+		)
+	);
+
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
 };
