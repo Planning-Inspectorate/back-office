@@ -6,7 +6,7 @@ const expectedEventPayload = {
 	caseId: 1,
 	sourceSystem: 'ODT',
 	publishStatus: 'unpublished',
-	applicantIds: ['2', '3'],
+	applicantId: 2,
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
 	inspectorIds: [],
@@ -22,7 +22,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 2 }
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
@@ -40,7 +40,7 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
+		expect(response.body).toEqual({ id: 1, applicantId: 2 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
@@ -58,7 +58,7 @@ describe('Update application', () => {
 				}
 			},
 			include: {
-				serviceCustomer: true
+				applicant: true
 			}
 		});
 
@@ -73,7 +73,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 2 }
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
@@ -92,7 +92,7 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
+		expect(response.body).toEqual({ id: 1, applicantId: 2 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
@@ -106,7 +106,7 @@ describe('Update application', () => {
 				}
 			},
 			include: {
-				serviceCustomer: true
+				applicant: true
 			}
 		});
 
@@ -121,13 +121,12 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 1 }
 		});
 		databaseConnector.applicationDetails.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
 		databaseConnector.case.update.mockResolvedValue({});
 		databaseConnector.subSector.findUnique.mockResolvedValue({});
-		databaseConnector.serviceCustomer.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
 		databaseConnector.region.findUnique({});
 		jest.useFakeTimers({ now: 1_649_319_144_000 });
@@ -138,25 +137,23 @@ describe('Update application', () => {
 			description: 'description',
 			subSectorName: 'some_sub_sector',
 			caseEmail: 'caseEmail@pins.com',
-			applicants: [
-				{
-					id: 1,
-					firstName: 'first',
-					middleName: 'middle',
-					lastName: 'last',
-					organisationName: 'org',
-					email: 'test@test.com',
-					website: 'www.google.com',
-					phoneNumber: '02036579785',
-					address: {
-						addressLine1: 'address line 1',
-						addressLine2: 'address line 2',
-						town: 'town',
-						county: 'county',
-						postcode: 'N1 9BE'
-					}
+			applicant: {
+				id: 1,
+				firstName: 'first',
+				middleName: 'middle',
+				lastName: 'last',
+				organisationName: 'org',
+				email: 'test@test.com',
+				website: 'www.google.com',
+				phoneNumber: '02036579785',
+				address: {
+					addressLine1: 'address line 1',
+					addressLine2: 'address line 2',
+					town: 'town',
+					county: 'county',
+					postcode: 'N1 9BE'
 				}
-			],
+			},
 			geographicalInformation: {
 				mapZoomLevelName: 'some-known-map-zoom-level',
 				locationDescription: 'location description',
@@ -176,7 +173,7 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
 		expect(databaseConnector.applicationDetails.findUnique).toHaveBeenCalledWith({
 			where: { caseId: 1 }
 		});
@@ -228,7 +225,7 @@ describe('Update application', () => {
 						}
 					}
 				},
-				serviceCustomer: {
+				applicant: {
 					update: {
 						data: {
 							organisationName: 'org',
@@ -262,7 +259,7 @@ describe('Update application', () => {
 				}
 			},
 			include: {
-				serviceCustomer: true
+				applicant: true
 			}
 		});
 
@@ -278,7 +275,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 2 }
 		});
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
@@ -288,15 +285,13 @@ describe('Update application', () => {
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
-			applicants: [
-				{
-					firstName: 'first',
-					lastName: 'last',
-					address: {
-						addressLine1: 'some addr'
-					}
+			applicant: {
+				firstName: 'first',
+				lastName: 'last',
+				address: {
+					addressLine1: 'some addr'
 				}
-			],
+			},
 			geographicalInformation: {
 				mapZoomLevelName: 'some-known-map-zoom-level'
 			}
@@ -304,12 +299,12 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantIds: [2, 3] });
+		expect(response.body).toEqual({ id: 1, applicantId: 2 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
-				serviceCustomer: {
+				applicant: {
 					create: {
 						firstName: 'first',
 						lastName: 'last',
@@ -328,7 +323,7 @@ describe('Update application', () => {
 				}
 			},
 			include: {
-				serviceCustomer: true
+				applicant: true
 			}
 		});
 
@@ -343,7 +338,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 2 }
 		});
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue(null);
@@ -364,15 +359,13 @@ describe('Update application', () => {
 				mapZoomLevelName: 'some-unknown-map-zoom-level',
 				regionNames: ['some-unknown-region']
 			},
-			applicants: [
-				{
-					email: 'not a real email',
-					phoneNumber: '10235',
-					address: {
-						postcode: '191187'
-					}
+			applicant: {
+				email: 'not a real email',
+				phoneNumber: '10235',
+				address: {
+					postcode: '191187'
 				}
-			],
+			},
 			keyDates: {
 				preApplication: {
 					submissionAtInternal: 100_000
@@ -386,9 +379,9 @@ describe('Update application', () => {
 		expect(response.body).toEqual({
 			errors: {
 				caseEmail: 'Case email must be a valid email address',
-				'applicants[0].address.postcode': 'Postcode must be a valid UK postcode',
-				'applicants[0].email': 'Email must be a valid email',
-				'applicants[0].phoneNumber': 'Phone Number must be a valid UK number',
+				'applicant.address.postcode': 'Postcode must be a valid UK postcode',
+				'applicant.email': 'Email must be a valid email',
+				'applicant.phoneNumber': 'Phone Number must be a valid UK number',
 				'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
 				'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 				'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',
@@ -420,18 +413,17 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 2 }
 		});
-		databaseConnector.serviceCustomer.findUnique.mockResolvedValue(null);
 
 		// WHEN
-		const response = await request.patch('/applications/1').send({ applicants: [{ id: 3 }] });
+		const response = await request.patch('/applications/1').send({ applicant: { id: 3 } });
 
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
-				'applicants[0].id': 'Must be existing applicant that belongs to this case'
+				'applicant.id': 'Must be existing applicant that belongs to this case'
 			}
 		});
 	});
@@ -440,18 +432,17 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 2 }, { id: 3 }]
+			applicant: { id: 4 }
 		});
-		databaseConnector.serviceCustomer.findUnique.mockResolvedValue({ caseId: 2 });
 
 		// WHEN
-		const response = await request.patch('/applications/1').send({ applicants: [{ id: 2 }] });
+		const response = await request.patch('/applications/1').send({ applicant: { id: 2 } });
 
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
 			errors: {
-				'applicants[0].id': 'Must be existing applicant that belongs to this case'
+				'applicant.id': 'Must be existing applicant that belongs to this case'
 			}
 		});
 	});

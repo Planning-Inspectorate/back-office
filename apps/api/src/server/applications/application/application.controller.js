@@ -1,5 +1,4 @@
 import { EventType } from '@pins/event-client';
-import { head, map } from 'lodash-es';
 import { eventClient } from '../../infrastructure/event-client.js';
 import { NSIP_PROJECT } from '../../infrastructure/topics.js';
 import * as caseRepository from '../../repositories/case.repository.js';
@@ -11,17 +10,6 @@ import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-case-fiel
 import { buildNsipProjectPayload } from './application.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
-
-/**
- *
- * @param {import("@pins/applications.api").Schema.ServiceCustomer[] | undefined} serviceCustomers
- * @returns {number[]}
- */
-const getServiceCustomerIds = (serviceCustomers) => {
-	return map(serviceCustomers, (serviceCustomer) => {
-		return serviceCustomer.id;
-	});
-};
 
 /**
  * Express request handler for creating application
@@ -39,9 +27,7 @@ export const createApplication = async (request, response) => {
 		EventType.Create
 	);
 
-	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
-
-	response.send({ id: application.id, applicantIds });
+	response.send({ id: application.id, applicantId: application.applicant?.id });
 };
 
 /**
@@ -57,8 +43,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 
@@ -68,7 +53,7 @@ export const updateApplication = async ({ params, body }, response) => {
 
 	let updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
-		applicantId: head(body?.applicants)?.id,
+		applicantId: body?.applicant?.id,
 		...mappedApplicationDetails
 	});
 
@@ -84,9 +69,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		EventType.Update
 	);
 
-	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
-
-	response.send({ id: updateResponse.id, applicantIds });
+	response.send({ id: updateResponse.id, applicantId: updateResponse.applicant?.id });
 };
 
 /**

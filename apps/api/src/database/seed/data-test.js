@@ -179,8 +179,8 @@ const createApplication = async (databaseConnector, subSector, index) => {
 					}
 				]
 			},
-			serviceCustomer: {
-				create: [{}]
+			applicant: {
+				create: {}
 			},
 			Representation: {
 				create: representations

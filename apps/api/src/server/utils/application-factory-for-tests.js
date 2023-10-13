@@ -7,7 +7,7 @@ const generateApplicationReference = () => {
 	return `EN01${number}`;
 };
 
-const serviceCustomer = {
+const applicant = {
 	id: 1,
 	caseId: 1,
 	firstName: 'Service Customer First Name',
@@ -102,7 +102,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *  caseStatus: string,
  *  reference?: string | undefined,
  *  dates?: {createdAt?: Date, modifiedAt?: Date, publishedAt?: Date},
- *  inclusions?: {serviceCustomer?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
+ *  inclusions?: {applicant?: boolean, ApplicationDetails?: boolean, regions?: boolean, CaseStatus?: boolean, mapZoomLevel?: boolean, subSector?: boolean, gridReference?: boolean}
  * }} arg
  * @returns {import('@pins/applications.api').Schema.Case}
  */
@@ -144,7 +144,7 @@ export const applicationFactoryForTests = ({
 				northing: 654_321
 			}
 		}),
-		...(inclusions.serviceCustomer && { serviceCustomer: [serviceCustomer] }),
+		...(inclusions.applicant && { applicant: applicant }),
 		...(inclusions.ApplicationDetails && {
 			ApplicationDetails: getApplicationDetails({
 				regions: inclusions.regions,

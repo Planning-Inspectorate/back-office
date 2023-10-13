@@ -78,25 +78,23 @@ export const spec = {
 					northing: '098765'
 				}
 			},
-			applicants: [
-				{
-					id: 1,
-					organisationName: '',
-					firstName: '',
-					middleName: '',
-					lastName: '',
-					email: '',
-					website: '',
-					phoneNumber: '',
-					address: {
-						addressLine1: '',
-						addressLine2: '',
-						town: '',
-						county: '',
-						postcode: ''
-					}
+			applicant: {
+				id: 1,
+				organisationName: '',
+				firstName: '',
+				middleName: '',
+				lastName: '',
+				email: '',
+				website: '',
+				phoneNumber: '',
+				address: {
+					addressLine1: '',
+					addressLine2: '',
+					town: '',
+					county: '',
+					postcode: ''
 				}
-			],
+			},
 			keyDates: {
 				preApplication: {
 					submissionAtPublished: 'Q1 2023',
@@ -119,24 +117,22 @@ export const spec = {
 					northing: '098765'
 				}
 			},
-			applicants: [
-				{
-					organisationName: '',
-					firstName: '',
-					middleName: '',
-					lastName: '',
-					email: '',
-					address: {
-						addressLine1: '',
-						addressLine2: '',
-						town: '',
-						county: '',
-						postcode: ''
-					},
-					website: '',
-					phoneNumber: ''
-				}
-			],
+			applicant: {
+				organisationName: '',
+				firstName: '',
+				middleName: '',
+				lastName: '',
+				email: '',
+				address: {
+					addressLine1: '',
+					addressLine2: '',
+					town: '',
+					county: '',
+					postcode: ''
+				},
+				website: '',
+				phoneNumber: ''
+			},
 			keyDates: {
 				preApplication: {
 					submissionAtPublished: 'Q1 2023',

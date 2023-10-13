@@ -33,7 +33,7 @@ router.post(
         }
         #swagger.responses[200] = {
             description: 'ID of application',
-            schema: { id: 1, applicantIds: [2] }
+            schema: { id: 1, applicantId: 2 }
         }
     */
 	validateCreateUpdateApplication,
@@ -98,11 +98,11 @@ router.get(
 		#swagger.parameters['query'] = {
             in: 'query',
             description: 'Application details',
-			example: '\{ &ldquo;title&rdquo;\:true, &ldquo;description&rdquo;\:true\, &ldquo;reference&rdquo;\:true, &ldquo;status&rdquo;\:true, &ldquo;caseEmail&rdquo;\:true, &ldquo;sector&rdquo;\:true, &ldquo;subSector&rdquo;\:true, &ldquo;applicants&rdquo;\:true, &ldquo;geographicalInformation&rdquo;\:true, &ldquo;keyDates&rdquo;\:true \}',
+			example: '\{ &ldquo;title&rdquo;\:true, &ldquo;description&rdquo;\:true\, &ldquo;reference&rdquo;\:true, &ldquo;status&rdquo;\:true, &ldquo;caseEmail&rdquo;\:true, &ldquo;sector&rdquo;\:true, &ldquo;subSector&rdquo;\:true, &ldquo;applicant&rdquo;\:true, &ldquo;geographicalInformation&rdquo;\:true, &ldquo;keyDates&rdquo;\:true \}',
     	}
       #swagger.responses[200] = {
             description: 'IDs of application',
-            schema: { id: 1, reference: "BC010001", title: "Office Use Test Application 1", description: "A description of test case 1 which is a case of subsector type Office Use", status: "Withdrawn", caseEmail: "caseemail@gmail.com", sector: {}, subSector: { name: "office_use", abbreviation: "BC01", displayNameEn: "Office Use", displayNameCy: "Office Use"  }, applicants: [], geographicalInformation: { mapZoomLevel: { id: 5, name: "district", displayNameEn: "District", displayNameCy: "District" }}, locationDescription: "location description", gridReference: {}, regions: [{}], keyDates: {}, hasUnpublishedChanges: false }
+            schema: { id: 1, reference: "BC010001", title: "Office Use Test Application 1", description: "A description of test case 1 which is a case of subsector type Office Use", status: "Withdrawn", caseEmail: "caseemail@gmail.com", sector: {}, subSector: { name: "office_use", abbreviation: "BC01", displayNameEn: "Office Use", displayNameCy: "Office Use"  }, applicant: {}, geographicalInformation: { mapZoomLevel: { id: 5, name: "district", displayNameEn: "District", displayNameCy: "District" }}, locationDescription: "location description", gridReference: {}, regions: [{}], keyDates: {}, hasUnpublishedChanges: false }
         }
     */
 	validateApplicationId,
@@ -130,7 +130,7 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'ID of application',
-            schema: { id: 1, applicantIds: [2] }
+            schema: { id: 1, applicantId: 2 }
         }
     */
 	validateApplicationId,

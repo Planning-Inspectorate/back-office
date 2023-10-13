@@ -49,7 +49,7 @@ describe('Test Updating Key Dates', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			serviceCustomer: [{ id: 4 }],
+			applicant: { id: 4 },
 			ApplicationDetails: {
 				datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
 				dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
@@ -91,7 +91,7 @@ describe('Test Updating Key Dates', () => {
 					anticipatedSubmissionDateNonSpecific: 'Q3 2025',
 					sourceSystem: 'ODT',
 					publishStatus: 'unpublished',
-					applicantIds: ['4'],
+					applicantId: 4,
 					welshLanguage: false,
 					nsipOfficerIds: [],
 					regions: [],

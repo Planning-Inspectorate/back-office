@@ -1,4 +1,4 @@
-import { head, isEmpty, pick } from 'lodash-es';
+import { isEmpty, pick } from 'lodash-es';
 import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-object.js';
 
 /**
@@ -22,7 +22,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
 	);
 
-	const applicant = head(applicationDetails?.applicants);
+	const applicant = applicationDetails?.applicant;
 	const formattedApplicantDetails = pick(applicant, [
 		'organisationName',
 		'firstName',

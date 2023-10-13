@@ -17,7 +17,7 @@ const includeAll = {
 	},
 	CaseStatus: { where: { valid: true } },
 	gridReference: true,
-	serviceCustomer: { include: { address: true } }
+	applicant: { include: { address: true } }
 };
 
 /**
@@ -188,7 +188,7 @@ export const createApplication = ({
 				}
 			}),
 			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) && {
-				serviceCustomer: {
+				applicant: {
 					create: {
 						...applicant,
 						...(!isEmpty(applicantAddress) && { address: { create: applicantAddress } })
@@ -277,7 +277,7 @@ const updateApplicationSansRegionsRemoval = ({
 			}),
 			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
 				applicantId && {
-					serviceCustomer: {
+					applicant: {
 						update: {
 							data: {
 								...applicant,
@@ -293,7 +293,7 @@ const updateApplicationSansRegionsRemoval = ({
 				}),
 			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
 				!applicantId && {
-					serviceCustomer: {
+					applicant: {
 						create: {
 							...applicant,
 							...(!isEmpty(applicantAddress) && {
@@ -317,7 +317,7 @@ const updateApplicationSansRegionsRemoval = ({
 			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
 		},
 		include: {
-			serviceCustomer: true
+			applicant: true
 		}
 	});
 };
@@ -379,8 +379,7 @@ export const updateApplication = async ({
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 };
@@ -410,8 +409,7 @@ export const publishCase = async ({ caseId }) => {
 		regions: true,
 		caseStatus: true,
 		casePublishedState: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 };
@@ -440,8 +438,7 @@ export const unpublishCase = async ({ caseId }) => {
 		regions: true,
 		caseStatus: true,
 		casePublishedState: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 };
@@ -449,7 +446,7 @@ export const unpublishCase = async ({ caseId }) => {
 /**
  *
  * @param {number} id
- * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, serviceCustomer?: boolean, serviceCustomerAddress?: boolean, gridReference?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, applicant?: boolean, gridReference?: boolean}} inclusions
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const getById = (
@@ -462,8 +459,7 @@ export const getById = (
 		regions = false,
 		caseStatus = false,
 		casePublishedState = false,
-		serviceCustomer = false,
-		serviceCustomerAddress = false,
+		applicant = false,
 		gridReference = false
 	}
 ) => {
@@ -476,8 +472,7 @@ export const getById = (
 			regions ||
 			caseStatus ||
 			casePublishedState ||
-			serviceCustomer ||
-			serviceCustomerAddress) && {
+			applicant) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
 					ApplicationDetails: {
@@ -492,8 +487,8 @@ export const getById = (
 				}),
 				...(caseStatus && { CaseStatus: { where: { valid: true } } }),
 				...(casePublishedState && { CasePublishedState: { orderBy: { createdAt: 'desc' } } }),
-				...((serviceCustomer || serviceCustomerAddress) && {
-					serviceCustomer: { include: { address: serviceCustomerAddress } }
+				...(applicant && {
+					applicant: { include: { address: true } }
 				}),
 				...(gridReference && { gridReference: true })
 			}
@@ -582,8 +577,7 @@ export const updateApplicationStatusAndDataById = async (
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 };
