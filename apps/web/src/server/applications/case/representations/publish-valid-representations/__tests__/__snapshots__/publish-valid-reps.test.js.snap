@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`publish-valid-representations GET /applications-service/:caseId/relevant-representations/publish-valid-representations and the publishable rep count is > 0 should render the page with the publish button 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-m\\">Publishing queue</span>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-9\\">Publish all valid representations</h1>
+    <p class=\\"govuk-body\\"><strong>Project name: </strong> mock title</p>
+    <p class=\\"govuk-body\\">The queue contains <strong>1</strong> representations ready to be published.</p>
+    <p     class=\\"govuk-inset-text\\">The representations will not be visible on the external website until
+        the key date for their display has been reached.
+        <br>
+        <br>Key dates are managed by the Case Team.</p>
+        <form method=\\"post\\">
+            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Publish documents</button>
+        </form>
+</main>"
+`;
+
+exports[`publish-valid-representations GET /applications-service/:caseId/relevant-representations/publish-valid-representations and the publishable rep count is 0 should render the page with the publish button 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">Try again later.</p>
+            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists.</p>
+        </div>
+    </div>
+</main>"
+`;
