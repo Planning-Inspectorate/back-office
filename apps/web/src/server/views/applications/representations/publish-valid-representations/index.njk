@@ -1,0 +1,39 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% set pageTitle = pageHeading %}
+
+{% block pageContent %}
+    <span class="govuk-caption-m">Publishing queue</span>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ pageHeading }}</h1>
+
+    <p class="govuk-body">
+        <strong>Project name: </strong> {{ projectName }}
+    </p>
+
+    <p class="govuk-body">
+        The queue contains <strong>{{ publishableRepsCount }}</strong> representations ready to be published.
+    </p>
+
+    <p class="govuk-inset-text">
+        The representations will not be visible on the external website until the key date for their display has been reached.
+        <br>
+        <br>
+        Key dates are managed by the Case Team.
+    </p>
+
+    {% if publishableRepsCount > 0 %}
+        <form method="post">
+            {{ govukButton({
+                text: "Publish documents"
+            }) }}
+        </form>
+    {% endif %}
+{% endblock %}
+
+

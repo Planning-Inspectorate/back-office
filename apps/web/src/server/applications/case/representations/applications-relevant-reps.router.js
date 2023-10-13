@@ -10,6 +10,7 @@ import relevantRepEntityRouter from './representation/representation-entity/enti
 import relevantRepresentationCommentRouter from './representation/representation-comment/representation-comment.router.js';
 import relevantRepresentationAttachmentUploadRouter from './representation/attachment-upload/attachment-upload.router.js';
 import representationDetailsRouter from './representation-details/application-representation-details.router.js';
+import publishValidRepresentationsRouter from './publish-valid-representations/publish-valid-reps.router.js';
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 import { repRoutes } from './representation/utils/get-representation-page-urls.js';
 import { getRepDownloadController } from './download/download.controller.js';
@@ -29,6 +30,7 @@ relevantRepsRouter.use(
 	`/:representationId${repRoutes.representationDetails}`,
 	representationDetailsRouter
 );
+relevantRepsRouter.use('/', publishValidRepresentationsRouter);
 
 relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);
 
