@@ -775,6 +775,12 @@ export const unpublishDocuments = async (guids) => {
 				status: 'unpublished'
 			})
 		)
+  );
+
+	await eventClient.sendEvents(
+		NSIP_DOCUMENT,
+		unpublishedDocuments.map(buildNsipDocumentPayload),
+		EventType.Unpublish
 	);
 
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
