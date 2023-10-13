@@ -348,7 +348,7 @@ const mapHistory = (activityLogs) => {
 			...acc,
 			[log.status]: {
 				date: mapDateStringToUnixTimestamp(log.createdAt.toString()),
-				name: log.user
+				name: log.user || 'System'
 			}
 		};
 	}, /** @type {HisoryResult} */ ({}));
