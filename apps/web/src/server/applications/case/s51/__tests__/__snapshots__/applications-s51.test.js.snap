@@ -1508,13 +1508,9 @@ exports[`S51 Advice S51 delete GET /case/123/project-documentation/21/s51-advice
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-!-margin-top-6\\">
         <input type='hidden' value='Minim veniam quis nostrud' name='adviceTitle'>
         <input type='hidden' value='
-
 		Do
-
 		Do, 
-
 		Do
-
 ' name='adviceEnquirer'>
         <table class=\\"govuk-table\\">
             <thead class=\\"govuk-table__head\\">
