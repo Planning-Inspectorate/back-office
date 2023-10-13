@@ -17,7 +17,8 @@ import {
 	updateDocuments,
 	getDocumentVersionProperties,
 	markAsPublished,
-	unpublishDocuments
+	unpublishDocuments,
+	getManyDocumentsProperties
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -290,6 +291,31 @@ router.get(
         }
     */
 	asyncHandler(getDocumentProperties)
+);
+
+router.get(
+	'/:id/documents/properties',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/documents/properties'
+        #swagger.description = 'Gets the properties of the specified files'
+		 #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['guids'] = {
+			in: 'query',
+			description: 'A list of guids',
+			example: [1, 2],
+		}
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/DocumentProperties' }
+        }
+    */
+	asyncHandler(getManyDocumentsProperties)
 );
 
 router.get(

@@ -1,10 +1,8 @@
 {% extends "../layouts/applications.layout.njk" %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block pageTitle %}
-  {{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
 {% block beforeContent %}
 <aside>
@@ -18,30 +16,72 @@
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
-  {{ govukTable({
-    caption: "Unpublish documents",
-    captionClasses: "govuk-table__caption--l",
-    firstCellIsHeader: false,
-    head: [
-      {
-        text: "File name"
-      },
-      {
-        text: "From"
-      }
-    ],
-    rows: [
-      [
-        {
-          text: documentationFile.fileName
-        },
-        {
-          text: documentationFile.author
-        }
-      ]
-    ]
-  }) }}
-  <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
-    {{ govukButton({ text: "Unpublish documents" }) }}
-  </form>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full govuk-!-margin-top-0">
+			{% block sectionContent %}
+				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">
+                    Unpublish documents
+                </h1>
+
+				<div class="pins-files-list" method="post">
+					<table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+						<thead class="govuk-table__head govuk-body-s">
+							<tr class="govuk-table__row">
+								<th scope="col" class="govuk-table__header">File name</th>
+								<th scope="col" class="govuk-table__header">From</th>
+								{% if documentationFiles.length > 1 %}
+									{# Only show Remove button when more than one file #}
+									<th scope="col" class="govuk-table__header">Action</th>
+								{% endif %}
+							</tr>
+						</thead>
+						<tbody class="govuk-table__body govuk-body-s">
+
+							{% for documentationFile in documentationFiles %}
+								<tr class="govuk-table__row">
+
+									<td class="govuk-table__cell govuk-body-m">
+										{{ documentationFile.fileName }}
+
+									</td>
+									<td class="govuk-table__cell govuk-body-m">
+										{{ documentationFile.author }}
+									</td>
+
+									{% if documentationFiles.length > 1 %}
+										<td class="govuk-table__cell">
+											{{removeButton(documentationFiles, documentationFile.documentGuid)}}
+										</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<form action='./unpublish' method='post'>
+						{% for documentationFile in documentationFiles %}
+							<input name="documentGuids[]" type="hidden" value="{{documentationFile.documentGuid}}">
+						{% endfor %}
+						{{ govukButton({ text: 'Unpublish documents' }) }}
+					</form>
+					{% if documentationFiles.itemCount > 125 %}
+						{{ govukPagination(paginationButtons) }}
+					{% endif %}
+				</div>
+			{% endblock %}
+		</div>
+	</div>
 {% endblock %}
+
+{% macro removeButton(documentationFiles, guidToRemove) %}
+
+	<form action='' method='post'>
+		{% for documentationFile in documentationFiles %}
+			{% if documentationFile.documentGuid !== guidToRemove %}
+				<input name="selectedFilesIds[]" type="hidden" value="{{documentationFile.documentGuid}}">
+			{% endif %}
+		{% endfor %}
+
+		<input type="submit" class='pins-files-list__button-link govuk-link govuk-body-m govuk-!-margin-bottom-0' value='Remove'/>
+	</form>
+
+{% endmacro %}

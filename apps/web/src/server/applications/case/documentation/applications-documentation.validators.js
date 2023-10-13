@@ -11,6 +11,10 @@ export const validateApplicationsDocumentsToPublish = createValidator(
 	body('selectedFilesIds').isArray({ min: 1 }).withMessage('You must select documents to publish')
 );
 
+export const validateApplicationsDocumentsToUnpublish = createValidator(
+	body('selectedFilesIds').isArray({ min: 1 }).withMessage('Select documents to unpublish')
+);
+
 export const validateApplicationsDocumentationsActions = createValidator(
 	body('isRedacted')
 		.custom((value, { req }) => !!value || !!req?.body?.status)
