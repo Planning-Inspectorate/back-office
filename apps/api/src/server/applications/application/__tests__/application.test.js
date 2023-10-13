@@ -19,7 +19,6 @@ describe('Application', () => {
 			projectName: 'EN010003 - NI Case 3 Name',
 			publishStatus: 'unpublished',
 			// These are likely to change
-			applicantIds: [],
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
 			inspectorIds: [],
@@ -41,7 +40,7 @@ describe('Application', () => {
 			caseStatus: 'draft',
 			reference: 'EN01-243058',
 			inclusions: {
-				serviceCustomer: true,
+				applicant: true,
 				ApplicationDetails: true,
 				CaseStatus: true,
 				gridReference: true,
@@ -80,7 +79,7 @@ describe('Application', () => {
 			datePINSFirstNotifiedOfProject: new Date('2022-07-22T10:38:33.000Z'),
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
-			applicantIds: ['1'],
+			applicantId: 1,
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
 			inspectorIds: [],

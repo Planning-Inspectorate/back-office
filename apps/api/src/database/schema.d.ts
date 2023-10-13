@@ -28,7 +28,7 @@ export {
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
 	CasePublishedState?: CasePublishedState;
-	serviceCustomer?: ServiceCustomer[];
+	applicant?: ServiceUser;
 	ApplicationDetails?: ApplicationDetails | null;
 	gridReference?: GridReference | null;
 }
@@ -48,9 +48,8 @@ export interface SubSector extends schema.SubSector {
 	sector?: schema.Sector;
 }
 
-export interface ServiceCustomer extends schema.ServiceCustomer {
+export interface ServiceUser extends schema.ServiceUser {
 	address?: schema.Address;
-	case?: schema.Case;
 }
 
 export type CaseStatusNameType =

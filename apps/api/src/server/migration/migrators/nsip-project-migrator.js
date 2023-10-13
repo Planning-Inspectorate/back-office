@@ -90,7 +90,7 @@ const mapModelToEntity = async (m) => {
 				create: { isPublished: true, createdAt: new Date() }
 			}
 		}),
-		// serviceCustomer: TODO
+		// applicant: TODO
 		// case team: TODO
 		// interested
 		gridReference: {

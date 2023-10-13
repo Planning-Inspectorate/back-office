@@ -46,8 +46,7 @@ export const updateKeyDates = async ({ body, params }, response) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	};
 

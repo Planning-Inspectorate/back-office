@@ -23,7 +23,7 @@ export interface UpdateApplication {
 			northing?: string;
 		};
 	};
-	applicants?: {
+	applicant?: {
 		/** @example 1 */
 		id?: number;
 		/** @example "" */
@@ -52,7 +52,7 @@ export interface UpdateApplication {
 			/** @example "" */
 			postcode?: string;
 		};
-	}[];
+	};
 	keyDates?: {
 		preApplication?: {
 			/** @example "Q1 2023" */
@@ -88,7 +88,7 @@ export interface CreateApplication {
 			northing?: string;
 		};
 	};
-	applicants?: {
+	applicant?: {
 		/** @example "" */
 		organisationName?: string;
 		/** @example "" */
@@ -115,7 +115,7 @@ export interface CreateApplication {
 		website?: string;
 		/** @example "" */
 		phoneNumber?: string;
-	}[];
+	};
 	keyDates?: {
 		preApplication?: {
 			/** @example "Q1 2023" */
