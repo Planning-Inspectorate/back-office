@@ -29,7 +29,10 @@
 							<tr class="govuk-table__row">
 								<th scope="col" class="govuk-table__header">File name</th>
 								<th scope="col" class="govuk-table__header">From</th>
-								<th scope="col" class="govuk-table__header">Action</th>
+								{% if documentationFiles.length > 1 %}
+									{# Only show Remove button when more than one file #}
+									<th scope="col" class="govuk-table__header">Action</th>
+								{% endif %}
 							</tr>
 						</thead>
 						<tbody class="govuk-table__body govuk-body-s">
@@ -45,9 +48,11 @@
 										{{ documentationFile.author }}
 									</td>
 
-									<td class="govuk-table__cell">
-										{{removeButton(documentationFiles, documentationFile.documentGuid)}}
-									</td>
+									{% if documentationFiles.length > 1 %}
+										<td class="govuk-table__cell">
+											{{removeButton(documentationFiles, documentationFile.documentGuid)}}
+										</td>
+									{% endif %}
 								</tr>
 							{% endfor %}
 						</tbody>
