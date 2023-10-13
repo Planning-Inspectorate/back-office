@@ -337,19 +337,32 @@ export const getManyDocumentsProperties = async ({ query: { guids } }, response)
 /**
  *
  * @param {{ status: string, createdAt: string, user: string }[]} activityLogs
- * @returns {Record<string, {date: number, name: string}>}
+ * @typedef {Record<string, {date: number, name: string}>} HisoryResult
+ * @returns {HisoryResult}
  */
-const mapHistory = (activityLogs) =>
-	activityLogs.reduce(
-		(acc, log) => ({
+const mapHistory = (activityLogs) => {
+	const history = activityLogs.reduce((acc, log) => {
+		if (!log?.createdAt) return acc;
+
+		return {
 			...acc,
 			[log.status]: {
-				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
+				date: mapDateStringToUnixTimestamp(log.createdAt.toString()),
 				name: log.user
 			}
-		}),
-		{}
-	);
+		};
+	}, /** @type {HisoryResult} */ ({}));
+
+	if (
+		history.published &&
+		history.unpublished &&
+		history.published.date > history.unpublished.date
+	) {
+		delete history.unpublished;
+	}
+
+	return history;
+};
 
 /**
  * Gets the properties/metadata for a single document
