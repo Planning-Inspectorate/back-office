@@ -49,7 +49,9 @@ export class Page {
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
-		xlHeader: '.govuk-heading-xl'
+		xlHeader: '.govuk-heading-xl',
+		projectManagement: 'span.font-weight--700:nth-child(2)',
+		unpublish: 'a.govuk-button:nth-child(5)'
 	};
 
 	// E L E M E N T S
@@ -100,7 +102,9 @@ export class Page {
 		tableHeader: () => cy.get(this.selectors.tableHeader),
 		tableCell: () => cy.get(this.selectors.tableCell),
 		textArea: () => cy.get(this.selectors.textArea),
-		genericText: () => cy.get(this.selectors.body)
+		genericText: () => cy.get(this.selectors.body),
+		projectManagement: () => cy.get(this.selectors.projectManagement),
+		unpublishLink: () => cy.get(this.selectors.unpublish)
 	};
 
 	// A C T I O N S
@@ -285,5 +289,8 @@ export class Page {
 
 	goToDashboard() {
 		this.basePageElements.goToDashboardLink().click();
+	}
+	goToFolderDocumentPage(){
+		this.basePageElements.projectManagement().click();
 	}
 }

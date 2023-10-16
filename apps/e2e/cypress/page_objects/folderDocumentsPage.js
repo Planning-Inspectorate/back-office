@@ -43,4 +43,12 @@ export class FolderDocumentsPage extends Page {
 		cy.contains(projectInfo.projectName).should('exist');
 		cy.contains(caseRef).should('exist');
 	}
+	navigateToProjectFolder(){
+		this.goToFolderDocumentPage();
+	}
+	unpublishDocument() {
+		this.basePageElements.unpublishLink().click();
+		this.clickButtonByText('Unpublish documents');
+		this.validateSuccessPanelTitle('Document/s successfully unpublished');
+	}
 }
