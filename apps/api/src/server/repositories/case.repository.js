@@ -221,9 +221,9 @@ const removeRegions = (applicationDetailsId) => {
 
 /**
  * @param {UpdateApplicationParams} data
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Case>}
  */
-const updateApplicationSansRegionsRemoval = ({
+const updateApplicationSansRegionsRemoval = async ({
 	caseId,
 	applicantId,
 	caseDetails,
@@ -241,11 +241,44 @@ const updateApplicationSansRegionsRemoval = ({
 		return { region: { connect: { name: regionName } } };
 	});
 
-	return databaseConnector.case.update({
+	// Check if an applicant has to be created or updated
+	if (!isEmpty(applicant) || !isEmpty(applicantAddress)) {
+		if (applicantId) {
+			// If an applicationId is explicitly provided, this is an update
+			await databaseConnector.serviceUser.update({
+				data: {
+					...applicant,
+					...(!isEmpty(applicantAddress) && {
+						address: { upsert: { create: applicantAddress, update: applicantAddress } }
+					})
+				},
+				where: {
+					id: applicantId
+				}
+			});
+		} else {
+			// If an applicationId is not provided, we're creating a new applicant
+			const createdServiceUser = await databaseConnector.serviceUser.create({
+				data: {
+					...applicant,
+					...(!isEmpty(applicantAddress) && {
+						address: { create: applicantAddress }
+					})
+				}
+			});
+
+			applicantId = createdServiceUser.id;
+		}
+	}
+
+	return await databaseConnector.case.update({
 		where: { id: caseId },
 		data: {
 			modifiedAt: new Date(),
 			...caseDetails,
+			...(applicantId && {
+				applicantId
+			}),
 			...(!isEmpty(gridReference) && {
 				gridReference: {
 					upsert: {
@@ -275,33 +308,6 @@ const updateApplicationSansRegionsRemoval = ({
 					}
 				}
 			}),
-			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
-				applicantId && {
-					applicant: {
-						update: {
-							data: {
-								...applicant,
-								...(!isEmpty(applicantAddress) && {
-									address: { upsert: { create: applicantAddress, update: applicantAddress } }
-								})
-							},
-							where: {
-								id: applicantId
-							}
-						}
-					}
-				}),
-			...((!isEmpty(applicant) || !isEmpty(applicantAddress)) &&
-				!applicantId && {
-					applicant: {
-						create: {
-							...applicant,
-							...(!isEmpty(applicantAddress) && {
-								address: { create: applicantAddress }
-							})
-						}
-					}
-				}),
 			...(caseStatus && {
 				CaseStatus: {
 					updateMany: {
@@ -340,8 +346,6 @@ export const updateApplication = async ({
 	applicantAddress,
 	hasUnpublishedChanges
 }) => {
-	const transactions = [];
-
 	if (typeof regionNames !== 'undefined') {
 		// get the correct ApplicationDetails record id corresponding to this case
 		const applicationDetailsRecord = await databaseConnector.applicationDetails.findUnique({
@@ -349,28 +353,24 @@ export const updateApplication = async ({
 		});
 
 		if (applicationDetailsRecord) {
-			transactions.push(removeRegions(applicationDetailsRecord.id));
+			await removeRegions(applicationDetailsRecord.id);
 		}
 	}
 
-	transactions.push(
-		updateApplicationSansRegionsRemoval({
-			caseId,
-			applicantId,
-			caseDetails,
-			gridReference,
-			applicationDetails,
-			caseStatus,
-			subSectorName,
-			regionNames,
-			mapZoomLevelName,
-			applicant,
-			applicantAddress,
-			hasUnpublishedChanges
-		})
-	);
-
-	await databaseConnector.$transaction(transactions);
+	await updateApplicationSansRegionsRemoval({
+		caseId,
+		applicantId,
+		caseDetails,
+		gridReference,
+		applicationDetails,
+		caseStatus,
+		subSectorName,
+		regionNames,
+		mapZoomLevelName,
+		applicant,
+		applicantAddress,
+		hasUnpublishedChanges
+	});
 
 	return getById(caseId, {
 		subSector: true,

@@ -12,7 +12,7 @@ applicationsEditApplicantRouter.use(registerApplicantId);
 applicationsEditApplicantRouter
 	.route('/applicant-organisation-name')
 	.get(
-		registerCaseWithQuery(['applicants']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantOrganisationName)
 	)
 	.post(asyncRoute(controller.updateApplicationsEditApplicantOrganisationName));
@@ -20,7 +20,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-full-name')
 	.get(
-		registerCaseWithQuery(['applicants']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantFullName)
 	)
 	.post(asyncRoute(controller.updateApplicationsEditApplicantFullName));
@@ -28,7 +28,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-address')
 	.get(
-		registerCaseWithQuery(['applicants', 'applicantsAddress']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantAddressReadyOnly)
 	)
 	.post(
@@ -39,7 +39,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-address/new')
 	.get(
-		registerCaseWithQuery(['applicants', 'applicantsAddress']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantAddress)
 	)
 	.post(
@@ -50,7 +50,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-website')
 	.get(
-		registerCaseWithQuery(['applicants']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantWebsite)
 	)
 	.post(
@@ -61,7 +61,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-email')
 	.get(
-		registerCaseWithQuery(['applicants']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantEmail)
 	)
 	.post(
@@ -72,7 +72,7 @@ applicationsEditApplicantRouter
 applicationsEditApplicantRouter
 	.route('/applicant-telephone-number')
 	.get(
-		registerCaseWithQuery(['applicants']),
+		registerCaseWithQuery(['applicant']),
 		asyncRoute(controller.viewApplicationsEditApplicantTelephoneNumber)
 	)
 	.post(

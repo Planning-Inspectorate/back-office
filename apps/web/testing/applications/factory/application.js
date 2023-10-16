@@ -39,7 +39,7 @@ export const createCase = ({
 	sector = createOptionsItem(),
 	subSector = createOptionsItem(),
 	status = `Status ${id}000`,
-	applicants = [createApplicant(true)],
+	applicant = createApplicant(true),
 	caseEmail
 } = {}) => {
 	return {
@@ -52,7 +52,7 @@ export const createCase = ({
 		publishedDate,
 		sector,
 		subSector,
-		applicants,
+		applicant,
 		geographicalInformation: {
 			locationDescription: 'London',
 			gridReference: {
