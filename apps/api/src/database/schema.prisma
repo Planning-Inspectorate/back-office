@@ -21,7 +21,7 @@ model Case {
   hasUnpublishedChanges Boolean               @default(false)
   applicantId           Int?
   ApplicationDetails    ApplicationDetails?
-  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id])
   CaseStatus            CaseStatus[]
   CasePublishedState    CasePublishedState[]
   folder                Folder[]
@@ -187,8 +187,8 @@ model Address {
   county                String?
   town                  String?
   country               String?
-  RepresentationContact RepresentationContact[]
   ServiceUser           ServiceUser[]
+  RepresentationContact RepresentationContact[]
 }
 
 /// Region model
@@ -348,8 +348,8 @@ model RepresentationContact {
   phoneNumber      String?
   contactMethod    String? // Email | Phone Number
   addressId        Int?
-  address          Address?       @relation(fields: [addressId], references: [id])
-  Representation   Representation @relation(fields: [representationId], references: [id])
+  address          Address?       @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Representation   Representation @relation(fields: [representationId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 // RepresentationAction model

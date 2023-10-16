@@ -6,7 +6,7 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const successPatchPostResponse = { id: 1, applicantIds: [1] };
+const successPatchPostResponse = { id: 1, applicantId: 1 };
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-team').reply(200, []);

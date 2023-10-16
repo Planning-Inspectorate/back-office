@@ -1,5 +1,4 @@
 import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
-import { getApplicantById } from '../../services/applicant.service.js';
 import { updateCase } from '../../services/case.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -21,11 +20,10 @@ import { updateCase } from '../../services/case.service.js';
  * @returns {Promise<ApplicationsCreateApplicantOrganisationNameProps>}
  */
 export async function applicantOrganisationNameData(request, locals) {
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
-		'applicant.organisationName': applicant?.organisationName
+		'applicant.organisationName': currentCase?.applicant?.organisationName
 	};
 
 	return { values };
@@ -44,7 +42,7 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 	const applicantInfo = { id, organisationName };
 
 	const { errors, id: updatedCaseId } = await updateCase(caseId, {
-		applicants: [applicantInfo]
+		applicant: applicantInfo
 	});
 
 	return {
@@ -65,13 +63,12 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantFullNameProps>}
  */
 export async function applicantFullNameData(request, locals) {
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
-		'applicant.firstName': applicant?.firstName,
-		'applicant.middleName': applicant?.middleName,
-		'applicant.lastName': applicant?.lastName
+		'applicant.firstName': currentCase?.applicant?.firstName,
+		'applicant.middleName': currentCase?.applicant?.middleName,
+		'applicant.lastName': currentCase?.applicant?.lastName
 	};
 
 	return { values };
@@ -95,7 +92,7 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
 	};
 
 	const { errors, id: updatedCaseId } = await updateCase(caseId, {
-		applicants: [applicantInfo]
+		applicant: applicantInfo
 	});
 
 	return { properties: { errors, values: body }, updatedCaseId };
@@ -110,11 +107,10 @@ export async function applicantFullNameDataUpdate({ body }, locals) {
  * @returns {Promise<ApplicationsCreateApplicantEmailProps>}
  */
 export async function applicantEmailData(request, locals) {
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
-		'applicant.email': applicant?.email
+		'applicant.email': currentCase?.applicant?.email
 	};
 
 	return { values };
@@ -134,7 +130,7 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
 	const applicantInfo = { id, email: body['applicant.email'] };
 
 	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
-		applicants: [applicantInfo]
+		applicant: applicantInfo
 	});
 
 	return { properties: { errors: validationErrors || apiErrors, values }, updatedCaseId };
@@ -150,24 +146,23 @@ export async function applicantEmailDataUpdate({ errors: validationErrors, body 
  */
 export async function applicantAddressData({ query }, locals) {
 	const { postcode: queryPostcode } = query;
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const singlePostcode = queryPostcode ? `${queryPostcode}` : null;
 	const trimAddressPart = (/** @type {string | undefined} */ addressPart) =>
 		addressPart ? `${addressPart.trim()}, ` : '';
 
 	let applicantAddress = '';
 
-	if (applicant?.address) {
-		const { address } = applicant;
+	if (currentCase?.applicant?.address) {
+		const { address } = currentCase.applicant;
 
 		applicantAddress = `${trimAddressPart(address.addressLine1)}${trimAddressPart(
 			address.addressLine2
 		)}${trimAddressPart(address.town)}${trimAddressPart(address.postCode)}`;
 	}
 
-	const postcode = singlePostcode || applicant?.address?.postCode;
+	const postcode = singlePostcode || currentCase?.applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
 	return { formStage, postcode, applicantAddress };
@@ -208,24 +203,22 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 				const selectedAddress = addressList.find(
 					(address) => address.apiReference === apiReference
 				);
-				const payload = { applicants: [{ id: applicantId, address: selectedAddress }] };
+				const payload = { applicant: { id: applicantId, address: selectedAddress } };
 				const { errors: updateErrors } = await updateCase(caseId, payload);
 
 				return { errors: serviceErrors || updateErrors, addressList };
 			}
 			case 'manualAddress': {
 				const payload = {
-					applicants: [
-						{
-							id: applicantId,
-							address: {
-								postcode,
-								addressLine1: body['applicant.address.addressLine1'],
-								addressLine2: body['applicant.address.addressLine2'],
-								town: body['applicant.address.town']
-							}
+					applicant: {
+						id: applicantId,
+						address: {
+							postcode,
+							addressLine1: body['applicant.address.addressLine1'],
+							addressLine2: body['applicant.address.addressLine2'],
+							town: body['applicant.address.town']
 						}
-					]
+					}
 				};
 
 				const { errors } = await updateCase(caseId, payload);
@@ -259,11 +252,10 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
  * @returns {Promise<ApplicationsCreateApplicantWebsiteProps>}
  */
 export async function applicantWebsiteData(request, locals) {
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
-		'applicant.website': applicant?.website
+		'applicant.website': currentCase?.applicant?.website
 	};
 
 	return { values };
@@ -284,7 +276,7 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
 	const applicantInfo = { id, website };
 
 	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
-		applicants: [applicantInfo]
+		applicant: applicantInfo
 	});
 
 	const properties = {
@@ -304,11 +296,10 @@ export async function applicantWebsiteDataUpdate({ body, errors: validationError
  * @returns {Promise<ApplicationsCreateApplicantTelephoneNumberProps>}
  */
 export async function applicantTelephoneNumberData(request, locals) {
-	const { currentCase, applicantId } = locals;
+	const { currentCase } = locals;
 
-	const applicant = await getApplicantById(currentCase, applicantId);
 	const values = {
-		'applicant.phoneNumber': applicant?.phoneNumber
+		'applicant.phoneNumber': currentCase?.applicant?.phoneNumber
 	};
 
 	return { values };
@@ -332,7 +323,7 @@ export async function applicantTelephoneNumberDataUpdate(
 	const applicantInfo = { id, phoneNumber };
 
 	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, {
-		applicants: [applicantInfo]
+		applicant: applicantInfo
 	});
 	const properties = { errors: validationErrors || apiErrors, values };
 
