@@ -44,5 +44,5 @@ export const buildNsipS51AdvicePayload = (s51Advice) => ({
 	status: s51Advice.publishedStatus,
 	redactionStatus: s51Advice.redactedStatus,
 	// @ts-ignore
-	attachmentIds: s51Advice.S51AdviceDocument.map((doc) => doc.id)
+	attachmentIds: s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
 });
