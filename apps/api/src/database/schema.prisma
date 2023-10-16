@@ -21,7 +21,7 @@ model Case {
   hasUnpublishedChanges Boolean               @default(false)
   applicantId           Int?
   ApplicationDetails    ApplicationDetails?
-  applicant             ServiceUser?          @relation(fields: [serviceUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   CaseStatus            CaseStatus[]
   CasePublishedState    CasePublishedState[]
   folder                Folder[]
@@ -32,7 +32,6 @@ model Case {
   ExaminationTimetable  ExaminationTimetable?
   ProjectUpdate         ProjectUpdate[]
   S51Advice             S51Advice[]
-  serviceUserId         Int?
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
