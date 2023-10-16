@@ -319,13 +319,13 @@ export const getManyDocumentsProperties = async ({ query: { guids, published } }
 	);
 
 	/** @type {DocumentVersionWithDocument[]} */
-	const foundDocuments = [];
-	documentsVersion.forEach((document, index) => {
+	const foundDocuments = documentsVersion.flatMap((document, index) => {
 		if (document === null) {
 			logger.warn(`No published version of document ${filesGuid[index]} found`);
-			return;
+			return [];
 		}
-		foundDocuments.push(document);
+
+		return [document];
 	});
 
 	// Map the documents metadata to a format to be returned in the API response.
