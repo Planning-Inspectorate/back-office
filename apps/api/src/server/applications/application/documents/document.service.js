@@ -142,6 +142,7 @@ const attemptInsertDocuments = async (caseId, documents) => {
 				originalFilename: documentToDB.documentName,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
+				owner: documentToDB.username,
 				stage: stage,
 				version: 1,
 				...(config.virusScanningDisabled && {
@@ -357,6 +358,7 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	currentDocumentVersion[0].fileName = fileName;
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
+	currentDocumentVersion[0].owner = documentToUpload.username;
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
@@ -775,7 +777,7 @@ export const unpublishDocuments = async (guids) => {
 				status: 'unpublished'
 			})
 		)
-  );
+	);
 
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
