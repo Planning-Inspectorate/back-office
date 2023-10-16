@@ -253,6 +253,23 @@ describe('site-visit', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the schedule visit page with the expected error message if visit start time is not before end time', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
+				'visit-type': 'accompanied',
+				'visit-date-day': '1',
+				'visit-date-month': '1',
+				'visit-date-year': '3000',
+				'visit-start-time-hour': '10',
+				'visit-start-time-minute': '00',
+				'visit-end-time-hour': '10',
+				'visit-end-time-minute': '00'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should redirect to the site visit scheduled confirmation page if all required fields are populated and valid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
 				'visit-type': 'accompanied',

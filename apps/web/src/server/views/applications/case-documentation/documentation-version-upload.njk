@@ -11,13 +11,13 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
-
-{{ govukBackLink({
-  	text: "Back",
-  	href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'})
-	})
-}}
-
+<aside>
+	{{ govukBackLink({
+		text: "Back",
+		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'})
+		})
+	}}
+</aside>
 {% endblock %}
 
 {% block pageContent %}

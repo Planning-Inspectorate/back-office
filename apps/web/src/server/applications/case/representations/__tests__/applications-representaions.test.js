@@ -7,7 +7,16 @@ import { representationsFixture } from '../__fixtures__/representations.fixture.
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
-const mockCaseReference = { title: 'mock title', status: 'in test', reference: 'mock reference' };
+const mockCaseReference = {
+	title: 'mock title',
+	status: 'in test',
+	reference: 'mock reference',
+	keyDates: {
+		preExamination: {
+			dateOfRelevantRepresentationClose: '2021-01-01'
+		}
+	}
+};
 const nocks = () => {
 	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
 	nock('http://test/')
@@ -26,6 +35,9 @@ const nocks = () => {
 		.query({ searchTerm: '', sortBy: '', page: 1, pageSize: 25, under18: false })
 		.reply(200, representationsFixture)
 		.persist();
+	nock('http://test/')
+		.get('/applications/1/representations/publishable')
+		.reply(200, { previouslyPublished: true, itemCount: 1 });
 };
 
 describe('applications representations', () => {

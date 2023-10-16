@@ -263,7 +263,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 								data.lpaQ.documents.conservationAreaMap.documents?.length > 0 ? 'Change' : 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaQ.appealId,
-								data.lpaQ.documents.conservationAreaMap
+								data.lpaQ.documents.conservationAreaMap,
+								buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 							)
 						}
 					]
@@ -313,7 +314,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 							text: data.lpaQ.documents.notifyingParties?.documents?.length > 0 ? 'Change' : 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaQ.appealId,
-								data.lpaQ.documents.notifyingParties
+								data.lpaQ.documents.notifyingParties,
+								buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 							)
 						}
 					]
@@ -370,7 +372,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 								text: data.lpaQ.documents.siteNotices?.documents?.length > 0 ? 'Change' : 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaQ.appealId,
-									data.lpaQ.documents.siteNotices
+									data.lpaQ.documents.siteNotices,
+									buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 								)
 							}
 						]
@@ -406,7 +409,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 									data.lpaQ.documents.lettersToNeighbours?.documents?.length > 0 ? 'Change' : 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaQ.appealId,
-									data.lpaQ.documents.lettersToNeighbours
+									data.lpaQ.documents.lettersToNeighbours,
+									buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 								)
 							}
 						]
@@ -440,7 +444,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 								text: data.lpaQ.documents.pressAdvert?.documents?.length > 0 ? 'Change' : 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaQ.appealId,
-									data.lpaQ.documents.pressAdvert
+									data.lpaQ.documents.pressAdvert,
+									buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 								)
 							}
 						]
@@ -492,7 +497,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 								text: data.lpaQ.documents.representations?.documents?.length > 0 ? 'Change' : 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaQ.appealId,
-									data.lpaQ.documents.representations
+									data.lpaQ.documents.representations,
+									buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 								)
 							}
 						]
@@ -521,7 +527,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 							text: data.lpaQ.documents.officersReport?.documents?.length > 0 ? 'Change' : 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaQ.appealId,
-								data.lpaQ.documents.officersReport
+								data.lpaQ.documents.officersReport,
+								buildDocumentUploadUrlTemplate(data.lpaQ.lpaQuestionnaireId)
 							)
 						}
 					]
@@ -720,3 +727,11 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 
 	return mappedData;
 }
+
+/**
+ * @param {string} lpaQuestionnaireId
+ * @returns {string}
+ */
+const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
+	return `/appeals-service/appeal-details/{{appealId}}/lpa-questionnaire/${lpaQuestionnaireId}/add-documents/{{folderId}}/{{documentId}}`;
+};

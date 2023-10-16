@@ -20,10 +20,11 @@
  *
  * @param {Number} caseId
  * @param {FolderInfo} folder
+ * @param {function} mapDocumentUploadUrl
  * @param {boolean?} [singleDocument]
  * @returns {MappedFolderForListBuilder}
  */
-export const mapFolder = (caseId, folder, singleDocument = true) => {
+export const mapFolder = (caseId, folder, mapDocumentUploadUrl, singleDocument = true) => {
 	const { documents } = folder;
 	const documentMap = (documents || []).map((document) => {
 		return {
@@ -44,18 +45,4 @@ export const mapFolder = (caseId, folder, singleDocument = true) => {
  */
 const mapDocumentDownloadUrl = (doc) => {
 	return `/documents/${doc.caseId}/download/${doc.id}/preview/`;
-};
-
-/**
- *
- * @param {Number} caseId
- * @param {FolderInfo} folder
- * @param {DocumentInfo | null} doc
- */
-const mapDocumentUploadUrl = (caseId, folder, doc = null) => {
-	if (doc) {
-		return `/appeals-service/appeal-details/${doc.caseId}/documents/${doc.folderId}/upload/${doc.id}/`;
-	}
-
-	return `/appeals-service/appeal-details/${caseId}/documents/${folder.folderId}/upload/`;
 };

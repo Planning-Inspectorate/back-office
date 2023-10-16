@@ -8,10 +8,12 @@
     {{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
 {% block beforeContent %}
+<aside>
     {{ govukBackLink({
 		text: "Back",
 		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: "properties"})
 	}) }}
+</aside>
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block errorSummary %}
@@ -60,7 +62,7 @@
 							html: fileNameHtml
 						},
 						{
-							text: documentationFile.from
+							text: documentationFile.author
 						}
 					]
 				]

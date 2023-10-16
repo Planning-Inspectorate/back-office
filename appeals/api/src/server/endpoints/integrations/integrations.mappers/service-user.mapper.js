@@ -25,7 +25,7 @@ export const mapServiceUserOut = (data) => {
 	const user = {
 		firstName: data.customer.firstName,
 		lastName: data.customer.lastName,
-		email: data.customer.email
+		emailAddress: data.customer.email
 	};
 	return user;
 };

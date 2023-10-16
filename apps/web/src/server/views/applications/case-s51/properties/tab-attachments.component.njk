@@ -48,20 +48,20 @@
 		{% endset %}
 
 		{% set status %}
-		{% set avWaiting = attachment.status === 'awaiting_virus_check'%}
-		{% set avFailed = attachment.status === 'failed_virus_check' %}
-		<p>
-			{% if avWaiting %}
-				<strong class="govuk-tag govuk-tag--yellow">
-				{% elif avFailed %}
-					<strong class="govuk-tag govuk-tag--red">
-					{% else %}
-						<strong class="govuk-tag">
-						{% endif %}
-						{{ attachment.status|statusName }}
-					</strong>
-				</p>
-				{% endset %}
+      {% set avWaiting = (attachment.status === 'awaiting_virus_check') or (attachment.status === 'awaiting_upload') %}
+      {% set avFailed = attachment.status === 'failed_virus_check' %}
+      {% if avWaiting or avFailed %}
+        <p>
+          {% if avWaiting %}
+            <strong class="govuk-tag govuk-tag--yellow">
+          {% else %}
+            <strong class="govuk-tag govuk-tag--red">
+          {% endif %}
+            {{ attachment.status|statusName }}
+          </strong>
+        </p>
+      {% endif %}
+    {% endset %}
 				{% set row = [
 					{
 						html: name

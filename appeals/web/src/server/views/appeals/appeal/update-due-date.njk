@@ -39,17 +39,22 @@
 				text: "For example, 27 3 2007"
 			}
 		}) }}
-		<p class="govuk-body">If the existing due date still applies, please skip to the confirmation screen.</p>
+		{% if skipButtonUrl %}
+			<p class="govuk-body">If the existing due date still applies, please skip to the confirmation screen.</p>
+		{% endif %}
 		<div class="govuk-button-group">
 			{{ govukButton({
-				text: "Save and continue",
+				text: continueButtonText,
 				type: "submit"
 			}) }}
-			{{ govukButton({
-				text: "Skip",
-				href: skipButtonUrl,
-				classes: "govuk-button--secondary"
-			}) }}
+			{% if skipButtonUrl %}
+				{{ govukButton({
+					text: "Skip",
+					href: skipButtonUrl,
+					classes: "govuk-button--secondary"
+				}) }}
+			{% endif %}
+
 		</div>
 	</form>
 {%- endblock -%}

@@ -1,11 +1,11 @@
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
-import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
-import { getPageCount, getSkipValue } from '../../utils/database-pagination.js';
-import { mapManyS51Advice } from '../../utils/mapping/map-s51-advice-details.js';
-import { getStorageLocation } from '../../utils/document-storage.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as s51AdviceRepository from '#repositories/s51-advice.repository.js';
+import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import { mapManyS51Advice } from '#utils/mapping/map-s51-advice-details.js';
+import { getStorageLocation } from '#utils/document-storage.js';
 import { getCaseDetails } from '../application/application.service.js';
-import BackOfficeAppError from '../../utils/app-error.js';
+import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
@@ -18,10 +18,8 @@ import {
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
  * @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
+ * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: S51AdviceDetails[]}} S51AdvicePaginatedDetails
- * @typedef {{ caseType: string, caseReference: string, GUID: string }} BlobStoreRequest
-
- * S51AdvicePaginatedDetails
  */
 
 /**
@@ -60,7 +58,7 @@ export const getManyS51AdviceOnCase = async (caseId, pageNumber = 1, pageSize = 
  *
  * @param {number} caseId
  * @param {number} adviceId
- * @returns {Promise<{blobStorageHost: string, privateBlobContainer: string, documents: {blobStoreUrl: string, caseType: string, caseReference: string,documentName: string, GUID: string}[]}>}
+ * @returns {Promise<DocumentAndBlobInfoManyResponse>}
  * */
 export const getS51AdviceDocuments = async (caseId, adviceId) => {
 	const adviceDocumentItems = await s51AdviceDocumentRepository.getForAdvice(adviceId);
@@ -75,11 +73,12 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 			return [];
 		}
 
-		return {
-			caseType: 'application',
+		return /** @type {DocumentBlobStoragePayload} */ {
+			/** @type {'appeal' | 'application'} */ caseType: 'application',
 			caseReference: caseData.reference,
 			GUID: item.documentGuid,
-			documentName: item.Document.latestDocumentVersion.fileName
+			documentName: item.Document?.latestDocumentVersion?.fileName,
+			version: 1
 		};
 	});
 

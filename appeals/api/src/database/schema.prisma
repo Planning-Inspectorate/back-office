@@ -178,6 +178,10 @@ model AppellantCase {
   isSiteVisibleFromPublicRoad                    Boolean?
   newDevelopmentDescription                      String?
   visibilityRestrictions                         String?
+  decision                                       String?
+  originalCaseDecisionDate                       DateTime?
+  costsAppliedForIndicator                       Boolean?
+  inspectorAccessDetails                         String?
   appeal                                         Appeal                                         @relation(fields: [appealId], references: [id])
   knowledgeOfOtherLandowners                     KnowledgeOfOtherLandowners?                    @relation(fields: [knowledgeOfOtherLandownersId], references: [id])
   planningObligationStatus                       PlanningObligationStatus?                      @relation(fields: [planningObligationStatusId], references: [id])

@@ -61,3 +61,34 @@ export const createTimeInputValidator = (
 				)
 			)
 	);
+
+export const createStartTimeBeforeEndTimeValidator = (
+	startTimeFieldNamePrefix = 'startTime',
+	endTimeFieldNamePrefix = 'endTime',
+	startTimeMessageFieldNamePrefix = 'start time',
+	endTimeMessageFieldNamePrefix = 'end time',
+	// @ts-ignore
+	// eslint-disable-next-line no-unused-vars
+	continueValidationCondition = (value) => true
+) =>
+	createValidator(
+		body()
+			.if(continueValidationCondition)
+			.custom((bodyFields) => {
+				const startTimeHour = parseInt(bodyFields[`${startTimeFieldNamePrefix}-hour`], 10);
+				const startTimeMinute = parseInt(bodyFields[`${startTimeFieldNamePrefix}-minute`], 10);
+				const endTimeHour = parseInt(bodyFields[`${endTimeFieldNamePrefix}-hour`], 10);
+				const endTimeMinute = parseInt(bodyFields[`${endTimeFieldNamePrefix}-minute`], 10);
+
+				return (
+					!Number.isNaN(startTimeHour) &&
+					!Number.isNaN(startTimeMinute) &&
+					!Number.isNaN(endTimeHour) &&
+					!Number.isNaN(endTimeMinute) &&
+					startTimeHour + startTimeMinute < endTimeHour + endTimeMinute
+				);
+			})
+			.withMessage(
+				`${startTimeMessageFieldNamePrefix} must be before ${endTimeMessageFieldNamePrefix}`
+			)
+	);

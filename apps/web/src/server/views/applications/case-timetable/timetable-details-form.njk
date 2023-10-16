@@ -17,10 +17,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{{ govukBackLink({
 		text: "Back to examination table" if isEditing else "Back",
-		href: 'timetable'|url({caseId: caseId, step: '' if isEditing else 'new-item'})
+		href: 'timetable'|url({caseId: caseId, step: '' if isEditing else 'item/new'})
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}

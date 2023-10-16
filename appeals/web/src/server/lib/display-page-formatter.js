@@ -4,11 +4,12 @@ import { appealShortReference } from './nunjucks-filters/appeals.js';
 
 /**
  *
- * @param {any} appealId
+ * @param {number} appealId
  * @param {any} listOfDocuments
+ * @param {string} documentUploadUrlTemplate
  * @returns
  */
-export const formatDocumentActionLink = (appealId, listOfDocuments) => {
+export const formatDocumentActionLink = (appealId, listOfDocuments, documentUploadUrlTemplate) => {
 	if (
 		listOfDocuments != null &&
 		typeof listOfDocuments === 'object' &&
@@ -16,9 +17,15 @@ export const formatDocumentActionLink = (appealId, listOfDocuments) => {
 	) {
 		if (Array.isArray(listOfDocuments.documents) && listOfDocuments.documents.length > 0) {
 			const document = listOfDocuments.documents[0];
-			return `/appeals-service/appeal-details/${document.caseId}/documents/${document.folderId}/upload/${document.id}`;
+			return documentUploadUrlTemplate
+				.replace('{{appealId}}', document.caseId)
+				.replace('{{folderId}}', document.folderId)
+				.replace('{{documentId}}', document.id);
 		}
-		return `/appeals-service/appeal-details/${appealId}/documents/${listOfDocuments.folderId}/upload/`;
+		return documentUploadUrlTemplate
+			.replace('{{appealId}}', String(appealId))
+			.replace('{{folderId}}', listOfDocuments.folderId)
+			.replace('/{{documentId}}', '');
 	}
 	return `#`;
 };
@@ -101,27 +108,21 @@ export const formatDocumentValues = (appealId, listOfDocuments) => {
 	if (
 		listOfDocuments !== null &&
 		typeof listOfDocuments === 'object' &&
+		!Array.isArray(listOfDocuments) &&
 		'documents' in listOfDocuments
 	) {
 		listOfDocuments = listOfDocuments.documents;
 		if (Array.isArray(listOfDocuments)) {
 			for (let i = 0; i < listOfDocuments.length; i++) {
 				const document = listOfDocuments[i];
-				formattedDocumentList += `<li><a href='/documents/${appealId}/download/${document.id}/preview' target="'_docpreview'" class="govuk-link">${document.name}</a></li>`;
+				formattedDocumentList += `<li><a href='/documents/${appealId}/download/${document.id}/preview' target="'_blank'" class="govuk-link">${document.name}</a></li>`;
 			}
 			return `<ul class="govuk-list">${formattedDocumentList}</ul>`;
 		}
-		return `<a href='/documents/${appealId}/download/${listOfDocuments.id}/preview' target="'_docpreview'" class="govuk-link">${listOfDocuments.name}</a>`;
+		return `<a href='/documents/${appealId}/download/${listOfDocuments.id}/preview' target="'_blank'" class="govuk-link">${listOfDocuments.name}</a>`;
 	} else {
 		logger.error('Document not in correct format');
-		if (Array.isArray(listOfDocuments)) {
-			for (let i = 0; i < listOfDocuments.length; i++) {
-				logger.info(listOfDocuments[i]);
-				formattedDocumentList += `<li><a href='#' class="govuk-link">${listOfDocuments[i]}</a></li>`;
-			}
-			return `<ul class="govuk-list">${formattedDocumentList}</ul>`;
-		}
-		return `<a href='#' class="govuk-link">${listOfDocuments}</a>`;
+		return '';
 	}
 };
 

@@ -19,12 +19,13 @@ model Case {
   description           String?
   title                 String?
   hasUnpublishedChanges Boolean               @default(false)
+  applicantId           Int?
   ApplicationDetails    ApplicationDetails?
+  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   CaseStatus            CaseStatus[]
   CasePublishedState    CasePublishedState[]
   folder                Folder[]
   gridReference         GridReference?
-  serviceCustomer       ServiceCustomer[]
   Representation        Representation[]
   document              Document[]
   Subscriptions         Subscription[]
@@ -33,9 +34,9 @@ model Case {
   S51Advice             S51Advice[]
 }
 
-/// ServiceCustomer model
-/// Contains data of people who submitted Applications
-model ServiceCustomer {
+// ServiceUser model which represents a person or oranisation who can have some role in a case
+// Example roles: applicant, represented, representative, subscriber
+model ServiceUser {
   id               Int      @id @default(autoincrement())
   organisationName String?
   firstName        String?
@@ -45,9 +46,8 @@ model ServiceCustomer {
   website          String?
   phoneNumber      String?
   addressId        Int?
-  caseId           Int
   address          Address? @relation(fields: [addressId], references: [id])
-  case             Case     @relation(fields: [caseId], references: [id])
+  Case             Case[]
 }
 
 /// GridReference model
@@ -187,8 +187,8 @@ model Address {
   county                String?
   town                  String?
   country               String?
-  ServiceCustomer       ServiceCustomer[]
   RepresentationContact RepresentationContact[]
+  ServiceUser           ServiceUser[]
 }
 
 /// Region model

@@ -7,7 +7,8 @@ import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
 	validateApplicationsDocumentationsDeleteStatus,
-	validateApplicationsDocumentsToPublish
+	validateApplicationsDocumentsToPublish,
+	validateApplicationsDocumentsToUnpublish
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
@@ -52,6 +53,13 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/:folderName/unpublishing-queue')
+	.post(
+		[validateApplicationsDocumentsToUnpublish, locals.registerFolder],
+		asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishPage)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
@@ -91,10 +99,10 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/document/:documentGuid/unpublish')
+	.route('/:folderId/:folderName/unpublish')
 	.post(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
-		asyncRoute(controller.postUnpublishDocument)
+		asyncRoute(controller.postUnpublishDocuments)
 	);
 
 applicationsDocumentationRouter

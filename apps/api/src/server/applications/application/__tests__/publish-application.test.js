@@ -61,7 +61,6 @@ describe('Publish application', () => {
 					caseId: 1,
 					sourceSystem: 'ODT',
 					publishStatus: 'published',
-					applicantIds: [],
 					nsipOfficerIds: [],
 					nsipAdministrationOfficerIds: [],
 					inspectorIds: [],

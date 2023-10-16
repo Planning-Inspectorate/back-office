@@ -1,22 +1,23 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import joi from 'joi';
-import { validationErrorHandler } from '../../../middleware/error-handler.js';
-import * as DocumentRepository from '../../../repositories/document.repository.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
+import * as DocumentRepository from '#repositories/document.repository.js';
+import BackOfficeAppError from '#utils/app-error.js';
 import {
 	originEnum,
 	publishedStatusEnum,
 	redactedStatusEnum,
 	securityClassificationEnum,
 	sourceSystemEnum
-} from '../../../utils/create-enums.js';
-import logger from '../../../utils/logger.js';
+} from '#utils/create-enums.js';
+import logger from '#utils/logger.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
- * @typedef {import('apps/api/src/database/schema.js').DocumentVersion} DocumentVersion
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
  */
 
 export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
@@ -37,8 +38,10 @@ export const fetchDocumentByGuidAndCaseId = async (
 	/** @type {string} */ guid,
 	/** @type {number} */ caseId
 ) => {
-	const /** @type {import('apps/api/src/database/schema.js').Document | null} */ document =
-			await DocumentRepository.getByIdRelatedToCaseId(guid, caseId);
+	const /** @type {Document | null} */ document = await DocumentRepository.getByIdRelatedToCaseId(
+			guid,
+			caseId
+		);
 
 	if (document === null || typeof document === 'undefined') {
 		throw new BackOfficeAppError(

@@ -160,6 +160,7 @@ const initAddAnother = () => {
 		};
 		initOptions(componentInstance);
 		initItems(componentInstance);
+		updateAddButtonState(componentInstance);
 		initEvents(componentInstance);
 	});
 };

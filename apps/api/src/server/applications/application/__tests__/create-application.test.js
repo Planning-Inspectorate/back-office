@@ -3,14 +3,14 @@ import { request } from '../../../app-test.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
-const createdCase = { id: 1, serviceCustomer: [{ id: 4 }] };
+const createdCase = { id: 1, applicant: { id: 4 } };
 
 /** @type {import('../application.js').NsipProjectPayload} */
 const expectedEventPayload = {
 	caseId: 1,
 	sourceSystem: 'ODT',
 	publishStatus: 'unpublished',
-	applicantIds: ['4'],
+	applicantId: 4,
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
 	inspectorIds: [],
@@ -35,7 +35,7 @@ test('creates new application with just title and first notified date', async ()
 
 	// THEN
 	expect(response.status).toEqual(200);
-	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
+	expect(response.body).toEqual({ id: 1, applicantId: 4 });
 	expect(databaseConnector.case.create).toHaveBeenCalledWith({
 		data: {
 			title: 'some title',
@@ -76,7 +76,7 @@ test('creates new application with just easting and sub-sector name', async () =
 
 	// THEN
 	expect(response.status).toEqual(200);
-	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
+	expect(response.body).toEqual({ id: 1, applicantId: 4 });
 	expect(databaseConnector.case.create).toHaveBeenCalledWith({
 		data: {
 			gridReference: {
@@ -118,24 +118,22 @@ test('creates new application when all possible details provided', async () => {
 		description: 'description',
 		subSectorName: 'some_sub_sector',
 		caseEmail: 'caseEmail@pins.com',
-		applicants: [
-			{
-				firstName: 'first',
-				middleName: 'middle',
-				lastName: 'last',
-				organisationName: 'org',
-				email: 'test@test.com',
-				website: 'www.google.com',
-				phoneNumber: '02036579785',
-				address: {
-					addressLine1: 'address line 1',
-					addressLine2: 'address line 2',
-					town: 'town',
-					county: 'county',
-					postcode: 'N1 9BE'
-				}
+		applicant: {
+			firstName: 'first',
+			middleName: 'middle',
+			lastName: 'last',
+			organisationName: 'org',
+			email: 'test@test.com',
+			website: 'www.google.com',
+			phoneNumber: '02036579785',
+			address: {
+				addressLine1: 'address line 1',
+				addressLine2: 'address line 2',
+				town: 'town',
+				county: 'county',
+				postcode: 'N1 9BE'
 			}
-		],
+		},
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
@@ -155,7 +153,7 @@ test('creates new application when all possible details provided', async () => {
 
 	// THEN
 	expect(response.status).toEqual(200);
-	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
+	expect(response.body).toEqual({ id: 1, applicantId: 4 });
 	expect(databaseConnector.case.create).toHaveBeenCalledWith({
 		data: {
 			title: 'title',
@@ -177,7 +175,7 @@ test('creates new application when all possible details provided', async () => {
 					}
 				}
 			},
-			serviceCustomer: {
+			applicant: {
 				create: {
 					organisationName: 'org',
 					firstName: 'first',
@@ -215,15 +213,13 @@ test(`creates new application with application first and last name,
 
 	// WHEN
 	const response = await request.post('/applications').send({
-		applicants: [
-			{
-				firstName: 'first',
-				lastName: 'last',
-				address: {
-					addressLine1: 'some addr'
-				}
+		applicant: {
+			firstName: 'first',
+			lastName: 'last',
+			address: {
+				addressLine1: 'some addr'
 			}
-		],
+		},
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level'
 		}
@@ -231,10 +227,10 @@ test(`creates new application with application first and last name,
 
 	// THEN
 	expect(response.status).toEqual(200);
-	expect(response.body).toEqual({ id: 1, applicantIds: [4] });
+	expect(response.body).toEqual({ id: 1, applicantId: 4 });
 	expect(databaseConnector.case.create).toHaveBeenCalledWith({
 		data: {
-			serviceCustomer: {
+			applicant: {
 				create: {
 					firstName: 'first',
 					lastName: 'last',
@@ -282,15 +278,13 @@ test('returns error if any validated values are invalid', async () => {
 			mapZoomLevelName: 'some-unknown-map-zoom-level',
 			regionNames: ['some-unknown-region']
 		},
-		applicants: [
-			{
-				email: 'not a real email',
-				phoneNumber: '10235',
-				address: {
-					postcode: '191187'
-				}
+		applicant: {
+			email: 'not a real email',
+			phoneNumber: '10235',
+			address: {
+				postcode: '191187'
 			}
-		],
+		},
 		keyDates: {
 			preApplication: {
 				submissionAtInternal: 1_000_000
@@ -304,9 +298,9 @@ test('returns error if any validated values are invalid', async () => {
 	expect(response.body).toEqual({
 		errors: {
 			caseEmail: 'Case email must be a valid email address',
-			'applicants[0].address.postcode': 'Postcode must be a valid UK postcode',
-			'applicants[0].email': 'Email must be a valid email',
-			'applicants[0].phoneNumber': 'Phone Number must be a valid UK number',
+			'applicant.address.postcode': 'Postcode must be a valid UK postcode',
+			'applicant.email': 'Email must be a valid email',
+			'applicant.phoneNumber': 'Phone Number must be a valid UK number',
 			'geographicalInformation.gridReference.easting': 'Easting must be integer with 6 digits',
 			'geographicalInformation.gridReference.northing': 'Northing must be integer with 6 digits',
 			'geographicalInformation.mapZoomLevelName': 'Must be a valid map zoom level',

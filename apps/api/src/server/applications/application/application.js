@@ -59,7 +59,7 @@
  * @property {string[]} [inspectorIds]
  * @property {string | null} [environmentalServicesOfficerId] Maps to [Employee].[EmployeeID]
  * @property {string | null} [legalOfficerId] Maps to [Employee].[EmployeeID]
- * @property {string[]} [applicantIds] Maps to [Service Customer].[CustomerID]
+ * @property {number | null} [applicantId] Maps to [ServiceUser].[ID]
  * @property {string[]} [interestedPartyIds]
  */
 
@@ -77,9 +77,6 @@ export const buildNsipProjectPayload = (projectEntity) => {
 
 	const sectorAndType = mapSectorAndType(projectEntity);
 
-	const applicantIds =
-		projectEntity?.serviceCustomer?.map((customer) => customer.id.toString()) || [];
-
 	// 3. Return the result
 	return {
 		caseId: projectEntity.id,
@@ -90,7 +87,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		sourceSystem,
 		...application,
 		...sectorAndType,
-		applicantIds,
+		applicantId: projectEntity.applicant?.id,
 		// TODO: Will be added with Case Involvement work
 		nsipOfficerIds: [],
 		nsipAdministrationOfficerIds: [],

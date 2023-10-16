@@ -36,13 +36,29 @@ if (!config.authDisabled) {
 	router.use(assertIsAuthenticated);
 }
 
+// assert membership to one of the required groups to get to any page
+// this only excludes the unauthenticated routes above, such as login
+// note this also works locally, as the session is mocked
+//
+// specific routes should still add a group access guard where required for specific RBAC
+
+const allowedGroups = config.referenceData.appeals;
+const groupIds = [
+	allowedGroups.caseOfficerGroupId,
+	allowedGroups.inspectorGroupId,
+	allowedGroups.customerServiceGroupId,
+	allowedGroups.legalGroupId
+];
+
+router.use(assertGroupAccess(...groupIds));
+
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncRoute(handleSignout));
 
 router
 	.route('/documents/:caseId/upload')
 	.post(
-		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		assertGroupAccess(allowedGroups.caseOfficerGroupId),
 		addApiClientToRequest,
 		postDocumentsUpload
 	);
@@ -50,7 +66,7 @@ router
 router
 	.route('/documents/:caseId/upload/:documentId')
 	.post(
-		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		assertGroupAccess(allowedGroups.caseOfficerGroupId),
 		addApiClientToRequest,
 		postUploadDocumentVersion
 	);

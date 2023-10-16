@@ -12,6 +12,8 @@ export const validateIncompleteReason = createValidator(
 		.withMessage('Please select one or more reasons why the appeal is incomplete')
 );
 
-export const validateIncompleteReasonTextItems =
-	createCheckboxTextItemsValidator('incompleteReason');
+export const validateIncompleteReasonTextItems = createCheckboxTextItemsValidator(
+	'incompleteReason',
+	'appellantCaseNotValidReason'
+);
 export const validateUpdateDueDate = createDateInputValidator('due-date');

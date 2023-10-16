@@ -98,7 +98,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
     <h1 class=\\"govuk-heading-l\\">Check your project update</h1>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds project-update\\">
-            <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
+            <h1 class=\\"govuk-heading-m\\">Project update preview</h1>
             <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
             data-module=\\"govuk-notification-banner\\">
                 <div class=\\"govuk-notification-banner__header\\">
@@ -175,7 +175,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
     <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds project-update\\">
-            <h2 class=\\"govuk-heading-m\\">Project update preview</h2>
+            <h1 class=\\"govuk-heading-m\\">Project update preview</h1>
             <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
             data-module=\\"govuk-notification-banner\\">
                 <div class=\\"govuk-notification-banner__header\\">

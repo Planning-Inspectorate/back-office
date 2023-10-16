@@ -555,3 +555,62 @@ export const allocationDetailsData = {
 		}
 	]
 };
+
+export const documentFolderInfo = {
+	folderId: 23,
+	path: 'appellant_case/appealStatement',
+	caseId: 'APP/Q9999/D/21/941501',
+	documents: []
+};
+
+export const documentFileInfo = {
+	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
+	name: 'ph0.jpeg',
+	folderId: 1269,
+	createdAt: '2023-10-11T13:57:41.592Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 85,
+	receivedAt: null,
+	documentRedactionStatusId: null,
+	documentRedactionStatus: null,
+	latestDocumentVersion: {
+		documentGuid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
+		version: 1,
+		lastModified: null,
+		documentType: 'conservationAreaMap',
+		published: false,
+		sourceSystem: 'back-office',
+		origin: null,
+		originalFilename: 'ph0.jpeg',
+		fileName: 'ph0.jpeg',
+		representative: null,
+		description: null,
+		owner: null,
+		author: null,
+		securityClassification: null,
+		mime: 'image/jpeg',
+		horizonDataID: null,
+		fileMD5: null,
+		path: null,
+		virusCheckStatus: null,
+		size: 58861,
+		stage: 'lpa_questionnaire',
+		filter1: null,
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath:
+			'appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
+		dateCreated: '2023-10-11T13:57:41.592Z',
+		datePublished: null,
+		isDeleted: false,
+		examinationRefNo: null,
+		filter2: null,
+		publishedStatus: 'awaiting_upload',
+		publishedStatusPrev: null,
+		redactedStatus: null,
+		redacted: false,
+		documentURI:
+			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
+		dateReceived: null
+	}
+};

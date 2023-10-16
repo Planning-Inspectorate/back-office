@@ -725,8 +725,8 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: 'Change',
-							href: `${currentRoute}/change/lpa-questionnaire-due-date`
+							text: data.appeal?.lpaQuestionnaireId ? 'Change' : 'Schedule',
+							href: `${currentRoute}/appeal-timetables/lpa-questionnaire`
 						}
 					]
 				}
@@ -748,8 +748,8 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: 'Change',
-							href: `${currentRoute}/change/statement-review-due-date`
+							text: data.appeal?.statementReviewDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/appeal-timetables/statement-review`
 						}
 					]
 				}
@@ -771,8 +771,8 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: 'Change',
-							href: `${currentRoute}/change/final-comment-review-due-date`
+							text: data.appeal?.finalCommentReviewDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/appeal-timetables/final-comment-review`
 						}
 					]
 				}
@@ -940,8 +940,8 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appealTimetable?.issueDeterminationDate ? 'Change' : 'Schedule',
-							href: `${currentRoute}/issue-determination`
+							text: data.appeal?.issueDeterminationDate ? 'Change' : 'Schedule',
+							href: `${currentRoute}/appeal-timetables/issue-determination`
 						}
 					]
 				}

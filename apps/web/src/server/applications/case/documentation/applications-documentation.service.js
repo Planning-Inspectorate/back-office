@@ -111,6 +111,24 @@ export const unpublishCaseDocumentationFiles = async (caseId, documentGuids) => 
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
 };
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {number} caseId
+ * @param {string[]} filesGuid
+ * @returns {Promise<DocumentationFile[]>}
+ */
+export const getCaseManyDocumentationFilesInfo = async (
+	caseId,
+	filesGuid,
+	onlyPublished = false
+) => {
+	return get(
+		`applications/${caseId}/documents/properties?guids=${JSON.stringify(
+			filesGuid
+		)}&published=${onlyPublished}`
+	);
+};
 
 /**
  * Get the blob storage info for the file with the given GUID
