@@ -49,7 +49,7 @@ const documents = [
 ];
 
 describe('Published documents', () => {
-	test('returns published documents metadata on a case', async () => {
+	test('returns all documents metadata on a case', async () => {
 		// GIVEN
 		// @ts-ignore
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
@@ -60,6 +60,61 @@ describe('Published documents', () => {
 		// WHEN
 		const response = await request.get(
 			`/applications/1/documents/properties?guids=${JSON.stringify(filesGuid)}`
+		);
+
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(databaseConnector.documentVersion.findMany).toHaveBeenCalledWith({
+			where: {
+				documentGuid: {
+					in: ['688fad5e-b41c-45d5-8fb3-dcad37d38092']
+				},
+				isDeleted: false
+			}
+		});
+		expect(response.body).toEqual([
+			{
+				author: '',
+				caseRef: null,
+				dateCreated: 1678726449,
+				datePublished: null,
+				description: null,
+				documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
+				documentId: null,
+				documentRef: null,
+				documentType: '',
+				examinationRefNo: '',
+				fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
+				filter1: null,
+				filter2: null,
+				folderId: null,
+				fromFrontOffice: false,
+				mime: 'image/png',
+				originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
+				privateBlobContainer: '',
+				privateBlobPath: '',
+				publishedStatus: 'published',
+				redactedStatus: '',
+				representative: null,
+				size: 4375,
+				sourceSystem: 'back-office',
+				stage: null,
+				version: 1
+			}
+		]);
+	});
+
+	test('returns published documents metadata on a case', async () => {
+		// GIVEN
+		// @ts-ignore
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		// @ts-ignore
+		databaseConnector.documentVersion.findMany.mockResolvedValue(documents);
+
+		const filesGuid = ['688fad5e-b41c-45d5-8fb3-dcad37d38092'];
+		// WHEN
+		const response = await request.get(
+			`/applications/1/documents/properties?guids=${JSON.stringify(filesGuid)}&published=true`
 		);
 
 		// THEN
