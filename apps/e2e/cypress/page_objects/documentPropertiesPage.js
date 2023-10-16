@@ -111,4 +111,12 @@ export class DocumentPropertiesPage extends Page {
 		this.clickTabByText('Document history');
 		cy.get(`${this.selectors.tableBody} > ${this.selectors.tableRow}`).should('have.length', count);
 	}
+	verifyUnpublishButtonIsVisible(){
+		cy.get('a.govuk-button:nth-child(5)').should('not.exist');
+	}
+	verifyUnpublishStatus(){
+		cy.get('#tab_document-history').click();
+		//Waiting for dev work to complete
+
+	}
 }
