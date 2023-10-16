@@ -305,16 +305,17 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 /**
  * Gets the properties/metadata for many documents
  *
- * @type {import('express').RequestHandler<{}, {}, {}, {guids: string}>}
+ * @type {import('express').RequestHandler<{}, {}, {}, {guids: string; published: string}>}
  * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
-export const getManyDocumentsProperties = async ({ query: { guids } }, response) => {
+export const getManyDocumentsProperties = async ({ query: { guids, published } }, response) => {
 	const filesGuid = JSON.parse(guids);
+	const onlyPublished = published === 'true';
 
 	const documentsVersion = await documentVersionRepository.getManyByIdAndStatus(
 		filesGuid,
-		'published'
+		onlyPublished ? 'published' : undefined
 	);
 
 	/** @type {DocumentVersionWithDocument[]} */

@@ -127,10 +127,10 @@ export const getById = (documentGuid, version = 1) => {
  * Get info for many documents by documentGuid and published status
  *
  * @param {string} documentGuids
- * @param {string} publishedStatus
+ * @param {string} [publishedStatus]
  * @returns {import('@prisma/client').PrismaPromise<Array<DocumentVersion |null>>}
  */
-export const getManyByIdAndStatus = (documentGuids, publishedStatus = 'published') => {
+export const getManyByIdAndStatus = (documentGuids, publishedStatus) => {
 	return databaseConnector.documentVersion.findMany({
 		where: {
 			documentGuid: {

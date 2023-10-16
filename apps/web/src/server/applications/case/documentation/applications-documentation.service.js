@@ -118,8 +118,16 @@ export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
  * @param {string[]} filesGuid
  * @returns {Promise<DocumentationFile[]>}
  */
-export const getCaseManyDocumentationFilesInfo = async (caseId, filesGuid) => {
-	return get(`applications/${caseId}/documents/properties?guids=${JSON.stringify(filesGuid)}`);
+export const getCaseManyDocumentationFilesInfo = async (
+	caseId,
+	filesGuid,
+	onlyPublished = false
+) => {
+	return get(
+		`applications/${caseId}/documents/properties?guids=${JSON.stringify(
+			filesGuid
+		)}&published=${onlyPublished}`
+	);
 };
 
 /**

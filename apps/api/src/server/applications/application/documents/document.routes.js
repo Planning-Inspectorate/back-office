@@ -310,6 +310,12 @@ router.get(
 			description: 'A list of guids',
 			example: [1, 2],
 		}
+    #swagger.parameters['published'] = {
+      in: 'query',
+      description: 'Only return published documents',
+      type: 'boolean',
+      example: false
+    }
         #swagger.responses[200] = {
             description: 'Document properties',
             schema: { $ref: '#/definitions/DocumentProperties' }
