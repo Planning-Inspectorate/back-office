@@ -154,8 +154,19 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 		true
 	);
 
+	const pathMatch = request.url.match(/(\d+)\/([a-zA-Z-]+)\/unpublishing-queue$/);
+	const backLink = pathMatch
+		? url('document-category', {
+				caseId: response.locals.caseId,
+				documentationCategory: { id: parseInt(pathMatch[1]), displayNameEn: pathMatch[2] }
+		  })
+		: url('case-view', {
+				caseId: response.locals.caseId
+		  });
+
 	return response.render(`applications/case-documentation/documentation-unpublish`, {
-		documentationFiles
+		documentationFiles,
+		backLink
 	});
 }
 
