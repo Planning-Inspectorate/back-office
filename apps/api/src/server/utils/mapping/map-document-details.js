@@ -7,6 +7,7 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  */
 
 /**
+ * Returns a flat set of the document properties wanted by the UI
  *
  * @param { DocumentVersionWithDocument } documentVersion
  * @returns { DocumentDetails }

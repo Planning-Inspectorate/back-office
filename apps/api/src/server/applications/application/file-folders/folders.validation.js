@@ -1,7 +1,7 @@
 import { composeMiddleware } from '@pins/express';
 import { param } from 'express-validator';
-import { validationErrorHandler } from '../../../middleware/error-handler.js';
-import * as FolderRepository from '../../../repositories/folder.repository.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
+import * as FolderRepository from '#repositories/folder.repository.js';
 
 /**
  *
