@@ -1622,6 +1622,13 @@
 						"description": "A list of guids",
 						"example": [1, 2],
 						"type": "string"
+					},
+					{
+						"name": "published",
+						"in": "query",
+						"description": "Only return published documents",
+						"type": "boolean",
+						"example": false
 					}
 				],
 				"responses": {
