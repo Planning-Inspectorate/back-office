@@ -272,8 +272,8 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
 	/** @type {{folderId: number, isDeleted?:boolean}} */
 	const where = { folderId };
 
-	if (getAllDocuments) {
-		where.isDeleted = true;
+	if (!getAllDocuments) {
+		where.isDeleted = false;
 	}
 
 	return databaseConnector.document.count({
