@@ -36,4 +36,12 @@ router
 	.route('/:lpaQId/add-documents/:folderId/:documentId?')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
 
+router
+	.route('/:lpaQId/add-document-details/:folderId')
+	.get(validateCaseFolderId, controller.getAddDocumentDetails)
+	.post(
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postAddDocumentDetails
+	);
+
 export default router;
