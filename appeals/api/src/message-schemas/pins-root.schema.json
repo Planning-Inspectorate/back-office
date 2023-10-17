@@ -15,8 +15,6 @@
 				"originalCaseDecisionDate",
 				"costsAppliedForIndicator",
 				"LPAApplicationReference",
-				"appellant",
-				"agent",
 				"siteAddressLine1",
 				"siteAddressLine2",
 				"siteAddressTown",
@@ -53,36 +51,6 @@
 				},
 				"LPAApplicationReference": {
 					"type": "string"
-				},
-				"appellant": {
-					"type": "object",
-					"properties": {
-						"firstName": {
-							"type": "string"
-						},
-						"lastName": {
-							"type": "string"
-						},
-						"emailAddress": {
-							"type": "string"
-						}
-					},
-					"required": ["firstName", "lastName", "emailAddress"]
-				},
-				"agent": {
-					"type": "object",
-					"required": ["firstName", "lastName"],
-					"properties": {
-						"firstName": {
-							"type": "string"
-						},
-						"lastName": {
-							"type": "string"
-						},
-						"emailAddress": {
-							"type": "string"
-						}
-					}
 				},
 				"siteAddressLine1": {
 					"type": "string"
@@ -197,6 +165,69 @@
 				"listEntry": {
 					"type": "string",
 					"examples": ["1021477"]
+				}
+			}
+		},
+		"ServiceUser": {
+			"type": "object",
+			"required": ["firstName", "lastName", "emailAddress"],
+			"properties": {
+				"salutation": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"emailAddress": {
+					"type": "string"
+				},
+				"serviceUserType": {
+					"type": "string"
+				},
+				"caseReference": {
+					"type": "string"
+				},
+				"addressLine1": {
+					"type": "string"
+				},
+				"addressLine2": {
+					"type": "string"
+				},
+				"addressTown": {
+					"type": "string"
+				},
+				"addressCounty": {
+					"type": "string"
+				},
+				"addressPostcode": {
+					"type": "string"
+				},
+				"addressCountry": {
+					"type": "string"
+				},
+				"organisation": {
+					"type": "string"
+				},
+				"organisationType": {
+					"type": "string"
+				},
+				"role": {
+					"type": "string"
+				},
+				"telephoneNumber": {
+					"type": "string"
+				},
+				"otherPhoneNumber": {
+					"type": "string"
+				},
+				"faxNumber": {
+					"type": "string"
+				},
+				"webAddress": {
+					"type": "string"
 				}
 			}
 		}
