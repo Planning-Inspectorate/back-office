@@ -27,12 +27,12 @@ export const mapCaseData = (caseData) => {
 			'case.zoomLevel': caseData?.geographicalInformation?.mapZoomLevel?.displayNameEn,
 			'case.teamEmail': caseData?.caseEmail,
 
-			'applicant.organisationName': caseData?.applicants[0].organisationName,
-			'applicant.fullName': nameToString(caseData?.applicants[0]),
-			'applicant.address': addressToString(caseData?.applicants[0].address),
-			'applicant.website': caseData?.applicants[0].website,
-			'applicant.email': caseData?.applicants[0].email,
-			'applicant.phoneNumber': caseData?.applicants[0].phoneNumber,
+			'applicant.organisationName': caseData?.applicant?.organisationName,
+			'applicant.fullName': nameToString(caseData?.applicant),
+			'applicant.address': addressToString(caseData?.applicant?.address),
+			'applicant.website': caseData?.applicant?.website,
+			'applicant.email': caseData?.applicant?.email,
+			'applicant.phoneNumber': caseData?.applicant?.phoneNumber,
 
 			'keyDates.preApplication.submissionAtPublished':
 				caseData?.keyDates?.preApplication?.submissionAtPublished,

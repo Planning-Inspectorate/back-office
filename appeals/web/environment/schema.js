@@ -38,7 +38,13 @@ export default baseSchema
 			.options({ presence: 'required' }),
 		serverProtocol: joi.string().valid('http', 'https'),
 		serverPort: joi.number(),
-		sessionSecret: joi.string().when('env', { is: 'test', then: joi.optional() }),
+		session: joi
+			.object({
+				// ...env means `.env` property of the parent object
+				redis: joi.string().when('...env', { not: 'production', then: joi.optional() }),
+				secret: joi.string().when('...env', { is: 'test', then: joi.optional() })
+			})
+			.when('env', { is: 'test', then: joi.optional() }),
 		sslCertificateFile: joi.string().when('serverProtocol', { is: 'http', then: joi.optional() }),
 		sslCertificateKeyFile: joi
 			.string()

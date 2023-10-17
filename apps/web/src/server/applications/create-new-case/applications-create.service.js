@@ -6,7 +6,7 @@ import { post } from '../../lib/request.js';
  * Move draft caseto pre-application
  *
  * @param {number} id
- * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
+ * @returns {Promise<{id?: number, applicantId?: number, errors?: ValidationErrors}>}
  */
 export const moveStateToPreApplication = async (id) => {
 	let response;

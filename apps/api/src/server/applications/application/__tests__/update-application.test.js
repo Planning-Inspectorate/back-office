@@ -6,7 +6,7 @@ const expectedEventPayload = {
 	caseId: 1,
 	sourceSystem: 'ODT',
 	publishStatus: 'unpublished',
-	applicantId: 2,
+	applicantId: 1,
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
 	inspectorIds: [],
@@ -22,7 +22,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			applicant: { id: 2 }
+			applicant: { id: 1 }
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
@@ -40,7 +40,7 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantId: 2 });
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
@@ -73,7 +73,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			applicant: { id: 2 }
+			applicant: { id: 1 }
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
@@ -92,7 +92,7 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantId: 2 });
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
@@ -123,6 +123,7 @@ describe('Update application', () => {
 			id: 1,
 			applicant: { id: 1 }
 		});
+
 		databaseConnector.applicationDetails.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
 		databaseConnector.case.update.mockResolvedValue({});
@@ -172,8 +173,8 @@ describe('Update application', () => {
 		});
 
 		// THEN
-		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ id: 1, applicantId: 1 });
+		expect(response.status).toEqual(200);
 		expect(databaseConnector.applicationDetails.findUnique).toHaveBeenCalledWith({
 			where: { caseId: 1 }
 		});
@@ -181,9 +182,41 @@ describe('Update application', () => {
 			where: { applicationDetailsId: 1 }
 		});
 
+		expect(databaseConnector.serviceUser.update).toHaveBeenCalledWith({
+			where: { id: 1 },
+			data: {
+				organisationName: 'org',
+				firstName: 'first',
+				middleName: 'middle',
+				lastName: 'last',
+				email: 'test@test.com',
+				website: 'www.google.com',
+				phoneNumber: '02036579785',
+				address: {
+					upsert: {
+						create: {
+							addressLine1: 'address line 1',
+							addressLine2: 'address line 2',
+							town: 'town',
+							county: 'county',
+							postcode: 'N1 9BE'
+						},
+						update: {
+							addressLine1: 'address line 1',
+							addressLine2: 'address line 2',
+							town: 'town',
+							county: 'county',
+							postcode: 'N1 9BE'
+						}
+					}
+				}
+			}
+		});
+
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
+				applicantId: 1,
 				modifiedAt: new Date(1_649_319_144_000),
 				title: 'title',
 				description: 'description',
@@ -224,38 +257,6 @@ describe('Update application', () => {
 							}
 						}
 					}
-				},
-				applicant: {
-					update: {
-						data: {
-							organisationName: 'org',
-							firstName: 'first',
-							middleName: 'middle',
-							lastName: 'last',
-							email: 'test@test.com',
-							website: 'www.google.com',
-							phoneNumber: '02036579785',
-							address: {
-								upsert: {
-									create: {
-										addressLine1: 'address line 1',
-										addressLine2: 'address line 2',
-										town: 'town',
-										county: 'county',
-										postcode: 'N1 9BE'
-									},
-									update: {
-										addressLine1: 'address line 1',
-										addressLine2: 'address line 2',
-										town: 'town',
-										county: 'county',
-										postcode: 'N1 9BE'
-									}
-								}
-							}
-						},
-						where: { id: 1 }
-					}
 				}
 			},
 			include: {
@@ -275,7 +276,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			applicant: { id: 2 }
+			applicant: { id: 1 }
 		});
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
@@ -299,18 +300,11 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ id: 1, applicantId: 2 });
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
 		expect(databaseConnector.case.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
-				applicant: {
-					create: {
-						firstName: 'first',
-						lastName: 'last',
-						address: { create: { addressLine1: 'some addr' } }
-					}
-				},
 				ApplicationDetails: {
 					upsert: {
 						create: {
@@ -327,6 +321,14 @@ describe('Update application', () => {
 			}
 		});
 
+		expect(databaseConnector.serviceUser.create).toHaveBeenCalledWith({
+			data: {
+				firstName: 'first',
+				lastName: 'last',
+				address: { create: { addressLine1: 'some addr' } }
+			}
+		});
+
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
 			[expectedEventPayload],
@@ -338,7 +340,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			applicant: { id: 2 }
+			applicant: { id: 1 }
 		});
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue(null);
@@ -413,7 +415,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
-			applicant: { id: 2 }
+			applicant: { id: 1 }
 		});
 
 		// WHEN
@@ -436,7 +438,7 @@ describe('Update application', () => {
 		});
 
 		// WHEN
-		const response = await request.patch('/applications/1').send({ applicant: { id: 2 } });
+		const response = await request.patch('/applications/1').send({ applicant: { id: 1 } });
 
 		// THEN
 		expect(response.status).toEqual(400);

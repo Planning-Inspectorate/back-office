@@ -43,7 +43,10 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
-	sessionSecret: string;
+	session: {
+		redis: string;
+		secret: string;
+	};
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
 	referenceData: {

@@ -40,10 +40,10 @@ export const getCase = async (id, query = null) => {
  *
  * @param {Record<string, *>} payload
  * @param {SessionWithCaseSectorName} session
- * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
+ * @returns {Promise<{id?: number, applicantId?: number, errors?: ValidationErrors}>}
  */
 export const createCase = async (payload, session) => {
-	const payloadWithEmptyApplicant = { ...payload, applicants: [{ organisationName: '' }] };
+	const payloadWithEmptyApplicant = { ...payload, applicant: { organisationName: '' } };
 
 	try {
 		setSessionCaseHasNeverBeenResumed(session);
@@ -64,7 +64,7 @@ export const createCase = async (payload, session) => {
  *
  * @param {string} caseId
  * @param {Record<string, *>} payload
- * @returns {Promise<{id?: number, applicantIds?: Array<number>, errors?: ValidationErrors}>}
+ * @returns {Promise<{id?: number, applicantId?: number, errors?: ValidationErrors}>}
  */
 export const updateCase = async (caseId, payload) => {
 	try {

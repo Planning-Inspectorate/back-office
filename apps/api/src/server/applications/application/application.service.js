@@ -208,6 +208,7 @@ export const getCaseDetails = async (id, query) => {
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+
 	if (!caseDetails) {
 		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
 	}
