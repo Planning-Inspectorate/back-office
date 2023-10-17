@@ -208,7 +208,7 @@
 								},
 								"applicant": {
 									"type": "object",
-									"example": {}
+									"properties": {}
 								},
 								"geographicalInformation": {
 									"type": "object",
@@ -1506,6 +1506,81 @@
 						"name": "body",
 						"in": "body",
 						"description": "Mark as Published Request",
+						"schema": {
+							"$ref": "#/definitions/markAsPublishedRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updated document response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"guid": {
+									"type": "string",
+									"example": "0084b156-006b-48b1-a47f-e7176414db29"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Example of an error response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/documents/{guid}/mark-as-unpublished": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Marks as unpublished",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Document GUID"
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"description": "Version",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Mark as unpublished Request",
 						"schema": {
 							"$ref": "#/definitions/markAsPublishedRequestBody"
 						},
