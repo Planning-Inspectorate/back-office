@@ -4,7 +4,7 @@ exports[`publish-valid-representations GET /applications-service/:caseId/relevan
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-m\\">Publishing queue</span>
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-9\\">Publish all valid representations</h1>
     <p class=\\"govuk-body\\"><strong>Project name: </strong> mock title</p>
-    <p class=\\"govuk-body\\">The queue contains <strong>1</strong> representations ready to be published.</p>
+    <p class=\\"govuk-body\\">The queue contains <strong>3</strong> representations ready to be published.</p>
     <p     class=\\"govuk-inset-text\\">The representations will not be visible on the external website until
         the key date for their display has been reached.
         <br>
@@ -15,7 +15,7 @@ exports[`publish-valid-representations GET /applications-service/:caseId/relevan
 </main>"
 `;
 
-exports[`publish-valid-representations GET /applications-service/:caseId/relevant-representations/publish-valid-representations and the publishable rep count is 0 should render the page with the publish button 1`] = `
+exports[`publish-valid-representations GET /applications-service/:caseId/relevant-representations/publish-valid-representations and the publishable rep count is 0 should render the page without the publish button 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">

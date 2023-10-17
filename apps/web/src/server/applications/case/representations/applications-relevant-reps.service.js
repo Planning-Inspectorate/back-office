@@ -1,4 +1,4 @@
-import { get } from '../../../lib/request.js';
+import { get, patch } from '../../../lib/request.js';
 
 /**
  * @param {string} caseId
@@ -23,3 +23,11 @@ export const getCase = async (caseId) => {
  */
 export const getPublishableReps = async (caseId) =>
 	get(`applications/${caseId}/representations/publishable`);
+
+/**
+ * @param {string} caseId
+ * @param {object} payload
+ * @returns {Promise<any>}
+ */
+export const publishPublishableReps = async (caseId, payload) =>
+	patch(`applications/${caseId}/representations/publish`, payload);
