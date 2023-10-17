@@ -3,11 +3,11 @@ import formatAddressLowerCase from '../address-formatter-lowercase.js';
 
 /**
  *
- * @param {import('@pins/applications.api').Schema.ServiceCustomer} serviceCustomer
+ * @param {import('@pins/applications.api').Schema.ServiceUser} serviceUser
  * @returns {object}
  */
-export const mapServiceCustomer = (serviceCustomer) => {
-	const applicantInfo = pick(serviceCustomer, [
+export const mapServiceUser = (serviceUser) => {
+	const applicantInfo = pick(serviceUser, [
 		'id',
 		'organisationName',
 		'firstName',
@@ -18,7 +18,7 @@ export const mapServiceCustomer = (serviceCustomer) => {
 		'website',
 		'phoneNumber'
 	]);
-	const applicantAddress = formatAddressLowerCase(serviceCustomer.address);
+	const applicantAddress = formatAddressLowerCase(serviceUser.address);
 
 	return {
 		...applicantInfo,

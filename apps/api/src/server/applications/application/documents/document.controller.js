@@ -305,26 +305,27 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 /**
  * Gets the properties/metadata for many documents
  *
- * @type {import('express').RequestHandler<{}, {}, {}, {guids: string}>}
+ * @type {import('express').RequestHandler<{}, {}, {}, {guids: string; published: string}>}
  * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
-export const getManyDocumentsProperties = async ({ query: { guids } }, response) => {
+export const getManyDocumentsProperties = async ({ query: { guids, published } }, response) => {
 	const filesGuid = JSON.parse(guids);
+	const onlyPublished = published === 'true';
 
 	const documentsVersion = await documentVersionRepository.getManyByIdAndStatus(
 		filesGuid,
-		'published'
+		onlyPublished ? 'published' : undefined
 	);
 
 	/** @type {DocumentVersionWithDocument[]} */
-	const foundDocuments = [];
-	documentsVersion.forEach((document, index) => {
+	const foundDocuments = documentsVersion.flatMap((document, index) => {
 		if (document === null) {
 			logger.warn(`No published version of document ${filesGuid[index]} found`);
-			return;
+			return [];
 		}
-		foundDocuments.push(document);
+
+		return [document];
 	});
 
 	// Map the documents metadata to a format to be returned in the API response.
@@ -337,19 +338,32 @@ export const getManyDocumentsProperties = async ({ query: { guids } }, response)
 /**
  *
  * @param {{ status: string, createdAt: string, user: string }[]} activityLogs
- * @returns {Record<string, {date: number, name: string}>}
+ * @typedef {Record<string, {date: number, name: string}>} HisoryResult
+ * @returns {HisoryResult}
  */
-const mapHistory = (activityLogs) =>
-	activityLogs.reduce(
-		(acc, log) => ({
+const mapHistory = (activityLogs) => {
+	const history = activityLogs.reduce((acc, log) => {
+		if (!log?.createdAt) return acc;
+
+		return {
 			...acc,
 			[log.status]: {
-				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
-				name: log.user
+				date: mapDateStringToUnixTimestamp(log.createdAt.toString()),
+				name: log.user || 'System'
 			}
-		}),
-		{}
-	);
+		};
+	}, /** @type {HisoryResult} */ ({}));
+
+	if (
+		history.published &&
+		history.unpublished &&
+		history.published.date > history.unpublished.date
+	) {
+		delete history.unpublished;
+	}
+
+	return history;
+};
 
 /**
  * Gets the properties/metadata for a single document

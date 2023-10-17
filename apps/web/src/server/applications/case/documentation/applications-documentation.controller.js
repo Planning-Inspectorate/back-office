@@ -150,7 +150,8 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(
 		response.locals.caseId,
-		request.body.selectedFilesIds
+		request.body.selectedFilesIds,
+		true
 	);
 
 	return response.render(`applications/case-documentation/documentation-unpublish`, {

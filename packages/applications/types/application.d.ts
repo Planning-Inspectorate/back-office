@@ -64,6 +64,6 @@ export interface CreateUpdateApplication {
 	subSectorName?: string;
 	stage?: ApplicationStageType;
 	geographicalInformation?: GeographicalInformation;
-	applicants?: Applicant[];
+	applicant?: Applicant;
 	keyDates?: KeyApplicationDates;
 }

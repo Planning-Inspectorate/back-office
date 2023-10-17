@@ -144,15 +144,14 @@ const defaultInclusions = {
 	regions: true,
 	caseStatus: true,
 	casePublishedState: true,
-	serviceCustomer: true,
-	serviceCustomerAddress: true,
+	applicant: true,
 	gridReference: true,
 	hasUnpublishedChanges: true
 };
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -167,8 +166,7 @@ const inclusionsUsingQuery = (query) => {
 		regions:
 			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
 		caseStatus: query?.status,
-		serviceCustomer: notFalseOrUndefined(query?.applicants),
-		serviceCustomerAddress: notFalseOrUndefined(query?.applicantsAddress),
+		applicant: notFalseOrUndefined(query?.applicant),
 		gridReference: notFalseOrUndefined(query.geographicalInformation),
 		hasUnpublishedChanges: notFalseOrUndefined(query.hasUnpublishedChanges)
 	};
@@ -176,7 +174,7 @@ const inclusionsUsingQuery = (query) => {
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const findModelsToInclude = (query) => {
@@ -210,6 +208,7 @@ export const getCaseDetails = async (id, query) => {
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+
 	if (!caseDetails) {
 		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
 	}

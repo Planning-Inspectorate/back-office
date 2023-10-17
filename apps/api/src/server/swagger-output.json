@@ -40,12 +40,9 @@
 									"type": "number",
 									"example": 1
 								},
-								"applicantIds": {
-									"type": "array",
-									"example": [2],
-									"items": {
-										"type": "number"
-									}
+								"applicantId": {
+									"type": "number",
+									"example": 2
 								}
 							},
 							"xml": {
@@ -150,7 +147,7 @@
 						"name": "query",
 						"in": "query",
 						"description": "Application details",
-						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicants&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
+						"example": "{ &ldquo;title&rdquo;:true, &ldquo;description&rdquo;:true, &ldquo;reference&rdquo;:true, &ldquo;status&rdquo;:true, &ldquo;caseEmail&rdquo;:true, &ldquo;sector&rdquo;:true, &ldquo;subSector&rdquo;:true, &ldquo;applicant&rdquo;:true, &ldquo;geographicalInformation&rdquo;:true, &ldquo;keyDates&rdquo;:true }",
 						"type": "string"
 					}
 				],
@@ -209,10 +206,9 @@
 										}
 									}
 								},
-								"applicants": {
-									"type": "array",
-									"example": [],
-									"items": {}
+								"applicant": {
+									"type": "object",
+									"example": {}
 								},
 								"geographicalInformation": {
 									"type": "object",
@@ -301,12 +297,9 @@
 									"type": "number",
 									"example": 1
 								},
-								"applicantIds": {
-									"type": "array",
-									"example": [2],
-									"items": {
-										"type": "number"
-									}
+								"applicantId": {
+									"type": "number",
+									"example": 2
 								}
 							},
 							"xml": {
@@ -1629,6 +1622,13 @@
 						"description": "A list of guids",
 						"example": [1, 2],
 						"type": "string"
+					},
+					{
+						"name": "published",
+						"in": "query",
+						"description": "Only return published documents",
+						"type": "boolean",
+						"example": false
 					}
 				],
 				"responses": {
@@ -3888,66 +3888,63 @@
 						}
 					}
 				},
-				"applicants": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "number",
-								"example": 1
-							},
-							"organisationName": {
-								"type": "string",
-								"example": ""
-							},
-							"firstName": {
-								"type": "string",
-								"example": ""
-							},
-							"middleName": {
-								"type": "string",
-								"example": ""
-							},
-							"lastName": {
-								"type": "string",
-								"example": ""
-							},
-							"email": {
-								"type": "string",
-								"example": ""
-							},
-							"website": {
-								"type": "string",
-								"example": ""
-							},
-							"phoneNumber": {
-								"type": "string",
-								"example": ""
-							},
-							"address": {
-								"type": "object",
-								"properties": {
-									"addressLine1": {
-										"type": "string",
-										"example": ""
-									},
-									"addressLine2": {
-										"type": "string",
-										"example": ""
-									},
-									"town": {
-										"type": "string",
-										"example": ""
-									},
-									"county": {
-										"type": "string",
-										"example": ""
-									},
-									"postcode": {
-										"type": "string",
-										"example": ""
-									}
+				"applicant": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number",
+							"example": 1
+						},
+						"organisationName": {
+							"type": "string",
+							"example": ""
+						},
+						"firstName": {
+							"type": "string",
+							"example": ""
+						},
+						"middleName": {
+							"type": "string",
+							"example": ""
+						},
+						"lastName": {
+							"type": "string",
+							"example": ""
+						},
+						"email": {
+							"type": "string",
+							"example": ""
+						},
+						"website": {
+							"type": "string",
+							"example": ""
+						},
+						"phoneNumber": {
+							"type": "string",
+							"example": ""
+						},
+						"address": {
+							"type": "object",
+							"properties": {
+								"addressLine1": {
+									"type": "string",
+									"example": ""
+								},
+								"addressLine2": {
+									"type": "string",
+									"example": ""
+								},
+								"town": {
+									"type": "string",
+									"example": ""
+								},
+								"county": {
+									"type": "string",
+									"example": ""
+								},
+								"postcode": {
+									"type": "string",
+									"example": ""
 								}
 							}
 						}
@@ -4029,64 +4026,61 @@
 						}
 					}
 				},
-				"applicants": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"organisationName": {
-								"type": "string",
-								"example": ""
-							},
-							"firstName": {
-								"type": "string",
-								"example": ""
-							},
-							"middleName": {
-								"type": "string",
-								"example": ""
-							},
-							"lastName": {
-								"type": "string",
-								"example": ""
-							},
-							"email": {
-								"type": "string",
-								"example": ""
-							},
-							"address": {
-								"type": "object",
-								"properties": {
-									"addressLine1": {
-										"type": "string",
-										"example": ""
-									},
-									"addressLine2": {
-										"type": "string",
-										"example": ""
-									},
-									"town": {
-										"type": "string",
-										"example": ""
-									},
-									"county": {
-										"type": "string",
-										"example": ""
-									},
-									"postcode": {
-										"type": "string",
-										"example": ""
-									}
+				"applicant": {
+					"type": "object",
+					"properties": {
+						"organisationName": {
+							"type": "string",
+							"example": ""
+						},
+						"firstName": {
+							"type": "string",
+							"example": ""
+						},
+						"middleName": {
+							"type": "string",
+							"example": ""
+						},
+						"lastName": {
+							"type": "string",
+							"example": ""
+						},
+						"email": {
+							"type": "string",
+							"example": ""
+						},
+						"address": {
+							"type": "object",
+							"properties": {
+								"addressLine1": {
+									"type": "string",
+									"example": ""
+								},
+								"addressLine2": {
+									"type": "string",
+									"example": ""
+								},
+								"town": {
+									"type": "string",
+									"example": ""
+								},
+								"county": {
+									"type": "string",
+									"example": ""
+								},
+								"postcode": {
+									"type": "string",
+									"example": ""
 								}
-							},
-							"website": {
-								"type": "string",
-								"example": ""
-							},
-							"phoneNumber": {
-								"type": "string",
-								"example": ""
 							}
+						},
+						"website": {
+							"type": "string",
+							"example": ""
+						},
+						"phoneNumber": {
+							"type": "string",
+							"example": ""
 						}
 					}
 				},
