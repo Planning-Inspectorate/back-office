@@ -763,7 +763,7 @@ export const unpublishDocuments = async (guids) => {
 			version: version.version
 		})),
 		{
-			publishedStatus: 'unpublished',
+			publishedStatus: 'unpublishing',
 			publishedStatusPrev: 'published'
 		}
 	);
