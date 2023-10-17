@@ -1,0 +1,28 @@
+{
+    "name": "@pins/function-document-unpublish",
+    "version": "0.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=18.0.0 <19.0.0"
+    },
+    "description": "Unpublishes documents",
+    "type": "module",
+    "scripts": {
+        "start": "func start",
+        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit"
+    },
+    "dependencies": {
+        "@azure/functions": "^1.2.2",
+        "azure-functions-core-tools": "3",
+        "@pins/blob-storage-client": "^0.0.0",
+        "dotenv": "16.0.3",
+        "got": "^12.5.2",
+        "joi": "*",
+        "pino": "7.11.0",
+        "stub-azure-function-context": "^2.0.0-alpha.4"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "eslint": "8.14.0"
+    }
+}
