@@ -10,7 +10,7 @@ import {
 } from './applications-relevant-reps.service.js';
 import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
 import { getPagination } from './utils/pagination.js';
-import { publishQueueUrl } from './config.js';
+import { publishQueueUrl, representationsUrl } from './config.js';
 import { hasSearchUpdated } from './utils/search/has-search-updated.js';
 import { hasUnpublishedRepUpdates } from './utils/has-unpublished-rep-updates.js';
 import { tableSortLinks } from './utils/table.js';
@@ -43,7 +43,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 		dateOfRelevantRepresentationClose,
 		extensionToDateRelevantRepresentationsClose
 	)
-		? publishQueueUrl
+		? `${representationsUrl}/${publishQueueUrl}`
 		: '';
 	const publishableReps = await getPublishableReps(caseId);
 
