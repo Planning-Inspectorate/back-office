@@ -590,6 +590,27 @@ export const markDocumentVersionAsPublished = async ({
 };
 
 /**
+ *
+ * @param {{guid: string, version: number}} documents
+ * @returns {Promise<DocumentVersion>}
+ */
+export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
+	const publishedDocument = await documentVersionRepository.update(guid, {
+		version,
+		publishedStatus: 'unpublished',
+		publishedStatusPrev: 'unpublishing'
+	});
+
+	await eventClient.sendEvents(
+		NSIP_DOCUMENT,
+		[buildNsipDocumentPayload(publishedDocument)],
+		EventType.Unpublish
+	);
+
+	return publishedDocument;
+};
+
+/**
  * Given a list of file names, return two lists: one of pre-existing files with that name in the folder, and another with the remainder
  *
  * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
