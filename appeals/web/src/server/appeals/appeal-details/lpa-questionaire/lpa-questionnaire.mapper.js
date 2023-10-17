@@ -18,11 +18,11 @@ import {
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {
 	return {
-		text: 'Back to case details',
+		text: 'Back',
 		link: `/appeals-service/appeal-details/${appeal.appealId}`
 	};
 };
-export const pageHeading = 'LPA Questionnaire';
+export const pageHeading = 'LPA questionnaire';
 
 /**
  * @param {{ lpaQ: import("../appeal-details.types.js").SingleLPAQuestionnaireResponse; }} lpaData

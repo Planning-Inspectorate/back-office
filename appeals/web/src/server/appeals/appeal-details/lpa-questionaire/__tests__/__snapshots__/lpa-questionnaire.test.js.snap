@@ -4,7 +4,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
         </div>
     </div>
     <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -20,7 +20,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
             <form action="" method="POST" novalidate>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                             <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
                         </legend>
                         <div class="govuk-radios" data-module="govuk-radios">
@@ -498,7 +498,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA Questionnaire</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
         </div>
     </div>
     <dl class="govuk-summary-list govuk-summary-list--no-border">
@@ -514,7 +514,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
             <form action="" method="POST" novalidate>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                             <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
                         </legend>
                         <div class="govuk-radios" data-module="govuk-radios">
