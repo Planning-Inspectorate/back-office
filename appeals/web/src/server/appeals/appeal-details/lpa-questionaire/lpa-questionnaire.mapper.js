@@ -21,11 +21,11 @@ import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-build
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {
 	return {
-		text: 'Back to case details',
+		text: 'Back',
 		link: `/appeals-service/appeal-details/${appeal.appealId}`
 	};
 };
-export const pageHeading = 'LPA Questionnaire';
+export const pageHeading = 'LPA questionnaire';
 
 /**
  * @typedef {Object} LPAQData

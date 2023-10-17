@@ -707,7 +707,7 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 					legend: {
 						text: 'What is the outcome of your review?',
 						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+						classes: 'govuk-fieldset__legend--m'
 					}
 				},
 				value: data.lpaQ.validation?.outcome || null,
