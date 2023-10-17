@@ -51,7 +51,7 @@ describe('Document Upload', () => {
 		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
-		folderPage.navigateToProjectFolder();
+        folderPage.navigateToProjectFolder();
 		searchResultsPage.clickLinkByText('View/Edit properties')
 		folderDocumentsPage.unpublishDocument();
 	});
@@ -66,10 +66,10 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.verifyUnpublishButtonIsVisible();
+		documentPropertiesPage.verifyUnpublishButtonIsNotVisible();
 	});
 
-	it('Case Team Admin should not see the unpublish status in document history tab after unpublishing the document', () => {
+	it('Case Team Admin should see unpublish status in document history tab after unpublishing the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -79,9 +79,19 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
-
-		// Unpublish document status is not yet ready, will resume once it is ready
-
+        documentPropertiesPage.verifyUnpublishStatus();
+	});
+	it('Case Team Admin should see delete button on document properties page after publishing the document', () => {
+		cy.login(applicationUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUploadPage.verifyUploadButtonIsVisible();
+		fileUploadPage.clickLinkByText('View/Edit properties');
+		folderPage.verifyDeleteButtonIsVisible();
 	});
 
 });

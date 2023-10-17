@@ -51,4 +51,7 @@ export class FolderDocumentsPage extends Page {
 		this.clickButtonByText('Unpublish documents');
 		this.validateSuccessPanelTitle('Document/s successfully unpublished');
 	}
+	verifyDeleteButtonIsVisible(){
+		cy.get('a.govuk-button:nth-child(3)').should('exist');
+	}
 }
