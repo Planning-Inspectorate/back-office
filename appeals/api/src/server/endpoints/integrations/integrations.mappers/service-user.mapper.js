@@ -23,6 +23,8 @@ export const mapServiceUserIn = (data) => {
 
 export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
 	const user = {
+		sourceSystem: 'back-office-appeals',
+		sourceSuid: `back-office-appeals-${data.customer.id}`,
 		ID: data.customer.id,
 		firstName: data.customer.firstName,
 		lastName: data.customer.lastName,
