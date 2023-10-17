@@ -172,6 +172,15 @@
 			"type": "object",
 			"required": ["firstName", "lastName", "emailAddress"],
 			"properties": {
+				"sourceSystem": {
+					"type": "string"
+				},
+				"sourceSuid": {
+					"type": "string"
+				},
+				"ID": {
+					"type": "string"
+				},
 				"salutation": {
 					"type": "string"
 				},
