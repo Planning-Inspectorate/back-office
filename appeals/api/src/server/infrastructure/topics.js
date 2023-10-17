@@ -1,6 +1,7 @@
 export const producers = {
 	boCaseData: 'appeal-bo-case',
-	boDocument: 'appeal-bo-document'
+	boDocument: 'appeal-bo-document',
+	boSvcUsr: 'appeal-bo-svcusr'
 };
 
 export const consumers = {
