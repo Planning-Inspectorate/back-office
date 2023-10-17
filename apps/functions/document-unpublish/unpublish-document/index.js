@@ -1,3 +1,4 @@
+import got from 'got';
 import config from './config.js';
 import { blobClient } from './blob-client.js';
 import { parseBlobName } from './utils.js';
@@ -5,7 +6,7 @@ import { parseBlobName } from './utils.js';
 /**
  * @type {import('@azure/functions').AzureFunction}
  */
-export const index = async (context, { documentId, documentURI }) => {
+export const index = async (context, { caseId, version, documentId, documentURI }) => {
 	context.log(`Unpublishing document ID ${documentId} at URI ${documentURI}`);
 
 	const blobName = parseBlobName(documentURI);
@@ -20,4 +21,10 @@ export const index = async (context, { documentId, documentURI }) => {
 		context.log.error(errMsg);
 		throw new Error(errMsg);
 	}
+
+	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;
+
+	context.log(`Making POST request to ${requestUri}`);
+
+	await got.post(requestUri);
 };
