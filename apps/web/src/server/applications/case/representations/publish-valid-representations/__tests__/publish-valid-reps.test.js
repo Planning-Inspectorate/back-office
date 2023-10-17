@@ -62,7 +62,6 @@ describe('publish-valid-representations', () => {
 
 	describe('POST /applications-service/:caseId/relevant-representations/publish-valid-representations', () => {
 		const nocks = () => {
-			// nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 			nock('http://test/')
 			.get('/applications/1/representations/publishable')
 			.reply(200, publishableRepresentationsFixture);

@@ -2,7 +2,7 @@ import logger from '../../../../lib/logger.js';
 import { getCase } from '../../../common/services/case.service.js';
 import { getPublishableReps, publishPublishableReps } from '../applications-relevant-reps.service.js';
 import { representationsUrl } from '../config.js';
-import { getPublishableRepsPayload } from './_utils/getPublishableRepsPayload.js';
+import { getPublishableRepsPayload } from './_utils/get-publishable-reps-payload.js';
 
 const view = 'applications/representations/publish-valid-representations/index.njk';
 
@@ -21,7 +21,7 @@ export const getPublishValidRepsController = async (req, res) => {
 	const { title: projectName } = await getCase(Number(caseId));
 	const { itemCount: publishableRepsCount } = await getPublishableReps(caseId);
 
-	res.render(view, {
+	return res.render(view, {
 		backLinkUrl: `${serviceUrl}/case/${caseId}/${representationsUrl}`,
 		pageHeading: 'Publish all valid representations',
 		projectName,
