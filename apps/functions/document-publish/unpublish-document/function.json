@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "document-unpublish",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "nsip-document",
+			"subscriptionName": "nsip-document-updated-unpublishing",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
