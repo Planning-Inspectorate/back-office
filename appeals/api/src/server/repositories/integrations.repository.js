@@ -3,6 +3,15 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 
+export const loadAppeal = async (id) => {
+	const appeal = await databaseConnector.appeal.findUnique({
+		where: { id },
+		include: getFindUniqueAppealQueryIncludes()
+	});
+
+	return appeal;
+};
+
 export const createAppeal = async (data, documents) => {
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.create({ data });
@@ -179,12 +188,20 @@ const getFindUniqueAppealQueryIncludes = () => {
 		},
 		appellant: {
 			include: {
-				customer: true
+				customer: {
+					include: {
+						address: true
+					}
+				}
 			}
 		},
 		agent: {
 			include: {
-				customer: true
+				customer: {
+					include: {
+						address: true
+					}
+				}
 			}
 		},
 		lpa: true,

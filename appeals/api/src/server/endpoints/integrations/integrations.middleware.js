@@ -22,7 +22,7 @@ export const validateAppellantCase = async (req, res, next) => {
 			(e) => `${e.instancePath || '/'}: ${e.message}`
 		);
 
-		pino.error('Error validating appellant case', errorDetails);
+		pino.error(`Error validating appellant case: ${errorDetails[0]}`);
 		return res.status(400).send({
 			errors: {
 				integration: ERROR_INVALID_APPELLANT_CASE_DATA,
@@ -48,7 +48,7 @@ export const validateLpaQuestionnaire = async (req, res, next) => {
 			(e) => `${e.instancePath || '/'}: ${e.message}`
 		);
 
-		pino.error('Error validating LPA questionnaire', errorDetails);
+		pino.error(`Error validating lpa questionnaire: ${errorDetails[0]}`);
 		return res.status(400).send({
 			errors: {
 				integration: ERROR_INVALID_LPAQ_DATA,
