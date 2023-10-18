@@ -5,16 +5,14 @@ const { databaseConnector } = await import('../../../utils/database-connector.js
 
 const createdCase = { id: 1, applicant: { id: 4 } };
 
-/** @type {import('../application.js').NsipProjectPayload} */
-const expectedEventPayload = {
+const expectedNsipProjectPayload = {
 	caseId: 1,
-	sourceSystem: 'ODT',
+	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
-	applicantId: 4,
+	applicantId: '4',
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
-	inspectorIds: [],
-	interestedPartyIds: []
+	inspectorIds: []
 };
 
 jest.useFakeTimers({ now: 1_649_319_144_000 });
@@ -55,7 +53,7 @@ test('creates new application with just title and first notified date', async ()
 
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
 		'nsip-project',
-		[expectedEventPayload],
+		[expectedNsipProjectPayload],
 		'Create'
 	);
 });
@@ -104,7 +102,7 @@ test('creates new application with just easting and sub-sector name', async () =
 
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
 		'nsip-project',
-		[expectedEventPayload],
+		[expectedNsipProjectPayload],
 		'Create'
 	);
 });
@@ -202,7 +200,7 @@ test('creates new application when all possible details provided', async () => {
 
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
 		'nsip-project',
-		[expectedEventPayload],
+		[expectedNsipProjectPayload],
 		'Create'
 	);
 });
@@ -256,7 +254,7 @@ test(`creates new application with application first and last name,
 	});
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
 		'nsip-project',
-		[expectedEventPayload],
+		[expectedNsipProjectPayload],
 		'Create'
 	);
 });

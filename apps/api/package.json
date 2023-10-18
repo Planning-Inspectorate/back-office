@@ -91,6 +91,7 @@
     "#infrastructure/*": "./src/server/infrastructure/*",
     "#middleware/*": "./src/server/middleware/*",
     "#repositories/*": "./src/server/repositories/*",
-    "#utils/*": "./src/server/utils/*"
+    "#utils/*": "./src/server/utils/*",
+    "#message-schemas/*": "./src/message-schemas/*"
   }
 }

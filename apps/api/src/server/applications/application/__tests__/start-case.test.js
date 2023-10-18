@@ -164,14 +164,13 @@ describe('Start case', () => {
 			}
 		});
 
-		/** @type {import('../application.js').NsipProjectPayload} */
 		const expectedEventPayload = {
 			caseId: 1,
 			caseReference: 'EN01-1',
 			projectName: 'Title',
 			projectDescription: 'Description',
 			publishStatus: 'unpublished',
-			sourceSystem: 'ODT',
+			sourceSystem: 'back-office-applications',
 			stage: 'draft',
 			projectLocation: 'Some Location',
 			projectEmailAddress: 'test@test.com',
@@ -186,8 +185,7 @@ describe('Start case', () => {
 			projectType: 'BC01 - Office Use',
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			inspectorIds: [],
-			interestedPartyIds: []
+			inspectorIds: []
 		};
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
