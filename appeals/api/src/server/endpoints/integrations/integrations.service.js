@@ -73,7 +73,7 @@ export const produceServiceUsersUpdate = async (
 	/** @type {string} */ updateType
 ) => {
 	if (users.length > 0) {
-		const topic = producers.boSvcUsr;
+		const topic = producers.boServiceUser;
 		const res = await eventClient.sendEvents(topic, users, updateType);
 		if (res) {
 			return true;
