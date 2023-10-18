@@ -15,8 +15,8 @@ The ODT services emit events to Service Bus Topics from within Appeals Back Offi
 | nsip-representation | 0.1     | [Representation](../apps/api/src/message-schemas/events/representation.schema.json)           | Applications BO             | ODW, Applications FO             |
 | nsip-project-update | 0.1     | [NSIP Project Update](../apps/api/src/message-schemas/events/nsip-project-update.schema.json) | Applications BO             | ODW, Applications FO             |
 | nsip-subscription   | 0.1     | [NSIP Subscription](../apps/api/src/message-schemas/events/nsip-subscription.schema.json)     | Applications BO             | ODW                              |
-| appeal              | 0.1     | [Appeal](../apps/api/src/message-schemas/events/_appeal.schema.json)                          | Appeals BO                  | ODW, Appeals FO                  |
-| appeal-document     | 0.1     | [Appeal Document](../apps/api/src/message-schemas/events/_appeal-document.schema.json)        | Appeals BO                  | ODW, Appeals FO                  |
+| appeal-bo-case      | 0.1     | [Appeal](../appeals/api/src/message-schemas/pins-appeal.schema.json)                          | Appeals BO                  | ODW, Appeals FO                  |
+| appeal-bo-document  | 0.1     | [Appeal Document](../appeals/api/src/message-schemas/pins-document.schema.json)               | Appeals BO                  | ODW, Appeals FO                  |
 
 ## Incoming Events (Operational)
 
