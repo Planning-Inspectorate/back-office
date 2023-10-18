@@ -374,7 +374,7 @@ export async function postUnpublishDocuments({ body }, response) {
 	return response.render('applications/case-documentation/documentation-success-banner', {
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
-		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFiles[0].caseRef}</p>`,
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
 		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
 	});
 }
