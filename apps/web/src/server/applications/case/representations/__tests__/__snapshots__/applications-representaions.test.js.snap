@@ -23,7 +23,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
         </div>
         <div class=\\"govuk-notification-banner__content\\">
             <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
-            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\"> Preview and publish the changes</a>
             </p>
             <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
             type=\\"button\\">Clear notification</button>
@@ -205,7 +205,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
         </div>
         <div class=\\"govuk-notification-banner__content\\">
             <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
-            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\"> Preview and publish the changes</a>
             </p>
             <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
             type=\\"button\\">Clear notification</button>

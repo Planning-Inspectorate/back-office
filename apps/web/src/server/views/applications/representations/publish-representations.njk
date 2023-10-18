@@ -1,0 +1,149 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% from "applications/components/status-tag.component.njk" import statusTag %}
+
+{% set pageTitle = "Select representations for publishing" %}
+
+{% set publishableRepItems = [] %}
+
+{% for representation in publishableRepresentations.items %}
+  {% set publishableRepItems = (publishableRepItems.push([
+    {
+      html: govukCheckboxes({
+        idPrefix: "representation--" + representation.id + "",
+        name: "representationId",
+        classes: "representation",
+        items: [
+          {
+            value: representation.id,
+            text: "Select representation " + representation.id + ""
+          }
+        ]
+      })
+    },
+    {
+      text: representation.reference
+    },
+    {
+      text: representation.received
+    },
+    {
+      html: statusTag(representation.status)
+    }
+  ]), publishableRepItems) %}
+{% endfor %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+  <span class="govuk-caption-m">
+    Publishing queue
+  </span>
+
+  <h2 class="govuk-heading-l">
+    Select representations for publishing
+  </h2>
+
+  <p class="govuk-body">
+    <strong>Project name:</strong> {{ project.title }}
+  </p>
+
+  <p class="govuk-body">
+    The queue contains <strong>{{ publishableRepresentations.itemCount }}</strong> representations.
+  </p>
+
+  <br>
+
+  <p class="govuk-body">
+    You must select the representations to publish
+  </p>
+
+  <p class="govuk-body">
+    <strong><span id="number-of-selected-representations">0</span> representations on this page are selected.</strong>
+  </p>
+
+  <form method="post">
+
+    {{ govukTable({
+      classes: "pins-files-list__table pins-table",
+      head: [
+        {
+          classes: "white-space--nowrap",
+          html: '<div class="govuk-!-display-none" id="select-all-representations-container">' + govukCheckboxes({
+            name: "select-all-representations",
+            items: [
+              {
+                text: "Select all representations"
+              }
+            ]
+          }) + '</div><span class="govuk-!-display-inline-block">Select</span>'
+        },
+        {
+          text: "Reference"
+        },
+        {
+          text: "From"
+        },
+        {
+          text: "Status"
+        }
+      ],
+      rows: publishableRepItems
+    }) }}
+
+    {{ govukButton({
+      text: "Publish representations",
+      type: "submit"
+    }) }}
+
+  </form>
+
+  <script nonce="{{ cspNonce }}">
+    const selectAllRepsContainerElement = document.getElementById('select-all-representations-container');
+    const selectAllRepsElement = document.getElementById('select-all-representations');
+    const repElements = document.querySelectorAll('.representation input');
+    const numberOfSelectedRepsElement = document.getElementById('number-of-selected-representations');
+
+    let numberOfSelectedReps;
+
+    const updateNumberOfSelectedReps = () => {
+      numberOfSelectedReps = 0;
+      repElements.forEach((repElement) => {
+        if (repElement.checked) numberOfSelectedReps++;
+      });
+      return numberOfSelectedReps;
+    }
+
+    const setNumberOfSelectedReps = () => numberOfSelectedRepsElement.innerHTML = numberOfSelectedReps;
+
+    const updateAndSetNumberOfSelectedReps = () => {
+      updateNumberOfSelectedReps()
+      setNumberOfSelectedReps();
+    }
+
+    const isAllRepsSelected = () => numberOfSelectedReps === repElements.length;
+
+    const toggleSelectAllReps = (check) => selectAllRepsElement.checked = check;
+
+    selectAllRepsElement.addEventListener('change', function () {
+      repElements.forEach((repElement) => repElement.checked = this.checked);
+      updateAndSetNumberOfSelectedReps();
+    })
+
+    repElements.forEach((repElement, index) => {
+      repElement.addEventListener('change', function () {
+        updateAndSetNumberOfSelectedReps();
+        if (!this.checked) toggleSelectAllReps(false);
+        else if (isAllRepsSelected()) toggleSelectAllReps(true);
+      })
+    });
+
+    selectAllRepsContainerElement.className = 'govuk-!-display-inline-block';
+    updateAndSetNumberOfSelectedReps();
+  </script>
+{% endblock %}

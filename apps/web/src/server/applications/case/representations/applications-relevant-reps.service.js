@@ -21,7 +21,7 @@ export const getCase = async (caseId) => {
  * @param {string} caseId
  * @returns {Promise<any>}
  */
-export const getPublishableReps = async (caseId) =>
+export const getPublishableRepresentaions = async (caseId) =>
 	get(`applications/${caseId}/representations/publishable`);
 
 /**
@@ -29,5 +29,5 @@ export const getPublishableReps = async (caseId) =>
  * @param {object} payload
  * @returns {Promise<any>}
  */
-export const publishPublishableReps = async (caseId, payload) =>
+export const publishRepresentations = async (caseId, payload) =>
 	patch(`applications/${caseId}/representations/publish`, payload);

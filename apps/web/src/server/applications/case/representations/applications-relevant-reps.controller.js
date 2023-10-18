@@ -5,7 +5,7 @@ import {
 } from './application-representations.view-model.js';
 import {
 	getCase,
-	getPublishableReps,
+	getPublishableRepresentaions,
 	getRepresentations
 } from './applications-relevant-reps.service.js';
 import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
@@ -45,7 +45,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 	)
 		? `${representationsUrl}/${publishQueueUrl}`
 		: '';
-	const publishableReps = await getPublishableReps(caseId);
+	const publishableReps = await getPublishableRepresentaions(caseId);
 
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
