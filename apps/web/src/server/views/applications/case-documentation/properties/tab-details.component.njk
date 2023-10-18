@@ -1,6 +1,15 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro documentationDetailsTab(documentationFile, caseId, folderId) %}
+
+	{% if documentationFile.mime === 'image/png' %}
+		{% set transcriptRow = {
+				label: 'Transcript (optional)',
+				value: '',
+				link: 'transcript'
+		} %}
+	{% endif %}
 
 	{% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
@@ -10,6 +19,7 @@
 						{label: 'Case stage', value: documentationFile.stage},
 						{label: 'Webfilter', value: documentationFile.filter1, link: 'webfilter'},
 						{label: 'Document type (optional)', value: documentationFile.documentType, link: 'type'},
+						transcriptRow,
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
 						{label: 'Published date', value: (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})), link: 'published-date' if documentationFile.datePublished else null},
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
@@ -38,7 +48,9 @@
 			actions: { items: [rowActions]}
 		} %}
 
-		{% set propertiesRow = propertiesRow.concat([row]) %}
+		{% if property != null %}
+			{% set propertiesRow = propertiesRow.concat([row]) %}
+		{% endif %}
 	{% endfor %}
 
 	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
