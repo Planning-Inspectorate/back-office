@@ -178,7 +178,7 @@
 				"sourceSuid": {
 					"type": "string"
 				},
-				"ID": {
+				"id": {
 					"type": "string"
 				},
 				"salutation": {

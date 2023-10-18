@@ -70,11 +70,12 @@ export const produceDocumentUpdate = async (
 
 export const produceServiceUsersUpdate = async (
 	/** @type {any[]} */ users, // TODO: data and document types schema (PINS data model)
-	/** @type {string} */ updateType
+	/** @type {string} */ updateType,
+	/** @type {string} */ roleName
 ) => {
 	if (users.length > 0) {
 		const topic = producers.boServiceUser;
-		const res = await eventClient.sendEvents(topic, users, updateType);
+		const res = await eventClient.sendEvents(topic, users, updateType, { entityType: roleName });
 		if (res) {
 			return true;
 		}

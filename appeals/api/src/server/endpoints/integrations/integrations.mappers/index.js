@@ -95,7 +95,6 @@ export const mapAppeal = (appeal) => {
 	return topic;
 };
 
-// @ts-ignore
 export const mapDocument = (doc) => {
 	return mappers.mapDocumentOut(doc);
 };

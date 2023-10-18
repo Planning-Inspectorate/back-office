@@ -49,13 +49,16 @@ export const postAppealSubmission = async (req, res) => {
 	const appealTopic = mapAppeal(dbSavedResult);
 	await produceAppealUpdate(appealTopic, EventType.Create);
 
-	const serviceUsersTopic = [
+	if (dbSavedResult.appellantId) {
 		// @ts-ignore
-		mapServiceUser(dbSavedResult, dbSavedResult.appellant, 'appellant'),
+		const appellantTopic = mapServiceUser(dbSavedResult, dbSavedResult.appellant, 'appellant');
+		await produceServiceUsersUpdate([appellantTopic], EventType.Create, 'appellant');
+	}
+	if (dbSavedResult.agentId) {
 		// @ts-ignore
-		mapServiceUser(dbSavedResult, dbSavedResult.agent, 'agent')
-	];
-	await produceServiceUsersUpdate(serviceUsersTopic, EventType.Create);
+		const agentTopic = mapServiceUser(dbSavedResult, dbSavedResult.agent, 'agent');
+		await produceServiceUsersUpdate([agentTopic], EventType.Create, 'agent');
+	}
 
 	const documentsTopic = documents.map((d) => mapDocument(d));
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
