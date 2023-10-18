@@ -70,3 +70,7 @@ export type PublishableReps = {
 	itemCount: number;
 	items: PublishableRep[];
 };
+
+export type PublishedReps = {
+	publishedRepIds: Array<number>;
+};

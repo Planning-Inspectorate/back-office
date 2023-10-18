@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`publish-updated-representations.controller GET /applications-service/:caseId/relevant-representations/select-representations-for-publishing should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-m\\"> Publishing queue</span>
+    <h2 class=\\"govuk-heading-l\\"> Select representations for publishing</h2>
+    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
+    <p class=\\"govuk-body\\">The queue contains <strong>3</strong> representations.</p>
+    <br>
+    <p class=\\"govuk-body\\">You must select the representations to publish</p>
+    <p class=\\"govuk-body\\"><strong><span id=\\"number-of-selected-representations\\">0</span> representations on this page are selected.</strong>
+    </p>
+    <form method=\\"post\\">
+        <table class=\\"govuk-table pins-files-list__table pins-table\\">
+            <thead class=\\"govuk-table__head\\">
+                <tr class=\\"govuk-table__row\\">
+                    <th scope=\\"col\\" class=\\"govuk-table__header white-space--nowrap\\">
+                        <div class=\\"govuk-!-display-none\\" id=\\"select-all-representations-container\\">
+                            <div class=\\"govuk-form-group\\">
+                                <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
+                                    <div class=\\"govuk-checkboxes__item\\">
+                                        <input class=\\"govuk-checkboxes__input\\" id=\\"select-all-representations\\"
+                                        name=\\"select-all-representations\\" type=\\"checkbox\\" value=\\"\\">
+                                        <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"select-all-representations\\">Select all representations</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><span class=\\"govuk-!-display-inline-block\\">Select</span>
+                    </th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Reference</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">From</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Status</th>
+                </tr>
+            </thead>
+            <tbody class=\\"govuk-table__body\\">
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\">
+                        <div class=\\"govuk-form-group\\">
+                            <div class=\\"govuk-checkboxes representation\\" data-module=\\"govuk-checkboxes\\">
+                                <div class=\\"govuk-checkboxes__item\\">
+                                    <input class=\\"govuk-checkboxes__input\\" id=\\"representation--1\\" name=\\"representationId\\"
+                                    type=\\"checkbox\\" value=\\"1\\">
+                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"representation--1\\">Select representation 1</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class=\\"govuk-table__cell\\">mock-reference-1</td>
+                    <td class=\\"govuk-table__cell\\">10 Oct 2023</td>
+                    <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">VALID</strong>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\">
+                        <div class=\\"govuk-form-group\\">
+                            <div class=\\"govuk-checkboxes representation\\" data-module=\\"govuk-checkboxes\\">
+                                <div class=\\"govuk-checkboxes__item\\">
+                                    <input class=\\"govuk-checkboxes__input\\" id=\\"representation--2\\" name=\\"representationId\\"
+                                    type=\\"checkbox\\" value=\\"2\\">
+                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"representation--2\\">Select representation 2</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class=\\"govuk-table__cell\\">mock-reference-3</td>
+                    <td class=\\"govuk-table__cell\\">10 Oct 2023</td>
+                    <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">VALID</strong>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\">
+                        <div class=\\"govuk-form-group\\">
+                            <div class=\\"govuk-checkboxes representation\\" data-module=\\"govuk-checkboxes\\">
+                                <div class=\\"govuk-checkboxes__item\\">
+                                    <input class=\\"govuk-checkboxes__input\\" id=\\"representation--3\\" name=\\"representationId\\"
+                                    type=\\"checkbox\\" value=\\"3\\">
+                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"representation--3\\">Select representation 3</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class=\\"govuk-table__cell\\">mock-reference-3</td>
+                    <td class=\\"govuk-table__cell\\">10 Oct 2023</td>
+                    <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--\\">VALID</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Publish representations</button>
+    </form>
+    <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+        const selectAllRepsContainerElement = document.getElementById('select-all-representations-container');
+            const selectAllRepsElement = document.getElementById('select-all-representations');
+            const repElements = document.querySelectorAll('.representation input');
+            const numberOfSelectedRepsElement = document.getElementById('number-of-selected-representations');
+        
+            let numberOfSelectedReps;
+        
+            const updateNumberOfSelectedReps = () => {
+              numberOfSelectedReps = 0;
+              repElements.forEach((repElement) => {
+                if (repElement.checked) numberOfSelectedReps++;
+              });
+              return numberOfSelectedReps;
+            }
+        
+            const setNumberOfSelectedReps = () => numberOfSelectedRepsElement.innerHTML = numberOfSelectedReps;
+        
+            const updateAndSetNumberOfSelectedReps = () => {
+              updateNumberOfSelectedReps()
+              setNumberOfSelectedReps();
+            }
+        
+            const isAllRepsSelected = () => numberOfSelectedReps === repElements.length;
+        
+            const toggleSelectAllReps = (check) => selectAllRepsElement.checked = check;
+        
+            selectAllRepsElement.addEventListener('change', function () {
+              repElements.forEach((repElement) => repElement.checked = this.checked);
+              updateAndSetNumberOfSelectedReps();
+            })
+        
+            repElements.forEach((repElement, index) => {
+              repElement.addEventListener('change', function () {
+                updateAndSetNumberOfSelectedReps();
+                if (!this.checked) toggleSelectAllReps(false);
+                else if (isAllRepsSelected()) toggleSelectAllReps(true);
+              })
+            });
+        
+            selectAllRepsContainerElement.className = 'govuk-!-display-inline-block';
+            updateAndSetNumberOfSelectedReps();
+    </script>
+</main>"
+`;
