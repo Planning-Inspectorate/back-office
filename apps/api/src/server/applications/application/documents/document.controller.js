@@ -20,6 +20,7 @@ import {
 	handleUpdateDocument,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
+	markDocumentVersionAsUnpublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishDocumentVersions,
@@ -591,6 +592,17 @@ export const markAsPublished = async (
 		publishedBlobContainer,
 		publishedDate: new Date(publishedDate)
 	});
+
+	response.send(updateResponse);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const markAsUnpublished = async ({ params }, response) => {
+	const { guid } = params;
+
+	const updateResponse = await markDocumentVersionAsUnpublished({ guid });
 
 	response.send(updateResponse);
 };

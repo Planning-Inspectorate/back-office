@@ -1,16 +1,23 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
 
-/** @type {import('../application.js').NsipProjectPayload} */
-const expectedEventPayload = {
+const expectedNsipProjectPayload = {
 	caseId: 1,
-	sourceSystem: 'ODT',
+	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
-	applicantId: 1,
+	caseReference: 'BC01234',
+	applicantId: '1',
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
-	inspectorIds: [],
-	interestedPartyIds: []
+	inspectorIds: []
+};
+
+const expectedApplicantPayload = {
+	id: '1',
+	sourceSuid: '1',
+	sourceSystem: 'back-office-applications',
+	caseReference: 'BC01234',
+	serviceUserType: 'Applicant'
 };
 
 const { request } = await import('../../../app-test.js');
@@ -22,6 +29,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -64,7 +72,13 @@ describe('Update application', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[expectedEventPayload],
+			[expectedNsipProjectPayload],
+			'Update'
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'service-user',
+			[expectedApplicantPayload],
 			'Update'
 		);
 	});
@@ -73,6 +87,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -112,7 +127,13 @@ describe('Update application', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[expectedEventPayload],
+			[expectedNsipProjectPayload],
+			'Update'
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'service-user',
+			[expectedApplicantPayload],
 			'Update'
 		);
 	});
@@ -121,6 +142,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -266,7 +288,13 @@ describe('Update application', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[expectedEventPayload],
+			[expectedNsipProjectPayload],
+			'Update'
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'service-user',
+			[expectedApplicantPayload],
 			'Update'
 		);
 	});
@@ -276,6 +304,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -331,7 +360,13 @@ describe('Update application', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[expectedEventPayload],
+			[expectedNsipProjectPayload],
+			'Update'
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'service-user',
+			[expectedApplicantPayload],
 			'Update'
 		);
 	});
@@ -340,6 +375,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -415,6 +451,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 1 }
 		});
 
@@ -434,6 +471,7 @@ describe('Update application', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'BC01234',
 			applicant: { id: 4 }
 		});
 

@@ -1,4 +1,5 @@
 export const NSIP_PROJECT = 'nsip-project';
+export const SERVICE_USER = 'service-user';
 export const NSIP_PROJECT_UPDATE = 'nsip-project-update';
 export const NSIP_DOCUMENT = 'nsip-document';
 export const NSIP_SUBSCRIPTION = 'nsip-subscription';

@@ -59,12 +59,11 @@ describe('Publish application', () => {
 			[
 				{
 					caseId: 1,
-					sourceSystem: 'ODT',
+					sourceSystem: 'back-office-applications',
 					publishStatus: 'published',
 					nsipOfficerIds: [],
 					nsipAdministrationOfficerIds: [],
-					inspectorIds: [],
-					interestedPartyIds: []
+					inspectorIds: []
 				}
 			],
 			'Publish'

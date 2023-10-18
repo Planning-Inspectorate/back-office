@@ -142,7 +142,7 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 	if (request.errors) {
 		const properties = await documentationFolderData(request, response);
 
-		return response.render(`applications/components/folder/folder`, {
+		return response.render('applications/components/folder/folder', {
 			...properties,
 			errors: request.errors
 		});
@@ -150,9 +150,17 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(
 		response.locals.caseId,
-		request.body.selectedFilesIds,
-		true
+		request.body.selectedFilesIds
 	);
+
+	if (!documentationFiles.every((file) => file.publishedStatus === 'published')) {
+		const properties = await documentationFolderData(request, response);
+
+		return response.render('applications/components/folder/folder', {
+			...properties,
+			errors: 'Your selected documents are not published so you cannot unpublish them.'
+		});
+	}
 
 	const pathMatch = request.url.match(/(\d+)\/([a-zA-Z-]+)\/unpublishing-queue$/);
 	const backLink = pathMatch
@@ -366,7 +374,7 @@ export async function postUnpublishDocuments({ body }, response) {
 	return response.render('applications/case-documentation/documentation-success-banner', {
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
-		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFiles[0].caseRef}</p>`,
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
 		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
 	});
 }
