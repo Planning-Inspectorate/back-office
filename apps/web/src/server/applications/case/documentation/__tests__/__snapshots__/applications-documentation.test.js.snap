@@ -134,7 +134,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -951,7 +951,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -2236,7 +2236,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -3144,7 +3144,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -4376,7 +4376,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -5606,7 +5606,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
                             <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
