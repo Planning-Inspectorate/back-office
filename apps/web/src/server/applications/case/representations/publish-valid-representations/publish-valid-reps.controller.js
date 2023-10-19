@@ -4,8 +4,12 @@ import {
 	getPublishableRepresentaions,
 	publishRepresentations
 } from '../applications-relevant-reps.service.js';
-import { representationsUrl } from '../config.js';
-import { getPublishRepresentationsPayload } from '../utils/publish-representations.js';
+import { publishRepresentationsErrorUrl, representationsUrl } from '../config.js';
+import {
+	getNumberOfRepresentationsPublished,
+	getPublishRepresentationsPayload,
+	getPublishedRepresentationsRedirectURL
+} from '../utils/publish-representations.js';
 
 const view = 'applications/representations/publish-valid-representations/index.njk';
 
@@ -37,30 +41,39 @@ export const getPublishValidRepsController = async (req, res) => {
  * @param {import("express").Response} res
  */
 export const postPublishValidRepsController = async (req, res) => {
-	const {
-		params: { caseId },
-		session
-	} = req;
-	const {
-		locals: { serviceUrl }
-	} = res;
+	try {
+		const {
+			params: { caseId },
+			session
+		} = req;
+		const {
+			locals: { serviceUrl }
+		} = res;
 
-	const { items } = await getPublishableRepresentaions(caseId);
+		const { items } = await getPublishableRepresentaions(caseId);
 
-	const representationIds = items.map((/** @type {{ id: number; }} */ rep) => rep.id);
+		const representationIds = items.map((/** @type {{ id: number; }} */ rep) => rep.id);
 
-	const payload = getPublishRepresentationsPayload(session, representationIds);
-
-	const response = await publishRepresentations(caseId, payload);
-
-	if (response.publishedRepIds.length === representationIds.length) {
-		logger.info(
-			`Successfully published ${response.publishedRepIds} representations for case ${caseId}`
+		const publishRepresentationsPayload = getPublishRepresentationsPayload(
+			session,
+			representationIds
 		);
-		res.redirect(
-			`${serviceUrl}/case/${caseId}/${representationsUrl}?published=${response.publishedRepIds.length}`
+		const publishRepresentationsRespone = await publishRepresentations(
+			caseId,
+			publishRepresentationsPayload
 		);
-	} else {
-		res.redirect(`${serviceUrl}/case/${caseId}/${representationsUrl}`);
+		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
+			publishRepresentationsRespone
+		);
+		const redirectURL = getPublishedRepresentationsRedirectURL(
+			serviceUrl,
+			caseId,
+			numberOfRepresentationsPublished
+		);
+
+		return res.redirect(redirectURL);
+	} catch {
+		logger.info('No representations were published');
+		return res.redirect(publishRepresentationsErrorUrl);
 	}
 };

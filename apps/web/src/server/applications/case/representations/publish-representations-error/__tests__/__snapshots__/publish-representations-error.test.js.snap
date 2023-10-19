@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`publish-updated-representations.controller GET /applications-service/:caseId/relevant-representations/publishing-error should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\"><span class=\\"govuk-caption-m\\"> Publishing queue</span>
+    <h2 class=\\"govuk-heading-l\\"> Sorry, there is a problem</h2>
+    <p class=\\"govuk-body\\">The publishing service is unavailable.</p>
+    <p class=\\"govuk-body\\">None of your representations have been published. Please try again later.</p>
+    <p     class=\\"govuk-body\\">If you continue to have problems with this service, contact xxxxx</p>
+</main>"
+`;

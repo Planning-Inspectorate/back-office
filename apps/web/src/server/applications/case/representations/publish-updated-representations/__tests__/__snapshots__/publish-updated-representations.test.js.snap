@@ -119,7 +119,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
               updateAndSetNumberOfSelectedReps();
             })
         
-            repElements.forEach((repElement, index) => {
+            repElements.forEach((repElement) => {
               repElement.addEventListener('change', function () {
                 updateAndSetNumberOfSelectedReps();
                 if (!this.checked) toggleSelectAllReps(false);
