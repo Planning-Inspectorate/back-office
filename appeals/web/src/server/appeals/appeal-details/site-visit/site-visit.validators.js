@@ -1,6 +1,10 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { createDateInputValidator } from '#lib/validators/date-input.validator.js';
+import {
+	createDateInputFieldsValidator,
+	createDateInputDateValidityValidator,
+	createDateInputDateInFutureValidator
+} from '#lib/validators/date-input.validator.js';
 import {
 	createTimeInputValidator,
 	createStartTimeBeforeEndTimeValidator
@@ -10,7 +14,15 @@ export const validateSiteVisitType = createValidator(
 	body('visit-type').trim().notEmpty().withMessage('Please select a visit type')
 );
 
-export const validateVisitDate = createDateInputValidator('visit-date', 'visit date');
+export const validateVisitDateFields = createDateInputFieldsValidator('visit-date', 'visit date');
+export const validateVisitDateValid = createDateInputDateValidityValidator(
+	'visit-date',
+	'visit date'
+);
+export const validateVisitDateInFuture = createDateInputDateInFutureValidator(
+	'visit-date',
+	'visit date'
+);
 export const validateVisitStartTime = createTimeInputValidator(
 	'visit-start-time',
 	'start time',

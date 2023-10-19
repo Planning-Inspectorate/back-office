@@ -12,7 +12,9 @@ router
 	.post(
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		validators.validateSiteVisitType,
-		validators.validateVisitDate,
+		validators.validateVisitDateFields,
+		validators.validateVisitDateValid,
+		validators.validateVisitDateInFuture,
 		validators.validateVisitStartTime,
 		validators.validateVisitEndTime,
 		validators.validateVisitStartTimeBeforeEndTime,

@@ -13,7 +13,7 @@ import { mapDocumentDetailsFormDataToAPIRequest } from './appeal-documents.mappe
  */
 export const renderDocumentUpload = async (request, response, backButtonUrl, nextPageUrl) => {
 	const { appealId, documentId } = request.params;
-	const { currentFolder } = request;
+	const { currentFolder, errors } = request;
 
 	if (!currentFolder) {
 		return response.status(404).render('app/404');
@@ -37,7 +37,8 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 		documentType: documentType,
 		nextPageUrl:
 			nextPageUrl?.replace('{{folderId}}', currentFolder.id) ||
-			backButtonUrl?.replace('{{folderId}}', currentFolder.id)
+			backButtonUrl?.replace('{{folderId}}', currentFolder.id),
+		errors
 	});
 };
 
@@ -46,16 +47,15 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {string} backButtonUrl
- * @param {string} [nextPageUrl]
  */
-export const renderDocumentDetails = async (request, response, backButtonUrl, nextPageUrl) => {
-	const { currentFolder } = request;
+export const renderDocumentDetails = async (request, response, backButtonUrl) => {
+	const { currentFolder, body, errors } = request;
 
 	if (!currentFolder) {
-		return response.status(404).render('app/404');
+		return response.status(404).render('app/404.njk');
 	}
 
-	const mappedDocumentData = mapFolderToAddDetailsPageParams(currentFolder);
+	const mappedDocumentData = mapFolderToAddDetailsPageParams(currentFolder, body?.items);
 
 	return response.render('appeals/documents/add-document-details.njk', {
 		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
@@ -64,25 +64,30 @@ export const renderDocumentDetails = async (request, response, backButtonUrl, ne
 		blobStorageHost:
 			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
 		blobStorageContainer: config.blobStorageDefaultContainer,
-		nextPageUrl:
-			nextPageUrl?.replace('{{folderId}}', currentFolder.id) ||
-			backButtonUrl?.replace('{{folderId}}', currentFolder.id),
 		documentTypeHeading: mappedDocumentData.folderName,
-		detailsItems: mappedDocumentData.detailsItems
+		detailsItems: mappedDocumentData.detailsItems,
+		errors
 	});
 };
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ * @param {string} [nextPageUrl]
  */
-export const postDocumentDetails = async (request, response) => {
+export const postDocumentDetails = async (request, response, backButtonUrl, nextPageUrl) => {
 	try {
 		const {
 			body,
 			apiClient,
-			params: { appealId }
+			params: { appealId },
+			errors
 		} = request;
+
+		if (errors) {
+			return renderDocumentDetails(request, response, backButtonUrl);
+		}
 
 		const redactionStatuses = await getDocumentRedactionStatuses(apiClient);
 
@@ -92,9 +97,7 @@ export const postDocumentDetails = async (request, response) => {
 
 			if (updateDocumentsResult) {
 				request.session.documentAdded = true;
-				return response.redirect(
-					body?.nextPageUrl || `/appeals-service/appeal-details/${appealId}/appellant-case/`
-				);
+				return response.redirect(nextPageUrl || `/appeals-service/appeal-details/${appealId}/`);
 			}
 		}
 

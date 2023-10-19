@@ -302,12 +302,16 @@ export const getAddDocumentDetails = async (request, response) => {
 	renderDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`
 	);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postAddDocumentDetails = async (request, response) => {
-	postDocumentDetails(request, response);
+	postDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/`
+	);
 };

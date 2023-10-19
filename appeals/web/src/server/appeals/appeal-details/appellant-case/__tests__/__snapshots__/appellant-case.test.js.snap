@@ -162,14 +162,83 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render a document upload page with a single file upload component 1`] = `
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one formgroup item per unpublished document 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <div class="govuk-form-group">
+                        <h2 class="govuk-heading-m">ph0.jpeg</h2>
+                        <div class="govuk-form-group">
+                            <input class="govuk-input" id="" name="items[1][documentId]" type="hidden">
+                        </div>
+                        <div class="govuk-form-group">
+                            <div class="govuk-date-input" id="items[1][receivedDate]">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1][receivedDate]-day" name="items[1][receivedDate]-day" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1][receivedDate]-month" name="items[1][receivedDate]-month" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1][receivedDate]-year" name="items[1][receivedDate]-year" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="govuk-form-group">
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="nextPageUrl" type="hidden" value="/appeals-service/appeal-details/1/appellant-case/">
+                    </div>
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render a document upload page with a file upload component 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/undefined"
     data-case-id="1" data-folder-id="" data-document-type="appealStatement"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
@@ -219,14 +288,14 @@ TIF,
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render a document upload page with a single file upload component 1`] = `
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render a document upload page with a file upload component 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/undefined"
     data-case-id="1" data-folder-id="" data-document-type="appealStatement"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-document-id="1"

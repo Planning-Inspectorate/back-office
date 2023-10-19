@@ -269,12 +269,16 @@ export const getAddDocumentDetails = async (request, response) => {
 	renderDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`
 	);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postAddDocumentDetails = async (request, response) => {
-	postDocumentDetails(request, response);
+	postDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
+	);
 };

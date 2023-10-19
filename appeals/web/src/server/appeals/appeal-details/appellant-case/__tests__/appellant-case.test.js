@@ -7,7 +7,9 @@ import {
 	appellantCaseInvalidReasons,
 	appellantCaseIncompleteReasons,
 	documentFolderInfo,
-	documentFileInfo
+	documentFileInfo,
+	documentFolderInfoWithDocuments,
+	documentRedactionStatuses
 } from '#testing/app/fixtures/referencedata.js';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 
@@ -1137,7 +1139,7 @@ describe('appellant-case', () => {
 	});
 
 	describe('GET /appellant-case/add-documents/:folderId/', () => {
-		it('should render a document upload page with a single file upload component', async () => {
+		it('should render a document upload page with a file upload component', async () => {
 			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
 
@@ -1149,7 +1151,7 @@ describe('appellant-case', () => {
 	});
 
 	describe('GET /appellant-case/add-documents/:folderId/:documentId', () => {
-		it('should render a document upload page with a single file upload component', async () => {
+		it('should render a document upload page with a file upload component', async () => {
 			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
 
@@ -1158,5 +1160,90 @@ describe('appellant-case', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+	});
+
+	describe('GET /appellant-case/add-document-details/:folderId/', () => {
+		it('should render the add document details page with one formgroup item per unpublished document', async () => {
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, documentFolderInfoWithDocuments);
+
+			const response = await request.get(
+				`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('POST /appellant-case/add-document-details/:folderId/', () => {
+		beforeEach(() => {
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
+		});
+
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
+		/*
+		it('should re-render the document details page with the expected error message if received date day was not provided', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: '4541e025-00e5-4468-aac6-d1b51f7ae0a2',
+							receivedDate: [
+								undefined,
+								'2',
+								'2024'
+							],
+							redactionStatus: 'redacted'
+						}
+					],
+					nextPageUrl: '/appeals-service/appeal-details/1/appellant-case/'
+				});
+
+
+
+			expect()
+		});
+
+		it('should send a patch request to the appeal documents endpoint and redirect to the nextPageUrl specified in the request body, if complete and valid document details were provided', async () => {
+			// nock - appeal documents endpoint (patch)
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: '4541e025-00e1-4458-aac6-d1b51f6ae0a7',
+							receivedDate: [
+								'1',
+								'2',
+								'2024'
+							],
+							redactionStatus: 'unredacted'
+						}
+					],
+					nextPageUrl: '/appeals-service/appeal-details/1/appellant-case/'
+				});
+
+			// example:
+			// const mockedAppellantCasesEndpoint = nock('http://test/')
+			// 	.patch('/appeals/1/appellant-cases/0')
+			// 	.reply(200, { validationOutcome: 'invalid' });
+
+			// const response = await request.post(
+			// 	`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
+			// );
+
+			// expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
+			// expect(response.statusCode).toBe(302);
+		});
+		*/
 	});
 });
