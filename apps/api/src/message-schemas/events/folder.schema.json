@@ -1,0 +1,30 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "folder.schema.json",
+	"title": "Folder",
+	"description": "Folders can have optional parents. All folders belong to a Case.",
+	"type": "object",
+	"required": ["id", "caseReference", "displayNameEnglish"],
+	"properties": {
+		"id": {
+			"type": "integer",
+			"description": "The unique identifier within the Back Office."
+		},
+		"caseReference": {
+			"type": "string",
+			"description": "the case reference this update relates to"
+		},
+		"displayNameEnglish": {
+			"type": "string",
+			"description": "the case reference this update relates to"
+		},
+		"displayNameWelsh": {
+			"type": "string",
+			"description": "Internal title or name of the update"
+		},
+		"parentFolderId": {
+			"type": "integer",
+			"description": "Optional parent folder ID"
+		}
+	}
+}
