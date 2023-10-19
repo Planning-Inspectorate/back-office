@@ -61,20 +61,43 @@ describe('publish-valid-representations', () => {
 	});
 
 	describe('POST /applications-service/:caseId/relevant-representations/publish-valid-representations', () => {
-		const nocks = () => {
-			nock('http://test/')
-				.get('/applications/1/representations/publishable')
-				.reply(200, publishableRepresentationsFixture);
-			nock('http://test/')
-				.patch('/applications/1/representations/publish')
-				.reply(200, { publishedRepIds: [1, 2, 3] });
-		};
-		beforeEach(async () => {
-			nocks();
+		describe('unsuccessful', () => {
+			const nocks = () => {
+				nock('http://test/')
+					.get('/applications/1/representations/publishable')
+					.reply(200, publishableRepresentationsFixture);
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: [] });
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should redirect to the error page', async () => {
+				const response = await request.post(baseUrl).send({ representationId: ['1', '2', '3'] });
+
+				expect(response?.headers?.location).toContain('publishing-error');
+			});
 		});
-		describe('and publish action succeeded to publish all valid representations', () => {
-			it('should render the page with success banner', async () => {
-				const response = await request.post(baseUrl);
+
+		describe('successful', () => {
+			const nocks = () => {
+				nock('http://test/')
+					.get('/applications/1/representations/publishable')
+					.reply(200, publishableRepresentationsFixture);
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: [1, 2, 3] });
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should redirect to the correct URL', async () => {
+				const response = await request.post(baseUrl).send({ representationId: ['1', '2', '3'] });
 
 				expect(response?.headers?.location).toContain(
 					'/applications-service/case/1/relevant-representations?published=3'

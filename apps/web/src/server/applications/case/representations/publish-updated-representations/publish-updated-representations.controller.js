@@ -1,17 +1,19 @@
+import logger from '../../../../lib/logger.js';
 import {
 	getCase,
 	getPublishableRepresentaions,
 	publishRepresentations
 } from '../applications-relevant-reps.service.js';
 import {
+	getNumberOfRepresentationsPublished,
 	getPublishRepresentationsPayload,
-	getPublishedRepresentationsRedirectURL,
-	isAllRepresentationsPublished
+	getPublishedRepresentationsRedirectURL
 } from '../utils/publish-representations.js';
 import { getPublishUpdatedRepresentationsViewModel } from './publish-updated-representations.view-model.js';
 import { formatRepresentationIds } from './utils/format-representation-ids.js';
+import { publishRepresentationsErrorUrl } from '../config.js';
 
-const view = 'applications/representations/publish-representations.njk';
+const view = 'applications/representations/publish-updated-representations.njk';
 
 /**
  * @param {import("express").Request} req
@@ -43,30 +45,38 @@ const getPublishUpdatedRepresentationsController = async (req, res) => {
  * @param {import("express").Response} res
  */
 const postPublishUpdatedRepresentationsController = async (req, res) => {
-	const { body, params, session } = req;
-	const { caseId } = params;
-	const { representationId } = body;
-	const {
-		locals: { serviceUrl }
-	} = res;
+	try {
+		const { body, params, session } = req;
+		const { caseId } = params;
+		const { representationId } = body;
+		const {
+			locals: { serviceUrl }
+		} = res;
 
-	const representationIds = formatRepresentationIds(representationId);
+		const representationIds = formatRepresentationIds(representationId);
 
-	const publishRepresentationsPayload = getPublishRepresentationsPayload(
-		session,
-		representationIds
-	);
-	const publishRepresentationsRespone = await publishRepresentations(
-		caseId,
-		publishRepresentationsPayload
-	);
-	const redirectURL = getPublishedRepresentationsRedirectURL(
-		serviceUrl,
-		caseId,
-		isAllRepresentationsPublished(publishRepresentationsRespone, representationIds)
-	);
+		const publishRepresentationsPayload = getPublishRepresentationsPayload(
+			session,
+			representationIds
+		);
+		const publishRepresentationsRespone = await publishRepresentations(
+			caseId,
+			publishRepresentationsPayload
+		);
+		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
+			publishRepresentationsRespone
+		);
+		const redirectURL = getPublishedRepresentationsRedirectURL(
+			serviceUrl,
+			caseId,
+			numberOfRepresentationsPublished
+		);
 
-	return res.redirect(redirectURL);
+		return res.redirect(redirectURL);
+	} catch {
+		logger.info('No representations were published');
+		return res.redirect(publishRepresentationsErrorUrl);
+	}
 };
 
 export { getPublishUpdatedRepresentationsController, postPublishUpdatedRepresentationsController };

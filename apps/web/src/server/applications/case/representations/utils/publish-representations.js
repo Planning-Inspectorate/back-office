@@ -5,6 +5,8 @@ import { representationsUrl } from '../config.js';
  * @typedef {import('../relevant-representation.types.js').PublishedReps} PublishedReps
  */
 
+export const publishRepresentationsQueryKey = 'published';
+
 /**
  * @param {*} session
  * @param {number[]} representationIds
@@ -21,24 +23,25 @@ export const getPublishRepresentationsPayload = (session, representationIds) => 
 
 /**
  * @param {PublishedReps} publishedReps
- * @param {Array<number>} representationIds
- * @returns {boolean}
+ * @returns {number}
  */
-export const isAllRepresentationsPublished = ({ publishedRepIds }, representationIds) => {
-	if (!publishedRepIds.length) throw new Error('No representations were published');
+export const getNumberOfRepresentationsPublished = ({ publishedRepIds }) => {
+	const numberOfRepresentationsPublished = publishedRepIds.length;
 
-	return publishedRepIds.length === representationIds.length;
+	if (!numberOfRepresentationsPublished) throw new Error('No representations were published');
+
+	return numberOfRepresentationsPublished;
 };
 
 /**
  * @param {string} serviceUrl
  * @param {string} caseId
- * @param {boolean} isAllRepresentationsPublished
+ * @param {number} numberOfRepresentationPublished
  * @returns {string}
  */
 export const getPublishedRepresentationsRedirectURL = (
 	serviceUrl,
 	caseId,
-	isAllRepresentationsPublished
+	numberOfRepresentationPublished
 ) =>
-	`${serviceUrl}/case/${caseId}/${representationsUrl}?all-representations-published=${isAllRepresentationsPublished}`;
+	`${serviceUrl}/case/${caseId}/${representationsUrl}?${publishRepresentationsQueryKey}=${numberOfRepresentationPublished}`;

@@ -40,4 +40,44 @@ describe('publish-updated-representations.controller', () => {
 			expect(element.innerHTML).toContain('The queue contains <strong>3</strong> representations.');
 		});
 	});
+
+	describe('POST /applications-service/:caseId/relevant-representations/select-representations-for-publishing', () => {
+		describe('unsuccessful', () => {
+			const nocks = () => {
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: [] });
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should redirect to the error page', async () => {
+				const response = await request.post(baseUrl).send({ representationId: ['1', '2', '3'] });
+
+				expect(response?.headers?.location).toContain('publishing-error');
+			});
+		});
+
+		describe('successful', () => {
+			const nocks = () => {
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: [1, 2, 3] });
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should redirect to the correct URL', async () => {
+				const response = await request.post(baseUrl).send({ representationId: ['1', '2', '3'] });
+
+				expect(response?.headers?.location).toContain(
+					'/applications-service/case/1/relevant-representations?published=3'
+				);
+			});
+		});
+	});
 });
