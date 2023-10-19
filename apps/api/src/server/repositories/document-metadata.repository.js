@@ -126,7 +126,7 @@ export const getById = (documentGuid, version = 1) => {
 
  * Get info for many documents by documentGuid and published status
  *
- * @param {string} documentGuids
+ * @param {string[]} documentGuids
  * @param {string} [publishedStatus]
  * @returns {import('@prisma/client').PrismaPromise<Array<DocumentVersion |null>>}
  */

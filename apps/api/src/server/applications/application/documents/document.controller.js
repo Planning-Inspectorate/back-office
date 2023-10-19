@@ -248,28 +248,31 @@ export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getDocumentProperties = async ({ params: { guid } }, response) => {
-	// Step 1: Retrieve the document by its GUID and case ID.
 	const document = await documentRepository.getById(guid);
-
 	if (!document) {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
 		document.latestVersionId ?? 1
 	);
 
-	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	// Step 4: Map the document metadata to a format to be returned in the API response.
-	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
+	const publishedVersions = await documentVersionRepository.getManyByIdAndStatus(
+		[document.guid],
+		'published'
+	);
+	const isPublished = publishedVersions.some((version) => version?.publishedStatus === 'published');
 
-	// Step 5: Return the document metadata in the response.
+	const documentDetails = mapSingleDocumentDetailsFromVersion({
+		...documentVersion,
+		publishedStatus: isPublished ? 'published' : documentVersion.publishedStatus
+	});
+
 	response.status(200).send(documentDetails);
 };
 
@@ -311,29 +314,38 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getManyDocumentsProperties = async ({ query: { guids, published } }, response) => {
+	/** @type {string[]} */
 	const filesGuid = JSON.parse(guids);
 	const onlyPublished = published === 'true';
 
-	const documentsVersion = await documentVersionRepository.getManyByIdAndStatus(
-		filesGuid,
-		onlyPublished ? 'published' : undefined
+	const uniqueGuids = filesGuid.reduce(
+		(acc, guid) => (acc.includes(guid) ? acc : [...acc, guid]),
+		/** @type {string[]} */ ([])
 	);
 
-	/** @type {DocumentVersionWithDocument[]} */
-	const foundDocuments = documentsVersion.flatMap((document, index) => {
-		if (document === null) {
-			logger.warn(`No published version of document ${filesGuid[index]} found`);
-			return [];
-		}
+	const documents = await documentRepository.getDocumentsByGUID(uniqueGuids);
+	if (!documents) {
+		throw new BackOfficeAppError(`no results returned for document GUIDs: ${filesGuid}`, 404);
+	}
 
-		return [document];
-	});
+	const filteredDocuments = onlyPublished
+		? documents.filter((doc) =>
+				doc.documentVersion.some((version) => version.publishedStatus === 'published')
+		  )
+		: documents;
 
-	// Map the documents metadata to a format to be returned in the API response.
-	const documentDetails = mapDocumentVersionDetails(foundDocuments);
+	const results = filteredDocuments.map((doc) =>
+		mapSingleDocumentDetailsFromVersion({
+			...doc.documentVersion[0],
+			publishedStatus: doc.documentVersion.some(
+				(version) => version.publishedStatus === 'published'
+			)
+				? 'published'
+				: doc.documentVersion[0].publishedStatus
+		})
+	);
 
-	// Return the documents metadata in the response.
-	response.status(200).send(documentDetails);
+	response.status(200).send(results);
 };
 
 /**

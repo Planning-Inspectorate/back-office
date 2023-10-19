@@ -24,6 +24,8 @@ export const statusName = (key) => {
 			return 'Published';
 		case 'do_not_publish':
 			return 'Do not publish';
+		case 'unpublishing':
+			return 'Unpublishing';
 		case 'unpublished':
 			return 'Unpublished';
 		default:
