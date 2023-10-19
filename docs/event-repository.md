@@ -15,8 +15,8 @@ The ODT services emit events to Service Bus Topics from within Appeals Back Offi
 | nsip-representation | 0.1     | [Representation](../apps/api/src/message-schemas/events/representation.schema.json)           | Applications BO             | ODW, Applications FO             |
 | nsip-project-update | 0.1     | [NSIP Project Update](../apps/api/src/message-schemas/events/nsip-project-update.schema.json) | Applications BO             | ODW, Applications FO             |
 | nsip-subscription   | 0.1     | [NSIP Subscription](../apps/api/src/message-schemas/events/nsip-subscription.schema.json)     | Applications BO             | ODW                              |
-| appeal-bo-case      | 0.1     | [Appeal](../appeals/api/src/message-schemas/pins-appeal.schema.json)                          | Appeals BO                  | ODW, Appeals FO                  |
-| appeal-bo-document  | 0.1     | [Appeal Document](../appeals/api/src/message-schemas/pins-document.schema.json)               | Appeals BO                  | ODW, Appeals FO                  |
+| appeal              | 0.1     | [Appeal](../appeals/api/src/message-schemas/pins-appeal.schema.json)                          | Appeals BO                  | ODW, Appeals FO                  |
+| appeal-document     | 0.1     | [Appeal Document](../appeals/api/src/message-schemas/pins-document.schema.json)               | Appeals BO                  | ODW, Appeals FO                  |
 
 ## Incoming Events (Operational)
 
@@ -34,14 +34,14 @@ Temporary Service Bus Topics will be configured to migrate existing data from wi
 
 This table is essentially a copy of the outgoing events, but without topics for nsip-project-update and nsip-subscription. Data is being migrated directly from Worpress to ODT for those topics.
 
-| Topic Name                  | Version | Payload Schema                                                                           | Producer(s) | Known Consumers |
-| --------------------------- | ------- | ---------------------------------------------------------------------------------------- | ----------- | --------------- |
-| migrate-service-user        | 1.0     | [Service User](../apps/api/src/message-schemas/events/service-user.schema.json)          | ODW         | Applications BO |
-| migrate-nsip-project        | 1.0     | [NSIP Project](../apps/api/src/message-schemas/events/nsip-project.schema.json)          | ODW         | Applications BO |
-| migrate-nsip-exam-timetable | 0.1     | [Exam Timetable](../apps/api/src/message-schemas/events/nsip-exam-timetable.schema.json) | ODW         | Applications BO |
-| migrate-nsip-folder         | TODO    | TODO                                                                                     | ODW         | Applications BO |
-| migrate-nsip-document       | 0.1     | [NSIP Document](../apps/api/src/message-schemas/events/nsip-document.schema.json)        | ODW         | Applications BO |
-| migrate-s51-advice          | 0.1     | [S51 Advice](../apps/api/src/message-schemas/events/s51-advice.schema.json)              | ODW         | Applications BO |
-| migrate-nsip-representation | 0.1     | [Representation](../apps/api/src/message-schemas/events/representation.schema.json)      | ODW         | Applications BO |
-| migrate-appeal              | 0.1     | [Appeal](../apps/api/src/message-schemas/events/_appeal.schema.json)                     | ODW         | Appeals FO      |
-| migrate-appeal-document     | 0.1     | [Appeal Document](../apps/api/src/message-schemas/events/_appeal-document.schema.json)   | ODW         | Appeals FO      |
+| Topic Name          | Version | Payload Schema                                                                           | Producer(s) | Known Consumers |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------- | ----------- | --------------- |
+| service-user        | 1.0     | [Service User](../apps/api/src/message-schemas/events/service-user.schema.json)          | ODW         | Applications BO |
+| nsip-project        | 1.0     | [NSIP Project](../apps/api/src/message-schemas/events/nsip-project.schema.json)          | ODW         | Applications BO |
+| nsip-exam-timetable | 0.1     | [Exam Timetable](../apps/api/src/message-schemas/events/nsip-exam-timetable.schema.json) | ODW         | Applications BO |
+| nsip-folder         | TODO    | TODO                                                                                     | ODW         | Applications BO |
+| nsip-document       | 0.1     | [NSIP Document](../apps/api/src/message-schemas/events/nsip-document.schema.json)        | ODW         | Applications BO |
+| s51-advice          | 0.1     | [S51 Advice](../apps/api/src/message-schemas/events/s51-advice.schema.json)              | ODW         | Applications BO |
+| nsip-representation | 0.1     | [Representation](../apps/api/src/message-schemas/events/representation.schema.json)      | ODW         | Applications BO |
+| appeal              | 0.1     | [Appeal](../appeals/api/src/message-schemas/pins-appeal.schema.json)                     | ODW         | Appeals BO      |
+| appeal-document     | 0.1     | [Appeal Document](../appeals/api/src/message-schemas/pins-document.schema.json)          | ODW         | Appeals BO      |
