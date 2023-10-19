@@ -359,6 +359,8 @@ export const obtainURLForDocumentVersion = async (documentToUpload, caseId, docu
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
 	currentDocumentVersion[0].owner = documentToUpload.username;
+	currentDocumentVersion[0].publishedStatus = 'not_checked';
+	currentDocumentVersion[0].publishedStatusPrev = null;
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
