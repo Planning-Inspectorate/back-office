@@ -597,7 +597,7 @@ export const markDocumentVersionAsPublished = async ({
 export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
 	const publishedDocument = await documentVersionRepository.update(guid, {
 		version,
-		publishedStatus: 'unpublished',
+		publishedStatus: 'not_checked',
 		publishedStatusPrev: 'unpublishing'
 	});
 

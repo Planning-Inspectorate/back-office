@@ -612,9 +612,9 @@ export const markAsPublished = async (
  * @type {import('express').RequestHandler}
  */
 export const markAsUnpublished = async ({ params }, response) => {
-	const { guid } = params;
+	const { guid, version } = params;
 
-	const updateResponse = await markDocumentVersionAsUnpublished({ guid });
+	const updateResponse = await markDocumentVersionAsUnpublished({ guid, version: Number(version) });
 
 	response.send(updateResponse);
 };
