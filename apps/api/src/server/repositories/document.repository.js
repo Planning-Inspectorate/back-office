@@ -233,7 +233,7 @@ export const getByDocumentGUID = (documentGUID) => {
 /**
  *
  * @param {string[]} guids
- * @returns {import('@prisma/client').PrismaPromise<Document[] | null>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentWithDocumentVersion[] | null>}
  * */
 export const getDocumentsByGUID = (guids) =>
 	databaseConnector.document.findMany({
@@ -242,6 +242,9 @@ export const getDocumentsByGUID = (guids) =>
 				in: guids
 			},
 			isDeleted: false
+		},
+		include: {
+			documentVersion: true
 		}
 	});
 
