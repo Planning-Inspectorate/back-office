@@ -42,6 +42,27 @@ describe('publish-updated-representations.controller', () => {
 	});
 
 	describe('POST /applications-service/:caseId/relevant-representations/select-representations-for-publishing', () => {
+		describe('error', () => {
+			const nocks = () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
+				nock('http://test/')
+					.get('/applications/1/representations/publishable')
+					.reply(200, publishableRepresentationsFixture);
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should render the page with the error summary', async () => {
+				const response = await request.post(baseUrl).send({});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('You must select representations to publish');
+			});
+		});
+
 		describe('unsuccessful', () => {
 			const nocks = () => {
 				nock('http://test/')

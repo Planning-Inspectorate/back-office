@@ -5,12 +5,16 @@ import {
 	getPublishUpdatedRepresentationsController,
 	postPublishUpdatedRepresentationsController
 } from './publish-updated-representations.controller.js';
+import { publishUpdatedRepresentationsValidation } from './publish-updated-representations.controller.validators.js';
 
 const publishUpdatedRepresentationsRouter = createRouter({ mergeParams: true });
 
 publishUpdatedRepresentationsRouter
 	.route(`/${publishUpdatedRepresentationsRoute}`)
 	.get(asyncRoute(getPublishUpdatedRepresentationsController))
-	.post(asyncRoute(postPublishUpdatedRepresentationsController));
+	.post(
+		publishUpdatedRepresentationsValidation,
+		asyncRoute(postPublishUpdatedRepresentationsController)
+	);
 
 export { publishUpdatedRepresentationsRouter };
