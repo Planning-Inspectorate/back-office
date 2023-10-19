@@ -248,28 +248,22 @@ export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getDocumentProperties = async ({ params: { guid } }, response) => {
-	// Step 1: Retrieve the document by its GUID and case ID.
 	const document = await documentRepository.getById(guid);
-
 	if (!document) {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
 		document.latestVersionId ?? 1
 	);
 
-	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	// Step 4: Map the document metadata to a format to be returned in the API response.
 	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
-	// Step 5: Return the document metadata in the response.
 	response.status(200).send(documentDetails);
 };
 
