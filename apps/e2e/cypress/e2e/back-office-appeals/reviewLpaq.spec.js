@@ -14,7 +14,7 @@ describe('Appeals feature', () => {
 
 	it('Complete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(15);
+		appealsListPage.clickAppealFromList(18);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Complete');
 		appealsListPage.clickButtonByText('Continue');
@@ -26,11 +26,12 @@ describe('Appeals feature', () => {
 
 	it('incomplete LPAQ', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(18);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.chooseCheckboxByIndex(1);
+		appealsListPage.fillInput1('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		updateDueDatePage.enterDateDay('29');
 		updateDueDatePage.enterDateMonth('12');
@@ -43,14 +44,16 @@ describe('Appeals feature', () => {
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it('incomplete LPAQ reason: other', () => {
+	it('incomplete LPAQ add another', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(18);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(2);
-		appealsListPage.fillTextArea('Hello here is some extra info, have a nice day 7384_+!£ =');
+		appealsListPage.chooseCheckboxByIndex(1);
+		appealsListPage.fillInput1('Hello here is some extra info, have a nice day 7384_+!£ =');
+		appealsListPage.addAnotherButton();
+		appealsListPage.fillInput2('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		updateDueDatePage.enterDateDay('29');
 		updateDueDatePage.enterDateMonth('12');
@@ -65,10 +68,11 @@ describe('Appeals feature', () => {
 
 	it('incomplete LPAQ skip due date', () => {
 		cy.visit('/appeals-service/appeals-list');
-		appealsListPage.clickAppealFromList(14);
+		appealsListPage.clickAppealFromList(18);
 		appealsListPage.clickReviewLpaq(7);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
+		appealsListPage.fillInput1('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.chooseCheckboxByIndex(1);
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.clickButtonByText('Skip');
