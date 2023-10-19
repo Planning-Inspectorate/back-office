@@ -86,6 +86,26 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 };
 
 /**
+ * Get a document by reference Number and caseId
+ *
+ * @param {string} reference
+ * @param {number} caseId
+ * @returns {import('@prisma/client').PrismaPromise<Document |null>}
+ */
+export const getByReferenceRelatedToCaseId = (reference, caseId) => {
+	return databaseConnector.document.findFirst({
+		include: { documentVersion: true },
+		where: {
+			reference,
+			isDeleted: false,
+			folder: {
+				caseId
+			}
+		}
+	});
+};
+
+/**
  * From a given list of document ids, retrieve the ones which are publishable
  *
  * @param {string[]} documentIds

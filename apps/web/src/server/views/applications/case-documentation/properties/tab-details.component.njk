@@ -6,7 +6,7 @@
 	{% if documentationFile.mime === 'image/png' %}
 		{% set transcriptRow = {
 				label: 'Transcript (optional)',
-				value: '',
+				value: documentationFile.transcript,
 				link: 'transcript'
 		} %}
 	{% endif %}
