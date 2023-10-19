@@ -3,22 +3,26 @@ import nock from 'nock';
 import supertest from 'supertest';
 import {
 	lpaQuestionnaireData,
-	lpaQuestionnaireIncompleteReasons
+	lpaQuestionnaireIncompleteReasons,
+	documentFolderInfo,
+	documentFileInfo
 } from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
-import { TEXTAREA_MAXIMUM_CHARACTERS } from '#lib/validators/textarea-validator.js';
+import { textInputCharacterLimits } from '../../../appeal.constants.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 const baseUrl = '/appeals-service/appeal-details/1/lpa-questionnaire/2';
-const otherReasonId = lpaQuestionnaireIncompleteReasons.find(
-	(reason) => reason.name.toLowerCase() === 'other'
-)?.id;
 
-const incompleteReasonsWithoutOther = lpaQuestionnaireIncompleteReasons.filter(
-	(reason) => reason.name.toLowerCase() !== 'other'
+const incompleteReasonIds = lpaQuestionnaireIncompleteReasons.map((reason) => reason.id);
+const incompleteReasonsWithText = lpaQuestionnaireIncompleteReasons.filter(
+	(reason) => reason.hasText === true
 );
-const incompleteReasonIdsWithoutOther = incompleteReasonsWithoutOther.map((reason) => reason.id);
+const incompleteReasonsWithoutText = lpaQuestionnaireIncompleteReasons.filter(
+	(reason) => reason.hasText === false
+);
+const incompleteReasonsWithTextIds = incompleteReasonsWithText.map((reason) => reason.id);
+const incompleteReasonsWithoutTextIds = incompleteReasonsWithoutText.map((reason) => reason.id);
 
 describe('LPA Questionnaire review', () => {
 	beforeEach(installMockApi);
@@ -108,6 +112,8 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/lpa-questionnaire-incomplete-reasons')
 				.reply(200, lpaQuestionnaireIncompleteReasons);
 
+			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+
 			// post to LPA questionnaire page controller is necessary to set required data in the session
 			lpaQPostResponse = await request.post(baseUrl).send({
 				'review-outcome': 'incomplete'
@@ -121,9 +127,19 @@ describe('LPA Questionnaire review', () => {
 		it('should re-render the incomplete reason page with the expected error message if no incomplete reason was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
+			const response = await request.post(`${baseUrl}/incomplete`).send({});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty string', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				otherReason: '',
-				otherReasonId: otherReasonId
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
 			});
 
 			const element = parseHtml(response.text);
@@ -131,59 +147,126 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the incomplete reason page with the expected error message if "other" reason was selected but no "otherReason" was provided', async () => {
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty array', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: otherReasonId,
-				otherReason: '',
-				otherReasonId: otherReasonId
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
 			});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the incomplete reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty strings', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
-			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: otherReasonId,
-				otherReason: otherReasonTextOverCharacterLimit,
-				otherReasonId: otherReasonId
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: ''
 			});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should redirect to the check and confirm page if a single incomplete reason was provided', async () => {
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty arrays', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonsWithoutOther[0].id,
-				otherReason: '',
-				otherReasonId: otherReasonId
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: [
+					'test reason text 1',
+					'test reason text 2'
+				]
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property exceeds the character limit', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'a'.repeat(
+					textInputCharacterLimits.lpaQuestionnaireNotValidReason + 1
+				)
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties exceed the character limit', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'a'.repeat(
+					textInputCharacterLimits.lpaQuestionnaireNotValidReason + 1
+				)
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the check and confirm page if a single incomplete reason without text was provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: incompleteReasonsWithoutTextIds[0]
 			});
 
 			expect(response.statusCode).toBe(302);
 		});
 
-		it('should redirect to the check and confirm page if multiple incomplete reasons were provided', async () => {
+		it('should redirect to the check and confirm page if a single incomplete reason with text within the character limit was provided', async () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
-			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: lpaQuestionnaireIncompleteReasons.map((reason) => reason.id),
-				otherReason: otherReasonTextWithinCharacterLimit,
-				otherReasonId: otherReasonId
+				incompleteReason: incompleteReasonsWithTextIds[0],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'a'.repeat(
+					textInputCharacterLimits.lpaQuestionnaireNotValidReason
+				)
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons without text were provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithoutTextIds[0], incompleteReasonsWithoutTextIds[1]]
+			});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons with text within the character limit were provided', async () => {
+			expect(lpaQPostResponse.statusCode).toBe(302);
+
+			const response = await request.post(`${baseUrl}/incomplete`).send({
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+					'a'.repeat(textInputCharacterLimits.lpaQuestionnaireNotValidReason),
+					'test reason text 2'
+				],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'a'.repeat(
+					textInputCharacterLimits.lpaQuestionnaireNotValidReason
+				)
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -218,8 +301,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -253,8 +335,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 		});
 
@@ -462,8 +543,12 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+				[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+					'test reason text 1',
+					'test reason text 2'
+				],
+				[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'test reason text 1'
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -490,8 +575,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -529,8 +613,7 @@ describe('LPA Questionnaire review', () => {
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			const incompleteReasonPostResponse = await request.post(`${baseUrl}/incomplete`).send({
-				incompleteReason: incompleteReasonIdsWithoutOther,
-				otherReasonId
+				incompleteReason: incompleteReasonIds
 			});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -573,6 +656,30 @@ describe('LPA Questionnaire review', () => {
 			expect(lpaQPostResponse.statusCode).toBe(302);
 
 			const response = await request.get(`${baseUrl}/confirmation`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/add-documents/:folderId/', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/add-documents/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/add-documents/:folderId/:documentId', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/add-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

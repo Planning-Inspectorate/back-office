@@ -37,7 +37,7 @@ export interface Case {
 	sector?: Sector;
 	subSector?: Sector;
 	caseEmail?: string;
-	applicants?: Applicant[];
+	applicant?: Applicant;
 	keyDates?: {
 		preApplication: {
 			submissionAtPublished: string;
@@ -101,6 +101,7 @@ export interface DocumentationFile {
 	documentGuid: string;
 	fileName: string;
 	originalFilename: string;
+	caseRef: string;
 	description: string;
 	dateCreated: number;
 	datePublished?: number;

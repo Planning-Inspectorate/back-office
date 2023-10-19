@@ -15,12 +15,6 @@
 
 	{{ caseInfoTable(case) }}
 
-	{% if userIsNotInspector and case.publishedDate and case.publishedDate < case.modifiedDate %}
-    <p class="govuk-body-m colour--red font-weight--700">There are unpublished changes that have been made.
-      Publish
-      the project for changes to be applied.</p>
-	{% endif %}
-
 	{{ govukAccordion({
 		classes: 'govuk-!-margin-top-5',
 		items: [

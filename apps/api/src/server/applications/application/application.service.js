@@ -1,15 +1,13 @@
 import { EventType } from '@pins/event-client';
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
-import { eventClient } from '../../infrastructure/event-client.js';
-import { NSIP_PROJECT } from '../../infrastructure/topics.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
-import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
-import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
-import { transitionState } from '../../utils/transition-state.js';
-import BackOfficeAppError from '../../utils/app-error.js';
-import { buildNsipProjectPayload } from './application.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import { breakUpCompoundStatus } from '#utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '#utils/build-appeal-compound-status.js';
+import { mapApplicationDetails } from '#utils/mapping/map-case-details.js';
+import { transitionState } from '#utils/transition-state.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  *
@@ -114,11 +112,7 @@ export const startApplication = async (id) => {
 		throw new Error('Case does not exist');
 	}
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(caseDetails)],
-		EventType.Update
-	);
+	await broadcastNsipProjectEvent(updatedCase, EventType.Update);
 
 	return {
 		id: updatedCase.id,
@@ -144,15 +138,14 @@ const defaultInclusions = {
 	regions: true,
 	caseStatus: true,
 	casePublishedState: true,
-	serviceCustomer: true,
-	serviceCustomerAddress: true,
+	applicant: true,
 	gridReference: true,
 	hasUnpublishedChanges: true
 };
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -167,8 +160,7 @@ const inclusionsUsingQuery = (query) => {
 		regions:
 			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
 		caseStatus: query?.status,
-		serviceCustomer: notFalseOrUndefined(query?.applicants),
-		serviceCustomerAddress: notFalseOrUndefined(query?.applicantsAddress),
+		applicant: notFalseOrUndefined(query?.applicant),
 		gridReference: notFalseOrUndefined(query.geographicalInformation),
 		hasUnpublishedChanges: notFalseOrUndefined(query.hasUnpublishedChanges)
 	};
@@ -176,7 +168,7 @@ const inclusionsUsingQuery = (query) => {
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicants?: boolean | object, applicantsAddress?: boolean | object, hasUnpublishedChanges?: boolean}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean}} query
  * @returns {object}
  */
 const findModelsToInclude = (query) => {
@@ -210,6 +202,7 @@ export const getCaseDetails = async (id, query) => {
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
+
 	if (!caseDetails) {
 		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
 	}

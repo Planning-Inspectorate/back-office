@@ -26,6 +26,11 @@
 				"The scheme is 6.5 km in length and will consist of online widening of the A1 south of Gateshead to four lanes between junction 65"
 			]
 		},
+		"decision": {
+			"type": "string",
+			"description": "Decision: approved/refused/split-decision",
+			"enum": ["approved", "refused", "split-decision"]
+		},
 		"publishStatus": {
 			"type": "string",
 			"enum": ["published", "unpublished"]
@@ -75,7 +80,7 @@
 		},
 		"sourceSystem": {
 			"type": "string",
-			"enum": ["ODT", "Horizon"]
+			"enum": ["back-office-applications", "horizon"]
 		},
 		"stage": {
 			"type": "string",
@@ -238,9 +243,11 @@
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"dateOfNonAcceptance": {
-			"description": "MISSING"
+			"type": "string",
+			"description": "Date of Non Acceptance",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
-
 		"_preExaminationDates": {},
 		"dateOfRepresentationPeriodOpen": {
 			"type": "string",
@@ -267,10 +274,14 @@
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"dateIAPIDue": {
-			"description": "MISSING"
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"rule6LetterPublishDate": {
-			"description": "MISSING"
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"preliminaryMeetingStartDate": {
 			"type": "string",
@@ -279,10 +290,14 @@
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"notificationDateForPMAndEventsDirectlyFollowingPM": {
-			"description": "MISSING"
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"notificationDateForEventsDeveloper": {
-			"description": "MISSING"
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
 
 		"_examinationDates": {},
@@ -299,7 +314,9 @@
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"rule8LetterPublishDate": {
-			"description": "MISSING"
+			"type": "string",
+			"format": "date-time",
+			"examples": ["2023-03-26T00:00:00.000"]
 		},
 		"deadlineForCloseOfExamination": {
 			"type": "string",
@@ -421,24 +438,9 @@
 			"type": "string",
 			"description": "Maps to [Employee].[EmployeeID]"
 		},
-		"applicantIds": {
-			"type": "array",
-			"items": {
-				"type": "string",
-				"description": "Maps to [Service Customer].[CustomerID]"
-			}
-		},
-		"interestedPartyIds": {
-			"type": "array",
-			"items": {
-				"type": "string",
-				"description": "Maps to [Service Customer].[CustomerID]"
-			}
-		},
-		"examinationTimetableId": {
-			"type": "number",
-			"examples": [1242],
-			"description": "ID of the Examination Timetable"
+		"applicantId": {
+			"type": "string",
+			"description": "Maps to [ServiceUser].[id] where the serviceUserType is Applicant"
 		}
 	}
 }

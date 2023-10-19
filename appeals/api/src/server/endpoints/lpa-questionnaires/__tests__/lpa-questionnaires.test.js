@@ -52,6 +52,7 @@ describe('lpa questionnaires routes', () => {
 			test('gets a single lpa questionnaire with no outcome', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
@@ -69,6 +70,7 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					householdAppealLPAQuestionnaireComplete
 				);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
@@ -88,6 +90,7 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					householdAppealLPAQuestionnaireIncomplete
 				);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				// @ts-ignore
 				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
@@ -149,6 +152,7 @@ describe('lpa questionnaires routes', () => {
 			test('returns an error if lpaQuestionnaireId is not found', async () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 
 				const { id } = householdAppeal;
 				const response = await request

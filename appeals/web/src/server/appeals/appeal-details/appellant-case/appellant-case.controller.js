@@ -9,8 +9,8 @@ import {
 } from './appellant-case.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { appellantCaseReviewOutcomes } from '../../appeal.constants.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { renderDocumentUpload } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
  *
@@ -49,13 +49,10 @@ const renderAppellantCase = async (request, response) => {
 		let notificationBannerParameters;
 		const existingValidationOutcome = appellantCaseResponse.validation?.outcome?.toLowerCase();
 
-		if (
-			existingValidationOutcome === appellantCaseReviewOutcomes.invalid ||
-			existingValidationOutcome === appellantCaseReviewOutcomes.incomplete
-		) {
+		if (existingValidationOutcome === 'invalid' || existingValidationOutcome === 'incomplete') {
 			notificationBannerParameters = mapReviewOutcomeToNotificationBannerComponentParameters(
 				existingValidationOutcome,
-				existingValidationOutcome === appellantCaseReviewOutcomes.invalid
+				existingValidationOutcome === 'invalid'
 					? appellantCaseResponse.validation?.invalidReasons
 					: appellantCaseResponse.validation?.incompleteReasons
 			);
@@ -111,7 +108,8 @@ const renderCheckAndConfirm = async (request, response) => {
 			appealId,
 			reasonOptions,
 			webAppellantCaseReviewOutcome.validationOutcome,
-			webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
+			webAppellantCaseReviewOutcome.reasons,
+			webAppellantCaseReviewOutcome.reasonsText,
 			webAppellantCaseReviewOutcome.updatedDueDate
 		);
 		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
@@ -174,12 +172,12 @@ export const postAppellantCase = async (request, response) => {
 			request.session.appellantCaseId = appellantCaseId;
 			request.session.appealReference = appealReference;
 
-			if (reviewOutcome === appellantCaseReviewOutcomes.valid) {
+			if (reviewOutcome === 'valid') {
 				await appellantCaseService.setReviewOutcomeForAppellantCase(
 					request.apiClient,
 					appealId,
 					appellantCaseId,
-					mapWebReviewOutcomeToApiReviewOutcome(appellantCaseReviewOutcomes.valid)
+					mapWebReviewOutcomeToApiReviewOutcome('valid')
 				);
 
 				return response.redirect(
@@ -221,7 +219,8 @@ export const postCheckAndConfirm = async (request, response) => {
 			appellantCaseId,
 			mapWebReviewOutcomeToApiReviewOutcome(
 				webAppellantCaseReviewOutcome.validationOutcome,
-				webAppellantCaseReviewOutcome.invalidOrIncompleteReasons,
+				webAppellantCaseReviewOutcome.reasons,
+				webAppellantCaseReviewOutcome.reasonsText,
 				webAppellantCaseReviewOutcome.updatedDueDate
 			)
 		);
@@ -230,10 +229,7 @@ export const postCheckAndConfirm = async (request, response) => {
 
 		delete request.session.webAppellantCaseReviewOutcome;
 
-		if (
-			validationOutcome === appellantCaseReviewOutcomes.invalid ||
-			validationOutcome === appellantCaseReviewOutcomes.incomplete
-		) {
+		if (validationOutcome === 'invalid' || validationOutcome === 'incomplete') {
 			response.redirect(
 				`/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/confirmation`
 			);
@@ -250,4 +246,13 @@ export const postCheckAndConfirm = async (request, response) => {
 
 		return response.render('app/500.njk');
 	}
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocuments = async (request, response) => {
+	renderDocumentUpload(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
+	);
 };

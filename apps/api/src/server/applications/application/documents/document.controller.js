@@ -1,16 +1,18 @@
 import { pick } from 'lodash-es';
-import * as caseRepository from '../../../repositories/case.repository.js';
-import * as documentRepository from '../../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../../repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '../../../repositories/document-activity-log.repository.js';
-import * as folderRepository from '../../../repositories/folder.repository.js';
-import BackOfficeAppError from '../../../utils/app-error.js';
-import { getPageCount, getSkipValue } from '../../../utils/database-pagination.js';
-import logger from '../../../utils/logger.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+
+import BackOfficeAppError from '#utils/app-error.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import logger from '#utils/logger.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
 	mapSingleDocumentDetailsFromVersion
-} from '../../../utils/mapping/map-document-details.js';
+} from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	extractDuplicates,
@@ -18,11 +20,14 @@ import {
 	handleUpdateDocument,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
+	markDocumentVersionAsUnpublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
 	publishDocumentVersions,
+	separateNonPublishedDocuments,
 	separatePublishableDocuments,
-	upsertDocumentVersionAndReturnDetails
+	upsertDocumentVersionAndReturnDetails,
+	unpublishDocuments as unpublishDocumentGuids
 } from './document.service.js';
 import {
 	fetchDocumentByGuidAndCaseId,
@@ -30,16 +35,21 @@ import {
 	validateDocumentVersionMetadataBody,
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing
 } from './document.validators.js';
-import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
 
 /**
- * @typedef {import('apps/api/src/database/schema.js').Document} Document
- * @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails
- * @typedef {import('apps/api/src/database/schema.js').DocumentVersionInput} DocumentVersion
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
  */
 
 /**
- * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
+ * Upload an array of documents to a folder on a case
+ *
+ * @type {import('express').RequestHandler<any, any, DocumentsToSaveManyRequestBody | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
 export const provideDocumentUploadURLs = async ({ params, body }, response) => {
@@ -67,10 +77,11 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
-	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
-		remainder.includes(doc.documentName)
+	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
+		(doc) => remainder.includes(doc.documentName)
 	);
 
+	// loop thru the docs to add full document references eg BC0110001-000001, BC0110001-000002
 	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
 		nextReferenceIndex++;
@@ -105,12 +116,12 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
+ * Upload a new document version
  *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
 export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
 	const documentToUpload = body;
-
 	// Obtain URL of document from blob storage
 	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
 		documentToUpload,
@@ -178,6 +189,41 @@ export const updateDocuments = async ({ body }, response) => {
 };
 
 /**
+ * @type {import('express').RequestHandler<{id: number}, any, { documents: { guid: string }[] }, any>}
+ * */
+export const unpublishDocuments = async ({ body }, response) => {
+	const { documents } = body;
+
+	const guids = documents.map(({ guid }) => guid);
+
+	const nonPublishedDocuments = await separateNonPublishedDocuments(guids);
+	const notPublishedErrors = nonPublishedDocuments.map((guid) => ({
+		guid,
+		msg: 'You must publish the document/s before unpublishing.'
+	}));
+
+	const publishedGuids = guids.filter((guid) => !nonPublishedDocuments.includes(guid));
+	const results = await unpublishDocumentGuids(publishedGuids);
+	const updateErrors = publishedGuids
+		.filter((guid) => !results.includes(guid))
+		.map((guid) => ({ guid, msg: 'Something went wrong.' }));
+
+	const errors = [...notPublishedErrors, ...updateErrors];
+
+	if (errors.length === 0) {
+		response.send({ successful: results, errors });
+		return;
+	}
+
+	if (results.length === 0) {
+		response.status(409).send({ successful: [], errors });
+		return;
+	}
+
+	response.status(206).send({ successful: results, errors });
+};
+
+/**
  *
  * @type {import('express').RequestHandler<{id: string;guid: string}, ?, ?, any>}
  * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
@@ -202,28 +248,31 @@ export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getDocumentProperties = async ({ params: { guid } }, response) => {
-	// Step 1: Retrieve the document by its GUID and case ID.
 	const document = await documentRepository.getById(guid);
-
 	if (!document) {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
-	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	// Step 4: Map the document metadata to a format to be returned in the API response.
-	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
+	const publishedVersions = await documentVersionRepository.getManyByIdAndStatus(
+		[document.guid],
+		'published'
+	);
+	const isPublished = publishedVersions.some((version) => version?.publishedStatus === 'published');
 
-	// Step 5: Return the document metadata in the response.
+	const documentDetails = mapSingleDocumentDetailsFromVersion({
+		...documentVersion,
+		publishedStatus: isPublished ? 'published' : documentVersion.publishedStatus
+	});
+
 	response.status(200).send(documentDetails);
 };
 
@@ -258,20 +307,76 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
 };
 
 /**
+ * Gets the properties/metadata for many documents
+ *
+ * @type {import('express').RequestHandler<{}, {}, {}, {guids: string; published: string}>}
+ * @throws {BackOfficeAppError} if the metadata cannot be stored in the database.
+ * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
+ */
+export const getManyDocumentsProperties = async ({ query: { guids, published } }, response) => {
+	/** @type {string[]} */
+	const filesGuid = JSON.parse(guids);
+	const onlyPublished = published === 'true';
+
+	const uniqueGuids = filesGuid.reduce(
+		(acc, guid) => (acc.includes(guid) ? acc : [...acc, guid]),
+		/** @type {string[]} */ ([])
+	);
+
+	const documents = await documentRepository.getDocumentsByGUID(uniqueGuids);
+	if (!documents) {
+		throw new BackOfficeAppError(`no results returned for document GUIDs: ${filesGuid}`, 404);
+	}
+
+	const filteredDocuments = onlyPublished
+		? documents.filter((doc) =>
+				doc.documentVersion.some((version) => version.publishedStatus === 'published')
+		  )
+		: documents;
+
+	const results = filteredDocuments.map((doc) =>
+		mapSingleDocumentDetailsFromVersion({
+			...doc.documentVersion[0],
+			publishedStatus: doc.documentVersion.some(
+				(version) => version.publishedStatus === 'published'
+			)
+				? 'published'
+				: doc.documentVersion[0].publishedStatus
+		})
+	);
+
+	response.status(200).send(results);
+};
+
+/**
  *
  * @param {{ status: string, createdAt: string, user: string }[]} activityLogs
- * @returns {Record<string, {date: number, name: string}>}
+ * @typedef {Record<string, {date: number, name: string}>} HisoryResult
+ * @returns {HisoryResult}
  */
-const mapHistory = (activityLogs) =>
-	activityLogs.reduce(
-		(acc, log) => ({
+const mapHistory = (activityLogs) => {
+	const history = activityLogs.reduce((acc, log) => {
+		if (!log?.createdAt) return acc;
+
+		return {
+			...acc,
 			[log.status]: {
-				date: log?.createdAt ? mapDateStringToUnixTimestamp(log?.createdAt?.toString()) : null,
-				name: log.user
+				date: mapDateStringToUnixTimestamp(log.createdAt.toString()),
+				name: log.user || 'System'
 			}
-		}),
-		{}
-	);
+		};
+	}, /** @type {HisoryResult} */ ({}));
+
+	if (
+		history.published &&
+		history.unpublished &&
+		history.published.date > history.unpublished.date
+	) {
+		delete history.unpublished;
+	}
+
+	return history;
+};
 
 /**
  * Gets the properties/metadata for a single document
@@ -369,7 +474,7 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
 };
 
 /**
- * Creates or updates a document metadata record in the database.
+ * Creates or updates a document version metadata record in the database.
  *
  * @async
  * @function
@@ -397,7 +502,7 @@ export const storeDocumentVersion = async (request, response) => {
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
 		documentVersionMetadataBody,
-		document.latestVersionId
+		document.latestVersionId ?? 1
 	);
 
 	// Send the document details back in the response
@@ -499,6 +604,17 @@ export const markAsPublished = async (
 		publishedBlobContainer,
 		publishedDate: new Date(publishedDate)
 	});
+
+	response.send(updateResponse);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const markAsUnpublished = async ({ params }, response) => {
+	const { guid } = params;
+
+	const updateResponse = await markDocumentVersionAsUnpublished({ guid });
 
 	response.send(updateResponse);
 };

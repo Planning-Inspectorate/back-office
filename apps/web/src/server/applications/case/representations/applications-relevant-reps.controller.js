@@ -3,11 +3,18 @@ import {
 	getCaseReferenceViewModel,
 	getRepresentationsViewModel
 } from './application-representations.view-model.js';
-import { getCase, getRepresentations } from './applications-relevant-reps.service.js';
+import {
+	getCase,
+	getPublishableRepresentaions,
+	getRepresentations
+} from './applications-relevant-reps.service.js';
 import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
 import { getPagination } from './utils/pagination.js';
+import { publishQueueUrl, representationsUrl } from './config.js';
 import { hasSearchUpdated } from './utils/search/has-search-updated.js';
+import { hasUnpublishedRepUpdates } from './utils/has-unpublished-rep-updates.js';
 import { tableSortLinks } from './utils/table.js';
+import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -23,15 +30,28 @@ export async function relevantRepsApplications({ params, query }, res) {
 	const { searchTerm, sortBy, pageSize = 25, page = 1, filters = [] } = query;
 
 	const caseReference = await getCase(caseId);
+	const { keyDates } = caseReference;
+	const { preExamination } = keyDates;
+	const { dateOfRelevantRepresentationClose, extensionToDateRelevantRepresentationsClose } =
+		preExamination;
+
 	const representations = await getRepresentations(
 		caseId,
 		buildQueryString({ searchTerm, sortBy, pageSize, page, ...buildFilterQueryString(filters) })
 	);
+	const publishQueueURL = isRelevantRepsPeriodClosed(
+		dateOfRelevantRepresentationClose,
+		extensionToDateRelevantRepresentationsClose
+	)
+		? `${representationsUrl}/${publishQueueUrl}`
+		: '';
+	const publishableReps = await getPublishableRepresentaions(caseId);
 
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
 		caseId,
+		publishQueueURL,
 		table: {
 			sortLinks: tableSortLinks(query)
 		},
@@ -42,6 +62,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 			pageSize,
 			page
 		},
-		filters: getFilterViewModel(filters, representations.filters)
+		filters: getFilterViewModel(filters, representations.filters),
+		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps)
 	});
 }

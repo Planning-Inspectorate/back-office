@@ -9,12 +9,14 @@
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
+<aside>
 	{% set defaultLink = "project-updates" | url({caseId: caseId}) %}
 	{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
 		href: backLink | default(defaultLink)
 	}) }}
+</aside>
 {% endblock %}
 
 {% block pageContent %}
@@ -27,7 +29,7 @@
 	{% if preview %}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds project-update">
-				<h2 class="govuk-heading-m">Project update preview</h2>
+				<h1 class="govuk-heading-m">Project update preview</h1>
 				{{ govukNotificationBanner({html: preview.html}) }}
 			</div>
 		</div>

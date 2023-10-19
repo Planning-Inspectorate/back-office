@@ -2,11 +2,7 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '#testing/index.js';
-import {
-	siteVisitData,
-	appealData,
-	appellantCaseData
-} from '#testing/app/fixtures/referencedata.js';
+import { siteVisitData, appealData } from '#testing/app/fixtures/referencedata.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -34,7 +30,6 @@ describe('site-visit', () => {
 	describe('POST /site-visit/schedule-visit', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
-			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
 			nock('http://test/').get('/appeals/1/site-visits/0').reply(200, siteVisitData);
 			nock('http://test/').post('/appeals/1/site-visits').reply(200, siteVisitData);
 			nock('http://test/').post('/appeals/1/site-visits/0').reply(200, siteVisitData);
@@ -258,6 +253,23 @@ describe('site-visit', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the schedule visit page with the expected error message if visit start time is not before end time', async () => {
+			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
+				'visit-type': 'accompanied',
+				'visit-date-day': '1',
+				'visit-date-month': '1',
+				'visit-date-year': '3000',
+				'visit-start-time-hour': '10',
+				'visit-start-time-minute': '00',
+				'visit-end-time-hour': '10',
+				'visit-end-time-minute': '00'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should redirect to the site visit scheduled confirmation page if all required fields are populated and valid', async () => {
 			const response = await request.post(`${baseUrl}/1${siteVisitPath}${scheduleVisitPath}`).send({
 				'visit-type': 'accompanied',
@@ -292,7 +304,6 @@ describe('site-visit', () => {
 	describe('GET /site-visit/visit-scheduled', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
-			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
 			nock('http://test/').get('/appeals/1/site-visits/0').reply(200, siteVisitData);
 		});
 

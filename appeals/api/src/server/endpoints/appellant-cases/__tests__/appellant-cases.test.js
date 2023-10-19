@@ -43,7 +43,6 @@ import {
 	householdAppealAppellantCaseInvalid,
 	householdAppealAppellantCaseValid
 } from '../../../tests/data.js';
-import { folder } from '#tests/documents/mocks.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import { calculateTimetable } from '../../../utils/business-days.js';
 import config from '../../../config/config.js';
@@ -64,7 +63,7 @@ describe('appellant cases routes', () => {
 		describe('GET', () => {
 			test('gets a single appellant case for a household appeal with no validation outcome', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 
 				const { appellantCase, id } = householdAppeal;
@@ -78,7 +77,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for a valid household appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseValid);
 
 				const { appellantCase } = householdAppealAppellantCaseValid;
@@ -96,7 +95,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for an incomplete household appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					householdAppealAppellantCaseIncomplete
 				);
@@ -116,7 +115,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for an invalid household appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppealAppellantCaseInvalid);
 
 				const { appellantCase } = householdAppealAppellantCaseInvalid;
@@ -134,7 +133,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for a valid full planning appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 
 				const { appellantCase } = fullPlanningAppeal;
@@ -148,7 +147,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for an incomplete full planning appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					fullPlanningAppealAppellantCaseIncomplete
 				);
@@ -168,7 +167,7 @@ describe('appellant cases routes', () => {
 
 			test('gets a single appellant case for an invalid full planning appeal', async () => {
 				// @ts-ignore
-				databaseConnector.folder.findMany.mockResolvedValue([folder]);
+				databaseConnector.folder.findMany.mockResolvedValue([]);
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					fullPlanningAppealAppellantCaseInvalid
 				);

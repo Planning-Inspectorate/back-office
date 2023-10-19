@@ -125,6 +125,7 @@ export const appealData = {
 		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
 	},
 	siteVisit: {
+		siteVisitId: 0,
 		visitDate: '2023-09-18T13:18:01.673Z',
 		visitType: 'Access required'
 	},
@@ -219,9 +220,6 @@ export const appellantCaseData = {
 	visibility: {
 		details: null,
 		isVisible: true
-	},
-	siteVisit: {
-		siteVisitId: 0
 	}
 };
 
@@ -404,69 +402,94 @@ export const getRandomLocalPlanningDepartment = () =>
 export const appellantCaseInvalidReasons = [
 	{
 		id: 21,
-		name: 'Appeal has not been submitted on time'
+		name: 'Appeal has not been submitted on time',
+		hasText: false
 	},
 	{
 		id: 22,
-		name: 'Documents have not been submitted on time'
+		name: 'Documents have not been submitted on time',
+		hasText: true
 	},
 	{
 		id: 23,
-		name: "The appellant doesn't have the right to appeal"
+		name: "The appellant doesn't have the right to appeal",
+		hasText: false
 	},
 	{
 		id: 24,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
 export const appellantCaseIncompleteReasons = [
 	{
 		id: 2025,
-		name: 'Appellant name is not the same on the application form and appeal form'
+		name: 'Appellant name is not the same on the application form and appeal form',
+		hasText: false
 	},
 	{
 		id: 2026,
-		name: 'Attachments and/or appendices have not been included to the full statement of case'
+		name: 'Attachments and/or appendices have not been included to the full statement of case',
+		hasText: true
 	},
 	{
 		id: 2027,
-		name: "LPA's decision notice is incorrect or incomplete"
+		name: "LPA's decision notice is incorrect or incomplete",
+		hasText: true
 	},
 	{
 		id: 2028,
-		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing'
+		name: 'Documents and plans referred in the application form, decision notice and appeal covering letter are missing',
+		hasText: true
 	},
 	{
 		id: 2029,
-		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form'
+		name: 'Site ownership certificate, agricultural holding certificate and declaration have not been completed on the appeal form',
+		hasText: false
 	},
 	{
 		id: 2030,
-		name: 'The original application form is incomplete or missing'
+		name: 'The original application form is incomplete or missing',
+		hasText: false
 	},
 	{
 		id: 2031,
-		name: 'Statement of case and ground of appeal are missing'
+		name: 'Statement of case and ground of appeal are missing',
+		hasText: false
 	},
 	{
 		id: 2032,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
 	}
 ];
 
 export const lpaQuestionnaireIncompleteReasons = [
 	{
 		id: 1,
-		name: 'Documents or information are missing'
+		name: 'Documents or information are missing',
+		hasText: true
 	},
 	{
 		id: 2,
-		name: 'Policies are missing'
+		name: 'Policies are missing',
+		hasText: true
 	},
 	{
 		id: 3,
-		name: 'Other'
+		name: 'Other',
+		hasText: true
+	},
+	{
+		id: 4,
+		name: 'Test incomplete reason without text 1',
+		hasText: false
+	},
+	{
+		id: 5,
+		name: 'Test incomplete reason without text 2',
+		hasText: false
 	}
 ];
 
@@ -531,4 +554,63 @@ export const allocationDetailsData = {
 			name: 'Specialism 3'
 		}
 	]
+};
+
+export const documentFolderInfo = {
+	folderId: 23,
+	path: 'appellant_case/appealStatement',
+	caseId: 'APP/Q9999/D/21/941501',
+	documents: []
+};
+
+export const documentFileInfo = {
+	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
+	name: 'ph0.jpeg',
+	folderId: 1269,
+	createdAt: '2023-10-11T13:57:41.592Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 85,
+	receivedAt: null,
+	documentRedactionStatusId: null,
+	documentRedactionStatus: null,
+	latestDocumentVersion: {
+		documentGuid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
+		version: 1,
+		lastModified: null,
+		documentType: 'conservationAreaMap',
+		published: false,
+		sourceSystem: 'back-office',
+		origin: null,
+		originalFilename: 'ph0.jpeg',
+		fileName: 'ph0.jpeg',
+		representative: null,
+		description: null,
+		owner: null,
+		author: null,
+		securityClassification: null,
+		mime: 'image/jpeg',
+		horizonDataID: null,
+		fileMD5: null,
+		path: null,
+		virusCheckStatus: null,
+		size: 58861,
+		stage: 'lpa_questionnaire',
+		filter1: null,
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath:
+			'appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
+		dateCreated: '2023-10-11T13:57:41.592Z',
+		datePublished: null,
+		isDeleted: false,
+		examinationRefNo: null,
+		filter2: null,
+		publishedStatus: 'awaiting_upload',
+		publishedStatusPrev: null,
+		redactedStatus: null,
+		redacted: false,
+		documentURI:
+			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
+		dateReceived: null
+	}
 };

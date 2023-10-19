@@ -3,7 +3,7 @@ import {
 	backLink,
 	lpaQuestionnairePage,
 	mapReviewOutcomeToSummaryListBuilderParameters,
-	mapWebReviewOutcomeToApiReviewOutcome,
+	mapWebValidationOutcomeToApiValidationOutcome,
 	pageHeading
 } from './lpa-questionnaire.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
@@ -11,6 +11,7 @@ import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { renderDocumentUpload } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -92,9 +93,7 @@ export const postLpaQuestionnaire = async (request, response) => {
 					apiClient,
 					appealId,
 					lpaQId,
-					{
-						validationOutcome: 'complete'
-					}
+					mapWebValidationOutcomeToApiValidationOutcome('complete')
 				);
 				return response.redirect(
 					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQId}/confirmation`
@@ -180,7 +179,7 @@ const renderCheckAndConfirm = async (request, response) => {
 		const { appealId, appealReference, lpaQuestionnaireId, webLPAQuestionnaireReviewOutcome } =
 			request.session;
 
-		const reasonOptions = await lpaQuestionnaireService.getLPAQuestionnaireIncompleteReasons(
+		const reasonOptions = await lpaQuestionnaireService.getLPAQuestionnaireIncompleteReasonOptions(
 			request.apiClient
 		);
 		if (!reasonOptions) {
@@ -188,10 +187,12 @@ const renderCheckAndConfirm = async (request, response) => {
 		}
 
 		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
+			appealId,
+			lpaQuestionnaireId,
 			reasonOptions,
 			'incomplete',
-			webLPAQuestionnaireReviewOutcome.incompleteReasons,
-			webLPAQuestionnaireReviewOutcome.otherReason,
+			webLPAQuestionnaireReviewOutcome.reasons,
+			webLPAQuestionnaireReviewOutcome.reasonsText,
 			webLPAQuestionnaireReviewOutcome.updatedDueDate
 		);
 		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
@@ -247,10 +248,10 @@ export const postCheckAndConfirm = async (request, response) => {
 			request.apiClient,
 			appealId,
 			lpaQuestionnaireId,
-			mapWebReviewOutcomeToApiReviewOutcome(
+			mapWebValidationOutcomeToApiValidationOutcome(
 				'incomplete',
-				webLPAQuestionnaireReviewOutcome.incompleteReasons,
-				webLPAQuestionnaireReviewOutcome.otherReason,
+				webLPAQuestionnaireReviewOutcome.reasons,
+				webLPAQuestionnaireReviewOutcome.reasonsText,
 				webLPAQuestionnaireReviewOutcome.updatedDueDate
 			)
 		);
@@ -261,7 +262,7 @@ export const postCheckAndConfirm = async (request, response) => {
 		}
 
 		delete request.session.webLPAQuestionnaireReviewOutcome;
-		console.log(response);
+
 		return response.redirect(
 			`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/confirmation`
 		);
@@ -280,4 +281,13 @@ export const postCheckAndConfirm = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getConfirmation = async (request, response) => {
 	renderLpaQuestionnaireReviewCompletePage(request, response);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocuments = async (request, response) => {
+	renderDocumentUpload(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}`
+	);
 };

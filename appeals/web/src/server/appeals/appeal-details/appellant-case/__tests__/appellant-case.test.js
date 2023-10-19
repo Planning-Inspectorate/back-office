@@ -5,10 +5,11 @@ import { createTestEnvironment } from '#testing/index.js';
 import {
 	appellantCaseData,
 	appellantCaseInvalidReasons,
-	appellantCaseIncompleteReasons
+	appellantCaseIncompleteReasons,
+	documentFolderInfo,
+	documentFileInfo
 } from '#testing/app/fixtures/referencedata.js';
-import { appellantCaseReviewOutcomes } from '#appeals/appeal.constants.js';
-import { TEXTAREA_MAXIMUM_CHARACTERS } from '#lib/validators/textarea-validator.js';
+import { textInputCharacterLimits } from '../../../appeal.constants.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -20,17 +21,24 @@ const incompleteOutcomePagePath = '/incomplete';
 const updateDueDatePagePath = '/date';
 const checkYourAnswersPagePath = '/check-your-answers';
 const confirmationPagePath = '/confirmation';
-const otherReasonId = appellantCaseInvalidReasons.find(
-	(reason) => reason.name.toLowerCase() === 'other'
-)?.id;
-const invalidReasonsWithoutOther = appellantCaseInvalidReasons.filter(
-	(reason) => reason.name.toLowerCase() !== 'other'
+
+const invalidReasonsWithoutText = appellantCaseInvalidReasons.filter(
+	(reason) => reason.hasText === false
 );
-const invalidReasonIdsWithoutOther = invalidReasonsWithoutOther.map((reason) => reason.id);
-const incompleteReasonsWithoutOther = appellantCaseIncompleteReasons.filter(
-	(reason) => reason.name.toLowerCase() !== 'other'
+const invalidReasonsWithText = appellantCaseInvalidReasons.filter(
+	(reason) => reason.hasText === true
 );
-const incompleteReasonIdsWithoutOther = incompleteReasonsWithoutOther.map((reason) => reason.id);
+const incompleteReasonsWithoutText = appellantCaseIncompleteReasons.filter(
+	(reason) => reason.hasText === false
+);
+const incompleteReasonsWithText = appellantCaseIncompleteReasons.filter(
+	(reason) => reason.hasText === true
+);
+
+const invalidReasonsWithoutTextIds = invalidReasonsWithoutText.map((reason) => reason.id);
+const invalidReasonsWithTextIds = invalidReasonsWithText.map((reason) => reason.id);
+const incompleteReasonsWithoutTextIds = incompleteReasonsWithoutText.map((reason) => reason.id);
+const incompleteReasonsWithTextIds = incompleteReasonsWithText.map((reason) => reason.id);
 
 describe('appellant-case', () => {
 	beforeEach(() => {
@@ -69,10 +77,10 @@ describe('appellant-case', () => {
 		it('should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid"', async () => {
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.valid });
+				.reply(200, { validationOutcome: 'valid' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.valid
+				reviewOutcome: 'valid'
 			});
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
@@ -82,10 +90,10 @@ describe('appellant-case', () => {
 		it('should redirect to the invalid reason page if selected review outcome value is "invalid"', async () => {
 			nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.invalid });
+				.reply(200, { validationOutcome: 'invalid' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.invalid
+				reviewOutcome: 'invalid'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -94,10 +102,10 @@ describe('appellant-case', () => {
 		it('should redirect to the incomplete reason page if selected review outcome value is "incomplete"', async () => {
 			nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			const response = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 
 			expect(response.statusCode).toBe(302);
@@ -129,7 +137,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -156,7 +164,7 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.invalid
+				reviewOutcome: 'invalid'
 			});
 		});
 
@@ -169,9 +177,21 @@ describe('appellant-case', () => {
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the invalid reason page with the expected error message if a single invalid reason with text was provided but the matching text property is an empty string', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					otherReason: '',
-					otherReasonId: otherReasonId
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -179,67 +199,141 @@ describe('appellant-case', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the invalid reason page with the expected error message if "other" reason was selected but no "otherReason" was provided', async () => {
+		it('should re-render the invalid reason page with the expected error message if a single invalid reason with text was provided but the matching text property is an empty array', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: otherReasonId,
-					otherReason: '',
-					otherReasonId: otherReasonId
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: []
 				});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the invalid reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
+		it('should re-render the invalid reason page with the expected error message if multiple invalid reasons with text were provided but any of the matching text properties are empty strings', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
-			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: otherReasonId,
-					otherReason: otherReasonTextOverCharacterLimit,
-					otherReasonId: otherReasonId
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: ''
 				});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should redirect to the check and confirm page if a single invalid reason was provided', async () => {
+		it('should re-render the invalid reason page with the expected error message if multiple invalid reasons with text were provided but any of the matching text properties are empty arays', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: invalidReasonsWithoutOther[0].id,
-					otherReason: '',
-					otherReasonId: otherReasonId
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: []
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the invalid reason page with the expected error message if a single invalid reason with text was provided but the matching text property exceeds the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'a'.repeat(
+						textInputCharacterLimits.appellantCaseNotValidReason + 1
+					)
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the invalid reason page with the expected error message if multiple invalid reasons with text were provided but any of the matching text properties exceed the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'a'.repeat(
+						textInputCharacterLimits.appellantCaseNotValidReason + 1
+					)
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the check and confirm page if a single invalid reason without text was provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({
+					invalidReason: invalidReasonsWithoutTextIds[0]
 				});
 
 			expect(response.statusCode).toBe(302);
 		});
 
-		it('should redirect to the check and confirm page if multiple invalid reasons were provided', async () => {
+		it('should redirect to the check and confirm page if a single invalid reason with text within the character limit was provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
-			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: appellantCaseInvalidReasons.map((reason) => reason.id),
-					otherReason: otherReasonTextWithinCharacterLimit,
-					otherReasonId: otherReasonId
+					invalidReason: invalidReasonsWithTextIds[0],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason)
+					]
+				});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple invalid reasons without text were provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({
+					invalidReason: invalidReasonsWithoutTextIds
+				});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple invalid reasons with text within the character limit were provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${invalidOutcomePagePath}`)
+				.send({
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason)
+					],
+					[`invalidReason-${invalidReasonsWithTextIds[1]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason),
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason)
+					]
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -271,7 +365,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -298,7 +392,7 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 		});
 
@@ -311,9 +405,21 @@ describe('appellant-case', () => {
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty string', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					otherReason: '',
-					otherReasonId: otherReasonId
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
 				});
 
 			const element = parseHtml(response.text);
@@ -321,67 +427,142 @@ describe('appellant-case', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the incomplete reason page with the expected error message if "other" reason was selected but no "otherReason" was provided', async () => {
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property is an empty array', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: otherReasonId,
-					otherReason: '',
-					otherReasonId: otherReasonId
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
 				});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should re-render the incomplete reason page with the expected error message if "other" reason text exceeds the character limit', async () => {
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty strings', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
-			const otherReasonTextOverCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS + 1);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: otherReasonId,
-					otherReason: otherReasonTextOverCharacterLimit,
-					otherReasonId: otherReasonId
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: ''
 				});
-
-			expect(response.statusCode).toBe(200);
 
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should redirect to the check and confirm page if a single incomplete reason was provided', async () => {
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties are empty arrays', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: incompleteReasonsWithoutOther[0].id,
-					otherReason: '',
-					otherReasonId: otherReasonId
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: []
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property exceeds the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'a'.repeat(
+						textInputCharacterLimits.appellantCaseNotValidReason + 1
+					)
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the incomplete reason page with the expected error message if multiple incomplete reasons with text were provided but any of the matching text properties exceed the character limit', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: 'a'.repeat(
+						textInputCharacterLimits.appellantCaseNotValidReason + 1
+					)
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the check and confirm page if a single incomplete reason without text was provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(response.statusCode).toBe(302);
 		});
 
-		it('should redirect to the check and confirm page if multiple incomplete reasons were provided', async () => {
+		it('should redirect to the check and confirm page a single incomplete reason with text within the character limit was provided', async () => {
 			expect(appellantCasePostResponse.statusCode).toBe(302);
 
-			const otherReasonTextWithinCharacterLimit = 'a'.repeat(TEXTAREA_MAXIMUM_CHARACTERS);
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: appellantCaseIncompleteReasons.map((reason) => reason.id),
-					otherReason: otherReasonTextWithinCharacterLimit,
-					otherReasonId: otherReasonId
+					incompleteReason: incompleteReasonsWithTextIds[0],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason),
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason)
+					]
+				});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons without text were provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({
+					incompleteReason: incompleteReasonsWithoutTextIds
+				});
+
+			expect(response.statusCode).toBe(302);
+		});
+
+		it('should redirect to the check and confirm page if multiple incomplete reasons with text within the character limit were provided', async () => {
+			expect(appellantCasePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}`)
+				.send({
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason)
+					],
+					[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: [
+						'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason),
+						'test reason text 3'
+					]
 				});
 
 			expect(response.statusCode).toBe(302);
@@ -413,7 +594,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -422,8 +603,7 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: incompleteReasonIdsWithoutOther,
-					otherReasonId
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -454,15 +634,14 @@ describe('appellant-case', () => {
 
 			// post to appellant case page controller is necessary to set required data in the session
 			appellantCasePostResponse = await request.post(`${baseUrl}/1${appellantCasePagePath}`).send({
-				reviewOutcome: appellantCaseReviewOutcomes.incomplete
+				reviewOutcome: 'incomplete'
 			});
 
 			// post to incomplete reason page controller is necessary to set required data in the session
 			incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: incompleteReasonIdsWithoutOther,
-					otherReasonId
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 		});
 
@@ -718,7 +897,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -727,8 +906,12 @@ describe('appellant-case', () => {
 			const invalidReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: invalidReasonIdsWithoutOther,
-					otherReasonId
+					invalidReason: [invalidReasonsWithTextIds[0], invalidReasonsWithTextIds[1]],
+					[`invalidReason-${invalidReasonsWithTextIds[0]}`]: 'test reason text 1',
+					[`invalidReason-${invalidReasonsWithTextIds[1]}`]: [
+						'test reason text 1',
+						'test reason text 2'
+					]
 				});
 
 			expect(invalidReasonPostResponse.statusCode).toBe(302);
@@ -746,7 +929,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -755,8 +938,12 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: incompleteReasonIdsWithoutOther,
-					otherReasonId
+					incompleteReason: [incompleteReasonsWithTextIds[0], incompleteReasonsWithTextIds[1]],
+					[`incompleteReason-${incompleteReasonsWithTextIds[0]}`]: [
+						'test reason text 1',
+						'test reason text 2'
+					],
+					[`incompleteReason-${incompleteReasonsWithTextIds[1]}`]: 'test reason text 1'
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
@@ -799,7 +986,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -808,15 +995,14 @@ describe('appellant-case', () => {
 			const invalidReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${invalidOutcomePagePath}`)
 				.send({
-					invalidReason: invalidReasonIdsWithoutOther,
-					otherReasonId
+					invalidReason: invalidReasonsWithoutTextIds[0]
 				});
 
 			expect(invalidReasonPostResponse.statusCode).toBe(302);
 
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.invalid });
+				.reply(200, { validationOutcome: 'invalid' });
 
 			const response = await request.post(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
@@ -831,7 +1017,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -840,15 +1026,14 @@ describe('appellant-case', () => {
 			const incompleteReasonPostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/${incompleteOutcomePagePath}`)
 				.send({
-					incompleteReason: incompleteReasonIdsWithoutOther,
-					otherReasonId
+					incompleteReason: incompleteReasonsWithoutTextIds[0]
 				});
 
 			expect(incompleteReasonPostResponse.statusCode).toBe(302);
 
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			const response = await request.post(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
@@ -872,13 +1057,13 @@ describe('appellant-case', () => {
 		it('should render the outcome valid confirmation page if required data is present in the session', async () => {
 			const mockedAppellantCasesEndpoint = nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
-				.reply(200, { validationOutcome: appellantCaseReviewOutcomes.incomplete });
+				.reply(200, { validationOutcome: 'incomplete' });
 
 			// post to appellant case page controller is necessary to set required data in the session
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.valid
+					reviewOutcome: 'valid'
 				});
 
 			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
@@ -908,7 +1093,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.invalid
+					reviewOutcome: 'invalid'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -937,7 +1122,7 @@ describe('appellant-case', () => {
 			const appellantCasePostResponse = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}`)
 				.send({
-					reviewOutcome: appellantCaseReviewOutcomes.incomplete
+					reviewOutcome: 'incomplete'
 				});
 
 			expect(appellantCasePostResponse.statusCode).toBe(302);
@@ -945,6 +1130,30 @@ describe('appellant-case', () => {
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}${incompleteOutcomePagePath}${confirmationPagePath}`
 			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/add-documents/:folderId/', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}/add-documents/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /appellant-case/add-documents/:folderId/:documentId', () => {
+		it('should render a document upload page with a single file upload component', async () => {
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}/add-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

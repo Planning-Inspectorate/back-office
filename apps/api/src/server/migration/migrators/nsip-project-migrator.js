@@ -10,7 +10,7 @@ const keyDateNames = allKeyDateNames.filter(
 /**
  * Handle an HTTP trigger/request to run the migration
  *
- * @param {import('../../applications/application/application.js').NsipProjectPayload[]} models
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject[]} models
  */
 export const migrateNsipProjects = async (models) => {
 	console.info(`Migrating ${models.length} models`);
@@ -25,7 +25,7 @@ export const migrateNsipProjects = async (models) => {
 
 /**
  *
- * @param {import('src/server/applications/application/application.js').NsipProjectPayload} m
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m
  *
  * TODO: Service Customers can't be created because of how dependencies work right now
  * TODO: Case Team
@@ -90,7 +90,7 @@ const mapModelToEntity = async (m) => {
 				create: { isPublished: true, createdAt: new Date() }
 			}
 		}),
-		// serviceCustomer: TODO
+		// applicant: TODO
 		// case team: TODO
 		// interested
 		gridReference: {

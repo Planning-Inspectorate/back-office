@@ -4,13 +4,12 @@ import { body, param, query } from 'express-validator';
 import {
 	validationErrorHandler,
 	validationErrorHandlerMissing
-} from '../../middleware/error-handler.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as regionRepository from '../../repositories/region.repository.js';
-import * as representationRepository from '../../repositories/representation.repository.js';
-import * as serviceCustomerRepository from '../../repositories/service-customer.repository.js';
-import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
-import * as zoomLevelRepository from '../../repositories/zoom-level.repository.js';
+} from '#middleware/error-handler.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as regionRepository from '#repositories/region.repository.js';
+import * as representationRepository from '#repositories/representation.repository.js';
+import * as subSectorRepository from '#repositories/sub-sector.repository.js';
+import * as zoomLevelRepository from '#repositories/zoom-level.repository.js';
 
 /**
  *
@@ -78,13 +77,9 @@ const validateExistingRepresentation = async (value) => {
  * @returns {Promise<void>}
  */
 const validateExistingApplicantThatBelongsToCase = async (value, { req }) => {
-	const applicant = await serviceCustomerRepository.getById(value);
+	const caseDetails = await caseRepository.getById(Number(req.params.id), { applicant: true });
 
-	if (applicant === null || typeof applicant === 'undefined') {
-		throw new Error('Unknown Applicant');
-	}
-
-	if (applicant.caseId !== Number.parseInt(req.params.id, 10)) {
+	if (caseDetails?.applicant?.id !== value) {
 		throw new Error('Must be existing applicant that belongs to this case');
 	}
 };
@@ -172,11 +167,11 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.custom(validateExistingRegions)
 		.optional({ nullable: true }),
 	body('geographicalInformation.locationDescription').optional({ nullable: true }),
-	body('applicants.*.organisationName').optional({ nullable: true }),
-	body('applicants.*.firstName').optional({ nullable: true }),
-	body('applicants.*.middleName').optional({ nullable: true }),
-	body('applicants.*.lastName').optional({ nullable: true }),
-	body('applicants.*.email')
+	body('applicant.organisationName').optional({ nullable: true }),
+	body('applicant.firstName').optional({ nullable: true }),
+	body('applicant.middleName').optional({ nullable: true }),
+	body('applicant.lastName').optional({ nullable: true }),
+	body('applicant.email')
 		.isEmail({
 			allow_display_name: false,
 			require_tld: true,
@@ -185,7 +180,7 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.withMessage('Email must be a valid email')
 		.optional({ nullable: true, checkFalsy: true }),
 	// regex check added to website, to exclude @ signs, which for some reason are valid in isUrl
-	body('applicants.*.website')
+	body('applicant.website')
 		.trim()
 		.matches(/^[^@]*$/)
 		.withMessage('Website must be a valid website')
@@ -199,16 +194,16 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		})
 		.withMessage('Website must be a valid website')
 		.optional({ nullable: true, checkFalsy: true }),
-	body('applicants.*.phoneNumber')
+	body('applicant.phoneNumber')
 		.trim()
 		.matches(/^\+?(?:\d\s?){10,12}$/)
 		.withMessage('Phone Number must be a valid UK number')
 		.optional({ nullable: true, checkFalsy: true }),
-	body('applicants.*.address.addressLine1').optional({ nullable: true }),
-	body('applicants.*.address.addressLine2').optional({ nullable: true }),
-	body('applicants.*.address.town').optional({ nullable: true }),
-	body('applicants.*.address.county').optional({ nullable: true }),
-	body('applicants.*.address.postcode')
+	body('applicant.address.addressLine1').optional({ nullable: true }),
+	body('applicant.address.addressLine2').optional({ nullable: true }),
+	body('applicant.address.town').optional({ nullable: true }),
+	body('applicant.address.county').optional({ nullable: true }),
+	body('applicant.address.postcode')
 		.isPostalCode('GB')
 		.withMessage('Postcode must be a valid UK postcode')
 		.optional({ nullable: true }),
@@ -241,7 +236,7 @@ export const validateDocumentGuid = composeMiddleware(
 );
 
 export const validateApplicantId = composeMiddleware(
-	body('applicants.*.id')
+	body('applicant.id')
 		.toInt()
 		.custom(validateExistingApplicantThatBelongsToCase)
 		.withMessage('Must be existing applicant that belongs to this case')

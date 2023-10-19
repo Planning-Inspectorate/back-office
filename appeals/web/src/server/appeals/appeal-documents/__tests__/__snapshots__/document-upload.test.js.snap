@@ -4,7 +4,7 @@ exports[`documents upload should render upload form if appeal ID and folder ID a
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l"></h1>
+            <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
@@ -12,7 +12,6 @@ exports[`documents upload should render upload form if appeal ID and folder ID a
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
-        <h1 class="govuk-heading-m govuk-grid-column-full">Upload files</h1>
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
@@ -62,7 +61,7 @@ exports[`documents upload should render upload form if appeal ID, folder ID and 
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l"></h1>
+            <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
@@ -70,7 +69,6 @@ exports[`documents upload should render upload form if appeal ID, folder ID and 
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"
     data-document-id="0e4ce48f-2d67-4659-9082-e80a15182386" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
-        <h1 class="govuk-heading-m govuk-grid-column-full">Upload files</h1>
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">

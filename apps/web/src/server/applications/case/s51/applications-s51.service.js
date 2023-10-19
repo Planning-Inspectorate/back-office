@@ -65,19 +65,13 @@ export const updateS51Advice = async (caseId, adviceId, payload) => {
  * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
 export const updateS51AdviceStatus = async (caseId, payload) => {
-	let response;
-
 	try {
-		response = await patch(`applications/${caseId}/s51-advice/`, { json: payload });
+		return await patch(`applications/${caseId}/s51-advice/`, { json: payload });
 	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
-			resolve({ errors: 'An error occurred, please try again later' });
-		});
+		return { errors: error?.response?.body?.errors };
 	}
-
-	return response;
 };
 
 /**

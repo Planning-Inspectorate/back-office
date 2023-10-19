@@ -17,7 +17,6 @@ export const mapQuestionnaireIn = (questionnaire) => {
 		isAffectingNeighbouringSites: questionnaire.doPlansAffectNeighbouringSite || false,
 		//doesSiteHaveHealthAndSafetyIssues
 		healthAndSafetyDetails: questionnaire.healthAndSafetyIssuesDetails,
-		//nearbyCaseReferences,
 		hasExtraConditions: questionnaire.hasExtraConditions || false,
 		extraConditions: questionnaire.extraConditions
 	};
@@ -28,18 +27,18 @@ export const mapQuestionnaireOut = (data) => {
 		questionnaireReceived: data?.sentAt,
 		questionnaireDueDate: data?.appealTimeTable?.lpaQuestionnaireDueDate,
 		isAppealTypeAppropriate: data?.isCorrectAppealType,
-		doesTheDevelopmentAffectTheSettingOfAListedBuilding: data?.doesAffectAListedBuilding,
+		doesTheDevelopmentAffectTheSettingOfAListedBuilding: data?.doesAffectAListedBuilding || false,
 		//affectedListedBuildings,
-		inCAOrRelatesToCA: data?.inCAOrrelatesToCA,
-		siteWithinGreenBelt: data?.siteWithinGreenBelt,
+		inCAOrRelatesToCA: data?.inCAOrrelatesToCA || false,
+		siteWithinGreenBelt: data?.siteWithinGreenBelt || false,
 		//howYouNotifiedPeople,
-		hasRepresentationsFromOtherParties: data?.hasRepresentationsFromOtherParties,
-		doesSiteRequireInspectorAccess: data?.doesSiteRequireInspectorAccess,
-		doPlansAffectNeighbouringSite: data?.isAffectingNeighbouringSites,
+		hasRepresentationsFromOtherParties: data?.hasRepresentationsFromOtherParties || false,
+		doesSiteRequireInspectorAccess: data?.doesSiteRequireInspectorAccess || false,
+		doPlansAffectNeighbouringSite: data?.isAffectingNeighbouringSites || false,
 		//doesSiteHaveHealthAndSafetyIssues
-		healthAndSafetyIssuesDetails: data?.healthAndSafetyDetails,
+		//healthAndSafetyIssuesDetails: data?.healthAndSafetyDetails,
 		//nearbyCaseReferences,
-		hasExtraConditions: data?.hasExtraConditions,
-		extraConditions: data?.extraConditions
+		hasExtraConditions: data?.hasExtraConditions || data?.extraConditions?.length,
+		extraConditions: data?.extraConditions || ''
 	};
 };

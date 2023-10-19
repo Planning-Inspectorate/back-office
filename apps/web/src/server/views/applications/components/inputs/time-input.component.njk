@@ -1,4 +1,5 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% macro timeInput(params) %}
 
@@ -10,51 +11,64 @@
 	{% set isError = errors[fieldName] !== undefined and errors[fieldName] !== false %}
 
 	<div class="govuk-form-group govuk-grid-column-full {{ 'govuk-form-group--error' if isError else '' }}">
-		<label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="{{ fieldName }}">
-			{{ layout.label }}
-		</label>
+		{% call govukFieldset({
+		legend: {
+			text: layout.label,
+			classes: "govuk-label font-weight--700 govuk-!-margin-bottom-4",
+			isPageHeading: false
+		}
+		}) %}
 
-		{% if layout.hint %}
-			<div id="{{fieldname}}-hint" class="govuk-hint">
-				{{ layout.hint }}
+			{% if layout.hint %}
+				<div id="{{fieldname}}-hint" class="govuk-hint">
+					{{ layout.hint }}
+				</div>
+			{% endif %}
+
+			{% if isError %}
+				<p id="{{fieldName}}-error" class="govuk-error-message">
+					<span class="govuk-visually-hidden">Error:</span>
+					{{ errors[fieldName].msg }}
+				</p>
+			{% endif %}
+
+			<div class="{{layout.classes}}">
+				<div class="govuk-grid-row pins-time-form-group">
+
+					{% set fieldNameHours = [fieldName, '.hours'] | join %}
+					{% set valueHours = values[fieldName] | datestamp({format: 'dd'})if values[fieldName] else
+						values[fieldNameHours] %}
+
+					{% set fieldNameMinutes = [fieldName, '.minutes'] | join %}
+					{% set valueMinutes = values[fieldName] | datestamp({format: 'MM'})if values[fieldName] else
+						values[fieldNameMinutes] %}
+
+					{{ govukInput({
+						label: {
+							text: "Hours",
+							classes: "govuk-visually-hidden"
+						},
+						id: fieldNameHours,
+						name: fieldNameHours,
+						value: valueHours,
+						errorMessage: isError
+					}) }}
+
+					<span class='govuk-form-group'>:</span>
+
+					{{ govukInput({
+						label: {
+							text: "Minutes",
+							classes: "govuk-visually-hidden"
+						},
+						id: fieldNameMinutes,
+						name: fieldNameMinutes,
+						value: valueMinutes,
+						errorMessage: isError
+					}) }}
+				</div>
 			</div>
-		{% endif %}
 
-		{% if isError %}
-			<p id="{{fieldName}}-error" class="govuk-error-message">
-				<span class="govuk-visually-hidden">Error:</span>
-				{{ errors[fieldName].msg }}
-			</p>
-		{% endif %}
-
-		<div class="{{layout.classes}}">
-			<div class="govuk-grid-row pins-time-form-group">
-
-				{% set fieldNameHours = [fieldName, '.hours'] | join %}
-				{% set valueHours = values[fieldName] | datestamp({format: 'dd'})if values[fieldName] else
-					values[fieldNameHours] %}
-
-				{% set fieldNameMinutes = [fieldName, '.minutes'] | join %}
-				{% set valueMinutes = values[fieldName] | datestamp({format: 'MM'})if values[fieldName] else
-					values[fieldNameMinutes] %}
-
-				{{ govukInput({
-					id: fieldNameHours,
-				  	name: fieldNameHours,
-					value: valueHours,
-					errorMessage: isError
-				}) }}
-
-				<span class='govuk-form-group'>:</span>
-
-				{{ govukInput({
-					id: fieldNameMinutes,
-					name: fieldNameMinutes,
-					value: valueMinutes,
-					errorMessage: isError
-				}) }}
-			</div>
-		</div>
-
+		{% endcall %}
 	</div>
 {% endmacro %}

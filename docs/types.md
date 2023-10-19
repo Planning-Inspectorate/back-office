@@ -23,5 +23,5 @@ import('@prisma/client').Prisma.MyTypeUncheckedUpdateInput
 If you need a type with a relation included, say a `ProjectUpdate` with a `Case`, you can use:
 
 ```
-import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}
+import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>
 ```

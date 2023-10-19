@@ -16,7 +16,9 @@ import {
 	getCaseFolders,
 	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
-	updateCaseDocumentationFiles
+	updateCaseDocumentationFiles,
+	unpublishCaseDocumentationFiles,
+	getCaseManyDocumentationFilesInfo
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -128,6 +130,51 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 
 	response.render(`applications/case-documentation/documentation-version-upload`, {
 		documentationFile
+	});
+}
+
+/**
+ * View the unpublishing documentation page
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderName: string}>}
+ */
+export async function viewApplicationsCaseDocumentationUnpublishPage(request, response) {
+	if (request.errors) {
+		const properties = await documentationFolderData(request, response);
+
+		return response.render('applications/components/folder/folder', {
+			...properties,
+			errors: request.errors
+		});
+	}
+
+	const documentationFiles = await getCaseManyDocumentationFilesInfo(
+		response.locals.caseId,
+		request.body.selectedFilesIds
+	);
+
+	if (!documentationFiles.every((file) => file.publishedStatus === 'published')) {
+		const properties = await documentationFolderData(request, response);
+
+		return response.render('applications/components/folder/folder', {
+			...properties,
+			errors: 'Your selected documents are not published so you cannot unpublish them.'
+		});
+	}
+
+	const pathMatch = request.url.match(/(\d+)\/([a-zA-Z-]+)\/unpublishing-queue$/);
+	const backLink = pathMatch
+		? url('document-category', {
+				caseId: response.locals.caseId,
+				documentationCategory: { id: parseInt(pathMatch[1]), displayNameEn: pathMatch[2] }
+		  })
+		: url('case-view', {
+				caseId: response.locals.caseId
+		  });
+
+	return response.render(`applications/case-documentation/documentation-unpublish`, {
+		documentationFiles,
+		backLink
 	});
 }
 
@@ -302,6 +349,34 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 	await removeCaseDocumentationPublishingQueue(caseId, documentGuid);
 
 	return response.redirect(url('documents-queue', { caseId }));
+}
+
+/**
+ * Handle unpublishing a document
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {documentGuids: string[]}, {}, {}>}
+ * */
+export async function postUnpublishDocuments({ body }, response) {
+	const { documentGuids } = body;
+	const { caseId } = response.locals;
+
+	const { errors } = await unpublishCaseDocumentationFiles(caseId, documentGuids);
+
+	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, documentGuids);
+
+	if (errors.length > 0) {
+		return response.render(`applications/case-documentation/documentation-unpublish`, {
+			documentationFiles,
+			errors
+		});
+	}
+
+	return response.render('applications/case-documentation/documentation-success-banner', {
+		serviceName: 'Document/s successfully unpublished',
+		selectedPageType: 'documentation-unpublish-success',
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
+		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
+	});
 }
 
 // Data for controllers

@@ -1,8 +1,8 @@
 import { request } from '../../../app-test.js';
-import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
-import { mapDateStringToUnixTimestamp } from '../../../utils/mapping/map-date-string-to-unix-timestamp.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 
 const time = new Date();
 
@@ -16,7 +16,7 @@ const application1 = applicationFactoryForTests({
 		publishedAt: time
 	},
 	inclusions: {
-		serviceCustomer: true,
+		applicant: true,
 		ApplicationDetails: true,
 		CaseStatus: true,
 		gridReference: true
@@ -66,6 +66,7 @@ describe('Get Application details', () => {
 			caseEmail: 'test@test.com',
 			modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+			unpublishedDate: null,
 			sector: {
 				name: 'business_and_commercial',
 				abbreviation: 'BC',
@@ -78,25 +79,23 @@ describe('Get Application details', () => {
 				displayNameEn: 'Office Use',
 				displayNameCy: 'Office Use'
 			},
-			applicants: [
-				{
-					id: 1,
-					organisationName: 'Organisation',
-					firstName: 'Service Customer First Name',
-					middleName: 'Service Customer Middle Name',
-					lastName: 'Service Customer Last Name',
-					email: 'service.customer@email.com',
-					address: {
-						addressLine1: 'Addr Line 1',
-						addressLine2: 'Addr Line 2',
-						county: 'County',
-						postCode: 'Postcode',
-						town: 'Town'
-					},
-					website: 'Service Customer Website',
-					phoneNumber: '01234567890'
-				}
-			],
+			applicant: {
+				id: 1,
+				organisationName: 'Organisation',
+				firstName: 'Service Customer First Name',
+				middleName: 'Service Customer Middle Name',
+				lastName: 'Service Customer Last Name',
+				email: 'service.customer@email.com',
+				address: {
+					addressLine1: 'Addr Line 1',
+					addressLine2: 'Addr Line 2',
+					county: 'County',
+					postCode: 'Postcode',
+					town: 'Town'
+				},
+				website: 'Service Customer Website',
+				phoneNumber: '01234567890'
+			},
 			geographicalInformation: {
 				mapZoomLevel: {
 					id: 1,
@@ -154,12 +153,14 @@ describe('Get Application details', () => {
 			description: null,
 			reference: null,
 			title: null,
+			applicant: null,
 			geographicalInformation: {
 				gridReference: {},
 				mapZoomLevel: {}
 			},
 			modifiedDate: mapDateStringToUnixTimestamp(time.toISOString()),
 			publishedDate: mapDateStringToUnixTimestamp(time.toISOString()),
+			unpublishedDate: null,
 			id: 2,
 			keyDates: {},
 			status: 'Draft',

@@ -15,6 +15,7 @@ router
 		validators.validateVisitDate,
 		validators.validateVisitStartTime,
 		validators.validateVisitEndTime,
+		validators.validateVisitStartTimeBeforeEndTime,
 		controller.postScheduleSiteVisit
 	);
 

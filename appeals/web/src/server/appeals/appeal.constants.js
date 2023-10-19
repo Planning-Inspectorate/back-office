@@ -3,17 +3,6 @@ export const paginationDefaultSettings = {
 	firstPageNumber: 1
 };
 
-export const appellantCaseReviewOutcomes = {
-	valid: 'valid',
-	invalid: 'invalid',
-	incomplete: 'incomplete'
-};
-
-export const lpaQuestionnaireOutcomes = {
-	complete: 'complete',
-	incomplete: 'incomplete'
-};
-
 /**
  * @type {Object<string, Object<string, string>>}
  */
@@ -42,4 +31,9 @@ export const notificationBanners = {
 		type: 'success',
 		text: 'Inspector has been removed'
 	}
+};
+
+export const textInputCharacterLimits = {
+	appellantCaseNotValidReason: 1000,
+	lpaQuestionnaireNotValidReason: 1000
 };

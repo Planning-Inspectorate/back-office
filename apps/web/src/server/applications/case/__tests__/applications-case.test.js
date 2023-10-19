@@ -105,7 +105,6 @@ describe('Applications case pages', () => {
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('There are unpublished changes');
 					});
 				});
 			});

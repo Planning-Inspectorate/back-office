@@ -2,6 +2,8 @@
 // TODO: schemas (PINS data model)
 // TODO: local data model for service user
 
+import { ODW_SYSTEM_ID } from '#endpoints/constants.js';
+
 export const mapServiceUserIn = (data) => {
 	const user = {
 		create: {
@@ -21,11 +23,26 @@ export const mapServiceUserIn = (data) => {
 	return user;
 };
 
-export const mapServiceUserOut = (data) => {
+export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
 	const user = {
+		sourceSystem: ODW_SYSTEM_ID,
+		sourceSuid: data.customer.id,
+		id: data.customer.id,
 		firstName: data.customer.firstName,
 		lastName: data.customer.lastName,
-		email: data.customer.email
+		emailAddress: data.customer.email,
+		serviceUserType: serviceUserType,
+		caseReference: caseReference,
+		company: data.customer.organisationName
 	};
+
+	if (data.customer.address) {
+		user.addressLine1 = data.customer.address.addressLine1;
+		user.addressLine2 = data.customer.address.addressLine2;
+		user.addressPostcode = data.customer.address.postcode;
+		user.addressTown = data.customer.address.addressTown;
+		user.addressCounty = data.customer.address.addressCounty;
+	}
+
 	return user;
 };

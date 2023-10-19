@@ -24,7 +24,11 @@ export const mapAppellantCaseIn = (appeal, appellant) => {
 		isSitePartiallyOwned: appeal.isSitePartiallyOwned || false,
 		isSiteVisibleFromPublicRoad: appeal.isSiteVisible || false,
 		newDevelopmentDescription: appeal.newDevelopmentDescription || '',
-		visibilityRestrictions: appeal.visibilityRestrictions || ''
+		visibilityRestrictions: appeal.visibilityRestrictions || '',
+		decision: appeal.decision || '',
+		originalCaseDecisionDate: appeal.originalCaseDecisionDate || new Date().toISOString(),
+		costsAppliedForIndicator: appeal.costsAppliedForIndicator || false,
+		inspectorAccessDetails: appeal.inspectorAccessDetails || ''
 	};
 };
 
@@ -50,6 +54,11 @@ export const mapAppellantCaseOut = (data) => {
 		isSitePartiallyOwned: data.isSitePartiallyOwned,
 		isSiteVisible: data.isSiteVisibleFromPublicRoad,
 		newDevelopmentDescription: data.newDevelopmentDescription,
-		visibilityRestrictions: data.visibilityRestrictions
+		visibilityRestrictions: data.visibilityRestrictions,
+		isListedBuilding: data.isListedBuilding || false,
+		decision: data.decision || '',
+		originalCaseDecisionDate: (data.originalCaseDecisionDate || new Date()).toISOString(),
+		costsAppliedForIndicator: data.costsAppliedForIndicator || false,
+		inspectorAccessDetails: data.inspectorAccessDetails || ''
 	};
 };

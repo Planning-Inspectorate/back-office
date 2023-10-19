@@ -3,14 +3,17 @@ import {
 	mapQuestionnaireSubmission,
 	mapDocumentSubmission,
 	mapAppeal,
-	mapDocument
+	mapDocument,
+	mapServiceUser
 } from './integrations.mappers/index.js';
 
 import {
 	importAppellantCase,
 	importLPAQuestionnaire,
 	importDocument,
-	produceAppealUpdate
+	produceAppealUpdate,
+	produceServiceUsersUpdate,
+	produceDocumentUpdate
 } from './integrations.service.js';
 
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
@@ -35,18 +38,32 @@ import {
  */
 export const postAppealSubmission = async (req, res) => {
 	const { appeal, documents } = mapAppealSubmission(req.body);
-	const result = await importAppellantCase(appeal, documents);
+	const dbSavedResult = await importAppellantCase(appeal, documents);
 
 	await createAuditTrail({
-		appealId: result.id,
+		appealId: dbSavedResult.id,
 		details: AUDIT_TRAIL_APPELLANT_IMPORT_MSG,
 		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
-	const formattedResult = mapAppeal(result);
-	await produceAppealUpdate(formattedResult, EventType.Create);
+	const appealTopic = mapAppeal(dbSavedResult);
+	await produceAppealUpdate(appealTopic, EventType.Create);
 
-	return res.send(formattedResult);
+	if (dbSavedResult.appellantId) {
+		// @ts-ignore
+		const appellantTopic = mapServiceUser(dbSavedResult, dbSavedResult.appellant, 'appellant');
+		await produceServiceUsersUpdate([appellantTopic], EventType.Create, 'appellant');
+	}
+	if (dbSavedResult.agentId) {
+		// @ts-ignore
+		const agentTopic = mapServiceUser(dbSavedResult, dbSavedResult.agent, 'agent');
+		await produceServiceUsersUpdate([agentTopic], EventType.Create, 'agent');
+	}
+
+	const documentsTopic = documents.map((d) => mapDocument(d));
+	await produceDocumentUpdate(documentsTopic, EventType.Create);
+
+	return res.send(appealTopic);
 };
 
 /**
@@ -55,24 +72,33 @@ export const postAppealSubmission = async (req, res) => {
  * @returns {Promise<Response>}
  */
 export const postLpaqSubmission = async (req, res) => {
-	const { caseReference, questionnaire, documents } = mapQuestionnaireSubmission(req.body);
-	const result = await importLPAQuestionnaire(caseReference, questionnaire, documents);
-	if (!result) {
+	const { caseReference, questionnaire, nearbyCaseReferences, documents } =
+		mapQuestionnaireSubmission(req.body);
+	const dbSavedResult = await importLPAQuestionnaire(
+		caseReference,
+		nearbyCaseReferences,
+		questionnaire,
+		documents
+	);
+	if (!dbSavedResult) {
 		throw new BackOfficeAppError(
 			`Failure importing LPA questionnaire. Appeal with case reference '${caseReference}' does not exist.`
 		);
 	}
 
 	await createAuditTrail({
-		appealId: result.id,
+		appealId: dbSavedResult.id,
 		details: AUDIT_TRAIL_LPAQ_IMPORT_MSG,
 		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
-	const formattedResult = mapAppeal(result);
-	await produceAppealUpdate(formattedResult, EventType.Update);
+	const appealTopic = mapAppeal(dbSavedResult);
+	await produceAppealUpdate(appealTopic, EventType.Update);
 
-	return res.send(formattedResult);
+	const documentsTopic = documents.map((d) => mapDocument(d));
+	await produceDocumentUpdate(documentsTopic, EventType.Create);
+
+	return res.send(appealTopic);
 };
 
 /**

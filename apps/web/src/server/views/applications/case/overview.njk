@@ -1,28 +1,32 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
 {% block sectionContent %}
-  {% set applicantFirstOrganisationName = case.applicants[0].organisationName %}
-  {% set applicantFirstEmail = case.applicants[0].email %}
-  {% set applicantFirstPhoneNumber = case.applicants[0].phoneNumber %}
-  {% set applicantFirstWebsite = case.applicants[0].website %}
+  {% set applicantFirstOrganisationName = case.applicant.organisationName %}
+  {% set applicantFirstEmail = case.applicant.email %}
+  {% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
+  {% set applicantFirstWebsite = case.applicant.website %}
   {% set userIsInspector = domainType === 'inspector' %}
   {% set applicantFirstWebsiteValue = '' %}
   {% if applicantFirstWebsite %}
-      {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+    {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
   {% endif %}
   <h2 class="govuk-heading-m">Overview</h2>
   {% set publishedTag %}
-    {% if case.publishedDate %}
-      <strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+  {% if case.publishedDate %}
+    <strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+    &nbsp;
+    <span class="govuk-body-s colour--secondary">Last updated
+    {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+  {% else %}
+    <strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+    {% if case.unpublishedDate %}
       &nbsp;
-      <span class="govuk-body-s colour--secondary">Last updated {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
-    {% else %}
-      <strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+      <span class="govuk-body-s colour--secondary">Last updated
+      {{ case.unpublishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
     {% endif %}
+  {% endif %}
   {% endset %}
-
   {{ govukSummaryList({
     rows: [
       {
@@ -54,15 +58,15 @@
   {% endif %}
   <h2 class="govuk-heading-m">Project team</h2>
   <p class="govuk-body">No project members have been added yet</p>
-
   <div class="govuk-!-margin-top-6">
     {{ govukButton({
       text: 'Preview and publish project',
-      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) })
-    }}
-
+      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) }) }}
     {% if case.publishedDate and not userIsInspector %}
-      <a href="../{{ caseId }}/unpublish" class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">Unpublish project</a>
+      <a
+        href="../{{ caseId }}/unpublish"
+        class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">
+      Unpublish project</a>
     {% endif %}
   </div>
 {% endblock %}

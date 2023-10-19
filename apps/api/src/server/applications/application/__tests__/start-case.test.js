@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
-const { eventClient } = await import('../../../infrastructure/event-client.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
 
-import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const applicationReadyToStart = applicationFactoryForTests({
 	id: 1,
@@ -164,14 +164,13 @@ describe('Start case', () => {
 			}
 		});
 
-		/** @type {import('../application.js').NsipProjectPayload} */
 		const expectedEventPayload = {
 			caseId: 1,
 			caseReference: 'EN01-1',
 			projectName: 'Title',
 			projectDescription: 'Description',
 			publishStatus: 'unpublished',
-			sourceSystem: 'ODT',
+			sourceSystem: 'back-office-applications',
 			stage: 'draft',
 			projectLocation: 'Some Location',
 			projectEmailAddress: 'test@test.com',
@@ -184,11 +183,9 @@ describe('Start case', () => {
 			anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
-			applicantIds: [],
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			inspectorIds: [],
-			interestedPartyIds: []
+			inspectorIds: []
 		};
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(

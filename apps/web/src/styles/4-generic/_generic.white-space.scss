@@ -1,5 +1,6 @@
 $white-space-attrs: (
-	"pre-line": "pre-line"
+	"pre-line": "pre-line",
+	"nowrap": "nowrap"
 );
 
 @each $key, $val in $white-space-attrs {

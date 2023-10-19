@@ -11,7 +11,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAddresses = databaseConnector.address.deleteMany();
-	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
+	const deleteServiceUsers = databaseConnector.serviceUser.deleteMany();
 	const deleteGridReference = databaseConnector.gridReference.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
@@ -65,7 +65,7 @@ export async function deleteAllRecords(databaseConnector) {
 
 	await databaseConnector.$transaction([
 		deleteGridReference,
-		deleteServiceCustomers,
+		deleteServiceUsers,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCases,

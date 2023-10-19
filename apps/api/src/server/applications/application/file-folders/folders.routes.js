@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../../middleware/async-handler.js';
+import { asyncHandler } from '#middleware/async-handler.js';
 import { validateApplicationId } from '../application.validators.js';
 import {
 	getDocuments,
@@ -145,7 +145,7 @@ router.post(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'document pagination parameters',
-			schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+			schema: { $ref: '#/definitions/PaginationRequestBody' },
 			required: true
 		}
         #swagger.responses[200] = {

@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../../../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '#middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
@@ -16,7 +16,10 @@ import {
 	storeDocumentVersion,
 	updateDocuments,
 	getDocumentVersionProperties,
-	markAsPublished
+	markAsPublished,
+	markAsUnpublished,
+	unpublishDocuments,
+	getManyDocumentsProperties
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -33,7 +36,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/{guid}/metadata'
-        #swagger.description = 'This endpoint enables the storage of metadata for a document linked to a particular case, whether it is newly created or updated.'
+        #swagger.description = 'Create or update the document version metadata for a document'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -49,7 +52,7 @@ router.post(
 		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsMetadataRequestBody' }
+            schema: { $ref: '#/definitions/DocumentVersionUpsertRequestBody' }
         }
 		#swagger.responses[200] = {
 			description: 'The metadata has been successfully stored.',
@@ -74,19 +77,19 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/documentsToSave' }
+            schema: { $ref: '#/definitions/DocumentsToSaveManyRequestBody' }
         }
         #swagger.responses[200] = {
             description: 'Documents that have been saved',
-            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+            schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
         }
 		#swagger.responses[206] = {
 			description: 'Some documents failed to save while others succeeded',
-			schema: { $ref: '#/definitions/partialDocumentsAndBlobStorageURLs' }
+			schema: { $ref: '#/definitions/DocumentsUploadPartialFailed' }
 		}
 		#swagger.responses[409] = {
 			description: 'All documents failed to upload',
-			schema: { $ref: '#/definitions/documentsUploadFailed' }
+			schema: { $ref: '#/definitions/DocumentsUploadFailed' }
 		}
 	 */
 	validateApplicationId,
@@ -96,12 +99,49 @@ router.post(
 	asyncHandler(provideDocumentUploadURLs)
 );
 
+router.patch(
+	'/:id/documents/unpublish',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/unpublish'
+        #swagger.description = 'Unpublish a document by its GUID'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Document Details',
+            schema: { $ref: '#/definitions/DocumentsToUnpublishRequestBody' }
+        }
+        #swagger.responses[200] = {
+            description: 'Documents that have been unpublished',
+            schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+        }
+		#swagger.responses[206] = {
+			description: 'Some documents failed to unpublish while others succeeded',
+			schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+		}
+		#swagger.responses[409] = {
+			description: 'All documents failed to unpublish',
+			schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
+		}
+  */
+	validateApplicationId,
+	validateDocumentsToUpdateProvided,
+	validateDocumentIds,
+	trimUnexpectedRequestParameters,
+	asyncHandler(unpublishDocuments)
+);
+
 router.post(
 	'/:id/document/:guid/add-version',
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/document/{guid}/add-version'
-        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.description = 'Adds a new file version to an existing document, and returns document info and location in Blob Storage'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID here',
@@ -117,11 +157,11 @@ router.post(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
-            schema: { $ref: '#/definitions/documentToSave' }
+            schema: { $ref: '#/definitions/DocumentToSave' }
         }
         #swagger.responses[200] = {
-            description: 'Document that have been saved',
-            schema: { $ref: '#/definitions/documentsAndBlobStorageURLs' }
+            description: 'Document that has been saved',
+            schema: { $ref: '#/definitions/DocumentAndBlobInfoResponse' }
         }
 	 */
 	validateApplicationId,
@@ -145,7 +185,7 @@ router.patch(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Update Details',
-            schema: { $ref: '#/definitions/documentsToUpdateRequestBody' },
+            schema: { $ref: '#/definitions/DocumentsToUpdateRequestBody' },
 			required: true
         }
         #swagger.responses[200] = {
@@ -169,7 +209,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents/{guid}/mark-as-published'
-        #swagger.description = 'Marks as published '
+        #swagger.description = 'Marks as published'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -208,6 +248,49 @@ router.post(
 	asyncHandler(markAsPublished)
 );
 
+router.post(
+	'/:id/documents/:guid/version/:version/mark-as-unpublished',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-unpublished'
+        #swagger.description = 'Marks as unpublished'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'Document GUID',
+			required: true,
+			type: 'string'
+        }
+		#swagger.parameters['version'] = {
+            in: 'path',
+			description: 'Version',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Mark as unpublished Request',
+            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Updated document response',
+            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing application" } }
+        }
+	 */
+	validateApplicationId,
+	asyncHandler(markAsUnpublished)
+);
+
 router.get(
 	'/:id/documents/:guid/properties',
 	/*
@@ -228,7 +311,7 @@ router.get(
 		}
         #swagger.responses[200] = {
             description: 'Document properties',
-            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+            schema: { $ref: '#/definitions/DocumentProperties' }
         }
     */
 	asyncHandler(getDocumentProperties)
@@ -238,7 +321,7 @@ router.get(
 	'/documents/:guid/properties',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/documents/{guid}/properties'
+        #swagger.path = '/applications/documents/{guid}/properties'
         #swagger.description = 'Gets the properties of a single file'
         #swagger.parameters['guid'] = {
                 in: 'path',
@@ -248,17 +331,48 @@ router.get(
         }
         #swagger.responses[200] = {
             description: 'Document properties',
-            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+            schema: { $ref: '#/definitions/DocumentProperties' }
         }
     */
 	asyncHandler(getDocumentProperties)
 );
 
 router.get(
+	'/:id/documents/properties',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/documents/properties'
+        #swagger.description = 'Gets the properties of the specified files'
+		 #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['guids'] = {
+			in: 'query',
+			description: 'A list of guids',
+			example: [1, 2],
+		}
+    #swagger.parameters['published'] = {
+      in: 'query',
+      description: 'Only return published documents',
+      type: 'boolean',
+      example: false
+    }
+        #swagger.responses[200] = {
+            description: 'Document properties',
+            schema: { $ref: '#/definitions/DocumentProperties' }
+        }
+    */
+	asyncHandler(getManyDocumentsProperties)
+);
+
+router.get(
 	'/:id/documents/:guid/version/:version/properties',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents/{guid}/version/:version/properties'
+        #swagger.path = '/applications/{id}/documents/{guid}/version/{version}/properties'
         #swagger.description = 'Gets the properties of a single file on a case by version id'
         #swagger.parameters['id'] = {
             in: 'path',
@@ -280,7 +394,7 @@ router.get(
 		}
         #swagger.responses[200] = {
             description: 'Document properties',
-            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+            schema: { $ref: '#/definitions/DocumentProperties' }
         }
     */
 	asyncHandler(getDocumentVersionProperties)
@@ -290,8 +404,8 @@ router.get(
 	'/document/:guid/versions',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/document/{guid}/properties'
-        #swagger.description = 'Gets the properties of a single file on a case'
+        #swagger.path = '/applications/document/{guid}/versions'
+        #swagger.description = 'Gets the properties and all versions of a single file on a case'
 		#swagger.parameters['guid'] = {
             in: 'path',
 			description: 'guid of the required document here',
@@ -300,7 +414,7 @@ router.get(
 		}
         #swagger.responses[200] = {
             description: 'Document properties',
-            schema: { $ref: '#/definitions/documentsPropertiesRequestBody' }
+            schema: { $ref: '#/definitions/DocumentPropertiesWithAllVersionWithAuditHistory' }
         }
     */
 	asyncHandler(getDocumentVersions)
@@ -401,7 +515,7 @@ router.post(
 		#swagger.parameters['body'] = {
             in: 'body',
             description: 'document pagination parameters',
-            schema: { $ref: '#/definitions/DocumentsInCriteriaRequestBody' },
+            schema: { $ref: '#/definitions/PaginationRequestBody' },
             required: true
         }
 		#swagger.responses[200] = {
@@ -427,11 +541,11 @@ router.patch(
         #swagger.parameters['body'] = {
             in: 'body',
             description: 'Array of document guids to publish',
-            schema: { $ref: '#/definitions/documentsToPublishRequestBody' }
+            schema: { $ref: '#/definitions/DocumentsToPublishRequestBody' }
         }
         #swagger.responses[200] = {
             description: 'Documents that have been published',
-            schema: { $ref: '#/definitions/documentsPublished' }
+            schema: { $ref: '#/definitions/DocumentsPublished' }
         }
 		#swagger.responses[400] = {
             description: 'Example of an error response',

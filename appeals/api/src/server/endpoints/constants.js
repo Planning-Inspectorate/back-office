@@ -103,6 +103,7 @@ export const LENGTH_10 = 10;
 export const LENGTH_300 = 300;
 
 export const NODE_ENV_PRODUCTION = 'production';
+export const ODW_SYSTEM_ID = 'back-office-appeals';
 
 export const SITE_VISIT_TYPE_UNACCOMPANIED = 'Unaccompanied';
 
@@ -149,16 +150,29 @@ export const CONFIG_APPEAL_FOLDER_PATHS = [
 	'appellant_case/planningObligation',
 	'appellant_case/plansDrawingsSupportingDocuments',
 	'appellant_case/separateOwnershipCertificate',
+	'appellant_case/newPlansOrDrawings',
 	'appellant_case/newSupportingDocuments',
 	'appellant_case/appealStatement',
 	// LPA questionnaire folders
+	'lpa_questionnaire/communityInfrastructureLevy',
 	'lpa_questionnaire/conservationAreaMap',
-	'lpa_questionnaire/notifyingParties',
-	'lpa_questionnaire/siteNotices',
+	'lpa_questionnaire/consultationResponses',
+	'lpa_questionnaire/definitiveMapAndStatement',
+	'lpa_questionnaire/emergingPlans',
+	'lpa_questionnaire/environmentalStatementResponses',
+	'lpa_questionnaire/issuedScreeningOption',
 	'lpa_questionnaire/lettersToNeighbours',
+	'lpa_questionnaire/notifyingParties',
+	'lpa_questionnaire/officersReport',
+	'lpa_questionnaire/otherRelevantPolicies',
+	'lpa_questionnaire/policiesFromStatutoryDevelopment',
 	'lpa_questionnaire/pressAdvert',
 	'lpa_questionnaire/representations',
-	'lpa_questionnaire/officersReport'
+	'lpa_questionnaire/responsesOrAdvice',
+	'lpa_questionnaire/screeningDirection',
+	'lpa_questionnaire/siteNotices',
+	'lpa_questionnaire/supplementaryPlanningDocuments',
+	'lpa_questionnaire/treePreservationOrder'
 ];
 
 export const CONFIG_APPEAL_STAGES = {

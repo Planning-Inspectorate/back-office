@@ -1,7 +1,12 @@
 import config from '@pins/appeals.web/environment/config.js';
 
-/** @type {import('@pins/express').RenderHandler<object>}  */
-export const upload = async (request, response) => {
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ */
+export const renderDocumentUpload = async (request, response, backButtonUrl) => {
 	const { appealId, documentId } = request.params;
 	const { currentFolder } = request;
 
@@ -14,6 +19,7 @@ export const upload = async (request, response) => {
 	const documentType = pathComponents[1];
 
 	return response.render('appeals/documents/document-upload.njk', {
+		backButtonUrl,
 		caseId: appealId,
 		folderId: currentFolder.id,
 		documentId,

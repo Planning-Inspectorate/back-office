@@ -3,7 +3,7 @@ import { EventType } from '@pins/event-client';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
-import * as s51AdviceRepository from '../../repositories/s51-advice.repository.js';
+import * as s51AdviceRepository from '#repositories/s51-advice.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
@@ -22,19 +22,21 @@ import {
 	publishS51Items
 } from './s51-advice.service.js';
 import { buildNsipS51AdvicePayload } from './s51-advice.js';
-import * as s51AdviceDocumentRepository from '../../repositories/s51-advice-document.repository.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
+import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
 import {
 	makeDocumentReference,
 	obtainURLsForDocuments
 } from './../application/documents/document.service.js';
-import BackOfficeAppError from '../../utils/app-error.js';
-import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
 
-/** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
-/** @typedef {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, fromFrontOffice: boolean, documentReference: string}} Document */
+/**
+ * @typedef {import('@pins/applications.api').Schema.Folder} Folder
+ * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ */
 
 /**
  * @type {import('express').RequestHandler}
@@ -167,11 +169,11 @@ export const addDocuments = async ({ params, body }, response) => {
 
 	const { duplicates, remainder } = await extractDuplicates(
 		adviceId,
-		/** @type {Document[]} */ (documentsToUpload).map((doc) => doc.documentName)
+		/** @type {DocumentToSaveExtended[]} */ (documentsToUpload).map((doc) => doc.documentName)
 	);
 
-	const filteredToUpload = /** @type {Document[]} */ (documentsToUpload).filter((doc) =>
-		remainder.includes(doc.documentName)
+	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
+		(doc) => remainder.includes(doc.documentName)
 	);
 
 	for (const doc of filteredToUpload) {

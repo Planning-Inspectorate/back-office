@@ -53,3 +53,24 @@ export type RepresentationAction = {
 	actionDate: string;
 	notes: string | null;
 };
+
+export type PublishableRep = {
+	id: number;
+	reference: string;
+	status: string;
+	redacted: boolean;
+	received: string;
+	firstName: string;
+	lastName: string;
+	organisationName: string | null;
+};
+
+export type PublishableReps = {
+	previouslyPublished: boolean;
+	itemCount: number;
+	items: PublishableRep[];
+};
+
+export type PublishedReps = {
+	publishedRepIds: Array<number>;
+};

@@ -9,7 +9,7 @@ const createCasePage = new CreateCasePage();
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.validateSummaryItem(
-		'Applicant Information',
+		'Applicant information',
 		mandatoryOnly
 			? ''
 			: `${projectInformation.orgName}${projectInformation.applicantEmail}${projectInformation.applicantPhoneNumber}`
@@ -175,7 +175,7 @@ const updateProjectInformation = (projectInformation) => {
 const getShortMonthName = (monthNumber) => {
 	const date = new Date();
 	date.setMonth(monthNumber - 1);
-	return date.toLocaleString('default', { month: 'short' });
+	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
 };
 
 const enquirerString = (details) => {

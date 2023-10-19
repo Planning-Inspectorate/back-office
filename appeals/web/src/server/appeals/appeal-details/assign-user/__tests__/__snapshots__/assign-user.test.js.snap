@@ -820,7 +820,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -830,7 +830,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
@@ -1290,7 +1290,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -1300,7 +1300,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
@@ -1621,7 +1621,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -1631,7 +1631,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>
@@ -1952,7 +1952,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change/lpa-questionnaire-due-date"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
@@ -1962,7 +1962,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-determination"> Schedule</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Complete</dt>

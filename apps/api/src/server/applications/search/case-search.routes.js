@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '#middleware/async-handler.js';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { getApplicationsByCriteria } from './case-search.controller.js';
 import { validateRole, validateSearchCriteria } from './case-search.validators.js';
 
@@ -15,12 +15,12 @@ router.post(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'case query parameters',
-			schema: { $ref: '#/definitions/ApplicationsForSearchCriteriaRequestBody' },
+			schema: { $ref: '#/definitions/ApplicationsSearchCriteriaRequestBody' },
 			required: true
 		}
         #swagger.responses[200] = {
             description: 'List of applications as per search criteria',
-            schema: { $ref: '#/definitions/ApplicationsForSearchCriteria' }
+            schema: { $ref: '#/definitions/ApplicationsSearchResponse' }
         }
     */
 	validateRole,

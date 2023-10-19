@@ -101,7 +101,8 @@ describe('Ready-to-publish-documents', () => {
 				caseId: 1,
 				latestDocumentVersion: {
 					publishedStatus: 'ready_to_publish'
-				}
+				},
+				isDeleted: false
 			}
 		});
 		expect(response.body).toEqual({

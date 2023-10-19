@@ -1,15 +1,22 @@
 import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
 
-/** @typedef {import('apps/api/src/database/schema.js').DocumentVersionWithDocument} DocumentVersionWithDocument */
-/** @typedef {import('apps/api/src/database/schema.js').DocumentWithSubTables} Document */
-/** @typedef {import('apps/api/src/database/schema.js').DocumentDetails} DocumentDetails */
+/**
+ * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ */
 
 /**
+ * Returns a flat set of the document properties wanted by the UI
  *
  * @param { DocumentVersionWithDocument } documentVersion
  * @returns { DocumentDetails }
  */
-export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
+export const mapSingleDocumentDetailsFromVersion = ({
+	Document,
+	publishedStatus,
+	...documentVersion
+}) => {
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
@@ -33,7 +40,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		mime: documentVersion.mime ?? '',
 
-		publishedStatus: documentVersion.publishedStatus ?? '',
+		publishedStatus: publishedStatus ?? '',
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 

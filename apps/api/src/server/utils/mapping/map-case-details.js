@@ -5,7 +5,7 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 import { mapGridReference } from './map-grid-reference.js';
 import { mapKeysUsingObject } from './map-keys-using-object.js';
 import { mapRegion } from './map-region.js';
-import { mapServiceCustomer } from './map-service-customer.js';
+import { mapServiceUser } from './map-service-user.js';
 import { mapValuesUsingObject } from './map-values-using-object.js';
 import { mapZoomLevel } from './map-zoom-level.js';
 import { mapKeyDatesToResponse } from './map-key-dates.js';
@@ -56,9 +56,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		mapRegion(region.region)
 	);
 
-	const applicantsFormatted = caseDetails?.serviceCustomer?.map((serviceCustomer) =>
-		mapServiceCustomer(serviceCustomer)
-	);
+	const applicantFormatted = caseDetails.applicant ? mapServiceUser(caseDetails.applicant) : null;
 
 	const gridReferenceFormatted = mapGridReference(caseDetails?.gridReference);
 
@@ -67,18 +65,30 @@ export const mapApplicationDetails = (caseDetails) => {
 		: {};
 
 	const latestPublishedState = caseDetails?.CasePublishedState?.[0];
-	const publishedDate = latestPublishedState?.isPublished
-		? mapDateStringToUnixTimestamp(latestPublishedState.createdAt)
-		: null;
+
+	const [publishedDate, unpublishedDate] = (() => {
+		if (!latestPublishedState) {
+			return [null, null];
+		}
+
+		const timestamp = mapDateStringToUnixTimestamp(latestPublishedState.createdAt);
+
+		if (latestPublishedState.isPublished) {
+			return [timestamp, null];
+		}
+
+		return [null, timestamp];
+	})();
 
 	return {
 		...caseDetailsFormatted,
 		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
 		publishedDate,
+		unpublishedDate,
 		caseEmail: caseDetails?.ApplicationDetails?.caseEmail,
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
-		applicants: applicantsFormatted,
+		applicant: applicantFormatted,
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
 			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,

@@ -2,9 +2,11 @@
 {% from "./components/timetable-items-list.component.njk" import timetableItemsList%}
 
 {% block beforeContent %}
+<aside>
 	<div class="govuk-width-container">
 		<a class="govuk-back-link" href="{{ backLink }}" >Back to examination timetable</a>
 	</div>
+</aside>
 {% endblock %}
 
 {% block pageContent %}

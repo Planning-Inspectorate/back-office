@@ -7,7 +7,6 @@ import {
 	VALIDATION_OUTCOME_INVALID,
 	VALIDATION_OUTCOME_VALID
 } from '#endpoints/constants.js';
-import { folder } from '#tests/documents/mocks.js';
 import formatValidationOutcomeResponse from '#utils/format-validation-outcome-response.js';
 import formatNeighbouringSiteContacts from '#utils/format-neighbouring-site-contacts.js';
 
@@ -523,25 +522,25 @@ const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 	),
 	developmentDescription: appeal.lpaQuestionnaire?.developmentDescription,
 	documents: {
-		communityInfrastructureLevy: document,
-		conservationAreaMap: document,
-		consultationResponses: document,
-		definitiveMapAndStatement: document,
-		emergingPlans: document,
-		environmentalStatementResponses: document,
-		issuedScreeningOption: document,
-		lettersToNeighbours: [],
-		notifyingParties: [],
-		officersReport: document,
-		otherRelevantPolicies: document,
-		policiesFromStatutoryDevelopment: document,
-		pressAdvert: document,
-		representations: document,
-		responsesOrAdvice: document,
-		screeningDirection: document,
-		siteNotices: [],
-		supplementaryPlanningDocuments: document,
-		treePreservationOrder: document
+		communityInfrastructureLevy: {},
+		conservationAreaMap: {},
+		consultationResponses: {},
+		definitiveMapAndStatement: {},
+		emergingPlans: {},
+		environmentalStatementResponses: {},
+		issuedScreeningOption: {},
+		lettersToNeighbours: {},
+		notifyingParties: {},
+		officersReport: {},
+		otherRelevantPolicies: {},
+		policiesFromStatutoryDevelopment: {},
+		pressAdvert: {},
+		representations: {},
+		responsesOrAdvice: {},
+		screeningDirection: {},
+		siteNotices: {},
+		supplementaryPlanningDocuments: {},
+		treePreservationOrder: {}
 	},
 	doesAffectAListedBuilding: appeal.lpaQuestionnaire?.doesAffectAListedBuilding,
 	doesAffectAScheduledMonument: appeal.lpaQuestionnaire?.doesAffectAScheduledMonument,
@@ -647,28 +646,15 @@ const baseExpectedAppellantCaseResponse = (appeal) => ({
 		}
 	}),
 	documents: {
-		appealStatement: {
-			documents: [],
-			path: folder.path
-		},
+		appealStatement: {},
 		applicationForm: {},
-		...(isFPA(appeal.appealType) && {
-			designAndAccessStatement: {}
-		}),
+		designAndAccessStatement: {},
 		decisionLetter: {},
-		...(isFPA(appeal.appealType) && {
-			newPlansOrDrawings: {}
-		}),
+		newPlansOrDrawings: {},
 		newSupportingDocuments: {},
-		...(isFPA(appeal.appealType) && {
-			planningObligation: {}
-		}),
-		...(isFPA(appeal.appealType) && {
-			plansDrawingsSupportingDocuments: {}
-		}),
-		...(isFPA(appeal.appealType) && {
-			separateOwnershipCertificate: {}
-		})
+		planningObligation: {},
+		plansDrawingsSupportingDocuments: {},
+		separateOwnershipCertificate: {}
 	},
 	hasAdvertisedAppeal: appeal.appellantCase?.hasAdvertisedAppeal,
 	...(isFPA(appeal.appealType) && {

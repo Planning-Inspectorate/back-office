@@ -11,7 +11,10 @@ const mockCaseFindMany = jest.fn().mockResolvedValue({});
 const mockCaseCount = jest.fn().mockResolvedValue({});
 
 const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
-const mockServiceCustomerFindUnique = jest.fn().mockResolvedValue({});
+
+const mockServiceUserFindUnique = jest.fn().mockResolvedValue({});
+const mockServiceUserCreate = jest.fn().mockResolvedValue({});
+const mockServiceUserUpdate = jest.fn().mockResolvedValue({});
 
 const mockExecuteRawUnsafe = jest.fn().mockResolvedValue({});
 
@@ -242,9 +245,11 @@ class MockPrismaClient {
 		};
 	}
 
-	get serviceCustomer() {
+	get serviceUser() {
 		return {
-			findUnique: mockServiceCustomerFindUnique
+			findUnique: mockServiceUserFindUnique,
+			create: mockServiceUserCreate,
+			update: mockServiceUserUpdate
 		};
 	}
 

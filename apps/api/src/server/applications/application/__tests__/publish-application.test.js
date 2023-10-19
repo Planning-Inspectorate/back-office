@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
-const { eventClient } = await import('../../../infrastructure/event-client.js');
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
-import logger from '../../../utils/logger.js';
+import logger from '#utils/logger.js';
 
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);
@@ -59,13 +59,11 @@ describe('Publish application', () => {
 			[
 				{
 					caseId: 1,
-					sourceSystem: 'ODT',
+					sourceSystem: 'back-office-applications',
 					publishStatus: 'published',
-					applicantIds: [],
 					nsipOfficerIds: [],
 					nsipAdministrationOfficerIds: [],
-					inspectorIds: [],
-					interestedPartyIds: []
+					inspectorIds: []
 				}
 			],
 			'Publish'

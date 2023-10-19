@@ -85,6 +85,23 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
 };
 
 /**
+ * @param {number} caseId
+ * @param {string[]} documentGuids
+ * @returns {Promise<{errors: {guid: string, msg: string}[]}>};
+ * */
+export const unpublishCaseDocumentationFiles = async (caseId, documentGuids) => {
+	try {
+		return await patch(`applications/${caseId}/documents/unpublish`, {
+			json: {
+				documents: documentGuids.map((guid) => ({ guid }))
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		return { errors: error?.response?.body?.errors || [] };
+	}
+};
+
+/**
  * Get the blob storage info for the file with the given GUID
  *
  * @param {number} caseId
@@ -93,6 +110,24 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
  */
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
+};
+/**
+ * Get the blob storage info for the file with the given GUID
+ *
+ * @param {number} caseId
+ * @param {string[]} filesGuid
+ * @returns {Promise<DocumentationFile[]>}
+ */
+export const getCaseManyDocumentationFilesInfo = async (
+	caseId,
+	filesGuid,
+	onlyPublished = false
+) => {
+	return get(
+		`applications/${caseId}/documents/properties?guids=${JSON.stringify(
+			filesGuid
+		)}&published=${onlyPublished}`
+	);
 };
 
 /**

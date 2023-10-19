@@ -3,6 +3,15 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 
+export const loadAppeal = async (id) => {
+	const appeal = await databaseConnector.appeal.findUnique({
+		where: { id },
+		include: getFindUniqueAppealQueryIncludes()
+	});
+
+	return appeal;
+};
+
 export const createAppeal = async (data, documents) => {
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.create({ data });
@@ -53,40 +62,7 @@ export const createAppeal = async (data, documents) => {
 
 		appeal = await tx.appeal.findUnique({
 			where: { id: appeal.id },
-			include: {
-				appellantCase: {
-					include: {
-						appellantCaseValidationOutcome: true
-					}
-				},
-				lpaQuestionnaire: {
-					include: {
-						lpaQuestionnaireValidationOutcome: true
-					}
-				},
-				appellant: {
-					include: {
-						customer: true
-					}
-				},
-				agent: {
-					include: {
-						customer: true
-					}
-				},
-				lpa: true,
-				inspector: true,
-				caseOfficer: true,
-				appealTimetable: true,
-				address: true,
-				appealType: true,
-				allocation: true,
-				specialisms: {
-					include: {
-						specialism: true
-					}
-				}
-			}
+			include: getFindUniqueAppealQueryIncludes()
 		});
 
 		return appeal;
@@ -95,10 +71,19 @@ export const createAppeal = async (data, documents) => {
 	return transaction;
 };
 
-export const createOrUpdateLpaQuestionnaire = async (caseReference, data, documents) => {
+export const createOrUpdateLpaQuestionnaire = async (
+	caseReference,
+	nearbyReferences,
+	data,
+	documents
+) => {
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.findUnique({
 			where: { reference: caseReference }
+		});
+
+		const otherAppeals = await tx.appeal.findMany({
+			where: { reference: { in: nearbyReferences } }
 		});
 
 		if (appeal) {
@@ -110,6 +95,11 @@ export const createOrUpdateLpaQuestionnaire = async (caseReference, data, docume
 							create: data,
 							update: data
 						}
+					},
+					otherAppeals: {
+						set: otherAppeals.map((other) => {
+							return { id: other.id };
+						})
 					}
 				}
 			});
@@ -152,30 +142,7 @@ export const createOrUpdateLpaQuestionnaire = async (caseReference, data, docume
 		if (appeal) {
 			appeal = await tx.appeal.findUnique({
 				where: { id: appeal.id },
-				include: {
-					appellantCase: {
-						include: {
-							appellantCaseValidationOutcome: true
-						}
-					},
-					lpaQuestionnaire: {
-						include: {
-							lpaQuestionnaireValidationOutcome: true
-						}
-					},
-					inspector: true,
-					caseOfficer: true,
-					appellant: true,
-					appealTimetable: true,
-					address: true,
-					appealType: true,
-					allocation: true,
-					specialisms: {
-						include: {
-							specialism: true
-						}
-					}
-				}
+				include: getFindUniqueAppealQueryIncludes()
 			});
 		}
 
@@ -205,4 +172,49 @@ const getFolderIdFromDocumentType = (caseFolders, documentType, stage) => {
 	// TODO: Fall back to a 'dropbox' folder?
 
 	return null;
+};
+
+const getFindUniqueAppealQueryIncludes = () => {
+	return {
+		appellantCase: {
+			include: {
+				appellantCaseValidationOutcome: true
+			}
+		},
+		lpaQuestionnaire: {
+			include: {
+				lpaQuestionnaireValidationOutcome: true
+			}
+		},
+		appellant: {
+			include: {
+				customer: {
+					include: {
+						address: true
+					}
+				}
+			}
+		},
+		agent: {
+			include: {
+				customer: {
+					include: {
+						address: true
+					}
+				}
+			}
+		},
+		lpa: true,
+		inspector: true,
+		caseOfficer: true,
+		appealTimetable: true,
+		address: true,
+		appealType: true,
+		allocation: true,
+		specialisms: {
+			include: {
+				specialism: true
+			}
+		}
+	};
 };

@@ -13,6 +13,7 @@ export class Page {
 		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
+		publish_bannerHeader: '#main-content > div > div > div > h1',
 		button: '.govuk-button',
 		body: '.govuk-body',
 		caption: '.govuk-caption-m',
@@ -38,6 +39,7 @@ export class Page {
 		tableBody: '.govuk-table__body',
 		tableCell: '.govuk-table__cell',
 		tableHeader: '.govuk-table__header',
+		publishtableHeader: '#main-content > div > div > div > div > p',
 		tableRow: '.govuk-table__row',
 		tab: '.govuk-tabs__tab',
 		tag: '.govuk-tag',
@@ -46,8 +48,10 @@ export class Page {
 		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
-		summaryErrorMessages: '.govuk-error-summary [href="#msg"]',
-		xlHeader: '.govuk-heading-xl'
+		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
+		xlHeader: '.govuk-heading-xl',
+		projectManagement: 'span.font-weight--700:nth-child(2)',
+		unpublish: 'button[type="submit"]'
 	};
 
 	// E L E M E N T S
@@ -60,6 +64,7 @@ export class Page {
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
 		bannerHeader: () => cy.get(this.selectors.bannerHeader),
+		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
 			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
@@ -98,7 +103,9 @@ export class Page {
 		tableHeader: () => cy.get(this.selectors.tableHeader),
 		tableCell: () => cy.get(this.selectors.tableCell),
 		textArea: () => cy.get(this.selectors.textArea),
-		genericText: () => cy.get(this.selectors.body)
+		genericText: () => cy.get(this.selectors.body),
+		projectManagement: () => cy.get(this.selectors.projectManagement),
+		unpublishLink: () => cy.get(this.selectors.unpublish)
 	};
 
 	// A C T I O N S
@@ -193,8 +200,14 @@ export class Page {
 					: expect(text).to.include(options.textToMatch);
 			});
 	}
+
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
+			expect($banner.text().trim()).eq(successMessage);
+		});
+	}
+	validatePublishBannerMessage(successMessage) {
+		this.basePageElements.publishBannerHeader().then(($banner) => {
 			expect($banner.text().trim()).eq(successMessage);
 		});
 	}
@@ -277,5 +290,8 @@ export class Page {
 
 	goToDashboard() {
 		this.basePageElements.goToDashboardLink().click();
+	}
+	goToFolderDocumentPage(){
+		this.basePageElements.projectManagement().click();
 	}
 }

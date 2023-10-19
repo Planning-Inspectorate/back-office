@@ -32,7 +32,7 @@ export const fixtureCases = [
 	createCase({
 		id: 4,
 		modifiedDate: `${new Date(2022, 0, 1).getTime() / 1000}`,
-		title: 'Unpublished case with no applicants and case email',
+		title: 'Unpublished case with no applicant and case email',
 		reference: 'CASE/04',
 		sector: fixtureSectors[0],
 		subSector: fixtureSubSectors[0],
@@ -42,12 +42,12 @@ export const fixtureCases = [
 	createCase({
 		id: 5,
 		modifiedDate: `${new Date(2022, 0, 31).getTime() / 1000}`,
-		title: 'Unpublished case with applicants with no address applicants and no case email',
+		title: 'Unpublished case with applicant with no address applicant and no case email',
 		reference: 'CASE/05',
 		sector: fixtureSectors[0],
 		subSector: fixtureSectors[1],
 		status: 'Pre-application',
-		applicants: [createApplicant(false)]
+		applicant: createApplicant(false)
 	}),
 	createCase({
 		id: 6,

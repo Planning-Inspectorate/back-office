@@ -1,0 +1,244 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "pins-root.schema.json",
+	"title": "pins-odt-schemas",
+	"description": "PINS schema definitions",
+	"definitions": {
+		"AppellantCase": {
+			"type": "object",
+			"required": [
+				"LPACode",
+				"LPAName",
+				"appealType",
+				"isListedBuilding",
+				"decision",
+				"originalCaseDecisionDate",
+				"costsAppliedForIndicator",
+				"LPAApplicationReference",
+				"siteAddressLine1",
+				"siteAddressLine2",
+				"siteAddressTown",
+				"siteAddressCounty",
+				"siteAddressPostcode",
+				"isSiteFullyOwned",
+				"hasToldOwners",
+				"isSiteVisible",
+				"inspectorAccessDetails",
+				"doesSiteHaveHealthAndSafetyIssues",
+				"healthAndSafetyIssuesDetails"
+			],
+			"properties": {
+				"LPACode": {
+					"type": "string"
+				},
+				"LPAName": {
+					"type": "string"
+				},
+				"appealType": {
+					"type": "string"
+				},
+				"isListedBuilding": {
+					"type": "boolean"
+				},
+				"decision": {
+					"type": "string"
+				},
+				"originalCaseDecisionDate": {
+					"type": "string"
+				},
+				"costsAppliedForIndicator": {
+					"type": "boolean"
+				},
+				"LPAApplicationReference": {
+					"type": "string"
+				},
+				"siteAddressLine1": {
+					"type": "string"
+				},
+				"siteAddressLine2": {
+					"type": "string"
+				},
+				"siteAddressTown": {
+					"type": "string"
+				},
+				"siteAddressCounty": {
+					"type": "string"
+				},
+				"siteAddressPostcode": {
+					"type": "string"
+				},
+				"isSiteFullyOwned": {
+					"type": "boolean"
+				},
+				"hasToldOwners": {
+					"type": "boolean"
+				},
+				"isSiteVisible": {
+					"type": "boolean"
+				},
+				"inspectorAccessDetails": {
+					"type": "string"
+				},
+				"doesSiteHaveHealthAndSafetyIssues": {
+					"type": "boolean"
+				},
+				"healthAndSafetyIssuesDetails": {
+					"type": "string"
+				}
+			}
+		},
+		"LpaQuestionnaire": {
+			"type": "object",
+			"required": ["caseReference", "LPACode"],
+			"properties": {
+				"caseReference": {
+					"type": "string",
+					"examples": ["APP/Q9999/W/22/3221288"]
+				},
+				"LPACode": {
+					"type": "string",
+					"examples": ["Q9999"]
+				},
+				"isAppealTypeAppropriate": {
+					"type": "boolean"
+				},
+				"doesTheDevelopmentAffectTheSettingOfAListedBuilding": {
+					"type": "boolean"
+				},
+				"affectedListedBuildings": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/AffectedListedBuilding"
+					}
+				},
+				"inCAOrRelatesToCA": {
+					"type": "boolean"
+				},
+				"siteWithinGreenBelt": {
+					"type": "boolean"
+				},
+				"howYouNotifiedPeople": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"examples": [
+							"A public notice at the site",
+							"Letters to neighbours",
+							"Advert in the local press"
+						]
+					}
+				},
+				"hasRepresentationsFromOtherParties": {
+					"type": "boolean"
+				},
+				"doesSiteRequireInspectorAccess": {
+					"type": "boolean"
+				},
+				"doPlansAffectNeighbouringSite": {
+					"type": "boolean"
+				},
+				"doesSiteHaveHealthAndSafetyIssues": {
+					"type": "boolean"
+				},
+				"healthAndSafetyIssuesDetails": {
+					"type": "string",
+					"examples": ["There are bears. Lots of bears."]
+				},
+				"nearbyCaseReferences": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"examples": ["abc123456", "xyz987654"]
+					}
+				},
+				"hasExtraConditions": {
+					"type": "boolean"
+				},
+				"extraConditions": {
+					"type": "string"
+				}
+			}
+		},
+		"AffectedListedBuilding": {
+			"type": "object",
+			"properties": {
+				"listEntry": {
+					"type": "string",
+					"examples": ["1021477"]
+				}
+			}
+		},
+		"ServiceUser": {
+			"type": "object",
+			"required": ["firstName", "lastName", "emailAddress"],
+			"properties": {
+				"sourceSystem": {
+					"type": "string"
+				},
+				"sourceSuid": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				},
+				"salutation": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"emailAddress": {
+					"type": "string"
+				},
+				"serviceUserType": {
+					"type": "string"
+				},
+				"caseReference": {
+					"type": "string"
+				},
+				"addressLine1": {
+					"type": "string"
+				},
+				"addressLine2": {
+					"type": "string"
+				},
+				"addressTown": {
+					"type": "string"
+				},
+				"addressCounty": {
+					"type": "string"
+				},
+				"addressPostcode": {
+					"type": "string"
+				},
+				"addressCountry": {
+					"type": "string"
+				},
+				"organisation": {
+					"type": "string"
+				},
+				"organisationType": {
+					"type": "string"
+				},
+				"role": {
+					"type": "string"
+				},
+				"telephoneNumber": {
+					"type": "string"
+				},
+				"otherPhoneNumber": {
+					"type": "string"
+				},
+				"faxNumber": {
+					"type": "string"
+				},
+				"webAddress": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

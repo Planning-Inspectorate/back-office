@@ -1,27 +1,13 @@
 import { EventType } from '@pins/event-client';
-import { head, map } from 'lodash-es';
-import { eventClient } from '../../infrastructure/event-client.js';
-import { NSIP_PROJECT } from '../../infrastructure/topics.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import logger from '../../utils/logger.js';
-import BackOfficeAppError from '../../utils/app-error.js';
-import { mapCaseStatusString } from '../../utils/mapping/map-case-status-string.js';
-import { mapDateStringToUnixTimestamp } from '../../utils/mapping/map-date-string-to-unix-timestamp.js';
-import { setCaseUnpublishedChangesIfTrue } from '../../utils/published-case-fields-changed.js';
-import { buildNsipProjectPayload } from './application.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import logger from '#utils/logger.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { mapCaseStatusString } from '#utils/mapping/map-case-status-string.js';
+import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
+import { setCaseUnpublishedChangesIfTrue } from '#utils/published-case-fields-changed.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
-
-/**
- *
- * @param {import("@pins/applications.api").Schema.ServiceCustomer[] | undefined} serviceCustomers
- * @returns {number[]}
- */
-const getServiceCustomerIds = (serviceCustomers) => {
-	return map(serviceCustomers, (serviceCustomer) => {
-		return serviceCustomer.id;
-	});
-};
 
 /**
  * Express request handler for creating application
@@ -33,15 +19,9 @@ export const createApplication = async (request, response) => {
 
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(application)],
-		EventType.Create
-	);
+	await broadcastNsipProjectEvent(application, EventType.Create);
 
-	const applicantIds = getServiceCustomerIds(application.serviceCustomer);
-
-	response.send({ id: application.id, applicantIds });
+	response.send({ id: application.id, applicantId: application.applicant?.id });
 };
 
 /**
@@ -57,8 +37,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
-		serviceCustomer: true,
-		serviceCustomerAddress: true,
+		applicant: true,
 		gridReference: true
 	});
 
@@ -68,7 +47,7 @@ export const updateApplication = async ({ params, body }, response) => {
 
 	let updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
-		applicantId: head(body?.applicants)?.id,
+		applicantId: body?.applicant?.id,
 		...mappedApplicationDetails
 	});
 
@@ -78,15 +57,9 @@ export const updateApplication = async ({ params, body }, response) => {
 
 	updateResponse = await setCaseUnpublishedChangesIfTrue(originalResponse, updateResponse);
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(updateResponse)],
-		EventType.Update
-	);
+	await broadcastNsipProjectEvent(updateResponse, EventType.Update);
 
-	const applicantIds = getServiceCustomerIds(updateResponse.serviceCustomer);
-
-	response.send({ id: updateResponse.id, applicantIds });
+	response.send({ id: updateResponse.id, applicantId: updateResponse.applicant?.id });
 };
 
 /**
@@ -141,11 +114,7 @@ export const publishCase = async ({ params: { id } }, response) => {
 		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
 	}
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(publishedCase)],
-		EventType.Publish
-	);
+	await broadcastNsipProjectEvent(publishedCase, EventType.Publish);
 
 	logger.info(`successfully published case with id ${id}`);
 
@@ -171,11 +140,7 @@ export const unpublishCase = async ({ params: { id } }, response) => {
 		throw new BackOfficeAppError(`no case found with id: ${id}`, 404);
 	}
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(unpublishedCase)],
-		EventType.Unpublish
-	);
+	await broadcastNsipProjectEvent(unpublishedCase, EventType.Unpublish);
 
 	logger.info(`successfully unpublished case with id ${id}`);
 

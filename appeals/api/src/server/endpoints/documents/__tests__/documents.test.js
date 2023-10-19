@@ -63,6 +63,22 @@ describe('/appeals/:appealId/document-folders/:folderId', () => {
 	});
 });
 
+describe('/appeals/:appealId/documents/:documentId', () => {
+	describe('GET', () => {
+		test('gets a single document', async () => {
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.document.findUnique.mockResolvedValue(documentCreated);
+
+			const response = await request
+				.get(`/appeals/${householdAppeal.id}/documents/${documentCreated.guid}`)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual(documentCreated);
+		});
+	});
+});
+
 describe('/appeals/:appealId/documents', () => {
 	let requestBody;
 
