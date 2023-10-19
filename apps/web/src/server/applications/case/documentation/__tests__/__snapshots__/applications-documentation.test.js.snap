@@ -133,7 +133,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
@@ -950,7 +950,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
@@ -2235,7 +2235,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
@@ -3143,7 +3143,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
@@ -4375,7 +4375,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
@@ -5605,7 +5605,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
                             class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
