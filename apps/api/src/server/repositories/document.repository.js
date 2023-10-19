@@ -94,9 +94,9 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
  */
 export const getByReferenceRelatedToCaseId = (reference, caseId) => {
 	return databaseConnector.document.findFirst({
-		include: { documentVersion: true },
 		where: {
 			reference,
+			latestVersionId: 1,
 			isDeleted: false,
 			folder: {
 				caseId

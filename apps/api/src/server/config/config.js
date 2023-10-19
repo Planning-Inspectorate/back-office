@@ -12,7 +12,7 @@ const { value, error } = schema.validate({
 	defaultApiVersion: environment.DEFAULT_API_VERSION || '1',
 	blobStorageUrl: environment.AZURE_BLOB_STORE_HOST,
 	blobStorageContainer: environment.AZURE_BLOB_STORE_CONTAINER,
-	virusScanningDisabled: true, // environment.VIRUS_SCANNING_DISABLED || false,
+	virusScanningDisabled: environment.VIRUS_SCANNING_DISABLED || false,
 	serviceBusOptions: {
 		hostname: environment.SERVICE_BUS_HOSTNAME
 	},

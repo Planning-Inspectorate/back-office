@@ -306,8 +306,8 @@ model DocumentVersion {
   redacted               Boolean               @default(false)
   Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
   latestVersionDocument  Document?             @relation("LatestVersion")
-  transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptReference], references: [guid], map: "DocumentVersion_transcript_documentGuid_fkey", onUpdate: NoAction, onDelete: NoAction)
-  transcriptReference    String?
+  transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+  transcriptGuid         String?
   DocumentActivityLog    DocumentActivityLog[]
 
   @@id([documentGuid, version])
