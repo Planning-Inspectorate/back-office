@@ -12,7 +12,11 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  * @param { DocumentVersionWithDocument } documentVersion
  * @returns { DocumentDetails }
  */
-export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
+export const mapSingleDocumentDetailsFromVersion = ({
+	Document,
+	publishedStatus,
+	...documentVersion
+}) => {
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
@@ -36,7 +40,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		mime: documentVersion.mime ?? '',
 
-		publishedStatus: documentVersion.publishedStatus ?? '',
+		publishedStatus: publishedStatus ?? '',
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 

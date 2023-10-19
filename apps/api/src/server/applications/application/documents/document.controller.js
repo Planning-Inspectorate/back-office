@@ -262,7 +262,16 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
+	const publishedVersions = await documentVersionRepository.getManyByIdAndStatus(
+		[document.guid],
+		'published'
+	);
+	const isPublished = publishedVersions.some((version) => version?.publishedStatus === 'published');
+
+	const documentDetails = mapSingleDocumentDetailsFromVersion({
+		...documentVersion,
+		publishedStatus: isPublished ? 'published' : documentVersion.publishedStatus
+	});
 
 	response.status(200).send(documentDetails);
 };
