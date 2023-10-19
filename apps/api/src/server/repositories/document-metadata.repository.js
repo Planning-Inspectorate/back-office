@@ -14,7 +14,11 @@ import { databaseConnector } from '#utils/database-connector.js';
  */
 export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
-		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
+		create: {
+			...metadata,
+			version,
+			Document: { connect: { guid: documentGuid } }
+		},
 
 		where: { documentGuid_version: { documentGuid, version } },
 
@@ -116,6 +120,11 @@ export const getById = (documentGuid, version = 1) => {
 							}
 						}
 					}
+				}
+			},
+			transcript: {
+				select: {
+					reference: true
 				}
 			}
 		}

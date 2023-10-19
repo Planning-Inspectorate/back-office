@@ -476,7 +476,7 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  */
 export const storeDocumentVersion = async (request, response) => {
 	// Extract caseId and guid from the request parameters
-	const { guid } = request.params;
+	const { guid, id: caseId } = request.params;
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
@@ -487,6 +487,24 @@ export const storeDocumentVersion = async (request, response) => {
 
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
+
+	if (documentVersionMetadataBody.transcript) {
+		const transcriptReference = documentVersionMetadataBody.transcript;
+
+		const transcriptDocument = await documentRepository.getByReferenceRelatedToCaseId(
+			transcriptReference,
+			+caseId
+		);
+
+		if (!transcriptDocument) {
+			const transcriptErrorMsg = `Transcript document not found: reference ${transcriptReference}`;
+			response.status(404).send({ errors: { transcript: transcriptErrorMsg } });
+
+			throw new BackOfficeAppError(transcriptErrorMsg, 404);
+		} else {
+			documentVersionMetadataBody.transcript = { connect: { guid: transcriptDocument.guid } };
+		}
 	}
 
 	// Upsert the document version metadata to the database and get the updated document details

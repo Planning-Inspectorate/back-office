@@ -85,18 +85,22 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 
 	const { documents } = uploadInfo;
 
-	const accessToken = await getActiveDirectoryAccessToken(session);
+	try {
+		const accessToken = await getActiveDirectoryAccessToken(session);
 
-	uploadInfo.documents = documents.map((document) => {
-		const fileToUpload = body.find((file) => file.documentName === document.documentName);
-		const documentWithRowId = { ...document };
+		uploadInfo.documents = documents.map((document) => {
+			const fileToUpload = body.find((file) => file.documentName === document.documentName);
+			const documentWithRowId = { ...document };
 
-		documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
+			documentWithRowId.fileRowId = fileToUpload?.fileRowId || '';
 
-		return documentWithRowId;
-	});
+			return documentWithRowId;
+		});
 
-	return response.send({ ...uploadInfo, accessToken });
+		return response.send({ ...uploadInfo, accessToken });
+	} catch {
+		return response.status(500).send({ errors: { msg: 'An error occured. Try again later.' } });
+	}
 }
 
 /**
