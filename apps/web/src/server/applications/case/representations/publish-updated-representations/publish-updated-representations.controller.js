@@ -12,6 +12,7 @@ import {
 import { getPublishUpdatedRepresentationsViewModel } from './publish-updated-representations.view-model.js';
 import { formatRepresentationIds } from './utils/format-representation-ids.js';
 import { publishRepresentationsErrorUrl } from '../config.js';
+import { getFormattedErrorSummary } from '../representation/representation.utilities.js';
 
 const view = 'applications/representations/publish-updated-representations.njk';
 
@@ -46,12 +47,28 @@ const getPublishUpdatedRepresentationsController = async (req, res) => {
  */
 const postPublishUpdatedRepresentationsController = async (req, res) => {
 	try {
-		const { body, params, session } = req;
+		const { body, errors, params, session } = req;
 		const { caseId } = params;
 		const { representationId } = body;
 		const {
 			locals: { serviceUrl }
 		} = res;
+
+		if (errors) {
+			const project = await getCase(caseId);
+			const publishableRepresentaions = await getPublishableRepresentaions(caseId);
+
+			return res.render(view, {
+				...getPublishUpdatedRepresentationsViewModel(
+					caseId,
+					serviceUrl,
+					project,
+					publishableRepresentaions
+				),
+				errors,
+				errorSummary: getFormattedErrorSummary(errors)
+			});
+		}
 
 		const representationIds = formatRepresentationIds(representationId);
 

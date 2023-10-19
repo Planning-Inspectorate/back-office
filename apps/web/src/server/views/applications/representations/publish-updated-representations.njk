@@ -75,6 +75,7 @@
         {
           classes: "white-space--nowrap",
           html: '<div class="govuk-!-display-none" id="select-all-representations-container">' + govukCheckboxes({
+            idPrefix: "representationId",
             name: "select-all-representations",
             items: [
               {
@@ -105,7 +106,7 @@
 
   <script nonce="{{ cspNonce }}">
     const selectAllRepsContainerElement = document.getElementById('select-all-representations-container');
-    const selectAllRepsElement = document.getElementById('select-all-representations');
+    const selectAllRepsElement = document.getElementById('representationId');
     const repElements = document.querySelectorAll('.representation input');
     const numberOfSelectedRepsElement = document.getElementById('number-of-selected-representations');
 
