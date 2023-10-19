@@ -30,7 +30,8 @@ describe('Appeals feature', () => {
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Invalid');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(1);
+		appealsListPage.chooseCheckboxByIndex(3);
+		appealsListPage.fillInput('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.clickButtonByText('Confirm');
 		appealsListPage.clickLinkByText('Go to case details');
@@ -45,7 +46,8 @@ describe('Appeals feature', () => {
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(1);
+		appealsListPage.chooseCheckboxByIndex(3);
+		appealsListPage.fillInput1('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		updateDueDatePage.enterDateDay('29');
 		updateDueDatePage.enterDateMonth('12');
@@ -58,14 +60,16 @@ describe('Appeals feature', () => {
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it('incomplete appellant case reason: other', () => {
+	it('incomplete appellant case reason: add another', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.chooseCheckboxByIndex(7);
-		appealsListPage.fillTextArea('Hello here is some extra info, have a nice day 7384_+!£ =');
+		appealsListPage.chooseCheckboxByIndex(3);
+		appealsListPage.fillInput1('Hello here is some extra info, have a nice day 7384_+!£ =');
+		appealsListPage.addAnotherButton();
+		appealsListPage.fillInput2('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		updateDueDatePage.enterDateDay('29');
 		updateDueDatePage.enterDateMonth('12');
@@ -78,13 +82,14 @@ describe('Appeals feature', () => {
 		appealsListPage.verifyTableCellText(testData);
 	});
 
-	it.only('incomplete appellant case skip due date', () => {
+	it('incomplete appellant case skip due date', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(14);
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Incomplete');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.chooseCheckboxByIndex(1);
+		appealsListPage.fillInput('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.clickButtonByText('Skip');
 		appealsListPage.clickButtonByText('Confirm');

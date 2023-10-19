@@ -92,6 +92,7 @@ export class Page {
 			}),
 		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
 		tabByText: (tabText) => cy.contains(this.selectors.tab, tabText, { matchCase: false }),
+		table: () => cy.get(this.selectors.table),
 		tableBody: () => cy.get(this.selectors.tableBody),
 		tableRow: () => cy.get(this.selectors.tableRow),
 		tableHeader: () => cy.get(this.selectors.tableHeader),
