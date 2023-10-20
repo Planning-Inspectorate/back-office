@@ -1,7 +1,7 @@
 import logger from '../../../../lib/logger.js';
 import {
 	getCase,
-	getPublishableRepresentaions,
+	getPublishableRepresentations,
 	publishRepresentations
 } from '../applications-relevant-reps.service.js';
 import {
@@ -28,7 +28,7 @@ const getPublishUpdatedRepresentationsController = async (req, res) => {
 	} = res;
 
 	const project = await getCase(caseId);
-	const publishableRepresentaions = await getPublishableRepresentaions(caseId);
+	const publishableRepresentations = await getPublishableRepresentations(caseId);
 
 	return res.render(
 		view,
@@ -36,7 +36,7 @@ const getPublishUpdatedRepresentationsController = async (req, res) => {
 			caseId,
 			serviceUrl,
 			project,
-			publishableRepresentaions
+			publishableRepresentations
 		)
 	);
 };
@@ -56,14 +56,14 @@ const postPublishUpdatedRepresentationsController = async (req, res) => {
 
 		if (errors) {
 			const project = await getCase(caseId);
-			const publishableRepresentaions = await getPublishableRepresentaions(caseId);
+			const publishableRepresentations = await getPublishableRepresentations(caseId);
 
 			return res.render(view, {
 				...getPublishUpdatedRepresentationsViewModel(
 					caseId,
 					serviceUrl,
 					project,
-					publishableRepresentaions
+					publishableRepresentations
 				),
 				errors,
 				errorSummary: getFormattedErrorSummary(errors)
@@ -76,12 +76,12 @@ const postPublishUpdatedRepresentationsController = async (req, res) => {
 			session,
 			representationIds
 		);
-		const publishRepresentationsRespone = await publishRepresentations(
+		const publishRepresentationsResponse = await publishRepresentations(
 			caseId,
 			publishRepresentationsPayload
 		);
 		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
-			publishRepresentationsRespone
+			publishRepresentationsResponse
 		);
 		const redirectURL = getPublishedRepresentationsRedirectURL(
 			serviceUrl,

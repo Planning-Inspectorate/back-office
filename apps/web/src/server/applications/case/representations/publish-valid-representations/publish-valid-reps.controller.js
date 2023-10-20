@@ -1,7 +1,7 @@
 import logger from '../../../../lib/logger.js';
 import { getCase } from '../../../common/services/case.service.js';
 import {
-	getPublishableRepresentaions,
+	getPublishableRepresentations,
 	publishRepresentations
 } from '../applications-relevant-reps.service.js';
 import { publishRepresentationsErrorUrl, representationsUrl } from '../config.js';
@@ -26,7 +26,7 @@ export const getPublishValidRepsController = async (req, res) => {
 	} = res;
 
 	const { title: projectName } = await getCase(Number(caseId));
-	const { itemCount: publishableRepsCount } = await getPublishableRepresentaions(caseId);
+	const { itemCount: publishableRepsCount } = await getPublishableRepresentations(caseId);
 
 	return res.render(view, {
 		backLinkUrl: `${serviceUrl}/case/${caseId}/${representationsUrl}`,
@@ -50,7 +50,7 @@ export const postPublishValidRepsController = async (req, res) => {
 			locals: { serviceUrl }
 		} = res;
 
-		const { items } = await getPublishableRepresentaions(caseId);
+		const { items } = await getPublishableRepresentations(caseId);
 
 		const representationIds = items.map((/** @type {{ id: number; }} */ rep) => rep.id);
 
@@ -58,12 +58,12 @@ export const postPublishValidRepsController = async (req, res) => {
 			session,
 			representationIds
 		);
-		const publishRepresentationsRespone = await publishRepresentations(
+		const publishRepresentationsResponse = await publishRepresentations(
 			caseId,
 			publishRepresentationsPayload
 		);
 		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
-			publishRepresentationsRespone
+			publishRepresentationsResponse
 		);
 		const redirectURL = getPublishedRepresentationsRedirectURL(
 			serviceUrl,
