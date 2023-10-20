@@ -1,12 +1,11 @@
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
-import { eventClient } from '#infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
-import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
-import { buildSubscriptionPayloads, subscriptionToResponse } from './subscriptions.js';
+import { broadcastNsipSubscriptionEvent } from '#infrastructure/event-broadcasters.js';
 import logger from '#utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
 import { getPageCount } from '#utils/database-pagination.js';
+import { subscriptionToResponse } from './subscriptions.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -129,11 +128,7 @@ export async function updateSubscription(request, response) {
 		const res = await subscriptionRepository.update(id, subscription);
 
 		// since we only allow updating end date (currently), we only need to send update events
-		await eventClient.sendEvents(
-			NSIP_SUBSCRIPTION,
-			buildSubscriptionPayloads(res),
-			EventType.Update
-		);
+		await broadcastNsipSubscriptionEvent(res, EventType.Update);
 
 		response.send(subscriptionToResponse(res));
 	} catch (/** @type {any} */ e) {

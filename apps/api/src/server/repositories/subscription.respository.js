@@ -11,11 +11,15 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
  * @property {Date} [endAfter] - filter option
  */
 
+const include = {
+	subscriber: true
+};
+
 /**
  * List subscriptions
  *
  * @param {ListSubscriptionOptions} options
- * @returns {Promise<{count: number, items: import('@prisma/client').Subscription[]}>}
+ * @returns {Promise<{count: number, items: import('@pins/applications.api').Schema.Subscription[]}>}
  */
 export async function list({ page, pageSize, caseReference, type, endAfter }) {
 	/** @type {import('@prisma/client').Prisma.SubscriptionWhereInput} */
@@ -42,7 +46,8 @@ export async function list({ page, pageSize, caseReference, type, endAfter }) {
 		databaseConnector.subscription.findMany({
 			where,
 			skip: getSkipValue(page, pageSize),
-			take: pageSize
+			take: pageSize,
+			include
 		})
 	]);
 
@@ -80,13 +85,14 @@ export function subscriptionTypeToWhere(type, where) {
  * Get an existing subscription entry
  *
  * @param {number} id
- * @returns {Promise<import('@prisma/client').Subscription|null>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Subscription|null>}
  */
 export function get(id) {
 	return databaseConnector.subscription.findUnique({
 		where: {
 			id
-		}
+		},
+		include
 	});
 }
 
@@ -94,29 +100,31 @@ export function get(id) {
  * Find an existing subscription entry
  *
  * @param {string} caseReference
- * @param {string} emailAddress
- * @returns {Promise<import('@prisma/client').Subscription|null>}
+ * @param {string} email
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Subscription|null>}
  */
-export function findUnique(caseReference, emailAddress) {
-	return databaseConnector.subscription.findUnique({
+export function findUnique(caseReference, email) {
+	return databaseConnector.subscription.findFirst({
 		where: {
-			emailAddress_caseReference: {
-				caseReference,
-				emailAddress
+			caseReference,
+			subscriber: {
+				email
 			}
-		}
+		},
+		include
 	});
 }
 
 /**
  * Create a new subscription entry
  *
- * @param {import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput} payload
- * @returns {Promise<import('@prisma/client').Subscription>}
+ * @param {import('@prisma/client').Prisma.SubscriptionCreateInput} payload
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Subscription>}
  */
 export function create(payload) {
 	return databaseConnector.subscription.create({
-		data: payload
+		data: payload,
+		include
 	});
 }
 
@@ -125,13 +133,14 @@ export function create(payload) {
  *
  * @param {number} id
  * @param {import('@prisma/client').Prisma.SubscriptionUncheckedUpdateInput} payload
- * @returns {Promise<import('@prisma/client').Subscription>}
+ * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Subscription>}
  */
 export function update(id, payload) {
 	return databaseConnector.subscription.update({
 		where: {
 			id
 		},
-		data: payload
+		data: payload,
+		include
 	});
 }

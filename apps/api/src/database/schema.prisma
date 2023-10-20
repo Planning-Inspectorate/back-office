@@ -37,7 +37,7 @@ model Case {
 // ServiceUser model which represents a person or oranisation who can have some role in a case
 // Example roles: applicant, represented, representative, subscriber
 model ServiceUser {
-  id               Int      @id @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   organisationName String?
   firstName        String?
   middleName       String?
@@ -46,8 +46,9 @@ model ServiceUser {
   website          String?
   phoneNumber      String?
   addressId        Int?
-  address          Address? @relation(fields: [addressId], references: [id])
+  address          Address?       @relation(fields: [addressId], references: [id])
   Case             Case[]
+  Subscription     Subscription[]
 }
 
 /// GridReference model
@@ -408,8 +409,10 @@ model ExaminationTimetableItem {
 // when a project update is published, all subscribers are emailed
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
-  id            Int    @id @default(autoincrement())
-  emailAddress  String
+  id            Int     @id @default(autoincrement())
+  // TODO: This is a legacy column which is no longer used, and will be removed in a future migration. It's only here to support a rollback and prevent data loss.
+  emailAddress  String?
+  subscriberId  Int
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
   // TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
@@ -425,11 +428,12 @@ model Subscription {
   endDate   DateTime?
   language  String? // English|Welsh
 
-  caseId Int?
-  case   Case? @relation(fields: [caseId], references: [id])
+  caseId     Int?
+  case       Case?       @relation(fields: [caseId], references: [id])
+  subscriber ServiceUser @relation(fields: [subscriberId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   // we don't want to allow multiple records with the same email+caseRef combination
-  @@unique([emailAddress, caseReference])
+  @@unique([subscriberId, caseReference])
 }
 
 model ExaminationTimetable {

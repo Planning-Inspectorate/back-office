@@ -1,11 +1,13 @@
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
+import * as serviceUserRepository from '#repositories/service-user.repository.js';
 import {
-	buildSubscriptionPayloads,
 	subscriptionTypeChanges,
 	typesToSubscription
-} from './subscriptions.js';
+} from '#infrastructure/payload-builders/subscriptions.js';
+import { broadcastNsipSubscriptionEvent } from '#infrastructure/event-broadcasters.js';
+
 import { EventType } from '@pins/event-client';
 
 /**
@@ -15,22 +17,18 @@ import { EventType } from '@pins/event-client';
  * @returns {Promise<{id: number, created: boolean}>}
  */
 export async function createOrUpdateSubscription(request) {
-	const subscription = prepareInput(request);
+	const subscription = await prepareInput(request);
 
 	const existing = await subscriptionRepository.findUnique(
-		subscription.caseReference,
-		subscription.emailAddress
+		request.caseReference,
+		request.emailAddress
 	);
 
 	if (existing === null) {
 		// new subscription
 		const res = await subscriptionRepository.create(subscription);
 
-		await eventClient.sendEvents(
-			NSIP_SUBSCRIPTION,
-			buildSubscriptionPayloads(res),
-			EventType.Create
-		);
+		await broadcastNsipSubscriptionEvent(res, EventType.Create);
 
 		return { id: res.id, created: true };
 	}
@@ -49,13 +47,32 @@ export async function createOrUpdateSubscription(request) {
 
 /**
  * @param {any} request
- * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
+ * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput>}
  */
-export function prepareInput(request) {
+export async function prepareInput(request) {
+	/** @type {string} */
+	const emailAddress = request.emailAddress;
+
+	// Get or create the service user
+	const existingServiceUser = await serviceUserRepository.findByEmail(emailAddress);
+
 	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
 	const subscription = {
 		caseReference: request.caseReference,
-		emailAddress: request.emailAddress
+		// If a service user already exists, connect it. Otherwise, create a new one.
+		subscriber: existingServiceUser
+			? {
+					connect: {
+						id: existingServiceUser.id
+					}
+			  }
+			: {
+					create: {
+						email: emailAddress
+					}
+			  },
+		// TODO: Once we're happy with the new 'subscriberId' functionality, we can delete this record
+		emailAddress: emailAddress
 	};
 
 	typesToSubscription(request.subscriptionTypes, subscription);

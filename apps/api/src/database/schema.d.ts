@@ -52,6 +52,14 @@ export interface ServiceUser extends schema.ServiceUser {
 	address?: schema.Address;
 }
 
+export interface ServiceUserWithNonNullEmail extends ServiceUser {
+	email: string;
+}
+
+export interface Subscription extends schema.Subscription {
+	subscriber: ServiceUserWithNonNullEmail;
+}
+
 export type CaseStatusNameType =
 	| 'Pre-application'
 	| 'Acceptance'
