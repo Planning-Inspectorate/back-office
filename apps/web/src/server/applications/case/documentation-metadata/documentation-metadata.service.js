@@ -13,24 +13,11 @@ import pino from '../../../lib/logger.js';
  * @returns {Promise<{updatedTimetable?: string, errors?: ValidationErrors}>}
  */
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
-	let response;
-
 	if (newMetaData.publishedStatus) {
-		try {
-			response = await patch(`applications/${caseId}/documents`, {
-				json: {
-					status: newMetaData.publishedStatus,
-					documents: [{ guid: documentGuid }]
-				}
-			});
-		} catch {
-			response = {
-				errors: {
-					msg: 'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.'
-				}
-			};
-		}
+		return await updatePublishedStatusMetadata(newMetaData.publishedStatus, documentGuid, caseId);
 	}
+
+	let response;
 
 	try {
 		response = await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
@@ -50,6 +37,35 @@ export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) 
 		);
 
 		response = { errors: errorMessage };
+	}
+
+	return response;
+};
+
+/**
+ * Update publishedStatus metadata for the document
+ *
+ * @param {string} newStatus
+ * @param {string} documentGuid
+ * @param {number} caseId
+ * @returns {Promise<{updatedTimetable?: string, errors?: ValidationErrors}>}
+ */
+export const updatePublishedStatusMetadata = async (newStatus, documentGuid, caseId) => {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/documents`, {
+			json: {
+				status: newStatus,
+				documents: [{ guid: documentGuid }]
+			}
+		});
+	} catch {
+		response = {
+			errors: {
+				msg: 'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.'
+			}
+		};
 	}
 
 	return response;

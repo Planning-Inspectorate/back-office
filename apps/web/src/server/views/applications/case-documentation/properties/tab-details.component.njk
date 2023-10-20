@@ -3,11 +3,19 @@
 
 {% macro documentationDetailsTab(documentationFile, caseId, folderId) %}
 
-	{% if documentationFile.mime === 'image/png' %}
+	{% set needsTranscript =
+		documentationFile.mime === 'audio/mpeg'
+		or documentationFile.mime === 'video/mpeg'
+		or documentationFile.mime === 'video/mp4'
+		or documentationFile.mime === 'video/quicktime'
+		or documentationFile.mime === 'text/html'
+ 	%}
+
+	{% if needsTranscript %}
 		{% set transcriptRow = {
-				label: 'Transcript (optional)',
-				value: documentationFile.transcript,
-				link: 'transcript'
+			label: 'Transcript (optional)',
+			value: documentationFile.transcript,
+			link: 'transcript'
 		} %}
 	{% endif %}
 
@@ -26,7 +34,6 @@
 						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if documentationFile.publishedStatus != 'published' else null }
 	] %}
 
-
 	{% set propertiesRow = [] %}
 
 	{% for property in properties %}
@@ -43,9 +50,15 @@
 		{% endif %}
 
 		{% set row = {
-			key: { text: property.label },
-			value: { text: property.value },
-			actions: { items: [rowActions]}
+			key: {
+				text: property.label
+			},
+			value: {
+				text: property.value
+			},
+			actions: {
+				items: [rowActions]
+			}
 		} %}
 
 		{% if property != null %}
@@ -54,7 +67,7 @@
 	{% endfor %}
 
 	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
-		{{ govukSummaryList({
+	{{ govukSummaryList({
         	rows: propertiesRow
         }) }}
 
