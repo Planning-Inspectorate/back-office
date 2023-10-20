@@ -21,7 +21,7 @@ export const getCase = async (caseId) => {
  * @param {string} caseId
  * @returns {Promise<any>}
  */
-export const getPublishableRepresentaions = async (caseId) =>
+export const getPublishableRepresentations = async (caseId) =>
 	get(`applications/${caseId}/representations/publishable`);
 
 /**
