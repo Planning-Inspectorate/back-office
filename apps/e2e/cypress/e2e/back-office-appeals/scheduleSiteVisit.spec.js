@@ -15,13 +15,13 @@ describe('Appeals feature', () => {
 	it('Change to acommpanied site visit from case timetable', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasCaseTimetable(15);
+		appealsListPage.clickChangeVisitTypeHasCaseTimetable(12);
 		appealsListPage.selectRadioButtonByValue('Accompanied');
 		updateDueDatePage.enterVisitDay('29');
 		updateDueDatePage.enterVisitMonth('12');
 		updateDueDatePage.enterVisitYear('2024');
 		updateDueDatePage.enterVisitStartTimeHour('10');
-		updateDueDatePage.enterVisitStartTimeMiinute('15');
+		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
 		appealsListPage.clickButtonByText('Schedule site visit');
@@ -38,7 +38,7 @@ describe('Appeals feature', () => {
 		updateDueDatePage.enterVisitMonth('12');
 		updateDueDatePage.enterVisitYear('2024');
 		updateDueDatePage.enterVisitStartTimeHour('10');
-		updateDueDatePage.enterVisitStartTimeMiinute('15');
+		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
 		appealsListPage.clickButtonByText('Schedule site visit');
@@ -68,7 +68,7 @@ describe('Appeals feature', () => {
 		updateDueDatePage.enterVisitMonth('12');
 		updateDueDatePage.enterVisitYear('2024');
 		updateDueDatePage.enterVisitStartTimeHour('10');
-		updateDueDatePage.enterVisitStartTimeMiinute('15');
+		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
 		appealsListPage.clickButtonByText('Schedule site visit');
