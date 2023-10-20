@@ -87,6 +87,7 @@ export interface DocumentDetails {
 	documentType: string | null;
 	caseRef: string | null;
 	examinationRefNo: string;
+	transcript: string | null;
 }
 
 export interface DocumentVersion extends schema.DocumentVersion {}
