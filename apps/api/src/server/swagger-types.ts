@@ -303,6 +303,8 @@ export interface DocumentDetails {
 	caseRef?: string;
 	/** @example "EXM-456" */
 	examinationRefNo?: string;
+	/** @example "TR010060-000110" */
+	transcript?: string;
 }
 
 export type PaginatedDocumentDetails = {
@@ -363,6 +365,8 @@ export type PaginatedDocumentDetails = {
 		caseRef?: string;
 		/** @example "EXM-456" */
 		examinationRefNo?: string;
+		/** @example "TR010060-000110" */
+		transcript?: string;
 	}[];
 }[];
 
@@ -1249,6 +1253,11 @@ export interface DocumentVersionUpsertRequestBody {
 	 * @example "EXM-456"
 	 */
 	examinationRefNo?: string;
+	/**
+	 * Transcript document reference number
+	 * @example "TR010060-000110"
+	 */
+	transcript?: string;
 }
 
 export interface DocumentsToUnpublishRequestBody {

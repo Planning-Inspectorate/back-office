@@ -4543,6 +4543,10 @@
 				"examinationRefNo": {
 					"type": "string",
 					"example": "EXM-456"
+				},
+				"transcript": {
+					"type": "string",
+					"example": "TR010060-000110"
 				}
 			}
 		},
@@ -4667,6 +4671,10 @@
 								"examinationRefNo": {
 									"type": "string",
 									"example": "EXM-456"
+								},
+								"transcript": {
+									"type": "string",
+									"example": "TR010060-000110"
 								}
 							}
 						}
@@ -5907,6 +5915,11 @@
 					"type": "string",
 					"description": "Examination Timetable reference number",
 					"example": "EXM-456"
+				},
+				"transcript": {
+					"type": "string",
+					"description": "Transcript document reference number",
+					"example": "TR010060-000110"
 				}
 			}
 		},

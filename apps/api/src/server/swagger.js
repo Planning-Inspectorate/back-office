@@ -247,7 +247,8 @@ export const spec = {
 			filter2: 'some filter value',
 			documentType: 'contract',
 			caseRef: 'ABC-123',
-			examinationRefNo: 'EXM-456'
+			examinationRefNo: 'EXM-456',
+			transcript: 'TR010060-000110'
 		},
 		PaginatedDocumentDetails: [
 			{
@@ -280,7 +281,8 @@ export const spec = {
 						filter2: 'some filter value',
 						documentType: 'contract',
 						caseRef: 'ABC-123',
-						examinationRefNo: 'EXM-456'
+						examinationRefNo: 'EXM-456',
+						transcript: 'TR010060-000110'
 					}
 				]
 			}
@@ -1138,6 +1140,11 @@ export const spec = {
 					type: 'string',
 					description: 'Examination Timetable reference number',
 					example: 'EXM-456'
+				},
+				transcript: {
+					type: 'string',
+					description: 'Transcript document reference number',
+					example: 'TR010060-000110'
 				}
 			}
 		},
