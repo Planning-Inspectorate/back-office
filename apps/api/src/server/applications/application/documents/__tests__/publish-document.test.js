@@ -137,7 +137,8 @@ describe('Ready-to-publish-documents', () => {
 					filter1: null,
 					filter2: null,
 					examinationRefNo: '',
-					fromFrontOffice: false
+					fromFrontOffice: false,
+					transcript: ''
 				}
 			]
 		});
