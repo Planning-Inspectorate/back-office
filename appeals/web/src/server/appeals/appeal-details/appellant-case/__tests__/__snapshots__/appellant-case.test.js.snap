@@ -3,6 +3,9 @@
 exports[`appellant-case GET /appellant-case should render the appellant case page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Appellant case</h1>
         </div>
@@ -171,31 +174,31 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     <div class="govuk-form-group">
                         <h2 class="govuk-heading-m">ph0.jpeg</h2>
                         <div class="govuk-form-group">
-                            <input class="govuk-input" id="" name="items[1][documentId]" type="hidden">
+                            <input class="govuk-input" id="" name="items[0][documentId]" type="hidden">
                         </div>
                         <div class="govuk-form-group">
-                            <div class="govuk-date-input" id="items[1][receivedDate]">
+                            <div class="govuk-date-input" id="items[0]receivedDate">
                                 <div class="govuk-date-input__item">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-day">Day</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                        id="items[1][receivedDate]-day" name="items[1][receivedDate]-day" type="text"
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
                                         inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-month">Month</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                        id="items[1][receivedDate]-month" name="items[1][receivedDate]-month" type="text"
-                                        inputmode="numeric">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[1][receivedDate]-year">Year</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                        id="items[1][receivedDate]-year" name="items[1][receivedDate]-year" type="text"
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
                                         inputmode="numeric">
                                     </div>
                                 </div>
@@ -204,25 +207,23 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                         <div class="govuk-form-group">
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
                                     type="radio" value="redacted">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
                                     type="radio" value="unredacted">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="govuk-form-group">
-                        <input class="govuk-input" id="" name="nextPageUrl" type="hidden" value="/appeals-service/appeal-details/1/appellant-case/">
+                        <hr class="govuk-!-margin-top-7">
                     </div>
                     <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
                 </form>
@@ -911,6 +912,9 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
         </div>
     </div>
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Appellant case</h1>
         </div>
@@ -1067,6 +1071,314 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate day is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.day">Received date day cannot be empty</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate day is greater than 31 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.day">Received date day must be between 1 and 31</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate day is less than 1 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.day">Received date day must be between 1 and 31</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate day is non-numeric 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.day">Received date day must be a number</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate is not a valid date 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate month is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.month">Received date month cannot be empty</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate month is greater than 12 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.month">Received date month must be between 1 and 12</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate month is less than 1 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.month">Received date month must be between 1 and 12</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate month is non-numeric 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.month">Received date month must be a number</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate year is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.year">Received date year cannot be empty</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate year is non-numeric 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#items[0].receivedDate.year">Received date year must be a number</a>
+                            </li>
+                            <li><a href="#">Received date must be a valid date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case POST /appellant-case/add-document-details/:folderId/ should re-render the document details page with the expected error message if the request body is in an incorrect format 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">There is a problem with the service</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Appeal statement documents</h1>
+                <form method="post" novalidate="novalidate">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
+        </div>
+    </div>
 </main>"
 `;
 
@@ -3450,104 +3762,6 @@ exports[`appellant-case POST /appellant-case/invalid should re-render the invali
 `;
 
 exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if no invalid reason was provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#invalidReason">Please select one or more reasons why the appeal is invalid</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-3">Why is the appeal invalid?</h1>
-        </div>
-    </div>
-    <form method="post" novalidate="novalidate">
-        <div class="govuk-form-group">
-            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="invalidReason" name="invalidReason"
-                    type="checkbox" value="21">
-                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason">Appeal has not been submitted on time</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="invalidReason-2" name="invalidReason"
-                    type="checkbox" value="22" data-aria-controls="conditional-invalidReason-2">
-                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-2">Documents have not been submitted on time</label>
-                </div>
-                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
-                id="conditional-invalidReason-2">
-                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
-                        <div class="pins-add-another__item govuk-!-margin-top-6">
-                            <div class="govuk-grid-row">
-                                <div class="govuk-grid-column-full flex-row space-between">
-                                    <label for="invalidReason-22" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
-                                    <div class="pins-add-another__remove-button-container"></div>
-                                </div>
-                            </div>
-                            <div class="govuk-grid-row">
-                                <div class="govuk-grid-column-full">
-                                    <div class="govuk-form-group">
-                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
-                                        id="" name="invalidReason-22" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
-                        data-module="govuk-button">Add another</button>
-                    </div>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="invalidReason-3" name="invalidReason"
-                    type="checkbox" value="23">
-                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-3">The appellant doesn&#39;t have the right to appeal</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="invalidReason-4" name="invalidReason"
-                    type="checkbox" value="24" data-aria-controls="conditional-invalidReason-4">
-                    <label class="govuk-label govuk-checkboxes__label" for="invalidReason-4">Other</label>
-                </div>
-                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
-                id="conditional-invalidReason-4">
-                    <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
-                        <div class="pins-add-another__item govuk-!-margin-top-6">
-                            <div class="govuk-grid-row">
-                                <div class="govuk-grid-column-full flex-row space-between">
-                                    <label for="invalidReason-24" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
-                                    <div class="pins-add-another__remove-button-container"></div>
-                                </div>
-                            </div>
-                            <div class="govuk-grid-row">
-                                <div class="govuk-grid-column-full">
-                                    <div class="govuk-form-group">
-                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
-                                        id="" name="invalidReason-24" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
-                        data-module="govuk-button">Add another</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-    </form>
-</main>"
-`;
-
-exports[`appellant-case POST /appellant-case/invalid should re-render the invalid reason page with the expected error message if no invalid reason was provided 2`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">

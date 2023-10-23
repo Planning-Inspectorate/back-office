@@ -1182,68 +1182,299 @@ describe('appellant-case', () => {
 			nock('http://test/')
 				.get('/appeals/document-redaction-statuses')
 				.reply(200, documentRedactionStatuses);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, {
+				folderId: 23,
+				path: 'appellant_case/appealStatement',
+				caseId: '1',
+				documents: []
+			});
+			nock('http://test/')
+				.patch('/appeals/1/documents')
+				.reply(200, {
+					documents: [
+						{
+							id: '4541e025-00e1-4458-aac6-d1b51f6ae0a7',
+							receivedDate: '2023-02-01',
+							redactionStatus: 2
+						}
+					]
+				});
 		});
 
 		afterEach(() => {
 			nock.cleanAll();
 		});
 
-		/*
-		it('should re-render the document details page with the expected error message if received date day was not provided', async () => {
+		it('should re-render the document details page with the expected error message if the request body is in an incorrect format', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate day is empty', async () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
 				.send({
 					items: [
 						{
-							documentId: '4541e025-00e5-4468-aac6-d1b51f7ae0a2',
-							receivedDate: [
-								undefined,
-								'2',
-								'2024'
-							],
-							redactionStatus: 'redacted'
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '',
+								month: '2',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
 						}
-					],
-					nextPageUrl: '/appeals-service/appeal-details/1/appellant-case/'
+					]
 				});
 
+			const element = parseHtml(response.text);
 
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 
-			expect()
+		it('should re-render the document details page with the expected error message if receivedDate day is non-numeric', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: 'a',
+								month: '2',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate day is less than 1', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '0',
+								month: '2',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate day is greater than 31', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '32',
+								month: '2',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate month is empty', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: '',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate month is non-numeric', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: 'a',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate month is less than 1', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: '0',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate month is greater than 12', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: '13',
+								year: '2030'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate year is empty', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: '2',
+								year: ''
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate year is non-numeric', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '1',
+								month: '2',
+								year: 'a'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the document details page with the expected error message if receivedDate is not a valid date', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
+				.send({
+					items: [
+						{
+							documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+							receivedDate: {
+								day: '29',
+								month: '2',
+								year: '2023'
+							},
+							redactionStatus: 'unredacted'
+						}
+					]
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
 		});
 
 		it('should send a patch request to the appeal documents endpoint and redirect to the nextPageUrl specified in the request body, if complete and valid document details were provided', async () => {
-			// nock - appeal documents endpoint (patch)
-
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
 				.send({
 					items: [
 						{
 							documentId: '4541e025-00e1-4458-aac6-d1b51f6ae0a7',
-							receivedDate: [
-								'1',
-								'2',
-								'2024'
-							],
+							receivedDate: {
+								day: '1',
+								month: '2',
+								year: '2023'
+							},
 							redactionStatus: 'unredacted'
 						}
-					],
-					nextPageUrl: '/appeals-service/appeal-details/1/appellant-case/'
+					]
 				});
 
-			// example:
-			// const mockedAppellantCasesEndpoint = nock('http://test/')
-			// 	.patch('/appeals/1/appellant-cases/0')
-			// 	.reply(200, { validationOutcome: 'invalid' });
-
-			// const response = await request.post(
-			// 	`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
-			// );
-
-			// expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
-			// expect(response.statusCode).toBe(302);
+			expect(response.statusCode).toBe(302);
 		});
-		*/
 	});
 });
