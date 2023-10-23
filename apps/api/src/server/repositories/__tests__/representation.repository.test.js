@@ -490,7 +490,15 @@ describe('Representation repository', () => {
 			},
 			attachments: {
 				select: {
-					Document: true,
+					Document: {
+						select: {
+							latestDocumentVersion: {
+								select: {
+									fileName: true
+								}
+							}
+						}
+					},
 					documentGuid: true,
 					id: true
 				}
