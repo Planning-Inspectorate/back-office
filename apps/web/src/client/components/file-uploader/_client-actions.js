@@ -2,6 +2,7 @@ import { hideErrors, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
 import { relevantRepresentationsAttachmentUpload } from './_relevant_representations_attachment.js';
+import { validateHTML } from './html-validation.js';
 
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
@@ -203,6 +204,61 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
+	 * @param {File[]} files
+	 * @returns {Promise<File[]>}
+	 * */
+	const sanitizeFiles = async (files) => {
+		const sanitized = [];
+
+		for (const file of files) {
+			if (file.type !== 'text/html') {
+				sanitized.push(file);
+				continue;
+			}
+
+			const contentsPromise = new Promise((resolve, reject) => {
+				const reader = new FileReader();
+
+				reader.addEventListener('load', (event) => {
+					if (event.target?.result) {
+						resolve(event.target.result);
+					} else {
+						reject('could not read HTML file');
+					}
+				});
+
+				reader.readAsText(file);
+			});
+
+			const contents = await contentsPromise;
+			try {
+				validateHTML(contents);
+			} catch (err) {
+				showErrors(
+					{
+						message: 'HTML_SINGLE_FILE',
+						details: [
+							{
+								message: 'HTML upload was not valid.',
+								fileRowId: `file_row_${file.lastModified}_${file.size}`,
+								name: file.name
+							}
+						]
+					},
+					uploadForm
+				);
+
+				continue;
+			}
+
+			const updatedFile = new File([contents], file.name, { type: file.type });
+			sanitized.push(updatedFile);
+		}
+
+		return sanitized;
+	};
+
+	/**
 		@param {Event} clickEvent
 	 */
 	const onSubmit = async (clickEvent) => {
@@ -220,21 +276,23 @@ const clientActions = (uploadForm) => {
 
 			buildProgressMessage({ show: true }, uploadForm);
 
+			const sanitizedFiles = await sanitizeFiles(fileList);
+
 			let errors = null;
 			let uploadInfo;
 
-			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
-				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
+			if (sanitizedFiles.length === 1 && uploadForm.dataset?.documentId) {
+				uploadInfo = await getVersionUploadInfoFromInternalDB(sanitizedFiles[0]);
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFile(fileList, uploadInfo);
+				errors = await uploadFile(sanitizedFiles, uploadInfo);
 			} else {
-				uploadInfo = await getUploadInfoFromInternalDB(fileList);
+				uploadInfo = await getUploadInfoFromInternalDB(sanitizedFiles);
 				errors = uploadInfo.errors;
 			}
 
 			if (uploadInfo?.response?.documents) {
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFiles(fileList, uploadInfo?.response);
+				errors = await uploadFiles(sanitizedFiles, uploadInfo?.response);
 			}
 
 			finalizeUpload(errors);

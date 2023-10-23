@@ -32,10 +32,9 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		}));
 
-		let documentUploadUrl = `/documents/${caseId}/upload/`;
-		if (adviceId) {
-			documentUploadUrl = `/documents/${caseId}/s51-advice/${adviceId}/upload/`;
-		}
+		const documentUploadUrl = adviceId
+			? `/documents/${caseId}/s51-advice/${adviceId}/upload/`
+			: `/documents/${caseId}/upload/`;
 
 		return fetch(documentUploadUrl, {
 			method: 'POST',
