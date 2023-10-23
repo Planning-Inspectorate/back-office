@@ -42,7 +42,7 @@ export function mapReasonOptionsToCheckboxItemParameters(
 		let textItems = [''];
 
 		if (addAnotherTextItemsFromBody) {
-			textItems = addAnotherTextItemsFromBody;
+			textItems = addAnotherTextItemsFromBody.length > 0 ? addAnotherTextItemsFromBody : [''];
 		} else if (addAnotherTextItemsFromSession) {
 			textItems = addAnotherTextItemsFromSession;
 		} else if (addAnotherTextItemsFromExistingOutcome) {
