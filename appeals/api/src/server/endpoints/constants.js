@@ -7,14 +7,17 @@ export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
 
 export const AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED = 'The allocation details were added';
-export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The Appellant case was received';
+export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The appellant case was received';
 export const AUDIT_TRAIL_ASSIGNED_CASE_OFFICER =
 	'The case officer {replacement0} was added to the team';
 export const AUDIT_TRAIL_ASSIGNED_INSPECTOR =
 	'The inspector {replacement0} was assigned to the case';
 export const AUDIT_TRAIL_CASE_TIMELINE_CREATED = 'The case timeline was created';
 export const AUDIT_TRAIL_CASE_TIMELINE_UPDATED = 'The case timeline was updated';
-export const AUDIT_TRAIL_DOCUMENT_UPLOADED = 'The document {replacement0} was uploaded';
+export const AUDIT_TRAIL_DOCUMENT_UPLOADED =
+	'The document {replacement0} was uploaded (v{replacement1})';
+export const AUDIT_TRAIL_DOCUMENT_DELETED =
+	'Version {replacement1} of document {replacement0} was removed';
 export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
 export const AUDIT_TRAIL_PROGRESSED_TO_STATUS = 'The case has progressed to {replacement0}';
 export const AUDIT_TRAIL_REMOVED_CASE_OFFICER =

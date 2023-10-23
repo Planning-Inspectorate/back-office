@@ -1165,6 +1165,62 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/documents/{documentId}/versions": {
+			"get": {
+				"tags": ["Documents"],
+				"description": "Returns a single document by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "documentId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a single document by id and its versions",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/documents": {
 			"post": {
 				"tags": ["Documents"],
@@ -1289,6 +1345,70 @@
 								"$ref": "#/components/schemas/UpdateDocumentsRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/documents/{documentId}/{version}": {
+			"delete": {
+				"tags": ["Documents"],
+				"description": "Delete a document version and sets the previous as current version",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "documentId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a single document by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
 					}
 				}
 			}
