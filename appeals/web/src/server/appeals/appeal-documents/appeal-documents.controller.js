@@ -26,7 +26,7 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 
 	return response.render('appeals/documents/document-upload.njk', {
 		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		caseId: appealId,
+		appealId,
 		folderId: currentFolder.id,
 		documentId,
 		useBlobEmulator: config.useBlobEmulator,

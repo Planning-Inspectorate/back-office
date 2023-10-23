@@ -661,6 +661,7 @@ export const documentFileInfoPublished = {
 };
 
 export const documentFolderInfo = {
+	id: 23,
 	folderId: 23,
 	path: 'appellant_case/appealStatement',
 	caseId: 'APP/Q9999/D/21/941501',

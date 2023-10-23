@@ -1163,7 +1163,7 @@ describe('appellant-case', () => {
 	});
 
 	describe('GET /appellant-case/add-document-details/:folderId/', () => {
-		it('should render the add document details page with one formgroup item per unpublished document', async () => {
+		it('should render the add document details page with one item per unpublished document', async () => {
 			nock('http://test/')
 				.get('/appeals/1/document-folders/1')
 				.reply(200, documentFolderInfoWithDocuments);
@@ -1182,12 +1182,20 @@ describe('appellant-case', () => {
 			nock('http://test/')
 				.get('/appeals/document-redaction-statuses')
 				.reply(200, documentRedactionStatuses);
-			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, {
-				folderId: 23,
-				path: 'appellant_case/appealStatement',
-				caseId: '1',
-				documents: []
-			});
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, {
+					folderId: 23,
+					path: 'appellant_case/appealStatement',
+					caseId: '1',
+					documents: [
+						{
+							id: '4541e025-00e1-4458-aac6-d1b51f6ae0a7',
+							receivedDate: '2023-02-01',
+							redactionStatus: 2
+						}
+					]
+				});
 			nock('http://test/')
 				.patch('/appeals/1/documents')
 				.reply(200, {
@@ -1457,7 +1465,7 @@ describe('appellant-case', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should send a patch request to the appeal documents endpoint and redirect to the nextPageUrl specified in the request body, if complete and valid document details were provided', async () => {
+		it('should send a patch request to the appeal documents endpoint and redirect to the appellant case page, if complete and valid document details were provided', async () => {
 			const response = await request
 				.post(`${baseUrl}/1${appellantCasePagePath}/add-document-details/1`)
 				.send({

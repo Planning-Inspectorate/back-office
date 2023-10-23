@@ -165,7 +165,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one formgroup item per unpublished document 1`] = `
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
@@ -239,8 +239,8 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/undefined"
-    data-case-id="1" data-folder-id="" data-document-type="appealStatement"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/23"
+    data-case-id="1" data-folder-id="23" data-document-type="appealStatement"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
@@ -296,8 +296,8 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/undefined"
-    data-case-id="1" data-folder-id="" data-document-type="appealStatement"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/23"
+    data-case-id="1" data-folder-id="23" data-document-type="appealStatement"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-document-id="1"
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
