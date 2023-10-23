@@ -391,7 +391,7 @@ describe('/appeals/:appealId/documents', () => {
 			expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 				data: {
 					appealId: householdAppeal.id,
-					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [documentUpdated.name]),
+					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [documentUpdated.name, 1]),
 					loggedAt: expect.any(Date),
 					userId: householdAppeal.caseOfficer.id
 				}
