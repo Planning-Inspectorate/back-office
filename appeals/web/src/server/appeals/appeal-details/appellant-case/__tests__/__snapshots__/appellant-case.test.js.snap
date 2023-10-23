@@ -1205,6 +1205,22 @@ exports[`appellant-case POST /appellant-case/incomplete should re-render the inc
                 </div>
                 <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
                     <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2026" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2026" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
                         data-module="govuk-button">Add another</button>
                     </div>
@@ -1521,6 +1537,22 @@ exports[`appellant-case POST /appellant-case/incomplete should re-render the inc
                 </div>
                 <div class="govuk-checkboxes__conditional" id="conditional-incompleteReason-2">
                     <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="incompleteReason-2026" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="incompleteReason-2026" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
                         data-module="govuk-button">Add another</button>
                     </div>
@@ -2967,6 +2999,22 @@ exports[`appellant-case POST /appellant-case/invalid should re-render the invali
                 </div>
                 <div class="govuk-checkboxes__conditional" id="conditional-invalidReason-2">
                     <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-22" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-22" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
                         data-module="govuk-button">Add another</button>
                     </div>
@@ -3145,6 +3193,22 @@ exports[`appellant-case POST /appellant-case/invalid should re-render the invali
                 </div>
                 <div class="govuk-checkboxes__conditional" id="conditional-invalidReason-2">
                     <div class="pins-add-another" aria-live="polite" data-max-item-count="10">
+                        <div class="pins-add-another__item govuk-!-margin-top-6">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full flex-row space-between">
+                                    <label for="invalidReason-22" class="govuk-body govuk-!-margin-bottom-4">Which part is incorrect or incomplete?</label>
+                                    <div class="pins-add-another__remove-button-container"></div>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    <div class="govuk-form-group">
+                                        <input class="govuk-input pins-add-another__item-input govuk-!-margin-0"
+                                        id="" name="invalidReason-22" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="govuk-button pins-add-another__add-button govuk-button--secondary govuk-!-margin-top-4 govuk-!-margin-bottom-0"
                         data-module="govuk-button">Add another</button>
                     </div>
