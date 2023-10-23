@@ -344,6 +344,8 @@ describe('/appeals/:appealId/documents', () => {
 				azureAdUserId
 			});
 
+			//databaseConnector.documentVersionAudit.create.mockResolvedValue();
+
 			databaseConnector.$transaction = jest.fn().mockImplementation((callback) =>
 				callback({
 					document: {

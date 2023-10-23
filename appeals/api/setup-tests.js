@@ -121,6 +121,7 @@ const mockLPAQuestionnaireIncompleteReasonTextCreateMany = jest.fn().mockResolve
 const mockDocumentRedactionStatusFindMany = jest.fn().mockResolvedValue({});
 const mockAuditTrailFindMany = jest.fn().mockResolvedValue({});
 const mockAuditTrailCreate = jest.fn().mockResolvedValue({});
+const mockDocumentVersionAuditCreate = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -215,6 +216,12 @@ class MockPrismaClient {
 			findUnique: mockDocumentMetdataFindUnique,
 			upsert: mockDocumentMetdataUpsert,
 			update: mockDocumentMetdataUpdate
+		};
+	}
+
+	get documentVersionAudit() {
+		return {
+			create: mockDocumentVersionAuditCreate
 		};
 	}
 
