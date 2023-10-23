@@ -505,7 +505,6 @@ interface CreateAuditTrail {
 	appealId: number;
 	azureAdUserId?: string;
 	details: string;
-	include?: object;
 }
 
 interface CreateAuditTrailRequest {
@@ -513,7 +512,6 @@ interface CreateAuditTrailRequest {
 	details: string;
 	loggedAt: Date;
 	userId: number;
-	include?: object;
 }
 
 type GetAuditTrailsResponse = {
