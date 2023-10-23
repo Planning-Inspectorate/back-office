@@ -70,19 +70,25 @@ export const notificationBannerDefinitions = {
  *
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {ServicePageName} servicePage
+ * @param {number} appealId
  * @returns {NotificationBannerPageComponent[]}
  */
-export function buildNotificationBanners(session, servicePage) {
+export function buildNotificationBanners(session, servicePage, appealId) {
+	if (!('notificationBanners' in session)) {
+		return [];
+	}
+
 	/**
 	 * @type {NotificationBannerPageComponent[]}
 	 */
 	const notificationBanners = [];
 
-	Object.keys(session).forEach((key) => {
+	Object.keys(session.notificationBanners).forEach((key) => {
 		if (Object.keys(notificationBannerDefinitions).indexOf(key) !== -1) {
 			const bannerDefinition = notificationBannerDefinitions[key];
+			const bannerData = session.notificationBanners[key];
 
-			if (!bannerDefinition.pages.includes(servicePage)) {
+			if (!bannerDefinition.pages.includes(servicePage) || bannerData.appealId !== appealId) {
 				return;
 			}
 
@@ -97,14 +103,14 @@ export function buildNotificationBanners(session, servicePage) {
 					break;
 			}
 
-			const bannerType = session[key]?.type || bannerDefinition.type;
-			const bannerText = session[key]?.text || bannerDefinition.text;
-			const bannerHtml = session[key]?.html || bannerDefinition.html;
+			const bannerType = bannerData?.type || bannerDefinition.type;
+			const bannerText = bannerData?.text || bannerDefinition.text;
+			const bannerHtml = bannerData?.html || bannerDefinition.html;
 
 			notificationBanners.push({
 				type: 'notification-banner',
 				bannerProperties: {
-					titleText: session[key]?.titleText || titleText,
+					titleText: bannerData?.titleText || titleText,
 					titleHeadingLevel: 3,
 					...(bannerType && {
 						type: bannerType
@@ -119,7 +125,7 @@ export function buildNotificationBanners(session, servicePage) {
 			});
 
 			if (!bannerDefinition.persist) {
-				delete session[key];
+				delete session.notificationBanners[key];
 			}
 		}
 	});

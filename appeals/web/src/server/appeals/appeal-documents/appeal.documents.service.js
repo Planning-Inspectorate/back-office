@@ -5,7 +5,6 @@ import logger from '#lib/logger.js';
 /** @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} DocumentRedactionStatus */
 
 /**
- * @template T
  * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {string} folderId

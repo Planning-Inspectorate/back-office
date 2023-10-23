@@ -6,6 +6,7 @@ import { setAppealAssignee } from './assign-user.service.js';
 import { mapAssignedUserToSummaryListBuilderParameters } from './assign-user.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  *
@@ -201,9 +202,11 @@ export const postAssignOrUnassignUserCheckAndConfirm = async (
 				isInspector
 			);
 
-			request.session[
-				`${isInspector ? 'inspector' : 'caseOfficer'}${isUnassign ? 'Removed' : 'Added'}`
-			] = true;
+			addNotificationBannerToSession(
+				request.session,
+				`${isInspector ? 'inspector' : 'caseOfficer'}${isUnassign ? 'Removed' : 'Added'}`,
+				Number.parseInt(appealId, 10)
+			);
 
 			return response.redirect(
 				isUnassign

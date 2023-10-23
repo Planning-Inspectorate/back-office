@@ -8,7 +8,7 @@ import {
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
-import { stringArrayToUnorderedList } from '#lib/html-utilities.js';
+import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -112,34 +112,45 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {AppellantCaseValidationOutcome} validationOutcome
  * @param {NotValidReasonResponse[]} notValidReasons
+ * @param {number} appealId
  * @returns {import('#lib/mappers/notification-banners.mapper.js').NotificationBannerPageComponent[]}
  */
-export function mapReviewOutcomeToNotificationBannerComponentParameters(
+export function mapNotificationBannerComponentParameters(
 	session,
 	validationOutcome,
-	notValidReasons
+	notValidReasons,
+	appealId
 ) {
-	if (validationOutcome === 'valid') {
-		return [];
+	if (validationOutcome === 'invalid' || validationOutcome === 'incomplete') {
+		if (!Array.isArray(notValidReasons)) {
+			notValidReasons = [notValidReasons];
+		}
+
+		if (!('notificationBanners' in session)) {
+			session.notificationBanners = {};
+		}
+
+		session.notificationBanners.appellantCaseNotValid = {
+			appealId,
+			titleText: `Appeal is ${String(validationOutcome)}`,
+			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${notValidReasons
+				.map(
+					(reason) =>
+						`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
+							reason?.text?.length
+								? buildHtmUnorderedList(
+										reason?.text,
+										0,
+										'govuk-!-margin-top-0 govuk-!-padding-left-4'
+								  )
+								: ''
+						}`
+				)
+				.join('')}</ul>`
+		};
 	}
 
-	if (!Array.isArray(notValidReasons)) {
-		notValidReasons = [notValidReasons];
-	}
-
-	session.appellantCaseNotValid = {
-		titleText: `Appeal is ${String(validationOutcome)}`,
-		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${notValidReasons
-			.map(
-				(reason) =>
-					`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
-						reason?.text?.length ? stringArrayToUnorderedList(reason?.text) : ''
-					}`
-			)
-			.join('')}</ul>`
-	};
-
-	return buildNotificationBanners(session, 'appellantCase');
+	return buildNotificationBanners(session, 'appellantCase', appealId);
 }
 
 /**

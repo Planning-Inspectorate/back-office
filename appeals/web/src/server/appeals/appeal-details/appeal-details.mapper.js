@@ -157,7 +157,11 @@ export async function appealDetailsPage(data, currentRoute, session) {
 		}
 	});
 
-	const notificationBanners = buildNotificationBanners(session, 'appealDetails');
+	const notificationBanners = buildNotificationBanners(
+		session,
+		'appealDetails',
+		data.appeal.appealId
+	);
 
 	return [...notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
 }

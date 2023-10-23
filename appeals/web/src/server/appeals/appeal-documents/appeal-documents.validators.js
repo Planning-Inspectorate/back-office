@@ -25,12 +25,6 @@ export const validateDocumentDetailsBodyFormat = createValidator(
 		.withMessage('There is a problem with the service')
 );
 
-// user error scenarios:
-// - receivedDate missing entirely (receivedDate is empty string)
-// - receivedDate missing one or more date fields (receivedDate is array with 3 items, any of which are empty strings)
-// - recievedDate has all fields populated, but day/month/year/date is not valid (use existing date validation code for this)
-// - no redaction status radio button was selected (redactionStatus missing from item)
-
 export const validateDocumentDetailsReceivedDatesFields = createDateInputFieldsValidator(
 	'items.*.receivedDate',
 	'Received date',

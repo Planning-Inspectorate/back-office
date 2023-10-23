@@ -5,7 +5,7 @@ import {
 	mapResponseToSummaryListBuilderParameters,
 	mapWebReviewOutcomeToApiReviewOutcome,
 	mapReviewOutcomeToSummaryListBuilderParameters,
-	mapReviewOutcomeToNotificationBannerComponentParameters
+	mapNotificationBannerComponentParameters
 } from './appellant-case.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
@@ -53,15 +53,14 @@ const renderAppellantCase = async (request, response) => {
 		let notificationBannerComponents;
 		const existingValidationOutcome = appellantCaseResponse.validation?.outcome?.toLowerCase();
 
-		if (existingValidationOutcome === 'invalid' || existingValidationOutcome === 'incomplete') {
-			notificationBannerComponents = mapReviewOutcomeToNotificationBannerComponentParameters(
-				request.session,
-				existingValidationOutcome,
-				existingValidationOutcome === 'invalid'
-					? appellantCaseResponse.validation?.invalidReasons
-					: appellantCaseResponse.validation?.incompleteReasons
-			);
-		}
+		notificationBannerComponents = mapNotificationBannerComponentParameters(
+			request.session,
+			existingValidationOutcome,
+			existingValidationOutcome === 'invalid'
+				? appellantCaseResponse.validation?.invalidReasons
+				: appellantCaseResponse.validation?.incompleteReasons,
+			appealDetails?.appealId
+		);
 
 		return response.render('appeals/appeal/appellant-case.njk', {
 			appeal: {
@@ -235,7 +234,6 @@ export const postCheckAndConfirm = async (request, response) => {
 		delete request.session.webAppellantCaseReviewOutcome;
 
 		if (validationOutcome === 'invalid' || validationOutcome === 'incomplete') {
-			request.session.appellantCaseNotValid = true;
 			response.redirect(
 				`/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/confirmation`
 			);

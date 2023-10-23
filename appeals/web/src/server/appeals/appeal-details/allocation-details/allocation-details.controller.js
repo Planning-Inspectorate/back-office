@@ -8,6 +8,7 @@ import {
 import logger from '../../../lib/logger.js';
 import * as allocationDetailsService from './allocation-details.service.js';
 import { objectContainsAllKeys } from '../../../lib/object-utilities.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -265,7 +266,11 @@ export const postAllocationDetailsCheckAnswers = async (request, response) => {
 		delete request.session.allocationLevel;
 		delete request.session.allocationSpecialisms;
 
-		request.session.allocationDetailsUpdated = true;
+		addNotificationBannerToSession(
+			request.session,
+			'allocationDetailsUpdated',
+			appealDetails.appealId
+		);
 
 		return response.redirect(`/appeals-service/appeal-details/${appealDetails.appealId}`);
 	} catch (error) {

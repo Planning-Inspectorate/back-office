@@ -3,6 +3,7 @@ import logger from '#lib/logger.js';
 import { mapFolderToAddDetailsPageParams } from './appeal-documents.mapper.js';
 import { getDocumentRedactionStatuses, updateDocuments } from './appeal.documents.service.js';
 import { mapDocumentDetailsFormDataToAPIRequest } from './appeal-documents.mapper.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  *
@@ -59,11 +60,6 @@ export const renderDocumentDetails = async (request, response, backButtonUrl) =>
 
 	return response.render('appeals/documents/add-document-details.njk', {
 		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		folderId: currentFolder.id,
-		useBlobEmulator: config.useBlobEmulator,
-		blobStorageHost:
-			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
-		blobStorageContainer: config.blobStorageDefaultContainer,
 		documentTypeHeading: mappedDocumentData.folderName,
 		detailsItems: mappedDocumentData.detailsItems,
 		errors
@@ -96,7 +92,11 @@ export const postDocumentDetails = async (request, response, backButtonUrl, next
 			const updateDocumentsResult = await updateDocuments(apiClient, appealId, apiRequest);
 
 			if (updateDocumentsResult) {
-				request.session.documentAdded = true;
+				addNotificationBannerToSession(
+					request.session,
+					'documentAdded',
+					Number.parseInt(appealId, 10)
+				);
 				return response.redirect(nextPageUrl || `/appeals-service/appeal-details/${appealId}/`);
 			}
 		}

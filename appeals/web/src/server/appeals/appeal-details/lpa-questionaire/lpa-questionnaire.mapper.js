@@ -7,7 +7,7 @@ import {
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
-import { stringArrayToUnorderedList } from '#lib/html-utilities.js';
+import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -72,9 +72,10 @@ export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, s
 		(/** @type {{ type: string; }} */ inputOption) => inputOption.type === 'radio'
 	);
 
-	const notificationBanners = mapReviewOutcomeToNotificationBannerComponentParameters(
+	const notificationBanners = mapNotificationBannerComponentParameters(
 		session,
-		lpaqData
+		lpaqData,
+		appealData.appeal.appealId
 	);
 
 	return [...notificationBanners, caseSummary, pageSections, reviewOutcome].flat();
@@ -84,30 +85,40 @@ export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, s
  *
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {LPAQData} lpaqData
+ * @param {number} appealId
  * @returns {import('#lib/mappers/notification-banners.mapper.js').NotificationBannerPageComponent[]}
  */
-function mapReviewOutcomeToNotificationBannerComponentParameters(session, lpaqData) {
+function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 	const validationOutcome = lpaqData.lpaQ.validation?.outcome?.toLowerCase();
 
-	if (!validationOutcome || validationOutcome === 'complete') {
-		return [];
+	if (validationOutcome === 'incomplete') {
+		if (!('notificationBanners' in session)) {
+			session.notificationBanners = {};
+		}
+
+		session.notificationBanners.lpaQuestionnaireNotValid = {
+			appealId,
+			titleText: `LPA Questionnaire is ${String(validationOutcome)}`,
+			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${(
+				lpaqData.lpaQ.validation?.incompleteReasons || []
+			)
+				.map(
+					(reason) =>
+						`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
+							reason?.text?.length
+								? buildHtmUnorderedList(
+										reason?.text,
+										0,
+										'govuk-!-margin-top-0 govuk-!-padding-left-4'
+								  )
+								: ''
+						}`
+				)
+				.join('')}</ul>`
+		};
 	}
 
-	session.lpaQuestionnaireNotValid = {
-		titleText: `LPA Questionnaire is ${String(validationOutcome)}`,
-		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${(
-			lpaqData.lpaQ.validation?.incompleteReasons || []
-		)
-			.map(
-				(reason) =>
-					`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
-						reason?.text?.length ? stringArrayToUnorderedList(reason?.text) : ''
-					}`
-			)
-			.join('')}</ul>`
-	};
-
-	return buildNotificationBanners(session, 'lpaQuestionnaire');
+	return buildNotificationBanners(session, 'lpaQuestionnaire', appealId);
 }
 
 /**
