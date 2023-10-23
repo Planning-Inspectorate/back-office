@@ -58,3 +58,10 @@ export const handleNotInfected = async (context, guid) =>
  * */
 export const handleInfected = async (context, guid) =>
 	handlePublishResult(context, guid, 'VIRUS_DETECTED', EventType.Create);
+
+/**
+ * @param {import('@azure/functions').Context} context
+ * @param {string} guid
+ * */
+export const handleInvalidHTML = async (context, guid) =>
+	handlePublishResult(context, guid, 'INVALID_HTML', EventType.Create);

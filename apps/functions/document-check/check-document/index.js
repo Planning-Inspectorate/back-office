@@ -1,7 +1,13 @@
 import { Readable } from 'node:stream';
-import { getBlobStream, parseBlobFromUrl } from './blob-utils.js';
+import {
+	getBlobStream,
+	getBlobProperties,
+	parseBlobFromUrl,
+	readStreamToString
+} from './blob-utils.js';
 import { checkMyBlob } from './check-my-blob.js';
-import { handleInfected, handleNotInfected } from './event-client.js';
+import { handleInfected, handleNotInfected, handleInvalidHTML } from './event-client.js';
+import { validateHTML } from './validate-html.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -34,14 +40,31 @@ export const index = async (context, eventGridEvent) => {
 	);
 
 	const blobStream = await getBlobStream(storageUrl, container, blobPath);
+	const readableStream = new Readable().wrap(blobStream);
 
-	const { guid, isInfected } = await checkMyBlob(context.log, url, new Readable().wrap(blobStream));
+	const { guid, isInfected } = await checkMyBlob(context.log, url, readableStream);
 	if (isInfected) {
 		context.log.info('Virus detected for blob', blobPath);
 		await handleInfected(context, guid);
-	} else {
-		await handleNotInfected(context, guid);
+		return;
 	}
+
+	const blobInfo = await getBlobProperties(storageUrl, container, blobPath);
+	if (blobInfo.contentType !== 'text/html') {
+		await handleNotInfected(context, guid);
+		return;
+	}
+
+	const html = await readStreamToString(readableStream);
+	try {
+		validateHTML(html);
+	} catch (err) {
+		context.log.error(err);
+		await handleInvalidHTML(context, guid);
+		return;
+	}
+
+	await handleNotInfected(context, guid);
 
 	context.log.info(
 		'Successfully scanned stream for blob',
