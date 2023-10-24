@@ -100,7 +100,7 @@ export function contentIsSafe(content) {
 		allowedAttributes: {
 			a: ['href']
 		},
-		allowedSchemes: ['https']
+		allowedSchemes: ['https', 'mailto']
 	});
 	// if the sanitized content differs, then it's not considered safe
 	return sanitized === content;
