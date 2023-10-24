@@ -256,50 +256,6 @@ exports[`Appeal Timetables should render "Change issue determination" page 1`] =
 </main>"
 `;
 
-exports[`Appeal Timetables should render "Change issue determination" page 2`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
-        </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Change issue determination due date</h1>
-        <div class="govuk-inset-text">The current due date for the issue determination is 9 August 2023</div>
-    </div>
-    <form method="post" novalidate="novalidate">
-        <div class="govuk-form-group">
-            <div id="due-date-hint" class="govuk-hint">For example, 27 3 2007</div>
-            <div class="govuk-date-input" id="due-date">
-                <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="due-date-day">Day</label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                        id="due-date-day" name="due-date-day" type="text" inputmode="numeric">
-                    </div>
-                </div>
-                <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="due-date-month">Month</label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                        id="due-date-month" name="due-date-month" type="text" inputmode="numeric">
-                    </div>
-                </div>
-                <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="due-date-year">Year</label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                        id="due-date-year" name="due-date-year" type="text" inputmode="numeric">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
-        </div>
-    </form>
-</main>"
-`;
-
 exports[`Appeal Timetables should render "Change statement review Date" page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">

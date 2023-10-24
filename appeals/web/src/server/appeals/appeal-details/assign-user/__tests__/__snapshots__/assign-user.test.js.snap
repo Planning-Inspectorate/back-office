@@ -969,40 +969,6 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
 </main>"
 `;
 
-exports[`assign-user POST /assign-user/inspector should re-render the assign inspector page with the expected error message if a search term is not provided 2`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#searchTerm">Search term (name or email address) must be provided</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
-                </div>
-            </div>
-            <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
-                </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
 exports[`assign-user POST /assign-user/inspector should re-render the assign inspector page with the expected error message if search term is longer than 80 characters 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">

@@ -20,6 +20,11 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 		return response.status(404).render('app/404');
 	}
 
+	if (!currentFolder.path) {
+		console.log('currentFolder:');
+		console.log(currentFolder);
+	}
+
 	const pathComponents = currentFolder.path.split('/');
 	const documentStage = pathComponents[0];
 	const documentType = pathComponents[1];

@@ -49,55 +49,6 @@ exports[`Allocation Details should render "Check answers" Page 1`] = `
 </main>"
 `;
 
-exports[`Allocation Details should render "Check answers" Page 2`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check answers</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <table class="govuk-table">
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Level</strong>
-                    </td>
-                    <td class="govuk-table__cell">A</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-level">Change</a>
-                    </td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Band</strong>
-                    </td>
-                    <td class="govuk-table__cell">3</td>
-                    <td class="govuk-table__cell"></td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Specialism</strong>
-                    </td>
-                    <td class="govuk-table__cell">
-                        <ul class="govuk-!-padding-0 govuk-!-margin-0 govuk-!-margin-left-4">
-                            <li>Specialism 1</li>
-                            <li>Specialism 2</li>
-                            <li>Specialism 3</li>
-                        </ul>
-                    </td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-specialism">Change</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <form action="" method="POST" novalidate>
-                <button class="govuk-button" data-module="govuk-button">Confirm</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
 exports[`Allocation Details should render "Select allocation specialism" Page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">

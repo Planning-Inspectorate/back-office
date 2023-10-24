@@ -17,7 +17,7 @@ const getControllerEndpoint = (
 	/** @type {number} */ folderId,
 	/** @type {string|undefined} */ documentId
 ) => {
-	let baseUrl = `/appeals-service/appeal-details/${appealId}/documents/${folderId}/upload`;
+	let baseUrl = `/appeals-service/appeal-details/${appealId}/appellant-case/add-documents/${folderId}`;
 	if (documentId) {
 		baseUrl += `/${documentId}`;
 	}
@@ -65,6 +65,7 @@ describe('documents upload', () => {
 			.get(`/appeals/${validAppealId}/document-folders/1`)
 			.reply(200, validFolders[0]);
 
+		// `/appeals-service/appeal-details/${appealId}/documents/${folderId}/upload`
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
 		expect(response.status).toBe(200);
 
@@ -141,7 +142,7 @@ describe('documents upload', () => {
 		nock('http://test/').get(`/appeals/${validAppealId}`).reply(200, { id: validAppealId });
 		nock('http://test/')
 			.get(`/appeals/${validAppealId}/document-folders/1`)
-			.reply(200, validFolders);
+			.reply(200, validFolders[0]);
 
 		const response = await request.get(getControllerEndpoint(validAppealId, validFolderId));
 		const html = parseHtml(response.text);
