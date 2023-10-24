@@ -118,6 +118,11 @@ export const getById = (documentGuid, version = 1) => {
 					}
 				}
 			},
+			DocumentActivityLog: {
+				orderBy: {
+					createdAt: 'desc'
+				}
+			},
 			transcript: {
 				select: {
 					reference: true
