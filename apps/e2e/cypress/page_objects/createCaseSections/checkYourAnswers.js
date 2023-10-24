@@ -34,7 +34,7 @@ export class CheckYourAnswersSection extends SectionBase {
 			// A P P L I C A N T  I N F O R M A T I O N
 			this.checkAnswer('Organisation name', projectInfo.orgName);
 			this.checkAnswer('Contact name', projectInfo.applicantFullName);
-			this.checkAnswer('Address', projectInfo.applicantFullAddress);
+			this.checkAnswer('Address', projectInfo.applicantFullAddress1);
 			this.checkAnswer('Website', projectInfo.applicantWebsite);
 			this.checkAnswer('Email address', projectInfo.applicantEmail);
 			this.checkAnswer('Telephone number', projectInfo.applicantPhoneNumber);
