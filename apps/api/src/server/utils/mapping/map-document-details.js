@@ -3,17 +3,18 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 /**
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
- * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocumentAndActivityLog} DocumentVersionWithDocumentAndActivityLog
  */
 
 /**
  * Returns a flat set of the document properties wanted by the UI
  *
- * @param { DocumentVersionWithDocument } documentVersion
+ * @param { DocumentVersionWithDocumentAndActivityLog } documentVersion
  * @returns { DocumentDetails }
  */
 export const mapSingleDocumentDetailsFromVersion = ({
 	Document,
+	DocumentActivityLog,
 	publishedStatus,
 	...documentVersion
 }) => {
@@ -44,9 +45,10 @@ export const mapSingleDocumentDetailsFromVersion = ({
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 
-		datePublished: documentVersion?.datePublished
-			? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
-			: null,
+		datePublished:
+			DocumentActivityLog?.[0].status === 'published'
+				? mapDateStringToUnixTimestamp(DocumentActivityLog[0].createdAt)
+				: null,
 
 		description: documentVersion?.description,
 		version: documentVersion?.version,

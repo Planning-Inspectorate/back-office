@@ -103,6 +103,12 @@ export interface DocumentVersionWithDocument extends DocumentVersion {
 	Document?: DocumentWithSubTables;
 }
 
+export interface DocumentVersionWithDocumentAndActivityLog extends DocumentVersion {
+	documentName?: string;
+	Document?: DocumentWithSubTables;
+	DocumentActivityLog?: DocumentActivityLog;
+}
+
 export interface DocumentVersionInput extends DocumentVersion {
 	documentName?: string;
 }
