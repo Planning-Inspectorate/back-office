@@ -11,7 +11,11 @@ import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
-import { renderDocumentUpload } from '../../appeal-documents/appeal-documents.controller.js';
+import {
+	renderDocumentUpload,
+	renderDocumentDetails,
+	postDocumentDetails
+} from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -288,6 +292,26 @@ export const getAddDocuments = async (request, response) => {
 	renderDocumentUpload(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-document-details/{{folderId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocumentDetails = async (request, response) => {
+	renderDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postAddDocumentDetails = async (request, response) => {
+	postDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/`
 	);
 };

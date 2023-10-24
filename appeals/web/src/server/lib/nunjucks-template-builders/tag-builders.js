@@ -25,16 +25,18 @@ export const buildHtmlLink = (link) => {
  * @param {number} [recursionDepth]
  * @returns {string}
  */
-export const buildHtmUnorderedList = (items, recursionDepth = 0) => {
+export const buildHtmUnorderedList = (
+	items,
+	recursionDepth = 0,
+	listClasses = 'govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0'
+) => {
 	const listItems = items
 		.map(
 			(item) =>
 				`<li>${Array.isArray(item) ? buildHtmUnorderedList(item, recursionDepth + 1) : item}</li>`
 		)
 		.join('');
-	return `<ul class="${
-		recursionDepth === 0 ? 'govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0' : ''
-	}">${listItems}</ul>`;
+	return `<ul class="${recursionDepth === 0 ? listClasses : ''}">${listItems}</ul>`;
 };
 
 /**

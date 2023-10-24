@@ -7,6 +7,8 @@ import {
 	mapReasonOptionsToCheckboxItemParameters,
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
+import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
+import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -106,56 +108,49 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 }
 
 /**
- * @typedef {Object} NotificationBannerComponentParameters - TODO: replace with global GDS component parameter type when available
- * @property {string} [html]
- * @property {string} [text]
- * @property {string} [type]
- * @property {string} [role]
- * @property {string} [titleHtml]
- * @property {string} [titleText]
- * @property {string} [titleId]
- * @property {string|number} [titleHeadingLevel]
- * @property {string} [classes]
- * @property {Object.<string, string>|string[][]} [attributes]
- * @property {string} [disableAutoFocus] - templated into value of data-disable-auto-focus attribute
- */
-
-/**
  *
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {AppellantCaseValidationOutcome} validationOutcome
- * @param {NotValidReasonResponse[]} invalidOrIncompleteReasons
- * @returns {NotificationBannerComponentParameters}
+ * @param {NotValidReasonResponse[]} notValidReasons
+ * @param {number} appealId
+ * @returns {import('#lib/mappers/notification-banners.mapper.js').NotificationBannerPageComponent[]}
  */
-export function mapReviewOutcomeToNotificationBannerComponentParameters(
+export function mapNotificationBannerComponentParameters(
+	session,
 	validationOutcome,
-	invalidOrIncompleteReasons
+	notValidReasons,
+	appealId
 ) {
-	if (!Array.isArray(invalidOrIncompleteReasons)) {
-		invalidOrIncompleteReasons = [invalidOrIncompleteReasons];
+	if (validationOutcome === 'invalid' || validationOutcome === 'incomplete') {
+		if (!Array.isArray(notValidReasons)) {
+			notValidReasons = [notValidReasons];
+		}
+
+		if (!('notificationBanners' in session)) {
+			session.notificationBanners = {};
+		}
+
+		session.notificationBanners.appellantCaseNotValid = {
+			appealId,
+			titleText: `Appeal is ${String(validationOutcome)}`,
+			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${notValidReasons
+				.map(
+					(reason) =>
+						`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
+							reason?.text?.length
+								? buildHtmUnorderedList(
+										reason?.text,
+										0,
+										'govuk-!-margin-top-0 govuk-!-padding-left-4'
+								  )
+								: ''
+						}`
+				)
+				.join('')}</ul>`
+		};
 	}
 
-	return {
-		titleText: `Appeal is ${String(validationOutcome)}`,
-		html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${invalidOrIncompleteReasons
-			.map(
-				(reason) =>
-					`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
-						reason?.text?.length ? mapReasonTextToUnorderedList(reason?.text) : ''
-					}`
-			)
-			.join('')}</ul>`
-	};
-}
-
-/**
- *
- * @param {string[]} reasonText
- * @returns {string}
- */
-function mapReasonTextToUnorderedList(reasonText) {
-	return `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">
-		${reasonText.map((textItem) => `<li>${textItem}</li>`).join('')}
-	</ul>`;
+	return buildNotificationBanners(session, 'appellantCase', appealId);
 }
 
 /**
