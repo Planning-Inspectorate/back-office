@@ -82,8 +82,6 @@ export const mapDocumentSubmission = (/** @type {DocumentMetaImport} */ data) =>
 
 export const mapAppeal = (appeal) => {
 	const topic = {
-		appellant: mappers.mapServiceUserOut(appeal.appellant),
-		agent: mappers.mapServiceUserOut(appeal.agent),
 		appealType: mappers.mapAppealTypeOut(appeal.appealType.shorthand),
 		caseReference: appeal.reference,
 		LPAApplicationReference: appeal.planningApplicationReference,
@@ -97,7 +95,11 @@ export const mapAppeal = (appeal) => {
 	return topic;
 };
 
-// @ts-ignore
 export const mapDocument = (doc) => {
 	return mappers.mapDocumentOut(doc);
+};
+
+export const mapServiceUser = (appeal, user, userType) => {
+	const caseReference = appeal.reference;
+	return mappers.mapServiceUserOut(user, userType, caseReference);
 };

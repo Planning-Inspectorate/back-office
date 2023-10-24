@@ -29,7 +29,8 @@ const generatesDocumentMetadataResponse = (
 	filter1: null,
 	filter2: null,
 	examinationRefNo: '',
-	fromFrontOffice: false
+	fromFrontOffice: false,
+	transcript: ''
 });
 
 const mockResolvedDocumentValue = (/** @type {Record<string, any>} */ updateResponseValues) => ({

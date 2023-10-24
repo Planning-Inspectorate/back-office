@@ -502,6 +502,39 @@ describe('project-updates', () => {
 							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
 					}
 				}
+			},
+			{
+				name: 'should allow a valid request with a mailto: link',
+				body: {
+					emailSubscribers: true,
+					status: 'draft',
+					htmlContent:
+						'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="mailto:me@example.com">email us</a>'
+				},
+				existingCase: {
+					reference: 'abc-123'
+				},
+				created: {
+					id: 5,
+					caseId: 1,
+					dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+					sentToSubscribers: false,
+					type: 'general'
+				},
+				want: {
+					status: 200,
+					body: {
+						id: 5,
+						caseId: 1,
+						dateCreated: '2023-07-04T10:00:00.000Z',
+						emailSubscribers: true,
+						sentToSubscribers: false,
+						status: 'draft',
+						type: 'general',
+						htmlContent:
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="mailto:me@example.com">email us</a>'
+					}
+				}
 			}
 		];
 

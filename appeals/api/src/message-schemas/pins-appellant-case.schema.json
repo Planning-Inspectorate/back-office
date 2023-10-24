@@ -7,7 +7,16 @@
 	"required": ["appeal"],
 	"properties": {
 		"appeal": {
-			"$ref": "pins-root.schema.json#/definitions/AppellantCase"
+			"$ref": "pins-root.schema.json#/definitions/AppellantCase",
+			"required": ["appellant"],
+			"properties": {
+				"appellant": {
+					"$ref": "pins-root.schema.json#/definitions/ServiceUser"
+				},
+				"agent": {
+					"$ref": "pins-root.schema.json#/definitions/ServiceUser"
+				}
+			}
 		},
 		"documents": {
 			"type": "array",

@@ -27,6 +27,7 @@ export interface AddDocumentsResponse {
 
 export interface BlobInfo {
 	documentName: string;
+	versionId: number;
 	GUID: string;
 	blobStoreUrl: string;
 	caseType?: string | undefined;

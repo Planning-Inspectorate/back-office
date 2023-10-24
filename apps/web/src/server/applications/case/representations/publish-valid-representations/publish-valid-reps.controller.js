@@ -1,8 +1,15 @@
 import logger from '../../../../lib/logger.js';
 import { getCase } from '../../../common/services/case.service.js';
-import { getPublishableReps, publishPublishableReps } from '../applications-relevant-reps.service.js';
-import { representationsUrl } from '../config.js';
-import { getPublishableRepsPayload } from './_utils/get-publishable-reps-payload.js';
+import {
+	getPublishableRepresentations,
+	publishRepresentations
+} from '../applications-relevant-reps.service.js';
+import { publishRepresentationsErrorUrl, representationsUrl } from '../config.js';
+import {
+	getNumberOfRepresentationsPublished,
+	getPublishRepresentationsPayload,
+	getPublishedRepresentationsRedirectURL
+} from '../utils/publish-representations.js';
 
 const view = 'applications/representations/publish-valid-representations/index.njk';
 
@@ -19,7 +26,7 @@ export const getPublishValidRepsController = async (req, res) => {
 	} = res;
 
 	const { title: projectName } = await getCase(Number(caseId));
-	const { itemCount: publishableRepsCount } = await getPublishableReps(caseId);
+	const { itemCount: publishableRepsCount } = await getPublishableRepresentations(caseId);
 
 	return res.render(view, {
 		backLinkUrl: `${serviceUrl}/case/${caseId}/${representationsUrl}`,
@@ -33,19 +40,40 @@ export const getPublishValidRepsController = async (req, res) => {
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const postPublishValidRepsController = async (req, res) => { 
-	const { params: { caseId }, session } = req;
-	const { locals: { serviceUrl } } = res;
+export const postPublishValidRepsController = async (req, res) => {
+	try {
+		const {
+			params: { caseId },
+			session
+		} = req;
+		const {
+			locals: { serviceUrl }
+		} = res;
 
-	const { items }  = await getPublishableReps(caseId)
-	const payload = getPublishableRepsPayload(session, items)
+		const { items } = await getPublishableRepresentations(caseId);
 
-	const response = await publishPublishableReps(caseId, payload);
+		const representationIds = items.map((/** @type {{ id: number; }} */ rep) => rep.id);
 
-	if(response && response.publishedRepIds.length === payload.json.representationIds.length) {
-		logger.info(`Successfully published ${response.publishedRepIds} representations for case ${caseId}`);
-		res.redirect(`${serviceUrl}/case/${caseId}/${representationsUrl}?published=${response.publishedRepIds.length}`);
-	} else {
-		res.redirect(`${serviceUrl}/case/${caseId}/${representationsUrl}`);
+		const publishRepresentationsPayload = getPublishRepresentationsPayload(
+			session,
+			representationIds
+		);
+		const publishRepresentationsResponse = await publishRepresentations(
+			caseId,
+			publishRepresentationsPayload
+		);
+		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
+			publishRepresentationsResponse
+		);
+		const redirectURL = getPublishedRepresentationsRedirectURL(
+			serviceUrl,
+			caseId,
+			numberOfRepresentationsPublished
+		);
+
+		return res.redirect(redirectURL);
+	} catch {
+		logger.info('No representations were published');
+		return res.redirect(publishRepresentationsErrorUrl);
 	}
-}
+};

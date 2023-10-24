@@ -133,8 +133,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -950,8 +950,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -2235,8 +2235,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -3143,8 +3143,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -4375,8 +4375,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -5605,8 +5605,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <p class=\\"govuk-heading-s\\">Document actions</p>
                             <button type=\\"button\\" class=\\"govuk-link pins-files-list__button-link\\"
                             id=\\"bulkDownload\\">Download selected</button>
-                            <button type=\\"submit\\" formaction='unpublishing-queue'
-                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button><a href=\\"5\\" class=\\"govuk-link\\">Move selected</a>
+                            <button type=\\"submit\\" formaction=\\"./unpublishing-queue\\"
+                            class=\\"govuk-link pins-files-list__button-link\\">Unpublish selected</button>
                         </div>
                     </div>
                 </div>
@@ -6875,6 +6875,11 @@ exports[`applications documentation Document properties page If the user is not 
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/type\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type (optional)</span></a>
                                     </dd>
                             </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Transcript (optional)</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/transcript\\"> Change<span class=\\"govuk-visually-hidden\\"> Transcript (optional)</span></a>
+                                </dd>
+                            </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
                                 <dd class=\\"govuk-summary-list__value\\">01/12/2022</dd>
                                 <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
@@ -7192,6 +7197,11 @@ exports[`applications documentation Document properties page If the user is not 
                                 <dd                                 class=\\"govuk-summary-list__value\\"></dd>
                                     <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/type\\"> Change<span class=\\"govuk-visually-hidden\\"> Document type (optional)</span></a>
                                     </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Transcript (optional)</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/transcript\\"> Change<span class=\\"govuk-visually-hidden\\"> Transcript (optional)</span></a>
+                                </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date received</dt>
                                 <dd class=\\"govuk-summary-list__value\\">01/12/2022</dd>
@@ -21569,18 +21579,18 @@ exports[`applications documentation Document upload new version page should rend
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/document/11/properties\\"
     data-case-id=\\"123\\" data-multiple=\\"\\" data-folder-id=\\"21\\" data-document-id=\\"11\\"
-    data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
+    data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.html,text/html,\\">
         <div class=\\"top-errors-hook\\"></div>
         <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Upload new version of 12 Ullamco laboris nisi ut</h1>
         <form class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single file to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span>
+                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single file to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, TIFF, 	or HTML.</span>
                     <span                     class='pins-file-upload--text'>Your uploaded file must be smaller than 1 GB.</span>
                         <div class=\\"middle-errors-hook\\"></div>
                 </div>
                 <div class=\\"display--flex\\">
-                    <input class=\\"display--none\\" id=\\"upload-file-1\\" accept=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\"
+                    <input class=\\"display--none\\" id=\\"upload-file-1\\" accept=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.html,text/html,\\"
                     type=\\"file\\" name=\\"files\\" value=\\"Choose file\\" aria-controls=\\"file-list-1\\">
                     <button type='button' class=\\"pins-file-upload--button govuk-button\\">Choose file</button><span role=\\"status\\" aria-live=\\"assertive\\" class='govuk-body pins-file-upload--counter'> No file chosen</span>
                 </div>
@@ -21632,18 +21642,18 @@ exports[`applications documentation GET /case/123/project-documentation should r
 exports[`applications documentation GET /case/123/project-documentation/21/sub-folder-level2/upload should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
-    data-case-id=\\"123\\" data-multiple=\\"true\\" data-folder-id=\\"21\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\">
+    data-case-id=\\"123\\" data-multiple=\\"true\\" data-folder-id=\\"21\\" data-allowed-types=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.html,text/html,\\">
         <div class=\\"top-errors-hook\\"></div>
         <h1 class=\\"govuk-heading-m govuk-grid-column-full\\">Upload files in Sub folder level 2 folder</h1>
         <form class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"pins-file-upload--container\\">
                 <div class=\\"govuk-body colour--secondary pins-file-upload--instructions\\">
-                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span>
+                    <label class='pins-file-upload--text' for=\\"upload-file-1\\">Choose a single or multiple files to upload.</label><span class='pins-file-upload--text'> Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, TIFF, 	or HTML.</span>
                     <span                     class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
                         <div                         class=\\"middle-errors-hook\\"></div>
             </div>
             <div class=\\"display--flex\\">
-                <input class=\\"display--none\\" id=\\"upload-file-1\\" accept=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,\\"
+                <input class=\\"display--none\\" id=\\"upload-file-1\\" accept=\\".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.html,text/html,\\"
                 type=\\"file\\" name=\\"files\\" value=\\"Choose file\\" aria-controls=\\"file-list-1\\"
                 multiple>
                 <button type='button' class=\\"pins-file-upload--button govuk-button\\">Choose file</button><span role=\\"status\\" aria-live=\\"assertive\\" class='govuk-body pins-file-upload--counter'> No file chosen</span>

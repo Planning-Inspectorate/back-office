@@ -2,7 +2,12 @@ import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import logger from '#utils/logger.js';
 import { mapDocumentsForDatabase, mapDocumentsForBlobStorage } from './documents.mapper.js';
 import { getByCaseId, getByCaseIdPath, getById } from '#repositories/folder.repository.js';
-import { addDocument, addDocumentVersion } from '#repositories/document-metadata.repository.js';
+import {
+	addDocument,
+	addDocumentVersion,
+	deleteDocumentVersion,
+	addDocumentVersionAudit
+} from '#repositories/document-metadata.repository.js';
 import { formatFolder } from './documents.formatter.js';
 import documentRedactionStatusRepository from '#repositories/document-redaction-status.repository.js';
 import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
@@ -11,6 +16,7 @@ import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Schema.AuditTrail} AuditTrail */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentsRequest} AddDocumentsRequest */
 /** @typedef {import('@pins/appeals/index.js').AddDocumentVersionRequest} AddDocumentVersionRequest */
@@ -183,4 +189,24 @@ export const getDocumentRedactionStatusIds = async () => {
 	}
 
 	return redactionStatuses.map(({ id }) => id);
+};
+
+/**
+ * @param { Document } document
+ * @param { number } version
+ * @returns {Promise<(Document | null)>}
+ */
+export const deleteDocument = async (document, version) => {
+	const result = await deleteDocumentVersion(document.guid, version);
+	return result || null;
+};
+
+/**
+ * @param { string } guid
+ * @param { number } version
+ * @param { AuditTrail } auditTrail
+ * @param { string } action
+ */
+export const addDocumentAudit = async (guid, version, auditTrail, action) => {
+	await addDocumentVersionAudit(guid, version, action, auditTrail.id);
 };

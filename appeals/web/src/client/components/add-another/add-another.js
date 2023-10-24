@@ -51,8 +51,11 @@ function addRemoveButton(element) {
 	removeButton.classList.add(CLASSES.removeButton.additional);
 
 	const buttonContainer = element.querySelector(SELECTORS.removeButtonContainer) || element;
+	const buttonAlreadyExists = buttonContainer.querySelector('button');
 
-	buttonContainer.appendChild(removeButton);
+	if (!buttonAlreadyExists) {
+		buttonContainer.appendChild(removeButton);
+	}
 }
 
 function removeRemoveButtons(element) {
@@ -62,6 +65,7 @@ function removeRemoveButtons(element) {
 function bindItemEvents(componentInstance, item) {
 	item.querySelector(SELECTORS.removeButton).addEventListener('click', (event) => {
 		event.target?.closest(SELECTORS.item)?.remove();
+		initItems(componentInstance);
 		updateAddButtonState(componentInstance);
 	});
 }
@@ -110,8 +114,17 @@ function addAnotherItem(componentInstance) {
 
 	items = getItems(componentInstance);
 
+	updateRemoveButtons(componentInstance, items);
+
 	bindItemEvents(componentInstance, items[items.length - 1]);
 	updateAddButtonState(componentInstance);
+}
+
+function updateRemoveButtons(componentInstance, items) {
+	if (items.length > 1) {
+		addRemoveButton(items[0]);
+		bindItemEvents(componentInstance, items[0]);
+	}
 }
 
 function initOptions(componentInstance) {
@@ -126,9 +139,9 @@ function initOptions(componentInstance) {
 
 function initItems(componentInstance) {
 	let items = getItems(componentInstance);
-	items.forEach((item, index) => {
-		if (index > 0) {
-			removeRemoveButtons(item);
+	removeRemoveButtons(componentInstance.elements.root);
+	items.forEach((item) => {
+		if (items.length > 1) {
 			addRemoveButton(item);
 			bindItemEvents(componentInstance, item);
 		}

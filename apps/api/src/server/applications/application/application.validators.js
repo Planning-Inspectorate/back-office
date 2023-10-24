@@ -4,12 +4,12 @@ import { body, param, query } from 'express-validator';
 import {
 	validationErrorHandler,
 	validationErrorHandlerMissing
-} from '../../middleware/error-handler.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as regionRepository from '../../repositories/region.repository.js';
-import * as representationRepository from '../../repositories/representation.repository.js';
-import * as subSectorRepository from '../../repositories/sub-sector.repository.js';
-import * as zoomLevelRepository from '../../repositories/zoom-level.repository.js';
+} from '#middleware/error-handler.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as regionRepository from '#repositories/region.repository.js';
+import * as representationRepository from '#repositories/representation.repository.js';
+import * as subSectorRepository from '#repositories/sub-sector.repository.js';
+import * as zoomLevelRepository from '#repositories/zoom-level.repository.js';
 
 /**
  *

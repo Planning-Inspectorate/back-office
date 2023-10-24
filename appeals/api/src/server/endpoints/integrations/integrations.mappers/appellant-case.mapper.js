@@ -57,8 +57,7 @@ export const mapAppellantCaseOut = (data) => {
 		visibilityRestrictions: data.visibilityRestrictions,
 		isListedBuilding: data.isListedBuilding || false,
 		decision: data.decision || '',
-		originalCaseDecisionDate:
-			data.originalCaseDecisionDate.toISOString() || new Date().toISOString(),
+		originalCaseDecisionDate: (data.originalCaseDecisionDate || new Date()).toISOString(),
 		costsAppliedForIndicator: data.costsAppliedForIndicator || false,
 		inspectorAccessDetails: data.inspectorAccessDetails || ''
 	};

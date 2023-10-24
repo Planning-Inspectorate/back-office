@@ -17,6 +17,7 @@ import {
 	updateDocuments,
 	getDocumentVersionProperties,
 	markAsPublished,
+	markAsUnpublished,
 	unpublishDocuments,
 	getManyDocumentsProperties
 } from './document.controller.js';
@@ -245,6 +246,49 @@ router.post(
 	validateApplicationId,
 	validateMarkDocumentAsPublished,
 	asyncHandler(markAsPublished)
+);
+
+router.post(
+	'/:id/documents/:guid/version/:version/mark-as-unpublished',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-unpublished'
+        #swagger.description = 'Marks as unpublished'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'Document GUID',
+			required: true,
+			type: 'string'
+        }
+		#swagger.parameters['version'] = {
+            in: 'path',
+			description: 'Version',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Mark as unpublished Request',
+            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Updated document response',
+            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing application" } }
+        }
+	 */
+	validateApplicationId,
+	asyncHandler(markAsUnpublished)
 );
 
 router.get(

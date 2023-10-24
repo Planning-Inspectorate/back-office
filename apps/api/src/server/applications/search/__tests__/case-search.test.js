@@ -1,6 +1,6 @@
 import { request } from '../../../app-test.js';
-import { applicationFactoryForTests } from '../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const searchString = 'EN010003 - NI Case 3 Name';
 const notFoundSearchString = 'BCDEF';

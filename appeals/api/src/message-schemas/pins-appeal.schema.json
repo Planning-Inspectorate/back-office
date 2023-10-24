@@ -7,7 +7,7 @@
 	"required": [],
 	"properties": {
 		"band": {
-			"type": "string"
+			"type": "number"
 		},
 		"level": {
 			"type": "string"

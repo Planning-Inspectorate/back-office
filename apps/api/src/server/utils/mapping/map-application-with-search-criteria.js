@@ -2,13 +2,13 @@ import { mapApplication } from './map-application.js';
 import { mapCaseStatus } from './map-case-status.js';
 
 /**
- * @typedef {{id: number, reference: string | null, title: string | null, description: string, status: string | object}} ApplicationWithSearchCriteriaResponse
+ * @typedef {import('@pins/applications.api').Api.ApplicationSearchSummary} ApplicationSearchSummary
  */
 
 /**
  *
  * @param {import('@pins/applications.api').Schema.Case} application
- * @returns {ApplicationWithSearchCriteriaResponse}
+ * @returns {ApplicationSearchSummary}
  */
 export const mapApplicationWithSearchCriteria = (application) => {
 	const applicationData = mapApplication(application, ['id', 'title', 'reference', 'description']);
@@ -16,7 +16,7 @@ export const mapApplicationWithSearchCriteria = (application) => {
 
 	return {
 		...applicationData,
-		title: application.title,
-		status: applicationStatus
+		title: application.title ?? '',
+		status: applicationStatus.toString()
 	};
 };

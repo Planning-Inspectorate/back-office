@@ -1,11 +1,14 @@
 import * as caseRepository from '../repositories/case.repository.js';
 import BackOfficeAppError from './app-error.js';
-import { buildNsipProjectPayload } from '../applications/application/application.js';
+import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
 /**
  * Checks whether the given column name is included when the case is published
+ *
+ * TODO: This is no longer reliable because 'applicant' data is also published.
+ * This would mean relying on every caller of this function to include the 'applicant' in the query
  *
  * @param {Case} original
  * @param {Case} updated

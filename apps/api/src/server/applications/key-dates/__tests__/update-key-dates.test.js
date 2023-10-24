@@ -89,15 +89,14 @@ describe('Test Updating Key Dates', () => {
 					datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
 					dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
 					anticipatedSubmissionDateNonSpecific: 'Q3 2025',
-					sourceSystem: 'ODT',
+					sourceSystem: 'back-office-applications',
 					publishStatus: 'unpublished',
-					applicantId: 4,
+					applicantId: '4',
 					welshLanguage: false,
 					nsipOfficerIds: [],
 					regions: [],
 					nsipAdministrationOfficerIds: [],
-					inspectorIds: [],
-					interestedPartyIds: []
+					inspectorIds: []
 				}
 			],
 			'Update'

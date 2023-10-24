@@ -154,6 +154,6 @@ const prepareAndSanitizeHtml = (html) => {
 		allowedAttributes: {
 			a: ['href']
 		},
-		allowedSchemes: ['https']
+		allowedSchemes: ['https', 'mailto']
 	});
 };

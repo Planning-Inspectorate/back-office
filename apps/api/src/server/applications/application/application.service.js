@@ -1,15 +1,13 @@
 import { EventType } from '@pins/event-client';
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
-import { eventClient } from '../../infrastructure/event-client.js';
-import { NSIP_PROJECT } from '../../infrastructure/topics.js';
-import * as caseRepository from '../../repositories/case.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
-import { breakUpCompoundStatus } from '../../utils/break-up-compound-status.js';
-import { buildAppealCompundStatus } from '../../utils/build-appeal-compound-status.js';
-import { mapApplicationDetails } from '../../utils/mapping/map-case-details.js';
-import { transitionState } from '../../utils/transition-state.js';
-import BackOfficeAppError from '../../utils/app-error.js';
-import { buildNsipProjectPayload } from './application.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import { breakUpCompoundStatus } from '#utils/break-up-compound-status.js';
+import { buildAppealCompundStatus } from '#utils/build-appeal-compound-status.js';
+import { mapApplicationDetails } from '#utils/mapping/map-case-details.js';
+import { transitionState } from '#utils/transition-state.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  *
@@ -114,11 +112,7 @@ export const startApplication = async (id) => {
 		throw new Error('Case does not exist');
 	}
 
-	await eventClient.sendEvents(
-		NSIP_PROJECT,
-		[buildNsipProjectPayload(caseDetails)],
-		EventType.Update
-	);
+	await broadcastNsipProjectEvent(updatedCase, EventType.Update);
 
 	return {
 		id: updatedCase.id,

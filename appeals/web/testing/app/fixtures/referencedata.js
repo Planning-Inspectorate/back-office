@@ -126,8 +126,10 @@ export const appealData = {
 	},
 	siteVisit: {
 		siteVisitId: 0,
-		visitDate: '2023-09-18T13:18:01.673Z',
-		visitType: 'Access required'
+		visitDate: '2023-10-09T01:00:00.000Z',
+		visitEndTime: '10:44',
+		visitStartTime: '09:38',
+		visitType: 'Accompanied'
 	},
 	startedAt: '2023-05-23T10:27:06.626Z',
 	documentationSummary: {

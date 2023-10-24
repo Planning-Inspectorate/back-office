@@ -4,6 +4,7 @@ import {
 	isOutcomeInvalid,
 	isOutcomeValid
 } from '#utils/check-validation-outcome.js';
+import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import { format } from 'date-fns';
 import {
@@ -92,6 +93,8 @@ const updateAppellantCaseValidationOutcome = async ({
 	if (appealDueDate) {
 		await appealRepository.updateAppealById(appealId, { dueDate: appealDueDate });
 	}
+
+	await broadcastAppealState(appealId);
 };
 
 export { checkAppellantCaseExists, updateAppellantCaseValidationOutcome };

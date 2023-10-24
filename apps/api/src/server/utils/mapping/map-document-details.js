@@ -7,11 +7,16 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  */
 
 /**
+ * Returns a flat set of the document properties wanted by the UI
  *
  * @param { DocumentVersionWithDocument } documentVersion
  * @returns { DocumentDetails }
  */
-export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
+export const mapSingleDocumentDetailsFromVersion = ({
+	Document,
+	publishedStatus,
+	...documentVersion
+}) => {
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
@@ -35,7 +40,7 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		mime: documentVersion.mime ?? '',
 
-		publishedStatus: documentVersion.publishedStatus ?? '',
+		publishedStatus: publishedStatus ?? '',
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 
@@ -53,7 +58,8 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 		filter1: documentVersion?.filter1 ?? null,
 		filter2: documentVersion?.filter2 ?? null,
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
-		fromFrontOffice: Document?.fromFrontOffice ?? false
+		fromFrontOffice: Document?.fromFrontOffice ?? false,
+		transcript: documentVersion?.transcript?.reference ?? ''
 	};
 };
 

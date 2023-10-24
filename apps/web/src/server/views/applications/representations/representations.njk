@@ -43,34 +43,48 @@
 		]
 	}) }}
 
-	{% if showUnpublishedRepUpdatesBanner %}
+	{% if publishedRepsCount > 0 %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				{{ publishedRepsCount }} representation{{ 's' if publishedRepsCount > 1 }} published.
+			</p>
 
-		{% set bannerHtml %}
+			<a href="{{ resetSuccessBannerURL }}" id="clear-success-notification-link" class="govuk-link">Clear notification</a>
+		{% endset %}
+
+		{{ govukNotificationBanner({
+			attributes: { id: "success-banner" },
+			html: successBannerHtml,
+			type: 'success'
+		}) }}
+	{% endif %}
+
+	{% if showUnpublishedRepUpdatesBanner %}
+		{% set infoBannerHtml %}
 			<p class="govuk-notification-banner__heading">
 				Changes have been made. These changes have not been published.
 			</p>
 
 			<p class="govuk-body">
-				<a class="govuk-notification-banner__link" href="/applications-service/case/{{ caseId }}/select-representations-for-publishing">
+				<a class="govuk-notification-banner__link" href="{{ publishQueueURL }}">
 					Preview and publish the changes
 				</a>
 			</p>
 
-			<button id="clear-notification-btn" class="govuk-button govuk-button--secondary" type="button">
-				Clear notification
-			</button>
+			<a href="#" id="clear-update-notification-link" class="govuk-link">Clear notification</a>
 		{% endset %}
 
 		{{ govukNotificationBanner({
 			attributes: { id: "unpublished-changes-banner" },
-			html: bannerHtml
+			html: infoBannerHtml
 		}) }}
 
 		<script nonce="{{ cspNonce }}">
-			document.getElementById('clear-notification-btn').addEventListener('click', () =>
-				document.getElementById('unpublished-changes-banner').style.display = 'none');
+			document.getElementById('clear-update-notification-link').addEventListener('click', (e) => {
+				e.preventDefault()
+				document.getElementById('unpublished-changes-banner').style.display = 'none'
+			});
 		</script>
-
 	{% endif %}
 
 	<h2 class="govuk-heading-l">Relevant representations</h2>
@@ -98,7 +112,7 @@
 			</div>
 		</div>
 
-		{% if publishQueueURL %}
+		{% if isRelevantRepsPeriodClosed %}
 			<p class="govuk-body">
 				<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
 			</p>

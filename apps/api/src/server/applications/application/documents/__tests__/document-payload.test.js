@@ -16,7 +16,7 @@ describe('validateNsipDocument', () => {
 			lastModified: new Date('2023-03-26T00:00:00.000Z'),
 			documentType: 'Rule 8 letter',
 			published: true,
-			sourceSystem: 'back_office',
+			sourceSystem: 'back-office-applications',
 			origin: 'pins',
 			originalFilename: 'original_filename.pdf',
 			fileName: 'filename.pdf',
@@ -48,7 +48,6 @@ describe('validateNsipDocument', () => {
 		const result = buildNsipDocumentPayload(nsipDocument);
 
 		// 3. Assert
-		/** @type {import('../document.js').NsipDocumentPayload} */
 		// @ts-ignore
 		const expectedResult = {
 			documentId: 'document1',
@@ -70,7 +69,7 @@ describe('validateNsipDocument', () => {
 			datePublished: '2023-03-26T00:00:00.000Z',
 			documentType: 'Rule 8 letter',
 			securityClassification: 'public',
-			sourceSystem: 'back_office',
+			sourceSystem: 'back-office-applications',
 			origin: 'pins',
 			owner: 'owner1',
 			author: 'author1',
