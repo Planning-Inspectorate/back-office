@@ -5,12 +5,16 @@ import {
 	mapResponseToSummaryListBuilderParameters,
 	mapWebReviewOutcomeToApiReviewOutcome,
 	mapReviewOutcomeToSummaryListBuilderParameters,
-	mapReviewOutcomeToNotificationBannerComponentParameters
+	mapNotificationBannerComponentParameters
 } from './appellant-case.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
-import { renderDocumentUpload } from '../../appeal-documents/appeal-documents.controller.js';
+import {
+	renderDocumentUpload,
+	renderDocumentDetails,
+	postDocumentDetails
+} from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
  *
@@ -46,17 +50,17 @@ const renderAppellantCase = async (request, response) => {
 			formattedSections.push(generateSummaryList(section));
 		}
 
-		let notificationBannerParameters;
+		let notificationBannerComponents;
 		const existingValidationOutcome = appellantCaseResponse.validation?.outcome?.toLowerCase();
 
-		if (existingValidationOutcome === 'invalid' || existingValidationOutcome === 'incomplete') {
-			notificationBannerParameters = mapReviewOutcomeToNotificationBannerComponentParameters(
-				existingValidationOutcome,
-				existingValidationOutcome === 'invalid'
-					? appellantCaseResponse.validation?.invalidReasons
-					: appellantCaseResponse.validation?.incompleteReasons
-			);
-		}
+		notificationBannerComponents = mapNotificationBannerComponentParameters(
+			request.session,
+			existingValidationOutcome,
+			existingValidationOutcome === 'invalid'
+				? appellantCaseResponse.validation?.invalidReasons
+				: appellantCaseResponse.validation?.incompleteReasons,
+			appealDetails?.appealId
+		);
 
 		return response.render('appeals/appeal/appellant-case.njk', {
 			appeal: {
@@ -66,7 +70,7 @@ const renderAppellantCase = async (request, response) => {
 				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
 				localPlanningAuthority: appealDetails?.localPlanningDepartment
 			},
-			notificationBannerParameters,
+			notificationBannerComponents,
 			summaryList: { formattedSections },
 			errors
 		});
@@ -253,6 +257,26 @@ export const getAddDocuments = async (request, response) => {
 	renderDocumentUpload(
 		request,
 		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/{{folderId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocumentDetails = async (request, response) => {
+	renderDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postAddDocumentDetails = async (request, response) => {
+	postDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
 	);
 };

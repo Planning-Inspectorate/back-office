@@ -1,6 +1,7 @@
 import { Router as createRouter } from 'express';
 import * as controller from './lpa-questionnaire.controller.js';
 import * as validators from './lpa-questionnaire.validators.js';
+import * as documentsValidators from '../../appeal-documents/appeal-documents.validators.js';
 import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
 import config from '@pins/appeals.web/environment/config.js';
 import { assertGroupAccess } from '../../../app/auth/auth.guards.js';
@@ -35,5 +36,18 @@ router.route('/:lpaQId/confirmation').get(controller.getConfirmation);
 router
 	.route('/:lpaQId/add-documents/:folderId/:documentId?')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
+
+router
+	.route('/:lpaQId/add-document-details/:folderId')
+	.get(validateCaseFolderId, controller.getAddDocumentDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postAddDocumentDetails
+	);
 
 export default router;

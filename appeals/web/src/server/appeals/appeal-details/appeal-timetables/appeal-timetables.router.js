@@ -12,7 +12,9 @@ router
 	.get(validateAppeal, appealTimetablesController.getDueDate)
 	.post(
 		validateAppeal,
-		validators.validateDueDate,
+		validators.validateDueDateFields,
+		validators.validateDueDateValid,
+		validators.validateDueDateInFuture,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		appealTimetablesController.postDueDate
 	);
