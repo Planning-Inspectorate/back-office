@@ -1,4 +1,3 @@
-import { Readable } from 'node:stream';
 import {
 	getBlobStream,
 	getBlobProperties,
@@ -40,9 +39,8 @@ export const index = async (context, eventGridEvent) => {
 	);
 
 	const blobStream = await getBlobStream(storageUrl, container, blobPath);
-	const readableStream = new Readable().wrap(blobStream);
 
-	const { guid, isInfected } = await checkMyBlob(context.log, url, readableStream);
+	const { guid, isInfected } = await checkMyBlob(context.log, url, blobStream);
 	if (isInfected) {
 		context.log.info('Virus detected for blob', blobPath);
 		await handleInfected(context, guid);
@@ -55,7 +53,10 @@ export const index = async (context, eventGridEvent) => {
 		return;
 	}
 
-	const html = await readStreamToString(readableStream);
+	// Need to re-fetch the blob stream as checkMyBlob will consume its data
+	const blobStream2 = await getBlobStream(storageUrl, container, blobPath);
+
+	const html = await readStreamToString(blobStream2);
 	try {
 		validateHTML(html);
 	} catch (err) {
