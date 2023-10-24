@@ -4,5 +4,5 @@
  * @returns {boolean}
  */
 export const stringContainsDigitsOnly = (str) => {
-	return !!str.match(/^\d+$/);
+	return !!str.trim().match(/^\d+$/);
 };

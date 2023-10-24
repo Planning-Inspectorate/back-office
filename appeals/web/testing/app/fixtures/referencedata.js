@@ -689,3 +689,26 @@ export const documentRedactionStatuses = [
 		name: 'No redaction required'
 	}
 ];
+
+export const baseSession = {
+	id: '',
+	cookie: { originalMaxAge: 1 },
+	regenerate: function () {
+		throw new Error('Function not implemented.');
+	},
+	destroy: function () {
+		throw new Error('Function not implemented.');
+	},
+	reload: function () {
+		throw new Error('Function not implemented.');
+	},
+	resetMaxAge: function () {
+		throw new Error('Function not implemented.');
+	},
+	save: function () {
+		throw new Error('Function not implemented.');
+	},
+	touch: function () {
+		throw new Error('Function not implemented.');
+	}
+};
