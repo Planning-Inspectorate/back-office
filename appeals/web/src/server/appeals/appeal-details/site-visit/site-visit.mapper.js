@@ -50,17 +50,19 @@ export function mapGetApiVisitTypeToWebVisitType(getApiVisitType) {
 export async function buildSiteDetailsSummaryListRows(data, currentRoute, session) {
 	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
 
+	/**
+	 * @type {(SummaryListRowProperties | undefined)[]}
+	 */
+	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedData.appeal[key].display.summaryListItem);
+
 	const rows = [
 		mappedData.appeal.siteAddress.display.summaryListItem,
 		mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
-		mappedData.appeal.appellantHealthAndSafety.display.summaryListItem
+		mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
+		...neighbouringSitesSummaryLists
 	];
-
-	if (mappedData.appeal.neighbouringSite) {
-		for (const site of mappedData.appeal.neighbouringSite) {
-			rows.push(site.display.summaryListItem);
-		}
-	}
 
 	rows.forEach((row) => removeActions(row));
 

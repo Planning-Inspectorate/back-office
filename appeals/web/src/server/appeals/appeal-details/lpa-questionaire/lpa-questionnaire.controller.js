@@ -26,7 +26,7 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 	let lpaQuestionnairePromise = lpaQuestionnaireService.getLpaQuestionnaireFromId(
 		request.apiClient,
 		request.params.appealId,
-		request.params.lpaQId
+		request.params.lpaQuestionnaireId
 	);
 	let appealDetailsPromise = appealDetailsService.getAppealDetailsFromId(
 		request.apiClient,
@@ -42,7 +42,7 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 	if (lpaQuestionnaire && appealDetails) {
 		const currentUrl = request.originalUrl;
 		const pageComponents = await lpaQuestionnairePage(
-			{ lpaQ: lpaQuestionnaire },
+			{ lpaq: lpaQuestionnaire },
 			{ appeal: appealDetails },
 			currentUrl,
 			session
@@ -70,7 +70,7 @@ export const getLpaQuestionnaire = async (request, response) => {
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postLpaQuestionnaire = async (request, response) => {
 	const {
-		params: { appealId, lpaQId },
+		params: { appealId, lpaQuestionnaireId },
 		body,
 		errors,
 		apiClient
@@ -96,17 +96,17 @@ export const postLpaQuestionnaire = async (request, response) => {
 				await lpaQuestionnaireService.setReviewOutcomeForLpaQuestionnaire(
 					apiClient,
 					appealId,
-					lpaQId,
+					lpaQuestionnaireId,
 					mapWebValidationOutcomeToApiValidationOutcome('complete')
 				);
 				return response.redirect(
-					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQId}/confirmation`
+					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/confirmation`
 				);
 			} else if (reviewOutcome === 'incomplete') {
-				request.session.lpaQuestionnaireId = lpaQId;
+				request.session.lpaQuestionnaireId = lpaQuestionnaireId;
 
 				return response.redirect(
-					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQId}/incomplete`
+					`/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
 				);
 			}
 		} else {
@@ -292,8 +292,8 @@ export const getAddDocuments = async (request, response) => {
 	renderDocumentUpload(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-document-details/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-document-details/{{folderId}}`
 	);
 };
 
@@ -302,7 +302,7 @@ export const getAddDocumentDetails = async (request, response) => {
 	renderDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/{{folderId}}`
 	);
 };
 
@@ -311,7 +311,7 @@ export const postAddDocumentDetails = async (request, response) => {
 	postDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/add-documents/{{folderId}}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQId}/`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/`
 	);
 };

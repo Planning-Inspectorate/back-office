@@ -1,6 +1,15 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% macro extensionsHtml(params) %}
+<span> {{"Your file must be "}}
+{% for extension in params.allowedTypes %}
+	{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}{{", "}}
+	{% else %}{{"	or " }}{{ extension|upper }}.
+	{% endif %}
+{% endfor %}</span>
+{% endmacro %}
+
 {% macro fileUploader(params) %}
 
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
@@ -23,12 +32,7 @@
 					{% else %}
 						<label for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
 					{% endif %}
-					<span>
-					Your file must be {% for extension in params.allowedTypes %}
-
-						{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}{% endif %}
-						{% endfor %}.
-				</span>
+					{{ extensionsHtml(params) }}
 					<span>The total of your uploaded files must be smaller than 1 GB.</span>
 					<div class="middle-errors-hook"></div>
 				</div>

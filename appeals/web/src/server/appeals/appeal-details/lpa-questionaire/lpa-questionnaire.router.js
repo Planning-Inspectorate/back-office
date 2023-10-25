@@ -10,11 +10,12 @@ import {
 	validateCaseDocumentId
 } from '../../appeal-documents/appeal-documents.middleware.js';
 import asyncRoute from '#lib/async-route.js';
+import changePageRouter from '../../question-page/question-page.router.js';
 
 const router = createRouter({ mergeParams: true });
 
 router
-	.route('/:lpaQId')
+	.route('/:lpaQuestionnaireId')
 	.get(controller.getLpaQuestionnaire)
 	.post(
 		validators.validateReviewOutcome,
@@ -22,20 +23,21 @@ router
 		controller.postLpaQuestionnaire
 	);
 
-router.use('/:lpaQId/incomplete', outcomeIncompleteRouter);
+router.use('/:lpaQuestionnaireId/incomplete', outcomeIncompleteRouter);
 router
-	.route('/:lpaQId/check-your-answers')
+	.route('/:lpaQuestionnaireId/check-your-answers')
 	.get(controller.getCheckAndConfirm)
 	.post(
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postCheckAndConfirm
 	);
 
-router.route('/:lpaQId/confirmation').get(controller.getConfirmation);
+router.route('/:lpaQuestionnaireId/confirmation').get(controller.getConfirmation);
 
 router
-	.route('/:lpaQId/add-documents/:folderId/:documentId?')
+	.route('/:lpaQuestionnaireId/add-documents/:folderId/:documentId?')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
+router.use('/:lpaQuestionnaireId/change-lpa-questionnaire', changePageRouter);
 
 router
 	.route('/:lpaQId/add-document-details/:folderId')

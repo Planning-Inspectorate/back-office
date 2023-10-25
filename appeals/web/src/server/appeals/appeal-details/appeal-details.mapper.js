@@ -45,14 +45,12 @@ export async function appealDetailsPage(data, currentRoute, session) {
 			mappedData.appeal?.decision?.display.summaryListItem
 		]
 	};
-
-	// Extracting display from each affected site address
-	let neighbouringSitesSummaryLists = [];
-	if (data.appeal.neighbouringSite.contacts && data.appeal.neighbouringSite.contacts.length > 0) {
-		for (const site of mappedData.appeal.neighbouringSite) {
-			neighbouringSitesSummaryLists.push(site.display.summaryListItem);
-		}
-	}
+	/**
+	 * @type {(SummaryListRowProperties | undefined)[]}
+	 */
+	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedData.appeal[key].display.summaryListItem);
 
 	const siteDetails = {
 		type: 'summary-list',
