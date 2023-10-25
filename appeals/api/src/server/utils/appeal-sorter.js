@@ -87,41 +87,4 @@ export const sortAppeals = (appeals) => {
 	// @ts-ignore
 	appealDates.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
 	return appealDates.map((a) => appeals.find((_) => _.appealId === a?.appealId));
-
-	// appeals.sort((a, b) => {
-
-	// 	if (a.appealTimetable && b.appealTimetable) {
-	// 		switch (a.appealStatus) {
-	// 			case STATE_TARGET_READY_TO_START:
-	// 				return 1;
-	// 			case STATE_TARGET_LPA_QUESTIONNAIRE_DUE:
-	// 			case STATE_TARGET_ARRANGE_SITE_VISIT:
-	// 			case STATE_TARGET_ISSUE_DETERMINATION:
-	// 				if (a.appealTimetable?.lpaQuestionnaireDueDate) {
-	// 					return b.appealTimetable?.lpaQuestionnaireDueDate ?
-	// 						new Date(a.appealTimetable?.lpaQuestionnaireDueDate).getTime() - new Date(b.appealTimetable?.lpaQuestionnaireDueDate).getTime() :
-	// 						-1
-	// 				}
-	// 				return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-
-	// 		}
-
-	// 		// const dateCompareA = a.appealStatus != 'lpa_questionnaire_due' ?
-	// 		// 	[a.appealTimetable?.finalCommentReviewDate, a.appealTimetable?.statementReviewDate].sort()[0] :
-	// 		// 	a.appealTimetable?.lpaQuestionnaireDueDate;
-
-	// 		// const dateCompareB = b.appealStatus != 'lpa_questionnaire_due' ?
-	// 		// 	[b.appealTimetable?.finalCommentReviewDate, b.appealTimetable?.statementReviewDate].sort()[0] :
-	// 		// 	b.appealTimetable?.lpaQuestionnaireDueDate;
-
-	// 		//const datesA = [a.appealTimetable?.finalCommentReviewDate, a.appealTimetable?.statementReviewDate, a.appealTimetable?.lpaQuestionnaireDueDate].sort();
-	// 		//const datesB = [b.appealTimetable?.finalCommentReviewDate, b.appealTimetable?.statementReviewDate, b.appealTimetable?.lpaQuestionnaireDueDate].sort();
-
-	// 		// if (dateCompareA && dateCompareB) {
-	// 		// 	return new Date(dateCompareB).getTime() - new Date(dateCompareA).getTime();
-	// 		// }
-	// 	}
-
-	// 	return 1;
-	// });
 };
